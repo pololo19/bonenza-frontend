@@ -1,0 +1,27 @@
+@import '~/styles/main/custom-variables';
+@import '~/styles/base/mixins';
+
+.textGradient {
+  -webkit-background-clip: text;
+	background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.activeTab > svg > path {
+  fill: white;
+}
+
+.groupMedal {
+  @media screen and (max-width: 767px) {
+    display: -webkit-box;
+    overflow-x: scroll;
+  }
+}
+.animation {
+  animation: mymove 5s linear;
+}
+
+@keyframes mymove {
+  50% {transform: rotate(90deg);}
+}
+

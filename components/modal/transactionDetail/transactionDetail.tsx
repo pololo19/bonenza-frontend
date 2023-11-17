@@ -1,0 +1,277 @@
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import cn from 'classnames';
+import { ElementType } from 'react';
+import { Simcard2, TickCircle, CloseCircle } from 'iconsax-react';
+import Image from 'next/image';
+import ReactLoading from 'react-loading';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
+import { currencyFormat, formatDate, transformWalletAddress, truncateAddressHeader } from '@/base/libs/utils';
+import CommonModal from '../commonModal/commonModal';
+
+type ModalDetailTransactionProps = {
+  onClose: () => void;
+  show: boolean;
+  transaction?: any;
+  titleModal?: String;
+  type?: string;
+} & TransitionRootProps<ElementType> &
+  DialogProps<ElementType>;
+
+export default function ModalDetailTransaction({
+  show,
+  onClose,
+  transaction,
+  titleModal,
+  type,
+}: ModalDetailTransactionProps) {
+  const { t } = useTranslation('');
+
+  const LIST_FILTER_STATUS = [
+    { name: String(t('transaction:allAssets')), type: '' },
+    { name: String(t('transaction:complete')), type: 'success' },
+    { name: String(t('transaction:processing')), type: 'process' },
+    { name: String(t('transaction:pending')), type: 'pending' },
+    { name: String(t('transaction:failed')), type: 'fail' },
+    { name: String(t('transaction:canceled')), type: 'rejected' },
+  ];
+
+  const copy = (text: string) => {
+    toast.success('Copied', { containerId: TOAST_ENUM.COMMON });
+    navigator.clipboard.writeText(text);
+  };
+
+  const getColorStatus = (status: string) => {
+    let bgColor = '';
+    switch (status) {
+      case 'process':
+        bgColor = 'bg-[#efef19]';
+        break;
+      case 'pending':
+        bgColor = 'bg-[#efef19]';
+        break;
+      case 'refunding':
+        bgColor = 'bg-[#efef19]';
+        break;
+      case 'rejected':
+        bgColor = 'bg-[#c31414]';
+        break;
+      case 'fail':
+        bgColor = 'bg-[#c31414]';
+        break;
+      default:
+        bgColor = 'bg-[#3BC117]';
+        break;
+    }
+    return bgColor;
+  };
+
+  const getStatus = (status: string) => {
+    let newStatus = '';
+    switch (status) {
+      case 'process':
+        newStatus = 'processing';
+        break;
+      case 'pending':
+        newStatus = 'processing';
+        break;
+      case 'refunding':
+        newStatus = 'processing';
+        break;
+      case 'fail':
+        newStatus = 'failed';
+        break;
+      case 'rejected':
+        newStatus = 'failed';
+        break;
+      case 'approve':
+        newStatus = 'success';
+        break;
+      default:
+        newStatus = status;
+        break;
+    }
+    return newStatus?.charAt(0)?.toUpperCase() + newStatus?.slice(1);
+  };
+
+  let isProcess =
+    transaction.status === LIST_FILTER_STATUS[2].type || transaction.status === LIST_FILTER_STATUS[3].type;
+  let isFailed = transaction.status === LIST_FILTER_STATUS[4].type || transaction.status === LIST_FILTER_STATUS[5].type;
+
+  return (
+    <>
+      <CommonModal
+        show={show}
+        onClose={onClose}
+        panelClass="sm:!max-w-[400px]"
+        header={
+          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-[#161D26] bg-[#f5f6fa]">
+            <div className="text-[16px] dark:text-white text-black font-[600]">{titleModal || 'Details'}</div>
+          </div>
+        }
+      >
+        <div className=" min-h-[516px] overflow-auto h-full bg-cover p-4 dark:bg-[#25262B] bg-white">
+          <div className="flex flex-col items-center py-5 gap-2">
+            <Image height={40} width={40} src={`/img/fiats/${transaction?.symbol}.png`} alt="" />
+            <div
+              className={cn('text-[22px]', {
+                'text-red-500': transaction.type.name === 'Withdraw',
+                'text-[#0DFDE4]': Number(transaction?.amount) >= 0,
+                'text-[#FD6E0B]': Number(transaction?.amount) < 0,
+              })}
+            >
+              <span>
+                {transaction.type.name === 'Withdraw' && (
+                  <span>- {currencyFormat(transaction?.amount - transaction?.fee, 6)}</span>
+                )}
+                {transaction.type.name !== 'Withdraw' && (
+                  <span>
+                    {Number(transaction?.amount) >= 0 ? '+' : ''} {currencyFormat(transaction?.amount, 6)}
+                  </span>
+                )}
+              </span>
+              <span className="font-semibold dark:text-white text-black ml-1">{transaction?.symbol}</span>
+            </div>
+          </div>
+          <div className="mt-5 flex flex-col gap-5  text-[14px]">
+            <div className="flex items-center justify-between">
+              <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:status'))}</span>
+              <div className="flex gap-2 items-center">
+                <div className={`w-[8px] h-[8px] rounded-full ${getColorStatus(transaction.status)}`}></div>
+                <div className="dark:text-white text-black">{getStatus(transaction.status)}</div>
+              </div>
+            </div>
+            {transaction.status === LIST_FILTER_STATUS[1].type && (
+              <div className="flex items-center justify-between text-[#31373D] dark:text-[#98A7B5]">
+                <span className="">{String(t('transaction:txid'))}</span>
+                <div className="flex gap-2 items-center">
+                  <span className="text-black dark:text-white">{transformWalletAddress(transaction.txId)}</span>
+                  <Simcard2
+                    role="button"
+                    onClick={() => copy(String(transaction?.txId))}
+                    className="w-[16px] h-[16px]"
+                  />
+                </div>
+              </div>
+            )}
+            <div className="flex items-center justify-between">
+              <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:orderId'))}</span>
+              <div className="flex gap-2 items-center">
+                <span className="text-black dark:text-white">{transformWalletAddress(transaction?.orderId)}</span>
+                <Simcard2
+                  role="button"
+                  onClick={() => copy(String(transaction?.orderId))}
+                  className="w-[16px] h-[16px] text-[#31373D] dark:text-[#98A7B5]"
+                />
+              </div>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:time'))}</span>
+              <span className="text-black dark:text-white">
+                {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+              </span>
+            </div>
+            {type === String(t('transaction:withdraw')) && (
+              <>
+                <div className="flex items-center justify-between">
+                  <span className="dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:fee'))}</span>
+                  <span className="text-black dark:text-white">
+                    {transaction.fee} {transaction.unitFee}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="dark:text-[#98A7B5] text-[#31373d]">
+                    {String(t('transaction:withdrawalAddress'))}
+                  </span>
+                  <span className="text-black dark:text-white">
+                    {transformWalletAddress(transaction.withdrawalAddress)}
+                  </span>
+                </div>
+                <div className="h-[1px] w-full dark:bg-[#98A7B5] bg-[#f5f6fa]" />
+                <div className="flex items-center">
+                  <span className="dark:text-white text-black">{String(t('transaction:progess'))}</span>
+                </div>
+                <div className="relative flex flex-col gap-3">
+                  <div className={`h-[50%] absolute top-[16px] bg-[#008000] w-[2px] left-[14px]`}></div>
+                  <div className="flex items-center gap-2">
+                    <div className="relative flex items-center jutify-center w-[32px] h-[32px]">
+                      <div className="absolute bg-white w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	"></div>
+                      <TickCircle size="32" color="green" variant="Bold" className="absolute w-[32px] h-[32px] z-1" />
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="dark:text-white text-black">{String(t('transaction:sendOrderSubmitted'))}</span>
+                      <span className="dark:text-[#98A7B5] text-[#31373d] text-[12px]">
+                        {String(t('transaction:submittedAt'))}{' '}
+                        {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {isProcess ? (
+                      <div className="relative z-1 flex items-center justify-center w-[32px] h-[32px]">
+                        <div className="relative bg-[#caca11] rounded-full flex items-center justify-center w-[26px] h-[26px]">
+                          <ReactLoading type={'spinningBubbles'} color={'white'} width={20} height={20} />
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="relative z-1 flex items-center jutify-center w-[32px] h-[32px]">
+                        <div className="absolute bg-white w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	"></div>
+                        <TickCircle size="32" color="green" variant="Bold" className="absolute w-[32px] h-[32px] z-1" />
+                      </div>
+                    )}
+                    <div className="flex flex-col">
+                      <span className="dark:text-white text-black">
+                        {String(t('transaction:blockchainProcessing'))}
+                      </span>
+                      <span className="dark:text-[#98A7B5] text-[#31373d] text-[12px]">
+                        {String(t('transaction:blockchainProcessingContent'))}
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    className={`${
+                      isProcess ? 'bg-[#414346]' : 'bg-[#008000]'
+                    } h-[50%] absolute top-[60px] w-[2px] left-[14px]`}
+                  ></div>
+                  <div className="flex items-center gap-2">
+                    <div className="relative flex items-center jutify-center w-[32px] h-[32px]">
+                      <div
+                        className={`${
+                          isProcess ? 'bg-[#898181]' : 'bg-white'
+                        } absolute w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	`}
+                      ></div>
+                      {isFailed ? (
+                        <CloseCircle
+                          size="32"
+                          color="#c31414"
+                          variant="Bold"
+                          className="absolute w-[32px] h-[32px] z-1"
+                        />
+                      ) : (
+                        <TickCircle
+                          size="32"
+                          color={`${isProcess ? '#414346' : 'green'}`}
+                          variant="Bold"
+                          className="absolute w-[32px] h-[32px] z-1"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col">
+                      <span className="dark:text-white text-[#31373d]">
+                        {isFailed
+                          ? String(t('transaction:transactionFailed'))
+                          : String(t('transaction:transactionCompleted'))}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </CommonModal>
+    </>
+  );
+}

@@ -1,0 +1,159 @@
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { ElementType, useCallback, useState } from 'react';
+import Cropper from 'react-easy-crop';
+import { Area } from 'react-easy-crop/types';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
+import { URL_UPLOAD_AVATAR } from '@/base/constants/endpoints';
+import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import {
+  changeIsShowCropAvatar,
+  changeIsShowInformation,
+  changeIsShowUpdateInformation,
+} from '@/base/redux/reducers/modal.reducer';
+import { RootState } from '@/base/types/root-state';
+import { shallowEqual, useSelector } from 'react-redux';
+import getCroppedImg from './cropImage';
+
+import { TOAST_ENUM } from '@/base/constants/common';
+import { convertUserInfo } from '@/base/libs/utils';
+import Loader from '@/components/common/preloader/loader';
+import Image from 'next/image';
+import CommonModal from '../commonModal/commonModal';
+
+type ModalCropAvatarProps = {
+  onClose: () => void;
+  show: boolean;
+} & TransitionRootProps<ElementType> &
+  DialogProps<ElementType>;
+
+export default function ModalCropAvatar({ show, onClose }: ModalCropAvatarProps) {
+  const { t } = useTranslation('');
+  const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { selectedAvatar } = useSelector(
+    (state: RootState) => ({
+      selectedAvatar: state.modal.selectedAvatar,
+    }),
+    shallowEqual,
+  );
+
+  const [zoom, setZoom] = useState(1);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [avatarFile, setAvatarFile] = useState<File>();
+
+  const handleUpdateProfile = async () => {
+    try {
+      if (avatarFile) {
+        setIsLoading(true);
+        const formData = new FormData();
+        formData.append('avatar', avatarFile);
+        await api.post(URL_UPLOAD_AVATAR, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+        const resUser = await api.get('auth/get-user-info');
+        dispatch(
+          saveUserInfo({
+            isLogin: true,
+            ...convertUserInfo(resUser.data.data),
+          }),
+        );
+        dispatch(changeIsShowInformation(true));
+        dispatch(changeIsShowCropAvatar(false));
+      }
+    } catch (error) {
+      toast.error('Update username failed', { containerId: TOAST_ENUM.MODAL });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const goBackUpdateProfile = () => {
+    dispatch(changeIsShowUpdateInformation(true));
+    dispatch(changeIsShowCropAvatar(false));
+  };
+
+  const onCropComplete = useCallback(async (croppedArea: Area, croppedAreaPixels: Area) => {
+    const croppedImage = await getCroppedImg(selectedAvatar, croppedAreaPixels, 0);
+    const myFile = new File([croppedImage], croppedImage.name, {
+      type: croppedImage.type,
+    });
+    setAvatarFile(myFile);
+  }, []);
+
+  return (
+    <>
+      {isLoading && <Loader />}
+      <CommonModal
+        show={show}
+        onClose={onClose}
+        panelClass="rounded"
+        header={
+          <div className="relative p-[20px] pb-0 bg-[#161D26]">
+            <div className="flex items-center text-white gap-[10px]">
+              <ChevronLeftIcon width={20} role="button" onClick={() => goBackUpdateProfile()} />
+              <div className="text-[18px] font-[600]">{t('profile:updateAvatar')}</div>
+            </div>
+          </div>
+        }
+      >
+        <div className="flex-1 p-[20px] bg-[#161D26]">
+          <div className="relative h-[300px] w-auto">
+            <Cropper
+              image={selectedAvatar}
+              crop={crop}
+              zoom={zoom}
+              aspect={1}
+              cropShape="round"
+              objectFit="vertical-cover"
+              onCropChange={setCrop}
+              onCropComplete={onCropComplete}
+              onZoomChange={setZoom}
+              classes={{
+                mediaClassName: 'cropped-image',
+                containerClassName: 'crop-container h-full w-fit m-auto rounded-[5px]',
+                cropAreaClassName: 'w-full h-full',
+              }}
+            />
+          </div>
+          <div className="flex flex-col m-auto items-center gap-[10px] sm:max-w-[500px] w-full">
+            <div className="relative w-[50%] mx-auto mt-[20px]">
+              <input
+                id="medium-range"
+                type="range"
+                value={zoom}
+                min={1}
+                max={3}
+                step={0.1}
+                aria-labelledby="Zoom"
+                onChange={(e) => {
+                  setZoom(Number(e.target.value));
+                }}
+                className="w-full h-2 mb-6 rounded-lg appearance-none cursor-pointer bg-gray-500 accent-amber-600"
+              ></input>
+            </div>
+            <button
+              type="submit"
+              className="bg-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+              onClick={() => handleUpdateProfile()}
+            >
+              <div />
+              <div className="text-[14px] text-white">{t('profile:modify')}</div>
+              <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
+                <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
+              </div>
+            </button>
+          </div>
+        </div>
+      </CommonModal>
+    </>
+  );
+}

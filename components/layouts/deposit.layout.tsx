@@ -1,0 +1,344 @@
+/* eslint-disable @next/next/no-img-element */
+import cn from 'classnames';
+import {
+  Box,
+  CardReceive,
+  EmptyWallet,
+  Money2,
+  MoneyChange,
+  MoneyRecive,
+  Repeat,
+  Story,
+  Chart,
+  Timer1,
+} from 'iconsax-react';
+import { useRouter } from 'next/router';
+import React, { Fragment } from 'react';
+
+import styles from './deposit.module.scss';
+
+import { useTranslation } from '@/base/config/i18next';
+import { ROUTER } from '@/base/constants/common';
+import { Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import CommonSession from '../common/baseSession/baseSession';
+import IconOption from '../common/iconOption/iconOption';
+import BaseLayout from './base.layout';
+
+type DepositLayoutProps = {
+  children: JSX.Element;
+  mainCustomClass?: string;
+};
+
+const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
+  const LIST_SIDEBAR_DEPOSIT = [
+    {
+      icon: EmptyWallet,
+      name: 'sidebar:balance',
+      href: ROUTER.Balance,
+    },
+    {
+      icon: MoneyRecive,
+      name: 'sidebar:deposit',
+      href: ROUTER.Deposit,
+    },
+    {
+      icon: CardReceive,
+      name: 'sidebar:withdraw',
+      href: ROUTER.Withdraw,
+    },
+    {
+      icon: Money2,
+      name: 'sidebar:buyCrypto',
+      href: ROUTER.BuyCrypto,
+    },
+    {
+      icon: MoneyChange,
+      name: 'sidebar:swap',
+      href: ROUTER.Swap,
+    },
+    {
+      icon: Story,
+      name: 'sidebar:vaultPro',
+      href: ROUTER.VaultPro,
+    },
+    {
+      icon: Box,
+      name: 'sidebar:NFTs',
+      href: '/nfts',
+    },
+  ];
+
+  const router = useRouter();
+  const { t } = useTranslation('');
+
+  return (
+    <>
+      <div className="sm:block hidden">
+        <BaseLayout isDetailPage>
+          <>
+            <div className="flex flex-wrap gap-7 w-full text-center py-[20px] xl:px-[20px] sm:mb-0 mb-14">
+              <CommonSession title={String(t('sidebar:wallet'))}>
+                <div className="flex flex-row gap-5 w-full text-center mt-0 mb-[50px]">
+                  <div
+                    className={cn(
+                      styles.cardMenu,
+                      'dark:bg-[#31343D] dark:text-[#98a7b5] bg-white text-[#31373d] rounded-[5px] xl:min-w-[175px] min-w-[none] h-fit',
+                    )}
+                  >
+                    <div className="xl:p-2 p-1 w-full">
+                      <ul className="lg:flex hidden flex-col justify-center gap-2 w-full rounded-xl">
+                        {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
+                          <IconOption
+                            title={String(t(item.name))}
+                            href={item.href}
+                            icon={item.icon}
+                            key={index}
+                            classNames="dark:hover:text-white hover:text-[#31373d] hover:bg-[#eaecf3] rounded bg-transparent"
+                            activeClassNames="dark:bg-[#292C33] bg-[#f5f6fa] dark:text-white text-black"
+                          />
+                        ))}
+                        <div className="h-[1px] mx-[10px] bg-[#3D4049]" />
+                        <IconOption
+                          title={String(t('sidebar:transactions'))}
+                          href={ROUTER.Transaction}
+                          icon={Repeat}
+                          classNames="dark:hover:text-white hover:text-[#31373d] hover:bg-[#eaecf3] rounded bg-transparent"
+                          activeClassNames="dark:bg-[#292C33] bg-[#f5f6fa] dark:text-white text-black"
+                        />
+                        <IconOption
+                          title={String(t('sidebar:rolloverOverview'))}
+                          href={ROUTER.Rollover}
+                          icon={Chart}
+                          classNames="dark:hover:text-white hover:text-[#31373d] hover:bg-[#eaecf3] rounded bg-transparent"
+                          activeClassNames="dark:bg-[#292C33] bg-[#f5f6fa] dark:text-white text-black"
+                        />
+                      </ul>
+                      <ul className="lg:hidden flex flex-col justify-center gap-3 rounded-xl">
+                        {LIST_SIDEBAR_DEPOSIT.map((item, index) => {
+                          const IconComponent = item.icon;
+                          return (
+                            <Link
+                              key={index}
+                              href={item.href}
+                              className={cn(
+                                'flex flex-col dark:text-[#98A7B5] dark:hover:text-white dark:hover:bg-[#292C33] hover-bg[#f5f6fa66] bg-transparent py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                                {
+                                  'dark:text-white dark:bg-[#292C33] text-black bg-[#f5f6fa]': router.route.includes(
+                                    item.href,
+                                  ),
+                                },
+                              )}
+                            >
+                              <IconComponent size={18} />
+                            </Link>
+                          );
+                        })}
+                        <Link
+                          href={ROUTER.Transaction}
+                          className={cn(
+                            'flex flex-col dark:text-[#98A7B5] text-black dark:hover:text-white dark:hover:bg-[#292C33] hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                            {
+                              'dark:text-white text-black dark:bg-[#292C33] bg-[#f5f6fa]': router.route.includes(
+                                ROUTER.Transaction,
+                              ),
+                            },
+                          )}
+                        >
+                          <Repeat size={18} />
+                        </Link>
+                        <Link
+                          href={ROUTER.Rollover}
+                          className={cn(
+                            'flex flex-col dark:text-[#98A7B5] text-black dark:hover:text-white dark:hover:bg-[#292C33] hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                            {
+                              'dark:text-white text-black dark:bg-[#292C33] bg-[#f5f6fa]': router.route.includes(
+                                ROUTER.Rollover,
+                              ),
+                            },
+                          )}
+                        >
+                          <Chart size={18} />
+                        </Link>
+                      </ul>
+                    </div>
+                  </div>
+                  <div
+                    className={cn(
+                      styles.cardMain,
+                      'flex-1 dark:bg-[#31343D] bg-white text-white rounded pt-[24px] px-[32px] pb-[32px]',
+                    )}
+                  >
+                    {children}
+                  </div>
+                </div>
+              </CommonSession>
+            </div>
+          </>
+        </BaseLayout>
+      </div>
+      <div className="sm:hidden block">
+        <Transition show={true}>
+          <div className="inset-0 z-10">
+            <div className="flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0">
+              <Transition.Child
+                as={Fragment}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-x-1"
+                enterTo="opacity-100 translate-x-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-x-0"
+                leaveTo="opacity-0 translate-x-1"
+              >
+                <div className="w-full flex flex-col h-screen dark:bg-[#12181F] bg-white">
+                  <div className="w-full dark:bg-[#24262B] dark:text-[#98a7b5] bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
+                    <div className="flex-1 flex justify-between items-center">
+                      <div className="text-[14px] sm:text-[16px] font-bold dark:text-white text-black">
+                        {t('sidebar:wallet')}
+                      </div>
+                      <div className="flex items-center text-[12px] gap-[15px]">
+                        <Link
+                          href={ROUTER.Transaction}
+                          className={cn(
+                            'dark:hover:text-white hover:text-black dark:text-gray-400 text-[#31373d] flex items-center justify-center gap-2',
+                            {
+                              'dark:text-white text-black font-bold': router.route.includes(ROUTER.Transaction),
+                            },
+                          )}
+                        >
+                          <div>{t('sidebar:transactions')}</div>
+                        </Link>
+                        <Link
+                          href={ROUTER.Rollover}
+                          className={cn(
+                            'dark:hover:text-white hover:text-black dark:text-gray-400 text-[#31373d] flex items-center justify-center gap-2',
+                            {
+                              'dark:text-white text-black font-bold': router.route.includes(ROUTER.Rollover),
+                            },
+                          )}
+                        >
+                          <div>{t('sidebar:rollover')}</div>
+                        </Link>
+                        <Timer1 className="w-[18px] h-[18px]" />
+                      </div>
+                    </div>
+                    <div
+                      className="hover:bg-[#39B1C0] sm:bg-[#20D4EB] rounded-md p-1 z-[10]"
+                      role="button"
+                      onClick={() => router.replace('/')}
+                    >
+                      <XMarkIcon width={20} className="sm:text-black text-gray-500" />
+                    </div>
+                  </div>
+                  <div className="flex-1 overflow-y-auto pt-[60px] pb-[100px]">
+                    <div
+                      className={cn(
+                        styles.cardMain,
+                        'flex-1 dark:bg-[#12181F] bg-[#f5f6fa] dark:text-white text-black',
+                      )}
+                    >
+                      {children}
+                    </div>
+                  </div>
+
+                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-[#24262B] bg-[#f5f6fa] shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 rounded-t-xl bottom-0">
+                    <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
+                      <Link
+                        href={ROUTER.Deposit}
+                        className={cn(
+                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                          {
+                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                              router.route.includes(ROUTER.Deposit),
+                          },
+                        )}
+                      >
+                        <div className="pt-2">
+                          <MoneyRecive className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                        </div>
+                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                          {t('sidebar:deposit')}
+                        </div>
+                      </Link>
+                      <Link
+                        href={ROUTER.Withdraw}
+                        className={cn(
+                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                          {
+                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                              router.route.includes(ROUTER.Withdraw),
+                          },
+                        )}
+                      >
+                        <div className="pt-2">
+                          <CardReceive className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                        </div>
+                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                          {t('sidebar:withdraw')}
+                        </div>
+                      </Link>
+                      <Link
+                        href={ROUTER.BuyCrypto}
+                        className={cn(
+                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                          {
+                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                              router.route.includes(ROUTER.BuyCrypto),
+                          },
+                        )}
+                      >
+                        <div className="pt-2">
+                          <Money2 className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                        </div>
+                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                          {t('sidebar:buyCrypto')}
+                        </div>
+                      </Link>
+                      <Link
+                        href={ROUTER.Swap}
+                        className={cn(
+                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                          {
+                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                              router.route.includes(ROUTER.Swap),
+                          },
+                        )}
+                      >
+                        <div className="pt-2">
+                          <MoneyChange className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                        </div>
+                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                          {t('sidebar:swap')}
+                        </div>
+                      </Link>
+                      <Link
+                        href={ROUTER.VaultPro}
+                        className={cn(
+                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                          {
+                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                              router.route.includes(ROUTER.VaultPro),
+                          },
+                        )}
+                      >
+                        <div className="pt-2">
+                          <Story className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                        </div>
+                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                          {t('sidebar:vaultPro')}
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </Transition.Child>
+            </div>
+          </div>
+        </Transition>
+      </div>
+    </>
+  );
+};
+
+export default DepositLayout;

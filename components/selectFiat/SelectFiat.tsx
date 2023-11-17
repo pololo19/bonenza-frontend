@@ -1,0 +1,140 @@
+import cn from 'classnames';
+import { ArrowDown2, Global } from 'iconsax-react';
+import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
+import { FiatType } from '@/base/types/common';
+
+import { RootState } from '@/base/types/root-state';
+import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import InputSearch from '../input/typing/InputSearch';
+import CommonModal from '../modal/commonModal/commonModal';
+import { changeActiveFiat } from '@/base/redux/reducers/common.reducer';
+import { CookieKey } from '@/base/constants/common';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+
+type SelectFiatProps = {
+  onChangeMoonpayFiat?: (value: FiatType) => void;
+};
+
+const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
+  const { t } = useTranslation('');
+  const dispatch = useDispatch();
+
+  const { fiatArray, localeFiat } = useSelector(
+    (state: RootState) => ({
+      fiatArray: state.common.fiatArray,
+      localeFiat: state.common.localeFiat,
+    }),
+    shallowEqual,
+  );
+
+  const [isShowFiatModal, setIsShowFiatModal] = useState<boolean>(false);
+  const [activeMoonpayFiat, setActiveMoonpayFiat] = useState<FiatType>();
+  const [searchInput, setSearchInput] = useState<string>('');
+
+  useEffect(() => {
+    if (activeMoonpayFiat) onChangeMoonpayFiat?.(activeMoonpayFiat);
+  }, [activeMoonpayFiat]);
+
+  useEffect(() => {
+    const localFiatStorage: any = JSON.parse(String(CookiesStorage.getCookieData(CookieKey.localeFiatData)));
+    if (localFiatStorage) {
+      handleUpdateFiat(localFiatStorage);
+    } else {
+      if (fiatArray) setActiveMoonpayFiat(fiatArray[0]);
+    }
+  }, [fiatArray]);
+
+  useEffect(() => {
+    if (localeFiat) {
+      onChangeMoonpayFiat?.(localeFiat);
+      handleUpdateFiat(localeFiat);
+    }
+  }, [localeFiat]);
+
+  const handleUpdateFiat = (crypto: FiatType) => {
+    setActiveMoonpayFiat(crypto);
+    dispatch(changeActiveFiat(crypto));
+    sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
+    CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
+  };
+
+  const filterListFiat = useMemo(() => {
+    return fiatArray?.filter((item) => {
+      return (
+        String(item?.currency).toLowerCase().includes(searchInput.toLowerCase()) ||
+        String(item?.currencyAlias).toLowerCase().includes(searchInput.toLowerCase())
+      );
+    });
+  }, [fiatArray, searchInput]);
+
+  return (
+    <>
+      <div
+        role="button"
+        className="flex items-center gap-2 dark:bg-gray-700/50 bg-[#ffffff] py-2 px-2 dark:border border-0 border-solid border-gray-600 rounded"
+        onClick={() => setIsShowFiatModal(true)}
+      >
+        {activeMoonpayFiat ? (
+          <div className="flex items-center gap-3">
+            <Image height={25} width={25} src={`/img/fiats/${activeMoonpayFiat?.currency}.png`} alt="" />
+            <div className="font-normal dark:text-white text-black sm:text-[14px] text-[12px]">
+              {activeMoonpayFiat?.currency}
+            </div>
+          </div>
+        ) : (
+          <Global />
+        )}
+        <ArrowDown2 className="dark:text-white text-black" />
+      </div>
+
+      <CommonModal
+        show={isShowFiatModal}
+        onClose={() => setIsShowFiatModal(false)}
+        header={
+          <div className="relative p-[20px] pb-0">
+            <div className="flex items-center text-black dark:text-white gap-[10px]">
+              <div className="text-[18px] font-[600]">{t('deposit:selectFiat')}</div>
+            </div>
+          </div>
+        }
+      >
+        <>
+          <div className="px-5 py-[10px]">
+            <InputSearch value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+          </div>
+          <div className="p-5 py-5 border overflow-y-auto">
+            <div className={`grid grid-cols-1 gap-2`}>
+              {filterListFiat?.map((item, key) => (
+                <button
+                  key={key}
+                  className={cn(
+                    'flex rounded-md text-left px-5 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 items-center',
+                    {
+                      'border border-solid border-amber-500': activeMoonpayFiat?.currency === item?.currency,
+                    },
+                  )}
+                  onClick={() => {
+                    setActiveMoonpayFiat(item);
+                    setIsShowFiatModal(false);
+                  }}
+                >
+                  <div className="flex-1 flex gap-[10px] items-center">
+                    <Image height={30} width={30} src={`/img/fiats/${item.currency}.png`} alt="" />
+
+                    <div className="font-semibold text-[14px]">{item.currency}</div>
+                  </div>
+                  <div className="text-[#98A7B5] text-[14px]">{item.currencyAlias}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
+      </CommonModal>
+    </>
+  );
+};
+
+export default SelectFiat;

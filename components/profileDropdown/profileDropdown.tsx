@@ -1,0 +1,293 @@
+import { Popover, Transition } from '@headlessui/react';
+import { useWeb3React } from '@web3-react/core';
+import cn from 'classnames';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
+import { useTranslation } from '@/base/config/i18next';
+import { ROUTER } from '@/base/constants/common';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { logoutState } from '@/base/redux/reducers/auth.reducer';
+import {
+  changeIsShowInformation,
+  changeIsShowReferAndEarn,
+  changeIsShowVipClubModal,
+} from '@/base/redux/reducers/modal.reducer';
+import { RootState } from '@/base/types/root-state';
+
+import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
+import { googleLogout } from '@react-oauth/google';
+import {
+  Card,
+  CardReceive,
+  EmptyWallet,
+  LogoutCurve,
+  MoneyRecive,
+  Repeat,
+  Setting2,
+  StatusUp,
+  User,
+  UserAdd,
+  Chart,
+} from 'iconsax-react';
+interface ProfileDropDownProp {
+  setAccessToken: (token: boolean) => void;
+}
+export default function ProfileDropdown({ setAccessToken }: ProfileDropDownProp) {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { deactivate } = useWeb3React();
+  const { t } = useTranslation('');
+
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [openState, setOpenState] = useState(false);
+
+  const toggleMenu = () => {
+    setOpenState((openState) => !openState);
+    buttonRef?.current?.click(); // eslint-disable-line
+  };
+
+  // Open the menu after a delay of timeoutDuration
+  const onHover = (open: boolean, action: string) => {
+    if ((!open && !openState && action === 'onMouseEnter') || (open && openState && action === 'onMouseLeave')) {
+      toggleMenu();
+    }
+  };
+
+  const handleClickOutside = (event: any) => {
+    if (buttonRef.current && !buttonRef.current.contains(event?.target)) {
+      event.stopPropagation();
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  });
+
+  const { avatar } = useSelector(
+    (state: RootState) => ({
+      avatar: state.auth.avatar,
+    }),
+    shallowEqual,
+  );
+
+  const handleLogout = () => {
+    setAccessToken(false);
+    CookiesStorage.logout();
+    googleLogout();
+    deactivate();
+    dispatch(logoutState());
+    dispatch(changeFiatArray([]));
+    dispatch(changeCryptoArray([]));
+    router.replace(ROUTER.Home);
+  };
+
+  useEffect(() => {
+    const innerWidth = window.innerWidth;
+    if (innerWidth < 640) {
+      setOpenState(true);
+    }
+  }, []);
+
+  return (
+    <>
+      <Popover className="relative w-auto text-left rounded-[7px] flex">
+        {({ open }) => (
+          <div
+            onMouseEnter={() => onHover(open, 'onMouseEnter')}
+            onMouseLeave={() => onHover(open, 'onMouseLeave')}
+            className="flex flex-col"
+          >
+            <Popover.Button ref={buttonRef}>
+              <div className="sm:h-[40px] sm:w-[40px] h-[30px] w-[30px] rounded-full overflow-hidden">
+                <Image
+                  height={40}
+                  width={40}
+                  src={String(process.env.API_AVATAR) + avatar}
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                  className="sm:h-[40px] sm:w-[40px] h-[30px] w-[30px]"
+                />
+              </div>
+            </Popover.Button>
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed sm:hidden block inset-0 bg-black/80 transition-opacity z-[-1]" />
+            </Transition.Child>
+            <Transition
+              show={open}
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Popover.Panel
+                static
+                className="sm:absolute sm:mr-0 mr-[10px] fixed right-0 z-10 sm:min-w-[250px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-[60px]"
+              >
+                <>
+                  <div className="h-14 sm:w-[40px] flex-1 w-0 absolute right-0 top-[-20px]"></div>
+                  <div className="py-1 sm:relative fixed rounded-md dark:bg-[#25262B] bg-white sm:w-auto w-[calc(100vw-20px)] shadow-gray-700 dark:shadow ">
+                    <div>
+                      <Link
+                        href={ROUTER.Balance}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <EmptyWallet className="w-[20px]" />
+                        {t('layout:wallet')}
+                      </Link>
+                    </div>
+                    <div>
+                      <Link
+                        href={ROUTER.DepositCrypto}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <MoneyRecive className="w-[20px]" />
+                        {t('layout:deposit')}
+                      </Link>
+                    </div>
+                    <div>
+                      <Link
+                        href={ROUTER.WithdrawCrypto}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <CardReceive className="w-[20px]" />
+                        {t('layout:withdraw')}
+                      </Link>
+                    </div>
+                    <div>
+                      <Link
+                        href={ROUTER.Transaction}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <Repeat className="w-[20px]" />
+                        {t('layout:transaction')}
+                      </Link>
+                    </div>
+                    <div>
+                      <Link
+                        href={ROUTER.Rollover}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <Chart className="w-[20px]" />
+                        {t('sidebar:rolloverOverview')}
+                      </Link>
+                    </div>
+                    <div>
+                      <div
+                        onClick={() => {
+                          dispatch(changeIsShowVipClubModal(true));
+                        }}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <StatusUp className="w-[20px]" />
+                        {t('sidebar:vipClub')}
+                      </div>
+                    </div>
+                    <div>
+                      <Link
+                        href={ROUTER.Affiliate}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <Card className="w-[20px]" />
+                        {t('sidebar:affiliate')}
+                      </Link>
+                    </div>
+                    <div>
+                      <span
+                        onClick={() => dispatch(changeIsShowReferAndEarn(true))}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <UserAdd className="w-[20px]" />
+                        {t('layout:referAndEarn')}
+                      </span>
+                    </div>
+                    <div>
+                      <span
+                        onClick={() => dispatch(changeIsShowInformation(true))}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <User className="w-[20px]" />
+                        {t('layout:profile')}
+                      </span>
+                    </div>
+                    <div>
+                      <Link
+                        href={ROUTER.SettingGeneral}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <Setting2 className="w-[20px]" />
+                        {t('sidebar:settings')}
+                      </Link>
+                    </div>
+                    <div className="h-[1px] w-full dark:bg-gray-700 bg-[#67707b4d]"></div>
+                    <div>
+                      <span
+                        onClick={() => handleLogout()}
+                        className={cn(
+                          'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
+                          'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
+                        )}
+                      >
+                        <LogoutCurve className="w-[20px]" />
+                        {t('layout:logOut')}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              </Popover.Panel>
+            </Transition>
+          </div>
+        )}
+      </Popover>
+    </>
+  );
+}

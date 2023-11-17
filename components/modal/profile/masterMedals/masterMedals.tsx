@@ -1,0 +1,103 @@
+import { useTranslation } from '@/base/config/i18next';
+import { InfoCircle, Profile2User } from 'iconsax-react';
+import Image from 'next/image';
+
+export default function MasterMedals() {
+  const { t } = useTranslation('');
+
+  const groupPrize = [
+    { img: '/img/flat-white.png', value: 0 },
+    { img: '/img/chest.png', value: 5 },
+    { img: '/img/chest.png', value: 10 },
+    { img: '/img/chest.png', value: 15 },
+    { img: '/img/chest.png', value: 'max' },
+  ];
+
+  const groupAchieve = [
+    { medals: 5, achieve: 20 },
+    { medals: 10, achieve: 800 },
+    { medals: 15, achieve: 2400 },
+    { medals: 20, achieve: 10000 },
+  ];
+
+  const groupMedal = [
+    { img: '/img/medal-1.png', text: 'Talkative', accountNumber: 7913 },
+    { img: '/img/medal-2.png', text: 'Fearless One', accountNumber: 6 },
+    { img: '/img/medal-3.png', text: 'The Loaded King', accountNumber: 1 },
+    { img: '/img/medal-4.png', text: 'Highest Contributor', accountNumber: 9 },
+    { img: '/img/medal-5.png', text: 'The Top Gun', accountNumber: 23 },
+    { img: '/img/medal-6.png', text: 'The Rain Master', accountNumber: 12572 },
+    { img: '/img/medal-7.png', text: 'COCO Lover', accountNumber: 5540 },
+    { img: '/img/medal-1.png', text: 'The Rain Stormer', accountNumber: 2182 },
+    { img: '/img/medal-2.png', text: 'Chicken Dinner', accountNumber: 12124 },
+  ];
+
+  return (
+    <div className="p-[20px] max-md:pb-[60px] dark:bg-[#1E2024] bg-white">
+      <div className="flex flex-nowrap gap-[10px] justify-between">
+        {groupPrize.map((item: any, index: number) => (
+          <div
+            key={index}
+            className="px-[10px] sm:px-[20px] grow py-[10px] dark:bg-[#1A1B1E] bg-[#f5f6fa] rounded-[5px] flex flex-col items-center cursor-pointer "
+          >
+            <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="" />
+            <span className="text-[10px] mt-[8px] dark:text-[#939699] text-[#5f6975cc]">{item.value}</span>
+          </div>
+        ))}
+      </div>
+      <div className="h-[35px] dark:bg-[#1A1B1E] bg-[#f5f6fa] rounded-[5px] px-[20px] py-[14px] mt-[10px]">
+        <div className="dark:bg-[#1E2024] bg-[#5f69752e] rounded-[10px] h-full">
+          <div className="bg-[#0DFDE4] relative rounded-[10px] w-[35px] h-full">
+            <div className="absolute -top-[6px] left-1/2 -translate-x-2/4">
+              <Image className="w-[11px] h-[9px]" height={9} width={11} src={`/img/triangle.png`} alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="p-[10px] dark:bg-[#17181B] bg-[#f5f6fa] flex flex-col gap-[5px] rounded-[5px] dark:text-[#98A7B5] text-[#5f6975cc] text-[12px]">
+        {groupAchieve.map((item: any, index: number) => (
+          <p
+            key={index}
+            dangerouslySetInnerHTML={{
+              __html: t('profile:achieve', {
+                medals: item.medals,
+                achieve: item.achieve,
+              }),
+            }}
+          ></p>
+        ))}
+      </div>
+      <div className="my-[10px]">
+        <p className="dark:text-white text-[#5F6975] text-[12px] font-semibold">{t('profile:unlocked')}</p>
+        <div className="bg-[#27292E] h-[1px] my-[10px]" />
+        <p className="dark:text-white text-[#5F6975] text-[12px] font-semibold mb-[10px]">
+          {t('profile:awaitingUnlocking')}
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-[10px]">
+          {groupMedal.map((item: any, index: number) => (
+            <div
+              key={index}
+              className="px-[5px] py-[10px] dark:bg-[#1A1B1E] bg-[#f5f6fa] gap-[10px] rounded-[5px] flex flex-col items-center"
+            >
+              <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="" />
+              <span className="text-[12px] text-[#818891]">{item.text}</span>
+              <div className="flex items-center justify-center dark:bg-[#1E2024] bg-white gap-[5px] py-[5px] px-[10px]">
+                <Profile2User variant="Bold" className="w-[12px] h-[12px] dark:text-[#0DFDE4] text-[#3BC117]" />
+                <span className="text-[12px] font-semibold dark:text-[#0DFDE4] text-[#3BC117]">
+                  {item.accountNumber}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="dark:text-[#0DFDE4] text-[#3BC117] text-[12px] flex flex-col items-center justify-center mt-[10px]">
+          <div className="flex items-center">
+            <InfoCircle />
+            <span>{t('profile:tipContent')}</span>
+          </div>
+          <span>{t('profile:update')}</span>
+        </div>
+      </div>
+    </div>
+  );
+}

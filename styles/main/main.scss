@@ -1,0 +1,70 @@
+@import '@fortawesome/fontawesome-free/css/all.min.css';
+@import 'react-toastify/dist/ReactToastify.css';
+@import '~flatpickr/dist/flatpickr.css';
+@import '~@flaticon/flaticon-uicons/css/all/all';
+// @import "~react-paginate/theme/basic/react-paginate.css";
+
+@import 'root';
+@import 'custom-variables';
+@import '~/styles/common/_reboot.scss';
+@import '~/styles/fonts/_fonts.scss';
+
+@import '~/styles/libs/tailwind.css';
+@import '~/styles/base/mixins';
+
+ul.react-paginate {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  list-style-type: none;
+  padding: 0;
+
+  li.page-item {
+    a.page-link {
+      border: none;
+      min-width: 32px;
+      min-height: 32px;
+      padding: 0;
+      border-radius: 30px;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.active {
+      background-color: var(--basic-color);
+      color: var(--text-in-basic-color);
+      border: 1px solid var(--basic-color);
+    }
+  }
+}
+
+.scrollbar {
+  /* width */
+  &::-webkit-scrollbar { 
+    height: 5px; 
+    width: 5px;
+    display: block;
+  } 
+
+  /* Track */
+  &::-webkit-scrollbar-track { 
+    background: transparent; 
+    border-radius: 5px; 
+  } 
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb { 
+    background: #bec1cc; 
+    border-radius: 5px; 
+    cursor: pointer;
+  } 
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover { 
+    background: #bec1cc; 
+  }
+
+}

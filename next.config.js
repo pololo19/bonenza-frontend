@@ -1,0 +1,59 @@
+module.exports = () => {
+  const localeSubpaths = {};
+
+  const publicRuntimeConfig = {
+    localeSubpaths,
+  };
+
+  const pageExtensions = ['page.tsx', 'page.ts', 'page.jsx', 'page.js'];
+
+  const env = {
+    API_URL: process.env.API_URL,
+    API_AVATAR: process.env.API_AVATAR,
+    SOCKET_URL: process.env.SOCKET_URL,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,
+    STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+    STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
+    TELEGRAM_BOT_ID: process.env.TELEGRAM_BOT_ID,
+    TELEGRAM_BOT_NAME: process.env.TELEGRAM_BOT_NAME,
+    EXCHANGE_RATE_KEY: process.env.EXCHANGE_RATE_KEY,
+  };
+
+  const webpack = (cfg) => {
+    const originalEntry = cfg.entry;
+    // eslint-disable-next-line no-param-reassign
+    cfg.entry = async () => {
+      const entries = await originalEntry();
+      if (entries['main.js'] && !entries['main.js'].includes('./client/polyfills.js')) {
+        entries['main.js'].unshift('./client/polyfills.js');
+      }
+      return entries;
+    };
+
+    cfg.module.rules.push({
+      test: /\.(jpe?g|png|gif|svg|mp3)$/,
+      loader: 'file-loader',
+      options: {
+        name: '[name]_[hash].[ext]',
+        publicPath: `/_next/static/files`,
+        outputPath: 'static/files',
+      },
+    });
+    return cfg;
+  };
+
+  return {
+    publicRuntimeConfig,
+    webpack,
+    env,
+    pageExtensions,
+    output: 'standalone',
+    swcMinify: true,
+    trailingSlash: true,
+    images: {
+      disableStaticImages: true,
+      unoptimized: true,
+    }
+  };
+};

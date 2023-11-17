@@ -1,0 +1,107 @@
+/* eslint-disable @next/next/no-img-element */
+import { ColumnDef } from '@tanstack/react-table';
+import { ReactElement, useEffect, useState } from 'react';
+
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
+import { differenceDateInSeconds } from '@/base/libs/utils';
+import { SessionType } from '@/base/types/common';
+import Loader from '@/components/common/preloader/loader';
+import withAuth from '@/components/hoc/withAuth';
+import SettingLayout from '@/components/layouts/setting.layout';
+import TableComponent from '@/components/table';
+
+const SettingSession = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { t } = useTranslation('');
+  const [dataTable, setDataTable] = useState<SessionType[]>([]);
+
+  const depositColumns: ColumnDef<any>[] = [
+    {
+      accessorKey: 'browser',
+      header: 'Browser',
+      cell: ({ row }) => <div className="dark:text-white text-black">{row.original.browser}</div>,
+      minSize: 100,
+    },
+    {
+      accessorKey: 'location',
+      header: 'Location',
+      minSize: 30,
+      cell: ({ row }) => <div className="dark:text-[#98A7B5] text-black">{row.original.location}</div>,
+    },
+    {
+      accessorKey: 'ip',
+      header: 'IP Address',
+      cell: ({ row }) => <div className="dark:text-white text-black">{row.original.ipAddress}</div>,
+      maxSize: 80,
+    },
+    {
+      accessorKey: 'lastUsed',
+      header: 'Last Used',
+      maxSize: 30,
+      cell: ({ row }) => (
+        <div className="dark:text-[#98A7B5] text-black">
+          {Number(differenceDateInSeconds(new Date(), new Date(row.original.lastUsedAt))) > 60 ? 'Offline' : 'Online'}
+        </div>
+      ),
+    },
+    {
+      accessorKey: 'action',
+      header: 'Action',
+      maxSize: 80,
+      cell: ({ row }) => (
+        <div className="text-[#0DFDE4]" role="button" onClick={() => removeUserSession(row.original.id)}>
+          Remove Device
+        </div>
+      ),
+    },
+  ];
+
+  const removeUserSession = (id: number) => {
+    try {
+      setIsLoading(true);
+      handleGetListUserSession();
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGetListUserSession = async () => {
+    try {
+      setIsLoading(true);
+      const res = await api.get('/user-session/get-list-user-session');
+      setDataTable(res.data.data);
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    handleGetListUserSession();
+  }, []);
+
+  return (
+    <>
+      {isLoading && <Loader />}
+      <div className="px-[12px] py-[12px] md:mt-0 mt-[30px] flex flex-col items-start">
+        <div className="font-semibold text-[14px]">{t('setting:sessionsUsedInPast')}</div>
+        <TableComponent
+          containerClassName="w-full sm:block hidden mt-[30px]"
+          isLoading={isLoading}
+          data={dataTable}
+          columns={depositColumns}
+        />
+      </div>
+    </>
+  );
+};
+
+const SettingSessionAuth = withAuth(SettingSession);
+
+SettingSessionAuth.getLayout = function getLayout(page: ReactElement) {
+  return <SettingLayout>{page}</SettingLayout>;
+};
+
+export default SettingSessionAuth;
