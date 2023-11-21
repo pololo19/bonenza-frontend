@@ -107,7 +107,11 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
         <tbody className={cn(isLoading && styles.loader, '!sm:text-[14px] !text-[12px]')}>
           {!!data?.length &&
             getRowModel().rows.map((row) => (
-              <tr onClick={() => handleClickRow?.(row)} key={row.id} className={cn(renderRowClass?.(row), 'h-0')}>
+              <tr
+                onClick={() => handleClickRow?.(row)}
+                key={row.id}
+                className={cn(renderRowClass?.(row), 'h-0 cursor-pointer')}
+              >
                 {row.getVisibleCells?.().map((cell) => (
                   <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
                 ))}
