@@ -47,9 +47,9 @@ interface TransactionPageProps {
 export const getServerSideProps: GetServerSideProps<TransactionPageProps> = async () => {
   const response = await fetch(`${baseURL}transaction-histories/get-bill-type-list`)
     .then((res) => res.json())
-    .catch((err) => {
-      data: [];
-    });
+    .catch((err) => ({
+      data: [],
+    }));
   const listTypes: BillType[] = [{ type: 'All Type' }, ...response?.data];
   return {
     props: {
