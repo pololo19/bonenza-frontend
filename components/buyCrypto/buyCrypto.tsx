@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { formatValue } from 'react-currency-input-field';
 import { LIST_MOONPAY_COIN, TOAST_ENUM } from '@/base/constants/common';

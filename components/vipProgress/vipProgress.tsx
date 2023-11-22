@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 

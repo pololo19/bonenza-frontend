@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useTranslation } from '@/base/config/i18next';
 import { ReactElement, useEffect, useState } from 'react';
 

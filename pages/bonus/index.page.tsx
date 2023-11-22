@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { ReactElement, useEffect } from 'react';
 import Image from 'next/image';
 import BaseLayout from '@/components/layouts/base.layout';

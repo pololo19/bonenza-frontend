@@ -1,8 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
-import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import api, { baseURL } from '@/api/api';
+import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import {
   CRYPTO_NORMAL_DATA,
@@ -12,6 +10,7 @@ import {
   LIST_FILTER_TYPE,
   LIST_FILTER_DATE,
   LIST_FILTER_STATUS,
+  billType,
 } from '@/base/constants/common';
 import {
   exchangeByLocaleFiat,
@@ -41,24 +40,10 @@ import styles from './index.module.scss';
 interface BillType {
   type: string;
 }
-interface TransactionPageProps {
-  billTypes: BillType[];
-}
-export const getServerSideProps: GetServerSideProps<TransactionPageProps> = async () => {
-  const response = await fetch(`${baseURL}transaction-histories/get-bill-type-list`)
-    .then((res) => res.json())
-    .catch((err) => ({
-      data: [],
-    }));
-  const listTypes: BillType[] = [{ type: 'All Type' }, ...response?.data];
-  return {
-    props: {
-      billTypes: listTypes,
-    },
-  };
-};
 
-const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
+const billTypes: BillType[] = Object.values(billType).map((item: string) => ({ type: item }));
+
+const TransactionPage = () => {
   const { t } = useTranslation('');
 
   const { localeFiat, viewInFiat } = useSelector(
@@ -765,7 +750,7 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
               >
                 <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
-                    {billTypes.map((item, index) => (
+                    {billTypes.map((item: BillType, index: number) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div

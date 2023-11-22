@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';

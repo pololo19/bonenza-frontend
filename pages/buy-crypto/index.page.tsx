@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { ReactElement, useEffect, useRef, useState } from 'react';
 
 import api from '@/api/api';

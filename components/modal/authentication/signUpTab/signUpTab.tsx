@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import cn from 'classnames';
 import { useTheme } from 'next-themes';
 import { useRef, useState } from 'react';
