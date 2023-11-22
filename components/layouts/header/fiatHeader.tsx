@@ -15,7 +15,13 @@ import {
   changeLocaleFiat,
   changeViewInFiat,
 } from '@/base/redux/reducers/common.reducer';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import {
+  currencyFormat,
+  exchangeByLocaleFiat,
+  formatLengthNumber,
+  handleLocaleSymbol,
+  currencyFormat1,
+} from '@/base/libs/utils';
 import { RootState } from '@/base/types/root-state';
 import { FiatType } from '@/base/types/common';
 import InputSearch from '@/components/input/typing/InputSearch';
@@ -195,16 +201,17 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               {viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
                   {localeCoin
-                    ? `${handleLocaleSymbol(String(localeCoin?.currency))} ${currencyFormat(
+                    ? `${currencyFormat1(
                         exchangeByLocaleFiat(activeCoin?.currency, String(localeCoin?.currency), activeCoin?.amount),
                         2,
+                        String(localeCoin?.currency),
                       )}`
                     : `${formatLengthNumber(Number(activeCoin?.amount))}`}
                 </div>
               )}
               {!viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
-                  {currencyFormat(activeCoin?.amount || 0, 4)}
+                  {currencyFormat1(activeCoin?.amount || 0, 4, '', false)}
                 </div>
               )}
               <div className="text-white truncate text-right min-w-[15px]">
@@ -292,10 +299,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               <div className="text-[14px] font-vietnam-bold">{crypto.currency}</div>
                             </div>
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                              {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                              {currencyFormat(
+                              {currencyFormat1(
                                 exchangeByLocaleFiat(crypto?.currency, String(localeFiat?.currency), crypto?.amount),
                                 2,
+                                String(localeFiat?.currency),
                               )}
                               <br />
                               {!crypto?.amountLocked && Number(crypto?.amount) > 0 && (
@@ -314,14 +321,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                       className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
                                     >
                                       <Lock size={12} variant="Bold" />{' '}
-                                      {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                                      {currencyFormat(
+                                      {currencyFormat1(
                                         exchangeByLocaleFiat(
                                           crypto?.currency,
                                           String(localeFiat?.currency),
                                           crypto?.amountLocked,
                                         ),
                                         2,
+                                        String(localeFiat?.currency),
                                       )}
                                     </div>
                                   </div>
@@ -362,10 +369,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               )}
                             </div>
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                              {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                              {currencyFormat(
+                              {currencyFormat1(
                                 exchangeByLocaleFiat(fiat?.currency, String(localeFiat?.currency), fiat?.amount),
                                 2,
+                                String(localeFiat?.currency),
                               )}
                               <br />
                               <span className="text-gray-400 text-[12px]">{formatLengthNumber(fiat?.amount || 0)}</span>
@@ -395,10 +402,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 )}
                               </div>
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                                {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                                {currencyFormat(
+                                {currencyFormat1(
                                   exchangeByLocaleFiat(coin?.currency, String(localeFiat?.currency), coin?.amount),
                                   2,
+                                  String(localeFiat?.currency),
                                 )}
                                 <br />
                                 <span className="text-gray-400 text-[12px]">
@@ -528,10 +535,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 )}
                               </div>
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                                {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                                {currencyFormat(
+                                {currencyFormat1(
                                   exchangeByLocaleFiat(coin?.currency, String(localeFiat?.currency), coin?.amount),
                                   2,
+                                  String(localeFiat?.currency),
                                 )}
                                 <br />
                                 <span className="text-gray-400 text-[12px]">

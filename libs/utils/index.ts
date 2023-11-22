@@ -2,6 +2,8 @@ import { AxiosError } from 'axios';
 import { compareAsc, differenceInSeconds, format, isValid } from 'date-fns';
 import { camelize } from 'humps';
 import { identity, pickBy } from 'lodash';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { TransactionStatus } from '@/types/common';
 import Router from 'next/router';
 import qs from 'qs';
 import { Path, UseFormGetValues } from 'react-hook-form';
@@ -21,11 +23,11 @@ import { DepositAddress, NetworkType, ObjectLiteral } from '@/base/types/common'
 import { getParamByParam } from 'iso-country-currency';
 import { CookiesStorage } from '../storage/cookie';
 
-function camelToSnake(value: string) {
+export function camelToSnake(value: string) {
   return value.replace(/[\w]([A-Z])/g, (m) => `${m[0]}_${m[1]}`).toLowerCase();
 }
 
-const stringifyParams = (data: any) => {
+export const stringifyParams = (data: any) => {
   const { params, option } = data;
   const newParams = pickBy(params, identity);
   return qs.stringify(newParams, {
@@ -36,28 +38,28 @@ const stringifyParams = (data: any) => {
   });
 };
 
-function getCurrentDomain() {
+export function getCurrentDomain() {
   const parts = window.location.hostname.split('.');
   parts.shift();
   return parts.join('.');
 }
 
-function getUrlRoot(pathname?: string) {
+export function getUrlRoot(pathname?: string) {
   return pathname ? pathname.split('/')[1] : '';
 }
 
-function isIsoFormat(str: string) {
+export function isIsoFormat(str: string) {
   return DATE_ISO_FORMAT.test(str);
 }
 
-function isIsoDate(str: string) {
+export function isIsoDate(str: string) {
   if (!isIsoFormat(str)) return false;
   const d = new Date(str);
   const numSub = 19;
   return d instanceof Date && !Number.isNaN(d) && d.toISOString().substring(0, numSub) === str.substring(0, numSub);
 }
 
-function isValidDate(date: Date | number | string | undefined, options?: { strictMode?: boolean }) {
+export function isValidDate(date: Date | number | string | undefined, options?: { strictMode?: boolean }) {
   if (!date) return false;
   if (typeof date !== 'string') return isValid(date);
 
@@ -78,20 +80,23 @@ function isValidDate(date: Date | number | string | undefined, options?: { stric
   return newDate.getFullYear() === year && newDate.getMonth() === month - 1 && newDate.getDate() === day;
 }
 
-function createDate(date: Date | number | string) {
+export function createDate(date: Date | number | string) {
   if (typeof date === 'string' && isIsoFormat(date)) {
     return new Date(date);
   }
   return new Date(typeof date === 'string' ? date.replace(DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER) : date);
 }
 
-function formatDate(date: Date | number | string | undefined, dateFormat = DATE_TIME_FORMAT_DEFAULT) {
+export function formatDate(date: Date | number | string | undefined, dateFormat = DATE_TIME_FORMAT_DEFAULT) {
   if (!date || !isValidDate(date)) return '';
   const newDate: Date = createDate(date);
   return format(newDate, dateFormat).toString();
 }
 
-function differenceDateInSeconds(date1: Date | number | string | undefined, date2: Date | number | string | undefined) {
+export function differenceDateInSeconds(
+  date1: Date | number | string | undefined,
+  date2: Date | number | string | undefined,
+) {
   if (!date1 || !isValidDate(date1)) return '';
   if (!date2 || !isValidDate(date2)) return '';
   const newDate1 = createDate(date1);
@@ -99,7 +104,7 @@ function differenceDateInSeconds(date1: Date | number | string | undefined, date
   return differenceInSeconds(newDate1, newDate2);
 }
 
-function compareDateAsc(date1: Date | number | string | undefined, date2: Date | number | string | undefined) {
+export function compareDateAsc(date1: Date | number | string | undefined, date2: Date | number | string | undefined) {
   if (!date1 || !isValidDate(date1)) return '';
   if (!date2 || !isValidDate(date2)) return '';
   const newDate1 = createDate(date1);
@@ -107,7 +112,7 @@ function compareDateAsc(date1: Date | number | string | undefined, date2: Date |
   return compareAsc(newDate1, newDate2);
 }
 
-function titleCase(text: string) {
+export function titleCase(text: string) {
   var splitStr = text.toLowerCase().split(' ');
   for (var i = 0; i < splitStr.length; i++) {
     splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
@@ -115,7 +120,7 @@ function titleCase(text: string) {
   return splitStr.join(' ');
 }
 
-function getErrors(error?: AxiosError<ErrorResponse>) {
+export function getErrors(error?: AxiosError<ErrorResponse>) {
   const fieldErrors: { error_code?: string; field?: Path<unknown>; message?: string }[] =
     error?.response?.data?.error?.errors?.map((item) => ({
       ...item,
@@ -129,31 +134,31 @@ function getErrors(error?: AxiosError<ErrorResponse>) {
   };
 }
 
-function checkFormHasField(getValues: UseFormGetValues<ObjectLiteral>, field: Path<ObjectLiteral>) {
+export function checkFormHasField(getValues: UseFormGetValues<ObjectLiteral>, field: Path<ObjectLiteral>) {
   return Object.keys(getValues())?.includes(field);
 }
 
-function isAdminOfCompany(role?: string) {
+export function isAdminOfCompany(role?: string) {
   return USER_ROLE_DEFAULT.SUPER_ADMIN === role;
 }
 
-function pushQueryParams(params: ObjectLiteral, options?: { scroll?: boolean }) {
+export function pushQueryParams(params: ObjectLiteral, options?: { scroll?: boolean }) {
   const query = pickBy(params, identity);
   Router.push({ pathname: Router.route, query }, undefined, options);
 }
 
-function isErrorAccountInvalid(errorCode: string) {
+export function isErrorAccountInvalid(errorCode: string) {
   return ERROR_CODE_INVALID_ACCOUNT.includes(errorCode);
 }
 
-function showToastError(message: string, error?: unknown) {
+export function showToastError(message: string, error?: unknown) {
   const errorCode = (error as AxiosError<ErrorResponse>)?.response?.data?.error?.error_code;
   if (!errorCode || !isErrorAccountInvalid(errorCode)) {
     toast.error(message);
   }
 }
 
-function convertTimeZone(date: string | Date) {
+export function convertTimeZone(date: string | Date) {
   return createDate(date).toLocaleString('ja-JP', { timeZone: process.env.TIME_ZONE });
 }
 
@@ -163,7 +168,7 @@ const changeExtension = (fileName: string, extension: string) => {
   return `${root}${extension}`;
 };
 
-function canvasToBlob(canvas: HTMLCanvasElement, fileName: string): Promise<File> {
+export function canvasToBlob(canvas: HTMLCanvasElement, fileName: string): Promise<File> {
   return new Promise((resolve) => {
     canvas.toBlob((blob) => {
       if (blob) {
@@ -176,17 +181,17 @@ function canvasToBlob(canvas: HTMLCanvasElement, fileName: string): Promise<File
   });
 }
 
-function byteToGigabyte(input: number, numFixed?: number) {
+export function byteToGigabyte(input: number, numFixed?: number) {
   const result = input / 1024 / 1024 / 1024;
   return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
 }
 
-function byteToMegabyte(input: number, numFixed?: number) {
+export function byteToMegabyte(input: number, numFixed?: number) {
   const result = input / 1024 / 1024;
   return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
 }
 
-function getMessageMetamask(account: string) {
+export function getMessageMetamask(account: string) {
   let message = `Welcome to Bonenza.com!
         This request will not trigger a blockchain transaction or cost any gas fees.
         Your authentication status will reset after 24 hours.
@@ -194,28 +199,28 @@ function getMessageMetamask(account: string) {
   return message;
 }
 
-const truncateAddress = (address: string, dots = 3) => {
+export const truncateAddress = (address: string, dots = 3) => {
   if (!address) return 'No Account';
   const match = address.match(/^(0x[a-zA-Z0-9]{2})[a-zA-Z0-9]+([a-zA-Z0-9]{8})$/);
   if (!match) return address;
   return `${match[1]}${' .'.repeat(dots)} ${match[2]}`;
 };
 
-const truncateAddressHeader = (address: string, dots = 3) => {
+export const truncateAddressHeader = (address: string, dots = 3) => {
   if (!address) return 'No Account';
   const match = address.match(/^(0x[a-zA-Z0-9]{5})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/);
   if (!match) return address;
   return `${match[1]}${' .'.repeat(dots)} ${match[2]}`;
 };
 
-const transformWalletAddress = (address: string, dots = 3) => {
+export const transformWalletAddress = (address: string, dots = 3) => {
   if (!address) return 'No Account';
   const match = address.match(/^([a-zA-Z0-9]{7})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/);
   if (!match) return address;
   return `${match[1]}${' .'.repeat(dots)} ${match[2]}`;
 };
 
-const getListNetwork = (coin: DepositAddress) => {
+export const getListNetwork = (coin: DepositAddress) => {
   switch (coin.symbol) {
     case 'USDT':
       return [
@@ -261,7 +266,7 @@ const getListNetwork = (coin: DepositAddress) => {
   }
 };
 
-const updateCoin = (coin: DepositAddress) => {
+export const updateCoin = (coin: DepositAddress) => {
   switch (coin?.symbol) {
     case 'USDT':
       return { ...coin, image: '/img/icon/USDT-logo.svg' };
@@ -278,7 +283,7 @@ const updateCoin = (coin: DepositAddress) => {
   }
 };
 
-const handleWithdrawURL = (coin?: DepositAddress) => {
+export const handleWithdrawURL = (coin?: DepositAddress) => {
   if (coin?.symbol === 'USDT' && coin?.network === 'BEP20') {
     return 'withdraw/transfer-BEP20-USDT';
   } else if (coin?.symbol === 'USDT' && coin?.network === 'ERC20') {
@@ -295,7 +300,7 @@ const handleWithdrawURL = (coin?: DepositAddress) => {
   return '';
 };
 
-function removeTrailingZeros(str: string) {
+export function removeTrailingZeros(str: string) {
   let num = parseFloat(str); // Convert the string to a number
   let formattedString = num.toString(); // Convert the number back to a string
 
@@ -307,7 +312,7 @@ function removeTrailingZeros(str: string) {
   return formattedString.slice(1);
 }
 
-function currencyFormat(num: number, fixedNumber: number = 4) {
+export function currencyFormat(num: number, fixedNumber: number = 4) {
   if (!num) return Number(0).toFixed(fixedNumber);
   if (Number(num) < 0.01) {
     let numFixed = Number(Number(num)?.toFixed(fixedNumber));
@@ -319,7 +324,7 @@ function currencyFormat(num: number, fixedNumber: number = 4) {
         numFixed = Number(Number(num)?.toFixed(i));
         integer = Math.abs(Math.trunc(numFixed));
         decimal = Math.abs(numFixed) - Math.floor(Math.abs(numFixed));
-        decimalString= removeTrailingZeros(String(Number(decimal).toFixed(i)).slice(1));
+        decimalString = removeTrailingZeros(String(Number(decimal).toFixed(i)).slice(1));
         if (decimal !== 0) {
           break;
         }
@@ -340,7 +345,7 @@ function currencyFormat(num: number, fixedNumber: number = 4) {
   );
 }
 
-function exchangeByLocaleFiat(prevFiat?: string, curFiat: string = 'USD', amount?: number) {
+export function exchangeByLocaleFiat(prevFiat?: string, curFiat: string = 'USD', amount?: number) {
   const exchangeRateData = CookiesStorage.getCookieData(CookieKey.exchangeRate);
   if (!exchangeRateData || !prevFiat || !curFiat || !amount) return 0;
   const exchangeRateObj = JSON.parse(exchangeRateData);
@@ -350,7 +355,7 @@ function exchangeByLocaleFiat(prevFiat?: string, curFiat: string = 'USD', amount
   return Number.isNaN(newAmount) ? 0 : newAmount;
 }
 
-const handleLocaleSymbol = (givenParamValue: string) => {
+export const handleLocaleSymbol = (givenParamValue: string) => {
   try {
     if (!givenParamValue) return '$';
     if (givenParamValue === 'RUB') return '₽';
@@ -362,21 +367,33 @@ const handleLocaleSymbol = (givenParamValue: string) => {
   }
 };
 
-const formatLengthNumber = (num: number | string, length?: number) => {
+export const formatLengthNumber = (num: number | string, length?: number) => {
   if (!length) length = 9;
   if (!num) return Number(0).toFixed(length - 1);
+  let zeroCount = -Math.floor(Math.log10(Number(num)));
+  if (zeroCount > length / 2 && Number(num) > 0) {
+    let nonZeros = '';
+    let numberString = new Intl.NumberFormat('en', { maximumSignificantDigits: length - 1 })
+      .format(Number(num))
+      .toString();
+    for (let i = zeroCount + 1; i < (numberString.length > zeroCount + 5 ? zeroCount + 5 : numberString.length); i++) {
+      nonZeros += numberString[i];
+    }
+    const res = `0.(${zeroCount - 1})${nonZeros}`;
+    return res;
+  }
   const integerNumber = Math.abs(Number(num)).toString().split('.')[0];
   if (integerNumber.length > 9) return Math.abs(Number(num));
   const missLength = length - integerNumber.length > 0 ? length - integerNumber.length : 0;
   return Math.abs(Number(num)).toFixed(missLength);
 };
 
-const isDecimalNumber = (num: number | string) => {
+export const isDecimalNumber = (num: number | string) => {
   if (!num) return false;
   return !!Math.abs(Number(num)).toString().split('.')[1];
 };
 
-const snakeCaseToString = (str?: string) => {
+export const snakeCaseToString = (str?: string) => {
   try {
     return String(str)
       .split('_')
@@ -388,7 +405,7 @@ const snakeCaseToString = (str?: string) => {
   }
 };
 
-const convertUserInfo = (userData: any) => {
+export const convertUserInfo = (userData: any) => {
   return {
     userName: userData?.username,
     userId: userData?.id,
@@ -404,42 +421,96 @@ const convertUserInfo = (userData: any) => {
   };
 };
 
-export {
-  convertUserInfo,
-  snakeCaseToString,
-  handleLocaleSymbol,
-  exchangeByLocaleFiat,
-  currencyFormat,
-  isDecimalNumber,
-  formatLengthNumber,
-  titleCase,
-  updateCoin,
-  handleWithdrawURL,
-  getListNetwork,
-  truncateAddressHeader,
-  truncateAddress,
-  transformWalletAddress,
-  getMessageMetamask,
-  stringifyParams,
-  camelToSnake,
-  getCurrentDomain,
-  getUrlRoot,
-  isValidDate,
-  formatDate,
-  getErrors,
-  checkFormHasField,
-  pushQueryParams,
-  createDate,
-  isErrorAccountInvalid,
-  showToastError,
-  isIsoFormat,
-  isIsoDate,
-  differenceDateInSeconds,
-  compareDateAsc,
-  isAdminOfCompany,
-  convertTimeZone,
-  changeExtension,
-  canvasToBlob,
-  byteToGigabyte,
-  byteToMegabyte,
+export function copyClipBoard(text: string) {
+  toast.success('Copied', { containerId: TOAST_ENUM.COMMON });
+  navigator.clipboard.writeText(text);
+}
+export function formatCompactNumber(number: number, setting: any) {
+  try {
+    const res = Intl.NumberFormat('en', setting).format(number);
+    return res;
+  } catch (error) {
+    return 0;
+  }
+}
+export function currencyFormat1(number: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
+  try {
+    let res = '';
+    const symbol = flag ? handleLocaleSymbol(currency) : '';
+    if (number === 0) return `${symbol} 0.0000`;
+    let zeroCount = -Math.floor(Math.log10(number));
+    const miniZeroNum = zeroNum > 5 ? zeroNum : 5;
+    let numberString = new Intl.NumberFormat('en', { maximumSignificantDigits: miniZeroNum - 1 })
+      .format(number)
+      .toString();
+    if (zeroCount > miniZeroNum) {
+      let nonZeros = '';
+      for (
+        let i = zeroCount + 1;
+        i < (numberString.length > zeroCount + 5 ? zeroCount + 5 : numberString.length);
+        i++
+      ) {
+        nonZeros += numberString[i];
+      }
+      res = `0.(${zeroCount - 1})${nonZeros}`;
+    } else {
+      res = formatCompactNumber(number, {
+        minimumFractionDigits: zeroNum,
+      }).toString();
+    }
+    return `${symbol} ${res}`;
+  } catch (error) {
+    return '';
+  }
+}
+export const getColorByStatus = (status: TransactionStatus) => {
+  let bgColor = '';
+  switch (status) {
+    case 'process':
+      bgColor = 'bg-[#efef19]';
+      break;
+    case 'pending':
+      bgColor = 'bg-[#efef19]';
+      break;
+    case 'refunding':
+      bgColor = 'bg-[#efef19]';
+      break;
+    case 'rejected':
+      bgColor = 'bg-[#c31414]';
+      break;
+    case 'fail':
+      bgColor = 'bg-[#c31414]';
+      break;
+    default:
+      bgColor = 'bg-[#3BC117]';
+      break;
+  }
+  return bgColor;
+};
+export const convertStatus = (status: TransactionStatus) => {
+  let newStatus = '';
+  switch (status) {
+    case 'process':
+      newStatus = 'processing';
+      break;
+    case 'pending':
+      newStatus = 'processing';
+      break;
+    case 'refunding':
+      newStatus = 'processing';
+      break;
+    case 'fail':
+      newStatus = 'failed';
+      break;
+    case 'rejected':
+      newStatus = 'failed';
+      break;
+    case 'approve':
+      newStatus = 'success';
+      break;
+    default:
+      newStatus = status;
+      break;
+  }
+  return newStatus?.charAt(0)?.toUpperCase() + newStatus?.slice(1);
 };

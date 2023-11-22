@@ -1,3 +1,4 @@
+import { LIST_FILTER_STATUS } from '@/base/constants/common';
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
 import { ElementType } from 'react';
@@ -8,7 +9,14 @@ import { toast } from 'react-toastify';
 import { useTranslation } from 'react-i18next';
 
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
-import { currencyFormat, formatDate, transformWalletAddress, truncateAddressHeader } from '@/base/libs/utils';
+import {
+  formatDate,
+  transformWalletAddress,
+  currencyFormat1,
+  convertStatus,
+  getColorByStatus,
+  copyClipBoard,
+} from '@/base/libs/utils';
 import CommonModal from '../commonModal/commonModal';
 
 type ModalDetailTransactionProps = {
@@ -28,73 +36,6 @@ export default function ModalDetailTransaction({
   type,
 }: ModalDetailTransactionProps) {
   const { t } = useTranslation('');
-
-  const LIST_FILTER_STATUS = [
-    { name: String(t('transaction:allAssets')), type: '' },
-    { name: String(t('transaction:complete')), type: 'success' },
-    { name: String(t('transaction:processing')), type: 'process' },
-    { name: String(t('transaction:pending')), type: 'pending' },
-    { name: String(t('transaction:failed')), type: 'fail' },
-    { name: String(t('transaction:canceled')), type: 'rejected' },
-  ];
-
-  const copy = (text: string) => {
-    toast.success('Copied', { containerId: TOAST_ENUM.COMMON });
-    navigator.clipboard.writeText(text);
-  };
-
-  const getColorStatus = (status: string) => {
-    let bgColor = '';
-    switch (status) {
-      case 'process':
-        bgColor = 'bg-[#efef19]';
-        break;
-      case 'pending':
-        bgColor = 'bg-[#efef19]';
-        break;
-      case 'refunding':
-        bgColor = 'bg-[#efef19]';
-        break;
-      case 'rejected':
-        bgColor = 'bg-[#c31414]';
-        break;
-      case 'fail':
-        bgColor = 'bg-[#c31414]';
-        break;
-      default:
-        bgColor = 'bg-[#3BC117]';
-        break;
-    }
-    return bgColor;
-  };
-
-  const getStatus = (status: string) => {
-    let newStatus = '';
-    switch (status) {
-      case 'process':
-        newStatus = 'processing';
-        break;
-      case 'pending':
-        newStatus = 'processing';
-        break;
-      case 'refunding':
-        newStatus = 'processing';
-        break;
-      case 'fail':
-        newStatus = 'failed';
-        break;
-      case 'rejected':
-        newStatus = 'failed';
-        break;
-      case 'approve':
-        newStatus = 'success';
-        break;
-      default:
-        newStatus = status;
-        break;
-    }
-    return newStatus?.charAt(0)?.toUpperCase() + newStatus?.slice(1);
-  };
 
   let isProcess =
     transaction.status === LIST_FILTER_STATUS[2].type || transaction.status === LIST_FILTER_STATUS[3].type;
@@ -124,11 +65,11 @@ export default function ModalDetailTransaction({
             >
               <span>
                 {transaction.type.name === 'Withdraw' && (
-                  <span>- {currencyFormat(transaction?.amount - transaction?.fee, 6)}</span>
+                  <span>- {currencyFormat1(transaction?.amount - transaction?.fee, 6, '', false)}</span>
                 )}
                 {transaction.type.name !== 'Withdraw' && (
                   <span>
-                    {Number(transaction?.amount) >= 0 ? '+' : ''} {currencyFormat(transaction?.amount, 6)}
+                    {Number(transaction?.amount) >= 0 ? '+' : ''} {currencyFormat1(transaction?.amount, 6, '', false)}
                   </span>
                 )}
               </span>
@@ -139,8 +80,8 @@ export default function ModalDetailTransaction({
             <div className="flex items-center justify-between">
               <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:status'))}</span>
               <div className="flex gap-2 items-center">
-                <div className={`w-[8px] h-[8px] rounded-full ${getColorStatus(transaction.status)}`}></div>
-                <div className="dark:text-white text-black">{getStatus(transaction.status)}</div>
+                <div className={`w-[8px] h-[8px] rounded-full ${getColorByStatus(transaction.status)}`}></div>
+                <div className="dark:text-white text-black">{convertStatus(transaction.status)}</div>
               </div>
             </div>
             {transaction.status === LIST_FILTER_STATUS[1].type && (
@@ -150,7 +91,7 @@ export default function ModalDetailTransaction({
                   <span className="text-black dark:text-white">{transformWalletAddress(transaction.txId)}</span>
                   <Simcard2
                     role="button"
-                    onClick={() => copy(String(transaction?.txId))}
+                    onClick={() => copyClipBoard(String(transaction?.txId))}
                     className="w-[16px] h-[16px]"
                   />
                 </div>
@@ -162,7 +103,7 @@ export default function ModalDetailTransaction({
                 <span className="text-black dark:text-white">{transformWalletAddress(transaction?.orderId)}</span>
                 <Simcard2
                   role="button"
-                  onClick={() => copy(String(transaction?.orderId))}
+                  onClick={() => copyClipBoard(String(transaction?.orderId))}
                   className="w-[16px] h-[16px] text-[#31373D] dark:text-[#98A7B5]"
                 />
               </div>
