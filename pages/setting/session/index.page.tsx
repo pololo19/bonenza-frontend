@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { ColumnDef } from '@tanstack/react-table';
 import { ReactElement, useEffect, useState } from 'react';
 

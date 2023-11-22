@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { Disclosure, Transition } from '@headlessui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';

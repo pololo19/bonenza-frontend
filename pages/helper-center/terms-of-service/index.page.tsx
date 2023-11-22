@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { useTranslation } from '@/base/config/i18next';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';

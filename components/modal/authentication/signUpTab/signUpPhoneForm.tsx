@@ -1,5 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Dispatch, Ref, SetStateAction, forwardRef, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';

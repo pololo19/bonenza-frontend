@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { yupResolver } from '@hookform/resolvers/yup';
 import { toast } from 'react-toastify';
 import { useState } from 'react';

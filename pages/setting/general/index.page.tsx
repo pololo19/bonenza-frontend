@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import React, { ReactElement, useEffect, useState, Fragment } from 'react';
 import cn from 'classnames';
 import withAuth from '@/components/hoc/withAuth';

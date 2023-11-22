@@ -1108,6 +1108,14 @@ export const CHANNELS = [
   },
 ];
 
+export const billType = {
+  VAULT: 'vault',
+  GAME: 'game',
+  SWAP: 'swap',
+  AFFILIATE: 'affiliate',
+  BONUS: 'bonus',
+};
+
 export const LIST_FILTER_TYPE = [
   { name: 'transaction:deposit', id: 1 },
   { name: 'transaction:withdraw', id: 2 },

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
 import { ElementType, useState } from 'react';

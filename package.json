@@ -63,7 +63,6 @@
     "core-js": "3.29.0",
     "date-fns": "2.29.3",
     "dotenv": "16.0.3",
-    "eslint": "8.41.0",
     "eslint-config-next": "13.4.3",
     "ethers": "^6.6.0",
     "file-loader": "^6.2.0",
@@ -139,5 +138,12 @@
     "web3": "^1.7.5",
     "yarn": "^1.22.19",
     "yup": "1.2.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@typescript-eslint/parser": "^6.12.0",
+    "eslint": "^8.54.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0"
   }
 }
