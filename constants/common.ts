@@ -12,7 +12,7 @@ import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '..
 import resources from '../public/locales';
 import { Settings } from 'react-slick';
 
-const CookieKey = {
+export const CookieKey = {
   accessToken: 'accessToken',
   auth: 'auth',
   userId: 'userId',
@@ -36,9 +36,9 @@ const CookieKey = {
   level: 'level',
 };
 
-const AUTH_KEY = 'BONENZA@2023';
+export const AUTH_KEY = 'BONENZA@2023';
 
-const ROUTER = {
+export const ROUTER = {
   Home: '/',
   REFERRAL_CODE: (code: string) => `https://bonenza.com/referral/${code}`,
   Dashboard: '/dashboard',
@@ -116,7 +116,7 @@ const ROUTER = {
   AdminCommissions: '/admin/mycasino/commissions/',
 };
 
-const LANGUAGE_DATA: {
+export const LANGUAGE_DATA: {
   language?: string;
   key?: keyof typeof resources;
   href?: string;
@@ -258,7 +258,7 @@ const LANGUAGE_DATA: {
   },
 ];
 
-const FIAT_DATA: FiatType[] = [
+export const FIAT_DATA: FiatType[] = [
   {
     currency: 'USD',
     currencyAlias: 'US Dollar',
@@ -525,94 +525,99 @@ const FIAT_DATA: FiatType[] = [
   },
 ];
 
-const ERROR_CODE_IGNORE_REFRESH: string[] = [];
-const ERROR_CODE_INVALID_ACCOUNT: string[] = ['SIS-COMPANY-001', 'SIS-COMPANY-002', 'SIS-USER-001', 'SIS-USER-99'];
+export const ERROR_CODE_IGNORE_REFRESH: string[] = [];
+export const ERROR_CODE_INVALID_ACCOUNT: string[] = [
+  'SIS-COMPANY-001',
+  'SIS-COMPANY-002',
+  'SIS-USER-001',
+  'SIS-USER-99',
+];
 
-const UNICODE_NORMALIZATION = 'NFKC';
-const DATE_FORMAT_VALIDATE = 'Y/m/d';
-const TIME_FORMAT_VALIDATE = 'H:i';
-const MONTH_PICKER_FORMAT = 'Y/m';
-const DATE_TIME_PICKER_FORMAT = 'Y/m/d H:i';
-const DATE_FORMAT_DEFAULT = 'yyyy/MM/dd';
-const DATE_TIME_SUBMIT_FORMAT = 'yyyy-MM-dd HH:mm';
-const DATE_TIME_TRANSACTION_FORMAT = 'yyyy-MM-dd';
-const DATE_TIME_SUBMIT_FORMAT_WITH_SECOND = 'yyyy-MM-dd HH:mm:ss';
-const TIME_DATE_SUBMIT_FORMAT = 'HH:mm:ss yyyy-MM-dd';
-const TIME_SUBMIT_FORMAT_WITH_SECOND = 'HH:mm:ss';
-const TIME_SUBMIT_FORMAT_WITH_MARKER = 'yyyy-MM-dd hh:mm:ss a';
-const DATE_TIME_FORMAT_DEFAULT = 'yyyy/MM/dd HH:mm';
-const DATE_TIME_FORMAT_CSV = 'yyyyMMdd_HHmmss';
-const DATE_TIME_TRASH_FORMAT = 'yyyy/MM/dd - HH:mm';
+export const UNICODE_NORMALIZATION = 'NFKC';
+export const DATE_FORMAT_VALIDATE = 'Y/m/d';
+export const TIME_FORMAT_VALIDATE = 'H:i';
+export const MONTH_PICKER_FORMAT = 'Y/m';
+export const DATE_TIME_PICKER_FORMAT = 'Y/m/d H:i';
+export const DATE_FORMAT_DEFAULT = 'yyyy/MM/dd';
+export const DATE_TIME_SUBMIT_FORMAT = 'yyyy-MM-dd HH:mm';
+export const DATE_TIME_TRANSACTION_FORMAT = 'yyyy-MM-dd';
+export const DATE_TIME_SUBMIT_FORMAT_WITH_SECOND = 'yyyy-MM-dd HH:mm:ss';
+export const TIME_DATE_SUBMIT_FORMAT = 'HH:mm:ss yyyy-MM-dd';
+export const TIME_SUBMIT_FORMAT_WITH_SECOND = 'HH:mm:ss';
+export const TIME_SUBMIT_FORMAT_WITH_MARKER = 'yyyy-MM-dd hh:mm:ss a';
+export const DATE_TIME_FORMAT_DEFAULT = 'yyyy/MM/dd HH:mm';
+export const DATE_TIME_FORMAT_CSV = 'yyyyMMdd_HHmmss';
+export const DATE_TIME_TRASH_FORMAT = 'yyyy/MM/dd - HH:mm';
 
-const SELECT_BOX_BORDER_COLOR = '#d1d5db';
-const SELECT_BOX_BORDER_COLOR_FOCUSED = '#4F46E5';
-const INPUT_PLACEHOLDER_COLOR = '#9ca3af';
-const SELECT_BOX_MENU_PORTAL_Z_INDEX = 5;
+export const SELECT_BOX_BORDER_COLOR = '#d1d5db';
+export const SELECT_BOX_BORDER_COLOR_FOCUSED = '#4F46E5';
+export const INPUT_PLACEHOLDER_COLOR = '#9ca3af';
+export const SELECT_BOX_MENU_PORTAL_Z_INDEX = 5;
 
-const TEXTAREA_ROWS_NUM_DEFAULT = 3;
-const TEXT_SHOW_MORE_LINE_DEFAULT = 1;
+export const TEXTAREA_ROWS_NUM_DEFAULT = 3;
+export const TEXT_SHOW_MORE_LINE_DEFAULT = 1;
 
-const BASIC_COLOR_DEFAULT = {
+export const BASIC_COLOR_DEFAULT = {
   Background: '#005AAA',
   Text: '#FFFFFF',
 };
 
-const LIST_PER_PAGE = [10, 20, 50, 100];
+export const LIST_PER_PAGE = [10, 20, 50, 100];
 
-const LIST_PER_PAGE_SELECT = [
+export const LIST_PER_PAGE_SELECT = [
   { label: '10', value: '10' },
   { label: '20', value: '20' },
   { label: '50', value: '50' },
   { label: '100', value: '100' },
 ];
 
-const CompanyNotifications = 'companyNotifications';
-const RelationshipOfCompany = ['manager', 'companyRole'];
-const RelationshipOfProduct = ['folder', 'productAttributes'];
-const RELATIONSHIP_PARAMS = {
+export const CompanyNotifications = 'companyNotifications';
+export const RelationshipOfCompany = ['manager', 'companyRole'];
+export const RelationshipOfProduct = ['folder', 'productAttributes'];
+export const RELATIONSHIP_PARAMS = {
   permissions: 'permissions',
   roles: 'roles',
   role: 'role',
 };
 
-const STATUS_CODE_NOTFOUND = 404;
-const STATUS_CODE_UNPROCESSABLE_CONTENT = 422;
+export const STATUS_CODE_NOTFOUND = 404;
+export const STATUS_CODE_UNPROCESSABLE_CONTENT = 422;
 
-const DELIVERY_AUDIENCE = [
+export const DELIVERY_AUDIENCE = [
   { value: 'ALL', titleKey: 'deliveryAudienceAll' },
   { value: 'TARGET_SELECTION', titleKey: 'deliveryAudienceSelect' },
 ];
 
-const TYPE_IMG_AFTER_CROP = 'image/png';
-const EXTENSION_IMG_AFTER_CROP = 'png';
+export const TYPE_IMG_AFTER_CROP = 'image/png';
+export const EXTENSION_IMG_AFTER_CROP = 'png';
 
-const FILE_CHUNK_SIZE = 50 * 1024 * 1024; // 50MB
-const DEFAULT_FILE_CHUNK_SIZE = 10 * 1024 * 1024; // 10MB
+export const FILE_CHUNK_SIZE = 50 * 1024 * 1024; // 50MB
+export const DEFAULT_FILE_CHUNK_SIZE = 10 * 1024 * 1024; // 10MB
 
-const PRODUCT_MAX_FILE_UPLOAD_SIZE = 5 * 1024 * 1024 * 1024; // 5GB
-const PRODUCT_MAX_THUMBNAIL_UPLOAD_SIZE = 15 * 1024 * 1024; // 15MB
-const PRODUCT_MAX_FILE = 500;
-const SINGLE_PRODUCT_MAX_FILE = 100;
+export const PRODUCT_MAX_FILE_UPLOAD_SIZE = 5 * 1024 * 1024 * 1024; // 5GB
+export const PRODUCT_MAX_THUMBNAIL_UPLOAD_SIZE = 15 * 1024 * 1024; // 15MB
+export const PRODUCT_MAX_FILE = 500;
+export const SINGLE_PRODUCT_MAX_FILE = 100;
 
-const ACCEPT_IMAGE = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/bmp'];
-const ACCEPT_IMAGE_CROP = ['image/jpg', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/bmp'];
-const ACCEPT_IMAGE_THUMBNAIL = ['image/jpg', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/bmp'];
+export const ACCEPT_IMAGE = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'image/bmp'];
+export const ACCEPT_IMAGE_CROP = ['image/jpg', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/bmp'];
+export const ACCEPT_IMAGE_THUMBNAIL = ['image/jpg', 'image/jpeg', 'image/png', 'image/svg+xml', 'image/bmp'];
 
-const TYPE_IMAGE = 'image';
-const SIZE_IMAGE = '200';
-const SIZE_IMAGE_THUMBNAIL_RESIZE = '500';
-const IMAGE_THUMBNAIL = '/images/thumbImage.jpg';
-const IMAGE_THUMBNAIL_FILE = '/images/thumbFile.jpg';
+export const TYPE_IMAGE = 'image';
+export const SIZE_IMAGE = '200';
+export const SIZE_IMAGE_THUMBNAIL_RESIZE = '500';
+export const IMAGE_THUMBNAIL = '/images/thumbImage.jpg';
+export const IMAGE_THUMBNAIL_FILE = '/images/thumbFile.jpg';
 
-const IMAGE_SUFFIX = ['jpg', 'jpeg', 'bmp', 'png'];
-const MIN_CROP_HEIGHT = 50;
-const MIN_CROP_WIDTH = 50;
+export const IMAGE_SUFFIX = ['jpg', 'jpeg', 'bmp', 'png'];
+export const MIN_CROP_HEIGHT = 50;
+export const MIN_CROP_WIDTH = 50;
 
-const PRODUCT_ATTRIBUTE_NOT_EXIST = 'SIS-PRODUCT-312';
+export const PRODUCT_ATTRIBUTE_NOT_EXIST = 'SIS-PRODUCT-312';
 
-const CHUNK_BATCH_CREATE_PRODUCT = 100;
+export const CHUNK_BATCH_CREATE_PRODUCT = 100;
 
-const SIDEBAR_LIST = [
+export const SIDEBAR_LIST = [
   {
     href: ROUTER.Bonus,
     name: 'sidebar:bonus',
@@ -660,14 +665,14 @@ const SIDEBAR_LIST = [
   },
 ];
 
-const USER_DEMO = {
+export const USER_DEMO = {
   name: 'Tom Cook',
   email: 'tom@example.com',
   imageUrl:
     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
 };
 
-const LOGIN_REGISTRATION_METHOD = [
+export const LOGIN_REGISTRATION_METHOD = [
   {
     image: '/img/icon/MetaMask.png',
     name: 'MetaMask',
@@ -685,7 +690,7 @@ const LOGIN_REGISTRATION_METHOD = [
   },
 ];
 
-const CRYPTO_DATA: DepositAddress[] = [
+export const CRYPTO_DATA: DepositAddress[] = [
   {
     image: '/img/icon/USDT-logo.svg',
     symbol: 'USDT',
@@ -728,7 +733,7 @@ const CRYPTO_DATA: DepositAddress[] = [
   },
 ];
 
-const CRYPTO_NORMAL_DATA: DepositAddress[] = [
+export const CRYPTO_NORMAL_DATA: DepositAddress[] = [
   {
     symbol: 'All assets',
   },
@@ -755,7 +760,7 @@ const CRYPTO_NORMAL_DATA: DepositAddress[] = [
   },
 ];
 
-const LIST_MOONPAY_COIN: MoonpayDepositAddress[] = [
+export const LIST_MOONPAY_COIN: MoonpayDepositAddress[] = [
   {
     image: '/img/icon/USDT-logo.svg',
     symbol: 'USDT',
@@ -786,7 +791,7 @@ const LIST_MOONPAY_COIN: MoonpayDepositAddress[] = [
   },
 ];
 
-const DEPOSIT_DEMO: DepositAddress[] = [
+export const DEPOSIT_DEMO: DepositAddress[] = [
   {
     balance: '0',
     depositAddress: '0x9F0A1d21e888B00c4fB38B39de8F19e0B27933e1',
@@ -796,7 +801,7 @@ const DEPOSIT_DEMO: DepositAddress[] = [
   },
 ];
 
-const LIST_NETWORK_WITHDRAW: NetworkType[] = [
+export const LIST_NETWORK_WITHDRAW: NetworkType[] = [
   {
     image: '/img/icon/ETH-logo.svg',
     symbol: 'ERC20',
@@ -807,7 +812,7 @@ const LIST_NETWORK_WITHDRAW: NetworkType[] = [
   },
 ];
 
-const LIST_COIN_BALANCE: DepositAddress[] = [
+export const LIST_COIN_BALANCE: DepositAddress[] = [
   {
     image: '/img/icon/GOD-logo.svg',
     symbol: 'GOD',
@@ -835,25 +840,25 @@ const LIST_COIN_BALANCE: DepositAddress[] = [
   },
 ];
 
-enum TOAST_ENUM {
+export enum TOAST_ENUM {
   COMMON = 'COMMON',
   MODAL = 'MODAL',
 }
 
-enum KYC_ENUM {
+export enum KYC_ENUM {
   REQUIRED = 0,
   REJECT = -1,
   PENDING = 1,
   APPROVE = 2,
 }
 
-const LIST_NETWORK_USDT = ['BEP20', 'ERC20'];
+export const LIST_NETWORK_USDT = ['BEP20', 'ERC20'];
 
-const BASE_CURRENCY = 'EUR';
-const CONVERT_CURRENCIES =
+export const BASE_CURRENCY = 'EUR';
+export const CONVERT_CURRENCIES =
   'USD,BRL,INR,EUR,RUB,NGN,IDR,BDT,PHP,VND,THB,KZT,MAD,ZAR,PLN,CUP,KRW,JPY,GBP,HRK,ISK,HUF,NOK,NZD,ARS,MXN,AUD,TRY,IRR,AED,CAD,UAH,CZK,LKR,ILS,EGP,PKR,GHS,VEF,PEN,RON,BGN,RSD,CLP';
 
-const BANNER_DATA = [
+export const BANNER_DATA = [
   {
     img: '/img/banners/Aloha_King_Elvis.jpg',
     url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),
@@ -916,7 +921,7 @@ const BANNER_DATA = [
   },
 ];
 
-const VIP_LEVEL_DATA = [
+export const VIP_LEVEL_DATA = [
   {
     id: '1',
     img: '/img/bronze-medal.png',
@@ -1001,7 +1006,7 @@ const VIP_LEVEL_DATA = [
   },
 ];
 
-const SETTING_BANNER: Settings = {
+export const SETTING_BANNER: Settings = {
   dots: true,
   infinite: true,
   speed: 1000,
@@ -1026,9 +1031,9 @@ const SETTING_BANNER: Settings = {
   ],
 };
 
-const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'] };
+export const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'] };
 
-const CHANNELS = [
+export const CHANNELS = [
   {
     id: '1',
     name: 'Global',
@@ -1103,83 +1108,25 @@ const CHANNELS = [
   },
 ];
 
-export {
-  LIST_NETWORK_USDT,
-  CHANNELS,
-  TOAST_ENUM,
-  KYC_ENUM,
-  BANNER_DATA,
-  VIP_LEVEL_DATA,
-  SETTING_BANNER,
-  AUTH_KEY,
-  socketConfig,
-  TIME_SUBMIT_FORMAT_WITH_SECOND,
-  TIME_SUBMIT_FORMAT_WITH_MARKER,
-  BASE_CURRENCY,
-  CONVERT_CURRENCIES,
-  CRYPTO_DATA,
-  DEPOSIT_DEMO,
-  LIST_NETWORK_WITHDRAW,
-  LIST_COIN_BALANCE,
-  CookieKey,
-  ROUTER,
-  ERROR_CODE_IGNORE_REFRESH,
-  UNICODE_NORMALIZATION,
-  DATE_FORMAT_VALIDATE,
-  TIME_FORMAT_VALIDATE,
-  MONTH_PICKER_FORMAT,
-  DATE_TIME_PICKER_FORMAT,
-  DATE_FORMAT_DEFAULT,
-  DATE_TIME_SUBMIT_FORMAT,
-  DATE_TIME_TRASH_FORMAT,
-  SELECT_BOX_BORDER_COLOR,
-  SELECT_BOX_BORDER_COLOR_FOCUSED,
-  INPUT_PLACEHOLDER_COLOR,
-  TEXTAREA_ROWS_NUM_DEFAULT,
-  TEXT_SHOW_MORE_LINE_DEFAULT,
-  BASIC_COLOR_DEFAULT,
-  SELECT_BOX_MENU_PORTAL_Z_INDEX,
-  LIST_PER_PAGE,
-  LIST_PER_PAGE_SELECT,
-  RelationshipOfCompany,
-  RelationshipOfProduct,
-  ERROR_CODE_INVALID_ACCOUNT,
-  RELATIONSHIP_PARAMS,
-  STATUS_CODE_NOTFOUND,
-  DELIVERY_AUDIENCE,
-  LANGUAGE_DATA,
-  DATE_TIME_SUBMIT_FORMAT_WITH_SECOND,
-  DATE_TIME_FORMAT_DEFAULT,
-  DATE_TIME_FORMAT_CSV,
-  TIME_DATE_SUBMIT_FORMAT,
-  TYPE_IMG_AFTER_CROP,
-  EXTENSION_IMG_AFTER_CROP,
-  FILE_CHUNK_SIZE,
-  DEFAULT_FILE_CHUNK_SIZE,
-  ACCEPT_IMAGE,
-  ACCEPT_IMAGE_CROP,
-  ACCEPT_IMAGE_THUMBNAIL,
-  TYPE_IMAGE,
-  SIZE_IMAGE,
-  IMAGE_THUMBNAIL,
-  IMAGE_SUFFIX,
-  CompanyNotifications,
-  PRODUCT_MAX_FILE_UPLOAD_SIZE,
-  PRODUCT_MAX_THUMBNAIL_UPLOAD_SIZE,
-  PRODUCT_MAX_FILE,
-  MIN_CROP_HEIGHT,
-  MIN_CROP_WIDTH,
-  SINGLE_PRODUCT_MAX_FILE,
-  PRODUCT_ATTRIBUTE_NOT_EXIST,
-  IMAGE_THUMBNAIL_FILE,
-  CHUNK_BATCH_CREATE_PRODUCT,
-  SIZE_IMAGE_THUMBNAIL_RESIZE,
-  STATUS_CODE_UNPROCESSABLE_CONTENT,
-  SIDEBAR_LIST,
-  USER_DEMO,
-  LOGIN_REGISTRATION_METHOD,
-  DATE_TIME_TRANSACTION_FORMAT,
-  LIST_MOONPAY_COIN,
-  FIAT_DATA,
-  CRYPTO_NORMAL_DATA,
-};
+export const LIST_FILTER_TYPE = [
+  { name: 'transaction:deposit', id: 1 },
+  { name: 'transaction:withdraw', id: 2 },
+  { name: 'transaction:swap', id: 3 },
+  { name: 'transaction:buyCrypto', id: 4 },
+  { name: 'transaction:Bill', id: 5 },
+  { name: 'transaction:Bonus', id: 6 },
+];
+export const LIST_FILTER_DATE = [
+  { name: 'transaction:past60Days', type: 60 },
+  { name: 'transaction:past24Hours', type: 1 },
+  { name: 'transaction:past7Days', type: 7 },
+  { name: 'transaction:past90Days', type: 90 },
+];
+export const LIST_FILTER_STATUS = [
+  { name: 'transaction:allAssets', type: '', flag: true },
+  { name: 'transaction:complete', type: 'success', flag: true },
+  { name: 'transaction:processing', type: 'process', flag: true },
+  { name: 'transaction:pending', type: 'pending', flag: false },
+  { name: 'transaction:failed', type: 'fail', flag: true },
+  { name: 'transaction:canceled', type: 'rejected', flag: false },
+];

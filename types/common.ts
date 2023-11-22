@@ -345,3 +345,20 @@ export type InformationWithdraw = {
   locked?: number;
   available?: number;
 };
+
+export type TransactionStatus = 'process' | 'pending' | 'refunding' | 'rejected' | 'fail' | 'success' | 'approve';
+export type TransactionType = {
+  amount: string | number;
+  fee: string | number;
+  id: string | number;
+  orderId: string | number;
+  status: TransactionStatus;
+  symbol: string;
+  time: string | Date;
+  txId: string | null;
+  unitFee: string;
+  userId: number;
+  username: string;
+  value: number;
+  withdrawalAddress: string;
+};

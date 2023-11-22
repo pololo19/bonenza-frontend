@@ -10,11 +10,13 @@ import { CookiesStorage } from '@/libs/storage/cookie';
 import { stringifyParams } from '@/libs/utils';
 import { createAxios as createHttpClient } from './_http/axios';
 
+export const baseURL = process.env.API_URL;
+
 const defaultAxiosConfig: AxiosRequestConfig = {
-  baseURL: process.env.API_URL,
+  baseURL: baseURL,
   timeout: 30000,
   paramsSerializer: {
-    serialize: (params) =>
+    serialize: (params: any) =>
       stringifyParams({
         params: decamelizeKeys({ ...params }),
         option: {
