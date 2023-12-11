@@ -14,8 +14,7 @@ import { toast } from 'react-toastify';
 import { OtpInput } from 'reactjs-otp-input';
 import * as yup from 'yup';
 
-import api from '@/api/api';
-import { api_getSetLogin } from '@/api/auth';
+import { api_changePassword, api_getSetLogin, api_setLoginPassword } from '@/api/auth';
 import { api_confirmQRCode, api_disable2FA, api_generateQRCode } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
@@ -118,7 +117,7 @@ const SettingSecurity = () => {
   const setLoginPassword = async () => {
     setIsLoading(true);
     try {
-      await api.put('auth/set-login-password', { loginPassword: password });
+      const res = api_setLoginPassword(password);
       toast.success(t('setting:done'), { containerId: TOAST_ENUM.COMMON });
       setIsSetLogin(true);
       setPassword('');
@@ -209,10 +208,10 @@ const SettingSecurity = () => {
     }
     setIsLoading(true);
     try {
-      const res = await api.put('auth/change-password', passwordBody);
+      const res = await api_changePassword(passwordBody.oldPassword, passwordBody.newPassword, passwordBody.codeOtp);
       handleLogout();
       setOpenModalCode(false);
-      toast.success(res?.data?.msg, { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('setting:done'), { containerId: TOAST_ENUM.COMMON });
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       dispatch(changeIsShowAuthenticationModal(true));
     } catch (error: any) {
