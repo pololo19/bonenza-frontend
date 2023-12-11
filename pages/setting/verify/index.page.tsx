@@ -34,9 +34,9 @@ const SettingVerify = () => {
 
   const { email, userId, isKyc } = useSelector(
     (state: AppState) => ({
-      userId: state.auth.userId,
-      email: state.auth.email,
-      isKyc: state.auth.isKyc,
+      userId: state.auth.user.userId,
+      email: state.auth.user.email,
+      isKyc: state.auth.user.isKyc,
     }),
     shallowEqual,
   );

@@ -1282,6 +1282,7 @@
     "googleSecurity2FA": "GOOGLE SECURITY-2FA",
     "lostSecutiry2FAKey": "Lost your Google SECURITY-2FA key?",
     "2FASentEmail": "2FA key will be sent to your email address",
+    "2FAVerificationRequired": "2FA verfication code",
     "reLoginWillBeRequiredAfterChangingThePassword": "Re-login will be required after changing the password",
     "saveChanges": "Save changes",
     "twoFactorAuthentication": "Two-factor Authentication",

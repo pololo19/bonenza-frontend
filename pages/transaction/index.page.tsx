@@ -500,17 +500,19 @@ const TransactionPage = () => {
   const handleGetTransactionBonus = async (page: number) => {
     try {
       setIsLoading(true);
-      const res = await api.get('vip/get-list-bonus-transactions', {
-        params: {
-          currency: String(t('transaction:allAssets')) ? '' : optionFilter.currency.symbol,
-          time: optionFilter.dayPast.type,
-          page: page,
-          limit,
-        },
-      });
+      // const res = await api.get('vip/get-list-bonus-transactions', {
+      //   params: {
+      //     currency: String(t('transaction:allAssets')) ? '' : optionFilter.currency.symbol,
+      //     time: optionFilter.dayPast.type,
+      //     page: page,
+      //     limit,
+      //   },
+      // });
       setColumnType(String(t('transaction:Bonus')));
-      setDataTable(res.data.data);
-      setTotalRows(res.data.total);
+      setDataTable([]);
+      setTotalRows(0);
+      // setDataTable(res.data.data);
+      // setTotalRows(res.data.total);
     } catch (error) {
       setDataTable([]);
     } finally {

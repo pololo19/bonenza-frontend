@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
@@ -20,8 +19,8 @@ const VipProgressComponent = () => {
 
   const handleGetVipProgress = async () => {
     try {
-      const res = await api.get('user-profile/get-vip');
-      setCurrentLevel(res.data);
+      // const res = await api.get('user-profile/get-vip');
+      // setCurrentLevel(res.data);
     } catch (error) {
     } finally {
     }

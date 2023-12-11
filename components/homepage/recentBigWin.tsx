@@ -5,6 +5,7 @@ import { Tooltip } from 'react-tooltip';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
+import { KYC_ENUM } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -41,7 +42,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
   const { t } = useTranslation('');
   const { userId } = useSelector(
     (state: AppState) => ({
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -70,14 +71,14 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
             <div
               onClick={openModalProfileUser}
               className={`${
-                userData?.userId !== userId && userData?.isHideNamePublicList
+                userData?.userId !== userId && userData?.privacySetting.settingHideUserName
                   ? 'dark:text-[#98A7B5] text-[#31373d] pointer-events-none cursor-text'
                   : 'dark:text-white text-[#000]'
               } font-medium text-[12px] truncate hover:underline min-h-[18px]`}
             >
-              {userData?.userId !== userId && userData?.isHideNamePublicList
+              {userData?.userId !== userId && userData?.privacySetting.settingHideUserName
                 ? String(t('homePage:hidden'))
-                : userData?.username}
+                : userData?.userName}
             </div>
           </div>
           <div
@@ -104,7 +105,7 @@ function RecentBigWinComponent() {
   const { localeFiat, userId } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -133,12 +134,34 @@ function RecentBigWinComponent() {
   };
 
   const renderData = (item: GameDetail) => {
-    const userData = {
-      username: item?.username,
-      avatar: item?.avatar,
-      userId: item?.userId,
-      isHideNamePublicList: item?.isHideNamePublicList,
-      uuid: item?.uuid,
+    const userData: UserDetail = {
+      userName: item?.username || '',
+      userId: String(item?.userId) || '',
+      email: '',
+      phone: '',
+      avatar: '',
+      betCount: '',
+      winCount: '',
+      totalWager: 0,
+      referralCode: '',
+      wallet: '',
+      isKyc: KYC_ENUM.REQUIRED,
+      tfa: false,
+      privacySetting: {
+        settingHideGamingData: false,
+        settingRefuseTipFromStrangers: false,
+        settingHideUserName: false,
+      },
+      generalSetting: {
+        settingCurrency: 'usd',
+        settingLanguage: 'en',
+        settingReceiveMarketPromotion: false,
+        settingShowFullNameCrypto: false,
+      },
+      verifiedSetting: {
+        emailVerified: false,
+        phoneVerified: false,
+      },
     };
     return (
       <CardBigWin

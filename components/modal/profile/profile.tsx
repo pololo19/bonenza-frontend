@@ -67,7 +67,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
           userId: selectedUserId || userId,
         },
       });
-      setListGame(res.data.data);
+      setListGame([]);
     } catch (error) {
       setListGame([]);
     } finally {

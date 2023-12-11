@@ -17,6 +17,8 @@ const API_AUTH_SIGNUP_WITH_EMAIL = '/auth/sign-up-with-email';
 const API_AUTH_SIGNUP_WITH_PHONE = '/auth/sign-up-with-phone';
 const API_AUTH_FORGOT_PASSWORD = '/auth/forgot-password';
 const API_AUTH_RESET_PASSWORD = '/auth/reset-password';
+const API_AUTH_GENERATE_QR_CODE = '/auth/generate-secret';
+const API_AUTH_SET_LOGIN = '/auth/get-set-login';
 
 /************************************ User Profile **********************************/
 const API_USER_PROFILE_GET_PROFILE = `/user-profile/get-user-profile`;
@@ -28,6 +30,8 @@ const API_USER_SETTING_GENERAL_SETTING = '/user-setting/get-general-setting';
 const API_USER_SETTING_PRIVACY_SETTING = '/user-setting/get-privacy-setting';
 const API_USER_SETTING_EMAIL_AND_PHONE_VERIFY = '/user-setting/get-email-and-phone-verify';
 const API_USER_SETTING_UPDATE = '/user-setting/edit-setting';
+const API_USER_SETTING_ENABLE_TFA = '/user-setting/confirm-qr-code';
+const API_USER_SETTING_DISABLE_TFA = '/user-setting/disable-two-factor-authentication';
 
 /************************************ User Session **********************************/
 const API_USER_SESSION_LIST_SESSIONS = '/user-session/get-list-user-session';
@@ -50,11 +54,13 @@ const URL_EXCHANGE_RATE = 'exchange/get-exchange-rate';
 export {
   API_ADMIN_LOGIN,
   API_AUTH_FORGOT_PASSWORD,
+  API_AUTH_GENERATE_QR_CODE,
   API_AUTH_LOGIN,
   API_AUTH_LOGIN_WITH_GOOGLE,
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
+  API_AUTH_SET_LOGIN,
   API_AUTH_SIGNUP_WITH_EMAIL,
   API_AUTH_SIGNUP_WITH_PHONE,
   API_AUTH_VALIDATE_TOKEN,
@@ -65,7 +71,9 @@ export {
   API_USER_PROFILE_UPLOAD_AVATAR,
   API_USER_SESSION_DELETE_SESSION,
   API_USER_SESSION_LIST_SESSIONS,
+  API_USER_SETTING_DISABLE_TFA,
   API_USER_SETTING_EMAIL_AND_PHONE_VERIFY,
+  API_USER_SETTING_ENABLE_TFA,
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,

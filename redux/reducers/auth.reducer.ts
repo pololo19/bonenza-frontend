@@ -25,6 +25,7 @@ const initialUser: UserDetail = {
   totalWager: 0,
   referralCode: '',
   isKyc: KYC_ENUM.REQUIRED,
+  tfa: false,
   generalSetting: {
     settingShowFullNameCrypto: false,
     settingReceiveMarketPromotion: false,

@@ -255,6 +255,7 @@ export type UserDetail = {
   referralCode: string;
   wallet: string;
   isKyc: KYC_ENUM;
+  tfa: boolean;
   generalSetting: UserSettingGeneralType;
   privacySetting: UserSettingPrivacyType;
   verifiedSetting: UserSettingVerifiedType;

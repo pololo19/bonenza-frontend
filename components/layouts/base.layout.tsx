@@ -7,7 +7,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '@/api/api';
-import { getExchangeRate } from '@/api/exchangeRate';
+// import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, FIAT_DATA, ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
@@ -43,7 +43,7 @@ import {
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { CurrencyEnum, DepositAddress, FiatType, ObjectLiteral } from '@/base/types/common';
+import { CurrencyEnum, DepositAddress, FiatType } from '@/base/types/common';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
 import ChattingComponent from '../chatting/chattingComponent';
@@ -342,16 +342,16 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   };
 
   const handleGetExchangeRate = async () => {
-    try {
-      const resExchangeRate = await getExchangeRate();
-      let exchangeRateData: ObjectLiteral = {};
-      resExchangeRate.data.forEach((element: { toCurrency: string; rate: any }) => {
-        exchangeRateData[element.toCurrency.toUpperCase()] = element.rate;
-      });
-      CookiesStorage.setCookieData(CookieKey.exchangeRate, JSON.stringify(exchangeRateData).toUpperCase());
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   const resExchangeRate = await getExchangeRate();
+    //   let exchangeRateData: ObjectLiteral = {};
+    //   resExchangeRate.data.forEach((element: { toCurrency: string; rate: any }) => {
+    //     exchangeRateData[element.toCurrency.toUpperCase()] = element.rate;
+    //   });
+    //   CookiesStorage.setCookieData(CookieKey.exchangeRate, JSON.stringify(exchangeRateData).toUpperCase());
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const handleUsdtNetwork = () => {

@@ -19,7 +19,7 @@ type ModalShareReferralCodeProps = {
 export default function ModalShareReferralCode({ show, onClose }: ModalShareReferralCodeProps) {
   const { referralCode } = useSelector(
     (state: AppState) => ({
-      referralCode: state.auth.referralCode,
+      referralCode: state.auth.user.referralCode,
     }),
     shallowEqual,
   );

@@ -36,7 +36,7 @@ export default function ModalDetailBets({ show, onClose, betId, titleModal, isPu
   const { localeFiat, userId } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -136,7 +136,7 @@ export default function ModalDetailBets({ show, onClose, betId, titleModal, isPu
               </div>
             </div>
             <div className="flex items-center gap-[8px] pl-[16px]">
-              {betDetail?.playerId !== userId && isPublicProfile ? (
+              {betDetail?.playerId?.toString() !== userId && isPublicProfile ? (
                 <Image height={44} width={44} className="rounded-full" src="/img/avatar-hidden.png" alt="" />
               ) : (
                 <Image
@@ -154,13 +154,15 @@ export default function ModalDetailBets({ show, onClose, betId, titleModal, isPu
                 <div className="flex items-center gap-[3px] mb-[5px]">
                   <div
                     className={`${
-                      betDetail?.playerId !== userId && isPublicProfile
+                      betDetail?.playerId?.toString() !== userId && isPublicProfile
                         ? 'pointer-events-none'
                         : 'hover:underline cursor-pointer'
                     } text-[12px] dark:text-white text-black`}
                     onClick={() => openModalProfileUser(betDetail)}
                   >
-                    {betDetail?.playerId !== userId && isPublicProfile ? t('homePage:hidden') : betDetail?.player}
+                    {betDetail?.playerId?.toString() !== userId && isPublicProfile
+                      ? t('homePage:hidden')
+                      : betDetail?.player}
                   </div>
                   <div className="text-[12px] dark:text-[#939699] text-[#31373d]">
                     On {formatDate(new Date(betDetail?.time ?? new Date()), TIME_SUBMIT_FORMAT_WITH_MARKER)}
