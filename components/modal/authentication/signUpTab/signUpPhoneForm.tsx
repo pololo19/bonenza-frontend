@@ -1,20 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Dispatch, Ref, SetStateAction, forwardRef, useImperativeHandle, useState } from 'react';
+import { ArrowDown2 } from 'iconsax-react';
+import { Dispatch, forwardRef, Ref, SetStateAction, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { useTranslation } from '@/base/config/i18next';
-import { SignUpPhoneFormRef, SignUpPhoneFormRequest } from '@/base/types/common';
+import { CookieKey } from '@/base/constants/common';
+import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { SignUpPhoneFormRef } from '@/base/types/common';
+import { SignUpPhoneRequest } from '@/base/types/requestTypes';
 import InputPassAuthentication from '@/components/input/typing/InputPassAuthentication';
 import InputPhoneNumber from '@/components/input/typing/InputPhoneNumber';
-import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
-import { ArrowDown2 } from 'iconsax-react';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { CookieKey } from '@/base/constants/common';
 import InputText from '@/components/input/typing/InputText';
 
 type SignUpPhoneFormProps = {
-  onSubmit: (data: SignUpPhoneFormRequest) => void;
+  onSubmit: (data: SignUpPhoneRequest) => void;
   setCountryCallingCode: Dispatch<
     SetStateAction<{ countryCode: string; countryCallingCode: string; country: string } | undefined>
   >;
@@ -43,7 +44,7 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
     control,
     setValue,
     formState: { errors },
-  } = useForm<SignUpPhoneFormRequest>({
+  } = useForm<SignUpPhoneRequest>({
     resolver: yupResolver(schema),
     defaultValues: {
       referralCode: CookiesStorage.getCookieData(CookieKey.referralCode)

@@ -1,17 +1,18 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
-import { ElementType, Fragment, useEffect, useRef, useState } from 'react';
-import { ArrowRight2, Lock } from 'iconsax-react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowRight2, Lock } from 'iconsax-react';
 import Image from 'next/image';
-import { useTranslation } from '@/base/config/i18next';
 import { useRouter } from 'next/router';
+import { ElementType, Fragment, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
-import { RootState } from '@/base/types/root-state';
-import { FiatType } from '@/base/types/common';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
-import api from '@/api/api';
 import { toast } from 'react-toastify';
+
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import { FiatType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 
 type ModalRakeBackProps = {
@@ -37,7 +38,7 @@ export default function ModalRakeBack({
   const [unlockedAmount, setUnlockedAmount] = useState<number>(0);
 
   const { localeFiat, activeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
     }),

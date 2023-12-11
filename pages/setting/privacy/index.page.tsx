@@ -1,51 +1,33 @@
-import api from '@/api/api';
+import { Switch } from '@headlessui/react';
+import { ReactElement, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
 import { useTranslation } from '@/base/config/i18next';
+import { updateSetting } from '@/base/redux/reducers/auth.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { UserSettingPrivacyType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
-import { Switch } from '@headlessui/react';
-import { ReactElement, useEffect, useState } from 'react';
+
 import styles from '../../balance/index.module.scss';
 
 const PrivacyPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [privacy, setPrivacy] = useState<any>({});
+
+  const { settings } = useSelector(
+    (state: AppState) => ({
+      settings: state.auth.user.privacySetting,
+    }),
+    shallowEqual,
+  );
 
   const { t } = useTranslation('');
+  const dispatch = useAppDispatch();
 
-  const handleGetPrivacySetting = async () => {
-    setIsLoading(true);
-    try {
-      const res = await api.get('user-setting/get-privacy-setting');
-      setPrivacy(res.data.data);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
+  const handleUpdateSetting = async (setting: UserSettingPrivacyType) => {
+    dispatch(updateSetting(setting));
   };
-
-  const handleUpdatePrivacySetting = async (privacy: any) => {
-    setIsLoading(true);
-    try {
-      await api.put('user-setting/edit-privacy-setting', privacy);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleChangePrivacy = (value: boolean, key: string) => {
-    const newPrivacy = {
-      ...privacy,
-      [key]: value,
-    };
-    setPrivacy(newPrivacy);
-    handleUpdatePrivacySetting(newPrivacy);
-  };
-
-  useEffect(() => {
-    handleGetPrivacySetting();
-  }, []);
 
   return (
     <div className={`${styles.cardContent}`}>
@@ -60,15 +42,19 @@ const PrivacyPage = () => {
           </label>
           <Switch
             id="hideGamingData"
-            checked={privacy?.isHideGamingData}
-            onChange={(e) => handleChangePrivacy(e, 'isHideGamingData')}
+            checked={settings.settingHideGamingData}
+            onChange={(value) => handleUpdateSetting({ ...settings, settingHideGamingData: value })}
             className={`${
-              privacy?.isHideGamingData ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]' : 'dark:bg-[#272C33] bg-[#5f697566]'
+              settings.settingHideGamingData
+                ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
+                : 'dark:bg-[#272C33] bg-[#5f697566]'
             } relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
-                privacy?.isHideGamingData ? 'translate-x-5 bg-[#0DFDE4]' : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                settings.settingHideGamingData
+                  ? 'translate-x-5 bg-[#0DFDE4]'
+                  : 'translate-x-1 dark:bg-[#31343D] bg-white'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
@@ -82,17 +68,15 @@ const PrivacyPage = () => {
           </label>
           <Switch
             id="hideUserName"
-            checked={privacy?.isHideNamePublicList}
-            onChange={(e) => handleChangePrivacy(e, 'isHideNamePublicList')}
+            checked={settings.settingHideUserName}
+            onChange={(value) => handleUpdateSetting({ ...settings, settingHideUserName: value })}
             className={`${
-              privacy?.isHideNamePublicList ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]' : 'dark:bg-[#272C33] bg-[#5f697566]'
+              settings.settingHideUserName ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]' : 'dark:bg-[#272C33] bg-[#5f697566]'
             } relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
-                privacy?.isHideNamePublicList
-                  ? 'translate-x-5 bg-[#0DFDE4]'
-                  : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                settings.settingHideUserName ? 'translate-x-5 bg-[#0DFDE4]' : 'translate-x-1 dark:bg-[#31343D] bg-white'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
@@ -106,17 +90,17 @@ const PrivacyPage = () => {
           </label>
           <Switch
             id="refuseTip"
-            checked={privacy?.notReceiveMoneyFromStranger}
-            onChange={(e) => handleChangePrivacy(e, 'notReceiveMoneyFromStranger')}
+            checked={settings.settingRefuseTipFromStrangers}
+            onChange={(value) => handleUpdateSetting({ ...settings, settingRefuseTipFromStrangers: value })}
             className={`${
-              privacy?.notReceiveMoneyFromStranger
+              settings.settingRefuseTipFromStrangers
                 ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
                 : 'dark:bg-[#272C33] bg-[#5f697566]'
             } relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
-                privacy?.notReceiveMoneyFromStranger
+                settings.settingRefuseTipFromStrangers
                   ? 'translate-x-5 bg-[#0DFDE4]'
                   : 'translate-x-1 dark:bg-[#31343D] bg-white'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}

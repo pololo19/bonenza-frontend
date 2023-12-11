@@ -1,4 +1,3 @@
-import RankingTableComponent from '@/components/table/rankingTable';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
@@ -6,10 +5,11 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, formatDate, handleLocaleSymbol, exchangeByLocaleFiat } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
-import Paging from '@/components/paging/paging';
+import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { UserDetail, WagerDetail } from '@/base/types/common';
+import Paging from '@/components/paging/paging';
+import RankingTableComponent from '@/components/table/rankingTable';
 
 type WagerContestProps = {
   userData?: UserDetail;
@@ -24,7 +24,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
   const [listWager, setListWager] = useState<WagerDetail[]>([]);
 
   const { localeFiat, userId } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       userId: state.auth.userId,
     }),

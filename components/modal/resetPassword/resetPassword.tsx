@@ -1,19 +1,23 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
-import { ElementType, useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { useRouter } from 'next/router';
+import { ElementType, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
-import api from '@/api/api';
+import { api_resetPassword } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { convertUserInfo } from '@/base/libs/utils';
+import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
+import { ResetPasswordRequest } from '@/base/types/requestTypes';
 import Loader from '@/components/common/preloader/loader';
-import InputPassAuthentication from '@/components/input/typing/InputPassAuthentication';
+import { InputPassAuthentication } from '@/components/input/typing';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalResetPasswordProps = {
@@ -22,21 +26,10 @@ type ModalResetPasswordProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-type ResetPasswordFormType = {
-  password: string;
-  confirmPassword: string;
-};
-
 export default function ModalResetPassword({ show, onClose }: ModalResetPasswordProps) {
   const { t } = useTranslation('');
   const { query } = useRouter();
   const dispatch = useDispatch();
-
-  const [isExpiresToken, setIsExpiresToken] = useState(false);
-
-  const resetToken = useMemo(() => {
-    return query['forgot-pass-token'];
-  }, [query]);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -56,18 +49,22 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<ResetPasswordFormType>({
+  } = useForm<ResetPasswordRequest>({
     resolver: yupResolver(schema),
   });
 
-  const onReset = async (formReset: ResetPasswordFormType) => {
+  const onReset = async (formReset: ResetPasswordRequest) => {
     try {
       setIsLoading(true);
-      await api.post('/auth/reset-password', {
-        token: resetToken,
-        newPass: formReset.password,
-        confirmPass: formReset.confirmPassword,
-      });
+
+      const res = await api_resetPassword(formReset);
+
+      dispatch(
+        saveUserInfo({
+          ...convertUserInfo(res.data),
+        }),
+      );
+
       dispatch(changeIsShowResetPassword(false));
       toast.success(t('authentication:resetPasswordSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error) {
@@ -76,26 +73,6 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
       setIsLoading(false);
     }
   };
-
-  const checkExpiresToken = async () => {
-    try {
-      setIsLoading(true);
-      await api.post('/auth/validate-token', {
-        token: resetToken,
-      });
-      setIsExpiresToken(false);
-    } catch (error) {
-      setIsExpiresToken(true);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    if (resetToken) {
-      checkExpiresToken();
-    }
-  }, [resetToken]);
 
   return (
     <>
@@ -111,52 +88,35 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
       >
         <>
           {isLoading && <Loader />}
-          {!isExpiresToken && (
-            <div className="flex flex-col items-center my-[50px] gap-[20px]">
-              <div>
-                <Image src={'/img/img-reset-password.png'} width={88} height={100} alt="" />
-              </div>
-              <div>
-                <div className="text-[#99a4b099] text-[20px] text-center">
-                  {t('authentication:resetAccountPassword')}
-                </div>
-                <div className="text-[#99a4b099] text-[14px] text-center">{t('authentication:rememberPassword')}</div>
-              </div>
-              <form onSubmit={handleSubmit(onReset)} data-testid="user-detail-form">
-                <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">
-                  <InputPassAuthentication
-                    control={control}
-                    name="password"
-                    placeholder={'New password'}
-                    type="password"
-                  />
-                  <InputPassAuthentication
-                    control={control}
-                    name="confirmPassword"
-                    placeholder={'New password again'}
-                    type="password"
-                  />
-                </div>
-                <button type="submit" className="bg-primary w-full rounded-[5px] text-center py-[10px] sm:mt-5 mt-3">
-                  <div />
-                  <div className="text-[14px] text-white">{t('authentication:confirm')}</div>
-                </button>
-              </form>
+          <div className="flex flex-col items-center my-[50px] gap-[20px]">
+            <div>
+              <Image src={'/img/img-reset-password.png'} width={88} height={100} alt="" />
             </div>
-          )}
-          {isExpiresToken && (
-            <div className="flex flex-col items-center my-[50px] gap-[20px]">
-              <div>
-                <Image src={'/img/img-reset-password.png'} width={88} height={100} alt="" />
-              </div>
-              <div>
-                <div className="text-[#99a4b099] text-[20px] text-center">
-                  {t('authentication:passwordResetLinkHasExpired')}
-                </div>
-                <div className="text-[#99a4b099] text-[14px] text-center">{t('authentication:pleaseSubmitAgain')}</div>
-              </div>
+            <div>
+              <div className="text-[#99a4b099] text-[20px] text-center">{t('authentication:resetAccountPassword')}</div>
+              <div className="text-[#99a4b099] text-[14px] text-center">{t('authentication:rememberPassword')}</div>
             </div>
-          )}
+            <form onSubmit={handleSubmit(onReset)} data-testid="user-detail-form">
+              <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">
+                <InputPassAuthentication
+                  control={control}
+                  name="password"
+                  placeholder={'New password'}
+                  type="password"
+                />
+                <InputPassAuthentication
+                  control={control}
+                  name="confirmPassword"
+                  placeholder={'New password again'}
+                  type="password"
+                />
+              </div>
+              <button type="submit" className="bg-primary w-full rounded-[5px] text-center py-[10px] sm:mt-5 mt-3">
+                <div />
+                <div className="text-[14px] text-white">{t('authentication:confirm')}</div>
+              </button>
+            </form>
+          </div>
         </>
       </CommonModal>
     </>

@@ -1,23 +1,23 @@
-import React, { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
-import { ColumnDef, Row } from '@tanstack/react-table';
-import { ChevronDownIcon } from '@heroicons/react/24/outline';
-import Head from 'next/head';
 import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { ColumnDef, Row } from '@tanstack/react-table';
 import { ArrowRight2 } from 'iconsax-react';
+import Head from 'next/head';
+import Image from 'next/image';
+import React, { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
+import { shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
 
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
+import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
+import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
-import { useTranslation } from '@/base/config/i18next';
-import api from '@/api/api';
-import TableComponent from '@/components/table';
-import Paging from '@/components/paging/paging';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
-import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
-import Image from 'next/image';
-import { shallowEqual } from 'react-redux';
-import { RootState } from '@/base/types/root-state';
-import { useSelector } from 'react-redux';
 import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDetail';
+import Paging from '@/components/paging/paging';
+import TableComponent from '@/components/table';
 
 const RolloverPage = () => {
   const { t } = useTranslation('');
@@ -30,7 +30,7 @@ const RolloverPage = () => {
   const [transaction, setTransaction] = useState<any>({});
 
   const { localeFiat, viewInFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       viewInFiat: state.common.viewInFiat,
     }),

@@ -1,20 +1,21 @@
-import React, { Ref, useEffect, useImperativeHandle, useMemo, useState } from 'react';
-import Image from 'next/image';
-import cn from 'classnames';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { UseFormGetValues, useForm } from 'react-hook-form';
+import cn from 'classnames';
 import { Repeat } from 'iconsax-react';
+import Image from 'next/image';
+import React, { Ref, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import { useForm, UseFormGetValues } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
+import * as yup from 'yup';
 
-import { BasicFormRef, DepositAddress } from '@/base/types/common';
-import { useTranslation } from '@/base/config/i18next';
-import InputNumber from '../input/typing/InputNumber';
 import api from '@/api/api';
-import { RootState } from '@/base/types/root-state';
-import ModalAssetsPortfolio from '../modal/assestsPortfolio/assestsPortfolio';
+import { useTranslation } from '@/base/config/i18next';
 import { formatLengthNumber } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import { BasicFormRef, DepositAddress } from '@/base/types/common';
+
+import InputNumber from '../input/typing/InputNumber';
+import ModalAssetsPortfolio from '../modal/assestsPortfolio/assestsPortfolio';
 
 type SelectCurrencySwapProps = {
   onSubmit: (data: SwapFormType) => void;
@@ -40,7 +41,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const { t } = useTranslation('');
 
   const { depositCryptoArray } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       depositCryptoArray: state.common.depositCryptoArray,
     }),
     shallowEqual,

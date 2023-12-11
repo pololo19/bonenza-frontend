@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -7,7 +8,6 @@ import { AUTH_KEY, CookieKey } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import InputText from '@/components/input/typing/InputText';
 import styles from '@/styles/dashboard/index.module.scss';
-import { useRouter } from 'next/router';
 
 type AuthForm = {
   authKey: string;

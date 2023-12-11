@@ -1,27 +1,26 @@
-import React, { ReactElement, useEffect, useState, Fragment } from 'react';
+import { Menu, Switch, Transition } from '@headlessui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
+import { ArrowDown2, Moon, Sun1 } from 'iconsax-react';
+import { useTheme } from 'next-themes';
+import React, { Fragment, ReactElement, useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { shallowEqual, useSelector } from 'react-redux';
+import * as yup from 'yup';
+
+import { useTranslation } from '@/base/config/i18next';
+import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { updateSetting } from '@/base/redux/reducers/auth.reducer';
+import { changeLocaleFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { FiatType, UserSettingGeneralType } from '@/base/types/common';
+import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
-import styles from '../../balance/index.module.scss';
-
-import { FiatType } from '@/base/types/common';
-import Loader from '@/components/common/preloader/loader';
-import { useTranslation } from '@/base/config/i18next';
-import { Switch, Menu, Transition } from '@headlessui/react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { LANGUAGE_DATA, CookieKey } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-
 import SelectFiat from '@/components/selectFiat/SelectFiat';
 
-import { Moon, Sun1, ArrowDown2 } from 'iconsax-react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { changeLocaleFiat, changeShowFullNameCurrency, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
-import { RootState } from '@/base/types/root-state';
-import { useTheme } from 'next-themes';
-import api from '@/api/api';
+import styles from '../../balance/index.module.scss';
 
 type DepositFiatForm = {
   amount: number;
@@ -30,25 +29,24 @@ type DepositFiatForm = {
 
 const GeneralPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [languageName, setLanguageName] = useState(LANGUAGE_DATA[0].language);
   const [mode, setMode] = useState(0);
-  const [general, setGeneral] = useState<any>({});
   const { setTheme } = useTheme();
   useEffect(() => {
     const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
     setMode(theme);
   }, []);
 
-  const { showFullNameCurrency, viewInFiat } = useSelector(
-    (state: RootState) => ({
+  const { viewInFiat, settings } = useSelector(
+    (state: AppState) => ({
       viewInFiat: state.common.viewInFiat,
-      showFullNameCurrency: state.common.showFullNameCurrency,
+      settings: state.auth.user.generalSetting,
+      user: state.auth.user,
     }),
     shallowEqual,
   );
 
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const schema = yup.object().shape({
     currency: yup
@@ -79,39 +77,9 @@ const GeneralPage = () => {
     } catch (error) {}
   };
 
-  const handleGetGeneralSetting = async () => {
-    setIsLoading(true);
-    try {
-      const res = await api.get('user-setting/get-general-setting');
-      setGeneral(res.data.data);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
+  const handleUpdateSetting = async (setting: UserSettingGeneralType) => {
+    dispatch(updateSetting(setting));
   };
-
-  const handleUpdateGeneralSetting = async (general: any) => {
-    setIsLoading(true);
-    try {
-      await api.put('user-setting/edit-promotion-announcement', general);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleChangeGeneral = (value: boolean, key: string) => {
-    const newGeneral = {
-      ...general,
-      [key]: value,
-    };
-    setGeneral(newGeneral);
-    handleUpdateGeneralSetting(newGeneral);
-  };
-
-  useEffect(() => {
-    handleGetGeneralSetting();
-  }, []);
 
   return (
     <div className={`${styles.cardContent}`}>
@@ -121,22 +89,23 @@ const GeneralPage = () => {
           <div
             className="dark:text-[#C2C2C2] text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
             role="button"
-            onClick={() => {
-              dispatch(changeShowFullNameCurrency(!showFullNameCurrency));
-            }}
           >
             {t('setting:showFullNameOfCurrencyInCryptoList')}
           </div>
           <Switch
-            checked={showFullNameCurrency}
-            onChange={(value) => dispatch(changeShowFullNameCurrency(value))}
+            checked={settings.settingShowFullNameCrypto}
+            onChange={(value) => handleUpdateSetting({ ...settings, settingShowFullNameCrypto: value })}
             className={`${
-              showFullNameCurrency ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]' : 'dark:bg-[#272C33] bg-[#5f697566]'
+              settings.settingShowFullNameCrypto
+                ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
+                : 'dark:bg-[#272C33] bg-[#5f697566]'
             } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
-                showFullNameCurrency ? 'translate-x-5 bg-[#0DFDE4]' : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                settings.settingShowFullNameCrypto
+                  ? 'translate-x-5 bg-[#0DFDE4]'
+                  : 'translate-x-1 dark:bg-[#31343D] bg-white'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
@@ -145,24 +114,21 @@ const GeneralPage = () => {
           <div
             className="dark:text-[#C2C2C2] text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
             role="button"
-            onClick={() => {
-              handleChangeGeneral(!general?.isPromotionAnnouncement, 'isPromotionAnnouncement');
-            }}
           >
             {t('setting:receiveMarketingPromotions')}
           </div>
           <Switch
-            checked={general?.isPromotionAnnouncement}
-            onChange={(e) => handleChangeGeneral(e, 'isPromotionAnnouncement')}
+            checked={settings.settingReceiveMarketPromotion}
+            onChange={(value) => handleUpdateSetting({ ...settings, settingReceiveMarketPromotion: value })}
             className={`${
-              general?.isPromotionAnnouncement
+              settings.settingReceiveMarketPromotion
                 ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
                 : 'dark:bg-[#272C33] bg-[#5f697566]'
             } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
-                general?.isPromotionAnnouncement
+                settings.settingReceiveMarketPromotion
                   ? 'translate-x-5 bg-[#0DFDE4]'
                   : 'translate-x-1 dark:bg-[#31343D] bg-white'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
@@ -233,7 +199,9 @@ const GeneralPage = () => {
                 role="button"
                 className="flex items-center justify-between dark:bg-[#282931] bg-[#f5f6fa] gap-2 py-2 px-2 rounded w-[146px]"
               >
-                <div className="dark:text-white text-black text-[14px] font-semibold">{languageName}</div>
+                <div className="dark:text-white text-black text-[14px] font-semibold">
+                  {LANGUAGE_DATA.find((item) => item.key == settings.settingLanguage)?.language}
+                </div>
                 <div className="dark:text-white text-black truncate text-right min-w-[15px]">
                   <ArrowDown2 className="dark:text-white textx-black" size={15} />
                 </div>
@@ -275,8 +243,9 @@ const GeneralPage = () => {
                                 'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                               )}
                               onClick={() => {
+                                handleUpdateSetting({ ...settings, settingLanguage: item.key });
                                 handleChangeLang(item);
-                                setLanguageName(item.language);
+                                // setLanguageName(item.language);
                               }}
                             >
                               {item.language}

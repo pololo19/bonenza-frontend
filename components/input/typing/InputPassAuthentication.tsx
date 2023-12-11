@@ -1,8 +1,8 @@
 import cn from 'classnames';
+import { Eye, EyeSlash } from 'iconsax-react';
 import Image from 'next/image';
 import { InputHTMLAttributes, useState } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
-import { Eye, EyeSlash } from 'iconsax-react';
 
 import { MAX_LENGTH, SPECIAL_CHARACTER, SPECIAL_CHARACTER_WITHOUT_EMAIL } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';

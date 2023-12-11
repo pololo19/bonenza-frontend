@@ -1,17 +1,17 @@
 import { Dialog, DialogProps, Switch, Transition, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ArrowDown, ArrowUp } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
+import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
 import Loader from '@/components/common/preloader/loader';
 import InputSearch from '@/components/input/typing/InputSearch';
-import { ArrowDown, ArrowUp } from 'iconsax-react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 type ModalFiatTypesProps = {
   onClose: () => void;
@@ -25,7 +25,7 @@ export default function ModalFiatTypes({ show, onClose }: ModalFiatTypesProps) {
   const dispatch = useDispatch();
 
   const { fiatArray, cryptoArray, usdtNetwork } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       fiatArray: state.common.fiatArray || [],
       cryptoArray: state.common.cryptoArray || [],
       usdtNetwork: state.common.usdtNetwork,

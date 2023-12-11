@@ -1,4 +1,3 @@
-import RankingTableComponent from '@/components/table/rankingTable';
 import { Menu, Transition } from '@headlessui/react';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
@@ -10,8 +9,10 @@ import { shallowEqual, useSelector } from 'react-redux';
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
+import { AppState } from '@/base/redux/store';
 import Paging from '@/components/paging/paging';
+import RankingTableComponent from '@/components/table/rankingTable';
+
 import { GameDetail, UserDetail } from '../../../../types/common';
 
 type ModalStatisticProps = {
@@ -30,7 +31,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
   const [listGames, setListGame] = useState<GameDetail[]>([]);
 
   const { userName, userId, avatar, viewInFiat, localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       userName: state.auth.userName,
       uuid: state.auth.uuid,
       avatar: state.auth.avatar,

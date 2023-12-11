@@ -1,15 +1,15 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
+import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
-
-import api from '@/api/api';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import { GameDetail, UserDetail } from '@/base/types/common';
+
 import CasinoSwiper from '../casino/casinoSwiper';
 import ModalDetailBets from '../modal/detailBets/detailBets';
 
@@ -40,7 +40,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation('');
   const { userId } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       userId: state.auth.userId,
     }),
     shallowEqual,
@@ -102,7 +102,7 @@ function RecentBigWinComponent() {
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
   const { localeFiat, userId } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       userId: state.auth.userId,
     }),

@@ -1,31 +1,30 @@
-import { Disclosure, Transition } from '@headlessui/react';
-import { ArrowRight } from 'iconsax-react';
-import Head from 'next/head';
-import Image from 'next/image';
-import { ReactElement, useState, useEffect } from 'react';
-
-import { useTranslation } from '@/base/config/i18next';
-import { Add, Minus } from 'iconsax-react';
-
-import api from '@/api/api';
-import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { RootState } from '@/base/types/root-state';
-import Loader from '@/components/common/preloader/loader';
-import BaseLayout from '@/components/layouts/base.layout';
-import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
-import ModalShareReferralCode from '@/components/modal/affiliate/shareReferralCode';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { shallowEqual, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-import styles from '../affiliate/index.module.scss';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
-import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
-import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Grid } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/grid';
+
+import { Disclosure, Transition } from '@headlessui/react';
+import { ArrowRight } from 'iconsax-react';
+import { Add, Minus } from 'iconsax-react';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useTheme } from 'next-themes';
+import { ReactElement, useEffect, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
+import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import Loader from '@/components/common/preloader/loader';
+import BaseLayout from '@/components/layouts/base.layout';
+import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
+import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
+import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
+import ModalShareReferralCode from '@/components/modal/affiliate/shareReferralCode';
+
+import styles from '../affiliate/index.module.scss';
 
 function AffiliateLoggedPage() {
   const { t } = useTranslation('');
@@ -118,7 +117,7 @@ function AffiliateLoggedPage() {
   };
 
   const { referralCode, localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       referralCode: state.auth.referralCode,
       localeFiat: state.common.localeFiat,
     }),

@@ -1,21 +1,22 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import Image from 'next/image';
-import { ElementType, useEffect, useState } from 'react';
 import { ArrowRight2, Headphone, ShieldTick, Simcard2 } from 'iconsax-react';
-import { toast } from 'react-toastify';
+import Image from 'next/image';
 import Link from 'next/link';
+import { ElementType, useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
-import { BetDetail } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
-import Loader from '@/components/common/preloader/loader';
-import CommonModal from '../commonModal/commonModal';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
-import { useDispatch } from 'react-redux';
+import { AppState } from '@/base/redux/store';
+import { BetDetail } from '@/base/types/common';
+import Loader from '@/components/common/preloader/loader';
+
+import CommonModal from '../commonModal/commonModal';
 
 type ModalDetailBetsProps = {
   onClose: () => void;
@@ -33,7 +34,7 @@ export default function ModalDetailBets({ show, onClose, betId, titleModal, isPu
   const dispatch = useDispatch();
 
   const { localeFiat, userId } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       userId: state.auth.userId,
     }),

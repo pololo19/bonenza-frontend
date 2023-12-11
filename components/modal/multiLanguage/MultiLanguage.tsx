@@ -1,3 +1,11 @@
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import cn from 'classnames';
+import { Star1 } from 'iconsax-react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { ElementType, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
@@ -7,17 +15,11 @@ import {
   changeIsShowAuthenticationModal,
   changeMultiLanguageTab,
 } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum, FiatType } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
 import Loader from '@/components/common/preloader/loader';
-import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import cn from 'classnames';
-import { Star1 } from 'iconsax-react';
-import Image from 'next/image';
-import { ElementType, useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
 import CommonModal from '../commonModal/commonModal';
-import { useRouter } from 'next/router';
 
 type ModalFiatProps = {
   onClose: () => void;
@@ -35,7 +37,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
   const router = useRouter();
 
   const { multiLanguageTab, fiatArray, localeFiat, activeFiat, isLogin, viewInFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       multiLanguageTab: state.modal.multiLanguageTab,
       fiatArray: state.common.fiatArray,
       localeFiat: state.common.localeFiat,

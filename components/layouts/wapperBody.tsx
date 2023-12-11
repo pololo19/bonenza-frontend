@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { RootState } from '@/base/types/root-state';
+import { AppState } from '@/base/redux/store';
 
 type WrapperBodyProps = {
   children: JSX.Element;
@@ -12,7 +12,7 @@ type WrapperBodyProps = {
 
 const WrapperBody: React.FC<WrapperBodyProps> = ({ children, wrapperClassName, contentClassName }) => {
   const { showChatType, isToggleSidebar } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
       isShowInformation: state.modal.isShowInformation,
       isShowUpdateInformation: state.modal.isShowUpdateInformation,

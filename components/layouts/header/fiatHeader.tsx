@@ -2,12 +2,15 @@ import { Menu, Switch, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2, Lock } from 'iconsax-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
+import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { currencyFormat1, exchangeByLocaleFiat, formatLengthNumber } from '@/base/libs/utils';
 import {
   changeActiveFiat,
   changeCryptoArray,
@@ -15,23 +18,14 @@ import {
   changeLocaleFiat,
   changeViewInFiat,
 } from '@/base/redux/reducers/common.reducer';
-import {
-  currencyFormat,
-  exchangeByLocaleFiat,
-  formatLengthNumber,
-  handleLocaleSymbol,
-  currencyFormat1,
-} from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
+import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import InputSearch from '@/components/input/typing/InputSearch';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
-import api from '@/api/api';
-import Link from 'next/link';
+import ModalBonusHistory from '@/components/modal/rakeBack/bonusHistory/bonusHistory';
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
-import ModalBonusHistory from '@/components/modal/rakeBack/bonusHistory/bonusHistory';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -44,7 +38,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const { t } = useTranslation('');
 
   const { localeFiat, fiatArray, activeFiat, cryptoArray, viewInFiat, showFullNameCurrency, usdtNetwork } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
       fiatArray: state.common.fiatArray,

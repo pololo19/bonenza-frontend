@@ -19,23 +19,22 @@ import {
   Ticket,
   TrendUp,
 } from 'iconsax-react';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import React, { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { LANGUAGE_DATA, ROUTER } from '@/base/constants/common';
-
 import {
   changeIsShowMultiLanguageModal,
   changeIsShowVipClubModal,
   changeMultiLanguageTab,
 } from '@/base/redux/reducers/modal.reducer';
-import { RootState } from '@/base/types/root-state';
+import { AppState } from '@/base/redux/store';
+
 import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
-import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import BlackjackIcon from '../icons/BlackjackIcon';
 import BuyInIcon from '../icons/BuyInIcon';
 import FavoriteIcon from '../icons/FavoriteIcon';
@@ -45,6 +44,7 @@ import OriginalIcon from '../icons/OriginalIcon';
 import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
+import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 
 type SidebarMobileLayoutProps = {
   isShowSidebar: boolean;
@@ -65,7 +65,7 @@ const SidebarMobileLayout: React.FC<SidebarMobileLayoutProps> = ({ isShowSidebar
   };
 
   const { localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
     }),
     shallowEqual,

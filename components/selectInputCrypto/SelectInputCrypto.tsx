@@ -1,17 +1,17 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ArrowDown2 } from 'iconsax-react';
 import Image from 'next/image';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
+import { currencyFormat } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { DepositAddress, MoonpayDepositAddress } from '@/base/types/common';
 
-import { currencyFormat } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { shallowEqual, useSelector } from 'react-redux';
 import Loader from '../common/preloader/loader';
 
 type SelectInputCryptoProps = {
@@ -27,7 +27,7 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
   const [isShowFiatModal, setIsShowFiatModal] = useState<boolean>(false);
 
   const { depositCryptoArray, usdtNetwork } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       depositCryptoArray: state.common.depositCryptoArray,
       usdtNetwork: state.common.usdtNetwork,
     }),

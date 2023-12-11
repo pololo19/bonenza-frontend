@@ -1,39 +1,40 @@
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { ColumnDef, Row } from '@tanstack/react-table';
+import { ArrowRight2, Copy } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import {
+  billType,
   CRYPTO_NORMAL_DATA,
   DATE_TIME_SUBMIT_FORMAT_WITH_SECOND,
-  TIME_SUBMIT_FORMAT_WITH_MARKER,
-  TOAST_ENUM,
-  LIST_FILTER_TYPE,
   LIST_FILTER_DATE,
   LIST_FILTER_STATUS,
-  billType,
+  LIST_FILTER_TYPE,
+  TIME_SUBMIT_FORMAT_WITH_MARKER,
+  TOAST_ENUM,
 } from '@/base/constants/common';
 import {
-  exchangeByLocaleFiat,
-  formatDate,
+  convertStatus,
   copyClipBoard,
   currencyFormat1,
+  exchangeByLocaleFiat,
+  formatDate,
   getColorByStatus,
-  convertStatus,
 } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
-import { TransactionType } from '@/types/common';
+import { AppState } from '@/base/redux/store';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailTransaction from '@/components/modal/transactionDetail/transactionDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
-import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon, LinkIcon } from '@heroicons/react/24/outline';
-import { ColumnDef, Row } from '@tanstack/react-table';
-import { ArrowRight2, Copy } from 'iconsax-react';
-import { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { TransactionType } from '@/types/common';
 
 import styles from './index.module.scss';
 
@@ -47,7 +48,7 @@ const TransactionPage = () => {
   const { t } = useTranslation('');
 
   const { localeFiat, viewInFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       viewInFiat: state.common.viewInFiat,
     }),

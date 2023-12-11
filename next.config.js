@@ -18,6 +18,8 @@ module.exports = () => {
     TELEGRAM_BOT_ID: process.env.TELEGRAM_BOT_ID,
     TELEGRAM_BOT_NAME: process.env.TELEGRAM_BOT_NAME,
     EXCHANGE_RATE_KEY: process.env.EXCHANGE_RATE_KEY,
+    STREAM_CHAT_API_KEY: process.env.STREAM_CHAT_API_KEY,
+    STREAM_CHAT_API_SECRET: process.env.STREAM_CHAT_API_SECRET,
   };
 
   const webpack = (cfg) => {
@@ -54,6 +56,6 @@ module.exports = () => {
     images: {
       disableStaticImages: true,
       unoptimized: true,
-    }
+    },
   };
 };

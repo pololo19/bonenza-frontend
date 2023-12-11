@@ -1,36 +1,36 @@
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
-import Image from 'next/image';
-import cn from 'classnames';
-import { toast } from 'react-toastify';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { Heart, PlayCricle, Refresh, Send2 } from 'iconsax-react';
-import { useRouter } from 'next/router';
 import { StarIcon } from '@heroicons/react/24/solid';
+import cn from 'classnames';
+import { Heart, PlayCricle, Refresh, Send2 } from 'iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { ReactElement, useEffect, useRef, useState } from 'react';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-import { RootState } from '@/base/types/root-state';
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
+import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { exchangeByLocaleFiat } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowDepositModal,
 } from '@/base/redux/reducers/modal.reducer';
-import BaseLayout from '@/components/layouts/base.layout';
-import api from '@/api/api';
-import FiatHeader from '@/components/layouts/header/fiatHeader';
-import { useTranslation } from '@/base/config/i18next';
+import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum, GameDetail, GameProviderDetail, GameReactionDetail } from '@/base/types/common';
-import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
-
+import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
+import GameDescriptionComponent from '@/components/game/gameDescription';
 import GameDetailComponent from '@/components/game/gameDetail';
 import GameReviewComponent from '@/components/game/gameReview';
-import GameDescriptionComponent from '@/components/game/gameDescription';
-import styles from './index.module.scss';
+import BaseLayout from '@/components/layouts/base.layout';
+import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
-import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import Link from 'next/link';
-import { exchangeByLocaleFiat } from '@/base/libs/utils';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
+
+import styles from './index.module.scss';
 
 function GamePage() {
   const launchUrlRef = useRef<any>();
@@ -60,7 +60,7 @@ function GamePage() {
   const dispatch = useDispatch();
 
   const { activeFiat, isLogin, localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
       isLogin: state.auth.isLogin,

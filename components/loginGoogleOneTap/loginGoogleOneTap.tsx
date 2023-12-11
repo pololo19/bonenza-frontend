@@ -1,4 +1,8 @@
 import { CredentialResponse, useGoogleOneTapLogin } from '@react-oauth/google';
+import { t } from 'i18next';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import api from '@/api/api';
 import { TOAST_ENUM } from '@/base/constants/common';
@@ -6,10 +10,6 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import Loader from '@/components/common/preloader/loader';
-import { t } from 'i18next';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 
 export default function LoginGoogleOneTap() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -19,19 +19,18 @@ export default function LoginGoogleOneTap() {
   const googleLogin = async (credentialResponse: CredentialResponse) => {
     try {
       setIsLoading(true);
-      const resToken = await api.post('auth/save-info-login-google-one-tap', {
+      const res = await api.post('auth/save-info-login-google-one-tap', {
         client_id: credentialResponse.clientId,
         token: credentialResponse.credential,
       });
-      CookiesStorage.setAccessToken(resToken.data.data.accessToken);
-      const resUser = await api.get('auth/get-user-info');
-      if (!resUser.data.data.isDeposit) {
-        await api.post('deposit/create-deposit-address');
-      }
+      CookiesStorage.setAccessToken(res.data.token);
+      // const resUser = await api.get('auth/get-user-info');
+      // if (!resUser.data.data.isDeposit) {
+      //   await api.post('deposit/create-deposit-address');
+      // }
       dispatch(
         saveUserInfo({
-          isLogin: true,
-          ...convertUserInfo(resUser.data.data),
+          ...convertUserInfo(res.data),
         }),
       );
     } catch (error: any) {

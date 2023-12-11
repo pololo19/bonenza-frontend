@@ -1,18 +1,19 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, useState } from 'react';
+import { ElementType, useCallback, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-
+import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
 import LoginWallet from '@/components/loginWallet/loginWallet';
-import { ArrowLeft2 } from 'iconsax-react';
-import { shallowEqual, useSelector } from 'react-redux';
+
 import CommonModal from '../commonModal/commonModal';
 import ModalForgotPassword from '../forgotPassword/forgotPassword';
 import SignInTab from './signInTab/signInTab';
 import SignUpTab from './signUpTab/signUpTab';
+import VerificationTab from './verificationTab/verificationTab';
 
 type ModalAuthenticationProps = {
   onClose: () => void;
@@ -26,12 +27,55 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
   const [forgotKey, setForgotKey] = useState<boolean>(false);
 
   const { authenticationType, email } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       authenticationType: state.modal.authenticationType,
-      email: state.auth.email,
+      email: state.auth.user.email,
     }),
     shallowEqual,
   );
+
+  const returnForm = useCallback(() => {
+    switch (authenticationType) {
+      case AuthenticationModeEnum.SIGN_IN:
+        return (
+          <div>
+            {forgotKey ? null : isLoginTwoFactor ? (
+              <div className="flex gap-3 items-center text-black dark:text-white font-bold text-[16px] ">
+                <ArrowLeft2 className="cursor-pointer" onClick={() => setIsLoginTwoFactor(false)} size="16" />
+                <div className="">{t('authentication:googleSecurity2FA')}</div>
+              </div>
+            ) : (
+              <div className="font-bold text-[16px] text-black dark:text-white">{t('authentication:welcomeBack')}</div>
+            )}
+            <SignInTab
+              setForgotKey={setForgotKey}
+              forgotKey={forgotKey}
+              isLoginTwoFactor={isLoginTwoFactor}
+              setIsLoginTwoFactor={setIsLoginTwoFactor}
+              email={email}
+            />
+          </div>
+        );
+
+      case AuthenticationModeEnum.SIGN_UP:
+        return (
+          <div>
+            <div className="font-bold text-[16px] text-black dark:text-white">{t('authentication:signUp')}</div>
+            <SignUpTab onClose={onClose} />
+          </div>
+        );
+      case AuthenticationModeEnum.FORGOT_PASS:
+        return (
+          <>
+            <ModalForgotPassword />
+          </>
+        );
+      case AuthenticationModeEnum.VERIFY:
+        return <VerificationTab />;
+      default:
+        break;
+    }
+  }, [authenticationType, forgotKey]);
 
   return (
     <>
@@ -51,37 +95,10 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
               forgotKey ? 'justify-center' : 'justify-between'
             }`}
           >
-            {(authenticationType === AuthenticationModeEnum.SIGN_IN ||
-              authenticationType === AuthenticationModeEnum.SIGN_UP) && (
-              <div>
-                {authenticationType === AuthenticationModeEnum.SIGN_IN &&
-                  (forgotKey ? null : isLoginTwoFactor ? (
-                    <div className="flex gap-3 items-center text-black dark:text-white font-bold text-[16px] ">
-                      <ArrowLeft2 className="cursor-pointer" onClick={() => setIsLoginTwoFactor(false)} size="16" />
-                      <div className="">{t('authentication:googleSecurity2FA')}</div>
-                    </div>
-                  ) : (
-                    <div className="font-bold text-[16px] text-black dark:text-white">
-                      {t('authentication:welcomeBack')}
-                    </div>
-                  ))}
-                {authenticationType === AuthenticationModeEnum.SIGN_UP && (
-                  <div className="font-bold text-[16px] text-black dark:text-white">{t('authentication:signUp')}</div>
-                )}
-                {authenticationType === AuthenticationModeEnum.SIGN_IN && (
-                  <SignInTab
-                    setForgotKey={setForgotKey}
-                    forgotKey={forgotKey}
-                    isLoginTwoFactor={isLoginTwoFactor}
-                    setIsLoginTwoFactor={setIsLoginTwoFactor}
-                    email={email}
-                  />
-                )}
-                {authenticationType === AuthenticationModeEnum.SIGN_UP && <SignUpTab onClose={onClose} />}
-              </div>
+            {returnForm()}
+            {!isLoginTwoFactor && authenticationType != AuthenticationModeEnum.VERIFY && (
+              <LoginWallet onClose={onClose} />
             )}
-            {authenticationType === AuthenticationModeEnum.FORGOT_PASS && <ModalForgotPassword />}
-            {!isLoginTwoFactor && <LoginWallet onClose={onClose} />}
           </div>
         </div>
       </CommonModal>

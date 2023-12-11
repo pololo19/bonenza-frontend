@@ -1,11 +1,11 @@
-import React, { ReactNode, useCallback, useMemo, useRef } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
-import Slider, { Settings } from 'react-slick';
 import Image from 'next/image';
+import Link from 'next/link';
+import React, { ReactNode, useCallback, useMemo, useRef } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import Slider, { Settings } from 'react-slick';
 
 import { useTranslation } from '@/base/config/i18next';
-import { RootState } from '@/base/types/root-state';
-import Link from 'next/link';
+import { AppState } from '@/base/redux/store';
 
 type CasinoSessionProps<T> = {
   icon?: JSX.Element;
@@ -46,7 +46,7 @@ const CasinoSession = <T,>({
   };
 
   const { showChatType, isToggleSidebar } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       showChatType: state.modal.showChatType,
       isToggleSidebar: state.modal.isToggleSidebar,
     }),

@@ -1,3 +1,12 @@
+import { Switch } from '@headlessui/react';
+import cn from 'classnames';
+import { SearchNormal } from 'iconsax-react';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
@@ -8,19 +17,11 @@ import {
   handleLocaleSymbol,
   isDecimalNumber,
 } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
-import { Switch } from '@headlessui/react';
-import cn from 'classnames';
-import { SearchNormal } from 'iconsax-react';
-import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 
 const BalancePage = () => {
   const [hideBalance, setHideBalance] = useState<boolean>(false);
@@ -31,7 +32,7 @@ const BalancePage = () => {
   const { t } = useTranslation('');
 
   const { localeFiat, fiatArray, cryptoArray, usdtNetwork, viewInFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
       fiatArray: state.common.fiatArray,

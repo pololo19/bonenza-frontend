@@ -1,5 +1,3 @@
-import { RootState } from '@/base/types/root-state';
-import Bowser from 'bowser';
 import cn from 'classnames';
 import { ArrangeHorizontalCircle, EmptyWallet, HambergerMenu, Message, TrendUp } from 'iconsax-react';
 import Link from 'next/link';
@@ -7,16 +5,15 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { io } from 'socket.io-client';
-import Footer from './footer.layout';
-import HeaderStats from './header.layout';
 
 import api from '@/api/api';
 import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, FIAT_DATA, ROUTER, TOAST_ENUM, socketConfig } from '@/base/constants/common';
+import { CookieKey, FIAT_DATA, ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
+import { exchangeByLocaleFiat, updateCoin } from '@/base/libs/utils';
+import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeActiveFiat,
   changeCryptoArray,
@@ -24,9 +21,6 @@ import {
   changeFiatArray,
   changeLocaleFiat,
   changeUsdtNetwork,
-  updateBalanceSocket,
-  updateCryptoSocket,
-  updateLockedAmountCryptoSocket,
 } from '@/base/redux/reducers/common.reducer';
 import {
   changeIsShowAuthenticationModal,
@@ -48,11 +42,10 @@ import {
   changeShowFullChat,
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import { CurrencyEnum, DepositAddress, FiatType, ObjectLiteral } from '@/base/types/common';
-import SidebarToggle from './sidebarToggle.layout';
+import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
-import { exchangeByLocaleFiat, updateCoin } from '@/base/libs/utils';
-import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import ChattingComponent from '../chatting/chattingComponent';
 import Loader from '../common/preloader/loader';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
@@ -62,18 +55,20 @@ import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDeposit from '../modal/depositModal/depositModal';
 import ModalMultiLanguage from '../modal/multiLanguage/MultiLanguage';
 import ModalProfile from '../modal/profile/profile';
+import ModalBonusHistory from '../modal/rakeBack/bonusHistory/bonusHistory';
+import ModalRakeBack from '../modal/rakeBack/rakeBack';
+import ModalRakeBackDetail from '../modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ModalReferAndEarn from '../modal/referAndEarn/referAndEarn';
 import ModalResetPassword from '../modal/resetPassword/resetPassword';
 import ModalUpdateAvatar from '../modal/updateAvatar/updateAvatar';
 import ModalUpdateProfile from '../modal/updateProfile/updateProfile';
 import ModalVipClub from '../modal/vipClub/vipClub';
 import ModalVipLevel from '../modal/vipLevel/vipLevel';
+import Footer from './footer.layout';
+import HeaderStats from './header.layout';
 import SidebarMobileLayout from './sidebarMobile.layout';
+import SidebarToggle from './sidebarToggle.layout';
 import WrapperBody from './wapperBody';
-import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
-import ModalRakeBack from '../modal/rakeBack/rakeBack';
-import ModalRakeBackDetail from '../modal/rakeBack/rakeBackDetail/rakeBackDetail';
-import ModalBonusHistory from '../modal/rakeBack/bonusHistory/bonusHistory';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -118,7 +113,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     cryptoArray,
     userId,
   } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
       isShowInformation: state.modal.isShowInformation,
       isShowReferAndEarn: state.modal.isShowReferAndEarn,
@@ -139,7 +134,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowCryptoOnlineModal: state.modal.isShowCryptoOnlineModal,
       isShowUpdateAvatar: state.modal.isShowUpdateAvatar,
       isShowResetPassword: state.modal.isShowResetPassword,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
       cryptoArray: state.common.cryptoArray,
     }),
     shallowEqual,
@@ -372,33 +367,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     const accessToken = CookiesStorage.getAccessToken();
     if (accessToken) {
       const resUser = await api.get('auth/get-user-info');
-      if (!resUser.data.data.isDeposit) {
-        await api.post('deposit/create-deposit-address');
-      }
+      // if (!resUser.data.data.isDeposit) {
+      //   await api.post('deposit/create-deposit-address');
+      // }
       dispatch(
         saveUserInfo({
-          isLogin: true,
-          ...convertUserInfo(resUser.data.data),
+          ...convertUserInfo(resUser.data),
         }),
       );
     }
-  };
-
-  const handleCreateSession = async () => {
-    try {
-      const browser = Bowser.getParser(window.navigator.userAgent);
-      const browserInformation = `${browser.getOSName()} (${browser.getBrowserName()})`;
-      const resIp = await api.get(
-        'https://api.ipdata.co/?api-key=5a79a21cf7d0603470695d443c4416c07b11b5edb0b64cfc9ff30063',
-      );
-      const res = await api.post('/user-session/create-session', {
-        browser: browserInformation,
-        location: resIp.data.countryCode,
-        ipAddress: resIp.data.ip,
-        session: CookiesStorage.getCookieData(CookieKey.session),
-      });
-      CookiesStorage.setCookieData(CookieKey.session, res.data.data.session);
-    } catch (error) {}
   };
 
   const handleUpdateSession = async () => {
@@ -410,9 +387,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   };
 
   useEffect(() => {
-    handleAccount();
-    handleUsdtNetwork();
-    handleGetExchangeRate();
+    // handleAccount();
+    // handleUsdtNetwork();
+    // handleGetExchangeRate();
     if (window.innerWidth < 1280) {
       dispatch(changeToggleSidebar(false));
     }
@@ -420,9 +397,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   useEffect(() => {
     if (isLogin) {
-      getBonus();
+      // getBonus();
     }
-    handleGet();
+    // handleGet();
   }, [isLogin]);
 
   useEffect(() => {
@@ -436,73 +413,67 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     cryptoArray && setCryptoLocked(cryptoArray[0]);
   }, [cryptoArray]);
 
-  // create session for user
   useEffect(() => {
     if (!userId) return;
-    handleCreateSession();
-  }, [userId]);
+    // const interval = setInterval(() => {
+    //   handleUpdateSession();
+    // }, 60000);
 
-  useEffect(() => {
-    if (!userId) return;
-    const interval = setInterval(() => {
-      handleUpdateSession();
-    }, 60000);
-
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, [userId]);
 
   // Socket for deposit
-  useEffect(() => {
-    if (!userId) return;
-    const socketDeposit = io(String(process.env.SOCKET_URL), socketConfig);
-    console.log('init socket');
+  // useEffect(() => {
+  //   if (!userId) return;
+  //   const socketDeposit = io(String(process.env.SOCKET_URL), socketConfig);
+  //   console.log('init socket');
 
-    // Socket for deposit
-    socketDeposit.on(`deposit_address_${userId}`, (crypto: DepositAddress[]) => {
-      console.log(`deposit_address_${userId}`, crypto);
-      dispatch(updateCryptoSocket(crypto?.[0]));
-      toast.success(
-        <div>
-          {t('deposit:depositComplete')}
-          <br /> {crypto[0].deposit_amount} {crypto[0].symbol}
-        </div>,
-        { containerId: TOAST_ENUM.COMMON },
-      );
-    });
+  //   // Socket for deposit
+  //   socketDeposit.on(`deposit_address_${userId}`, (crypto: DepositAddress[]) => {
+  //     console.log(`deposit_address_${userId}`, crypto);
+  //     dispatch(updateCryptoSocket(crypto?.[0]));
+  //     toast.success(
+  //       <div>
+  //         {t('deposit:depositComplete')}
+  //         <br /> {crypto[0].deposit_amount} {crypto[0].symbol}
+  //       </div>,
+  //       { containerId: TOAST_ENUM.COMMON },
+  //     );
+  //   });
 
-    // Socket for deposit progress
-    socketDeposit.on(`deposit_progress_user_id_${userId}`, () => {
-      console.log('deposit_progress_user_id_   ' + `${userId}`);
-      toast.success(<div>{t('deposit:depositprogress')}</div>, { containerId: TOAST_ENUM.COMMON });
-    });
+  //   // Socket for deposit progress
+  //   socketDeposit.on(`deposit_progress_user_id_${userId}`, () => {
+  //     console.log('deposit_progress_user_id_   ' + `${userId}`);
+  //     toast.success(<div>{t('deposit:depositprogress')}</div>, { containerId: TOAST_ENUM.COMMON });
+  //   });
 
-    // Socket for balance
-    socketDeposit.on(`balance_update_${userId}`, (crypto: DepositAddress[]) => {
-      console.log('update balance', userId, crypto);
-      dispatch(updateBalanceSocket(crypto?.[0]));
-    });
+  //   // Socket for balance
+  //   socketDeposit.on(`balance_update_${userId}`, (crypto: DepositAddress[]) => {
+  //     console.log('update balance', userId, crypto);
+  //     dispatch(updateBalanceSocket(crypto?.[0]));
+  //   });
 
-    // Socket for locked amount
-    socketDeposit.on(`update_balance_locked_${userId}`, (crypto: DepositAddress[]) => {
-      console.log('update_balance_locked_', userId, crypto);
-      toast.success(
-        <div
-          className="w-full"
-          onClick={() => {
-            dispatch(changeIsShowRakeBack(true));
-          }}
-        >
-          {t('deposit:getBonusSuccess')}
-        </div>,
-        { containerId: TOAST_ENUM.COMMON },
-      );
-      dispatch(updateLockedAmountCryptoSocket(crypto?.[0]));
-    });
+  //   // Socket for locked amount
+  //   socketDeposit.on(`update_balance_locked_${userId}`, (crypto: DepositAddress[]) => {
+  //     console.log('update_balance_locked_', userId, crypto);
+  //     toast.success(
+  //       <div
+  //         className="w-full"
+  //         onClick={() => {
+  //           dispatch(changeIsShowRakeBack(true));
+  //         }}
+  //       >
+  //         {t('deposit:getBonusSuccess')}
+  //       </div>,
+  //       { containerId: TOAST_ENUM.COMMON },
+  //     );
+  //     dispatch(updateLockedAmountCryptoSocket(crypto?.[0]));
+  //   });
 
-    return () => {
-      socketDeposit.disconnect();
-    };
-  }, [userId]);
+  //   return () => {
+  //     socketDeposit.disconnect();
+  //   };
+  // }, [userId]);
 
   return (
     <>

@@ -2,17 +2,17 @@ import cn from 'classnames';
 import { ArrowDown2, Global } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { FiatType } from '@/base/types/common';
-
-import { RootState } from '@/base/types/root-state';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import InputSearch from '../input/typing/InputSearch';
-import CommonModal from '../modal/commonModal/commonModal';
-import { changeActiveFiat } from '@/base/redux/reducers/common.reducer';
 import { CookieKey } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { changeActiveFiat } from '@/base/redux/reducers/common.reducer';
+import { AppState } from '@/base/redux/store';
+import { FiatType } from '@/base/types/common';
+
+import InputSearch from '../input/typing/InputSearch';
+import CommonModal from '../modal/commonModal/commonModal';
 
 type SelectFiatProps = {
   onChangeMoonpayFiat?: (value: FiatType) => void;
@@ -23,7 +23,7 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
   const dispatch = useDispatch();
 
   const { fiatArray, localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       fiatArray: state.common.fiatArray,
       localeFiat: state.common.localeFiat,
     }),

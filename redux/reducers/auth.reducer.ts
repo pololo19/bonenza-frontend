@@ -1,59 +1,90 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthState } from '@/base/types/reducer-states';
 import { KYC_ENUM } from '@/base/constants/common';
+import {
+  UserDetail,
+  UserSettingGeneralType,
+  UserSettingPrivacyType,
+  UserSettingVerifiedType,
+} from '@/base/types/common';
+import { AuthState } from '@/base/types/reducer-states';
 
-const initialCommonState: AuthState = {
-  isLogin: false,
-  wallet: '',
-  userName: '',
+import { AppDispatch } from '../store';
+import { api_updateSetting } from './../../api/user/index';
+import { convertUserInfo } from './../../libs/utils/index';
+
+const initialUser: UserDetail = {
   userId: '',
+  userName: '',
   email: '',
   phone: '',
+  wallet: '',
   avatar: '',
-  uuid: '',
-  betCount: 0,
-  winCount: 0,
+  betCount: '',
+  winCount: '',
   totalWager: 0,
   referralCode: '',
   isKyc: KYC_ENUM.REQUIRED,
+  generalSetting: {
+    settingShowFullNameCrypto: false,
+    settingReceiveMarketPromotion: false,
+    settingLanguage: 'en',
+    settingCurrency: 'usd',
+  },
+  privacySetting: {
+    settingHideUserName: false,
+    settingHideGamingData: false,
+    settingRefuseTipFromStrangers: false,
+  },
+  verifiedSetting: {
+    emailVerified: false,
+    phoneVerified: false,
+  },
+};
+
+const initialCommonState: AuthState = {
+  isLogin: false,
+  user: initialUser,
+  verifyRequest: '',
+  isPhoneVerifyRequested: false,
+  isForgetPassword: false,
 };
 
 export const queryDataSlice = createSlice({
   name: 'auth',
   initialState: initialCommonState,
   reducers: {
-    saveUserInfo: (state: AuthState, action: PayloadAction<AuthState>) => {
-      state.isLogin = action.payload.isLogin;
-      state.wallet = action.payload.wallet;
-      state.userName = action.payload.userName;
-      state.userId = action.payload.userId;
-      state.email = action.payload.email;
-      state.phone = action.payload.phone;
-      state.avatar = action.payload.avatar;
-      state.uuid = action.payload.uuid;
-      state.betCount = action.payload.betCount;
-      state.winCount = action.payload.winCount;
-      state.totalWager = action.payload.totalWager;
-      state.referralCode = action.payload.referralCode;
-      state.isKyc = action.payload.isKyc;
+    saveUserInfo: (state: AuthState, action: PayloadAction<UserDetail>) => {
+      state.isLogin = true;
+      state.user = { ...action.payload };
     },
     logoutState: (state: AuthState) => {
       state.isLogin = false;
-      state.wallet = '';
-      state.userName = '';
-      state.userId = '';
-      state.email = '';
-      state.phone = '';
-      state.avatar = '';
-      state.uuid = '';
-      state.referralCode = '';
-      state.betCount = 0;
-      state.winCount = 0;
-      state.totalWager = 0;
+      state.user = { ...initialUser };
+      state.verifyRequest = '';
+      state.isPhoneVerifyRequested = false;
+      state.isForgetPassword = false;
+    },
+    saveVerifyInfo: (state: AuthState, action: PayloadAction<any>) => {
+      state.verifyRequest = action.payload.verifyRequest;
+      state.isPhoneVerifyRequested = action.payload.isPhoneVerifyRequested;
+    },
+    setIsForgetPassword: (state: AuthState, action: PayloadAction<boolean>) => {
+      state.isForgetPassword = action.payload;
     },
   },
 });
 
-export const { saveUserInfo, logoutState } = queryDataSlice.actions;
+export const { saveUserInfo, logoutState, saveVerifyInfo, setIsForgetPassword } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
+
+export const updateSetting =
+  (setting: UserSettingGeneralType | UserSettingPrivacyType | UserSettingVerifiedType) =>
+  async (dispatch: AppDispatch) => {
+    try {
+      const res = await api_updateSetting(setting);
+      dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
+    } catch (error) {
+      console.log(error, '------ update Setting ------');
+    }
+  };

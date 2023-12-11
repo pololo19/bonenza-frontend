@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
-import { useTranslation } from '@/base/config/i18next';
 import api from '@/api/api';
-import { RootState } from '@/base/types/root-state';
-
+import { useTranslation } from '@/base/config/i18next';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 
 const VipProgressComponent = () => {
@@ -13,7 +12,7 @@ const VipProgressComponent = () => {
   const { t } = useTranslation('');
 
   const { isLogin } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
     }),
     shallowEqual,

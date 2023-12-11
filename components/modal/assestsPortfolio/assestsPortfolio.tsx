@@ -10,8 +10,8 @@ import { CookieKey } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
 import { changeLocaleFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { AppState } from '@/base/redux/store';
 import { DepositAddress } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
 import InputSearch from '@/components/input/typing/InputSearch';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 
@@ -35,7 +35,7 @@ export default function ModalAssetsPortfolio({
   const { t } = useTranslation('');
 
   const { depositCryptoArray, usdtNetwork } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       depositCryptoArray: state.common.depositCryptoArray,
       usdtNetwork: state.common.usdtNetwork,
     }),
@@ -89,7 +89,7 @@ export default function ModalAssetsPortfolio({
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
 
   const { localeFiat, fiatArray, cryptoArray, viewInFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
       fiatArray: state.common.fiatArray,

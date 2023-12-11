@@ -1,15 +1,15 @@
 import { AxiosError } from 'axios';
 import { compareAsc, differenceInSeconds, format, isValid } from 'date-fns';
 import { camelize } from 'humps';
+import { getParamByParam } from 'iso-country-currency';
 import { identity, pickBy } from 'lodash';
-import { TOAST_ENUM } from '@/base/constants/common';
-import { TransactionStatus } from '@/types/common';
 import Router from 'next/router';
 import qs from 'qs';
 import { Path, UseFormGetValues } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { USER_ROLE_DEFAULT } from '@/base/constants/auth';
+import { TOAST_ENUM } from '@/base/constants/common';
 import {
   CookieKey,
   DATE_TIME_FORMAT_DEFAULT,
@@ -20,7 +20,8 @@ import {
 import { DATE_DASH_DELIMITER_REGEX, DATE_ISO_FORMAT, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 import { ErrorResponse } from '@/base/types/api';
 import { DepositAddress, NetworkType, ObjectLiteral } from '@/base/types/common';
-import { getParamByParam } from 'iso-country-currency';
+import { TransactionStatus } from '@/types/common';
+
 import { CookiesStorage } from '../storage/cookie';
 
 export function camelToSnake(value: string) {
@@ -407,17 +408,32 @@ export const snakeCaseToString = (str?: string) => {
 
 export const convertUserInfo = (userData: any) => {
   return {
-    userName: userData?.username,
     userId: userData?.id,
+    userName: userData?.name,
     email: userData?.email,
-    avatar: userData?.avatar,
     phone: userData?.phone,
-    uuid: userData?.uuid,
-    winCount: userData?.winCount,
+    wallet: userData?.wallet,
+    avatar: userData?.avatar,
     betCount: userData?.betCount,
+    winCount: userData?.winCount,
     totalWager: userData?.totalWager,
     referralCode: userData?.referralCode,
     isKyc: userData?.isKyc,
+    generalSetting: {
+      settingShowFullNameCrypto: userData?.settingShowFullNameCrypto,
+      settingReceiveMarketPromotion: userData?.settingReceiveMarketPromotion,
+      settingLanguage: userData?.settingLanguage,
+      settingCurrency: 'usd',
+    },
+    privacySetting: {
+      settingHideUserName: userData?.settingHideUserName,
+      settingHideGamingData: userData?.settingHideGamingData,
+      settingRefuseTipFromStrangers: userData?.settingRefuseTipFromStrangers,
+    },
+    verifiedSetting: {
+      emailVerified: userData?.emailVerified,
+      phoneVerified: userData?.phoneVerified,
+    },
   };
 };
 

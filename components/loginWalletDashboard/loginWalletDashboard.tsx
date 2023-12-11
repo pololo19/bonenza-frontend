@@ -14,8 +14,7 @@ import { blockExplorer, chainId, metamask, rpcUrls, walletConnect } from '@/base
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { RootState } from '@/base/types/root-state';
-
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 
 declare let window: any;
@@ -33,9 +32,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { isLogin, wallet, isShowAuthenticationModal } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
-      wallet: state.auth.wallet,
+      wallet: state.auth.user.wallet,
       isShowAuthenticationModal: state.modal.isShowAuthenticationModal,
     }),
     shallowEqual,
@@ -54,7 +53,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       }
       dispatch(
         saveUserInfo({
-          isLogin: true,
           ...convertUserInfo(resUser.data.data),
         }),
       );
@@ -91,7 +89,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         }
         dispatch(
           saveUserInfo({
-            isLogin: true,
             ...convertUserInfo(resUser.data.data),
           }),
         );
@@ -257,7 +254,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       }
       dispatch(
         saveUserInfo({
-          isLogin: true,
           ...convertUserInfo(resUser.data.data),
         }),
       );

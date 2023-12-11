@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { Code1 } from 'iconsax-react';
 import { InputHTMLAttributes } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
@@ -6,7 +7,6 @@ import { UNICODE_NORMALIZATION } from '@/base/constants/common';
 import { MAX_LENGTH, NUMBER_FULL_WIDTH } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
-import { Code1 } from 'iconsax-react';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;

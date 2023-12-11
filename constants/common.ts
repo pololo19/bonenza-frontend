@@ -8,9 +8,10 @@ import {
   StatusUp,
   TrendUp,
 } from 'iconsax-react';
-import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '../types/common';
-import resources from '../public/locales';
 import { Settings } from 'react-slick';
+
+import resources from '../public/locales';
+import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '../types/common';
 
 export const CookieKey = {
   accessToken: 'accessToken',
@@ -117,11 +118,11 @@ export const ROUTER = {
 };
 
 export const LANGUAGE_DATA: {
-  language?: string;
-  key?: keyof typeof resources;
-  href?: string;
-  currency?: string;
-  currencyAlias?: string;
+  language: string;
+  key: keyof typeof resources;
+  href: string;
+  currency: string;
+  currencyAlias: string;
 }[] = [
   {
     language: 'English',
@@ -616,6 +617,13 @@ export const MIN_CROP_WIDTH = 50;
 export const PRODUCT_ATTRIBUTE_NOT_EXIST = 'SIS-PRODUCT-312';
 
 export const CHUNK_BATCH_CREATE_PRODUCT = 100;
+
+export const API_AVATAR = process.env.API_AVATAR;
+
+export const STREAM_API_KEY = process.env.STREAM_CHAT_API_KEY;
+export const STREAM_API_SECRET = process.env.STREAM_CHAT_API_SECRET;
+
+export const DEFAULT_AVATAR = 'https://bonenza.com/img/avatar-1.png';
 
 export const SIDEBAR_LIST = [
   {

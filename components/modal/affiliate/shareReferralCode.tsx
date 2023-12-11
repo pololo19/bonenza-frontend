@@ -2,11 +2,12 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ElementType, useMemo } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { RootState } from '@/base/types/root-state';
-import { shallowEqual, useSelector } from 'react-redux';
+import { AppState } from '@/base/redux/store';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalShareReferralCodeProps = {
@@ -17,7 +18,7 @@ type ModalShareReferralCodeProps = {
 
 export default function ModalShareReferralCode({ show, onClose }: ModalShareReferralCodeProps) {
   const { referralCode } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       referralCode: state.auth.referralCode,
     }),
     shallowEqual,

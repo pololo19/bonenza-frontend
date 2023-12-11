@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Ref, forwardRef, useImperativeHandle, useState } from 'react';
+import { ArrowDown2 } from 'iconsax-react';
+import { forwardRef, Ref, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -7,14 +8,14 @@ import { useTranslation } from '@/base/config/i18next';
 import { CookieKey } from '@/base/constants/common';
 import { REGEX_EMAIL } from '@/base/constants/validation';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { SignUpEmailFormRef, SignUpEmailFormRequest } from '@/base/types/common';
+import { SignUpEmailFormRef } from '@/base/types/common';
+import { SignUpEmailRequest } from '@/base/types/requestTypes';
 import InputEmailAuthentication from '@/components/input/typing/InputEmailAuthentication';
 import InputPassAuthentication from '@/components/input/typing/InputPassAuthentication';
-import { ArrowDown2 } from 'iconsax-react';
 import InputText from '@/components/input/typing/InputText';
 
 type SignUpEmailFormProps = {
-  onSubmit: (data: SignUpEmailFormRequest) => void;
+  onSubmit: (data: SignUpEmailRequest) => void;
 };
 
 const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRef>) => {
@@ -41,7 +42,7 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
     control,
     setValue,
     formState: { errors },
-  } = useForm<SignUpEmailFormRequest>({
+  } = useForm<SignUpEmailRequest>({
     resolver: yupResolver(schema),
     defaultValues: {
       referralCode: CookiesStorage.getCookieData(CookieKey.referralCode)

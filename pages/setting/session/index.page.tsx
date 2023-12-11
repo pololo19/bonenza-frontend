@@ -1,7 +1,7 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 
-import api from '@/api/api';
+import { api_deleteSession, api_getSessions } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { differenceDateInSeconds } from '@/base/libs/utils';
 import { SessionType } from '@/base/types/common';
@@ -15,50 +15,54 @@ const SettingSession = () => {
   const { t } = useTranslation('');
   const [dataTable, setDataTable] = useState<SessionType[]>([]);
 
-  const depositColumns: ColumnDef<any>[] = [
-    {
-      accessorKey: 'browser',
-      header: 'Browser',
-      cell: ({ row }) => <div className="dark:text-white text-black">{row.original.browser}</div>,
-      minSize: 100,
-    },
-    {
-      accessorKey: 'location',
-      header: 'Location',
-      minSize: 30,
-      cell: ({ row }) => <div className="dark:text-[#98A7B5] text-black">{row.original.location}</div>,
-    },
-    {
-      accessorKey: 'ip',
-      header: 'IP Address',
-      cell: ({ row }) => <div className="dark:text-white text-black">{row.original.ipAddress}</div>,
-      maxSize: 80,
-    },
-    {
-      accessorKey: 'lastUsed',
-      header: 'Last Used',
-      maxSize: 30,
-      cell: ({ row }) => (
-        <div className="dark:text-[#98A7B5] text-black">
-          {Number(differenceDateInSeconds(new Date(), new Date(row.original.lastUsedAt))) > 60 ? 'Offline' : 'Online'}
-        </div>
-      ),
-    },
-    {
-      accessorKey: 'action',
-      header: 'Action',
-      maxSize: 80,
-      cell: ({ row }) => (
-        <div className="text-[#0DFDE4]" role="button" onClick={() => removeUserSession(row.original.id)}>
-          Remove Device
-        </div>
-      ),
-    },
-  ];
+  const sessionColumns: ColumnDef<any>[] = useMemo(() => {
+    return [
+      {
+        accessorKey: 'browser',
+        header: 'Browser',
+        cell: ({ row }) => <div className="dark:text-white text-black">{row.original.browser}</div>,
+        minSize: 100,
+      },
+      {
+        accessorKey: 'location',
+        header: 'Location',
+        minSize: 30,
+        cell: ({ row }) => <div className="dark:text-[#98A7B5] text-black">{row.original.location}</div>,
+      },
+      {
+        accessorKey: 'ip',
+        header: 'IP Address',
+        cell: ({ row }) => <div className="dark:text-white text-black">{row.original.ipAddress}</div>,
+        maxSize: 80,
+      },
+      {
+        accessorKey: 'lastUsed',
+        header: 'Last Used',
+        maxSize: 30,
+        cell: ({ row }) => (
+          <div className="dark:text-[#98A7B5] text-black">
+            {Number(differenceDateInSeconds(new Date(), new Date(row.original.lastUsedAt))) > 60 ? 'Offline' : 'Online'}
+          </div>
+        ),
+      },
+      {
+        accessorKey: 'action',
+        header: 'Action',
+        maxSize: 80,
+        cell: ({ row }) => (
+          <div className="text-[#0DFDE4]" role="button" onClick={() => removeUserSession(row.original.id)}>
+            Remove Device
+          </div>
+        ),
+      },
+    ];
+  }, []);
 
-  const removeUserSession = (id: number) => {
+  const removeUserSession = async (sessionId: string) => {
     try {
+      console.log(sessionId, '====63');
       setIsLoading(true);
+      const res = await api_deleteSession(sessionId);
       handleGetListUserSession();
     } catch (error) {
     } finally {
@@ -69,8 +73,8 @@ const SettingSession = () => {
   const handleGetListUserSession = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('/user-session/get-list-user-session');
-      setDataTable(res.data.data);
+      const res = await api_getSessions();
+      setDataTable(res.data);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -90,7 +94,7 @@ const SettingSession = () => {
           containerClassName="w-full sm:block hidden mt-[30px]"
           isLoading={isLoading}
           data={dataTable}
-          columns={depositColumns}
+          columns={sessionColumns}
         />
       </div>
     </>

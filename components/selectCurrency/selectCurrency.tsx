@@ -8,13 +8,13 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat } from '@/base/libs/utils';
-import { changeActiveFiat, changeUsdtNetwork } from '@/base/redux/reducers/common.reducer';
-import { CurrencyEnum, DepositAddress } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
-
 import { CookieKey, LIST_NETWORK_USDT } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { currencyFormat } from '@/base/libs/utils';
+import { changeActiveFiat, changeUsdtNetwork } from '@/base/redux/reducers/common.reducer';
+import { AppState } from '@/base/redux/store';
+import { CurrencyEnum, DepositAddress } from '@/base/types/common';
+
 import InputSearch from '../input/typing/InputSearch';
 
 type SelectCurrencyProps = {
@@ -29,7 +29,7 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
   const dispatch = useDispatch();
 
   const { depositCryptoArray, usdtNetwork } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       depositCryptoArray: state.common.depositCryptoArray,
       usdtNetwork: state.common.usdtNetwork,
     }),

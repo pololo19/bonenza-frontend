@@ -1,14 +1,15 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
-import { ElementType } from 'react';
 import Image from 'next/image';
+import { ElementType } from 'react';
 import { useTranslation } from 'react-i18next';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+
 import CommonModal from '../commonModal/commonModal';
-import { shallowEqual, useSelector } from 'react-redux';
-import { RootState } from '@/base/types/root-state';
 
 type ModalDetailTransactionProps = {
   onClose: () => void;
@@ -23,7 +24,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
   const { t } = useTranslation('');
 
   const { localeFiat, viewInFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       viewInFiat: state.common.viewInFiat,
     }),

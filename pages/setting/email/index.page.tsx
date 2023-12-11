@@ -1,24 +1,25 @@
 import { Disclosure, Transition } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
+import { TickCircle } from 'iconsax-react';
+import { useTheme } from 'next-themes';
 import { ReactElement, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-number-input';
+import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { RootState } from '@/base/types/root-state';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import InputText from '@/components/input/typing/InputText';
 import SettingLayout from '@/components/layouts/setting.layout';
-import { ChevronUpIcon } from '@heroicons/react/24/outline';
-import { TickCircle } from 'iconsax-react';
-import { useTheme } from 'next-themes';
-import { shallowEqual, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+
 import styles from './index.module.scss';
 
 type VerificationEmailForm = {
@@ -45,9 +46,9 @@ const SettingEmail = () => {
   const { theme } = useTheme();
 
   const { email, phone } = useSelector(
-    (state: RootState) => ({
-      phone: state.auth.phone,
-      email: state.auth.email,
+    (state: AppState) => ({
+      phone: state.auth.user.phone,
+      email: state.auth.user.email,
     }),
     shallowEqual,
   );

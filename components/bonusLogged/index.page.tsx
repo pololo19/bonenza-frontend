@@ -1,19 +1,20 @@
-import React, { ReactElement, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { TOAST_ENUM } from '@/base/constants/common';
-import BaseLayout from '@/components/layouts/base.layout';
-import { useTranslation } from '@/base/config/i18next';
-import CardGeneralBonus from '../cards/cardGeneralBonus';
-import CardVipBonus from '../cards/cardVipBonus';
 import api from '@/api/api';
-import Loader from '@/components/common/preloader/loader';
-import { RootState } from '@/base/types/root-state';
+import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol, isDecimalNumber } from '@/base/libs/utils';
 import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
+import Loader from '@/components/common/preloader/loader';
+import BaseLayout from '@/components/layouts/base.layout';
+
+import CardGeneralBonus from '../cards/cardGeneralBonus';
+import CardVipBonus from '../cards/cardVipBonus';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 
 function BonusLoggedPage() {
@@ -25,7 +26,7 @@ function BonusLoggedPage() {
   const [levelData, setLevelData] = useState<any>({});
   const [openModalBonusDetails, setOpenModalBonusDetails] = useState<boolean>(false);
   const { localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
     }),
     shallowEqual,

@@ -1,28 +1,11 @@
 import { Popover, Transition } from '@headlessui/react';
+import { googleLogout } from '@react-oauth/google';
 import { useWeb3React } from '@web3-react/core';
 import cn from 'classnames';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { Fragment, useEffect, useRef, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-
-import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { logoutState } from '@/base/redux/reducers/auth.reducer';
-import {
-  changeIsShowInformation,
-  changeIsShowReferAndEarn,
-  changeIsShowVipClubModal,
-} from '@/base/redux/reducers/modal.reducer';
-import { RootState } from '@/base/types/root-state';
-
-import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
-import { googleLogout } from '@react-oauth/google';
 import {
   Card,
   CardReceive,
+  Chart,
   EmptyWallet,
   LogoutCurve,
   MoneyRecive,
@@ -31,14 +14,28 @@ import {
   StatusUp,
   User,
   UserAdd,
-  Chart,
 } from 'iconsax-react';
-interface ProfileDropDownProp {
-  setAccessToken: (token: boolean) => void;
-}
-export default function ProfileDropdown({ setAccessToken }: ProfileDropDownProp) {
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { Fragment, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
+import { useTranslation } from '@/base/config/i18next';
+import { API_AVATAR, ROUTER } from '@/base/constants/common';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { logoutState } from '@/base/redux/reducers/auth.reducer';
+import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
+import {
+  changeIsShowInformation,
+  changeIsShowReferAndEarn,
+  changeIsShowVipClubModal,
+} from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+export default function ProfileDropdown() {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { deactivate } = useWeb3React();
   const { t } = useTranslation('');
 
@@ -70,15 +67,14 @@ export default function ProfileDropdown({ setAccessToken }: ProfileDropDownProp)
     };
   });
 
-  const { avatar } = useSelector(
-    (state: RootState) => ({
-      avatar: state.auth.avatar,
+  const { user } = useSelector(
+    (state: AppState) => ({
+      user: state.auth.user,
     }),
     shallowEqual,
   );
 
   const handleLogout = () => {
-    setAccessToken(false);
     CookiesStorage.logout();
     googleLogout();
     deactivate();
@@ -95,6 +91,8 @@ export default function ProfileDropdown({ setAccessToken }: ProfileDropDownProp)
     }
   }, []);
 
+  console.log(user, '---96');
+
   return (
     <>
       <Popover className="relative w-auto text-left rounded-[7px] flex">
@@ -109,7 +107,7 @@ export default function ProfileDropdown({ setAccessToken }: ProfileDropDownProp)
                 <Image
                   height={40}
                   width={40}
-                  src={String(process.env.API_AVATAR) + avatar}
+                  src={String(API_AVATAR) + user.avatar}
                   alt=""
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
@@ -246,7 +244,11 @@ export default function ProfileDropdown({ setAccessToken }: ProfileDropDownProp)
                     </div>
                     <div>
                       <span
-                        onClick={() => dispatch(changeIsShowInformation(true))}
+                        onClick={() => {
+                          console.log(user.userId, user.userName, user.avatar, '-----248');
+                          dispatch(setUserData({ userId: user.userId, userName: user.userName, avatar: user.avatar }));
+                          dispatch(changeIsShowInformation(true));
+                        }}
                         className={cn(
                           'dark:hover:bg-gray-600 dark:hover:text-white dark:text-gray-400 text-[#31373D] hover:text-[#31373d] hover:bg-[#f6f7fa]',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',

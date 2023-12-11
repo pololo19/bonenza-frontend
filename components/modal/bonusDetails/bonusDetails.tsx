@@ -1,20 +1,21 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import Image from 'next/image';
-import { useSelector, shallowEqual } from 'react-redux';
-import { ElementType, useEffect, useState, useMemo, Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
-
-import { useTranslation } from '@/base/config/i18next';
-import CommonModal from '../commonModal/commonModal';
-import api from '@/api/api';
-import Loader from '@/components/common/preloader/loader';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
 import { ColumnDef } from '@tanstack/react-table';
+import Image from 'next/image';
+import { ElementType, Fragment, useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
-import TableComponent from '@/components/table';
+import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import Loader from '@/components/common/preloader/loader';
 import Paging from '@/components/paging/paging';
+import TableComponent from '@/components/table';
+
+import CommonModal from '../commonModal/commonModal';
 
 type ModalBonusDetailProps = {
   onClose: () => void;
@@ -33,7 +34,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
   const [listTransactions, setListTransactions] = useState<any[]>([]);
   const [totalTable, setTotalTable] = useState<number>(0);
   const { localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
     }),
     shallowEqual,

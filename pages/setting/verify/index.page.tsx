@@ -1,20 +1,20 @@
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import axios from 'axios';
 import cn from 'classnames';
+import { Clock, Edit } from 'iconsax-react';
+import Image from 'next/image';
+import { ReactElement, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
 import { useTranslation } from '@/base/config/i18next';
+import { KYC_ENUM } from '@/base/constants/common';
+import { AppState } from '@/base/redux/store';
+import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import FaceIdIcon from '@/components/icons/FaceIdIcon';
 import GovernmentCardIcon from '@/components/icons/GovernmentCardIcon';
 import SettingLayout from '@/components/layouts/setting.layout';
-import { Clock, Edit } from 'iconsax-react';
-import ModalVerification from '@/components/modal/verification/verification';
-import axios from 'axios';
-import { RootState } from '@/base/types/root-state';
-import { useSelector, shallowEqual } from 'react-redux';
 import CommonModal from '@/components/modal/commonModal/commonModal';
-import Loader from '@/components/common/preloader/loader';
 import ModalVerificationUploadCard from '@/components/modal/verification/verificationUpload';
-import { KYC_ENUM } from '@/base/constants/common';
-import Image from 'next/image';
 
 const SettingVerify = () => {
   const { t } = useTranslation('');
@@ -33,7 +33,7 @@ const SettingVerify = () => {
   const iframeRef = useRef();
 
   const { email, userId, isKyc } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       userId: state.auth.userId,
       email: state.auth.email,
       isKyc: state.auth.isKyc,

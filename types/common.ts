@@ -1,6 +1,13 @@
-import { Path } from 'react-hook-form';
 import { ParseResult } from 'papaparse';
-import { type } from 'os';
+
+import { KYC_ENUM } from '../constants/common';
+
+export enum AuthenticationModeEnum {
+  SIGN_IN = 'SIGN_IN',
+  SIGN_UP = 'SIGN_UP',
+  FORGOT_PASS = 'FORGOT_PASS',
+  VERIFY = 'VERIFY',
+}
 
 export enum EnumCSVValidateResult {
   CSV_ERROR_EXTENSION = 'CSV_ERROR_EXTENSION',
@@ -23,12 +30,6 @@ export enum EnumVerificationDocumentType {
   ID_CARD = 'ID_CARD',
   RESIDENCE_PERMIT = 'RESIDENCE_PERMIT',
   VISA = 'VISA',
-}
-
-export enum AuthenticationModeEnum {
-  SIGN_IN = 'SIGN_IN',
-  SIGN_UP = 'SIGN_UP',
-  FORGOT_PASS = 'FORGOT_PASS',
 }
 
 export type ObjectLiteral = {
@@ -59,23 +60,17 @@ export type PaginationResponse = {
   first?: number;
 };
 
-export type ParamsRequest = {
-  q?: string | number;
-  limit?: string | number;
-  page?: string | number;
+export type SignUpEmailFormRef = {
+  emitData?: () => void;
+};
+
+export type SignUpPhoneFormRef = {
+  emitData?: () => void;
+  countryCallingCode?: any;
 };
 
 export type BasicFormRef = {
   emitData?: () => void;
-};
-
-export type SignUpEmailFormRef = {
-  emitData?: () => void;
-};
-export type SignUpEmailFormRequest = {
-  email?: string;
-  password?: string;
-  referralCode?: string;
 };
 
 export type ReferralCodeDetail = {
@@ -87,16 +82,6 @@ export type ReferralCodeDetail = {
   totalMemberRegister?: number;
   totalCommissionRewards?: string;
   userId: number;
-};
-
-export type SignUpPhoneFormRef = {
-  emitData?: () => void;
-  countryCallingCode?: any;
-};
-export type SignUpPhoneFormRequest = {
-  phone?: string;
-  password?: string;
-  referralCode?: string;
 };
 
 export type CSVReaderResult = {
@@ -240,19 +225,39 @@ export type RankDetail = {
   vips: any[];
 };
 
+export type UserSettingGeneralType = {
+  settingReceiveMarketPromotion: boolean;
+  settingShowFullNameCrypto: boolean;
+  settingLanguage: string;
+  settingCurrency: string;
+};
+
+export type UserSettingPrivacyType = {
+  settingHideUserName: boolean;
+  settingHideGamingData: boolean;
+  settingRefuseTipFromStrangers: boolean;
+};
+
+export type UserSettingVerifiedType = {
+  emailVerified: boolean;
+  phoneVerified: boolean;
+};
+
 export type UserDetail = {
-  username?: string;
-  userId?: number;
-  isHideNamePublicList?: boolean;
-  isHideGamingData?: boolean;
-  uuid?: string;
-  avatar?: string;
-  id?: number;
-  email?: string;
-  betCount?: string;
-  winCount?: string;
-  totalWager?: number;
-  totalWagerUSD?: number;
+  userName: string;
+  userId: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  betCount: string;
+  winCount: string;
+  totalWager: number;
+  referralCode: string;
+  wallet: string;
+  isKyc: KYC_ENUM;
+  generalSetting: UserSettingGeneralType;
+  privacySetting: UserSettingPrivacyType;
+  verifiedSetting: UserSettingVerifiedType;
 };
 
 export type GameProviderDetail = {

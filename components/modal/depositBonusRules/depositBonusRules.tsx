@@ -1,11 +1,12 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { ElementType, Fragment, useRef } from 'react';
-import { useTranslation } from '@/base/config/i18next';
 import Image from 'next/image';
-import { RootState } from '@/base/types/root-state';
+import { ElementType, Fragment, useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+
+import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 
 type ModalDepositBonusRulesProps = {
   onClose: () => void;
@@ -17,7 +18,7 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
   const { localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
     }),
     shallowEqual,

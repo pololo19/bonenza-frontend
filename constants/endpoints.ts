@@ -1,16 +1,44 @@
 const URL_REFRESH_TOKEN = '/refresh';
 const URL_COMPANIES = '/admin/companies';
 
-const URL_LOGIN = '/admin-auth/login';
-const URL_LOGIN_WITH_EMAIL = '/auth/login';
-const URL_UPDATE_PROFILE = '/auth/edit-profile';
-const URL_UPLOAD_AVATAR = '/auth/upload-avatar';
-const URL_SIGNUP_WITH_EMAIL = '/auth/sign-up-with-email';
-const URL_SIGNUP_WITH_PHONE = '/auth/sign-up-with-phone';
+/************************************ Verify **********************************/
+const API_AUTH_SEND_MAIL = '/auth/send-mail';
+const API_AUTH_SEND_SMS = '/auth/send-sms';
+const API_AUTH_VERIFY_CODE = '/auth/verify-code';
+const API_AUTH_VERIFY_QR_CODE = '/auth/send-verify-qr-code';
+
+const API_AUTH_VALIDATE_TOKEN = (token: string) => `/auth/validate/${token}`;
+
+/************************************ Authrization **********************************/
+const API_ADMIN_LOGIN = '/admin-auth/login';
+const API_AUTH_LOGIN = '/auth/login';
+const API_AUTH_LOGIN_WITH_GOOGLE = '/auth/save-info-login-google';
+const API_AUTH_SIGNUP_WITH_EMAIL = '/auth/sign-up-with-email';
+const API_AUTH_SIGNUP_WITH_PHONE = '/auth/sign-up-with-phone';
+const API_AUTH_FORGOT_PASSWORD = '/auth/forgot-password';
+const API_AUTH_RESET_PASSWORD = '/auth/reset-password';
+
+/************************************ User Profile **********************************/
+const API_USER_PROFILE_GET_PROFILE = `/user-profile/get-user-profile`;
+const API_USER_PROFILE_EDIT_PROFILE = '/user-profile/edit-profile';
+const API_USER_PROFILE_UPLOAD_AVATAR = '/user-profile/upload-avatar';
+
+/************************************ User Setting **********************************/
+const API_USER_SETTING_GENERAL_SETTING = '/user-setting/get-general-setting';
+const API_USER_SETTING_PRIVACY_SETTING = '/user-setting/get-privacy-setting';
+const API_USER_SETTING_EMAIL_AND_PHONE_VERIFY = '/user-setting/get-email-and-phone-verify';
+const API_USER_SETTING_UPDATE = '/user-setting/edit-setting';
+
+/************************************ User Session **********************************/
+const API_USER_SESSION_LIST_SESSIONS = '/user-session/get-list-user-session';
+const API_USER_SESSION_DELETE_SESSION = `/user-session/delete-user-session`;
+
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
-const URL_FORGOT_PASS = '/forgot-password';
-const URL_RESET_PASS = '/reset-password';
+
+const URL_SEND_VERIFY_QR_CODE = '/auth/send-verify-qr-code';
+const URL_GET_USER_INFO = '/auth/get-user-info';
+
 const URL_VERIFY_TOKEN = '/verify-token';
 const URL_UPDATE_PASS = 'update-password';
 const URL_LOGOUT = '/logout';
@@ -20,22 +48,26 @@ const URL_CRYPTO_EXCHANGE_RATE = 'exchange/get-crypto-exchange-rate';
 const URL_EXCHANGE_RATE = 'exchange/get-exchange-rate';
 
 export {
-  URL_SIGNUP_WITH_PHONE,
-  URL_EXCHANGE_RATE,
-  URL_FIAT_EXCHANGE_RATE,
-  URL_CRYPTO_EXCHANGE_RATE,
-  URL_AUTH_COMPANIES,
-  URL_COMPANIES,
-  URL_FORGOT_PASS,
-  URL_LOGIN,
-  URL_LOGIN_COMPANY,
-  URL_LOGIN_WITH_EMAIL,
-  URL_LOGOUT,
+  API_ADMIN_LOGIN,
+  API_AUTH_FORGOT_PASSWORD,
+  API_AUTH_LOGIN,
+  API_AUTH_LOGIN_WITH_GOOGLE,
+  API_AUTH_RESET_PASSWORD,
+  API_AUTH_SEND_MAIL,
+  API_AUTH_SEND_SMS,
+  API_AUTH_SIGNUP_WITH_EMAIL,
+  API_AUTH_SIGNUP_WITH_PHONE,
+  API_AUTH_VALIDATE_TOKEN,
+  API_AUTH_VERIFY_CODE,
+  API_AUTH_VERIFY_QR_CODE,
+  API_USER_PROFILE_EDIT_PROFILE,
+  API_USER_PROFILE_GET_PROFILE,
+  API_USER_PROFILE_UPLOAD_AVATAR,
+  API_USER_SESSION_DELETE_SESSION,
+  API_USER_SESSION_LIST_SESSIONS,
+  API_USER_SETTING_EMAIL_AND_PHONE_VERIFY,
+  API_USER_SETTING_GENERAL_SETTING,
+  API_USER_SETTING_PRIVACY_SETTING,
+  API_USER_SETTING_UPDATE,
   URL_REFRESH_TOKEN,
-  URL_RESET_PASS,
-  URL_SIGNUP_WITH_EMAIL,
-  URL_UPDATE_PASS,
-  URL_VERIFY_TOKEN,
-  URL_UPDATE_PROFILE,
-  URL_UPLOAD_AVATAR,
 };

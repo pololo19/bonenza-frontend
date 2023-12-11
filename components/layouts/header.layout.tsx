@@ -1,37 +1,39 @@
-import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import Link from 'next/link';
-
 import { Gift } from 'iconsax-react';
+import { Global, Message, MoneyRecive, Notification } from 'iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
+import { api_validateToken } from '@/api/auth';
+import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { RootState } from '@/base/types/root-state';
-import { useTranslation } from '@/base/config/i18next';
+import { convertUserInfo, handleLocaleSymbol } from '@/base/libs/utils';
+import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
+  changeIsShowCasinoSearch,
   changeIsShowDepositModal,
   changeIsShowMultiLanguageModal,
   changeMultiLanguageTab,
   changeShowChatType,
-  changeIsShowCasinoSearch,
 } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
+import { AuthenticationModeEnum } from '@/base/types/common';
+import { FiatType } from '@/base/types/common';
 
-import { Global, Message, MoneyRecive, Notification } from 'iconsax-react';
-import { AuthenticationModeEnum, FiatType } from '@/base/types/common';
-import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
-import FiatHeader from './header/fiatHeader';
-import ProfileDropdown from '../profileDropdown/profileDropdown';
-import { handleLocaleSymbol } from '@/base/libs/utils';
-import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
-import CasinoBoldIcon from '../icons/CasinoBoldIcon';
-import SportBoldIcon from '../icons/SportBoldIcon';
-import RacingBoldIcon from '../icons/RacingBoldIcon';
 import LoaderFull from '../common/loaderFull/loaderFull';
+import CasinoBoldIcon from '../icons/CasinoBoldIcon';
+import RacingBoldIcon from '../icons/RacingBoldIcon';
+import SportBoldIcon from '../icons/SportBoldIcon';
+import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
+import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
+import ProfileDropdown from '../profileDropdown/profileDropdown';
+import FiatHeader from './header/fiatHeader';
 
 export default function Navbar() {
   const router = useRouter();
@@ -42,7 +44,7 @@ export default function Navbar() {
   const [localeCoin, setLocaleCoin] = useState<FiatType>({});
 
   const { isLogin, isToggleSidebar, showChatType, localeFiat, viewInFiat, isShowCasinoSearch } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
       isToggleSidebar: state.modal.isToggleSidebar,
       isShowCasinoSearch: state.modal.isShowCasinoSearch,
@@ -56,7 +58,18 @@ export default function Navbar() {
   const [showGlobal, setShowGlobal] = useState(false);
 
   useEffect(() => {
+    const validateToken = async (token: string) => {
+      try {
+        const result = await api_validateToken(token);
+        dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
+      } catch (error) {
+        dispatch(logoutState());
+      }
+    };
+
     const token = CookiesStorage.getAccessToken();
+
+    validateToken(token || '');
     setAccessToken(!!token);
     setIsLoadingFull(false);
     if (isLogin) {
@@ -152,7 +165,7 @@ export default function Navbar() {
 
           <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
             {/* Button */}
-            {!accessToken && (
+            {!isLogin && (
               <div className="flex items-center text-white font-bold w-full gap-2">
                 <button
                   type="button"
@@ -178,8 +191,8 @@ export default function Navbar() {
                 </button>
               </div>
             )}
-            {accessToken && <FiatHeader />}
-            {accessToken && (
+            {isLogin && <FiatHeader />}
+            {isLogin && (
               <button
                 type="button"
                 className="truncate text-white rounded-[5px] bg-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[7px] md:text-[14px] text-[12px] font-semibold"
@@ -191,7 +204,7 @@ export default function Navbar() {
                 {t('layout:deposit')}
               </button>
             )}
-            {accessToken && (
+            {isLogin && (
               <button
                 type="button"
                 className="sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px]"
@@ -211,7 +224,7 @@ export default function Navbar() {
             >
               <Message width={18} height={18} variant="Bold" />
             </button>
-            {accessToken && showGlobal && (
+            {isLogin && showGlobal && (
               <Link
                 className="block sm:hidden dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
                 href={ROUTER.Bonus}
@@ -220,7 +233,7 @@ export default function Navbar() {
               </Link>
             )}
             {/* Avatar */}
-            {accessToken && <ProfileDropdown setAccessToken={setAccessToken} />}
+            {isLogin && <ProfileDropdown />}
             {/* Multi Language */}
             <button
               type="button"

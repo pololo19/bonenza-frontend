@@ -1,32 +1,32 @@
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import * as yup from 'yup';
 import { Tooltip } from 'react-tooltip';
+import * as yup from 'yup';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { CRYPTO_DATA, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { DepositAddress, InformationWithdraw, NetworkType } from '@/base/types/common';
-
-import { RootState } from '@/base/types/root-state';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import InputNumber from '@/components/input/typing/InputNumber';
 import InputText from '@/components/input/typing/InputText';
 import DepositLayout from '@/components/layouts/deposit.layout';
-import SelectCurrency from '@/components/selectCurrency/selectCurrency';
-import Head from 'next/head';
-import { shallowEqual, useSelector } from 'react-redux';
-import styles from './index.module.scss';
-import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import ModalRollover from '@/components/modal/rollover/Rollover';
+import SelectCurrency from '@/components/selectCurrency/selectCurrency';
+
+import styles from './index.module.scss';
 
 type WithdrawFormType = {
   withdrawAddress: string;
@@ -49,7 +49,7 @@ const WithdrawCryptoPage = () => {
   const [informationWithdraw, setInformationWithdraw] = useState<InformationWithdraw>();
 
   const { activeFiat, localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
     }),

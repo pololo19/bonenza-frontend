@@ -1,8 +1,9 @@
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
-import { AuthenticationModeEnum, DepositAddress, FiatType, ObjectLiteral } from './common';
-import { KYC_ENUM } from '../constants/common';
 
-type TokenState = {
+import { AuthenticationModeEnum, DepositAddress, FiatType, UserDetail } from './common';
+import { VerifyRequestType } from './requestTypes';
+
+export type TokenState = {
   accessToken?: string;
   refreshToken?: string;
   tokenType?: string;
@@ -10,23 +11,15 @@ type TokenState = {
   expiresAt?: string;
 };
 
-type AuthState = {
-  isLogin?: boolean;
-  isKyc?: KYC_ENUM;
-  wallet?: string;
-  userName?: string;
-  userId?: string;
-  email?: string;
-  phone?: string;
-  avatar?: string;
-  referralCode?: string;
-  uuid?: string;
-  winCount?: number;
-  betCount?: number;
-  totalWager?: number;
+export type AuthState = {
+  isLogin: boolean;
+  user: UserDetail;
+  verifyRequest: VerifyRequestType;
+  isPhoneVerifyRequested: boolean;
+  isForgetPassword: boolean;
 };
 
-type ModalState = {
+export type ModalState = {
   isShowDepositModal?: boolean;
   isShowReferAndEarn?: boolean;
   isShowInformation?: boolean;
@@ -53,11 +46,11 @@ type ModalState = {
   isShowModalBonusHistory?: boolean;
 };
 
-type LoadingState = {
+export type LoadingState = {
   isShowDetailLoading?: boolean;
 };
 
-type CommonState = {
+export type CommonState = {
   fiatArray?: FiatType[];
   cryptoArray?: FiatType[];
   depositCryptoArray: DepositAddress[];
@@ -69,4 +62,8 @@ type CommonState = {
   usdtNetwork?: string;
 };
 
-export type { AuthState, TokenState, ModalState, LoadingState, CommonState };
+export type UserDataState = {
+  userId: string;
+  userName: string;
+  avatar: string;
+};

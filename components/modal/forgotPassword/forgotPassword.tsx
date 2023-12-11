@@ -1,22 +1,21 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { toast } from 'react-toastify';
+import Image from 'next/image';
 import { useState } from 'react';
-import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
-import api from '@/api/api';
-import { REGEX_EMAIL } from '@/base/constants/validation';
+import { api_forgetPassword, api_sendSMS } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
-import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
-
-import InputEmailAuthentication from '@/components/input/typing/InputEmailAuthentication';
-import Loader from '@/components/common/preloader/loader';
-import Image from 'next/image';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { AuthenticationModeEnum } from '@/base/types/common';
-import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
+import { REGEX_EMAIL } from '@/base/constants/validation';
+import { saveVerifyInfo, setIsForgetPassword } from '@/base/redux/reducers/auth.reducer';
+import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
+import { AuthenticationModeEnum } from '@/base/types/common';
+import Loader from '@/components/common/preloader/loader';
+import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
 
 type ForgotPasswordFormType = {
   email: string;
@@ -50,14 +49,25 @@ export default function ModalForgotPassword() {
     try {
       setIsLoading(true);
       const isPhoneNumber = formReset.email?.length > 2 && Number.isInteger(Number(formReset.email));
-      const _res = await api.post('/auth/send-mail', {
-        email: !isPhoneNumber ? formReset.email : '',
-        phone: isPhoneNumber ? String(countryCallingCode?.countryCallingCode) + formReset.email : '',
-      });
-      if (_res.data.msg === 'success') {
-        dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+      let _res;
+      if (isPhoneNumber) {
+        const phone = String(countryCallingCode?.countryCallingCode) + formReset.email;
+        _res = await api_sendSMS(phone, 'reset');
+      } else {
+        _res = await api_forgetPassword(formReset.email);
       }
-      toast.error(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+
+      const verifyRequest = isPhoneNumber
+        ? String(countryCallingCode?.countryCallingCode) + formReset.email
+        : formReset.email;
+      dispatch(saveVerifyInfo({ isPhoneVerifyRequested: !!isPhoneNumber, verifyRequest }));
+
+      // request verify from forget password
+      dispatch(setIsForgetPassword(true));
+
+      // close modal
+      dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
+      toast.success(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
     } catch (error) {
       toast.error(t('authentication:resetPasswordFailed'), { containerId: TOAST_ENUM.MODAL });
     } finally {

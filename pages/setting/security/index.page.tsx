@@ -1,9 +1,15 @@
 import { Disclosure, Transition } from '@headlessui/react';
+import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { googleLogout } from '@react-oauth/google';
+import { useWeb3React } from '@web3-react/core';
 import cn from 'classnames';
+import { Copy, InfoCircle } from 'iconsax-react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { OtpInput } from 'reactjs-otp-input';
 import * as yup from 'yup';
@@ -15,19 +21,13 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { logoutState } from '@/base/redux/reducers/auth.reducer';
 import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import InputPassword from '@/components/input/typing/InputPassword';
 import SettingLayout from '@/components/layouts/setting.layout';
 import ModalEnterCodeSecurity from '@/components/modal/confirmChangeSecurity/confrimChangeSecurity';
-import { ChevronUpIcon } from '@heroicons/react/24/outline';
-import { useWeb3React } from '@web3-react/core';
-import { Copy, InfoCircle } from 'iconsax-react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 type ForgotPasswordForm = {
   oldPassword: string;
@@ -61,7 +61,7 @@ const SettingSecurity = () => {
   const router = useRouter();
 
   const { email } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       email: state.auth.email,
     }),
     shallowEqual,
@@ -108,6 +108,7 @@ const SettingSecurity = () => {
     setIsLoading(true);
     try {
       const res = await api.get('auth/get-set-login');
+      console.log(res, '-----111');
       setIsSetLogin(res?.data?.setLogin);
     } catch (error) {
     } finally {
@@ -134,6 +135,7 @@ const SettingSecurity = () => {
     setIsLoading(true);
     try {
       const res = await api.get('/user-setting/qr-code');
+      console.log(res, '---138');
       setQrCode(res.data?.qrcode);
       setSecret(res.data?.secret);
     } catch (error: any) {
