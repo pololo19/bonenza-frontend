@@ -19,6 +19,8 @@ const API_AUTH_FORGOT_PASSWORD = '/auth/forgot-password';
 const API_AUTH_RESET_PASSWORD = '/auth/reset-password';
 const API_AUTH_GENERATE_QR_CODE = '/auth/generate-secret';
 const API_AUTH_SET_LOGIN = '/auth/get-set-login';
+const API_AUTH_SET_LOGIN_PASSWORD = '/auth/set-login-password';
+const API_AUTH_CHANGE_PASSWORD = '/auth/change-password';
 
 /************************************ User Profile **********************************/
 const API_USER_PROFILE_GET_PROFILE = `/user-profile/get-user-profile`;
@@ -53,6 +55,7 @@ const URL_EXCHANGE_RATE = 'exchange/get-exchange-rate';
 
 export {
   API_ADMIN_LOGIN,
+  API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GENERATE_QR_CODE,
   API_AUTH_LOGIN,
@@ -61,6 +64,7 @@ export {
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
   API_AUTH_SET_LOGIN,
+  API_AUTH_SET_LOGIN_PASSWORD,
   API_AUTH_SIGNUP_WITH_EMAIL,
   API_AUTH_SIGNUP_WITH_PHONE,
   API_AUTH_VALIDATE_TOKEN,
