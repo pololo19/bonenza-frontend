@@ -15,10 +15,13 @@ import { OtpInput } from 'reactjs-otp-input';
 import * as yup from 'yup';
 
 import api from '@/api/api';
+import { api_getSetLogin } from '@/api/auth';
+import { api_confirmQRCode, api_disable2FA, api_generateQRCode } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { logoutState } from '@/base/redux/reducers/auth.reducer';
+import { convertUserInfo, copyClipBoard } from '@/base/libs/utils';
+import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -48,7 +51,6 @@ const SettingSecurity = () => {
   const [passwordLogin, setPasswordLogin] = useState<string>('');
   const [otp, setOtp] = useState('');
   const [qrCode, setQrCode] = useState<string>('');
-  const [isTwoFactor, setIsTwoFactor] = useState<boolean>(true);
   const [secret, setSecret] = useState<string>('');
   const [passwordBody, setPasswordBody] = useState<ForgotPasswordForm>({
     oldPassword: '',
@@ -60,9 +62,10 @@ const SettingSecurity = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { email } = useSelector(
+  const { email, tfa } = useSelector(
     (state: AppState) => ({
-      email: state.auth.email,
+      email: state.auth.user.email,
+      tfa: state.auth.user.tfa,
     }),
     shallowEqual,
   );
@@ -88,10 +91,6 @@ const SettingSecurity = () => {
     getQrCode();
   }, []);
 
-  useEffect(() => {
-    getTwoFactorAuthStatus();
-  }, [email]);
-
   const handleChange = (otp: string) => setOtp(otp);
 
   const handleLogout = () => {
@@ -107,8 +106,8 @@ const SettingSecurity = () => {
   const getLoginPassword = async () => {
     setIsLoading(true);
     try {
-      const res = await api.get('auth/get-set-login');
-      console.log(res, '-----111');
+      const res = await api_getSetLogin();
+      console.log(res);
       setIsSetLogin(res?.data?.setLogin);
     } catch (error) {
     } finally {
@@ -134,10 +133,9 @@ const SettingSecurity = () => {
   const getQrCode = async () => {
     setIsLoading(true);
     try {
-      const res = await api.get('/user-setting/qr-code');
-      console.log(res, '---138');
-      setQrCode(res.data?.qrcode);
-      setSecret(res.data?.secret);
+      const res = await api_generateQRCode();
+      setQrCode(res.data.qrCodeUrl);
+      setSecret(res.data.secretKey);
     } catch (error: any) {
       const messError = error?.response?.data?.msg;
       toast.error(messError, { containerId: TOAST_ENUM.COMMON });
@@ -149,12 +147,15 @@ const SettingSecurity = () => {
   const confirmQrCode = async () => {
     setIsLoading(true);
     try {
-      const res = await api.post('/user-setting/confirm-qr-code', {
-        codeOtp: otp,
-        password: passwordLogin,
-      });
-      toast.success(res?.data?.msg, { containerId: TOAST_ENUM.COMMON });
-      setIsTwoFactor(true);
+      const res = await api_confirmQRCode(otp, passwordLogin);
+      toast.success('success', { containerId: TOAST_ENUM.COMMON });
+
+      dispatch(
+        saveUserInfo({
+          ...convertUserInfo(res.data),
+        }),
+      );
+
       setOtp('');
       setPasswordLogin('');
     } catch (error: any) {
@@ -166,40 +167,25 @@ const SettingSecurity = () => {
   };
 
   const handleSubmitTwoFactor = () => {
-    if (isTwoFactor) {
+    if (tfa) {
       disableTwoFactor();
     } else {
       confirmQrCode();
     }
   };
 
-  const getTwoFactorAuthStatus = async () => {
-    if (!email) return;
-    setIsLoading(true);
-    try {
-      const res = await api.get('/auth/get-two-factor-auth-status', {
-        params: {
-          email: email,
-        },
-      });
-      setIsTwoFactor(res.data?.twoFactorAuthStatus);
-    } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const disableTwoFactor = async () => {
     setIsLoading(true);
     try {
-      const res = await api.post('/user-setting/disable-two-factor-authentication', {
-        codeOtp: otp,
-        password: passwordLogin,
-      });
-      toast.success(res?.data?.msg, { containerId: TOAST_ENUM.COMMON });
-      setIsTwoFactor(false);
+      const res = await api_disable2FA(otp, passwordLogin);
+      toast.success('success', { containerId: TOAST_ENUM.COMMON });
+
+      dispatch(
+        saveUserInfo({
+          ...convertUserInfo(res.data),
+        }),
+      );
+
       setOtp('');
       setPasswordLogin('');
     } catch (error: any) {
@@ -217,7 +203,7 @@ const SettingSecurity = () => {
   }, [passwordBody.codeOtp]);
 
   const handleSubmitPassword = async () => {
-    if (isTwoFactor && !passwordBody.codeOtp) {
+    if (tfa && !passwordBody.codeOtp) {
       setOpenModalCode(true);
       return;
     }
@@ -233,7 +219,7 @@ const SettingSecurity = () => {
       const messError = error?.response?.data?.msg;
       toast.error(messError, { containerId: TOAST_ENUM.COMMON });
       handleChangePassword('', 'codeOtp');
-      if (isTwoFactor) setOpenModalCode(true);
+      if (tfa) setOpenModalCode(true);
     } finally {
       setIsLoading(false);
     }
@@ -244,11 +230,6 @@ const SettingSecurity = () => {
       ...pre,
       [key]: value,
     }));
-  };
-
-  const copy = (text: string) => {
-    toast.success('Copied', { containerId: TOAST_ENUM.COMMON });
-    navigator.clipboard.writeText(text);
   };
 
   return (
@@ -390,7 +371,7 @@ const SettingSecurity = () => {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                    {isTwoFactor ? (
+                    {tfa ? (
                       <>
                         <div className="text-start text-[12px] dark:text-[#C2C2C2] text-[#31373d]">
                           <p>{t('setting:disableTwoFactor')}</p>
@@ -428,14 +409,14 @@ const SettingSecurity = () => {
                                 'w-full dark:bg-[#292C33] bg-[#f5f6fa] focus:outline-none text-[12px] dark:text-white text-black w-full',
                               )}
                             />
-                            <Copy onClick={() => copy(String(secret))} className="text-[#FD6E0B]" />
+                            <Copy onClick={() => copyClipBoard(String(secret))} className="text-[#FD6E0B]" />
                           </div>
                         </div>
                         <div className="text-start text-[12px] dark:text-[#C2C2C2] text-[#31373d] flex gap-[5px]">
                           {t('setting:writeDownThisCode')}
                         </div>
                         <div className="flex justify-center dark:text-[#C2C2C2] text-[#31373d] text-[12px]">
-                          {t('setting:yourSecretKey')}
+                          {t('setting:2FAVerificationRequired')}
                         </div>
                         <div className="flex justify-center">
                           <OtpInput
@@ -443,7 +424,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:bg-[#222328] bg-[#f5f6fa] dark:text-white text-black !w-[32px] h-[32px] rounded-[5px] focus:outline-none'
+                              'dark:bg-[#222328] bg-[#f5f6fa] dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-[5px] focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -458,7 +439,7 @@ const SettingSecurity = () => {
                       onChange={(e) => setPasswordLogin(e.target.value)}
                       control={LoginPasswordControl}
                     />
-                    {isTwoFactor && (
+                    {tfa && (
                       <div>
                         <p className="mb-2 dark:text-[#98a7b5] text-[#31373d] text-[12px]">
                           {t('setting:verificationCode')}
@@ -481,7 +462,7 @@ const SettingSecurity = () => {
                       role="button"
                       className="bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                     >
-                      {isTwoFactor ? t('setting:disable') : t('setting:enable')}
+                      {tfa ? t('setting:disable') : t('setting:enable')}
                     </div>
                   </Disclosure.Panel>
                 </Transition>

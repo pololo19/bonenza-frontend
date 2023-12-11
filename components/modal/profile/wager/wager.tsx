@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -26,7 +25,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
   const { localeFiat, userId } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -77,18 +76,20 @@ export default function WagerContest({ userData }: WagerContestProps) {
   }, [page, userData]);
 
   const getUserWagerContestList = async () => {
-    let id = userData?.id || userData?.userId || userId;
+    let id = userData?.userId || userId;
     try {
       setIsLoading(true);
-      const res = await api.get(`user-profile/get-wager-contest-list/${id}`, {
-        params: {
-          userId: id,
-          limit,
-          page,
-        },
-      });
-      setListWager(res?.data.data);
-      setTotalTable(res?.data.total);
+      // const res = await api.get(`user-profile/get-wager-contest-list/${id}`, {
+      //   params: {
+      //     userId: id,
+      //     limit,
+      //     page,
+      //   },
+      // });
+      // setListWager(res?.data.data);
+      // setTotalTable(res?.data.total);
+      setListWager([]);
+      setTotalTable(0);
     } catch (error) {
       setListWager([]);
     } finally {

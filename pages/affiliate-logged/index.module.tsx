@@ -118,7 +118,7 @@ function AffiliateLoggedPage() {
 
   const { referralCode, localeFiat } = useSelector(
     (state: AppState) => ({
-      referralCode: state.auth.referralCode,
+      referralCode: state.auth.user.referralCode,
       localeFiat: state.common.localeFiat,
     }),
     shallowEqual,

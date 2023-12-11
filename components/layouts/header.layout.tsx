@@ -39,7 +39,6 @@ export default function Navbar() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { t } = useTranslation('');
-  const [accessToken, setAccessToken] = useState<boolean>(false);
   const [isLoadingFull, setIsLoadingFull] = useState<boolean>(true);
   const [localeCoin, setLocaleCoin] = useState<FiatType>({});
 
@@ -61,22 +60,19 @@ export default function Navbar() {
     const validateToken = async (token: string) => {
       try {
         const result = await api_validateToken(token);
+        setShowGlobal(true);
         dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
       } catch (error) {
+        setShowGlobal(false);
         dispatch(logoutState());
       }
     };
 
     const token = CookiesStorage.getAccessToken();
-
-    validateToken(token || '');
-    setAccessToken(!!token);
-    setIsLoadingFull(false);
-    if (isLogin) {
-      setShowGlobal(true);
-    } else {
-      setShowGlobal(false);
+    if (token) {
+      validateToken(token);
     }
+    setIsLoadingFull(false);
   }, [isLogin]);
 
   useEffect(() => {
@@ -84,7 +80,6 @@ export default function Navbar() {
     setLocaleCoin(localeFiat || localeFiatObject);
     setIsLoadingFull(false);
   }, [localeFiat]);
-
   return (
     <>
       {/* Navbar */}

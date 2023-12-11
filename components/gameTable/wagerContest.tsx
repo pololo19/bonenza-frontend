@@ -32,9 +32,9 @@ const WagerContestComponent = () => {
   const { localeFiat, userName, avatar, userId } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
-      userName: state.auth.userName,
-      avatar: state.auth.avatar,
-      userId: state.auth.userId,
+      userName: state.auth.user.userName,
+      avatar: state.auth.user.avatar,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );

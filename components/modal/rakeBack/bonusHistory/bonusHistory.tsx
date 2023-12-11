@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
@@ -41,15 +40,17 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const getListBonusTransaction = async (page?: number) => {
     try {
       setIsLoadingTable(true);
-      const res = await api.get('vip/get-list-bonus-transactions', {
-        params: {
-          actionType: typeFilter,
-          page: page,
-          limit,
-        },
-      });
-      setListTransactions(res?.data?.data);
-      setTotalTable(res?.data?.total);
+      // const res = await api.get('vip/get-list-bonus-transactions', {
+      //   params: {
+      //     actionType: typeFilter,
+      //     page: page,
+      //     limit,
+      //   },
+      // });
+      // setListTransactions(res?.data?.data);
+      // setTotalTable(res?.data?.total);
+      setListTransactions([]);
+      setTotalTable(0);
     } catch (error) {
     } finally {
       setIsLoadingTable(false);

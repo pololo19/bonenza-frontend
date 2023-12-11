@@ -29,7 +29,7 @@ const DepositFiatComponent = () => {
 
   const { userId } = useSelector(
     (state: AppState) => ({
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );

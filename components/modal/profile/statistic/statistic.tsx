@@ -32,12 +32,11 @@ export default function Statistic({ userData }: ModalStatisticProps) {
 
   const { userName, userId, avatar, viewInFiat, localeFiat } = useSelector(
     (state: AppState) => ({
-      userName: state.auth.userName,
-      uuid: state.auth.uuid,
-      avatar: state.auth.avatar,
+      userName: state.auth.user.userName,
+      avatar: state.auth.user.avatar,
       localeFiat: state.common.localeFiat,
       viewInFiat: state.common.viewInFiat,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -118,7 +117,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
       const res = await api.get('game/statistics-gaming-transaction', {
         params: {
           gameId: game?.id,
-          userId: userData?.id || userId,
+          userId: userData?.userId || userId,
         },
       });
       setDataStatistic(res.data.data);
@@ -133,7 +132,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
       const res = await api.get('game/statistics-game-list', {
         params: {
           gameId: game?.id,
-          userId: userData?.id || userId,
+          userId: userData?.userId || userId,
           limit,
           page,
         },
@@ -248,7 +247,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
               />
             </div>
             <div className="text-black dark:text-white max-w-[85px] sm:max-w-[100px] truncate text-[12px] sm:text-[14px] font-[700]">
-              {userData?.username || userName}
+              {userData?.userName || userName}
             </div>
           </div>
         </div>
@@ -280,15 +279,12 @@ export default function Statistic({ userData }: ModalStatisticProps) {
               {viewInFiat ? (
                 <>
                   {handleLocaleSymbol(String(localeFiat?.currency))}
-                  {currencyFormat(
-                    exchangeByLocaleFiat('USD', String(localeFiat?.currency), userData?.totalWagerUSD),
-                    2,
-                  )}
+                  {currencyFormat(exchangeByLocaleFiat('USD', String(localeFiat?.currency), userData?.totalWager), 2)}
                 </>
               ) : (
                 <>
                   {handleLocaleSymbol('USD')}
-                  {currencyFormat(Number(userData?.totalWagerUSD), 2)}
+                  {currencyFormat(Number(userData?.totalWager), 2)}
                 </>
               )}
             </div>

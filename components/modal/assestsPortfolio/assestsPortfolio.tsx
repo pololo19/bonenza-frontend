@@ -97,7 +97,7 @@ export default function ModalAssetsPortfolio({
       depositCryptoArray: state.common.depositCryptoArray,
       usdtNetwork: state.common.usdtNetwork,
       viewInFiat: state.common.viewInFiat,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );

@@ -106,16 +106,18 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
 
   const getListBonusTransaction = async (page?: number) => {
     try {
-      setIsLoadingTable(true);
-      const res = await api.get('vip/get-list-bonus-transactions', {
-        params: {
-          actionType: typeFilter,
-          page: page,
-          limit,
-        },
-      });
-      setListTransactions(res?.data?.data);
-      setTotalTable(res?.data?.total);
+      // setIsLoadingTable(true);
+      // const res = await api.get('vip/get-list-bonus-transactions', {
+      //   params: {
+      //     actionType: typeFilter,
+      //     page: page,
+      //     limit,
+      //   },
+      // });
+      // setListTransactions(res?.data?.data);
+      // setTotalTable(res?.data?.total);
+      setListTransactions([]);
+      setTotalTable(0);
     } catch (error) {
     } finally {
       setIsLoadingTable(false);

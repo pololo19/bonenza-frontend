@@ -419,6 +419,7 @@ export const convertUserInfo = (userData: any) => {
     totalWager: userData?.totalWager,
     referralCode: userData?.referralCode,
     isKyc: userData?.isKyc,
+    tfa: userData?.tfa,
     generalSetting: {
       settingShowFullNameCrypto: userData?.settingShowFullNameCrypto,
       settingReceiveMarketPromotion: userData?.settingReceiveMarketPromotion,

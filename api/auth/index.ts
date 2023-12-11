@@ -5,6 +5,7 @@ import {
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
+  API_AUTH_SET_LOGIN,
   API_AUTH_SIGNUP_WITH_EMAIL,
   API_AUTH_SIGNUP_WITH_PHONE,
   API_AUTH_VALIDATE_TOKEN,
@@ -65,4 +66,8 @@ export const api_resetPassword = (data: ResetPasswordRequest) => {
 
 export const api_validateToken = (token: string) => {
   return api.get(API_AUTH_VALIDATE_TOKEN(token));
+};
+
+export const api_getSetLogin = () => {
+  return api.get(API_AUTH_SET_LOGIN);
 };

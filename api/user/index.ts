@@ -1,14 +1,17 @@
 import {
+  API_AUTH_GENERATE_QR_CODE,
+  API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,
   API_USER_SESSION_DELETE_SESSION,
   API_USER_SESSION_LIST_SESSIONS,
+  API_USER_SETTING_DISABLE_TFA,
   API_USER_SETTING_EMAIL_AND_PHONE_VERIFY,
+  API_USER_SETTING_ENABLE_TFA,
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
 } from 'constants/endpoints';
-import { API_USER_PROFILE_EDIT_PROFILE } from 'constants/endpoints';
 
 import { UserSettingGeneralType, UserSettingPrivacyType, UserSettingVerifiedType } from '@/base/types/common';
 
@@ -54,4 +57,16 @@ export const api_getSessions = async () => {
 
 export const api_deleteSession = async (userSessionId: string) => {
   return api.delete(API_USER_SESSION_DELETE_SESSION, { params: { userSessionId } });
+};
+
+export const api_generateQRCode = async () => {
+  return api.post(API_AUTH_GENERATE_QR_CODE);
+};
+
+export const api_confirmQRCode = async (codeOtp: string, password: string) => {
+  return api.post(API_USER_SETTING_ENABLE_TFA, { codeOtp, password });
+};
+
+export const api_disable2FA = async (codeOtp: string, password: string) => {
+  return api.post(API_USER_SETTING_DISABLE_TFA, { codeOtp, password });
 };
