@@ -12,12 +12,12 @@ import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
 import * as yup from 'yup';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { CRYPTO_DATA, ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { DepositAddress, InformationWithdraw, NetworkType } from '@/base/types/common';
+import { InformationWithdraw } from '@/base/types/common';
+import { CryptoNetWorkType, CurrencySymbolType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import InputNumber from '@/components/input/typing/InputNumber';
@@ -36,8 +36,19 @@ type WithdrawFormType = {
 const WithdrawCryptoPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openRollover, setOpenRollover] = useState<boolean>(false);
-  const [activeCoin, setActiveCoin] = useState<DepositAddress>(CRYPTO_DATA[0]);
-  const [activeNetwork, setActiveNetwork] = useState<NetworkType>();
+  const [activeCoin, setActiveCoin] = useState<CurrencySymbolType>({
+    id: '',
+    name: '',
+    logo: '',
+    iso_currency: '',
+    availableNetworks: [],
+    iso_decimals: 0,
+  });
+  const [activeNetwork, setActiveNetwork] = useState<CryptoNetWorkType>({
+    id: '',
+    name: '',
+    type: 1,
+  });
   const [minValue, setMinValue] = useState<number>(0);
   const [balance, setBalance] = useState<number>(0);
   const [render, setRender] = useState<any>({
@@ -52,6 +63,7 @@ const WithdrawCryptoPage = () => {
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
+      balance: state.wallet.balances,
     }),
     shallowEqual,
   );
@@ -85,9 +97,9 @@ const WithdrawCryptoPage = () => {
 
   const setAmountByPercent = (percent: number) => {
     if (percent === 100) {
-      setValue('withdrawAmount', String(Number(activeCoin?.balance) || 0));
+      // setValue('withdrawAmount', String(Number(activeCoin?.balance) || 0));
     } else {
-      setValue('withdrawAmount', String((Number(activeCoin?.balance) * percent) / 100 || 0));
+      // setValue('withdrawAmount', String((Number(activeCoin?.balance) * percent) / 100 || 0));
     }
   };
 
@@ -120,14 +132,14 @@ const WithdrawCryptoPage = () => {
     }
     try {
       setIsLoading(true);
-      const _res = await api.post('/withdraw', {
-        toAddress: formWithdraw.withdrawAddress,
-        value: formWithdraw.withdrawAmount,
-        symbol: activeCoin?.symbol,
-        network: activeCoin?.network,
-        currency: localeFiat?.currency,
-        sourceAccount: activeFiat?.currency,
-      });
+      // const _res = await api.post('/withdraw', {
+      //   toAddress: formWithdraw.withdrawAddress,
+      //   value: formWithdraw.withdrawAmount,
+      //   symbol: activeCoin?.symbol,
+      //   network: activeCoin?.network,
+      //   currency: localeFiat?.currency,
+      //   sourceAccount: activeFiat?.currency,
+      // });
       toast.error(
         `Congratulations! Your withdrawal of ${
           Number(watch('withdrawAmount')) - Number(informationWithdraw?.fee) > 0
@@ -151,16 +163,16 @@ const WithdrawCryptoPage = () => {
   const handleInformationWithdraw = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('/withdraw/get-information-withdraw', {
-        params: {
-          value: activeCoin?.balance,
-          symbol: activeCoin?.symbol,
-          network: activeCoin?.network,
-        },
-      });
-      setInformationWithdraw(res.data);
-      setValue('withdrawAmount', String(Number(res.data.min) || 0));
-      setMinValue(Number(Number(res.data.min)));
+      // const res = await api.get('/withdraw/get-information-withdraw', {
+      //   params: {
+      //     value: activeCoin?.balance,
+      //     symbol: activeCoin?.symbol,
+      //     network: activeCoin?.network,
+      //   },
+      // });
+      // setInformationWithdraw(res.data);
+      // setValue('withdrawAmount', String(Number(res.data.min) || 0));
+      // setMinValue(Number(Number(res.data.min)));
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -222,7 +234,14 @@ const WithdrawCryptoPage = () => {
           </div>
           <div className="md:max-w-[492px]">
             <div className="">
-              <SelectCurrency onChangeCoin={setActiveCoin} setBalance={setBalance} withDrawTab={true} />
+              <SelectCurrency
+                activeCoin={activeCoin}
+                activeNetwork={activeNetwork}
+                onChangeCoin={setActiveCoin}
+                onChangeNetwork={setActiveNetwork}
+                setBalance={setBalance}
+                withDrawTab={true}
+              />
             </div>
 
             <form onSubmit={handleSubmit(handleConfirmWithdraw)}>
@@ -378,7 +397,7 @@ const WithdrawCryptoPage = () => {
               <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-[#0DFDE4] text-[#31373d] dark:bg-[#161D26] bg-[#f5f6fa] rounded-[16px] text-start">
                 <h1 className="text-[16px]">
                   <span className="text-[#0EC505] me-1 inline">{t('withdraw:notice')}</span> {t('withdraw:note2')}{' '}
-                  {activeCoin.symbol}
+                  {activeCoin.name}
                 </h1>
               </div>
 
