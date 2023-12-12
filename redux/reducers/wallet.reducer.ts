@@ -45,10 +45,11 @@ export const getDepositInfo = () => async (dispatch: AppDispatch) => {
       networkId: item.network.id,
     }));
 
-    const tempBalances: BalanceType[] = balances.map((item: any) => ({
+    const tempBalances: BalanceType[] = balances?.cryptoBalances.map((item: any) => ({
       amount: Number(item.balance),
-      symbol: item.symbol.symbol,
-      symbolId: item.symbol.id,
+      usdAmount: Number(item.balanceUsd),
+      symbol: item.symbol,
+      symbolId: item.symbolId,
     }));
 
     const tempNetworks: CryptoNetWorkType[] = networks.map((item: any) => ({

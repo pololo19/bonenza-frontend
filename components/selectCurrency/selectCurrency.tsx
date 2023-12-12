@@ -7,7 +7,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat } from '@/base/libs/utils';
+import { currencyFormat, formatLengthNumber } from '@/base/libs/utils';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencySymbolType } from '@/base/types/wallet';
 
@@ -221,16 +221,13 @@ const SelectCurrency = ({
                   <Menu.Item key={index}>
                     {({ active }) => (
                       <div
-                        className={cn(
-                          'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-[#212b36] mb-2',
-                          {
-                            'border border-amber-500/50 border-solid rounded': symbol.id === activeCoin.id,
-                          },
-                        )}
+                        className={cn('flex items-center justify-start w-full dark:hover:bg-[#212b36] mb-2', {
+                          'border border-amber-500/50 border-solid rounded': symbol.id === activeCoin.id,
+                        })}
                         role="button"
                         onClick={() => handleChangeCrypto(symbol)}
                       >
-                        <div className="flex-1 flex items-center justify-start gap-[10px]">
+                        <div className="flex-1 flex items-center justify-start py-[10px] px-[10px] gap-[10px]">
                           <Image
                             width={30}
                             height={30}
@@ -246,10 +243,21 @@ const SelectCurrency = ({
                           </div>
                         </div>
                         <div className="flex items-center justify-start gap-[10px]">
-                          <span className="text-[14px] font-semibold dark:text-white text-black">
-                            {/* {currencyFormat(Number(crypto?.balance || 0))} */}
-                            {currencyFormat(Number(balances.find((item) => item.symbolId === symbol.id)?.amount) || 0)}
-                          </span>
+                          <div className="flex flex-col">
+                            <span className="text-[14px] font-semibold dark:text-white text-black text-right">
+                              {/* {currencyFormat(Number(crypto?.balance || 0))} */}
+                              {currencyFormat(
+                                Number(balances.find((item) => item.symbolId === symbol.id)?.amount) || 0,
+                              )}
+                            </span>
+                            <span className="text-[10px] font-semibold text-gray-400 text-right">
+                              {/* {currencyFormat(Number(crypto?.balance || 0))} */}
+                              {formatLengthNumber(
+                                Number(balances.find((item) => item.symbolId === symbol.id)?.usdAmount) || 0,
+                              )}
+                            </span>
+                          </div>
+
                           <ChevronDownIcon width={15} className="opacity-0" />
                         </div>
                       </div>
