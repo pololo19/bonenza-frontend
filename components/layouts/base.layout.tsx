@@ -3,7 +3,7 @@ import { ArrangeHorizontalCircle, EmptyWallet, HambergerMenu, Message, TrendUp }
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '@/api/api';
@@ -42,7 +42,7 @@ import {
   changeShowFullChat,
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { CurrencyEnum, DepositAddress, FiatType } from '@/base/types/common';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
@@ -77,7 +77,7 @@ type BaseLayoutProps = {
 };
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, contentClass }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('');
 

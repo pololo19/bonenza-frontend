@@ -40,6 +40,9 @@ const API_USER_SETTING_DISABLE_TFA = '/user-setting/disable-two-factor-authentic
 const API_USER_SESSION_LIST_SESSIONS = '/user-session/get-list-user-session';
 const API_USER_SESSION_DELETE_SESSION = `/user-session/delete-user-session`;
 
+/************************************ Wallet **********************************/
+const API_WALLET_DEPOSIT_INFO = '/wallet/get-deposit-info';
+
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
 
@@ -83,5 +86,6 @@ export {
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
+  API_WALLET_DEPOSIT_INFO,
   URL_REFRESH_TOKEN,
 };

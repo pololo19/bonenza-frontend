@@ -6,6 +6,7 @@ import { useTranslation } from '@/base/config/i18next';
 import BuyCryptoComponent from '@/components/buyCrypto/buyCrypto';
 import DepositCryptoComponent from '@/components/deposit/crypto/depositCrypto';
 import DepositFiatComponent from '@/components/deposit/fiat/depositFiat';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalDepositProps = {

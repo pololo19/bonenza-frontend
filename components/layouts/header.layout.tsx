@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_validateToken } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
@@ -22,7 +22,8 @@ import {
   changeMultiLanguageTab,
   changeShowChatType,
 } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
+import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import { FiatType } from '@/base/types/common';
 
@@ -37,7 +38,7 @@ import FiatHeader from './header/fiatHeader';
 
 export default function Navbar() {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('');
   const [isLoadingFull, setIsLoadingFull] = useState<boolean>(true);
   const [localeCoin, setLocaleCoin] = useState<FiatType>({});
@@ -57,11 +58,13 @@ export default function Navbar() {
   const [showGlobal, setShowGlobal] = useState(false);
 
   useEffect(() => {
+    // check validate token
     const validateToken = async (token: string) => {
       try {
         const result = await api_validateToken(token);
         setShowGlobal(true);
         dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
+        dispatch(getDepositInfo());
       } catch (error) {
         setShowGlobal(false);
         dispatch(logoutState());
