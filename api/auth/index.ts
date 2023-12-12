@@ -1,6 +1,7 @@
 import {
   API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FORGOT_PASSWORD,
+  API_AUTH_GET_2FA_STATUS,
   API_AUTH_LOGIN,
   API_AUTH_LOGIN_WITH_GOOGLE,
   API_AUTH_RESET_PASSWORD,
@@ -78,6 +79,15 @@ export const api_setLoginPassword = (password: string) => {
   return api.put(API_AUTH_SET_LOGIN_PASSWORD, { password });
 };
 
-export const api_changePassword = (oldPassword: string, newPassword: string, codeOtp: string = '') => {
-  return api.post(API_AUTH_CHANGE_PASSWORD, { oldPassword, newPassword, codeOtp });
+export const api_changePassword = (
+  oldPassword: string,
+  newPassword: string,
+  confirmNewPassword: string,
+  codeOtp: string = '',
+) => {
+  return api.post(API_AUTH_CHANGE_PASSWORD, { oldPassword, newPassword, confirmNewPassword, codeOtp });
+};
+
+export const api_get2FAStatus = (email: string) => {
+  return api.get(API_AUTH_GET_2FA_STATUS, { params: { email } });
 };

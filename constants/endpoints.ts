@@ -21,6 +21,7 @@ const API_AUTH_GENERATE_QR_CODE = '/auth/generate-secret';
 const API_AUTH_SET_LOGIN = '/auth/get-set-login';
 const API_AUTH_SET_LOGIN_PASSWORD = '/auth/set-login-password';
 const API_AUTH_CHANGE_PASSWORD = '/auth/change-password';
+const API_AUTH_GET_2FA_STATUS = '/auth/get-two-factor-auth-status';
 
 /************************************ User Profile **********************************/
 const API_USER_PROFILE_GET_PROFILE = `/user-profile/get-user-profile`;
@@ -58,6 +59,7 @@ export {
   API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GENERATE_QR_CODE,
+  API_AUTH_GET_2FA_STATUS,
   API_AUTH_LOGIN,
   API_AUTH_LOGIN_WITH_GOOGLE,
   API_AUTH_RESET_PASSWORD,

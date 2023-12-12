@@ -75,7 +75,7 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
       default:
         break;
     }
-  }, [authenticationType, forgotKey]);
+  }, [authenticationType, forgotKey, isLoginTwoFactor, email]);
 
   return (
     <>

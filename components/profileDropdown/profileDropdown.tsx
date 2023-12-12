@@ -91,8 +91,6 @@ export default function ProfileDropdown() {
     }
   }, []);
 
-  console.log(user, '---96');
-
   return (
     <>
       <Popover className="relative w-auto text-left rounded-[7px] flex">
@@ -245,7 +243,6 @@ export default function ProfileDropdown() {
                     <div>
                       <span
                         onClick={() => {
-                          console.log(user.userId, user.userName, user.avatar, '-----248');
                           dispatch(setUserData({ userId: user.userId, userName: user.userName, avatar: user.avatar }));
                           dispatch(changeIsShowInformation(true));
                         }}

@@ -1,13 +1,14 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
 import { ElementType, useState } from 'react';
+import { toast } from 'react-toastify';
+import { OtpInput } from 'reactjs-otp-input';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import Loader from '@/components/common/preloader/loader';
-import { toast } from 'react-toastify';
-import { OtpInput } from 'reactjs-otp-input';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalEnterCodeSecurityProps = {

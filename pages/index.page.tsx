@@ -108,7 +108,6 @@ function IndexPage() {
     if (!isLogin) return;
     // handleCheckDeposit();
   }, [isLogin]);
-  console.log(user, '-----11', isLogin);
 
   return (
     <>
