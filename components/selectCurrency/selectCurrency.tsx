@@ -3,7 +3,7 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -47,6 +47,12 @@ const SelectCurrency = ({
   const [availableNetworks, setAvailabeNetworks] = useState<CryptoNetWorkType[]>([]);
   const [searchInput, setSearchInput] = useState<string>('');
 
+  const filterListCoin = useMemo(() => {
+    return symbols.filter((item) => {
+      return String(item.name).toLowerCase().includes(searchInput.toLowerCase());
+    });
+  }, [symbols, searchInput]);
+
   useEffect(() => {
     if (networks.length > 0) {
       /*****  SET BSC network as default network *****/
@@ -76,7 +82,7 @@ const SelectCurrency = ({
     const defaultNetwork = filteredNetworks[0];
 
     setAvailabeNetworks([...filteredNetworks]);
-
+    setSearchInput('');
     onChangeCoin(symbol);
     onChangeNetwork(defaultNetwork);
   };
@@ -127,16 +133,6 @@ const SelectCurrency = ({
   //     handleChangeCrypto(String(depositCryptoArray[0]?.symbol));
   //   }
   // }, [query, depositCryptoArray]);
-
-  // useEffect(() => {
-  //   handleGetDepositAddress();
-  // }, []);
-
-  // const filterListCoin = useMemo(() => {
-  //   return depositCryptoArray?.filter((item) => {
-  //     return String(item?.symbol).toLowerCase().includes(searchInput.toLowerCase());
-  //   });
-  // }, [depositCryptoArray, searchInput]);
 
   return (
     <div className="flex flex-col items-start md:gap-[20px] gap-[15px] text-white">
@@ -221,7 +217,7 @@ const SelectCurrency = ({
                 <InputSearch value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
               </div>
               <div className="py-1 max-h-[250px] overflow-y-auto p-2">
-                {symbols.map((symbol, index) => (
+                {filterListCoin.map((symbol, index) => (
                   <Menu.Item key={index}>
                     {({ active }) => (
                       <div

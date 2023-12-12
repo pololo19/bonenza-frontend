@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -14,7 +14,8 @@ import { convertUserInfo } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowAuthenticationModal, changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
+import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { VerifyCodeRequest } from '@/base/types/requestTypes';
 import Loader from '@/components/common/preloader/loader';
 import { InputText } from '@/components/input/typing';
@@ -34,7 +35,7 @@ export default function VerificationTab() {
   );
 
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -74,6 +75,7 @@ export default function VerificationTab() {
             ...convertUserInfo(resVerify.data.user),
           }),
         );
+        dispatch(getDepositInfo());
         toast.success(
           t('authentication:verificationSuccess', { request: isPhoneVerifyRequested ? 'Phone' : 'Email' }),
           {
