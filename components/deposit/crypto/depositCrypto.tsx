@@ -114,7 +114,8 @@ const DepositCryptoComponent = () => {
               className="text-start text-[14px] dark:text-[#C2C2C2] text-[#31373d]"
               dangerouslySetInnerHTML={{
                 __html: t('deposit:getExtra', {
-                  percent: `${depositBonus?.percentageBonus}%`,
+                  // percent: `${depositBonus?.percentageBonus}%`,
+                  percent: `180%`,
                   value: `${currencyFormat(depositBonus?.minDepositBonus, 4)} ${activeCoin.name}`,
                 }),
               }}

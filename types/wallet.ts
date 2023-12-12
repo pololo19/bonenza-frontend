@@ -6,6 +6,7 @@ export type CryptoNetWorkType = {
 
 export type BalanceType = {
   amount: number;
+  usdAmount: number;
   symbol: string;
   symbolId: string;
 };
