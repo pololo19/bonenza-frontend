@@ -6,8 +6,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import api from '@/api/api';
-import { api_login, api_sendVerifyQRCode } from '@/api/auth';
+import { api_get2FAStatus, api_login, api_sendVerifyQRCode } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
@@ -73,6 +72,7 @@ export default function SignInTab({
     handleSubmit,
     control,
     formState: { errors },
+    getValues,
   } = useForm<LoginRequest>({
     resolver: yupResolver(schema),
   });
@@ -87,15 +87,12 @@ export default function SignInTab({
   }, [isLoginTwoFactor]);
 
   const getTwoFactorAuthStatus = async (formLogin: LoginRequest) => {
+    if (!formLogin.email) return false;
     let isTwoFactor = false;
     setIsLoading(true);
     try {
-      const res = await api.get('/auth/get-two-factor-auth-status', {
-        params: {
-          email: formLogin.email,
-        },
-      });
-      isTwoFactor = res.data?.twoFactorAuthStatus;
+      const res = await api_get2FAStatus(formLogin.email);
+      isTwoFactor = res.data;
     } catch (error: any) {
     } finally {
       setIsLoading(false);
@@ -107,9 +104,9 @@ export default function SignInTab({
     let checkTwoFactor = false;
     const isPhoneNumber = formLogin.email && formLogin.email.length > 2 && Number.isInteger(Number(formLogin.email));
     // will be implemented with 2fa
-    // if (!codeOtp && !isPhoneNumber) {
-    //   checkTwoFactor = await getTwoFactorAuthStatus(formLogin);
-    // }
+    if (!codeOtp && !isPhoneNumber) {
+      checkTwoFactor = await getTwoFactorAuthStatus(formLogin);
+    }
     if (checkTwoFactor) {
       setIsLoginTwoFactor(true);
       return;
@@ -162,10 +159,11 @@ export default function SignInTab({
   };
 
   const sendQrCodeToEmail = async () => {
-    if (!email) return;
+    const formData = getValues();
+    if (!formData.email) return;
     setIsLoading(true);
     try {
-      const res = await api_sendVerifyQRCode(email);
+      const res = await api_sendVerifyQRCode(formData.email);
       toast.success(res?.data?.msg, { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const messError = error?.response?.data?.msg;
@@ -190,7 +188,6 @@ export default function SignInTab({
     setForgotKey(false);
     setIsLoginTwoFactor(false);
   };
-
   return (
     <>
       {isLoading && <Loader />}

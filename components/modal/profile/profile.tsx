@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { ElementType, useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { api_getProfile } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, ROUTER } from '@/base/constants/common';
@@ -62,11 +61,11 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   const handleGetListGame = async (selectedUserId: string) => {
     try {
-      const res = await api.get('game/get-top-3-favorites', {
-        params: {
-          userId: selectedUserId || userId,
-        },
-      });
+      // const res = await api.get('game/get-top-3-favorites', {
+      //   params: {
+      //     userId: selectedUserId || userId,
+      //   },
+      // });
       setListGame([]);
     } catch (error) {
       setListGame([]);
@@ -77,8 +76,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const getVipListByRank = async () => {
     setIsLoading(true);
     try {
-      const res = await api.get('user-profile/get-vip');
-      setVipData(res?.data);
+      // const res = await api.get('user-profile/get-vip');
+      // setVipData(res?.data);
     } catch (error) {
     } finally {
       setIsLoading(false);

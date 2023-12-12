@@ -106,7 +106,6 @@ const SettingSecurity = () => {
     setIsLoading(true);
     try {
       const res = await api_getSetLogin();
-      console.log(res);
       setIsSetLogin(res?.data?.setLogin);
     } catch (error) {
     } finally {
@@ -188,7 +187,7 @@ const SettingSecurity = () => {
       setOtp('');
       setPasswordLogin('');
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
+      const messError = error?.response?.data?.message;
       toast.error(messError, { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -208,7 +207,12 @@ const SettingSecurity = () => {
     }
     setIsLoading(true);
     try {
-      const res = await api_changePassword(passwordBody.oldPassword, passwordBody.newPassword, passwordBody.codeOtp);
+      const res = await api_changePassword(
+        passwordBody.oldPassword,
+        passwordBody.newPassword,
+        passwordBody.confirmNewPassword,
+        passwordBody.codeOtp,
+      );
       handleLogout();
       setOpenModalCode(false);
       toast.success(t('setting:done'), { containerId: TOAST_ENUM.COMMON });
@@ -235,7 +239,7 @@ const SettingSecurity = () => {
     <>
       {isLoading && <Loader />}
       <div className="xl:px-[60px] lg:px-[40px] md:px-[20px] md:mt-0 mt-[30px] flex min-[991px]:flex-row flex-col lg:gap-[40px] md:gap-[20px] gap-[10px]">
-        {isSetLogin ? (
+        {isSetLogin && (
           <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
             <Disclosure defaultOpen={true}>
               {({ open }) => (
@@ -308,7 +312,9 @@ const SettingSecurity = () => {
               )}
             </Disclosure>
           </form>
-        ) : (
+        )}
+
+        {!isSetLogin && (
           <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
             <Disclosure defaultOpen={true}>
               {({ open }) => (
