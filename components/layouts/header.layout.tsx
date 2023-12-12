@@ -7,12 +7,10 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_validateToken } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { convertUserInfo, handleLocaleSymbol } from '@/base/libs/utils';
-import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import { handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -22,7 +20,6 @@ import {
   changeMultiLanguageTab,
   changeShowChatType,
 } from '@/base/redux/reducers/modal.reducer';
-import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import { FiatType } from '@/base/types/common';
@@ -56,27 +53,6 @@ export default function Navbar() {
   );
 
   const [showGlobal, setShowGlobal] = useState(false);
-
-  useEffect(() => {
-    // check validate token
-    const validateToken = async (token: string) => {
-      try {
-        const result = await api_validateToken(token);
-        setShowGlobal(true);
-        dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
-        dispatch(getDepositInfo());
-      } catch (error) {
-        setShowGlobal(false);
-        dispatch(logoutState());
-      }
-    };
-
-    const token = CookiesStorage.getAccessToken();
-    if (token) {
-      validateToken(token);
-    }
-    setIsLoadingFull(false);
-  }, [isLogin]);
 
   useEffect(() => {
     const localeFiatObject = JSON.parse(`${CookiesStorage.getCookieData(CookieKey.localeFiatData)}`);

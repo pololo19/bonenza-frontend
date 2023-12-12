@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -13,6 +12,8 @@ import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
+import { useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
@@ -45,7 +46,7 @@ export default function SignInTab({
   const [codeOtp, setCodeOtp] = useState<string>('');
   const [countryCallingCode, setCountryCallingCode] = useState<(typeof COUNTRY_CALLING_CODES)[number]>();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { t } = useTranslation('');
 
@@ -128,6 +129,7 @@ export default function SignInTab({
             ...convertUserInfo(user),
           }),
         );
+        dispatch(getDepositInfo());
         dispatch(changeIsShowAuthenticationModal(false));
       } catch (error: any) {
         const isPhoneNumber =

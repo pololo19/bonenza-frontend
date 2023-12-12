@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -14,6 +13,8 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
+import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
+import { useAppDispatch } from '@/base/redux/store';
 import { ResetPasswordRequest } from '@/base/types/requestTypes';
 import Loader from '@/components/common/preloader/loader';
 import { InputPassAuthentication } from '@/components/input/typing';
@@ -29,7 +30,7 @@ type ModalResetPasswordProps = {
 export default function ModalResetPassword({ show, onClose }: ModalResetPasswordProps) {
   const { t } = useTranslation('');
   const { query } = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -64,6 +65,8 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
           ...convertUserInfo(res.data),
         }),
       );
+
+      dispatch(getDepositInfo());
 
       dispatch(changeIsShowResetPassword(false));
       toast.success(t('authentication:resetPasswordSuccessfully'), { containerId: TOAST_ENUM.COMMON });
