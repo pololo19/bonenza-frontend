@@ -41,6 +41,7 @@ const API_USER_SESSION_LIST_SESSIONS = '/user-session/get-list-user-session';
 const API_USER_SESSION_DELETE_SESSION = `/user-session/delete-user-session`;
 
 /************************************ Wallet **********************************/
+const API_WALLET_USER_BALANCE = '/wallet/get-balance';
 const API_WALLET_INFO = '/wallet/get-wallet-info';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
@@ -87,5 +88,6 @@ export {
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
   API_WALLET_INFO,
+  API_WALLET_USER_BALANCE,
   URL_REFRESH_TOKEN,
 };

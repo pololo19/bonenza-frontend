@@ -21,7 +21,7 @@ type WithAuthComponent<P> = React.FunctionComponent<P> & {
 
 function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): WithAuthComponent<P> {
   const Authorization = (props: P) => {
-    const { initSocket } = useSelector(
+    const { initSocket, user } = useSelector(
       (state: AppState) => ({
         user: state.auth.user,
         initSocket: state.socket.walletSocket,
@@ -82,19 +82,6 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
     useEffect(() => {
       checkIsAuthenticated();
     }, []);
-
-    /** Define Socket Events */
-    useEffect(() => {
-      if (initSocket?.connected) {
-        initSocket.on('all', (arg: any) => {
-          console.log(arg);
-          initSocket.emit('message', 'pong');
-          initSocket.on('message', (item: any) => {
-            console.log(item);
-          });
-        });
-      }
-    }, [initSocket]);
 
     return isLoading ? <Loader /> : <WrappedComponent {...props} />;
   };
