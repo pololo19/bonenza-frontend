@@ -51,6 +51,7 @@ const WithdrawCryptoPage = () => {
     iso_currency: '',
     availableNetworks: [],
     iso_decimals: 0,
+    price: 0,
   });
   const [activeNetwork, setActiveNetwork] = useState<CryptoNetWorkType>({
     id: '',
@@ -67,7 +68,7 @@ const WithdrawCryptoPage = () => {
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
       balances: state.wallet.balances,
-      minAmounts: state.wallet.currencies,
+      minAmounts: state.wallet.cryptoCurrencies,
     }),
     shallowEqual,
   );
