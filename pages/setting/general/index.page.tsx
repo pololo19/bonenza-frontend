@@ -32,12 +32,11 @@ const GeneralPage = () => {
   const [mode, setMode] = useState(0);
   const { setTheme } = useTheme();
 
-  const { viewInFiat, settings, walletSocket } = useSelector(
+  const { viewInFiat, settings } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.common.viewInFiat,
       settings: state.auth.user.generalSetting,
       user: state.auth.user,
-      walletSocket: state.socket.walletSocket,
     }),
     shallowEqual,
   );
@@ -46,18 +45,6 @@ const GeneralPage = () => {
     const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
     setMode(theme);
   }, []);
-
-  useEffect(() => {
-    if (walletSocket?.connected) {
-      walletSocket.on('all', (arg: any) => {
-        console.log(arg);
-        walletSocket.emit('message', 'pong');
-        walletSocket.on('message', (item: any) => {
-          console.log(item);
-        });
-      });
-    }
-  }, [walletSocket]);
 
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();

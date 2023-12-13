@@ -83,6 +83,19 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
       checkIsAuthenticated();
     }, []);
 
+    /** Define Socket Events */
+    useEffect(() => {
+      if (initSocket?.connected) {
+        initSocket.on('all', (arg: any) => {
+          console.log(arg);
+          initSocket.emit('message', 'pong');
+          initSocket.on('message', (item: any) => {
+            console.log(item);
+          });
+        });
+      }
+    }, [initSocket]);
+
     return isLoading ? <Loader /> : <WrappedComponent {...props} />;
   };
 
