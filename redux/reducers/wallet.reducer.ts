@@ -3,14 +3,20 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { api_getWalletInfo } from '@/api/wallet';
 import { AppDispatch } from '@/base/redux/store';
 import { WalletState } from '@/base/types/reducer-states';
-import { BalanceType, CryptoNetWorkType, CurrencySymbolType, CurrencyType, WalletType } from '@/base/types/wallet';
+import {
+  BalanceType,
+  CryptoCurrencyType,
+  CryptoNetWorkType,
+  CurrencySymbolType,
+  DepositAddressType,
+} from '@/base/types/wallet';
 
 const initialState: WalletState = {
   networks: [],
   symbols: [],
   balances: [],
   depositAddress: [],
-  currencies: [],
+  cryptoCurrencies: [],
 };
 
 export const walletReducer = createSlice({
@@ -26,16 +32,16 @@ export const walletReducer = createSlice({
     setBalances: (state: WalletState, action: PayloadAction<BalanceType[]>) => {
       state.balances = [...action.payload];
     },
-    setDepositAddress: (state: WalletState, action: PayloadAction<WalletType[]>) => {
+    setDepositAddress: (state: WalletState, action: PayloadAction<DepositAddressType[]>) => {
       state.depositAddress = [...action.payload];
     },
-    setCurrencies: (state: WalletState, action: PayloadAction<CurrencyType[]>) => {
-      state.currencies = [...action.payload];
+    setCryptoCurrencies: (state: WalletState, action: PayloadAction<CryptoCurrencyType[]>) => {
+      state.cryptoCurrencies = [...action.payload];
     },
   },
 });
 
-export const { setNetworks, setBalances, setDepositAddress, setSymbols, setCurrencies } = walletReducer.actions;
+export const { setNetworks, setBalances, setDepositAddress, setSymbols, setCryptoCurrencies } = walletReducer.actions;
 export default walletReducer.reducer;
 
 export const getWalletInfo = () => async (dispatch: AppDispatch) => {
@@ -43,9 +49,7 @@ export const getWalletInfo = () => async (dispatch: AppDispatch) => {
     const result = await api_getWalletInfo();
     const { wallets, balances, networks, symbols, currency } = result.data;
 
-    console.log(result.data, '-----46');
-
-    const tempWallets: WalletType[] = wallets?.map((item: any) => ({
+    const tempWallets: DepositAddressType[] = wallets?.map((item: any) => ({
       address: item.depositAddress,
       network: item.network.network,
       networkId: item.network.id,
@@ -71,9 +75,10 @@ export const getWalletInfo = () => async (dispatch: AppDispatch) => {
       iso_currency: item.iso_currency,
       iso_decimals: item.iso_decimals,
       availableNetworks: item.availableNetworks,
+      price: 0,
     }));
 
-    const tempCurrencies: CurrencyType[] = currency?.map((item: any) => ({
+    const tempCurrencies: CryptoCurrencyType[] = currency?.map((item: any) => ({
       id: item.id,
       networkId: item.network.id,
       symbolId: item.symbol.id,
@@ -84,7 +89,7 @@ export const getWalletInfo = () => async (dispatch: AppDispatch) => {
     dispatch(setBalances(tempBalances));
     dispatch(setDepositAddress(tempWallets));
     dispatch(setSymbols(tempSymbols));
-    dispatch(setCurrencies(tempCurrencies));
+    dispatch(setCryptoCurrencies(tempCurrencies));
   } catch (error) {
     console.log(error);
     dispatch(setNetworks([]));

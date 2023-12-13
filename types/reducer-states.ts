@@ -2,7 +2,7 @@ import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLang
 
 import { AuthenticationModeEnum, DepositAddress, FiatType, UserDetail } from './common';
 import { VerifyRequestType } from './requestTypes';
-import { BalanceType, CryptoNetWorkType, CurrencySymbolType, CurrencyType, WalletType } from './wallet';
+import { BalanceType, CryptoCurrencyType, CryptoNetWorkType, CurrencySymbolType, DepositAddressType } from './wallet';
 
 export type TokenState = {
   accessToken?: string;
@@ -73,6 +73,6 @@ export type WalletState = {
   networks: CryptoNetWorkType[];
   symbols: CurrencySymbolType[];
   balances: BalanceType[];
-  currencies: CurrencyType[];
-  depositAddress: WalletType[];
+  cryptoCurrencies: CryptoCurrencyType[];
+  depositAddress: DepositAddressType[];
 };

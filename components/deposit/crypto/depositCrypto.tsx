@@ -23,6 +23,7 @@ const DepositCryptoComponent = () => {
     iso_currency: '',
     availableNetworks: [],
     iso_decimals: 0,
+    price: 0,
   });
   const [activeNetwork, setActiveNetwork] = useState<CryptoNetWorkType>({
     id: '',
