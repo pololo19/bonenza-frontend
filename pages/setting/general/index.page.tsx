@@ -31,10 +31,6 @@ const GeneralPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [mode, setMode] = useState(0);
   const { setTheme } = useTheme();
-  useEffect(() => {
-    const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
-    setMode(theme);
-  }, []);
 
   const { viewInFiat, settings } = useSelector(
     (state: AppState) => ({
@@ -44,6 +40,11 @@ const GeneralPage = () => {
     }),
     shallowEqual,
   );
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
+    setMode(theme);
+  }, []);
 
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
