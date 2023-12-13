@@ -8,7 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, formatLengthNumber } from '@/base/libs/utils';
-import { AppState, useAppDispatch } from '@/base/redux/store';
+import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencySymbolType } from '@/base/types/wallet';
 
 import InputSearch from '../input/typing/InputSearch';
@@ -18,7 +18,6 @@ type SelectCurrencyProps = {
   activeNetwork: CryptoNetWorkType;
   onChangeCoin: (coin: CurrencySymbolType) => void;
   onChangeNetwork: (network: CryptoNetWorkType) => void;
-  setBalance?: (balance: number) => void;
   withDrawTab?: boolean;
 };
 
@@ -28,18 +27,15 @@ const SelectCurrency = ({
   onChangeCoin,
   onChangeNetwork,
   withDrawTab,
-  setBalance,
 }: SelectCurrencyProps) => {
   const { t } = useTranslation('');
   const { query } = useRouter();
-  const dispatch = useAppDispatch();
 
-  const { symbols, balances, networks, depositAddress } = useSelector(
+  const { symbols, balances, networks } = useSelector(
     (state: AppState) => ({
       symbols: state.wallet.symbols,
       balances: state.wallet.balances,
       networks: state.wallet.networks,
-      depositAddress: state.wallet.depositAddress,
     }),
     shallowEqual,
   );

@@ -14,6 +14,7 @@ import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.red
 import { setSocket } from '@/base/redux/reducers/socket.reducer';
 import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
+import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 
 type WithAuthComponent<P> = React.FunctionComponent<P> & {
   getLayout?: (page: React.ReactElement) => React.ReactElement;
@@ -63,7 +64,7 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
 
         const result = await api_validateToken(accessToken);
         dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
-        dispatch(getDepositInfo());
+        dispatch(getWalletInfo());
 
         if (!initSocket?.connected) {
           const newSocket = await initialSocketConnection();

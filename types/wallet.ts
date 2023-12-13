@@ -26,3 +26,10 @@ export type WalletType = {
   network: string;
   networkId: string;
 };
+
+export type CurrencyType = {
+  id: string;
+  networkId: string;
+  symbolId: string;
+  minWithdrawAmount: number;
+};
