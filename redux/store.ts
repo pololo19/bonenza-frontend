@@ -6,6 +6,7 @@ import authReducer from './reducers/auth.reducer';
 import commonReducer from './reducers/common.reducer';
 import loadingReducer from './reducers/loading.reducer';
 import modalReducer from './reducers/modal.reducer';
+import socketReducer from './reducers/socket.reducer';
 import userReducer from './reducers/user.reducer';
 import walletReducer from './reducers/wallet.reducer';
 const customizedMiddleware = getDefaultMiddleware({
@@ -21,6 +22,7 @@ export const makeStore = () =>
       loading: loadingReducer,
       common: commonReducer,
       wallet: walletReducer,
+      socket: socketReducer,
     },
     devTools: process.env.NODE_ENV === 'development',
     middleware: customizedMiddleware,
