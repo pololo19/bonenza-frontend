@@ -622,6 +622,7 @@ export const API_AVATAR = process.env.API_AVATAR;
 
 export const STREAM_API_KEY = process.env.STREAM_CHAT_API_KEY;
 export const STREAM_API_SECRET = process.env.STREAM_CHAT_API_SECRET;
+export const SOCKET_WALLET_URL = process.env.SOCKET_WALLET_URL;
 
 export const DEFAULT_AVATAR = 'https://bonenza.com/img/avatar-1.png';
 
@@ -1040,6 +1041,7 @@ export const SETTING_BANNER: Settings = {
 };
 
 export const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'] };
+export const socketWalletConfig = { transports: ['websocket'] };
 
 export const CHANNELS = [
   {

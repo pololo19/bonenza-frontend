@@ -1,16 +1,20 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_validateToken } from '@/api/auth';
 import Loader from '@/base/components/common/preloader/loader';
 import { ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
+import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { setSocket } from '@/base/redux/reducers/socket.reducer';
+import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
-import { useAppDispatch } from '@/base/redux/store';
 
 type WithAuthComponent<P> = React.FunctionComponent<P> & {
   getLayout?: (page: React.ReactElement) => React.ReactElement;
@@ -18,8 +22,16 @@ type WithAuthComponent<P> = React.FunctionComponent<P> & {
 
 function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): WithAuthComponent<P> {
   const Authorization = (props: P) => {
+    const { initSocket } = useSelector(
+      (state: AppState) => ({
+        user: state.auth.user,
+        initSocket: state.socket.walletSocket,
+      }),
+      shallowEqual,
+    );
     const router = useRouter();
     const [isLoading, setIsLoading] = useState(true);
+
     const dispatch = useAppDispatch();
 
     const redirectToLogin = () => {
@@ -54,6 +66,11 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
         dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
         dispatch(getWalletInfo());
 
+        if (!initSocket?.connected) {
+          const newSocket = await initialSocketConnection();
+          dispatch(setSocket(newSocket));
+        }
+
         setIsLoading(false);
         return;
       } catch (err) {
@@ -66,6 +83,19 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
     useEffect(() => {
       checkIsAuthenticated();
     }, []);
+
+    /** Define Socket Events */
+    useEffect(() => {
+      if (initSocket?.connected) {
+        initSocket.on('all', (arg: any) => {
+          console.log(arg);
+          initSocket.emit('message', 'pong');
+          initSocket.on('message', (item: any) => {
+            console.log(item);
+          });
+        });
+      }
+    }, [initSocket]);
 
     return isLoading ? <Loader /> : <WrappedComponent {...props} />;
   };
