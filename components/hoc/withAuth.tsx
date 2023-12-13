@@ -9,7 +9,7 @@ import { convertUserInfo } from '@/base/libs/utils';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
-import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
+import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 
 type WithAuthComponent<P> = React.FunctionComponent<P> & {
@@ -52,7 +52,7 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
 
         const result = await api_validateToken(accessToken);
         dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
-        dispatch(getDepositInfo());
+        dispatch(getWalletInfo());
 
         setIsLoading(false);
         return;

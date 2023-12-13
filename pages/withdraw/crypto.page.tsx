@@ -4,8 +4,7 @@ import cn from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { ReactElement, useEffect, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -14,7 +13,13 @@ import * as yup from 'yup';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import {
+  currencyFormat,
+  currencyFormat1,
+  exchangeByLocaleFiat,
+  formatLengthNumber,
+  handleLocaleSymbol,
+} from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { InformationWithdraw } from '@/base/types/common';
 import { CryptoNetWorkType, CurrencySymbolType } from '@/base/types/wallet';
@@ -34,8 +39,11 @@ type WithdrawFormType = {
 };
 
 const WithdrawCryptoPage = () => {
+  const { t } = useTranslation('');
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openRollover, setOpenRollover] = useState<boolean>(false);
+
   const [activeCoin, setActiveCoin] = useState<CurrencySymbolType>({
     id: '',
     name: '',
@@ -49,27 +57,70 @@ const WithdrawCryptoPage = () => {
     name: '',
     type: 1,
   });
-  const [minValue, setMinValue] = useState<number>(0);
-  const [balance, setBalance] = useState<number>(0);
-  const [render, setRender] = useState<any>({
-    isMin: true,
-    isQuater: true,
-    isHalf: true,
-    isMax: true,
-  });
-  const [informationWithdraw, setInformationWithdraw] = useState<InformationWithdraw>();
 
-  const { activeFiat, localeFiat } = useSelector(
+  const [informationWithdraw, setInformationWithdraw] = useState<InformationWithdraw>({
+    fee: 0,
+  });
+
+  const { activeFiat, localeFiat, minAmounts, balances } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
-      balance: state.wallet.balances,
+      balances: state.wallet.balances,
+      minAmounts: state.wallet.currencies,
     }),
     shallowEqual,
   );
 
-  const router = useRouter();
-  const { t } = useTranslation('');
+  const renderMinValue = useMemo(() => {
+    const min = minAmounts.find((item) => item.networkId === activeNetwork.id && item.symbolId === activeCoin.id);
+    return min ? min.minWithdrawAmount : 0;
+  }, [activeNetwork, activeCoin, minAmounts]);
+
+  const renderBalanceValue = useMemo(() => {
+    const selectedBalanceInfo = balances.find((item) => item.symbolId === activeCoin.id);
+    return selectedBalanceInfo ? selectedBalanceInfo.amount : 0;
+  }, [balances, activeCoin]);
+
+  const renderKeys = useMemo(() => {
+    let key = {
+      isMin: true,
+      isQuater: true,
+      isHalf: true,
+      isMax: true,
+    };
+    const percent = renderMinValue / renderBalanceValue;
+    if (percent > 1) {
+      key = {
+        isMax: false,
+        isMin: false,
+        isHalf: false,
+        isQuater: false,
+      };
+    } else if (percent > 0.5) {
+      key = {
+        isMin: true,
+        isQuater: false,
+        isHalf: false,
+        isMax: true,
+      };
+    } else if (percent > 0.25) {
+      key = {
+        isMin: true,
+        isQuater: false,
+        isHalf: true,
+        isMax: true,
+      };
+    } else {
+      key = {
+        isMin: true,
+        isQuater: true,
+        isHalf: true,
+        isMax: true,
+      };
+    }
+    return key;
+  }, [renderMinValue, renderBalanceValue]);
 
   const schema = yup.object().shape({
     withdrawAddress: yup
@@ -96,11 +147,12 @@ const WithdrawCryptoPage = () => {
   });
 
   const setAmountByPercent = (percent: number) => {
-    if (percent === 100) {
-      // setValue('withdrawAmount', String(Number(activeCoin?.balance) || 0));
-    } else {
-      // setValue('withdrawAmount', String((Number(activeCoin?.balance) * percent) / 100 || 0));
+    let avaBalance = (renderBalanceValue * percent) / 100;
+    if (avaBalance < renderMinValue) {
+      avaBalance = renderMinValue;
     }
+
+    setValue('withdrawAmount', String(avaBalance));
   };
 
   const handleError = (formWithdraw: WithdrawFormType) => {
@@ -115,7 +167,7 @@ const WithdrawCryptoPage = () => {
     } else if (Number(formWithdraw.withdrawAmount) < Number(informationWithdraw?.fee)) {
       messError = t('withdraw:withdrawFailMess4');
       validate = true;
-    } else if (Number(formWithdraw.withdrawAmount) > Number(informationWithdraw?.available)) {
+    } else if (Number(formWithdraw.withdrawAmount) > renderBalanceValue) {
       messError = t('withdraw:withdrawFailMess4');
       validate = true;
     }
@@ -150,59 +202,19 @@ const WithdrawCryptoPage = () => {
       );
       // router.push(ROUTER.Transaction);
     } catch (error) {
-      if (Number(formWithdraw.withdrawAmount) < Number(minValue || 0)) {
-        toast.error(t('withdraw:withdrawFailMess'), { containerId: TOAST_ENUM.COMMON });
-      } else {
-        toast.error('Withdraw Failed', { containerId: TOAST_ENUM.COMMON });
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleInformationWithdraw = async () => {
-    try {
-      setIsLoading(true);
-      // const res = await api.get('/withdraw/get-information-withdraw', {
-      //   params: {
-      //     value: activeCoin?.balance,
-      //     symbol: activeCoin?.symbol,
-      //     network: activeCoin?.network,
-      //   },
-      // });
-      // setInformationWithdraw(res.data);
-      // setValue('withdrawAmount', String(Number(res.data.min) || 0));
-      // setMinValue(Number(Number(res.data.min)));
-    } catch (error) {
+      // if (Number(formWithdraw.withdrawAmount) < Number(minValue || 0)) {
+      //   toast.error(t('withdraw:withdrawFailMess'), { containerId: TOAST_ENUM.COMMON });
+      // } else {
+      //   toast.error('Withdraw Failed', { containerId: TOAST_ENUM.COMMON });
+      // }
     } finally {
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    setValue('withdrawAmount', '');
-    handleInformationWithdraw();
-  }, [activeCoin]);
-
-  useEffect(() => {
-    const newRender = { ...render };
-    if (minValue >= balance) {
-      for (let key in newRender) {
-        newRender[key] = false;
-      }
-    } else if (balance * 0.25 < minValue) {
-      for (let key in newRender) {
-        newRender[key] = false;
-      }
-      newRender.isMin = true;
-      newRender.isMax = true;
-    } else {
-      for (let key in newRender) {
-        newRender[key] = true;
-      }
-    }
-    setRender(newRender);
-  }, [balance, minValue]);
+    setValue('withdrawAmount', String(renderMinValue));
+  }, [renderMinValue]);
 
   return (
     <>
@@ -239,7 +251,6 @@ const WithdrawCryptoPage = () => {
                 activeNetwork={activeNetwork}
                 onChangeCoin={setActiveCoin}
                 onChangeNetwork={setActiveNetwork}
-                setBalance={setBalance}
                 withDrawTab={true}
               />
             </div>
@@ -263,7 +274,7 @@ const WithdrawCryptoPage = () => {
                     {t('withdraw:withdrawAmount')}
                   </div>
                   <div className="text-[14px] dark:text-[#98a7b5] text-[#31373d] mb-[10px] text-left">
-                    {t('deposit:min')} : {minValue || 0}
+                    {t('deposit:min')} : {renderMinValue}
                   </div>
                 </div>
                 <div
@@ -283,16 +294,16 @@ const WithdrawCryptoPage = () => {
                     placeholder={String(t('withdraw:withdrawAmount'))}
                   />
                   <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-[16px] text-[12px]">
-                    {render.isMin && (
+                    {renderKeys.isMin && (
                       <div
                         role="button"
                         className="text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
-                        onClick={() => setValue('withdrawAmount', String(minValue))}
+                        onClick={() => setValue('withdrawAmount', String(renderMinValue))}
                       >
                         {t('deposit:min')}
                       </div>
                     )}
-                    {render.isQuater && (
+                    {renderKeys.isQuater && (
                       <div
                         role="button"
                         className="md:block hidden text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
@@ -301,7 +312,7 @@ const WithdrawCryptoPage = () => {
                         25%
                       </div>
                     )}
-                    {render.isHalf && (
+                    {renderKeys.isHalf && (
                       <div
                         role="button"
                         className="md:block hidden text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
@@ -310,7 +321,7 @@ const WithdrawCryptoPage = () => {
                         50%
                       </div>
                     )}
-                    {render.isMax && (
+                    {renderKeys.isMax && (
                       <div
                         role="button"
                         className="text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
@@ -326,15 +337,16 @@ const WithdrawCryptoPage = () => {
                     <span className="dark:text-[#98a7b5] text-[#37313d]">{t('withdraw:available')}:</span>
                     <span className="dark:text-[#fff] text-[#000] flex">
                       {localeFiat
-                        ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
+                        ? currencyFormat1(
                             exchangeByLocaleFiat(
                               informationWithdraw?.unitFee,
                               String(localeFiat?.currency),
-                              Number(informationWithdraw?.available),
+                              renderBalanceValue,
                             ),
                             2,
-                          )}`
-                        : `${formatLengthNumber(Number(informationWithdraw?.available), 2)}`}
+                            String(localeFiat?.currency),
+                          )
+                        : `${formatLengthNumber(renderBalanceValue, 2)}`}
                     </span>
                   </div>
                   <div className="flex gap-1 flex-wrap justify-end">

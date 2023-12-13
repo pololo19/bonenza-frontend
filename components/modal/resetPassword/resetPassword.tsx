@@ -13,7 +13,7 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
-import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
+import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 import { ResetPasswordRequest } from '@/base/types/requestTypes';
 import Loader from '@/components/common/preloader/loader';
@@ -66,7 +66,7 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
         }),
       );
 
-      dispatch(getDepositInfo());
+      dispatch(getWalletInfo());
 
       dispatch(changeIsShowResetPassword(false));
       toast.success(t('authentication:resetPasswordSuccessfully'), { containerId: TOAST_ENUM.COMMON });
