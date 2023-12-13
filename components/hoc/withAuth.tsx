@@ -12,9 +12,8 @@ import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { setSocket } from '@/base/redux/reducers/socket.reducer';
-import { getDepositInfo } from '@/base/redux/reducers/wallet.reducer';
-import { AppState, useAppDispatch } from '@/base/redux/store';
 import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 
 type WithAuthComponent<P> = React.FunctionComponent<P> & {
   getLayout?: (page: React.ReactElement) => React.ReactElement;
