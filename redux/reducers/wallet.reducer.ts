@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { api_getWalletInfo } from '@/api/wallet';
+import { api_getUserBalance, api_getWalletInfo } from '@/api/wallet';
 import { AppDispatch } from '@/base/redux/store';
 import { WalletState } from '@/base/types/reducer-states';
 import {
@@ -96,5 +96,21 @@ export const getWalletInfo = () => async (dispatch: AppDispatch) => {
     dispatch(setBalances([]));
     dispatch(setDepositAddress([]));
     dispatch(setSymbols([]));
+  }
+};
+
+export const getBalance = () => async (dispatch: AppDispatch) => {
+  try {
+    const result = await api_getUserBalance();
+    const tempBalances: BalanceType[] = result.data?.cryptoBalances?.map((item: any) => ({
+      amount: Number(item.balance),
+      usdAmount: Number(item.balanceUsd),
+      symbol: item.symbol,
+      symbolId: item.symbolId,
+    }));
+
+    dispatch(setBalances(tempBalances));
+  } catch (error) {
+    console.log(error);
   }
 };

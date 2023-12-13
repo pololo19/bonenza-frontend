@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import api from '@/api/api';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, FIAT_DATA, ROUTER } from '@/base/constants/common';
+import { CookieKey, FIAT_DATA, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { exchangeByLocaleFiat, updateCoin } from '@/base/libs/utils';
@@ -42,6 +42,7 @@ import {
   changeShowFullChat,
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
+import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { CurrencyEnum, DepositAddress, FiatType } from '@/base/types/common';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
@@ -112,6 +113,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowModalBonusHistory,
     cryptoArray,
     userId,
+    walletSocket,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -136,6 +138,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowResetPassword: state.modal.isShowResetPassword,
       userId: state.auth.user.userId,
       cryptoArray: state.common.cryptoArray,
+
+      walletSocket: state.socket.walletSocket,
     }),
     shallowEqual,
   );
@@ -401,6 +405,32 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     }
     // handleGet();
   }, [isLogin]);
+
+  useEffect(() => {
+    if (walletSocket) {
+      walletSocket.on(`${userId}`, (data: any) => {
+        console.log(data);
+        const action = data?.action || '';
+        switch (action) {
+          case 'deposit':
+            const amount = data?.amount || 0;
+            const currency = data?.currency || 'USDT';
+            toast.success(`${amount} ${currency} deposited`, { containerId: TOAST_ENUM.COMMON });
+            dispatch(getBalance());
+            break;
+
+          default:
+            break;
+        }
+      });
+    }
+
+    return () => {
+      if (walletSocket) {
+        walletSocket.off(`${userId}`);
+      }
+    };
+  }, [walletSocket]);
 
   useEffect(() => {
     if (router.query['forgot-pass-token']) {
