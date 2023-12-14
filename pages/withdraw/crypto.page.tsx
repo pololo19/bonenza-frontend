@@ -22,7 +22,7 @@ import {
 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { InformationWithdraw } from '@/base/types/common';
-import { CryptoNetWorkType, CurrencySymbolType } from '@/base/types/wallet';
+import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import InputNumber from '@/components/input/typing/InputNumber';
@@ -43,15 +43,16 @@ const WithdrawCryptoPage = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openRollover, setOpenRollover] = useState<boolean>(false);
-
-  const [activeCoin, setActiveCoin] = useState<CurrencySymbolType>({
+  const [activeCoin, setActiveCoin] = useState<CurrencyType>({
     id: '',
     name: '',
+    alias: '',
     logo: '',
     iso_currency: '',
     availableNetworks: [],
     iso_decimals: 0,
     price: 0,
+    type: 'crypto',
   });
   const [activeNetwork, setActiveNetwork] = useState<CryptoNetWorkType>({
     id: '',

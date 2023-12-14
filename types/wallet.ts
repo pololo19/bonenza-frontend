@@ -24,12 +24,16 @@ export type BalanceType = {
   symbolId: string;
 };
 
-export type CurrencySymbolType = {
+export type CurrencySymbolType = 'crypto' | 'fiat';
+
+export type CurrencyType = {
   id: string;
   name: string;
+  alias: string;
   logo: string;
   iso_currency: string;
   iso_decimals: number;
+  type: CurrencySymbolType;
   availableNetworks: string[]; // for cryptos
   price: number;
 };

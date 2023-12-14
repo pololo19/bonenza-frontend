@@ -9,14 +9,14 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, formatLengthNumber } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { CryptoNetWorkType, CurrencySymbolType } from '@/base/types/wallet';
+import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 
 import InputSearch from '../input/typing/InputSearch';
 
 type SelectCurrencyProps = {
-  activeCoin: CurrencySymbolType;
+  activeCoin: CurrencyType;
   activeNetwork: CryptoNetWorkType;
-  onChangeCoin: (coin: CurrencySymbolType) => void;
+  onChangeCoin: (coin: CurrencyType) => void;
   onChangeNetwork: (network: CryptoNetWorkType) => void;
   withDrawTab?: boolean;
 };
@@ -71,7 +71,7 @@ const SelectCurrency = ({
     }
   }, [symbols]);
 
-  const handleChangeCrypto = (symbol: CurrencySymbolType) => {
+  const handleChangeCrypto = (symbol: CurrencyType) => {
     const availableNetworkIds = symbol.availableNetworks;
 
     const filteredNetworks = networks.filter((item) => availableNetworkIds.indexOf(item.id) != -1);

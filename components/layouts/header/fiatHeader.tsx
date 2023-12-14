@@ -1,6 +1,6 @@
 import { Menu, Switch, Transition } from '@headlessui/react';
 import cn from 'classnames';
-import { ArrowDown2, Lock } from 'iconsax-react';
+import { ArrowDown2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useMemo, useState } from 'react';
@@ -20,6 +20,7 @@ import {
 } from '@/base/redux/reducers/common.reducer';
 import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
+import { CurrencyType } from '@/base/types/wallet';
 import InputSearch from '@/components/input/typing/InputSearch';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
@@ -37,72 +38,99 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const dispatch = useDispatch();
   const { t } = useTranslation('');
 
-  const { localeFiat, fiatArray, activeFiat, cryptoArray, viewInFiat, showFullNameCurrency, usdtNetwork } = useSelector(
+  const {
+    localeFiat,
+    fiatArray,
+    activeFiat,
+    cryptoArray,
+    viewInFiat,
+    showFullNameCurrency,
+    usdtNetwork,
+    cryptoSymbols,
+    cryptoBalances,
+  } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
-      fiatArray: state.common.fiatArray,
+      // fiatArray: state.common.fiatArray,
       cryptoArray: state.common.cryptoArray,
       depositCryptoArray: state.common.depositCryptoArray,
       usdtNetwork: state.common.usdtNetwork,
-      viewInFiat: state.common.viewInFiat,
-      showFullNameCurrency: state.common.showFullNameCurrency,
+      viewInFiat: false,
+
+      showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
+      cryptoSymbols: state.wallet.symbols,
+      cryptoBalances: state.wallet.balances,
+      fiatArray: [],
     }),
+
     shallowEqual,
   );
 
   const [searchFiatInput, setSearchFiatInput] = useState<string>('');
-  const [activeCoin, setActiveCoin] = useState<FiatType>({});
+
+  const [activeCoin, setActiveCoin] = useState<CurrencyType>({
+    id: '',
+    name: '',
+    alias: '',
+    logo: '',
+    iso_currency: '',
+    iso_decimals: 0,
+    availableNetworks: [],
+    type: 'crypto',
+    price: 0,
+  });
+
+  // const [activeCoin, setActiveCoin] = useState<FiatType>({});
   const [localeCoin, setLocaleCoin] = useState<FiatType>({});
   const [showSmallFiat, setShowSmallFiat] = useState<boolean>(true);
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
+
   const [showFavoriteCoins, setShowFavoriteCoins] = useState<boolean>(false);
   const [showModalRakeBack, setShowModalRakeBack] = useState<boolean>(false);
+
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
+
   const [localeModalCoin, setLocaleModalCoin] = useState<FiatType | undefined>(fiatArray?.[0]);
   const [showModalRakeBackDetail, setShowModalRakeBackDetail] = useState<boolean>(false);
   const [showModalBonusHistory, setShowModalBonusHistory] = useState<boolean>(false);
 
   const filterListFiat = useMemo(() => {
-    const arraySearch = fiatArray?.filter((item) => {
-      return (
-        (String(item?.currency).toLowerCase().includes(searchFiatInput.toLowerCase()) ||
-          String(item?.currencyAlias).toLowerCase().includes(searchFiatInput.toLowerCase())) &&
-        !!Number(item?.isFavorite)
-      );
-    });
-    return arraySearch?.filter((item) => {
-      return !searchFiatInput && showSmallFiat ? Number(item.amount) : true;
-    });
+    // const arraySearch = fiatArray?.filter((item) => {
+    //   return (
+    //     (String(item?.currency).toLowerCase().includes(searchFiatInput.toLowerCase()) ||
+    //       String(item?.currencyAlias).toLowerCase().includes(searchFiatInput.toLowerCase())) &&
+    //     !!Number(item?.isFavorite)
+    //   );
+    // });
+    // return arraySearch?.filter((item) => {
+    //   return !searchFiatInput && showSmallFiat ? Number(item.amount) : true;
+    // });
+    return [];
   }, [searchFiatInput, fiatArray, showSmallFiat]);
 
   const filterListCrypto = useMemo(() => {
-    const arraySearch = cryptoArray?.filter((item) => {
-      return (
-        (String(item?.currency).toLowerCase().includes(searchFiatInput.toLowerCase()) ||
-          String(item?.currencyAlias).toLowerCase().includes(searchFiatInput.toLowerCase())) &&
-        !!Number(item?.isFavorite)
-      );
-    });
-    return arraySearch?.filter((item) => {
-      return !searchFiatInput && showSmallFiat ? Number(item?.amount) : true;
-    });
-  }, [searchFiatInput, cryptoArray, showSmallFiat, usdtNetwork]);
+    let arraySearch = cryptoSymbols.filter((item: CurrencyType) =>
+      item.name.toLowerCase().includes(searchFiatInput.toLowerCase()),
+    );
+    if (showSmallFiat) {
+      const avaSymbols = cryptoBalances.filter((item) => item.amount > 0).map((item) => item.symbolId);
+      arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
+    }
+    return arraySearch;
+  }, [searchFiatInput, cryptoSymbols, cryptoBalances, showSmallFiat]);
+
+  const getBalanceBySymbol = (symbol: CurrencyType) => {
+    const tempBalances = [...cryptoBalances];
+    const selectedBalance = tempBalances.find((item) => item.symbolId === symbol.id);
+    return selectedBalance?.amount || 0;
+  };
 
   const listSuggestCoins = useMemo(() => {
-    let commonArray = Array.isArray(cryptoArray) && Array.isArray(fiatArray) ? [...cryptoArray, ...fiatArray] : [];
-    return commonArray
-      ?.filter(
-        (coin: FiatType) =>
-          (coin?.currencyAlias?.toLowerCase()?.includes(searchFiatInput.toLowerCase().trim()) ||
-            String(coin?.currency).toLowerCase().includes(searchFiatInput.toLowerCase().trim())) &&
-          !Number(coin.isFavorite),
-      )
-      ?.filter(
-        (item: FiatType) =>
-          item.currency !== 'USDT' || (item.currency === 'USDT' && item.currencyAlias === usdtNetwork),
-      );
-  }, [searchFiatInput, cryptoArray, fiatArray, usdtNetwork]);
+    let commonArray = Array.isArray(cryptoSymbols) && Array.isArray(fiatArray) ? [...cryptoSymbols, ...fiatArray] : [];
+
+    return commonArray.filter((item: CurrencyType) => item.name.toLowerCase().includes(searchFiatInput.toLowerCase()));
+  }, [searchFiatInput, cryptoSymbols, fiatArray, usdtNetwork]);
 
   const handleChangeLocaleFiat = (item: FiatType) => {
     try {
@@ -137,15 +165,16 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     }
   };
 
-  useEffect(() => {
-    const checkMoneyCrypto = cryptoArray?.some((crypto) => Number(crypto?.amount) > 0);
-    const checkMoneyFiat = fiatArray?.some((fiat) => Number(fiat?.amount) > 0);
-    if (!checkMoneyCrypto && !checkMoneyFiat) {
-      setShowSmallFiat(false);
-    } else {
-      setShowSmallFiat(true);
-    }
-  }, [cryptoArray, fiatArray]);
+  // useEffect(() => {
+  //   const checkMoneyCrypto = cryptoArray?.some((crypto) => Number(crypto?.amount) > 0);
+  //   // const checkMoneyFiat = fiatArray?.some((fiat) => Number(fiat?.amount) > 0);
+  //   // if (!checkMoneyCrypto && !checkMoneyFiat) {
+  //   if (!checkMoneyCrypto) {
+  //     setShowSmallFiat(false);
+  //   } else {
+  //     setShowSmallFiat(true);
+  //   }
+  // }, [cryptoArray, fiatArray]);
 
   const handleChangeCoinSuggest = (coin: any) => {
     dispatch(changeActiveFiat(coin));
@@ -156,20 +185,30 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   };
 
   useEffect(() => {
-    const activeFiatObject = JSON.parse(`${CookiesStorage.getCookieData(CookieKey.activeFiatData)}`);
-    setActiveCoin(activeFiat || activeFiatObject);
-  }, [activeFiat]);
-
-  useEffect(() => {
-    const localeFiatObject = JSON.parse(`${CookiesStorage.getCookieData(CookieKey.localeFiatData)}`);
-    if (!localeFiat?.currency) {
-      dispatch(changeViewInFiat(false));
-      setLocaleCoin({});
-    } else {
-      dispatch(changeViewInFiat(true));
-      setLocaleCoin(localeFiat || localeFiatObject);
+    if (cryptoSymbols.length > 0) {
+      /** SET USDT as a default coin */
+      const defaultSymbol = cryptoSymbols.find((item) => item.name.toLowerCase() === 'usdt');
+      if (defaultSymbol) {
+        setActiveCoin(defaultSymbol);
+      }
     }
-  }, [localeFiat]);
+  }, [cryptoSymbols]);
+
+  // useEffect(() => {
+  //   const activeFiatObject = JSON.parse(`${CookiesStorage.getCookieData(CookieKey.activeFiatData)}`);
+  //   setActiveCoin(activeFiat || activeFiatObject);
+  // }, [activeFiat]);
+
+  // useEffect(() => {
+  //   const localeFiatObject = JSON.parse(`${CookiesStorage.getCookieData(CookieKey.localeFiatData)}`);
+  //   if (!localeFiat?.currency) {
+  //     dispatch(changeViewInFiat(false));
+  //     setLocaleCoin({});
+  //   } else {
+  //     dispatch(changeViewInFiat(true));
+  //     setLocaleCoin(localeFiat || localeFiatObject);
+  //   }
+  // }, [localeFiat]);
 
   return (
     <>
@@ -178,7 +217,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         className="relative w-auto text-left rounded flex dark:text-white h-[36px] sm:h-[44px] text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
       >
         <Menu.Button>
-          {activeCoin?.currency && (
+          {getBalanceBySymbol(activeCoin) && (
             <div
               role="button"
               className={cn(
@@ -186,26 +225,25 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 buttonClass,
               )}
             >
-              <Image
-                height={20}
-                width={20}
-                src={`/img/fiats/${activeCoin?.currencyOld || activeCoin?.currency}.png`}
-                alt=""
-              />
+              <Image height={20} width={20} src={activeCoin.logo} alt="" />
               {viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
                   {localeCoin
                     ? `${currencyFormat1(
-                        exchangeByLocaleFiat(activeCoin?.currency, String(localeCoin?.currency), activeCoin?.amount),
+                        exchangeByLocaleFiat(
+                          activeCoin?.name,
+                          String(localeCoin?.currency),
+                          getBalanceBySymbol(activeCoin),
+                        ),
                         2,
                         String(localeCoin?.currency),
                       )}`
-                    : `${formatLengthNumber(Number(activeCoin?.amount))}`}
+                    : `${formatLengthNumber(Number(getBalanceBySymbol(activeCoin)))}`}
                 </div>
               )}
               {!viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
-                  {currencyFormat1(activeCoin?.amount || 0, 4, '', false)}
+                  {currencyFormat1(getBalanceBySymbol(activeCoin) || 0, 4, '', false)}
                 </div>
               )}
               <div className="text-white truncate text-right min-w-[15px]">
@@ -279,33 +317,38 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               active
                                 ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black'
                                 : 'dark:text-white text-black',
-                              activeFiat?.currency === crypto?.currency && 'border border-solid border-[#f59e0b]',
+                              activeFiat?.currency === crypto?.name && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
-                            onClick={() => {
-                              dispatch(changeActiveFiat(crypto));
-                              sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
-                              CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
-                            }}
+                            onClick={() => setActiveCoin(crypto)}
+                            // onClick={() => {
+                            //   dispatch(changeActiveFiat(crypto));
+                            //   sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
+                            //   CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
+                            // }}
                           >
-                            <Image height={30} width={30} src={`/img/fiats/${crypto.currency}.png`} alt="" />
+                            <Image height={30} width={30} src={crypto.logo} alt="" />
                             <div>
-                              <div className="text-[14px] font-vietnam-bold">{crypto.currency}</div>
+                              <div className="text-[14px] font-vietnam-bold">{crypto.name}</div>
                             </div>
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
                               {currencyFormat1(
-                                exchangeByLocaleFiat(crypto?.currency, String(localeFiat?.currency), crypto?.amount),
+                                exchangeByLocaleFiat(
+                                  crypto.name,
+                                  String(localeFiat?.currency),
+                                  getBalanceBySymbol(crypto),
+                                ),
                                 2,
                                 String(localeFiat?.currency),
                               )}
                               <br />
-                              {!crypto?.amountLocked && Number(crypto?.amount) > 0 && (
+                              {/* {!crypto?.amountLocked && Number(crypto?.amount) > 0 && (
                                 <span className="text-gray-400 text-[12px]">
                                   {formatLengthNumber(crypto?.amount || 0)}
                                 </span>
-                              )}
+                              )} */}
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                                {Number(crypto?.amountLocked) > 0 && (
+                                {/* {Number(crypto?.amountLocked) > 0 && (
                                   <div className="mt-1 flex justify-end text-amber-500">
                                     <div
                                       onClick={() => {
@@ -317,7 +360,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                       <Lock size={12} variant="Bold" />{' '}
                                       {currencyFormat1(
                                         exchangeByLocaleFiat(
-                                          crypto?.currency,
+                                          crypto.name,
                                           String(localeFiat?.currency),
                                           crypto?.amountLocked,
                                         ),
@@ -326,7 +369,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                       )}
                                     </div>
                                   </div>
-                                )}
+                                )} */}
                               </div>
                             </div>
                           </div>
@@ -337,7 +380,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   {!!filterListFiat?.length && (
                     <div className="pt-[10px] text-[14px] text-gray-400 mb-2">{t('deposit:fiat')}</div>
                   )}
-                  {filterListFiat?.map((fiat, index) => {
+                  {/* {filterListFiat?.map((fiat, index) => {
                     return (
                       <Menu.Item key={index}>
                         {({ active }) => (
@@ -375,7 +418,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         )}
                       </Menu.Item>
                     );
-                  })}
+                  })} */}
                   {searchFiatInput && !!listSuggestCoins.length && (
                     <div className="text-[14px] text-gray-400">{t('deposit:otherSupportedCoin')}</div>
                   )}
@@ -388,22 +431,24 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               className="px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px] dark:text-white text-black"
                               onClick={() => handleChangeCoinSuggest(coin)}
                             >
-                              <Image height={30} width={30} src={`/img/fiats/${coin.currency}.png`} alt="" />
+                              <Image height={30} width={30} src={coin.logo} alt="" />
                               <div className="w-full">
-                                <div className="text-[14px] font-bold">{coin.currency}</div>
-                                {showFullNameCurrency && (
-                                  <div className="text-[12px] text-gray-400">{coin.currencyAlias}</div>
-                                )}
+                                <div className="text-[14px] font-bold">{coin.name}</div>
+                                {showFullNameCurrency && <div className="text-[12px] text-gray-400">{coin.alias}</div>}
                               </div>
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
                                 {currencyFormat1(
-                                  exchangeByLocaleFiat(coin?.currency, String(localeFiat?.currency), coin?.amount),
+                                  exchangeByLocaleFiat(
+                                    coin.name,
+                                    String(localeFiat?.currency),
+                                    getBalanceBySymbol(coin),
+                                  ),
                                   2,
                                   String(localeFiat?.currency),
                                 )}
                                 <br />
                                 <span className="text-gray-400 text-[12px]">
-                                  {formatLengthNumber(coin?.amount || 0)}
+                                  {formatLengthNumber(getBalanceBySymbol(coin))}
                                 </span>
                               </div>
                             </div>
@@ -445,22 +490,23 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <div
                             className={cn(
                               active ? 'dark:bg-gray-600 bg-gray-200 text-white' : 'text-gray-400',
-                              activeFiat.currency === crypto.currency && 'border border-solid border-[#f59e0b]',
+                              activeFiat?.currency === crypto.name && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
-                            onClick={() => {
-                              dispatch(changeActiveFiat(crypto));
-                              sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
-                              CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
-                            }}
+                            onClick={() => setActiveCoin(crypto)}
+                            // onClick={() => {
+                            //   dispatch(changeActiveFiat(crypto));
+                            //   sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
+                            //   CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
+                            // }}
                           >
-                            <Image height={30} width={30} src={`/img/fiats/${crypto.currency}.png`} alt="" />
+                            <Image height={30} width={30} src={crypto.logo} alt="" />
                             <div className="text-[14px] dark:text-white text-black font-vietnam-bold">
-                              {crypto.currency}
+                              {crypto.name}
                             </div>
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                              {formatLengthNumber(crypto?.amount || 0)}
-                              {Number(crypto?.amountLocked) > 0 && (
+                              {formatLengthNumber(getBalanceBySymbol(crypto) || 0)}
+                              {/* {Number(crypto?.amountLocked) > 0 && (
                                 <div className="mt-1 flex justify-end text-amber-500">
                                   <div
                                     onClick={() => {
@@ -472,7 +518,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                     <Lock size={12} variant="Bold" /> {formatLengthNumber(crypto?.amountLocked ?? 0)}
                                   </div>
                                 </div>
-                              )}
+                              )} */}
                             </div>
                           </div>
                         )}
@@ -480,7 +526,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     );
                   })}
                   {!!filterListFiat?.length && <div className="text-[14px] text-gray-400">{t('deposit:fiat')}</div>}
-                  {filterListFiat?.map((fiat, index) => {
+                  {/* {filterListFiat?.map((fiat, index) => {
                     return (
                       <Menu.Item key={index}>
                         {({ active }) => (
@@ -508,7 +554,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         )}
                       </Menu.Item>
                     );
-                  })}
+                  })} */}
                   {searchFiatInput && !!listSuggestCoins.length && (
                     <div className="pt-[10px] text-[14px] text-gray-400">{t('deposit:otherSupportedCoin')}</div>
                   )}
@@ -521,22 +567,24 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               className="px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px] dark:text-white text-black"
                               onClick={() => handleChangeCoinSuggest(coin)}
                             >
-                              <Image height={30} width={30} src={`/img/fiats/${coin.currency}.png`} alt="" />
+                              <Image height={30} width={30} src={coin.logo} alt="" />
                               <div className="w-full">
-                                <div className="text-[14px] font-bold">{coin.currency}</div>
-                                {showFullNameCurrency && (
-                                  <div className="text-[12px] text-gray-400">{coin.currencyAlias}</div>
-                                )}
+                                <div className="text-[14px] font-bold">{coin.name}</div>
+                                {showFullNameCurrency && <div className="text-[12px] text-gray-400">{coin.alias}</div>}
                               </div>
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
                                 {currencyFormat1(
-                                  exchangeByLocaleFiat(coin?.currency, String(localeFiat?.currency), coin?.amount),
+                                  exchangeByLocaleFiat(
+                                    coin.name,
+                                    String(localeFiat?.currency),
+                                    getBalanceBySymbol(coin),
+                                  ),
                                   2,
                                   String(localeFiat?.currency),
                                 )}
                                 <br />
                                 <span className="text-gray-400 text-[12px]">
-                                  {formatLengthNumber(coin?.amount ?? 0)}
+                                  {formatLengthNumber(getBalanceBySymbol(coin))}
                                 </span>
                               </div>
                             </div>
@@ -614,7 +662,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
             currencies. For more details feel free to contact our live support.
           </div>
           <div className={'grid grid-cols-3 gap-y-2 justify-between items-center'}>
-            {fiatArray?.map((item, key) => (
+            {/* {fiatArray?.map((item, key) => (
               <label
                 htmlFor={String(key)}
                 key={key}
@@ -648,7 +696,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   <Image height={16} width={16} src={`/img/fiats/${item.currency}.png`} alt="" />
                 </div>
               </label>
-            ))}
+            ))} */}
           </div>
           <div className="m-auto">
             <button
