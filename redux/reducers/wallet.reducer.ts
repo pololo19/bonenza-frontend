@@ -52,49 +52,67 @@ export default walletReducer.reducer;
 export const initWalletInfo = () => async (dispatch: AppDispatch) => {
   try {
     const result = await api_getWalletInfo();
-    const { wallets, balances, networks, symbols, currency } = result.data;
+    const { wallets, balances, networks, symbols, currency, fiatSymbols } = result.data;
 
-    const tempWallets: DepositAddressType[] = wallets?.map((item: any) => ({
-      address: item.depositAddress,
-      network: item.network.network,
-      networkId: item.network.id,
-    }));
+    const tempWallets: DepositAddressType[] =
+      wallets?.map((item: any) => ({
+        address: item.depositAddress,
+        network: item.network.network,
+        networkId: item.network.id,
+      })) || [];
 
-    const tempBalances: BalanceType[] = balances?.cryptoBalances.map((item: any) => ({
-      amount: Number(item.balance),
-      usdAmount: Number(item.balanceUsd),
-      symbol: item.symbol,
-      symbolId: item.symbolId,
-    }));
+    const tempBalances: BalanceType[] =
+      balances?.cryptoBalances.map((item: any) => ({
+        amount: Number(item.balance),
+        usdAmount: Number(item.balanceUsd),
+        symbol: item.symbol,
+        symbolId: item.symbolId,
+      })) || [];
 
-    const tempNetworks: CryptoNetWorkType[] = networks?.map((item: any) => ({
-      id: item.id,
-      name: item.network,
-      type: item.type,
-    }));
+    const tempNetworks: CryptoNetWorkType[] =
+      networks?.map((item: any) => ({
+        id: item.id,
+        name: item.network,
+        type: item.type,
+      })) || [];
 
-    const tempSymbols: CurrencyType[] = symbols?.map((item: any) => ({
-      id: item.id,
-      name: item.symbol,
-      alias: '',
-      logo: item.logo,
-      iso_currency: item.iso_currency,
-      iso_decimals: item.iso_decimals,
-      availableNetworks: item.availableNetworks,
-      price: Number(item.price),
-    }));
+    const tempSymbols: CurrencyType[] =
+      symbols?.map((item: any) => ({
+        id: item.id,
+        name: item.symbol,
+        alias: '',
+        logo: item.logo,
+        iso_currency: item.iso_currency,
+        iso_decimals: item.iso_decimals,
+        availableNetworks: item.availableNetworks,
+        price: Number(item.price),
+      })) || [];
 
-    const tempCurrencies: CryptoCurrencyType[] = currency?.map((item: any) => ({
-      id: item.id,
-      networkId: item.network.id,
-      symbolId: item.symbol.id,
-      minWithdrawAmount: Number(item.minimumWithdrawAmountUsd),
-    }));
+    const tempCurrencies: CryptoCurrencyType[] =
+      currency?.map((item: any) => ({
+        id: item.id,
+        networkId: item.network.id,
+        symbolId: item.symbol.id,
+        minWithdrawAmount: Number(item.minimumWithdrawAmountUsd),
+      })) || [];
+
+    const tempFiatSymbols: CurrencyType[] =
+      fiatSymbols?.map((item: any) => ({
+        id: item.id,
+        name: item.symbol,
+        alias: item.name,
+        logo: '',
+        iso_currency: item.iso_currency,
+        iso_decimals: item.iso_decimals,
+        availableNetworks: item.availableNetworks,
+        price: Number(item.price),
+      })) || [];
     // console.log(result.data);
     dispatch(setNetworks(tempNetworks));
     dispatch(setBalances(tempBalances));
     dispatch(setDepositAddress(tempWallets));
     dispatch(setSymbols(tempSymbols));
+    dispatch(setFiatSymbols(tempFiatSymbols));
     dispatch(setCryptoCurrencies(tempCurrencies));
   } catch (error) {
     console.log(error);

@@ -21,6 +21,7 @@ module.exports = () => {
     STREAM_CHAT_API_KEY: process.env.STREAM_CHAT_API_KEY,
     STREAM_CHAT_API_SECRET: process.env.STREAM_CHAT_API_SECRET,
     SOCKET_WALLET_URL: process.env.SOCKET_WALLET_URL,
+    WITHDRAW_FEE: process.env.WITHDRAW_FEE,
   };
 
   const webpack = (cfg) => {

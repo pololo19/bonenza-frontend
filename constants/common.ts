@@ -623,6 +623,7 @@ export const API_AVATAR = process.env.API_AVATAR;
 export const STREAM_API_KEY = process.env.STREAM_CHAT_API_KEY;
 export const STREAM_API_SECRET = process.env.STREAM_CHAT_API_SECRET;
 export const SOCKET_WALLET_URL = process.env.SOCKET_WALLET_URL;
+export const WITHDRAW_FEE = process.env.WITHDRAW_FEE;
 
 export const DEFAULT_AVATAR = 'https://bonenza.com/img/avatar-1.png';
 

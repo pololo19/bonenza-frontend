@@ -40,7 +40,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
   const {
     localeFiat,
-    fiatArray,
     activeFiat,
     cryptoArray,
     viewInFiat,
@@ -48,10 +47,13 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     usdtNetwork,
     cryptoSymbols,
     cryptoBalances,
+    fiatArray,
+    fiatSymbols,
   } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
+      fiatArray: [],
       // fiatArray: state.common.fiatArray,
       cryptoArray: state.common.cryptoArray,
       depositCryptoArray: state.common.depositCryptoArray,
@@ -61,7 +63,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
       cryptoSymbols: state.wallet.symbols,
       cryptoBalances: state.wallet.balances,
-      fiatArray: [],
+      fiatSymbols: state.wallet.fiatSymbols,
     }),
 
     shallowEqual,
@@ -83,7 +85,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
   // const [activeCoin, setActiveCoin] = useState<FiatType>({});
   const [localeCoin, setLocaleCoin] = useState<FiatType>({});
-  const [showSmallFiat, setShowSmallFiat] = useState<boolean>(true);
+  const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
 
   const [showFavoriteCoins, setShowFavoriteCoins] = useState<boolean>(false);
@@ -217,7 +219,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         className="relative w-auto text-left rounded flex dark:text-white h-[36px] sm:h-[44px] text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
       >
         <Menu.Button>
-          {getBalanceBySymbol(activeCoin) && (
+          {activeCoin.id && (
             <div
               role="button"
               className={cn(
@@ -317,7 +319,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               active
                                 ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black'
                                 : 'dark:text-white text-black',
-                              activeFiat?.currency === crypto?.name && 'border border-solid border-[#f59e0b]',
+                              activeCoin.id === crypto.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
                             onClick={() => setActiveCoin(crypto)}
@@ -490,7 +492,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <div
                             className={cn(
                               active ? 'dark:bg-gray-600 bg-gray-200 text-white' : 'text-gray-400',
-                              activeFiat?.currency === crypto.name && 'border border-solid border-[#f59e0b]',
+                              activeCoin.id === crypto.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
                             onClick={() => setActiveCoin(crypto)}
