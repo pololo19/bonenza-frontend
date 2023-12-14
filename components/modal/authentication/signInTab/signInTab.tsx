@@ -12,7 +12,7 @@ import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
-import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
@@ -129,7 +129,7 @@ export default function SignInTab({
             ...convertUserInfo(user),
           }),
         );
-        dispatch(getWalletInfo());
+        dispatch(initWalletInfo());
         dispatch(changeIsShowAuthenticationModal(false));
       } catch (error: any) {
         const isPhoneNumber =

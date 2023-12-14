@@ -35,3 +35,10 @@ export type ParamsRequest = {
   limit?: string | number;
   page?: string | number;
 };
+
+export type WithdrawRequest = {
+  symbolId: string;
+  networkId: string;
+  withdrawAddress: string;
+  withdrawAmount: number;
+};

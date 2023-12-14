@@ -56,7 +56,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       cryptoArray: state.common.cryptoArray,
       depositCryptoArray: state.common.depositCryptoArray,
       usdtNetwork: state.common.usdtNetwork,
-      viewInFiat: false,
+      viewInFiat: state.common.viewInFiat,
 
       showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
       cryptoSymbols: state.wallet.symbols,

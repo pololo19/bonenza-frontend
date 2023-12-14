@@ -12,7 +12,7 @@ import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { setSocket } from '@/base/redux/reducers/socket.reducer';
-import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
 type WithAuthComponent<P> = React.FunctionComponent<P> & {
@@ -63,7 +63,7 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
 
         const result = await api_validateToken(accessToken);
         dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));
-        dispatch(getWalletInfo());
+        dispatch(initWalletInfo());
 
         if (!initSocket?.connected) {
           const newSocket = await initialSocketConnection();

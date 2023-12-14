@@ -14,6 +14,7 @@ import {
 const initialState: WalletState = {
   networks: [],
   symbols: [],
+  fiatSymbols: [],
   balances: [],
   depositAddress: [],
   cryptoCurrencies: [],
@@ -38,13 +39,17 @@ export const walletReducer = createSlice({
     setCryptoCurrencies: (state: WalletState, action: PayloadAction<CryptoCurrencyType[]>) => {
       state.cryptoCurrencies = [...action.payload];
     },
+    setFiatSymbols: (state: WalletState, action: PayloadAction<CurrencyType[]>) => {
+      state.fiatSymbols = [...action.payload];
+    },
   },
 });
 
-export const { setNetworks, setBalances, setDepositAddress, setSymbols, setCryptoCurrencies } = walletReducer.actions;
+export const { setNetworks, setBalances, setDepositAddress, setSymbols, setCryptoCurrencies, setFiatSymbols } =
+  walletReducer.actions;
 export default walletReducer.reducer;
 
-export const getWalletInfo = () => async (dispatch: AppDispatch) => {
+export const initWalletInfo = () => async (dispatch: AppDispatch) => {
   try {
     const result = await api_getWalletInfo();
     const { wallets, balances, networks, symbols, currency } = result.data;
@@ -76,7 +81,7 @@ export const getWalletInfo = () => async (dispatch: AppDispatch) => {
       iso_currency: item.iso_currency,
       iso_decimals: item.iso_decimals,
       availableNetworks: item.availableNetworks,
-      price: 0,
+      price: Number(item.price),
     }));
 
     const tempCurrencies: CryptoCurrencyType[] = currency?.map((item: any) => ({
