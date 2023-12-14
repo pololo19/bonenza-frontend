@@ -4,7 +4,6 @@ import cn from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
@@ -14,7 +13,7 @@ import * as yup from 'yup';
 
 import { api_withdraw } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { ROUTER, TOAST_ENUM, WITHDRAW_FEE } from '@/base/constants/common';
 import {
   currencyFormat,
   currencyFormat1,
@@ -24,7 +23,6 @@ import {
 } from '@/base/libs/utils';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { InformationWithdraw } from '@/base/types/common';
 import { WithdrawRequest } from '@/base/types/requestTypes';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
@@ -43,7 +41,6 @@ type WithdrawFormType = {
 };
 
 const WithdrawCryptoPage = () => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
@@ -64,10 +61,6 @@ const WithdrawCryptoPage = () => {
     id: '',
     name: '',
     type: 1,
-  });
-
-  const [informationWithdraw, setInformationWithdraw] = useState<InformationWithdraw>({
-    fee: 0,
   });
 
   const { activeFiat, localeFiat, minAmounts, balances } = useSelector(
@@ -172,9 +165,6 @@ const WithdrawCryptoPage = () => {
     } else if (!formWithdraw.withdrawAmount) {
       messError = t('withdraw:withdrawFailMess2');
       validate = true;
-    } else if (Number(formWithdraw.withdrawAmount) < Number(informationWithdraw?.fee)) {
-      messError = t('withdraw:withdrawFailMess4');
-      validate = true;
     } else if (Number(formWithdraw.withdrawAmount) > renderBalanceValue) {
       messError = t('withdraw:withdrawFailMess4');
       validate = true;
@@ -205,12 +195,12 @@ const WithdrawCryptoPage = () => {
       // After withdraw, update user balance
       dispatch(getBalance());
 
+      const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
+
       toast.success(
         `Congratulations! Your withdrawal of ${
-          Number(watch('withdrawAmount')) - Number(informationWithdraw?.fee) > 0
-            ? (Number(watch('withdrawAmount')) - Number(informationWithdraw?.fee)).toFixed(6)
-            : Number(0).toFixed(6)
-        } ${informationWithdraw?.unitFee} is in progress!`,
+          totalWithdrawAmount > 0 ? totalWithdrawAmount.toFixed(6) : Number(0).toFixed(0)
+        } ${activeCoin.name} is in progress!`,
         { containerId: TOAST_ENUM.COMMON },
       );
       // router.push(ROUTER.Transaction);
@@ -351,11 +341,7 @@ const WithdrawCryptoPage = () => {
                     <span className="dark:text-[#fff] text-[#000] flex">
                       {localeFiat
                         ? currencyFormat1(
-                            exchangeByLocaleFiat(
-                              informationWithdraw?.unitFee,
-                              String(localeFiat?.currency),
-                              renderBalanceValue,
-                            ),
+                            exchangeByLocaleFiat(activeCoin.name, String(localeFiat?.currency), renderBalanceValue),
                             2,
                             String(localeFiat?.currency),
                           )
@@ -373,13 +359,14 @@ const WithdrawCryptoPage = () => {
                       {localeFiat
                         ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
                             exchangeByLocaleFiat(
-                              informationWithdraw?.unitFee,
+                              activeCoin.name,
                               String(localeFiat?.currency),
-                              Number(informationWithdraw?.locked),
+                              // Number(informationWithdraw?.locked),
+                              0,
                             ),
                             2,
                           )}`
-                        : `${formatLengthNumber(Number(informationWithdraw?.locked), 2)}`}
+                        : `${formatLengthNumber(Number(0), 2)}`}
                     </span>
                   </div>
                 </div>
@@ -391,10 +378,10 @@ const WithdrawCryptoPage = () => {
                 <div className="flex items-center justify-between">
                   <div className="text-[14px]">{t('withdraw:withDrawAmount')}</div>
                   <div className="font-semibold dark:text-white text-[#31373d]">
-                    {Number(watch('withdrawAmount')) - Number(informationWithdraw?.fee) > 0
-                      ? (Number(watch('withdrawAmount')) - Number(informationWithdraw?.fee)).toFixed(6)
+                    {Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE)) > 0
+                      ? (Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE))).toFixed(6)
                       : Number(0).toFixed(6)}{' '}
-                    {informationWithdraw?.unitFee}
+                    {activeCoin.name}
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
@@ -409,13 +396,13 @@ const WithdrawCryptoPage = () => {
                     <Tooltip id={'fee-tooltip'} place="bottom" content={String(t('withdraw:feeTooltip'))} />
                   </div>
                   <div className="font-semibold dark:text-white text-[#31373d]">
-                    {informationWithdraw?.fee} {informationWithdraw?.unitFee}
+                    {Number(watch('withdrawAmount')) * Number(WITHDRAW_FEE)} {activeCoin.name}
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="text-[14px]">{t('withdraw:totalWithdrawAmount')}</div>
                   <div className="dark:text-amber-500 text-[#31373d] font-semibold">
-                    {Number(watch('withdrawAmount')).toFixed(6)} {informationWithdraw?.unitFee}
+                    {Number(watch('withdrawAmount')).toFixed(6)} {activeCoin.name}
                   </div>
                 </div>
               </div>
