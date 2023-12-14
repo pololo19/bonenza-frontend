@@ -7,7 +7,7 @@ import {
   BalanceType,
   CryptoCurrencyType,
   CryptoNetWorkType,
-  CurrencySymbolType,
+  CurrencyType,
   DepositAddressType,
 } from '@/base/types/wallet';
 
@@ -26,7 +26,7 @@ export const walletReducer = createSlice({
     setNetworks: (state: WalletState, action: PayloadAction<CryptoNetWorkType[]>) => {
       state.networks = [...action.payload];
     },
-    setSymbols: (state: WalletState, action: PayloadAction<CurrencySymbolType[]>) => {
+    setSymbols: (state: WalletState, action: PayloadAction<CurrencyType[]>) => {
       state.symbols = [...action.payload];
     },
     setBalances: (state: WalletState, action: PayloadAction<BalanceType[]>) => {
@@ -68,9 +68,10 @@ export const getWalletInfo = () => async (dispatch: AppDispatch) => {
       type: item.type,
     }));
 
-    const tempSymbols: CurrencySymbolType[] = symbols?.map((item: any) => ({
+    const tempSymbols: CurrencyType[] = symbols?.map((item: any) => ({
       id: item.id,
       name: item.symbol,
+      alias: '',
       logo: item.logo,
       iso_currency: item.iso_currency,
       iso_decimals: item.iso_decimals,

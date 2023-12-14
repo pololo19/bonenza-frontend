@@ -9,21 +9,23 @@ import { Tooltip } from 'react-tooltip';
 import { useTranslation } from '@/base/config/i18next';
 import { copyClipBoard, currencyFormat, exchangeByLocaleFiat } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { CryptoNetWorkType, CurrencySymbolType } from '@/base/types/wallet';
+import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import { DepositAddressComponent } from '@/components/depositAddress/depositAddress';
 import ModalDepositMetamask from '@/components/modal/depositMetamask/depositMetamask';
 import SelectCurrency from '@/components/selectCurrency/selectCurrency';
 
 const DepositCryptoComponent = () => {
   // const [activeCoin, setActiveCoin] = useState<DepositAddress>(CRYPTO_DATA[0]);
-  const [activeCoin, setActiveCoin] = useState<CurrencySymbolType>({
+  const [activeCoin, setActiveCoin] = useState<CurrencyType>({
     id: '',
     name: '',
+    alias: '',
     logo: '',
     iso_currency: '',
     availableNetworks: [],
     iso_decimals: 0,
     price: 0,
+    type: 'crypto',
   });
   const [activeNetwork, setActiveNetwork] = useState<CryptoNetWorkType>({
     id: '',
