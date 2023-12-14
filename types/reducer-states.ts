@@ -72,6 +72,7 @@ export type UserDataState = {
 export type WalletState = {
   networks: CryptoNetWorkType[];
   symbols: CurrencyType[];
+  fiatSymbols: CurrencyType[];
   balances: BalanceType[];
   cryptoCurrencies: CryptoCurrencyType[];
   depositAddress: DepositAddressType[];

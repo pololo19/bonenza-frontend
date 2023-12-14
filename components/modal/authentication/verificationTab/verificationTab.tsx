@@ -14,7 +14,7 @@ import { convertUserInfo } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowAuthenticationModal, changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
-import { getWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { VerifyCodeRequest } from '@/base/types/requestTypes';
 import Loader from '@/components/common/preloader/loader';
@@ -75,7 +75,7 @@ export default function VerificationTab() {
             ...convertUserInfo(resVerify.data.user),
           }),
         );
-        dispatch(getWalletInfo());
+        dispatch(initWalletInfo());
         toast.success(
           t('authentication:verificationSuccess', { request: isPhoneVerifyRequested ? 'Phone' : 'Email' }),
           {

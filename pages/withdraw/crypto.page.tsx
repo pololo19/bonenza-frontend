@@ -213,7 +213,7 @@ const WithdrawCryptoPage = () => {
         } ${informationWithdraw?.unitFee} is in progress!`,
         { containerId: TOAST_ENUM.COMMON },
       );
-      router.push(ROUTER.Transaction);
+      // router.push(ROUTER.Transaction);
     } catch (error) {
       if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue || 0)) {
         toast.error(t('withdraw:withdrawFailMess'), { containerId: TOAST_ENUM.COMMON });
