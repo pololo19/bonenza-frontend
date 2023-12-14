@@ -11,7 +11,7 @@ const initialCommonState: CommonState = {
   depositCryptoArray: CRYPTO_DATA,
   localeFiat: undefined,
   activeFiat: undefined,
-  viewInFiat: true,
+  viewInFiat: false,
   showFullNameCurrency: true,
   usdtNetwork: 'BEP20',
 };

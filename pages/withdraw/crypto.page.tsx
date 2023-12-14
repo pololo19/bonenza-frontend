@@ -4,6 +4,7 @@ import cn from 'classnames';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
@@ -11,6 +12,7 @@ import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
 import * as yup from 'yup';
 
+import { api_withdraw } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import {
@@ -20,8 +22,10 @@ import {
   formatLengthNumber,
   handleLocaleSymbol,
 } from '@/base/libs/utils';
-import { AppState } from '@/base/redux/store';
+import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { InformationWithdraw } from '@/base/types/common';
+import { WithdrawRequest } from '@/base/types/requestTypes';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
@@ -39,6 +43,8 @@ type WithdrawFormType = {
 };
 
 const WithdrawCryptoPage = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -186,15 +192,20 @@ const WithdrawCryptoPage = () => {
     }
     try {
       setIsLoading(true);
-      // const _res = await api.post('/withdraw', {
-      //   toAddress: formWithdraw.withdrawAddress,
-      //   value: formWithdraw.withdrawAmount,
-      //   symbol: activeCoin?.symbol,
-      //   network: activeCoin?.network,
-      //   currency: localeFiat?.currency,
-      //   sourceAccount: activeFiat?.currency,
-      // });
-      toast.error(
+
+      const formData: WithdrawRequest = {
+        symbolId: activeCoin.id,
+        networkId: activeNetwork.id,
+        withdrawAddress: formWithdraw.withdrawAddress,
+        withdrawAmount: Number(formWithdraw.withdrawAmount),
+      };
+
+      const _res = await api_withdraw(formData);
+
+      // After withdraw, update user balance
+      dispatch(getBalance());
+
+      toast.success(
         `Congratulations! Your withdrawal of ${
           Number(watch('withdrawAmount')) - Number(informationWithdraw?.fee) > 0
             ? (Number(watch('withdrawAmount')) - Number(informationWithdraw?.fee)).toFixed(6)
@@ -202,13 +213,13 @@ const WithdrawCryptoPage = () => {
         } ${informationWithdraw?.unitFee} is in progress!`,
         { containerId: TOAST_ENUM.COMMON },
       );
-      // router.push(ROUTER.Transaction);
+      router.push(ROUTER.Transaction);
     } catch (error) {
-      // if (Number(formWithdraw.withdrawAmount) < Number(minValue || 0)) {
-      //   toast.error(t('withdraw:withdrawFailMess'), { containerId: TOAST_ENUM.COMMON });
-      // } else {
-      //   toast.error('Withdraw Failed', { containerId: TOAST_ENUM.COMMON });
-      // }
+      if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue || 0)) {
+        toast.error(t('withdraw:withdrawFailMess'), { containerId: TOAST_ENUM.COMMON });
+      } else {
+        toast.error('Withdraw Failed', { containerId: TOAST_ENUM.COMMON });
+      }
     } finally {
       setIsLoading(false);
     }
