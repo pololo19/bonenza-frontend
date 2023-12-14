@@ -96,16 +96,17 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         minWithdrawAmount: Number(item.minimumWithdrawAmountUsd),
       })) || [];
 
-    const tempFiatSymbols: CurrencyType[] = fiatSymbols?.map((item: any) => ({
-      id: item.id,
-      name: item.symbol,
-      alias: item.name,
-      logo: '',
-      iso_currency: item.iso_currency,
-      iso_decimals: item.iso_decimals,
-      availableNetworks: item.availableNetworks,
-      price: Number(item.price),
-    }));
+    const tempFiatSymbols: CurrencyType[] =
+      fiatSymbols?.map((item: any) => ({
+        id: item.id,
+        name: item.symbol,
+        alias: item.name,
+        logo: '',
+        iso_currency: item.iso_currency,
+        iso_decimals: item.iso_decimals,
+        availableNetworks: item.availableNetworks,
+        price: Number(item.price),
+      })) || [];
     // console.log(result.data);
     dispatch(setNetworks(tempNetworks));
     dispatch(setBalances(tempBalances));
