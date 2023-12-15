@@ -119,16 +119,14 @@ const SelectCurrency = ({
   //   if (activeCoin) onChangeCoin?.(activeCoin);
   // }, [activeCoin]);
 
-  // useEffect(() => {
-  //   if (query.coin) {
-  //     const coin = depositCryptoArray.find((e) => e.symbol === String(query.coin).toUpperCase());
-  //     if (coin) {
-  //       handleChangeCrypto(String(query.coin));
-  //     }
-  //   } else {
-  //     handleChangeCrypto(String(depositCryptoArray[0]?.symbol));
-  //   }
-  // }, [query, depositCryptoArray]);
+  useEffect(() => {
+    if (query.coin) {
+      const coin = symbols.find((e) => e.name.toUpperCase() === String(query.coin).toUpperCase());
+      if (coin) {
+        onChangeCoin(coin);
+      }
+    }
+  }, [query, symbols]);
 
   return (
     <div className="flex flex-col items-start md:gap-[20px] gap-[15px] text-white">

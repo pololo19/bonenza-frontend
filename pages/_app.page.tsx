@@ -1,32 +1,32 @@
 'use client';
 
-import { ReactElement, ReactNode, useEffect } from 'react';
-import Script from 'next/script';
-import type { AppProps } from 'next/app';
-import { Provider } from 'react-redux';
-import { ThemeProvider } from 'next-themes';
-import { ToastContainer } from 'react-toastify';
-import Head from 'next/head';
-import type { NextPage } from 'next';
-import { Web3ReactProvider } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
-import NextNProgress from 'nextjs-progressbar';
-import { useRouter } from 'next/router';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-
-import { wrapper } from '@/redux/store';
-import { AUTH_KEY, CookieKey, TOAST_ENUM } from '../constants/common';
-import { CookiesStorage } from '../libs/storage/cookie';
-import { useTranslation } from '../config/i18next';
-import resources from '../public/locales';
-
-import ErrorProvider from '@/components/context/errorContext';
 import '@/styles/main/main.scss';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
 import 'react-phone-number-input/style.css';
 import 'react-tooltip/dist/react-tooltip.css';
-import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
+
+import { Web3Provider } from '@ethersproject/providers';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Web3ReactProvider } from '@web3-react/core';
+import type { NextPage } from 'next';
+import type { AppProps } from 'next/app';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import Script from 'next/script';
+import { ThemeProvider } from 'next-themes';
+import NextNProgress from 'nextjs-progressbar';
+import { ReactElement, ReactNode, useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+
+import ErrorProvider from '@/components/context/errorContext';
+import { wrapper } from '@/redux/store';
+
+import { useTranslation } from '../config/i18next';
+import { AUTH_KEY, CookieKey, TOAST_ENUM } from '../constants/common';
+import { CookiesStorage } from '../libs/storage/cookie';
+import resources from '../public/locales';
 
 // eslint-disable-next-line
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

@@ -12,6 +12,10 @@ import {
 } from '@/base/types/wallet';
 
 const initialState: WalletState = {
+  localFiat: null,
+  totalBalance: 0,
+  realBalance: 0,
+  bonusBalance: 0,
   networks: [],
   symbols: [],
   fiatSymbols: [],
@@ -24,6 +28,14 @@ export const walletReducer = createSlice({
   name: 'wallet',
   initialState,
   reducers: {
+    setBalance: (
+      state: WalletState,
+      action: PayloadAction<{ totalBalance: number; realBalance: number; bonusBalance: number }>,
+    ) => {
+      state.totalBalance = action.payload.totalBalance;
+      state.realBalance = action.payload.realBalance;
+      state.bonusBalance = action.payload.bonusBalance;
+    },
     setNetworks: (state: WalletState, action: PayloadAction<CryptoNetWorkType[]>) => {
       state.networks = [...action.payload];
     },
@@ -42,11 +54,22 @@ export const walletReducer = createSlice({
     setFiatSymbols: (state: WalletState, action: PayloadAction<CurrencyType[]>) => {
       state.fiatSymbols = [...action.payload];
     },
+    setLocalFiat: (state: WalletState, action: PayloadAction<CurrencyType | null>) => {
+      state.localFiat = action.payload;
+    },
   },
 });
 
-export const { setNetworks, setBalances, setDepositAddress, setSymbols, setCryptoCurrencies, setFiatSymbols } =
-  walletReducer.actions;
+export const {
+  setNetworks,
+  setBalances,
+  setDepositAddress,
+  setSymbols,
+  setCryptoCurrencies,
+  setFiatSymbols,
+  setBalance,
+  setLocalFiat,
+} = walletReducer.actions;
 export default walletReducer.reducer;
 
 export const initWalletInfo = () => async (dispatch: AppDispatch) => {
@@ -101,13 +124,20 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         id: item.id,
         name: item.symbol,
         alias: item.name,
-        logo: '',
+        logo: `/img/fiats/${item.symbol}.png`,
         iso_currency: item.iso_currency,
         iso_decimals: item.iso_decimals,
         availableNetworks: item.availableNetworks,
         price: Number(item.price),
       })) || [];
     // console.log(result.data);
+    dispatch(
+      setBalance({
+        totalBalance: Number(balances.totalBalance),
+        realBalance: Number(balances.realBalance),
+        bonusBalance: Number(balances.bonusBalance),
+      }),
+    );
     dispatch(setNetworks(tempNetworks));
     dispatch(setBalances(tempBalances));
     dispatch(setDepositAddress(tempWallets));
