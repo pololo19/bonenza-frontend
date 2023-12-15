@@ -12,9 +12,11 @@ import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { updateSetting } from '@/base/redux/reducers/auth.reducer';
-import { changeLocaleFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { FiatType, UserSettingGeneralType } from '@/base/types/common';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
@@ -71,10 +73,10 @@ const GeneralPage = () => {
     CookiesStorage.setCookieData(CookieKey.lang, item.key);
   };
 
-  const handleChangeLocaleFiat = (item: FiatType) => {
+  const handleChangeLocaleFiat = (item: CurrencyType) => {
     try {
-      dispatch(changeLocaleFiat(item));
-      CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
+      dispatch(setLocalFiat(item));
+      // CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
     } catch (error) {}
   };
 

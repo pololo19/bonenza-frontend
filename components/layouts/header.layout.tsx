@@ -4,12 +4,11 @@ import { Global, Message, MoneyRecive, Notification } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, ROUTER } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { ROUTER } from '@/base/constants/common';
 import { handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
@@ -22,7 +21,6 @@ import {
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
-import { FiatType } from '@/base/types/common';
 
 import LoaderFull from '../common/loaderFull/loaderFull';
 import CasinoBoldIcon from '../icons/CasinoBoldIcon';
@@ -37,28 +35,20 @@ export default function Navbar() {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
-  const [isLoadingFull, setIsLoadingFull] = useState<boolean>(true);
-  const [localeCoin, setLocaleCoin] = useState<FiatType>({});
+  const [isLoadingFull, setIsLoadingFull] = useState<boolean>(false);
 
-  const { isLogin, isToggleSidebar, showChatType, localeFiat, viewInFiat, isShowCasinoSearch } = useSelector(
+  const { isLogin, isToggleSidebar, showChatType, viewInFiat, isShowCasinoSearch, localFiat } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       isToggleSidebar: state.modal.isToggleSidebar,
       isShowCasinoSearch: state.modal.isShowCasinoSearch,
       showChatType: state.modal.showChatType,
-      localeFiat: state.common.localeFiat,
       viewInFiat: state.common.viewInFiat,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
 
-  const [showGlobal, setShowGlobal] = useState(false);
-
-  useEffect(() => {
-    const localeFiatObject = JSON.parse(`${CookiesStorage.getCookieData(CookieKey.localeFiatData)}`);
-    setLocaleCoin(localeFiat || localeFiatObject);
-    setIsLoadingFull(false);
-  }, [localeFiat]);
   return (
     <>
       {/* Navbar */}
@@ -198,7 +188,7 @@ export default function Navbar() {
             >
               <Message width={18} height={18} variant="Bold" />
             </button>
-            {isLogin && showGlobal && (
+            {isLogin && (
               <Link
                 className="block sm:hidden dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
                 href={ROUTER.Bonus}
@@ -212,7 +202,7 @@ export default function Navbar() {
             <button
               type="button"
               className={`${
-                showGlobal ? 'hidden sm:flex' : 'flex'
+                isLogin ? 'hidden sm:flex' : 'flex'
               } rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
@@ -221,8 +211,8 @@ export default function Navbar() {
             >
               <Global width={18} height={18} />
             </button>
-            {viewInFiat && localeCoin && <div className="w-px h-5 bg-slate-400 sm:block hidden"></div>}
-            {viewInFiat && localeCoin && (
+            {viewInFiat && localFiat && <div className="w-px h-5 bg-slate-400 sm:block hidden"></div>}
+            {viewInFiat && localFiat && (
               <button
                 type="button"
                 className="sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black text-[#31373D] p-[10px]"
@@ -232,7 +222,7 @@ export default function Navbar() {
                 }}
               >
                 <div className="p-1 text-sm w-max">
-                  {handleLocaleSymbol(String(localeCoin?.currency))} <span>{localeCoin?.currency}</span>
+                  {handleLocaleSymbol(String(localFiat.name))} <span>{localFiat.name}</span>
                 </div>
               </button>
             )}

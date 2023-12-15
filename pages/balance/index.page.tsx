@@ -4,26 +4,24 @@ import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import {
-  currencyFormat,
-  exchangeByLocaleFiat,
-  formatLengthNumber,
-  handleLocaleSymbol,
-  isDecimalNumber,
-} from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { FiatType } from '@/base/types/common';
+import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 
+const toAmountFixedLength = 8;
+const toLocalFixedLength = 4;
+
 const BalancePage = () => {
+  const exchangeRate = useExchange();
   const [hideBalance, setHideBalance] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -31,80 +29,88 @@ const BalancePage = () => {
 
   const { t } = useTranslation('');
 
-  const { localeFiat, fiatArray, cryptoArray, usdtNetwork, viewInFiat } = useSelector(
+  const {
+    localFiat,
+    viewInFiat,
+    cryptoSymbols,
+    fiatSymbols,
+    cryptoBalances,
+    totalUsdBalance,
+    realUsdBalance,
+    bonusUsdBalance,
+  } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
       fiatArray: state.common.fiatArray,
-      cryptoArray: state.common.cryptoArray,
       usdtNetwork: state.common.usdtNetwork,
       viewInFiat: state.common.viewInFiat,
+
+      userCurrency: state.auth.user.generalSetting.settingCurrency,
+
+      fiatSymbols: state.wallet.fiatSymbols,
+      cryptoSymbols: state.wallet.symbols,
+      cryptoBalances: state.wallet.balances,
+
+      localFiat: state.wallet.localFiat,
+      totalUsdBalance: state.wallet.totalBalance,
+      realUsdBalance: state.wallet.realBalance,
+      bonusUsdBalance: state.wallet.bonusBalance,
     }),
     shallowEqual,
   );
 
-  const handleGetBonus = async () => {
-    try {
-      setIsLoading(true);
-      const res = await api.get('vip/get-bonus');
-      setTotalBonus(res.data.totalVipBonus);
-    } catch (error) {
-      setTotalBonus(0);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const filterListFiat = useMemo(() => {
-    const arraySearch = fiatArray?.filter((item) => {
-      return (
-        String(item?.currency).toLowerCase().includes(searchValue.toLowerCase()) ||
-        String(item?.currencyAlias).toLowerCase().includes(searchValue.toLowerCase())
-      );
+    const arraySearch = fiatSymbols.filter((item) => {
+      return String(item.name).toLowerCase().includes(searchValue.toLowerCase());
     });
-    return arraySearch?.filter((item) => {
-      return hideBalance ? Number(item.amount) : true;
-    });
-  }, [searchValue, fiatArray, hideBalance]);
+
+    return hideBalance ? [] : arraySearch;
+  }, [searchValue, fiatSymbols, hideBalance]);
 
   const filterListCrypto = useMemo(() => {
-    const arraySearch = cryptoArray?.filter((item) => {
-      return (
-        String(item?.currency).toLowerCase().includes(searchValue.toLowerCase()) ||
-        String(item?.currencyAlias).toLowerCase().includes(searchValue.toLowerCase())
-      );
+    let arraySearch = cryptoSymbols.filter((item) => {
+      return String(item.name).toLowerCase().includes(searchValue.toLowerCase());
     });
-    return arraySearch?.filter((item) => {
-      return hideBalance ? Number(item.amount) : true;
-    });
-  }, [searchValue, cryptoArray, hideBalance, usdtNetwork]);
 
-  const realMoney = useMemo(() => {
-    const totalCrypto = cryptoArray?.reduce((a, b) => {
-      return a + exchangeByLocaleFiat(b?.currency, String(localeFiat?.currency || 'USD'), Number(b?.amount) || 0);
-    }, 0);
-    const totalFiat = fiatArray?.reduce((a, b) => {
-      return a + exchangeByLocaleFiat(b?.currency, String(localeFiat?.currency || 'USD'), Number(b?.amount) || 0);
-    }, 0);
-    return Number(totalCrypto) + Number(totalFiat);
-  }, [cryptoArray, fiatArray, localeFiat]);
-
-  const totalBalance = useMemo(() => {
-    return exchangeByLocaleFiat('USD', String(localeFiat?.currency || 'USD'), totalBonus) + Number(realMoney ?? 0);
-  }, [realMoney, totalBonus]);
-
-  const getAmount = (amount: number) => {
-    if (!amount) return currencyFormat(0, 2);
-    if (isDecimalNumber(amount)) {
-      return formatLengthNumber(amount);
-    } else {
-      return currencyFormat(Number(amount), 2);
+    if (hideBalance) {
+      const avaSymbols = cryptoBalances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
+      arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
     }
+
+    return arraySearch;
+  }, [searchValue, cryptoSymbols, hideBalance, cryptoBalances]);
+
+  const renderBalance = (symbol: CurrencyType) => {
+    const balance = [...cryptoBalances].find((item) => item.symbolId === symbol.id);
+    return {
+      usd: balance ? balance.usdAmount : 0,
+      amount: balance ? balance.amount : 0,
+    };
   };
 
-  useEffect(() => {
-    handleGetBonus();
-  }, []);
+  // const realMoney = useMemo(() => {
+  //   const totalCrypto = cryptoArray?.reduce((a, b) => {
+  //     return a + exchangeByLocaleFiat(b?.currency, String(localeFiat?.currency || 'USD'), Number(b?.amount) || 0);
+  //   }, 0);
+  //   const totalFiat = fiatArray?.reduce((a, b) => {
+  //     return a + exchangeByLocaleFiat(b?.currency, String(localeFiat?.currency || 'USD'), Number(b?.amount) || 0);
+  //   }, 0);
+  //   return Number(totalCrypto) + Number(totalFiat);
+  // }, [cryptoArray, fiatArray, localeFiat]);
+
+  // const totalBalance = useMemo(() => {
+  //   return exchangeByLocaleFiat('USD', String(localeFiat?.currency || 'USD'), totalBonus) + Number(realMoney ?? 0);
+  // }, [realMoney, totalBonus]);
+
+  // const getAmount = (amount: number) => {
+  //   if (!amount) return currencyFormat(0, 2);
+  //   if (isDecimalNumber(amount)) {
+  //     return formatLengthNumber(amount);
+  //   } else {
+  //     return currencyFormat(Number(amount), 2);
+  //   }
+  // };
 
   return (
     <div className={'mt-[-24px] sm:mx-[-32px] mb-[-32px]'}>
@@ -121,7 +127,7 @@ const BalancePage = () => {
                 {t('balance:totalBalance')}
               </div>
               <div className="text-start text-[#F39717] text-[16px] font-bold break-keep">
-                {handleLocaleSymbol(String(localeFiat?.currency || 'USD'))} {currencyFormat(totalBalance, 4)}
+                {currencyFormat1(totalUsdBalance * exchangeRate, toLocalFixedLength, localFiat?.name)}
               </div>
             </div>
             <div>
@@ -129,7 +135,7 @@ const BalancePage = () => {
                 {t('balance:realBalance')}
               </div>
               <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {handleLocaleSymbol(String(localeFiat?.currency || 'USD'))} {currencyFormat(realMoney, 4)}
+                {currencyFormat1(realUsdBalance * exchangeRate, toLocalFixedLength, localFiat?.name)}
               </div>
             </div>
             <div>
@@ -137,8 +143,7 @@ const BalancePage = () => {
                 {t('balance:bonusMoney')}
               </div>
               <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {handleLocaleSymbol(String(localeFiat?.currency || 'USD'))}{' '}
-                {currencyFormat(exchangeByLocaleFiat('USD', String(localeFiat?.currency || 'USD'), totalBonus), 4)}
+                {currencyFormat1(bonusUsdBalance, toLocalFixedLength, localFiat?.name)}
               </div>
             </div>
           </div>
@@ -188,52 +193,44 @@ const BalancePage = () => {
               {t('balance:cryptoCurrency')}
             </div>
             <div className="w-full flex flex-col justify-start items-start gap-[5px]">
-              {filterListCrypto?.map((item: FiatType, index: number): any => (
+              {filterListCrypto?.map((item: CurrencyType, index: number): any => (
                 <div
                   key={index}
                   className="w-full dark:bg-[#161D26] bg-[#f7f7fa] px-[20px] py-[10px] rounded-[16px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
-                    <Image height={30} width={30} src={`/img/fiats/${item.currency}.png`} alt="" />
+                    <Image height={30} width={30} src={item.logo} alt="" />
                     <div className="flex-1 text-start text-[14px] font-bold dark:text-white text-black">
-                      {item.currency} <span className="ml-[5px] text-[10px] text-gray-400">{item.currencyAlias}</span>
+                      {item.name} <span className="ml-[5px] text-[10px] text-gray-400">{item.alias}</span>
                     </div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-[#0AB247] font-normal">
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px]">
-                          {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                          {currencyFormat(
-                            exchangeByLocaleFiat(
-                              item?.currency,
-                              String(localeFiat?.currency),
-                              Number(item?.amount) || 0,
-                            ),
-                            2,
-                          )}
+                          {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {currencyFormat(Number(item?.amount) || 0, 8)}
+                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat(Number(item?.amount), 8)}
+                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
                         </div>
                       </div>
                     )}
                     <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-[#0DFDE4] text-[#F39717] font-normal">
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
-                        href={`${ROUTER.DepositCrypto}?coin=${item.currency}`}
+                        href={`${ROUTER.DepositCrypto}?coin=${item.name}`}
                       >
                         {t('balance:deposit')}
                       </Link>
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
-                        href={`${ROUTER.WithdrawCrypto}?coin=${item.currency}`}
+                        href={`${ROUTER.WithdrawCrypto}?coin=${item.name}`}
                       >
                         {t('balance:withdraw')}
                       </Link>
@@ -245,54 +242,46 @@ const BalancePage = () => {
           </div>
         )}
 
-        {!!filterListFiat?.length && (
+        {!!filterListFiat.length && (
           <div className="w-full flex flex-col justify-start items-start mt-[20px]">
             <div className="text-[14px] text-[#C2C2C2] mb-[10px] max-sm:px-[15px]">{t('balance:fiatCurrency')}</div>
             <div className="w-full flex flex-col justify-start items-start gap-[5px]">
-              {filterListFiat?.map((item: FiatType, index: number): any => (
+              {filterListFiat.map((item: CurrencyType, index: number): any => (
                 <div
                   key={index}
                   className="w-full dark:bg-[#161D26] bg-[#f7f7fa] px-[20px] py-[10px] rounded-[16px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
-                    <Image height={30} width={30} src={`/img/fiats/${item.currency}.png`} alt="" />
-                    <div className="text-[14px] font-bold dark:text-white text-black">{item.currency}</div>
+                    <Image height={30} width={30} src={item.logo} alt="" />
+                    <div className="text-[14px] font-bold dark:text-white text-black">{item.name}</div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-[#0AB247] font-normal">
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                          {currencyFormat(
-                            exchangeByLocaleFiat(
-                              item?.currency,
-                              String(localeFiat?.currency),
-                              Number(item?.amount) || 0,
-                            ),
-                            2,
-                          )}
+                          {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {currencyFormat(Number(item?.amount) || 0, 8)}
+                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat(Number(item?.amount), 8)}
+                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
                         </div>
                       </div>
                     )}
                     <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-[#0DFDE4] text-[#F39717] font-normal">
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
-                        href={`${ROUTER.DepositFiat}?coin=${item.currency}`}
+                        href={`${ROUTER.DepositFiat}?coin=${item.name}`}
                       >
                         {t('balance:deposit')}
                       </Link>
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
-                        href={`${ROUTER.WithdrawFiat}?coin=${item.currency}`}
+                        href={`${ROUTER.WithdrawFiat}?coin=${item.name}`}
                       >
                         {t('balance:withdraw')}
                       </Link>

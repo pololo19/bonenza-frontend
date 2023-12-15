@@ -15,7 +15,6 @@ import ModalDepositMetamask from '@/components/modal/depositMetamask/depositMeta
 import SelectCurrency from '@/components/selectCurrency/selectCurrency';
 
 const DepositCryptoComponent = () => {
-  // const [activeCoin, setActiveCoin] = useState<DepositAddress>(CRYPTO_DATA[0]);
   const [activeCoin, setActiveCoin] = useState<CurrencyType>({
     id: '',
     name: '',
@@ -94,10 +93,6 @@ const DepositCryptoComponent = () => {
       // setDepositBonus(res.data);
     } catch (error) {}
   };
-
-  // useEffect(() => {
-  //   getDepositBonusDetail();
-  // }, [activeCoin]);
 
   return (
     <>

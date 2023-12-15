@@ -9,19 +9,11 @@ import { toast } from 'react-toastify';
 import api from '@/api/api';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, FIAT_DATA, ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
-import { exchangeByLocaleFiat, updateCoin } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import {
-  changeActiveFiat,
-  changeCryptoArray,
-  changeDepositCryptoArray,
-  changeFiatArray,
-  changeLocaleFiat,
-  changeUsdtNetwork,
-} from '@/base/redux/reducers/common.reducer';
+import { changeUsdtNetwork } from '@/base/redux/reducers/common.reducer';
 import {
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
@@ -44,7 +36,7 @@ import {
 } from '@/base/redux/reducers/modal.reducer';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { CurrencyEnum, DepositAddress, FiatType } from '@/base/types/common';
+import { FiatType } from '@/base/types/common';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
 import ChattingComponent from '../chatting/chattingComponent';
@@ -165,185 +157,185 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     } else return;
   };
 
-  const handleGetFiat = async () => {
-    try {
-      // setIsLoading(true);
-      const responseFiat = await api.get('stripe/get-fiat-amount');
-      const responseCrypto = await api.get('deposit/get-all-deposit');
-      const listCrypto = responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => {
-        return {
-          amount: Number(crypto?.balance),
-          currency: crypto?.symbol,
-          currencyAlias: crypto?.network,
-          id: crypto?.id,
-          isFavorite: crypto?.isFavorite,
-          maxDepositAmount: undefined,
-          minDepositAmount: undefined,
-          type: CurrencyEnum.CRYPTO,
-        };
-      });
+  // const handleGetFiat = async () => {
+  //   try {
+  //     // setIsLoading(true);
+  //     const responseFiat = await api.get('stripe/get-fiat-amount');
+  //     const responseCrypto = await api.get('deposit/get-all-deposit');
+  //     const listCrypto = responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => {
+  //       return {
+  //         amount: Number(crypto?.balance),
+  //         currency: crypto?.symbol,
+  //         currencyAlias: crypto?.network,
+  //         id: crypto?.id,
+  //         isFavorite: crypto?.isFavorite,
+  //         maxDepositAmount: undefined,
+  //         minDepositAmount: undefined,
+  //         type: CurrencyEnum.CRYPTO,
+  //       };
+  //     });
 
-      const listFiat = responseFiat.data.data.map((fiat: DepositAddress) => {
-        return {
-          ...fiat,
-          type: CurrencyEnum.FIAT,
-        };
-      });
-      dispatch(
-        changeDepositCryptoArray(
-          responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => updateCoin(crypto)),
-        ),
-      );
-      dispatch(changeFiatArray(listFiat));
-      dispatch(changeCryptoArray(listCrypto));
+  //     const listFiat = responseFiat.data.data.map((fiat: DepositAddress) => {
+  //       return {
+  //         ...fiat,
+  //         type: CurrencyEnum.FIAT,
+  //       };
+  //     });
+  //     dispatch(
+  //       changeDepositCryptoArray(
+  //         responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => updateCoin(crypto)),
+  //       ),
+  //     );
+  //     dispatch(changeFiatArray(listFiat));
+  //     dispatch(changeCryptoArray(listCrypto));
 
-      // handle Active Currency
-      const currentActiveFiat: FiatType = responseFiat.data.data.find(
-        (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.activeFiat),
-      );
-      if (currentActiveFiat?.amount) {
-        handleChangeActiveFiat(currentActiveFiat);
-        if (currentActiveFiat?.currency === 'USDT') {
-          dispatch(changeUsdtNetwork(String(currentActiveFiat?.currencyAlias) ?? 'BEP20'));
-        }
-      } else {
-        const maxCurrencyAmount: FiatType = [...listCrypto, ...listFiat].reduce(function (p: FiatType, v: FiatType) {
-          return exchangeByLocaleFiat(p?.currency, 'USD', p?.amount) >
-            exchangeByLocaleFiat(v?.currency, 'USD', v?.amount)
-            ? p
-            : v;
-        });
-        if (maxCurrencyAmount?.amount) {
-          if (maxCurrencyAmount?.currency === 'USDT') {
-            dispatch(changeUsdtNetwork(String(maxCurrencyAmount?.currencyAlias) ?? 'BEP20'));
-          }
-          handleChangeActiveFiat(maxCurrencyAmount);
-          const maxLocaleFiat: FiatType = responseFiat.data.data.find(
-            (item: FiatType) => item.currency === maxCurrencyAmount.currency,
-          );
-          if (maxLocaleFiat) handleChangeLocaleFiat(maxLocaleFiat);
-        } else {
-          handleChangeActiveFiat(responseFiat.data.data[0]);
-        }
-      }
+  //     // handle Active Currency
+  //     const currentActiveFiat: FiatType = responseFiat.data.data.find(
+  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.activeFiat),
+  //     );
+  //     if (currentActiveFiat?.amount) {
+  //       handleChangeActiveFiat(currentActiveFiat);
+  //       if (currentActiveFiat?.currency === 'USDT') {
+  //         dispatch(changeUsdtNetwork(String(currentActiveFiat?.currencyAlias) ?? 'BEP20'));
+  //       }
+  //     } else {
+  //       const maxCurrencyAmount: FiatType = [...listCrypto, ...listFiat].reduce(function (p: FiatType, v: FiatType) {
+  //         return exchangeByLocaleFiat(p?.currency, 'USD', p?.amount) >
+  //           exchangeByLocaleFiat(v?.currency, 'USD', v?.amount)
+  //           ? p
+  //           : v;
+  //       });
+  //       if (maxCurrencyAmount?.amount) {
+  //         if (maxCurrencyAmount?.currency === 'USDT') {
+  //           dispatch(changeUsdtNetwork(String(maxCurrencyAmount?.currencyAlias) ?? 'BEP20'));
+  //         }
+  //         handleChangeActiveFiat(maxCurrencyAmount);
+  //         const maxLocaleFiat: FiatType = responseFiat.data.data.find(
+  //           (item: FiatType) => item.currency === maxCurrencyAmount.currency,
+  //         );
+  //         if (maxLocaleFiat) handleChangeLocaleFiat(maxLocaleFiat);
+  //       } else {
+  //         handleChangeActiveFiat(responseFiat.data.data[0]);
+  //       }
+  //     }
 
-      // handle Locale Fiat
-      const storageLocaleFiat: FiatType = responseFiat.data.data.find(
-        (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.localeFiat),
-      );
-      if (storageLocaleFiat) {
-        handleChangeLocaleFiat(storageLocaleFiat);
-      } else {
-        handleChangeLocaleFiat(responseFiat.data.data[0]);
-      }
-    } catch (error) {
-      handleChangeLocaleFiat(FIAT_DATA[0]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     // handle Locale Fiat
+  //     const storageLocaleFiat: FiatType = responseFiat.data.data.find(
+  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.localeFiat),
+  //     );
+  //     if (storageLocaleFiat) {
+  //       handleChangeLocaleFiat(storageLocaleFiat);
+  //     } else {
+  //       handleChangeLocaleFiat(responseFiat.data.data[0]);
+  //     }
+  //   } catch (error) {
+  //     handleChangeLocaleFiat(FIAT_DATA[0]);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  const handleGet = async () => {
-    try {
-      // setIsLoading(true);
-      const [responseFiat, responseCrypto] = await Promise.all([
-        api.get('stripe/get-fiat-amount'),
-        api.get('deposit/get-all-deposit'),
-      ]);
+  // const handleGet = async () => {
+  //   try {
+  //     // setIsLoading(true);
+  //     const [responseFiat, responseCrypto] = await Promise.all([
+  //       api.get('stripe/get-fiat-amount'),
+  //       api.get('deposit/get-all-deposit'),
+  //     ]);
 
-      const listCrypto = responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => {
-        return {
-          amount: Number(crypto?.balance),
-          amountLocked: Number(crypto?.balanceLocked),
-          currency: crypto?.symbol,
-          currencyAlias: crypto?.symbol === 'USDT' ? 'BEP20' : crypto?.network,
-          id: crypto?.id,
-          maxDepositAmount: undefined,
-          minDepositAmount: undefined,
-          isFavorite: crypto?.isFavorite,
-          type: CurrencyEnum.CRYPTO,
-        };
-      });
-      const listFiat = responseFiat.data.data.map((fiat: DepositAddress) => {
-        return {
-          ...fiat,
-          type: CurrencyEnum.FIAT,
-        };
-      });
-      dispatch(
-        changeDepositCryptoArray(
-          responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => updateCoin(crypto)),
-        ),
-      );
-      dispatch(changeFiatArray(listFiat));
-      dispatch(changeCryptoArray(listCrypto));
+  //     const listCrypto = responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => {
+  //       return {
+  //         amount: Number(crypto?.balance),
+  //         amountLocked: Number(crypto?.balanceLocked),
+  //         currency: crypto?.symbol,
+  //         currencyAlias: crypto?.symbol === 'USDT' ? 'BEP20' : crypto?.network,
+  //         id: crypto?.id,
+  //         maxDepositAmount: undefined,
+  //         minDepositAmount: undefined,
+  //         isFavorite: crypto?.isFavorite,
+  //         type: CurrencyEnum.CRYPTO,
+  //       };
+  //     });
+  //     const listFiat = responseFiat.data.data.map((fiat: DepositAddress) => {
+  //       return {
+  //         ...fiat,
+  //         type: CurrencyEnum.FIAT,
+  //       };
+  //     });
+  //     dispatch(
+  //       changeDepositCryptoArray(
+  //         responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => updateCoin(crypto)),
+  //       ),
+  //     );
+  //     dispatch(changeFiatArray(listFiat));
+  //     dispatch(changeCryptoArray(listCrypto));
 
-      // handle Active Currency
-      const currentActiveFiat: FiatType = [...listCrypto, ...listFiat].find(
-        (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.activeFiat),
-      );
-      if (currentActiveFiat?.amount) {
-        handleChangeActiveFiat(currentActiveFiat);
-        if (currentActiveFiat?.currency === 'USDT') {
-          dispatch(changeUsdtNetwork(String(currentActiveFiat?.currencyAlias)));
-        }
-      } else {
-        const maxCurrencyAmount: FiatType = [...listCrypto, ...listFiat].reduce(function (p: FiatType, v: FiatType) {
-          return exchangeByLocaleFiat(p?.currency, 'USD', p?.amount) >
-            exchangeByLocaleFiat(v?.currency, 'USD', v?.amount)
-            ? p
-            : v;
-        });
-        if (Number(maxCurrencyAmount?.amount)) {
-          if (maxCurrencyAmount?.currency === 'USDT') {
-            dispatch(changeUsdtNetwork(String(maxCurrencyAmount?.currencyAlias)));
-          }
+  //     // handle Active Currency
+  //     const currentActiveFiat: FiatType = [...listCrypto, ...listFiat].find(
+  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.activeFiat),
+  //     );
+  //     if (currentActiveFiat?.amount) {
+  //       handleChangeActiveFiat(currentActiveFiat);
+  //       if (currentActiveFiat?.currency === 'USDT') {
+  //         dispatch(changeUsdtNetwork(String(currentActiveFiat?.currencyAlias)));
+  //       }
+  //     } else {
+  //       const maxCurrencyAmount: FiatType = [...listCrypto, ...listFiat].reduce(function (p: FiatType, v: FiatType) {
+  //         return exchangeByLocaleFiat(p?.currency, 'USD', p?.amount) >
+  //           exchangeByLocaleFiat(v?.currency, 'USD', v?.amount)
+  //           ? p
+  //           : v;
+  //       });
+  //       if (Number(maxCurrencyAmount?.amount)) {
+  //         if (maxCurrencyAmount?.currency === 'USDT') {
+  //           dispatch(changeUsdtNetwork(String(maxCurrencyAmount?.currencyAlias)));
+  //         }
 
-          handleChangeActiveFiat(maxCurrencyAmount);
-          const maxLocaleFiat: FiatType = responseFiat.data.data.find(
-            (item: FiatType) => item.currency === maxCurrencyAmount.currency,
-          );
-          if (maxLocaleFiat) handleChangeLocaleFiat(maxLocaleFiat);
-        } else {
-          handleChangeActiveFiat(responseFiat.data.data[0]);
-        }
-      }
+  //         handleChangeActiveFiat(maxCurrencyAmount);
+  //         const maxLocaleFiat: FiatType = responseFiat.data.data.find(
+  //           (item: FiatType) => item.currency === maxCurrencyAmount.currency,
+  //         );
+  //         if (maxLocaleFiat) handleChangeLocaleFiat(maxLocaleFiat);
+  //       } else {
+  //         handleChangeActiveFiat(responseFiat.data.data[0]);
+  //       }
+  //     }
 
-      // handle Locale Fiat
-      const storageLocaleFiat: FiatType = responseFiat.data.data.find(
-        (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.localeFiat),
-      );
-      if (storageLocaleFiat) {
-        handleChangeLocaleFiat(storageLocaleFiat);
-      } else {
-        // handleChangeLocaleFiat(responseFiat.data.data[0]);
-      }
-    } catch (error) {
-      handleChangeLocaleFiat(FIAT_DATA[0]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  //     // handle Locale Fiat
+  //     const storageLocaleFiat: FiatType = responseFiat.data.data.find(
+  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.localeFiat),
+  //     );
+  //     if (storageLocaleFiat) {
+  //       handleChangeLocaleFiat(storageLocaleFiat);
+  //     } else {
+  //       // handleChangeLocaleFiat(responseFiat.data.data[0]);
+  //     }
+  //   } catch (error) {
+  //     handleChangeLocaleFiat(FIAT_DATA[0]);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  const handleChangeLocaleFiat = (item: FiatType) => {
-    try {
-      dispatch(changeLocaleFiat(item));
-      CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
-      CookiesStorage.setCookieData(CookieKey.localeFiatData, JSON.stringify(item));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleChangeLocaleFiat = (item: FiatType) => {
+  //   try {
+  //     dispatch(changeLocaleFiat(item));
+  //     CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
+  //     CookiesStorage.setCookieData(CookieKey.localeFiatData, JSON.stringify(item));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const handleChangeActiveFiat = (item: FiatType) => {
-    try {
-      dispatch(changeActiveFiat(item));
-      CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
-      CookiesStorage.setCookieData(CookieKey.activeFiatData, JSON.stringify(item));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleChangeActiveFiat = (item: FiatType) => {
+  //   try {
+  //     dispatch(changeActiveFiat(item));
+  //     CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
+  //     CookiesStorage.setCookieData(CookieKey.activeFiatData, JSON.stringify(item));
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   const handleGetExchangeRate = async () => {
     // try {

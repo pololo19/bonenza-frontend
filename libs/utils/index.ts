@@ -370,11 +370,12 @@ export const handleLocaleSymbol = (givenParamValue: string) => {
 
 export const formatLengthNumber = (num: number | string, length?: number) => {
   if (!length) length = 9;
-  if (!num) return Number(0).toFixed(length - 1);
+  if (!num) return Number(0).toFixed(length);
   let zeroCount = -Math.floor(Math.log10(Number(num)));
   if (zeroCount > length / 2 && Number(num) > 0) {
+    console.log('=====377');
     let nonZeros = '';
-    let numberString = new Intl.NumberFormat('en', { maximumSignificantDigits: length - 1 })
+    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: length, minimumFractionDigits: length })
       .format(Number(num))
       .toString();
     for (let i = zeroCount + 1; i < (numberString.length > zeroCount + 5 ? zeroCount + 5 : numberString.length); i++) {
@@ -383,10 +384,15 @@ export const formatLengthNumber = (num: number | string, length?: number) => {
     const res = `0.(${zeroCount - 1})${nonZeros}`;
     return res;
   }
-  const integerNumber = Math.abs(Number(num)).toString().split('.')[0];
-  if (integerNumber.length > 9) return Math.abs(Number(num));
-  const missLength = length - integerNumber.length > 0 ? length - integerNumber.length : 0;
-  return Math.abs(Number(num)).toFixed(missLength);
+  // const integerNumber = Math.abs(Number(num)).toString().split('.')[0];
+  // if (integerNumber.length > 9) return Math.abs(Number(num));
+  // console.log('-----390', integerNumber.length);
+  // const missLength = length - integerNumber.length > 0 ? length - integerNumber.length : length;
+  // console.log(missLength, '------392');
+  return formatCompactNumber(Number(num), {
+    maximumFractionDigits: length,
+    minimumFractionDigits: length,
+  });
 };
 
 export const isDecimalNumber = (num: number | string) => {
@@ -454,10 +460,22 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
   try {
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
-    if (number === 0) return `${symbol} 0.0000`;
+    if (number === 0) {
+      res = new Array(zeroNum).fill('0').join('');
+      res = `${symbol} 0.` + res;
+      return res;
+    }
     let zeroCount = -Math.floor(Math.log10(number));
+    if (zeroNum < 5) {
+      res = formatCompactNumber(number, {
+        maximumFractionDigits: zeroNum,
+        minimumFractionDigits: zeroNum,
+      }).toString();
+      console.log(res, '---469');
+      return `${symbol} ${res}`;
+    }
     const miniZeroNum = zeroNum > 5 ? zeroNum : 5;
-    let numberString = new Intl.NumberFormat('en', { maximumSignificantDigits: miniZeroNum - 1 })
+    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: miniZeroNum - 1 })
       .format(number)
       .toString();
     if (zeroCount > miniZeroNum) {
@@ -472,6 +490,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
       res = `0.(${zeroCount - 1})${nonZeros}`;
     } else {
       res = formatCompactNumber(number, {
+        maximumFractionDigits: zeroNum,
         minimumFractionDigits: zeroNum,
       }).toString();
     }
