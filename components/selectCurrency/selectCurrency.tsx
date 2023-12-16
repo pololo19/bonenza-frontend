@@ -169,7 +169,16 @@ const SelectCurrency = ({
                     'sm:min-w-[80px] min-w-[75px] px-1 py-1 dark:text-white text-[#31373d] rounded-full flex items-center gap-2 capitalize dark:hover:bg-primary hover:bg-[#f6f7fa] bg-[#F6F7FA] dark:bg-[#161D26]',
                   )}
                 >
-                  <Image width={24} height={24} src={symbol.logo} className="inline" alt="" />
+                  <Image
+                    width={24}
+                    height={24}
+                    src={symbol.logo}
+                    className="inline"
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/fiat/USD.png';
+                    }}
+                  />
                   <h1 className="sm:text-[14px] text-[12px] font-normal">{symbol.name}</h1>
                 </button>
               </div>

@@ -403,11 +403,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       walletSocket.on(`${userId}`, (data: any) => {
         console.log(data);
         const action = data?.action || '';
+        const amount = data?.amount || 0;
+        const currency = data?.currency || 'USDT';
         switch (action) {
-          case 'deposit':
-            const amount = data?.amount || 0;
-            const currency = data?.currency || 'USDT';
-            toast.success(`${amount} ${currency} deposited`, { containerId: TOAST_ENUM.COMMON });
+          case 'pending':
+            toast.success(`Your ${amount} ${currency} deposit is pending now`, { containerId: TOAST_ENUM.COMMON });
+            dispatch(getBalance());
+            break;
+          case 'complete':
+            toast.success(`Your ${amount} ${currency} deposit is completed`, { containerId: TOAST_ENUM.COMMON });
             dispatch(getBalance());
             break;
 

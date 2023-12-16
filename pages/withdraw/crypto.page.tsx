@@ -156,6 +156,12 @@ const WithdrawCryptoPage = () => {
     setValue('withdrawAmount', String(avaBalance));
   };
 
+  const handleBlur = () => {
+    if (Number(watch('withdrawAmount')) > renderBalanceValue) {
+      setValue('withdrawAmount', String(renderMinValue));
+    }
+  };
+
   const handleError = (formWithdraw: WithdrawFormType) => {
     let messError = '';
     let validate = false;
@@ -203,6 +209,15 @@ const WithdrawCryptoPage = () => {
         } ${activeCoin.name} is in progress!`,
         { containerId: TOAST_ENUM.COMMON },
       );
+
+      setTimeout(() => {
+        toast.success(
+          `Congratulations! Your withdrawal of ${
+            totalWithdrawAmount > 0 ? totalWithdrawAmount.toFixed(6) : Number(0).toFixed(0)
+          } ${activeCoin.name} is confirmed!`,
+          { containerId: TOAST_ENUM.COMMON },
+        );
+      }, 20000);
       // router.push(ROUTER.Transaction);
     } catch (error) {
       if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue || 0)) {
@@ -293,6 +308,7 @@ const WithdrawCryptoPage = () => {
                     customClass="flex-1 bg-transparent pl-[2px]"
                     control={control}
                     isShowError={false}
+                    onBlur={handleBlur}
                     name="withdrawAmount"
                     placeholder={String(t('withdraw:withdrawAmount'))}
                   />
