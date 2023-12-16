@@ -198,7 +198,15 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     }}
                   >
                     <div className="flex gap-3 items-center w-full">
-                      <Image height={30} width={30} src={item.logo} alt="" />
+                      <Image
+                        height={30}
+                        width={30}
+                        src={item.logo}
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/fiat/USD.png';
+                        }}
+                      />
                       <div>{item.name}</div>
                       <div
                         className={cn('text-[12px] truncate w-full dark:text-[#C2C2C2] text-gray-500', {

@@ -149,7 +149,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 buttonClass,
               )}
             >
-              <Image height={20} width={20} src={activeCoin.logo} alt="" />
+              <Image
+                height={20}
+                width={20}
+                src={activeCoin.logo}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiat/USD.png';
+                }}
+              />
               {viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
                   {localFiat
@@ -247,7 +255,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             //   CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
                             // }}
                           >
-                            <Image height={30} width={30} src={crypto.logo} alt="" />
+                            <Image
+                              height={30}
+                              width={30}
+                              src={crypto.logo}
+                              alt=""
+                              onError={(e) => {
+                                e.currentTarget.src = '/img/fiat/USD.png';
+                              }}
+                            />
                             <div>
                               <div className="text-[14px] font-vietnam-bold">{crypto.name}</div>
                             </div>
@@ -319,7 +335,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               // CookiesStorage.setCookieData(CookieKey.activeFiat, String(fiat?.currency));
                             }}
                           >
-                            <Image height={30} width={30} src={fiat.logo} alt="" />
+                            <Image
+                              height={30}
+                              width={30}
+                              src={fiat.logo}
+                              alt=""
+                              onError={(e) => {
+                                e.currentTarget.src = '/img/fiat/USD.png';
+                              }}
+                            />
                             <div className="w-full">
                               <div className="text-[14px] font-vietnam-bold">{fiat.name}</div>
                               {showFullNameCurrency && <div className="text-[12px] text-gray-400">{fiat.alias}</div>}
@@ -350,7 +374,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               className="px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px] dark:text-white text-black"
                               // onClick={() => handleChangeCoinSuggest(coin)}
                             >
-                              <Image height={30} width={30} src={coin.logo} alt="" />
+                              <Image
+                                height={30}
+                                width={30}
+                                src={coin.logo}
+                                alt=""
+                                onError={(e) => {
+                                  e.currentTarget.src = '/img/fiat/USD.png';
+                                }}
+                              />
                               <div className="w-full">
                                 <div className="text-[14px] font-bold">{coin.name}</div>
                                 {showFullNameCurrency && <div className="text-[12px] text-gray-400">{coin.alias}</div>}
@@ -374,7 +406,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   {filterListFiat?.length === 0 && filterListCrypto?.length === 0 && listSuggestCoins?.length === 0 && (
                     <>
                       <div className="relative flex items-center justify-center  my-[32px]">
-                        <Image src="/img/empty.png" width={200} height={200} alt="" />
+                        <Image
+                          src="/img/empty.png"
+                          width={200}
+                          height={200}
+                          alt=""
+                          onError={(e) => {
+                            e.currentTarget.src = '/img/fiat/USD.png';
+                          }}
+                        />
                         <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
                           {t('table:noData')}
                         </p>
@@ -417,7 +457,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             //   CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
                             // }}
                           >
-                            <Image height={30} width={30} src={crypto.logo} alt="" />
+                            <Image
+                              height={30}
+                              width={30}
+                              src={crypto.logo}
+                              alt=""
+                              onError={(e) => {
+                                e.currentTarget.src = '/img/fiat/USD.png';
+                              }}
+                            />
                             <div className="text-[14px] dark:text-white text-black font-vietnam-bold">
                               {crypto.name}
                             </div>
@@ -462,7 +510,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               // CookiesStorage.setCookieData(CookieKey.activeFiat, String(fiat?.currency));
                             }}
                           >
-                            <Image height={30} width={30} src={fiat.logo} alt="" />
+                            <Image
+                              height={30}
+                              width={30}
+                              src={fiat.logo}
+                              alt=""
+                              onError={(e) => {
+                                e.currentTarget.src = '/img/fiat/USD.png';
+                              }}
+                            />
                             <div className="w-full dark:text-white text-black">
                               <div className="text-[14px] font-vietnam-bold">{fiat.name}</div>
                               {showFullNameCurrency && <div className="text-[12px]">{fiat.alias}</div>}
@@ -487,7 +543,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               className="px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px] dark:text-white text-black"
                               onClick={() => handleChangeCoinSuggest(coin)}
                             >
-                              <Image height={30} width={30} src={coin.logo} alt="" />
+                              <Image
+                                height={30}
+                                width={30}
+                                src={coin.logo}
+                                alt=""
+                                onError={(e) => {
+                                  e.currentTarget.src = '/img/fiat/USD.png';
+                                }}
+                              />
                               <div className="w-full">
                                 <div className="text-[14px] font-bold">{coin.name}</div>
                                 {showFullNameCurrency && <div className="text-[12px] text-gray-400">{coin.alias}</div>}
@@ -610,7 +674,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
                     <div className="text-[12px]">{item.name}</div>
                   </div>
-                  <Image height={16} width={16} src={item.logo} alt="" />
+                  <Image
+                    height={16}
+                    width={16}
+                    src={item.logo}
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/fiat/USD.png';
+                    }}
+                  />
                 </div>
               </label>
             ))}
