@@ -7,7 +7,8 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, formatLengthNumber } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat, currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 
@@ -28,14 +29,16 @@ const SelectCurrency = ({
   onChangeNetwork,
   withDrawTab,
 }: SelectCurrencyProps) => {
+  const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const { query } = useRouter();
 
-  const { symbols, balances, networks } = useSelector(
+  const { symbols, balances, networks, localFiat } = useSelector(
     (state: AppState) => ({
       symbols: state.wallet.symbols,
       balances: state.wallet.balances,
       networks: state.wallet.networks,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
@@ -81,6 +84,13 @@ const SelectCurrency = ({
     setSearchInput('');
     onChangeCoin(symbol);
     onChangeNetwork(defaultNetwork);
+  };
+
+  const getBalanceBySymbol = (symbol: CurrencyType) => {
+    const tempBalances = [...balances];
+    const selectedBalance = tempBalances.find((item) => item.symbolId === symbol.id);
+
+    return selectedBalance?.amount || 0;
   };
 
   // const handleChangeNetwork = async (network: string) => {
@@ -189,7 +199,7 @@ const SelectCurrency = ({
                 <div className="flex items-center text-[14px] dark:text-[#C2C2C2] text-[#31373d] gap-[10px]">
                   {t('deposit:balance')}{' '}
                   <span className="text-[14px] font-semibold dark:text-white text-[#31373d]">
-                    {currencyFormat(Number(balances.find((item) => item.symbolId === activeCoin.id)?.amount))}
+                    {currencyFormat(getBalanceBySymbol(activeCoin), 2)}
                   </span>
                 </div>
                 <ChevronDownIcon width={15} className="dark:text-white text-[#31373d]" />
@@ -239,16 +249,10 @@ const SelectCurrency = ({
                         <div className="flex items-center justify-start gap-[10px]">
                           <div className="flex flex-col">
                             <span className="text-[14px] font-semibold dark:text-white text-black text-right">
-                              {/* {currencyFormat(Number(crypto?.balance || 0))} */}
-                              {currencyFormat(
-                                Number(balances.find((item) => item.symbolId === symbol.id)?.amount) || 0,
-                              )}
+                              {currencyFormat1(getBalanceBySymbol(symbol) * symbol.price, 2, localFiat?.name)}
                             </span>
                             <span className="text-[10px] font-semibold text-gray-400 text-right">
-                              {/* {currencyFormat(Number(crypto?.balance || 0))} */}
-                              {formatLengthNumber(
-                                Number(balances.find((item) => item.symbolId === symbol.id)?.usdAmount) || 0,
-                              )}
+                              {formatLengthNumber(getBalanceBySymbol(symbol), 2)}
                             </span>
                           </div>
 
