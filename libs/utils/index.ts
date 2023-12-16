@@ -471,7 +471,6 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
         maximumFractionDigits: zeroNum,
         minimumFractionDigits: zeroNum,
       }).toString();
-      console.log(res, '---469');
       return `${symbol} ${res}`;
     }
     const miniZeroNum = zeroNum > 5 ? zeroNum : 5;
