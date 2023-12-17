@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
+import { Lock } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useMemo, useState } from 'react';
@@ -33,12 +34,13 @@ const SelectCurrency = ({
   const { t } = useTranslation('');
   const { query } = useRouter();
 
-  const { symbols, balances, networks, localFiat } = useSelector(
+  const { symbols, balances, networks, localFiat, bonus } = useSelector(
     (state: AppState) => ({
       symbols: state.wallet.symbols,
       balances: state.wallet.balances,
       networks: state.wallet.networks,
       localFiat: state.wallet.localFiat,
+      bonus: state.wallet.bonusBalance,
     }),
     shallowEqual,
   );
@@ -255,14 +257,28 @@ const SelectCurrency = ({
                             {symbol.name}
                           </div>
                         </div>
-                        <div className="flex items-center justify-start gap-[10px]">
+                        <div className="flex items-center justify-start gap-[10px] py-[10px]">
                           <div className="flex flex-col">
                             <span className="text-[14px] font-semibold dark:text-white text-black text-right">
-                              {currencyFormat1(getBalanceBySymbol(symbol) * symbol.price, 2, localFiat?.name)}
+                              {currencyFormat1(
+                                getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
+                                2,
+                                localFiat?.name,
+                              )}
                             </span>
                             <span className="text-[10px] font-semibold text-gray-400 text-right">
                               {formatLengthNumber(getBalanceBySymbol(symbol), 2)}
                             </span>
+                            {symbol.name.toLowerCase() === 'usdt' && (
+                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
+                                <div className="mt-1 flex justify-end text-amber-500">
+                                  <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
+                                    <Lock size={12} variant="Bold" />{' '}
+                                    {currencyFormat1(bonus, 2, String(localFiat?.name))}
+                                  </span>
+                                </div>
+                              </div>
+                            )}
                           </div>
 
                           <ChevronDownIcon width={15} className="opacity-0" />
