@@ -406,11 +406,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         const currency = data?.currency || 'USDT';
         switch (action) {
           case 'Pending':
-            toast.success(`Your ${amount} ${currency} deposit is pending now`, { containerId: TOAST_ENUM.COMMON });
+            toast.success(t('deposit:depositprogress'), { containerId: TOAST_ENUM.COMMON });
             dispatch(getBalance());
             break;
           case 'Complete':
-            toast.success(`Your ${amount} ${currency} deposit is completed`, { containerId: TOAST_ENUM.COMMON });
+            toast.success(`${t('deposit:depositComplete')} ${amount} ${currency}`, {
+              containerId: TOAST_ENUM.COMMON,
+            });
             dispatch(getBalance());
             break;
 
