@@ -1,6 +1,6 @@
 import { Menu, Switch, Transition } from '@headlessui/react';
 import cn from 'classnames';
-import { ArrowDown2 } from 'iconsax-react';
+import { ArrowDown2, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useMemo, useState } from 'react';
@@ -36,7 +36,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
 
-  const { localeFiat, viewInFiat, showFullNameCurrency, cryptoSymbols, cryptoBalances, fiatSymbols, localFiat } =
+  const { localeFiat, viewInFiat, showFullNameCurrency, cryptoSymbols, cryptoBalances, fiatSymbols, localFiat, bonus } =
     useSelector(
       (state: AppState) => ({
         localeFiat: state.common.localeFiat,
@@ -48,6 +48,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         cryptoBalances: state.wallet.balances,
         fiatSymbols: state.wallet.fiatSymbols,
         localFiat: state.wallet.localFiat,
+        bonus: state.wallet.bonusBalance,
       }),
 
       shallowEqual,
@@ -67,7 +68,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     price: 0,
   });
 
-  const [localeCoin, setLocaleCoin] = useState<FiatType>({});
   const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
 
@@ -76,7 +76,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
 
-  const [localeModalCoin, setLocaleModalCoin] = useState<CurrencyType>(fiatSymbols?.[0]);
   const [showModalRakeBackDetail, setShowModalRakeBackDetail] = useState<boolean>(false);
   const [showModalBonusHistory, setShowModalBonusHistory] = useState<boolean>(false);
 
@@ -243,8 +242,8 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <div
                             className={cn(
                               active
-                                ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black'
-                                : 'dark:text-white text-black',
+                                ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black mb-1'
+                                : 'dark:text-white text-black  mb-1',
                               activeCoin.id === crypto.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
@@ -284,28 +283,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 </span>
                               )} */}
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                                {/* {Number(crypto?.amountLocked) > 0 && (
+                                {crypto.name.toLowerCase() === 'usdt' && (
                                   <div className="mt-1 flex justify-end text-amber-500">
-                                    <div
-                                      onClick={() => {
-                                        setCryptoLocked(crypto);
-                                        setShowModalRakeBack(true);
-                                      }}
-                                      className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
-                                    >
+                                    <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                       <Lock size={12} variant="Bold" />{' '}
-                                      {currencyFormat1(
-                                        exchangeByLocaleFiat(
-                                          crypto.name,
-                                          String(localeFiat?.currency),
-                                          crypto?.amountLocked,
-                                        ),
-                                        2,
-                                        String(localeFiat?.currency),
-                                      )}
+                                      {currencyFormat1(bonus, 2, String(localFiat?.name))}
                                     </div>
                                   </div>
-                                )} */}
+                                )}
                               </div>
                             </div>
                           </div>
@@ -323,8 +308,8 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <div
                             className={cn(
                               active
-                                ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black'
-                                : 'dark:text-white text-black',
+                                ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black mb-1'
+                                : 'dark:text-white text-black mb-1',
                               activeCoin.id === fiat.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}

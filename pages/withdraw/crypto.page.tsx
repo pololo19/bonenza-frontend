@@ -187,6 +187,7 @@ const WithdrawCryptoPage = () => {
       return;
     }
     try {
+      toast.success(`Withdrawal is in process`, { containerId: TOAST_ENUM.COMMON });
       setIsLoading(true);
 
       const formData: WithdrawRequest = {
@@ -211,13 +212,8 @@ const WithdrawCryptoPage = () => {
       );
 
       setTimeout(() => {
-        toast.success(
-          `Congratulations! Your withdrawal of ${
-            totalWithdrawAmount > 0 ? totalWithdrawAmount.toFixed(6) : Number(0).toFixed(0)
-          } ${activeCoin.name} is confirmed!`,
-          { containerId: TOAST_ENUM.COMMON },
-        );
-      }, 20000);
+        toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
+      }, 10000);
       // router.push(ROUTER.Transaction);
     } catch (error) {
       if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue || 0)) {
