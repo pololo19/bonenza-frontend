@@ -36,7 +36,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
 
-  const { localeFiat, viewInFiat, showFullNameCurrency, cryptoSymbols, cryptoBalances, fiatSymbols, localFiat, bonus } =
+  const { viewInFiat, showFullNameCurrency, cryptoSymbols, cryptoBalances, fiatSymbols, localFiat, bonus } =
     useSelector(
       (state: AppState) => ({
         localeFiat: state.common.localeFiat,
@@ -287,7 +287,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                   <div className="mt-1 flex justify-end text-amber-500">
                                     <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                       <Lock size={12} variant="Bold" />{' '}
-                                      {currencyFormat1(bonus, 2, String(localFiat?.name))}
+                                      {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
                                     </div>
                                   </div>
                                 )}
@@ -456,19 +456,16 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             </div>
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
                               {formatLengthNumber(getBalanceBySymbol(crypto), toFixedValue)}
-                              {/* {Number(crypto?.amountLocked) > 0 && (
-                                <div className="mt-1 flex justify-end text-amber-500">
-                                  <div
-                                    onClick={() => {
-                                      setCryptoLocked(crypto);
-                                      setShowModalRakeBack(true);
-                                    }}
-                                    className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
-                                  >
-                                    <Lock size={12} variant="Bold" /> {formatLengthNumber(crypto?.amountLocked ?? 0)}
+                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
+                                {crypto.name.toLowerCase() === 'usdt' && (
+                                  <div className="mt-1 flex justify-end text-amber-500">
+                                    <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
+                                      <Lock size={12} variant="Bold" />{' '}
+                                      {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
+                                    </div>
                                   </div>
-                                </div>
-                              )} */}
+                                )}
+                              </div>
                             </div>
                           </div>
                         )}

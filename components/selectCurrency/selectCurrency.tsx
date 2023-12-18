@@ -274,7 +274,7 @@ const SelectCurrency = ({
                                 <div className="mt-1 flex justify-end text-amber-500">
                                   <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                     <Lock size={12} variant="Bold" />{' '}
-                                    {currencyFormat1(bonus, 2, String(localFiat?.name))}
+                                    {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
                                   </span>
                                 </div>
                               </div>
