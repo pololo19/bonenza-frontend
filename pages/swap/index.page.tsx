@@ -1,21 +1,21 @@
+import Head from 'next/head';
+import { ReactElement, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
+
+import { api_swap } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
+import getErrorMessage from '@/base/libs/utils/notificationToast';
+import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { useAppDispatch } from '@/base/redux/store';
+import Loader from '@/components/common/preloader/loader';
+import withAuth from '@/components/hoc/withAuth';
+import DepositLayout from '@/components/layouts/deposit.layout';
 import SelectCurrencySwap, {
   SelectCurrencySwapFormRef,
   SwapFormType,
 } from '@/components/selectCurrencySwap/selectCurrencySwap';
-import { ReactElement, useRef, useState } from 'react';
-import { toast } from 'react-toastify';
 
-import api from '@/api/api';
-import { CookieKey, TOAST_ENUM } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { updateCoin } from '@/base/libs/utils';
-import { changeActiveFiat, changeCryptoArray, changeDepositCryptoArray } from '@/base/redux/reducers/common.reducer';
-import { CurrencyEnum, DepositAddress } from '@/base/types/common';
-import Loader from '@/components/common/preloader/loader';
-import DepositLayout from '@/components/layouts/deposit.layout';
-import Head from 'next/head';
-import { useDispatch } from 'react-redux';
 import styles from './index.module.scss';
 
 const SwapPage = () => {
@@ -23,57 +23,22 @@ const SwapPage = () => {
   const formDataRef = useRef<SelectCurrencySwapFormRef>(null);
 
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const emitData = () => formDataRef.current?.emitData?.();
-
-  const handleGetCrypto = async () => {
-    try {
-      const responseCrypto = await api.get('deposit/get-all-deposit');
-      const listCrypto = responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => {
-        return {
-          amount: Number(crypto?.balance),
-          currency: crypto?.symbol,
-          currencyAlias: crypto?.network,
-          id: crypto?.id,
-          maxDepositAmount: undefined,
-          minDepositAmount: undefined,
-          type: CurrencyEnum.CRYPTO,
-        };
-      });
-
-      const activeF = listCrypto.find(
-        (item: any) => item?.currency === CookiesStorage.getCookieData(CookieKey.activeFiat),
-      );
-      dispatch(changeCryptoArray(listCrypto));
-      dispatch(
-        changeDepositCryptoArray(
-          responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => updateCoin(crypto)),
-        ),
-      );
-      activeF && dispatch(changeActiveFiat(activeF));
-    } catch (error) {
-    } finally {
-    }
-  };
 
   const onSubmit = async (data: SwapFormType) => {
     try {
       setIsLoading(true);
-      await api.post('exchange/swap', {
-        fromTokenAddress: data.symbolFrom,
-        toTokenAddress: data.symbolTo,
-        amount: data.amountFrom,
-        networkFromTokenAddress: data.networkFrom,
-        networkToTokenAddress: data.networkTo,
-      });
-      await handleGetCrypto();
-      toast.error(String(t('swap:swapSuccessfully')), { containerId: TOAST_ENUM.COMMON });
+      await api_swap(String(data.symbolFrom), String(data.symbolTo), Number(data.amountFrom));
+      dispatch(getBalance());
+
+      toast.success(String(t('swap:swapSuccessfully')), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const mess: string = error?.response?.data?.msg;
-      if (mess.includes("Your wallet doesn't have enough coin to swap"))
-        toast.error(String(t('swap:notEnoughAmount')), { containerId: TOAST_ENUM.COMMON });
-      else toast.error(String(t('swap:swapFailed')), { containerId: TOAST_ENUM.COMMON });
+      const message = error.response.data.message;
+      const status = error.response.data.statusCode;
+      const errData = getErrorMessage('wallet', 'swap', status, message, '');
+      toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -110,8 +75,10 @@ const SwapPage = () => {
   );
 };
 
-SwapPage.getLayout = function getLayout(page: ReactElement) {
+const SwapPageAuth = withAuth(SwapPage);
+
+SwapPageAuth.getLayout = function getLayout(page: ReactElement) {
   return <DepositLayout>{page}</DepositLayout>;
 };
 
-export default SwapPage;
+export default SwapPageAuth;
