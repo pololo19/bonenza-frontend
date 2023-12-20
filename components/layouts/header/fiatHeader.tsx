@@ -133,6 +133,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       }
     }
   }, [cryptoSymbols]);
+
   return (
     <>
       <Menu
@@ -624,7 +625,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
             currencies. For more details feel free to contact our live support.
           </div>
           <div className={'grid grid-cols-3 gap-y-2 justify-between items-center'}>
-            {fiatSymbols?.map((item, key) => (
+            {fiatSymbols.map((item, key) => (
               <label
                 htmlFor={String(key)}
                 key={key}

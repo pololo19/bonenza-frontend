@@ -3,16 +3,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import { Repeat } from 'iconsax-react';
 import Image from 'next/image';
-import React, { Ref, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import React, { Ref, useEffect, useImperativeHandle, useState } from 'react';
 import { useForm, UseFormGetValues } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
-import api from '@/api/api';
+import { api_exchangeRate } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
+import { SWAP_FEE } from '@/base/constants/common';
 import { formatLengthNumber } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { BasicFormRef, DepositAddress } from '@/base/types/common';
+import { BasicFormRef } from '@/base/types/common';
+import { CurrencyType } from '@/base/types/wallet';
 
 import InputNumber from '../input/typing/InputNumber';
 import ModalAssetsPortfolio from '../modal/assestsPortfolio/assestsPortfolio';
@@ -40,27 +42,17 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const { onSubmit } = props;
   const { t } = useTranslation('');
 
-  const { depositCryptoArray } = useSelector(
+  const { cryptoSymbols, balances } = useSelector(
     (state: AppState) => ({
-      depositCryptoArray: state.common.depositCryptoArray,
+      cryptoSymbols: state.wallet.symbols,
+      balances: state.wallet.balances,
     }),
     shallowEqual,
   );
 
-  const listCrypto = useMemo(() => {
-    let array: DepositAddress[] = [];
-    depositCryptoArray.forEach((crypto) => {
-      const existCrypto = array.find((e) => e?.symbol === crypto?.symbol);
-      if (!existCrypto) array.push(crypto);
-    });
-    return array;
-  }, [depositCryptoArray]);
-
   const [isLoadingApproximately, setIsLoadingApproximately] = useState<boolean>(false);
   const [isShowFromModal, setIsShowFromModal] = useState<boolean>(false);
   const [isShowToModal, setIsShowToModal] = useState<boolean>(false);
-  const [coinFromBalance, setCoinFromBalance] = useState<number>(0);
-  const [swapData, setSwapData] = useState<any>({});
 
   const handleSubmitForm = () => {
     handleSubmit(onSubmit)();
@@ -91,55 +83,64 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     formState: { errors },
   } = useForm<SwapFormType>({
     resolver: yupResolver(schema),
-    defaultValues: { amountFrom: 0, amountTo: 0, symbolFrom: listCrypto[0]?.symbol, symbolTo: listCrypto[1]?.symbol },
+    defaultValues: { amountFrom: 0, amountTo: 0, symbolFrom: cryptoSymbols[0]?.id, symbolTo: cryptoSymbols[1]?.id },
   });
+
+  useEffect(() => {
+    if (cryptoSymbols.length) {
+      const symbolFrom = cryptoSymbols[0].id;
+      const symbolTo = cryptoSymbols[1].id;
+
+      setValue('symbolFrom', symbolFrom);
+      setValue('symbolTo', symbolTo);
+    }
+  }, [cryptoSymbols]);
 
   const handleChangeCoinSwap = () => {
     const curVal = JSON.parse(JSON.stringify(getValues()));
     setValue('symbolFrom', curVal.symbolTo);
     setValue('symbolTo', curVal.symbolFrom);
-    setValue('amountFrom', curVal.amountFrom);
-    setValue('amountTo', curVal.amountTo);
-    handleApproximately();
+    setValue('amountFrom', curVal.amountTo);
   };
 
-  const handleApproximately = async () => {
+  const getBalanceBySymbolId = (symbolId: string) => {
+    const tempBalance = balances.find((item) => item.symbolId === symbolId);
+    return tempBalance ? tempBalance.amount : 0;
+  };
+
+  const getSymbolById = (id: string) => {
+    const symbol = cryptoSymbols.find((item) => item.id === id);
+    if (!symbol) return null;
+    return symbol;
+  };
+
+  const handleApproximately = async (balance: number) => {
     try {
       setIsLoadingApproximately(true);
-      if (!watch('amountFrom')) {
-        setValue('amountTo', 0);
-        return;
-      }
-      const res = await api.post('exchange/quote', {
-        fromTokenAddress: watch('symbolFrom'),
-        toTokenAddress: watch('symbolTo'),
-        amount: Number(watch('amountFrom')),
-        networkFromTokenAddress: watch('networkFrom'),
-      });
-      setValue('amountTo', res.data.data);
-      setSwapData(res.data);
+      const res = await api_exchangeRate(watch('symbolFrom'), watch('symbolTo'));
+
+      const { fromPrice, toPrice } = res.data;
+      const amountTo = (balance * fromPrice) / toPrice;
+
+      setValue('amountTo', amountTo);
     } catch (error) {
       setValue('amountTo', 0);
-      setSwapData({
-        data: 0,
-        min: 0,
-        fee: 0,
-        bonusMoney: 0,
-        max: 0,
-        balance: 0,
-      });
     } finally {
       setIsLoadingApproximately(false);
     }
   };
 
   const handleGetMaxBalance = () => {
-    setValue('amountFrom', Number(swapData.max));
+    const symbolFrom = getSymbolById(watch('symbolFrom'));
+    if (symbolFrom) {
+      const avaBalance = getBalanceBySymbolId(symbolFrom.id);
+      setValue('amountFrom', avaBalance);
+    }
   };
 
   useEffect(() => {
-    handleApproximately();
-  }, [watch('amountFrom')]);
+    handleApproximately(watch('amountFrom'));
+  }, [watch('amountFrom'), watch('symbolFrom'), watch('symbolTo')]);
 
   return (
     <>
@@ -149,7 +150,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             {t('swap:getApproximately')}
           </div>
           <div className="text-[16px] text-[#31373d] dark:text-[#C2C2C2] mb-[20px] text-left">
-            <div>Min: {Number(swapData.min) ?? 0}</div>
+            <div>Min: {0}</div>
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -182,11 +183,13 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                   role="button"
                   onClick={() => setIsShowFromModal(true)}
                 >
-                  <div className="text-[14px]">{watch('symbolFrom')}</div>
+                  <div className="text-[14px]">
+                    {getSymbolById(watch('symbolFrom')) && getSymbolById(watch('symbolFrom'))?.name}
+                  </div>
                   <Image
                     width={35}
                     height={35}
-                    src={`/img/fiats/${watch('symbolFrom')}.png`}
+                    src={getSymbolById(watch('symbolFrom'))?.logo || ''}
                     onError={(e) => {
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
                     }}
@@ -231,11 +234,13 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                   role="button"
                   onClick={() => setIsShowToModal(true)}
                 >
-                  <div className="text-[14px]">{watch('symbolTo')}</div>
+                  <div className="text-[14px]">
+                    {getSymbolById(watch('symbolTo')) && getSymbolById(watch('symbolTo'))?.name}
+                  </div>
                   <Image
                     width={35}
                     height={35}
-                    src={`img/fiats/${watch('symbolTo')}.png`}
+                    src={getSymbolById(watch('symbolTo'))?.logo || ''}
                     onError={(e) => {
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
                     }}
@@ -250,8 +255,8 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             </div>
           </div>
           <div className="mt-[20px] flex items-center mb-2 gap-1 justify-between text-[14px]">
-            <div>Real Money: {(Number(watch('amountFrom')) ?? 0) + (Number(swapData.fee) ?? 0)}</div>
-            <div>Bonus Money: {Number(swapData.bonusMoney)}</div>
+            <div>Real Money: {getBalanceBySymbolId(watch('symbolFrom'))}</div>
+            {/* <div>Bonus Money: {Number(swapData.bonusMoney)}</div> */}
           </div>
           <div
             className={cn(
@@ -263,8 +268,8 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           >
             <div className="dark:text-white text-[#31373d] font-[700]">
               <span className="inline-block w-1 h-1 rounded-full	bg-[#3BC117] mr-1"></span>{' '}
-              {formatLengthNumber(watch('amountFrom'))} {watch('symbolFrom')} ≈ {formatLengthNumber(watch('amountTo'))}{' '}
-              {watch('symbolTo')}
+              {formatLengthNumber(watch('amountFrom'))} {getSymbolById(watch('symbolFrom'))?.name} ≈{' '}
+              {formatLengthNumber(watch('amountTo'))} {getSymbolById(watch('symbolTo'))?.name}
             </div>
           </div>
           <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-[#161D26] rounded-t-[4px]">
@@ -274,19 +279,16 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-[#161D26] rounded-b-[4px]">
             <p className="text-[#98a7b5]">{t('swap:swapFee')}</p>
             <p className="dark:text-white text-[#31373d]">
-              {swapData.fee} <span className="text-[#98a7b5]">{watch('symbolFrom')}</span>
+              {Number(SWAP_FEE) * watch('amountTo')}{' '}
+              <span className="text-[#98a7b5]">{getSymbolById(watch('symbolTo'))?.name}</span>
             </p>
           </div>
         </form>
       </div>
       <ModalAssetsPortfolio
-        onChangeCoin={(crypto) => {
-          setValue('symbolFrom', String(crypto?.symbol));
-          let balance = Number(crypto.balance) < 1 ? Number(crypto.balance) : 1;
-          setCoinFromBalance(Number(crypto.balance));
-          setValue('amountFrom', Number(balance));
-          setValue('networkFrom', String(crypto?.network));
-          handleApproximately();
+        onChangeCoin={(crypto: CurrencyType) => {
+          setValue('symbolFrom', String(crypto.id));
+          setValue('amountFrom', getBalanceBySymbolId(crypto.id));
         }}
         cryptoSymbol={watch('symbolFrom')}
         cryptoSymbolFrom={watch('symbolTo')}
@@ -294,10 +296,8 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
         onClose={() => setIsShowFromModal(false)}
       />
       <ModalAssetsPortfolio
-        onChangeCoin={(crypto) => {
-          setValue('symbolTo', String(crypto?.symbol));
-          setValue('networkTo', String(crypto?.network));
-          handleApproximately();
+        onChangeCoin={(crypto: CurrencyType) => {
+          setValue('symbolTo', String(crypto.id));
         }}
         cryptoSymbol={watch('symbolTo')}
         cryptoSymbolFrom={watch('symbolFrom')}

@@ -73,5 +73,20 @@ export default function getErrorMessage(path: string, func: string, status: numb
         break;
     }
   }
+
+  // Wallet - Swap
+  if (path === 'wallet' && func === 'swap') {
+    switch (status) {
+      case 400:
+        if (error === 'Wallet: swap') {
+          message = 'swap:notEnoughAmount';
+        }
+        break;
+
+      default:
+        message = 'swap:swapFailed';
+        break;
+    }
+  }
   return { message, data: externalData };
 }
