@@ -9,10 +9,9 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { setSocket } from '@/base/redux/reducers/socket.reducer';
-import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo, logoutWallet } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
 type WithAuthComponent<P> = React.FunctionComponent<P> & {
@@ -39,8 +38,7 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
 
     const handlerMeError = () => {
       dispatch(logoutState());
-      dispatch(changeFiatArray([]));
-      dispatch(changeCryptoArray([]));
+      dispatch(logoutWallet());
       CookiesStorage.logout();
       return new Promise((resolve) => {
         if (router.pathname !== ROUTER.Home) {

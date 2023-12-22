@@ -25,13 +25,13 @@ import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { logoutState } from '@/base/redux/reducers/auth.reducer';
-import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import {
   changeIsShowInformation,
   changeIsShowReferAndEarn,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
+import { logoutWallet } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 export default function ProfileDropdown() {
   const router = useRouter();
@@ -79,8 +79,7 @@ export default function ProfileDropdown() {
     googleLogout();
     deactivate();
     dispatch(logoutState());
-    dispatch(changeFiatArray([]));
-    dispatch(changeCryptoArray([]));
+    dispatch(logoutWallet());
     router.replace(ROUTER.Home);
   };
 

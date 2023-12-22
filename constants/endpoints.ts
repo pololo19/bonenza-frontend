@@ -46,6 +46,7 @@ const API_WALLET_INFO = '/wallet/get-wallet-info';
 const API_WALLET_WITHDRAW = '/wallet/withdraw';
 const API_WALLET_SWAP_RATE = '/wallet/swap/prices';
 const API_WALLET_SWAP = '/wallet/swap';
+const API_WALLET_TRANSACTIONS = '/wallet/transaction';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -93,6 +94,7 @@ export {
   API_WALLET_INFO,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
+  API_WALLET_TRANSACTIONS,
   API_WALLET_USER_BALANCE,
   API_WALLET_WITHDRAW,
   URL_REFRESH_TOKEN,

@@ -3,12 +3,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import { Repeat } from 'iconsax-react';
 import Image from 'next/image';
-import React, { Ref, useEffect, useImperativeHandle, useState } from 'react';
+import React, { Ref, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { useForm, UseFormGetValues } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
-import { api_exchangeRate } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { SWAP_FEE } from '@/base/constants/common';
 import { formatLengthNumber } from '@/base/libs/utils';
@@ -86,6 +85,20 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     defaultValues: { amountFrom: 0, amountTo: 0, symbolFrom: cryptoSymbols[0]?.id, symbolTo: cryptoSymbols[1]?.id },
   });
 
+  const toSymbols = useMemo(() => {
+    const tempSymbols = [...cryptoSymbols];
+    const symbolFromIndex = tempSymbols.findIndex((item) => item.id === watch('symbolFrom'));
+    tempSymbols.splice(symbolFromIndex, 1);
+    return tempSymbols;
+  }, [watch('symbolFrom'), cryptoSymbols]);
+
+  const fromSymbols = useMemo(() => {
+    const tempSymbols = [...cryptoSymbols];
+    const symbolFromIndex = tempSymbols.findIndex((item) => item.id === watch('symbolTo'));
+    tempSymbols.splice(symbolFromIndex, 1);
+    return tempSymbols;
+  }, [watch('symbolTo')]);
+
   useEffect(() => {
     if (cryptoSymbols.length) {
       const symbolFrom = cryptoSymbols[0].id;
@@ -117,9 +130,14 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const handleApproximately = async (balance: number) => {
     try {
       setIsLoadingApproximately(true);
-      const res = await api_exchangeRate(watch('symbolFrom'), watch('symbolTo'));
+      // const res = await api_exchangeRate(watch('symbolFrom'), watch('symbolTo'));
+      const symbolFrom = getSymbolById(watch('symbolFrom'));
+      const symbolTo = getSymbolById(watch('symbolTo'));
 
-      const { fromPrice, toPrice } = res.data;
+      const fromPrice = symbolFrom ? symbolFrom.price : 0;
+      const toPrice = symbolTo ? symbolTo.price : 1;
+
+      // const { fromPrice, toPrice } = res.data;
       const amountTo = (balance * fromPrice) / toPrice;
 
       setValue('amountTo', amountTo);
@@ -291,7 +309,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           setValue('amountFrom', getBalanceBySymbolId(crypto.id));
         }}
         cryptoSymbol={watch('symbolFrom')}
-        cryptoSymbolFrom={watch('symbolTo')}
+        cryptoSymbols={fromSymbols}
         show={isShowFromModal}
         onClose={() => setIsShowFromModal(false)}
       />
@@ -300,7 +318,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           setValue('symbolTo', String(crypto.id));
         }}
         cryptoSymbol={watch('symbolTo')}
-        cryptoSymbolFrom={watch('symbolFrom')}
+        cryptoSymbols={toSymbols}
         show={isShowToModal}
         onClose={() => setIsShowToModal(false)}
       />

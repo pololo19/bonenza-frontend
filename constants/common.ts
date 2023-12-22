@@ -12,6 +12,7 @@ import { Settings } from 'react-slick';
 
 import resources from '../public/locales';
 import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '../types/common';
+import { TRANSACTION_TYPE } from '../types/requestTypes';
 
 export const CookieKey = {
   accessToken: 'accessToken',
@@ -1129,12 +1130,12 @@ export const billType = {
 };
 
 export const LIST_FILTER_TYPE = [
-  { name: 'transaction:deposit', id: 1 },
-  { name: 'transaction:withdraw', id: 2 },
-  { name: 'transaction:swap', id: 3 },
-  { name: 'transaction:buyCrypto', id: 4 },
-  { name: 'transaction:Bill', id: 5 },
-  { name: 'transaction:Bonus', id: 6 },
+  { name: 'transaction:deposit', type: TRANSACTION_TYPE.Deposit },
+  { name: 'transaction:withdraw', type: TRANSACTION_TYPE.Withdraw },
+  { name: 'transaction:swap', type: TRANSACTION_TYPE.Swap },
+  { name: 'transaction:buyCrypto', type: TRANSACTION_TYPE.Buy_Crypto },
+  { name: 'transaction:Bill', type: TRANSACTION_TYPE.Bill },
+  { name: 'transaction:Bonus', type: TRANSACTION_TYPE.Bonus },
 ];
 export const LIST_FILTER_DATE = [
   { name: 'transaction:past60Days', type: 60 },

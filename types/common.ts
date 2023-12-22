@@ -1,6 +1,7 @@
 import { ParseResult } from 'papaparse';
 
 import { KYC_ENUM } from '../constants/common';
+import { TRANSACTION_TYPE } from './requestTypes';
 
 export enum AuthenticationModeEnum {
   SIGN_IN = 'SIGN_IN',
@@ -354,17 +355,33 @@ export type InformationWithdraw = {
 
 export type TransactionStatus = 'process' | 'pending' | 'refunding' | 'rejected' | 'fail' | 'success' | 'approve';
 export type TransactionType = {
-  amount: string | number;
-  fee: string | number;
-  id: string | number;
-  orderId: string | number;
+  amount: number;
+  amountUsd: number;
+  fee: number;
+  id: string;
+  orderId: string;
   status: TransactionStatus;
-  symbol: string;
+  symbolId: string;
+  symbolName: string;
+  symbolLogo: string;
   time: string | Date;
-  txId: string | null;
+  txId: string;
   unitFee: string;
   userId: number;
   username: string;
   value: number;
+  type: TRANSACTION_TYPE;
   withdrawalAddress: string;
+};
+
+export type TransactionSwapType = {
+  symbolFrom: string;
+  swapFrom: number;
+  swapFromLogo: string;
+  swapFromUsd: number;
+  symbolTo: string;
+  swapTo: number;
+  swapToUsd: number;
+  swapToLogo: string;
+  timeTransfer: string | Date;
 };

@@ -30,6 +30,15 @@ const SwapPage = () => {
   const onSubmit = async (data: SwapFormType) => {
     try {
       setIsLoading(true);
+      console.log(data);
+      if (Number(data.amountFrom) === 0) {
+        toast.error(t('swap:inValidSwapAmount'), { containerId: TOAST_ENUM.COMMON });
+        return;
+      }
+      if (data.symbolTo === data.symbolFrom) {
+        toast.error(t('swap:duplicateSwapAddress'), { containerId: TOAST_ENUM.COMMON });
+        return;
+      }
       await api_swap(String(data.symbolFrom), String(data.symbolTo), Number(data.amountFrom));
       dispatch(getBalance());
 

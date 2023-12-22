@@ -10,14 +10,14 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 
-const toAmountFixedLength = 8;
+const toAmountFixedLength = 4;
 const toLocalFixedLength = 4;
 
 const BalancePage = () => {
@@ -211,13 +211,13 @@ const BalancePage = () => {
                           {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
+                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
+                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
                         </div>
                       </div>
                     )}
@@ -262,13 +262,13 @@ const BalancePage = () => {
                           {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
+                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {formatLengthNumber(renderBalance(item).amount, toAmountFixedLength)}
+                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
                         </div>
                       </div>
                     )}

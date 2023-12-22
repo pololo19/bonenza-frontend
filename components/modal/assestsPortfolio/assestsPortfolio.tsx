@@ -19,7 +19,7 @@ type ModalAssetsPortfolioProps = {
   onClose: () => void;
   show: boolean;
   cryptoSymbol: string;
-  cryptoSymbolFrom?: string;
+  cryptoSymbols: CurrencyType[];
   onChangeCoin?: (coin: CurrencyType) => void;
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
@@ -28,14 +28,14 @@ export default function ModalAssetsPortfolio({
   show,
   onClose,
   cryptoSymbol,
-  cryptoSymbolFrom,
+  cryptoSymbols,
   onChangeCoin,
 }: ModalAssetsPortfolioProps) {
   const exchangeRate = useExchange();
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
 
-  const { cryptoSymbols, balances, localFiat, fiatSymbols, viewInFiat } = useSelector(
+  const { balances, localFiat, fiatSymbols, viewInFiat } = useSelector(
     (state: AppState) => ({
       cryptoSymbols: state.wallet.symbols,
       balances: state.wallet.balances,
