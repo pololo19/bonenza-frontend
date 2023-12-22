@@ -63,14 +63,15 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
   const onSubmitPhone = async (data: SignUpPhoneRequest) => {
     try {
       setIsLoading(true);
+      const phoneNumber = `+${String(countryCallingCode?.countryCallingCode) + data.phone}`;
       const formData = {
         ...data,
-        phone: `+${String(countryCallingCode?.countryCallingCode) + data.phone}`,
+        phone: phoneNumber,
       };
       const resSignUp = await api_signupWithPhone(formData);
       if (resSignUp?.status === 201) {
         // store verification data
-        dispatch(saveVerifyInfo({ verifyRequest: data.phone, isPhoneVerifyRequested: true }));
+        dispatch(saveVerifyInfo({ verifyRequest: phoneNumber, isPhoneVerifyRequested: true }));
 
         // request to open verification code not from forget-password
         dispatch(setIsForgetPassword(false));
@@ -110,7 +111,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         )}
       </>
     );
-  }, [isPhoneNumber]);
+  }, [isPhoneNumber, setCountryCallingCode, onSubmitEmail, onSubmitPhone]);
 
   return (
     <>

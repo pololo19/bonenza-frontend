@@ -7,8 +7,8 @@ export default function getErrorMessage(path: string, func: string, status: numb
       case 409: // conflict
         message = 'authentication:signUpFailed';
         break;
-      case 400: // bad Request
-        message = 'authentication:referralIsNotExist';
+      case 400:
+        message = error === 'referralValid' ? 'authentication:referralIsNotExist' : 'authentication:loginEmailFailed';
         break;
 
       default:
@@ -24,7 +24,7 @@ export default function getErrorMessage(path: string, func: string, status: numb
         message = 'authentication:phoneTaken';
         break;
       case 400:
-        message = 'authentication:referralIsNotExist';
+        message = error === 'referralValid' ? 'authentication:referralIsNotExist' : 'authentication:loginPhoneFailed';
         break;
       default:
         message = 'errors:internalServer';

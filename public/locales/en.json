@@ -1254,7 +1254,7 @@
     "change": "Change",
     "phoneNumber": "Phone Number",
     "verifyYourPhoneNumber": "Verify your phone number and you can use the phone as your second login method.",
-    "confirmYourPhoneNumber": "Please enter the 6-digit verification code sent to {{phone}}. The code is valid for 30 minutes.",
+    "confirmYourPhoneNumber": "Please enter the 6-digit verification code sent to {{phone}}. The code is valid for 5 minutes.",
     "confirm": "Confirm",
     "verified": "Verified",
     "setLoginPassword": "Set login password",
