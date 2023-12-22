@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { OtpInput } from 'reactjs-otp-input';
 import * as yup from 'yup';
@@ -21,9 +21,9 @@ import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, copyClipBoard } from '@/base/libs/utils';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
+import { logoutWallet } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
@@ -58,7 +58,7 @@ const SettingSecurity = () => {
   });
   const { t } = useTranslation('');
   const { deactivate } = useWeb3React();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
 
   const { email, tfa } = useSelector(
@@ -97,8 +97,7 @@ const SettingSecurity = () => {
     googleLogout();
     deactivate();
     dispatch(logoutState());
-    dispatch(changeFiatArray([]));
-    dispatch(changeCryptoArray([]));
+    dispatch(logoutWallet());
     router.replace(ROUTER.Home);
   };
 

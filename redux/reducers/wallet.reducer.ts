@@ -20,7 +20,7 @@ const initialState: WalletState = {
   symbols: [],
   fiatSymbols: [],
   balances: [],
-  depositAddress: [],
+  depositAddress: [], // wallet address
   cryptoCurrencies: [],
 };
 
@@ -71,6 +71,24 @@ export const {
   setLocalFiat,
 } = walletReducer.actions;
 export default walletReducer.reducer;
+
+export const logoutWallet = () => async (dispath: AppDispatch) => {
+  dispath(setNetworks([]));
+  dispath(setBalances([]));
+  dispath(setDepositAddress([]));
+  dispath(setSymbols([]));
+  dispath(setCryptoCurrencies([]));
+  dispath(setFiatSymbols([]));
+  dispath(
+    setBalance({
+      totalBalance: 0,
+      bonusBalance: 0,
+      realBalance: 0,
+    }),
+  );
+
+  dispath(setLocalFiat(null));
+};
 
 export const initWalletInfo = () => async (dispatch: AppDispatch) => {
   try {

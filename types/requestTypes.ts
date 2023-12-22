@@ -1,5 +1,14 @@
 export type VerifyRequestType = 'reset' | '';
 
+export enum TRANSACTION_TYPE {
+  'Deposit' = 'deposit',
+  'Withdraw' = 'withdraw',
+  'Swap' = 'swap',
+  'Buy_Crypto' = 'buy Crypto',
+  'Bill' = 'bill',
+  'Bonus' = 'bonus',
+}
+
 export type SignUpEmailRequest = {
   email: string;
   password: string;
@@ -41,4 +50,14 @@ export type WithdrawRequest = {
   networkId: string;
   withdrawAddress: string;
   withdrawAmount: number;
+};
+
+export type TransactionRequest = {
+  type: TRANSACTION_TYPE;
+  symbolId: string;
+  startDate: number;
+  endDate: number;
+  page: number;
+  pageSize: number;
+  status: number;
 };

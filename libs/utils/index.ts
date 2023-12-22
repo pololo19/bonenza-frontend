@@ -373,9 +373,8 @@ export const formatLengthNumber = (num: number | string, length?: number) => {
   if (!num) return Number(0).toFixed(length);
   let zeroCount = -Math.floor(Math.log10(Number(num)));
   if (zeroCount > length / 2 && Number(num) > 0) {
-    console.log('=====377');
     let nonZeros = '';
-    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: length, minimumFractionDigits: length })
+    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: length, minimumFractionDigits: 2 })
       .format(Number(num))
       .toString();
     for (let i = zeroCount + 1; i < (numberString.length > zeroCount + 5 ? zeroCount + 5 : numberString.length); i++) {
@@ -391,7 +390,7 @@ export const formatLengthNumber = (num: number | string, length?: number) => {
   // console.log(missLength, '------392');
   return formatCompactNumber(Number(num), {
     maximumFractionDigits: length,
-    minimumFractionDigits: length,
+    minimumFractionDigits: 2,
   });
 };
 
@@ -461,15 +460,15 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
     if (number === 0) {
-      res = new Array(zeroNum).fill('0').join('');
+      res = new Array(2).fill('0').join('');
       res = `${symbol} 0.` + res;
       return res;
     }
     let zeroCount = -Math.floor(Math.log10(number));
     if (zeroNum < 5) {
       res = formatCompactNumber(number, {
-        maximumFractionDigits: zeroNum,
-        minimumFractionDigits: zeroNum,
+        maximumFractionDigits: 4,
+        minimumFractionDigits: 2,
       }).toString();
       return `${symbol} ${res}`;
     }
@@ -490,7 +489,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
     } else {
       res = formatCompactNumber(number, {
         maximumFractionDigits: zeroNum,
-        minimumFractionDigits: zeroNum,
+        minimumFractionDigits: 2,
       }).toString();
     }
     return `${symbol} ${res}`;

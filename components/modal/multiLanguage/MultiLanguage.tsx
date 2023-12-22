@@ -73,7 +73,6 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
       // let newItem: FiatType = item.currency === 'USD' ? { ...item, currencyOld: activeFiat?.currency } : item;
       dispatch(changeViewInFiat(true));
 
-      console.log(item, '-----76');
       dispatch(setLocalFiat(item));
       // dispatch(changeActiveFiat(item));
       // CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
@@ -83,8 +82,6 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
       dispatch(changeIsShowAuthenticationModal(true));
     }
   };
-
-  console.log(localFiat, '-----85');
 
   return (
     <>
@@ -204,7 +201,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                         src={item.logo}
                         alt=""
                         onError={(e) => {
-                          e.currentTarget.src = '/img/fiat/USD.png';
+                          e.currentTarget.src = '/img/fiats/USD.png';
                         }}
                       />
                       <div>{item.name}</div>

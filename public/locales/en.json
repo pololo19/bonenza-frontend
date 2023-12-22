@@ -548,7 +548,9 @@
     "swapFee": "Swap fee:",
     "estimatedTime": "Estimated Time*",
     "seconds": "Seconds",
-    "swapNow": "Swap Now"
+    "swapNow": "Swap Now",
+    "inValidSwapAmount": "Your swap amount isn't valid",
+    "duplicateSwapAddress": "Please select other coin to swap"
   },
   "vaultPro": {
     "transferIn": "Transfer In",

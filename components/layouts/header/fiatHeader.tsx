@@ -155,7 +155,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 src={activeCoin.logo}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiat/USD.png';
+                  e.currentTarget.src = '/img/fiats/USD.png';
                 }}
               />
               {viewInFiat && (
@@ -261,7 +261,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               src={crypto.logo}
                               alt=""
                               onError={(e) => {
-                                e.currentTarget.src = '/img/fiat/USD.png';
+                                e.currentTarget.src = '/img/fiats/USD.png';
                               }}
                             />
                             <div>
@@ -327,7 +327,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               src={fiat.logo}
                               alt=""
                               onError={(e) => {
-                                e.currentTarget.src = '/img/fiat/USD.png';
+                                e.currentTarget.src = '/img/fiats/USD.png';
                               }}
                             />
                             <div className="w-full">
@@ -366,7 +366,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 src={coin.logo}
                                 alt=""
                                 onError={(e) => {
-                                  e.currentTarget.src = '/img/fiat/USD.png';
+                                  e.currentTarget.src = '/img/fiats/USD.png';
                                 }}
                               />
                               <div className="w-full">
@@ -398,7 +398,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           height={200}
                           alt=""
                           onError={(e) => {
-                            e.currentTarget.src = '/img/fiat/USD.png';
+                            e.currentTarget.src = '/img/fiats/USD.png';
                           }}
                         />
                         <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
@@ -449,14 +449,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               src={crypto.logo}
                               alt=""
                               onError={(e) => {
-                                e.currentTarget.src = '/img/fiat/USD.png';
+                                e.currentTarget.src = '/img/fiats/USD.png';
                               }}
                             />
                             <div className="text-[14px] dark:text-white text-black font-vietnam-bold">
                               {crypto.name}
                             </div>
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                              {formatLengthNumber(getBalanceBySymbol(crypto), toFixedValue)}
+                              {currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
                                 {crypto.name.toLowerCase() === 'usdt' && (
                                   <div className="mt-1 flex justify-end text-amber-500">
@@ -499,7 +499,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               src={fiat.logo}
                               alt=""
                               onError={(e) => {
-                                e.currentTarget.src = '/img/fiat/USD.png';
+                                e.currentTarget.src = '/img/fiats/USD.png';
                               }}
                             />
                             <div className="w-full dark:text-white text-black">
@@ -532,7 +532,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 src={coin.logo}
                                 alt=""
                                 onError={(e) => {
-                                  e.currentTarget.src = '/img/fiat/USD.png';
+                                  e.currentTarget.src = '/img/fiats/USD.png';
                                 }}
                               />
                               <div className="w-full">
@@ -663,7 +663,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     src={item.logo}
                     alt=""
                     onError={(e) => {
-                      e.currentTarget.src = '/img/fiat/USD.png';
+                      e.currentTarget.src = '/img/fiats/USD.png';
                     }}
                   />
                 </div>
