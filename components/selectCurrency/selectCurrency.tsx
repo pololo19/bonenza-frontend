@@ -267,7 +267,7 @@ const SelectCurrency = ({
                               )}
                             </span>
                             <span className="text-[10px] font-semibold text-gray-400 text-right">
-                              {formatLengthNumber(getBalanceBySymbol(symbol), 2)}
+                              {currencyFormat1(getBalanceBySymbol(symbol), 2, '', false)}
                             </span>
                             {symbol.name.toLowerCase() === 'usdt' && (
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">

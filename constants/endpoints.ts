@@ -47,6 +47,7 @@ const API_WALLET_WITHDRAW = '/wallet/withdraw';
 const API_WALLET_SWAP_RATE = '/wallet/swap/prices';
 const API_WALLET_SWAP = '/wallet/swap';
 const API_WALLET_TRANSACTIONS = '/wallet/transaction';
+const API_WALLET_DEPOSIT_TIME = '/wallet/get-deposit-time-for-this-week';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -91,6 +92,7 @@ export {
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
+  API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,

@@ -166,7 +166,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         toFixedValue,
                         localFiat.name,
                       )}`
-                    : `${formatLengthNumber(Number(getBalanceBySymbol(activeCoin)), toFixedValue)}`}
+                    : `${currencyFormat1(Number(getBalanceBySymbol(activeCoin)), toFixedValue, '', false)}`}
                 </div>
               )}
               {!viewInFiat && (
@@ -275,7 +275,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               )}
                               <br />
                               <span className="text-gray-400 text-[12px]">
-                                {formatLengthNumber(getBalanceBySymbol(crypto), toFixedValue)}
+                                {currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
                               </span>
                               <br />
                               {/* {!crypto?.amountLocked && Number(crypto?.amount) > 0 && (

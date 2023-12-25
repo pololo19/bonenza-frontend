@@ -1,4 +1,5 @@
 import {
+  API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
@@ -41,4 +42,8 @@ export const api_getTransactions = async ({
   status,
 }: TransactionRequest) => {
   return api.get(API_WALLET_TRANSACTIONS, { params: { type, symbolId, startDate, endDate, page, pageSize, status } });
+};
+
+export const api_getDepositTime = async () => {
+  return api.get(API_WALLET_DEPOSIT_TIME);
 };
