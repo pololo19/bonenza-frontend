@@ -12,7 +12,6 @@ import {
   copyClipBoard,
   currencyFormat1,
   formatDate,
-  formatLengthNumber,
   getColorByStatus,
   transformWalletAddress,
 } from '@/base/libs/utils';
@@ -127,7 +126,7 @@ export default function ModalDetailTransaction({
                 <div className="flex items-center justify-between">
                   <span className="dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:fee'))}</span>
                   <span className="text-black dark:text-white">
-                    {formatLengthNumber(transaction.fee, 4)} {transaction.symbolName}
+                    {currencyFormat1(transaction.fee, 4, '', false)} {transaction.symbolName}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">

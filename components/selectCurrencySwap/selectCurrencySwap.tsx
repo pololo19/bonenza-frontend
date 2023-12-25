@@ -6,11 +6,12 @@ import Image from 'next/image';
 import React, { Ref, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { useForm, UseFormGetValues } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import { useTranslation } from '@/base/config/i18next';
-import { SWAP_FEE } from '@/base/constants/common';
-import { formatLengthNumber } from '@/base/libs/utils';
+import { SWAP_FEE, SWAP_MIN, TOAST_ENUM } from '@/base/constants/common';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BasicFormRef } from '@/base/types/common';
 import { CurrencyType } from '@/base/types/wallet';
@@ -23,8 +24,8 @@ type SelectCurrencySwapProps = {
 };
 
 export type SwapFormType = {
-  amountFrom: number;
-  amountTo: number;
+  amountFrom: string;
+  amountTo: string;
   symbolFrom: string;
   symbolTo: string;
   networkFrom: string;
@@ -53,15 +54,6 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const [isShowFromModal, setIsShowFromModal] = useState<boolean>(false);
   const [isShowToModal, setIsShowToModal] = useState<boolean>(false);
 
-  const handleSubmitForm = () => {
-    handleSubmit(onSubmit)();
-  };
-
-  useImperativeHandle(ref, () => ({
-    emitData: handleSubmitForm,
-    getValues: getValues,
-  }));
-
   const schema = yup.object().shape({
     amountFrom: yup
       .string()
@@ -82,8 +74,51 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     formState: { errors },
   } = useForm<SwapFormType>({
     resolver: yupResolver(schema),
-    defaultValues: { amountFrom: 0, amountTo: 0, symbolFrom: cryptoSymbols[0]?.id, symbolTo: cryptoSymbols[1]?.id },
+    defaultValues: { amountFrom: '0', amountTo: '0', symbolFrom: cryptoSymbols[0]?.id, symbolTo: cryptoSymbols[1]?.id },
   });
+
+  const getBalanceBySymbolId = (symbolId: string) => {
+    const tempBalance = balances.find((item) => item.symbolId === symbolId);
+    return tempBalance ? tempBalance.amount : 0;
+  };
+
+  const getSymbolById = (id: string) => {
+    const symbol = cryptoSymbols.find((item: CurrencyType) => item.id === id);
+    if (!symbol) return null;
+    return symbol;
+  };
+
+  const handleErrors = () => {
+    let error = false;
+    let messError = '';
+    if (Number(getValues('amountFrom')) == 0) {
+      error = true;
+      messError = t('swap:inValidSwapAmount');
+    }
+    if (Number(getValues('amountFrom')) < SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1)) {
+      error = true;
+      messError = t('swap:inValidSwapAmount');
+    }
+    if (SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1) > getBalanceBySymbolId(watch('symbolFrom'))) {
+      error = true;
+      messError = t('swap:notEnoughAmount');
+    }
+    if (messError) {
+      toast.error(t(messError), { containerId: TOAST_ENUM.COMMON });
+    }
+    return error;
+  };
+
+  const handleSubmitForm = () => {
+    if (!handleErrors()) {
+      handleSubmit(onSubmit)();
+    }
+  };
+
+  useImperativeHandle(ref, () => ({
+    emitData: handleSubmitForm,
+    getValues: getValues,
+  }));
 
   const toSymbols = useMemo(() => {
     const tempSymbols = [...cryptoSymbols];
@@ -99,15 +134,14 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     return tempSymbols;
   }, [watch('symbolTo')]);
 
-  useEffect(() => {
-    if (cryptoSymbols.length) {
-      const symbolFrom = cryptoSymbols[0].id;
-      const symbolTo = cryptoSymbols[1].id;
+  const exchangeCoinRate = useMemo(() => {
+    const symbolFrom = getSymbolById(watch('symbolFrom'));
+    const symbolTo = getSymbolById(watch('symbolTo'));
 
-      setValue('symbolFrom', symbolFrom);
-      setValue('symbolTo', symbolTo);
-    }
-  }, [cryptoSymbols]);
+    const fromPrice = symbolFrom ? symbolFrom.price : 0;
+    const toPrice = symbolTo ? symbolTo.price : 1;
+    return fromPrice / toPrice;
+  }, [watch('symbolFrom'), watch('symbolTo')]);
 
   const handleChangeCoinSwap = () => {
     const curVal = JSON.parse(JSON.stringify(getValues()));
@@ -116,18 +150,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     setValue('amountFrom', curVal.amountTo);
   };
 
-  const getBalanceBySymbolId = (symbolId: string) => {
-    const tempBalance = balances.find((item) => item.symbolId === symbolId);
-    return tempBalance ? tempBalance.amount : 0;
-  };
-
-  const getSymbolById = (id: string) => {
-    const symbol = cryptoSymbols.find((item) => item.id === id);
-    if (!symbol) return null;
-    return symbol;
-  };
-
-  const handleApproximately = async (balance: number) => {
+  const handleApproximately = async (balance: string) => {
     try {
       setIsLoadingApproximately(true);
       // const res = await api_exchangeRate(watch('symbolFrom'), watch('symbolTo'));
@@ -138,11 +161,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
       const toPrice = symbolTo ? symbolTo.price : 1;
 
       // const { fromPrice, toPrice } = res.data;
-      const amountTo = (balance * fromPrice) / toPrice;
+      const amountTo = (Number(balance) * fromPrice) / toPrice;
 
-      setValue('amountTo', amountTo);
+      setValue('amountTo', currencyFormat1(amountTo, 8, '', false));
     } catch (error) {
-      setValue('amountTo', 0);
+      setValue('amountTo', '0');
     } finally {
       setIsLoadingApproximately(false);
     }
@@ -152,9 +175,28 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     const symbolFrom = getSymbolById(watch('symbolFrom'));
     if (symbolFrom) {
       const avaBalance = getBalanceBySymbolId(symbolFrom.id);
-      setValue('amountFrom', avaBalance);
+      setValue('amountFrom', currencyFormat1(avaBalance, 4, '', false));
     }
   };
+
+  const onBlurFromBalance = () => {
+    const balance = getBalanceBySymbolId(watch('symbolFrom'));
+    if (Number(getValues('amountFrom')) > balance) {
+      setValue('amountFrom', currencyFormat1(Number(balance), 4, '', false));
+    }
+  };
+
+  useEffect(() => {
+    if (cryptoSymbols.length) {
+      const symbolFrom = cryptoSymbols[0].id;
+      const symbolTo = cryptoSymbols[1].id;
+      const tempAmountFrom = Math.min(getBalanceBySymbolId(symbolFrom), SWAP_MIN / (cryptoSymbols[0].price || 1));
+
+      setValue('symbolFrom', symbolFrom);
+      setValue('symbolTo', symbolTo);
+      setValue('amountFrom', currencyFormat1(Number(tempAmountFrom), 4, '', false));
+    }
+  }, [cryptoSymbols]);
 
   useEffect(() => {
     handleApproximately(watch('amountFrom'));
@@ -168,7 +210,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             {t('swap:getApproximately')}
           </div>
           <div className="text-[16px] text-[#31373d] dark:text-[#C2C2C2] mb-[20px] text-left">
-            <div>Min: {0}</div>
+            <div>
+              Min:
+              {currencyFormat1(SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price ?? 1), 4, '', false)}{' '}
+              {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+            </div>
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -185,6 +231,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                 size={7}
                 customClass="flex-1 bg-transparent pl-[2px]"
                 control={control}
+                onBlur={onBlurFromBalance}
                 isShowError={false}
                 name="amountFrom"
               />
@@ -273,7 +320,9 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             </div>
           </div>
           <div className="mt-[20px] flex items-center mb-2 gap-1 justify-between text-[14px]">
-            <div>Real Money: {getBalanceBySymbolId(watch('symbolFrom'))}</div>
+            <div>
+              Real Money: {getBalanceBySymbolId(watch('symbolFrom'))} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+            </div>
             {/* <div>Bonus Money: {Number(swapData.bonusMoney)}</div> */}
           </div>
           <div
@@ -286,8 +335,8 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           >
             <div className="dark:text-white text-[#31373d] font-[700]">
               <span className="inline-block w-1 h-1 rounded-full	bg-[#3BC117] mr-1"></span>{' '}
-              {formatLengthNumber(watch('amountFrom'))} {getSymbolById(watch('symbolFrom'))?.name} ≈{' '}
-              {formatLengthNumber(watch('amountTo'))} {getSymbolById(watch('symbolTo'))?.name}
+              {currencyFormat1(1, 2, '', false)} {getSymbolById(watch('symbolFrom'))?.name} ≈{' '}
+              {currencyFormat1(exchangeCoinRate, 8, '', false)} {getSymbolById(watch('symbolTo'))?.name}
             </div>
           </div>
           <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-[#161D26] rounded-t-[4px]">
@@ -297,16 +346,17 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-[#161D26] rounded-b-[4px]">
             <p className="text-[#98a7b5]">{t('swap:swapFee')}</p>
             <p className="dark:text-white text-[#31373d]">
-              {Number(SWAP_FEE) * watch('amountTo')}{' '}
-              <span className="text-[#98a7b5]">{getSymbolById(watch('symbolTo'))?.name}</span>
+              {Number(SWAP_FEE) * Number(watch('amountFrom'))}{' '}
+              <span className="text-[#98a7b5]">{getSymbolById(watch('symbolFrom'))?.name}</span>
             </p>
           </div>
         </form>
       </div>
       <ModalAssetsPortfolio
         onChangeCoin={(crypto: CurrencyType) => {
+          const minValue: number = Math.min(getBalanceBySymbolId(crypto.id), SWAP_MIN / (crypto.price || 1));
           setValue('symbolFrom', String(crypto.id));
-          setValue('amountFrom', getBalanceBySymbolId(crypto.id));
+          setValue('amountFrom', currencyFormat1(Number(minValue), 4, '', false));
         }}
         cryptoSymbol={watch('symbolFrom')}
         cryptoSymbols={fromSymbols}
