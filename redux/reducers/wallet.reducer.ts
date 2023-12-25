@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { api_getUserBalance, api_getWalletInfo } from '@/api/wallet';
+import { api_getDepositTime, api_getUserBalance, api_getWalletInfo } from '@/api/wallet';
 import { AppDispatch } from '@/base/redux/store';
 import { WalletState } from '@/base/types/reducer-states';
 import {
@@ -16,6 +16,7 @@ const initialState: WalletState = {
   totalBalance: 0,
   realBalance: 0,
   bonusBalance: 0,
+  depositTime: 0,
   networks: [],
   symbols: [],
   fiatSymbols: [],
@@ -57,6 +58,9 @@ export const walletReducer = createSlice({
     setLocalFiat: (state: WalletState, action: PayloadAction<CurrencyType | null>) => {
       state.localFiat = action.payload;
     },
+    setDepositTime: (state: WalletState, action: PayloadAction<number>) => {
+      state.depositTime = action.payload;
+    },
   },
 });
 
@@ -68,6 +72,7 @@ export const {
   setCryptoCurrencies,
   setFiatSymbols,
   setBalance,
+  setDepositTime,
   setLocalFiat,
 } = walletReducer.actions;
 export default walletReducer.reducer;
@@ -79,6 +84,7 @@ export const logoutWallet = () => async (dispath: AppDispatch) => {
   dispath(setSymbols([]));
   dispath(setCryptoCurrencies([]));
   dispath(setFiatSymbols([]));
+  dispath(setDepositTime(0));
   dispath(
     setBalance({
       totalBalance: 0,
@@ -93,7 +99,7 @@ export const logoutWallet = () => async (dispath: AppDispatch) => {
 export const initWalletInfo = () => async (dispatch: AppDispatch) => {
   try {
     const result = await api_getWalletInfo();
-    const { wallets, balances, networks, symbols, currency, fiatSymbols } = result.data;
+    const { wallets, balances, networks, symbols, currency, fiatSymbols, depositTime } = result.data;
 
     const tempWallets: DepositAddressType[] =
       wallets?.map((item: any) => ({
@@ -162,6 +168,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
     dispatch(setSymbols(tempSymbols));
     dispatch(setFiatSymbols(tempFiatSymbols));
     dispatch(setCryptoCurrencies(tempCurrencies));
+    dispatch(setDepositTime(Number(depositTime)));
   } catch (error) {
     console.log(error);
     dispatch(setNetworks([]));
@@ -182,6 +189,15 @@ export const getBalance = () => async (dispatch: AppDispatch) => {
     }));
 
     dispatch(setBalances(tempBalances));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getDepositTime = () => async (dispatch: AppDispatch) => {
+  try {
+    const result = await api_getDepositTime();
+    dispatch(setDepositTime(result.data));
   } catch (error) {
     console.log(error);
   }

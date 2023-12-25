@@ -2,12 +2,13 @@ import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
 import { useQRCode } from 'next-qrcode';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
-import { copyClipBoard, currencyFormat, exchangeByLocaleFiat } from '@/base/libs/utils';
+import { DEPOSIT_BONUS } from '@/base/constants/common';
+import { copyClipBoard, currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import { DepositAddressComponent } from '@/components/depositAddress/depositAddress';
@@ -37,62 +38,48 @@ const DepositCryptoComponent = () => {
   const { Canvas } = useQRCode();
   const { t } = useTranslation('');
 
-  const { wallets } = useSelector(
+  const { wallets, currentDepositTime } = useSelector(
     (state: AppState) => ({
       wallets: state.wallet.depositAddress,
+      currentDepositTime: state.wallet.depositTime,
     }),
     shallowEqual,
   );
 
-  const getExtra = (countDeposit: number) => {
-    let valueDeposit = 0;
-    switch (countDeposit) {
-      case 1:
-        valueDeposit = 20000;
-        break;
-      case 2:
-        valueDeposit = 40000;
-        break;
-      case 3:
-        valueDeposit = 60000;
-        break;
-      default:
-        valueDeposit = 100000;
-        break;
-    }
-    return currencyFormat(exchangeByLocaleFiat('USDT', activeCoin?.name, valueDeposit), 4);
-  };
-
-  const getTime = (time: number) => {
-    let rankReturn = '';
-    if (time > 3) {
-      rankReturn = time + 'th+';
+  const depositDetail = useMemo(() => {
+    const nextDeposit = currentDepositTime + 1;
+    let rankReturn: any = '';
+    let depositData: any = null;
+    if (nextDeposit > 4) {
+      rankReturn = 4;
     } else {
-      switch (time) {
+      switch (nextDeposit) {
         case 1:
           rankReturn = '1st';
+          depositData = DEPOSIT_BONUS[0];
           break;
         case 2:
           rankReturn = '2nd';
+          depositData = DEPOSIT_BONUS[1];
           break;
-        default:
+        case 3:
           rankReturn = '3rd';
+          depositData = DEPOSIT_BONUS[2];
+          break;
+        case 4:
+          rankReturn = '4th';
+          depositData = DEPOSIT_BONUS[3];
           break;
       }
     }
-    return rankReturn;
-  };
 
-  const getDepositBonusDetail = async () => {
-    try {
-      // const res = await api.get('deposit/get-deposit-bonus', {
-      //   params: {
-      //     currency: activeCoin?.symbol,
-      //   },
-      // });
-      // setDepositBonus(res.data);
-    } catch (error) {}
-  };
+    return {
+      rankReturn,
+      percent: depositData ? depositData.percent : 0,
+      minAmount: depositData ? depositData.minAmount : 0,
+      uptoAmount: depositData ? depositData.maxAmount : 0,
+    };
+  }, [currentDepositTime]);
 
   return (
     <>
@@ -107,39 +94,43 @@ const DepositCryptoComponent = () => {
         </div>
 
         <div className="flex flex-col items-start w-full gap-2 mt-[20px]">
-          <div className="flex items-center gap-[5px]">
-            <div
-              className="text-start text-[14px] dark:text-[#C2C2C2] text-[#31373d]"
-              dangerouslySetInnerHTML={{
-                __html: t('deposit:getExtra', {
-                  // percent: `${depositBonus?.percentageBonus}%`,
-                  percent: `180%`,
-                  value: `${currencyFormat(depositBonus?.minDepositBonus, 4)} ${activeCoin.name}`,
-                }),
-              }}
-            ></div>
-            <InfoCircle
-              width={17}
-              height={17}
-              className="text-amber-500 w-[18px] h-[18px]"
-              role="button"
-              data-tooltip-id={'deposit-tooltip'}
-            />
-            <Tooltip id={'deposit-tooltip'} place="bottom">
-              <div>
-                <p className="text-white">
-                  {getTime(depositBonus?.depositTimes)}&nbsp;{t('deposit:depositBonus')}
-                </p>
-                <p className="text-[#98a7b5]">{`${depositBonus?.percentageBonus}% ${t('deposit:upTo')} ${getExtra(
-                  depositBonus?.depositTimes,
-                )} ${activeCoin.name}`}</p>
-                <p className="text-[#98a7b5]">
-                  {t('deposit:minimumDeposit')}{' '}
-                  {`${currencyFormat(depositBonus?.minDepositBonus, 4)} ${activeCoin.name}`}
-                </p>
-              </div>
-            </Tooltip>
-          </div>
+          {currentDepositTime < 3 && (
+            <div className="flex items-center gap-[5px]">
+              <div
+                className="text-start text-[14px] dark:text-[#C2C2C2] text-[#31373d]"
+                dangerouslySetInnerHTML={{
+                  __html: t('deposit:getExtra', {
+                    percent: depositDetail.rankReturn,
+                    value: `${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${
+                      activeCoin.name
+                    }`,
+                  }),
+                }}
+              ></div>
+              <InfoCircle
+                width={17}
+                height={17}
+                className="text-amber-500 w-[18px] h-[18px]"
+                role="button"
+                data-tooltip-id={'deposit-tooltip'}
+              />
+              <Tooltip id={'deposit-tooltip'} place="bottom">
+                <div>
+                  <p className="text-white">
+                    {depositDetail.rankReturn}&nbsp;{t('deposit:depositBonus')}
+                  </p>
+                  <p className="text-[#98a7b5]">{`${depositDetail.percent}% ${t('deposit:upTo')} ${
+                    depositDetail.uptoAmount
+                  } USDT`}</p>
+                  <p className="text-[#98a7b5]">
+                    {t('deposit:minimumDeposit')}{' '}
+                    {`${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${activeCoin.name}`}
+                  </p>
+                </div>
+              </Tooltip>
+            </div>
+          )}
+
           {wallets.findIndex((wallet) => wallet.networkId === activeNetwork.id) != -1 && (
             <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-[#31373d] rounded-[16px] gap-[20px] py-[13px] px-[20px] dark:bg-[#161D26]/50 bg-[#f5f6fa]">
               <div className="rounded-[16px]">

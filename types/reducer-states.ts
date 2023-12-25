@@ -72,6 +72,7 @@ export type UserDataState = {
 export type WalletState = {
   localFiat: CurrencyType | null;
   totalBalance: number;
+  depositTime: number;
   realBalance: number;
   bonusBalance: number;
   networks: CryptoNetWorkType[];

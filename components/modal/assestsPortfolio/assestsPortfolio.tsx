@@ -164,12 +164,20 @@ export default function ModalAssetsPortfolio({
                           </div>
                         </div>
                         <div className="text-right">
-                          {currencyFormat1(getBalanceByCrypto(coin) * coin.price * exchangeRate, 2, localFiat?.name)}
-                          <br />
-                          <span className="dark:text-gray-400 text-[#31373d] text-[12px]">
-                            {currencyFormat(getBalanceByCrypto(coin), 2)}
-                          </span>
-                          {/* <span className="text-[16px] dark:text-white text-black">{currencyFormat(Number(coin?.balance || 0))}</span> */}
+                          {viewInFiat && (
+                            <>
+                              {currencyFormat1(
+                                getBalanceByCrypto(coin) * coin.price * exchangeRate,
+                                2,
+                                localFiat?.name,
+                              )}
+                              <br />
+                              <span className="dark:text-gray-400 text-[#31373d] text-[12px]">
+                                {currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}
+                              </span>
+                            </>
+                          )}
+                          {!viewInFiat && <>{currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}</>}
                         </div>
                       </div>
                     ))}

@@ -1129,6 +1129,33 @@ export const billType = {
   BONUS: 'bonus',
 };
 
+export const DEPOSIT_BONUS = [
+  {
+    deposit: 1,
+    percent: 180,
+    minAmount: 10, // USD
+    maxAmount: 20000, //USDT
+  },
+  {
+    deposit: 2,
+    percent: 240,
+    minAmount: 50, // USD
+    maxAmount: 40000, // USDT
+  },
+  {
+    deposit: 3,
+    percent: 300,
+    minAmount: 100, // USD
+    maxAmount: 60000, // USDT
+  },
+  {
+    deposit: 4,
+    percent: 360,
+    minAmount: 200, // USD
+    maxAmount: 100000, // USDT
+  },
+];
+
 export const LIST_FILTER_TYPE = [
   { name: 'transaction:deposit', type: TRANSACTION_TYPE.Deposit },
   { name: 'transaction:withdraw', type: TRANSACTION_TYPE.Withdraw },
