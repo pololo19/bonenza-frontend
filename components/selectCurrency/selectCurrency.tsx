@@ -9,7 +9,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat, currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 
@@ -79,7 +79,7 @@ const SelectCurrency = ({
   const handleChangeCrypto = (symbol: CurrencyType) => {
     const availableNetworkIds = symbol.availableNetworks;
 
-    const filteredNetworks = networks.filter((item) => availableNetworkIds.indexOf(item.id) != -1);
+    const filteredNetworks: CryptoNetWorkType[] = networks.filter((item) => availableNetworkIds.indexOf(item.id) != -1);
     const defaultNetwork = filteredNetworks[0];
 
     setAvailabeNetworks([...filteredNetworks]);
@@ -94,51 +94,14 @@ const SelectCurrency = ({
 
     return selectedBalance?.amount || 0;
   };
-
-  // const handleChangeNetwork = async (network: string) => {
-  //   setActiveNetwork(network);
-
-  //   let newActiveCrypto = depositCryptoArray.find(
-  //     (crypto) => crypto?.symbol === activeCoin?.symbol && crypto?.network === network,
-  //   );
-  //   if (!newActiveCrypto) {
-  //     newActiveCrypto = { ...depositCryptoArray[0], network: network };
-  //   }
-  //   if (newActiveCrypto) {
-  //     setActiveCoin(newActiveCrypto);
-  //     if (newActiveCrypto.symbol === 'USDT') {
-  //       dispatch(changeUsdtNetwork(network ?? 'BEP20'));
-  //       CookiesStorage.setCookieData(CookieKey.usdtNetwork, network);
-  //       const usdtActive = {
-  //         amount: Number(newActiveCrypto?.balance),
-  //         amountLocked: Number(newActiveCrypto?.balanceLocked),
-  //         currency: newActiveCrypto?.symbol,
-  //         currencyAlias: newActiveCrypto?.network,
-  //         id: newActiveCrypto?.id,
-  //         maxDepositAmount: undefined,
-  //         minDepositAmount: undefined,
-  //         isFavorite: newActiveCrypto?.isFavorite,
-  //         type: CurrencyEnum.CRYPTO,
-  //       };
-  //       dispatch(changeActiveFiat(usdtActive));
-  //       CookiesStorage.setCookieData(CookieKey.activeFiat, String(usdtActive?.currency));
-  //       CookiesStorage.setCookieData(CookieKey.activeFiatData, JSON.stringify(usdtActive));
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (activeCoin) onChangeCoin?.(activeCoin);
-  // }, [activeCoin]);
-
   useEffect(() => {
     if (query.coin) {
       const coin = symbols.find((e) => e.name.toUpperCase() === String(query.coin).toUpperCase());
       if (coin) {
-        onChangeCoin(coin);
+        handleChangeCrypto(coin);
       }
     }
-  }, [query, symbols]);
+  }, [query, symbols, networks]);
 
   return (
     <div className="flex flex-col items-start md:gap-[20px] gap-[15px] text-white">
@@ -210,7 +173,7 @@ const SelectCurrency = ({
                 <div className="flex items-center text-[14px] dark:text-[#C2C2C2] text-[#31373d] gap-[10px]">
                   {t('deposit:balance')}{' '}
                   <span className="text-[14px] font-semibold dark:text-white text-[#31373d]">
-                    {currencyFormat(getBalanceBySymbol(activeCoin), 2)}
+                    {currencyFormat1(getBalanceBySymbol(activeCoin), 4, '', false)}
                   </span>
                 </div>
                 <ChevronDownIcon width={15} className="dark:text-white text-[#31373d]" />

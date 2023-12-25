@@ -341,7 +341,9 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 localFiat?.name,
                               )}
                               <br />
-                              <span className="text-gray-400 text-[12px]">{formatLengthNumber(0, toFixedValue)}</span>
+                              <span className="text-gray-400 text-[12px]">
+                                {currencyFormat1(0, toFixedValue, '', false)}
+                              </span>
                             </div>
                           </div>
                         )}
@@ -547,7 +549,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 )}
                                 <br />
                                 <span className="text-gray-400 text-[12px]">
-                                  {formatLengthNumber(getBalanceBySymbol(coin), toFixedValue)}
+                                  {currencyFormat1(getBalanceBySymbol(coin), toFixedValue, '', false)}
                                 </span>
                               </div>
                             </div>
@@ -570,6 +572,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                       checked={viewInFiat}
                       onChange={(value) => {
                         dispatch(changeViewInFiat(value));
+                        dispatch(setLocalFiat(null));
                         if (value) setShowAllFiat(true);
                       }}
                       className={`${

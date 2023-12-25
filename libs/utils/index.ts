@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { compareAsc, differenceInSeconds, format, isValid } from 'date-fns';
 import { camelize } from 'humps';
 import { getParamByParam } from 'iso-country-currency';
-import { identity, pickBy } from 'lodash';
+import { identity, pickBy, round } from 'lodash';
 import Router from 'next/router';
 import qs from 'qs';
 import { Path, UseFormGetValues } from 'react-hook-form';
@@ -469,6 +469,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
       res = formatCompactNumber(number, {
         maximumFractionDigits: 4,
         minimumFractionDigits: 2,
+        roundingMode: 'floor',
       }).toString();
       return `${symbol} ${res}`;
     }
@@ -490,6 +491,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
       res = formatCompactNumber(number, {
         maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
+        roundingMode: 'floor',
       }).toString();
     }
     return `${symbol} ${res}`;
