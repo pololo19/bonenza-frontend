@@ -203,9 +203,9 @@ const WithdrawCryptoPage = () => {
         withdrawAddress: formWithdraw.withdrawAddress,
         withdrawAmount: Number(formWithdraw.withdrawAmount),
       };
-
+      console.log(formData, '-----206');
       const _res = await api_withdraw(formData);
-
+      console.log(_res, '-----208');
       const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
 
       setTimeout(() => {

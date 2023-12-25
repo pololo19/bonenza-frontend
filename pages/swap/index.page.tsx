@@ -30,7 +30,6 @@ const SwapPage = () => {
   const onSubmit = async (data: SwapFormType) => {
     try {
       setIsLoading(true);
-      console.log(data);
       if (Number(data.amountFrom) === 0) {
         toast.error(t('swap:inValidSwapAmount'), { containerId: TOAST_ENUM.COMMON });
         return;
