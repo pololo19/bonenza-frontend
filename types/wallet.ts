@@ -8,6 +8,7 @@ export type CryptoCurrencyType = {
   id: string;
   networkId: string;
   symbolId: string;
+  withdrawFee: number;
   minWithdrawAmount: number;
 };
 

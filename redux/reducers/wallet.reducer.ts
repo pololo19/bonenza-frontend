@@ -140,7 +140,8 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         id: item.id,
         networkId: item.network.id,
         symbolId: item.symbol.id,
-        minWithdrawAmount: Number(item.minimumWithdrawAmountUsd),
+        withdrawFee: Number(item.withdrawFee),
+        minWithdrawAmount: Number(item.withdrawFee),
       })) || [];
 
     const tempFiatSymbols: CurrencyType[] =
