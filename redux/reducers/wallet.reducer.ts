@@ -61,6 +61,9 @@ export const walletReducer = createSlice({
     setDepositTime: (state: WalletState, action: PayloadAction<number>) => {
       state.depositTime = action.payload;
     },
+    addDepositTime: (state: WalletState, action: PayloadAction<number>) => {
+      state.depositTime += action.payload;
+    },
   },
 });
 
@@ -74,6 +77,7 @@ export const {
   setBalance,
   setDepositTime,
   setLocalFiat,
+  addDepositTime,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 
@@ -189,6 +193,17 @@ export const getBalance = () => async (dispatch: AppDispatch) => {
       symbolId: item.symbolId,
     }));
 
+    const temptotalBalance = result.data?.totalBalance;
+    const temprealBalance = result.data?.realBalance;
+    const tempbonusBalance = result.data?.bonusBalance;
+
+    dispatch(
+      setBalance({
+        totalBalance: Number(temptotalBalance),
+        realBalance: Number(temprealBalance),
+        bonusBalance: Number(tempbonusBalance),
+      }),
+    );
     dispatch(setBalances(tempBalances));
   } catch (error) {
     console.log(error);

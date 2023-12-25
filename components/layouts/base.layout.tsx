@@ -34,7 +34,7 @@ import {
   changeShowFullChat,
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
-import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { addDepositTime, getBalance, getDepositTime, setDepositTime } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
@@ -106,6 +106,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     cryptoArray,
     userId,
     walletSocket,
+    depositTime,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -128,10 +129,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowCryptoOnlineModal: state.modal.isShowCryptoOnlineModal,
       isShowUpdateAvatar: state.modal.isShowUpdateAvatar,
       isShowResetPassword: state.modal.isShowResetPassword,
+
       userId: state.auth.user.userId,
       cryptoArray: state.common.cryptoArray,
-
       walletSocket: state.socket.walletSocket,
+      depositTime: state.wallet.depositTime,
     }),
     shallowEqual,
   );
@@ -414,6 +416,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               containerId: TOAST_ENUM.COMMON,
             });
             dispatch(getBalance());
+            dispatch(addDepositTime(1));
             break;
 
           default:
