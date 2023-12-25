@@ -491,7 +491,7 @@ const TransactionPage = () => {
       const currentDate = new Date();
       const endDateTimeStamp = Math.floor(currentDate.getTime() / 1000);
       const startDate = new Date(currentDate);
-      startDate.setDate(currentDate.getDate() - 60);
+      startDate.setDate(currentDate.getDate() - optionFilter.dayPast.type);
       const startDateTimeStamp = Math.floor(startDate.getTime() / 1000);
 
       const res = await api_getTransactions({
