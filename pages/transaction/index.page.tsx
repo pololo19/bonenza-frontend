@@ -103,7 +103,7 @@ const TransactionPage = () => {
             {viewInFiat ? (
               <>{currencyFormat1(row.original.amountUsd * exchangeRate, 4, String(localFiat?.name))}</>
             ) : (
-              formatLengthNumber(Math.abs(row.original.amount), 4)
+              currencyFormat1(row.original.amount, 4, '', false)
             )}
 
             <Image height={20} width={20} src={row.original.symbolLogo} alt="" />
@@ -481,9 +481,9 @@ const TransactionPage = () => {
   };
 
   const handleGetTransaction = async (page: number) => {
+    setDataTable([]);
+    setTotalRows(0);
     if (optionFilter.type.type === LIST_FILTER_TYPE[3].type) {
-      setDataTable([]);
-      setTotalRows(0);
       return;
     }
     try {
@@ -505,7 +505,6 @@ const TransactionPage = () => {
       });
 
       const { data, totalCount, totalPage } = res.data;
-
       switch (optionFilter.type.type) {
         case TRANSACTION_TYPE.Swap:
           const tempSwapData: TransactionSwapType[] = data?.map((item: any) => ({
@@ -528,6 +527,7 @@ const TransactionPage = () => {
               amount: item.amount,
               amountUsd: item.amountUsd,
               fee: 0,
+              feeUsd: 0,
               id: item.id,
               orderId: item.id,
               status: getStatusById(item.status),
@@ -549,9 +549,10 @@ const TransactionPage = () => {
 
         case TRANSACTION_TYPE.Withdraw:
           const tempWithdrawData: TransactionType[] = data?.map((item: any) => ({
-            amount: item.amount,
-            amountUsd: item.amountUsd,
+            amount: Number(item.amountWithFee),
+            amountUsd: Number(item.amountWithFeeUsd),
             fee: item.withdrawFee,
+            feeUsd: Number(item.amountWithFeeUsd) - Number(item.amount),
             id: item.id,
             orderId: item.id,
             status: getStatusById(item.status),
@@ -565,8 +566,9 @@ const TransactionPage = () => {
             username: username,
             value: 0,
             type: TRANSACTION_TYPE.Withdraw,
-            withdrawalAddress: item.fromAddress,
+            withdrawalAddress: item.toAddress,
           }));
+          console.log(tempWithdrawData, '----570');
           setDataTable(tempWithdrawData);
           break;
 
@@ -594,7 +596,7 @@ const TransactionPage = () => {
       optionFilter.type.type !== TRANSACTION_TYPE.Swap
     ) {
       setIsShowDetailTransaction(true);
-      setTransaction({ ...row.original, ...optionFilter });
+      setTransaction({ ...row.original });
     }
   };
 
@@ -890,7 +892,7 @@ const TransactionPage = () => {
               setIsShowDetailTransaction(false);
             }}
             transaction={transaction}
-            type={String(t(optionFilter.type.name))}
+            type={optionFilter.type.type}
           />
         )}
       </div>

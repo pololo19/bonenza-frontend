@@ -46,6 +46,8 @@ export default function ModalDetailTransaction({
     return transaction.status === LIST_FILTER_STATUS[4].type || transaction.status === LIST_FILTER_STATUS[5].type;
   }, [transaction]);
 
+  console.log(transaction, 'transaction');
+
   return (
     <>
       <CommonModal
@@ -121,7 +123,7 @@ export default function ModalDetailTransaction({
                 {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
               </span>
             </div>
-            {type === String(t('transaction:withdraw')) && (
+            {type === TRANSACTION_TYPE.Withdraw && (
               <>
                 <div className="flex items-center justify-between">
                   <span className="dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:fee'))}</span>
