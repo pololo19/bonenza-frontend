@@ -9,12 +9,12 @@ import { Path, UseFormGetValues } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import { USER_ROLE_DEFAULT } from '@/base/constants/auth';
-import { TOAST_ENUM } from '@/base/constants/common';
 import {
   CookieKey,
   DATE_TIME_FORMAT_DEFAULT,
   ERROR_CODE_INVALID_ACCOUNT,
   EXTENSION_IMG_AFTER_CROP,
+  TOAST_ENUM,
   TYPE_IMG_AFTER_CROP,
 } from '@/base/constants/common';
 import { DATE_DASH_DELIMITER_REGEX, DATE_ISO_FORMAT, DATE_VALID_DELIMITER } from '@/base/constants/validation';
@@ -397,6 +397,18 @@ export const formatLengthNumber = (num: number | string, length?: number) => {
 export const isDecimalNumber = (num: number | string) => {
   if (!num) return false;
   return !!Math.abs(Number(num)).toString().split('.')[1];
+};
+
+export const isEmail = (email: string) => {
+  return String(email)
+    .toLowerCase()
+    .match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+    );
+};
+
+export const isPhone = (phone: string) => {
+  return String(phone).match(/^[0-9]{10,11}$/);
 };
 
 export const snakeCaseToString = (str?: string) => {
