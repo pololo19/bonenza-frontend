@@ -10,7 +10,7 @@ import { api_forgetPassword, api_sendSMS } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
-import { REGEX_EMAIL } from '@/base/constants/validation';
+import { isEmail, isPhone } from '@/base/libs/utils';
 import { saveVerifyInfo, setIsForgetPassword } from '@/base/redux/reducers/auth.reducer';
 import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
 import { AuthenticationModeEnum } from '@/base/types/common';
@@ -31,27 +31,49 @@ export default function ModalForgotPassword() {
   const schema = yup.object().shape({
     email: yup
       .string()
-      .required(String(t('authentication:emailRequired')))
-      .email(String(t('authentication:emailWrong')))
-      .matches(REGEX_EMAIL, String(t('authentication:emailWrong')))
+      .required(String(t('authentication:email&phoneRequired')))
       .trim(),
   });
+
+  const handleError = () => {
+    let error = false;
+    let mes = '';
+    const email = getValues('email');
+    const isPhoneNumber = email?.length > 2 && Number.isInteger(Number(email));
+
+    if (!isPhoneNumber! && !isEmail(email)) {
+      error = true;
+      mes = t('authentication:emailWrong');
+    }
+
+    if (isPhoneNumber && !isPhone(email)) {
+      error = true;
+      mes = t('authentication:phoneWrong');
+    }
+
+    if (error) {
+      toast.error(mes, { containerId: TOAST_ENUM.MODAL });
+    }
+    return error;
+  };
 
   const {
     handleSubmit,
     control,
+    getValues,
     formState: { errors },
   } = useForm<ForgotPasswordFormType>({
     resolver: yupResolver(schema),
   });
 
   const onReset = async (formReset: ForgotPasswordFormType) => {
+    if (handleError()) return;
     try {
       setIsLoading(true);
       const isPhoneNumber = formReset.email?.length > 2 && Number.isInteger(Number(formReset.email));
       let _res;
       if (isPhoneNumber) {
-        const phone = String(countryCallingCode?.countryCallingCode) + formReset.email;
+        const phone = `+${String(countryCallingCode?.countryCallingCode)}${formReset.email}`;
         _res = await api_sendSMS(phone, 'reset');
       } else {
         _res = await api_forgetPassword(formReset.email);
@@ -79,7 +101,7 @@ export default function ModalForgotPassword() {
     <>
       {isLoading && <Loader />}
       <div className="sm:min-h-[428px]">
-        <div className="sm:overflow-y-auto w-full">
+        <div className="sm:overflow-y-auto w-full h-full">
           <div className="font-bold text-[16px] text-white">{t('resetPassword:resetPassword')}</div>
           <form onSubmit={handleSubmit(onReset)} data-testid="user-detail-form">
             <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">

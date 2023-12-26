@@ -572,6 +572,7 @@
     "email&phoneRequired": "Email/Phone number is required",
     "phoneRequired": "Phone number is required",
     "emailWrong": "Email format is wrong",
+    "phoneWrong": "Phone number format is wrong",
     "emailTaken": "This email is already registered in bonenza.com, please change a different email or contact our Live Support.",
     "phoneTaken": "This phone number is already registered in bonenza.com, please change a different phone number or contact our Live Support.",
     "passwordRequired": "Password is required",
