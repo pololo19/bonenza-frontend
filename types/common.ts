@@ -358,6 +358,7 @@ export type TransactionType = {
   amount: number;
   amountUsd: number;
   fee: number;
+  feeUsd: number;
   id: string;
   orderId: string;
   status: TransactionStatus;
