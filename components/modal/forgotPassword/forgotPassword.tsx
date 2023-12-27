@@ -80,7 +80,7 @@ export default function ModalForgotPassword() {
       }
 
       const verifyRequest = isPhoneNumber
-        ? String(countryCallingCode?.countryCallingCode) + formReset.email
+        ? `+${String(countryCallingCode?.countryCallingCode)}${formReset.email}`
         : formReset.email;
       dispatch(saveVerifyInfo({ isPhoneVerifyRequested: !!isPhoneNumber, verifyRequest }));
 
