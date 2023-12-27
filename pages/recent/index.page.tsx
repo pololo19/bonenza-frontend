@@ -1,21 +1,21 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import Head from 'next/head';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 
 import api from '@/api/api';
-import { GameDetail } from '@/base/types/common';
+import { api_getRecentGames } from '@/api/game';
+import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-
-import BaseLayout from '@/components/layouts/base.layout';
+import { GameDetail, GameListType } from '@/base/types/common';
+import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
-import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import { NoDataComponent } from '@/components/noData/noData';
 import withAuth from '@/components/hoc/withAuth';
-import { useTranslation } from '@/base/config/i18next';
+import BaseLayout from '@/components/layouts/base.layout';
+import { NoDataComponent } from '@/components/noData/noData';
 
 function RecentPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
@@ -25,10 +25,17 @@ function RecentPage() {
   const handleGetListGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-recent-list', { params: { limit: 40, page: currentPage } });
-      setListGame(res.data.data);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40) {
+      const res = await api_getRecentGames(currentPage, 40);
+      const tempGameLists = res.data.games.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        identifier: item.identifier,
+        payout: Number(item.payout),
+        profitMultiplayer: Number(item.profitMultiplier),
+      }));
+      setListGame((current) => [...current, ...tempGameLists]);
+      setTotalGames(res.data.totalCount ?? 0);
+      if (res.data.games.length < 40) {
         setIsShowMore(false);
       }
     } catch (error) {

@@ -7,11 +7,13 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '@/api/api';
+import { api_validateToken } from '@/api/auth';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
+import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeUsdtNetwork } from '@/base/redux/reducers/common.reducer';
 import {
@@ -34,7 +36,14 @@ import {
   changeShowFullChat,
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
-import { addDepositTime, getBalance, getDepositTime, setDepositTime } from '@/base/redux/reducers/wallet.reducer';
+import { setSocket } from '@/base/redux/reducers/socket.reducer';
+import {
+  addDepositTime,
+  getBalance,
+  getDepositTime,
+  initWalletInfo,
+  setDepositTime,
+} from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
@@ -106,7 +115,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     cryptoArray,
     userId,
     walletSocket,
-    depositTime,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -138,250 +146,17 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     shallowEqual,
   );
 
-  const getBonus = async () => {
-    if (isLogin) {
-      try {
-        const response = await api.get('auth/get-notifications-bonus');
-        const dataPromotion = response.data.data;
-        const listMessage = dataPromotion.map((item: any) => item.notification);
-        if (listMessage.includes('success')) {
-          let listCoin = dataPromotion.filter((item: any) => item.notification === 'success');
-          listCoin.forEach((item: any) => {
-            toast.success('You have received bonus of ' + item.symbol + ' coin');
-          });
-          return;
-        } else if (listMessage.includes('You have not recharged yet.')) {
-          setTimeout(getBonus, 60000);
-        } else {
-          return;
-        }
-      } catch (error) {}
-    } else return;
-  };
-
-  // const handleGetFiat = async () => {
-  //   try {
-  //     // setIsLoading(true);
-  //     const responseFiat = await api.get('stripe/get-fiat-amount');
-  //     const responseCrypto = await api.get('deposit/get-all-deposit');
-  //     const listCrypto = responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => {
-  //       return {
-  //         amount: Number(crypto?.balance),
-  //         currency: crypto?.symbol,
-  //         currencyAlias: crypto?.network,
-  //         id: crypto?.id,
-  //         isFavorite: crypto?.isFavorite,
-  //         maxDepositAmount: undefined,
-  //         minDepositAmount: undefined,
-  //         type: CurrencyEnum.CRYPTO,
-  //       };
-  //     });
-
-  //     const listFiat = responseFiat.data.data.map((fiat: DepositAddress) => {
-  //       return {
-  //         ...fiat,
-  //         type: CurrencyEnum.FIAT,
-  //       };
-  //     });
-  //     dispatch(
-  //       changeDepositCryptoArray(
-  //         responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => updateCoin(crypto)),
-  //       ),
-  //     );
-  //     dispatch(changeFiatArray(listFiat));
-  //     dispatch(changeCryptoArray(listCrypto));
-
-  //     // handle Active Currency
-  //     const currentActiveFiat: FiatType = responseFiat.data.data.find(
-  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.activeFiat),
-  //     );
-  //     if (currentActiveFiat?.amount) {
-  //       handleChangeActiveFiat(currentActiveFiat);
-  //       if (currentActiveFiat?.currency === 'USDT') {
-  //         dispatch(changeUsdtNetwork(String(currentActiveFiat?.currencyAlias) ?? 'BEP20'));
-  //       }
-  //     } else {
-  //       const maxCurrencyAmount: FiatType = [...listCrypto, ...listFiat].reduce(function (p: FiatType, v: FiatType) {
-  //         return exchangeByLocaleFiat(p?.currency, 'USD', p?.amount) >
-  //           exchangeByLocaleFiat(v?.currency, 'USD', v?.amount)
-  //           ? p
-  //           : v;
-  //       });
-  //       if (maxCurrencyAmount?.amount) {
-  //         if (maxCurrencyAmount?.currency === 'USDT') {
-  //           dispatch(changeUsdtNetwork(String(maxCurrencyAmount?.currencyAlias) ?? 'BEP20'));
-  //         }
-  //         handleChangeActiveFiat(maxCurrencyAmount);
-  //         const maxLocaleFiat: FiatType = responseFiat.data.data.find(
-  //           (item: FiatType) => item.currency === maxCurrencyAmount.currency,
-  //         );
-  //         if (maxLocaleFiat) handleChangeLocaleFiat(maxLocaleFiat);
-  //       } else {
-  //         handleChangeActiveFiat(responseFiat.data.data[0]);
-  //       }
-  //     }
-
-  //     // handle Locale Fiat
-  //     const storageLocaleFiat: FiatType = responseFiat.data.data.find(
-  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.localeFiat),
-  //     );
-  //     if (storageLocaleFiat) {
-  //       handleChangeLocaleFiat(storageLocaleFiat);
-  //     } else {
-  //       handleChangeLocaleFiat(responseFiat.data.data[0]);
-  //     }
-  //   } catch (error) {
-  //     handleChangeLocaleFiat(FIAT_DATA[0]);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // const handleGet = async () => {
-  //   try {
-  //     // setIsLoading(true);
-  //     const [responseFiat, responseCrypto] = await Promise.all([
-  //       api.get('stripe/get-fiat-amount'),
-  //       api.get('deposit/get-all-deposit'),
-  //     ]);
-
-  //     const listCrypto = responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => {
-  //       return {
-  //         amount: Number(crypto?.balance),
-  //         amountLocked: Number(crypto?.balanceLocked),
-  //         currency: crypto?.symbol,
-  //         currencyAlias: crypto?.symbol === 'USDT' ? 'BEP20' : crypto?.network,
-  //         id: crypto?.id,
-  //         maxDepositAmount: undefined,
-  //         minDepositAmount: undefined,
-  //         isFavorite: crypto?.isFavorite,
-  //         type: CurrencyEnum.CRYPTO,
-  //       };
-  //     });
-  //     const listFiat = responseFiat.data.data.map((fiat: DepositAddress) => {
-  //       return {
-  //         ...fiat,
-  //         type: CurrencyEnum.FIAT,
-  //       };
-  //     });
-  //     dispatch(
-  //       changeDepositCryptoArray(
-  //         responseCrypto.data.data.depositAddress.map((crypto: DepositAddress) => updateCoin(crypto)),
-  //       ),
-  //     );
-  //     dispatch(changeFiatArray(listFiat));
-  //     dispatch(changeCryptoArray(listCrypto));
-
-  //     // handle Active Currency
-  //     const currentActiveFiat: FiatType = [...listCrypto, ...listFiat].find(
-  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.activeFiat),
-  //     );
-  //     if (currentActiveFiat?.amount) {
-  //       handleChangeActiveFiat(currentActiveFiat);
-  //       if (currentActiveFiat?.currency === 'USDT') {
-  //         dispatch(changeUsdtNetwork(String(currentActiveFiat?.currencyAlias)));
-  //       }
-  //     } else {
-  //       const maxCurrencyAmount: FiatType = [...listCrypto, ...listFiat].reduce(function (p: FiatType, v: FiatType) {
-  //         return exchangeByLocaleFiat(p?.currency, 'USD', p?.amount) >
-  //           exchangeByLocaleFiat(v?.currency, 'USD', v?.amount)
-  //           ? p
-  //           : v;
-  //       });
-  //       if (Number(maxCurrencyAmount?.amount)) {
-  //         if (maxCurrencyAmount?.currency === 'USDT') {
-  //           dispatch(changeUsdtNetwork(String(maxCurrencyAmount?.currencyAlias)));
-  //         }
-
-  //         handleChangeActiveFiat(maxCurrencyAmount);
-  //         const maxLocaleFiat: FiatType = responseFiat.data.data.find(
-  //           (item: FiatType) => item.currency === maxCurrencyAmount.currency,
-  //         );
-  //         if (maxLocaleFiat) handleChangeLocaleFiat(maxLocaleFiat);
-  //       } else {
-  //         handleChangeActiveFiat(responseFiat.data.data[0]);
-  //       }
-  //     }
-
-  //     // handle Locale Fiat
-  //     const storageLocaleFiat: FiatType = responseFiat.data.data.find(
-  //       (item: FiatType) => item.currency === CookiesStorage.getCookieData(CookieKey.localeFiat),
-  //     );
-  //     if (storageLocaleFiat) {
-  //       handleChangeLocaleFiat(storageLocaleFiat);
-  //     } else {
-  //       // handleChangeLocaleFiat(responseFiat.data.data[0]);
-  //     }
-  //   } catch (error) {
-  //     handleChangeLocaleFiat(FIAT_DATA[0]);
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
-  // const handleChangeLocaleFiat = (item: FiatType) => {
-  //   try {
-  //     dispatch(changeLocaleFiat(item));
-  //     CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
-  //     CookiesStorage.setCookieData(CookieKey.localeFiatData, JSON.stringify(item));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const handleChangeActiveFiat = (item: FiatType) => {
-  //   try {
-  //     dispatch(changeActiveFiat(item));
-  //     CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
-  //     CookiesStorage.setCookieData(CookieKey.activeFiatData, JSON.stringify(item));
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  const handleGetExchangeRate = async () => {
-    // try {
-    //   const resExchangeRate = await getExchangeRate();
-    //   let exchangeRateData: ObjectLiteral = {};
-    //   resExchangeRate.data.forEach((element: { toCurrency: string; rate: any }) => {
-    //     exchangeRateData[element.toCurrency.toUpperCase()] = element.rate;
-    //   });
-    //   CookiesStorage.setCookieData(CookieKey.exchangeRate, JSON.stringify(exchangeRateData).toUpperCase());
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  };
-
-  const handleUsdtNetwork = () => {
-    const usdtNetworkStorage = CookiesStorage.getCookieData(CookieKey.usdtNetwork);
-    if (usdtNetworkStorage === 'BEP20' || usdtNetworkStorage === 'ERC20') {
-      dispatch(changeUsdtNetwork(usdtNetworkStorage));
-    } else {
-      CookiesStorage.setCookieData(CookieKey.usdtNetwork, 'BEP20');
-    }
-  };
-
   const handleAccount = async () => {
     const accessToken = CookiesStorage.getAccessToken();
     if (accessToken) {
-      const resUser = await api.get('auth/get-user-info');
-      // if (!resUser.data.data.isDeposit) {
-      //   await api.post('deposit/create-deposit-address');
-      // }
-      dispatch(
-        saveUserInfo({
-          ...convertUserInfo(resUser.data),
-        }),
-      );
+      const res = await api_validateToken(accessToken);
+      if (!walletSocket?.connected) {
+        const newSocket = await initialSocketConnection();
+        dispatch(setSocket(newSocket));
+      }
+      dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
+      dispatch(initWalletInfo());
     }
-  };
-
-  const handleUpdateSession = async () => {
-    try {
-      await api.put('/user-session/update-last-used-at', {
-        session: CookiesStorage.getCookieData(CookieKey.session),
-      });
-    } catch (error) {}
   };
 
   useEffect(() => {
@@ -394,7 +169,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   }, []);
 
   useEffect(() => {
-    if (isLogin) {
+    if (!isLogin) {
+      handleAccount();
       // getBonus();
     }
     // handleGet();
@@ -442,68 +218,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     cryptoArray && setCryptoLocked(cryptoArray[0]);
   }, [cryptoArray]);
-
-  useEffect(() => {
-    if (!userId) return;
-    // const interval = setInterval(() => {
-    //   handleUpdateSession();
-    // }, 60000);
-
-    // return () => clearInterval(interval);
-  }, [userId]);
-
-  // Socket for deposit
-  // useEffect(() => {
-  //   if (!userId) return;
-  //   const socketDeposit = io(String(process.env.SOCKET_URL), socketConfig);
-  //   console.log('init socket');
-
-  //   // Socket for deposit
-  //   socketDeposit.on(`deposit_address_${userId}`, (crypto: DepositAddress[]) => {
-  //     console.log(`deposit_address_${userId}`, crypto);
-  //     dispatch(updateCryptoSocket(crypto?.[0]));
-  //     toast.success(
-  //       <div>
-  //         {t('deposit:depositComplete')}
-  //         <br /> {crypto[0].deposit_amount} {crypto[0].symbol}
-  //       </div>,
-  //       { containerId: TOAST_ENUM.COMMON },
-  //     );
-  //   });
-
-  //   // Socket for deposit progress
-  //   socketDeposit.on(`deposit_progress_user_id_${userId}`, () => {
-  //     console.log('deposit_progress_user_id_   ' + `${userId}`);
-  //     toast.success(<div>{t('deposit:depositprogress')}</div>, { containerId: TOAST_ENUM.COMMON });
-  //   });
-
-  //   // Socket for balance
-  //   socketDeposit.on(`balance_update_${userId}`, (crypto: DepositAddress[]) => {
-  //     console.log('update balance', userId, crypto);
-  //     dispatch(updateBalanceSocket(crypto?.[0]));
-  //   });
-
-  //   // Socket for locked amount
-  //   socketDeposit.on(`update_balance_locked_${userId}`, (crypto: DepositAddress[]) => {
-  //     console.log('update_balance_locked_', userId, crypto);
-  //     toast.success(
-  //       <div
-  //         className="w-full"
-  //         onClick={() => {
-  //           dispatch(changeIsShowRakeBack(true));
-  //         }}
-  //       >
-  //         {t('deposit:getBonusSuccess')}
-  //       </div>,
-  //       { containerId: TOAST_ENUM.COMMON },
-  //     );
-  //     dispatch(updateLockedAmountCryptoSocket(crypto?.[0]));
-  //   });
-
-  //   return () => {
-  //     socketDeposit.disconnect();
-  //   };
-  // }, [userId]);
 
   return (
     <>

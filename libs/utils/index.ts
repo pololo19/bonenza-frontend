@@ -1,32 +1,25 @@
 import { AxiosError } from 'axios';
-import { compareAsc, differenceInSeconds, format, isValid } from 'date-fns';
+import { compareAsc, differenceInSeconds, format } from 'date-fns';
 import { camelize } from 'humps';
 import { getParamByParam } from 'iso-country-currency';
-import { identity, pickBy, round } from 'lodash';
+import { identity, pickBy } from 'lodash';
 import Router from 'next/router';
 import qs from 'qs';
 import { Path, UseFormGetValues } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { USER_ROLE_DEFAULT } from '@/base/constants/auth';
-import {
-  CookieKey,
-  DATE_TIME_FORMAT_DEFAULT,
-  ERROR_CODE_INVALID_ACCOUNT,
-  EXTENSION_IMG_AFTER_CROP,
-  TOAST_ENUM,
-  TYPE_IMG_AFTER_CROP,
-} from '@/base/constants/common';
-import { DATE_DASH_DELIMITER_REGEX, DATE_ISO_FORMAT, DATE_VALID_DELIMITER } from '@/base/constants/validation';
+import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT } from '@/base/constants/common';
+import { DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 import { ErrorResponse } from '@/base/types/api';
 import { DepositAddress, NetworkType, ObjectLiteral } from '@/base/types/common';
 import { TransactionStatus } from '@/types/common';
 
 import { CookiesStorage } from '../storage/cookie';
+import { isIsoFormat, isValidDate } from './validate';
 
-export function camelToSnake(value: string) {
-  return value.replace(/[\w]([A-Z])/g, (m) => `${m[0]}_${m[1]}`).toLowerCase();
-}
+export * from './copyClipboard';
+export * from './pageTitle';
+export * from './validate';
 
 export const stringifyParams = (data: any) => {
   const { params, option } = data;
@@ -47,38 +40,6 @@ export function getCurrentDomain() {
 
 export function getUrlRoot(pathname?: string) {
   return pathname ? pathname.split('/')[1] : '';
-}
-
-export function isIsoFormat(str: string) {
-  return DATE_ISO_FORMAT.test(str);
-}
-
-export function isIsoDate(str: string) {
-  if (!isIsoFormat(str)) return false;
-  const d = new Date(str);
-  const numSub = 19;
-  return d instanceof Date && !Number.isNaN(d) && d.toISOString().substring(0, numSub) === str.substring(0, numSub);
-}
-
-export function isValidDate(date: Date | number | string | undefined, options?: { strictMode?: boolean }) {
-  if (!date) return false;
-  if (typeof date !== 'string') return isValid(date);
-
-  // String format
-  const newDateString = date.replace(DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER);
-  if (!options?.strictMode) {
-    if (isIsoFormat(date)) return isValid(date);
-    return isValid(new Date(newDateString));
-  }
-
-  // Check strick mode
-  if (isIsoFormat(date)) return isIsoDate(date);
-  const [year, month, day] = newDateString.split(DATE_VALID_DELIMITER).map((val) => {
-    const newVal = val.split(' ')[0];
-    return Number(newVal);
-  });
-  const newDate = new Date(newDateString);
-  return newDate.getFullYear() === year && newDate.getMonth() === month - 1 && newDate.getDate() === day;
 }
 
 export function createDate(date: Date | number | string) {
@@ -139,10 +100,6 @@ export function checkFormHasField(getValues: UseFormGetValues<ObjectLiteral>, fi
   return Object.keys(getValues())?.includes(field);
 }
 
-export function isAdminOfCompany(role?: string) {
-  return USER_ROLE_DEFAULT.SUPER_ADMIN === role;
-}
-
 export function pushQueryParams(params: ObjectLiteral, options?: { scroll?: boolean }) {
   const query = pickBy(params, identity);
   Router.push({ pathname: Router.route, query }, undefined, options);
@@ -163,32 +120,8 @@ export function convertTimeZone(date: string | Date) {
   return createDate(date).toLocaleString('ja-JP', { timeZone: process.env.TIME_ZONE });
 }
 
-const changeExtension = (fileName: string, extension: string) => {
-  const ext = fileName.split('.').pop();
-  const root = ext ? fileName.substring(0, fileName.length - ext.length) : '';
-  return `${root}${extension}`;
-};
-
-export function canvasToBlob(canvas: HTMLCanvasElement, fileName: string): Promise<File> {
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => {
-      if (blob) {
-        const file = new File([blob], changeExtension(fileName, EXTENSION_IMG_AFTER_CROP), {
-          type: TYPE_IMG_AFTER_CROP,
-        });
-        resolve(file);
-      }
-    }, TYPE_IMG_AFTER_CROP);
-  });
-}
-
 export function byteToGigabyte(input: number, numFixed?: number) {
   const result = input / 1024 / 1024 / 1024;
-  return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
-}
-
-export function byteToMegabyte(input: number, numFixed?: number) {
-  const result = input / 1024 / 1024;
   return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
 }
 
@@ -394,23 +327,6 @@ export const formatLengthNumber = (num: number | string, length?: number) => {
   });
 };
 
-export const isDecimalNumber = (num: number | string) => {
-  if (!num) return false;
-  return !!Math.abs(Number(num)).toString().split('.')[1];
-};
-
-export const isEmail = (email: string) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    );
-};
-
-export const isPhone = (phone: string) => {
-  return String(phone).match(/^[0-9]{10,11}$/);
-};
-
 export const snakeCaseToString = (str?: string) => {
   try {
     return String(str)
@@ -455,10 +371,6 @@ export const convertUserInfo = (userData: any) => {
   };
 };
 
-export function copyClipBoard(text: string) {
-  toast.success('Copied', { containerId: TOAST_ENUM.COMMON });
-  navigator.clipboard.writeText(text);
-}
 export function formatCompactNumber(number: number, setting: any) {
   try {
     const res = Intl.NumberFormat('en', setting).format(number);
