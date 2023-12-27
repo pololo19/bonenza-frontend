@@ -1,25 +1,35 @@
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
-import cn from 'classnames';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/router';
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
+import { api_getCasinoWithKey, api_getHotGames, api_getLiveCasinos, api_getProviders, api_getSlots } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import api from '@/api/api';
-import { GameDetail, GameProviderDetail } from '@/base/types/common';
 import { ROUTER } from '@/base/constants/common';
-import BaseLayout from '@/components/layouts/base.layout';
-import Loader from '@/components/common/preloader/loader';
-import GameCard from '@/components/gameCard/gameCard';
-import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import { NoDataComponent } from '@/components/noData/noData';
 import { snakeCaseToString } from '@/base/libs/utils';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import SortBy from '@/components/sortBy/sortBy';
+import { GameListType, GameProviderDetail } from '@/base/types/common';
+import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
+import Loader from '@/components/common/preloader/loader';
+import GameCard from '@/components/gameCard/gameCard';
+import BaseLayout from '@/components/layouts/base.layout';
+import { NoDataComponent } from '@/components/noData/noData';
 import ProviderFilter from '@/components/providerFilter/providerFilter';
+import SortBy from '@/components/sortBy/sortBy';
 import TabGames from '@/components/tabGames/tabGames';
+
+const sortBy = [
+  { id: 1, label: 'You may like', orderValue: 'like', orderBy: '' },
+  { id: 2, label: 'Popular', orderValue: 'popular', orderBy: 'total_favorite' },
+  { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
+  { id: 4, label: 'Z-A', orderValue: 'desc', orderBy: 'title' },
+  { id: 5, label: 'New', orderValue: 'desc', orderBy: 'released_at' },
+];
+
+const pageSize = 40;
 
 function CasinoTagnamePage() {
   const { t } = useTranslation('');
@@ -27,9 +37,10 @@ function CasinoTagnamePage() {
   const { query } = useRouter();
   const { key } = query;
   const pathname = usePathname();
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
   const [listProvider, setListProvider] = useState<GameProviderDetail[]>([]);
@@ -38,13 +49,58 @@ function CasinoTagnamePage() {
   const [isSort, setIsSort] = useState<boolean>(false);
   const [showTab, setShowTab] = useState<boolean>(false);
 
-  const handleGetListProvider = async () => {
+  const selectSortBy = useCallback((sort: any) => {
+    setSelectedSortBy(sort);
+    setIsSort(true);
+  }, []);
+
+  const getGameList = async () => {
+    const query = key === 'slots' || key === 'Live Casino' ? { sort: selectedSortBy.orderValue } : {};
+    let res: any;
+    let tempGameListData: GameListType[] = [];
+    let params: any = {
+      pageSize,
+      page: currentPage || 1,
+    };
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-provider-list');
-      const providers = res.data.data.map((provider: GameProviderDetail) => ({
-        ...provider,
+      params = {
+        ...params,
+        ...query,
+        providers: JSON.stringify(selectedProvider),
+      };
+      const res = await api_getCasinoWithKey(String(key), params);
+
+      const totalCount = res?.data?.totalCount ?? 0;
+      const games = res?.data?.games ?? [];
+      tempGameListData = games?.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        identifier: item.identifier,
+        payout: Number(item.payout) ?? 0,
+        profitMultiplayer: Number(item.profitMultiplier) ?? 0,
+      }));
+      setListGame((current) => [...current, ...tempGameListData]);
+      setTotalGames(totalCount);
+      if (games.length < pageSize || games.length === totalCount) {
+        setIsShowMore(false);
+      }
+    } catch (error) {
+      setListGame([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getListProviders = async () => {
+    try {
+      setIsLoading(true);
+      const res = await api_getProviders();
+      const providers = res.data.map((provider: any) => ({
+        id: provider.id,
+        name: provider.name,
         isSelect: false,
+        totalGames: provider.gameCount,
       }));
       setListProvider(providers);
     } catch (error) {
@@ -54,127 +110,7 @@ function CasinoTagnamePage() {
     }
   };
 
-  const handleGetListGame = async (fieldQuery: any) => {
-    const params = {
-      limit: 40,
-      page: currentPage || 1,
-      ...fieldQuery,
-    };
-    try {
-      setIsLoading(true);
-      const res = await api.get('game/get-all-games', { params: params });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40 || res.data.data.length === res.data.totalGames) {
-        setIsShowMore(false);
-      }
-    } catch (error) {
-      setListGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetListHotGame = async (fieldQuery: any) => {
-    const params = {
-      limit: 40,
-      page: currentPage || 1,
-      ...fieldQuery,
-    };
-    try {
-      setIsLoading(true);
-      const res = await api.get('game/get-hot-list', { params: params });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40 || res.data.data.length === res.data.totalGames) {
-        setIsShowMore(false);
-      }
-    } catch (error) {
-      setListGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetListLiveCasino = async (fieldQuery: any) => {
-    const params = {
-      limit: 40,
-      page: currentPage || 1,
-      ...fieldQuery,
-    };
-    try {
-      setIsLoading(true);
-      const res = await api.get('game/get-live-casino-list', { params: params });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40 || res.data.data.length === res.data.totalGames) {
-        setIsShowMore(false);
-      }
-    } catch (error) {
-      setListGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetListTopPick = async () => {
-    const params = {
-      limit: 40,
-      page: currentPage || 1,
-    };
-    try {
-      setIsLoading(true);
-      const res = await api.get('game/get-top-pick-list', { params: params });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40 || res.data.data.length === res.data.totalGames) {
-        setIsShowMore(false);
-      }
-    } catch (error) {
-      setListGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getGames = () => {
-    setIsShowMore(true);
-    let params =
-      key === 'slots' || key === 'Live Casino'
-        ? { orderBy: selectedSortBy.orderBy, orderValue: selectedSortBy.orderValue }
-        : {};
-    switch (key) {
-      case 'New Releases':
-        handleGetListGame({ releasedAt: 'string desc', providers: selectedProvider });
-        break;
-      case 'Blackjack':
-        handleGetListGame({ search: 'Blackjack', providers: selectedProvider });
-        break;
-      case 'Megaways':
-        handleGetListGame({ search: 'Megaways', providers: selectedProvider });
-        break;
-      case 'Table Games':
-        handleGetListGame({ tag: 'Table Games', providers: selectedProvider });
-        break;
-      case 'Live Casino':
-        handleGetListLiveCasino({ providers: selectedProvider, ...params });
-        break;
-      case 'Hot Games':
-        handleGetListHotGame({ providers: selectedProvider, tag: key });
-        break;
-      case 'Bonenza Exclusives':
-        handleGetListGame({ tag: 'Max Bet', providers: selectedProvider });
-        break;
-      case 'Top Picks':
-        handleGetListTopPick();
-        break;
-      default:
-        handleGetListGame({ category: key, providers: selectedProvider, ...params });
-        break;
-    }
-  };
-
-  const selectProvider = useCallback(
+  const handleSelectedProvider = useCallback(
     (providerId?: string | undefined) => {
       if (selectedProvider.length > 0) {
         setIsClearAll(true);
@@ -196,11 +132,6 @@ function CasinoTagnamePage() {
     [listProvider],
   );
 
-  const selectSortBy = useCallback((sort: any) => {
-    setSelectedSortBy(sort);
-    setIsSort(true);
-  }, []);
-
   const percent = useMemo(() => {
     return Number((listGame.length / totalGames) * 100).toFixed(0);
   }, [listGame, totalGames]);
@@ -208,7 +139,7 @@ function CasinoTagnamePage() {
   useEffect(() => {
     if (key) {
       setListGame([]);
-      getGames();
+      getGameList();
     }
   }, [key]);
 
@@ -216,7 +147,7 @@ function CasinoTagnamePage() {
     if (selectedProvider.length > 0 || isClearAll) {
       setListGame([]);
       setIsClearAll(false);
-      getGames();
+      getGameList();
     }
   }, [selectedProvider]);
 
@@ -224,30 +155,23 @@ function CasinoTagnamePage() {
     const tabStorage = localStorage.getItem('tab');
     const tabShow = Number(tabStorage) === 1 || !tabStorage ? false : true;
     setShowTab(tabShow);
-    handleGetListProvider();
+    getListProviders();
     return () => {
       if (!pathname?.includes('/tagname')) localStorage.removeItem('tab');
     };
   }, []);
 
   useEffect(() => {
-    if (currentPage > 1) getGames();
+    if (currentPage > 1) getGameList();
   }, [currentPage]);
 
-  const sortBy = [
-    { id: 1, label: 'You may like', orderValue: '', orderBy: '' },
-    { id: 2, label: 'Popular', orderValue: 'desc', orderBy: 'total_favorite' },
-    { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
-    { id: 4, label: 'Z-A', orderValue: 'desc', orderBy: 'title' },
-    { id: 5, label: 'New', orderValue: 'desc', orderBy: 'released_at' },
-  ];
   const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
 
   useEffect(() => {
     if (isSort) {
       setListGame([]);
       setIsSort(false);
-      getGames();
+      getGameList();
     }
   }, [selectedSortBy]);
 
@@ -281,7 +205,7 @@ function CasinoTagnamePage() {
             <ProviderFilter
               listProvider={listProvider}
               selectedProvider={selectedProvider}
-              selectProvider={selectProvider}
+              selectProvider={handleSelectedProvider}
             />
           </div>
         </div>

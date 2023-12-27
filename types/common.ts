@@ -168,6 +168,14 @@ export enum CurrencyEnum {
   CRYPTO = 'crypto',
 }
 
+export type GameListType = {
+  id: string;
+  title: string;
+  identifier: string;
+  payout: number;
+  profitMultiplayer: number;
+};
+
 export type GameDetail = {
   id?: number;
   title?: string;
@@ -264,11 +272,11 @@ export type UserDetail = {
 
 export type GameProviderDetail = {
   id: string;
-  name?: string;
+  name: string;
   image?: string;
   introduction?: string;
-  isSelect?: boolean;
-  totalGames?: number | string;
+  isSelect: boolean;
+  totalGames: number | string;
 };
 
 export type GameThemeDetail = {

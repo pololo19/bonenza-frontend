@@ -49,6 +49,20 @@ const API_WALLET_SWAP = '/wallet/swap';
 const API_WALLET_TRANSACTIONS = '/wallet/transaction';
 const API_WALLET_DEPOSIT_TIME = '/wallet/get-deposit-time-for-this-week';
 
+/************************************ Game **********************************/
+const API_GAME_PICK_GAMES = '/game/get-pick-games-for-you';
+const API_GAME_FAVORITE_GAMES = '/game/get-favorite-games';
+const API_GAME_RECENT_GAMES = '/game/get-recent-games';
+const API_GAME_PROVIDER = '/game/get-providers';
+
+const API_GAME_SLOT = '/game/get-slots';
+const API_GAME_LIVE_CASINO = '/game/get-live-casino';
+const API_GAME_HOT_GAMES = '/game/get-hot-games';
+const API_GAME_NEW_RELEASE = '/game/get-new-releases';
+const API_GAME_FEATURE_BUY_IN = '/game/get-feature-buy-in';
+const API_GAME_BLACKJACK = '/game/get-blackjack';
+const API_GAME_TABLE_GAMES = '/game/get-table-games';
+
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
 
@@ -81,6 +95,17 @@ export {
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
+  API_GAME_BLACKJACK,
+  API_GAME_FAVORITE_GAMES,
+  API_GAME_FEATURE_BUY_IN,
+  API_GAME_HOT_GAMES,
+  API_GAME_LIVE_CASINO,
+  API_GAME_NEW_RELEASE,
+  API_GAME_PICK_GAMES,
+  API_GAME_PROVIDER,
+  API_GAME_RECENT_GAMES,
+  API_GAME_SLOT,
+  API_GAME_TABLE_GAMES,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,
