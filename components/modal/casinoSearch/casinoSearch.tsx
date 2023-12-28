@@ -1,19 +1,18 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
+import { SearchNormal } from 'iconsax-react';
+import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useTranslation } from '@/base/config/i18next';
-
 import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameDetail } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
-import { SearchNormal } from 'iconsax-react';
-import Image from 'next/image';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;

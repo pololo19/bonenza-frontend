@@ -58,7 +58,7 @@ export default function SidebarToggle() {
     { title: String(t('casino:liveCasino')), href: ROUTER.Tagname('Live Casino'), icon: <LiveCasinoIcon size={18} /> },
     { title: String(t('casino:hotGame')), href: ROUTER.Tagname('Hot Games'), icon: <HotGameIcon size={18} /> },
     { title: String(t('casino:newReleases')), href: ROUTER.Tagname('New Releases'), icon: <ReleaseIcon size={18} /> },
-    { title: String(t('casino:featureBuyIn')), icon: <BuyInIcon size={18} /> },
+    { title: String(t('casino:featureBuyIn')), href: ROUTER.Tagname('Feature Buy-in'), icon: <BuyInIcon size={18} /> },
     { title: String(t('casino:blackjack')), href: ROUTER.Tagname('Blackjack'), icon: <BlackjackIcon size={18} /> },
     { title: String(t('casino:tableGames')), href: ROUTER.Tagname('Table Games'), icon: <LiveCasinoIcon size={18} /> },
   ];
