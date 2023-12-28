@@ -56,7 +56,6 @@ function CasinoTagnamePage() {
 
   const getGameList = async () => {
     const query = key === 'slots' || key === 'Live Casino' ? { sort: selectedSortBy.orderValue } : {};
-    let res: any;
     let tempGameListData: GameListType[] = [];
     let params: any = {
       pageSize,
