@@ -12,7 +12,7 @@ import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameDetail, GameListType } from '@/base/types/common';
 
 type GameCardProps = {
-  gameDetail: GameListType;
+  gameDetail: GameListType | GameDetail;
   footer?: () => React.ReactNode;
 };
 
@@ -51,7 +51,7 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
             <Image
               height={160}
               width={160}
-              src={`https://cdn.softswiss.net/i/s4/${convertIdentifier2Url(gameDetail.identifier)}.png`}
+              src={`https://cdn.softswiss.net/i/s4/${convertIdentifier2Url(gameDetail?.identifier || '')}.png`}
               alt=""
               className="w-full object-cover max-h-auto rounded-[5px]"
               placeholder="blur"
@@ -86,7 +86,7 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
         </div>
         <div className="rounded p-2 bg-gray-800 flex items-center justify-between mt-2">
           <span>Recent biggest win:</span>
-          <span className="text-amber-600">{gameDetail.profitMultiplayer ?? 0}X</span>
+          <span className="text-amber-600">{gameDetail.multiplier ?? 0}X</span>
         </div>
         <div className="flex items-center justify-end mt-2">
           <span className="text-gray-500">
