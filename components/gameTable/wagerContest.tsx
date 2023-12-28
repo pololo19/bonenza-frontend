@@ -3,22 +3,23 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol, formatDate } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
-import RankingTableComponent from '../table/rankingTable';
-import styles from './index.module.scss';
 import { useCountdown } from '@/base/constants/useCountdown';
+import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
 } from '@/base/redux/reducers/modal.reducer';
-import { useDispatch } from 'react-redux';
+import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
+
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
+import RankingTableComponent from '../table/rankingTable';
+import styles from './index.module.scss';
 
 const WagerContestComponent = () => {
   const dispatch = useDispatch();
@@ -29,11 +30,11 @@ const WagerContestComponent = () => {
   const { t } = useTranslation('');
 
   const { localeFiat, userName, avatar, userId } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
-      userName: state.auth.userName,
-      avatar: state.auth.avatar,
-      userId: state.auth.userId,
+      userName: state.auth.user.userName,
+      avatar: state.auth.user.avatar,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );

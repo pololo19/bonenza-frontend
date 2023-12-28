@@ -1,14 +1,13 @@
-import { Dialog, DialogProps, Transition, TransitionRootProps, Disclosure } from '@headlessui/react';
-import { ElementType, Fragment, useEffect, useRef, useState } from 'react';
+import { Dialog, DialogProps, Disclosure, Transition, TransitionRootProps } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { useTranslation } from '@/base/config/i18next';
+import { ElementType, Fragment, useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
-import { RootState } from '@/base/types/root-state';
+
+import { useTranslation } from '@/base/config/i18next';
+import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
-import api from '@/api/api';
-import Loader from '@/components/common/preloader/loader';
 
 type ModalRakeBackDetailProps = {
   cryptoLocked?: FiatType;
@@ -27,7 +26,7 @@ export default function ModalRakeBackDetail({
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
   const { localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
     }),

@@ -1,20 +1,22 @@
-import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
-import { RootState } from '@/base/types/root-state';
 import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import ModalBusinessContacts from '../modal/businessContacts/businessContacts';
-import ModalVerifyRepresentative from '../modal/verifyRepresentative/verifyRepresentative';
+
+import { useTranslation } from '@/base/config/i18next';
+import { ROUTER } from '@/base/constants/common';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowReferAndEarn,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
+
+import ModalBusinessContacts from '../modal/businessContacts/businessContacts';
+import ModalVerifyRepresentative from '../modal/verifyRepresentative/verifyRepresentative';
 
 export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const { t } = useTranslation('');
@@ -22,7 +24,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const [showModalVerify, setShowModalVerify] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { showChatType, isLogin } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       showChatType: state.modal.showChatType,
       isLogin: state.auth.isLogin,
     }),

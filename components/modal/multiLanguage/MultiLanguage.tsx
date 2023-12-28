@@ -1,23 +1,27 @@
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import cn from 'classnames';
+import { Star1 } from 'iconsax-react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { ElementType, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { changeActiveFiat, changeLocaleFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeMultiLanguageTab,
 } from '@/base/redux/reducers/modal.reducer';
-import { AuthenticationModeEnum, FiatType } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
+import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { AuthenticationModeEnum } from '@/base/types/common';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
-import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import cn from 'classnames';
-import { Star1 } from 'iconsax-react';
-import Image from 'next/image';
-import { ElementType, useEffect, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
 import CommonModal from '../commonModal/commonModal';
-import { useRouter } from 'next/router';
 
 type ModalFiatProps = {
   onClose: () => void;
@@ -34,19 +38,22 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
   const [isLoading, _setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const { multiLanguageTab, fiatArray, localeFiat, activeFiat, isLogin, viewInFiat } = useSelector(
-    (state: RootState) => ({
+  const { multiLanguageTab, activeFiat, isLogin, viewInFiat, fiatSymbols, localFiat } = useSelector(
+    (state: AppState) => ({
       multiLanguageTab: state.modal.multiLanguageTab,
       fiatArray: state.common.fiatArray,
-      localeFiat: state.common.localeFiat,
+      // localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
       viewInFiat: state.common.viewInFiat,
       isLogin: state.auth.isLogin,
+
+      fiatSymbols: state.wallet.fiatSymbols,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t, i18n } = useTranslation('');
 
   const handleChangeLang = (item: any) => {
@@ -56,19 +63,20 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
     if (router.pathname !== '/game') {
       // change currency based on language
       dispatch(changeViewInFiat(true));
-      dispatch(changeLocaleFiat(item));
+      // dispatch(changeLocaleFiat(item));
       CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
     }
   };
 
-  const handleChangeLocaleFiat = (item: FiatType) => {
+  const handleChangeLocaleFiat = (item: CurrencyType) => {
     if (isLogin) {
       // let newItem: FiatType = item.currency === 'USD' ? { ...item, currencyOld: activeFiat?.currency } : item;
       dispatch(changeViewInFiat(true));
-      dispatch(changeLocaleFiat(item));
-      dispatch(changeActiveFiat(item));
-      CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
-      CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
+
+      dispatch(setLocalFiat(item));
+      // dispatch(changeActiveFiat(item));
+      // CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
+      // CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
     } else {
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       dispatch(changeIsShowAuthenticationModal(true));
@@ -156,7 +164,8 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       },
                     )}
                     onClick={() => {
-                      dispatch(changeLocaleFiat(undefined));
+                      dispatch(changeViewInFiat(false));
+                      dispatch(setLocalFiat(null));
                       onClose();
                     }}
                   >
@@ -169,14 +178,14 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                   </div>
                 </>
                 <div className="md:col-span-3 sm:col-span-2 col-span-1"></div>
-                {fiatArray?.map((item, key) => (
+                {fiatSymbols.map((item, key) => (
                   <div
                     key={key}
                     role="button"
                     className={cn(
                       'sm:py-[12px] py-[10px] rounded-md text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-[14px]',
                       {
-                        'bg-primary': viewInFiat && item.currency === localeFiat?.currency,
+                        'bg-primary': viewInFiat && item.id === localFiat?.id,
                         'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': true,
                       },
                     )}
@@ -186,14 +195,22 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     }}
                   >
                     <div className="flex gap-3 items-center w-full">
-                      <Image height={30} width={30} src={`/img/fiats/${item.currency}.png`} alt="" />
-                      <div>{item.currency}</div>
+                      <Image
+                        height={30}
+                        width={30}
+                        src={item.logo}
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/fiats/USD.png';
+                        }}
+                      />
+                      <div>{item.name}</div>
                       <div
                         className={cn('text-[12px] truncate w-full dark:text-[#C2C2C2] text-gray-500', {
-                          '!text-gray-200': viewInFiat && item.currency === localeFiat?.currency,
+                          '!text-gray-200': viewInFiat && item.id === localFiat?.id,
                         })}
                       >
-                        {item.currencyAlias}
+                        {item.alias}
                       </div>
                     </div>
                   </div>

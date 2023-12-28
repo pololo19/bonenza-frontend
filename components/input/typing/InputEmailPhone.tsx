@@ -1,14 +1,14 @@
+import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
+import { ArrowDown2 } from 'iconsax-react';
 import Image from 'next/image';
 import { Fragment, InputHTMLAttributes, useEffect, useState } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
+import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { MAX_LENGTH, SPECIAL_CHARACTER, SPECIAL_CHARACTER_WITHOUT_EMAIL } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
-import { Menu, Transition } from '@headlessui/react';
-import { ArrowDown2 } from 'iconsax-react';
-import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;
@@ -79,10 +79,13 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
         return (
           <div className="w-full flex-1">
             <div
-              className={cn('bg-white dark:bg-[#12181F] rounded-[10px] flex items-center px-[15px] gap-[18px] relative', {
-                'py-[13.5px]': showPhoneNumber,
-                'py-[15px]': !showPhoneNumber,
-              })}
+              className={cn(
+                'bg-white dark:bg-[#12181F] rounded-[10px] flex items-center px-[15px] gap-[18px] relative',
+                {
+                  'py-[13.5px]': showPhoneNumber,
+                  'py-[15px]': !showPhoneNumber,
+                },
+              )}
             >
               {!showPhoneNumber && <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="" />}
               {showPhoneNumber && (

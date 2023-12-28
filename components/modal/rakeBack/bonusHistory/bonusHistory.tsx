@@ -1,16 +1,16 @@
-import { Dialog, DialogProps, Transition, TransitionRootProps, Disclosure } from '@headlessui/react';
-import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import Image from 'next/image';
-import { useTranslation } from '@/base/config/i18next';
-import { FiatType } from '@/base/types/common';
-import api from '@/api/api';
-import TableComponent from '@/components/table';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
-import { useSelector, shallowEqual } from 'react-redux';
-import { RootState } from '@/base/types/root-state';
 import { ColumnDef } from '@tanstack/react-table';
+import Image from 'next/image';
+import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
+import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
+import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import { FiatType } from '@/base/types/common';
+import TableComponent from '@/components/table';
 
 type ModalBonusHistory = {
   cryptoLocked?: FiatType;
@@ -31,7 +31,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const [listTransactions, setListTransactions] = useState<any[]>([]);
   const [totalTable, setTotalTable] = useState<number>(0);
   const { localeFiat } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
     }),
     shallowEqual,
@@ -40,15 +40,17 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const getListBonusTransaction = async (page?: number) => {
     try {
       setIsLoadingTable(true);
-      const res = await api.get('vip/get-list-bonus-transactions', {
-        params: {
-          actionType: typeFilter,
-          page: page,
-          limit,
-        },
-      });
-      setListTransactions(res?.data?.data);
-      setTotalTable(res?.data?.total);
+      // const res = await api.get('vip/get-list-bonus-transactions', {
+      //   params: {
+      //     actionType: typeFilter,
+      //     page: page,
+      //     limit,
+      //   },
+      // });
+      // setListTransactions(res?.data?.data);
+      // setTotalTable(res?.data?.total);
+      setListTransactions([]);
+      setTotalTable(0);
     } catch (error) {
     } finally {
       setIsLoadingTable(false);

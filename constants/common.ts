@@ -8,9 +8,11 @@ import {
   StatusUp,
   TrendUp,
 } from 'iconsax-react';
-import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '../types/common';
-import resources from '../public/locales';
 import { Settings } from 'react-slick';
+
+import resources from '../public/locales';
+import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '../types/common';
+import { TRANSACTION_TYPE } from '../types/requestTypes';
 
 export const CookieKey = {
   accessToken: 'accessToken',
@@ -117,11 +119,11 @@ export const ROUTER = {
 };
 
 export const LANGUAGE_DATA: {
-  language?: string;
-  key?: keyof typeof resources;
-  href?: string;
-  currency?: string;
-  currencyAlias?: string;
+  language: string;
+  key: keyof typeof resources;
+  href: string;
+  currency: string;
+  currencyAlias: string;
 }[] = [
   {
     language: 'English',
@@ -617,6 +619,17 @@ export const PRODUCT_ATTRIBUTE_NOT_EXIST = 'SIS-PRODUCT-312';
 
 export const CHUNK_BATCH_CREATE_PRODUCT = 100;
 
+export const API_AVATAR = process.env.API_AVATAR;
+
+export const STREAM_API_KEY = process.env.STREAM_CHAT_API_KEY;
+export const STREAM_API_SECRET = process.env.STREAM_CHAT_API_SECRET;
+export const SOCKET_WALLET_URL = process.env.SOCKET_WALLET_URL;
+export const WITHDRAW_FEE = process.env.WITHDRAW_FEE;
+export const SWAP_FEE = process.env.SWAP_FEE;
+export const SWAP_MIN = 5;
+
+export const DEFAULT_AVATAR = 'https://bonenza.com/img/avatar-1.png';
+
 export const SIDEBAR_LIST = [
   {
     href: ROUTER.Bonus,
@@ -1032,6 +1045,7 @@ export const SETTING_BANNER: Settings = {
 };
 
 export const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'] };
+export const socketWalletConfig = { transports: ['websocket'] };
 
 export const CHANNELS = [
   {
@@ -1108,13 +1122,48 @@ export const CHANNELS = [
   },
 ];
 
+export const billType = {
+  VAULT: 'vault',
+  GAME: 'game',
+  SWAP: 'swap',
+  AFFILIATE: 'affiliate',
+  BONUS: 'bonus',
+};
+
+export const DEPOSIT_BONUS = [
+  {
+    deposit: 1,
+    percent: 180,
+    minAmount: 10, // USD
+    maxAmount: 20000, //USDT
+  },
+  {
+    deposit: 2,
+    percent: 240,
+    minAmount: 50, // USD
+    maxAmount: 40000, // USDT
+  },
+  {
+    deposit: 3,
+    percent: 300,
+    minAmount: 100, // USD
+    maxAmount: 60000, // USDT
+  },
+  {
+    deposit: 4,
+    percent: 360,
+    minAmount: 200, // USD
+    maxAmount: 100000, // USDT
+  },
+];
+
 export const LIST_FILTER_TYPE = [
-  { name: 'transaction:deposit', id: 1 },
-  { name: 'transaction:withdraw', id: 2 },
-  { name: 'transaction:swap', id: 3 },
-  { name: 'transaction:buyCrypto', id: 4 },
-  { name: 'transaction:Bill', id: 5 },
-  { name: 'transaction:Bonus', id: 6 },
+  { name: 'transaction:deposit', type: TRANSACTION_TYPE.Deposit },
+  { name: 'transaction:withdraw', type: TRANSACTION_TYPE.Withdraw },
+  { name: 'transaction:swap', type: TRANSACTION_TYPE.Swap },
+  { name: 'transaction:buyCrypto', type: TRANSACTION_TYPE.Buy_Crypto },
+  { name: 'transaction:Bill', type: TRANSACTION_TYPE.Bill },
+  { name: 'transaction:Bonus', type: TRANSACTION_TYPE.Bonus },
 ];
 export const LIST_FILTER_DATE = [
   { name: 'transaction:past60Days', type: 60 },

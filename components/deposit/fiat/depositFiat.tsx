@@ -1,23 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
 import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 import { Controller, useForm } from 'react-hook-form';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
+import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat } from '@/base/libs/utils';
 import getStripe from '@/base/libs/utils/get-stripejs';
+import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
-
-import api from '@/api/api';
-import { TOAST_ENUM } from '@/base/constants/common';
-import { RootState } from '@/base/types/root-state';
 import Loader from '@/components/common/preloader/loader';
 import SelectFiat from '@/components/selectFiat/SelectFiat';
-import { shallowEqual, useSelector } from 'react-redux';
 
 type DepositFiatForm = {
   amount: number;
@@ -30,8 +28,8 @@ const DepositFiatComponent = () => {
   const { t } = useTranslation('');
 
   const { userId } = useSelector(
-    (state: RootState) => ({
-      userId: state.auth.userId,
+    (state: AppState) => ({
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );

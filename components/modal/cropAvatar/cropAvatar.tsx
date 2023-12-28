@@ -1,29 +1,28 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import Image from 'next/image';
 import { ElementType, useCallback, useState } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
 import { useDispatch } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import api from '@/api/api';
+import { api_uploadAvatar } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { URL_UPLOAD_AVATAR } from '@/base/constants/endpoints';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowCropAvatar,
   changeIsShowInformation,
   changeIsShowUpdateInformation,
 } from '@/base/redux/reducers/modal.reducer';
-import { RootState } from '@/base/types/root-state';
-import { shallowEqual, useSelector } from 'react-redux';
-import getCroppedImg from './cropImage';
-
-import { TOAST_ENUM } from '@/base/constants/common';
-import { convertUserInfo } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
-import Image from 'next/image';
+
 import CommonModal from '../commonModal/commonModal';
+import getCroppedImg from './cropImage';
 
 type ModalCropAvatarProps = {
   onClose: () => void;
@@ -38,7 +37,7 @@ export default function ModalCropAvatar({ show, onClose }: ModalCropAvatarProps)
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { selectedAvatar } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       selectedAvatar: state.modal.selectedAvatar,
     }),
     shallowEqual,
@@ -53,17 +52,11 @@ export default function ModalCropAvatar({ show, onClose }: ModalCropAvatarProps)
       if (avatarFile) {
         setIsLoading(true);
         const formData = new FormData();
-        formData.append('avatar', avatarFile);
-        await api.post(URL_UPLOAD_AVATAR, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        const resUser = await api.get('auth/get-user-info');
+        formData.append('file', avatarFile);
+        const resUser = await api_uploadAvatar(formData);
         dispatch(
           saveUserInfo({
-            isLogin: true,
-            ...convertUserInfo(resUser.data.data),
+            ...convertUserInfo(resUser.data),
           }),
         );
         dispatch(changeIsShowInformation(true));

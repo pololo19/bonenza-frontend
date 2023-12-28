@@ -1,11 +1,11 @@
-import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import classNames from 'classnames';
 import { ArrowLeft2, ArrowRight2 } from 'iconsax-react';
 import Link from 'next/link';
+import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { RootState } from '@/base/types/root-state';
-import classNames from 'classnames';
+import { AppState } from '@/base/redux/store';
 
 type CasinoSSProps<T> = {
   icon?: JSX.Element;
@@ -32,7 +32,7 @@ const CasinoSS = <T,>({
   const [disableNext, setDisableNext] = useState<boolean>();
 
   const { showChatType, isToggleSidebar } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       showChatType: state.modal.showChatType,
       isToggleSidebar: state.modal.isToggleSidebar,
     }),

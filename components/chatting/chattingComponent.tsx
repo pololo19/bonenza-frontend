@@ -1,46 +1,44 @@
-import { RootState } from '@/base/types/root-state';
+import 'stream-chat-react/dist/css/v2/index.css';
+
+import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2, CloseCircle, InfoCircle } from 'iconsax-react';
 import sign from 'jwt-encode';
 import { Fragment, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { SendMessageOptions, StreamChat, User } from 'stream-chat';
+import { Channel, Chat, MessageInput, MessageList, MessageToSend } from 'stream-chat-react';
 
 import { useTranslation } from '@/base/config/i18next';
-import { CHANNELS } from '@/base/constants/common';
+import { API_AVATAR, CHANNELS, DEFAULT_AVATAR, STREAM_API_KEY, STREAM_API_SECRET } from '@/base/constants/common';
 import {
   changeIsShowAuthenticationModal,
   changeShowChatType,
   changeShowFullChat,
 } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import ModalChatRules from '@/components/modal/chatRules/chatRules';
-import { Menu, Transition } from '@headlessui/react';
-import { SendMessageOptions, StreamChat, User } from 'stream-chat';
-import { Channel, Chat, MessageInput, MessageList, MessageToSend } from 'stream-chat-react';
-import 'stream-chat-react/dist/css/v2/index.css';
-import LoadingChannelComponent from './loadingChannel';
 
-const apiKey = 'kcs7q6knt2nf';
-const apiSecret = 'jfkwgfttdtbk352bxa2nhk94t477vrj9n4kvtpdzr8wzdyd2ycnjsfhxnx9dtsfm';
+import LoadingChannelComponent from './loadingChannel';
 
 const ChattingComponent = () => {
   const [isShowChatRules, setIsShowChatRules] = useState(false);
   const [chatClient, setChatClient] = useState<StreamChat | undefined>(undefined);
   const [user, setUser] = useState<User>({
-    id: 'userId',
-    name: 'userName',
-    image: `https://getstream.io/random_png/?id=userId&name=userName`,
+    id: '',
+    name: '',
+    image: ``,
   });
   const [channel, setChannel] = useState<any>();
   const [activeChannel, setActiveChannel] = useState<any>(CHANNELS[1]);
 
   const dispatch = useDispatch();
-  const { showChatType, showFullChat, userId, userName, avatar } = useSelector(
-    (state: RootState) => ({
+  const { showChatType, showFullChat, isLogin, userInfo } = useSelector(
+    (state: AppState) => ({
       showChatType: state.modal.showChatType,
       showFullChat: state.modal.showFullChat,
-      userId: state.auth.userId,
-      userName: state.auth.userName,
-      avatar: state.auth.avatar,
+      isLogin: state.auth.isLogin,
+      userInfo: state.auth.user,
     }),
     shallowEqual,
   );
@@ -48,49 +46,26 @@ const ChattingComponent = () => {
   const { t } = useTranslation('');
 
   useEffect(() => {
-    const chatUserId = userId ? String(userId) : 'userId';
-    const chatUserName = userName ? String(userName) : 'userName';
-    setUser({
-      id: chatUserId,
-      name: chatUserName,
-      image: String(process.env.API_AVATAR) + avatar || 'https://bonenza.com/img/avatar-1.png',
-    });
-  }, [userId, userName, avatar]);
-
-  useEffect(() => {
-    if (user) {
-      const client = new StreamChat(apiKey);
+    const setStreamChat = async ({ id, name, image }: User) => {
+      const client = new StreamChat(STREAM_API_KEY || '');
       let didUserConnectInterrupt = false;
-      const token = sign({ user_id: String(user.id) }, apiSecret);
-      const connectionPromise = client.connectUser(user, token).then(async () => {
-        if (!didUserConnectInterrupt) {
-          setChatClient(client);
-        }
-      });
 
-      return () => {
-        didUserConnectInterrupt = true;
-        setChatClient(undefined);
-        connectionPromise
-          .then(() => client.disconnectUser())
-          .then(() => {
-            console.log('connection closed');
-          });
-      };
-    }
-  }, [user]);
+      const token = sign({ user_id: String(id) }, STREAM_API_SECRET || '');
+      const connection = await client.connectUser({ id, name, image }, token);
+      const channel = client.channel('livestream', activeChannel.id, { name: activeChannel.name });
 
-  useEffect(() => {
-    if (chatClient) {
-      const channel = chatClient.channel('livestream', activeChannel.id, {
-        name: activeChannel.name,
-      });
+      setUser({ id, name, image });
+      setChatClient(client);
       setChannel(channel);
-      return () => {
-        setChannel(undefined);
-      };
+    };
+    if (isLogin) {
+      const chatUserId = userInfo.userId ? String(userInfo.userId) : '';
+      const chatUserName = userInfo.userName ? String(userInfo.userName) : '';
+      const image = userInfo.avatar ? `${API_AVATAR}${userInfo.avatar}` : DEFAULT_AVATAR;
+
+      setStreamChat({ id: chatUserId, name: chatUserName, image });
     }
-  }, [activeChannel, chatClient]);
+  }, [userInfo]);
 
   const overrideSubmitHandler = (
     message: MessageToSend,
@@ -98,7 +73,7 @@ const ChattingComponent = () => {
     customMessageData?: any,
     options?: SendMessageOptions,
   ) => {
-    if (user.id === 'userId') {
+    if (!user.id) {
       dispatch(changeIsShowAuthenticationModal(true));
     } else {
       return undefined;
@@ -141,13 +116,10 @@ const ChattingComponent = () => {
                 </button>
               </div>
             </div>
-            <Channel
-              channel={channel}
-              LoadingIndicator={LoadingChannelComponent}
-            >
+            <Channel channel={channel} LoadingIndicator={LoadingChannelComponent}>
               <MessageList />
-              {user.id === 'userId' && <MessageInput overrideSubmitHandler={overrideSubmitHandler} />}
-              {user.id !== 'userId' && <MessageInput />}
+              {!user.id && <MessageInput overrideSubmitHandler={overrideSubmitHandler} />}
+              {user.id && <MessageInput />}
             </Channel>
             <div className="px-2 py-2 flex gap-2 text-white">
               <div className="relative">

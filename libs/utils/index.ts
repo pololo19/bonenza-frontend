@@ -1,31 +1,25 @@
 import { AxiosError } from 'axios';
-import { compareAsc, differenceInSeconds, format, isValid } from 'date-fns';
+import { compareAsc, differenceInSeconds, format } from 'date-fns';
 import { camelize } from 'humps';
+import { getParamByParam } from 'iso-country-currency';
 import { identity, pickBy } from 'lodash';
-import { TOAST_ENUM } from '@/base/constants/common';
-import { TransactionStatus } from '@/types/common';
 import Router from 'next/router';
 import qs from 'qs';
 import { Path, UseFormGetValues } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { USER_ROLE_DEFAULT } from '@/base/constants/auth';
-import {
-  CookieKey,
-  DATE_TIME_FORMAT_DEFAULT,
-  ERROR_CODE_INVALID_ACCOUNT,
-  EXTENSION_IMG_AFTER_CROP,
-  TYPE_IMG_AFTER_CROP,
-} from '@/base/constants/common';
-import { DATE_DASH_DELIMITER_REGEX, DATE_ISO_FORMAT, DATE_VALID_DELIMITER } from '@/base/constants/validation';
+import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT } from '@/base/constants/common';
+import { DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 import { ErrorResponse } from '@/base/types/api';
 import { DepositAddress, NetworkType, ObjectLiteral } from '@/base/types/common';
-import { getParamByParam } from 'iso-country-currency';
-import { CookiesStorage } from '../storage/cookie';
+import { TransactionStatus } from '@/types/common';
 
-export function camelToSnake(value: string) {
-  return value.replace(/[\w]([A-Z])/g, (m) => `${m[0]}_${m[1]}`).toLowerCase();
-}
+import { CookiesStorage } from '../storage/cookie';
+import { isIsoFormat, isValidDate } from './validate';
+
+export * from './copyClipboard';
+export * from './pageTitle';
+export * from './validate';
 
 export const stringifyParams = (data: any) => {
   const { params, option } = data;
@@ -46,38 +40,6 @@ export function getCurrentDomain() {
 
 export function getUrlRoot(pathname?: string) {
   return pathname ? pathname.split('/')[1] : '';
-}
-
-export function isIsoFormat(str: string) {
-  return DATE_ISO_FORMAT.test(str);
-}
-
-export function isIsoDate(str: string) {
-  if (!isIsoFormat(str)) return false;
-  const d = new Date(str);
-  const numSub = 19;
-  return d instanceof Date && !Number.isNaN(d) && d.toISOString().substring(0, numSub) === str.substring(0, numSub);
-}
-
-export function isValidDate(date: Date | number | string | undefined, options?: { strictMode?: boolean }) {
-  if (!date) return false;
-  if (typeof date !== 'string') return isValid(date);
-
-  // String format
-  const newDateString = date.replace(DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER);
-  if (!options?.strictMode) {
-    if (isIsoFormat(date)) return isValid(date);
-    return isValid(new Date(newDateString));
-  }
-
-  // Check strick mode
-  if (isIsoFormat(date)) return isIsoDate(date);
-  const [year, month, day] = newDateString.split(DATE_VALID_DELIMITER).map((val) => {
-    const newVal = val.split(' ')[0];
-    return Number(newVal);
-  });
-  const newDate = new Date(newDateString);
-  return newDate.getFullYear() === year && newDate.getMonth() === month - 1 && newDate.getDate() === day;
 }
 
 export function createDate(date: Date | number | string) {
@@ -138,10 +100,6 @@ export function checkFormHasField(getValues: UseFormGetValues<ObjectLiteral>, fi
   return Object.keys(getValues())?.includes(field);
 }
 
-export function isAdminOfCompany(role?: string) {
-  return USER_ROLE_DEFAULT.SUPER_ADMIN === role;
-}
-
 export function pushQueryParams(params: ObjectLiteral, options?: { scroll?: boolean }) {
   const query = pickBy(params, identity);
   Router.push({ pathname: Router.route, query }, undefined, options);
@@ -162,32 +120,8 @@ export function convertTimeZone(date: string | Date) {
   return createDate(date).toLocaleString('ja-JP', { timeZone: process.env.TIME_ZONE });
 }
 
-const changeExtension = (fileName: string, extension: string) => {
-  const ext = fileName.split('.').pop();
-  const root = ext ? fileName.substring(0, fileName.length - ext.length) : '';
-  return `${root}${extension}`;
-};
-
-export function canvasToBlob(canvas: HTMLCanvasElement, fileName: string): Promise<File> {
-  return new Promise((resolve) => {
-    canvas.toBlob((blob) => {
-      if (blob) {
-        const file = new File([blob], changeExtension(fileName, EXTENSION_IMG_AFTER_CROP), {
-          type: TYPE_IMG_AFTER_CROP,
-        });
-        resolve(file);
-      }
-    }, TYPE_IMG_AFTER_CROP);
-  });
-}
-
 export function byteToGigabyte(input: number, numFixed?: number) {
   const result = input / 1024 / 1024 / 1024;
-  return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
-}
-
-export function byteToMegabyte(input: number, numFixed?: number) {
-  const result = input / 1024 / 1024;
   return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
 }
 
@@ -369,11 +303,11 @@ export const handleLocaleSymbol = (givenParamValue: string) => {
 
 export const formatLengthNumber = (num: number | string, length?: number) => {
   if (!length) length = 9;
-  if (!num) return Number(0).toFixed(length - 1);
+  if (!num) return Number(0).toFixed(length);
   let zeroCount = -Math.floor(Math.log10(Number(num)));
   if (zeroCount > length / 2 && Number(num) > 0) {
     let nonZeros = '';
-    let numberString = new Intl.NumberFormat('en', { maximumSignificantDigits: length - 1 })
+    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: length, minimumFractionDigits: 2 })
       .format(Number(num))
       .toString();
     for (let i = zeroCount + 1; i < (numberString.length > zeroCount + 5 ? zeroCount + 5 : numberString.length); i++) {
@@ -382,15 +316,15 @@ export const formatLengthNumber = (num: number | string, length?: number) => {
     const res = `0.(${zeroCount - 1})${nonZeros}`;
     return res;
   }
-  const integerNumber = Math.abs(Number(num)).toString().split('.')[0];
-  if (integerNumber.length > 9) return Math.abs(Number(num));
-  const missLength = length - integerNumber.length > 0 ? length - integerNumber.length : 0;
-  return Math.abs(Number(num)).toFixed(missLength);
-};
-
-export const isDecimalNumber = (num: number | string) => {
-  if (!num) return false;
-  return !!Math.abs(Number(num)).toString().split('.')[1];
+  // const integerNumber = Math.abs(Number(num)).toString().split('.')[0];
+  // if (integerNumber.length > 9) return Math.abs(Number(num));
+  // console.log('-----390', integerNumber.length);
+  // const missLength = length - integerNumber.length > 0 ? length - integerNumber.length : length;
+  // console.log(missLength, '------392');
+  return formatCompactNumber(Number(num), {
+    maximumFractionDigits: length,
+    minimumFractionDigits: 2,
+  });
 };
 
 export const snakeCaseToString = (str?: string) => {
@@ -407,24 +341,36 @@ export const snakeCaseToString = (str?: string) => {
 
 export const convertUserInfo = (userData: any) => {
   return {
-    userName: userData?.username,
     userId: userData?.id,
+    userName: userData?.name,
     email: userData?.email,
-    avatar: userData?.avatar,
     phone: userData?.phone,
-    uuid: userData?.uuid,
-    winCount: userData?.winCount,
+    wallet: userData?.wallet,
+    avatar: userData?.avatar,
     betCount: userData?.betCount,
+    winCount: userData?.winCount,
     totalWager: userData?.totalWager,
     referralCode: userData?.referralCode,
     isKyc: userData?.isKyc,
+    tfa: userData?.tfa,
+    generalSetting: {
+      settingShowFullNameCrypto: userData?.settingShowFullNameCrypto,
+      settingReceiveMarketPromotion: userData?.settingReceiveMarketPromotion,
+      settingLanguage: userData?.settingLanguage,
+      settingCurrency: 'usd',
+    },
+    privacySetting: {
+      settingHideUserName: userData?.settingHideUserName,
+      settingHideGamingData: userData?.settingHideGamingData,
+      settingRefuseTipFromStrangers: userData?.settingRefuseTipFromStrangers,
+    },
+    verifiedSetting: {
+      emailVerified: userData?.emailVerified,
+      phoneVerified: userData?.phoneVerified,
+    },
   };
 };
 
-export function copyClipBoard(text: string) {
-  toast.success('Copied', { containerId: TOAST_ENUM.COMMON });
-  navigator.clipboard.writeText(text);
-}
 export function formatCompactNumber(number: number, setting: any) {
   try {
     const res = Intl.NumberFormat('en', setting).format(number);
@@ -437,10 +383,22 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
   try {
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
-    if (number === 0) return `${symbol} 0.0000`;
+    if (number === 0) {
+      res = new Array(2).fill('0').join('');
+      res = `${symbol} 0.` + res;
+      return res;
+    }
     let zeroCount = -Math.floor(Math.log10(number));
+    if (zeroNum < 5) {
+      res = formatCompactNumber(number, {
+        maximumFractionDigits: 4,
+        minimumFractionDigits: 2,
+        roundingMode: 'floor',
+      }).toString();
+      return `${symbol} ${res}`;
+    }
     const miniZeroNum = zeroNum > 5 ? zeroNum : 5;
-    let numberString = new Intl.NumberFormat('en', { maximumSignificantDigits: miniZeroNum - 1 })
+    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: miniZeroNum - 1 })
       .format(number)
       .toString();
     if (zeroCount > miniZeroNum) {
@@ -455,7 +413,9 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
       res = `0.(${zeroCount - 1})${nonZeros}`;
     } else {
       res = formatCompactNumber(number, {
-        minimumFractionDigits: zeroNum,
+        maximumFractionDigits: zeroNum,
+        minimumFractionDigits: 2,
+        roundingMode: 'floor',
       }).toString();
     }
     return `${symbol} ${res}`;

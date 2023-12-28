@@ -1,23 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
 import { yupResolver } from '@hookform/resolvers/yup';
-import { toast } from 'react-toastify';
+import Image from 'next/image';
 import { useState } from 'react';
-import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
-import api from '@/api/api';
-import { REGEX_EMAIL } from '@/base/constants/validation';
+import { api_forgetPassword, api_sendSMS } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
-import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
-
-import InputEmailAuthentication from '@/components/input/typing/InputEmailAuthentication';
-import Loader from '@/components/common/preloader/loader';
-import Image from 'next/image';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { AuthenticationModeEnum } from '@/base/types/common';
-import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
+import { isEmail, isPhone } from '@/base/libs/utils';
+import { saveVerifyInfo, setIsForgetPassword } from '@/base/redux/reducers/auth.reducer';
+import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
+import { AuthenticationModeEnum } from '@/base/types/common';
+import Loader from '@/components/common/preloader/loader';
+import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
 
 type ForgotPasswordFormType = {
   email: string;
@@ -33,32 +31,65 @@ export default function ModalForgotPassword() {
   const schema = yup.object().shape({
     email: yup
       .string()
-      .required(String(t('authentication:emailRequired')))
-      .email(String(t('authentication:emailWrong')))
-      .matches(REGEX_EMAIL, String(t('authentication:emailWrong')))
+      .required(String(t('authentication:email&phoneRequired')))
       .trim(),
   });
+
+  const handleError = () => {
+    let error = false;
+    let mes = '';
+    const email = getValues('email');
+    const isPhoneNumber = email?.length > 2 && Number.isInteger(Number(email));
+
+    if (!isPhoneNumber! && !isEmail(email)) {
+      error = true;
+      mes = t('authentication:emailWrong');
+    }
+
+    if (isPhoneNumber && !isPhone(email)) {
+      error = true;
+      mes = t('authentication:phoneWrong');
+    }
+
+    if (error) {
+      toast.error(mes, { containerId: TOAST_ENUM.MODAL });
+    }
+    return error;
+  };
 
   const {
     handleSubmit,
     control,
+    getValues,
     formState: { errors },
   } = useForm<ForgotPasswordFormType>({
     resolver: yupResolver(schema),
   });
 
   const onReset = async (formReset: ForgotPasswordFormType) => {
+    if (handleError()) return;
     try {
       setIsLoading(true);
       const isPhoneNumber = formReset.email?.length > 2 && Number.isInteger(Number(formReset.email));
-      const _res = await api.post('/auth/send-mail', {
-        email: !isPhoneNumber ? formReset.email : '',
-        phone: isPhoneNumber ? String(countryCallingCode?.countryCallingCode) + formReset.email : '',
-      });
-      if (_res.data.msg === 'success') {
-        dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+      let _res;
+      if (isPhoneNumber) {
+        const phone = `+${String(countryCallingCode?.countryCallingCode)}${formReset.email}`;
+        _res = await api_sendSMS(phone, 'reset');
+      } else {
+        _res = await api_forgetPassword(formReset.email);
       }
-      toast.error(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+
+      const verifyRequest = isPhoneNumber
+        ? `+${String(countryCallingCode?.countryCallingCode)}${formReset.email}`
+        : formReset.email;
+      dispatch(saveVerifyInfo({ isPhoneVerifyRequested: !!isPhoneNumber, verifyRequest }));
+
+      // request verify from forget password
+      dispatch(setIsForgetPassword(true));
+
+      // close modal
+      dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
+      toast.success(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
     } catch (error) {
       toast.error(t('authentication:resetPasswordFailed'), { containerId: TOAST_ENUM.MODAL });
     } finally {
@@ -70,7 +101,7 @@ export default function ModalForgotPassword() {
     <>
       {isLoading && <Loader />}
       <div className="sm:min-h-[428px]">
-        <div className="sm:overflow-y-auto w-full">
+        <div className="sm:overflow-y-auto w-full h-full">
           <div className="font-bold text-[16px] text-white">{t('resetPassword:resetPassword')}</div>
           <form onSubmit={handleSubmit(onReset)} data-testid="user-detail-form">
             <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">

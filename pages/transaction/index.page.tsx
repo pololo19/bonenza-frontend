@@ -1,70 +1,62 @@
-/* eslint-disable @next/next/no-img-element */
-import { GetServerSideProps, NextPage } from 'next';
+import { Menu, Transition } from '@headlessui/react';
+import { ChevronDownIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { ColumnDef, Row } from '@tanstack/react-table';
+import { ArrowRight2, Copy } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
-import api, { baseURL } from '@/api/api';
+import { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import { api_getTransactions } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import {
-  CRYPTO_NORMAL_DATA,
+  billType,
   DATE_TIME_SUBMIT_FORMAT_WITH_SECOND,
-  TIME_SUBMIT_FORMAT_WITH_MARKER,
-  TOAST_ENUM,
-  LIST_FILTER_TYPE,
   LIST_FILTER_DATE,
   LIST_FILTER_STATUS,
+  LIST_FILTER_TYPE,
+  TIME_SUBMIT_FORMAT_WITH_MARKER,
+  TOAST_ENUM,
 } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
 import {
-  exchangeByLocaleFiat,
-  formatDate,
+  convertStatus,
   copyClipBoard,
   currencyFormat1,
+  exchangeByLocaleFiat,
+  formatDate,
+  formatLengthNumber,
   getColorByStatus,
-  convertStatus,
 } from '@/base/libs/utils';
-import { RootState } from '@/base/types/root-state';
-import { TransactionType } from '@/types/common';
+import { AppState } from '@/base/redux/store';
+import { TRANSACTION_TYPE } from '@/base/types/requestTypes';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailTransaction from '@/components/modal/transactionDetail/transactionDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
-import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon, LinkIcon } from '@heroicons/react/24/outline';
-import { ColumnDef, Row } from '@tanstack/react-table';
-import { ArrowRight2, Copy } from 'iconsax-react';
-import { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { TransactionStatus, TransactionSwapType, TransactionType } from '@/types/common';
 
 import styles from './index.module.scss';
 
 interface BillType {
   type: string;
 }
-interface TransactionPageProps {
-  billTypes: BillType[];
-}
-export const getServerSideProps: GetServerSideProps<TransactionPageProps> = async () => {
-  const response = await fetch(`${baseURL}transaction-histories/get-bill-type-list`)
-    .then((res) => res.json())
-    .catch((err) => ({
-      data: [],
-    }));
-  const listTypes: BillType[] = [{ type: 'All Type' }, ...response?.data];
-  return {
-    props: {
-      billTypes: listTypes,
-    },
-  };
-};
 
-const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
+const billTypes: BillType[] = Object.values(billType).map((item: string) => ({ type: item }));
+
+const TransactionPage = () => {
   const { t } = useTranslation('');
+  const exchangeRate = useExchange();
 
-  const { localeFiat, viewInFiat } = useSelector(
-    (state: RootState) => ({
-      localeFiat: state.common.localeFiat,
+  const { localFiat, viewInFiat, cryptoSymbols, userId, username } = useSelector(
+    (state: AppState) => ({
       viewInFiat: state.common.viewInFiat,
+      localFiat: state.wallet.localFiat,
+      cryptoSymbols: state.wallet.symbols,
+      userId: state.user.userId,
+      username: state.user.userName,
     }),
     shallowEqual,
   );
@@ -72,20 +64,19 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
   const [isShowDetailTransaction, setIsShowDetailTransaction] = useState<boolean>(false);
   const [transaction, setTransaction] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dataTable, setDataTable] = useState<TransactionType[]>([]);
+  const [dataTable, setDataTable] = useState<TransactionType[] | TransactionSwapType[]>([]);
   const [typeBill, setTypeBill] = useState<string>(String(t('transaction:allType')));
-  // const [typeDeposit, setTypeDeposit] = useState<any>(LIST_FILTER_STATUS[0]);
 
   const [optionFilter, setOptionFilter] = useState({
     type: LIST_FILTER_TYPE[0],
-    currency: CRYPTO_NORMAL_DATA[0],
+    currency: '',
     dayPast: LIST_FILTER_DATE[0],
     filterStatus: LIST_FILTER_STATUS[0],
   });
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
-  const [columnType, setColumnType] = useState<string>('deposit');
+  const [columnType, setColumnType] = useState<TRANSACTION_TYPE>(TRANSACTION_TYPE.Deposit);
 
   const depositColumns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -105,23 +96,17 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
         cell: ({ row }) => (
           <div
             className={`${
-              t(optionFilter.type.name) === 'Withdraw' ? 'text-red-500' : 'text-[#3BC117]'
+              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-[#3BC117]'
             } flex items-center justify-center gap-1`}
           >
-            {t(optionFilter.type.name) === 'Withdraw' ? '-' : '+'}
+            {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : '+'}
             {viewInFiat ? (
-              <>
-                {currencyFormat1(
-                  exchangeByLocaleFiat(row.original?.symbol, String(localeFiat?.currency), row.original?.amount),
-                  4,
-                  String(localeFiat?.currency),
-                )}
-              </>
+              <>{currencyFormat1(row.original.amountUsd * exchangeRate, 4, String(localFiat?.name))}</>
             ) : (
-              currencyFormat1(Math.abs(row.original?.amount), 4)
+              currencyFormat1(row.original.amount, 4, '', false)
             )}
 
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbol}.png`} alt="" />
+            <Image height={20} width={20} src={row.original.symbolLogo} alt="" />
           </div>
         ),
         minSize: 120,
@@ -156,13 +141,13 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
         minSize: 30,
       },
     ];
-  }, [localeFiat, viewInFiat, optionFilter.type, t]);
+  }, [localFiat, viewInFiat, optionFilter.type, t]);
 
   const swapColumns: ColumnDef<any>[] = useMemo(() => {
     return [
       {
         accessorKey: 'swapFrom + swapTo',
-        header: () => <div className="text-left">{String(t('transaction:amount'))}</div>,
+        header: () => <div className="text-left">{String(t('transaction:type'))}</div>,
         cell: ({ row }) => (
           <div className="text-white flex items-center gap-1 truncate">{t(optionFilter.type.name)}</div>
         ),
@@ -176,18 +161,12 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
             <span>
               -
               {viewInFiat ? (
-                <>
-                  {currencyFormat1(
-                    exchangeByLocaleFiat(row.original?.symbolFrom, String(localeFiat?.currency), row.original.swapFrom),
-                    4,
-                    String(localeFiat?.currency),
-                  )}
-                </>
+                <>{currencyFormat1(row.original?.swapFromUsd * exchangeRate, 4, String(localFiat?.name))}</>
               ) : (
-                currencyFormat1(row.original.swapFrom, 8)
+                formatLengthNumber(row.original.swapFrom, 8)
               )}
             </span>
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbolFrom}.png`} alt="" />
+            <Image height={20} width={20} src={row.original?.swapFromLogo} alt="" />
           </div>
         ),
         minSize: 120,
@@ -200,18 +179,12 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
             <span>
               +{' '}
               {viewInFiat ? (
-                <>
-                  {currencyFormat1(
-                    exchangeByLocaleFiat(row.original?.symbolTo, String(localeFiat?.currency), row.original.swapTo),
-                    4,
-                    String(localeFiat?.currency),
-                  )}
-                </>
+                <>{currencyFormat1(row.original?.swapToUsd * exchangeRate, 4, String(localFiat?.name))}</>
               ) : (
-                currencyFormat1(row.original.swapTo, 8)
+                formatLengthNumber(row.original.swapTo, 8)
               )}
             </span>
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbolTo}.png`} alt="" />
+            <Image height={20} width={20} src={row.original?.swapToLogo} alt="" />
           </div>
         ),
         minSize: 120,
@@ -220,14 +193,14 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
         accessorKey: 'timeTransfer',
         header: () => <div className="text-right">{String(t('transaction:time'))}</div>,
         cell: ({ row }) => (
-          <div className="text-[#98A7B5]">
+          <div className="text-[#98A7B5] text-right">
             {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
-        maxSize: 50,
+        minSize: 150,
       },
     ];
-  }, [localeFiat, viewInFiat, optionFilter, t]);
+  }, [localFiat, viewInFiat, optionFilter, t]);
 
   const billColumns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -289,11 +262,11 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
                 {currencyFormat1(
                   exchangeByLocaleFiat(
                     row.original?.sourceAccount ?? row.original?.symbol,
-                    String(localeFiat?.currency),
+                    String(localFiat?.name),
                     Math.abs(row.original?.amount),
                   ),
                   4,
-                  String(localeFiat?.currency),
+                  String(localFiat?.name),
                 )}
               </>
             ) : (
@@ -336,11 +309,11 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
                   {currencyFormat1(
                     exchangeByLocaleFiat(
                       row.original?.sourceAccount ?? row.original?.symbol,
-                      String(localeFiat?.currency),
+                      String(localFiat?.name),
                       Math.abs(row.original?.balance),
                     ),
                     4,
-                    String(localeFiat?.currency),
+                    String(localFiat?.name),
                   )}
                 </>
               ) : (
@@ -359,7 +332,7 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
         minSize: 120,
       },
     ];
-  }, [localeFiat, viewInFiat, optionFilter, t]);
+  }, [localFiat, viewInFiat, optionFilter, t]);
 
   const bonusColumns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -391,11 +364,11 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
                   {`${currencyFormat1(
                     exchangeByLocaleFiat(
                       row.original?.symbol,
-                      String(localeFiat?.currency),
+                      String(localFiat?.name),
                       Math.abs(row.original?.amountClaimed),
                     ),
                     4,
-                    String(localeFiat?.currency),
+                    String(localFiat?.name),
                   )}`}
                 </>
               ) : (
@@ -430,9 +403,9 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
             {viewInFiat ? (
               <>
                 {currencyFormat1(
-                  exchangeByLocaleFiat(row.original?.symbol, String(localeFiat?.currency), row.original?.balance),
+                  exchangeByLocaleFiat(row.original?.symbol, String(localFiat?.name), row.original?.balance),
                   4,
-                  String(localeFiat?.currency),
+                  String(localFiat?.name),
                 )}
               </>
             ) : (
@@ -445,13 +418,13 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
         minSize: 120,
       },
     ];
-  }, [localeFiat, viewInFiat, optionFilter, t]);
+  }, [localFiat, viewInFiat, optionFilter, t]);
 
   const handleChangePage = (action: string) => {
     let newPage: number;
     newPage = action === 'Next' ? page + 1 : page - 1;
     setPage(newPage);
-    handleGetData(newPage);
+    handleGetTransaction(newPage);
   };
 
   const handleChangeItemPerPage = (itemPerPage: number) => {
@@ -459,28 +432,151 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
     setPage(1);
   };
 
+  const getStatusById = (statusId: number) => {
+    let status: TransactionStatus = 'pending';
+    switch (statusId) {
+      case 0:
+        status = 'pending';
+        break;
+      case 1:
+        status = 'success';
+        break;
+      case 2:
+        status = 'fail';
+        break;
+
+      default:
+        status = 'pending';
+        break;
+    }
+    return status;
+  };
+
+  const getStatusId = (status: TransactionStatus | string) => {
+    let statusId = -1;
+    switch (status) {
+      case 'success':
+        statusId = 1;
+        break;
+      case 'process':
+        statusId = 0;
+        break;
+      case 'pending':
+        statusId = 0;
+        break;
+      case 'fail':
+        statusId = 2;
+        break;
+      case 'rejected':
+        statusId = 4;
+        break;
+      case 'approve':
+        statusId = 3;
+        break;
+      default:
+        statusId = -1;
+        break;
+    }
+    return statusId;
+  };
+
   const handleGetTransaction = async (page: number) => {
-    if (optionFilter.type.name === LIST_FILTER_TYPE[3].name) {
-      setDataTable([]);
-      setTotalRows(0);
+    setDataTable([]);
+    setTotalRows(0);
+    if (optionFilter.type.type === LIST_FILTER_TYPE[3].type) {
       return;
     }
     try {
       setIsLoading(true);
-      const res = await api.get('transaction-histories', {
-        params: {
-          type: t(optionFilter.type.name).toLowerCase(),
-          currency:
-            optionFilter.currency.symbol === String(t('transaction:allAssets')) ? '' : optionFilter.currency.symbol,
-          dayPast: optionFilter.dayPast.type,
-          status: optionFilter.filterStatus.type,
-          page: page,
-          limit,
-        },
+      const currentDate = new Date();
+      const endDateTimeStamp = Math.floor(currentDate.getTime() / 1000);
+      const startDate = new Date(currentDate);
+      startDate.setDate(currentDate.getDate() - optionFilter.dayPast.type);
+      const startDateTimeStamp = Math.floor(startDate.getTime() / 1000);
+
+      const res = await api_getTransactions({
+        type: optionFilter.type.type,
+        symbolId: optionFilter.currency,
+        startDate: startDateTimeStamp,
+        endDate: endDateTimeStamp,
+        page,
+        pageSize: limit,
+        status: optionFilter.type.type === TRANSACTION_TYPE.Withdraw ? getStatusId(optionFilter.filterStatus.type) : -1,
       });
-      setColumnType(String(t('transaction:deposit')));
-      setDataTable(res.data.data);
-      setTotalRows(res.data.total);
+
+      const { data, totalCount, totalPage } = res.data;
+      switch (optionFilter.type.type) {
+        case TRANSACTION_TYPE.Swap:
+          const tempSwapData: TransactionSwapType[] = data?.map((item: any) => ({
+            symbolFrom: item.fromSymbol,
+            swapFrom: item.fromAmount,
+            swapFromLogo: item.fromSymbolLogo,
+            swapFromUsd: item.fromAmountUsd,
+            symbolTo: item.toSymbol,
+            swapTo: item.toAmount,
+            swapToUsd: item.toAmountUsd,
+            swapToLogo: item.toSymbolLogo,
+            timeTransfer: item.time,
+          }));
+          setDataTable(tempSwapData);
+          break;
+
+        case TRANSACTION_TYPE.Deposit:
+          const tempDepositData: TransactionType[] = data?.map((item: any) => {
+            return {
+              amount: item.amount,
+              amountUsd: item.amountUsd,
+              fee: 0,
+              feeUsd: 0,
+              id: item.id,
+              orderId: item.id,
+              status: getStatusById(item.status),
+              symbolId: item.currencyId,
+              symbolName: item.currencyName,
+              symbolLogo: item.currencyLogo,
+              time: item.time,
+              txId: item.hash,
+              unitFee: '',
+              userId: userId,
+              username: username,
+              value: 0,
+              withdrawalAddress: item.fromAddress,
+              type: TRANSACTION_TYPE.Deposit,
+            };
+          });
+          setDataTable(tempDepositData);
+          break;
+
+        case TRANSACTION_TYPE.Withdraw:
+          const tempWithdrawData: TransactionType[] = data?.map((item: any) => ({
+            amount: Number(item.amountWithFee),
+            amountUsd: Number(item.amountWithFeeUsd),
+            fee: item.withdrawFee,
+            feeUsd: Number(item.amountWithFeeUsd) - Number(item.amount),
+            id: item.id,
+            orderId: item.id,
+            status: getStatusById(item.status),
+            symbolId: item.currencyId,
+            symbolName: item.currencyName,
+            symbolLogo: item.currencyLogo,
+            time: item.time,
+            txId: item.hash,
+            unitFee: '',
+            userId: userId,
+            username: username,
+            value: 0,
+            type: TRANSACTION_TYPE.Withdraw,
+            withdrawalAddress: item.toAddress,
+          }));
+          console.log(tempWithdrawData, '----570');
+          setDataTable(tempWithdrawData);
+          break;
+
+        default:
+          break;
+      }
+      setColumnType(optionFilter.type.type);
+      setTotalRows(totalCount);
     } catch (error) {
       setDataTable([]);
     } finally {
@@ -488,113 +584,40 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
     }
   };
 
-  const handleGetBillHistory = async (page: number) => {
-    try {
-      setIsLoading(true);
-      const res = await api.get('transaction-histories/get-bill-list', {
-        params: {
-          type: typeBill === String(t('transaction:allType')) ? '' : typeBill.toLowerCase(),
-          currency:
-            optionFilter.currency.symbol === String(t('transaction:allAssets')) ? '' : optionFilter.currency.symbol,
-          dayPast: optionFilter.dayPast.type,
-          page: page,
-          limit,
-        },
-      });
-      setColumnType(String(t('transaction:Bill')));
-      setDataTable(res.data?.data);
-      setTotalRows(res.data?.total);
-    } catch (error) {
-      setDataTable([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetTransactionBonus = async (page: number) => {
-    try {
-      setIsLoading(true);
-      const res = await api.get('vip/get-list-bonus-transactions', {
-        params: {
-          currency: String(t('transaction:allAssets')) ? '' : optionFilter.currency.symbol,
-          time: optionFilter.dayPast.type,
-          page: page,
-          limit,
-        },
-      });
-      setColumnType(String(t('transaction:Bonus')));
-      setDataTable(res.data.data);
-      setTotalRows(res.data.total);
-    } catch (error) {
-      setDataTable([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetTransactionSwap = async (page: number) => {
-    try {
-      setIsLoading(true);
-      const res = await api.get('exchange/get-swap', {
-        params: {
-          currency: optionFilter.currency.symbol,
-          time: optionFilter.dayPast.type,
-          page: page,
-          limit,
-        },
-      });
-      setColumnType(String(t('transaction:swap')));
-      setDataTable(res.data.data);
-      setTotalRows(res.data.total);
-    } catch (error) {
-      setDataTable([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetData = (page: number) => {
-    switch (t(optionFilter.type.name)) {
-      case String(t('transaction:swap')):
-        handleGetTransactionSwap(page);
-        break;
-      case String(t('transaction:Bill')):
-        handleGetBillHistory(page);
-        break;
-      case String(t('transaction:Bonus')):
-        handleGetTransactionBonus(page);
-        break;
-      default:
-        handleGetTransaction(page);
-        break;
-    }
+  const getSymbolNameById = (symbolId: string) => {
+    const symbol = cryptoSymbols.find((item) => item.id === symbolId);
+    return symbol ? symbol.name : 'All Assets';
   };
 
   const handleClickRow = (row: Row<any>) => {
-    if (optionFilter.type.id !== 5 && optionFilter.type.id !== 6) {
+    if (
+      optionFilter.type.type !== TRANSACTION_TYPE.Bill &&
+      optionFilter.type.type !== TRANSACTION_TYPE.Bonus &&
+      optionFilter.type.type !== TRANSACTION_TYPE.Swap
+    ) {
       setIsShowDetailTransaction(true);
-      setTransaction({ ...row.original, ...optionFilter });
+      setTransaction({ ...row.original });
     }
   };
 
   useEffect(() => {
     setPage(1);
-    handleGetData(1);
+    handleGetTransaction(1);
   }, [optionFilter, limit, typeBill]);
 
   const columns = useMemo(() => {
     switch (columnType) {
-      case String(t('transaction:swap')):
+      case TRANSACTION_TYPE.Swap:
         return swapColumns;
-      case String(t('transaction:Bill')):
+      case TRANSACTION_TYPE.Bill:
         return billColumns;
       default:
-        if (t(optionFilter.type.name) === 'Bonus') {
+        if (t(optionFilter.type.type) === TRANSACTION_TYPE.Bonus) {
           return bonusColumns;
         }
         return depositColumns;
     }
-  }, [columnType, viewInFiat, localeFiat, optionFilter, t]);
+  }, [columnType, viewInFiat, localFiat, optionFilter, t]);
 
   return (
     <div className={`${styles.cardContent}`}>
@@ -655,7 +678,9 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                  <div className="flex-1 text-start dark:text-white text-black">{optionFilter.currency.symbol}</div>
+                  <div className="flex-1 text-start dark:text-white text-black">
+                    {getSymbolNameById(optionFilter.currency)}
+                  </div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
                   <ChevronDownIcon className=" dark:text-white text-black" width={15} />
@@ -674,16 +699,31 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
             >
               <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
-                  {CRYPTO_NORMAL_DATA.map((coin, index) => (
+                  <Menu.Item>
+                    {({ active }) => (
+                      <div
+                        className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                        role="button"
+                        onClick={() => setOptionFilter({ ...optionFilter, currency: '' })}
+                      >
+                        <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                          <div className="flex-1 text-start dark:text-white text-black">{getSymbolNameById('')}</div>
+                        </div>
+                      </div>
+                    )}
+                  </Menu.Item>
+                  {cryptoSymbols.map((coin, index) => (
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
                           className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
                           role="button"
-                          onClick={() => setOptionFilter({ ...optionFilter, currency: coin })}
+                          onClick={() => setOptionFilter({ ...optionFilter, currency: coin.id })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                            <div className="flex-1 text-start dark:text-white text-black">{coin.symbol}</div>
+                            <div className="flex-1 text-start dark:text-white text-black">
+                              {getSymbolNameById(coin.id)}
+                            </div>
                           </div>
                         </div>
                       )}
@@ -738,7 +778,7 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
               </Menu.Items>
             </Transition>
           </Menu>
-          {t(optionFilter.type.name) === String(t('transaction:Bill')) && (
+          {t(optionFilter.type.type) === TRANSACTION_TYPE.Bill && (
             <Menu
               as="div"
               className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
@@ -765,7 +805,7 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
               >
                 <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
-                    {billTypes.map((item, index) => (
+                    {billTypes.map((item: BillType, index: number) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
@@ -785,7 +825,7 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
               </Transition>
             </Menu>
           )}
-          {t(optionFilter.type.name) === String(t('transaction:withdraw')) && (
+          {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw && (
             <Menu
               as="div"
               className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
@@ -852,7 +892,7 @@ const TransactionPage: NextPage<TransactionPageProps> = ({ billTypes }) => {
               setIsShowDetailTransaction(false);
             }}
             transaction={transaction}
-            type={String(t(optionFilter.type.name))}
+            type={optionFilter.type.type}
           />
         )}
       </div>

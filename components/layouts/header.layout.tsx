@@ -1,76 +1,53 @@
-import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import Link from 'next/link';
-
 import { Gift } from 'iconsax-react';
+import { Global, Message, MoneyRecive, Notification } from 'iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
-import { CookieKey, ROUTER } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { RootState } from '@/base/types/root-state';
 import { useTranslation } from '@/base/config/i18next';
+import { ROUTER } from '@/base/constants/common';
+import { handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
+  changeIsShowCasinoSearch,
   changeIsShowDepositModal,
   changeIsShowMultiLanguageModal,
   changeMultiLanguageTab,
   changeShowChatType,
-  changeIsShowCasinoSearch,
 } from '@/base/redux/reducers/modal.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { AuthenticationModeEnum } from '@/base/types/common';
 
-import { Global, Message, MoneyRecive, Notification } from 'iconsax-react';
-import { AuthenticationModeEnum, FiatType } from '@/base/types/common';
-import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
-import FiatHeader from './header/fiatHeader';
-import ProfileDropdown from '../profileDropdown/profileDropdown';
-import { handleLocaleSymbol } from '@/base/libs/utils';
-import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
-import CasinoBoldIcon from '../icons/CasinoBoldIcon';
-import SportBoldIcon from '../icons/SportBoldIcon';
-import RacingBoldIcon from '../icons/RacingBoldIcon';
 import LoaderFull from '../common/loaderFull/loaderFull';
+import CasinoBoldIcon from '../icons/CasinoBoldIcon';
+import RacingBoldIcon from '../icons/RacingBoldIcon';
+import SportBoldIcon from '../icons/SportBoldIcon';
+import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
+import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
+import ProfileDropdown from '../profileDropdown/profileDropdown';
+import FiatHeader from './header/fiatHeader';
 
 export default function Navbar() {
   const router = useRouter();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('');
-  const [accessToken, setAccessToken] = useState<boolean>(false);
-  const [isLoadingFull, setIsLoadingFull] = useState<boolean>(true);
-  const [localeCoin, setLocaleCoin] = useState<FiatType>({});
+  const [isLoadingFull, setIsLoadingFull] = useState<boolean>(false);
 
-  const { isLogin, isToggleSidebar, showChatType, localeFiat, viewInFiat, isShowCasinoSearch } = useSelector(
-    (state: RootState) => ({
+  const { isLogin, isToggleSidebar, showChatType, viewInFiat, isShowCasinoSearch, localFiat } = useSelector(
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
       isToggleSidebar: state.modal.isToggleSidebar,
       isShowCasinoSearch: state.modal.isShowCasinoSearch,
       showChatType: state.modal.showChatType,
-      localeFiat: state.common.localeFiat,
       viewInFiat: state.common.viewInFiat,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
-
-  const [showGlobal, setShowGlobal] = useState(false);
-
-  useEffect(() => {
-    const token = CookiesStorage.getAccessToken();
-    setAccessToken(!!token);
-    setIsLoadingFull(false);
-    if (isLogin) {
-      setShowGlobal(true);
-    } else {
-      setShowGlobal(false);
-    }
-  }, [isLogin]);
-
-  useEffect(() => {
-    const localeFiatObject = JSON.parse(`${CookiesStorage.getCookieData(CookieKey.localeFiatData)}`);
-    setLocaleCoin(localeFiat || localeFiatObject);
-    setIsLoadingFull(false);
-  }, [localeFiat]);
 
   return (
     <>
@@ -152,7 +129,7 @@ export default function Navbar() {
 
           <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
             {/* Button */}
-            {!accessToken && (
+            {!isLogin && (
               <div className="flex items-center text-white font-bold w-full gap-2">
                 <button
                   type="button"
@@ -178,8 +155,8 @@ export default function Navbar() {
                 </button>
               </div>
             )}
-            {accessToken && <FiatHeader />}
-            {accessToken && (
+            {isLogin && <FiatHeader />}
+            {isLogin && (
               <button
                 type="button"
                 className="truncate text-white rounded-[5px] bg-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[7px] md:text-[14px] text-[12px] font-semibold"
@@ -191,7 +168,7 @@ export default function Navbar() {
                 {t('layout:deposit')}
               </button>
             )}
-            {accessToken && (
+            {isLogin && (
               <button
                 type="button"
                 className="sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px]"
@@ -211,7 +188,7 @@ export default function Navbar() {
             >
               <Message width={18} height={18} variant="Bold" />
             </button>
-            {accessToken && showGlobal && (
+            {isLogin && (
               <Link
                 className="block sm:hidden dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
                 href={ROUTER.Bonus}
@@ -220,12 +197,12 @@ export default function Navbar() {
               </Link>
             )}
             {/* Avatar */}
-            {accessToken && <ProfileDropdown setAccessToken={setAccessToken} />}
+            {isLogin && <ProfileDropdown />}
             {/* Multi Language */}
             <button
               type="button"
               className={`${
-                showGlobal ? 'hidden sm:flex' : 'flex'
+                isLogin ? 'hidden sm:flex' : 'flex'
               } rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
@@ -234,8 +211,8 @@ export default function Navbar() {
             >
               <Global width={18} height={18} />
             </button>
-            {viewInFiat && localeCoin && <div className="w-px h-5 bg-slate-400 sm:block hidden"></div>}
-            {viewInFiat && localeCoin && (
+            {viewInFiat && localFiat && <div className="w-px h-5 bg-slate-400 sm:block hidden"></div>}
+            {viewInFiat && localFiat && (
               <button
                 type="button"
                 className="sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black text-[#31373D] p-[10px]"
@@ -245,7 +222,7 @@ export default function Navbar() {
                 }}
               >
                 <div className="p-1 text-sm w-max">
-                  {handleLocaleSymbol(String(localeCoin?.currency))} <span>{localeCoin?.currency}</span>
+                  {handleLocaleSymbol(String(localFiat.name))} <span>{localFiat.name}</span>
                 </div>
               </button>
             )}

@@ -1,28 +1,29 @@
-import { LIST_FILTER_STATUS } from '@/base/constants/common';
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
-import { ElementType } from 'react';
-import { Simcard2, TickCircle, CloseCircle } from 'iconsax-react';
+import { CloseCircle, Simcard2, TickCircle } from 'iconsax-react';
 import Image from 'next/image';
-import ReactLoading from 'react-loading';
-import { toast } from 'react-toastify';
+import { ElementType, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactLoading from 'react-loading';
 
-import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, LIST_FILTER_STATUS } from '@/base/constants/common';
 import {
-  formatDate,
-  transformWalletAddress,
-  currencyFormat1,
   convertStatus,
-  getColorByStatus,
   copyClipBoard,
+  currencyFormat1,
+  formatDate,
+  getColorByStatus,
+  transformWalletAddress,
 } from '@/base/libs/utils';
+import { TransactionType } from '@/base/types/common';
+import { TRANSACTION_TYPE } from '@/base/types/requestTypes';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalDetailTransactionProps = {
   onClose: () => void;
   show: boolean;
-  transaction?: any;
+  transaction: TransactionType;
   titleModal?: String;
   type?: string;
 } & TransitionRootProps<ElementType> &
@@ -37,9 +38,15 @@ export default function ModalDetailTransaction({
 }: ModalDetailTransactionProps) {
   const { t } = useTranslation('');
 
-  let isProcess =
-    transaction.status === LIST_FILTER_STATUS[2].type || transaction.status === LIST_FILTER_STATUS[3].type;
-  let isFailed = transaction.status === LIST_FILTER_STATUS[4].type || transaction.status === LIST_FILTER_STATUS[5].type;
+  const isProcess = useMemo(() => {
+    return transaction.status === LIST_FILTER_STATUS[2].type || transaction.status === LIST_FILTER_STATUS[3].type;
+  }, [transaction]);
+
+  const isFailed = useMemo(() => {
+    return transaction.status === LIST_FILTER_STATUS[4].type || transaction.status === LIST_FILTER_STATUS[5].type;
+  }, [transaction]);
+
+  console.log(transaction, 'transaction');
 
   return (
     <>
@@ -55,25 +62,25 @@ export default function ModalDetailTransaction({
       >
         <div className=" min-h-[516px] overflow-auto h-full bg-cover p-4 dark:bg-[#25262B] bg-white">
           <div className="flex flex-col items-center py-5 gap-2">
-            <Image height={40} width={40} src={`/img/fiats/${transaction?.symbol}.png`} alt="" />
+            <Image height={40} width={40} src={transaction.symbolLogo} alt="" />
             <div
               className={cn('text-[22px]', {
-                'text-red-500': transaction.type.name === 'Withdraw',
+                'text-red-500': transaction.type === TRANSACTION_TYPE.Withdraw,
                 'text-[#0DFDE4]': Number(transaction?.amount) >= 0,
                 'text-[#FD6E0B]': Number(transaction?.amount) < 0,
               })}
             >
               <span>
-                {transaction.type.name === 'Withdraw' && (
-                  <span>- {currencyFormat1(transaction?.amount - transaction?.fee, 6, '', false)}</span>
+                {transaction.type === TRANSACTION_TYPE.Withdraw && (
+                  <span>- {currencyFormat1(transaction.amount - transaction.fee, 6, '', false)}</span>
                 )}
-                {transaction.type.name !== 'Withdraw' && (
+                {transaction.type !== TRANSACTION_TYPE.Withdraw && (
                   <span>
-                    {Number(transaction?.amount) >= 0 ? '+' : ''} {currencyFormat1(transaction?.amount, 6, '', false)}
+                    {Number(transaction?.amount) >= 0 ? '+' : ''} {currencyFormat1(transaction.amount, 6, '', false)}
                   </span>
                 )}
               </span>
-              <span className="font-semibold dark:text-white text-black ml-1">{transaction?.symbol}</span>
+              <span className="font-semibold dark:text-white text-black ml-1">{transaction.symbolName}</span>
             </div>
           </div>
           <div className="mt-5 flex flex-col gap-5  text-[14px]">
@@ -100,7 +107,9 @@ export default function ModalDetailTransaction({
             <div className="flex items-center justify-between">
               <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:orderId'))}</span>
               <div className="flex gap-2 items-center">
-                <span className="text-black dark:text-white">{transformWalletAddress(transaction?.orderId)}</span>
+                <span className="text-black dark:text-white text-right">
+                  {transformWalletAddress(transaction?.orderId)}
+                </span>
                 <Simcard2
                   role="button"
                   onClick={() => copyClipBoard(String(transaction?.orderId))}
@@ -114,12 +123,12 @@ export default function ModalDetailTransaction({
                 {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
               </span>
             </div>
-            {type === String(t('transaction:withdraw')) && (
+            {type === TRANSACTION_TYPE.Withdraw && (
               <>
                 <div className="flex items-center justify-between">
                   <span className="dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:fee'))}</span>
                   <span className="text-black dark:text-white">
-                    {transaction.fee} {transaction.unitFee}
+                    {currencyFormat1(transaction.fee, 4, '', false)} {transaction.symbolName}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">

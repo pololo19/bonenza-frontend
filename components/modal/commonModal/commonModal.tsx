@@ -1,10 +1,10 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ElementType, Fragment, useRef } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import { TOAST_ENUM } from '@/base/constants/common';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { ToastContainer } from 'react-toastify';
 
 type CommonModalProps = {
   onClose: () => void;

@@ -4,11 +4,10 @@ import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { io } from 'socket.io-client';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_SUBMIT_FORMAT_WITH_SECOND, socketConfig } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import {
   currencyFormat,
   exchangeByLocaleFiat,
@@ -16,11 +15,10 @@ import {
   formatLengthNumber,
   handleLocaleSymbol,
 } from '@/base/libs/utils';
-import { BetTableDetailType, GameDetail } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
-
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
-import { camelizeKeys } from 'humps';
+import { AppState } from '@/base/redux/store';
+import { BetTableDetailType, GameDetail } from '@/base/types/common';
+
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
@@ -36,9 +34,9 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
   const dispatch = useDispatch();
 
   const { localeFiat, userId } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -170,40 +168,38 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
 
   useEffect(() => {
     if (gameDetail) {
-      const socket = io(String(process.env.SOCKET_URL), socketConfig);
-      socket.on(`create_bet_game_identifier_${gameDetail.identifier}`, (data) => {
-        const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
-        setAllBetData((oldArray) => {
-          const index = oldArray.findIndex((bet) => bet.gameId === camelizeKeysData.gameId);
-          if (index >= 0) {
-            const newData = oldArray.map((bet) => {
-              if (bet.gameId === camelizeKeysData.gameId) {
-                return camelizeKeysData;
-              }
-              return bet;
-            });
-            return newData;
-          } else {
-            return [camelizeKeysData, ...oldArray];
-          }
-        });
-      });
-
+      // const socket = io(String(process.env.SOCKET_URL), socketConfig);
+      // socket.on(`create_bet_game_identifier_${gameDetail.identifier}`, (data) => {
+      //   const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
+      //   setAllBetData((oldArray) => {
+      //     const index = oldArray.findIndex((bet) => bet.gameId === camelizeKeysData.gameId);
+      //     if (index >= 0) {
+      //       const newData = oldArray.map((bet) => {
+      //         if (bet.gameId === camelizeKeysData.gameId) {
+      //           return camelizeKeysData;
+      //         }
+      //         return bet;
+      //       });
+      //       return newData;
+      //     } else {
+      //       return [camelizeKeysData, ...oldArray];
+      //     }
+      //   });
+      // });
       // Clean up the socket connection on unmount
-      return () => {
-        socket.disconnect();
-      };
+      // return () => {
+      //   socket.disconnect();
+      // };
     } else {
-      const socket = io(String(process.env.SOCKET_URL), socketConfig);
-      socket.on('create_bet', (data) => {
-        const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
-        setAllBetData((oldArray) => [camelizeKeysData, ...oldArray]);
-      });
-
+      // const socket = io(String(process.env.SOCKET_URL), socketConfig);
+      // socket.on('create_bet', (data) => {
+      //   const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
+      //   setAllBetData((oldArray) => [camelizeKeysData, ...oldArray]);
+      // });
       // Clean up the socket connection on unmount
-      return () => {
-        socket.disconnect();
-      };
+      // return () => {
+      //   socket.disconnect();
+      // };
     }
   }, [gameDetail]);
 

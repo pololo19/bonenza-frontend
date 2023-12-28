@@ -2,36 +2,35 @@ import cn from 'classnames';
 import { ArrowDown2, Global } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { FiatType } from '@/base/types/common';
-
-import { RootState } from '@/base/types/root-state';
-import { shallowEqual, useSelector, useDispatch } from 'react-redux';
-import InputSearch from '../input/typing/InputSearch';
-import CommonModal from '../modal/commonModal/commonModal';
-import { changeActiveFiat } from '@/base/redux/reducers/common.reducer';
 import { CookieKey } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { AppState } from '@/base/redux/store';
+import { CurrencyType } from '@/base/types/wallet';
+
+import InputSearch from '../input/typing/InputSearch';
+import CommonModal from '../modal/commonModal/commonModal';
 
 type SelectFiatProps = {
-  onChangeMoonpayFiat?: (value: FiatType) => void;
+  onChangeMoonpayFiat?: (value: CurrencyType) => void;
 };
 
 const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { fiatArray, localeFiat } = useSelector(
-    (state: RootState) => ({
-      fiatArray: state.common.fiatArray,
-      localeFiat: state.common.localeFiat,
+  const { fiatSymbols, localFiat } = useSelector(
+    (state: AppState) => ({
+      fiatSymbols: state.wallet.fiatSymbols,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
 
   const [isShowFiatModal, setIsShowFiatModal] = useState<boolean>(false);
-  const [activeMoonpayFiat, setActiveMoonpayFiat] = useState<FiatType>();
+  const [activeMoonpayFiat, setActiveMoonpayFiat] = useState<CurrencyType>();
   const [searchInput, setSearchInput] = useState<string>('');
 
   useEffect(() => {
@@ -43,32 +42,32 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
     if (localFiatStorage) {
       handleUpdateFiat(localFiatStorage);
     } else {
-      if (fiatArray) setActiveMoonpayFiat(fiatArray[0]);
+      if (fiatSymbols) setActiveMoonpayFiat(fiatSymbols[0]);
     }
-  }, [fiatArray]);
+  }, [fiatSymbols]);
 
   useEffect(() => {
-    if (localeFiat) {
-      onChangeMoonpayFiat?.(localeFiat);
-      handleUpdateFiat(localeFiat);
+    if (localFiat) {
+      onChangeMoonpayFiat?.(localFiat);
+      handleUpdateFiat(localFiat);
     }
-  }, [localeFiat]);
+  }, [localFiat]);
 
-  const handleUpdateFiat = (crypto: FiatType) => {
+  const handleUpdateFiat = (crypto: CurrencyType) => {
     setActiveMoonpayFiat(crypto);
-    dispatch(changeActiveFiat(crypto));
-    sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
-    CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
+    // dispatch(changeActiveFiat(crypto));
+    // sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
+    // CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
   };
 
   const filterListFiat = useMemo(() => {
-    return fiatArray?.filter((item) => {
+    return fiatSymbols?.filter((item) => {
       return (
-        String(item?.currency).toLowerCase().includes(searchInput.toLowerCase()) ||
-        String(item?.currencyAlias).toLowerCase().includes(searchInput.toLowerCase())
+        String(item.name).toLowerCase().includes(searchInput.toLowerCase()) ||
+        String(item.alias).toLowerCase().includes(searchInput.toLowerCase())
       );
     });
-  }, [fiatArray, searchInput]);
+  }, [fiatSymbols, searchInput]);
 
   return (
     <>
@@ -79,9 +78,9 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
       >
         {activeMoonpayFiat ? (
           <div className="flex items-center gap-3">
-            <Image height={25} width={25} src={`/img/fiats/${activeMoonpayFiat?.currency}.png`} alt="" />
+            <Image height={25} width={25} src={activeMoonpayFiat.logo} alt="" />
             <div className="font-normal dark:text-white text-black sm:text-[14px] text-[12px]">
-              {activeMoonpayFiat?.currency}
+              {activeMoonpayFiat.name}
             </div>
           </div>
         ) : (
@@ -113,7 +112,7 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
                   className={cn(
                     'flex rounded-md text-left px-5 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 items-center',
                     {
-                      'border border-solid border-amber-500': activeMoonpayFiat?.currency === item?.currency,
+                      'border border-solid border-amber-500': activeMoonpayFiat?.id === item.id,
                     },
                   )}
                   onClick={() => {
@@ -122,11 +121,11 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
                   }}
                 >
                   <div className="flex-1 flex gap-[10px] items-center">
-                    <Image height={30} width={30} src={`/img/fiats/${item.currency}.png`} alt="" />
+                    <Image height={30} width={30} src={item.logo} alt="" />
 
-                    <div className="font-semibold text-[14px]">{item.currency}</div>
+                    <div className="font-semibold text-[14px]">{item.name}</div>
                   </div>
-                  <div className="text-[#98A7B5] text-[14px]">{item.currencyAlias}</div>
+                  <div className="text-[#98A7B5] text-[14px]">{item.alias}</div>
                 </button>
               ))}
             </div>

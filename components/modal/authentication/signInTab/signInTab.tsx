@@ -1,29 +1,27 @@
-/* eslint-disable @next/next/no-img-element */
-
 import { yupResolver } from '@hookform/resolvers/yup';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import api from '@/api/api';
-import { loginWithEmail } from '@/api/auth';
+import { api_get2FAStatus, api_login, api_sendVerifyQRCode } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
-import { CookiesStorage } from '@/libs/storage/cookie';
-import { saveUserInfo } from '@/redux/reducers/auth.reducer';
-import { LoginRequestWithoutCaptcha } from '@/types/auth';
-
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo } from '@/base/libs/utils';
+import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
 import InputPassAuthentication from '@/components/input/typing/InputPassAuthentication';
 import InputText from '@/components/input/typing/InputText';
-import Image from 'next/image';
+import { CookiesStorage } from '@/libs/storage/cookie';
+import { saveUserInfo, saveVerifyInfo, setIsForgetPassword } from '@/redux/reducers/auth.reducer';
+import { LoginRequest } from '@/types/requestTypes';
 
 type SignInTabProps = {
   setIsLoginTwoFactor: (isTowFactor: boolean) => void;
@@ -48,7 +46,7 @@ export default function SignInTab({
   const [codeOtp, setCodeOtp] = useState<string>('');
   const [countryCallingCode, setCountryCallingCode] = useState<(typeof COUNTRY_CALLING_CODES)[number]>();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { t } = useTranslation('');
 
@@ -75,7 +73,8 @@ export default function SignInTab({
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<LoginRequestWithoutCaptcha>({
+    getValues,
+  } = useForm<LoginRequest>({
     resolver: yupResolver(schema),
   });
 
@@ -83,25 +82,18 @@ export default function SignInTab({
     if (isLoginTwoFactor) {
       setCodeOtp('');
       setOtpValue('codeOtp', '');
-    }
-  }, [isLoginTwoFactor]);
-
-  useEffect(() => {
-    if (!isLoginTwoFactor) {
+    } else {
       setCodeOtp('');
     }
   }, [isLoginTwoFactor]);
 
-  const getTwoFactorAuthStatus = async (formLogin: LoginRequestWithoutCaptcha) => {
+  const getTwoFactorAuthStatus = async (formLogin: LoginRequest) => {
+    if (!formLogin.email) return false;
     let isTwoFactor = false;
     setIsLoading(true);
     try {
-      const res = await api.get('/auth/get-two-factor-auth-status', {
-        params: {
-          email: formLogin.email,
-        },
-      });
-      isTwoFactor = res.data?.twoFactorAuthStatus;
+      const res = await api_get2FAStatus(formLogin.email);
+      isTwoFactor = res.data;
     } catch (error: any) {
     } finally {
       setIsLoading(false);
@@ -109,9 +101,10 @@ export default function SignInTab({
     return isTwoFactor;
   };
 
-  const onLogin = async (formLogin: LoginRequestWithoutCaptcha) => {
+  const onLogin = async (formLogin: LoginRequest) => {
     let checkTwoFactor = false;
-    const isPhoneNumber = formLogin.email?.length > 2 && Number.isInteger(Number(formLogin.email));
+    const isPhoneNumber = formLogin.email && formLogin.email.length > 2 && Number.isInteger(Number(formLogin.email));
+    // will be implemented with 2fa
     if (!codeOtp && !isPhoneNumber) {
       checkTwoFactor = await getTwoFactorAuthStatus(formLogin);
     }
@@ -121,34 +114,46 @@ export default function SignInTab({
     } else {
       try {
         setIsLoading(true);
+
         const request = {
           email: !isPhoneNumber ? formLogin.email : '',
           codeOtp: codeOtp,
           password: formLogin.password,
-          phone: isPhoneNumber ? String(countryCallingCode?.countryCallingCode) + formLogin.email : '',
+          phone: isPhoneNumber ? `+${String(countryCallingCode?.countryCallingCode) + formLogin.email}` : '',
         };
-        const res = await loginWithEmail(request);
-        if (res?.status === 200) {
-          CookiesStorage.setAccessToken(res.data.data.accessToken);
-          const resUser = await api.get('auth/get-user-info');
-          if (!resUser.data.data.isDeposit) {
-            const resDeposit = await api.post('deposit/create-deposit-address');
-          }
-          dispatch(
-            saveUserInfo({
-              isLogin: true,
-              ...convertUserInfo(resUser.data.data),
-            }),
-          );
-          dispatch(changeIsShowAuthenticationModal(false));
-        }
+        const res = await api_login(request);
+        const { token, user } = res.data;
+        CookiesStorage.setAccessToken(token);
+        dispatch(
+          saveUserInfo({
+            ...convertUserInfo(user),
+          }),
+        );
+        dispatch(initWalletInfo());
+        dispatch(changeIsShowAuthenticationModal(false));
       } catch (error: any) {
-        const isPhoneNumber = formLogin.email?.length > 2 && Number.isInteger(Number(formLogin.email));
+        const isPhoneNumber =
+          formLogin.email && formLogin.email.length > 2 && Number.isInteger(Number(formLogin.email));
+
         setCodeOtp('');
         setOtpValue('codeOtp', '');
-        toast.error(t(isPhoneNumber ? 'authentication:loginPhoneFailed' : 'authentication:loginEmailFailed'), {
-          containerId: TOAST_ENUM.MODAL,
-        });
+        const message = error.response.data.message;
+        const status = error.response.data.statusCode;
+        const errData = getErrorMessage('auth', 'signIn', status, message, isPhoneNumber ? 'phone' : 'email');
+        toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
+
+        // user is not allowed
+        if (status == 406) {
+          const phone = isPhoneNumber ? String(countryCallingCode?.countryCallingCode) + formLogin.email : '';
+          dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
+          dispatch(setIsForgetPassword(false));
+          dispatch(
+            saveVerifyInfo({
+              verifyRequest: isPhoneNumber ? phone : formLogin.email,
+              isPhoneVerifyRequested: !!isPhoneNumber,
+            }),
+          );
+        }
       } finally {
         setIsLoading(false);
       }
@@ -156,11 +161,11 @@ export default function SignInTab({
   };
 
   const sendQrCodeToEmail = async () => {
+    const formData = getValues();
+    if (!formData.email) return;
     setIsLoading(true);
     try {
-      const res = await api.post('auth/send-verify-qr-code', {
-        email,
-      });
+      const res = await api_sendVerifyQRCode(formData.email);
       toast.success(res?.data?.msg, { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const messError = error?.response?.data?.msg;
@@ -185,7 +190,6 @@ export default function SignInTab({
     setForgotKey(false);
     setIsLoginTwoFactor(false);
   };
-
   return (
     <>
       {isLoading && <Loader />}

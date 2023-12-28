@@ -1,14 +1,13 @@
+import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2 } from 'iconsax-react';
 import { Fragment, InputHTMLAttributes, useEffect, useState } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
-import PhoneInput, { getCountries, getCountryCallingCode } from 'react-phone-number-input';
 
+import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { MAX_LENGTH, SPECIAL_CHARACTER, SPECIAL_CHARACTER_WITHOUT_EMAIL } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
-import { Menu, Transition } from '@headlessui/react';
-import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;
@@ -91,7 +90,10 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                         <Menu.Item as={Fragment} key={index}>
                           {({ active }) => (
                             <div
-                              className={`${active ? 'bg-gray-700 text-white' : ''} ${country.countryCode === activeCountry.countryCode && 'border border-amber-600 border-solid'} flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded`}
+                              className={`${active ? 'bg-gray-700 text-white' : ''} ${
+                                country.countryCode === activeCountry.countryCode &&
+                                'border border-amber-600 border-solid'
+                              } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded`}
                               onClick={() => setActiveCountry(country)}
                             >
                               <div className="flex-1">{country.country}</div>

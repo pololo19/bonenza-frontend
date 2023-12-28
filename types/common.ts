@@ -1,6 +1,14 @@
-import { Path } from 'react-hook-form';
 import { ParseResult } from 'papaparse';
-import { type } from 'os';
+
+import { KYC_ENUM } from '../constants/common';
+import { TRANSACTION_TYPE } from './requestTypes';
+
+export enum AuthenticationModeEnum {
+  SIGN_IN = 'SIGN_IN',
+  SIGN_UP = 'SIGN_UP',
+  FORGOT_PASS = 'FORGOT_PASS',
+  VERIFY = 'VERIFY',
+}
 
 export enum EnumCSVValidateResult {
   CSV_ERROR_EXTENSION = 'CSV_ERROR_EXTENSION',
@@ -23,12 +31,6 @@ export enum EnumVerificationDocumentType {
   ID_CARD = 'ID_CARD',
   RESIDENCE_PERMIT = 'RESIDENCE_PERMIT',
   VISA = 'VISA',
-}
-
-export enum AuthenticationModeEnum {
-  SIGN_IN = 'SIGN_IN',
-  SIGN_UP = 'SIGN_UP',
-  FORGOT_PASS = 'FORGOT_PASS',
 }
 
 export type ObjectLiteral = {
@@ -59,23 +61,17 @@ export type PaginationResponse = {
   first?: number;
 };
 
-export type ParamsRequest = {
-  q?: string | number;
-  limit?: string | number;
-  page?: string | number;
+export type SignUpEmailFormRef = {
+  emitData?: () => void;
+};
+
+export type SignUpPhoneFormRef = {
+  emitData?: () => void;
+  countryCallingCode?: any;
 };
 
 export type BasicFormRef = {
   emitData?: () => void;
-};
-
-export type SignUpEmailFormRef = {
-  emitData?: () => void;
-};
-export type SignUpEmailFormRequest = {
-  email?: string;
-  password?: string;
-  referralCode?: string;
 };
 
 export type ReferralCodeDetail = {
@@ -87,16 +83,6 @@ export type ReferralCodeDetail = {
   totalMemberRegister?: number;
   totalCommissionRewards?: string;
   userId: number;
-};
-
-export type SignUpPhoneFormRef = {
-  emitData?: () => void;
-  countryCallingCode?: any;
-};
-export type SignUpPhoneFormRequest = {
-  phone?: string;
-  password?: string;
-  referralCode?: string;
 };
 
 export type CSVReaderResult = {
@@ -182,6 +168,14 @@ export enum CurrencyEnum {
   CRYPTO = 'crypto',
 }
 
+export type GameListType = {
+  id: string;
+  title: string;
+  identifier: string;
+  payout: number;
+  multiplier: number;
+};
+
 export type GameDetail = {
   id?: number;
   title?: string;
@@ -240,28 +234,49 @@ export type RankDetail = {
   vips: any[];
 };
 
+export type UserSettingGeneralType = {
+  settingReceiveMarketPromotion: boolean;
+  settingShowFullNameCrypto: boolean;
+  settingLanguage: string;
+  settingCurrency: string;
+};
+
+export type UserSettingPrivacyType = {
+  settingHideUserName: boolean;
+  settingHideGamingData: boolean;
+  settingRefuseTipFromStrangers: boolean;
+};
+
+export type UserSettingVerifiedType = {
+  emailVerified: boolean;
+  phoneVerified: boolean;
+};
+
 export type UserDetail = {
-  username?: string;
-  userId?: number;
-  isHideNamePublicList?: boolean;
-  isHideGamingData?: boolean;
-  uuid?: string;
-  avatar?: string;
-  id?: number;
-  email?: string;
-  betCount?: string;
-  winCount?: string;
-  totalWager?: number;
-  totalWagerUSD?: number;
+  userName: string;
+  userId: string;
+  email: string;
+  phone: string;
+  avatar: string;
+  betCount: string;
+  winCount: string;
+  totalWager: number;
+  referralCode: string;
+  wallet: string;
+  isKyc: KYC_ENUM;
+  tfa: boolean;
+  generalSetting: UserSettingGeneralType;
+  privacySetting: UserSettingPrivacyType;
+  verifiedSetting: UserSettingVerifiedType;
 };
 
 export type GameProviderDetail = {
   id: string;
-  name?: string;
+  name: string;
   image?: string;
   introduction?: string;
-  isSelect?: boolean;
-  totalGames?: number | string;
+  isSelect: boolean;
+  totalGames: number | string;
 };
 
 export type GameThemeDetail = {
@@ -348,17 +363,34 @@ export type InformationWithdraw = {
 
 export type TransactionStatus = 'process' | 'pending' | 'refunding' | 'rejected' | 'fail' | 'success' | 'approve';
 export type TransactionType = {
-  amount: string | number;
-  fee: string | number;
-  id: string | number;
-  orderId: string | number;
+  amount: number;
+  amountUsd: number;
+  fee: number;
+  feeUsd: number;
+  id: string;
+  orderId: string;
   status: TransactionStatus;
-  symbol: string;
+  symbolId: string;
+  symbolName: string;
+  symbolLogo: string;
   time: string | Date;
-  txId: string | null;
+  txId: string;
   unitFee: string;
   userId: number;
   username: string;
   value: number;
+  type: TRANSACTION_TYPE;
   withdrawalAddress: string;
+};
+
+export type TransactionSwapType = {
+  symbolFrom: string;
+  swapFrom: number;
+  swapFromLogo: string;
+  swapFromUsd: number;
+  symbolTo: string;
+  swapTo: number;
+  swapToUsd: number;
+  swapToLogo: string;
+  timeTransfer: string | Date;
 };

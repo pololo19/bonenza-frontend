@@ -1,17 +1,19 @@
-import { useTranslation } from '@/base/config/i18next';
 import cn from 'classnames';
 import { ArrowUp2 } from 'iconsax-react';
 import { useEffect, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
+import { useTranslation } from '@/base/config/i18next';
+import { AppState } from '@/base/redux/store';
+
 import styles from './index.module.scss';
-import { RootState } from '@/base/types/root-state';
-import { useSelector, shallowEqual } from 'react-redux';
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { t } = useTranslation('');
 
   const { showChatType } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       showChatType: state.modal.showChatType,
     }),
     shallowEqual,

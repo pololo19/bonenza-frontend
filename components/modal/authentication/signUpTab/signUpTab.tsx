@@ -1,30 +1,21 @@
-/* eslint-disable @next/next/no-img-element */
-
 import cn from 'classnames';
-import { useTheme } from 'next-themes';
-import { useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import api from '@/api/api';
+import { api_signupWithEmail, api_signupWithPhone } from '@/api/auth';
 import { Trans, useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
-import { URL_LOGIN_WITH_EMAIL, URL_SIGNUP_WITH_EMAIL, URL_SIGNUP_WITH_PHONE } from '@/base/constants/endpoints';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { convertUserInfo } from '@/base/libs/utils';
-import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
-import {
-  AuthenticationModeEnum,
-  SignUpEmailFormRef,
-  SignUpEmailFormRequest,
-  SignUpPhoneFormRef,
-  SignUpPhoneFormRequest,
-} from '@/base/types/common';
+import getErrorMessage from '@/base/libs/utils/notificationToast';
+import { saveVerifyInfo, setIsForgetPassword } from '@/base/redux/reducers/auth.reducer';
+import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
+import { AuthenticationModeEnum, SignUpEmailFormRef, SignUpPhoneFormRef } from '@/base/types/common';
+import { SignUpEmailRequest, SignUpPhoneRequest } from '@/base/types/requestTypes';
 import Loader from '@/components/common/preloader/loader';
-import Image from 'next/image';
-import Link from 'next/link';
+
 import SignUpEmailForm from './signUpEmailForm';
 import SignUpPhoneForm from './signUpPhoneForm';
 type SignUpTabProps = {
@@ -37,13 +28,11 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
   const [isCheckboxApprove, setIsCheckboxApprove] = useState<boolean>(true);
   const [isConfirm, setCheckIsConfirm] = useState<boolean>(false);
   const [isPhoneNumber, setCheckIsPhoneNumber] = useState<boolean>(false);
-  const [isEnterReferral, setCheckIsReferral] = useState<boolean>(false);
   const [countryCallingCode, setCountryCallingCode] = useState<(typeof COUNTRY_CALLING_CODES)[number]>();
 
   const emailFormDataRef = useRef<SignUpEmailFormRef>(null);
   const phoneFormDataRef = useRef<SignUpPhoneFormRef>(null);
 
-  const { theme } = useTheme();
   const dispatch = useDispatch();
 
   const { t } = useTranslation('');
@@ -51,81 +40,50 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
   const emitEmailData = () => emailFormDataRef.current?.emitData?.();
   const emitPhoneData = () => phoneFormDataRef.current?.emitData?.();
 
-  const onSubmitEmail = async (data: SignUpEmailFormRequest) => {
+  const onSubmitEmail = async (data: SignUpEmailRequest) => {
     try {
       setIsLoading(true);
-      const resSignUp = await api.post(URL_SIGNUP_WITH_EMAIL, data);
-      if (resSignUp?.status === 200) {
-        try {
-          const resSignIn = await api.post(URL_LOGIN_WITH_EMAIL, data);
-          if (resSignIn?.status === 200) {
-            CookiesStorage.setAccessToken(resSignIn.data.data.accessToken);
-            const resUser = await api.get('auth/get-user-info');
-            if (!resUser.data.data.isDeposit) {
-              await api.post('deposit/create-deposit-address');
-            }
-            dispatch(
-              saveUserInfo({
-                isLogin: true,
-                ...convertUserInfo(resUser.data.data),
-              }),
-            );
-            dispatch(changeIsShowAuthenticationModal(false));
-          }
-        } catch (error) {
-          toast.error(t('authentication:loginEmailFailed'), { containerId: TOAST_ENUM.MODAL });
-        } finally {
-          setIsLoading(false);
-        }
+      const resSignUp = await api_signupWithEmail(data);
+      if (resSignUp?.status === 201) {
+        dispatch(saveVerifyInfo({ verifyRequest: data.email, isPhoneVerifyRequested: false }));
+        dispatch(setIsForgetPassword(false));
+        dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
+        setIsLoading(false);
       }
     } catch (error: any) {
-      if (error?.response?.data?.msg === 'Email was taken') {
-        toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
-      } else {
-        toast.error(String(t('authentication:signUpFailed')), { containerId: TOAST_ENUM.MODAL });
-      }
+      const message = error.response.data.message;
+      const status = error.response.data.statusCode;
+      const errData = getErrorMessage('auth', 'signUpEmail', status, message, '');
+      toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const onSubmitPhone = async (data: SignUpPhoneFormRequest) => {
+  const onSubmitPhone = async (data: SignUpPhoneRequest) => {
     try {
       setIsLoading(true);
+      const phoneNumber = `+${String(countryCallingCode?.countryCallingCode) + data.phone}`;
       const formData = {
         ...data,
-        phone: String(countryCallingCode?.countryCallingCode) + data.phone,
+        phone: phoneNumber,
       };
-      const resSignUp = await api.post(URL_SIGNUP_WITH_PHONE, formData);
-      if (resSignUp?.status === 200) {
-        try {
-          const resSignIn = await api.post(URL_LOGIN_WITH_EMAIL, formData);
-          if (resSignIn?.status === 200) {
-            CookiesStorage.setAccessToken(resSignIn.data.data.accessToken);
-            const resUser = await api.get('auth/get-user-info');
-            if (!resUser.data.data.isDeposit) {
-              await api.post('deposit/create-deposit-address');
-            }
-            dispatch(
-              saveUserInfo({
-                isLogin: true,
-                ...convertUserInfo(resUser.data.data),
-              }),
-            );
-            dispatch(changeIsShowAuthenticationModal(false));
-          }
-        } catch (error) {
-          toast.error(t('authentication:loginPhoneFailed'), { containerId: TOAST_ENUM.MODAL });
-        } finally {
-          setIsLoading(false);
-        }
+      const resSignUp = await api_signupWithPhone(formData);
+      if (resSignUp?.status === 201) {
+        // store verification data
+        dispatch(saveVerifyInfo({ verifyRequest: phoneNumber, isPhoneVerifyRequested: true }));
+
+        // request to open verification code not from forget-password
+        dispatch(setIsForgetPassword(false));
+
+        dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
+        setIsLoading(false);
       }
     } catch (error: any) {
-      if (error?.response?.data?.msg === 'Phone number was taken') {
-        toast.error(String(t('authentication:phoneTaken')), { containerId: TOAST_ENUM.MODAL });
-      } else {
-        toast.error(String(t('authentication:signUpFailed')), { containerId: TOAST_ENUM.MODAL });
-      }
+      const message = error.response.data.message;
+      const status = error.response.data.statusCode;
+      const errData = getErrorMessage('auth', 'signUpPhone', status, message, '');
+      toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
     } finally {
       setIsLoading(false);
     }
@@ -139,6 +97,21 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
     if (isPhoneNumber) await emitPhoneData();
     else await emitEmailData();
   };
+
+  const returnForm = useCallback(() => {
+    return (
+      <>
+        {!isPhoneNumber && <SignUpEmailForm onSubmit={onSubmitEmail} ref={emailFormDataRef} />}
+        {isPhoneNumber && (
+          <SignUpPhoneForm
+            onSubmit={onSubmitPhone}
+            setCountryCallingCode={setCountryCallingCode}
+            ref={phoneFormDataRef}
+          />
+        )}
+      </>
+    );
+  }, [isPhoneNumber, setCountryCallingCode, onSubmitEmail, onSubmitPhone]);
 
   return (
     <>
@@ -171,14 +144,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               <div className="text-[16px] dark:text-white text-black font-[700]">{t('setting:phoneNumber')}</div>
             </div>
           </div>
-          {!isPhoneNumber && <SignUpEmailForm onSubmit={onSubmitEmail} ref={emailFormDataRef} />}
-          {isPhoneNumber && (
-            <SignUpPhoneForm
-              onSubmit={onSubmitPhone}
-              setCountryCallingCode={setCountryCallingCode}
-              ref={phoneFormDataRef}
-            />
-          )}
+          {returnForm()}
           <div className="flex items-center gap-[10px]">
             <input
               checked={isConfirm}

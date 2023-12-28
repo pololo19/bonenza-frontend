@@ -1,136 +1,107 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
+import { Lock } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat } from '@/base/libs/utils';
-import { changeActiveFiat, changeUsdtNetwork } from '@/base/redux/reducers/common.reducer';
-import { CurrencyEnum, DepositAddress } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1 } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 
-import { CookieKey, LIST_NETWORK_USDT } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
 import InputSearch from '../input/typing/InputSearch';
 
 type SelectCurrencyProps = {
-  onChangeCoin?: (coin: DepositAddress) => void;
-  setBalance?: (balance: number) => void;
+  activeCoin: CurrencyType;
+  activeNetwork: CryptoNetWorkType;
+  onChangeCoin: (coin: CurrencyType) => void;
+  onChangeNetwork: (network: CryptoNetWorkType) => void;
   withDrawTab?: boolean;
 };
 
-const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrencyProps) => {
+const SelectCurrency = ({
+  activeCoin,
+  activeNetwork,
+  onChangeCoin,
+  onChangeNetwork,
+  withDrawTab,
+}: SelectCurrencyProps) => {
+  const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const { query } = useRouter();
-  const dispatch = useDispatch();
 
-  const { depositCryptoArray, usdtNetwork } = useSelector(
-    (state: RootState) => ({
-      depositCryptoArray: state.common.depositCryptoArray,
-      usdtNetwork: state.common.usdtNetwork,
+  const { symbols, balances, networks, localFiat, bonus } = useSelector(
+    (state: AppState) => ({
+      symbols: state.wallet.symbols,
+      balances: state.wallet.balances,
+      networks: state.wallet.networks,
+      localFiat: state.wallet.localFiat,
+      bonus: state.wallet.bonusBalance,
     }),
     shallowEqual,
   );
 
-  const [activeCoin, setActiveCoin] = useState<DepositAddress>();
-  const [activeNetwork, setActiveNetwork] = useState<string>(String(usdtNetwork));
-  const [listNetwork, setListNetwork] = useState<string[]>([]);
+  const [availableNetworks, setAvailabeNetworks] = useState<CryptoNetWorkType[]>([]);
   const [searchInput, setSearchInput] = useState<string>('');
 
-  // const listCrypto = useMemo(() => {
-  //   let array: DepositAddress[] = [];
-  //   depositCryptoArray.forEach((crypto) => {
-  //     if (crypto?.symbol !== 'USDT' || ) array.push(crypto);
-  //     else if (crypto?.symbol === 'USDT' && crypto?.network && crypto?.network === usdtNetwork) array.push(crypto);
-  //     else if (crypto?.symbol === 'USDT' && !crypto?.network) array.push(crypto);
-  //   });
-  //   return array;
-  // }, [depositCryptoArray, usdtNetwork]);
-
-  const handleGetDepositAddress = async () => {
-    try {
-      await api.get('deposit/get-deposit-address');
-    } catch (error) {
-    } finally {
-    }
-  };
-
-  const handleChangeCrypto = (symbol: string) => {
-    const listSameCrypto = depositCryptoArray.filter((crypto) => crypto?.symbol === symbol);
-    const listNetworkByCrypto = listSameCrypto?.map((crypto) => String(crypto?.network));
-    if (listSameCrypto[0]?.symbol === 'USDT') {
-      setActiveCoin({ ...listSameCrypto[0], network: String(usdtNetwork) });
-      setBalance?.(Number(listSameCrypto[0].balance));
-      setActiveNetwork(String(usdtNetwork));
-      setListNetwork(LIST_NETWORK_USDT);
-    } else {
-      setActiveCoin(listSameCrypto[0]);
-      setBalance?.(Number(listSameCrypto[0].balance));
-      setActiveNetwork(listNetworkByCrypto?.[0]);
-      setListNetwork(listNetworkByCrypto);
-    }
-  };
-
-  const handleChangeNetwork = async (network: string) => {
-    setActiveNetwork(network);
-
-    let newActiveCrypto = depositCryptoArray.find(
-      (crypto) => crypto?.symbol === activeCoin?.symbol && crypto?.network === network,
-    );
-    if (!newActiveCrypto) {
-      newActiveCrypto = { ...depositCryptoArray[0], network: network };
-    }
-    if (newActiveCrypto) {
-      setActiveCoin(newActiveCrypto);
-      if (newActiveCrypto.symbol === 'USDT') {
-        dispatch(changeUsdtNetwork(network ?? 'BEP20'));
-        CookiesStorage.setCookieData(CookieKey.usdtNetwork, network);
-        const usdtActive = {
-          amount: Number(newActiveCrypto?.balance),
-          amountLocked: Number(newActiveCrypto?.balanceLocked),
-          currency: newActiveCrypto?.symbol,
-          currencyAlias: newActiveCrypto?.network,
-          id: newActiveCrypto?.id,
-          maxDepositAmount: undefined,
-          minDepositAmount: undefined,
-          isFavorite: newActiveCrypto?.isFavorite,
-          type: CurrencyEnum.CRYPTO,
-        };
-        dispatch(changeActiveFiat(usdtActive));
-        CookiesStorage.setCookieData(CookieKey.activeFiat, String(usdtActive?.currency));
-        CookiesStorage.setCookieData(CookieKey.activeFiatData, JSON.stringify(usdtActive));
-      }
-    }
-  };
+  const filterListCoin = useMemo(() => {
+    return symbols.filter((item) => {
+      return String(item.name).toLowerCase().includes(searchInput.toLowerCase());
+    });
+  }, [symbols, searchInput]);
 
   useEffect(() => {
-    if (activeCoin) onChangeCoin?.(activeCoin);
-  }, [activeCoin]);
+    if (networks.length > 0) {
+      /*****  SET BSC network as default network *****/
+      const defaultNetwork = networks.find((item) => item.name.toLowerCase() === 'bsc');
+      if (defaultNetwork) {
+        onChangeNetwork(defaultNetwork);
+        // USDT is exist in all networks....
+        setAvailabeNetworks([...networks]);
+      }
+    }
+  }, [networks]);
 
+  useEffect(() => {
+    if (symbols.length > 0) {
+      /***** SET USDT as default symbol *****/
+      const defaultSymbol = symbols.find((item) => item.name.toLowerCase() === 'usdt');
+      if (defaultSymbol) {
+        onChangeCoin(defaultSymbol);
+      }
+    }
+  }, [symbols]);
+
+  const handleChangeCrypto = (symbol: CurrencyType) => {
+    const availableNetworkIds = symbol.availableNetworks;
+
+    const filteredNetworks: CryptoNetWorkType[] = networks.filter((item) => availableNetworkIds.indexOf(item.id) != -1);
+    const defaultNetwork = filteredNetworks[0];
+
+    setAvailabeNetworks([...filteredNetworks]);
+    setSearchInput('');
+    onChangeCoin(symbol);
+    onChangeNetwork(defaultNetwork);
+  };
+
+  const getBalanceBySymbol = (symbol: CurrencyType) => {
+    const tempBalances = [...balances];
+    const selectedBalance = tempBalances.find((item) => item.symbolId === symbol.id);
+
+    return selectedBalance?.amount || 0;
+  };
   useEffect(() => {
     if (query.coin) {
-      const coin = depositCryptoArray.find((e) => e.symbol === String(query.coin).toUpperCase());
+      const coin = symbols.find((e) => e.name.toUpperCase() === String(query.coin).toUpperCase());
       if (coin) {
-        handleChangeCrypto(String(query.coin));
+        handleChangeCrypto(coin);
       }
-    } else {
-      handleChangeCrypto(String(depositCryptoArray[0]?.symbol));
     }
-  }, [query, depositCryptoArray]);
-
-  useEffect(() => {
-    handleGetDepositAddress();
-  }, []);
-
-  const filterListCoin = useMemo(() => {
-    return depositCryptoArray?.filter((item) => {
-      return String(item?.symbol).toLowerCase().includes(searchInput.toLowerCase());
-    });
-  }, [depositCryptoArray, searchInput]);
+  }, [query, symbols, networks]);
 
   return (
     <div className="flex flex-col items-start md:gap-[20px] gap-[15px] text-white">
@@ -143,28 +114,37 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
         )}
         {!withDrawTab && (
           <div className="w-full flex flex-wrap gap-1 overflow-x-auto">
-            {depositCryptoArray.map((crypto, index) => (
+            {symbols.map((symbol, index) => (
               <div
                 className={cn(
                   'w-fit p-[2px] font-semibold rounded-full',
                   {
-                    'bg-primary my-auto': crypto?.symbol === activeCoin?.symbol,
+                    'bg-primary my-auto': symbol.id === activeCoin.id,
                   },
                   {
                     'border-2 border-solid dark:border-[#272C33] border-[#EAECF3] dark:bg-[#161D26] bg-[#F6F7FA]':
-                      crypto?.symbol !== activeCoin?.symbol,
+                      symbol.id !== activeCoin.id,
                   },
                 )}
                 key={index}
-                onClick={() => handleChangeCrypto(String(crypto?.symbol))}
+                onClick={() => handleChangeCrypto(symbol)}
               >
                 <button
                   className={cn(
                     'sm:min-w-[80px] min-w-[75px] px-1 py-1 dark:text-white text-[#31373d] rounded-full flex items-center gap-2 capitalize dark:hover:bg-primary hover:bg-[#f6f7fa] bg-[#F6F7FA] dark:bg-[#161D26]',
                   )}
                 >
-                  <Image width={24} height={24} src={`/img/fiats/${crypto?.symbol}.png`} className="inline" alt="" />
-                  <h1 className="sm:text-[14px] text-[12px] font-normal">{crypto?.symbol}</h1>
+                  <Image
+                    width={24}
+                    height={24}
+                    src={symbol.logo}
+                    className="inline"
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/fiat/USD.png';
+                    }}
+                  />
+                  <h1 className="sm:text-[14px] text-[12px] font-normal">{symbol.name}</h1>
                 </button>
               </div>
             ))}
@@ -177,7 +157,7 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
                 <Image
                   width={30}
                   height={30}
-                  src={`img/fiats/${activeCoin?.symbol}.png`}
+                  src={activeCoin.logo}
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
@@ -185,14 +165,15 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
                   alt=""
                 />
                 <div className="dark:text-white text-black flex-1 text-start text-[14px]">
-                  {activeCoin?.symbol} <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin?.network}</span>
+                  {activeCoin.name}
+                  <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin.name}</span>
                 </div>
               </div>
               <div className="flex items-center justify-start gap-[10px]">
                 <div className="flex items-center text-[14px] dark:text-[#C2C2C2] text-[#31373d] gap-[10px]">
                   {t('deposit:balance')}{' '}
                   <span className="text-[14px] font-semibold dark:text-white text-[#31373d]">
-                    {activeCoin?.balance ? currencyFormat(Number(activeCoin?.balance)) : 0}
+                    {currencyFormat1(getBalanceBySymbol(activeCoin), 4, '', false)}
                   </span>
                 </div>
                 <ChevronDownIcon width={15} className="dark:text-white text-[#31373d]" />
@@ -214,24 +195,21 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
                 <InputSearch value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
               </div>
               <div className="py-1 max-h-[250px] overflow-y-auto p-2">
-                {filterListCoin.map((crypto, index) => (
+                {filterListCoin.map((symbol, index) => (
                   <Menu.Item key={index}>
                     {({ active }) => (
                       <div
-                        className={cn(
-                          'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-[#212b36] mb-2',
-                          {
-                            'border border-amber-500/50 border-solid rounded': crypto?.symbol === activeCoin?.symbol,
-                          },
-                        )}
+                        className={cn('flex items-center justify-start w-full dark:hover:bg-[#212b36] mb-2', {
+                          'border border-amber-500/50 border-solid rounded': symbol.id === activeCoin.id,
+                        })}
                         role="button"
-                        onClick={() => handleChangeCrypto(String(crypto?.symbol))}
+                        onClick={() => handleChangeCrypto(symbol)}
                       >
-                        <div className="flex-1 flex items-center justify-start gap-[10px]">
+                        <div className="flex-1 flex items-center justify-start py-[10px] px-[10px] gap-[10px]">
                           <Image
                             width={30}
                             height={30}
-                            src={`img/fiats/${crypto?.symbol}.png`}
+                            src={symbol.logo}
                             onError={(e) => {
                               e.currentTarget.src = '/img/icon/USDT-logo.svg';
                             }}
@@ -239,13 +217,33 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
                             alt=""
                           />
                           <div className="flex-1 text-start text-[14px] dark:text-white text-black font-semibold">
-                            {crypto?.symbol}
+                            {symbol.name}
                           </div>
                         </div>
-                        <div className="flex items-center justify-start gap-[10px]">
-                          <span className="text-[14px] font-semibold dark:text-white text-black">
-                            {currencyFormat(Number(crypto?.balance || 0))}
-                          </span>
+                        <div className="flex items-center justify-start gap-[10px] py-[10px]">
+                          <div className="flex flex-col">
+                            <span className="text-[14px] font-semibold dark:text-white text-black text-right">
+                              {currencyFormat1(
+                                getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
+                                2,
+                                localFiat?.name,
+                              )}
+                            </span>
+                            <span className="text-[10px] font-semibold text-gray-400 text-right">
+                              {currencyFormat1(getBalanceBySymbol(symbol), 2, '', false)}
+                            </span>
+                            {symbol.name.toLowerCase() === 'usdt' && (
+                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
+                                <div className="mt-1 flex justify-end text-amber-500">
+                                  <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
+                                    <Lock size={12} variant="Bold" />{' '}
+                                    {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                          </div>
+
                           <ChevronDownIcon width={15} className="opacity-0" />
                         </div>
                       </div>
@@ -263,7 +261,7 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
           <Menu.Button className="flex-1 py-[15px] px-[20px]">
             <div className="flex items-center justify-between w-full" role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
-                <div className="flex-1 text-start dark:text-white text-black text-[14px]">{activeNetwork}</div>
+                <div className="flex-1 text-start dark:text-white text-black text-[14px]">{activeNetwork.name}</div>
               </div>
               <div className="flex items-center justify-start gap-[10px]">
                 <ChevronDownIcon width={15} className="dark:text-white text-[#31373d]" />
@@ -282,18 +280,18 @@ const SelectCurrency = ({ onChangeCoin, withDrawTab, setBalance }: SelectCurrenc
           >
             <Menu.Items className="absolute dark:bg-[#161D26] bg-[#f6f7fa] w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer">
               <div className="py-1 max-h-[250px] overflow-y-auto p-2">
-                {listNetwork.map((network, index) => (
+                {availableNetworks.map((network, index) => (
                   <Menu.Item key={index}>
                     {({ active }) => (
                       <div
                         className="flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-[#212b36]"
                         role="button"
-                        onClick={() => handleChangeNetwork(network)}
+                        onClick={() => onChangeNetwork(network)}
                       >
                         <div className="flex-1 flex items-center justify-start gap-[10px]">
                           {network && (
                             <div className="flex-1 dark:text-white text-[#31373d] text-start text-[14px] font-semibold">
-                              {network}
+                              {network.name}
                             </div>
                           )}
                         </div>

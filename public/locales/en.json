@@ -363,7 +363,7 @@
     "time": "Time",
     "expiresIn": "Expires in",
     "depositFailed": "Deposit failed",
-    "depositComplete": "Congrats! Your deposit has been completed",
+    "depositComplete": "Congratulations! Your deposit has been completed",
     "claimComplete": "Congrats! Claim has been completed",
     "claimFailed": "Claim Failed",
     "depositprogress": "Deposit is in progress",
@@ -548,7 +548,9 @@
     "swapFee": "Swap fee:",
     "estimatedTime": "Estimated Time*",
     "seconds": "Seconds",
-    "swapNow": "Swap Now"
+    "swapNow": "Swap Now",
+    "inValidSwapAmount": "Your swap amount isn't valid",
+    "duplicateSwapAddress": "Please select other coin to swap"
   },
   "vaultPro": {
     "transferIn": "Transfer In",
@@ -570,9 +572,11 @@
     "email&phoneRequired": "Email/Phone number is required",
     "phoneRequired": "Phone number is required",
     "emailWrong": "Email format is wrong",
+    "phoneWrong": "Phone number format is wrong",
     "emailTaken": "This email is already registered in bonenza.com, please change a different email or contact our Live Support.",
     "phoneTaken": "This phone number is already registered in bonenza.com, please change a different phone number or contact our Live Support.",
     "passwordRequired": "Password is required",
+    "verificationCodeLength": "Vericfication Code length should be 6",
     "codeOtpRequired": "Otp is required",
     "newPasswordRequired": "New password is required",
     "confirmPasswordRequired": "Confirm password is required",
@@ -580,12 +584,16 @@
     "usernameRequired": "Username is required",
     "confirmPasswordMatchNewPassword": "Confirm password does not match new password",
     "loginSuccessfully": "Login successfully",
+    "userNotAllow": "User is not allowed",
+    "userNotRegistered": "{{user}} is not registered",
     "loginEmailFailed": "Email or password is incorrect",
     "loginPhoneFailed": "Phone number or password is incorrect",
     "loginWalletFailed": "Login failed",
     "loginGoogleFailed": "Login with Google failed",
     "loginTelegramFailed": "Login with Telegram failed",
     "sendMailSuccessfully": "Send mail successfully",
+    "emailVerifySuccessfully": "Your email is successfully verified",
+    "phoneVerifySuccessfully": "Your phone number is successfully verified",
     "sendMailFailed": "Email does not match any account.",
     "sendMail": "Send OTP",
     "resetPass": "Reset Password",
@@ -624,11 +632,18 @@
     "enterReferral": "Enter Referral/Promo Code",
     "alreadyHaveAccount": "Already have an account?",
     "referral": "Referral/Promo Code (Optional)",
+    "referralIsNotExist": "Referral Code is Invalid",
     "resetAccountPassword": "Reset Account Password",
     "rememberPassword": "Please Remember The Password",
     "confirm": "Confirm",
     "passwordResetLinkHasExpired": "Password Reset Link Has Expired",
-    "pleaseSubmitAgain": "Please Submit Again"
+    "verificationSentSuccess": "Verification Code was sent Successfully",
+    "verificationSentFailed": "Verfification Code was Sent Failed",
+    "verificationSuccess": "Your {{request}} is successfully Verified",
+    "verificationCodeHasExpired": "Verification Code Has Expired",
+    "verificationCodeIsNotMatch": "Verification Code is Invalid",
+    "pleaseSubmitAgain": "Please Submit Again",
+    "invalid2FA": "Two Factor Authentication is Invalid"
   },
   "casino": {
     "gameNameAndProvider": "Game name | Provider",
@@ -1230,6 +1245,7 @@
   },
   "setting": {
     "emailVerification": "E-mail Verification",
+    "phoneVerification": "Phone Verification",
     "accordingToTheSecurityPolicy": "According to the security policy of BONENZA, the registered email cannot be changed.",
     "verificationEmail": "Verification message has been sent to your email",
     "verify": "Verify",
@@ -1239,7 +1255,7 @@
     "change": "Change",
     "phoneNumber": "Phone Number",
     "verifyYourPhoneNumber": "Verify your phone number and you can use the phone as your second login method.",
-    "confirmYourPhoneNumber": "Please enter the 6-digit verification code sent to {{phone}}. The code is valid for 30 minutes.",
+    "confirmYourPhoneNumber": "Please enter the 6-digit verification code sent to {{phone}}. The code is valid for 5 minutes.",
     "confirm": "Confirm",
     "verified": "Verified",
     "setLoginPassword": "Set login password",
@@ -1269,6 +1285,7 @@
     "googleSecurity2FA": "GOOGLE SECURITY-2FA",
     "lostSecutiry2FAKey": "Lost your Google SECURITY-2FA key?",
     "2FASentEmail": "2FA key will be sent to your email address",
+    "2FAVerificationRequired": "2FA verfication code",
     "reLoginWillBeRequiredAfterChangingThePassword": "Re-login will be required after changing the password",
     "saveChanges": "Save changes",
     "twoFactorAuthentication": "Two-factor Authentication",
@@ -1787,5 +1804,8 @@
     "referralCodeRequired": "Referral code is required",
     "referralCodeMinCharacter": "Referral code must be more than {{min}} characters",
     "referralCodeMaxCharacter": "Referral code must be less than {{max}} characters"
+  },
+  "errors": {
+    "internalServer": "Internal Server Error"
   }
 }

@@ -1,48 +1,48 @@
-import React, { ReactElement, useEffect, useState } from 'react';
-import Image from 'next/image';
-import Slider, { Settings } from 'react-slick';
 import cn from 'classnames';
-import withAuth from '@/components/hoc/withAuth';
-import { useDispatch, shallowEqual, useSelector } from 'react-redux';
+import { ArrowRight } from 'iconsax-react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { ReactElement, useEffect, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import Slider from 'react-slick';
 
-import { useTranslation } from '../config/i18next';
-import { AuthenticationModeEnum } from '@/base/types/common';
+import api from '@/api/api';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
-  changeIsShowDepositModal,
   changeIsShowCryptoOnlineModal,
+  changeIsShowDepositModal,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
-import { RootState } from '@/base/types/root-state';
-import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
-import api from '@/api/api';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '../libs/utils';
-
-import TopRateGameComponent from '@/components/homepage/topRateGame';
+import { AuthenticationModeEnum } from '@/base/types/common';
+import CardPlay from '@/components/cards/cardPlay';
+import withAuth from '@/components/hoc/withAuth';
+import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
+import LatestBetRace from '@/components/homepage/latestBetRace';
 import RecentBigWinComponent from '@/components/homepage/recentBigWin';
 import RecommendedGamesComponent from '@/components/homepage/recommendedGames';
+import TopRateGameComponent from '@/components/homepage/topRateGame';
 import BaseLayout from '@/components/layouts/base.layout';
-import CardPlay from '@/components/cards/cardPlay';
-import LatestBetRace from '@/components/homepage/latestBetRace';
-import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
-import styles from '@/styles/dashboard/index.module.scss';
-import { BANNER_DATA, ROUTER, SETTING_BANNER } from '../constants/common';
-import Link from 'next/link';
-import { ArrowRight } from 'iconsax-react';
-import { useRouter } from 'next/router';
-import { GameDetail } from '../types/common';
+import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
 import GameBannerSlider from '@/components/sliders/gameSliders';
 import VipProgressComponent from '@/components/vipProgress/vipProgress';
+import styles from '@/styles/dashboard/index.module.scss';
+
+import { useTranslation } from '../config/i18next';
+import { ROUTER } from '../constants/common';
+import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '../libs/utils';
+import { AppState } from '../redux/store';
+import { GameDetail } from '../types/common';
 
 function IndexPage() {
   const { t } = useTranslation('');
 
-  const { isLogin, userName, localeFiat } = useSelector(
-    (state: RootState) => ({
+  const { isLogin, userName, localeFiat, user } = useSelector(
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
-      userName: state.auth.userName,
+      userName: state.auth.user.userName,
       localeFiat: state.common.localeFiat,
+      user: state.auth.user,
     }),
     shallowEqual,
   );
@@ -92,8 +92,8 @@ function IndexPage() {
 
   const handleGetListTopRated = async () => {
     try {
-      const res = await api.get('game/get-top-rated-list', { params: { limit: 20 } });
-      setListRecommendedGame(res.data.data);
+      // const res = await api.get('game/get-top-rated-list', { params: { limit: 20 } });
+      // setListRecommendedGame(res.data.data);
     } catch (error) {
       setListRecommendedGame([]);
     } finally {
@@ -106,7 +106,7 @@ function IndexPage() {
 
   useEffect(() => {
     if (!isLogin) return;
-    handleCheckDeposit();
+    // handleCheckDeposit();
   }, [isLogin]);
 
   return (

@@ -8,9 +8,10 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import api from '@/api/api';
+import { api_editUserName } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { URL_UPDATE_PROFILE } from '@/base/constants/endpoints';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowInformation,
@@ -18,12 +19,11 @@ import {
   changeIsShowUpdateInformation,
   changeSelectedAvatar,
 } from '@/base/redux/reducers/modal.reducer';
-import { RootState } from '@/base/types/root-state';
-import { TOAST_ENUM } from '@/base/constants/common';
-import { convertUserInfo } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { EnumTypeInput } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import InputText from '@/components/input/typing/InputText';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalUpdateProfileProps = {
@@ -44,9 +44,9 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
   const [selectedFile, setSelectedFile] = useState<File>();
 
   const { userName, avatar } = useSelector(
-    (state: RootState) => ({
-      userName: state.auth.userName,
-      avatar: state.auth.avatar,
+    (state: AppState) => ({
+      userName: state.auth.user.userName,
+      avatar: state.auth.user.avatar,
     }),
     shallowEqual,
   );
@@ -75,14 +75,10 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
   const handleUpdateProfile = async (formUpdateProfile: UpdateProfileFormType) => {
     try {
       setIsLoading(true);
-      await api.put(URL_UPDATE_PROFILE, {
-        username: formUpdateProfile.username,
-      });
-      const resUser = await api.get('auth/get-user-info');
+      const res = await api_editUserName(formUpdateProfile.username);
       dispatch(
         saveUserInfo({
-          isLogin: true,
-          ...convertUserInfo(resUser.data.data),
+          ...convertUserInfo(res.data),
         }),
       );
       goBackProfile();

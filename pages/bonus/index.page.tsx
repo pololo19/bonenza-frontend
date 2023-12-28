@@ -1,26 +1,25 @@
-/* eslint-disable @next/next/no-img-element */
-import React, { ReactElement, useEffect } from 'react';
-import Image from 'next/image';
-import BaseLayout from '@/components/layouts/base.layout';
-import styles from '@/styles/dashboard/index.module.scss';
 import { ArrowRight } from 'iconsax-react';
-import { useTranslation } from '@/base/config/i18next';
-import BonusLoggedPage from '@/components/bonusLogged/index.page';
-
+import Head from 'next/head';
+import Image from 'next/image';
+import React, { ReactElement, useEffect } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/base/types/root-state';
+
+import { useTranslation } from '@/base/config/i18next';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import Head from 'next/head';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
+import BonusLoggedPage from '@/components/bonusLogged/index.page';
+import BaseLayout from '@/components/layouts/base.layout';
+import styles from '@/styles/dashboard/index.module.scss';
 
 function BonusPage() {
   const { t } = useTranslation('');
-  const { isLogin, auth } = useSelector(
-    (state: RootState) => ({
+  const { isLogin, user } = useSelector(
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
-      auth: state.auth,
+      user: state.auth.user,
     }),
     shallowEqual,
   );
@@ -32,8 +31,7 @@ function BonusPage() {
     if (accessToken) {
       dispatch(
         saveUserInfo({
-          isLogin: true,
-          ...auth,
+          ...user,
         }),
       );
     }

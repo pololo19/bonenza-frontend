@@ -1,13 +1,13 @@
-import { useTranslation } from '@/base/config/i18next';
-import BaseLayout from '@/components/layouts/base.layout';
+import Head from 'next/head';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { ReactElement } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { RootState } from '../../types/root-state';
+import { useTranslation } from '@/base/config/i18next';
+import { AppState } from '@/base/redux/store';
+import BaseLayout from '@/components/layouts/base.layout';
 
-import { useTheme } from 'next-themes';
-import Head from 'next/head';
 import AffiliateLoggedPage from '../affiliate-logged/index.module';
 import styles from './index.module.scss';
 
@@ -16,7 +16,7 @@ function AffiliatePage() {
   const { theme } = useTheme();
 
   const { isLogin } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
     }),
     shallowEqual,

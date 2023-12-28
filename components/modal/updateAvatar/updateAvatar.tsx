@@ -7,21 +7,21 @@ import Cropper, { Area } from 'react-easy-crop';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import api from '@/api/api';
+import { api_uploadAvatar } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { URL_UPLOAD_AVATAR } from '@/base/constants/endpoints';
+import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowInformation,
   changeIsShowUpdateAvatar,
   changeIsShowUpdateInformation,
 } from '@/base/redux/reducers/modal.reducer';
-import { RootState } from '@/base/types/root-state';
-import getCroppedImg from '../cropAvatar/cropImage';
-import { convertUserInfo } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
+
 import CommonModal from '../commonModal/commonModal';
+import getCroppedImg from '../cropAvatar/cropImage';
 
 type ModalUpdateAvatarProps = {
   onClose: () => void;
@@ -42,8 +42,8 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
   const [isErrorAvatar, setIsErrorAvatar] = useState(false);
 
   const { avatar } = useSelector(
-    (state: RootState) => ({
-      avatar: state.auth.avatar,
+    (state: AppState) => ({
+      avatar: state.auth.user.avatar,
     }),
     shallowEqual,
   );
@@ -99,19 +99,9 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
       if (avatarFile) {
         setIsLoading(true);
         const formData = new FormData();
-        formData.append('avatar', avatarFile);
-        const res = await api.post(URL_UPLOAD_AVATAR, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        const resUser = await api.get('auth/get-user-info');
-        dispatch(
-          saveUserInfo({
-            isLogin: true,
-            ...convertUserInfo(resUser.data.data),
-          }),
-        );
+        formData.append('file', avatarFile);
+        const res = await api_uploadAvatar(formData);
+        dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
         dispatch(changeIsShowInformation(true));
         dispatch(changeIsShowUpdateAvatar(false));
       }
@@ -230,7 +220,9 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
             </div>
           </div>
           <div>
-            <div className="dark:text-gray-500 text-gray-700 mb-[10px] text-[14px]">{t('updateAvatar:defaultAvatar')}</div>
+            <div className="dark:text-gray-500 text-gray-700 mb-[10px] text-[14px]">
+              {t('updateAvatar:defaultAvatar')}
+            </div>
             <div className="flex gap-[10px] items-center justify-center">
               <NextImage
                 role="button"

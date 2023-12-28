@@ -1,0 +1,220 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { api_getDepositTime, api_getUserBalance, api_getWalletInfo } from '@/api/wallet';
+import { AppDispatch } from '@/base/redux/store';
+import { WalletState } from '@/base/types/reducer-states';
+import {
+  BalanceType,
+  CryptoCurrencyType,
+  CryptoNetWorkType,
+  CurrencyType,
+  DepositAddressType,
+} from '@/base/types/wallet';
+
+const initialState: WalletState = {
+  localFiat: null,
+  totalBalance: 0,
+  realBalance: 0,
+  bonusBalance: 0,
+  depositTime: 0,
+  networks: [],
+  symbols: [],
+  fiatSymbols: [],
+  balances: [],
+  depositAddress: [], // wallet address
+  cryptoCurrencies: [],
+};
+
+export const walletReducer = createSlice({
+  name: 'wallet',
+  initialState,
+  reducers: {
+    setBalance: (
+      state: WalletState,
+      action: PayloadAction<{ totalBalance: number; realBalance: number; bonusBalance: number }>,
+    ) => {
+      state.totalBalance = action.payload.totalBalance;
+      state.realBalance = action.payload.realBalance;
+      state.bonusBalance = action.payload.bonusBalance;
+    },
+    setNetworks: (state: WalletState, action: PayloadAction<CryptoNetWorkType[]>) => {
+      state.networks = [...action.payload];
+    },
+    setSymbols: (state: WalletState, action: PayloadAction<CurrencyType[]>) => {
+      state.symbols = [...action.payload];
+    },
+    setBalances: (state: WalletState, action: PayloadAction<BalanceType[]>) => {
+      state.balances = [...action.payload];
+    },
+    setDepositAddress: (state: WalletState, action: PayloadAction<DepositAddressType[]>) => {
+      state.depositAddress = [...action.payload];
+    },
+    setCryptoCurrencies: (state: WalletState, action: PayloadAction<CryptoCurrencyType[]>) => {
+      state.cryptoCurrencies = [...action.payload];
+    },
+    setFiatSymbols: (state: WalletState, action: PayloadAction<CurrencyType[]>) => {
+      state.fiatSymbols = [...action.payload];
+    },
+    setLocalFiat: (state: WalletState, action: PayloadAction<CurrencyType | null>) => {
+      state.localFiat = action.payload;
+    },
+    setDepositTime: (state: WalletState, action: PayloadAction<number>) => {
+      state.depositTime = action.payload;
+    },
+    addDepositTime: (state: WalletState, action: PayloadAction<number>) => {
+      state.depositTime += action.payload;
+    },
+  },
+});
+
+export const {
+  setNetworks,
+  setBalances,
+  setDepositAddress,
+  setSymbols,
+  setCryptoCurrencies,
+  setFiatSymbols,
+  setBalance,
+  setDepositTime,
+  setLocalFiat,
+  addDepositTime,
+} = walletReducer.actions;
+export default walletReducer.reducer;
+
+export const logoutWallet = () => async (dispath: AppDispatch) => {
+  dispath(setNetworks([]));
+  dispath(setBalances([]));
+  dispath(setDepositAddress([]));
+  dispath(setSymbols([]));
+  dispath(setCryptoCurrencies([]));
+  dispath(setFiatSymbols([]));
+  dispath(setDepositTime(0));
+  dispath(
+    setBalance({
+      totalBalance: 0,
+      bonusBalance: 0,
+      realBalance: 0,
+    }),
+  );
+
+  dispath(setLocalFiat(null));
+};
+
+export const initWalletInfo = () => async (dispatch: AppDispatch) => {
+  try {
+    const result = await api_getWalletInfo();
+    const { wallets, balances, networks, symbols, currency, fiatSymbols, depositTime } = result.data;
+
+    const tempWallets: DepositAddressType[] =
+      wallets?.map((item: any) => ({
+        address: item.depositAddress,
+        network: item.network.network,
+        networkId: item.network.id,
+      })) || [];
+
+    const tempBalances: BalanceType[] =
+      balances?.cryptoBalances.map((item: any) => ({
+        amount: Number(item.balance),
+        usdAmount: Number(item.balanceUsd),
+        symbol: item.symbol,
+        symbolId: item.symbolId,
+      })) || [];
+
+    const tempNetworks: CryptoNetWorkType[] =
+      networks?.map((item: any) => ({
+        id: item.id,
+        name: item.network,
+        type: item.type,
+      })) || [];
+
+    const tempSymbols: CurrencyType[] =
+      symbols?.map((item: any) => ({
+        id: item.id,
+        name: item.symbol,
+        alias: '',
+        logo: item.logo,
+        iso_currency: item.iso_currency,
+        iso_decimals: item.iso_decimals,
+        availableNetworks: item.availableNetworks,
+        price: Number(item.price),
+      })) || [];
+
+    const tempCurrencies: CryptoCurrencyType[] =
+      currency?.map((item: any) => ({
+        id: item.id,
+        networkId: item.network.id,
+        symbolId: item.symbol.id,
+        withdrawFee: Number(item.withdrawFee),
+        minWithdrawAmount: Number(item.withdrawFee),
+      })) || [];
+
+    const tempFiatSymbols: CurrencyType[] =
+      fiatSymbols?.map((item: any) => ({
+        id: item.id,
+        name: item.symbol,
+        alias: item.name,
+        logo: `/img/fiats/${item.symbol}.png`,
+        iso_currency: item.iso_currency,
+        iso_decimals: item.iso_decimals,
+        availableNetworks: item.availableNetworks,
+        price: Number(item.price),
+      })) || [];
+    // console.log(result.data);
+    dispatch(
+      setBalance({
+        totalBalance: Number(balances.totalBalance),
+        realBalance: Number(balances.realBalance),
+        bonusBalance: Number(balances.bonusBalance),
+      }),
+    );
+    dispatch(setNetworks(tempNetworks));
+    dispatch(setBalances(tempBalances));
+    dispatch(setDepositAddress(tempWallets));
+    dispatch(setSymbols(tempSymbols));
+    dispatch(setFiatSymbols(tempFiatSymbols));
+    dispatch(setCryptoCurrencies(tempCurrencies));
+    dispatch(setDepositTime(Number(depositTime)));
+  } catch (error) {
+    console.log(error);
+    dispatch(setNetworks([]));
+    dispatch(setBalances([]));
+    dispatch(setDepositAddress([]));
+    dispatch(setSymbols([]));
+  }
+};
+
+export const getBalance = () => async (dispatch: AppDispatch) => {
+  try {
+    const result = await api_getUserBalance();
+    const tempBalances: BalanceType[] = result.data?.cryptoBalances?.map((item: any) => ({
+      amount: Number(item.balance),
+      usdAmount: Number(item.balanceUsd),
+      symbol: item.symbol,
+      symbolId: item.symbolId,
+    }));
+
+    const temptotalBalance = result.data?.totalBalance;
+    const temprealBalance = result.data?.realBalance;
+    const tempbonusBalance = result.data?.bonusBalance;
+
+    dispatch(
+      setBalance({
+        totalBalance: Number(temptotalBalance),
+        realBalance: Number(temprealBalance),
+        bonusBalance: Number(tempbonusBalance),
+      }),
+    );
+    dispatch(setBalances(tempBalances));
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getDepositTime = () => async (dispatch: AppDispatch) => {
+  try {
+    const result = await api_getDepositTime();
+    dispatch(setDepositTime(result.data));
+  } catch (error) {
+    console.log(error);
+  }
+};

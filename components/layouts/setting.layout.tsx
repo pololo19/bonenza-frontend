@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2, Setting } from 'iconsax-react';

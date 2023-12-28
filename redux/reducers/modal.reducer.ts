@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { ModalState } from '@/base/types/reducer-states';
 import { AuthenticationModeEnum } from '@/base/types/common';
+import { ModalState } from '@/base/types/reducer-states';
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 
 const initialCommonState: ModalState = {
@@ -63,6 +63,7 @@ export const queryDataSlice = createSlice({
       state.isShowAuthenticationModal = action.payload;
     },
     changeAuthenticationType: (state: ModalState, action: PayloadAction<AuthenticationModeEnum>) => {
+      console.log('-------66');
       state.authenticationType = action.payload;
     },
     changeMultiLanguageTab: (state: ModalState, action: PayloadAction<MultiLanguageTabEnum>) => {

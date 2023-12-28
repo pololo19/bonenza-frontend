@@ -1,11 +1,8 @@
-/* eslint-disable @next/next/no-img-element */
 import { useEffect, useMemo, useState } from 'react';
-import { useSelector, shallowEqual } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import api from '@/api/api';
-import { RootState } from '@/base/types/root-state';
-
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 
 const VipProgressComponent = () => {
@@ -14,7 +11,7 @@ const VipProgressComponent = () => {
   const { t } = useTranslation('');
 
   const { isLogin } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
     }),
     shallowEqual,
@@ -22,8 +19,8 @@ const VipProgressComponent = () => {
 
   const handleGetVipProgress = async () => {
     try {
-      const res = await api.get('user-profile/get-vip');
-      setCurrentLevel(res.data);
+      // const res = await api.get('user-profile/get-vip');
+      // setCurrentLevel(res.data);
     } catch (error) {
     } finally {
     }

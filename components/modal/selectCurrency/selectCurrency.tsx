@@ -1,14 +1,14 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import Image from 'next/image';
 import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { DepositAddress } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { shallowEqual, useSelector } from 'react-redux';
 
 type ModalSelectCurrencyProps = {
   onClose: () => void;
@@ -30,7 +30,7 @@ export default function ModalSelectCurrency({
   const { t } = useTranslation('');
 
   const { depositCryptoArray, usdtNetwork } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       depositCryptoArray: state.common.depositCryptoArray,
       usdtNetwork: state.common.usdtNetwork,
     }),

@@ -26,6 +26,7 @@ const InputNumber = <TFieldValues extends Record<string, unknown>>({
   control,
   name,
   onChange,
+  onBlur,
   customClass,
   postfix,
   prefix,
@@ -69,6 +70,7 @@ const InputNumber = <TFieldValues extends Record<string, unknown>>({
                 },
               )}
               value={(field.value ?? '') as string}
+              onBlur={(event) => onBlur && onBlur(event)}
               onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
             />
             {postfix && (

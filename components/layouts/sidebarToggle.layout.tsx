@@ -1,13 +1,4 @@
-import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
 import cn from 'classnames';
-import { useTheme } from 'next-themes';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
-
-import { changeIsShowVipClubModal, changeToggleSidebar } from '@/base/redux/reducers/modal.reducer';
-import { RootState } from '@/base/types/root-state';
 import {
   Award,
   Command,
@@ -27,7 +18,17 @@ import {
 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
+import { useTranslation } from '@/base/config/i18next';
+import { ROUTER } from '@/base/constants/common';
+import { changeIsShowVipClubModal, changeToggleSidebar } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
+
+import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
 import BlackjackIcon from '../icons/BlackjackIcon';
 import BuyInIcon from '../icons/BuyInIcon';
 import FavoriteIcon from '../icons/FavoriteIcon';
@@ -57,7 +58,7 @@ export default function SidebarToggle() {
     { title: String(t('casino:liveCasino')), href: ROUTER.Tagname('Live Casino'), icon: <LiveCasinoIcon size={18} /> },
     { title: String(t('casino:hotGame')), href: ROUTER.Tagname('Hot Games'), icon: <HotGameIcon size={18} /> },
     { title: String(t('casino:newReleases')), href: ROUTER.Tagname('New Releases'), icon: <ReleaseIcon size={18} /> },
-    { title: String(t('casino:featureBuyIn')), icon: <BuyInIcon size={18} /> },
+    { title: String(t('casino:featureBuyIn')), href: ROUTER.Tagname('Feature Buy-in'), icon: <BuyInIcon size={18} /> },
     { title: String(t('casino:blackjack')), href: ROUTER.Tagname('Blackjack'), icon: <BlackjackIcon size={18} /> },
     { title: String(t('casino:tableGames')), href: ROUTER.Tagname('Table Games'), icon: <LiveCasinoIcon size={18} /> },
   ];
@@ -70,7 +71,7 @@ export default function SidebarToggle() {
   }, []);
 
   const { isToggleSidebar, isShowVipClubModal } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isToggleSidebar: state.modal.isToggleSidebar,
       isShowVipClubModal: state.modal.isShowVipClubModal,
       isLogin: state.auth.isLogin,

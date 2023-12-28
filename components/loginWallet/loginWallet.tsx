@@ -8,15 +8,15 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '@/api/api';
+import { api_loginWithGoogle } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { LOGIN_REGISTRATION_METHOD, TOAST_ENUM } from '@/base/constants/common';
 import { blockExplorer, chainId, metamask, rpcUrls, walletConnect } from '@/base/constants/contracts';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { RootState } from '@/base/types/root-state';
-
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 
 declare let window: any;
@@ -34,9 +34,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { isLogin, wallet } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       isLogin: state.auth.isLogin,
-      wallet: state.auth.wallet,
+      wallet: state.auth.user.wallet,
     }),
     shallowEqual,
   );
@@ -44,21 +44,19 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const googleLogin = async (codeResponse: Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>) => {
     try {
       setIsLoading(true);
-      const resToken = await api.post('auth/save-info-login-google', {
-        code: codeResponse.code,
-      });
-      CookiesStorage.setAccessToken(resToken.data.data.accessToken);
-      const resUser = await api.get('auth/get-user-info');
-      if (!resUser.data.data.isDeposit) {
-        await api.post('deposit/create-deposit-address');
-      }
+      const res = await api_loginWithGoogle(codeResponse.code);
+      const { token, user } = res.data;
+      CookiesStorage.setAccessToken(token);
+      // if (!resUser.data.data.isDeposit) {
+      //   await api.post('deposit/create-deposit-address');
+      // }
       dispatch(
         saveUserInfo({
-          isLogin: true,
-          ...convertUserInfo(resUser.data.data),
+          ...convertUserInfo(user),
         }),
       );
       onClose();
+      toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       if (error?.response?.data?.msg === 'Email was taken') {
         toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
@@ -91,7 +89,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         }
         dispatch(
           saveUserInfo({
-            isLogin: true,
             ...convertUserInfo(resUser.data.data),
           }),
         );
@@ -258,7 +255,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       }
       dispatch(
         saveUserInfo({
-          isLogin: true,
           ...convertUserInfo(resUser.data.data),
         }),
       );

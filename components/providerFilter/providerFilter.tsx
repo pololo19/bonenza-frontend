@@ -1,11 +1,11 @@
-import React, { memo } from 'react';
 import { Listbox } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/solid';
 import { ArrowRight2 } from 'iconsax-react';
+import React, { memo } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
-import { GameProviderDetail } from '@/base/types/common';
 import { titleCase } from '@/base/libs/utils';
+import { GameProviderDetail } from '@/base/types/common';
 
 type providerFilterProps = {
   listProvider: GameProviderDetail[];

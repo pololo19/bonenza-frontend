@@ -1,18 +1,18 @@
-import React from 'react';
 import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
-import { Tooltip } from 'react-tooltip';
 import Link from 'next/link';
+import React from 'react';
 import LazyLoad from 'react-lazy-load';
-import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import { useDispatch } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
-import { useDispatch } from 'react-redux';
-import { GameDetail } from '@/base/types/common';
 import { ROUTER } from '@/base/constants/common';
+import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import { GameDetail, GameListType } from '@/base/types/common';
 
 type GameCardProps = {
-  gameDetail: GameDetail;
+  gameDetail: GameListType | GameDetail;
   footer?: () => React.ReactNode;
 };
 
@@ -37,6 +37,12 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
   const { t } = useTranslation('');
   const dispatch = useDispatch();
   const uuid = Math.random();
+
+  const convertIdentifier2Url = (identifier: string) => {
+    const url = identifier.replace(':', '/');
+    return url;
+  };
+
   return (
     <div className="" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
       <div className="rounded-[5px] dark:bg-[#12181F] bg-white">
@@ -45,7 +51,7 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
             <Image
               height={160}
               width={160}
-              src={`https://cdn.softswiss.net/i/s4/${gameDetail.provider}/${gameDetail.identifier2}.png`}
+              src={`https://cdn.softswiss.net/i/s4/${convertIdentifier2Url(gameDetail?.identifier || '')}.png`}
               alt=""
               className="w-full object-cover max-h-auto rounded-[5px]"
               placeholder="blur"
@@ -56,10 +62,10 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
         <div className="p-[10px]">
           <div className="flex justify-between items-center gap-[5px]">
             <div className="dark:text-white text-[#000] font-medium text-[12px] truncate">
-              {String(gameDetail?.producer)?.charAt(0).toUpperCase() + String(gameDetail?.producer)?.slice(1)}
+              {String(gameDetail.title)?.charAt(0).toUpperCase() + String(gameDetail?.title)?.slice(1)}
             </div>
             <InfoCircle
-              data-tooltip-id={`${gameDetail?.identifier2} ${uuid}`}
+              data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
               size={16}
               className="text-[#8E8E90] min-w-[16px]"
               role="button"
@@ -70,21 +76,21 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
       </div>
       <Tooltip
         className="max-w-[50vw] z-[50] !text-[12px] min-w-[250px] !bg-black"
-        id={`${gameDetail?.identifier2} ${uuid}`}
+        id={`${gameDetail?.identifier} ${uuid}`}
         place="bottom"
         // content={String(gameDetail?.description)}
       >
         <div className="rounded p-2 bg-gray-800 flex items-center justify-between">
           <span>RPT:</span>
-          <span className="text-amber-600">{gameDetail?.payout ?? 0}%</span>
+          <span className="text-amber-600">{gameDetail.payout ?? 0}%</span>
         </div>
         <div className="rounded p-2 bg-gray-800 flex items-center justify-between mt-2">
           <span>Recent biggest win:</span>
-          <span className="text-amber-600">{gameDetail?.multiplier ?? 0}X</span>
+          <span className="text-amber-600">{gameDetail.multiplier ?? 0}X</span>
         </div>
         <div className="flex items-center justify-end mt-2">
           <span className="text-gray-500">
-            {String(gameDetail?.producer)?.charAt(0).toUpperCase() + String(gameDetail?.producer)?.slice(1)}
+            {/* {String(gameDetail?.producer)?.charAt(0).toUpperCase() + String(gameDetail?.producer)?.slice(1)} */}
           </span>
         </div>
       </Tooltip>

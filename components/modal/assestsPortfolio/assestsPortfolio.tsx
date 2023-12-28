@@ -6,12 +6,12 @@ import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'rea
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
-import { changeLocaleFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
-import { DepositAddress } from '@/base/types/common';
-import { RootState } from '@/base/types/root-state';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat, currencyFormat1 } from '@/base/libs/utils';
+import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
+import { AppState } from '@/base/redux/store';
+import { CurrencyType } from '@/base/types/wallet';
 import InputSearch from '@/components/input/typing/InputSearch';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 
@@ -19,8 +19,8 @@ type ModalAssetsPortfolioProps = {
   onClose: () => void;
   show: boolean;
   cryptoSymbol: string;
-  cryptoSymbolFrom?: string;
-  onChangeCoin?: (coin: DepositAddress) => void;
+  cryptoSymbols: CurrencyType[];
+  onChangeCoin?: (coin: CurrencyType) => void;
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
@@ -28,85 +28,58 @@ export default function ModalAssetsPortfolio({
   show,
   onClose,
   cryptoSymbol,
-  cryptoSymbolFrom,
+  cryptoSymbols,
   onChangeCoin,
 }: ModalAssetsPortfolioProps) {
+  const exchangeRate = useExchange();
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
 
-  const { depositCryptoArray, usdtNetwork } = useSelector(
-    (state: RootState) => ({
-      depositCryptoArray: state.common.depositCryptoArray,
-      usdtNetwork: state.common.usdtNetwork,
+  const { balances, localFiat, fiatSymbols, viewInFiat } = useSelector(
+    (state: AppState) => ({
+      cryptoSymbols: state.wallet.symbols,
+      balances: state.wallet.balances,
+      localFiat: state.wallet.localFiat,
+      fiatSymbols: state.wallet.fiatSymbols,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
 
-  const listCrypto = useMemo(() => {
-    let array: DepositAddress[] = [];
-    depositCryptoArray.forEach((crypto) => {
-      if (crypto.symbol !== 'USDT' || (crypto.symbol === 'USDT' && crypto.network === usdtNetwork)) array.push(crypto);
-    });
-    const newListCoin: DepositAddress[] = array.filter((coin) => coin?.symbol !== cryptoSymbolFrom);
-    if (newListCoin) return newListCoin;
-    else return array;
-  }, [depositCryptoArray, cryptoSymbolFrom, usdtNetwork]);
-
-  const [activeCoin, setActiveCoin] = useState<DepositAddress>();
+  const [activeCoin, setActiveCoin] = useState<CurrencyType>();
   const [searchFiatInput, setSearchFiatInput] = useState<string>('');
 
-  const handleChangeCoin = (coin: DepositAddress) => {
+  const handleChangeCoin = (coin: CurrencyType) => {
     setActiveCoin(coin);
+    if (onChangeCoin) {
+      onChangeCoin(coin);
+    }
     onClose();
   };
 
-  const [listCoin, setListCoin] = useState<DepositAddress[]>([]);
+  const filterListCryptos = useMemo(() => {
+    const tempFilterListCryptos = [...cryptoSymbols].filter((item) =>
+      item.name.toLowerCase().includes(searchFiatInput.trim().toLowerCase()),
+    );
+    return tempFilterListCryptos;
+  }, [cryptoSymbols, searchFiatInput]);
 
   useEffect(() => {
-    if (searchFiatInput.trim().length) {
-      let newList: any = listCrypto.filter(
-        (item) =>
-          String(item?.symbol).toLowerCase().includes(searchFiatInput.toLowerCase()) ||
-          String(item?.symbol).toLowerCase().includes(searchFiatInput.toLowerCase()),
-      );
-      setListCoin(newList);
-      return;
+    const active = filterListCryptos.find((crypto) => crypto.id === cryptoSymbol);
+    if (active) {
+      setActiveCoin(active);
     }
-    setListCoin(listCrypto);
-  }, [searchFiatInput, listCrypto]);
-
-  useEffect(() => {
-    const active = listCrypto.find((crypto) => crypto?.symbol === cryptoSymbol);
-    if (active) setActiveCoin(active);
-  }, [cryptoSymbol, listCrypto]);
-
-  useEffect(() => {
-    if (activeCoin) onChangeCoin?.(activeCoin);
-  }, [activeCoin]);
+  }, [cryptoSymbol, filterListCryptos]);
 
   const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
   const dispatch = useDispatch();
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
 
-  const { localeFiat, fiatArray, cryptoArray, viewInFiat } = useSelector(
-    (state: RootState) => ({
-      localeFiat: state.common.localeFiat,
-      activeFiat: state.common.activeFiat,
-      fiatArray: state.common.fiatArray,
-      cryptoArray: state.common.cryptoArray,
-      depositCryptoArray: state.common.depositCryptoArray,
-      usdtNetwork: state.common.usdtNetwork,
-      viewInFiat: state.common.viewInFiat,
-      userId: state.auth.userId,
-    }),
-    shallowEqual,
-  );
-
-  const handleChangeLocaleFiat = (item: any) => {
-    try {
-      dispatch(changeLocaleFiat(item));
-      CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
-    } catch (error) {}
+  const getBalanceByCrypto = (crypto: CurrencyType) => {
+    const tempBalances = [...balances];
+    const selectedBalance = tempBalances.find((item) => item.symbolId === crypto.id);
+    if (selectedBalance) return selectedBalance.amount;
+    return 0;
   };
 
   return (
@@ -171,46 +144,43 @@ export default function ModalAssetsPortfolio({
                         mNFT
                       </div>
                     </div>
-                    {viewInFiat &&
-                      listCoin?.map((coin: any, index) => (
-                        <div
-                          key={index}
-                          className={cn('flex items-center justify-start p-[10px] w-full rounded-lg', {
-                            'border border-solid border-amber-500': coin?.symbol === activeCoin?.symbol,
-                            'dark:hover:bg-[#161D26] hover:bg-[#f5f6fa]': coin?.symbol !== activeCoin?.symbol,
-                          })}
-                          role="button"
-                          onClick={() => handleChangeCoin(coin)}
-                        >
-                          <div className="flex-1 flex items-center justify-start gap-[10px]">
-                            <Image
-                              width={30}
-                              height={30}
-                              src={`/img/fiats/${coin?.symbol}.png`}
-                              className="inline"
-                              alt=""
-                            />
-                            <div className="flex-1 text-start text-[14px]">
-                              {coin?.symbol}
-                              <span className="ml-[5px] text-[10px] dark:text-gray-400 text-[#31373d]">
-                                {coin?.symbol == 'USDT' ? coin?.network : ''}
-                              </span>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                            {currencyFormat(
-                              exchangeByLocaleFiat(coin?.symbol, String(localeFiat?.currency), coin?.balance),
-                              2,
-                            )}
-                            <br />
-                            <span className="dark:text-gray-400 text-[#31373d] text-[12px]">
-                              {currencyFormat(coin?.balance || 0, 8)}
-                            </span>
-                            {/* <span className="text-[16px] dark:text-white text-black">{currencyFormat(Number(coin?.balance || 0))}</span> */}
+                    {filterListCryptos?.map((coin: CurrencyType, index) => (
+                      <div
+                        key={index}
+                        className={cn('flex items-center justify-start p-[10px] w-full rounded-lg', {
+                          'border border-solid border-amber-500': coin.id === activeCoin?.id,
+                          'dark:hover:bg-[#161D26] hover:bg-[#f5f6fa]': coin?.id !== activeCoin?.id,
+                        })}
+                        role="button"
+                        onClick={() => handleChangeCoin(coin)}
+                      >
+                        <div className="flex-1 flex items-center justify-start gap-[10px]">
+                          <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
+                          <div className="flex-1 text-start text-[14px]">
+                            {coin.name}
+                            {/* <span className="ml-[5px] text-[10px] dark:text-gray-400 text-[#31373d]">
+                                {coin.symbol == 'USDT' ? coin?.network : ''}
+                              </span> */}
                           </div>
                         </div>
-                      ))}
+                        <div className="text-right">
+                          {viewInFiat && (
+                            <>
+                              {currencyFormat1(
+                                getBalanceByCrypto(coin) * coin.price * exchangeRate,
+                                2,
+                                localFiat?.name,
+                              )}
+                              <br />
+                              <span className="dark:text-gray-400 text-[#31373d] text-[12px]">
+                                {currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}
+                              </span>
+                            </>
+                          )}
+                          {!viewInFiat && <>{currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}</>}
+                        </div>
+                      </div>
+                    ))}
                     <div className="py-[10px] px-[10px] flex items-center justify-between">
                       <div className="flex items-center gap-[5px]">
                         <Switch
@@ -275,7 +245,7 @@ export default function ModalAssetsPortfolio({
             currencies. For more details feel free to contact our live support.
           </div>
           <div className={'grid grid-cols-3 gap-y-2 justify-between items-center'}>
-            {fiatArray?.map((item, key) => (
+            {fiatSymbols.map((item, key) => (
               <label
                 htmlFor={String(key)}
                 key={key}
@@ -284,12 +254,12 @@ export default function ModalAssetsPortfolio({
                   'p-[2px] rounded-md text-left flex items-center justify-between hover:text-white w-full text-[14px] max-w-[80px] rounded m-auto',
                 )}
                 onClick={() => {
-                  handleChangeLocaleFiat(item);
+                  dispatch(setLocalFiat(item));
                 }}
               >
                 <div className="flex gap-3 items-center justify-between w-full">
                   <div className="flex items-center gap-1">
-                    {item.currency === localeFiat?.currency && (
+                    {item.id === localFiat?.id && (
                       <input
                         id={String(key)}
                         type="radio"
@@ -298,13 +268,13 @@ export default function ModalAssetsPortfolio({
                         className="w-4 h-4 accent-amber-500 bg-gray-100 border-gray-300 ring-none outline-none"
                       />
                     )}
-                    {item.currency !== localeFiat?.currency && (
+                    {item.id !== localFiat?.id && (
                       <div className="w-4 h-4 border border-solid border-gray-600 bg-gray-800 rounded-full"></div>
                     )}
 
-                    <div className="text-[12px]">{item.currency}</div>
+                    <div className="text-[12px]">{item.name}</div>
                   </div>
-                  <Image height={16} width={16} src={`/img/fiats/${item.currency}.png`} alt="" />
+                  <Image height={16} width={16} src={item.logo} alt="" />
                 </div>
               </label>
             ))}

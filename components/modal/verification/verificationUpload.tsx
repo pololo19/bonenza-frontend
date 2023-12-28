@@ -1,9 +1,3 @@
-import api from '@/api/api';
-import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
-import { convertUserInfo } from '@/base/libs/utils';
-import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import Loader from '@/components/common/preloader/loader';
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Folder2 } from 'iconsax-react';
@@ -13,8 +7,15 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
-import CommonModal from '../commonModal/commonModal';
 
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { convertUserInfo } from '@/base/libs/utils';
+import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import Loader from '@/components/common/preloader/loader';
+
+import CommonModal from '../commonModal/commonModal';
 
 type ModalVerificationUploadCardProps = {
   onClose: () => void;
@@ -48,7 +49,6 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
       const resUser = await api.get('auth/get-user-info');
       dispatch(
         saveUserInfo({
-          isLogin: true,
           ...convertUserInfo(resUser.data.data),
         }),
       );

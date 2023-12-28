@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { CommonState } from '@/base/types/reducer-states';
 import { CookieKey, CRYPTO_DATA, FIAT_DATA } from '@/base/constants/common';
-import { DepositAddress, FiatType } from '@/base/types/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { DepositAddress, FiatType } from '@/base/types/common';
+import { CommonState } from '@/base/types/reducer-states';
 
 const initialCommonState: CommonState = {
   fiatArray: FIAT_DATA,
@@ -11,7 +11,7 @@ const initialCommonState: CommonState = {
   depositCryptoArray: CRYPTO_DATA,
   localeFiat: undefined,
   activeFiat: undefined,
-  viewInFiat: true,
+  viewInFiat: false,
   showFullNameCurrency: true,
   usdtNetwork: 'BEP20',
 };

@@ -1,9 +1,24 @@
-import React, { ElementType, ReactNode, useState } from 'react';
-import { ArrowRight2 } from 'iconsax-react';
 import cn from 'classnames';
-import { useTranslation } from '@/base/config/i18next';
+import { ArrowRight2 } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React, { ElementType, ReactNode, useState } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
+import { ROUTER } from '@/base/constants/common';
+
+const casinoPaths = [
+  ROUTER.PicksForYou,
+  ROUTER.Favorite,
+  ROUTER.Recent,
+  ROUTER.Tagname('slots'),
+  ROUTER.Tagname('Live Casino'),
+  ROUTER.Tagname('Hot Games'),
+  ROUTER.Tagname('New Releases'),
+  ROUTER.Tagname('Feature Buy-in'),
+  ROUTER.Tagname('Blackjack'),
+  ROUTER.Tagname('Table Games'),
+];
 
 export type OptionSidebarDataType = {
   title?: string;
@@ -35,9 +50,10 @@ const IconOption = ({
 }: IconOptionProps) => {
   const { t } = useTranslation('');
   const router = useRouter();
+  const { pathname } = router;
   const IconElement = icon;
 
-  const [showDropDownCasino, setShowDropDownCasino] = useState(false);
+  const [showDropDownCasino, setShowDropDownCasino] = useState(casinoPaths.includes(pathname));
 
   return (
     <>

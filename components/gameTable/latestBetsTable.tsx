@@ -1,22 +1,19 @@
+import { ColumnDef, Row } from '@tanstack/react-table';
+import cn from 'classnames';
+import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
-import { ColumnDef, Row } from '@tanstack/react-table';
-import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
-import cn from 'classnames';
-import { io } from 'socket.io-client';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import { RootState } from '@/base/types/root-state';
-import { useTranslation } from '@/base/config/i18next';
-import { BetTableDetailType, GameDetail } from '@/base/types/common';
 import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
-import { socketConfig } from '@/base/constants/common';
-
-import RankingTableComponent from '../table/rankingTable';
-import ModalDetailBets from '../modal/detailBets/detailBets';
-import { camelizeKeys } from 'humps';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
+import { BetTableDetailType, GameDetail } from '@/base/types/common';
+
+import ModalDetailBets from '../modal/detailBets/detailBets';
+import RankingTableComponent from '../table/rankingTable';
 
 const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
   const [allBetData, setAllBetData] = useState<BetTableDetailType[]>([]);
@@ -30,9 +27,9 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const { t } = useTranslation('');
 
   const { localeFiat, userId } = useSelector(
-    (state: RootState) => ({
+    (state: AppState) => ({
       localeFiat: state.common.localeFiat,
-      userId: state.auth.userId,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -194,29 +191,28 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   }, []);
 
   useEffect(() => {
-    const socket = io(String(process.env.SOCKET_URL), socketConfig);
-    socket.on('create_bet', (data) => {
-      const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
-      setAllBetData((oldArray) => {
-        const index = oldArray.findIndex((bet) => bet.gameId === camelizeKeysData.gameId);
-        if (index >= 0) {
-          const newData = oldArray.map((bet) => {
-            if (bet.gameId === camelizeKeysData.gameId) {
-              return camelizeKeysData;
-            }
-            return bet;
-          });
-          return newData;
-        } else {
-          return [camelizeKeysData, ...oldArray];
-        }
-      });
-    });
-
+    // const socket = io(String(process.env.SOCKET_URL), socketConfig);
+    // socket.on('create_bet', (data) => {
+    //   const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
+    //   setAllBetData((oldArray) => {
+    //     const index = oldArray.findIndex((bet) => bet.gameId === camelizeKeysData.gameId);
+    //     if (index >= 0) {
+    //       const newData = oldArray.map((bet) => {
+    //         if (bet.gameId === camelizeKeysData.gameId) {
+    //           return camelizeKeysData;
+    //         }
+    //         return bet;
+    //       });
+    //       return newData;
+    //     } else {
+    //       return [camelizeKeysData, ...oldArray];
+    //     }
+    //   });
+    // });
     // Clean up the socket connection on unmount
-    return () => {
-      socket.disconnect();
-    };
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, []);
 
   return (
