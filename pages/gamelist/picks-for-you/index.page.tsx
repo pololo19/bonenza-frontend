@@ -33,7 +33,7 @@ function PickForYouPage() {
         title: item.title,
         identifier: item.identifier,
         payout: Number(item.payout),
-        profitMultiplayer: Number(item.profitMultiplier),
+        multiplier: Number(item.profitMultiplier),
       }));
       setListGame((current) => [...current, ...tempGameLists]);
       setTotalGames(res.data.totalCount);

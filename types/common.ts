@@ -173,7 +173,7 @@ export type GameListType = {
   title: string;
   identifier: string;
   payout: number;
-  profitMultiplayer: number;
+  multiplier: number;
 };
 
 export type GameDetail = {

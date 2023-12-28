@@ -78,7 +78,7 @@ function CasinoTagnamePage() {
         title: item.title,
         identifier: item.identifier,
         payout: Number(item.payout) ?? 0,
-        profitMultiplayer: Number(item.profitMultiplier) ?? 0,
+        multiplier: Number(item.profitMultiplier) ?? 0,
       }));
       setListGame((current) => [...current, ...tempGameListData]);
       setTotalGames(totalCount);
