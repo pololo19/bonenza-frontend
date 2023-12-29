@@ -4,24 +4,25 @@ import { Heart, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '@/api/api';
+import { api_getGameDetail, api_startGameDemo, api_startGameSession } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { exchangeByLocaleFiat } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowDepositModal,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { AuthenticationModeEnum, GameDetail, GameProviderDetail, GameReactionDetail } from '@/base/types/common';
+import { AuthenticationModeEnum, GameListType, GameProviderDetail, GameReactionDetail } from '@/base/types/common';
+import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import GameDescriptionComponent from '@/components/game/gameDescription';
 import GameDetailComponent from '@/components/game/gameDetail';
@@ -32,6 +33,11 @@ import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
 
+type LaunchUrlTye = {
+  gameUrl: string;
+  strategy: string;
+};
+
 function GamePage() {
   const launchUrlRef = useRef<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -39,15 +45,22 @@ function GamePage() {
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
   const [isLoadingGame, setIsLoadingGame] = useState<boolean>(true);
   const [isSatisfied, setIsSatisfied] = useState<boolean>(true);
-  const [launchUrl, setLaunchUrl] = useState<any>();
-  const [gameDetail, setGameDetail] = useState<GameDetail>({});
+  const [launchUrl, setLaunchUrl] = useState<LaunchUrlTye | null>(null);
+  const [gameDetail, setGameDetail] = useState<GameListType>({
+    id: '',
+    title: '',
+    provider: '',
+    identifier: '',
+    payout: 0,
+    multiplier: 0,
+    description: '',
+    releasedAt: '',
+  });
   const [isNotFoundGame, setIsNotFoundGame] = useState<boolean>(false);
   const [openShareGame, setOpenShareGame] = useState<boolean>(false);
   const [reactionData, setReactionData] = useState<GameReactionDetail>({});
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
   const gameScriptRef = useRef<Node | null>(null);
-  const activeFiatRef = useRef<string>('');
-  const localeFiatRef = useRef<string | undefined>();
 
   const [tab, setTab] = useState(1);
 
@@ -59,23 +72,40 @@ function GamePage() {
 
   const dispatch = useDispatch();
 
-  const { activeFiat, isLogin, localeFiat } = useSelector(
+  const { isLogin, localFiat, activeCurrency, balances } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
-      activeFiat: state.common.activeFiat,
+      localFiat: state.wallet.localFiat,
+      activeCurrency: state.wallet.activeCurrency,
+      balances: state.wallet.balances,
       isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
 
+  const balance = useMemo(() => {
+    const tempBalances = [...balances];
+    const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
+    return selectedBalance?.amount ?? 0;
+  }, [balances, activeCurrency]);
+
   const handleGetGameDetail = async () => {
     try {
       setIsLoading(true);
       setIsNotFoundGame(false);
-      const resGameDetail = await api.post('game/get-game-detail', {
-        gameId: gameId,
-      });
-      setGameDetail(resGameDetail.data.data);
+      const resGameDetail = await api_getGameDetail(String(gameId));
+
+      const tempGameDetailData: GameListType = {
+        id: resGameDetail.data?.id ?? '',
+        title: resGameDetail.data?.title ?? '',
+        provider: resGameDetail.data?.provider ?? '',
+        identifier: resGameDetail.data?.identifier ?? '',
+        payout: Number(resGameDetail.data?.payout ?? 0),
+        multiplier: Number(resGameDetail.data?.multiplier ?? 0),
+        isExpiration: resGameDetail.data?.isExpiration ?? false,
+        description: resGameDetail.data?.description ?? '',
+        releasedAt: resGameDetail.data?.releasedAt ?? '',
+      };
+      setGameDetail(tempGameDetailData);
     } catch (error) {
       setIsNotFoundGame(true);
     } finally {
@@ -84,34 +114,53 @@ function GamePage() {
   };
 
   const handlePlay = async () => {
-    if (Number(activeFiat?.amount) <= 0) {
+    if (Number(balance) <= 0) {
       setIsSatisfied(false);
     } else {
       await handlePlayRequest();
     }
   };
 
-  const handleFreePlay = () => {
-    // Handle free play
+  const handleFreePlay = async () => {
+    try {
+      const requestData: GameDemoRequest = {
+        gameId: gameDetail.id,
+        clientType: 'desktop',
+        ip: '80.92.204.24',
+        locale: 'en',
+      };
+      const res = await api_startGameDemo(requestData);
+      const lanuchGameOption: LaunchUrlTye = {
+        gameUrl: res.data.gameUrl,
+        strategy: res.data.strategy,
+      };
+      setLaunchUrl(lanuchGameOption);
+    } catch (error) {}
   };
 
   const handlePlayRequest = async () => {
     try {
       setIsLoading(true);
-      const res = await api.post('game/create-session', {
-        game: gameDetail?.identifier,
-        currency: localeFiat?.currency ?? activeFiat?.currency,
-        balance: localeFiat?.currency
-          ? Number(exchangeByLocaleFiat(activeFiat.currency, String(localeFiat?.currency), Math.abs(activeFiat.amount)))
-          : Math.abs(activeFiat.amount),
-        sourceAccount: activeFiat?.currency,
-        locale: CookiesStorage.getCookieData(CookieKey.lang),
-      });
-      setLaunchUrl(res.data);
-      launchUrlRef.current = res.data;
+      const requestData: GameCreateSessionRequest = {
+        gameId: gameDetail.id,
+        currencyType: 'crypto',
+        currencyId: activeCurrency.id,
+        locale: 'en',
+        ip: '80.92.204.24',
+        clientType: 'desktop',
+        country: 'DE',
+        city: 'Frankfurt Am Main',
+      };
+      const res = await api_startGameSession(requestData);
+      const lanuchGameOption: LaunchUrlTye = {
+        gameUrl: res.data.gameUrl,
+        strategy: res.data.strategy,
+      };
+      setLaunchUrl(lanuchGameOption);
+      launchUrlRef.current = { ...lanuchGameOption };
     } catch (error) {
       toast.error('Game launch failed', { containerId: TOAST_ENUM.COMMON });
-      setLaunchUrl('');
+      setLaunchUrl(null);
       setIsLoadingGame(true);
     } finally {
       setIsLoading(false);
@@ -120,8 +169,8 @@ function GamePage() {
 
   const handleCurrentReactionGame = async () => {
     try {
-      const res = await api.get('game/get-total-reaction', { params: { gameIdentifier: gameDetail?.identifier } });
-      setReactionData(res.data);
+      // const res = await api.get('game/get-total-reaction', { params: { gameIdentifier: gameDetail?.identifier } });
+      // setReactionData(res.data);
     } catch {
       setReactionData((value) => value);
     }
@@ -154,8 +203,8 @@ function GamePage() {
   const handleGameProvider = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-provider-detail', { params: { provider: gameDetail?.provider } });
-      setProviderDetail(res.data.data);
+      // const res = await api.get('game/get-provider-detail', { params: { provider: gameDetail?.provider } });
+      // setProviderDetail(res.data.data);
     } catch (error) {
       setProviderDetail({});
     } finally {
@@ -165,7 +214,7 @@ function GamePage() {
 
   useEffect(() => {
     if (gameId) {
-      setLaunchUrl('');
+      setLaunchUrl(null);
       setIsLoadingGame(true);
       handleGetGameDetail();
     } else {
@@ -180,17 +229,17 @@ function GamePage() {
     }
   }, [gameDetail]);
 
-  useEffect(() => {
-    setIsSatisfied(true);
-    if (
-      !isLoadingGame &&
-      (activeFiatRef.current !== activeFiat?.currency || localeFiatRef.current !== localeFiat?.currency)
-    ) {
-      handlePlayRequest();
-    }
-    activeFiatRef.current = activeFiat?.currency;
-    localeFiatRef.current = localeFiat?.currency;
-  }, [activeFiat, localeFiat]);
+  // useEffect(() => {
+  //   setIsSatisfied(true);
+  //   if (
+  //     !isLoadingGame &&
+  //     (activeFiatRef.current !== activeFiat?.currency || localeFiatRef.current !== localFiat?.name)
+  //   ) {
+  //     handlePlayRequest();
+  //   }
+  //   activeFiatRef.current = activeFiat?.currency;
+  //   localeFiatRef.current = localFiat?.name;
+  // }, [activeFiat, localFiat]);
 
   useEffect(() => {
     try {
@@ -204,8 +253,8 @@ function GamePage() {
       const gameLaunchOptions = {
         target_element: 'game_wrapper',
         launch_options: {
-          game_url: launchUrl?.launchOptions?.gameUrl,
-          strategy: launchUrl?.launchOptions?.strategy,
+          game_url: launchUrl.gameUrl,
+          strategy: launchUrl.strategy,
         },
       };
 
@@ -241,6 +290,8 @@ function GamePage() {
     }
   }, [launchUrl]);
 
+  console.log(localFiat, '------271');
+
   return (
     <>
       {!isNotFoundGame && (
@@ -274,7 +325,7 @@ function GamePage() {
               {isLoadingGame && (
                 <div className="flex items-center justify-center rounded relative h-full">
                   <Image
-                    src={` https://cdn.softswiss.net/b/${gameDetail.provider}/${gameDetail.identifier2}.jpg`}
+                    src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
                     fill
                     alt=""
                     onError={(e) => {
@@ -329,14 +380,14 @@ function GamePage() {
                           {isSatisfied && (
                             <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-[#31373D] text-center">
                               {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                              <span className="!text-amber-500">{localeFiat?.currency}</span>,{' '}
+                              <span className="!text-amber-500">{localFiat?.name}</span>,{' '}
                               {t('gameDetail:ifYouChangeCurrency')}
                             </div>
                           )}
                           {!isSatisfied && (
                             <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
                               <span className="!text-red-500">
-                                {t('gameDetail:insufficient')} {localeFiat?.currency} {t('gameDetail:balance')},
+                                {t('gameDetail:insufficient')} {localFiat?.name} {t('gameDetail:balance')},
                               </span>
                               {t('gameDetail:switchToAnotherAsset')}
                             </div>
@@ -390,7 +441,7 @@ function GamePage() {
                         <>
                           <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-[#31373D] text-center">
                             {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                            <span className="!text-amber-500">{localeFiat?.currency}</span>{' '}
+                            <span className="!text-amber-500">{localFiat?.name}</span>{' '}
                             {t('gameDetail:ifYouChangeCurrency')}
                           </div>
 
@@ -504,7 +555,7 @@ function GamePage() {
             </div>
           </div>
 
-          {gameDetail?.id && (
+          {gameDetail.id && (
             <div>
               <ul className="flex justify-center gap-[8px] w-fit rounded-full md:text-[13px] text-[11px] font-semibold p-[8px] md:pt-[16px] mb-[20px] md:mb-[25px] max-w-full">
                 <div
@@ -516,7 +567,7 @@ function GamePage() {
                       : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-[#31373D] bg-white hover:bg-[#EAECF3]'
                   } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
                 >
-                  {gameDetail?.title}
+                  {gameDetail.title}
                 </div>
                 <div
                   role="button"

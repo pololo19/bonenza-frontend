@@ -17,6 +17,17 @@ const initialState: WalletState = {
   realBalance: 0,
   bonusBalance: 0,
   depositTime: 0,
+  activeCurrency: {
+    id: '',
+    name: '',
+    alias: '',
+    logo: '',
+    iso_currency: '',
+    iso_decimals: 0,
+    availableNetworks: [],
+    type: 'crypto',
+    price: 0,
+  },
   networks: [],
   symbols: [],
   fiatSymbols: [],
@@ -58,6 +69,9 @@ export const walletReducer = createSlice({
     setLocalFiat: (state: WalletState, action: PayloadAction<CurrencyType | null>) => {
       state.localFiat = action.payload;
     },
+    setActiveCurrency: (state: WalletState, action: PayloadAction<CurrencyType>) => {
+      state.activeCurrency = action.payload;
+    },
     setDepositTime: (state: WalletState, action: PayloadAction<number>) => {
       state.depositTime = action.payload;
     },
@@ -78,6 +92,7 @@ export const {
   setDepositTime,
   setLocalFiat,
   addDepositTime,
+  setActiveCurrency,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 

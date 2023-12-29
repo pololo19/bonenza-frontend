@@ -14,7 +14,7 @@ import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
-import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeUsdtNetwork } from '@/base/redux/reducers/common.reducer';
 import {
   changeIsShowAuthenticationModal,
@@ -42,6 +42,7 @@ import {
   getBalance,
   getDepositTime,
   initWalletInfo,
+  logoutWallet,
   setDepositTime,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -146,16 +147,32 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     shallowEqual,
   );
 
-  const handleAccount = async () => {
-    const accessToken = CookiesStorage.getAccessToken();
-    if (accessToken) {
-      const res = await api_validateToken(accessToken);
-      if (!walletSocket?.connected) {
-        const newSocket = await initialSocketConnection();
-        dispatch(setSocket(newSocket));
+  const handlerMeError = () => {
+    dispatch(logoutState());
+    dispatch(logoutWallet());
+    CookiesStorage.logout();
+    return new Promise((resolve) => {
+      if (router.pathname !== ROUTER.Home) {
+        router.replace(ROUTER.Home);
       }
-      dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
-      dispatch(initWalletInfo());
+      resolve(true);
+    });
+  };
+
+  const handleAccount = async () => {
+    try {
+      const accessToken = CookiesStorage.getAccessToken();
+      if (accessToken) {
+        const res = await api_validateToken(accessToken);
+        if (!walletSocket?.connected) {
+          const newSocket = await initialSocketConnection();
+          dispatch(setSocket(newSocket));
+        }
+        dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
+        dispatch(initWalletInfo());
+      }
+    } catch (error) {
+      handlerMeError();
     }
   };
 

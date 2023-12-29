@@ -12,7 +12,7 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { changeActiveFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
-import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
+import { setActiveCurrency, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
@@ -36,37 +36,34 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
 
-  const { viewInFiat, showFullNameCurrency, cryptoSymbols, cryptoBalances, fiatSymbols, localFiat, bonus } =
-    useSelector(
-      (state: AppState) => ({
-        localeFiat: state.common.localeFiat,
-        // fiatArray: state.common.fiatArray,
-        viewInFiat: state.common.viewInFiat,
+  const {
+    viewInFiat,
+    showFullNameCurrency,
+    cryptoSymbols,
+    cryptoBalances,
+    fiatSymbols,
+    localFiat,
+    bonus,
+    activeCurrency,
+  } = useSelector(
+    (state: AppState) => ({
+      localeFiat: state.common.localeFiat,
+      // fiatArray: state.common.fiatArray,
+      viewInFiat: state.common.viewInFiat,
 
-        showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
-        cryptoSymbols: state.wallet.symbols,
-        cryptoBalances: state.wallet.balances,
-        fiatSymbols: state.wallet.fiatSymbols,
-        localFiat: state.wallet.localFiat,
-        bonus: state.wallet.bonusBalance,
-      }),
+      activeCurrency: state.wallet.activeCurrency,
+      showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
+      cryptoSymbols: state.wallet.symbols,
+      cryptoBalances: state.wallet.balances,
+      fiatSymbols: state.wallet.fiatSymbols,
+      localFiat: state.wallet.localFiat,
+      bonus: state.wallet.bonusBalance,
+    }),
 
-      shallowEqual,
-    );
+    shallowEqual,
+  );
 
   const [searchFiatInput, setSearchFiatInput] = useState<string>('');
-
-  const [activeCoin, setActiveCoin] = useState<CurrencyType>({
-    id: '',
-    name: '',
-    alias: '',
-    logo: '',
-    iso_currency: '',
-    iso_decimals: 0,
-    availableNetworks: [],
-    type: 'crypto',
-    price: 0,
-  });
 
   const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
@@ -129,7 +126,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       /** SET USDT as a default coin */
       const defaultSymbol = cryptoSymbols.find((item) => item.name.toLowerCase() === 'usdt');
       if (defaultSymbol) {
-        setActiveCoin(defaultSymbol);
+        dispatch(setActiveCurrency(defaultSymbol));
       }
     }
   }, [cryptoSymbols]);
@@ -141,7 +138,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         className="relative w-auto text-left rounded flex dark:text-white h-[36px] sm:h-[44px] text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
       >
         <Menu.Button>
-          {activeCoin.id && (
+          {activeCurrency.id && (
             <div
               role="button"
               className={cn(
@@ -152,7 +149,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               <Image
                 height={20}
                 width={20}
-                src={activeCoin.logo}
+                src={activeCurrency.logo}
                 alt=""
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USD.png';
@@ -162,16 +159,16 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
                   {localFiat
                     ? `${currencyFormat1(
-                        getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
+                        getBalanceBySymbol(activeCurrency) * activeCurrency.price * exchangeRate,
                         toFixedValue,
                         localFiat.name,
                       )}`
-                    : `${currencyFormat1(Number(getBalanceBySymbol(activeCoin)), toFixedValue, '', false)}`}
+                    : `${currencyFormat1(Number(getBalanceBySymbol(activeCurrency)), toFixedValue, '', false)}`}
                 </div>
               )}
               {!viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
-                  {currencyFormat1(getBalanceBySymbol(activeCoin), toFixedValue, '', false)}
+                  {currencyFormat1(getBalanceBySymbol(activeCurrency), toFixedValue, '', false)}
                 </div>
               )}
               <div className="text-white truncate text-right min-w-[15px]">
@@ -245,10 +242,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               active
                                 ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black mb-1'
                                 : 'dark:text-white text-black  mb-1',
-                              activeCoin.id === crypto.id && 'border border-solid border-[#f59e0b]',
+                              activeCurrency.id === crypto.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
-                            onClick={() => setActiveCoin(crypto)}
+                            onClick={() => dispatch(setActiveCurrency(crypto))}
                             // onClick={() => {
                             //   dispatch(changeActiveFiat(crypto));
                             //   sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
@@ -311,11 +308,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               active
                                 ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black mb-1'
                                 : 'dark:text-white text-black mb-1',
-                              activeCoin.id === fiat.id && 'border border-solid border-[#f59e0b]',
+                              activeCurrency.id === fiat.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
                             onClick={() => {
-                              setActiveCoin(fiat);
+                              dispatch(setActiveCurrency(fiat));
                               // dispatch(changeActiveFiat(fiat));
                               // sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(fiat));
                               // CookiesStorage.setCookieData(CookieKey.activeFiat, String(fiat?.currency));
@@ -435,10 +432,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <div
                             className={cn(
                               active ? 'dark:bg-gray-600 bg-gray-200 text-white' : 'text-gray-400',
-                              activeCoin.id === crypto.id && 'border border-solid border-[#f59e0b]',
+                              activeCurrency.id === crypto.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
-                            onClick={() => setActiveCoin(crypto)}
+                            onClick={() => dispatch(setActiveCurrency(crypto))}
                             // onClick={() => {
                             //   dispatch(changeActiveFiat(crypto));
                             //   sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
@@ -485,11 +482,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <div
                             className={cn(
                               active ? 'dark:bg-gray-600 bg-gray-200 text-white' : 'text-gray-400',
-                              activeCoin.id === fiat.id && 'border border-solid border-[#f59e0b]',
+                              activeCurrency.id === fiat.id && 'border border-solid border-[#f59e0b]',
                               'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                             )}
                             onClick={() => {
-                              setActiveCoin(fiat);
+                              dispatch(setActiveCurrency(fiat));
                               // dispatch(changeActiveFiat(fiat));
                               // sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(fiat));
                               // CookiesStorage.setCookieData(CookieKey.activeFiat, String(fiat?.currency));

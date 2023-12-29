@@ -62,6 +62,12 @@ const API_GAME_NEW_RELEASE = '/game/get-new-releases';
 const API_GAME_FEATURE_BUY_IN = '/game/get-feature-buy-in';
 const API_GAME_BLACKJACK = '/game/get-blackjack';
 const API_GAME_TABLE_GAMES = '/game/get-table-games';
+const API_GAME_DETAIL = '/game/get-game';
+
+const API_GAME_START_DEMO = '/game/start-demo';
+const API_GAME_CREATE_SESSION = '/game/create-session';
+const API_GAME_PLAY = '/game/play';
+const API_GAME_ROLLBACK = '/game/rollback';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -96,15 +102,20 @@ export {
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
   API_GAME_BLACKJACK,
+  API_GAME_CREATE_SESSION,
+  API_GAME_DETAIL,
   API_GAME_FAVORITE_GAMES,
   API_GAME_FEATURE_BUY_IN,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
   API_GAME_PICK_GAMES,
+  API_GAME_PLAY,
   API_GAME_PROVIDER,
   API_GAME_RECENT_GAMES,
+  API_GAME_ROLLBACK,
   API_GAME_SLOT,
+  API_GAME_START_DEMO,
   API_GAME_TABLE_GAMES,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,

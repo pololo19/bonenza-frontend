@@ -16,12 +16,12 @@ import {
   handleLocaleSymbol,
 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { BetTableDetailType, GameDetail } from '@/base/types/common';
+import { BetTableDetailType, GameDetail, GameListType } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
-const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
+const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => {
   const [myBetData, setMyBetData] = useState<BetTableDetailType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
@@ -42,8 +42,8 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
   const handleGetMyBet = async () => {
     try {
       setIsLoadingTable(true);
-      const res = await api.get('game/my-bet', { params: { gameIdentifier: gameDetail?.identifier } });
-      setMyBetData(res.data);
+      // const res = await api.get('game/my-bet', { params: { gameIdentifier: gameDetail?.identifier } });
+      // setMyBetData(res.data);
     } catch (error) {
       setMyBetData([]);
     } finally {

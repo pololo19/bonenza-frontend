@@ -27,3 +27,9 @@ export function byteToMegabyte(input: number, numFixed?: number) {
   const result = input / 1024 / 1024;
   return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
 }
+
+export function convertToUrlCase(str: string) {
+  let url = str.replace(':', '-');
+  url = url.toLowerCase();
+  return url;
+}

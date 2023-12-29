@@ -50,8 +50,11 @@ const transformResponse = (response: AxiosResponse) => {
   return response;
 };
 /* eslint-disable no-underscore-dangle, no-param-reassign */
-const handleError = async (error: any, axiosInstance: AxiosInstance) => {
+const wrapApiErrors = async (error: any, axiosInstance: AxiosInstance) => {
   const status = error.response?.status || error.status;
+  if (!status) {
+    throw new Error('Connection with API server is broken');
+  }
   switch (status) {
     case 401:
       CookiesStorage.logout();
@@ -89,6 +92,7 @@ api.interceptors.request.use((config) => {
   return config;
 });
 api.interceptors.response.use(transformResponse, (error) => {
+  console.log('error-------', 92, error);
   const errorResponse = error;
 
   const errorData = errorResponse?.response?.data || {};
@@ -114,7 +118,7 @@ api.interceptors.response.use(transformResponse, (error) => {
     },
   };
 
-  return handleError(errorResponse, api);
+  return wrapApiErrors(errorResponse, api);
 });
 
 export default api;

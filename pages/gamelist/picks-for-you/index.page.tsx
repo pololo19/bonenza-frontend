@@ -29,11 +29,13 @@ function PickForYouPage() {
       setIsLoading(true);
       const res = await api_getPickGames(currentPage, 40);
       const tempGameLists = res.data.games.map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        identifier: item.identifier,
-        payout: Number(item.payout),
-        multiplier: Number(item.profitMultiplier),
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item?.payout ?? 0),
+        multiplier: Number(item?.profitMultiplier ?? 0),
+        releasedAt: item?.releasedAt ?? '',
       }));
       setListGame((current) => [...current, ...tempGameLists]);
       setTotalGames(res.data.totalCount);

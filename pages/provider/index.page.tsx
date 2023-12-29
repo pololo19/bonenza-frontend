@@ -33,8 +33,8 @@ function ProviderPage() {
   const handleGetProviderDetail = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-provider-detail', { params: { provider: id } });
-      setProviderDetail(res.data.data);
+      // const res = await api.get('game/get-provider-detail', { params: { provider: id } });
+      // setProviderDetail(res.data.data);
     } catch (error) {
       setProviderDetail({});
     } finally {

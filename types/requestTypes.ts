@@ -1,3 +1,6 @@
+import { Currency } from 'iso-country-currency';
+import { CurrencySymbolType } from './wallet';
+
 export type VerifyRequestType = 'reset' | '';
 
 export enum TRANSACTION_TYPE {
@@ -8,6 +11,8 @@ export enum TRANSACTION_TYPE {
   'Bill' = 'bill',
   'Bonus' = 'bonus',
 }
+
+type ClientType = 'mobile' | 'desktop' | 'all';
 
 export type SignUpEmailRequest = {
   email: string;
@@ -60,4 +65,22 @@ export type TransactionRequest = {
   page: number;
   pageSize: number;
   status: number;
+};
+
+export type GameDemoRequest = {
+  gameId: string;
+  clientType: ClientType;
+  ip: string;
+  locale: string;
+};
+
+export type GameCreateSessionRequest = {
+  gameId: string;
+  currencyType: CurrencySymbolType;
+  currencyId: string;
+  locale: string;
+  ip: string;
+  clientType: ClientType;
+  country: string;
+  city: string;
 };
