@@ -171,9 +171,14 @@ export enum CurrencyEnum {
 export type GameListType = {
   id: string;
   title: string;
+  description: string;
   identifier: string;
   payout: number;
   multiplier: number;
+  releasedAt: Date | string;
+
+  provider?: string;
+  isExpiration?: boolean;
 };
 
 export type GameDetail = {

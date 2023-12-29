@@ -1,27 +1,27 @@
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
 import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
+import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
+import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { GameDetail, GameProviderDetail } from '@/base/types/common';
+import { ROUTER } from '@/base/constants/common';
+import { GameDetail, GameListType, GameProviderDetail } from '@/base/types/common';
 
+import CasinoSS from '../casino/casinoSS';
 import GameCard from '../gameCard/gameCard';
 import AllBetsTableComponent from '../gameTable/allBetsTable';
 import HighRollerTableComponent from '../gameTable/highRollerTable';
 import MyBetsTableComponent from '../gameTable/myBetsTable';
-import api from '@/api/api';
 import WagerContestComponent from '../gameTable/wagerContest';
 import styles from './index.module.scss';
-import { ROUTER } from '@/base/constants/common';
-import CasinoSS from '../casino/casinoSS';
 
 const GameDetailComponent = ({
   gameDetail,
   gameProvider,
 }: {
-  gameDetail?: GameDetail;
+  gameDetail?: GameListType;
   gameProvider?: GameProviderDetail;
 }) => {
   const [openTab, setOpenTab] = useState(1);
@@ -33,10 +33,10 @@ const GameDetailComponent = ({
   const handleGetListGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-related-list', {
-        params: { limit: '0', game_id: gameDetail?.id },
-      });
-      setListRelatedGame(res.data.data);
+      // const res = await api.get('game/get-related-list', {
+      //   params: { limit: '0', game_id: gameDetail?.id },
+      // });
+      // setListRelatedGame(res.data.data);
     } catch (error) {
       setListRelatedGame([]);
     } finally {

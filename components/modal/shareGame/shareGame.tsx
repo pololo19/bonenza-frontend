@@ -3,21 +3,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ElementType, useMemo } from 'react';
 
-import { GameDetail } from '@/base/types/common';
+import { GameDetail, GameListType } from '@/base/types/common';
 
 import { useTranslation } from '@/base/config/i18next';
 import CommonModal from '../commonModal/commonModal';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 
 type ModalShareGameProps = {
   onClose: () => void;
   show: boolean;
-  gameDetail: GameDetail;
+  gameDetail: GameListType;
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
 export default function ModalShareGame({ show, onClose, gameDetail }: ModalShareGameProps) {
   const linkGame = useMemo(() => {
-    return `https://bonenza.com/game/?gameId=${gameDetail.identifier2}`;
+    return `https://bonenza.com/game/?gameId=${convertToUrlCase(gameDetail.identifier || '')}`;
   }, [gameDetail]);
 
   const { t } = useTranslation('');

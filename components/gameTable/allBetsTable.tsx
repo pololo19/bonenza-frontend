@@ -17,12 +17,12 @@ import {
 } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { BetTableDetailType, GameDetail } from '@/base/types/common';
+import { BetTableDetailType, GameDetail, GameListType } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
-const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
+const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => {
   const [allBetData, setAllBetData] = useState<BetTableDetailType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
@@ -44,8 +44,8 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
   const handleGetAllBet = async () => {
     try {
       setIsLoadingTable(true);
-      const res = await api.get('game/all-bet', { params: { gameIdentifier: gameDetail?.identifier } });
-      setAllBetData(res.data);
+      // const res = await api.get('game/all-bet', { params: { gameIdentifier: gameDetail?.identifier } });
+      // setAllBetData(res.data);
     } catch (error) {
       setAllBetData([]);
     } finally {

@@ -71,6 +71,7 @@ export type UserDataState = {
 
 export type WalletState = {
   localFiat: CurrencyType | null;
+  activeCurrency: CurrencyType;
   totalBalance: number;
   depositTime: number;
   realBalance: number;
