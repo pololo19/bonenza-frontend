@@ -310,6 +310,22 @@ export type BetTableDetailType = {
   title: number;
 };
 
+export type BetTableDataType = {
+  game: string;
+  gameIdenfiter: string;
+  player: string;
+  playerId: string;
+  playerAvatar: string;
+  betAmount: number;
+  betAmountUsd: number;
+  multiplier: number;
+  profitAmount: number;
+  profitAmountUsd: number;
+  currency: string;
+  betId: string;
+  time: Date;
+};
+
 export type BetDetail = {
   betAmount?: number;
   betId?: string;

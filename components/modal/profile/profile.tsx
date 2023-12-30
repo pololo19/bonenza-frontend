@@ -86,10 +86,12 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   const getUserProfile = async (selectedUserId: string) => {
     try {
+      setIsLoading(true);
       const res = await api_getProfile(selectedUserId || userId);
       setUser({ ...convertUserInfo(res.data) });
     } catch (error) {
     } finally {
+      setIsLoading(false);
     }
   };
 
@@ -197,8 +199,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       </>
     );
   }, [isStatistic, isMedalsDetail, vipData, user]);
-
   const returnBody = useCallback(() => {
+    if (!user) return <Loader />;
     // if selected User is not signIn user and selected user sets hideGamingData
     if (user?.userId !== userId && user?.privacySetting.settingHideGamingData) {
       return (
@@ -366,7 +368,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
         </div>
       </>
     );
-  }, [user, userId, isStatistic, isMedalsDetail, viewInFiat, listGame]);
+  }, [user, userId, isStatistic, isMedalsDetail, viewInFiat, listGame, isLoading]);
 
   return (
     <>

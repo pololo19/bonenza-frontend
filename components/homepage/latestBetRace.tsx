@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
+
 import HighRollerTableComponent from '../gameTable/highRollerTable';
 import LatestBetsTableComponent from '../gameTable/latestBetsTable';
 import WagerContestComponent from '../gameTable/wagerContest';

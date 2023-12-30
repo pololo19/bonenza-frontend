@@ -1,6 +1,6 @@
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 
-import { AuthenticationModeEnum, DepositAddress, FiatType, UserDetail } from './common';
+import { AuthenticationModeEnum, BetTableDataType, DepositAddress, FiatType, UserDetail } from './common';
 import { VerifyRequestType } from './requestTypes';
 import { BalanceType, CryptoCurrencyType, CryptoNetWorkType, CurrencyType, DepositAddressType } from './wallet';
 
@@ -82,4 +82,8 @@ export type WalletState = {
   balances: BalanceType[];
   cryptoCurrencies: CryptoCurrencyType[];
   depositAddress: DepositAddressType[];
+};
+
+export type GameState = {
+  betHistory: BetTableDataType[];
 };

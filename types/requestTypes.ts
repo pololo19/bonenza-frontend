@@ -69,18 +69,10 @@ export type TransactionRequest = {
 
 export type GameDemoRequest = {
   gameId: string;
-  clientType: ClientType;
-  ip: string;
-  locale: string;
 };
 
 export type GameCreateSessionRequest = {
   gameId: string;
   currencyType: CurrencySymbolType;
   currencyId: string;
-  locale: string;
-  ip: string;
-  clientType: ClientType;
-  country: string;
-  city: string;
 };

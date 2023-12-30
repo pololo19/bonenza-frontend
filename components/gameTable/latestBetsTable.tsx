@@ -3,44 +3,84 @@ import cn from 'classnames';
 import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
+import { api_getLatestBets } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1 } from '@/base/libs/utils';
+import { setBetHistory } from '@/base/redux/reducers/game.reducer';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
-import { BetTableDetailType, GameDetail } from '@/base/types/common';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { BetTableDataType, GameDetail } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
 const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
-  const [allBetData, setAllBetData] = useState<BetTableDetailType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
   const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
   const [betIdDetail, setBetIdDetail] = useState<number>();
+  const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+  });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
-  const dispatch = useDispatch();
+  const exchangeRate = useExchange();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
-  const { localeFiat, userId } = useSelector(
+  const { userId, localFiat, betHistory } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
       userId: state.auth.user.userId,
+      localFiat: state.wallet.localFiat,
+      betHistory: state.game.betHistory,
     }),
     shallowEqual,
   );
 
+  const betHistoryFilter = useMemo(() => {
+    if (!betHistory.length) return betHistory;
+    if (isShowMore) return betHistory.slice(0, 40);
+    return betHistory.slice(0, 20);
+  }, [betHistory, isShowMore]);
+
   const handleGetAllBet = async () => {
     try {
       setIsLoadingTable(true);
-      const res = await api.get('game/all-bet', { params: { gameIdentifier: gameDetail?.identifier } });
-      setAllBetData(res.data);
+      const res = await api_getLatestBets();
+      const tempBetData = res.data.map((item: any) => ({
+        game: item.gameName ?? '',
+        gameIdenfiter: item.gameIdentifier ?? '',
+        player: item.playerName ?? '',
+        playerId: item.playerId ?? '',
+        playerAvatar: item.playerAvatar ?? '',
+        betAmount: Number(item.betAmount || 0),
+        betAmountUsd: Number(item.betAmountUsd || 0),
+        multiplier: Number(item.multiplier || 0),
+        profitAmount: Number(item.profitAmount || 0),
+        profitAmountUsd: Number(item.profitAmountUsd || 0),
+        currency: item.currency ?? 'USD',
+        betId: item.id ?? '',
+        time: item.time ?? new Date(),
+      }));
+      dispatch(setBetHistory(tempBetData));
     } catch (error) {
-      setAllBetData([]);
+      dispatch(setBetHistory([]));
     } finally {
       setIsLoadingTable(false);
     }
@@ -51,7 +91,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       username: row.original.player,
       userId: row.original.playerId,
     };
-    localStorage.setItem('userData', JSON.stringify(userData));
+    console.log(userData, '----92');
+    dispatch(setUserData(userData));
     if (!row.original.isHideNamePublicList) {
       dispatch(changeIsShowInformation(true));
     }
@@ -60,14 +101,11 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const handleClickRow = (row: Row<any>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
+
+    setSelBetDetail(row.original);
     setIsShowDetailBet(true);
     setIsPublicProfile(row.original?.isHideNamePublicList);
   };
-
-  const allBetDataFilter = useMemo(() => {
-    if (isShowMore) return allBetData.slice(0, 20);
-    else return allBetData.slice(0, 10);
-  }, [allBetData, isShowMore]);
 
   const allBetColumns = useMemo(() => {
     const innerWidth = window.innerWidth;
@@ -76,15 +114,15 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betId',
         header: String(t('gameTable:game')),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d] font-bold truncate flex items-center gap-[5px]">
+          <div className="dark:text-[#98A7B5] text-[#31373d] text-[16px] font-bold truncate flex items-center gap-[5px] p-2">
             <Image
               height={24}
               width={24}
-              src={`https://cdn.softswiss.net/i/s4/${row.original.provider}/${row.original.identifier2}.png`}
+              src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
               alt=""
               className="object-cover max-h-auto rounded-[5px]"
             />
-            {row.original.title}
+            <span className="px-2">{row.original.game}</span>
           </div>
         ),
       },
@@ -95,7 +133,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           <div
             className={`${
               row.original.playerId !== userId && row.original.isHideNamePublicList && 'pointer-events-none'
-            } font-bold truncate text-center`}
+            } font-bold truncate text-center text-[16px] p-2`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && row.original.isHideNamePublicList ? (
@@ -110,22 +148,15 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betAmount',
         header: () => <div className="text-center">{t('gameTable:betAmount')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-white text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px]">
-            {localeFiat?.currency
-              ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                  exchangeByLocaleFiat(
-                    row.original.currency,
-                    String(localeFiat?.currency),
-                    Math.abs(row.original.betAmount),
-                  ),
-                  2,
-                )}`
-              : `${formatLengthNumber(row.original.betAmount)}`}
+          <div className="dark:text-white text-[16px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px]  p-2">
+            {localFiat
+              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 4, localFiat.name)}`
+              : `${currencyFormat1(row.original.betAmount, 4, '', false)} `}
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
               height={15}
               width={15}
-              src={`/img/fiats/${row.original.sourceAccount}.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
               }}
@@ -138,7 +169,9 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'multiplier',
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d] truncate text-center font-bold">{row.original.payout}</div>
+          <div className="dark:text-[#98A7B5] text-[16px] text-[#31373d] truncate text-center font-bold  p-2">
+            {row.original.multiplier}
+          </div>
         ),
       },
       {
@@ -146,30 +179,23 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: String(t('gameTable:profitAmount')),
         minSize: 60,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-end gap-[5px]')}>
+          <div className={cn('flex items-center text-[16px] justify-end gap-[5px] p-2')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-green-500': row.original.profit >= 0,
-                'text-red-500': row.original.profit < 0,
+                'text-green-500': row.original.profitAmount >= 0,
+                'text-red-500': row.original.profitAmount < 0,
               })}
             >
               {row.original.profit > 0 && '+'}
-              {localeFiat?.currency
-                ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                    exchangeByLocaleFiat(
-                      row.original.currency,
-                      String(localeFiat?.currency),
-                      Math.abs(row.original.profit),
-                    ),
-                    2,
-                  )}`
-                : `${formatLengthNumber(row.original.profit)}`}
+              {localFiat
+                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
+                : `${currencyFormat1(row.original.profitAmount, 4, '', false)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
               height={15}
               width={15}
-              src={`/img/fiats/${row.original.sourceAccount}.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
               }}
@@ -184,35 +210,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localeFiat?.currency, userId]);
+  }, [localFiat, userId]);
 
   useEffect(() => {
     handleGetAllBet();
-  }, []);
-
-  useEffect(() => {
-    // const socket = io(String(process.env.SOCKET_URL), socketConfig);
-    // socket.on('create_bet', (data) => {
-    //   const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
-    //   setAllBetData((oldArray) => {
-    //     const index = oldArray.findIndex((bet) => bet.gameId === camelizeKeysData.gameId);
-    //     if (index >= 0) {
-    //       const newData = oldArray.map((bet) => {
-    //         if (bet.gameId === camelizeKeysData.gameId) {
-    //           return camelizeKeysData;
-    //         }
-    //         return bet;
-    //       });
-    //       return newData;
-    //     } else {
-    //       return [camelizeKeysData, ...oldArray];
-    //     }
-    //   });
-    // });
-    // Clean up the socket connection on unmount
-    // return () => {
-    //   socket.disconnect();
-    // };
   }, []);
 
   return (
@@ -221,11 +222,11 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         <RankingTableComponent
           containerClassName="w-full"
           isLoading={isLoadingTable}
-          data={allBetDataFilter}
+          data={betHistoryFilter}
           columns={allBetColumns}
           onRowClick={handleClickRow}
         />
-        {!!allBetDataFilter.length && (
+        {!!betHistoryFilter.length && (
           <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
             <div
               className="flex items-center dark:bg-[#25262B] bg-[#f6f7fa] py-[9px] px-[10px] rounded-[5px]"
@@ -252,6 +253,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           onClose={() => {
             setIsShowDetailBet(false);
           }}
+          betDetail={selBetDetail}
           betId={betIdDetail}
           isPublicProfile={isPublicProfile}
         />

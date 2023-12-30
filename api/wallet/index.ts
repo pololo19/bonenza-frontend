@@ -1,6 +1,7 @@
 import {
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
+  API_WALLET_INIT_DATA,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
   API_WALLET_TRANSACTIONS,
@@ -46,4 +47,8 @@ export const api_getTransactions = async ({
 
 export const api_getDepositTime = async () => {
   return api.get(API_WALLET_DEPOSIT_TIME);
+};
+
+export const api_getInitData = async () => {
+  return api.get(API_WALLET_INIT_DATA);
 };

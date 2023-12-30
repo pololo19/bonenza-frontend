@@ -4,13 +4,13 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_validateToken } from '@/api/auth';
 import Loader from '@/base/components/common/preloader/loader';
-import { ROUTER } from '@/base/constants/common';
+import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
-import { setSocket } from '@/base/redux/reducers/socket.reducer';
+import { setGameSocket, setSocket } from '@/base/redux/reducers/socket.reducer';
 import { initWalletInfo, logoutWallet } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
@@ -20,10 +20,11 @@ type WithAuthComponent<P> = React.FunctionComponent<P> & {
 
 function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): WithAuthComponent<P> {
   const Authorization = (props: P) => {
-    const { initSocket, user } = useSelector(
+    const { initSocket, user, gameSocket } = useSelector(
       (state: AppState) => ({
         user: state.auth.user,
         initSocket: state.socket.walletSocket,
+        gameSocket: state.socket.gameSocket,
       }),
       shallowEqual,
     );
@@ -64,8 +65,13 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
         dispatch(initWalletInfo());
 
         if (!initSocket?.connected) {
-          const newSocket = await initialSocketConnection();
+          const newSocket = await initialSocketConnection(SOCKET_WALLET_URL ?? '');
           dispatch(setSocket(newSocket));
+        }
+
+        if (!gameSocket?.connected) {
+          const newGameSocket = await initialSocketConnection(SOCKET_GAME_URL ?? '');
+          dispatch(setGameSocket(newGameSocket));
         }
 
         setIsLoading(false);

@@ -69,18 +69,18 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
   };
 
   const handleChangeLocaleFiat = (item: CurrencyType) => {
-    if (isLogin) {
-      // let newItem: FiatType = item.currency === 'USD' ? { ...item, currencyOld: activeFiat?.currency } : item;
-      dispatch(changeViewInFiat(true));
+    // if (isLogin) {
+    // let newItem: FiatType = item.currency === 'USD' ? { ...item, currencyOld: activeFiat?.currency } : item;
+    dispatch(changeViewInFiat(true));
 
-      dispatch(setLocalFiat(item));
-      // dispatch(changeActiveFiat(item));
-      // CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
-      // CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
-    } else {
-      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-      dispatch(changeIsShowAuthenticationModal(true));
-    }
+    dispatch(setLocalFiat(item));
+    // dispatch(changeActiveFiat(item));
+    // CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
+    // CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
+    // } else {
+    //   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+    //   dispatch(changeIsShowAuthenticationModal(true));
+    // }
   };
 
   return (

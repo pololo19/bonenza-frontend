@@ -9,7 +9,7 @@ import { KYC_ENUM } from '@/base/constants/common';
 import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { GameDetail, UserDetail } from '@/base/types/common';
+import { BetTableDataType, GameDetail, UserDetail } from '@/base/types/common';
 
 import CasinoSwiper from '../casino/casinoSwiper';
 import ModalDetailBets from '../modal/detailBets/detailBets';
@@ -100,6 +100,21 @@ function RecentBigWinComponent() {
   const [listBigWinGame, setListBigWinGame] = useState<GameDetail[]>([]);
   const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
   const [betIdDetail, setBetIdDetail] = useState<number>();
+  const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+  });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
   const { localeFiat, userId } = useSelector(
@@ -188,6 +203,7 @@ function RecentBigWinComponent() {
       {isShowDetailBet && (
         <ModalDetailBets
           show={isShowDetailBet}
+          betDetail={selBetDetail}
           titleModal="Bet Slip"
           onClose={() => {
             setIsShowDetailBet(false);

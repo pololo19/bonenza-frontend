@@ -1,4 +1,7 @@
 import {
+  API_GAME_BET_HISTORY,
+  API_GAME_BET_HISTORY_FOR_GAME,
+  API_GAME_BET_HISTORY_FOR_USER,
   API_GAME_BLACKJACK,
   API_GAME_CREATE_SESSION,
   API_GAME_DETAIL,
@@ -86,4 +89,16 @@ export const api_startGameDemo = async (data: GameDemoRequest) => {
 
 export const api_startGameSession = async (data: GameCreateSessionRequest) => {
   return api.post(API_GAME_CREATE_SESSION, data);
+};
+
+export const api_getLatestBets = async () => {
+  return api.get(API_GAME_BET_HISTORY);
+};
+
+export const api_getLatestBetsForGame = async (gameId: string) => {
+  return api.get(API_GAME_BET_HISTORY_FOR_GAME, { params: { gameId } });
+};
+
+export const api_getLatestBetForUser = async (gameId: string) => {
+  return api.get(API_GAME_BET_HISTORY_FOR_USER, { params: { gameId } });
 };
