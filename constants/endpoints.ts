@@ -48,6 +48,7 @@ const API_WALLET_SWAP_RATE = '/wallet/swap/prices';
 const API_WALLET_SWAP = '/wallet/swap';
 const API_WALLET_TRANSACTIONS = '/wallet/transaction';
 const API_WALLET_DEPOSIT_TIME = '/wallet/get-deposit-time-for-this-week';
+const API_WALLET_INIT_DATA = '/wallet/init-currency';
 
 /************************************ Game **********************************/
 const API_GAME_PICK_GAMES = '/game/get-pick-games-for-you';
@@ -68,6 +69,10 @@ const API_GAME_START_DEMO = '/game/start-demo';
 const API_GAME_CREATE_SESSION = '/game/create-session';
 const API_GAME_PLAY = '/game/play';
 const API_GAME_ROLLBACK = '/game/rollback';
+
+const API_GAME_BET_HISTORY = '/game/get-latest-bets';
+const API_GAME_BET_HISTORY_FOR_GAME = '/game/get-latest-bets-for-game';
+const API_GAME_BET_HISTORY_FOR_USER = '/game/get-latest-bets-for-user-game';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -101,6 +106,9 @@ export {
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
+  API_GAME_BET_HISTORY,
+  API_GAME_BET_HISTORY_FOR_GAME,
+  API_GAME_BET_HISTORY_FOR_USER,
   API_GAME_BLACKJACK,
   API_GAME_CREATE_SESSION,
   API_GAME_DETAIL,
@@ -130,6 +138,7 @@ export {
   API_USER_SETTING_UPDATE,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
+  API_WALLET_INIT_DATA,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
   API_WALLET_TRANSACTIONS,

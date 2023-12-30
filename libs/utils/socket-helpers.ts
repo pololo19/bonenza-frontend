@@ -1,8 +1,8 @@
 import { io } from 'socket.io-client';
 
-import { SOCKET_WALLET_URL, socketWalletConfig } from '@/base/constants/common';
+import { socketWalletConfig } from '@/base/constants/common';
 
-export const initialSocketConnection = async () => {
-  const socket = io(SOCKET_WALLET_URL || '', socketWalletConfig);
+export const initialSocketConnection = async (socketUrl: string) => {
+  const socket = io(socketUrl, socketWalletConfig);
   return socket;
 };

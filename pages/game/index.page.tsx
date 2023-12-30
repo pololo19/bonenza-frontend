@@ -11,7 +11,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '@/api/api';
-import { api_getGameDetail, api_startGameDemo, api_startGameSession } from '@/api/game';
+import { api_getGameDetail, api_getLatestBetsForGame, api_startGameDemo, api_startGameSession } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
@@ -72,12 +72,13 @@ function GamePage() {
 
   const dispatch = useDispatch();
 
-  const { isLogin, localFiat, activeCurrency, balances } = useSelector(
+  const { isLogin, localFiat, activeCurrency, balances, betHistory } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       activeCurrency: state.wallet.activeCurrency,
       balances: state.wallet.balances,
       isLogin: state.auth.isLogin,
+      betHistory: state.game.betHistory,
     }),
     shallowEqual,
   );
@@ -125,9 +126,6 @@ function GamePage() {
     try {
       const requestData: GameDemoRequest = {
         gameId: gameDetail.id,
-        clientType: 'desktop',
-        ip: '80.92.204.24',
-        locale: 'en',
       };
       const res = await api_startGameDemo(requestData);
       const lanuchGameOption: LaunchUrlTye = {
@@ -145,11 +143,6 @@ function GamePage() {
         gameId: gameDetail.id,
         currencyType: 'crypto',
         currencyId: activeCurrency.id,
-        locale: 'en',
-        ip: '80.92.204.24',
-        clientType: 'desktop',
-        country: 'DE',
-        city: 'Frankfurt Am Main',
       };
       const res = await api_startGameSession(requestData);
       const lanuchGameOption: LaunchUrlTye = {
@@ -289,8 +282,6 @@ function GamePage() {
       console.log('error', error);
     }
   }, [launchUrl]);
-
-  console.log(localFiat, '------271');
 
   return (
     <>

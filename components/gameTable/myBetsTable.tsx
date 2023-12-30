@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
+import { api_getLatestBetForUser } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import {
@@ -16,17 +16,32 @@ import {
   handleLocaleSymbol,
 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { BetTableDetailType, GameDetail, GameListType } from '@/base/types/common';
+import { BetTableDataType, GameListType } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
 const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => {
-  const [myBetData, setMyBetData] = useState<BetTableDetailType[]>([]);
+  const [myBetData, setMyBetData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
   const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
   const [betIdDetail, setBetIdDetail] = useState<number>();
+  const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+  });
 
   const { t } = useTranslation('');
 
@@ -42,6 +57,23 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   const handleGetMyBet = async () => {
     try {
       setIsLoadingTable(true);
+      if (!gameDetail) return;
+      const res = await api_getLatestBetForUser(gameDetail.id);
+      const tempBetData = res.data.map((item: any) => ({
+        game: item.gameName ?? '',
+        gameIdenfiter: item.gameIdentifier ?? '',
+        player: item.playerName ?? '',
+        playerId: item.playerId ?? '',
+        playerAvatar: item.playerAvatar ?? '',
+        betAmount: Number(item.betAmount || 0),
+        betAmountUsd: Number(item.betAmountUsd || 0),
+        multiplier: Number(item.multiplier || 0),
+        profitAmount: Number(item.profitAmount || 0),
+        profitAmountUsd: Number(item.profitAmountUsd || 0),
+        currency: item.currency ?? 'USD',
+        betId: item.id ?? '',
+        time: item.time ?? new Date(),
+      }));
       // const res = await api.get('game/my-bet', { params: { gameIdentifier: gameDetail?.identifier } });
       // setMyBetData(res.data);
     } catch (error) {
@@ -54,6 +86,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   const handleClickRow = (row: Row<any>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
+    setSelBetDetail(row.original);
     setIsShowDetailBet(true);
   };
 
@@ -231,6 +264,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {isShowDetailBet && (
         <ModalDetailBets
           show={isShowDetailBet}
+          betDetail={selBetDetail}
           onClose={() => {
             setIsShowDetailBet(false);
           }}
