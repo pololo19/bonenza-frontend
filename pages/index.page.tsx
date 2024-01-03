@@ -30,7 +30,7 @@ import styles from '@/styles/dashboard/index.module.scss';
 
 import { useTranslation } from '../config/i18next';
 import { ROUTER } from '../constants/common';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '../libs/utils';
+import { currencyFormat, currencyFormat1, exchangeByLocaleFiat, handleLocaleSymbol } from '../libs/utils';
 import { AppState } from '../redux/store';
 import { GameDetail } from '../types/common';
 
@@ -143,11 +143,7 @@ function IndexPage() {
                     <div className={'lg:text-[48px] sm:text-[32px] text-[24px] font-semibold sm:mt-5 mt-0'}>
                       <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
                       <span className={`${styles.textGradient} bg-primary font-bold`}>
-                        {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                        {currencyFormat(
-                          exchangeByLocaleFiat('VND', String(localeFiat?.currency || 'USD'), 500000000),
-                          0,
-                        )}
+                        {currencyFormat1(500000000, 0, String(localeFiat?.currency || 'USD'))}
                       </span>
                     </div>
                   </div>

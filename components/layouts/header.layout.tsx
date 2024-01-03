@@ -177,17 +177,20 @@ export default function Navbar() {
               </button>
             )}
             {/* Message */}
-            <button
-              type="button"
-              className={`sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px] ${
-                showChatType ? 'bg-gray-300 dark:bg-gray-800 text-black dark:text-white' : ''
-              }`}
-              onClick={() => {
-                dispatch(changeShowChatType(!showChatType));
-              }}
-            >
-              <Message width={18} height={18} variant="Bold" />
-            </button>
+            {isLogin && (
+              <button
+                type="button"
+                className={`sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px] ${
+                  showChatType ? 'bg-gray-300 dark:bg-gray-800 text-black dark:text-white' : ''
+                }`}
+                onClick={() => {
+                  dispatch(changeShowChatType(!showChatType));
+                }}
+              >
+                <Message width={18} height={18} variant="Bold" />
+              </button>
+            )}
+
             {isLogin && (
               <Link
                 className="block sm:hidden dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
