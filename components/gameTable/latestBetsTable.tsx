@@ -62,6 +62,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const handleGetAllBet = async () => {
     try {
       setIsLoadingTable(true);
+      dispatch(setBetHistory([]));
       const res = await api_getLatestBets();
       const tempBetData = res.data.map((item: any) => ({
         game: item.gameName ?? '',

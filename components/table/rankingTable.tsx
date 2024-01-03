@@ -104,7 +104,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
             getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className={cn(renderRowClass?.(row), ' cursor-pointer hover:bg-[#2D3035]')}
+                className={cn(renderRowClass?.(row), ' cursor-pointer hover:bg-[#2D3035] rounded-[10px]')}
                 onClick={() => onRowClick?.(row)}
               >
                 {row.getVisibleCells?.().map((cell) => (

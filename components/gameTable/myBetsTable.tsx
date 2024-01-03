@@ -8,14 +8,11 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { api_getLatestBetForUser } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
-import {
-  currencyFormat,
-  exchangeByLocaleFiat,
-  formatDate,
-  formatLengthNumber,
-  handleLocaleSymbol,
-} from '@/base/libs/utils';
-import { AppState } from '@/base/redux/store';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
+import { setBetHistory } from '@/base/redux/reducers/game.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
@@ -44,12 +41,14 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   });
 
   const { t } = useTranslation('');
+  const exchangeRate = useExchange();
 
-  const { localeFiat, isLogin, userId } = useSelector(
+  const { isLogin, userId, localFiat, gameSocket } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
       isLogin: state.auth.isLogin,
       userId: state.auth.user.userId,
+      gameSocket: state.socket.gameSocket,
     }),
     shallowEqual,
   );
@@ -57,12 +56,13 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   const handleGetMyBet = async () => {
     try {
       setIsLoadingTable(true);
+      setMyBetData([]);
       if (!gameDetail) return;
       const res = await api_getLatestBetForUser(gameDetail.id);
       const tempBetData = res.data.map((item: any) => ({
         game: item.gameName ?? '',
         gameIdenfiter: item.gameIdentifier ?? '',
-        player: item.playerName ?? '',
+        player: item.playerName || 'Hidden',
         playerId: item.playerId ?? '',
         playerAvatar: item.playerAvatar ?? '',
         betAmount: Number(item.betAmount || 0),
@@ -74,8 +74,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         betId: item.id ?? '',
         time: item.time ?? new Date(),
       }));
-      // const res = await api.get('game/my-bet', { params: { gameIdentifier: gameDetail?.identifier } });
-      // setMyBetData(res.data);
+      setMyBetData(tempBetData);
     } catch (error) {
       setMyBetData([]);
     } finally {
@@ -90,9 +89,10 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
     setIsShowDetailBet(true);
   };
 
-  const myBetDataFilter = useMemo(() => {
-    if (isShowMore) return myBetData;
-    else return myBetData.slice(0, 10);
+  const betHistoryFilter = useMemo(() => {
+    if (!myBetData.length) return [];
+    if (isShowMore) return myBetData.slice(0, 40);
+    return myBetData.slice(0, 20);
   }, [myBetData, isShowMore]);
 
   const myBetColumns = useMemo(() => {
@@ -111,21 +111,14 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
             {row.original.betAmount !== null && (
               <div className="flex items-center justify-center gap-[5px] truncate">
                 <div className="font-bold dark:text-white text-black truncate">
-                  {localeFiat
-                    ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                        exchangeByLocaleFiat(
-                          row.original.currency,
-                          String(localeFiat?.currency),
-                          row.original.betAmount,
-                        ),
-                        2,
-                      )}`
-                    : `${formatLengthNumber(row.original.betAmount)}`}
+                  {localFiat
+                    ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 4, localFiat.name)}`
+                    : `${currencyFormat1(row.original.betAmount, 4, '', false)}`}
                 </div>
                 <Image
                   height={15}
                   width={15}
-                  src={`/img/fiats/${row.original.sourceAccount}.png`}
+                  src={`/img/fiats/${row.original.currency}.png`}
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USD.png';
                   }}
@@ -149,7 +142,9 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         accessorKey: 'payout',
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d] font-bold truncate text-center">{row.original.payout}</div>
+          <div className="dark:text-[#98A7B5] text-[#31373d] font-bold truncate text-center">
+            {row.original.multiplier}
+          </div>
         ),
       },
       {
@@ -159,27 +154,20 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           <div className={cn('flex items-center justify-end gap-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-green-500': row.original.profit >= 0,
-                'text-red-500': row.original.profit < 0,
+                'text-green-500': row.original.profitAmount >= 0,
+                'text-red-500': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profit > 0 && '+'}
-              {localeFiat
-                ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                    exchangeByLocaleFiat(
-                      row.original.currency,
-                      String(localeFiat?.currency),
-                      Math.abs(row.original.profit),
-                    ),
-                    2,
-                  )}`
-                : `${formatLengthNumber(row.original.profit)}`}
+              {row.original.profitAmount > 0 && '+'}
+              {localFiat
+                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
+                : `${currencyFormat1(row.original.profitAmount, 4, '', false)}`}
             </div>
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
               height={15}
               width={15}
-              src={`/img/fiats/${row.original.sourceAccount}.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
               }}
@@ -194,7 +182,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       myBetColumnsDefault.splice(2, 1);
       return myBetColumnsDefault;
     }
-  }, [localeFiat?.currency, userId]);
+  }, [localFiat, userId]);
 
   useEffect(() => {
     if (isLogin) {
@@ -204,31 +192,40 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
 
   useEffect(() => {
     if (!userId) return;
-    // const socket = io(String(process.env.SOCKET_URL), socketConfig);
-    // socket.on(`create_bet_user_id_${userId}`, (data) => {
-    //   console.log(`create_bet_user_id_${userId}`, data);
-    //   const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
-    //   setMyBetData((oldArray) => {
-    //     const index = oldArray.findIndex((bet) => bet.gameId === camelizeKeysData.gameId);
-    //     if (index >= 0) {
-    //       const newData = oldArray.map((bet) => {
-    //         if (bet.gameId === camelizeKeysData.gameId) {
-    //           return camelizeKeysData;
-    //         }
-    //         return bet;
-    //       });
-    //       return newData;
-    //     } else {
-    //       return [camelizeKeysData, ...oldArray];
-    //     }
-    //   });
-    // });
+    if (gameSocket) {
+      gameSocket.on(`bets`, (item: any) => {
+        console.log(item, '------- my bet table ------');
+        const data = JSON.parse(item);
+        console.log(data, '------- my bet table data ------');
+        const gameId = data.game_id;
+        if (gameId !== gameDetail?.id && data.player_id !== userId) {
+          return;
+        }
+        const tempData: BetTableDataType = {
+          game: data.game_name ?? '',
+          gameIdenfiter: data.game_identifier ?? '',
+          player: data.player_name || 'Hidden',
+          playerId: data.player_id ?? '',
+          playerAvatar: data.playerAvatar ?? '',
+          betAmount: Number(data.bet_amount || 0),
+          betAmountUsd: Number(data.bet_amount_usd || 0),
+          multiplier: Number(data.multiplier || 0),
+          profitAmount: Number(data.profit_amount || 0),
+          profitAmountUsd: Number(data.profit_amount_usd || 0),
+          currency: data.currency ?? 'USD',
+          betId: data.id ?? '',
+          time: data.time ?? new Date(),
+        };
+        setMyBetData((prev) => [tempData, ...prev]);
+      });
+    }
 
-    // Clean up the socket connection on unmount
-    // return () => {
-    //   socket.disconnect();
-    // };
-  }, [userId]);
+    return () => {
+      if (gameSocket) {
+        gameSocket.off(`bets`);
+      }
+    };
+  }, [userId, gameDetail, gameSocket]);
 
   return (
     <>
@@ -236,11 +233,11 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         <RankingTableComponent
           containerClassName="w-full"
           isLoading={isLoadingTable}
-          data={myBetDataFilter}
+          data={betHistoryFilter}
           columns={myBetColumns}
           onRowClick={handleClickRow}
         />
-        {!!myBetDataFilter.length && (
+        {!!betHistoryFilter.length && (
           <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
             <div
               className="flex items-center dark:bg-[#25262B] bg-[#f5f6fa] py-[9px] px-[10px] rounded-[5px]"

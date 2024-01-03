@@ -267,13 +267,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     if (gameSocket) {
       gameSocket.on(`bets`, (item: any) => {
-        console.log(item);
         const data = JSON.parse(item);
-        console.log(data);
-        const deliveredGameId = convertToUrlCase(data.game_identifier ?? '');
-        if (gameId && deliveredGameId !== gameId) {
-          return;
-        }
         const tempData: BetTableDataType = {
           game: data.game_name ?? '',
           gameIdenfiter: data.game_identifier ?? '',
@@ -286,7 +280,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           profitAmount: Number(data.profit_amount || 0),
           profitAmountUsd: Number(data.profit_amount_usd || 0),
           currency: data.currency ?? 'USD',
-          betId: data.betId ?? '',
+          betId: data.id ?? '',
           time: data.time ?? new Date(),
         };
         dispatch(addBetHistory(tempData));
