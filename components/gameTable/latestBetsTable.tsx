@@ -66,7 +66,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       const tempBetData = res.data.map((item: any) => ({
         game: item.gameName ?? '',
         gameIdenfiter: item.gameIdentifier ?? '',
-        player: item.playerName ?? '',
+        player: item.playerName || 'Hidden',
         playerId: item.playerId ?? '',
         playerAvatar: item.playerAvatar ?? '',
         betAmount: Number(item.betAmount || 0),
@@ -91,7 +91,6 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       username: row.original.player,
       userId: row.original.playerId,
     };
-    console.log(userData, '----92');
     dispatch(setUserData(userData));
     if (!row.original.isHideNamePublicList) {
       dispatch(changeIsShowInformation(true));
