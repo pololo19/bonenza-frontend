@@ -1,9 +1,9 @@
-import React, { ElementType } from 'react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Wallet } from 'iconsax-react';
 import { useRouter } from 'next/router';
+import React, { ElementType } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 
 type CommonSessionProps = {
   title?: string;
@@ -26,7 +26,7 @@ const CommonSession = ({ title, icon = Wallet, children, iconClass }: CommonSess
         <XMarkIcon
           width={15}
           onClick={() => router.push('/')}
-          className="dark:text-[#9FA5AC] cursor-pointer dark:hover:text-white text-[#31373d] hover:text-black w-[1.5rem] h-[1.5rem]"
+          className="dark:text-[#9FA5AC] sm:hidden block cursor-pointer dark:hover:text-white text-[#31373d] hover:text-black w-[1.5rem] h-[1.5rem]"
         />
       </div>
       <div className="sm:mt-5 mt-1 w-full">{children}</div>
