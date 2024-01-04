@@ -1,29 +1,29 @@
+import { Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import {
   Box,
   CardReceive,
+  Chart,
   EmptyWallet,
   Money2,
   MoneyChange,
   MoneyRecive,
   Repeat,
   Story,
-  Chart,
   Timer1,
 } from 'iconsax-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Fragment } from 'react';
 
-import styles from './deposit.module.scss';
-
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { Transition } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
+
 import CommonSession from '../common/baseSession/baseSession';
 import IconOption from '../common/iconOption/iconOption';
 import BaseLayout from './base.layout';
+import styles from './deposit.module.scss';
 
 type DepositLayoutProps = {
   children: JSX.Element;
