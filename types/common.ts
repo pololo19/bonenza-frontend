@@ -415,3 +415,12 @@ export type TransactionSwapType = {
   swapToLogo: string;
   timeTransfer: string | Date;
 };
+
+export type BetDetailType = {
+  id: string;
+  game: string;
+  identifier: string;
+  amount: number;
+  userId: string;
+  userName: string;
+};

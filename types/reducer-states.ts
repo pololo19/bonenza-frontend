@@ -61,6 +61,7 @@ export type CommonState = {
   viewInFiat?: boolean;
   showFullNameCurrency?: boolean;
   usdtNetwork?: string;
+  casinoTab?: boolean;
 };
 
 export type UserDataState = {

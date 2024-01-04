@@ -1,13 +1,14 @@
 import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import { useTranslation } from '@/base/config/i18next';
-
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail } from '@/base/types/common';
-import Link from 'next/link';
+import { GameListType } from '@/base/types/common';
+
 import CasinoSS from '../casino/casinoSS';
 import GameCard from '../gameCard/gameCard';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 
 type CardTopRatedProps = {
   title?: string;
@@ -16,7 +17,7 @@ type CardTopRatedProps = {
 };
 
 type TopRateGameProps = {
-  listRecommendedGame: GameDetail[];
+  listRecommendedGame: GameListType[];
 };
 
 export function CardTopRated({ title, provider, identifier }: CardTopRatedProps) {
@@ -57,7 +58,7 @@ function TopRateGameComponent({ listRecommendedGame }: TopRateGameProps) {
           gameDetail={item}
           footer={() => (
             <Link
-              href={ROUTER.GameDetail(String(item?.identifier))}
+              href={ROUTER.GameDetail(convertToUrlCase(String(item.identifier)))}
               className="flex justify-center items-center rounded-[5px] bg-[#F61B4F] hover:opacity-[0.9] max-w-fit px-2 cursor-pointer py-[10px] gap-[10px] mt-[10px]"
             >
               <div className="text-white font-bold text-[12px]">{String(t('homePage:playNow'))}</div>

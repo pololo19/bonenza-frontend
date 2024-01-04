@@ -9,10 +9,9 @@ import { api_getLatestBetForUser } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
-import { setBetHistory } from '@/base/redux/reducers/game.reducer';
-import { AppState, useAppDispatch } from '@/base/redux/store';
+import { AppState } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
@@ -41,6 +40,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   });
 
   const { t } = useTranslation('');
+  const innerWidth = useWidth();
   const exchangeRate = useExchange();
 
   const { isLogin, userId, localFiat, gameSocket } = useSelector(
@@ -62,7 +62,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       const tempBetData = res.data.map((item: any) => ({
         game: item.gameName ?? '',
         gameIdenfiter: item.gameIdentifier ?? '',
-        player: item.playerName || 'Hidden',
+        player: item.playerName || '',
         playerId: item.playerId ?? '',
         playerAvatar: item.playerAvatar ?? '',
         betAmount: Number(item.betAmount || 0),
@@ -96,7 +96,6 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   }, [myBetData, isShowMore]);
 
   const myBetColumns = useMemo(() => {
-    const innerWidth = window.innerWidth;
     const myBetColumnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'betId',
@@ -182,7 +181,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       myBetColumnsDefault.splice(2, 1);
       return myBetColumnsDefault;
     }
-  }, [localFiat, userId]);
+  }, [localFiat, userId, innerWidth]);
 
   useEffect(() => {
     if (isLogin) {

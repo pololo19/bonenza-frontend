@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
-import api from '@/api/api';
+import { api_getRecentBigWins } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { KYC_ENUM } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
-import { BetTableDataType, GameDetail, UserDetail } from '@/base/types/common';
+import { BetDetailType, BetTableDataType } from '@/base/types/common';
 
 import CasinoSwiper from '../casino/casinoSwiper';
 import ModalDetailBets from '../modal/detailBets/detailBets';
@@ -17,7 +18,7 @@ import ModalDetailBets from '../modal/detailBets/detailBets';
 type CardBigWinProps = {
   price?: string | number;
   imgCard: string;
-  userData?: UserDetail;
+  userData?: { userId: string; username: string };
 };
 
 const convertImage = (w: number, h: number) => `
@@ -40,16 +41,19 @@ const toBase64 = (str: string) =>
 export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation('');
-  const { userId } = useSelector(
+  const { userId, userName } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
+      userName: state.auth.user.userName,
     }),
     shallowEqual,
   );
 
   const openModalProfileUser = () => {
-    localStorage.setItem('userData', JSON.stringify(userData));
-    dispatch(changeIsShowInformation(true));
+    dispatch(setUserData(userData));
+    if (userData?.username) {
+      dispatch(changeIsShowInformation(true));
+    }
   };
 
   return (
@@ -71,14 +75,16 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
             <div
               onClick={openModalProfileUser}
               className={`${
-                userData?.userId !== userId && userData?.privacySetting.settingHideUserName
+                userData?.userId !== userId && !userData?.username
                   ? 'dark:text-[#98A7B5] text-[#31373d] pointer-events-none cursor-text'
                   : 'dark:text-white text-[#000]'
               } font-medium text-[12px] truncate hover:underline min-h-[18px]`}
             >
-              {userData?.userId !== userId && userData?.privacySetting.settingHideUserName
+              {userData?.userId !== userId && !userData?.username
                 ? String(t('homePage:hidden'))
-                : userData?.userName}
+                : userData.userId === userId
+                ? userName
+                : userData?.username}
             </div>
           </div>
           <div
@@ -95,9 +101,10 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 }
 
 function RecentBigWinComponent() {
+  const exchangeRate = useExchange();
   const { t } = useTranslation('');
 
-  const [listBigWinGame, setListBigWinGame] = useState<GameDetail[]>([]);
+  const [listBigWinGame, setListBigWinGame] = useState<BetDetailType[]>([]);
   const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
   const [betIdDetail, setBetIdDetail] = useState<number>();
   const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
@@ -117,72 +124,52 @@ function RecentBigWinComponent() {
   });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
-  const { localeFiat, userId } = useSelector(
+  const { userId, localFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
       userId: state.auth.user.userId,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
-
-  const getExchangeRateLocalFiat = (valueRate: number) => {
-    return localeFiat
-      ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-          exchangeByLocaleFiat('USD', String(localeFiat?.currency), valueRate),
-          2,
-        )}`
-      : `${handleLocaleSymbol('USD')} ${currencyFormat(Number(valueRate || 0), 2)}`;
-  };
 
   useEffect(() => {
     handleGetListBigWin();
   }, [userId]);
 
+  const getExchangeRateLocalFiat = (amount: number) => {
+    return localFiat
+      ? `${currencyFormat1(amount * exchangeRate, 4, localFiat.name)}`
+      : `${currencyFormat1(amount, 4, '', false)}`;
+  };
+
   const handleGetListBigWin = async () => {
     try {
-      const res = await api.get('game/get-recent-big-win-list', { params: { limit: 20 } });
-      setListBigWinGame([...res.data.data, ...res.data.data]);
+      const res = await api_getRecentBigWins();
+      const tempBetLists: BetDetailType[] = res.data.map((item: any) => ({
+        id: item.id,
+        game: item.title,
+        identifier: item.identifier,
+        amount: item.maxAmountUsd,
+        userId: item.userId,
+        userName: item.userName,
+      }));
+      setListBigWinGame(tempBetLists);
     } catch (error) {
       setListBigWinGame([]);
     } finally {
     }
   };
 
-  const renderData = (item: GameDetail) => {
-    const userData: UserDetail = {
-      userName: item?.username || '',
-      userId: String(item?.userId) || '',
-      email: '',
-      phone: '',
-      avatar: '',
-      betCount: '',
-      winCount: '',
-      totalWager: 0,
-      referralCode: '',
-      wallet: '',
-      isKyc: KYC_ENUM.REQUIRED,
-      tfa: false,
-      privacySetting: {
-        settingHideGamingData: false,
-        settingRefuseTipFromStrangers: false,
-        settingHideUserName: false,
-      },
-      generalSetting: {
-        settingCurrency: 'usd',
-        settingLanguage: 'en',
-        settingReceiveMarketPromotion: false,
-        settingShowFullNameCrypto: false,
-      },
-      verifiedSetting: {
-        emailVerified: false,
-        phoneVerified: false,
-      },
+  const renderData = (item: BetDetailType) => {
+    const userData = {
+      userId: item.userId,
+      username: item.userName,
     };
     return (
       <CardBigWin
         userData={userData}
-        price={`${getExchangeRateLocalFiat(Number(item?.profit))}`}
-        imgCard={`https://cdn.softswiss.net/i/s4/${item?.provider}/${item?.identifier2}.png`}
+        price={`${getExchangeRateLocalFiat(item.amount)}`}
+        imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
       />
     );
   };
@@ -195,8 +182,8 @@ function RecentBigWinComponent() {
         icon={<Image height={24} width={24} src={'/img/icon/live-stream.png'} alt="" />}
         renderItem={(item) => renderData(item)}
         onClickItem={(game) => {
-          setIsPublicProfile(!!game?.isHideNamePublicList);
-          setBetIdDetail(Number(game?.betId));
+          setIsPublicProfile(!!game?.userName);
+          setBetIdDetail(Number(game?.id));
           setIsShowDetailBet(true);
         }}
       />

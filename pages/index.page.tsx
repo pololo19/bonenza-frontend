@@ -7,6 +7,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 
 import api from '@/api/api';
+import { api_getPickGames, api_getTopRelatedGames } from '@/api/game';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -14,7 +15,7 @@ import {
   changeIsShowDepositModal,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
-import { AuthenticationModeEnum } from '@/base/types/common';
+import { AuthenticationModeEnum, GameListType } from '@/base/types/common';
 import CardPlay from '@/components/cards/cardPlay';
 import withAuth from '@/components/hoc/withAuth';
 import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
@@ -30,14 +31,13 @@ import styles from '@/styles/dashboard/index.module.scss';
 
 import { useTranslation } from '../config/i18next';
 import { ROUTER } from '../constants/common';
-import { currencyFormat, currencyFormat1, exchangeByLocaleFiat, handleLocaleSymbol } from '../libs/utils';
+import { currencyFormat1 } from '../libs/utils';
 import { AppState } from '../redux/store';
-import { GameDetail } from '../types/common';
 
 function IndexPage() {
   const { t } = useTranslation('');
 
-  const { isLogin, userName, localeFiat, user } = useSelector(
+  const { isLogin, userName, localeFiat } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       userName: state.auth.user.userName,
@@ -67,7 +67,8 @@ function IndexPage() {
   const dispatch = useDispatch();
 
   const [checkDeposit, setCheckDeposit] = useState(false);
-  const [listRecommendedGame, setListRecommendedGame] = useState<GameDetail[]>([]);
+  const [listRecommendedGame, setListRecommendedGame] = useState<GameListType[]>([]);
+  const [listTopRated, setListTopRated] = useState<GameListType[]>([]);
 
   const handleCheckDeposit = async () => {
     try {
@@ -90,18 +91,38 @@ function IndexPage() {
     }
   };
 
-  const handleGetListTopRated = async () => {
+  const initDataLoad = async () => {
     try {
-      // const res = await api.get('game/get-top-rated-list', { params: { limit: 20 } });
-      // setListRecommendedGame(res.data.data);
+      const [topRatedGames, recommendedGames] = await Promise.all([api_getTopRelatedGames(), api_getPickGames(1, 20)]);
+      console.log('topRatedGames', recommendedGames);
+      const tempListTopRatedGames: GameListType[] = topRatedGames.data.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item.payout || 0),
+        multiplier: Number(item.profitMultiplier || 0),
+        releasedAt: new Date(),
+      }));
+
+      const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item.payout || 0),
+        multiplier: Number(item.profitMultiplier || 0),
+        releasedAt: item?.releasedAt ?? new Date(),
+      }));
+      setListTopRated(tempListTopRatedGames);
+      setListRecommendedGame(tempListRecommandedGames);
     } catch (error) {
+      setListTopRated([]);
       setListRecommendedGame([]);
-    } finally {
     }
   };
-
   useEffect(() => {
-    handleGetListTopRated();
+    initDataLoad();
   }, []);
 
   useEffect(() => {
@@ -231,7 +252,7 @@ function IndexPage() {
                 ))}
               </div>
               <RecentBigWinComponent />
-              <TopRateGameComponent listRecommendedGame={listRecommendedGame} />
+              <TopRateGameComponent listRecommendedGame={listTopRated} />
               <div className="bg-[url('/img/octopus.png')] relative w-full flex flex-col max-[857px]:pt-[20px] min-[858px]:flex-row items-center bg-no-repeat justify-between max-[857px]:bg-[length:100%_45%] bg-[length:100%_100%] rounded-[5px]">
                 <div className="flex-1 flex items-center justify-center min-h-[105px]">
                   <Image
@@ -297,46 +318,7 @@ function IndexPage() {
                       alt=""
                       src="/img/mermaid-nobg.png"
                     />
-                    {/* {!isLogin && (
-                      <div className="flex flex-col items-center">
-                        <Image
-                          width={150}
-                          height={160}
-                          role="button"
-                          src="/img/page/img-join.png"
-                          alt=""
-                          className="block md:hidden max-w-[150px] object-contain my-[15px]"
-                          onClick={() => {
-                            dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
-                            dispatch(changeIsShowAuthenticationModal(true));
-                          }}
-                        />
-                        <div
-                          onClick={() => {
-                            dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
-                            dispatch(changeIsShowAuthenticationModal(true));
-                          }}
-                          className="cursor-pointer bg-[#F61B4F] hover:opacity-[0.9] text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
-                        >
-                          {String(t('homePage:signUp'))}
-                        </div>
-                      </div>
-                    )} */}
-                    {/* {isLogin && (
-                      <div className="flex flex-col items-center">
-                        <Image
-                          width={344}
-                          height={265}
-                          role="button"
-                          src="/img/page/cloud-money.png"
-                          alt=""
-                          className="block md:hidden max-w-[300px] object-contain lg:mr-[94px] my-[25px]"
-                          onClick={() => {
-                            dispatch(changeIsShowVipClubModal(true));
-                          }}
-                        />
-                      </div>
-                    )} */}
+
                     {isLogin && (
                       <div
                         onClick={() => {
@@ -348,33 +330,6 @@ function IndexPage() {
                       </div>
                     )}
                   </div>
-                  {/* {!isLogin && (
-                    <Image
-                      width={150}
-                      height={160}
-                      role="button"
-                      src="/img/page/img-join.png"
-                      alt=""
-                      className="hidden md:block max-w-[150px] object-contain mr-[60px] lg:mr-[94px] my-[25px]"
-                      onClick={() => {
-                        dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
-                        dispatch(changeIsShowAuthenticationModal(true));
-                      }}
-                    />
-                  )} */}
-                  {/* {isLogin && (
-                    <Image
-                      width={344}
-                      height={265}
-                      role="button"
-                      src="/img/page/cloud-money.png"
-                      alt=""
-                      className="hidden md:block max-w-[300px] object-contain mr-[60px] lg:mr-[94px] my-[25px]"
-                      onClick={() => {
-                        dispatch(changeIsShowVipClubModal(true));
-                      }}
-                    />
-                  )} */}
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
