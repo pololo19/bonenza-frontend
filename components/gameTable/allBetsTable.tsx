@@ -9,9 +9,10 @@ import { api_getLatestBetsForGame } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
 
@@ -41,14 +42,16 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
+  const innerWidth = useWidth();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { localFiat, userId, gameSocket } = useSelector(
+  const { localFiat, userId, gameSocket, userName } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
+      userName: state.auth.user.userName,
       betHistory: state.game.betHistory,
       gameSocket: state.socket.gameSocket,
     }),
@@ -68,9 +71,11 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       setIsLoadingTable(true);
       const res = await api_getLatestBetsForGame(gameDetail.id);
       const tempBetData = res.data.map((item: any) => ({
-        game: item.game ?? '',
+        game: item.gameName ?? '',
         gameIdenfiter: item.gameIdentifier ?? '',
-        player: item.playerName ?? '',
+        player: item.playerName || '',
+        playerId: item.playerId ?? '',
+        playerAvatar: item.playerAvatar ?? '',
         betAmount: Number(item.betAmount || 0),
         betAmountUsd: Number(item.betAmountUsd || 0),
         multiplier: Number(item.multiplier || 0),
@@ -93,7 +98,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       username: row.original.player,
       userId: row.original.playerId,
     };
-    localStorage.setItem('userData', JSON.stringify(userData));
+    dispatch(setUserData(userData));
     if (!row.original.isHideNamePublicList) {
       dispatch(changeIsShowInformation(true));
     }
@@ -108,7 +113,6 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   };
 
   const allBetColumns = useMemo(() => {
-    const innerWidth = window.innerWidth;
     const allBetColumnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'betId',
@@ -121,14 +125,16 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         cell: ({ row }) => (
           <div
             className={`${
-              row.original.playerId !== userId && row.original.isHideNamePublicList && 'pointer-events-none'
+              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
             } font-bold truncate text-center p-2`}
             onClick={() => openModalProfileUser(row)}
           >
-            {row.original.playerId !== userId && row.original.isHideNamePublicList ? (
+            {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-[#98A7B5] text-[#31373d]">{t('homePage:hidden')}</div>
             ) : (
-              <div className="dark:text-white text-black">{row.original.player}</div>
+              <div className="dark:text-white text-black">
+                {row.original.playerId === userId ? userName : row.original.player}
+              </div>
             )}
           </div>
         ),
@@ -186,7 +192,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localFiat, userId]);
+  }, [localFiat, userId, innerWidth]);
 
   useEffect(() => {
     handleGetAllBet();
@@ -205,7 +211,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         const tempData: BetTableDataType = {
           game: data.game_name ?? '',
           gameIdenfiter: data.game_identifier ?? '',
-          player: data.player_name || 'Hidden',
+          player: data.player_name || '',
           playerId: data.player_id ?? '',
           playerAvatar: data.playerAvatar ?? '',
           betAmount: Number(data.bet_amount || 0),
@@ -227,6 +233,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       }
     };
   }, [gameSocket, gameDetail]);
+
   return (
     <>
       <div>

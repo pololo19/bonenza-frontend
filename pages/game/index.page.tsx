@@ -222,18 +222,6 @@ function GamePage() {
     }
   }, [gameDetail]);
 
-  // useEffect(() => {
-  //   setIsSatisfied(true);
-  //   if (
-  //     !isLoadingGame &&
-  //     (activeFiatRef.current !== activeFiat?.currency || localeFiatRef.current !== localFiat?.name)
-  //   ) {
-  //     handlePlayRequest();
-  //   }
-  //   activeFiatRef.current = activeFiat?.currency;
-  //   localeFiatRef.current = localFiat?.name;
-  // }, [activeFiat, localFiat]);
-
   useEffect(() => {
     try {
       if (!launchUrl) return;

@@ -44,6 +44,7 @@ import {
   initWalletInfo,
   logoutWallet,
   setFiatSymbols,
+  updateBalance,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BetTableDataType, FiatType } from '@/base/types/common';
@@ -73,6 +74,7 @@ import HeaderStats from './header.layout';
 import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import WrapperBody from './wapperBody';
+import { useWidth } from '@/base/hooks/useWidth';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -81,6 +83,7 @@ type BaseLayoutProps = {
 };
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, contentClass }) => {
+  const innerWidth = useWidth();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('');
@@ -214,15 +217,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         dispatch(setGameSocket(newGameSocket));
       }
     };
-    // connectAccount();
-    // handleUsdtNetwork();
-    // handleGetExchangeRate();
     gameConnect();
 
-    if (window.innerWidth < 1280) {
+    if (innerWidth < 1280) {
       dispatch(changeToggleSidebar(false));
+    } else {
+      dispatch(changeToggleSidebar(true));
     }
-  }, []);
+  }, [innerWidth]);
 
   useEffect(() => {
     if (!isLogin) {
@@ -233,7 +235,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   }, [isLogin]);
 
   useEffect(() => {
-    if (walletSocket) {
+    if (walletSocket && isLogin) {
       walletSocket.on(`${userId}`, (data: any) => {
         const action = data?.action || '';
         const amount = data?.amount || 0;
@@ -262,7 +264,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         walletSocket.off(`${userId}`);
       }
     };
-  }, [walletSocket]);
+  }, [walletSocket, isLogin]);
 
   useEffect(() => {
     if (gameSocket) {
@@ -285,14 +287,51 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         };
         dispatch(addBetHistory(tempData));
       });
+
+      if (isLogin) {
+        gameSocket.on(`${userId}:balance`, (item: string) => {
+          const data = JSON.parse(item);
+          console.log('balance update', data);
+          const currencyType = data.currency_type;
+          dispatch(
+            updateBalance({
+              amount: Number(data.balance || 0),
+              symbol: data.currency,
+              symbolId: data.currency_id,
+            }),
+          );
+        });
+
+        gameSocket.on(`${userId}:withdraw`, (item: string) => {
+          const data = JSON.parse(item);
+          const status = data.status;
+          switch (status) {
+            case 'Processing':
+              toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
+              break;
+            case 'Complete':
+              toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
+              dispatch(getBalance());
+
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
     }
 
     return () => {
       if (gameSocket) {
         gameSocket.off(`bets`);
+        if (isLogin) {
+          gameSocket.off(`${userId}:balance`);
+          gameSocket.off(`${userId}:withdraw`);
+        }
       }
     };
-  }, [gameSocket, gameId]);
+  }, [gameSocket, gameId, isLogin]);
 
   useEffect(() => {
     if (router.query['forgot-pass-token']) {

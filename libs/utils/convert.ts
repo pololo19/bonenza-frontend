@@ -33,3 +33,8 @@ export function convertToUrlCase(str: string) {
   url = url.toLowerCase();
   return url;
 }
+
+export function convert2Url(str: string) {
+  const urlString = str.toLowerCase().replace(/\s+/g, '-');
+  return urlString;
+}

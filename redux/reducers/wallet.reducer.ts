@@ -78,6 +78,12 @@ export const walletReducer = createSlice({
     addDepositTime: (state: WalletState, action: PayloadAction<number>) => {
       state.depositTime += action.payload;
     },
+    updateBalance: (state: WalletState, action: PayloadAction<BalanceType>) => {
+      const index = state.balances.findIndex((item) => item.symbolId === action.payload.symbolId);
+      if (index !== -1) {
+        state.balances[index] = action.payload;
+      }
+    },
   },
 });
 
@@ -93,6 +99,7 @@ export const {
   setLocalFiat,
   addDepositTime,
   setActiveCurrency,
+  updateBalance,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 
@@ -130,7 +137,6 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
     const tempBalances: BalanceType[] =
       balances?.cryptoBalances.map((item: any) => ({
         amount: Number(item.balance),
-        usdAmount: Number(item.balanceUsd),
         symbol: item.symbol,
         symbolId: item.symbolId,
       })) || [];
@@ -203,7 +209,6 @@ export const getBalance = () => async (dispatch: AppDispatch) => {
     const result = await api_getUserBalance();
     const tempBalances: BalanceType[] = result.data?.cryptoBalances?.map((item: any) => ({
       amount: Number(item.balance),
-      usdAmount: Number(item.balanceUsd),
       symbol: item.symbol,
       symbolId: item.symbolId,
     }));

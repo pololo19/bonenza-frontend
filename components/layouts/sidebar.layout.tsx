@@ -1,10 +1,11 @@
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import React, { useState } from 'react';
 
-import { SIDEBAR_LIST } from '@/base/constants/common';
-import IconOption from '../common/iconOption/iconOption';
 import { useTranslation } from '@/base/config/i18next';
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
+import { SIDEBAR_LIST } from '@/base/constants/common';
+
+import IconOption from '../common/iconOption/iconOption';
 
 export default function Sidebar() {
   const { t } = useTranslation('');

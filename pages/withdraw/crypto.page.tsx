@@ -206,15 +206,6 @@ const WithdrawCryptoPage = () => {
       const _res = await api_withdraw(formData);
       const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
 
-      setTimeout(() => {
-        toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
-        setTimeout(() => {
-          toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
-
-          // After withdraw, update user balance
-          dispatch(getBalance());
-        }, 15000);
-      }, 10000);
       // router.push(ROUTER.Transaction);
     } catch (error) {
       if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue.min || 0)) {

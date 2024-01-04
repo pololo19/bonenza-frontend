@@ -8,6 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { api_getLatestBets } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { setBetHistory } from '@/base/redux/reducers/game.reducer';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
@@ -41,12 +42,14 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
   const exchangeRate = useExchange();
+  const innerWidth = useWidth();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
-  const { userId, localFiat, betHistory } = useSelector(
+  const { userId, localFiat, betHistory, userName } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
+      userName: state.auth.user.userName,
       localFiat: state.wallet.localFiat,
       betHistory: state.game.betHistory,
     }),
@@ -67,7 +70,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       const tempBetData = res.data.map((item: any) => ({
         game: item.gameName ?? '',
         gameIdenfiter: item.gameIdentifier ?? '',
-        player: item.playerName || 'Hidden',
+        player: item.playerName || '',
         playerId: item.playerId ?? '',
         playerAvatar: item.playerAvatar ?? '',
         betAmount: Number(item.betAmount || 0),
@@ -93,7 +96,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       userId: row.original.playerId,
     };
     dispatch(setUserData(userData));
-    if (!row.original.isHideNamePublicList) {
+    if (row.original.player) {
       dispatch(changeIsShowInformation(true));
     }
   };
@@ -108,7 +111,6 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   };
 
   const allBetColumns = useMemo(() => {
-    const innerWidth = window.innerWidth;
     const allBetColumnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'betId',
@@ -132,14 +134,16 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         cell: ({ row }) => (
           <div
             className={`${
-              row.original.playerId !== userId && row.original.isHideNamePublicList && 'pointer-events-none'
+              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
             } font-bold truncate text-center text-[16px] p-2`}
             onClick={() => openModalProfileUser(row)}
           >
-            {row.original.playerId !== userId && row.original.isHideNamePublicList ? (
+            {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-[#98A7B5] text-[#31373d]">{t('homePage:hidden')}</div>
             ) : (
-              <div className="dark:text-white text-black">{row.original.player}</div>
+              <div className="dark:text-white text-black">
+                {row.original.playerId === userId ? userName : row.original.player}
+              </div>
             )}
           </div>
         ),
@@ -210,7 +214,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localFiat, userId]);
+  }, [localFiat, userId, innerWidth]);
 
   useEffect(() => {
     handleGetAllBet();

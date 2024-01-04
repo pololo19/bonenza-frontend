@@ -73,6 +73,8 @@ const API_GAME_ROLLBACK = '/game/rollback';
 const API_GAME_BET_HISTORY = '/game/get-latest-bets';
 const API_GAME_BET_HISTORY_FOR_GAME = '/game/get-latest-bets-for-game';
 const API_GAME_BET_HISTORY_FOR_USER = '/game/get-latest-bets-for-user-game';
+const API_GAME_RECENT_BIG_WINS = '/game/get-recent-big-wins';
+const API_GAME_TOP_RATED_GAMES = '/game/get-top-rated-games';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -120,11 +122,13 @@ export {
   API_GAME_PICK_GAMES,
   API_GAME_PLAY,
   API_GAME_PROVIDER,
+  API_GAME_RECENT_BIG_WINS,
   API_GAME_RECENT_GAMES,
   API_GAME_ROLLBACK,
   API_GAME_SLOT,
   API_GAME_START_DEMO,
   API_GAME_TABLE_GAMES,
+  API_GAME_TOP_RATED_GAMES,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,

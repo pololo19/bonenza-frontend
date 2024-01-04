@@ -123,7 +123,12 @@ const IconOption = ({
             <ArrowRight2 className={`w-[15px] h-[15px] ${showDropDownCasino ? 'rotate-90' : ''}`} />
           </div>
           {showDropDownCasino && (
-            <div className={cn('')}>
+            <div
+              className={cn('')}
+              onClick={() => {
+                localStorage.removeItem('tab');
+              }}
+            >
               {data?.map((item, index) => {
                 if (item.href)
                   return (

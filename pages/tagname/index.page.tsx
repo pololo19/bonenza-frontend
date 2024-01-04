@@ -10,6 +10,7 @@ import { api_getCasinoWithKey, api_getHotGames, api_getLiveCasinos, api_getProvi
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
+import { camelToSnake, convert2Url, convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameListType, GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
@@ -47,7 +48,14 @@ function CasinoTagnamePage() {
   const [selectedProvider, setSelectedProvider] = useState<string[]>([]);
   const [isClearAll, setIsClearAll] = useState<boolean>(false);
   const [isSort, setIsSort] = useState<boolean>(false);
-  const [showTab, setShowTab] = useState<boolean>(false);
+  // const [showTab, setShowTab] = useState<boolean>(false);
+
+  const showTab = useMemo(() => {
+    const tabStorage = localStorage.getItem('tab');
+    const tabShow = Number(tabStorage) === 1 || !tabStorage ? false : true;
+    console.log(tabShow, tabStorage, 'tabShow');
+    return tabShow;
+  }, [localStorage.getItem('tab')]);
 
   const selectSortBy = useCallback((sort: any) => {
     setSelectedSortBy(sort);
@@ -68,7 +76,7 @@ function CasinoTagnamePage() {
         ...query,
         providers: JSON.stringify(selectedProvider),
       };
-      const res = await api_getCasinoWithKey(String(key), params);
+      const res = await api_getCasinoWithKey(convert2Url(String(key)), params);
 
       const totalCount = res?.data?.totalCount ?? 0;
       const games = res?.data?.games ?? [];
@@ -153,13 +161,7 @@ function CasinoTagnamePage() {
   }, [selectedProvider]);
 
   useEffect(() => {
-    const tabStorage = localStorage.getItem('tab');
-    const tabShow = Number(tabStorage) === 1 || !tabStorage ? false : true;
-    setShowTab(tabShow);
     getListProviders();
-    return () => {
-      if (!pathname?.includes('/tagname')) localStorage.removeItem('tab');
-    };
   }, []);
 
   useEffect(() => {
