@@ -14,6 +14,7 @@ const initialCommonState: CommonState = {
   viewInFiat: false,
   showFullNameCurrency: true,
   usdtNetwork: 'BEP20',
+  casinoTab: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -153,6 +154,9 @@ export const queryDataSlice = createSlice({
       state.cryptoArray = updateCryptoArray;
       if (updateActiveFiat) state.activeFiat = updateActiveFiat;
     },
+    setCasinoTab: (state: CommonState, action: PayloadAction<boolean>) => {
+      state.casinoTab = action.payload;
+    },
   },
 });
 
@@ -168,5 +172,6 @@ export const {
   changeCryptoArray,
   changeViewInFiat,
   changeUsdtNetwork,
+  setCasinoTab,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

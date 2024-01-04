@@ -4,14 +4,17 @@ import Head from 'next/head';
 import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { api_getCasinoWithKey, api_getHotGames, api_getLiveCasinos, api_getProviders, api_getSlots } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
 import { camelToSnake, convert2Url, convertToUrlCase } from '@/base/libs/utils/convert';
+import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import { GameListType, GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
@@ -37,7 +40,6 @@ function CasinoTagnamePage() {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const { key } = query;
-  const pathname = usePathname();
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
@@ -48,14 +50,13 @@ function CasinoTagnamePage() {
   const [selectedProvider, setSelectedProvider] = useState<string[]>([]);
   const [isClearAll, setIsClearAll] = useState<boolean>(false);
   const [isSort, setIsSort] = useState<boolean>(false);
-  // const [showTab, setShowTab] = useState<boolean>(false);
 
-  const showTab = useMemo(() => {
-    const tabStorage = localStorage.getItem('tab');
-    const tabShow = Number(tabStorage) === 1 || !tabStorage ? false : true;
-    console.log(tabShow, tabStorage, 'tabShow');
-    return tabShow;
-  }, [localStorage.getItem('tab')]);
+  const { showTab } = useSelector(
+    (state: AppState) => ({
+      showTab: state.common.casinoTab,
+    }),
+    shallowEqual,
+  );
 
   const selectSortBy = useCallback((sort: any) => {
     setSelectedSortBy(sort);
@@ -144,6 +145,12 @@ function CasinoTagnamePage() {
   const percent = useMemo(() => {
     return Number((listGame.length / totalGames) * 100).toFixed(0);
   }, [listGame, totalGames]);
+
+  useEffect(() => {
+    const tabStorage = localStorage.getItem('tab');
+    const tabShow = Number(tabStorage) === 1 || !tabStorage ? false : true;
+    dispatch(setCasinoTab(tabShow));
+  }, []);
 
   useEffect(() => {
     if (key) {

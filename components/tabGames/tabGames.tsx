@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import cn from 'classnames';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
+import { ROUTER } from '@/base/constants/common';
+import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
+import { useAppDispatch } from '@/base/redux/store';
 import HotGameBoldIcon from '@/components/icons/HotGameBoldIcon';
 import LiveCasinoBoldIcon from '@/components/icons/LiveCasinoBoldIcon';
 import LobbyBoldIcon from '@/components/icons/LobbyBoldIcon';
@@ -11,13 +14,13 @@ import ReleaseBoldIcon from '@/components/icons/ReleaseBoldIcon';
 import SlotBoldIcon from '@/components/icons/SlotBoldIcon';
 import TableGameBoldIcon from '@/components/icons/TableGameBoldIcon';
 import styles from '@/styles/dashboard/index.module.scss';
-import { ROUTER } from '@/base/constants/common';
 type tabGamesProps = {
   setCurrentPage?: (page: number) => void;
 };
 
 const TabGames = ({ setCurrentPage }: tabGamesProps) => {
   const { t } = useTranslation('');
+  const dispatch = useAppDispatch();
   const [tab, setTab] = useState<number>(1);
 
   useEffect(() => {
@@ -86,6 +89,7 @@ const TabGames = ({ setCurrentPage }: tabGamesProps) => {
               onClick={() => {
                 setTab(option.id);
                 setCurrentPage?.(1);
+                dispatch(setCasinoTab(true));
                 localStorage.setItem('tab', String(option.id));
               }}
             >

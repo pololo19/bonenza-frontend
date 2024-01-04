@@ -6,6 +6,8 @@ import React, { ElementType, ReactNode, useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
+import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
+import { useAppDispatch } from '@/base/redux/store';
 
 const casinoPaths = [
   ROUTER.PicksForYou,
@@ -49,12 +51,12 @@ const IconOption = ({
   onClick,
 }: IconOptionProps) => {
   const { t } = useTranslation('');
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { pathname } = router;
   const IconElement = icon;
 
-  const [showDropDownCasino, setShowDropDownCasino] = useState(casinoPaths.includes(pathname));
-
+  const [showDropDownCasino, setShowDropDownCasino] = useState(casinoPaths.some((path) => path.includes(pathname)));
   return (
     <>
       {!isDropDown && (
@@ -126,6 +128,7 @@ const IconOption = ({
             <div
               className={cn('')}
               onClick={() => {
+                dispatch(setCasinoTab(false));
                 localStorage.removeItem('tab');
               }}
             >
