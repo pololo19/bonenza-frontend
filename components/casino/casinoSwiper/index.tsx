@@ -1,7 +1,8 @@
-import React, { ReactNode } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+
+import React, { ReactNode } from 'react';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 type CasinoSwiperProps<T> = {
   icon?: JSX.Element;
