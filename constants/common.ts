@@ -874,6 +874,18 @@ export const CONVERT_CURRENCIES =
 
 export const BANNER_DATA = [
   {
+    img: '/img/banners/New_Game.png',
+    url: '/',
+  },
+  {
+    img: '/img/banners/Moon_Star_Adventure.png',
+    url: '/',
+  },
+  {
+    img: '/img/banners/Sep_Fortune_Game.png',
+    url: '/',
+  },
+  {
     img: '/img/banners/Aloha_King_Elvis.jpg',
     url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),
   },

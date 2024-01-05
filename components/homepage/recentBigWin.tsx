@@ -89,9 +89,9 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
           </div>
           <div
             data-tooltip-id={'CardBigWinData' + price}
-            className="flex justify-center items-center dark:bg-[#0DFDE4]/20 bg-[#3bc11780] cursor-text h-[28px] mt-[10px] px-[5px]"
+            className="flex justify-center items-center dark:bg-color-primary/20 bg-[#3bc11780] cursor-text h-[28px] mt-[10px] px-[5px]"
           >
-            <div className="dark:text-[#0DFDE4] text-[#3bc117] font-bold text-[14px] truncate">{price}</div>
+            <div className="dark:text-color-primary text-[#3bc117] font-bold text-[14px] truncate">{price}</div>
           </div>
         </div>
       </div>
@@ -136,10 +136,10 @@ function RecentBigWinComponent() {
     handleGetListBigWin();
   }, [userId]);
 
-  const getExchangeRateLocalFiat = (amount: number) => {
+  const getExchangeRateLocalFiat = (amount: number, currency: string) => {
     return localFiat
       ? `${currencyFormat1(amount * exchangeRate, 4, localFiat.name)}`
-      : `${currencyFormat1(amount, 4, '', false)}`;
+      : `${currencyFormat1(amount, 4, '', false)} ${currency}`;
   };
 
   const handleGetListBigWin = async () => {
@@ -175,7 +175,7 @@ function RecentBigWinComponent() {
     return (
       <CardBigWin
         userData={userData}
-        price={`${getExchangeRateLocalFiat(item.amount)}`}
+        price={`${getExchangeRateLocalFiat(item.amount, item.currency)}`}
         imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
       />
     );

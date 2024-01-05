@@ -24,9 +24,17 @@ module.exports = {
         'bg-table':
           'radial-gradient(circle at center,rgba(0,0,0, 0),rgba(0,0,0, 100)),url(/img/page/bg-table-home-page.png)',
         'btn-bg-warning': 'linear-gradient(95.56deg, #EEAA2B 8.9%, #8E600B 91.11%)',
+        'gradient-default': 'linear-gradient(90deg, rgba(27,28,32, 0.9) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
         active: 'rgba(246, 27, 79, 0.2)',
       },
       colors: {
+        'color-bg-primary': '#1B1C20',
+        'color-bg-secondary': '#151518',
+        'color-text-primary': '#98A7B5',
+        'color-text-secondary': '#939699',
+        'color-primary': '#50C627',
+        'color-tbl-primary': '#131315',
+        'color-red': '#F61B4F',
         primary: 'linear-gradient(209.24deg, #E5944B 35.23%, #CC6228 73.92%)',
         second: 'linear-gradient(180deg, #EDB652 0%, #E79D3D 30.21%, #FFFD8F 54.69%, #E79D3D 80.21%, #EDB652 100%)',
       },
@@ -48,6 +56,9 @@ module.exports = {
         full: '9999px',
         large: '12px',
         20: '20px',
+      },
+      boxShadow: {
+        'bs-default': '0px 9px 17px 0px rgba(0, 0, 0, 0.25)',
       },
     },
   },

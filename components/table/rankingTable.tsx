@@ -72,7 +72,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
   }, [selectRows?.rowSelectionIndex]);
 
   return (
-    <div className={cn('table-responsive relative', containerClassName, styles.tableWrapper)}>
+    <div className={cn('table-responsive relative px-[20px] py-[5px]', containerClassName, styles.tableWrapper)}>
       <table className={cn('table mb-0 min-h-[100px] w-full h-full', tableClassName, styles.table)}>
         <thead className={cn(styles.tableHeader)}>
           {getHeaderGroups()?.map((headerGroup) => (
@@ -84,7 +84,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
                       { '!text-right': index === headerGroup.headers.length - 1 },
-                      'whitespace-nowrap text-[#95989C] font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] text-[#98A7B5] !border-0 text-left',
+                      'whitespace-nowrap text-color-text-secondary font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left',
                     )}
                     {...{
                       style: {

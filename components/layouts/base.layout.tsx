@@ -11,6 +11,7 @@ import { api_getInitData } from '@/api/wallet';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL, TOAST_ENUM } from '@/base/constants/common';
+import { useWidth } from '@/base/hooks/useWidth';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { convertToUrlCase } from '@/base/libs/utils/convert';
@@ -74,7 +75,6 @@ import HeaderStats from './header.layout';
 import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import WrapperBody from './wapperBody';
-import { useWidth } from '@/base/hooks/useWidth';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -359,7 +359,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           <div className="flex h-full w-full max-h-[calc(100vh-67px)] mt-[67px]">
             <div
               className={cn(
-                'z-[50] dark:bg-[#1D1E22] bg-[#fff] shadow-[0px_9px_17px_0px_#00000040] overflow-y-hidden sm:block hidden h-[calc(100vh)] mt-[-67px] drop-shadow-lg',
+                'z-[50] dark:bg-color-bg-secondary bg-[#fff] shadow-bs-default overflow-y-hidden sm:block hidden h-[calc(100vh)] mt-[-67px] drop-shadow-lg',
                 {
                   'xl:relative fixed': isToggleSidebar,
                 },
@@ -368,13 +368,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               <SidebarToggle />
             </div>
             <div
-              className="w-full overflow-y-auto flex-1 bg-[#f6f7fa] dark:bg-[#25262B] flex flex-col"
+              className="w-full overflow-y-auto flex-1 bg-[#f6f7fa] dark:bg-color-bg-primary flex flex-col"
               ref={baseBodyRef}
               id="base-layout"
             >
               <WrapperBody
-                contentClassName={cn('dark:bg-[#25262B] bg-[#f6f7fa]', contentClass)}
-                wrapperClassName="dark:bg-[#25262B] md:bg-[#f6f7fa]"
+                contentClassName={cn('dark:bg-color-bg-primary bg-[#f6f7fa]', contentClass)}
+                wrapperClassName="dark:bg-color-bg-primary md:bg-[#f6f7fa]"
               >
                 {children}
               </WrapperBody>

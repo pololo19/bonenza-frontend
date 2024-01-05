@@ -88,10 +88,10 @@ export default function SidebarToggle() {
           '-translate-x-full absolute': !isToggleSidebar,
         })}
       >
-        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px]">
+        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-[#1D1E22]">
           <button
             className={cn(
-              'sm:block hidden rounded-md dark:bg-[#25262B] bg-[#f6f7fa] dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
+              'sm:block hidden rounded-md dark:bg-[#16161B] bg-[#f6f7fa] dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
@@ -129,14 +129,14 @@ export default function SidebarToggle() {
                   title={String(t('sidebar:spin'))}
                   href={ROUTER.Bonus}
                   icon={() => <Image height={20} width={20} src={'img/spin.png'} alt=""></Image>}
-                  classNames="!bg-[#06DAC4] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
+                  classNames="!bg-color-primary hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
                 />
               </div>
               <IconOption
                 title={String(t('sidebar:casino'))}
                 href={''}
                 icon={Notepad2}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:text-[#000] rounded"
+                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:focus:bg-[#292C33] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:text-[#000] rounded"
                 onClick={() => {
                   setShowDropDownCasino(!showDropDownCasino);
                 }}
@@ -206,7 +206,7 @@ export default function SidebarToggle() {
                 classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
             </ul>
-            <div className="mt-[16px] text-[#98A7B5] rounded dark:bg-[#25262B] bg-white flex items-center justify-center gap-[5px]">
+            <div className="mt-[16px] text-[#98A7B5] rounded flex items-center justify-center gap-[5px]">
               <div
                 className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer ${
                   mode === 0 ? 'bg-[#2D3035] text-white' : 'text-[#31373D] bg-[#F6F7FA]'
