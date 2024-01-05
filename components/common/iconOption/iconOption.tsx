@@ -55,8 +55,9 @@ const IconOption = ({
   const router = useRouter();
   const { pathname } = router;
   const IconElement = icon;
-
-  const [showDropDownCasino, setShowDropDownCasino] = useState(casinoPaths.some((path) => path.includes(pathname)));
+  const [showDropDownCasino, setShowDropDownCasino] = useState(
+    casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)),
+  );
   return (
     <>
       {!isDropDown && (
