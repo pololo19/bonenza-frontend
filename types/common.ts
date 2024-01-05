@@ -2,7 +2,6 @@ import { ParseResult } from 'papaparse';
 
 import { KYC_ENUM } from '../constants/common';
 import { TRANSACTION_TYPE } from './requestTypes';
-import { CurrencySymbolType } from './wallet';
 
 export enum AuthenticationModeEnum {
   SIGN_IN = 'SIGN_IN',
@@ -422,13 +421,6 @@ export type BetDetailType = {
   game: string;
   identifier: string;
   amount: number;
-  amountUsd: number;
-  currency: string;
-  currencyType: CurrencySymbolType;
-  multiplier: number;
-  profit: number;
-  profitUsd: number;
-
   userId: string;
   userName: string;
 };

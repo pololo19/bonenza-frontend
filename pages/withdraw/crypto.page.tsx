@@ -195,7 +195,7 @@ const WithdrawCryptoPage = () => {
         `Congratulations! Your withdrawal of ${formWithdraw.withdrawAmount} ${activeCoin.name} is in progress, any large or suspicious withdrawal amount will be audited and manually processed. As always we appreciate your patience!`,
         { containerId: TOAST_ENUM.COMMON },
       );
-      // setIsLoading(true);
+      setIsLoading(true);
 
       const formData: WithdrawRequest = {
         symbolId: activeCoin.id,
