@@ -113,7 +113,7 @@ const CasinoSS = <T,>({
 
   return (
     <>
-      {!!data.length && (
+      {!!data?.length && (
         <div className="w-full relative">
           <div className="flex items-center gap-[10px] justify-between">
             <div className="flex items-center gap-[10px]">

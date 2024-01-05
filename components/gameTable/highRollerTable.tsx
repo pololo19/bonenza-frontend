@@ -11,7 +11,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { BetTableDetailType } from '@/base/types/common';
+import { BetTableDataType, BetTableDetailType } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
@@ -22,6 +22,21 @@ const HighRollerTableComponent = () => {
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
   const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
   const [betIdDetail, setBetIdDetail] = useState<number>();
+  const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+  });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
@@ -74,6 +89,7 @@ const HighRollerTableComponent = () => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
     setIsShowDetailBet(true);
+    setSelBetDetail(row.original);
     setIsPublicProfile(row.original?.isHideNamePublicList);
   };
 
@@ -263,6 +279,7 @@ const HighRollerTableComponent = () => {
       </div>
       {isShowDetailBet && (
         <ModalDetailBets
+          betDetail={selBetDetail}
           show={isShowDetailBet}
           onClose={() => {
             setIsShowDetailBet(false);

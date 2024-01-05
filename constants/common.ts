@@ -624,6 +624,7 @@ export const API_AVATAR = process.env.API_AVATAR;
 export const STREAM_API_KEY = process.env.STREAM_CHAT_API_KEY;
 export const STREAM_API_SECRET = process.env.STREAM_CHAT_API_SECRET;
 export const SOCKET_WALLET_URL = process.env.SOCKET_WALLET_URL;
+export const SOCKET_GAME_URL = process.env.SOCKET_GAME_URL;
 export const WITHDRAW_FEE = process.env.WITHDRAW_FEE;
 export const SWAP_FEE = process.env.SWAP_FEE;
 export const SWAP_MIN = 5;

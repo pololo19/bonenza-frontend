@@ -1,6 +1,6 @@
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 
-import { AuthenticationModeEnum, DepositAddress, FiatType, UserDetail } from './common';
+import { AuthenticationModeEnum, BetTableDataType, DepositAddress, FiatType, UserDetail } from './common';
 import { VerifyRequestType } from './requestTypes';
 import { BalanceType, CryptoCurrencyType, CryptoNetWorkType, CurrencyType, DepositAddressType } from './wallet';
 
@@ -61,6 +61,7 @@ export type CommonState = {
   viewInFiat?: boolean;
   showFullNameCurrency?: boolean;
   usdtNetwork?: string;
+  casinoTab?: boolean;
 };
 
 export type UserDataState = {
@@ -71,6 +72,7 @@ export type UserDataState = {
 
 export type WalletState = {
   localFiat: CurrencyType | null;
+  activeCurrency: CurrencyType;
   totalBalance: number;
   depositTime: number;
   realBalance: number;
@@ -81,4 +83,8 @@ export type WalletState = {
   balances: BalanceType[];
   cryptoCurrencies: CryptoCurrencyType[];
   depositAddress: DepositAddressType[];
+};
+
+export type GameState = {
+  betHistory: BetTableDataType[];
 };

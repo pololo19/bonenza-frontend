@@ -22,6 +22,7 @@ import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
+import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 
 type ModalFiatProps = {
   onClose: () => void;
@@ -38,7 +39,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
   const [isLoading, _setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const { multiLanguageTab, activeFiat, isLogin, viewInFiat, fiatSymbols, localFiat } = useSelector(
+  const { multiLanguageTab, isLogin, viewInFiat, fiatSymbols, localFiat, settings } = useSelector(
     (state: AppState) => ({
       multiLanguageTab: state.modal.multiLanguageTab,
       fiatArray: state.common.fiatArray,
@@ -46,6 +47,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
       activeFiat: state.common.activeFiat,
       viewInFiat: state.common.viewInFiat,
       isLogin: state.auth.isLogin,
+      settings: state.auth.user.generalSetting,
 
       fiatSymbols: state.wallet.fiatSymbols,
       localFiat: state.wallet.localFiat,
@@ -59,28 +61,21 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
   const handleChangeLang = (item: any) => {
     i18n.changeLanguage(item.key);
     CookiesStorage.setCookieData(CookieKey.lang, item.key);
-
-    if (router.pathname !== '/game') {
-      // change currency based on language
-      dispatch(changeViewInFiat(true));
-      // dispatch(changeLocaleFiat(item));
-      CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
+    if (isLogin) {
+      dispatch(updateSetting({ ...settings, settingLanguage: item.key }));
     }
+    // if (router.pathname !== '/game') {
+    //   // change currency based on language
+    //   dispatch(changeViewInFiat(true));
+    //   // dispatch(changeLocaleFiat(item));
+    //   CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
+    // }
   };
 
   const handleChangeLocaleFiat = (item: CurrencyType) => {
-    if (isLogin) {
-      // let newItem: FiatType = item.currency === 'USD' ? { ...item, currencyOld: activeFiat?.currency } : item;
-      dispatch(changeViewInFiat(true));
+    dispatch(changeViewInFiat(true));
 
-      dispatch(setLocalFiat(item));
-      // dispatch(changeActiveFiat(item));
-      // CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
-      // CookiesStorage.setCookieData(CookieKey.activeFiat, String(item?.currency));
-    } else {
-      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-      dispatch(changeIsShowAuthenticationModal(true));
-    }
+    dispatch(setLocalFiat(item));
   };
 
   return (

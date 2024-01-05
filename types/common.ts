@@ -171,9 +171,14 @@ export enum CurrencyEnum {
 export type GameListType = {
   id: string;
   title: string;
+  description: string;
   identifier: string;
   payout: number;
   multiplier: number;
+  releasedAt: Date | string;
+
+  provider?: string;
+  isExpiration?: boolean;
 };
 
 export type GameDetail = {
@@ -305,6 +310,22 @@ export type BetTableDetailType = {
   title: number;
 };
 
+export type BetTableDataType = {
+  game: string;
+  gameIdenfiter: string;
+  player: string;
+  playerId: string;
+  playerAvatar: string;
+  betAmount: number;
+  betAmountUsd: number;
+  multiplier: number;
+  profitAmount: number;
+  profitAmountUsd: number;
+  currency: string;
+  betId: string;
+  time: Date;
+};
+
 export type BetDetail = {
   betAmount?: number;
   betId?: string;
@@ -393,4 +414,13 @@ export type TransactionSwapType = {
   swapToUsd: number;
   swapToLogo: string;
   timeTransfer: string | Date;
+};
+
+export type BetDetailType = {
+  id: string;
+  game: string;
+  identifier: string;
+  amount: number;
+  userId: string;
+  userName: string;
 };

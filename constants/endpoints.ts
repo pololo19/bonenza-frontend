@@ -48,6 +48,7 @@ const API_WALLET_SWAP_RATE = '/wallet/swap/prices';
 const API_WALLET_SWAP = '/wallet/swap';
 const API_WALLET_TRANSACTIONS = '/wallet/transaction';
 const API_WALLET_DEPOSIT_TIME = '/wallet/get-deposit-time-for-this-week';
+const API_WALLET_INIT_DATA = '/wallet/init-currency';
 
 /************************************ Game **********************************/
 const API_GAME_PICK_GAMES = '/game/get-pick-games-for-you';
@@ -62,6 +63,18 @@ const API_GAME_NEW_RELEASE = '/game/get-new-releases';
 const API_GAME_FEATURE_BUY_IN = '/game/get-feature-buy-in';
 const API_GAME_BLACKJACK = '/game/get-blackjack';
 const API_GAME_TABLE_GAMES = '/game/get-table-games';
+const API_GAME_DETAIL = '/game/get-game';
+
+const API_GAME_START_DEMO = '/game/start-demo';
+const API_GAME_CREATE_SESSION = '/game/create-session';
+const API_GAME_PLAY = '/game/play';
+const API_GAME_ROLLBACK = '/game/rollback';
+
+const API_GAME_BET_HISTORY = '/game/get-latest-bets';
+const API_GAME_BET_HISTORY_FOR_GAME = '/game/get-latest-bets-for-game';
+const API_GAME_BET_HISTORY_FOR_USER = '/game/get-latest-bets-for-user-game';
+const API_GAME_RECENT_BIG_WINS = '/game/get-recent-big-wins';
+const API_GAME_TOP_RATED_GAMES = '/game/get-top-rated-games';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -95,17 +108,27 @@ export {
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
+  API_GAME_BET_HISTORY,
+  API_GAME_BET_HISTORY_FOR_GAME,
+  API_GAME_BET_HISTORY_FOR_USER,
   API_GAME_BLACKJACK,
+  API_GAME_CREATE_SESSION,
+  API_GAME_DETAIL,
   API_GAME_FAVORITE_GAMES,
   API_GAME_FEATURE_BUY_IN,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
   API_GAME_PICK_GAMES,
+  API_GAME_PLAY,
   API_GAME_PROVIDER,
+  API_GAME_RECENT_BIG_WINS,
   API_GAME_RECENT_GAMES,
+  API_GAME_ROLLBACK,
   API_GAME_SLOT,
+  API_GAME_START_DEMO,
   API_GAME_TABLE_GAMES,
+  API_GAME_TOP_RATED_GAMES,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,
@@ -119,6 +142,7 @@ export {
   API_USER_SETTING_UPDATE,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
+  API_WALLET_INIT_DATA,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
   API_WALLET_TRANSACTIONS,

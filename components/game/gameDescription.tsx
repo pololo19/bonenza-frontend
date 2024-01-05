@@ -1,7 +1,7 @@
 import { useTranslation } from '@/base/config/i18next';
-import { GameDetail } from '@/base/types/common';
+import { GameDetail, GameListType } from '@/base/types/common';
 
-const GameDescriptionComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
+const GameDescriptionComponent = ({ gameDetail }: { gameDetail: GameListType }) => {
   const { t } = useTranslation('');
 
   return (
@@ -10,7 +10,7 @@ const GameDescriptionComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       <div className="sm:text-[18px] text-[16px] dark:text-gray-400 mt-2 text-[#31373d]">
         {gameDetail?.title}: {t('gameDetail:gameReviewTheme')}
       </div>
-      <div className="text-[14px] dark:text-gray-400 text-[#31373d] my-4">{gameDetail?.description}</div>
+      <div className="text-[14px] dark:text-gray-400 text-[#31373d] my-4">{gameDetail.description}</div>
     </div>
   );
 };

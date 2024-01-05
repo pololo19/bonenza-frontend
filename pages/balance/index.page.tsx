@@ -83,34 +83,13 @@ const BalancePage = () => {
 
   const renderBalance = (symbol: CurrencyType) => {
     const balance = [...cryptoBalances].find((item) => item.symbolId === symbol.id);
+    const usdPrice = symbol.price || 1;
+
     return {
-      usd: balance ? balance.usdAmount : 0,
+      usd: balance ? balance.amount * usdPrice : 0,
       amount: balance ? balance.amount : 0,
     };
   };
-
-  // const realMoney = useMemo(() => {
-  //   const totalCrypto = cryptoArray?.reduce((a, b) => {
-  //     return a + exchangeByLocaleFiat(b?.currency, String(localeFiat?.currency || 'USD'), Number(b?.amount) || 0);
-  //   }, 0);
-  //   const totalFiat = fiatArray?.reduce((a, b) => {
-  //     return a + exchangeByLocaleFiat(b?.currency, String(localeFiat?.currency || 'USD'), Number(b?.amount) || 0);
-  //   }, 0);
-  //   return Number(totalCrypto) + Number(totalFiat);
-  // }, [cryptoArray, fiatArray, localeFiat]);
-
-  // const totalBalance = useMemo(() => {
-  //   return exchangeByLocaleFiat('USD', String(localeFiat?.currency || 'USD'), totalBonus) + Number(realMoney ?? 0);
-  // }, [realMoney, totalBonus]);
-
-  // const getAmount = (amount: number) => {
-  //   if (!amount) return currencyFormat(0, 2);
-  //   if (isDecimalNumber(amount)) {
-  //     return formatLengthNumber(amount);
-  //   } else {
-  //     return currencyFormat(Number(amount), 2);
-  //   }
-  // };
 
   return (
     <div className={'mt-[-24px] sm:mx-[-32px] mb-[-32px]'}>

@@ -1,14 +1,15 @@
 import {
   ColumnDef,
+  flexRender,
+  getCoreRowModel,
   OnChangeFn,
   Row,
   RowSelectionState,
-  flexRender,
-  getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table';
 import cn from 'classnames';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -16,7 +17,6 @@ import { useTranslation } from '@/base/config/i18next';
 import { ObjectLiteral } from '@/base/types/common';
 
 import styles from './rankingTable.module.scss';
-import { useTheme } from 'next-themes';
 
 export type RankingTableComponentPropsType = {
   columns: ColumnDef<any>[];
@@ -104,7 +104,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
             getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className={cn(renderRowClass?.(row), 'h-0 cursor-pointer')}
+                className={cn(renderRowClass?.(row), ' cursor-pointer hover:bg-[#2D3035] rounded-[10px]')}
                 onClick={() => onRowClick?.(row)}
               >
                 {row.getVisibleCells?.().map((cell) => (

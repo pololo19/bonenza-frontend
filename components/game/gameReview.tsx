@@ -1,14 +1,15 @@
-import { formatDate } from '@/base/libs/utils';
-import { GameDetail, GameProviderDetail, Rating } from '@/base/types/common';
-import { useTranslation } from '@/base/config/i18next';
 import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import Image from 'next/image';
-import StarsRating from 'react-star-rate';
-import api from '@/api/api';
-import { toast } from 'react-toastify';
-import { TOAST_ENUM } from '@/base/constants/common';
 import { useEffect, useState } from 'react';
+import StarsRating from 'react-star-rate';
+import { toast } from 'react-toastify';
+
+import api from '@/api/api';
+import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { formatDate } from '@/base/libs/utils';
+import { GameDetail, GameListType, GameProviderDetail, Rating } from '@/base/types/common';
 
 const RateStarComponent = ({
   rate,
@@ -32,7 +33,7 @@ const GameReviewComponent = ({
   gameDetail,
   gameProvider,
 }: {
-  gameDetail?: GameDetail;
+  gameDetail?: GameListType;
   gameProvider?: GameProviderDetail;
 }) => {
   const dataFake = [
@@ -76,8 +77,8 @@ const GameReviewComponent = ({
 
   const handleGetRate = async () => {
     try {
-      const res = await api.get('game/get-rating', { params: { game_id: gameDetail?.id } });
-      setRatingData(res.data.data);
+      // const res = await api.get('game/get-rating', { params: { game_id: gameDetail?.id } });
+      // setRatingData(res.data.data);
     } catch (error) {
       setRatingData({});
     } finally {
@@ -97,7 +98,7 @@ const GameReviewComponent = ({
           <Image
             height={90}
             width={90}
-            src={`https://cdn.softswiss.net/i/s4/${gameDetail?.provider}/${gameDetail?.identifier2}.png`}
+            src={`https://cdn.softswiss.net/i/s4/${gameDetail?.identifier.replace(':', '/')}.png`}
             alt=""
             className="max-w-[90px] object-cover max-h-auto rounded-[5px]"
           />

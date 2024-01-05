@@ -10,6 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameDetail, GameListType } from '@/base/types/common';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 
 type GameCardProps = {
   gameDetail: GameListType | GameDetail;
@@ -38,20 +39,15 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
   const dispatch = useDispatch();
   const uuid = Math.random();
 
-  const convertIdentifier2Url = (identifier: string) => {
-    const url = identifier.replace(':', '/');
-    return url;
-  };
-
   return (
     <div className="" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
       <div className="rounded-[5px] dark:bg-[#12181F] bg-white">
-        <Link href={ROUTER.GameDetail(String(gameDetail?.identifier))} className="rounded-[5px]">
+        <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-[5px]">
           <LazyLoad className="min-h-[100px]">
             <Image
               height={160}
               width={160}
-              src={`https://cdn.softswiss.net/i/s4/${convertIdentifier2Url(gameDetail?.identifier || '')}.png`}
+              src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
               alt=""
               className="w-full object-cover max-h-auto rounded-[5px]"
               placeholder="blur"

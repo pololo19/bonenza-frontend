@@ -9,6 +9,7 @@ import modalReducer from './reducers/modal.reducer';
 import socketReducer from './reducers/socket.reducer';
 import userReducer from './reducers/user.reducer';
 import walletReducer from './reducers/wallet.reducer';
+import gameReducer from './reducers/game.reducer';
 const customizedMiddleware = getDefaultMiddleware({
   serializableCheck: false,
 });
@@ -23,6 +24,7 @@ export const makeStore = () =>
       common: commonReducer,
       wallet: walletReducer,
       socket: socketReducer,
+      game: gameReducer,
     },
     devTools: process.env.NODE_ENV === 'development',
     middleware: customizedMiddleware,

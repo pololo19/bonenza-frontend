@@ -6,16 +6,17 @@ import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import api from '@/api/api';
 import { api_validateToken } from '@/api/auth';
+import { api_getInitData } from '@/api/wallet';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
-import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { changeUsdtNetwork } from '@/base/redux/reducers/common.reducer';
+import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import { addBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
@@ -36,16 +37,18 @@ import {
   changeShowFullChat,
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
-import { setSocket } from '@/base/redux/reducers/socket.reducer';
+import { setGameSocket, setSocket } from '@/base/redux/reducers/socket.reducer';
 import {
   addDepositTime,
   getBalance,
-  getDepositTime,
   initWalletInfo,
-  setDepositTime,
+  logoutWallet,
+  setFiatSymbols,
+  updateBalance,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { FiatType } from '@/base/types/common';
+import { BetTableDataType, FiatType } from '@/base/types/common';
+import { CurrencyType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
 import ChattingComponent from '../chatting/chattingComponent';
@@ -71,6 +74,7 @@ import HeaderStats from './header.layout';
 import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import WrapperBody from './wapperBody';
+import { useWidth } from '@/base/hooks/useWidth';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -79,6 +83,7 @@ type BaseLayoutProps = {
 };
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, contentClass }) => {
+  const innerWidth = useWidth();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('');
@@ -87,6 +92,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
   const baseBodyRef = useRef<HTMLDivElement>(null);
+  const { query } = router;
+  const { gameId } = query;
 
   useEffect(() => {
     setIsShowSidebar(false);
@@ -115,6 +122,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     cryptoArray,
     userId,
     walletSocket,
+    gameSocket,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -141,43 +149,93 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       userId: state.auth.user.userId,
       cryptoArray: state.common.cryptoArray,
       walletSocket: state.socket.walletSocket,
+      gameSocket: state.socket.gameSocket,
       depositTime: state.wallet.depositTime,
     }),
     shallowEqual,
   );
 
-  const handleAccount = async () => {
-    const accessToken = CookiesStorage.getAccessToken();
-    if (accessToken) {
-      const res = await api_validateToken(accessToken);
-      if (!walletSocket?.connected) {
-        const newSocket = await initialSocketConnection();
-        dispatch(setSocket(newSocket));
+  const loadInitData = async () => {
+    try {
+      const res = await api_getInitData();
+      const tempFiatSymbols: CurrencyType[] =
+        res.data?.fiatSymbols?.map((item: any) => ({
+          id: item.id,
+          name: item.symbol,
+          alias: item.name,
+          logo: `/img/fiats/${item.symbol}.png`,
+          iso_currency: item.iso_currency,
+          iso_decimals: item.iso_decimals,
+          availableNetworks: item.availableNetworks,
+          price: Number(item.price),
+        })) || [];
+      dispatch(setFiatSymbols(tempFiatSymbols));
+    } catch (error) {
+      dispatch(setFiatSymbols([]));
+    }
+  };
+
+  const wrappedError = () => {
+    dispatch(logoutState());
+    dispatch(logoutWallet());
+    CookiesStorage.logout();
+    return new Promise((resolve) => {
+      if (router.pathname !== ROUTER.Home) {
+        router.replace(ROUTER.Home);
       }
-      dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
-      dispatch(initWalletInfo());
+      resolve(true);
+    });
+  };
+
+  const connectAccount = async () => {
+    try {
+      const accessToken = CookiesStorage.getAccessToken();
+
+      if (accessToken) {
+        const res = await api_validateToken(accessToken);
+        if (!walletSocket?.connected) {
+          const newSocket = await initialSocketConnection(SOCKET_WALLET_URL ?? '');
+          dispatch(setSocket(newSocket));
+        }
+
+        dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
+        dispatch(initWalletInfo());
+      } else {
+        await loadInitData();
+      }
+    } catch (error) {
+      wrappedError();
+      await loadInitData();
     }
   };
 
   useEffect(() => {
-    // handleAccount();
-    // handleUsdtNetwork();
-    // handleGetExchangeRate();
-    if (window.innerWidth < 1280) {
+    const gameConnect = async () => {
+      // game socket is connected without auth
+      if (!gameSocket?.connected) {
+        const newGameSocket = await initialSocketConnection(SOCKET_GAME_URL ?? '');
+        dispatch(setGameSocket(newGameSocket));
+      }
+    };
+    gameConnect();
+
+    if (innerWidth < 1280) {
       dispatch(changeToggleSidebar(false));
+    } else {
+      dispatch(changeToggleSidebar(true));
     }
-  }, []);
+  }, [innerWidth]);
 
   useEffect(() => {
     if (!isLogin) {
-      handleAccount();
+      connectAccount();
       // getBonus();
     }
     // handleGet();
   }, [isLogin]);
 
   useEffect(() => {
-    if (walletSocket) {
+    if (walletSocket && isLogin) {
       walletSocket.on(`${userId}`, (data: any) => {
         const action = data?.action || '';
         const amount = data?.amount || 0;
@@ -206,7 +264,74 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         walletSocket.off(`${userId}`);
       }
     };
-  }, [walletSocket]);
+  }, [walletSocket, isLogin]);
+
+  useEffect(() => {
+    if (gameSocket) {
+      gameSocket.on(`bets`, (item: any) => {
+        const data = JSON.parse(item);
+        const tempData: BetTableDataType = {
+          game: data.game_name ?? '',
+          gameIdenfiter: data.game_identifier ?? '',
+          player: data.player_name || 'Hidden',
+          playerId: data.player_id ?? '',
+          playerAvatar: data.playerAvatar ?? '',
+          betAmount: Number(data.bet_amount || 0),
+          betAmountUsd: Number(data.bet_amount_usd || 0),
+          multiplier: Number(data.multiplier || 0),
+          profitAmount: Number(data.profit_amount || 0),
+          profitAmountUsd: Number(data.profit_amount_usd || 0),
+          currency: data.currency ?? 'USD',
+          betId: data.id ?? '',
+          time: data.time ?? new Date(),
+        };
+        dispatch(addBetHistory(tempData));
+      });
+
+      if (isLogin) {
+        gameSocket.on(`${userId}:balance`, (item: string) => {
+          const data = JSON.parse(item);
+          console.log('balance update', data);
+          const currencyType = data.currency_type;
+          dispatch(
+            updateBalance({
+              amount: Number(data.balance || 0),
+              symbol: data.currency,
+              symbolId: data.currency_id,
+            }),
+          );
+        });
+
+        gameSocket.on(`${userId}:withdraw`, (item: string) => {
+          const data = JSON.parse(item);
+          const status = data.status;
+          switch (status) {
+            case 'Processing':
+              toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
+              break;
+            case 'Complete':
+              toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
+              dispatch(getBalance());
+
+              break;
+
+            default:
+              break;
+          }
+        });
+      }
+    }
+
+    return () => {
+      if (gameSocket) {
+        gameSocket.off(`bets`);
+        if (isLogin) {
+          gameSocket.off(`${userId}:balance`);
+          gameSocket.off(`${userId}:withdraw`);
+        }
+      }
+    };
+  }, [gameSocket, gameId, isLogin]);
 
   useEffect(() => {
     if (router.query['forgot-pass-token']) {
