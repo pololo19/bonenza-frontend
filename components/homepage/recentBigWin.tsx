@@ -146,12 +146,19 @@ function RecentBigWinComponent() {
     try {
       const res = await api_getRecentBigWins();
       const tempBetLists: BetDetailType[] = res.data.map((item: any) => ({
-        id: item.id,
-        game: item.title,
-        identifier: item.identifier,
-        amount: item.maxAmountUsd,
-        userId: item.userId,
-        userName: item.userName,
+        id: item?.id ?? '',
+        game: item?.title ?? '',
+        identifier: item?.identifier ?? '',
+        amount: Number(item.betAmount || 0),
+        amountUsd: Number(item.betAmountUsd || 0),
+        currency: item?.currency ?? 'USD',
+        currencyType: 'crypto',
+        multiplier: Number(item?.multiplier || 0),
+        profit: Number(item?.profitAmount || 0),
+        profitUsd: Number(item?.profitAmountUsd || 0),
+
+        userId: item?.userId ?? '',
+        userName: item?.userName ?? '',
       }));
       setListBigWinGame(tempBetLists);
     } catch (error) {
@@ -183,7 +190,21 @@ function RecentBigWinComponent() {
         renderItem={(item) => renderData(item)}
         onClickItem={(game) => {
           setIsPublicProfile(!!game?.userName);
-          setBetIdDetail(Number(game?.id));
+          setSelBetDetail({
+            game: game.game,
+            gameIdenfiter: game.identifier,
+            player: game.userName,
+            playerId: game.userId,
+            playerAvatar: '',
+            betAmount: game.amount,
+            betAmountUsd: game.amountUsd,
+            multiplier: game.multiplier,
+            profitAmount: game.profit,
+            profitAmountUsd: game.profitUsd,
+            currency: game.currency,
+            betId: game.id,
+            time: new Date(),
+          });
           setIsShowDetailBet(true);
         }}
       />
