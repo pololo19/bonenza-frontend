@@ -118,18 +118,18 @@ export default function SidebarToggle() {
                 icon={Gift}
                 classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded pl-[10px]"
               />
-              <div className="flex items-center gap-[5px]">
+              <div className="flex items-center gap-[10px]">
                 <IconOption
                   title={String(t('sidebar:quest'))}
                   href={ROUTER.Bonus}
-                  icon={() => <Image height={20} width={20} src={'img/quest.png'} alt=""></Image>}
-                  classNames="!bg-[#F6841B] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
+                  icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
+                  classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
                 />
                 <IconOption
                   title={String(t('sidebar:spin'))}
                   href={ROUTER.Bonus}
-                  icon={() => <Image height={20} width={20} src={'img/spin.png'} alt=""></Image>}
-                  classNames="!bg-color-primary hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
+                  icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
+                  classNames="!bg-color-primary gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
                 />
               </div>
               <IconOption

@@ -162,15 +162,13 @@ function IndexPage() {
                 {!isLogin && (
                   <div className="sm:text-start text-center font-semibold">
                     <div>
-                      <span className="text-white font-bold text-[14px]">{String(t('homePage:signUpUpper'))} & </span>
-                      <span className="text-color-primary text-[14px] font-bold">
-                        {String(t('homePage:getReward'))}
-                      </span>
+                      <span className="text-white text-[20px]">{String(t('homePage:signUpUpper'))} & </span>
+                      <span className="text-color-primary text-[20px]">{String(t('homePage:getReward'))}</span>
                     </div>
-                    <div className={'lg:text-[48px] sm:text-[32px] text-[24px] font-semibold sm:mt-5 mt-0'}>
+                    <div className={'lg:text-[68px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
                       <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
                       <span className={`${styles.textGradient} bg-color-primary font-bold`}>
-                        {currencyFormat1(500000000, 0, String(localeFiat?.currency || 'USD'))}
+                        {currencyFormat1(50000, 0, String(localeFiat?.currency || 'USD'))}
                       </span>
                     </div>
                   </div>
@@ -197,7 +195,7 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[20px] py-[12px] lg:text-[14px] text-[12px]"
+                        className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
