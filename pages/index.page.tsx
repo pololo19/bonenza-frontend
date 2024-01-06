@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 
@@ -47,22 +47,25 @@ function IndexPage() {
     shallowEqual,
   );
 
-  const cardPlayData = [
-    {
-      imgBackGround: '/img/page/casino.jpg',
-      title: t('homePage:introduceCardTitle1'),
-      description: t('homePage:introduceCardDes1'),
-      textButton: t('homePage:introduceCardButton1'),
-      href: ROUTER.Casino,
-    },
-    {
-      imgBackGround: '/img/page/sports.jpg',
-      title: t('homePage:introduceCardTitle2'),
-      description: t('homePage:introduceCardDes2'),
-      textButton: t('homePage:introduceCardButton2'),
-      href: ROUTER.Sports,
-    },
-  ];
+  const cardPlayData = useMemo(
+    () => [
+      {
+        imgBackGround: '/img/page/casino.png',
+        title: t('homePage:introduceCardTitle1'),
+        description: t('homePage:introduceCardDes1'),
+        textButton: t('homePage:introduceCardButton1'),
+        href: ROUTER.Casino,
+      },
+      {
+        imgBackGround: '/img/page/sports.png',
+        title: t('homePage:introduceCardTitle2'),
+        description: t('homePage:introduceCardDes2'),
+        textButton: t('homePage:introduceCardButton2'),
+        href: ROUTER.Sports,
+      },
+    ],
+    [],
+  );
 
   const dispatch = useDispatch();
 
@@ -94,7 +97,6 @@ function IndexPage() {
   const initDataLoad = async () => {
     try {
       const [topRatedGames, recommendedGames] = await Promise.all([api_getTopRelatedGames(), api_getPickGames(1, 20)]);
-      console.log('topRatedGames', recommendedGames);
       const tempListTopRatedGames: GameListType[] = topRatedGames.data.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
@@ -133,7 +135,7 @@ function IndexPage() {
   return (
     <>
       <div className="w-full">
-        <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-[#25262B]">
+        <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-color-bg-primary">
           <div className="flex-1 w-full">
             <div className="relative h-auto w-full">
               <div className="object-contain absolute right-0 h-full w-full">
@@ -154,16 +156,20 @@ function IndexPage() {
                   />
                 </Slider>
               </div>
-              <div className="relative h-auto sm:pt-[60px] pt-[40%] sm:pb-[20px] w-full">
+
+              <div className="absolute inset-0 bg-gradient-default" />
+              <div className="relative z-[2] h-auto sm:pt-[60px] pt-[40%] sm:pb-[20px] w-full">
                 {!isLogin && (
                   <div className="sm:text-start text-center font-semibold">
                     <div>
                       <span className="text-white font-bold text-[14px]">{String(t('homePage:signUpUpper'))} & </span>
-                      <span className="text-[#F61B4F] text-[14px] font-bold">{String(t('homePage:getReward'))}</span>
+                      <span className="text-color-primary text-[14px] font-bold">
+                        {String(t('homePage:getReward'))}
+                      </span>
                     </div>
                     <div className={'lg:text-[48px] sm:text-[32px] text-[24px] font-semibold sm:mt-5 mt-0'}>
                       <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
-                      <span className={`${styles.textGradient} bg-primary font-bold`}>
+                      <span className={`${styles.textGradient} bg-color-primary font-bold`}>
                         {currencyFormat1(500000000, 0, String(localeFiat?.currency || 'USD'))}
                       </span>
                     </div>
@@ -191,16 +197,13 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-[5px] bg-primary flex items-center justify-center gap-[7px] px-[10px] py-[7px] xl:text-[14px] text-[12px] font-bold"
+                        className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[20px] py-[12px] lg:text-[14px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
                         }}
                       >
                         {t('homePage:signUpNow')}
-                        <div className="p-[10px] items-center justify-center rounded-[5px] bg-white/20">
-                          <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
-                        </div>
                       </button>
                       <div className="text-[16px] text-white">{t('homePage:or')}</div>
                     </div>
@@ -238,7 +241,7 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[50px] bg-[#f6f7fa] dark:bg-[#25262B] bg">
+            <div className="flex flex-col items-start gap-[50px]">
               <div className="grid md:grid-cols-2 grid-cols-1 gap-[16px] mt-[40px] w-full">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
@@ -266,10 +269,10 @@ function IndexPage() {
                 <div className="py-[35px] max-sm:pt-[16px] w-full min-[858px]:pl-[56px] flex-1 min-[858px]:bg-[#1D1E2280] relative z-[1] md:backdrop-blur-[5px]">
                   <div className="min-[858px]:max-w-[362px] relative z-1 flex flex-col gap-[22px] max-[857px]:items-center">
                     <div className="sm:text-[20px] text-[16px] max-[857px]:max-w-[362px] max-[857px]:text-center">
-                      {t('homePage:getStarted')} <span className="text-[#F61B4F]">300%</span> {t('bonus:depositBonus')}
+                      {t('homePage:getStarted')} <span className="text-color-red">300%</span> {t('bonus:depositBonus')}
                     </div>
                     <div
-                      className="bg-[#F61B4F] rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
+                      className="bg-color-red rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
                       onClick={() => {
                         handleClickDeposit();
                       }}
@@ -285,30 +288,31 @@ function IndexPage() {
               </HomepageSession>
               <div className="relative w-full">
                 <div className="md:hidden block absolute top-0 left-0 h-full w-full z-[1] bg-[#1D1E22]"></div>
-                <div className="flex md:flex-row flex-col justify-between relative z-[2] min-[858px]:min-h-[230px] bg-no-repeat bg-[length:100%_50%] max-sm:bg-center sm:bg-[length:100%_100%] relative px-[20px] md:pl-[30px] md:bg-[url('/img/whale.png')]">
+                <div className="flex md:flex-row flex-col justify-between relative z-[2] min-[858px]:min-h-[270px] bg-no-repeat bg-[length:100%_50%] max-sm:bg-center sm:bg-[length:100%_100%] px-[20px] md:pl-[30px] md:bg-[url('/img/whale.png')]">
                   <div
-                    className={`flex-col md:items-start items-center py-[32px] md:py-[40px] pr-5 gap-[24px] md:gap-[30px] ${
+                    className={`flex-col z-[2] md:items-start items-center py-[32px] md:py-[40px] pr-5 gap-[24px] md:gap-[30px] ${
                       isLogin ? 'flex' : 'md:flex'
                     }`}
                   >
                     {!isLogin && (
-                      <div>
-                        <span className="text-[#0DFDE4] text-[18px] font-semibold">
-                          {String(t('homePage:registerNow'))}{' '}
-                        </span>
-                        <span className="text-[18px] font-semibold text-white">
-                          {String(t('homePage:toInstantlyRedeemA'))}{' '}
-                          <span className="text-[#FD6E0B] text-[18px] font-semibold">300%</span>{' '}
-                          {String(t('homePage:depositBonus'))}
-                        </span>
-                        <div className="text-[14px] text-[#939699] mt-5">{String(t('homePage:depositBonusUpTo'))}</div>
+                      <div className="text-[20px] font-semibold text-white">
+                        {String(t('homePage:unlockExclusive'))} <span className="text-color-red">VIP</span>{' '}
+                        {String(t('homePage:rewardsAtBONENZA'))}
+                        <div className="text-[14px] text-color-text-secondary mt-5">
+                          {String(t('homePage:onlyVIPClub'))}
+                        </div>
+                        <div className="mt-[50px]">
+                          <button className="px-[60px] py-[8px] bg-color-red text-[14px]">Sign Up</button>
+                        </div>
                       </div>
                     )}
                     {isLogin && (
                       <div className="text-[20px] font-semibold text-white">
-                        {String(t('homePage:unlockExclusive'))} <span className="text-[#F61B4F]">VIP</span>{' '}
+                        {String(t('homePage:unlockExclusive'))} <span className="text-color-red">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
-                        <div className="text-[14px] text-[#939699] mt-5">{String(t('homePage:onlyVIPClub'))}</div>
+                        <div className="text-[14px] text-color-text-secondary mt-5">
+                          {String(t('homePage:onlyVIPClub'))}
+                        </div>
                       </div>
                     )}
                     <Image
@@ -324,12 +328,13 @@ function IndexPage() {
                         onClick={() => {
                           dispatch(changeIsShowVipClubModal(true));
                         }}
-                        className="cursor-pointer bg-[#F61B4F] hover:opacity-[0.9] hover:text-white text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
+                        className="cursor-pointer bg-color-red hover:opacity-[0.9] hover:text-white text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
                       >
                         {t('referAndEarn:learnMore')}
                       </div>
                     )}
                   </div>
+                  <div className="absolute inset-0 bg-gradient-default" />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
@@ -340,15 +345,15 @@ function IndexPage() {
                       {String(t('homePage:cryptoOnlineCasino'))}
                     </div>
                     <div
-                      className="text-[#939699] text-[13px] mt-5 text-justify"
+                      className="text-color-text-secondary text-[13px] mt-5 text-justify"
                       dangerouslySetInnerHTML={{ __html: t('homePage:casinosOnlineHaveNot') }}
                     ></div>
                     <div
-                      className="text-[#939699] text-[13px] mt-5 text-justify"
+                      className="text-color-text-secondary text-[13px] mt-5 text-justify"
                       dangerouslySetInnerHTML={{ __html: t('homePage:playersAreAlways') }}
                     ></div>
                     <div
-                      className="mt-5 cursor-pointer flex items-center gap-[10px] dark:text-[#0DFDE4] text-amber-600"
+                      className="mt-5 cursor-pointer flex items-center gap-[10px] dark:text-color-primary text-amber-600"
                       onClick={() => {
                         dispatch(changeIsShowCryptoOnlineModal(true));
                       }}
@@ -362,20 +367,22 @@ function IndexPage() {
                       {String(t('homePage:helpUsImproveYourExperience'))}
                     </div>
                     <textarea
-                      className="rounded-[16px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-[#939699] text-[13px] p-[20px] resize-none placeholder:text-[13px] placeholder:text-[#53575C]"
+                      className="rounded-[16px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-[13px] p-[20px] resize-none placeholder:text-[13px] placeholder:text-[#53575C]"
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
-                      <div className="hover:opacity-[0.9] bg-[#F61B4F] py-[10px] flex items-center justify-center text-white font-bold text-[14px] w-full lg:w-[162px] rounded-[5px] cursor-pointer">
+                      <div className="hover:opacity-[0.9] bg-color-red py-[10px] flex items-center justify-center text-white font-bold text-[14px] w-full lg:w-[162px] rounded-[5px] cursor-pointer">
                         {String(t('homePage:leaveAMessage'))}
                       </div>
-                      <div className="text-[#939699] text-[12px]">{String(t('footer:nowGetReward'))}</div>
+                      <div className="text-color-text-secondary text-[12px]">{String(t('footer:nowGetReward'))}</div>
                     </div>
                     <div className="mt-5 text-center lg:text-left">
-                      <span className="text-[13px] text-[#939699] mr-[10px]">{String(t('homePage:orEmail'))}</span>
+                      <span className="text-[13px] text-color-text-secondary mr-[10px]">
+                        {String(t('homePage:orEmail'))}
+                      </span>
                       <a
                         href="mailto:feedback@bonenza.com"
-                        className="text-[13px] dark:text-[#0DFDE4] text-amber-600 hover:text-[#0DFDE4] cursor-pointer"
+                        className="text-[13px] dark:text-color-primary text-amber-600 hover:text-color-primary cursor-pointer"
                       >
                         feedback@bonenza.com
                       </a>

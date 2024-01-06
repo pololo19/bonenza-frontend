@@ -37,7 +37,7 @@ export function CardRecommended({ title, imgCard }: CardRecommendedProps) {
           <div className="text-white font-medium text-[12px]">{title}</div>
           <InfoCircle size={16} className="text-[#8E8E90]" />
         </div>
-        <div className="flex justify-center items-center rounded-[5px] bg-[#F39717] hover:opacity-[0.9] max-w-fit px-2 cursor-pointer py-[10px] gap-[10px] mt-[10px]">
+        <div className="flex justify-center items-center rounded-[5px] bg-second hover:opacity-[0.9] max-w-fit px-2 cursor-pointer py-[10px] gap-[10px] mt-[10px]">
           <div className="text-white font-bold text-[12px]">{String(t('homePage:playNow'))}</div>
         </div>
       </div>

@@ -1,16 +1,16 @@
-import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-
-import { BANNER_DATA } from '@/base/constants/common';
-import Link from 'next/link';
-import Image from 'next/image';
-import cn from 'classnames';
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+
+import cn from 'classnames';
+import Image from 'next/image';
+import Link from 'next/link';
+import React from 'react';
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { BANNER_DATA } from '@/base/constants/common';
 
 const GameBannerSlider = ({ className }: { className?: string }) => {
   return (
@@ -20,10 +20,10 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
         slidesPerView={2}
         slidesPerGroup={2}
         autoplay={{
-          delay: 1000,
+          delay: 1500,
           disableOnInteraction: false,
         }}
-        speed={5000}
+        speed={8000}
         loop={true}
         direction={'horizontal'}
         pagination={{
@@ -42,7 +42,7 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
           return (
             <SwiperSlide key={id}>
               <Link href={banner.url}>
-                <Image width={300} height={140} className="object-cover w-full" src={banner.img} alt="" />
+                <Image width={300} height={140} className="object-cover w-full rounded-[5px]" src={banner.img} alt="" />
               </Link>
             </SwiperSlide>
           );

@@ -58,7 +58,7 @@ export default function CardPlay({ imgBackGround, title, description, textButton
             <Link
               href={href}
               type="button"
-              className="bg-btn-sign-in w-full rounded-[5px] font-bold xl:text-[14px] text-[12px] text-white bg-primary flex items-center justify-center gap-[7px] ld:p-[10px] px-[5px] py-[10px] hover:text-white"
+              className="bg-color-primary w-full rounded-[5px] font-bold xl:text-[14px] text-[12px] text-white flex items-center justify-center gap-[7px] ld:p-[10px] px-[5px] py-[10px] hover:text-white"
             >
               <div />
               {textButton}
