@@ -80,11 +80,11 @@ export default function CommonModal({
                     {header}
                     {isShowCloseButton && (
                       <div
-                        className="absolute bg-red-500 hover:opacity-70 dark:hover:bg-[#39B1C0] sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] dark:sm:bg-[#20D4EB] rounded-md p-1 z-[10]"
+                        className="absolute hover:opacity-70 dark:hover:bg-[#39B1C0] sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md p-1 z-[10]"
                         role="button"
                         onClick={onClose}
                       >
-                        <XMarkIcon width={20} className=" text-white dark:text-black" />
+                        <XMarkIcon width={20} className=" text-white dark:text-[#98A7B5]" />
                       </div>
                     )}
                   </Dialog.Title>
