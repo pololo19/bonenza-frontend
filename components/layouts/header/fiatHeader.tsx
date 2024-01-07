@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { CookieKey } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { changeActiveFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
 import { setActiveCurrency, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
@@ -200,12 +200,12 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         >
           <Menu.Items
             className={cn(
-              'sm:absolute sm:mr-0 mr-[10px] fixed xl:right-[-115px] md:right-[-115px] sm:right-[auto] right-0 z-[50] mt-14 sm:min-w-[420px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
+              'sm:absolute sm:mr-0 mr-[10px] fixed xl:right-[-115px] md:right-[-115px] sm:right-[auto] right-0 z-[50] mt-14 sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
               wrapperClass,
             )}
           >
-            <div className="py-1 sm:relative fixed rounded-md dark:bg-[#1c1c20] bg-white sm:w-auto w-[calc(100vw-20px)] shadow-gray-900 shadow">
-              <div className="py-[10px] px-[10px] flex ">
+            <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
+              <div className="py-[20px] px-[20px] flex ">
                 <div className="grow">
                   <InputSearch
                     value={searchFiatInput}
@@ -228,118 +228,161 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 )}
               </div>
               {/* Fiat */}
-              {viewInFiat && (
-                <div className="py-1 max-h-[40vh] overflow-y-auto p-2 w-full">
-                  {!!filterListCrypto?.length && (
-                    <div className="text-[14px] text-gray-400 mb-2">{t('deposit:crypto')}</div>
-                  )}
-                  {filterListCrypto?.map((crypto, index) => {
-                    return (
-                      <Menu.Item key={index}>
-                        {({ active }) => (
-                          <div
-                            className={cn(
-                              active
-                                ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black mb-1'
-                                : 'dark:text-white text-black  mb-1',
-                              activeCurrency.id === crypto.id && 'border border-solid border-[#f59e0b]',
-                              'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
-                            )}
-                            onClick={() => dispatch(setActiveCurrency(crypto))}
-                            // onClick={() => {
-                            //   dispatch(changeActiveFiat(crypto));
-                            //   sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
-                            //   CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
-                            // }}
-                          >
-                            <Image
-                              height={30}
-                              width={30}
-                              src={crypto.logo}
-                              alt=""
-                              onError={(e) => {
-                                e.currentTarget.src = '/img/fiats/USD.png';
-                              }}
-                            />
-                            <div>
-                              <div className="text-[14px] font-vietnam-bold">{crypto.name}</div>
-                            </div>
-                            <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                              {currencyFormat1(
+              <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_250px)] overflow-y-auto p-[20px] w-full">
+                {!!filterListCrypto?.length && (
+                  <div className="text-[14px] text-gray-400 mb-2">{t('deposit:crypto')}</div>
+                )}
+                {filterListCrypto?.map((crypto, index) => {
+                  return (
+                    <Menu.Item key={index}>
+                      {({ active }) => (
+                        <div
+                          className={cn(
+                            'mb-[5px]',
+                            active
+                              ? 'dark:bg-color-hover-primary bg-gray-100 dark:text-white text-black mb-1'
+                              : 'dark:text-white text-black  mb-1',
+                            activeCurrency.id === crypto.id && 'border border-solid border-color-primary',
+                            'px-[20px] py-[10px] text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
+                          )}
+                          onClick={() => dispatch(setActiveCurrency(crypto))}
+                        >
+                          <Image
+                            height={30}
+                            width={30}
+                            src={crypto.logo}
+                            alt=""
+                            onError={(e) => {
+                              e.currentTarget.src = '/img/fiats/USD.png';
+                            }}
+                          />
+                          <div>
+                            <div className="text-[14px] font-vietnam-bold">{crypto.name}</div>
+                          </div>
+                          <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
+                            {viewInFiat &&
+                              currencyFormat1(
                                 getBalanceBySymbol(crypto) * crypto.price * exchangeRate,
                                 toFixedValue,
                                 localFiat?.name,
                               )}
-                              <br />
-                              <span className="text-gray-400 text-[12px]">
-                                {currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
-                              </span>
-                              <br />
-                              {/* {!crypto?.amountLocked && Number(crypto?.amount) > 0 && (
+                            {!viewInFiat && currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
+                            {viewInFiat && (
+                              <>
+                                <br />
                                 <span className="text-gray-400 text-[12px]">
-                                  {formatLengthNumber(crypto?.amount || 0)}
+                                  {currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
                                 </span>
-                              )} */}
-                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                                {crypto.name.toLowerCase() === 'usdt' && (
-                                  <div className="mt-1 flex justify-end text-amber-500">
-                                    <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
-                                      <Lock size={12} variant="Bold" />{' '}
-                                      {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
-                                    </div>
+                                <br />
+                              </>
+                            )}
+                            <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
+                              {crypto.name.toLowerCase() === 'usdt' && (
+                                <div className="mt-1 flex justify-end text-amber-500">
+                                  <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
+                                    <Lock size={12} variant="Bold" />{' '}
+                                    {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
                                   </div>
-                                )}
-                              </div>
+                                </div>
+                              )}
                             </div>
                           </div>
-                        )}
-                      </Menu.Item>
-                    );
-                  })}
-                  {!!filterListFiat?.length && (
-                    <div className="pt-[10px] text-[14px] text-gray-400 mb-2">{t('deposit:fiat')}</div>
-                  )}
-                  {filterListFiat?.map((fiat, index) => {
+                        </div>
+                      )}
+                    </Menu.Item>
+                  );
+                })}
+                {!!filterListFiat?.length && (
+                  <div className="pt-[10px] text-[14px] text-gray-400 mb-2">{t('deposit:fiat')}</div>
+                )}
+                {filterListFiat?.map((fiat, index) => {
+                  return (
+                    <Menu.Item key={index}>
+                      {({ active }) => (
+                        <div
+                          className={cn(
+                            active
+                              ? 'dark:bg-color-hover-primary bg-gray-100 dark:text-white text-black mb-1'
+                              : 'dark:text-white text-black mb-1',
+                            activeCurrency.id === fiat.id && 'border border-solid border-[#f59e0b]',
+                            'px-[20px] py-[10px] text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
+                          )}
+                          onClick={() => {
+                            dispatch(setActiveCurrency(fiat));
+                          }}
+                        >
+                          <Image
+                            height={30}
+                            width={30}
+                            src={fiat.logo}
+                            alt=""
+                            onError={(e) => {
+                              e.currentTarget.src = '/img/fiats/USD.png';
+                            }}
+                          />
+                          <div className="w-full">
+                            <div className="text-[14px] font-vietnam-bold">{fiat.name}</div>
+                            {showFullNameCurrency && <div className="text-[12px] text-gray-400">{fiat.alias}</div>}
+                          </div>
+                          <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
+                            {viewInFiat && (
+                              <>
+                                {currencyFormat1(
+                                  getBalanceBySymbol(fiat) * fiat.price * exchangeRate,
+                                  toFixedValue,
+                                  localFiat?.name,
+                                )}
+                                <br />
+                              </>
+                            )}
+
+                            <span className="text-gray-400 text-[12px]">
+                              {currencyFormat1(0, toFixedValue, '', false)}
+                            </span>
+                          </div>
+                        </div>
+                      )}
+                    </Menu.Item>
+                  );
+                })}
+                {searchFiatInput && !!listSuggestCoins.length && (
+                  <div className="text-[14px] text-gray-400">{t('deposit:otherSupportedCoin')}</div>
+                )}
+                {searchFiatInput &&
+                  listSuggestCoins?.map((coin, index) => {
                     return (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
-                            className={cn(
-                              active
-                                ? 'dark:bg-gray-600 bg-gray-100 dark:text-white text-black mb-1'
-                                : 'dark:text-white text-black mb-1',
-                              activeCurrency.id === fiat.id && 'border border-solid border-[#f59e0b]',
-                              'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
-                            )}
-                            onClick={() => {
-                              dispatch(setActiveCurrency(fiat));
-                              // dispatch(changeActiveFiat(fiat));
-                              // sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(fiat));
-                              // CookiesStorage.setCookieData(CookieKey.activeFiat, String(fiat?.currency));
-                            }}
+                            className="px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px] dark:text-white text-black"
+                            // onClick={() => handleChangeCoinSuggest(coin)}
                           >
                             <Image
                               height={30}
                               width={30}
-                              src={fiat.logo}
+                              src={coin.logo}
                               alt=""
                               onError={(e) => {
                                 e.currentTarget.src = '/img/fiats/USD.png';
                               }}
                             />
                             <div className="w-full">
-                              <div className="text-[14px] font-vietnam-bold">{fiat.name}</div>
-                              {showFullNameCurrency && <div className="text-[12px] text-gray-400">{fiat.alias}</div>}
+                              <div className="text-[14px] font-bold">{coin.name}</div>
+                              {showFullNameCurrency && <div className="text-[12px] text-gray-400">{coin.alias}</div>}
                             </div>
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                              {currencyFormat1(
-                                getBalanceBySymbol(fiat) * fiat.price * exchangeRate,
-                                toFixedValue,
-                                localFiat?.name,
+                              {viewInFiat && (
+                                <>
+                                  {currencyFormat1(
+                                    getBalanceBySymbol(coin) * coin.price * exchangeRate,
+                                    toFixedValue,
+                                    localFiat?.name,
+                                  )}
+                                  <br />
+                                </>
                               )}
-                              <br />
                               <span className="text-gray-400 text-[12px]">
-                                {currencyFormat1(0, toFixedValue, '', false)}
+                                {currencyFormat1(getBalanceBySymbol(coin), toFixedValue, '', false)}
                               </span>
                             </div>
                           </div>
@@ -347,221 +390,38 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                       </Menu.Item>
                     );
                   })}
-                  {searchFiatInput && !!listSuggestCoins.length && (
-                    <div className="text-[14px] text-gray-400">{t('deposit:otherSupportedCoin')}</div>
-                  )}
-                  {searchFiatInput &&
-                    listSuggestCoins?.map((coin, index) => {
-                      return (
-                        <Menu.Item key={index}>
-                          {({ active }) => (
-                            <div
-                              className="px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px] dark:text-white text-black"
-                              // onClick={() => handleChangeCoinSuggest(coin)}
-                            >
-                              <Image
-                                height={30}
-                                width={30}
-                                src={coin.logo}
-                                alt=""
-                                onError={(e) => {
-                                  e.currentTarget.src = '/img/fiats/USD.png';
-                                }}
-                              />
-                              <div className="w-full">
-                                <div className="text-[14px] font-bold">{coin.name}</div>
-                                {showFullNameCurrency && <div className="text-[12px] text-gray-400">{coin.alias}</div>}
-                              </div>
-                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                                {currencyFormat1(
-                                  getBalanceBySymbol(coin) * coin.price * exchangeRate,
-                                  toFixedValue,
-                                  localFiat?.name,
-                                )}
-                                <br />
-                                <span className="text-gray-400 text-[12px]">
-                                  {formatLengthNumber(getBalanceBySymbol(coin), toFixedValue)}
-                                </span>
-                              </div>
-                            </div>
-                          )}
-                        </Menu.Item>
-                      );
-                    })}
-                  {filterListFiat?.length === 0 && filterListCrypto?.length === 0 && listSuggestCoins?.length === 0 && (
-                    <>
-                      <div className="relative flex items-center justify-center  my-[32px]">
-                        <Image
-                          src="/img/empty.png"
-                          width={200}
-                          height={200}
-                          alt=""
-                          onError={(e) => {
-                            e.currentTarget.src = '/img/fiats/USD.png';
-                          }}
-                        />
-                        <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
-                          {t('table:noData')}
+                {filterListFiat?.length === 0 && filterListCrypto?.length === 0 && listSuggestCoins?.length === 0 && (
+                  <>
+                    <div className="relative flex items-center justify-center  my-[32px]">
+                      <Image
+                        src="/img/empty.png"
+                        width={200}
+                        height={200}
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/fiats/USD.png';
+                        }}
+                      />
+                      <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
+                        {t('table:noData')}
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-center mt-[60px] mb-[20px]">
+                      <div className="w-[80%]">
+                        <Link href="/swap" className="hover:text-white">
+                          <div className="flex items-center bg-[#FD6E0B] w-full justify-center font-bold h-[40px] sm:h-[3rem] rounded-[4px] cursor-pointer text-[12px] sm:text-[14px]">
+                            {t('deposit:swapCoin')}
+                          </div>
+                        </Link>
+                        <p className="text-center dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] mt-[10px]">
+                          {t('deposit:swapCoinContent')}
                         </p>
                       </div>
-                      <div className="flex items-center justify-center mt-[60px] mb-[20px]">
-                        <div className="w-[80%]">
-                          <Link href="/swap" className="hover:text-white">
-                            <div className="flex items-center bg-[#FD6E0B] w-full justify-center font-bold h-[40px] sm:h-[3rem] rounded-[4px] cursor-pointer text-[12px] sm:text-[14px]">
-                              {t('deposit:swapCoin')}
-                            </div>
-                          </Link>
-                          <p className="text-center dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] mt-[10px]">
-                            {t('deposit:swapCoinContent')}
-                          </p>
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-              )}
-              {!viewInFiat && (
-                <div className="py-1 max-h-[40vh] overflow-y-auto p-2 w-full">
-                  {!!filterListCrypto?.length && (
-                    <div className="text-[14px] text-gray-400 mb-2">{t('deposit:crypto')}</div>
-                  )}
-                  {filterListCrypto?.map((crypto, index) => {
-                    return (
-                      <Menu.Item key={index}>
-                        {({ active }) => (
-                          <div
-                            className={cn(
-                              active ? 'dark:bg-gray-600 bg-gray-200 text-white' : 'text-gray-400',
-                              activeCurrency.id === crypto.id && 'border border-solid border-[#f59e0b]',
-                              'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
-                            )}
-                            onClick={() => dispatch(setActiveCurrency(crypto))}
-                            // onClick={() => {
-                            //   dispatch(changeActiveFiat(crypto));
-                            //   sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
-                            //   CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
-                            // }}
-                          >
-                            <Image
-                              height={30}
-                              width={30}
-                              src={crypto.logo}
-                              alt=""
-                              onError={(e) => {
-                                e.currentTarget.src = '/img/fiats/USD.png';
-                              }}
-                            />
-                            <div className="text-[14px] dark:text-white text-black font-vietnam-bold">
-                              {crypto.name}
-                            </div>
-                            <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                              {currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
-                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                                {crypto.name.toLowerCase() === 'usdt' && (
-                                  <div className="mt-1 flex justify-end text-amber-500">
-                                    <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
-                                      <Lock size={12} variant="Bold" />{' '}
-                                      {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </Menu.Item>
-                    );
-                  })}
-                  {!!filterListFiat?.length && (
-                    <div className="text-[14px] text-gray-400 pt-[10px]">{t('deposit:fiat')}</div>
-                  )}
-                  {filterListFiat?.map((fiat, index) => {
-                    return (
-                      <Menu.Item key={index}>
-                        {({ active }) => (
-                          <div
-                            className={cn(
-                              active ? 'dark:bg-gray-600 bg-gray-200 text-white' : 'text-gray-400',
-                              activeCurrency.id === fiat.id && 'border border-solid border-[#f59e0b]',
-                              'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
-                            )}
-                            onClick={() => {
-                              dispatch(setActiveCurrency(fiat));
-                              // dispatch(changeActiveFiat(fiat));
-                              // sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(fiat));
-                              // CookiesStorage.setCookieData(CookieKey.activeFiat, String(fiat?.currency));
-                            }}
-                          >
-                            <Image
-                              height={30}
-                              width={30}
-                              src={fiat.logo}
-                              alt=""
-                              onError={(e) => {
-                                e.currentTarget.src = '/img/fiats/USD.png';
-                              }}
-                            />
-                            <div className="w-full dark:text-white text-black">
-                              <div className="text-[14px] font-vietnam-bold">{fiat.name}</div>
-                              {showFullNameCurrency && <div className="text-[12px]">{fiat.alias}</div>}
-                            </div>
-                            <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                              {formatLengthNumber(0, toFixedValue)}
-                            </div>
-                          </div>
-                        )}
-                      </Menu.Item>
-                    );
-                  })}
-                  {searchFiatInput && !!listSuggestCoins.length && (
-                    <div className="pt-[10px] text-[14px] text-gray-400">{t('deposit:otherSupportedCoin')}</div>
-                  )}
-                  {searchFiatInput &&
-                    listSuggestCoins?.map((coin, index) => {
-                      return (
-                        <Menu.Item key={index}>
-                          {({ active }) => (
-                            <div
-                              className="px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px] dark:text-white text-black"
-                              onClick={() => handleChangeCoinSuggest(coin)}
-                            >
-                              <Image
-                                height={30}
-                                width={30}
-                                src={coin.logo}
-                                alt=""
-                                onError={(e) => {
-                                  e.currentTarget.src = '/img/fiats/USD.png';
-                                }}
-                              />
-                              <div className="w-full">
-                                <div className="text-[14px] font-bold">{coin.name}</div>
-                                {showFullNameCurrency && <div className="text-[12px] text-gray-400">{coin.alias}</div>}
-                              </div>
-                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                                {currencyFormat1(
-                                  getBalanceBySymbol(coin) * coin.price * exchangeRate,
-                                  toFixedValue,
-                                  localFiat?.name,
-                                )}
-                                <br />
-                                <span className="text-gray-400 text-[12px]">
-                                  {currencyFormat1(getBalanceBySymbol(coin), toFixedValue, '', false)}
-                                </span>
-                              </div>
-                            </div>
-                          )}
-                        </Menu.Item>
-                      );
-                    })}
-                  {filterListFiat?.length === 0 && filterListCrypto?.length === 0 && listSuggestCoins?.length === 0 && (
-                    <div className="relative flex items-center justify-center my-[60px]">
-                      <Image src="/img/empty.png" width={200} height={200} alt="" />
-                      <p className="absolute text-14 bottom-0 text-center">{t('table:noData')}</p>
                     </div>
-                  )}
-                </div>
-              )}
+                  </>
+                )}
+              </div>
+
               {!inGamePage && (
                 <div className="py-[20px] px-[10px] flex border-t-[1px] border-[#98a7b566] border-solid items-center justify-between">
                   <div className="flex items-center gap-[5px]">
@@ -672,7 +532,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
           </div>
           <div className="m-auto">
             <button
-              className="text-white rounded-[5px] bg-primary p-[10px] xl:text-[14px] text-[12px]"
+              className="text-white rounded-[5px] bg-color-primary p-[10px] xl:text-[14px] text-[12px]"
               onClick={() => {
                 // dispatch(changeLocaleFiat(localeModalCoin));
                 // CookiesStorage.setCookieData(CookieKey.localeFiat, String(localeModalCoin?.currency));

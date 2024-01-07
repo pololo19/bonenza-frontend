@@ -54,7 +54,7 @@ export default function Navbar() {
       {isLoadingFull && <LoaderFull />}
       <div
         className={cn(
-          'w-full my-auto py-2 dark:bg-color-bg-primary bg-white top-0 left-0 fixed z-10 ] h-[67px] shadow-bs-default',
+          'w-full my-auto py-2 dark:bg-color-header bg-white top-0 left-0 fixed z-10 ] h-[67px] shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
             'md:ml-[205px] md:max-w-[calc(100%-205px)]': isToggleSidebar && !showChatType,
@@ -93,8 +93,8 @@ export default function Navbar() {
                 }`,
               )}
             >
-              <CasinoBoldIcon className="" />
-              <div className={`text-[13px]`}>{t('layout:casino')}</div>
+              <CasinoBoldIcon className="w-[18px] h-[18px]" />
+              <div className={`text-[14px]`}>{t('layout:casino')}</div>
             </Link>
             <Link
               href={ROUTER.Sports}
@@ -107,8 +107,8 @@ export default function Navbar() {
                 }`,
               )}
             >
-              <SportBoldIcon className="" />
-              <div className={`text-[13px]`}>{t('layout:sports')}</div>
+              <SportBoldIcon className="w-[18px] h-[18px]" />
+              <div className={`text-[14px]`}>{t('layout:sports')}</div>
             </Link>
             <Link
               href={ROUTER.Racing}
@@ -122,7 +122,7 @@ export default function Navbar() {
               )}
             >
               <RacingBoldIcon className="" />
-              <div className={`text-[13px]`}>{t('layout:racing')}</div>
+              <div className={`text-[14px]`}>{t('layout:racing')}</div>
             </Link>
           </div>
 
@@ -158,7 +158,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-[5px] bg-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[7px] md:text-[14px] text-[12px] font-semibold"
+                className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[7px] md:text-[14px] text-[12px] font-semibold"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="sm:block hidden">

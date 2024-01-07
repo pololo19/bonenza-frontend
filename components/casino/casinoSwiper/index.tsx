@@ -1,7 +1,10 @@
-import React, { ReactNode } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
+
+import React, { ReactNode } from 'react';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { useWidth } from '@/base/hooks/useWidth';
 
 type CasinoSwiperProps<T> = {
   icon?: JSX.Element;
@@ -12,6 +15,8 @@ type CasinoSwiperProps<T> = {
 };
 
 const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: CasinoSwiperProps<T>): JSX.Element => {
+  const width = useWidth();
+
   return (
     <>
       {!!data.length && (
@@ -24,20 +29,25 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
               </div>
             </div>
             <Swiper
-              slidesPerView={'auto'}
+              slidesPerView={width > 500 ? 'auto' : 3}
               autoplay={{
                 delay: 500,
                 disableOnInteraction: false,
               }}
               speed={1000}
-              spaceBetween={10}
+              spaceBetween={width > 500 ? 10 : 0}
               loop={true}
-              direction={'horizontal'}
+              className="sm:!h-auto !h-[150px]"
+              direction={width > 500 ? 'horizontal' : 'vertical'}
               modules={[Autoplay]}
             >
               {data?.map((game: T, key) => {
                 return (
-                  <SwiperSlide key={key} className="!w-[150px]" onClick={() => onClickItem?.(game)}>
+                  <SwiperSlide
+                    key={key}
+                    className="sm:!w-[150px] w-full !mb-0 !p-[10px] sm:!p-0 !bg-[#2E3035] sm:!bg-auto"
+                    onClick={() => onClickItem?.(game)}
+                  >
                     {renderItem(game)}
                   </SwiperSlide>
                 );

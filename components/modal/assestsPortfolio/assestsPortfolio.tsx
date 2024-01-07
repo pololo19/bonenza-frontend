@@ -281,7 +281,7 @@ export default function ModalAssetsPortfolio({
           </div>
           <div className="m-auto">
             <button
-              className="text-white rounded-[5px] bg-primary p-[10px] xl:text-[14px] text-[12px]"
+              className="text-white rounded-[5px] bg-color-primary p-[10px] xl:text-[14px] text-[12px]"
               onClick={() => setShowAllFiat(false)}
             >
               {String(t('withdraw:confirm'))}

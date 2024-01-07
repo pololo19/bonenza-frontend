@@ -247,7 +247,7 @@ export default function SignInTab({
                 type="submit"
                 className={`${
                   codeOtp.length < 6 && 'opacity-70 pointer-events-none'
-                } bg-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
+                } bg-color-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
                 <div className="text-[14px] text-white">{t('authentication:submit')}</div>

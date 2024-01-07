@@ -1,3 +1,4 @@
+import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -13,7 +14,9 @@ import { AppState } from '@/base/redux/store';
 import { BetDetailType, BetTableDataType } from '@/base/types/common';
 
 import CasinoSwiper from '../casino/casinoSwiper';
+import LiveStream from '../icons/LiveStream';
 import ModalDetailBets from '../modal/detailBets/detailBets';
+import { useWidth } from '@/base/hooks/useWidth';
 
 type CardBigWinProps = {
   price?: string | number;
@@ -58,8 +61,8 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 
   return (
     <>
-      <div className="dark:bg-[#12181F] bg-white max-w-[150px] rounded-[5px] cursor-pointer">
-        <div className="rounded-[5px] w-full">
+      <div className="sm:dark:bg-color-card-bg-primary sm:bg-white max-w-full sm:max-w-[150px] rounded-[5px] cursor-pointer sm:block flex justify-between">
+        <div className="rounded-[5px] sm:w-full w-[35px] sm:block flex items-center gap-[7px]">
           <Image
             height={150}
             width={150}
@@ -69,9 +72,18 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(150, 150))}`}
           />
+          <div className="block sm:hidden">
+            <div className={`text-color-text-primary font-medium text-[12px] truncate hover:underline min-h-[18px]`}>
+              {userData?.userId !== userId && !userData?.username
+                ? String(t('homePage:hidden'))
+                : userData.userId === userId
+                ? userName
+                : userData?.username}
+            </div>
+          </div>
         </div>
-        <div className="p-[10px]">
-          <div className="flex justify-between">
+        <div className="sm:p-[10px] p-0 sm:block flex items-center">
+          <div className="sm:flex hidden justify-between">
             <div
               onClick={openModalProfileUser}
               className={`${
@@ -89,9 +101,14 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
           </div>
           <div
             data-tooltip-id={'CardBigWinData' + price}
-            className="flex justify-center items-center dark:bg-color-primary/20 bg-[#3bc11780] cursor-text h-[28px] mt-[10px] px-[5px]"
+            className="flex justify-center items-center dark:bg-transparent sm:dark:bg-color-primary/20 bg-[#3bc11780] cursor-text h-[28px] mt-[10px] px-[5px] gap-[15px]"
           >
-            <div className="dark:text-color-primary text-[#3bc117] font-bold text-[14px] truncate">{price}</div>
+            <div className="dark:text-color-primary text-[#3bc117] font-bold text-[12px] sm:text-[14px] truncate">
+              {price}
+            </div>
+            <div className="sm:hidden block">
+              <ArrowRight2 size={15} />
+            </div>
           </div>
         </div>
       </div>
@@ -101,6 +118,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 }
 
 function RecentBigWinComponent() {
+  const width = useWidth();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
 
@@ -186,7 +204,7 @@ function RecentBigWinComponent() {
       <CasinoSwiper
         title={String(t('homePage:recentBigWins'))}
         data={listBigWinGame}
-        icon={<Image height={24} width={24} src={'/img/icon/live-stream.png'} alt="" />}
+        icon={width < 600 ? <LiveStream className="text-color-primary " /> : undefined}
         renderItem={(item) => renderData(item)}
         onClickItem={(game) => {
           setIsPublicProfile(!!game?.userName);

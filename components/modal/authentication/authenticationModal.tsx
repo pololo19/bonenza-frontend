@@ -81,13 +81,13 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
     <>
       <CommonModal show={show} onClose={onClose} isShowCloseButton={forgotKey ? false : true}>
         <div className="flex sm:flex-row flex-col overflow-y-auto bg-[#161D26] rounded-[15px] sm:max-h-[634px] h-[100vh]">
-          <div className="sm:flex-1 rounded-l-md relative">
+          <div className="sm:flex-1 relative">
             <Image
               width={401}
               height={600}
               src="/img/img-login.jpg"
               alt=""
-              className="sm:rounded-l-[15px] sm:w-[400px] w-full sm:h-full sm:max-h-[none] max-h-[175px] object-cover"
+              className="sm:w-[400px] w-full sm:h-full sm:max-h-[none] max-h-[175px] object-cover"
             />
           </div>
           <div

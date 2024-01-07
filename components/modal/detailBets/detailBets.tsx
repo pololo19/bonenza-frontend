@@ -89,7 +89,7 @@ export default function ModalDetailBets({
                     <Image height={20} width={20} src={`/img/fiats/${betDetail.currency}.png`} alt="" />
                     <div
                       className={`text-[22px] ${
-                        Number(betDetail.profitAmount) >= 0 ? 'text-[#0DFDE4]' : 'text-[#FD6E0B]'
+                        Number(betDetail.profitAmount) >= 0 ? 'text-color-primary' : 'text-[#FD6E0B]'
                       }`}
                     >
                       {betDetail.profitAmount > 0 && '+'}
@@ -97,8 +97,8 @@ export default function ModalDetailBets({
                         ? `${currencyFormat1(betDetail.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
                         : `${currencyFormat1(betDetail.profitAmount, 4, '', false)} `}
                     </div>
-                    <div className="text-[13px] text-black dark:text-white">
-                      {handleLocaleSymbol(String(betDetail?.currency))}
+                    <div className="text-[22px] text-black dark:text-white">
+                      {localFiat ? handleLocaleSymbol(String(betDetail.currency)) : betDetail.currency}
                     </div>
                   </div>
                 </div>
@@ -158,14 +158,14 @@ export default function ModalDetailBets({
                     On {formatDate(new Date(betDetail?.time ?? new Date()), TIME_SUBMIT_FORMAT_WITH_MARKER)}
                   </div>
                 </div>
-                <div className="flex items-center gap-[3px]">
+                <div className="flex items-center gap-[3px] pr-[10px]">
                   <div className="text-[12px]">{t('gameTable:betID')}:</div>
-                  <ShieldTick className="w-[16px] h-[16px] text-[#0DFDE4]" />
-                  <div className="text-[12px] dark:text-white text-black">{betDetail?.betId}</div>
+                  <ShieldTick className="w-[16px] h-[16px] text-color-primary" />
+                  <div className="text-[12px] dark:text-white text-black text-right">{betDetail?.betId}</div>
                   <Simcard2
                     role="button"
                     onClick={() => copy(String(betDetail?.betId))}
-                    className="w-[16px] h-[16px] text-[#FD6E0B]"
+                    className="w-[16px] h-[16px] text-color-text-primary"
                   />
                 </div>
               </div>

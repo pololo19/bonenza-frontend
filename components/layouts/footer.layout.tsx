@@ -333,12 +333,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           {/* footer 2 */}
           {!isDetailPage && (
             <div className="mt-[30px] pt-[30px] flex flex-col items-center border-t border-solid border-[#25272C]">
-              <div className="flex justify-start w-full">
+              <div className="">
                 <div className="font-semibold text-black dark:text-white sm:text-lg max-md:text-left text-[14px]">
                   {String(t('footer:acceptedNetworks'))}
                 </div>
               </div>
-              <div className="flex justify-start items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">
+              <div className="flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">
                 {/* <div className="max-w-[50px] max-h-[50px]">
                   <Image
                     alt=""
@@ -453,13 +453,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           {/* footer 3 */}
           {!isDetailPage && (
             <div className="mt-[30px] pt-[30px] flex flex-col items-center border-t border-solid border-[#25272C]">
-              <div className="flex justify-start w-full">
+              <div className="">
                 <div className="font-semibold text-black dark:text-white max-md:text-center sm:text-lg text-[14px]">
                   {String(t('footer:sponsorshipAndGamingResponsibilities'))}
                 </div>
               </div>
               <div
-                className={cn('flex justify-start items-center grid-cols-3 gap-[20px] mt-5 w-full', {
+                className={cn('flex justify-center items-center grid-cols-3 gap-[20px] mt-5 w-full', {
                   'xl:grid-cols-3': showChatType,
                   'xl:grid-cols-6': !showChatType,
                 })}

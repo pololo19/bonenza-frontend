@@ -105,7 +105,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
         onClose={onClose}
         panelClass="rounded !max-w-[464px]"
         header={
-          <div className="relative p-[20px] pb-0 bg-[#f5f6fa] dark:bg-[#161D26]">
+          <div className="relative p-[20px] pb-0 bg-[#f5f6fa] dark:bg-color-header-primary">
             <div className="flex items-center text-black dark:text-white gap-[10px]">
               <ChevronLeftIcon width={20} role="button" onClick={() => goBackProfile()} />
               <div className="text-[18px] font-[600]">{t('profile:updateInformation')}</div>
@@ -165,7 +165,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
               </div>
               <button
                 type="submit"
-                className="bg-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-[14px] dark:text-white">{t('profile:modify')}</div>

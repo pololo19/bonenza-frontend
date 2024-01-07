@@ -128,7 +128,7 @@ function AdminRewardsPage() {
                 </div>
               </div>
             </div>
-            <button className="bg-primary px-6 py-2 rounded-md text-white">{t('mycasino:withdraw')}</button>
+            <button className="bg-color-primary px-6 py-2 rounded-md text-white">{t('mycasino:withdraw')}</button>
           </div>
           <div className="flex items-center text-[14px] gap-4">
             <button className="flex items-center gap-1 font-[500]">
@@ -155,7 +155,7 @@ function AdminRewardsPage() {
           </div>
           <div className="flex flex-col items-start gap-1">
             <label className="opacity-0">1</label>
-            <button className="bg-primary px-6 py-1 rounded-md text-white" type="submit">
+            <button className="bg-color-primary px-6 py-1 rounded-md text-white" type="submit">
               {t('m')}
             </button>
           </div>

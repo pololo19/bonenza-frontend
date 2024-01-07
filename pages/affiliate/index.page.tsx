@@ -35,13 +35,13 @@ function AffiliatePage() {
                 {t('affiliate:inviteFriendsToEarn')}
               </h1>
               <h5
-                className={`sm:text-[30px] text-[20px] mb-[30px] text-center font-bold bg-primary ${styles.textBanner}`}
+                className={`sm:text-[30px] text-[20px] mb-[30px] text-center font-bold bg-color-primary ${styles.textBanner}`}
               >
                 ₫23,809,523.80 + 25% {t('affiliate:commission')}
               </h5>
               <div
                 role="button"
-                className="bg-btn-sign-in rounded-large bg-primary flex items-center justify-center gap-[7px] max-w-[208px] p-[10px] font-bold text-white mb-[10px]"
+                className="bg-btn-sign-in rounded-large bg-color-primary flex items-center justify-center gap-[7px] max-w-[208px] p-[10px] font-bold text-white mb-[10px]"
               >
                 <span className="text-[14px]">{t('affiliate:signUpAndEarn')}</span>
                 <div className="w-[34px] h-[35px] hidden md:flex items-center justify-center rounded-large bg-white/20">
@@ -117,7 +117,9 @@ function AffiliatePage() {
             <div className="text-center mr-[40px]">
               <h5 className="mb-[10px] text-[14px] dark:text-white text-[#141414]">{t('affiliate:totalRewards')}</h5>
               <div className="dark:bg-[#25262B] bg-[#F6F7FA] rounded-[16px] w-[420px] h-[60px] flex justify-center items-center ">
-                <span className={`font-bold text-[24px] bg-primary  ${styles.textBanner}`}>₫569,949,298,571.42</span>
+                <span className={`font-bold text-[24px] bg-color-primary  ${styles.textBanner}`}>
+                  ₫569,949,298,571.42
+                </span>
               </div>
             </div>
             <div>
@@ -148,7 +150,7 @@ function AffiliatePage() {
                 <div className="mr-[3px] text-[20px] lg:text-[24px] dark:text-white text-[#141414] font-bold">
                   {t('affiliate:learnMoreAboutOur')}
                 </div>
-                <div className={`font-bold text-[20px] lg:text-[24px] bg-primary ${styles.textBanner}`}>
+                <div className={`font-bold text-[20px] lg:text-[24px] bg-color-primary ${styles.textBanner}`}>
                   {t('affiliate:affiliateProgram')}
                 </div>
               </div>

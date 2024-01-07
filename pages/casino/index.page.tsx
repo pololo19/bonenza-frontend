@@ -136,7 +136,7 @@ function CasinoPage() {
   }, []);
 
   return (
-    <div className="py-[24px] bg-[#f6f7fa] dark:bg-[#25262B]">
+    <div className="py-[24px]">
       <Head>
         <title>Casino - Bonenza</title>
       </Head>

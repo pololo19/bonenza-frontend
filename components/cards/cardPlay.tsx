@@ -11,20 +11,16 @@ type CardPlayProps = {
   title: string;
   description: string;
   textButton: string;
+  icon: JSX.Element;
   href: string;
 };
 
-export default function CardPlay({ imgBackGround, title, description, textButton, href }: CardPlayProps) {
+export default function CardPlay({ imgBackGround, title, description, textButton, href, icon }: CardPlayProps) {
   const router = useRouter();
-  const bgImage: CSSProperties = useMemo(() => {
-    return {
-      backgroundImage: `url(${imgBackGround})`,
-    };
-  }, [imgBackGround]);
 
   return (
     <div className="gap-[5px] flex flex-col lg:h-[390px]">
-      <div className="sm:hidden flex gap-[10px] items-center sm:items-end">
+      <div className="sm:hidden flex gap-[10px] items-center sm:items-end mb-[10px]">
         <Image height={25} width={25} className="h-[25px] rounded-[5px]" src="/img/three-cards.png" alt="" />
         <div className="dark:text-white text-black text-[16px] font-bold uppercase">{title}</div>
       </div>
@@ -44,7 +40,8 @@ export default function CardPlay({ imgBackGround, title, description, textButton
         >
           <div>
             <div className="sm:flex hidden gap-[10px]">
-              <Image height={27} width={27} className="h-[27px]" src="/img/three-cards.png" alt="" />
+              <div className="mt-[5px]">{icon}</div>
+
               <div>
                 <div className="text-white text-[24px] font-bold uppercase mb-3">{title}</div>
                 <div className="sm:hidden block dark:text-white text-[#31373d] text-[14px] lg:text-[16px] mb-3">

@@ -14,13 +14,13 @@ import { BANNER_DATA } from '@/base/constants/common';
 
 const GameBannerSlider = ({ className }: { className?: string }) => {
   return (
-    <div className={cn('sm:block hidden mt-[70px]', className)}>
+    <div className={cn('block mt-[20px] sm:mt-[70px]', className)}>
       <Swiper
         spaceBetween={10}
         slidesPerView={2}
         slidesPerGroup={2}
         autoplay={{
-          delay: 1500,
+          delay: 1000,
           disableOnInteraction: false,
         }}
         speed={8000}
@@ -30,8 +30,12 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
           clickable: true,
         }}
         modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
-        className="!pb-[30px] banner-slider"
+        className="sm:!pb-[30px] !pb-0 banner-slider"
         breakpoints={{
+          350: {
+            slidesPerView: 1,
+            slidesPerGroup: 1,
+          },
           870: {
             slidesPerView: 3,
             slidesPerGroup: 3,

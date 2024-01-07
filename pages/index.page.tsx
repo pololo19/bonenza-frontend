@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -23,6 +24,10 @@ import LatestBetRace from '@/components/homepage/latestBetRace';
 import RecentBigWinComponent from '@/components/homepage/recentBigWin';
 import RecommendedGamesComponent from '@/components/homepage/recommendedGames';
 import TopRateGameComponent from '@/components/homepage/topRateGame';
+import CasinoBoldIcon from '@/components/icons/CasinoBoldIcon';
+import HomeIcon from '@/components/icons/HomeIcon';
+import RacingBoldIcon from '@/components/icons/RacingBoldIcon';
+import SportBoldIcon from '@/components/icons/SportBoldIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
 import GameBannerSlider from '@/components/sliders/gameSliders';
@@ -55,6 +60,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes1'),
         textButton: t('homePage:introduceCardButton1'),
         href: ROUTER.Casino,
+        icon: <CasinoBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
       },
       {
         imgBackGround: '/img/page/sports.png',
@@ -62,6 +68,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
         href: ROUTER.Sports,
+        icon: <SportBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
       },
     ],
     [],
@@ -127,18 +134,67 @@ function IndexPage() {
     initDataLoad();
   }, []);
 
-  useEffect(() => {
-    if (!isLogin) return;
-    // handleCheckDeposit();
-  }, [isLogin]);
-
   return (
     <>
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-color-bg-primary">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full">
-              <div className="object-contain absolute right-0 h-full w-full">
+            <div className={cn('gap-[8px] relative grid grid-cols-4 sm:hidden mt-[10px]  font-semibold')}>
+              <Link
+                href={'/'}
+                className={cn(
+                  'rounded-[5px] px-[10px] hover:text-[#31373d] py-[12px] group flex items-center gap-[5px] dark:text-white text-[#31373D] hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',
+                  `${router.route.includes('/') ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold' : ''}`,
+                )}
+              >
+                <HomeIcon className="" />
+                <div className={`text-[13px]`}>{t('layout:home')}</div>
+              </Link>
+              <Link
+                href={ROUTER.Casino}
+                className={cn(
+                  'rounded-[5px] px-[10px] hover:text-[#31373d] py-[12px] group flex items-center gap-[5px] dark:text-white text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                  `${
+                    router.route.includes(ROUTER.Casino)
+                      ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
+                      : ''
+                  }`,
+                )}
+              >
+                <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />
+                <div className={`text-[13px]`}>{t('layout:casino')}</div>
+              </Link>
+              <Link
+                href={ROUTER.Sports}
+                className={cn(
+                  'rounded-[5px] px-[10px] hover:text-[#31373d]  py-[12px] group flex items-center gap-[5px] dark:text-white text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                  `${
+                    router.asPath.includes(ROUTER.Sports)
+                      ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
+                      : ''
+                  }`,
+                )}
+              >
+                <SportBoldIcon className="text-[#FE073A] w-[18px] h-[18px]" />
+                <div className={`text-[13px]`}>{t('layout:sports')}</div>
+              </Link>
+              <Link
+                href={ROUTER.Racing}
+                className={cn(
+                  'rounded-[5px] px-[10px] hover:text-[#31373d] dark:text-white py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                  `${
+                    router.asPath.includes(ROUTER.Racing)
+                      ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
+                      : ''
+                  }`,
+                )}
+              >
+                <RacingBoldIcon className="text-[#F48D19]" />
+                <div className={`text-[13px]`}>{t('layout:racing')}</div>
+              </Link>
+            </div>
+            <div className="relative h-auto w-full mt-[20px] sm:mt-0">
+              <div className="object-contain absolute right-0 h-full w-full sm:block hidden">
                 <Slider
                   slidesToShow={1}
                   className={cn('h-full slide-header sm:mx-[auto] mx-[-12px]')}
@@ -158,9 +214,9 @@ function IndexPage() {
               </div>
 
               <div className="absolute inset-0 bg-gradient-default" />
-              <div className="relative z-[2] h-auto sm:pt-[60px] pt-[40%] sm:pb-[20px] w-full">
+              <div className="relative z-[2] h-auto sm:pt-[60px] sm:pb-[20px] w-full">
                 {!isLogin && (
-                  <div className="sm:text-start text-center font-semibold">
+                  <div className="sm:text-start text-center font-semibold sm:block hidden">
                     <div>
                       <span className="text-white text-[20px]">{String(t('homePage:signUpUpper'))} & </span>
                       <span className="text-color-primary text-[20px]">{String(t('homePage:getReward'))}</span>
@@ -174,23 +230,23 @@ function IndexPage() {
                   </div>
                 )}
                 {isLogin && (
-                  <div className="sm:text-start text-center">
-                    <div className="text-white text-[14px] font-semibold">
+                  <div className="sm:text-start text-center hidden sm:block">
+                    <div className="text-white text-[18px] font-semibold">
                       {String(t('homePage:hello'))} {userName}! {String(t('homePage:welcomeAboard'))}
                     </div>
                     {!checkDeposit && (
                       <div>
-                        <div className="sm:text-[28px] text-[20px] text-white font-bold mt-[6px]">
+                        <div className="sm:text-[24px] text-[20px] text-white mt-[6px]">
                           {String(t('homePage:firstDepositBonus'))}
                         </div>
-                        <div className={`text-white sm:text-[48px] text-[32px] font-bold`}>
+                        <div className={`text-color-primary sm:text-[48px] text-[32px] font-bold`}>
                           +180% <span className="font-bold">{String(t('homePage:reward'))}</span>
                         </div>
                       </div>
                     )}
                   </div>
                 )}
-                <div className="flex sm:flex-row flex-col items-center justify-start gap-[15px] sm:mt-[20px] mt-[10px]">
+                <div className="sm:flex hidden sm:flex-row flex-col items-center justify-start gap-[15px] sm:mt-[20px] mt-[10px]">
                   {!isLogin && (
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
@@ -211,17 +267,14 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-[5px] bg-primary flex items-center justify-center gap-[7px] sm:p-[7px] p-[10px] xl:text-[14px] text-[12px] font-bold"
+                            className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}
-                            <div className="sm:p-[10px] p-[7px] items-center justify-center rounded-[5px] bg-white/20">
-                              <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
-                            </div>
                           </button>
                           {/* <button
                             type="button"
-                            className="truncate text-white rounded-[5px] bg-primary flex items-center justify-center gap-[7px] sm:p-[7px] p-[10px] xl:text-[14px] text-[12px] font-bold"
+                            className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[7px] p-[10px] xl:text-[14px] text-[12px] font-bold"
                           >
                             {String(t('homePage:freePlay'))}
                             <div className="sm:p-[10px] p-[7px] items-center justify-center rounded-[5px] bg-white/20">
@@ -239,8 +292,8 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[50px]">
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-[16px] mt-[40px] w-full">
+            <div className="flex flex-col items-start gap-[50px] mt-[15px] ">
+              <div className="sm:grid md:grid-cols-2 grid-cols-1 gap-[16px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -249,12 +302,13 @@ function IndexPage() {
                     description={item.description}
                     textButton={item.textButton}
                     href={item.href}
+                    icon={item.icon}
                   />
                 ))}
               </div>
               <RecentBigWinComponent />
               <TopRateGameComponent listRecommendedGame={listTopRated} />
-              <div className="bg-[url('/img/octopus.png')] relative w-full flex flex-col max-[857px]:pt-[20px] min-[858px]:flex-row items-center bg-no-repeat justify-between max-[857px]:bg-[length:100%_45%] bg-[length:100%_100%] rounded-[5px]">
+              <div className="bg-[url('/img/octopus.png')] relative w-full sm:flex hidden flex-col max-[857px]:pt-[20px] min-[858px]:flex-row items-center bg-no-repeat justify-between max-[857px]:bg-[length:100%_45%] bg-[length:100%_100%] rounded-[5px]">
                 <div className="flex-1 flex items-center justify-center min-h-[105px]">
                   <Image
                     src={'/img/img-payment.png'}
@@ -284,7 +338,7 @@ function IndexPage() {
               <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false}>
                 <LatestBetRace />
               </HomepageSession>
-              <div className="relative w-full">
+              <div className="relative w-full sm:block hidden">
                 <div className="md:hidden block absolute top-0 left-0 h-full w-full z-[1] bg-[#1D1E22]"></div>
                 <div className="flex md:flex-row flex-col justify-between relative z-[2] min-[858px]:min-h-[270px] bg-no-repeat bg-[length:100%_50%] max-sm:bg-center sm:bg-[length:100%_100%] px-[20px] md:pl-[30px] md:bg-[url('/img/whale.png')]">
                   <div

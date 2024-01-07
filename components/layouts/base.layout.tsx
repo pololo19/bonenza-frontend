@@ -453,7 +453,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   )}
                 >
                   <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-[#24262B] bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
-                    <div className="m-auto h-[38px] w-[38px] bg-primary rounded-full text-white flex items-center justify-center">
+                    <div className="m-auto h-[38px] w-[38px] bg-color-primary rounded-full text-white flex items-center justify-center">
                       <EmptyWallet className="dark:text-white text-[#31373d]" variant="Bold" size={22} />
                     </div>
                   </div>
