@@ -211,7 +211,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         const tempData: BetTableDataType = {
           game: data.game_name ?? '',
           gameIdenfiter: data.game_identifier ?? '',
-          player: data.player_name || '',
+          player: data.player_name ?? '',
           playerId: data.player_id ?? '',
           playerAvatar: data.playerAvatar ?? '',
           betAmount: Number(data.bet_amount || 0),
