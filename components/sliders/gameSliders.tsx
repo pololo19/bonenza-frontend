@@ -11,8 +11,10 @@ import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/module
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { BANNER_DATA } from '@/base/constants/common';
+import { useWidth } from '@/base/hooks/useWidth';
 
 const GameBannerSlider = ({ className }: { className?: string }) => {
+  const width = useWidth();
   return (
     <div className={cn('block mt-[20px] sm:mt-[70px]', className)}>
       <Swiper
@@ -23,7 +25,7 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        speed={2000}
+        speed={width > 600 ? 1500 : 500}
         loop={true}
         direction={'horizontal'}
         pagination={{
