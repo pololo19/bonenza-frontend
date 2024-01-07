@@ -20,10 +20,10 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
         slidesPerView={2}
         slidesPerGroup={2}
         autoplay={{
-          delay: 1000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
-        speed={8000}
+        // speed={8000}
         loop={true}
         direction={'horizontal'}
         pagination={{
