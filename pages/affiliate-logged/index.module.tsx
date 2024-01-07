@@ -163,7 +163,7 @@ function AffiliateLoggedPage() {
                       {t('affiliate:totalRewardEarned')}
                     </div>
                     <div
-                      className={`ml-[-30px] leading-[20px] text-[22px] font-bold text-center bg-primary ${styles.textBanner}`}
+                      className={`ml-[-30px] leading-[20px] text-[22px] font-bold text-center bg-color-primary ${styles.textBanner}`}
                     >
                       {localeFiat?.currency ? (
                         <>
@@ -224,7 +224,7 @@ function AffiliateLoggedPage() {
                     <ArrowRight size="15" color="#0DFDE4" />
                   </div>
                 </div>
-                <div className={`text-[22px] mt-[23px] font-bold text-center bg-primary ${styles.textBanner}`}>
+                <div className={`text-[22px] mt-[23px] font-bold text-center bg-color-primary ${styles.textBanner}`}>
                   {handleLocaleSymbol(String(localeFiat?.currency ?? 'USD'))}{' '}
                   {currencyFormat(
                     exchangeByLocaleFiat(
@@ -258,7 +258,7 @@ function AffiliateLoggedPage() {
                     <ArrowRight size="15" color="#0DFDE4" />
                   </button>
                 </div>
-                <div className={`text-[22px] mt-[23px] font-bold text-center bg-primary ${styles.textBanner}`}>
+                <div className={`text-[22px] mt-[23px] font-bold text-center bg-color-primary ${styles.textBanner}`}>
                   {handleLocaleSymbol(String(localeFiat?.currency ?? 'USD'))}{' '}
                   {currencyFormat(
                     exchangeByLocaleFiat(
@@ -498,7 +498,7 @@ function AffiliateLoggedPage() {
               <div className="mb-[25px] w-full lg:w-[80%] mr-[0px] text-center lg:mr-[56px]">
                 <h5 className="mb-[10px] text-[14px] dark:text-white text-[#43484E]">{t('affiliate:totalRewards')}</h5>
                 <div className="w-full dark:bg-[#25262B] bg-[#F6F7FA] rounded-[5px] xl:w-[342px] h-[33px] flex justify-center items-center">
-                  <span className={`font-bold text-[16px] bg-primary  ${styles.textBanner}`}>
+                  <span className={`font-bold text-[16px] bg-color-primary  ${styles.textBanner}`}>
                     {localeFiat?.currency ? (
                       <>
                         {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
@@ -555,7 +555,7 @@ function AffiliateLoggedPage() {
               <div className="mr-[3px] text-[14px] lg:text-[24px] dark:text-white text-[#141414]">
                 {t('affiliate:learnMoreAboutOur')}
               </div>
-              <div className={`font-bold text-[14px] lg:text-[24px] bg-primary ${styles.textBanner}`}>
+              <div className={`font-bold text-[14px] lg:text-[24px] bg-color-primary ${styles.textBanner}`}>
                 {t('affiliate:affiliateProgram')}
               </div>
             </div>
@@ -566,7 +566,7 @@ function AffiliateLoggedPage() {
               <div className="mr-[3px] text-[24px] dark:text-white text-[#141414] font-bold lg:text-[24px]">
                 {t('affiliate:learnMoreAboutOur')}
               </div>
-              <div className={`font-bold text-[24px] lg:text-[24px] bg-primary ${styles.textBanner}`}>
+              <div className={`font-bold text-[24px] lg:text-[24px] bg-color-primary ${styles.textBanner}`}>
                 {t('affiliate:affiliateProgram')}
               </div>
             </div>

@@ -145,7 +145,7 @@ export default function VerificationTab() {
             </div>
             <button
               type="submit"
-              className="bg-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-7"
+              className="bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-7"
             >
               <div />
               <div className="text-[14px] text-white">{t('authentication:submit')}</div>

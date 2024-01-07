@@ -9,20 +9,15 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
-import {
-  changeAuthenticationType,
-  changeIsShowAuthenticationModal,
-  changeMultiLanguageTab,
-} from '@/base/redux/reducers/modal.reducer';
+import { changeMultiLanguageTab } from '@/base/redux/reducers/modal.reducer';
 import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { AuthenticationModeEnum } from '@/base/types/common';
 import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
-import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 
 type ModalFiatProps = {
   onClose: () => void;
@@ -91,7 +86,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
               className={cn(
                 'min-w-[150px] text-black dark:text-[#C2C2C2] flex-1 flex items-center justify-center border-b-2 border-solid border-[#272C33] pb-[10px] pt-[25px]',
                 {
-                  'bg-gradient-to-t from-[#F61B4F]/20 border-[#F61B4F] text-black dark:text-white font-[700]':
+                  'border-color-primary text-black dark:text-white font-[700]':
                     multiLanguageTab === MultiLanguageTabEnum.LANGUAGE,
                 },
               )}
@@ -104,7 +99,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
               className={cn(
                 'min-w-[150px] text-black dark:text-[#C2C2C2] flex-1 flex items-center justify-center border-b-2 border-solid border-[#272C33] pb-[10px] pt-[25px]',
                 {
-                  'bg-gradient-to-t from-[#F61B4F]/20 border-[#F61B4F] text-black dark:text-white font-[700]':
+                  'border-color-primary text-black dark:text-white font-[700]':
                     multiLanguageTab === MultiLanguageTabEnum.FIAT,
                   'sm:flex hidden': !isLogin,
                 },
@@ -129,7 +124,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     key={key}
                     className={`sm:py-[15px] py-[10px] rounded-md text-left ps-5 dark:hover:text-white text-[14px] dark:text-white text-black ${
                       item.key === i18n.language
-                        ? 'bg-primary'
+                        ? 'bg-color-primary'
                         : 'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600'
                     }`}
                     onClick={() => {
@@ -154,7 +149,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     className={cn(
                       'sm:py-[12px] py-[10px] rounded-md text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-[14px]',
                       {
-                        'bg-primary': !viewInFiat,
+                        'bg-color-primary': !viewInFiat,
                         'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': viewInFiat,
                       },
                     )}
@@ -180,7 +175,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     className={cn(
                       'sm:py-[12px] py-[10px] rounded-md text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-[14px]',
                       {
-                        'bg-primary': viewInFiat && item.id === localFiat?.id,
+                        'bg-color-primary': viewInFiat && item.id === localFiat?.id,
                         'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': true,
                       },
                     )}

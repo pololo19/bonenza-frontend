@@ -873,18 +873,18 @@ export const CONVERT_CURRENCIES =
   'USD,BRL,INR,EUR,RUB,NGN,IDR,BDT,PHP,VND,THB,KZT,MAD,ZAR,PLN,CUP,KRW,JPY,GBP,HRK,ISK,HUF,NOK,NZD,ARS,MXN,AUD,TRY,IRR,AED,CAD,UAH,CZK,LKR,ILS,EGP,PKR,GHS,VEF,PEN,RON,BGN,RSD,CLP';
 
 export const BANNER_DATA = [
-  {
-    img: '/img/banners/New_Game.png',
-    url: '/',
-  },
-  {
-    img: '/img/banners/Moon_Star_Adventure.png',
-    url: '/',
-  },
-  {
-    img: '/img/banners/Sep_Fortune_Game.png',
-    url: '/',
-  },
+  // {
+  //   img: '/img/banners/New_Game.png',
+  //   url: '/',
+  // },
+  // {
+  //   img: '/img/banners/Moon_Star_Adventure.png',
+  //   url: '/',
+  // },
+  // {
+  //   img: '/img/banners/Sep_Fortune_Game.png',
+  //   url: '/',
+  // },
   {
     img: '/img/banners/Aloha_King_Elvis.jpg',
     url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),

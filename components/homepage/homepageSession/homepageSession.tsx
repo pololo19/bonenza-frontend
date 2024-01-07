@@ -19,7 +19,7 @@ const HomepageSession = ({
   const { t } = useTranslation('');
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative sm:block hidden">
       <div className="flex items-center gap-[10px]">
         <Image className={`${showIcon ? 'block' : 'hidden'}`} height={24} width={24} src={iconUrl} alt="" />
         <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">{title}</div>

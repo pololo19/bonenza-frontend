@@ -122,13 +122,13 @@ function AdminRewardsPage() {
               )}
             />
             <span className="text-[14px] text-[#36434c] font-[500] w-[60%] text-center">{t('mycasino:note')}</span>
-            <button className="bg-primary px-6 py-1 rounded-md w-fit text-white text-[20px]" type="submit">
+            <button className="bg-color-primary px-6 py-1 rounded-md w-fit text-white text-[20px]" type="submit">
               {t('mycasino:swap')}
             </button>
           </div>
           <div className="flex flex-col gap-2 items-center mt-4">
             <div className="text-[24px] text-[#36434c] font-[600] text-center">{t('mycasino:allCryptos')}</div>
-            <button className="bg-primary px-6 py-1 rounded-md w-fit text-white text-[20px]" type="submit">
+            <button className="bg-color-primary px-6 py-1 rounded-md w-fit text-white text-[20px]" type="submit">
               {t('mycasino:withdraw')}
             </button>
           </div>

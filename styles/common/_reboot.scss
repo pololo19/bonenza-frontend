@@ -653,7 +653,6 @@ input[type='number']::-webkit-outer-spin-button {
 
 .banner-slider {
   .swiper-pagination {
-    bottom: 0 !important;
     .swiper-pagination-bullet {
       cursor: pointer;
       width: 0.625rem;
@@ -667,10 +666,10 @@ input[type='number']::-webkit-outer-spin-button {
     }
     .swiper-pagination-bullet-active {
       background: #fff;
-      width: 1.75rem;
+      width: 1.25rem;
     }
   }
-}
+}  
 
 .str-chat__message-bubble {
   background-color: #24262b !important;

@@ -114,7 +114,7 @@ export default function ModalForgotPassword() {
             </div>
             <button
               type="submit"
-              className="bg-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-5"
+              className="bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-5"
             >
               <div />
               <div className="text-[14px] text-white">{t('resetPassword:resetPassword')}</div>

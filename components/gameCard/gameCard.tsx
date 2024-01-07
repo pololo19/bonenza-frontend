@@ -41,7 +41,7 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
 
   return (
     <div className="" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
-      <div className="rounded-[5px] dark:bg-[#12181F] bg-white">
+      <div className="rounded-[5px] dark:bg-color-card-bg-primary bg-white">
         <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-[5px]">
           <LazyLoad className="min-h-[100px]">
             <Image

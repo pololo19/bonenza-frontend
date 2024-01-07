@@ -73,7 +73,7 @@ function History() {
                 <div className="text-xl font-bold mb-4">23h:52m:00s</div>
                 <div
                   role="button"
-                  className="w-[125px] h-12 rounded-large bg-primary font-bold dark:text-white text-black flex flex-col justify-center items-center"
+                  className="w-[125px] h-12 rounded-large bg-color-primary font-bold dark:text-white text-black flex flex-col justify-center items-center"
                 >
                   <span className="text-sm">{t('history:buyTicketFor')}</span>
                   <p className="text-xs font-normal">1 {t('history:ticketCosts')} $0.1</p>
@@ -129,7 +129,7 @@ function History() {
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-center items-center lg:h-7 lg:w-7 h-10 w-10 bg-primary rounded-full">
+                  <div className="flex justify-center items-center lg:h-7 lg:w-7 h-10 w-10 bg-color-primary rounded-full">
                     <span className="dark:text-white text-black lg:text-sm text-base font-bold">2</span>
                   </div>
                 </div>
@@ -195,7 +195,7 @@ function History() {
                                 </div>
                               ))}
                             </div>
-                            <div className="flex justify-center items-center h-5 w-5 bg-primary rounded-full mr-2">
+                            <div className="flex justify-center items-center h-5 w-5 bg-color-primary rounded-full mr-2">
                               <span className="dark:text-white text-black md:text-sm text-[9] font-bold">2</span>
                             </div>
                           </div>

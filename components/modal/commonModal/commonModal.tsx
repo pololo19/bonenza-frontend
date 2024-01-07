@@ -72,7 +72,7 @@ export default function CommonModal({
               >
                 <Dialog.Panel
                   className={cn(
-                    'text-black dark:text-white flex flex-col relative transform sm:rounded-[15px] bg-white dark:bg-[#24262B] text-left shadow-xl transition-all sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
+                    'text-black dark:text-white flex flex-col relative transform bg-white dark:bg-[#24262B] text-left shadow-xl transition-all sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
                     panelClass,
                   )}
                 >
