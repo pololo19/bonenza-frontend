@@ -23,7 +23,7 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
           delay: 5000,
           disableOnInteraction: false,
         }}
-        // speed={8000}
+        speed={2000}
         loop={true}
         direction={'horizontal'}
         pagination={{
