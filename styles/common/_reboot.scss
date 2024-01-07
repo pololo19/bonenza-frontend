@@ -641,9 +641,10 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 .game-grid-parent {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: 1.25rem 0.75rem;
+  @apply grid sm:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] grid-cols-3  gap-[1.25rem_0.75rem];
+  // display: grid;
+  // grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  // gap: 1.25rem 0.75rem;
 }
 
 input[type='number']::-webkit-inner-spin-button,
