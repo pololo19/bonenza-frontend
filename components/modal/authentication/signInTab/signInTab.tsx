@@ -247,7 +247,7 @@ export default function SignInTab({
                 type="submit"
                 className={`${
                   codeOtp.length < 6 && 'opacity-70 pointer-events-none'
-                } bg-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
+                } bg-color-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
                 <div className="text-[14px] text-white">{t('authentication:submit')}</div>
@@ -262,6 +262,7 @@ export default function SignInTab({
                 <InputEmailPhone
                   onChangeCountryCallingCode={setCountryCallingCode}
                   control={control}
+                  customClass="rounded-sm"
                   name="email"
                   placeholder={String(t('authentication:emailOrPhoneNumber'))}
                 />
@@ -285,7 +286,7 @@ export default function SignInTab({
               </div>
               <button
                 type="submit"
-                className="bg-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-color-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-[14px] text-white">{t('authentication:continue')}</div>
@@ -293,14 +294,11 @@ export default function SignInTab({
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
               </button>
-              <div className="flex justify-center">
-                <div
-                  role="button"
-                  className="text-[13px] w-full text-black dark:text-white sm:mt-[19px] mt-[10px] text-center"
-                >
-                  {t('authentication:newtoBonenza')}&nbsp;&nbsp;
+              <div className="flex">
+                <div role="button" className="text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
+                  <span className="text-[#98A7B5]">{t('authentication:newtoBonenza')}&nbsp;&nbsp;</span>
                   <span
-                    className="text-[#0DFDE4] hover:text-amber-500 hover:underline"
+                    className="text-[#50c627] hover:text-amber-500 hover:underline"
                     onClick={() => {
                       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     }}

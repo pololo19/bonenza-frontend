@@ -119,7 +119,7 @@ const SelectCurrency = ({
                 className={cn(
                   'w-fit p-[2px] font-semibold rounded-full',
                   {
-                    'bg-primary my-auto': symbol.id === activeCoin.id,
+                    'bg-color-primary my-auto': symbol.id === activeCoin.id,
                   },
                   {
                     'border-2 border-solid dark:border-[#272C33] border-[#EAECF3] dark:bg-[#161D26] bg-[#F6F7FA]':
@@ -131,7 +131,7 @@ const SelectCurrency = ({
               >
                 <button
                   className={cn(
-                    'sm:min-w-[80px] min-w-[75px] px-1 py-1 dark:text-white text-[#31373d] rounded-full flex items-center gap-2 capitalize dark:hover:bg-primary hover:bg-[#f6f7fa] bg-[#F6F7FA] dark:bg-[#161D26]',
+                    'sm:min-w-[80px] min-w-[75px] px-1 py-1 dark:text-white text-[#31373d] rounded-full flex items-center gap-2 capitalize dark:hover:bg-color-primary hover:bg-[#f6f7fa] bg-[#F6F7FA] dark:bg-[#161D26]',
                   )}
                 >
                   <Image

@@ -63,12 +63,12 @@ function PromotionPage() {
                 </div>
               </div>
               <div
-                className={`${styles.textGradient} font-bold text-[24px] sm:text-[36px] max-[414px]:text-[20px] bg-primary uppercase`}
+                className={`${styles.textGradient} font-bold text-[24px] sm:text-[36px] max-[414px]:text-[20px] bg-color-primary uppercase`}
               >
                 {t('promotion:everyDeposit')}
               </div>
               <div className="text-[24px] sm:text-[36px] max-[414px]:text-[20px] font-bold text-white uppercase mt-[8px] sm:mt-[30px]">
-                {t('promotion:upTo')} <span className={`${styles.textGradient} bg-primary`}>360%</span>
+                {t('promotion:upTo')} <span className={`${styles.textGradient} bg-color-primary`}>360%</span>
               </div>
               <div className="text-[12px] sm:text-[16px] text-white mt-[8px] sm:mt-[30px]">
                 {t('promotion:availableForAllPlayers')}

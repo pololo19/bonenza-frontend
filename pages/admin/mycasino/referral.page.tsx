@@ -168,7 +168,7 @@ function AdminRewardsPage() {
       <div className="bg-white rounded border border-solid border-gray-200 p-4">
         <div className="min-h-[120px] flex items-center gap-[20px]">
           {tableData.length <= 20 && (
-            <button className="bg-primary px-6 py-2 rounded-md" onClick={() => setIsShowCreateCode(true)}>
+            <button className="bg-color-primary px-6 py-2 rounded-md" onClick={() => setIsShowCreateCode(true)}>
               {t('mycasino:createNewCode')}
             </button>
           )}
@@ -203,7 +203,7 @@ function AdminRewardsPage() {
               'Welcome on board! BONENZA.COM is a world-leading online crypto casino. I’m sure you will have great fun here. Feel free to contact me anytime if you need help. 😃'
             }
           />
-          <button className="bg-primary px-6 py-2 rounded-md">{t('mycasino:save')}</button>
+          <button className="bg-color-primary px-6 py-2 rounded-md">{t('mycasino:save')}</button>
         </div>
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
@@ -226,7 +226,7 @@ function AdminRewardsPage() {
             <ReferralCodeDetailForm ref={formDataRef} onSubmit={onSubmit} />
             <div className="flex items-center justify-center gap-5 mt-4">
               <div
-                className="bg-primary text-white px-4 py-2 rounded-[4px] text-[20px]"
+                className="bg-color-primary text-white px-4 py-2 rounded-[4px] text-[20px]"
                 role="button"
                 onClick={emitData}
               >

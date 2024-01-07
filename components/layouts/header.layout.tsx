@@ -1,6 +1,5 @@
 import cn from 'classnames';
-import { Gift } from 'iconsax-react';
-import { Global, Message, MoneyRecive, Notification } from 'iconsax-react';
+import { Gift, Global, Message, MoneyRecive, Notification } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -55,7 +54,7 @@ export default function Navbar() {
       {isLoadingFull && <LoaderFull />}
       <div
         className={cn(
-          'w-full my-auto py-2 dark:bg-[#25262B] bg-white top-0 left-0 fixed z-10 ] h-[67px] shadow-[0px_9px_17px_0px_#00000040]',
+          'w-full my-auto py-2 dark:bg-color-header bg-white top-0 left-0 fixed z-10 ] h-[67px] shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
             'md:ml-[205px] md:max-w-[calc(100%-205px)]': isToggleSidebar && !showChatType,
@@ -66,7 +65,7 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'flex flex-1 lg:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px]',
+            'flex flex-1 h-full lg:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px]',
             {
               // 'sm:pl-[62px]': !isToggleSidebar && !showChatType,
               // 'md:pl-[205px]': isToggleSidebar && !showChatType,
@@ -86,44 +85,44 @@ export default function Navbar() {
             <Link
               href={ROUTER.Casino}
               className={cn(
-                'rounded-[5px] px-5 hover:text-[#31373d] py-[12px] group flex items-center gap-[5px] dark:text-[#98A7B5] dark:bg-[#1D1E22] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
+                'rounded-[5px] px-5 hover:text-[#31373d] py-[12px] group flex items-center gap-[5px] dark:text-[#98A7B5] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
                 `${
                   router.route.includes(ROUTER.Casino)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
-                    : 'dark:bg-[#1D1E22] bg-white'
+                    : ''
                 }`,
               )}
             >
-              <CasinoBoldIcon className="" />
-              <div className={`text-[13px]`}>{t('layout:casino')}</div>
+              <CasinoBoldIcon className="w-[18px] h-[18px]" />
+              <div className={`text-[14px]`}>{t('layout:casino')}</div>
             </Link>
             <Link
               href={ROUTER.Sports}
               className={cn(
-                'rounded-[5px] px-5 hover:text-[#31373d]  py-[12px] group flex items-center gap-[5px] dark:text-[#98A7B5] dark:bg-[#1D1E22] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
+                'rounded-[5px] px-5 hover:text-[#31373d]  py-[12px] group flex items-center gap-[5px] dark:text-[#98A7B5] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
                 `${
                   router.asPath.includes(ROUTER.Sports)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
-                    : 'dark:bg-[#1D1E22] bg-white'
+                    : ''
                 }`,
               )}
             >
-              <SportBoldIcon className="" />
-              <div className={`text-[13px]`}>{t('layout:sports')}</div>
+              <SportBoldIcon className="w-[18px] h-[18px]" />
+              <div className={`text-[14px]`}>{t('layout:sports')}</div>
             </Link>
             <Link
               href={ROUTER.Racing}
               className={cn(
-                'rounded-[5px] px-5 hover:text-[#31373d] dark:text-[#98a7b5] py-[12px] group flex items-center gap-[5px] dark:bg-[#1D1E22] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
+                'rounded-[5px] px-5 hover:text-[#31373d] dark:text-[#98a7b5] py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
                 `${
                   router.asPath.includes(ROUTER.Racing)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
-                    : 'dark:bg-[#1D1E22] bg-white'
+                    : ''
                 }`,
               )}
             >
               <RacingBoldIcon className="" />
-              <div className={`text-[13px]`}>{t('layout:racing')}</div>
+              <div className={`text-[14px]`}>{t('layout:racing')}</div>
             </Link>
           </div>
 
@@ -145,7 +144,7 @@ export default function Navbar() {
                 {/* Button */}
                 <button
                   type="button"
-                  className="truncate text-white rounded-[5px] font-semibold bg-primary py-[9px] px-5 text-[14px] font-bold"
+                  className="truncate text-white rounded-[5px] font-semibold py-[9px] bg-color-primary px-5 text-[14px] font-bold"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -159,7 +158,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-[5px] bg-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[7px] md:text-[14px] text-[12px] font-semibold"
+                className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[7px] md:text-[14px] text-[12px] font-semibold"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="sm:block hidden">

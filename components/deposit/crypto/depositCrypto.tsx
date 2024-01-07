@@ -156,7 +156,7 @@ const DepositCryptoComponent = () => {
                       address={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
                     />
                     <div
-                      className="bg-primary hover:opacity-[0.9] rounded-[5px] cursor-pointer flex items-center gap-[5px] p-2 text-[12px] text-white"
+                      className="bg-color-primary hover:opacity-[0.9] rounded-[5px] cursor-pointer flex items-center gap-[5px] p-2 text-[12px] text-white"
                       onClick={() =>
                         copyClipBoard(
                           String(String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)),

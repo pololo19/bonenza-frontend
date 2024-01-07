@@ -140,7 +140,7 @@ export default function ProfileDropdown() {
               >
                 <>
                   <div className="h-14 sm:w-[40px] flex-1 w-0 absolute right-0 top-[-20px]"></div>
-                  <div className="py-1 sm:relative fixed rounded-md dark:bg-[#25262B] bg-white sm:w-auto w-[calc(100vw-20px)] shadow-gray-700 dark:shadow ">
+                  <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[calc(100vw-20px)] shadow-gray-700 dark:shadow ">
                     <div>
                       <Link
                         href={ROUTER.Balance}

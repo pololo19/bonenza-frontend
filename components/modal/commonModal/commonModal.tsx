@@ -72,7 +72,7 @@ export default function CommonModal({
               >
                 <Dialog.Panel
                   className={cn(
-                    'text-black dark:text-white flex flex-col relative transform sm:rounded-[15px] bg-white dark:bg-[#24262B] text-left shadow-xl transition-all sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
+                    'text-black dark:text-white flex flex-col relative transform bg-white dark:bg-[#24262B] text-left shadow-xl transition-all sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
                     panelClass,
                   )}
                 >
@@ -80,11 +80,11 @@ export default function CommonModal({
                     {header}
                     {isShowCloseButton && (
                       <div
-                        className="absolute bg-red-500 hover:opacity-70 dark:hover:bg-[#39B1C0] sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] dark:sm:bg-[#20D4EB] rounded-md p-1 z-[10]"
+                        className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md p-1 z-[10]"
                         role="button"
                         onClick={onClose}
                       >
-                        <XMarkIcon width={20} className=" text-white dark:text-black" />
+                        <XMarkIcon width={20} className=" text-white dark:text-[#98A7B5]" />
                       </div>
                     )}
                   </Dialog.Title>

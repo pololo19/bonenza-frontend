@@ -135,7 +135,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full bg-white dark:bg-[#12181F] focus:outline-none text-[14px] text-black dark:text-white',
+                  'w-full bg-white dark:bg-[#12181F] focus:border-green-300 focus:outline-none text-[14px] text-black dark:text-white',
                   customClass,
                   {
                     'border-red-500': !!error?.message,

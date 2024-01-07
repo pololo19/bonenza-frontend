@@ -14,7 +14,7 @@ function NotFoundPage() {
       <div className="bg-[#2c2f33]">
         <div className="bg-[url('/img/bg-coming-soon.png')] min-h-[600px] flex flex-col items-center gap-[45px] w-full h-[275px] ss:h-[50vh] sm:h-[65vh] md:h-[80vh] lg:h-[110vh] bg-center bg-cover">
           <div
-            className={`${styles.textGradient} bg-primary text-[30px] sm:text-[48px] lg:text-[100px] font-semibold max-w-[678px] w-full text-center`}
+            className={`${styles.textGradient} bg-color-primary text-[30px] sm:text-[48px] lg:text-[100px] font-semibold max-w-[678px] w-full text-center`}
           >
             {t('error:comingSoon')}
           </div>

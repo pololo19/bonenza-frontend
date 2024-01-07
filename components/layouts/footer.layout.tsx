@@ -332,13 +332,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           </div>
           {/* footer 2 */}
           {!isDetailPage && (
-            <div className="mt-[60px] flex flex-col items-center">
-              <div>
-                <div className="font-semibold text-black dark:text-white sm:text-lg max-md:text-center text-[14px]">
+            <div className="mt-[30px] pt-[30px] flex flex-col items-center border-t border-solid border-[#25272C]">
+              <div className="">
+                <div className="font-semibold text-black dark:text-white sm:text-lg max-md:text-left text-[14px]">
                   {String(t('footer:acceptedNetworks'))}
                 </div>
               </div>
-              <div className="flex justify-center items-center max-md:gap-[16px] md:grid grid-cols-3 gap-[20px] mt-5">
+              <div className="flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">
                 {/* <div className="max-w-[50px] max-h-[50px]">
                   <Image
                     alt=""
@@ -453,18 +453,18 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           {/* footer 3 */}
           {!isDetailPage && (
             <div className="mt-[30px] pt-[30px] flex flex-col items-center border-t border-solid border-[#25272C]">
-              <div>
+              <div className="">
                 <div className="font-semibold text-black dark:text-white max-md:text-center sm:text-lg text-[14px]">
                   {String(t('footer:sponsorshipAndGamingResponsibilities'))}
                 </div>
               </div>
               <div
-                className={cn('flex justify-center items-center grid-cols-3 gap-[20px] mt-5', {
+                className={cn('flex justify-center items-center grid-cols-3 gap-[20px] mt-5 w-full', {
                   'xl:grid-cols-3': showChatType,
                   'xl:grid-cols-6': !showChatType,
                 })}
               >
-                <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
+                <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center bg-color-bg-primary">
                   <Link href="https://sigmaawards.org/" target="_blank">
                     <Image
                       alt=""
@@ -537,8 +537,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             </div>
           )}
           {/* footer 4 */}
-          <div className="mb-[60px] sm:mb-0 flex xl:flex-row flex-col justify-between md:px-[44px] px-[20px] sm:pt-[40px] pt-[20px] pb-[40px] md:mx-0 mx-[-1rem] gap-[70px] border-t border-solid border-[#25272C]">
-            <div className="xl:w-[50%] flex flex-col xl:items-start items-center justify-between">
+          <div className="mb-[60px] sm:mb-0 flex xl:flex-row flex-col justify-between sm:pt-[40px] pt-[20px] pb-[40px] md:mx-0 mx-[-1rem] gap-[70px] border-t border-solid border-[#25272C]">
+            <div className="xl:w-full flex flex-col xl:items-start items-center justify-between">
               <Link href={'/'}>
                 <Image height={54} width={170} src="/img/logo.png" alt="" className="object-cover" />
               </Link>
@@ -546,12 +546,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 {String(t('footer:aMultiAwardWinningCryptoCasino'))}
               </div>
             </div>
-            <div className="xl:w-[50%] flex flex-col xl:items-start items-center justify-end">
+            {/* <div className="xl:w-[50%] flex flex-col xl:items-start items-center justify-end">
               <div
                 className="dark:text-[#939699] text-[#31373d] text-[13px] mt-5 leading-[24px] xl:text-start text-center"
                 dangerouslySetInnerHTML={{ __html: t('footer:BCGAMEAllRightsReserved') }}
               ></div>
-            </div>
+            </div> */}
           </div>
         </div>
       </footer>

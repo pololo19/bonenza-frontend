@@ -135,7 +135,7 @@ export default function ModalCropAvatar({ show, onClose }: ModalCropAvatarProps)
             </div>
             <button
               type="submit"
-              className="bg-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+              className="bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               onClick={() => handleUpdateProfile()}
             >
               <div />

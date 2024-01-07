@@ -122,7 +122,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
             <div
               className={cn(
                 ' flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid border-[#272C33] pb-[10px]',
-                { 'bg-gradient-to-t from-[#F61B4F]/20 border-[#F61B4F]': !isPhoneNumber },
+                { 'bg-gradient-to-t from-[#50c6271a]/20 border-[#50C627]': !isPhoneNumber },
               )}
               role="button"
               onClick={() => {
@@ -134,7 +134,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
             <div
               className={cn(
                 'flex-1 flex items-center hover:opacity-[0.9]  justify-center border-b-2 border-solid border-[#272C33] pb-[10px]',
-                { 'bg-gradient-to-t from-[#F61B4F]/20 border-[#F61B4F]': isPhoneNumber },
+                { 'bg-gradient-to-t from-[#50c6271a]/20 border-[#50C627]': isPhoneNumber },
               )}
               role="button"
               onClick={() => {
@@ -183,7 +183,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         <button
           type="submit"
           onClick={onSignUp}
-          className="bg-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-5"
+          className="bg-color-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-5"
         >
           <div />
           <div className="text-[14px] text-white">{t('authentication:continue')}</div>
@@ -191,13 +191,17 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
             <Image width={15} height={15} src="/img/icon/arrow-right.png" alt="" />
           </div>
         </button>
-        <div className="flex items-center gap-[12px] mt-[16px] text-[#98A7B5]">
-          <div className="text-[14px]">{t('authentication:alreadyHaveAccount')}</div>
-          <div
-            className="text-[14px] cursor-pointer text-white hover:text-amber-500"
-            onClick={() => dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN))}
-          >
-            {t('layout:signIn')}
+        <div className="flex">
+          <div role="button" className="text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
+            <span className="text-[#98A7B5]">{t('authentication:alreadyHaveAccount')}&nbsp;&nbsp;</span>
+            <span
+              className="text-[#50c627] hover:text-amber-500 hover:underline"
+              onClick={() => {
+                dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+              }}
+            >
+              {t('layout:signIn')}
+            </span>
           </div>
         </div>
       </div>

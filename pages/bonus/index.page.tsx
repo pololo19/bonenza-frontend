@@ -48,7 +48,7 @@ function BonusPage() {
             <div className="dark:bg-[url('/img/banner-bonus-mobile.png')] bg-[url('/img/banner-bonus-mobile-light-mode.png')] sm:dark:bg-[url('/img/banner-bonus.png')] sm:bg-[url('/img/banner-bonus-light-mode.png')] bg-cover bg-no-repeat pt-[40px] pb-[30px] max-h-[683px] sm:max-h-unset">
               <div className="flex flex-col items-start lg:items-baseline ml-[10px] sm:ml-[30px] lg:ml-[106px] max-[576px]:mt-[57%] max-[414px]:mt-[60%] mt-[50%] sm:mt-0">
                 <div
-                  className={`${styles.textGradient} font-bold text-[30px] sm:text-[36px] lg:text-[48px] bg-primary text-center w-full sm:w-unset sm:text-left`}
+                  className={`${styles.textGradient} font-bold text-[30px] sm:text-[36px] lg:text-[48px] bg-color-primary text-center w-full sm:w-unset sm:text-left`}
                 >
                   {t('bonus:unlockEndlessBenefit')}
                 </div>
@@ -58,7 +58,7 @@ function BonusPage() {
                 <div className="flex sm:hidden justify-center my-[10px] w-full">
                   <div
                     role="button"
-                    className="bg-btn-sign-in rounded-large bg-primary py-[10px] px-5 font-bold text-white"
+                    className="bg-btn-sign-in rounded-large bg-color-primary py-[10px] px-5 font-bold text-white"
                   >
                     {t('bonus:joinNow')}
                   </div>
@@ -98,7 +98,7 @@ function BonusPage() {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
                   }}
-                  className="bg-btn-sign-in rounded-[5px] bg-primary py-[10px] px-5 font-bold text-white"
+                  className="bg-btn-sign-in rounded-[5px] bg-color-primary py-[10px] px-5 font-bold text-white"
                 >
                   {t('bonus:joinNow')}
                 </div>
@@ -106,17 +106,23 @@ function BonusPage() {
             </div>
             <div className="flex justify-around flex-col items-center lg:items-baseline gap-[15px] md:gap-0 md:flex-row md:items-center mt-[40px]">
               <div className="flex items-center gap-[15px]">
-                <div className="text-white text-[16px] font-bold bg-primary px-[10px] py-[6px] rounded-[50%]">01</div>
+                <div className="text-white text-[16px] font-bold bg-color-primary px-[10px] py-[6px] rounded-[50%]">
+                  01
+                </div>
                 <div className="dark:text-white text-[#43484E] text-[16px] font-bold">
                   {t('bonus:signUpAndMakeDeposit')}
                 </div>
               </div>
               <div className="flex items-center gap-[15px]">
-                <div className="text-white text-[16px] font-bold bg-primary px-[10px] py-[6px] rounded-[50%]">02</div>
+                <div className="text-white text-[16px] font-bold bg-color-primary px-[10px] py-[6px] rounded-[50%]">
+                  02
+                </div>
                 <div className="dark:text-white text-[#43484E] text-[16px] font-bold">{t('bonus:playYourGame')}</div>
               </div>
               <div className="flex items-center gap-[15px]">
-                <div className="text-white text-[16px] font-bold bg-primary px-[10px] py-[6px] rounded-[50%]">03</div>
+                <div className="text-white text-[16px] font-bold bg-color-primary px-[10px] py-[6px] rounded-[50%]">
+                  03
+                </div>
                 <div className="dark:text-white text-[#43484E] text-[16px] font-bold">{t('bonus:increaseYourVip')}</div>
               </div>
             </div>
@@ -333,7 +339,7 @@ function BonusPage() {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
                   }}
-                  className="bg-btn-sign-in rounded-[5px] bg-primary py-[10px] px-5 font-bold text-white"
+                  className="bg-btn-sign-in rounded-[5px] bg-color-primary py-[10px] px-5 font-bold text-white"
                 >
                   {t('bonus:signUpNow')}
                 </div>
