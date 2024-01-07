@@ -70,7 +70,7 @@ const CasinoSS = <T,>({
     } else if (width > 693) {
       setSlide(3);
     } else {
-      setSlide(2);
+      setSlide(3);
     }
   };
 

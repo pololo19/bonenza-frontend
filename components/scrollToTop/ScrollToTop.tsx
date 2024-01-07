@@ -49,7 +49,7 @@ const ScrollToTop = () => {
         <div
           className={cn(
             styles.scrollTopBtn,
-            'dark:bg-[#2d3035]/70 bg-gray-300/60 dark:text-white text-gray-800 mr-[20px]',
+            'dark:bg-[#2d3035]/70 bg-gray-300/60 dark:text-white text-gray-800 mr-[20px] px-[12px] py-[7px]',
             {
               'max-[1279px]:mr-[380px]': showChatType,
             },
