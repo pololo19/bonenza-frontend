@@ -31,6 +31,7 @@ module.exports = {
         'color-header': '#24262B',
         'color-header-primary': '#181A1D',
         'color-card-bg-primary': '#1c1e22',
+        'color-card-bg-secondary': '#32343b',
         'color-hover-primary': '#2D3035',
         'color-bg-primary': '#1B1C20',
         'color-bg-secondary': '#151518',
