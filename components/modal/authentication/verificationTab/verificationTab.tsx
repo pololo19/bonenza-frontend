@@ -88,8 +88,8 @@ export default function VerificationTab() {
         dispatch(changeIsShowResetPassword(true));
       }
     } catch (error: any) {
-      const message = error.response.data.message;
-      const status = error.response.data.statusCode;
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
       const errData = getErrorMessage('auth', 'verification', status, message, '');
       toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
     } finally {
