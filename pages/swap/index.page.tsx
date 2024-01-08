@@ -43,8 +43,8 @@ const SwapPage = () => {
 
       toast.success(String(t('swap:swapSuccessfully')), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response.data.message;
-      const status = error.response.data.statusCode;
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
       const errData = getErrorMessage('wallet', 'swap', status, message, '');
       toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.COMMON });
     } finally {

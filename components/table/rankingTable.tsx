@@ -100,7 +100,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
           ))}
         </thead>
         <tbody className={cn(isLoading && styles.loader, 'md:!text-[14px] sm:!text-[12px] !text-[10px]')}>
-          {!!data.length &&
+          {!!data?.length &&
             getRowModel().rows.map((row) => (
               <tr
                 key={row.id}

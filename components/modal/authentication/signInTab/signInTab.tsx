@@ -137,8 +137,8 @@ export default function SignInTab({
 
         setCodeOtp('');
         setOtpValue('codeOtp', '');
-        const message = error.response.data.message;
-        const status = error.response.data.statusCode;
+        const message = error.response?.data?.message ?? '';
+        const status = error.response?.data?.statusCode ?? '';
         const errData = getErrorMessage('auth', 'signIn', status, message, isPhoneNumber ? 'phone' : 'email');
         toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
 
