@@ -89,8 +89,11 @@ export default function ModalForgotPassword() {
 
       // close modal
       dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
-      if (!isPhoneNumber) toast.success(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
-      toast.success(t('authentication:sendSMSSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+      if (!isPhoneNumber) {
+        toast.success(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+      } else {
+        toast.success(t('authentication:sendSMSSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+      }
     } catch (error) {
       toast.error(t('authentication:resetPasswordFailed'), { containerId: TOAST_ENUM.MODAL });
     } finally {
