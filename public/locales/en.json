@@ -597,6 +597,7 @@
     "loginGoogleFailed": "Login with Google failed",
     "loginTelegramFailed": "Login with Telegram failed",
     "sendMailSuccessfully": "Send mail successfully",
+    "sendSMSSuccessfully": "Send SMS successfully",
     "emailVerifySuccessfully": "Your email is successfully verified",
     "phoneVerifySuccessfully": "Your phone number is successfully verified",
     "sendMailFailed": "Email does not match any account.",
