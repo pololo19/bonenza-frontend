@@ -41,6 +41,7 @@ module.exports = {
         'color-hover-secondary': '#292C33',
         'color-bg-primary': '#1B1C20',
         'color-bg-secondary': '#151518',
+        'color-btn-primary': '#26282C',
         'color-text-primary': '#98A7B5',
         'color-text-secondary': '#939699',
         'color-primary': '#50C627',
