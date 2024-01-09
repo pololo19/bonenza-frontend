@@ -270,7 +270,6 @@ function GamePage() {
       console.log('error', error);
     }
   }, [launchUrl]);
-
   return (
     <>
       {!isNotFoundGame && (
@@ -359,7 +358,7 @@ function GamePage() {
                           {isSatisfied && (
                             <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-[#31373D] text-center">
                               {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                              <span className="!text-amber-500">{localFiat?.name}</span>,{' '}
+                              <span className="!text-amber-500">{localFiat?.name ?? 'USD'}</span>,{' '}
                               {t('gameDetail:ifYouChangeCurrency')}
                             </div>
                           )}
@@ -420,7 +419,7 @@ function GamePage() {
                         <>
                           <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-[#31373D] text-center">
                             {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                            <span className="!text-amber-500">{localFiat?.name}</span>{' '}
+                            <span className="!text-amber-500">{localFiat?.name ?? 'USD'}</span>{' '}
                             {t('gameDetail:ifYouChangeCurrency')}
                           </div>
 

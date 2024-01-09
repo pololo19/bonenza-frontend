@@ -47,13 +47,14 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { localFiat, userId, gameSocket, userName } = useSelector(
+  const { localFiat, userId, gameSocket, userName, isLogin } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
       betHistory: state.game.betHistory,
       gameSocket: state.socket.gameSocket,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -200,6 +201,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
   useEffect(() => {
     if (gameSocket) {
+      console.log(gameSocket);
       gameSocket.on(`bets`, (item: any) => {
         console.log(item, '---------all bet Table');
         const data = JSON.parse(item);
@@ -232,7 +234,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         gameSocket.off(`bets`);
       }
     };
-  }, [gameSocket, gameDetail]);
+  }, [gameSocket, gameDetail, isLogin]);
 
   return (
     <>
