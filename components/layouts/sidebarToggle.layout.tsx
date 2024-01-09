@@ -208,9 +208,13 @@ export default function SidebarToggle() {
             </ul>
             <div className="mt-[16px] text-[#98A7B5] rounded flex items-center justify-center gap-[5px]">
               <div
-                className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer ${
-                  mode === 0 ? 'bg-[#2D3035] text-white' : 'text-[#31373D] bg-[#F6F7FA]'
-                }`}
+                className={cn(
+                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
+                  {
+                    'bg-[#2D3035] text-white': mode === 0,
+                    'text-[#31373D] bg-[#F6F7FA]': mode === 1,
+                  },
+                )}
                 onClick={() => {
                   setMode(0);
                   setTheme('dark');
@@ -220,9 +224,13 @@ export default function SidebarToggle() {
                 <div className="text-sm">{t('layout:dark')}</div>
               </div>
               <div
-                className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer ${
-                  mode === 1 ? 'text-[#000]  bg-[#eaecf3]' : 'hover:bg-gray-600'
-                }`}
+                className={cn(
+                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
+                  {
+                    'text-[#000]  bg-[#eaecf3]': mode === 1,
+                    'hover:bg-gray-600': mode === 0,
+                  },
+                )}
                 onClick={() => {
                   setMode(1);
                   setTheme('light');

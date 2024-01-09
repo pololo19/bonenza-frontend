@@ -1,0 +1,459 @@
+import { googleLogout } from '@react-oauth/google';
+import { useWeb3React } from '@web3-react/core';
+import cn from 'classnames';
+import {
+  ArrowRight2,
+  ArrowSwapHorizontal,
+  Box,
+  CardCoin,
+  CardReceive,
+  Chart,
+  Coin1,
+  Command,
+  DollarCircle,
+  Global,
+  Money2,
+  MoneyChange,
+  MoneyRecive,
+  Moon,
+  NotificationBing,
+  Setting,
+  Story,
+  Sun1,
+} from 'iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useTheme } from 'next-themes';
+import React, { useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+
+import { useTranslation } from '@/base/config/i18next';
+import { API_AVATAR, LANGUAGE_DATA, ROUTER } from '@/base/constants/common';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { logoutState } from '@/base/redux/reducers/auth.reducer';
+import {
+  changeAuthenticationType,
+  changeIsShowAuthenticationModal,
+  changeIsShowInformation,
+  changeIsShowMultiLanguageModal,
+  changeMultiLanguageTab,
+} from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
+import { logoutWallet } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { AuthenticationModeEnum } from '@/base/types/common';
+
+import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
+import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
+import VipProgressComponent from '../vipProgress/vipProgress';
+
+type ListItemProps = {
+  title: string;
+  icon: JSX.Element;
+  extra: JSX.Element;
+  isLink: boolean;
+  href: string;
+  classNames: string;
+  activeClassNames: string;
+  isArrow?: boolean;
+  onClick?: () => void;
+};
+
+const ListItem: React.FC<ListItemProps> = (props: ListItemProps) => {
+  const { title, icon, extra, isLink, href, onClick, classNames, activeClassNames, isArrow = true } = props;
+  const router = useRouter();
+
+  return (
+    <>
+      {isLink && (
+        <Link
+          className={cn(
+            'capitalize dark:hover:bg-[#292C33] dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-[#eaecf3] hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[13px] flex items-center gap-[16px] flex-1 pl-[15px] px-[5px] py-[10px]',
+            classNames,
+            router.route.includes(href) && activeClassNames,
+          )}
+          href={href}
+        >
+          {icon}
+          <div className={cn('flex-1 text-start dark:text-white text-black')}>{title}</div>
+          {extra}
+          {isArrow && <ArrowRight2 className={`w-[15px] h-[15px]`} />}
+        </Link>
+      )}
+      {!isLink && (
+        <div
+          className={cn(
+            'capitalize dark:hover:bg-[#292C33] dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-[#eaecf3] hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[13px] flex items-center gap-[16px] flex-1 pl-[15px] px-[5px] py-[10px]',
+            classNames,
+            router.route.includes(href) && activeClassNames,
+          )}
+          onClick={() => onClick && onClick()}
+        >
+          {icon}
+          <div className={cn('flex-1 text-start dark:text-white text-black')}>{title}</div>
+          {extra}
+          {isArrow && <ArrowRight2 className={`w-[15px] h-[15px]`} />}
+        </div>
+      )}
+    </>
+  );
+};
+
+const AccountPannel: React.FC = () => {
+  const { t, i18n } = useTranslation('');
+  const dispatch = useAppDispatch();
+
+  const { setTheme } = useTheme();
+  const [mode, setMode] = useState(0);
+  const router = useRouter();
+  const { deactivate } = useWeb3React();
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
+    setMode(theme);
+  }, []);
+
+  const { totalBalance, localFiat, isLogin, avatar, userName, userId, isShow } = useSelector(
+    (state: AppState) => ({
+      totalBalance: state.wallet.totalBalance,
+      localFiat: state.wallet.localFiat,
+      isLogin: state.auth.isLogin,
+      avatar: state.auth.user.avatar,
+      userName: state.auth.user.userName,
+      userId: state.auth.user.userId,
+      isShow: state.modal.isShowAccountPannel,
+    }),
+    shallowEqual,
+  );
+
+  const initDatas: ListItemProps[] = useMemo(
+    () => [
+      {
+        title: String(t('sidebar:notification')),
+        href: '',
+        icon: <NotificationBing />,
+        extra: <></>,
+        isLink: false,
+        classNames: '',
+        activeClassNames: '',
+      },
+      {
+        title: String(t('layout:referAndEarn')),
+        href: '',
+        icon: <Coin1 />,
+        extra: <></>,
+        isLink: false,
+        classNames: '',
+        activeClassNames: '',
+      },
+      {
+        title: String(t('sidebar:affiliate')),
+        href: '',
+        icon: <Command />,
+        extra: <></>,
+        isLink: false,
+        classNames: '',
+        activeClassNames: '',
+      },
+    ],
+    [i18n.language],
+  );
+
+  const settingDatas: ListItemProps[] = useMemo(
+    () => [
+      {
+        title: `${String(t('statistic:global'))} ${String(t('sidebar:settings'))}`,
+        href: ROUTER.Setting,
+        icon: <Setting />,
+        isLink: true,
+        extra: <></>,
+        classNames: '',
+        activeClassNames: '',
+      },
+      {
+        title: String(t('language:language')),
+        href: '',
+        icon: <Global />,
+        isLink: false,
+        extra: <>{LANGUAGE_DATA.find((item) => item.key === i18n.language)?.language}</>,
+        classNames: '',
+        activeClassNames: '',
+        onClick: () => {
+          dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
+          dispatch(changeIsShowMultiLanguageModal(true));
+        },
+      },
+      {
+        title: String(t('currency:currency')),
+        href: '',
+        icon: <DollarCircle />,
+        isLink: false,
+        extra: <></>,
+        classNames: '',
+        activeClassNames: '',
+        onClick: () => {
+          dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
+          dispatch(changeIsShowMultiLanguageModal(true));
+        },
+      },
+      {
+        title: String(t('setting:theme')),
+        href: '',
+        icon: <ArrowSwapHorizontal />,
+        isLink: false,
+        isArrow: false,
+        extra: (
+          <>
+            <ul className="flex justify-center md:w-fit rounded-[3px] md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary">
+              <div
+                role="button"
+                className={cn('p-[8px]', {
+                  'bg-color-panel-bg-primary': mode === 0,
+                  'bg-transparent': mode === 1,
+                })}
+                onClick={() => {
+                  setMode(0);
+                  setTheme('dark');
+                }}
+              >
+                <Moon size={16} />
+              </div>
+              <div
+                role="button"
+                className={cn('p-[8px]', {
+                  'bg-color-panel-bg-primary': mode === 1,
+                  'bg-transparent': mode === 0,
+                })}
+                onClick={() => {
+                  setMode(1);
+                  setTheme('light');
+                }}
+              >
+                <Sun1 size={16} />
+              </div>
+            </ul>
+          </>
+        ),
+        activeClassNames: '',
+        classNames: '',
+      },
+    ],
+    [i18n.language, mode],
+  );
+
+  const walletDatas: IconOptionProps[] = useMemo(
+    () => [
+      {
+        title: String(t('sidebar:deposit')),
+        icon: MoneyRecive,
+        href: ROUTER.DepositCrypto,
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+      {
+        title: String(t('sidebar:withdraw')),
+        icon: CardReceive,
+        href: ROUTER.WithdrawCrypto,
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+      {
+        title: String(t('sidebar:buyCrypto')),
+        icon: Money2,
+        href: ROUTER.BuyCrypto,
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+      {
+        title: String(t('sidebar:swap')),
+        icon: MoneyChange,
+        href: ROUTER.Swap,
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+      {
+        title: String(t('sidebar:vaultPro')),
+        icon: Story,
+        href: ROUTER.VaultPro,
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+      {
+        title: String(t('sidebar:NFTs')),
+        icon: Box,
+        href: '/',
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+      {
+        title: String(t('sidebar:rollover')),
+        icon: Chart,
+        href: ROUTER.Rollover,
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+      {
+        title: String(t('sidebar:transactions')),
+        icon: CardCoin,
+        href: ROUTER.Transaction,
+        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+      },
+    ],
+    [i18n.language],
+  );
+
+  const handleLogout = () => {
+    CookiesStorage.logout();
+    googleLogout();
+    deactivate();
+    dispatch(logoutState());
+    dispatch(logoutWallet());
+    router.replace(ROUTER.Home);
+  };
+
+  return (
+    <div
+      className={cn(
+        'fixed w-screen max-h-[calc(100vh_-_70px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[85px] bottom-[60px] dark:bg-color-bg-primary bg-white shadow sm:hidden',
+        {
+          'translate-y-full': !isShow,
+          'translate-y-0': isShow,
+        },
+      )}
+    >
+      <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
+        {isLogin && (
+          <div className="relative px-[10px] py-[14px] bg-color-panel-bg-secondary rounded-[3px]">
+            <div
+              className="flex items-center flex-1 gap-[14px] border-b-[1px] pb-[15px] border-solid border-color-border-primary mb-[15px]"
+              onClick={() => {
+                dispatch(setUserData({ userId: userId, userName: userName, avatar: avatar }));
+                dispatch(changeIsShowInformation(true));
+              }}
+            >
+              <div className="block w-[55px] h-[55px] rounded-full">
+                <Image
+                  height={40}
+                  width={40}
+                  src={String(API_AVATAR) + avatar}
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                  className="w-full h-full"
+                />
+              </div>
+              <div className="flex flex-col h-full justify-between flex-1">
+                <p className="text-[15px] dark:text-white text-black">{userName}</p>
+                <p className="text-[12px] dark:text-color-text-primary text-black">{`User ID: ${userId}`}</p>
+              </div>
+              <ArrowRight2 className={`w-[15px] h-[15px] dark:text-color-text-primary text-black`} />
+            </div>
+            <VipProgressComponent />
+          </div>
+        )}
+        {!isLogin && (
+          <div className="relative px-[10px] py-[14px] bg-color-panel-bg-secondary rounded-[3px]">
+            <div className="flex items-center flex-1 gap-[14px]">
+              <div className="block w-[55px] h-[55px] rounded-full">
+                <Image
+                  height={40}
+                  width={40}
+                  src={String(API_AVATAR) + avatar}
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                  className="w-full h-full"
+                />
+              </div>
+              <div className="flex flex-col h-full justify-between flex-1">
+                <p className="text-[15px] dark:text-white text-black font-bold">{`${t(
+                  'homePage:welcomeTo',
+                )} BONENZA`}</p>
+                <p className="text-[13px] dark:text-color-text-primary text-black">{t('homePage:requireSign')}</p>
+              </div>
+            </div>
+            <div className="relative grid grid-cols-2 gap-[10px] mt-[20px]">
+              <button
+                type="button"
+                className="truncate text-white rounded-[5px] font-semibold py-[9px] bg-[#3c404a] px-5 text-[14px]"
+                onClick={() => {
+                  dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                  dispatch(changeIsShowAuthenticationModal(true));
+                }}
+              >
+                {t('layout:signIn')}
+              </button>
+              <button
+                type="button"
+                className="truncate text-white rounded-[5px] font-semibold py-[9px] bg-color-primary px-5 text-[14px]"
+                onClick={() => {
+                  dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
+                  dispatch(changeIsShowAuthenticationModal(true));
+                }}
+              >
+                {t('layout:signUp')}
+              </button>
+            </div>
+          </div>
+        )}
+        {isLogin && (
+          <div className="flex items-center gap-[10px]">
+            <IconOption
+              title={String(t('sidebar:quest'))}
+              href={ROUTER.Bonus}
+              icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
+              classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
+            />
+            <IconOption
+              title={String(t('sidebar:spin'))}
+              href={ROUTER.Bonus}
+              icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
+              classNames="!bg-color-primary gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
+            />
+          </div>
+        )}
+
+        {isLogin && (
+          <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-panel-bg-primary rounded-[3px]">
+            {initDatas.map((data, index) => (
+              <ListItem
+                key={index}
+                title={data.title}
+                href={data.href}
+                icon={data.icon}
+                extra={data.extra}
+                isLink={data.isLink}
+                activeClassNames={data.activeClassNames}
+                onClick={data.onClick}
+                classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+              />
+            ))}
+          </ul>
+        )}
+
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-panel-bg-primary rounded-[3px]">
+          {settingDatas.map((item, index) => (
+            <ListItem
+              key={index}
+              title={item.title}
+              href={item.href}
+              icon={item.icon}
+              extra={item.extra}
+              isLink={item.isLink}
+              isArrow={item.isArrow}
+              activeClassNames={item.activeClassNames}
+              onClick={item.onClick}
+              classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+            />
+          ))}
+        </ul>
+        {isLogin && (
+          <div
+            className="dark:text-[#98A7B5] text-[#31373d] py-[15px] font-bold flex items-center justify-center gap-[5px]"
+            onClick={handleLogout}
+          >
+            {t('layout:logOut')}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default AccountPannel;

@@ -105,7 +105,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
         onClose={onClose}
         panelClass="rounded !max-w-[464px]"
         header={
-          <div className="relative p-[20px] pb-0 bg-[#f5f6fa] dark:bg-color-header-primary">
+          <div className="relative p-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
             <div className="flex items-center text-black dark:text-white gap-[10px]">
               <ChevronLeftIcon width={20} role="button" onClick={() => goBackProfile()} />
               <div className="text-[18px] font-[600]">{t('profile:updateInformation')}</div>
@@ -113,7 +113,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
           </div>
         }
       >
-        <div className="flex-1 flex gap-[10px] justify-center items-center p-[20px] bg-[#f5f6fa] dark:bg-[#161D26]">
+        <div className="flex-1 flex gap-[10px] justify-center sm:items-center items-start p-[20px] bg-[#f5f6fa] dark:bg-color-modal-bg-primary">
           <div className="flex flex-col items-center gap-[10px] w-full">
             <div className="relative flex flex-col items-center gap-[10px] w-full">
               <div className="h-[150px] w-[150px] rounded-full overflow-hidden">
@@ -128,7 +128,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
                 />
               </div>
               <label
-                className="rounded-[5px] text-[14px] font-[400] text-black dark:text-white px-[10px] py-[5px] cursor-pointer dark:bg-[#12181F] bg-[#eceef4] dark:hover:bg-gray-600 hover:bg-gray-200 relative top-[-30px]"
+                className="rounded-[5px] text-[14px] font-[400] text-black dark:text-white px-[10px] py-[5px] cursor-pointer dark:bg-[#2e333a99] bg-[#eceef4] dark:hover:bg-gray-600 hover:bg-gray-200 relative top-[-30px]"
                 onClick={() => {
                   dispatch(changeIsShowUpdateAvatar(true));
                   dispatch(changeIsShowUpdateInformation(false));
@@ -150,11 +150,11 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
               className="flex flex-col items-center gap-[10px] sm:max-w-[500px] w-full"
             >
               <div className="w-full">
-                <label htmlFor="username" className="dark:text-[#939699] ml-[10px]">
+                <label htmlFor="username" className="dark:text-white ml-[10px]">
                   {t('profile:username')}
                 </label>
                 <InputText
-                  customClass="px-[20px] py-[10px] my-[10px] dark:bg-[#12181F]"
+                  customClass="px-[20px] py-[10px] my-[10px] dark:bg-color-bg-primary"
                   control={control}
                   typeInput={EnumTypeInput.EMAIL}
                   placeholder={String(t('profile:username'))}

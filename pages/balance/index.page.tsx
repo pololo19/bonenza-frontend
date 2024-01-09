@@ -97,7 +97,7 @@ const BalancePage = () => {
       <Head>
         <title>Balance - Bonenza</title>
       </Head>
-      <div className="flex items-center justify-between pt-[24px] px-4 sm:px-[32px] pb-[32px]">
+      <div className="flex items-center justify-between pt-[24px] px-4 sm:px-[32px] pb-[32px] dark:bg-color-modal-bg-secondary bg-white">
         <div className="flex items-center justify-start gap-[15px] max-sm:pt-[30px]">
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
           <div className="flex items-center justify-start md:gap-[35px] gap-[15px] flex-wrap">
@@ -128,8 +128,7 @@ const BalancePage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-[#f6f7fa] dark:bg-[#25262B] h-[20px] w-full"></div>
-      <div className="w-full pt-[24px] sm:px-4 md:px-[32px] pb-[32px]">
+      <div className="w-full pt-[24px] sm:px-4 md:px-[32px] pb-[32px] mt-[20px] dark:bg-color-modal-bg-secondary bg-white">
         <div className="w-full flex justify-between items-center mb-[18px] rounded">
           <div className="flex items-center gap-[10px]">
             <div className="max-sm:pl-[15px] dark:text-[#98A7B5] text-[#31373d] text-[14px]">
@@ -175,7 +174,7 @@ const BalancePage = () => {
               {filterListCrypto?.map((item: CurrencyType, index: number): any => (
                 <div
                   key={index}
-                  className="w-full dark:bg-[#161D26] bg-[#f7f7fa] px-[20px] py-[10px] rounded-[16px] flex justify-between items-center"
+                  className="w-full dark:bg-color-active-primary  bg-[#f7f7fa] px-[20px] py-[10px] rounded-[3px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
                     <Image height={30} width={30} src={item.logo} alt="" />
@@ -200,7 +199,7 @@ const BalancePage = () => {
                         </div>
                       </div>
                     )}
-                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-[#0DFDE4] text-[#F39717] font-normal">
+                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-color-primary text-[#F39717] font-normal">
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
                         href={`${ROUTER.DepositCrypto}?coin=${item.name}`}
@@ -228,7 +227,7 @@ const BalancePage = () => {
               {filterListFiat.map((item: CurrencyType, index: number): any => (
                 <div
                   key={index}
-                  className="w-full dark:bg-[#161D26] bg-[#f7f7fa] px-[20px] py-[10px] rounded-[16px] flex justify-between items-center"
+                  className="w-full dark:bg-color-active-primary bg-[#f7f7fa] px-[20px] py-[10px] roundeded-[3px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
                     <Image height={30} width={30} src={item.logo} alt="" />
@@ -251,7 +250,7 @@ const BalancePage = () => {
                         </div>
                       </div>
                     )}
-                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-[#0DFDE4] text-[#F39717] font-normal">
+                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-color-primary text-[#F39717] font-normal">
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
                         href={`${ROUTER.DepositFiat}?coin=${item.name}`}

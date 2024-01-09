@@ -1,5 +1,6 @@
+import { PlusIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { Gift, Global, Message, MoneyRecive, Notification } from 'iconsax-react';
+import { Add, Gift, Global, Message, MoneyRecive, Notification } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -36,17 +37,19 @@ export default function Navbar() {
   const { t } = useTranslation('');
   const [isLoadingFull, setIsLoadingFull] = useState<boolean>(false);
 
-  const { isLogin, isToggleSidebar, showChatType, viewInFiat, isShowCasinoSearch, localFiat } = useSelector(
-    (state: AppState) => ({
-      isLogin: state.auth.isLogin,
-      isToggleSidebar: state.modal.isToggleSidebar,
-      isShowCasinoSearch: state.modal.isShowCasinoSearch,
-      showChatType: state.modal.showChatType,
-      viewInFiat: state.common.viewInFiat,
-      localFiat: state.wallet.localFiat,
-    }),
-    shallowEqual,
-  );
+  const { isLogin, isToggleSidebar, showChatType, viewInFiat, isShowCasinoSearch, localFiat, isAccountPannel } =
+    useSelector(
+      (state: AppState) => ({
+        isLogin: state.auth.isLogin,
+        isToggleSidebar: state.modal.isToggleSidebar,
+        isShowCasinoSearch: state.modal.isShowCasinoSearch,
+        showChatType: state.modal.showChatType,
+        viewInFiat: state.common.viewInFiat,
+        localFiat: state.wallet.localFiat,
+        isAccountPannel: state.modal.isShowAccountPannel,
+      }),
+      shallowEqual,
+    );
 
   return (
     <>
@@ -128,7 +131,7 @@ export default function Navbar() {
 
           <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
             {/* Button */}
-            {!isLogin && (
+            {!isLogin && !isAccountPannel && (
               <div className="flex items-center text-white font-bold w-full gap-2">
                 <button
                   type="button"
@@ -158,13 +161,16 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[7px] md:text-[14px] text-[12px] font-semibold"
+                className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="sm:block hidden">
                   <MoneyRecive />
                 </div>
-                {t('layout:deposit')}
+                <div className="sm:hidden block">
+                  <Add />
+                </div>
+                <span className="sm:block hidden">{t('layout:deposit')}</span>
               </button>
             )}
             {isLogin && (
@@ -192,7 +198,7 @@ export default function Navbar() {
 
             {isLogin && (
               <Link
-                className="block sm:hidden dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
+                className="hidden dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
                 href={ROUTER.Bonus}
               >
                 <Gift width={18} height={18} />
