@@ -8,9 +8,9 @@ import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameDetail, GameListType } from '@/base/types/common';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
 
 type GameCardProps = {
   gameDetail: GameListType | GameDetail;
@@ -57,7 +57,7 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
         </Link>
         <div className="p-[10px]">
           <div className="flex justify-between items-center gap-[5px]">
-            <div className="dark:text-white text-[#000] font-medium text-[12px] truncate">
+            <div className="dark:text-white text-[#000] font-medium sm:text-[12px] text-[14px] truncate">
               {String(gameDetail.title)?.charAt(0).toUpperCase() + String(gameDetail?.title)?.slice(1)}
             </div>
             <InfoCircle

@@ -19,13 +19,6 @@ import GameCard from '@/components/gameCard/gameCard';
 import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
 import LatestBetRace from '@/components/homepage/latestBetRace';
 import RecentBigWinComponent from '@/components/homepage/recentBigWin';
-import HotGameBoldIcon from '@/components/icons/HotGameBoldIcon';
-import LiveCasinoBoldIcon from '@/components/icons/LiveCasinoBoldIcon';
-import LobbyBoldIcon from '@/components/icons/LobbyBoldIcon';
-import OriginalBoldIcon from '@/components/icons/OriginalBoldIcon';
-import ReleaseBoldIcon from '@/components/icons/ReleaseBoldIcon';
-import SlotBoldIcon from '@/components/icons/SlotBoldIcon';
-import TableGameBoldIcon from '@/components/icons/TableGameBoldIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import GameBannerSlider from '@/components/sliders/gameSliders';
 import TabGames from '@/components/tabGames/tabGames';
@@ -145,7 +138,7 @@ function CasinoPage() {
       <GameBannerSlider className="!mt-0" />
       {/* Search */}
       <div
-        className="relative mt-[20px] h-[40px] bg-white dark:bg-[#161D26] rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+        className="relative mt-[20px] h-[40px] bg-white dark:bg-color-input-primary rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
         onClick={() => dispatch(changeIsShowCasinoSearch(true))}
         role="button"
       >

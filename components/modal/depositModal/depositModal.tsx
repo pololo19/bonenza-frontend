@@ -44,7 +44,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                   className={cn(
                     'flex-1 dark:text-[#C2C2C2] text-[#939699] flex-1 flex items-center justify-center border-b-2 border-solid dark:border-[#272C33] border-[#F1F3F7] sm:pt-[15px] py-[10px]',
                     {
-                      'bg-gradient-to-t from-[#F61B4F]/20 !border-[#F61B4F] dark:!text-white !text-[#141414] font-[700]':
+                      'bg-gradient-to-t from-color-primary/20 !border-color-primary dark:!text-white !text-[#141414] font-[700]':
                         depositTab === DepositTabEnum.CRYPTO,
                     },
                   )}
@@ -57,7 +57,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                   className={cn(
                     'flex-1 dark:text-[#C2C2C2] text-[#939699] flex-1 flex items-center justify-center border-b-2 border-solid dark:border-[#272C33] border-[#F1F3F7] sm:pt-[15px] py-[10px]',
                     {
-                      'bg-gradient-to-t from-[#F61B4F]/20 !border-[#F61B4F] dark:!text-white !text-[#141414] font-[700]':
+                      'bg-gradient-to-t from-color-primary/20 !border-color-primary dark:!text-white !text-[#141414] font-[700]':
                         depositTab === DepositTabEnum.FIAT,
                     },
                   )}
@@ -70,7 +70,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                   className={cn(
                     'flex-1 dark:text-[#C2C2C2] text-[#939699] flex-1 flex items-center justify-center border-b-2 border-solid dark:border-[#272C33] border-[#F1F3F7] sm:pt-[15px] py-[10px]',
                     {
-                      'bg-gradient-to-t from-[#F61B4F]/20 !border-[#F61B4F] dark:!text-white !text-[#141414] font-[700]':
+                      'bg-gradient-to-t from-color-primary/20 !border-color-primary dark:!text-white !text-[#141414] font-[700]':
                         depositTab === DepositTabEnum.BUY_CRYPTO,
                     },
                   )}

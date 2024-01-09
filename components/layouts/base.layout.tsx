@@ -1,8 +1,8 @@
 import cn from 'classnames';
-import { ArrangeHorizontalCircle, EmptyWallet, HambergerMenu, Message, TrendUp } from 'iconsax-react';
+import { EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -14,17 +14,18 @@ import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL, TOAST_ENUM } from '@/base/c
 import { useWidth } from '@/base/hooks/useWidth';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { addBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
+  changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
   changeIsShowCropAvatar,
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
   changeIsShowInformation,
+  changeIsShowMenuPannel,
   changeIsShowMultiLanguageModal,
   changeIsShowRakeBack,
   changeIsShowRakeBackDetail,
@@ -53,7 +54,13 @@ import { CurrencyType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
 import ChattingComponent from '../chatting/chattingComponent';
+import { OptionSidebarDataType } from '../common/iconOption/iconOption';
 import Loader from '../common/preloader/loader';
+import CasinoBoldIcon from '../icons/CasinoBoldIcon';
+import HomeIcon from '../icons/HomeIcon';
+import HomeIconOutline from '../icons/HomeIconOutline';
+import RacingBoldIcon from '../icons/RacingBoldIcon';
+import SportBoldIcon from '../icons/SportBoldIcon';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalCropAvatar from '../modal/cropAvatar/cropAvatar';
@@ -70,10 +77,12 @@ import ModalUpdateAvatar from '../modal/updateAvatar/updateAvatar';
 import ModalUpdateProfile from '../modal/updateProfile/updateProfile';
 import ModalVipClub from '../modal/vipClub/vipClub';
 import ModalVipLevel from '../modal/vipLevel/vipLevel';
+import AccountPannel from './accountBar.layout';
 import Footer from './footer.layout';
 import HeaderStats from './header.layout';
 import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
+import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
 
 type BaseLayoutProps = {
@@ -82,13 +91,15 @@ type BaseLayoutProps = {
   contentClass?: string;
 };
 
+const activeHrefsToMobileSubMenu = [ROUTER.Home, ROUTER.Casino];
+
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, contentClass }) => {
   const innerWidth = useWidth();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t } = useTranslation('');
 
-  const [isShowSidebar, setIsShowSidebar] = useState<boolean>(false);
+  const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
   const baseBodyRef = useRef<HTMLDivElement>(null);
@@ -96,8 +107,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const { gameId } = query;
 
   useEffect(() => {
-    setIsShowSidebar(false);
-  }, [router]);
+    dispatch(changeIsShowMenuPannel(false));
+    dispatch(changeIsShowAccountPannel(false));
+    if (activeHrefsToMobileSubMenu.indexOf(router.route) !== -1) {
+      setIsShowMobileSubMenu(true);
+    } else {
+      setIsShowMobileSubMenu(false);
+    }
+  }, [router.route]);
 
   const {
     isLogin,
@@ -119,6 +136,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowRakeBackModal,
     isShowRakeBackDetailModal,
     isShowModalBonusHistory,
+    isShowAccount,
+    isShowSidebar,
     cryptoArray,
     userId,
     walletSocket,
@@ -146,6 +165,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowUpdateAvatar: state.modal.isShowUpdateAvatar,
       isShowResetPassword: state.modal.isShowResetPassword,
 
+      isShowSidebar: state.modal.isShowMenuPannel,
+      isShowAccount: state.modal.isShowAccountPannel,
       userId: state.auth.user.userId,
       cryptoArray: state.common.cryptoArray,
       walletSocket: state.socket.walletSocket,
@@ -153,6 +174,24 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       depositTime: state.wallet.depositTime,
     }),
     shallowEqual,
+  );
+
+  const subMobileMenDatas: OptionSidebarDataType[] = useMemo(
+    () => [
+      { title: 'layout:home', href: '/', icon: <HomeIcon /> },
+      {
+        title: 'layout:casino',
+        href: ROUTER.Casino,
+        icon: <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />,
+      },
+      {
+        title: 'layout:sports',
+        href: ROUTER.Sports,
+        icon: <SportBoldIcon className="text-[#FE073A] w-[18px] h-[18px]" />,
+      },
+      { title: 'layout:racing', href: ROUTER.Racing, icon: <RacingBoldIcon className="text-[#F48D19]" /> },
+    ],
+    [],
   );
 
   const loadInitData = async () => {
@@ -347,7 +386,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   return (
     <>
       {isLoading && <Loader />}
-      <div className="min-h-screen h-full w-full overflow-hidden font-dayOne bg-[#25262B]">
+      <div className="min-h-screen h-full w-full overflow-hidden font-dayOne bg-color-bg-primary">
         {isToggleSidebar && (
           <div
             className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0  dark:bg-black/60 z-[20]"
@@ -356,7 +395,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         )}
         <div className="md:pt-0 h-full w-full relative">
           <HeaderStats />
-          <div className="flex h-full w-full max-h-[calc(100vh-67px)] mt-[67px]">
+          <div className="flex h-full w-full max-h-[calc(100vh-67px)] mt-[67px] sm:flex-row flex-col">
             <div
               className={cn(
                 'z-[50] dark:bg-color-bg-secondary bg-[#fff] shadow-bs-default overflow-y-hidden sm:block hidden h-[calc(100vh)] mt-[-67px] drop-shadow-lg',
@@ -372,15 +411,23 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               ref={baseBodyRef}
               id="base-layout"
             >
+              <SubMobileMenu datas={subMobileMenDatas} isShow={isShowMobileSubMenu} />
+
               <WrapperBody
                 contentClassName={cn('dark:bg-color-bg-primary bg-[#f6f7fa]', contentClass)}
-                wrapperClassName="dark:bg-color-bg-primary md:bg-[#f6f7fa]"
+                wrapperClassName={cn('dark:bg-color-bg-primary md:bg-[#f6f7fa] sm:block', {
+                  hidden: isShowSidebar || isShowAccount,
+                  block: !isShowSidebar && !isShowAccount,
+                })}
               >
                 {children}
               </WrapperBody>
               <WrapperBody
                 wrapperClassName="bg-[#f6f7fa] dark:bg-[#1B1C20] min-[1786px]:max-w-full"
-                contentClassName="bg-white dark:bg-[#1B1C20]"
+                contentClassName={cn('bg-white dark:bg-[#1B1C20] sm:block', {
+                  hidden: isShowSidebar || isShowAccount,
+                  block: !isShowSidebar && !isShowAccount,
+                })}
               >
                 <Footer isDetailPage={isDetailPage} />
               </WrapperBody>
@@ -403,10 +450,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             )}
 
             {/*Start footer navigator */}
-            <SidebarMobileLayout isShowSidebar={isShowSidebar} setIsShowSidebar={setIsShowSidebar} />
+            <SidebarMobileLayout />
+            <AccountPannel />
             <div
               className={cn(
-                'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-[#24262B] bg-[#f5f6fa] shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 rounded-t-xl bottom-0',
+                'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-[#f5f6fa] shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0',
                 {
                   hidden: showChatType,
                 },
@@ -415,32 +463,54 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
                 <div
                   role="button"
-                  onClick={() => setIsShowSidebar(true)}
+                  onClick={() => {
+                    dispatch(changeIsShowMenuPannel(!isShowSidebar));
+                    if (!isShowSidebar) {
+                      setIsShowMobileSubMenu(true);
+                      dispatch(changeIsShowAccountPannel(false));
+                    }
+                    if (isShowSidebar) {
+                      if (activeHrefsToMobileSubMenu.indexOf(router.route) !== -1) {
+                        setIsShowMobileSubMenu(true);
+                      } else {
+                        setIsShowMobileSubMenu(false);
+                      }
+                    }
+                  }}
                   className={cn(
                     'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                  )}
-                >
-                  <div className="pt-2">
-                    <HambergerMenu className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
-                  </div>
-                  <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
-                    {t('sidebar:menu')}
-                  </div>
-                </div>
-                <Link
-                  href={ROUTER.Casino}
-                  className={cn(
-                    'dark:hover:text-white hover-text-black flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                     {
-                      'dark:text-white text-black': router.route.includes(ROUTER.Casino),
+                      'dark:text-color-text-primary text-[#31373d]': !isShowSidebar,
+                      'dark:text-white': isShowSidebar,
                     },
                   )}
                 >
                   <div className="pt-2">
-                    <ArrangeHorizontalCircle className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                    <HambergerMenu size={22} />
                   </div>
-                  <div className="pb-2 text-center dark:text-[#9ca3af] text-[#31373d] truncate w-full">
-                    {t('sidebar:casino')}
+                  <div className="pb-2  text-center truncate w-full">{t('sidebar:menu')}</div>
+                </div>
+                <Link
+                  href={ROUTER.Home}
+                  className={cn(
+                    'dark:hover:text-white hover-text-black flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                    {
+                      'dark:text-white text-black': router.route.includes(ROUTER.Home),
+                    },
+                  )}
+                  onClick={() => {
+                    dispatch(changeIsShowAccountPannel(false));
+                    dispatch(changeIsShowMenuPannel(false));
+                  }}
+                >
+                  <div className="pt-2">
+                    <HomeIconOutline
+                      className="dark:text-color-text-primary text-[#e7e7e7] w-[21px] h-[21px]"
+                      size={22}
+                    />
+                  </div>
+                  <div className="pb-2 text-center dark:text-color-text-primary text-[#31373d] truncate w-full">
+                    {t('layout:home')}
                   </div>
                 </Link>
                 <Link
@@ -451,35 +521,51 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                       'dark:text-white text-black': router.route.includes(ROUTER.Deposit),
                     },
                   )}
+                  onClick={() => {
+                    dispatch(changeIsShowAccountPannel(false));
+                    dispatch(changeIsShowMenuPannel(false));
+                  }}
                 >
-                  <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-[#24262B] bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
-                    <div className="m-auto h-[38px] w-[38px] bg-color-primary rounded-full text-white flex items-center justify-center">
+                  <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-color-card-bg-primary bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
+                    <div className="m-auto h-[38px] w-[38px] bg-color-hover-primary rounded-full text-white flex items-center justify-center">
                       <EmptyWallet className="dark:text-white text-[#31373d]" variant="Bold" size={22} />
                     </div>
                   </div>
                   <div className="pt-2 opacity-0">
                     <EmptyWallet className="dark:text-white text-[#31373d]" variant="Bold" size={22} />
                   </div>
-                  <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                  <div className="pb-2 dark:text-color-text-primary text-[#31373d] text-center truncate w-full">
                     {t('sidebar:wallet')}
                   </div>
                 </Link>
-                <Link
-                  href={ROUTER.Sports}
+                <div
+                  role="button"
+                  onClick={() => {
+                    dispatch(changeIsShowAccountPannel(!isShowAccount));
+                    if (!isShowAccount) {
+                      dispatch(changeIsShowMenuPannel(false));
+                      setIsShowMobileSubMenu(false);
+                    } else {
+                      if (activeHrefsToMobileSubMenu.indexOf(router.route) !== -1) {
+                        setIsShowMobileSubMenu(true);
+                      } else {
+                        setIsShowMobileSubMenu(false);
+                      }
+                    }
+                  }}
                   className={cn(
-                    'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                    'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded ',
                     {
-                      'dark:text-white text-black': router.route.includes(ROUTER.Sports),
+                      'dark:text-white': isShowAccount,
+                      'dark:text-color-text-primary text-[#31373d]': !isShowAccount,
                     },
                   )}
                 >
                   <div className="pt-2">
-                    <TrendUp className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                    <User size={22} />
                   </div>
-                  <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
-                    {t('sidebar:sports')}
-                  </div>
-                </Link>
+                  <div className="pb-2 text-center truncate w-full">{t('sidebar:account')}</div>
+                </div>
                 <div
                   role="button"
                   className={cn(
@@ -489,14 +575,16 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     },
                   )}
                   onClick={() => {
+                    dispatch(changeIsShowAccountPannel(false));
+                    dispatch(changeIsShowMenuPannel(false));
                     dispatch(changeShowChatType(!showChatType));
                     dispatch(changeShowFullChat(!showFullChat));
                   }}
                 >
                   <div className="pt-2">
-                    <Message className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                    <Message className="dark:text-color-text-primary text-[#31373d]" size={22} />
                   </div>
-                  <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                  <div className="pb-2 dark:text-color-text-primary text-[#31373d] text-center truncate w-full">
                     {t('sidebar:chat')}
                   </div>
                 </div>

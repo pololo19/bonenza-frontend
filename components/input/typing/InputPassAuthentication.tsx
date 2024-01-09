@@ -61,7 +61,7 @@ const InputPassAuthentication = <TFieldValues extends Record<string, unknown>>({
       render={({ field, fieldState: { error } }) => {
         return (
           <div className="w-full flex-1">
-            <div className="bg-white dark:bg-[#12181F] rounded-[10px] flex items-center p-[15px] gap-[18px]">
+            <div className="bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-color-bg-primary">
               <Image width={20} height={20} src="/img/icon/icon-pass.png" alt="" />
               <div className="w-[1px] h-[13px] bg-[#C3CDDB]" />
               <input
@@ -73,7 +73,7 @@ const InputPassAuthentication = <TFieldValues extends Record<string, unknown>>({
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full bg-white dark:bg-[#12181F] focus:outline-none text-[14px] text-black dark:text-white',
+                  'w-full bg-white dark:bg-color-bg-primary focus:outline-none text-[14px] text-black dark:text-white',
                   customClass,
                   {
                     'border-red-500': !!error?.message,

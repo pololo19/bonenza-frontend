@@ -261,7 +261,7 @@ const SettingSecurity = () => {
                           {t('setting:oldPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="oldPassword"
                           placeholder={`${t('setting:oldPassword')}`}
                           value={passwordBody?.oldPassword}
@@ -274,7 +274,7 @@ const SettingSecurity = () => {
                           {t('setting:newPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="newPassword"
                           placeholder={`${t('setting:newPassword')}`}
                           value={passwordBody?.newPassword}
@@ -287,7 +287,7 @@ const SettingSecurity = () => {
                           {t('setting:confirmNewPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="confirmNewPassword"
                           placeholder={`${t('setting:confirmNewPassword')}`}
                           value={passwordBody?.confirmNewPassword}
@@ -295,13 +295,13 @@ const SettingSecurity = () => {
                           control={control}
                         />
                       </div>
-                      <div className="text-start text-[12px] text-[#0DFDE4] flex gap-[5px]">
+                      <div className="text-start text-[12px] text-color-primary flex gap-[5px]">
                         <InfoCircle size={16} /> {t('setting:reLoginWillBeRequiredAfterChangingThePassword')}
                       </div>
                       <div
                         onClick={handleSubmitPassword}
                         role="button"
-                        className="bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                        className="bg-color-primary hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:saveChanges')}
                       </div>
@@ -333,7 +333,7 @@ const SettingSecurity = () => {
                     <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                       <div className="flex flex-col items-start gap-[10px] mt-2">
                         <InputPassword
-                          customClass="rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="oldPassword"
                           placeholder={`${t('setting:passwordPlaceholder')}`}
                           value={password}
@@ -344,7 +344,7 @@ const SettingSecurity = () => {
                       <div
                         onClick={setLoginPassword}
                         role="button"
-                        className="bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                        className="bg-color-primary hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:confirm')}
                       </div>
@@ -406,14 +406,14 @@ const SettingSecurity = () => {
                           <label className="dark:text-[#C2C2C2] text-[#31373d] text-[12px]">
                             {t('setting:yourSecretKey')}
                           </label>
-                          <div className="dark:bg-[#292C33] bg-[#f5f6fa] rounded-[10px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] w-full">
+                          <div className="dark:bg-[#292C33] bg-[#f5f6fa] rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] w-full">
                             <input
                               value={secret}
                               className={cn(
-                                'w-full dark:bg-[#292C33] bg-[#f5f6fa] focus:outline-none text-[12px] dark:text-white text-black w-full',
+                                'w-full dark:bg-[#292C33] bg-[#f5f6fa] focus:outline-none text-[12px] dark:text-white text-black',
                               )}
                             />
-                            <Copy onClick={() => copyClipBoard(String(secret))} className="text-[#FD6E0B]" />
+                            <Copy onClick={() => copyClipBoard(String(secret))} className="text-color-text-primary" />
                           </div>
                         </div>
                         <div className="text-start text-[12px] dark:text-[#C2C2C2] text-[#31373d] flex gap-[5px]">
@@ -428,7 +428,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:bg-[#222328] bg-[#f5f6fa] dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-[5px] focus:!outline-none'
+                              'dark:bg-[#222328] bg-[#f5f6fa] dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-[3px] focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -436,7 +436,7 @@ const SettingSecurity = () => {
                       </>
                     )}
                     <InputPassword
-                      customClass="rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                      customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                       name="password"
                       placeholder="Login Password"
                       value={passwordLogin}
@@ -454,7 +454,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:bg-[#222328] bg-[#f5f6fa] dark:text-white text-black !w-[32px] h-[32px] rounded-[5px] focus:outline-none'
+                              'dark:bg-[#222328] bg-[#f5f6fa] dark:text-white text-black !w-[32px] h-[32px] rounded-[3px] focus:outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -464,7 +464,7 @@ const SettingSecurity = () => {
                     <div
                       onClick={handleSubmitTwoFactor}
                       role="button"
-                      className="bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                      className="bg-color-primary hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                     >
                       {tfa ? t('setting:disable') : t('setting:enable')}
                     </div>

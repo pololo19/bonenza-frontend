@@ -150,7 +150,7 @@ const SelectCurrency = ({
             ))}
           </div>
         )}
-        <Menu as="div" className="relative flex w-full dark:bg-[#161D26] bg-[#F6F7FA] rounded-[16px]">
+        <Menu as="div" className="relative flex w-full dark:bg-[#161D26] bg-[#F6F7FA] rounded-[3px]">
           <Menu.Button className="flex-1">
             <div className="flex items-center justify-between w-full py-[13px] px-[20px] " role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
@@ -200,7 +200,7 @@ const SelectCurrency = ({
                     {({ active }) => (
                       <div
                         className={cn('flex items-center justify-start w-full dark:hover:bg-[#212b36] mb-2', {
-                          'border border-amber-500/50 border-solid rounded': symbol.id === activeCoin.id,
+                          'border border-color-primary/50 border-solid rounded': symbol.id === activeCoin.id,
                         })}
                         role="button"
                         onClick={() => handleChangeCrypto(symbol)}
@@ -257,7 +257,7 @@ const SelectCurrency = ({
       </div>
       <div className="flex flex-col items-start w-full gap-2">
         <div className="text-[14px] dark:text-[#C2C2C2] text-[#31373d]">{t('deposit:chooseNetwork')}</div>
-        <Menu as="div" className="relative flex w-full dark:bg-[#161D26] bg-[#f6f7fa] rounded-[16px]">
+        <Menu as="div" className="relative flex w-full dark:bg-[#161D26] bg-[#f6f7fa] rounded-[3px]">
           <Menu.Button className="flex-1 py-[15px] px-[20px]">
             <div className="flex items-center justify-between w-full" role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">

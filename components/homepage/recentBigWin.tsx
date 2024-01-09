@@ -73,7 +73,9 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(150, 150))}`}
           />
           <div className="block sm:hidden">
-            <div className={`text-color-text-primary font-medium text-[12px] truncate hover:underline min-h-[18px]`}>
+            <div
+              className={`text-color-text-primary font-medium sm:text-[12px] text-[14px] truncate hover:underline min-h-[18px]`}
+            >
               {userData?.userId !== userId && !userData?.username
                 ? String(t('homePage:hidden'))
                 : userData.userId === userId
@@ -103,7 +105,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
             data-tooltip-id={'CardBigWinData' + price}
             className="flex justify-center items-center dark:bg-transparent sm:dark:bg-color-primary/20 bg-[#3bc11780] cursor-text h-[28px] mt-[10px] px-[5px] gap-[15px]"
           >
-            <div className="dark:text-color-primary text-[#3bc117] font-bold text-[12px] sm:text-[14px] truncate">
+            <div className="dark:text-color-primary text-[#3bc117] font-bold text-[14px] sm:text-[14px] truncate">
               {price}
             </div>
             <div className="sm:hidden block">

@@ -92,7 +92,7 @@ export default function ProfileDropdown() {
 
   return (
     <>
-      <Popover className="relative w-auto text-left rounded-[7px] flex">
+      <Popover className="relative w-auto text-left rounded-[7px] sm:flex hidden">
         {({ open }) => (
           <div
             onMouseEnter={() => onHover(open, 'onMouseEnter')}
@@ -136,11 +136,11 @@ export default function ProfileDropdown() {
             >
               <Popover.Panel
                 static
-                className="sm:absolute sm:mr-0 mr-[10px] fixed right-0 z-10 sm:min-w-[250px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-[60px]"
+                className="sm:absolute sm:mr-0 mr-[10px] fixed left-0 sm:left-auto sm:h-auto h-[100vh] right-0 z-10 sm:min-w-[250px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-[60px]"
               >
                 <>
                   <div className="h-14 sm:w-[40px] flex-1 w-0 absolute right-0 top-[-20px]"></div>
-                  <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[calc(100vw-20px)] shadow-gray-700 dark:shadow ">
+                  <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-700 dark:shadow ">
                     <div>
                       <Link
                         href={ROUTER.Balance}

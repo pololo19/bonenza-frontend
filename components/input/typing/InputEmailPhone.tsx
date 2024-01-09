@@ -80,7 +80,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'bg-white dark:bg-[#12181F] rounded-[10px] flex items-center px-[15px] gap-[18px] relative',
+                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-color-bg-primary',
                 {
                   'py-[13.5px]': showPhoneNumber,
                   'py-[15px]': !showPhoneNumber,
@@ -111,7 +111,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
                               <div
                                 className={`${active ? 'bg-gray-700 text-white' : ''} ${
                                   country.countryCode === activeCountry.countryCode &&
-                                  'border border-amber-600 border-solid'
+                                  'border border-color-primary border-solid'
                                 } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded`}
                                 onClick={() => setActiveCountry(country)}
                               >
@@ -135,7 +135,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full bg-white dark:bg-[#12181F] focus:border-green-300 focus:outline-none text-[14px] text-black dark:text-white',
+                  'w-full bg-white dark:bg-color-bg-primary focus:outline-none text-[14px] text-black dark:text-white',
                   customClass,
                   {
                     'border-red-500': !!error?.message,

@@ -23,12 +23,12 @@ const casinoPaths = [
 ];
 
 export type OptionSidebarDataType = {
-  title?: string;
-  href?: string;
-  icon?: ReactNode;
+  title: string;
+  href: string;
+  icon: JSX.Element;
 };
 
-type IconOptionProps = {
+export type IconOptionProps = {
   title?: string;
   icon: ElementType;
   href: string;
@@ -63,7 +63,7 @@ const IconOption = ({
       {!isDropDown && (
         <Link
           className={cn(
-            'capitalize dark:hover:bg-[#292C33] dark:bg-color-bg-primary dark:text-[#98A7B5] hover:bg-[#eaecf3] hover:text-[#000] dark:hover:text-white text-[14px] flex items-center gap-[16px] flex-1 pl-[15px] px-[5px] py-[10px]',
+            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-[#eaecf3] hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[13px] flex items-center gap-[16px] flex-1 pl-[15px] px-[5px] py-[10px]',
             classNames,
             router.route.includes(href) && activeClassNames,
           )}

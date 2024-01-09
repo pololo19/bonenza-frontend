@@ -278,6 +278,8 @@
     "rateGameContent": "BONENZA Original",
     "mailFeedback": "feedback@bonenza.com",
     "hello": "Hello",
+    "welcomeTo": "WELCOME TO",
+    "startJourney": "START YOUR GAME JOURNEY NOW",
     "welcomeToJoin": "welcome to join",
     "welcomeAboard": "Welcome aboard",
     "firstDepositBonus": "FIRST DEPOSIT BONUS",
@@ -289,10 +291,12 @@
     "yourVipProgress": "YOUR VIP PROGRESS",
     "unlockExclusive": "Unlock exclusive",
     "rewardsAtBONENZA": "rewards at BONENZA",
-    "onlyVIPClub": "Only in the VIP club"
+    "onlyVIPClub": "Only in the VIP club",
+    "requireSign": "Please Sign up or Log in first"
   },
   "sidebar": {
     "bonus": "Bonus",
+    "account": "Account",
     "quest": "QUEST",
     "spin": "SPIN",
     "bingo": "Bingo",
@@ -301,6 +305,7 @@
     "lottery": "Lottery",
     "promotions": "Promotions",
     "vipClub": "VIP Club",
+    "notification": "Notification",
     "affiliate": "Affiliate",
     "forum": "Forum",
     "provablyFair": "Provably Fair",
@@ -1268,6 +1273,7 @@
     "currencySetting": "Currency Setting",
     "displayMode": "Display mode",
     "language": "Language",
+    "theme": "Theme",
     "hideMyGamingDataOnProfile": "Hide my gaming data on profile",
     "evenIfHidden": "Even if hidden, your avatar and username are always visible in chat rooms.",
     "hideMyUsernameFromPublicLists": "Hide my username from public lists",

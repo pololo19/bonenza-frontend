@@ -83,7 +83,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div
                     className={cn(
                       styles.cardMenu,
-                      'dark:bg-[#31343D] dark:text-[#98a7b5] bg-white text-[#31373d] rounded-[5px] xl:min-w-[175px] min-w-[none] h-fit',
+                      'dark:bg-color-modal-bg-secondary dark:text-color-text-primary bg-white text-[#31373d] rounded-[5px] xl:min-w-[175px] min-w-[none] h-fit',
                     )}
                   >
                     <div className="xl:p-2 p-1 w-full">
@@ -94,24 +94,24 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                             href={item.href}
                             icon={item.icon}
                             key={index}
-                            classNames="dark:hover:text-white hover:text-[#31373d] hover:bg-[#eaecf3] rounded bg-transparent"
-                            activeClassNames="dark:bg-[#292C33] bg-[#f5f6fa] dark:text-white text-black"
+                            classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
+                            activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
                           />
                         ))}
-                        <div className="h-[1px] mx-[10px] bg-[#3D4049]" />
+                        <div className="h-[1px] mx-[10px] dark:bg-color-modal-bg-secondary bg-white" />
                         <IconOption
                           title={String(t('sidebar:transactions'))}
                           href={ROUTER.Transaction}
                           icon={Repeat}
-                          classNames="dark:hover:text-white hover:text-[#31373d] hover:bg-[#eaecf3] rounded bg-transparent"
-                          activeClassNames="dark:bg-[#292C33] bg-[#f5f6fa] dark:text-white text-black"
+                          classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
                         />
                         <IconOption
                           title={String(t('sidebar:rolloverOverview'))}
                           href={ROUTER.Rollover}
                           icon={Chart}
-                          classNames="dark:hover:text-white hover:text-[#31373d] hover:bg-[#eaecf3] rounded bg-transparent"
-                          activeClassNames="dark:bg-[#292C33] bg-[#f5f6fa] dark:text-white text-black"
+                          classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
                         />
                       </ul>
                       <ul className="lg:hidden flex flex-col justify-center gap-3 rounded-xl">
@@ -122,11 +122,10 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                               key={index}
                               href={item.href}
                               className={cn(
-                                'flex flex-col dark:text-[#98A7B5] dark:hover:text-white dark:hover:bg-[#292C33] hover-bg[#f5f6fa66] bg-transparent py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                                'flex flex-col dark:text-color-text-primary dark:hover:text-white dark:hover:bg-color-hover-secondary hover-bg[#f5f6fa66] bg-transparent py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
                                 {
-                                  'dark:text-white dark:bg-[#292C33] text-black bg-[#f5f6fa]': router.route.includes(
-                                    item.href,
-                                  ),
+                                  'dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black':
+                                    router.route.includes(item.href),
                                 },
                               )}
                             >
@@ -137,11 +136,10 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         <Link
                           href={ROUTER.Transaction}
                           className={cn(
-                            'flex flex-col dark:text-[#98A7B5] text-black dark:hover:text-white dark:hover:bg-[#292C33] hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                            'flex flex-col dark:text-color-text-primary text-black dark:hover:text-white dark:hover:bg-color-hover-secondary hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
                             {
-                              'dark:text-white text-black dark:bg-[#292C33] bg-[#f5f6fa]': router.route.includes(
-                                ROUTER.Transaction,
-                              ),
+                              'dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black':
+                                router.route.includes(ROUTER.Transaction),
                             },
                           )}
                         >
@@ -150,11 +148,10 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         <Link
                           href={ROUTER.Rollover}
                           className={cn(
-                            'flex flex-col dark:text-[#98A7B5] text-black dark:hover:text-white dark:hover:bg-[#292C33] hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                            'flex flex-col dark:text-color-text-primary text-black dark:hover:text-white dark:hover:bg-color-hover-secondary hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
                             {
-                              'dark:text-white text-black dark:bg-[#292C33] bg-[#f5f6fa]': router.route.includes(
-                                ROUTER.Rollover,
-                              ),
+                              'dark:text-white text-black dark:!bg-color-active-primary bg-[#f5f6fa]':
+                                router.route.includes(ROUTER.Rollover),
                             },
                           )}
                         >
@@ -166,7 +163,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div
                     className={cn(
                       styles.cardMain,
-                      'flex-1 dark:bg-[#31343D] bg-white text-white rounded pt-[24px] px-[32px] pb-[32px]',
+                      'flex-1  text-white dark:bg-color-modal-bg-secondary bg-white rounded pt-[24px] px-[32px] pb-[32px]',
                     )}
                   >
                     {children}
@@ -191,7 +188,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                 leaveTo="opacity-0 translate-x-1"
               >
                 <div className="w-full flex flex-col h-screen dark:bg-[#12181F] bg-white">
-                  <div className="w-full dark:bg-[#24262B] dark:text-[#98a7b5] bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
+                  <div className="w-full dark:bg-[#24262B] dark:text-color-text-primary bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
                     <div className="flex-1 flex justify-between items-center">
                       <div className="text-[14px] sm:text-[16px] font-bold dark:text-white text-black">
                         {t('sidebar:wallet')}
@@ -223,7 +220,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                       </div>
                     </div>
                     <div
-                      className="hover:bg-[#39B1C0] sm:bg-[#20D4EB] rounded-md p-1 z-[10]"
+                      className="hover:bg-[#39B1C0] sm:bg-color-primary rounded-md p-1 z-[10]"
                       role="button"
                       onClick={() => router.replace('/')}
                     >
@@ -234,7 +231,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                     <div
                       className={cn(
                         styles.cardMain,
-                        'flex-1 dark:bg-[#12181F] bg-[#f5f6fa] dark:text-white text-black',
+                        'flex-1 dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black',
                       )}
                     >
                       {children}
@@ -248,7 +245,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.Deposit),
                           },
                         )}
@@ -265,7 +262,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.Withdraw),
                           },
                         )}
@@ -282,7 +279,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.BuyCrypto),
                           },
                         )}
@@ -299,7 +296,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.Swap),
                           },
                         )}
@@ -316,7 +313,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-[#292C33] bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.VaultPro),
                           },
                         )}
