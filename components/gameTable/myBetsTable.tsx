@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
-import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { currencyFormat1, formatDate, formatLengthNumber } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
 
@@ -142,7 +142,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-[#98A7B5] text-[#31373d] font-bold truncate text-center">
-            {row.original.multiplier}
+            {formatLengthNumber(row.original.multiplier, 2)}
           </div>
         ),
       },
@@ -159,8 +159,8 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
             >
               {row.original.profitAmount > 0 && '+'}
               {localFiat
-                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
-                : `${currencyFormat1(row.original.profitAmount, 4, '', false)}`}
+                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 2, localFiat.name)}`
+                : `${currencyFormat1(row.original.profitAmount, 2, '', false)}`}
             </div>
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
