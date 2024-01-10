@@ -24,6 +24,7 @@ module.exports = {
         'bg-table':
           'radial-gradient(circle at center,rgba(0,0,0, 0),rgba(0,0,0, 100)),url(/img/page/bg-table-home-page.png)',
         'btn-bg-warning': 'linear-gradient(95.56deg, #EEAA2B 8.9%, #8E600B 91.11%)',
+        'gradient-text': 'linear-gradient(90deg,#b5e916 22.99%,#43c111 73.57%)',
         'gradient-default': 'linear-gradient(90deg, rgba(27,28,32, 0.9) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
         'gradient-top-bottom': 'linear-gradient(360deg, rgba(27,28,32, 0.9) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
         active: 'rgba(246, 27, 79, 0.2)',
