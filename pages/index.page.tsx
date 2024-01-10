@@ -164,10 +164,10 @@ function IndexPage() {
                       <span className="text-white text-[20px]">{String(t('homePage:signUpUpper'))} & </span>
                       <span className="text-color-primary text-[20px]">{String(t('homePage:getReward'))}</span>
                     </div>
-                    <div className={'lg:text-[68px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
+                    <div className={'lg:text-[60px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
                       <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
                       <span className={`${styles.textGradient} bg-color-primary font-bold`}>
-                        {currencyFormat1(50000, 0, String(localeFiat?.currency || 'USD'))}
+                        {currencyFormat1(500000000, 2, String(localeFiat?.currency || 'USD'))}
                       </span>
                     </div>
                   </div>
