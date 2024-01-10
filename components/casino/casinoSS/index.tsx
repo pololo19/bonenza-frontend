@@ -131,40 +131,50 @@ const CasinoSS = <T,>({
                     {t('gameDetail:viewAll')}
                   </Link>
                 )}
-                <div
-                  role="button"
-                  className={classNames(
-                    'dark:bg-[#1D1E22] bg-white text-gray-400 rounded-[5px] p-[10px] hover:bg-[#6b7180]',
-                    {
-                      'bg-[#1D1E22]/40 hover:bg-[#1D1E22]/40 text-gray-400 pointer-events-none': disablePrev,
-                    },
-                  )}
-                  onClick={() => {
-                    prevSlide();
-                  }}
-                >
-                  <ArrowLeft2 size={10} />
-                </div>
-                <div
-                  role="button"
-                  className={classNames(
-                    'dark:bg-[#1D1E22] text-gray-400 bg-white rounded-[5px] p-[10px] hover:bg-[#6b7180]',
-                    {
-                      'bg-[#1D1E22]/40 hover:bg-[#1D1E22]/40 text-gray-400 pointer-events-none': disableNext,
-                    },
-                  )}
-                  onClick={() => {
-                    nextSlide();
-                  }}
-                >
-                  <ArrowRight2 size={10} />
-                </div>
+                {title !== String(t('casino:gameProvider')) && (
+                  <>
+                    <div
+                      role="button"
+                      className={classNames(
+                        'dark:bg-[#1D1E22] bg-white text-gray-400 rounded-[5px] p-[10px] hover:bg-[#6b7180]',
+                        {
+                          'bg-[#1D1E22]/40 hover:bg-[#1D1E22]/40 text-gray-400 pointer-events-none': disablePrev,
+                        },
+                      )}
+                      onClick={() => {
+                        prevSlide();
+                      }}
+                    >
+                      <ArrowLeft2 size={10} />
+                    </div>
+                    <div
+                      role="button"
+                      className={classNames(
+                        'dark:bg-[#1D1E22] text-gray-400 bg-white rounded-[5px] p-[10px] hover:bg-[#6b7180]',
+                        {
+                          'bg-[#1D1E22]/40 hover:bg-[#1D1E22]/40 text-gray-400 pointer-events-none': disableNext,
+                        },
+                      )}
+                      onClick={() => {
+                        nextSlide();
+                      }}
+                    >
+                      <ArrowRight2 size={10} />
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>
           <div className={`mt-[15px]`}>
             <div
-              className="grid grid-flow-col snap-x-[mandatory] scroll-smooth overflow-x-auto overflow-y-hidden grid-rows-1 gap-[10px]"
+              className={classNames(
+                'grid grid-flow-col snap-x-[mandatory] scroll-smooth overflow-x-auto overflow-y-hidden gap-[10px] sm:grid-rows-1',
+                {
+                  'grid-rows-1': title !== String(t('casino:gameProvider')),
+                  'grid-rows-2': title === String(t('casino:gameProvider')),
+                },
+              )}
               style={{
                 gridAutoColumns: `calc(100% / ${slide} - (${slide} - 1) * 10px / ${slide})`,
                 scrollSnapType: 'x mandatory',

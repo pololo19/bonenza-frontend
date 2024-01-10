@@ -118,7 +118,11 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       {
         accessorKey: 'betId',
         header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:betId')}</div>,
-        cell: ({ row }) => <div className="dark:text-[#98A7B5] text-[#31373D] truncate p-2">{row.original.betId}</div>,
+        cell: ({ row }) => (
+          <div className="dark:text-[#98A7B5] text-[#31373D] truncate sm:p-2 p-[5px] sm:w-auto w-[30vw]">
+            {row.original.betId}
+          </div>
+        ),
       },
       {
         accessorKey: 'player',
@@ -127,7 +131,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           <div
             className={`${
               row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center p-2`}
+            } font-bold truncate text-center  sm:p-2 p-[5px]`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
@@ -144,7 +148,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         accessorKey: 'time',
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:time')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center p-2">
+          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center  sm:p-2 p-[5px]">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}
           </div>
         ),
@@ -153,7 +157,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         accessorKey: 'payout',
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center font-bold p-2">
+          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center font-bold  sm:p-2 p-[5px]">
             {formatLengthNumber(row.original.multiplier, 2)}
           </div>
         ),
@@ -162,7 +166,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         accessorKey: 'profit',
         header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:profit')}</div>,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-end gap-[5px] p-2')}>
+          <div className={cn('flex items-center justify-end gap-[5px]  sm:p-2 p-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
                 'text-green-500': row.original.profitAmount >= 0,

@@ -1,8 +1,8 @@
-import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { ArrowRight2 } from 'iconsax-react';
+import React, { Fragment } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ArrowRight2 } from 'iconsax-react';
 
 type sortByProps = {
   sortBy: any[];
@@ -18,7 +18,7 @@ const SortBy = ({ sortBy, selectSortBy, selectedSortBy }: sortByProps) => {
       <div className="hidden sm:block">{t('casino:sortBy')}</div>
       <Menu
         as="div"
-        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-[#98a7b5] h-[36px] sm:h-[40px] text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
+        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-color-text-primary h-[36px] sm:h-[40px] text-[#000] dark:bg-color-bg-secondary bg-[#F6F7FA]"
       >
         <Menu.Button className="w-full px-[20px]">
           <div className="flex items-center justify-between">

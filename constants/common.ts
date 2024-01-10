@@ -106,6 +106,7 @@ export const ROUTER = {
   Recent: '/recent',
   Favorite: '/favorite',
   PicksForYou: '/gamelist/picks-for-you',
+  Providers: '/providers',
   GameDetail: (gameIdentifier2: string) => `/game?gameId=${gameIdentifier2}`,
   Provider: (providerId: string) => `/provider?id=${providerId}`,
   Theme: (themeId: string) => `/theme?key=${themeId}`,

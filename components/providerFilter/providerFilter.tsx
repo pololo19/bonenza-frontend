@@ -21,7 +21,7 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider }: prov
       <Listbox
         multiple
         as="div"
-        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-[#98a7b5] h-[36px] sm:h-[40px] text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
+        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-color-text-primary h-[36px] sm:h-[40px] text-[#000] dark:bg-color-bg-secondary bg-[#F6F7FA]"
       >
         <Listbox.Button className="px-[20px] w-full text-left">
           <div className="flex items-center justify-between">
