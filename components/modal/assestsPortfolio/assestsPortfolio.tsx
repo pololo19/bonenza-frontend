@@ -24,6 +24,9 @@ type ModalAssetsPortfolioProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
+
 export default function ModalAssetsPortfolio({
   show,
   onClose,
@@ -171,16 +174,16 @@ export default function ModalAssetsPortfolio({
                             <>
                               {currencyFormat1(
                                 getBalanceByCrypto(coin) * coin.price * exchangeRate,
-                                2,
+                                fiatDecimals,
                                 localFiat?.name,
                               )}
                               <br />
                               <span className="dark:text-gray-400 text-[#31373d] text-[12px]">
-                                {currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}
+                                {currencyFormat1(getBalanceByCrypto(coin), cryptoDecimals, '', false)}
                               </span>
                             </>
                           )}
-                          {!viewInFiat && <>{currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}</>}
+                          {!viewInFiat && <>{currencyFormat1(getBalanceByCrypto(coin), cryptoDecimals, '', false)}</>}
                         </div>
                       </div>
                     ))}

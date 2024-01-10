@@ -29,7 +29,8 @@ type FiatHeaderProps = {
   buttonClass?: string;
 };
 
-const toFixedValue = 2;
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
 
 export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: FiatHeaderProps) {
   const dispatch = useDispatch();
@@ -160,15 +161,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   {localFiat
                     ? `${currencyFormat1(
                         getBalanceBySymbol(activeCurrency) * activeCurrency.price * exchangeRate,
-                        toFixedValue,
+                        fiatDecimals,
                         localFiat.name,
                       )}`
-                    : `${currencyFormat1(Number(getBalanceBySymbol(activeCurrency)), toFixedValue, '', false)}`}
+                    : `${currencyFormat1(Number(getBalanceBySymbol(activeCurrency)), cryptoDecimals, '', false)}`}
                 </div>
               )}
               {!viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
-                  {currencyFormat1(getBalanceBySymbol(activeCurrency), toFixedValue, '', false)}
+                  {currencyFormat1(getBalanceBySymbol(activeCurrency), cryptoDecimals, '', false)}
                 </div>
               )}
               <div className="text-white truncate text-right min-w-[15px]">
@@ -263,15 +264,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             {viewInFiat &&
                               currencyFormat1(
                                 getBalanceBySymbol(crypto) * crypto.price * exchangeRate,
-                                toFixedValue,
+                                fiatDecimals,
                                 localFiat?.name,
                               )}
-                            {!viewInFiat && currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
+                            {!viewInFiat && currencyFormat1(getBalanceBySymbol(crypto), cryptoDecimals, '', false)}
                             {viewInFiat && (
                               <>
                                 <br />
                                 <span className="text-gray-400 text-[12px]">
-                                  {currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
+                                  {currencyFormat1(getBalanceBySymbol(crypto), cryptoDecimals, '', false)}
                                 </span>
                                 <br />
                               </>
@@ -329,7 +330,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               <>
                                 {currencyFormat1(
                                   getBalanceBySymbol(fiat) * fiat.price * exchangeRate,
-                                  toFixedValue,
+                                  fiatDecimals,
                                   localFiat?.name,
                                 )}
                                 <br />
@@ -337,7 +338,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             )}
 
                             <span className="text-gray-400 text-[12px]">
-                              {currencyFormat1(0, toFixedValue, '', false)}
+                              {currencyFormat1(0, fiatDecimals, '', false)}
                             </span>
                           </div>
                         </div>
@@ -375,14 +376,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 <>
                                   {currencyFormat1(
                                     getBalanceBySymbol(coin) * coin.price * exchangeRate,
-                                    toFixedValue,
+                                    fiatDecimals,
                                     localFiat?.name,
                                   )}
                                   <br />
                                 </>
                               )}
                               <span className="text-gray-400 text-[12px]">
-                                {currencyFormat1(getBalanceBySymbol(coin), toFixedValue, '', false)}
+                                {currencyFormat1(getBalanceBySymbol(coin), cryptoDecimals, '', false)}
                               </span>
                             </div>
                           </div>
