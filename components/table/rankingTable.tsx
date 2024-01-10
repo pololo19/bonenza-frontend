@@ -113,7 +113,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
               </tr>
             ))}
 
-          {!data.length && !isLoading && (
+          {!data?.length && !isLoading && (
             <tr className="">
               <td colSpan={columns.length} className="text-center ">
                 <div className="flex flex-col items-center gap-[15px] text-[#53575C]">

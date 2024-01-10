@@ -9,14 +9,16 @@ import { toast } from 'react-toastify';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { currencyFormat1, formatDate, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
 import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BetDetail, BetTableDataType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
+import cn from 'classnames';
 
 type ModalDetailBetsProps = {
   onClose: () => void;
@@ -42,10 +44,11 @@ export default function ModalDetailBets({
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
 
-  const { userId, localFiat } = useSelector(
+  const { userId, localFiat, userName } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
+      userName: state.auth.user.userName,
     }),
     shallowEqual,
   );
@@ -55,13 +58,13 @@ export default function ModalDetailBets({
     navigator.clipboard.writeText(text);
   };
 
-  const openModalProfileUser = (data?: BetTableDataType) => {
+  const openModalProfileUser = (data: BetTableDataType) => {
     const userData = {
-      username: data?.player,
-      avatar: data?.playerAvatar,
-      userId: data?.playerId,
+      username: data.player,
+      avatar: data.playerAvatar,
+      userId: data.playerId,
     };
-    localStorage.setItem('userData', JSON.stringify(userData));
+    dispatch(setUserData(userData));
     dispatch(changeIsShowInformation(true));
   };
 
@@ -73,8 +76,10 @@ export default function ModalDetailBets({
         onClose={onClose}
         panelClass="sm:!max-w-[400px]"
         header={
-          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-[#161D26] bg-[#f5f6fa]">
-            <div className="text-[16px] dark:text-white text-black font-[600]">{titleModal || 'Details'}</div>
+          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-color-header-primary bg-[#f5f6fa]">
+            <div className="text-[16px] dark:text-white text-black font-[600]">
+              {titleModal || String(t('gameDetail:betDetail'))}
+            </div>
           </div>
         }
       >
@@ -122,11 +127,13 @@ export default function ModalDetailBets({
               <div className="w-[1px] h-[41px] dark:bg-[#3E4349] bg-white" />
               <div className="text-center">
                 <div className="text-[10px] dark:text-[#939699] text-[#f5f6fa]">{t('gameTable:payout')}</div>
-                <div className="text-[12px] dark:text-white text-black">{betDetail.multiplier}</div>
+                <div className="text-[12px] dark:text-white text-black">
+                  {`${formatLengthNumber(betDetail.multiplier, 2)} X`}
+                </div>
               </div>
             </div>
             <div className="flex items-center gap-[8px] pl-[16px]">
-              {betDetail.playerId?.toString() !== userId && isPublicProfile ? (
+              {betDetail.playerId?.toString() !== userId && !isPublicProfile ? (
                 <Image height={44} width={44} className="rounded-full" src="/img/avatar-hidden.png" alt="" />
               ) : (
                 <Image
@@ -141,36 +148,40 @@ export default function ModalDetailBets({
                 />
               )}
               <div>
-                <div className="flex items-center gap-[3px] mb-[5px]">
+                <div className="flex items-center gap-[5px] mb-[5px] justify-between mr-[10px]">
                   <div
-                    className={`${
-                      betDetail?.playerId?.toString() !== userId && isPublicProfile
-                        ? 'pointer-events-none'
-                        : 'hover:underline cursor-pointer'
-                    } text-[12px] dark:text-white text-black`}
+                    className={cn('text-[12px]', {
+                      'hover:underline cursor-pointer dark:text-white text-black': !(
+                        betDetail.playerId !== userId && !isPublicProfile
+                      ),
+                      'point-event-none text-color-text-primary': betDetail.playerId !== userId && !isPublicProfile,
+                    })}
                     onClick={() => openModalProfileUser(betDetail)}
                   >
-                    {betDetail?.playerId?.toString() !== userId && isPublicProfile
+                    {betDetail.playerId !== userId && !isPublicProfile
                       ? t('homePage:hidden')
-                      : betDetail?.player}
+                      : betDetail.playerId === userId
+                      ? userName
+                      : betDetail.player}
                   </div>
                   <div className="text-[12px] dark:text-[#939699] text-[#31373d]">
-                    On {formatDate(new Date(betDetail?.time ?? new Date()), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+                    On {formatDate(new Date(betDetail.time ?? new Date()), TIME_SUBMIT_FORMAT_WITH_MARKER)}
                   </div>
                 </div>
                 <div className="flex items-center gap-[3px] pr-[10px]">
-                  <div className="text-[12px]">{t('gameTable:betID')}:</div>
-                  <ShieldTick className="w-[16px] h-[16px] text-color-primary" />
-                  <div className="text-[12px] dark:text-white text-black text-right">{betDetail?.betId}</div>
+                  <div className="text-[12px] min-w-[40px]">{t('gameTable:betId')}:</div>
+                  <ShieldTick variant="Bold" className="w-[24px] h-[24px] text-color-primary" />
+                  <div className="text-[12px] dark:text-white text-black text-right mr-[10px]">{betDetail.betId}</div>
                   <Simcard2
                     role="button"
-                    onClick={() => copy(String(betDetail?.betId))}
-                    className="w-[16px] h-[16px] text-color-text-primary"
+                    variant="Bold"
+                    onClick={() => copy(String(betDetail.betId))}
+                    className="w-[20px] h-[20px] text-color-text-primary"
                   />
                 </div>
               </div>
             </div>
-            <div className="mt-5 dark:bg-[#282A30] bg-[#f5f6fa] rounded-[5px] py-[9px] px-[10px] flex items-center justify-between mx-[6px]">
+            <div className="mt-5 dark:bg-color-bg-primary bg-[#f5f6fa] rounded-[5px] py-[9px] px-[10px] flex items-center justify-between mx-[6px]">
               <div className="flex items-center gap-[7px]">
                 <Image
                   width={38}
@@ -184,13 +195,13 @@ export default function ModalDetailBets({
                 />
                 <div>
                   <div className="text-[12px] dark:text-white text-black">{betDetail.game}</div>
-                  <div className="text-[12px] dark:text-[#939699] text-[#31373d] mt-[7px]">
+                  <div className="text-[12px] dark:text-color-text-primary text-[#31373d] mt-[7px]">
                     {betDetail.gameIdenfiter.split(':')[0]}
                   </div>
                 </div>
               </div>
               <Link
-                className="flex items-center group dark:text-[#939699] text-[#31373d] dark:hover:text-white hover:text-black"
+                className="flex items-center group dark:text-color-text-primary text-[#31373d] dark:hover:text-white hover:text-black"
                 role="button"
                 href={ROUTER.GameDetail(convertToUrlCase(betDetail.gameIdenfiter))}
                 onClick={() => {
@@ -207,13 +218,15 @@ export default function ModalDetailBets({
                 <ArrowRight2 className="w-[12px] h-[12px]" />
               </div>
             ) : (
-              <div className="flex items-center mt-5 mx-[6px]">
-                <div className="text-[11px] dark:text-[#939699] text-[#31373d] max-w-[230px]">
+              <div className="flex items-center mt-5 mx-[6px] justify-between">
+                <div className="text-[11px] dark:text-color-text-primary text-[#31373d] max-w-[230px]">
                   {t('gameTable:anyIssues')}
                 </div>
                 <div className="flex items-center gap-[5px]">
-                  <Headphone className="w-[14px] h-[14px] text-[#0DFDE4]" />
-                  <div className="text-[11px] dark:text-[#939699] text-[#31373d]">{t('gameTable:liveSupport')}</div>
+                  <Headphone className="w-[14px] h-[14px] text-color-primary" />
+                  <div className="text-[11px] dark:text-color-text-primary text-[#31373d]">
+                    {t('gameTable:liveSupport')}
+                  </div>
                 </div>
               </div>
             )}
