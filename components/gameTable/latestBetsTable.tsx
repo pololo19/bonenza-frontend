@@ -107,7 +107,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
 
     setSelBetDetail(row.original);
     setIsShowDetailBet(true);
-    setIsPublicProfile(row.original?.isHideNamePublicList);
+
+    setIsPublicProfile(row.original.player == '' ? false : true);
   };
 
   const allBetColumns = useMemo(() => {
@@ -116,7 +117,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betId',
         header: String(t('gameTable:game')),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d] text-[16px] font-bold truncate flex items-center gap-[5px] p-2">
+          <div className="dark:text-color-text-primary text-[#31373d] text-[16px] font-bold truncate flex items-center gap-[5px] p-2">
             <Image
               height={24}
               width={24}
@@ -139,7 +140,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
-              <div className="dark:text-[#98A7B5] text-[#31373d]">{t('homePage:hidden')}</div>
+              <div className="dark:text-color-text-primary text-[#31373d]">{t('homePage:hidden')}</div>
             ) : (
               <div className="dark:text-white text-black">
                 {row.original.playerId === userId ? userName : row.original.player}
@@ -173,7 +174,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'multiplier',
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[16px] text-[#31373d] truncate text-center font-bold  p-2">
+          <div className="dark:text-color-text-primary text-[16px] text-[#31373d] truncate text-center font-bold  p-2">
             {row.original.multiplier}
           </div>
         ),
