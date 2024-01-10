@@ -423,6 +423,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
     return '';
   }
 }
+
 export const getColorByStatus = (status: TransactionStatus) => {
   let bgColor = '';
   switch (status) {

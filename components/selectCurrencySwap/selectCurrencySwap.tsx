@@ -145,6 +145,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
   const handleChangeCoinSwap = () => {
     const curVal = JSON.parse(JSON.stringify(getValues()));
+    console.log(curVal, '=====148');
     setValue('symbolFrom', curVal.symbolTo);
     setValue('symbolTo', curVal.symbolFrom);
     setValue('amountFrom', curVal.amountTo);
@@ -163,7 +164,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
       // const { fromPrice, toPrice } = res.data;
       const amountTo = (Number(balance) * fromPrice) / toPrice;
 
-      setValue('amountTo', currencyFormat1(amountTo, 8, '', false));
+      setValue('amountTo', amountTo.toFixed(8));
     } catch (error) {
       setValue('amountTo', '0');
     } finally {
@@ -175,14 +176,14 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     const symbolFrom = getSymbolById(watch('symbolFrom'));
     if (symbolFrom) {
       const avaBalance = getBalanceBySymbolId(symbolFrom.id);
-      setValue('amountFrom', currencyFormat1(avaBalance, 4, '', false));
+      setValue('amountFrom', avaBalance.toFixed(4));
     }
   };
 
   const onBlurFromBalance = () => {
     const balance = getBalanceBySymbolId(watch('symbolFrom'));
     if (Number(getValues('amountFrom')) > balance) {
-      setValue('amountFrom', currencyFormat1(Number(balance), 4, '', false));
+      setValue('amountFrom', balance.toFixed(4));
     }
   };
 
@@ -194,7 +195,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
       setValue('symbolFrom', symbolFrom);
       setValue('symbolTo', symbolTo);
-      setValue('amountFrom', currencyFormat1(Number(tempAmountFrom), 4, '', false));
+      setValue('amountFrom', tempAmountFrom.toFixed(4));
     }
   }, [cryptoSymbols]);
 
