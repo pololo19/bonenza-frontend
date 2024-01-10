@@ -7,7 +7,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Settings } from 'react-slick';
 
-import { api_getCasinoWithKey, api_getProviders, CasinoRequest } from '@/api/game';
+import { api_getCasinoWithKey, api_getProviders, api_getThemes, CasinoRequest } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
@@ -42,7 +42,7 @@ function CasinoPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [listProvider, setListProvider] = useState<GameProviderDetail[]>([]);
-  const [listTheme, setListTheme] = useState<GameThemeDetail[]>([]);
+  const [listTheme, setListTheme] = useState<string[]>([]);
 
   const [listGames, setListGames] = useState<ListGamesType>({
     games: [],
@@ -103,20 +103,24 @@ function CasinoPage() {
     }
   };
 
-  const getListProviders = async () => {
+  const getListProvidersAndThemes = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getProviders();
-      const providers = res.data.map((provider: any) => ({
+      const [resProviders, resThemes] = await Promise.all([api_getProviders(), api_getThemes()]);
+      const providers = resProviders.data.map((provider: any) => ({
         id: provider.id,
         name: provider.name,
         image: provider.identifier,
         isSelect: false,
         totalGames: provider.gameCount,
       }));
+
+      const themes = [...resThemes.data];
       setListProvider(providers);
+      setListTheme(themes);
     } catch (error) {
       setListProvider([]);
+      setListTheme([]);
     } finally {
       setIsLoading(false);
     }
@@ -124,7 +128,7 @@ function CasinoPage() {
 
   useEffect(() => {
     handleGetGames();
-    getListProviders();
+    getListProvidersAndThemes();
     localStorage.removeItem('tab');
   }, []);
 
@@ -179,21 +183,22 @@ function CasinoPage() {
           <CasinoSS
             title={String(t('casino:gameProvider'))}
             data={listProvider}
+            viewAllUrl={ROUTER.Providers}
             renderItem={(item: GameProviderDetail) => (
               <Link
                 href={ROUTER.Provider(String(item.id))}
                 role="button"
-                className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-[#31343a] hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
+                className="p-[8px] sm:max-h-[70px] max-h-[50px] bg-[#fff] dark:bg-[#31343a] hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
               >
                 <Image
                   height={0}
                   width={0}
-                  src={`/img/providers/${item?.image}.png`}
+                  src={`https://cdn.softswiss.net/logos/providers_small/color/${item?.image}.svg`}
                   alt=""
                   onError={(e) => {
                     e.currentTarget.src = `/img/providers/softswiss.png`;
                   }}
-                  className="object-cover max-w-[150px] max-h-full w-auto rounded-[5px]"
+                  className="object-cover max-w-[150px] sm:max-h-[50px] max-h-[30px] w-auto rounded-[5px]"
                 />
               </Link>
             )}
@@ -213,14 +218,14 @@ function CasinoPage() {
           <CasinoSS
             title={String(t('casino:themes'))}
             data={listTheme}
-            renderItem={(item: GameThemeDetail) => (
+            renderItem={(item: string) => (
               <Link
-                href={ROUTER.Theme(String(item.theme))}
+                href={ROUTER.Theme(String(item))}
                 role="button"
-                className="flex items-center h-[64px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-[#31343a] hover:opacity-70
-                 gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80"
+                className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-[#31343a] hover:opacity-70
+                 gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
               >
-                {snakeCaseToString(item.theme)}
+                {snakeCaseToString(item)}
               </Link>
             )}
           />

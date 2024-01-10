@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
-
+import cn from 'classnames';
 import { useTranslation } from '@/base/config/i18next';
+import { shallowEqual, useSelector } from 'react-redux';
+import { AppState } from '@/base/redux/store';
 
 type HomepageSessionProps = {
   title?: string;
@@ -17,9 +19,20 @@ const HomepageSession = ({
   showIcon,
 }: HomepageSessionProps) => {
   const { t } = useTranslation('');
+  const { isLogin } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+    }),
+    shallowEqual,
+  );
 
   return (
-    <div className="w-full relative sm:block hidden">
+    <div
+      className={cn('w-full relative sm:block', {
+        hidden: !isLogin,
+        block: isLogin,
+      })}
+    >
       <div className="flex items-center gap-[10px]">
         <Image className={`${showIcon ? 'block' : 'hidden'}`} height={24} width={24} src={iconUrl} alt="" />
         <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">{title}</div>

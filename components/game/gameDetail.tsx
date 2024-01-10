@@ -116,7 +116,7 @@ const GameDetailComponent = ({
         </div>
         <div>
           <div className="dark:bg-[#2C2F36] bg-white p-[15px] rounded-[5px] mt-[10px] mb-[30px]">
-            <div className="mb-[15px]">
+            <div className="mb-[15px] ml-[15px]">
               <Image
                 height={0}
                 width={0}
@@ -132,19 +132,19 @@ const GameDetailComponent = ({
             </div>
             <div className="flex items-center gap-[10px]">
               <Link
-                href={ROUTER.Provider(String(gameDetail?.provider))}
-                className="flex dark:bg-[#25262B] dark:hover:bg-gray-600 text-[#000] hover:text-[#000] items-center p-[10px] justify-between rounded-[5px] gap-[5px] border dark:border-0 border-solid border-[#DADDE6]"
+                href={ROUTER.Provider(String(gameDetail?.providerName))}
+                className="flex dark:bg-color-btn-primary dark:hover:bg-gray-600 text-[#000] hover:text-[#000] items-center p-[10px] justify-between rounded-[5px] gap-[5px] border dark:border-0 border-solid border-[#DADDE6]"
                 role="button"
               >
                 <div className="text-[12px] dark:text-[#FFFFFF] text-[#31373D] hover:text-[#000] font-bold">
-                  {listRelatedGame.length} {t('provider:games')}
+                  {gameDetail?.gameCnt} {t('provider:games')}
                 </div>
                 <ArrowRight2 size={12} />
               </Link>
               <Link
-                href={ROUTER.Provider(String(gameDetail?.provider))}
+                href={ROUTER.Provider(String(gameDetail?.providerName))}
                 role="button"
-                className="text-[12px] dark:text-[#FFFFFF] font-bold p-[10px] dark:bg-[#25262B] text-[#31373D] hover:text-[#000] bg-white border dark:border-0 border-solid border-[#DADDE6] dark:hover:text-white dark:hover:bg-gray-600 rounded-[5px] text-center"
+                className="text-[12px] dark:text-[#FFFFFF] font-bold p-[10px] dark:bg-color-btn-primary text-[#31373D] hover:text-[#000] bg-white border dark:border-0 border-solid border-[#DADDE6] dark:hover:text-white dark:hover:bg-gray-600 rounded-[5px] text-center"
               >
                 {t('gameDetail:moreInfo')}
               </Link>

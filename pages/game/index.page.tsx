@@ -98,13 +98,15 @@ function GamePage() {
       const tempGameDetailData: GameListType = {
         id: resGameDetail.data?.id ?? '',
         title: resGameDetail.data?.title ?? '',
-        provider: resGameDetail.data?.provider ?? '',
+        provider: resGameDetail.data?.producerIdentifier ?? '',
+        providerName: resGameDetail.data?.producerName ?? '',
         identifier: resGameDetail.data?.identifier ?? '',
         payout: Number(resGameDetail.data?.payout ?? 0),
         multiplier: Number(resGameDetail.data?.multiplier ?? 0),
         isExpiration: resGameDetail.data?.isExpiration ?? false,
         description: resGameDetail.data?.description ?? '',
         releasedAt: resGameDetail.data?.releasedAt ?? '',
+        gameCnt: Number(resGameDetail.data?.producerDetails?.gameCount ?? 0),
       };
       setGameDetail(tempGameDetailData);
     } catch (error) {
@@ -277,15 +279,15 @@ function GamePage() {
           <div className="flex w-full justify-between items-center">
             <Breadcrumbs
               data={[{ title: 'Casino', href: ROUTER.Casino }]}
-              endpoint={{ title: String(gameDetail?.title), href: ROUTER.GameDetail(String(gameId)) }}
+              endpoint={{ title: String(gameDetail.title), href: ROUTER.GameDetail(String(gameId)) }}
             />
             <div>
               <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
               <Link
                 className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
-                href={ROUTER.Provider(String(gameDetail?.provider))}
+                href={ROUTER.Provider(String(gameDetail.provider))}
               >
-                {providerDetail?.name}
+                {gameDetail.provider}
               </Link>
             </div>
           </div>
@@ -341,12 +343,12 @@ function GamePage() {
                         <>
                           <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
                             {isSatisfied && (
-                              <div className="text-start md:text-[18px] dark:text-white text-black">
+                              <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
                                 {t('gameDetail:playWithBalanceIn')}
                               </div>
                             )}
                             {!isSatisfied && (
-                              <div className="text-start md:text-[18px] dark:text-white text-black">
+                              <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
                                 {t('gameDetail:insufficientBalanceIn')}
                               </div>
                             )}
@@ -356,7 +358,7 @@ function GamePage() {
                           </div>
 
                           {isSatisfied && (
-                            <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-[#31373D] text-center">
+                            <div className="sm:text-[12px] text-[11px] dark:text-[#C2C2C2] text-[#31373D] text-center">
                               {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
                               <span className="!text-amber-500">{localFiat?.name ?? 'USD'}</span>,{' '}
                               {t('gameDetail:ifYouChangeCurrency')}
@@ -375,7 +377,7 @@ function GamePage() {
                             {isSatisfied && (
                               <button
                                 type="button"
-                                className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                                className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
                                 onClick={() => handlePlay()}
                               >
                                 <PlayCricle size={20} />
@@ -385,7 +387,7 @@ function GamePage() {
                             {!isSatisfied && (
                               <button
                                 type="button"
-                                className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                                className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
                                 onClick={() => {
                                   dispatch(changeIsShowDepositModal(true));
                                 }}

@@ -100,7 +100,9 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {
         accessorKey: 'betId',
         header: () => <div className="text-left dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:betId')}</div>,
-        cell: ({ row }) => <div className="dark:text-[#98A7B5] text-[#31373d] truncate">{row.original.betId}</div>,
+        cell: ({ row }) => (
+          <div className="dark:text-[#98A7B5] text-[#31373d] truncate sm:w-auto w-[30vw]">{row.original.betId}</div>
+        ),
       },
       {
         accessorKey: 'betAmount',
@@ -163,7 +165,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                 : `${currencyFormat1(row.original.profitAmount, 2, '', false)}`}
             </div>
             <Image
-              className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
+              className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"
               height={15}
               width={15}
               src={`/img/fiats/${row.original.currency}.png`}

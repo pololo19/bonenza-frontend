@@ -117,7 +117,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betId',
         header: String(t('gameTable:game')),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-[#31373d] text-[16px] font-bold truncate flex items-center gap-[5px] p-2">
+          <div className="dark:text-color-text-primary text-[#31373d] sm:text-[16px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px]">
             <Image
               height={24}
               width={24}
@@ -136,7 +136,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           <div
             className={`${
               row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center text-[16px] p-2`}
+            } font-bold truncate text-center sm:text-[16px] text-[12px] sm:p-2 p-[5px]`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
@@ -153,7 +153,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betAmount',
         header: () => <div className="text-center">{t('gameTable:betAmount')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-white text-[16px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px]  p-2">
+          <div className="dark:text-white sm:text-[16px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]">
             {localFiat
               ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 4, localFiat.name)}`
               : `${currencyFormat1(row.original.betAmount, 4, '', false)} `}
@@ -174,7 +174,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'multiplier',
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-[16px] text-[#31373d] truncate text-center font-bold  p-2">
+          <div className="dark:text-color-text-primary sm:text-[16px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]">
             {formatLengthNumber(row.original.multiplier, 2)}
           </div>
         ),
@@ -184,10 +184,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: String(t('gameTable:profitAmount')),
         minSize: 60,
         cell: ({ row }) => (
-          <div className={cn('flex items-center text-[16px] justify-end gap-[5px] p-2')}>
+          <div className={cn('flex items-center sm:text-[16px] text-[12px] justify-end gap-[5px] sm:p-2 px-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-green-500': row.original.profitAmount >= 0,
+                'text-color-primary': row.original.profitAmount >= 0,
                 'text-red-500': row.original.profitAmount < 0,
               })}
             >
@@ -197,7 +197,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
                 : `${currencyFormat1(row.original.profitAmount, 2, '', false)} `}
             </div>
             <Image
-              className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
+              className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"
               height={15}
               width={15}
               src={`/img/fiats/${row.original.currency}.png`}
