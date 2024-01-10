@@ -92,7 +92,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   const betHistoryFilter = useMemo(() => {
     if (!myBetData.length) return [];
     if (isShowMore) return myBetData.slice(0, 40);
-    return myBetData.slice(0, 20);
+    return myBetData.slice(0, 10);
   }, [myBetData, isShowMore]);
 
   const myBetColumns = useMemo(() => {

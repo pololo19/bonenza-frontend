@@ -59,7 +59,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const betHistoryFilter = useMemo(() => {
     if (!betHistory.length) return betHistory;
     if (isShowMore) return betHistory.slice(0, 40);
-    return betHistory.slice(0, 20);
+    return betHistory.slice(0, 10);
   }, [betHistory, isShowMore]);
 
   const handleGetAllBet = async () => {

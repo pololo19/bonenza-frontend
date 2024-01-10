@@ -62,7 +62,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   const betHistoryFilter = useMemo(() => {
     if (!betData.length) return [];
     if (isShowMore) return betData.slice(0, 40);
-    return betData.slice(0, 20);
+    return betData.slice(0, 10);
   }, [betData, isShowMore]);
 
   const handleGetAllBet = async () => {
