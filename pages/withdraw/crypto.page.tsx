@@ -241,7 +241,7 @@ const WithdrawCryptoPage = () => {
             <Link
               href={ROUTER.WithdrawCrypto}
               className={cn(
-                'bg-gradient-to-t from-[#F61B4F]/20 border-[#F61B4F] max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid border-[#272C33] pb-[5px] mt-[10px]',
+                'bg-gradient-to-t from-color-primary/20 border-color-primary max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid pb-[5px] mt-[10px]',
               )}
               role="button"
             >
@@ -274,7 +274,7 @@ const WithdrawCryptoPage = () => {
                   {t('withdraw:withdrawalAddress')}
                 </div>
                 <InputText
-                  customClass="px-[20px] py-[15px] dark:bg-[#161D26] bg-[#f6f7fa] !text-[14px]"
+                  customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-[#f6f7fa] !text-[14px]"
                   control={control}
                   placeholder={String(t('withdraw:withdrawalAddressPlaceholder'))}
                   name="withdrawAddress"
@@ -292,7 +292,7 @@ const WithdrawCryptoPage = () => {
                 </div>
                 <div
                   className={cn(
-                    'w-full pl-[18px] min-h-[51px] pr-[20px] py-[5px] text-[16px] rounded-[16px] dark:bg-[#161D26] bg-[#f6f7fa] flex items-center justify-between gap-[10px]',
+                    'w-full pl-[18px] min-h-[51px] pr-[20px] py-[5px] text-[16px] rounded-[3px] dark:bg-color-input-primary bg-[#f6f7fa] flex items-center justify-between gap-[10px] border-[1px] border-solid border-transparent focus-within:border-color-primary',
                     {
                       'border-red-500 border border-solid': errors.withdrawAmount?.message,
                     },
@@ -311,7 +311,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMin && (
                       <div
                         role="button"
-                        className="text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
+                        className="text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[5px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
                         onClick={() => setValue('withdrawAmount', String(renderMinValue.min))}
                       >
                         {t('deposit:min')}
@@ -320,7 +320,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isQuater && (
                       <div
                         role="button"
-                        className="md:block hidden text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
+                        className="md:block hidden text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[5px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(25)}
                       >
                         25%
@@ -329,7 +329,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isHalf && (
                       <div
                         role="button"
-                        className="md:block hidden text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
+                        className="md:block hidden text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[5px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(50)}
                       >
                         50%
@@ -338,7 +338,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMax && (
                       <div
                         role="button"
-                        className="text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
+                        className="text-[14px] px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-[5px] rounded-[5px] dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-[#f6f7fa] dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(100)}
                       >
                         {t('deposit:max')}
@@ -375,7 +375,7 @@ const WithdrawCryptoPage = () => {
                   <span className="text-red-500 w-full"> {errors.withdrawAmount?.message}</span>
                 )}
               </div>
-              <div className="dark:bg-[#161D26] bg-[#f5f6fa] rounded-[16px] px-[12px] py-[6px] dark:text-[#98a7b5] text-[#31373d] mt-[22px] flex flex-col gap-[12px]">
+              <div className="dark:bg-color-input-primary bg-[#f5f6fa] rounded-[3px] px-[12px] py-[6px] dark:text-[#98a7b5] text-[#31373d] mt-[22px] flex flex-col gap-[12px]">
                 <div className="flex items-center justify-between">
                   <div className="text-[14px]">{t('withdraw:totalWithdrawAmount')}</div>
                   <div className="dark:text-amber-500 text-[#31373d] font-semibold">
@@ -417,7 +417,7 @@ const WithdrawCryptoPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] py-[10px] px-[20px] min-w-[140px]"
+                  className="bg-color-primary hover:opacity-[0.9] rounded-[5px] py-[10px] px-[20px] min-w-[140px]"
                 >
                   {t('withdraw:confirm')}
                 </button>

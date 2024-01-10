@@ -17,8 +17,8 @@ import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 
-const toAmountFixedLength = 4;
-const toLocalFixedLength = 4;
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
 
 const BalancePage = () => {
   const exchangeRate = useExchange();
@@ -106,7 +106,7 @@ const BalancePage = () => {
                 {t('balance:totalBalance')}
               </div>
               <div className="text-start text-[#F39717] text-[16px] font-bold break-keep">
-                {currencyFormat1(totalUsdBalance * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                {currencyFormat1(totalUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
               </div>
             </div>
             <div>
@@ -114,7 +114,7 @@ const BalancePage = () => {
                 {t('balance:realBalance')}
               </div>
               <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {currencyFormat1(realUsdBalance * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                {currencyFormat1(realUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
               </div>
             </div>
             <div>
@@ -122,7 +122,7 @@ const BalancePage = () => {
                 {t('balance:bonusMoney')}
               </div>
               <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {currencyFormat1(bonusUsdBalance, toLocalFixedLength, localFiat?.name)}
+                {currencyFormat1(bonusUsdBalance, fiatDecimals, localFiat?.name)}
               </div>
             </div>
           </div>
@@ -186,16 +186,16 @@ const BalancePage = () => {
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px]">
-                          {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                          {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                       </div>
                     )}
@@ -237,16 +237,16 @@ const BalancePage = () => {
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                          {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                       </div>
                     )}
