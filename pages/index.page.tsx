@@ -35,15 +35,17 @@ import { useTranslation } from '../config/i18next';
 import { ROUTER } from '../constants/common';
 import { currencyFormat1 } from '../libs/utils';
 import { AppState } from '../redux/store';
+import { useExchange } from '../hooks/useExchange';
 
 function IndexPage() {
+  const exchangeRate = useExchange();
   const { t } = useTranslation('');
 
-  const { isLogin, userName, localeFiat } = useSelector(
+  const { isLogin, userName, localFiat } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       userName: state.auth.user.userName,
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
       user: state.auth.user,
     }),
     shallowEqual,
@@ -164,10 +166,10 @@ function IndexPage() {
                       <span className="text-white text-[20px]">{String(t('homePage:signUpUpper'))} & </span>
                       <span className="text-color-primary text-[20px]">{String(t('homePage:getReward'))}</span>
                     </div>
-                    <div className={'lg:text-[60px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
+                    <div className={'lg:text-[56px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
                       <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
                       <span className={`${styles.textGradient} bg-color-primary font-bold`}>
-                        {currencyFormat1(500000000, 2, String(localeFiat?.currency || 'USD'))}
+                        {currencyFormat1(500000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
                       </span>
                     </div>
                   </div>
