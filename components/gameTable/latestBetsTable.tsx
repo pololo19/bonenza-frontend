@@ -9,7 +9,7 @@ import { api_getLatestBets } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
-import { currencyFormat1 } from '@/base/libs/utils';
+import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { setBetHistory } from '@/base/redux/reducers/game.reducer';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
@@ -175,7 +175,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-[16px] text-[#31373d] truncate text-center font-bold  p-2">
-            {row.original.multiplier}
+            {formatLengthNumber(row.original.multiplier, 2)}
           </div>
         ),
       },
@@ -193,8 +193,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             >
               {row.original.profit > 0 && '+'}
               {localFiat
-                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
-                : `${currencyFormat1(row.original.profitAmount, 4, '', false)} `}
+                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 2, localFiat.name)}`
+                : `${currencyFormat1(row.original.profitAmount, 2, '', false)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"

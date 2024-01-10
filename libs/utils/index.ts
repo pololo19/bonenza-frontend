@@ -391,7 +391,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
     let zeroCount = -Math.floor(Math.log10(number));
     if (zeroNum < 5) {
       res = formatCompactNumber(number, {
-        maximumFractionDigits: 4,
+        maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
         roundingMode: 'floor',
       }).toString();
