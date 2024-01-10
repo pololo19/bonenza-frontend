@@ -88,18 +88,24 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     return symbol;
   };
 
+  const minSwap = useMemo(() => {
+    const val = SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1);
+    return val.toFixed(4);
+  }, [cryptoSymbols, watch('symbolFrom')]);
+
   const handleErrors = () => {
     let error = false;
     let messError = '';
+    console.log(minSwap, '-----99', Number(getValues('amountFrom')));
     if (Number(getValues('amountFrom')) == 0) {
       error = true;
       messError = t('swap:inValidSwapAmount');
     }
-    if (Number(getValues('amountFrom')) < SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1)) {
+    if (Number(getValues('amountFrom')) < Number(minSwap)) {
       error = true;
       messError = t('swap:inValidSwapAmount');
     }
-    if (SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1) > getBalanceBySymbolId(watch('symbolFrom'))) {
+    if (Number(minSwap) > getBalanceBySymbolId(watch('symbolFrom'))) {
       error = true;
       messError = t('swap:notEnoughAmount');
     }
@@ -145,7 +151,6 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
   const handleChangeCoinSwap = () => {
     const curVal = JSON.parse(JSON.stringify(getValues()));
-    console.log(curVal, '=====148');
     setValue('symbolFrom', curVal.symbolTo);
     setValue('symbolTo', curVal.symbolFrom);
     setValue('amountFrom', curVal.amountTo);
@@ -213,8 +218,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="text-[16px] text-[#31373d] dark:text-[#C2C2C2] mb-[20px] text-left">
             <div>
               Min:
-              {currencyFormat1(SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price ?? 1), 4, '', false)}{' '}
-              {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+              {currencyFormat1(Number(minSwap), 4, '', false)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
             </div>
           </div>
         </div>

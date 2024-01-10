@@ -33,9 +33,9 @@ import styles from '@/styles/dashboard/index.module.scss';
 
 import { useTranslation } from '../config/i18next';
 import { ROUTER } from '../constants/common';
+import { useExchange } from '../hooks/useExchange';
 import { currencyFormat1 } from '../libs/utils';
 import { AppState } from '../redux/store';
-import { useExchange } from '../hooks/useExchange';
 
 function IndexPage() {
   const exchangeRate = useExchange();
@@ -168,8 +168,8 @@ function IndexPage() {
                     </div>
                     <div className={'lg:text-[56px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
                       <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
-                      <span className={`${styles.textGradient} bg-color-primary font-bold`}>
-                        {currencyFormat1(500000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
+                      <span className={`bg-gradient-text bg-clip-text text-transparent font-bold`}>
+                        {currencyFormat1(20000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
                       </span>
                     </div>
                   </div>
