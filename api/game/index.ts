@@ -8,6 +8,7 @@ import {
   API_GAME_FAVORITE_GAMES,
   API_GAME_FEATURE_BUY_IN,
   API_GAME_GAMES_BY_PROVIDER,
+  API_GAME_GAMES_BY_THEME,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
@@ -122,4 +123,8 @@ export const api_getGamesByProvider = async (providerName: string, sort: SortTyp
 
 export const api_getThemes = async () => {
   return api.get(API_GAME_THEME);
+};
+
+export const api_getGamesByTheme = async (providers: string, page: number, pageSize: number, theme: string) => {
+  return api.get(API_GAME_GAMES_BY_THEME, { params: { providers, page, pageSize, theme } });
 };
