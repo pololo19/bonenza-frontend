@@ -57,7 +57,7 @@ export default function Navbar() {
       {isLoadingFull && <LoaderFull />}
       <div
         className={cn(
-          'w-full my-auto py-2 dark:bg-color-header bg-white top-0 left-0 fixed z-10 ] h-[67px] shadow-bs-default',
+          'w-full my-auto py-[10px] dark:bg-color-header bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
             'md:ml-[205px] md:max-w-[calc(100%-205px)]': isToggleSidebar && !showChatType,
@@ -88,7 +88,7 @@ export default function Navbar() {
             <Link
               href={ROUTER.Casino}
               className={cn(
-                'rounded-[5px] px-5 hover:text-[#31373d] py-[12px] group flex items-center gap-[5px] dark:text-[#98A7B5] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
+                'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:text-color-primary hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
                 `${
                   router.route.includes(ROUTER.Casino)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
@@ -97,12 +97,12 @@ export default function Navbar() {
               )}
             >
               <CasinoBoldIcon className="w-[18px] h-[18px]" />
-              <div className={`text-[14px]`}>{t('layout:casino')}</div>
+              <div className={`text-[14px] dark:hover:text-white hover:text-[#31373d]`}>{t('layout:casino')}</div>
             </Link>
             <Link
               href={ROUTER.Sports}
               className={cn(
-                'rounded-[5px] px-5 hover:text-[#31373d]  py-[12px] group flex items-center gap-[5px] dark:text-[#98A7B5] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
+                'rounded-[5px] px-[12px]   py-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
                 `${
                   router.asPath.includes(ROUTER.Sports)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
@@ -111,12 +111,12 @@ export default function Navbar() {
               )}
             >
               <SportBoldIcon className="w-[18px] h-[18px]" />
-              <div className={`text-[14px]`}>{t('layout:sports')}</div>
+              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white `}>{t('layout:sports')}</div>
             </Link>
             <Link
               href={ROUTER.Racing}
               className={cn(
-                'rounded-[5px] px-5 hover:text-[#31373d] dark:text-[#98a7b5] py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:text-white dark:hover:bg-gray-600',
+                'rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
                 `${
                   router.asPath.includes(ROUTER.Racing)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
@@ -125,17 +125,17 @@ export default function Navbar() {
               )}
             >
               <RacingBoldIcon className="" />
-              <div className={`text-[14px]`}>{t('layout:racing')}</div>
+              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white`}>{t('layout:racing')}</div>
             </Link>
           </div>
 
           <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
             {/* Button */}
             {!isLogin && !isAccountPannel && (
-              <div className="flex items-center text-white font-bold w-full gap-2">
+              <div className="flex items-center text-white font-bold w-full gap-[15px]">
                 <button
                   type="button"
-                  className="truncate dark:text-white rounded-[5px] font-semibold py-[9px] px-5 text-[14px] font-bold text-[#31373d] dark:hover:bg-gray-600"
+                  className="truncate dark:text-white rounded-[5px] font-semibold py-[9px] px-5 text-[14px] font-bold text-[#31373d]  dark:hover:bg-color-hover-primary"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -161,7 +161,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
+                className="truncate text-white rounded-[3px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="sm:block hidden">
@@ -176,7 +176,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px]"
+                className="sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px]"
               >
                 <Notification width={18} height={18} variant="Bold" />
               </button>
@@ -185,7 +185,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className={`sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px] ${
+                className={`sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px] ${
                   showChatType ? 'bg-gray-300 dark:bg-gray-800 text-black dark:text-white' : ''
                 }`}
                 onClick={() => {
@@ -198,7 +198,7 @@ export default function Navbar() {
 
             {isLogin && (
               <Link
-                className="hidden dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
+                className="hidden  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
                 href={ROUTER.Bonus}
               >
                 <Gift width={18} height={18} />
@@ -211,7 +211,7 @@ export default function Navbar() {
               type="button"
               className={`${
                 isLogin ? 'hidden sm:flex' : 'flex'
-              } rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
+              } rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
                 dispatch(changeIsShowMultiLanguageModal(true));
@@ -223,7 +223,7 @@ export default function Navbar() {
             {viewInFiat && localFiat && (
               <button
                 type="button"
-                className="sm:block hidden rounded-md dark:hover:bg-gray-600 hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black text-[#31373D] p-[10px]"
+                className="sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black text-[#31373D] p-[10px]"
                 onClick={() => {
                   dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
                   dispatch(changeIsShowMultiLanguageModal(true));
