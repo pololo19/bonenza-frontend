@@ -285,9 +285,9 @@ function GamePage() {
               <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
               <Link
                 className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
-                href={ROUTER.Provider(String(gameDetail.provider))}
+                href={ROUTER.Provider(String(gameDetail.providerName))}
               >
-                {gameDetail.provider}
+                {gameDetail.providerName}
               </Link>
             </div>
           </div>
