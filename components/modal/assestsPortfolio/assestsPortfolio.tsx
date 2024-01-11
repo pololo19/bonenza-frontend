@@ -114,7 +114,7 @@ export default function ModalAssetsPortfolio({
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
-                <Dialog.Panel className="dark:text-white text-black max-w-[464px] flex flex-col relative transform rounded-[3px] dark:!bg-color-modal-bg-primary bg-[#fff] text-left shadow-xl transition-all my-8 w-full max-w-[799px] pb-[30px] overflow-y-auto max-h-[80vh]">
+                <Dialog.Panel className="dark:text-white text-black sm:max-w-[500px] max-w-full flex flex-col relative transform rounded-[3px] dark:!bg-color-modal-bg-primary bg-[#fff] text-left shadow-xl transition-all my-8 w-full pb-[30px] overflow-y-auto max-h-[80vh]">
                   <Dialog.Title
                     as="div"
                     className="relative dark:bg-color-header-primary bg-[#f5f6fa] mb-2 px-[1rem] sm:px-[30px] py-[10px] flex justify-between items-center"
@@ -143,10 +143,10 @@ export default function ModalAssetsPortfolio({
                   </Dialog.Title>
                   <div className="flex-1 flex-col flex gap-[10px] justify-between mt-[1rem] mx-[20px]">
                     <div className="flex">
-                      <div className="dark:bg-[#2D3035] bg-white cursor-pointer px-2 dark:text-white text-black font-bold h-[2.5rem] flex items-center justify-center rounded text-[0.875rem] grow">
+                      <div className="dark:bg-[#2D3035] bg-white cursor-pointer px-2 dark:text-white text-black font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
                         Currency
                       </div>
-                      <div className="dark:bg-[#374151BF] bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center rounded text-[0.875rem] grow">
+                      <div className="dark:bg-[#374151BF] bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
                         mNFT
                       </div>
                     </div>

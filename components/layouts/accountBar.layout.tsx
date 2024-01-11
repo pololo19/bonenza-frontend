@@ -47,6 +47,8 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import VipProgressComponent from '../vipProgress/vipProgress';
+import { currencyFormat1 } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
 
 type ListItemProps = {
   title: string;
@@ -101,6 +103,7 @@ const ListItem: React.FC<ListItemProps> = (props: ListItemProps) => {
 };
 
 const AccountPannel: React.FC = () => {
+  const exchange = useExchange();
   const { t, i18n } = useTranslation('');
   const dispatch = useAppDispatch();
 
@@ -397,6 +400,32 @@ const AccountPannel: React.FC = () => {
               icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
               classNames="!bg-color-primary gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
             />
+          </div>
+        )}
+
+        {isLogin && (
+          <div className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-panel-bg-primary rounded-[3px]">
+            <div className="flex justify-between border-solid border-b-[1px] border-color-border-primary">
+              <span className="text-color-text-primary px-[12px] py-[5px] text-[12px] ">
+                {t('balance:totalBalance')}
+              </span>
+              <span className="text-color-text-primary px-[12px] py-[5px] text-[12px] ">
+                {localFiat && currencyFormat1(totalBalance * exchange, 2, localFiat.name)}
+                {!localFiat && currencyFormat1(totalBalance, 2)}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-4 bg-color-panel-bg-primary rounded-[3px]">
+              {walletDatas.map((item, index) => (
+                <IconOption
+                  key={index}
+                  title={item.title}
+                  icon={item.icon}
+                  href={item.href}
+                  classNames={item.classNames}
+                />
+              ))}
+            </div>
           </div>
         )}
 
