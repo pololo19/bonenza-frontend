@@ -151,7 +151,7 @@ const BalancePage = () => {
           <div className="relative">
             <input
               className={cn(
-                'p-[18px] pl-[50px] border border-[#EAECF3] border-solid dark:border-0 dark:text-white text-[#31373d] w-full text-[16px] h-[40px] rounded-[5px] dark:bg-[#161D26] bg-[#f1f3f7] placeholder:text-[#4D545C] placeholder:text-[#31373d] outline-none',
+                'p-[18px] pl-[50px] border border-[#EAECF3] border-solid dark:border-0 dark:text-white text-[#31373d] w-full text-[16px] h-[40px] rounded-[5px] dark:bg-color-panel-bg-primary bg-[#f1f3f7] placeholder:text-[#4D545C] placeholder:text-[#31373d] outline-none',
               )}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -160,7 +160,7 @@ const BalancePage = () => {
             <SearchNormal
               width={24}
               height={24}
-              className="absolute top-1/2 dark:text-white text-[#31373d] left-[30px] transform -translate-x-1/2 -translate-y-1/2 !text-[14px]"
+              className="absolute top-1/2 dark:text-color-text-primary text-[#31373d] left-[30px] transform -translate-x-1/2 -translate-y-1/2 !text-[14px]"
             />
           </div>
         </div>
@@ -177,7 +177,15 @@ const BalancePage = () => {
                   className="w-full dark:bg-color-active-primary  bg-[#f7f7fa] px-[20px] py-[10px] rounded-[3px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
-                    <Image height={30} width={30} src={item.logo} alt="" />
+                    <Image
+                      height={30}
+                      width={30}
+                      src={item.logo}
+                      alt=""
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/fiats/USD.png';
+                      }}
+                    />
                     <div className="flex-1 text-start text-[14px] font-bold dark:text-white text-black">
                       {item.name} <span className="ml-[5px] text-[10px] text-gray-400">{item.alias}</span>
                     </div>
@@ -230,7 +238,15 @@ const BalancePage = () => {
                   className="w-full dark:bg-color-active-primary bg-[#f7f7fa] px-[20px] py-[10px] roundeded-[3px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
-                    <Image height={30} width={30} src={item.logo} alt="" />
+                    <Image
+                      height={30}
+                      width={30}
+                      src={item.logo}
+                      alt=""
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/fiats/USD.png';
+                      }}
+                    />
                     <div className="text-[14px] font-bold dark:text-white text-black">{item.name}</div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-[#0AB247] font-normal">
