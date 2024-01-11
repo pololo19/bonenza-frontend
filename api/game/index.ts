@@ -7,6 +7,9 @@ import {
   API_GAME_DETAIL,
   API_GAME_FAVORITE_GAMES,
   API_GAME_FEATURE_BUY_IN,
+  API_GAME_GAMES_BY_NAME_PROVIDER,
+  API_GAME_GAMES_BY_PROVIDER,
+  API_GAME_GAMES_BY_THEME,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
@@ -17,6 +20,7 @@ import {
   API_GAME_SLOT,
   API_GAME_START_DEMO,
   API_GAME_TABLE_GAMES,
+  API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
 } from 'constants/endpoints';
 
@@ -112,4 +116,20 @@ export const api_getRecentBigWins = async () => {
 
 export const api_getTopRelatedGames = async () => {
   return api.get(API_GAME_TOP_RATED_GAMES);
+};
+
+export const api_getGamesByProvider = async (providerName: string, sort: SortType, page: number, pageSize: number) => {
+  return api.get(API_GAME_GAMES_BY_PROVIDER, { params: { providerName, sort, page, pageSize } });
+};
+
+export const api_getThemes = async () => {
+  return api.get(API_GAME_THEME);
+};
+
+export const api_getGamesByTheme = async (providers: string, page: number, pageSize: number, theme: string) => {
+  return api.get(API_GAME_GAMES_BY_THEME, { params: { providers, page, pageSize, theme } });
+};
+
+export const api_getGamesByNameAndProvider = async (search: string) => {
+  return api.get(API_GAME_GAMES_BY_NAME_PROVIDER, { params: { search } });
 };

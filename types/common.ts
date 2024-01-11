@@ -179,7 +179,9 @@ export type GameListType = {
   releasedAt: Date | string;
 
   provider?: string;
+  providerName?: string;
   isExpiration?: boolean;
+  gameCnt?: number;
 };
 
 export type GameDetail = {

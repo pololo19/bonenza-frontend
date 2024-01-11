@@ -89,7 +89,11 @@ export default function ModalForgotPassword() {
 
       // close modal
       dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
-      toast.success(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+      if (!isPhoneNumber) {
+        toast.success(t('authentication:sendMailSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+      } else {
+        toast.success(t('authentication:sendSMSSuccessfully'), { containerId: TOAST_ENUM.MODAL });
+      }
     } catch (error) {
       toast.error(t('authentication:resetPasswordFailed'), { containerId: TOAST_ENUM.MODAL });
     } finally {
@@ -126,7 +130,7 @@ export default function ModalForgotPassword() {
               <span className="mr-[5px]">{t('resetPassword:haveAccount')}</span>
               <span
                 role="button"
-                className="text-[#0DFDE4] hover:text-amber-500"
+                className="text-color-primary text-[16px] hover:border-b hover:border-solid hover:border-color-primary"
                 onClick={() => {
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                 }}

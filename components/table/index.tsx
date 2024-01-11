@@ -73,7 +73,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
     <div className={cn('table-responsive shadow-lg relative max-h-[600px]', containerClassName, styles.tableWrapper)}>
       <table
         className={cn(
-          `mb-0 min-h-[90px] w-full h-full `,
+          `mb-0 min-h-[150px] w-full h-full `,
           tableClassName,
           styles.table,
           theme === 'light' && styles.tableLight,
@@ -104,7 +104,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn(isLoading && styles.loader, '!sm:text-[14px] !text-[12px]')}>
+        <tbody className={cn(isLoading && styles.loader, isLoading && 'relative', '!sm:text-[14px] !text-[12px]')}>
           {!!data?.length &&
             getRowModel().rows.map((row) => (
               <tr

@@ -51,8 +51,8 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         setIsLoading(false);
       }
     } catch (error: any) {
-      const message = error.response.data.message;
-      const status = error.response.data.statusCode;
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
       const errData = getErrorMessage('auth', 'signUpEmail', status, message, '');
       toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
     } finally {
@@ -80,8 +80,8 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         setIsLoading(false);
       }
     } catch (error: any) {
-      const message = error.response.data.message;
-      const status = error.response.data.statusCode;
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
       const errData = getErrorMessage('auth', 'signUpPhone', status, message, '');
       toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
     } finally {
@@ -171,7 +171,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               onChange={(event) => {
                 setIsCheckboxApprove(event.target.checked);
               }}
-              className="w-[14px] h-[14px] before:bg-[#161D26]"
+              className="w-[14px] h-[14px] bg-color-primary text-color-primary"
               type="checkbox"
               id="vehicle1"
             />

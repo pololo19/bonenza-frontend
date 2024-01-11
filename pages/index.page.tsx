@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -25,8 +24,6 @@ import RecentBigWinComponent from '@/components/homepage/recentBigWin';
 import RecommendedGamesComponent from '@/components/homepage/recommendedGames';
 import TopRateGameComponent from '@/components/homepage/topRateGame';
 import CasinoBoldIcon from '@/components/icons/CasinoBoldIcon';
-import HomeIcon from '@/components/icons/HomeIcon';
-import RacingBoldIcon from '@/components/icons/RacingBoldIcon';
 import SportBoldIcon from '@/components/icons/SportBoldIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
@@ -36,17 +33,19 @@ import styles from '@/styles/dashboard/index.module.scss';
 
 import { useTranslation } from '../config/i18next';
 import { ROUTER } from '../constants/common';
+import { useExchange } from '../hooks/useExchange';
 import { currencyFormat1 } from '../libs/utils';
 import { AppState } from '../redux/store';
 
 function IndexPage() {
+  const exchangeRate = useExchange();
   const { t } = useTranslation('');
 
-  const { isLogin, userName, localeFiat } = useSelector(
+  const { isLogin, userName, localFiat } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       userName: state.auth.user.userName,
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
       user: state.auth.user,
     }),
     shallowEqual,
@@ -106,7 +105,7 @@ function IndexPage() {
       const [topRatedGames, recommendedGames] = await Promise.all([api_getTopRelatedGames(), api_getPickGames(1, 20)]);
       const tempListTopRatedGames: GameListType[] = topRatedGames.data.map((item: any) => ({
         id: item?.id ?? '',
-        title: item?.title ?? '',
+        title: item?.producerName ?? '',
         description: '',
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
@@ -139,60 +138,6 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-color-bg-primary">
           <div className="flex-1 w-full">
-            <div className={cn('gap-[8px] relative grid grid-cols-4 sm:hidden mt-[10px]  font-semibold')}>
-              <Link
-                href={'/'}
-                className={cn(
-                  'rounded-[5px] px-[10px] hover:text-[#31373d] py-[12px] group flex items-center gap-[5px] dark:text-white text-[#31373D] hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',
-                  `${router.route.includes('/') ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold' : ''}`,
-                )}
-              >
-                <HomeIcon className="" />
-                <div className={`text-[13px]`}>{t('layout:home')}</div>
-              </Link>
-              <Link
-                href={ROUTER.Casino}
-                className={cn(
-                  'rounded-[5px] px-[10px] hover:text-[#31373d] py-[12px] group flex items-center gap-[5px] dark:text-white text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
-                  `${
-                    router.route.includes(ROUTER.Casino)
-                      ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
-                      : ''
-                  }`,
-                )}
-              >
-                <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />
-                <div className={`text-[13px]`}>{t('layout:casino')}</div>
-              </Link>
-              <Link
-                href={ROUTER.Sports}
-                className={cn(
-                  'rounded-[5px] px-[10px] hover:text-[#31373d]  py-[12px] group flex items-center gap-[5px] dark:text-white text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
-                  `${
-                    router.asPath.includes(ROUTER.Sports)
-                      ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
-                      : ''
-                  }`,
-                )}
-              >
-                <SportBoldIcon className="text-[#FE073A] w-[18px] h-[18px]" />
-                <div className={`text-[13px]`}>{t('layout:sports')}</div>
-              </Link>
-              <Link
-                href={ROUTER.Racing}
-                className={cn(
-                  'rounded-[5px] px-[10px] hover:text-[#31373d] dark:text-white py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
-                  `${
-                    router.asPath.includes(ROUTER.Racing)
-                      ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
-                      : ''
-                  }`,
-                )}
-              >
-                <RacingBoldIcon className="text-[#F48D19]" />
-                <div className={`text-[13px]`}>{t('layout:racing')}</div>
-              </Link>
-            </div>
             <div className="relative h-auto w-full mt-[20px] sm:mt-0">
               <div className="object-contain absolute right-0 h-full w-full sm:block hidden">
                 <Slider
@@ -221,10 +166,10 @@ function IndexPage() {
                       <span className="text-white text-[20px]">{String(t('homePage:signUpUpper'))} & </span>
                       <span className="text-color-primary text-[20px]">{String(t('homePage:getReward'))}</span>
                     </div>
-                    <div className={'lg:text-[68px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
+                    <div className={'lg:text-[56px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
                       <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
-                      <span className={`${styles.textGradient} bg-color-primary font-bold`}>
-                        {currencyFormat1(50000, 0, String(localeFiat?.currency || 'USD'))}
+                      <span className={`bg-gradient-text bg-clip-text text-transparent font-bold`}>
+                        {currencyFormat1(20000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
                       </span>
                     </div>
                   </div>

@@ -23,6 +23,9 @@ type SelectCurrencyProps = {
   withDrawTab?: boolean;
 };
 
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
+
 const SelectCurrency = ({
   activeCoin,
   activeNetwork,
@@ -122,7 +125,7 @@ const SelectCurrency = ({
                     'bg-color-primary my-auto': symbol.id === activeCoin.id,
                   },
                   {
-                    'border-2 border-solid dark:border-[#272C33] border-[#EAECF3] dark:bg-[#161D26] bg-[#F6F7FA]':
+                    'border-2 border-solid dark:border-[#272C33] border-[#EAECF3] dark:bg-color-input-primary bg-[#F6F7FA]':
                       symbol.id !== activeCoin.id,
                   },
                 )}
@@ -131,7 +134,7 @@ const SelectCurrency = ({
               >
                 <button
                   className={cn(
-                    'sm:min-w-[80px] min-w-[75px] px-1 py-1 dark:text-white text-[#31373d] rounded-full flex items-center gap-2 capitalize dark:hover:bg-color-primary hover:bg-[#f6f7fa] bg-[#F6F7FA] dark:bg-[#161D26]',
+                    'sm:min-w-[80px] min-w-[75px] px-1 py-1 dark:text-white text-[#31373d] rounded-full flex items-center gap-2 capitalize dark:hover:bg-color-primary hover:bg-[#f6f7fa] bg-[#F6F7FA] dark:bg-color-input-primary',
                   )}
                 >
                   <Image
@@ -150,7 +153,7 @@ const SelectCurrency = ({
             ))}
           </div>
         )}
-        <Menu as="div" className="relative flex w-full dark:bg-[#161D26] bg-[#F6F7FA] rounded-[16px]">
+        <Menu as="div" className="relative flex w-full dark:bg-color-input-primary bg-[#F6F7FA] rounded-[3px]">
           <Menu.Button className="flex-1">
             <div className="flex items-center justify-between w-full py-[13px] px-[20px] " role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
@@ -173,7 +176,7 @@ const SelectCurrency = ({
                 <div className="flex items-center text-[14px] dark:text-[#C2C2C2] text-[#31373d] gap-[10px]">
                   {t('deposit:balance')}{' '}
                   <span className="text-[14px] font-semibold dark:text-white text-[#31373d]">
-                    {currencyFormat1(getBalanceBySymbol(activeCoin), 4, '', false)}
+                    {currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
                   </span>
                 </div>
                 <ChevronDownIcon width={15} className="dark:text-white text-[#31373d]" />
@@ -190,7 +193,7 @@ const SelectCurrency = ({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute dark:text-white text-black dark:bg-[#161D26] bg-[#f6f7fa] w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer">
+            <Menu.Items className="absolute dark:text-white text-black dark:bg-color-input-primary bg-[#f6f7fa] w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer">
               <div className="py-[10px] px-[10px]">
                 <InputSearch value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
               </div>
@@ -199,8 +202,8 @@ const SelectCurrency = ({
                   <Menu.Item key={index}>
                     {({ active }) => (
                       <div
-                        className={cn('flex items-center justify-start w-full dark:hover:bg-[#212b36] mb-2', {
-                          'border border-amber-500/50 border-solid rounded': symbol.id === activeCoin.id,
+                        className={cn('flex items-center justify-start w-full dark:hover:bg-color-hover-primary mb-2', {
+                          'border border-color-primary/50 border-solid rounded': symbol.id === activeCoin.id,
                         })}
                         role="button"
                         onClick={() => handleChangeCrypto(symbol)}
@@ -225,19 +228,19 @@ const SelectCurrency = ({
                             <span className="text-[14px] font-semibold dark:text-white text-black text-right">
                               {currencyFormat1(
                                 getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
-                                2,
+                                fiatDecimals,
                                 localFiat?.name,
                               )}
                             </span>
                             <span className="text-[10px] font-semibold text-gray-400 text-right">
-                              {currencyFormat1(getBalanceBySymbol(symbol), 2, '', false)}
+                              {currencyFormat1(getBalanceBySymbol(symbol), cryptoDecimals, '', false)}
                             </span>
                             {symbol.name.toLowerCase() === 'usdt' && (
                               <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
                                 <div className="mt-1 flex justify-end text-amber-500">
                                   <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                     <Lock size={12} variant="Bold" />{' '}
-                                    {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
+                                    {currencyFormat1(bonus * exchangeRate, fiatDecimals, String(localFiat?.name))}
                                   </span>
                                 </div>
                               </div>
@@ -257,7 +260,7 @@ const SelectCurrency = ({
       </div>
       <div className="flex flex-col items-start w-full gap-2">
         <div className="text-[14px] dark:text-[#C2C2C2] text-[#31373d]">{t('deposit:chooseNetwork')}</div>
-        <Menu as="div" className="relative flex w-full dark:bg-[#161D26] bg-[#f6f7fa] rounded-[16px]">
+        <Menu as="div" className="relative flex w-full dark:bg-color-input-primary bg-[#f6f7fa] rounded-[3px]">
           <Menu.Button className="flex-1 py-[15px] px-[20px]">
             <div className="flex items-center justify-between w-full" role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
@@ -278,13 +281,13 @@ const SelectCurrency = ({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute dark:bg-[#161D26] bg-[#f6f7fa] w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer">
+            <Menu.Items className="absolute dark:bg-color-input-primary bg-[#f6f7fa] w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer">
               <div className="py-1 max-h-[250px] overflow-y-auto p-2">
                 {availableNetworks.map((network, index) => (
                   <Menu.Item key={index}>
                     {({ active }) => (
                       <div
-                        className="flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-[#212b36]"
+                        className="flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-hover-primary"
                         role="button"
                         onClick={() => onChangeNetwork(network)}
                       >

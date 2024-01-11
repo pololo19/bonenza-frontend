@@ -8,12 +8,14 @@ import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameDetail, GameListType } from '@/base/types/common';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
+import classNames from 'classnames';
 
 type GameCardProps = {
   gameDetail: GameListType | GameDetail;
+  listView?: boolean;
   footer?: () => React.ReactNode;
 };
 
@@ -34,14 +36,20 @@ const convertImage = (w: number, h: number) => `
 const toBase64 = (str: string) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
-function GameCard({ gameDetail, footer }: GameCardProps) {
+function GameCard(props: GameCardProps) {
+  const { gameDetail, footer, listView = false } = props;
   const { t } = useTranslation('');
   const dispatch = useDispatch();
   const uuid = Math.random();
 
   return (
     <div className="" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
-      <div className="rounded-[5px] dark:bg-color-card-bg-primary bg-white">
+      <div
+        className={classNames('sm:block rounded-[5px] dark:bg-color-card-bg-primary bg-white', {
+          flex: listView,
+          block: !listView,
+        })}
+      >
         <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-[5px]">
           <LazyLoad className="min-h-[100px]">
             <Image
@@ -57,7 +65,7 @@ function GameCard({ gameDetail, footer }: GameCardProps) {
         </Link>
         <div className="p-[10px]">
           <div className="flex justify-between items-center gap-[5px]">
-            <div className="dark:text-white text-[#000] font-medium text-[12px] truncate">
+            <div className="dark:text-white text-[#000] font-medium sm:text-[12px] text-[14px] truncate">
               {String(gameDetail.title)?.charAt(0).toUpperCase() + String(gameDetail?.title)?.slice(1)}
             </div>
             <InfoCircle

@@ -1,9 +1,9 @@
-import { ErrorResponse } from "@/base/types/api";
-import { AxiosError } from "axios";
-import { ParsedUrlQuery } from "querystring";
-import React, { createContext, useState } from "react";
+import { AxiosError } from 'axios';
+import { ParsedUrlQuery } from 'querystring';
+import React, { createContext, useState } from 'react';
 
-import { STATUS_CODE_NOTFOUND } from "@/base/constants/common";
+import { STATUS_CODE_NOTFOUND } from '@/base/constants/common';
+import { ErrorResponse } from '@/base/types/api';
 
 const INITIAL_INFO_404 = { isOpen: false, info: {} };
 
@@ -34,8 +34,7 @@ export const ErrorContext = createContext<ErrorContextType>({
 });
 
 const ErrorProvider = ({ children }: { children?: React.ReactNode }) => {
-  const [infoModal404, setInfoModal404] =
-    useState<InfoModal404Type>(INITIAL_INFO_404);
+  const [infoModal404, setInfoModal404] = useState<InfoModal404Type>(INITIAL_INFO_404);
 
   const handleNotFound = (payload: {
     error: unknown;
@@ -61,11 +60,7 @@ const ErrorProvider = ({ children }: { children?: React.ReactNode }) => {
   };
 
   return (
-    <ErrorContext.Provider
-      value={{ infoModal404, setInfoModal404, handleNotFound }}
-    >
-      {children}
-    </ErrorContext.Provider>
+    <ErrorContext.Provider value={{ infoModal404, setInfoModal404, handleNotFound }}>{children}</ErrorContext.Provider>
   );
 };
 

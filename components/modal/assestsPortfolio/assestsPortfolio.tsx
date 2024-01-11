@@ -11,7 +11,7 @@ import { currencyFormat, currencyFormat1 } from '@/base/libs/utils';
 import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
 import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
-import { CurrencyType } from '@/base/types/wallet';
+import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import InputSearch from '@/components/input/typing/InputSearch';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 
@@ -24,6 +24,9 @@ type ModalAssetsPortfolioProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
+
 export default function ModalAssetsPortfolio({
   show,
   onClose,
@@ -34,6 +37,7 @@ export default function ModalAssetsPortfolio({
   const exchangeRate = useExchange();
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
+  const dispatch = useDispatch();
 
   const { balances, localFiat, fiatSymbols, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -48,6 +52,8 @@ export default function ModalAssetsPortfolio({
 
   const [activeCoin, setActiveCoin] = useState<CurrencyType>();
   const [searchFiatInput, setSearchFiatInput] = useState<string>('');
+  const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
+  const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
 
   const handleChangeCoin = (coin: CurrencyType) => {
     setActiveCoin(coin);
@@ -58,11 +64,15 @@ export default function ModalAssetsPortfolio({
   };
 
   const filterListCryptos = useMemo(() => {
-    const tempFilterListCryptos = [...cryptoSymbols].filter((item) =>
+    let arraySearch = [...cryptoSymbols].filter((item) =>
       item.name.toLowerCase().includes(searchFiatInput.trim().toLowerCase()),
     );
-    return tempFilterListCryptos;
-  }, [cryptoSymbols, searchFiatInput]);
+    if (showSmallFiat) {
+      const avaSymbols = balances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
+      arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
+    }
+    return arraySearch;
+  }, [cryptoSymbols, searchFiatInput, showSmallFiat, balances]);
 
   useEffect(() => {
     const active = filterListCryptos.find((crypto) => crypto.id === cryptoSymbol);
@@ -70,10 +80,6 @@ export default function ModalAssetsPortfolio({
       setActiveCoin(active);
     }
   }, [cryptoSymbol, filterListCryptos]);
-
-  const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
-  const dispatch = useDispatch();
-  const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
 
   const getBalanceByCrypto = (crypto: CurrencyType) => {
     const tempBalances = [...balances];
@@ -108,10 +114,10 @@ export default function ModalAssetsPortfolio({
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
-                <Dialog.Panel className="dark:text-white text-black max-w-[464px] flex flex-col relative transform rounded-[15px] dark:bg-gray-800 bg-[#fff] text-left shadow-xl transition-all my-8 w-full max-w-[799px] pb-[30px] overflow-y-auto max-h-[80vh]">
+                <Dialog.Panel className="dark:text-white text-black sm:max-w-[500px] max-w-full flex flex-col relative transform rounded-[3px] dark:!bg-color-modal-bg-primary bg-[#fff] text-left shadow-xl transition-all my-8 w-full pb-[30px] overflow-y-auto max-h-[80vh]">
                   <Dialog.Title
                     as="div"
-                    className="relative dark:bg-[#17181b] bg-[#f5f6fa] mb-2 px-[1rem] sm:px-[30px] py-[10px] flex justify-between items-center"
+                    className="relative dark:bg-color-header-primary bg-[#f5f6fa] mb-2 px-[1rem] sm:px-[30px] py-[10px] flex justify-between items-center"
                   >
                     <div className="text-[0.875rem] sm:text-[1rem] dark:text-white text-black font-[600]">
                       {t('deposit:assetsPortfolio')}
@@ -137,25 +143,34 @@ export default function ModalAssetsPortfolio({
                   </Dialog.Title>
                   <div className="flex-1 flex-col flex gap-[10px] justify-between mt-[1rem] mx-[20px]">
                     <div className="flex">
-                      <div className="dark:bg-[#2D3035] bg-white cursor-pointer px-2 dark:text-white text-black font-bold h-[2.5rem] flex items-center justify-center rounded text-[0.875rem] grow">
+                      <div className="dark:bg-[#2D3035] bg-white cursor-pointer px-2 dark:text-white text-black font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
                         Currency
                       </div>
-                      <div className="dark:bg-[#374151BF] bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center rounded text-[0.875rem] grow">
+                      <div className="dark:bg-[#374151BF] bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
                         mNFT
                       </div>
                     </div>
                     {filterListCryptos?.map((coin: CurrencyType, index) => (
                       <div
                         key={index}
-                        className={cn('flex items-center justify-start p-[10px] w-full rounded-lg', {
-                          'border border-solid border-amber-500': coin.id === activeCoin?.id,
-                          'dark:hover:bg-[#161D26] hover:bg-[#f5f6fa]': coin?.id !== activeCoin?.id,
+                        className={cn('flex items-center justify-start p-[10px] w-full rounded-[3px]', {
+                          'border border-solid border-color-primary': coin.id === activeCoin?.id,
+                          'dark:hover:bg-color-hover-primary hover:bg-[#f5f6fa]': coin?.id !== activeCoin?.id,
                         })}
                         role="button"
                         onClick={() => handleChangeCoin(coin)}
                       >
                         <div className="flex-1 flex items-center justify-start gap-[10px]">
-                          <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
+                          <Image
+                            width={30}
+                            height={30}
+                            src={coin.logo}
+                            className="inline"
+                            alt=""
+                            onError={(e) => {
+                              e.currentTarget.src = '/img/fiats/USD.png';
+                            }}
+                          />
                           <div className="flex-1 text-start text-[14px]">
                             {coin.name}
                             {/* <span className="ml-[5px] text-[10px] dark:text-gray-400 text-[#31373d]">
@@ -168,16 +183,16 @@ export default function ModalAssetsPortfolio({
                             <>
                               {currencyFormat1(
                                 getBalanceByCrypto(coin) * coin.price * exchangeRate,
-                                2,
+                                fiatDecimals,
                                 localFiat?.name,
                               )}
                               <br />
                               <span className="dark:text-gray-400 text-[#31373d] text-[12px]">
-                                {currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}
+                                {currencyFormat1(getBalanceByCrypto(coin), cryptoDecimals, '', false)}
                               </span>
                             </>
                           )}
-                          {!viewInFiat && <>{currencyFormat1(getBalanceByCrypto(coin), 2, '', false)}</>}
+                          {!viewInFiat && <>{currencyFormat1(getBalanceByCrypto(coin), cryptoDecimals, '', false)}</>}
                         </div>
                       </div>
                     ))}
@@ -274,7 +289,15 @@ export default function ModalAssetsPortfolio({
 
                     <div className="text-[12px]">{item.name}</div>
                   </div>
-                  <Image height={16} width={16} src={item.logo} alt="" />
+                  <Image
+                    height={16}
+                    width={16}
+                    src={item.logo}
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/fiats/USD.png';
+                    }}
+                  />
                 </div>
               </label>
             ))}

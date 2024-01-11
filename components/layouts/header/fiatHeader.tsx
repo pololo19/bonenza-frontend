@@ -29,7 +29,8 @@ type FiatHeaderProps = {
   buttonClass?: string;
 };
 
-const toFixedValue = 2;
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
 
 export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: FiatHeaderProps) {
   const dispatch = useDispatch();
@@ -160,15 +161,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   {localFiat
                     ? `${currencyFormat1(
                         getBalanceBySymbol(activeCurrency) * activeCurrency.price * exchangeRate,
-                        toFixedValue,
+                        fiatDecimals,
                         localFiat.name,
                       )}`
-                    : `${currencyFormat1(Number(getBalanceBySymbol(activeCurrency)), toFixedValue, '', false)}`}
+                    : `${currencyFormat1(Number(getBalanceBySymbol(activeCurrency)), cryptoDecimals, '', false)}`}
                 </div>
               )}
               {!viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
-                  {currencyFormat1(getBalanceBySymbol(activeCurrency), toFixedValue, '', false)}
+                  {currencyFormat1(getBalanceBySymbol(activeCurrency), cryptoDecimals, '', false)}
                 </div>
               )}
               <div className="text-white truncate text-right min-w-[15px]">
@@ -186,7 +187,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed sm:hidden block inset-0 bg-black/80 transition-opacity z-[1]" />
+          <div className="fixed hidden inset-0 bg-black/80 transition-opacity z-[1]" />
         </Transition.Child>
 
         <Transition
@@ -200,11 +201,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         >
           <Menu.Items
             className={cn(
-              'sm:absolute sm:mr-0 mr-[10px] fixed xl:right-[-115px] md:right-[-115px] sm:right-[auto] right-0 z-[50] mt-14 sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
+              'sm:absolute sm:mr-0 mr-[10px] fixed sm:right-0 sm:left-auto left-0 z-[50] mt-[67px] sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
               wrapperClass,
             )}
           >
-            <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
+            <div className="sm:py-1 sm:relative fixed sm:right-0 sm:left-auto left-0 rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
               <div className="py-[20px] px-[20px] flex ">
                 <div className="grow">
                   <InputSearch
@@ -213,7 +214,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     onClose={() => {
                       setSearchFiatInput('');
                     }}
-                    className="dark:text-white !bg-[#f5f6fa] dark:!bg-gray-700/75"
+                    className="dark:text-white !bg-[#f5f6fa] dark:!bg-color-panel-bg-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
                     onChange={(e) => setSearchFiatInput(e.target.value)}
                   />
                 </div>
@@ -228,9 +229,9 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 )}
               </div>
               {/* Fiat */}
-              <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_250px)] overflow-y-auto p-[20px] w-full">
+              <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_265px)] overflow-y-auto p-[20px] w-full">
                 {!!filterListCrypto?.length && (
-                  <div className="text-[14px] text-gray-400 mb-2">{t('deposit:crypto')}</div>
+                  <div className="text-[14px] text-gray-400 mb-2 ml-4">{t('deposit:crypto')}</div>
                 )}
                 {filterListCrypto?.map((crypto, index) => {
                   return (
@@ -263,15 +264,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             {viewInFiat &&
                               currencyFormat1(
                                 getBalanceBySymbol(crypto) * crypto.price * exchangeRate,
-                                toFixedValue,
+                                fiatDecimals,
                                 localFiat?.name,
                               )}
-                            {!viewInFiat && currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
+                            {!viewInFiat && currencyFormat1(getBalanceBySymbol(crypto), cryptoDecimals, '', false)}
                             {viewInFiat && (
                               <>
                                 <br />
                                 <span className="text-gray-400 text-[12px]">
-                                  {currencyFormat1(getBalanceBySymbol(crypto), toFixedValue, '', false)}
+                                  {currencyFormat1(getBalanceBySymbol(crypto), cryptoDecimals, '', false)}
                                 </span>
                                 <br />
                               </>
@@ -293,7 +294,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   );
                 })}
                 {!!filterListFiat?.length && (
-                  <div className="pt-[10px] text-[14px] text-gray-400 mb-2">{t('deposit:fiat')}</div>
+                  <div className="pt-[10px] text-[14px] text-gray-400 mb-2 ml-4">{t('deposit:fiat')}</div>
                 )}
                 {filterListFiat?.map((fiat, index) => {
                   return (
@@ -329,7 +330,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               <>
                                 {currencyFormat1(
                                   getBalanceBySymbol(fiat) * fiat.price * exchangeRate,
-                                  toFixedValue,
+                                  fiatDecimals,
                                   localFiat?.name,
                                 )}
                                 <br />
@@ -337,7 +338,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             )}
 
                             <span className="text-gray-400 text-[12px]">
-                              {currencyFormat1(0, toFixedValue, '', false)}
+                              {currencyFormat1(0, fiatDecimals, '', false)}
                             </span>
                           </div>
                         </div>
@@ -375,14 +376,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 <>
                                   {currencyFormat1(
                                     getBalanceBySymbol(coin) * coin.price * exchangeRate,
-                                    toFixedValue,
+                                    fiatDecimals,
                                     localFiat?.name,
                                   )}
                                   <br />
                                 </>
                               )}
                               <span className="text-gray-400 text-[12px]">
-                                {currencyFormat1(getBalanceBySymbol(coin), toFixedValue, '', false)}
+                                {currencyFormat1(getBalanceBySymbol(coin), cryptoDecimals, '', false)}
                               </span>
                             </div>
                           </div>
@@ -433,32 +434,32 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         if (value) setShowAllFiat(true);
                       }}
                       className={`${
-                        viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-gray-500 bg-gray-200'
-                      } relative inline-flex h-4 w-8 items-center rounded-full`}
+                        viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                      } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
                     >
                       <span
                         className={`${
-                          viewInFiat ? 'translate-x-4 bg-amber-600' : 'translate-x-1 bg-gray-400'
-                        } inline-block h-3 w-3 transform rounded-full transition`}
+                          viewInFiat ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
+                        } inline-block h-[18px] w-[18px] transform rounded-full transition`}
                       />
                     </Switch>
-                    <div className="text-[15px] text-gray-400">{t('fiatHeader:viewInFiat')}</div>
+                    <div className="text-[15px] dark:text-white text-black">{t('fiatHeader:viewInFiat')}</div>
                   </div>
                   <div className="flex items-center gap-[5px]">
                     <Switch
                       checked={showSmallFiat}
                       onChange={setShowSmallFiat}
                       className={`${
-                        showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-gray-500 bg-gray-200'
-                      } relative inline-flex h-4 w-8 items-center rounded-full`}
+                        showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                      } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
                     >
                       <span
                         className={`${
-                          showSmallFiat ? 'translate-x-4 bg-amber-600' : 'translate-x-1 bg-gray-400'
-                        } inline-block h-3 w-3 transform rounded-full transition`}
+                          showSmallFiat ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
+                        } inline-block h-[18px] w-[18px] transform rounded-full transition`}
                       />
                     </Switch>
-                    <div className="text-[15px] text-gray-400">{t('fiatHeader:smallFiat')}</div>
+                    <div className="text-[15px] dark:text-white text-black">{t('fiatHeader:smallFiat')}</div>
                   </div>
                 </div>
               )}

@@ -88,18 +88,24 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     return symbol;
   };
 
+  const minSwap = useMemo(() => {
+    const val = SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1);
+    return val.toFixed(4);
+  }, [cryptoSymbols, watch('symbolFrom')]);
+
   const handleErrors = () => {
     let error = false;
     let messError = '';
+    console.log(minSwap, '-----99', Number(getValues('amountFrom')));
     if (Number(getValues('amountFrom')) == 0) {
       error = true;
       messError = t('swap:inValidSwapAmount');
     }
-    if (Number(getValues('amountFrom')) < SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1)) {
+    if (Number(getValues('amountFrom')) < Number(minSwap)) {
       error = true;
       messError = t('swap:inValidSwapAmount');
     }
-    if (SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price || 1) > getBalanceBySymbolId(watch('symbolFrom'))) {
+    if (Number(minSwap) > getBalanceBySymbolId(watch('symbolFrom'))) {
       error = true;
       messError = t('swap:notEnoughAmount');
     }
@@ -163,7 +169,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
       // const { fromPrice, toPrice } = res.data;
       const amountTo = (Number(balance) * fromPrice) / toPrice;
 
-      setValue('amountTo', currencyFormat1(amountTo, 8, '', false));
+      setValue('amountTo', amountTo.toFixed(8));
     } catch (error) {
       setValue('amountTo', '0');
     } finally {
@@ -175,14 +181,25 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     const symbolFrom = getSymbolById(watch('symbolFrom'));
     if (symbolFrom) {
       const avaBalance = getBalanceBySymbolId(symbolFrom.id);
-      setValue('amountFrom', currencyFormat1(avaBalance, 4, '', false));
+      setValue('amountFrom', avaBalance.toFixed(4));
     }
   };
 
   const onBlurFromBalance = () => {
     const balance = getBalanceBySymbolId(watch('symbolFrom'));
-    if (Number(getValues('amountFrom')) > balance) {
-      setValue('amountFrom', currencyFormat1(Number(balance), 4, '', false));
+    const inputBalance = Number(getValues('amountFrom'));
+
+    if (balance > Number(minSwap)) {
+      if (inputBalance < Number(minSwap)) {
+        setValue('amountFrom', Number(minSwap).toFixed(4));
+      }
+      if (inputBalance > balance) {
+        setValue('amountFrom', Number(balance).toFixed(4));
+      }
+    }
+
+    if (balance < Number(minSwap)) {
+      setValue('amountFrom', Number(balance).toFixed(4));
     }
   };
 
@@ -194,7 +211,8 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
       setValue('symbolFrom', symbolFrom);
       setValue('symbolTo', symbolTo);
-      setValue('amountFrom', currencyFormat1(Number(tempAmountFrom), 4, '', false));
+      setValue('amountFrom', tempAmountFrom.toFixed(4));
+      handleApproximately(tempAmountFrom.toFixed(4));
     }
   }, [cryptoSymbols]);
 
@@ -212,24 +230,23 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="text-[16px] text-[#31373d] dark:text-[#C2C2C2] mb-[20px] text-left">
             <div>
               Min:
-              {currencyFormat1(SWAP_MIN / (getSymbolById(watch('symbolFrom'))?.price ?? 1), 4, '', false)}{' '}
-              {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+              {currencyFormat1(Number(minSwap), 4, '', false)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
             </div>
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-[5px] relative">
+          <div className="flex flex-col gap-[5px] relative min-h-[45px]">
             <div
               className={cn(
-                'w-full pl-[18px] pr-[20px] py-[5px] text-[16px] rounded-[16px] bg-[#f5f6fa] dark:bg-[#161D26] flex items-center justify-between gap-[10px]',
+                'w-full pl-[18px] pr-[5px] h-full py-[5px] text-[16px] rounded-[3px] bg-[#f5f6fa] dark:bg-color-input-primary flex items-center justify-between border border-solid border-transparent gap-[10px] focus-within:border-color-primary min-h-[45px]',
                 {
-                  'border-red-500 border border-solid': errors.amountFrom?.message,
+                  'border-red-50': errors.amountFrom?.message,
                 },
               )}
             >
               <InputNumber
                 size={7}
-                customClass="flex-1 bg-transparent pl-[2px]"
+                customClass="flex-1 !bg-color-input-primary pl-[2px]"
                 control={control}
                 onBlur={onBlurFromBalance}
                 isShowError={false}
@@ -239,21 +256,18 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                 <div
                   role="button"
                   onClick={handleGetMaxBalance}
-                  className="px-2 md:px-3 py-[6px] md:min-w-[60px] md:rounded-[10px] rounded-[5px] dark:bg-[#272C33] bg-white dark:text-white text-black text-center text-[14px]"
+                  className="px-2 md:px-3 py-[6px] md:min-w-[60px] md:rounded-[5px] rounded-[5px] dark:bg-color-btn-primary bg-white dark:text-color-text-primary text-black text-center text-[14px]"
                 >
                   {t('deposit:max')}
                 </div>
                 <div
-                  className="flex items-center dark:bg-[#161d26] px-2 bg-white justify-start gap-[10px] w-full"
+                  className="flex items-center dark:bg-color-btn-primary rounded-[5px] px-2 py-1 bg-white justify-start gap-[10px] w-full"
                   role="button"
                   onClick={() => setIsShowFromModal(true)}
                 >
-                  <div className="text-[14px]">
-                    {getSymbolById(watch('symbolFrom')) && getSymbolById(watch('symbolFrom'))?.name}
-                  </div>
                   <Image
-                    width={35}
-                    height={35}
+                    width={24}
+                    height={24}
                     src={getSymbolById(watch('symbolFrom'))?.logo || ''}
                     onError={(e) => {
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
@@ -261,6 +275,10 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                     className="inline"
                     alt=""
                   />
+                  <div className="text-[14px]">
+                    {getSymbolById(watch('symbolFrom')) && getSymbolById(watch('symbolFrom'))?.name}
+                  </div>
+
                   <div>
                     <ChevronDownIcon width={15} />
                   </div>
@@ -268,7 +286,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
             </div>
             <div
-              className="z-[9] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-[#272C33] bg-[#f5f6fa] border-2 border-solid border-[#eaecf3] dark:border-0 rounded-[10px] p-[8px]"
+              className="z-[9] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-[#f5f6fa] dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
               role="button"
               onClick={handleChangeCoinSwap}
             >
@@ -276,9 +294,9 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             </div>
             <div
               className={cn(
-                'w-full pl-[18px] pr-[20px] py-[5px] text-[16px] rounded-[16px] bg-[#f5f6fa] dark:bg-[#161D26] flex items-center justify-between gap-[10px]',
+                'w-full pl-[18px] pr-[5px] py-[5px] text-[16px] rounded-[3px] bg-[#f5f6fa] dark:bg-color-input-primary flex items-center justify-between gap-[10px] border border-solid border-transparent focus-within:border-color-primary min-h-[45px]',
                 {
-                  'border-red-500 border border-solid': errors.amountFrom?.message,
+                  'border-red-500': errors.amountFrom?.message,
                   'blur-[2px]': isLoadingApproximately,
                 },
               )}
@@ -295,16 +313,13 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
               <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-[16px] text-[12px]">
                 <div
-                  className="flex items-center dark:bg-[#161d26] px-2 bg-white justify-start gap-[10px] w-full"
+                  className="flex items-center dark:bg-color-btn-primary px-2 py-1 bg-white justify-start gap-[10px] w-full"
                   role="button"
                   onClick={() => setIsShowToModal(true)}
                 >
-                  <div className="text-[14px]">
-                    {getSymbolById(watch('symbolTo')) && getSymbolById(watch('symbolTo'))?.name}
-                  </div>
                   <Image
-                    width={35}
-                    height={35}
+                    width={30}
+                    height={30}
                     src={getSymbolById(watch('symbolTo'))?.logo || ''}
                     onError={(e) => {
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
@@ -312,6 +327,10 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                     className="inline"
                     alt=""
                   />
+                  <div className="text-[14px]">
+                    {getSymbolById(watch('symbolTo')) && getSymbolById(watch('symbolTo'))?.name}
+                  </div>
+
                   <div>
                     <ChevronDownIcon width={15} />
                   </div>
@@ -327,7 +346,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           </div>
           <div
             className={cn(
-              'flex flex-col items-start gap-[15px] w-full px-[20px] py-[10px] text-[#C2C2C2] bg-[#f5f6fa] dark:bg-[#161D26] rounded-[16px] text-start',
+              'flex flex-col items-start gap-[15px] w-full px-[20px] py-[10px] text-[#C2C2C2] bg-[#f5f6fa] dark:bg-color-input-primary rounded-[3px] text-start',
               {
                 'blur-[2px]': isLoadingApproximately,
               },
@@ -339,11 +358,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               {currencyFormat1(exchangeCoinRate, 8, '', false)} {getSymbolById(watch('symbolTo'))?.name}
             </div>
           </div>
-          <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-[#161D26] rounded-t-[4px]">
+          <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-color-input-primary rounded-t-[4px]">
             <p className="text-[#98a7b5]">{t('swap:estimatedTime')}</p>
             <p className="dark:text-white text-[#31373d]">{t('swap:seconds')}</p>
           </div>
-          <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-[#161D26] rounded-b-[4px]">
+          <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-color-input-primary rounded-b-[4px]">
             <p className="text-[#98a7b5]">{t('swap:swapFee')}</p>
             <p className="dark:text-white text-[#31373d]">
               {Number(SWAP_FEE) * Number(watch('amountFrom'))}{' '}

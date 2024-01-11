@@ -88,8 +88,8 @@ export default function VerificationTab() {
         dispatch(changeIsShowResetPassword(true));
       }
     } catch (error: any) {
-      const message = error.response.data.message;
-      const status = error.response.data.statusCode;
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
       const errData = getErrorMessage('auth', 'verification', status, message, '');
       toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
     } finally {
@@ -131,7 +131,7 @@ export default function VerificationTab() {
               </div>
               <InputText
                 size={6}
-                customClass="bg-[#1B1C20] focus:outline-none w-full !rounded-[10px] h-[51px] px-[15px] placeholder:text-[14px] text-white mt-1"
+                customClass="bg-color-bg-primary focus:outline-none w-full !rounded-[3px] h-[51px] px-[15px] placeholder:text-[14px] text-white mt-1"
                 control={control}
                 name="code"
                 placeholder={t(String('authentication:verificationCode')) ?? ''}

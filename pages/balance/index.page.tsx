@@ -17,8 +17,8 @@ import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 
-const toAmountFixedLength = 4;
-const toLocalFixedLength = 4;
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
 
 const BalancePage = () => {
   const exchangeRate = useExchange();
@@ -97,7 +97,7 @@ const BalancePage = () => {
       <Head>
         <title>Balance - Bonenza</title>
       </Head>
-      <div className="flex items-center justify-between pt-[24px] px-4 sm:px-[32px] pb-[32px]">
+      <div className="flex items-center justify-between pt-[24px] px-4 sm:px-[32px] pb-[32px] dark:bg-color-modal-bg-secondary bg-white">
         <div className="flex items-center justify-start gap-[15px] max-sm:pt-[30px]">
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
           <div className="flex items-center justify-start md:gap-[35px] gap-[15px] flex-wrap">
@@ -106,7 +106,7 @@ const BalancePage = () => {
                 {t('balance:totalBalance')}
               </div>
               <div className="text-start text-[#F39717] text-[16px] font-bold break-keep">
-                {currencyFormat1(totalUsdBalance * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                {currencyFormat1(totalUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
               </div>
             </div>
             <div>
@@ -114,7 +114,7 @@ const BalancePage = () => {
                 {t('balance:realBalance')}
               </div>
               <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {currencyFormat1(realUsdBalance * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                {currencyFormat1(realUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
               </div>
             </div>
             <div>
@@ -122,14 +122,13 @@ const BalancePage = () => {
                 {t('balance:bonusMoney')}
               </div>
               <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {currencyFormat1(bonusUsdBalance, toLocalFixedLength, localFiat?.name)}
+                {currencyFormat1(bonusUsdBalance, fiatDecimals, localFiat?.name)}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="bg-[#f6f7fa] dark:bg-[#25262B] h-[20px] w-full"></div>
-      <div className="w-full pt-[24px] sm:px-4 md:px-[32px] pb-[32px]">
+      <div className="w-full pt-[24px] sm:px-4 md:px-[32px] pb-[32px] mt-[20px] dark:bg-color-modal-bg-secondary bg-white">
         <div className="w-full flex justify-between items-center mb-[18px] rounded">
           <div className="flex items-center gap-[10px]">
             <div className="max-sm:pl-[15px] dark:text-[#98A7B5] text-[#31373d] text-[14px]">
@@ -152,7 +151,7 @@ const BalancePage = () => {
           <div className="relative">
             <input
               className={cn(
-                'p-[18px] pl-[50px] border border-[#EAECF3] border-solid dark:border-0 dark:text-white text-[#31373d] w-full text-[16px] h-[40px] rounded-[5px] dark:bg-[#161D26] bg-[#f1f3f7] placeholder:text-[#4D545C] placeholder:text-[#31373d] outline-none',
+                'p-[18px] pl-[50px] border border-[#EAECF3] border-solid dark:border-0 dark:text-white text-[#31373d] w-full text-[16px] h-[40px] rounded-[5px] dark:bg-color-panel-bg-primary bg-[#f1f3f7] placeholder:text-[#4D545C] placeholder:text-[#31373d] outline-none',
               )}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -161,7 +160,7 @@ const BalancePage = () => {
             <SearchNormal
               width={24}
               height={24}
-              className="absolute top-1/2 dark:text-white text-[#31373d] left-[30px] transform -translate-x-1/2 -translate-y-1/2 !text-[14px]"
+              className="absolute top-1/2 dark:text-color-text-primary text-[#31373d] left-[30px] transform -translate-x-1/2 -translate-y-1/2 !text-[14px]"
             />
           </div>
         </div>
@@ -175,10 +174,18 @@ const BalancePage = () => {
               {filterListCrypto?.map((item: CurrencyType, index: number): any => (
                 <div
                   key={index}
-                  className="w-full dark:bg-[#161D26] bg-[#f7f7fa] px-[20px] py-[10px] rounded-[16px] flex justify-between items-center"
+                  className="w-full dark:bg-color-active-primary  bg-[#f7f7fa] px-[20px] py-[10px] rounded-[3px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
-                    <Image height={30} width={30} src={item.logo} alt="" />
+                    <Image
+                      height={30}
+                      width={30}
+                      src={item.logo}
+                      alt=""
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/fiats/USD.png';
+                      }}
+                    />
                     <div className="flex-1 text-start text-[14px] font-bold dark:text-white text-black">
                       {item.name} <span className="ml-[5px] text-[10px] text-gray-400">{item.alias}</span>
                     </div>
@@ -187,20 +194,20 @@ const BalancePage = () => {
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px]">
-                          {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                          {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                       </div>
                     )}
-                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-[#0DFDE4] text-[#F39717] font-normal">
+                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-color-primary text-[#F39717] font-normal">
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
                         href={`${ROUTER.DepositCrypto}?coin=${item.name}`}
@@ -228,30 +235,38 @@ const BalancePage = () => {
               {filterListFiat.map((item: CurrencyType, index: number): any => (
                 <div
                   key={index}
-                  className="w-full dark:bg-[#161D26] bg-[#f7f7fa] px-[20px] py-[10px] rounded-[16px] flex justify-between items-center"
+                  className="w-full dark:bg-color-active-primary bg-[#f7f7fa] px-[20px] py-[10px] roundeded-[3px] flex justify-between items-center"
                 >
                   <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
-                    <Image height={30} width={30} src={item.logo} alt="" />
+                    <Image
+                      height={30}
+                      width={30}
+                      src={item.logo}
+                      alt=""
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/fiats/USD.png';
+                      }}
+                    />
                     <div className="text-[14px] font-bold dark:text-white text-black">{item.name}</div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-[#0AB247] font-normal">
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).usd * exchangeRate, toLocalFixedLength, localFiat?.name)}
+                          {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </span>
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).amount, toAmountFixedLength, '', false)}
+                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                       </div>
                     )}
-                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-[#0DFDE4] text-[#F39717] font-normal">
+                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-color-primary text-[#F39717] font-normal">
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
                         href={`${ROUTER.DepositFiat}?coin=${item.name}`}

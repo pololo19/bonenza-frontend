@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
-import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { currencyFormat1, formatDate, formatLengthNumber } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
@@ -47,13 +47,14 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { localFiat, userId, gameSocket, userName } = useSelector(
+  const { localFiat, userId, gameSocket, userName, isLogin } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
       betHistory: state.game.betHistory,
       gameSocket: state.socket.gameSocket,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -61,7 +62,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   const betHistoryFilter = useMemo(() => {
     if (!betData.length) return [];
     if (isShowMore) return betData.slice(0, 40);
-    return betData.slice(0, 20);
+    return betData.slice(0, 10);
   }, [betData, isShowMore]);
 
   const handleGetAllBet = async () => {
@@ -117,7 +118,11 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       {
         accessorKey: 'betId',
         header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:betId')}</div>,
-        cell: ({ row }) => <div className="dark:text-[#98A7B5] text-[#31373D] truncate p-2">{row.original.betId}</div>,
+        cell: ({ row }) => (
+          <div className="dark:text-[#98A7B5] text-[#31373D] truncate sm:p-2 p-[5px] sm:w-auto w-[30vw]">
+            {row.original.betId}
+          </div>
+        ),
       },
       {
         accessorKey: 'player',
@@ -126,7 +131,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           <div
             className={`${
               row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center p-2`}
+            } font-bold truncate text-center  sm:p-2 p-[5px]`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
@@ -143,7 +148,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         accessorKey: 'time',
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:time')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center p-2">
+          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center  sm:p-2 p-[5px]">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}
           </div>
         ),
@@ -152,8 +157,8 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         accessorKey: 'payout',
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center font-bold p-2">
-            {row.original.multiplier}
+          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center font-bold  sm:p-2 p-[5px]">
+            {formatLengthNumber(row.original.multiplier, 2)}
           </div>
         ),
       },
@@ -161,7 +166,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         accessorKey: 'profit',
         header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:profit')}</div>,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-end gap-[5px] p-2')}>
+          <div className={cn('flex items-center justify-end gap-[5px]  sm:p-2 p-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
                 'text-green-500': row.original.profitAmount >= 0,
@@ -170,8 +175,8 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
             >
               {row.original.profitAmount > 0 && '+'}
               {localFiat
-                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
-                : `${currencyFormat1(row.original.profitAmount, 4, '', false)} `}
+                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 2, localFiat.name)}`
+                : `${currencyFormat1(row.original.profitAmount, 2, '', false)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
@@ -200,6 +205,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
   useEffect(() => {
     if (gameSocket) {
+      console.log(gameSocket);
       gameSocket.on(`bets`, (item: any) => {
         console.log(item, '---------all bet Table');
         const data = JSON.parse(item);
@@ -211,7 +217,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         const tempData: BetTableDataType = {
           game: data.game_name ?? '',
           gameIdenfiter: data.game_identifier ?? '',
-          player: data.player_name || '',
+          player: data.player_name ?? '',
           playerId: data.player_id ?? '',
           playerAvatar: data.playerAvatar ?? '',
           betAmount: Number(data.bet_amount || 0),
@@ -232,7 +238,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         gameSocket.off(`bets`);
       }
     };
-  }, [gameSocket, gameDetail]);
+  }, [gameSocket, gameDetail, isLogin]);
 
   return (
     <>

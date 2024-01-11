@@ -45,6 +45,8 @@ export type ModalState = {
   isShowRakeBackModal?: boolean;
   isShowRakeBackDetailModal?: boolean;
   isShowModalBonusHistory?: boolean;
+  isShowAccountPannel?: boolean;
+  isShowMenuPannel?: boolean;
 };
 
 export type LoadingState = {

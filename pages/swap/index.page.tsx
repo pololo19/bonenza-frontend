@@ -43,8 +43,8 @@ const SwapPage = () => {
 
       toast.success(String(t('swap:swapSuccessfully')), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response.data.message;
-      const status = error.response.data.statusCode;
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
       const errData = getErrorMessage('wallet', 'swap', status, message, '');
       toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.COMMON });
     } finally {
@@ -69,7 +69,7 @@ const SwapPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-[#F61B4F] rounded-[5px] py-[10px] px-[20px] min-w-[140px] hover:opacity-[0.9]"
+                  className="bg-color-primary rounded-[5px] py-[10px] px-[20px] min-w-[140px] hover:opacity-[0.9]"
                   onClick={emitData}
                 >
                   {t('swap:swapNow')}

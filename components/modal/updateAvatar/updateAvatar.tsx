@@ -120,7 +120,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         onClose={onClose}
         panelClass="rounded !max-w-[464px]"
         header={
-          <div className="relative p-[20px] pb-0 bg-[#f5f6fa] dark:bg-[#161D26]">
+          <div className="relative p-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
             <div className="flex items-center dark:text-white text-black gap-[10px]">
               <ChevronLeftIcon width={20} role="button" onClick={() => goBackUpdateProfile()} />
               <div className="text-[18px] font-[600]">{t('profile:updateAvatar')}</div>
@@ -128,9 +128,9 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           </div>
         }
       >
-        <div className="flex-1 p-[20px] bg-[#f5f6fa] dark:bg-[#161D26] flex flex-col gap-[20px]">
+        <div className="flex-1 p-[20px] bg-[#f5f6fa] dark:bg-color-modal-bg-primary flex flex-col gap-[20px]">
           <div className="flex flex-col gap-[20px]">
-            <div className="relative h-[300px] w-auto">
+            <div className="relative h-[300px] w-auto ">
               <Cropper
                 image={avatarCropper}
                 crop={crop}
@@ -165,7 +165,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
                 }}
               ></input>
             </div>
-            <div className="flex dark:bg-gray-800 bg-black/20 rounded gap-[10px]">
+            <div className="flex dark:bg-color-slider-primary bg-black/20 rounded gap-[10px]">
               <button
                 type="button"
                 className={
@@ -277,7 +277,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
               <label
                 htmlFor="avatar"
                 role="button"
-                className="w-[49px] h-[49px] rounded-full border border-solid border-amber-600 flex items-center justify-center"
+                className="w-[49px] h-[49px] rounded-full border border-solid border-color-primary flex items-center justify-center"
               >
                 <Add />
               </label>
@@ -285,7 +285,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           </div>
           <button
             type="submit"
-            className="bg-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
+            className="bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
             onClick={() => handleUpdateProfile()}
           >
             <div />

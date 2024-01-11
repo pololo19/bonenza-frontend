@@ -1,40 +1,17 @@
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import {
-  Award,
-  Command,
-  Diamonds,
-  DollarCircle,
-  Element3,
-  Gift,
-  Global,
-  Headphone,
-  Home,
-  Judge,
-  Medal,
-  Moon,
-  Notepad2,
-  SecurityCard,
-  Sun1,
-  Ticket,
-  TrendUp,
-} from 'iconsax-react';
-import Image from 'next/image';
+import { Command, Diamonds, Element3, Headphone, Judge, Medal, SearchNormal, SecurityCard } from 'iconsax-react';
 import Link from 'next/link';
-import { useTheme } from 'next-themes';
-import React, { useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import React, { useMemo } from 'react';
+import { shallowEqual, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { LANGUAGE_DATA, ROUTER } from '@/base/constants/common';
-import {
-  changeIsShowMultiLanguageModal,
-  changeIsShowVipClubModal,
-  changeMultiLanguageTab,
-} from '@/base/redux/reducers/modal.reducer';
+import { ROUTER } from '@/base/constants/common';
+import { changeIsShowCasinoSearch, changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
-import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
+import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import BlackjackIcon from '../icons/BlackjackIcon';
 import BuyInIcon from '../icons/BuyInIcon';
 import FavoriteIcon from '../icons/FavoriteIcon';
@@ -44,182 +21,170 @@ import OriginalIcon from '../icons/OriginalIcon';
 import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
-import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 
-type SidebarMobileLayoutProps = {
-  isShowSidebar: boolean;
-  setIsShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-const SidebarMobileLayout: React.FC<SidebarMobileLayoutProps> = ({ isShowSidebar, setIsShowSidebar }) => {
+const SidebarMobileLayout: React.FC = () => {
   const { t, i18n } = useTranslation('');
   const dispatch = useDispatch();
 
-  const [mode, setMode] = useState(0);
-  const { setTheme } = useTheme();
-  const [showDropDownCasino, setShowDropDownCasino] = useState(false);
-
-  const handleGetNameLocale = () => {
-    const curLocale = LANGUAGE_DATA.find((e) => e.key === i18n.language);
-    return curLocale?.language;
-  };
-
-  const { localeFiat } = useSelector(
+  const { isShowSidebar } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      isShowSidebar: state.modal.isShowMenuPannel,
     }),
     shallowEqual,
   );
 
-  const dataDropDownCasino: OptionSidebarDataType[] = [
-    { title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou, icon: <Element3 size={18} /> },
-    { title: String(t('casino:favorite')), href: ROUTER.Favorite, icon: <FavoriteIcon size={18} /> },
-    { title: String(t('casino:recent')), href: ROUTER.Recent, icon: <RecentIcon size={18} /> },
-    {
-      title: String(t('casino:bonenzaOriginals')),
-      href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
-      icon: <OriginalIcon size={18} />,
-    },
-    { title: String(t('casino:slot')), href: ROUTER.Category('slots'), icon: <SlotIcon size={18} /> },
-    { title: String(t('casino:liveCasino')), href: ROUTER.Tagname('Live Casino'), icon: <LiveCasinoIcon size={18} /> },
-    { title: String(t('casino:hotGame')), href: ROUTER.Tagname('Hot Games'), icon: <HotGameIcon size={18} /> },
-    { title: String(t('casino:newReleases')), href: ROUTER.Tagname('New Releases'), icon: <ReleaseIcon size={18} /> },
-    { title: String(t('casino:featureBuyIn')), icon: <BuyInIcon size={18} /> },
-    { title: String(t('casino:blackjack')), href: ROUTER.Tagname('Blackjack'), icon: <BlackjackIcon size={18} /> },
-    { title: String(t('casino:tableGames')), href: ROUTER.Tagname('Table Games'), icon: <LiveCasinoIcon size={18} /> },
-  ];
+  const router = useRouter();
+
+  const gameDatas: IconOptionProps[] = useMemo(
+    () => [
+      {
+        title: String(t('casino:bonenzaOriginals')),
+        href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
+        icon: OriginalIcon,
+      },
+      { title: String(t('casino:slot')), href: ROUTER.Tagname('slots'), icon: SlotIcon },
+      {
+        title: String(t('casino:liveCasino')),
+        href: ROUTER.Tagname('Live Casino'),
+        icon: LiveCasinoIcon,
+      },
+      { title: String(t('casino:hotGame')), href: ROUTER.Tagname('Hot Games'), icon: HotGameIcon },
+      { title: String(t('casino:newReleases')), href: ROUTER.Tagname('New Releases'), icon: ReleaseIcon },
+      {
+        title: String(t('casino:featureBuyIn')),
+        href: ROUTER.Tagname('Feature Buy-in'),
+        icon: BuyInIcon,
+      },
+      { title: String(t('casino:blackjack')), href: ROUTER.Tagname('Blackjack'), icon: BlackjackIcon },
+      {
+        title: String(t('casino:tableGames')),
+        href: ROUTER.Tagname('Table Games'),
+        icon: LiveCasinoIcon,
+      },
+    ],
+    [i18n.language],
+  );
+
+  const casinos: IconOptionProps[] = useMemo(
+    () => [
+      { title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou, icon: Element3 },
+      { title: String(t('casino:favorite')), href: ROUTER.Favorite, icon: FavoriteIcon },
+      { title: String(t('casino:recent')), href: ROUTER.Recent, icon: RecentIcon },
+    ],
+    [i18n.language],
+  );
+
+  const initDatas: IconOptionProps[] = useMemo(
+    () => [
+      {
+        title: String(t('sidebar:vipClub')),
+        href: ROUTER.Home,
+        icon: Diamonds,
+        onClick: () => dispatch(changeIsShowVipClubModal(true)),
+      },
+      {
+        title: String(t('sidebar:exclusive')),
+        href: ROUTER.Exclusive,
+        icon: Medal,
+      },
+      {
+        title: String(t('sidebar:affiliate')),
+        href: ROUTER.Affiliate,
+        icon: Command,
+      },
+      {
+        title: String(t('sidebar:provablyFair')),
+        href: ROUTER.ProvablyFair,
+        icon: Judge,
+      },
+      {
+        title: String(t('sidebar:sponsorships')),
+        href: ROUTER.Sponsorships,
+        icon: SecurityCard,
+      },
+    ],
+    [i18n.language],
+  );
 
   return (
     <div
       className={cn(
-        'fixed w-screen transition-transform origin-right duration-500 max-h-[calc(100vh)] mt-[-67px] z-[2000] dark:bg-[#12181F] bg-white shadow h-full',
+        'fixed w-screen max-h-[calc(100vh_-_150px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[130px] bottom-[60px] dark:bg-color-bg-primary bg-white shadow sm:hidden',
         {
-          'translate-x-0': isShowSidebar,
-          '-translate-x-full': !isShowSidebar,
+          'translate-y-full': !isShowSidebar,
+          'translate-y-0': isShowSidebar,
         },
       )}
     >
-      <div className="flex items-center justify-between p-3 h-[67px] gap-2">
-        <Link href={'/'} className="flex items-center">
-          <Image
-            width={165}
-            height={57}
-            className="max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[30px]"
-            src="/img/logo.png"
-            alt="logo"
-          />
-        </Link>
-        <div className="flex items-center gap-[10px]">
-          <Link href={ROUTER.Home} type="button">
-            <button
-              type="button"
-              className="truncate dark:text-white text-[#31373d] text-[14px] rounded dark:hover:bg-gray-600 dark:bg-[#2D3035] bg-[#f5f6fa] flex items-center justify-center gap-[7px] px-[10px] py-[10px]"
-            >
-              <div>
-                <Home className="dark:text-white text-[#31373d]" size={20} />
-              </div>
-              {t('layout:home')}
-            </button>
-          </Link>
-          <div className="rounded-md p-1" role="button" onClick={() => setIsShowSidebar(false)}>
-            <XMarkIcon width={20} className="dark:text-gray-500 text-black" />
+      <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
+        <div className="relative">
+          <div
+            className="relative mb-[20px] h-[40px] dark:bg-color-panel-bg-primary bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+            onClick={() => dispatch(changeIsShowCasinoSearch(true))}
+            role="button"
+          >
+            <SearchNormal width={24} height={24} className="text-gray-500" />
+            <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
           </div>
         </div>
-      </div>
+        <div className="relative grid grid-cols-3 gap-[8px]">
+          {casinos.map((item, index) => {
+            const IconElement = item.icon;
+            return (
+              <Link
+                key={index}
+                href={item.href}
+                className="flex flex-col gap-[5px] px-[10px] py-[16px] items-center justify-center bg-color-hover-primary rounded-[3px] text-color-text-primary"
+              >
+                <IconElement
+                  size={18}
+                  className={cn('', {
+                    'font-[700] dark:text-white text-black': router.route.includes(item.href),
+                  })}
+                />
+                <span className={cn('text-[13px]', { 'dark:text-white text-black': router.route.includes(item.href) })}>
+                  {item.title}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-hover-primary rounded-[3px]">
+          <span className="text-color-text-primary px-[12px] py-[5px] text-[12px] border-solid border-b-[1px] border-color-border-primary">
+            {t('layout:games')}
+          </span>
+          {gameDatas.map((game, index) => (
+            <IconOption
+              key={index}
+              title={game.title}
+              href={game.href}
+              icon={game.icon}
+              classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+            />
+          ))}
+        </ul>
 
-      <div className="overflow-y-auto h-[calc(100%-67px)] flex flex-col gap-[5px] px-[20px] pb-[20px]">
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
-          <IconOption
-            title={String(t('sidebar:bonus'))}
-            href={ROUTER.Bonus}
-            icon={Gift}
-            classNames="dark:hover:text-white text-[#31373d] bg-[#f5f6fa] hover:bg-[#e3ecf3] rounded pl-[10px]"
-          />
-          <div className="flex items-center gap-[5px]">
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-hover-primary rounded-[3px]">
+          {initDatas.map((item, index) => (
             <IconOption
-              title={String(t('sidebar:quest'))}
-              href={ROUTER.Bonus}
-              icon={() => <Image height={20} width={20} src={'img/quest.png'} alt=""></Image>}
-              classNames="bg-gradient-to-r from-[#F6841B] to-[#FF053B] !text-white rounded pl-[10px] text-10-i font-bold"
+              key={index}
+              title={item.title}
+              href={item.href}
+              icon={item.icon}
+              onClick={() => item.onClick}
+              classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
             />
-            <IconOption
-              title={String(t('sidebar:spin'))}
-              href={ROUTER.Bonus}
-              icon={() => <Image height={20} width={20} src={'img/spin.png'} alt=""></Image>}
-              classNames="bg-gradient-to-r from-[#0DFDE4] to-[#F39717] !text-white rounded pl-[10px] text-10-i font-bold"
-            />
-          </div>
-          <IconOption
-            title={String(t('sidebar:casino'))}
-            href={''}
-            icon={Notepad2}
-            classNames="dark:hover:text-white dark:text-[#98A7B5] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:text-[#000] rounded"
-            isDropDown={true}
-            data={dataDropDownCasino}
-          />
-          <IconOption
-            title={String(t('sidebar:sports'))}
-            href={ROUTER.Sports}
-            icon={TrendUp}
-            classNames="dark:hover:text-white text-[#31373d] bg-[#f5f6fa] hover:bg-[#e3ecf3] rounded pl-[10px]"
-          />
-          <IconOption
-            title={String(t('sidebar:lottery'))}
-            href={ROUTER.History}
-            icon={Ticket}
-            classNames="dark:hover:text-white text-[#31373d] bg-[#f5f6fa] hover:bg-[#e3ecf3] rounded pl-[10px]"
-          />
-          <IconOption
-            title={String(t('sidebar:bingo'))}
-            href={ROUTER.Bingo}
-            icon={Award}
-            classNames="dark:hover:text-white text-[#31373d] bg-[#f5f6fa] hover:bg-[#e3ecf3] rounded pl-[10px]"
-          />
+          ))}
         </ul>
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center">
-          <IconOption
-            title={String(t('sidebar:vipClub'))}
-            href={''}
-            icon={Diamonds}
-            classNames="dark:hover:text-white text-[#31373d] bg-[#f5f6fa] hover:bg-[#e3ecf3] rounded-t pl-[10px]"
-            onClick={() => {
-              dispatch(changeIsShowVipClubModal(true));
-            }}
-          />
-          <IconOption
-            title={String(t('sidebar:exclusive'))}
-            href={ROUTER.Exclusive}
-            icon={Medal}
-            classNames="dark:hover:text-white bg-[#f5f6fa] hover:bg-[#e3ecf3] text-[#31373d] rounded-none pl-[10px]"
-          />
-          <IconOption
-            title={String(t('sidebar:affiliate'))}
-            href={ROUTER.Affiliate}
-            icon={Command}
-            classNames="dark:hover:text-white bg-[#f5f6fa] hover:bg-[#e3ecf3] text-[#31373d] rounded-none pl-[10px]"
-          />
-          <IconOption
-            title={String(t('sidebar:provablyFair'))}
-            href={ROUTER.ProvablyFair}
-            icon={Judge}
-            classNames="dark:hover:text-white bg-[#f5f6fa] hover:bg-[#e3ecf3] text-[#31373d] rounded-b pl-[10px]"
-          />
-        </ul>
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
-          <IconOption
-            title={String(t('sidebar:sponsorships'))}
-            href={ROUTER.Sponsorships}
-            icon={SecurityCard}
-            classNames="dark:hover:text-white bg-[#f5f6fa] hover:bg-[#e3ecf3] text-[#31373d] rounded pl-[10px]"
-          />
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px] bg-color-hover-primary rounded-[3px]">
           <IconOption
             title={String(t('sidebar:liveSupport'))}
             href={ROUTER.LiveSupport}
             icon={Headphone}
-            classNames="dark:hover:text-white text-[#31373d] bg-[#f5f6fa] hover:bg-[#e3ecf3] rounded pl-[10px]"
+            classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
           />
         </ul>
-        <div className="dark:text-[#98A7B5] text-[#31373d] rounded dark:bg-[#25262B] bg-[#f5f6fa] flex items-center justify-center gap-[5px]">
+        {/* <div className="dark:text-[#98A7B5] text-[#31373d] rounded dark:bg-[#25262B] bg-[#f5f6fa] flex items-center justify-center gap-[5px]">
           <div
             className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer ${
               mode === 0
@@ -278,7 +243,7 @@ const SidebarMobileLayout: React.FC<SidebarMobileLayoutProps> = ({ isShowSidebar
             <DollarCircle size={18} className="dark:text-white text-[#31373d]" />
             <div className={cn('flex-1 text-start text-[14px]')}>{localeFiat?.currency}</div>
           </div>
-        </ul>
+        </ul> */}
       </div>
     </div>
   );

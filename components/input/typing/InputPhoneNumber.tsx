@@ -69,7 +69,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
       render={({ field, fieldState: { error } }) => {
         return (
           <div className="w-full flex-1">
-            <div className="bg-[#12181F] rounded-[10px] flex items-center p-[15px] gap-[8px] h-[51px] relative">
+            <div className="bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[8px] h-[51px] relative border-[1px] border-solid focus-within:border-color-primary border-color-bg-primary">
               <Menu>
                 <Menu.Button className="text-[12px] flex items-center gap-[4px] cursor-pointer min-w-[45px]">
                   <div className="flex-1">+{activeCountry.countryCallingCode}</div>
@@ -84,7 +84,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute bg-[#12181f] w-full h-[250px] overflow-y-auto left-0 cursor-pointer rounded top-[55px]">
+                  <Menu.Items className="absolute bg-color-bg-primary w-full h-[250px] overflow-y-auto left-0 cursor-pointer rounded top-[55px]">
                     {countryCallingCodes.map((country, index) => {
                       return (
                         <Menu.Item as={Fragment} key={index}>
@@ -92,7 +92,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                             <div
                               className={`${active ? 'bg-gray-700 text-white' : ''} ${
                                 country.countryCode === activeCountry.countryCode &&
-                                'border border-amber-600 border-solid'
+                                'border border-color-primary border-solid'
                               } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded`}
                               onClick={() => setActiveCountry(country)}
                             >
@@ -114,7 +114,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                 value={(field.value ?? '') as string}
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
-                className={cn('w-full bg-[#12181F] focus:outline-none text-[14px] text-white', customClass, {
+                className={cn('w-full bg-color-bg-primary focus:outline-none text-[14px] text-white', customClass, {
                   'border-red-500': !!error?.message,
                 })}
               />

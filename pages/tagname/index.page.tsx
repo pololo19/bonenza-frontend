@@ -191,15 +191,6 @@ function CasinoTagnamePage() {
         <title>Casino - Bonenza</title>
       </Head>
       {isLoading && <Loader />}
-      <div
-        className="relative mb-[20px] h-[40px] dark:bg-[#161D26] bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
-        onClick={() => dispatch(changeIsShowCasinoSearch(true))}
-        role="button"
-      >
-        <SearchNormal width={24} height={24} className="text-gray-500" />
-        <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
-      </div>
-
       {showTab ? (
         <TabGames setCurrentPage={setCurrentPage} />
       ) : (

@@ -1,22 +1,23 @@
 import cn from 'classnames';
+import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
+import { api_getGamesByTheme, api_getProviders } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail } from '@/base/types/common';
-
 import { snakeCaseToString } from '@/base/libs/utils';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import { GameDetail, GameListType, GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
-import { SearchNormal } from 'iconsax-react';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
+import ProviderFilter from '@/components/providerFilter/providerFilter';
 
 function CasinoCategoryPage() {
   const { t } = useTranslation('');
@@ -26,17 +27,72 @@ function CasinoCategoryPage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
+
+  const [listProvider, setListProvider] = useState<GameProviderDetail[]>([]);
+  const [selectedProvider, setSelectedProvider] = useState<string[]>([]);
+  const [isClearAll, setIsClearAll] = useState<boolean>(false);
+
+  const handleSelectedProvider = useCallback(
+    (providerId?: string | undefined) => {
+      if (selectedProvider.length > 0) {
+        setIsClearAll(true);
+      }
+      if (providerId) {
+        const newListProvider = listProvider.map((provider) =>
+          provider.id === providerId ? { ...provider, isSelect: !provider.isSelect } : provider,
+        );
+        const listProviderSelect = newListProvider.filter((provider) => provider.isSelect === true);
+        const listProviderSelectId = listProviderSelect.map((provider) => provider.id);
+        setSelectedProvider(listProviderSelectId);
+        setListProvider(newListProvider);
+      } else {
+        setSelectedProvider([]);
+        const newListProvider = listProvider.map((provider) => ({ ...provider, isSelect: false }));
+        setListProvider(newListProvider);
+      }
+    },
+    [listProvider],
+  );
+
+  const getListProviders = async () => {
+    try {
+      setIsLoading(true);
+      const res = await api_getProviders();
+      const providers = res.data.map((provider: any) => ({
+        id: provider.id,
+        name: provider.name,
+        isSelect: false,
+        totalGames: provider.gameCount,
+      }));
+      setListProvider(providers);
+    } catch (error) {
+      setListProvider([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleGetListGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-all-games', { params: { limit: 40, page: currentPage || 1, theme: key } });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40) {
+      const res = await api_getGamesByTheme(JSON.stringify(selectedProvider), currentPage, 40, String(key));
+      const totalCount = res?.data?.totalCount ?? 0;
+      const games = res?.data?.games ?? [];
+      const tempGameListData = games?.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item?.payout ?? 0),
+        multiplier: Number(item?.profitMultiplier ?? 0),
+        releasedAt: item?.releasedAt ?? '',
+      }));
+      setListGame((current) => [...current, ...tempGameListData]);
+      setTotalGames(totalCount);
+      if (games.length < 40 || listGame.length + games.length === totalGames) {
         setIsShowMore(false);
       }
     } catch (error) {
@@ -51,8 +107,23 @@ function CasinoCategoryPage() {
   }, [listGame, totalGames]);
 
   useEffect(() => {
-    if (key) handleGetListGame();
+    if (selectedProvider.length > 0 || isClearAll) {
+      setListGame([]);
+      setIsClearAll(false);
+      handleGetListGame();
+    }
+  }, [selectedProvider]);
+
+  useEffect(() => {
+    if (key) {
+      setListGame([]);
+      handleGetListGame();
+    }
   }, [key]);
+
+  useEffect(() => {
+    getListProviders();
+  }, []);
 
   useEffect(() => {
     if (currentPage > 1) handleGetListGame();
@@ -73,11 +144,19 @@ function CasinoCategoryPage() {
         <SearchNormal width={24} height={24} className="text-gray-500" />
         <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
       </div>
-
-      <Breadcrumbs
-        data={[{ title: 'Casino', href: ROUTER.Casino }]}
-        endpoint={{ title: snakeCaseToString(String(key) ?? ''), href: ROUTER.Tagname(String(key) ?? '') }}
-      />
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
+        <Breadcrumbs
+          data={[{ title: 'Casino', href: ROUTER.Casino }]}
+          endpoint={{ title: snakeCaseToString(String(key) ?? ''), href: ROUTER.Tagname(String(key) ?? '') }}
+        />
+        <div className="flex items-center text-[14px] text-[#98a7b5] gap-[12px] md:gap-[48px] max-sm:w-full">
+          <ProviderFilter
+            listProvider={listProvider}
+            selectedProvider={selectedProvider}
+            selectProvider={handleSelectedProvider}
+          />
+        </div>
+      </div>
 
       {!!listGame.length && (
         <>

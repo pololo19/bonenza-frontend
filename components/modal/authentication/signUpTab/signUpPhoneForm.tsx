@@ -103,7 +103,7 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
           <InputText
             control={control}
             name="referralCode"
-            customClass="bg-[#12181F] focus:outline-none w-full !rounded-[10px] h-[51px] px-[15px] placeholder:text-[14px] text-white mt-1"
+            customClass="bg-color-bg-primary  focus:outline-none w-full h-[51px] px-[15px] placeholder:text-[14px] text-white mt-1"
             placeholder={String(t('authentication:referral'))}
             autoComplete="off"
           />

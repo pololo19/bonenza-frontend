@@ -64,15 +64,6 @@ function PickForYouPage() {
       </Head>
       {isLoading && <Loader />}
 
-      <div
-        className="relative mb-[20px] h-[40px] bg-white dark:bg-[#161D26] rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
-        onClick={() => dispatch(changeIsShowCasinoSearch(true))}
-        role="button"
-      >
-        <SearchNormal width={24} height={24} className="text-[#4D545C]" />
-        <div className={cn('w-full text-[14px] text-[#4D545C] outline-none')}>{t('gameDetail:gameNameProvider')}</div>
-      </div>
-
       <Breadcrumbs
         data={[{ title: 'Casino', href: ROUTER.Casino }]}
         endpoint={{ title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou }}

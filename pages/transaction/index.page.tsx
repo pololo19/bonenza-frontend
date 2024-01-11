@@ -568,7 +568,6 @@ const TransactionPage = () => {
             type: TRANSACTION_TYPE.Withdraw,
             withdrawalAddress: item.toAddress,
           }));
-          console.log(tempWithdrawData, '----570');
           setDataTable(tempWithdrawData);
           break;
 

@@ -29,6 +29,8 @@ const initialCommonState: ModalState = {
   isShowRakeBackModal: false,
   isShowRakeBackDetailModal: false,
   isShowModalBonusHistory: false,
+  isShowAccountPannel: false,
+  isShowMenuPannel: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -108,6 +110,12 @@ export const queryDataSlice = createSlice({
     changeIsShowBonusHistory: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowModalBonusHistory = action.payload;
     },
+    changeIsShowAccountPannel: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowAccountPannel = action.payload;
+    },
+    changeIsShowMenuPannel: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowMenuPannel = action.payload;
+    },
   },
 });
 
@@ -136,5 +144,7 @@ export const {
   changeIsShowRakeBack,
   changeIsShowRakeBackDetail,
   changeIsShowBonusHistory,
+  changeIsShowAccountPannel,
+  changeIsShowMenuPannel,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

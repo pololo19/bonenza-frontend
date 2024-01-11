@@ -278,6 +278,8 @@
     "rateGameContent": "BONENZA Original",
     "mailFeedback": "feedback@bonenza.com",
     "hello": "Hello",
+    "welcomeTo": "WELCOME TO",
+    "startJourney": "START YOUR GAME JOURNEY NOW",
     "welcomeToJoin": "welcome to join",
     "welcomeAboard": "Welcome aboard",
     "firstDepositBonus": "FIRST DEPOSIT BONUS",
@@ -289,10 +291,12 @@
     "yourVipProgress": "YOUR VIP PROGRESS",
     "unlockExclusive": "Unlock exclusive",
     "rewardsAtBONENZA": "rewards at BONENZA",
-    "onlyVIPClub": "Only in the VIP club"
+    "onlyVIPClub": "Only in the VIP club",
+    "requireSign": "Please Sign up or Log in first"
   },
   "sidebar": {
     "bonus": "Bonus",
+    "account": "Account",
     "quest": "QUEST",
     "spin": "SPIN",
     "bingo": "Bingo",
@@ -301,6 +305,7 @@
     "lottery": "Lottery",
     "promotions": "Promotions",
     "vipClub": "VIP Club",
+    "notification": "Notification",
     "affiliate": "Affiliate",
     "forum": "Forum",
     "provablyFair": "Provably Fair",
@@ -592,6 +597,7 @@
     "loginGoogleFailed": "Login with Google failed",
     "loginTelegramFailed": "Login with Telegram failed",
     "sendMailSuccessfully": "Send mail successfully",
+    "sendSMSSuccessfully": "Send SMS successfully",
     "emailVerifySuccessfully": "Your email is successfully verified",
     "phoneVerifySuccessfully": "Your phone number is successfully verified",
     "sendMailFailed": "Email does not match any account.",
@@ -660,7 +666,7 @@
     "hotGame": "Hot Games",
     "liveCasino": "Live Casino",
     "alsoLike": "You May Also Like",
-    "gameProvider": "Games Providers",
+    "gameProvider": "Game Providers",
     "newReleases": "New Releases",
     "blackjack": "Blackjack",
     "themes": "Themes",
@@ -1209,7 +1215,8 @@
     "threeTimeFreeGame": "3 time free game 1x win.200 spins for each.",
     "reallyGoodGame": "really good game when i played it on 😀 but here it just will bleed u money don&apos;t waste ur time or listen to those bots comments played for 3 hours 600$ and never hit for anything above a 30x",
     "showReplies": "Show 1 Replies",
-    "gameExpiration": "Temporary under constructions"
+    "gameExpiration": "Temporary under constructions",
+    "betDetail": "Bet Slip"
   },
   "construction": {
     "toMakeThingsRight": "To make things right we need some time to rebuild",
@@ -1268,6 +1275,7 @@
     "currencySetting": "Currency Setting",
     "displayMode": "Display mode",
     "language": "Language",
+    "theme": "Theme",
     "hideMyGamingDataOnProfile": "Hide my gaming data on profile",
     "evenIfHidden": "Even if hidden, your avatar and username are always visible in chat rooms.",
     "hideMyUsernameFromPublicLists": "Hide my username from public lists",

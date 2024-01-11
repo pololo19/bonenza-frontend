@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
-import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { currencyFormat1, formatDate, formatLengthNumber } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
 
@@ -92,7 +92,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   const betHistoryFilter = useMemo(() => {
     if (!myBetData.length) return [];
     if (isShowMore) return myBetData.slice(0, 40);
-    return myBetData.slice(0, 20);
+    return myBetData.slice(0, 10);
   }, [myBetData, isShowMore]);
 
   const myBetColumns = useMemo(() => {
@@ -100,7 +100,9 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {
         accessorKey: 'betId',
         header: () => <div className="text-left dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:betId')}</div>,
-        cell: ({ row }) => <div className="dark:text-[#98A7B5] text-[#31373d] truncate">{row.original.betId}</div>,
+        cell: ({ row }) => (
+          <div className="dark:text-[#98A7B5] text-[#31373d] truncate sm:w-auto w-[30vw]">{row.original.betId}</div>
+        ),
       },
       {
         accessorKey: 'betAmount',
@@ -142,7 +144,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-[#98A7B5] text-[#31373d] font-bold truncate text-center">
-            {row.original.multiplier}
+            {formatLengthNumber(row.original.multiplier, 2)}
           </div>
         ),
       },
@@ -159,11 +161,11 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
             >
               {row.original.profitAmount > 0 && '+'}
               {localFiat
-                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
-                : `${currencyFormat1(row.original.profitAmount, 4, '', false)}`}
+                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 2, localFiat.name)}`
+                : `${currencyFormat1(row.original.profitAmount, 2, '', false)}`}
             </div>
             <Image
-              className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
+              className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"
               height={15}
               width={15}
               src={`/img/fiats/${row.original.currency}.png`}
@@ -203,7 +205,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         const tempData: BetTableDataType = {
           game: data.game_name ?? '',
           gameIdenfiter: data.game_identifier ?? '',
-          player: data.player_name || 'Hidden',
+          player: data.player_name ?? '',
           playerId: data.player_id ?? '',
           playerAvatar: data.playerAvatar ?? '',
           betAmount: Number(data.bet_amount || 0),

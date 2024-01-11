@@ -58,7 +58,7 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
       name={name}
       render={({ field, fieldState: { error } }) => (
         <div className="w-full flex-1">
-          <div className="dark:bg-[#222328] bg-[#f5f6fa] rounded-[10px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px]">
+          <div className="dark:bg-color-bg-primary bg-[#f5f6fa] rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] border-[1px] border-solid border-transparent focus-within:border-color-primary">
             <input
               {...rest}
               {...field}
@@ -67,7 +67,7 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
               value={(field.value ?? '') as string}
               onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
               className={cn(
-                'w-full dark:bg-[#222328] bg-[#f5f6fa] focus:outline-none text-[14px] dark:text-white text-black',
+                'w-full dark:bg-color-bg-primary bg-[#f5f6fa] focus:outline-none text-[14px] dark:text-white text-black',
                 customClass,
                 {
                   'border-red-500': !!error?.message,

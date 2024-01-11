@@ -58,7 +58,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
     <>
       <BaseLayout contentClass="sm:mx-auto px-0">
         <>
-          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] xl:px-[20px] sm:px-0 px-[20px] sm:mb-0 mb-14">
+          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] sm:px-0 px-[20px] sm:mb-0 mb-14">
             <CommonSession icon={Setting} title="Setting">
               <Menu
                 as="div"
@@ -119,7 +119,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 <div
                   className={cn(
                     styles.cardMenu,
-                    'dark:bg-[#31343D] bg-[#fff] rounded-[15px] md:max-h-[310px] min-w-[175px] md:!flex !hidden',
+                    'dark:!bg-color-modal-bg-secondary bg-[#fff] rounded-[3px] md:max-h-[310px] min-w-[175px] md:!flex !hidden',
                   )}
                 >
                   <div className="xl:p-2 p-1 w-full">
@@ -130,8 +130,8 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                           href={item.href}
                           icon={() => null}
                           key={index}
-                          classNames="dark:hover:text-white text-[#31373d] dark:bg-[#31343d] rounded bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-[#292C33] !bg-[#eaecf3] dark:text-white text-black"
+                          classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
                         />
                       ))}
                     </ul>
@@ -139,7 +139,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex-1 dark:bg-[#31343D] bg-white rounded-[15px] dark:text-white text-black px-3 pt-3 pb-5 md:p-5',
+                    'flex-1 rounded-[3px] dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black px-3 pt-3 pb-5 md:p-5',
                   )}
                 >
                   {children}

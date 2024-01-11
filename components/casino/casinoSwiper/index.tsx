@@ -29,16 +29,16 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
               </div>
             </div>
             <Swiper
-              slidesPerView={width > 500 ? 'auto' : 3}
+              slidesPerView={width > 600 ? 'auto' : 3}
               autoplay={{
                 delay: 500,
                 disableOnInteraction: false,
               }}
               speed={1000}
-              spaceBetween={width > 500 ? 10 : 0}
+              spaceBetween={width > 600 ? 10 : 0}
               loop={true}
-              className="sm:!h-auto !h-[150px]"
-              direction={width > 500 ? 'horizontal' : 'vertical'}
+              className="sm:!h-auto !h-[160px]"
+              direction={width > 600 ? 'horizontal' : 'vertical'}
               modules={[Autoplay]}
             >
               {data?.map((game: T, key) => {

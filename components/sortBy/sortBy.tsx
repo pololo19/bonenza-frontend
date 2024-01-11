@@ -1,24 +1,26 @@
-import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
+import { ArrowRight2 } from 'iconsax-react';
+import React, { Fragment } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ArrowRight2 } from 'iconsax-react';
 
 type sortByProps = {
   sortBy: any[];
   selectSortBy: (value: any) => void;
   selectedSortBy: any;
+  label?: boolean;
 };
 
-const SortBy = ({ sortBy, selectSortBy, selectedSortBy }: sortByProps) => {
+const SortBy = (props: sortByProps) => {
+  const { sortBy, selectSortBy, selectedSortBy, label = true } = props;
   const { t } = useTranslation('');
 
   return (
     <div className="flex items-center gap-[10px] grow sm:grow-0">
-      <div className="hidden sm:block">{t('casino:sortBy')}</div>
+      {label && <div className="hidden sm:block">{t('casino:sortBy')}</div>}
       <Menu
         as="div"
-        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-[#98a7b5] h-[36px] sm:h-[40px] text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
+        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-color-text-primary h-[36px] sm:h-[40px] text-[#000] dark:bg-color-bg-secondary bg-[#F6F7FA]"
       >
         <Menu.Button className="w-full px-[20px]">
           <div className="flex items-center justify-between">
