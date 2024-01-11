@@ -4,10 +4,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
 import { shallowEqual, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowCasinoSearch, changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import BlackjackIcon from '../icons/BlackjackIcon';
@@ -19,8 +21,6 @@ import OriginalIcon from '../icons/OriginalIcon';
 import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
-import { useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
 
 const SidebarMobileLayout: React.FC = () => {
   const { t, i18n } = useTranslation('');
@@ -118,19 +118,14 @@ const SidebarMobileLayout: React.FC = () => {
     >
       <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
         <div className="relative">
-          <input
-            className={cn(
-              'p-[18px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-hover-primary bg-[#f5f6fa] placeholder:text-[#4D545C] outline-none',
-            )}
-            // value={searchValue}
-            // onChange={(e) => setSearchValue(e.target.value)}
-            placeholder={String(t('casino:gameNameAndProvider'))}
-          />
-          <SearchNormal
-            width={24}
-            height={24}
-            className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-[#31373d]"
-          />
+          <div
+            className="relative mb-[20px] h-[40px] dark:bg-color-panel-bg-primary bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+            onClick={() => dispatch(changeIsShowCasinoSearch(true))}
+            role="button"
+          >
+            <SearchNormal width={24} height={24} className="text-gray-500" />
+            <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
+          </div>
         </div>
         <div className="relative grid grid-cols-3 gap-[8px]">
           {casinos.map((item, index) => {

@@ -6,9 +6,10 @@ import { ElementType, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
+import { api_getGamesByNameAndProvider } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail } from '@/base/types/common';
+import { GameDetail, GameListType } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -27,7 +28,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
   const [listRecommendGame, setListRecommendGame] = useState<GameDetail[]>([]);
-  const [listSearchGame, setListSearchGame] = useState<GameDetail[]>([]);
+  const [listSearchGame, setListSearchGame] = useState<GameListType[]>([]);
 
   const handleGetListRecommendGame = async () => {
     try {
@@ -44,10 +45,17 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const handleGetSearchGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-all-games', {
-        params: { limit: 20, search: searchValue },
-      });
-      setListSearchGame(res.data.data);
+      const res = await api_getGamesByNameAndProvider(searchValue);
+      const tempGameLists = res.data.data.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item?.payout ?? 0),
+        multiplier: Number(item?.profitMultiplier ?? 0),
+        releasedAt: item?.releasedAt ?? '',
+      }));
+      setListSearchGame(tempGameLists);
     } catch (error) {
       setListSearchGame([]);
     } finally {
@@ -56,35 +64,39 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   };
 
   useEffect(() => {
-    handleGetListRecommendGame();
-  }, []);
-
-  useEffect(() => {
     if (searchValue.length >= 3) handleGetSearchGame();
   }, [searchValue]);
 
   return (
     <>
       {isLoading && <Loader />}
-      <div className="relative dark:bg-[#25262B] bg-white m-auto mt-[11px] w-full shadow shadow-[0px_9px_17px_0px_#00000040]">
-        <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto">
+      <div
+        className={cn(
+          'relative dark:bg-color-header bg-whit w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)]',
+          {
+            'translate-y-0': show,
+            '-translate-y-full': !show,
+          },
+        )}
+      >
+        <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto h-full">
           <div className="relative">
             <input
               className={cn(
-                'p-[18px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-[#161D26] bg-[#f5f6fa] placeholder:text-[#4D545C] outline-none',
+                'p-[18px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none',
               )}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               placeholder={String(t('casino:gameNameAndProvider'))}
             />
             <SearchNormal
-              width={24}
-              height={24}
+              width={22}
+              height={22}
               className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-[#31373d]"
             />
             <div
               role="button"
-              className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-[#31373d]"
+              className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white"
               onClick={() => {
                 dispatch(changeIsShowCasinoSearch(false));
               }}
@@ -101,7 +113,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             )}
           </div>
           {searchValue.length >= 3 && !!listSearchGame.length && (
-            <div className="mb-[20px]">
+            <div className="sm:mb-[20px] mb-0">
               <div className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]">
                 {t('casino:searchResult')}
               </div>

@@ -74,7 +74,7 @@ const TabGames = ({ setCurrentPage }: tabGamesProps) => {
   ];
 
   return (
-    <div className="relative my-[20px] max-w-full flex flex-wrap gap-[8px]">
+    <div className="relative my-[20px] max-w-full overflow-x-auto snap-x snap-mandatory flex sm:flex-wrap flex-nowrap gap-[8px]">
       {filterOptions.map((option, key) => {
         return (
           <Link href={option?.link} key={key} className="min-w-fit">
