@@ -105,7 +105,7 @@ function IndexPage() {
       const [topRatedGames, recommendedGames] = await Promise.all([api_getTopRelatedGames(), api_getPickGames(1, 20)]);
       const tempListTopRatedGames: GameListType[] = topRatedGames.data.map((item: any) => ({
         id: item?.id ?? '',
-        title: item?.title ?? '',
+        title: item?.producerName ?? '',
         description: '',
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
