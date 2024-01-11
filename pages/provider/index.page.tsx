@@ -43,10 +43,10 @@ function ProviderPage() {
 
   const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
 
-  const handleGetListGame = async () => {
+  const handleGetListGame = async (page: number = currentPage) => {
     try {
       setIsLoading(true);
-      const res = await api_getGamesByProvider(String(id), selectedSortBy.orderValue as SortType, currentPage || 1, 40);
+      const res = await api_getGamesByProvider(String(id), selectedSortBy.orderValue as SortType, page || 1, 40);
       const totalCount = res?.data?.totalCount ?? 0;
       const games = res?.data?.data ?? [];
       const tempGameListData: GameListType[] = games?.map((item: any) => ({
@@ -73,8 +73,8 @@ function ProviderPage() {
   const handleGetListRelatedGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-total-favorite-game', { params: { limit: 20 } });
-      setListRelated(res.data.data);
+      // const res = await api.get('game/get-total-favorite-game', { params: { limit: 20 } });
+      // setListRelated(res.data.data);
     } catch (error) {
       setListRelated([]);
     } finally {
@@ -88,15 +88,18 @@ function ProviderPage() {
 
   useEffect(() => {
     if (id) {
+      setCurrentPage(1);
+      setIsShowMore(true);
+
       setListGame([]);
-      handleGetListGame();
-      handleGetListRelatedGame();
+      // handleGetListGame(1);
+      // handleGetListRelatedGame();
     }
   }, [id, selectedSortBy]);
 
   useEffect(() => {
-    if (currentPage > 1) handleGetListGame();
-  }, [currentPage]);
+    if (id) handleGetListGame();
+  }, [currentPage, id]);
 
   return (
     <div className="py-[24px]">
