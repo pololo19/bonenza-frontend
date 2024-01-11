@@ -212,6 +212,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
       setValue('symbolFrom', symbolFrom);
       setValue('symbolTo', symbolTo);
       setValue('amountFrom', tempAmountFrom.toFixed(4));
+      handleApproximately(tempAmountFrom.toFixed(4));
     }
   }, [cryptoSymbols]);
 
