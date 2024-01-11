@@ -16,8 +16,9 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
+import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 
 declare let window: any;
 
@@ -29,7 +30,7 @@ type LoginWalletProps = {
 export default function LoginWallet({ onClose }: LoginWalletProps) {
   const { library, account, activate: activateNetwork, deactivate } = useWeb3React();
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -55,6 +56,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
           ...convertUserInfo(user),
         }),
       );
+      dispatch(initWalletInfo());
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {

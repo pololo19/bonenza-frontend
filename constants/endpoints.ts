@@ -78,6 +78,7 @@ const API_GAME_TOP_RATED_GAMES = '/game/get-top-rated-games';
 
 const API_GAME_THEME = '/game/get-themes';
 const API_GAME_GAMES_BY_PROVIDER = '/game/get-games-by-provider';
+const API_GAME_GAMES_BY_THEME = '/game/get-games-by-theme';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -120,6 +121,7 @@ export {
   API_GAME_FAVORITE_GAMES,
   API_GAME_FEATURE_BUY_IN,
   API_GAME_GAMES_BY_PROVIDER,
+  API_GAME_GAMES_BY_THEME,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
