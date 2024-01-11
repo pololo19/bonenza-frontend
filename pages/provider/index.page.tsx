@@ -58,7 +58,6 @@ function ProviderPage() {
         multiplier: Number(item?.profitMultiplier ?? 0),
         releasedAt: item?.releasedAt ?? '',
       }));
-      console.log(games, listGame, '=====61');
       if (games.length < 40 || listGame.length + games.length === totalGames) {
         setIsShowMore(false);
       }
@@ -113,7 +112,12 @@ function ProviderPage() {
         <p className="text-color-primary cursor-pointer sm:text-[16px] text-[14px]">
           <Link href={ROUTER.Providers}>{`${t('gameDetail:viewAll')} ${t('layout:providers')}`}</Link>
         </p>
-        <SortBy sortBy={sortBy} selectSortBy={(sort) => setSelectedSortBy(sort)} selectedSortBy={selectedSortBy} />
+        <SortBy
+          sortBy={sortBy}
+          selectSortBy={(sort) => setSelectedSortBy(sort)}
+          selectedSortBy={selectedSortBy}
+          label={false}
+        />
       </div>
       <>
         <div className="sm:text-[24px] text-[16px] mt-[24px] dark:text-white text-black">
