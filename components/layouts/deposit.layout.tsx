@@ -77,7 +77,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
       <div className="sm:block hidden">
         <BaseLayout isDetailPage>
           <>
-            <div className="flex flex-wrap gap-7 w-full text-center py-[20px] xl:px-[20px] sm:mb-0 mb-14">
+            <div className="flex flex-wrap gap-7 w-full text-center py-[20px] sm:mb-0 mb-14">
               <CommonSession title={String(t('sidebar:wallet'))}>
                 <div className="flex flex-row gap-5 w-full text-center mt-0 mb-[50px]">
                   <div

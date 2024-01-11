@@ -58,7 +58,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
     <>
       <BaseLayout contentClass="sm:mx-auto px-0">
         <>
-          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] xl:px-[20px] sm:px-0 px-[20px] sm:mb-0 mb-14">
+          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] sm:px-0 px-[20px] sm:mb-0 mb-14">
             <CommonSession icon={Setting} title="Setting">
               <Menu
                 as="div"

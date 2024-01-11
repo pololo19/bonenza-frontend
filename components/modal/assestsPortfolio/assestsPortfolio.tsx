@@ -161,7 +161,16 @@ export default function ModalAssetsPortfolio({
                         onClick={() => handleChangeCoin(coin)}
                       >
                         <div className="flex-1 flex items-center justify-start gap-[10px]">
-                          <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
+                          <Image
+                            width={30}
+                            height={30}
+                            src={coin.logo}
+                            className="inline"
+                            alt=""
+                            onError={(e) => {
+                              e.currentTarget.src = '/img/fiats/USD.png';
+                            }}
+                          />
                           <div className="flex-1 text-start text-[14px]">
                             {coin.name}
                             {/* <span className="ml-[5px] text-[10px] dark:text-gray-400 text-[#31373d]">
@@ -280,7 +289,15 @@ export default function ModalAssetsPortfolio({
 
                     <div className="text-[12px]">{item.name}</div>
                   </div>
-                  <Image height={16} width={16} src={item.logo} alt="" />
+                  <Image
+                    height={16}
+                    width={16}
+                    src={item.logo}
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/fiats/USD.png';
+                    }}
+                  />
                 </div>
               </label>
             ))}
