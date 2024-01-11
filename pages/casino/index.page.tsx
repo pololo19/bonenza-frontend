@@ -142,7 +142,7 @@ function CasinoPage() {
       <GameBannerSlider className="!mt-0" />
       {/* Search */}
       <div
-        className="relative mt-[20px] h-[40px] bg-white dark:bg-color-input-primary rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+        className="relative mt-[20px] h-[40px] bg-white border border-solid border-white/10 dark:bg-color-input-primary rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
         onClick={() => dispatch(changeIsShowCasinoSearch(true))}
         role="button"
       >

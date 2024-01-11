@@ -1,22 +1,21 @@
 import cn from 'classnames';
+import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail } from '@/base/types/common';
-
 import { snakeCaseToString } from '@/base/libs/utils';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import { GameDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
-import { SearchNormal } from 'iconsax-react';
-import { useRouter } from 'next/router';
-import { useDispatch } from 'react-redux';
 
 function CasinoTagnamePage() {
   const { t } = useTranslation('');
@@ -111,15 +110,6 @@ function CasinoTagnamePage() {
         <title>Casino - Bonenza</title>
       </Head>
       {isLoading && <Loader />}
-
-      <div
-        className="relative mb-[20px] h-[40px] dark:bg-[#161D26] bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
-        onClick={() => dispatch(changeIsShowCasinoSearch(true))}
-        role="button"
-      >
-        <SearchNormal width={24} height={24} className="text-gray-500" />
-        <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
-      </div>
 
       <Breadcrumbs
         data={[{ title: 'Casino', href: ROUTER.Casino }]}

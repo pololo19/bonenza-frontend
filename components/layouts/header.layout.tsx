@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { Add, Gift, Global, Message, MoneyRecive, Notification } from 'iconsax-react';
+import { Add, Gift, Global, Message, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -57,7 +57,7 @@ export default function Navbar() {
       {isLoadingFull && <LoaderFull />}
       <div
         className={cn(
-          'w-full my-auto py-[10px] dark:bg-color-header bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
+          'w-full my-auto dark:bg-color-header bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
             'md:ml-[205px] md:max-w-[calc(100%-205px)]': isToggleSidebar && !showChatType,
@@ -68,7 +68,7 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'flex flex-1 h-full lg:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px]',
+            'flex py-[10px] flex-1 h-full lg:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px] ',
             {
               // 'sm:pl-[62px]': !isToggleSidebar && !showChatType,
               // 'md:pl-[205px]': isToggleSidebar && !showChatType,
@@ -131,8 +131,22 @@ export default function Navbar() {
 
           <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
             {/* Button */}
-            {!isLogin && !isAccountPannel && (
-              <div className="flex items-center text-white font-bold w-full gap-[15px]">
+            <button
+              type="button"
+              className="truncate text-white flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
+              onClick={() => dispatch(changeIsShowCasinoSearch(!isShowCasinoSearch))}
+            >
+              <div className="sm:block hidden">
+                <SearchNormal />
+              </div>
+            </button>
+            {!isLogin && (
+              <div
+                className={cn('sm:flex items-center text-white font-bold w-full gap-[15px]', {
+                  hidden: isAccountPannel,
+                  flex: !isAccountPannel,
+                })}
+              >
                 <button
                   type="button"
                   className="truncate dark:text-white rounded-[5px] font-semibold py-[9px] px-5 text-[14px] font-bold text-[#31373d]  dark:hover:bg-color-hover-primary"
