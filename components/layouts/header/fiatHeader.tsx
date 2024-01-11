@@ -214,7 +214,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     onClose={() => {
                       setSearchFiatInput('');
                     }}
-                    className="dark:text-white !bg-[#f5f6fa] dark:!bg-gray-700/75"
+                    className="dark:text-white !bg-[#f5f6fa] dark:!bg-color-panel-bg-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
                     onChange={(e) => setSearchFiatInput(e.target.value)}
                   />
                 </div>
@@ -231,7 +231,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               {/* Fiat */}
               <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_265px)] overflow-y-auto p-[20px] w-full">
                 {!!filterListCrypto?.length && (
-                  <div className="text-[14px] text-gray-400 mb-2">{t('deposit:crypto')}</div>
+                  <div className="text-[14px] text-gray-400 mb-2 ml-4">{t('deposit:crypto')}</div>
                 )}
                 {filterListCrypto?.map((crypto, index) => {
                   return (
@@ -294,7 +294,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   );
                 })}
                 {!!filterListFiat?.length && (
-                  <div className="pt-[10px] text-[14px] text-gray-400 mb-2">{t('deposit:fiat')}</div>
+                  <div className="pt-[10px] text-[14px] text-gray-400 mb-2 ml-4">{t('deposit:fiat')}</div>
                 )}
                 {filterListFiat?.map((fiat, index) => {
                   return (
@@ -434,32 +434,32 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         if (value) setShowAllFiat(true);
                       }}
                       className={`${
-                        viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-gray-500 bg-gray-200'
-                      } relative inline-flex h-4 w-8 items-center rounded-full`}
+                        viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                      } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
                     >
                       <span
                         className={`${
-                          viewInFiat ? 'translate-x-4 bg-amber-600' : 'translate-x-1 bg-gray-400'
-                        } inline-block h-3 w-3 transform rounded-full transition`}
+                          viewInFiat ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
+                        } inline-block h-[18px] w-[18px] transform rounded-full transition`}
                       />
                     </Switch>
-                    <div className="text-[15px] text-gray-400">{t('fiatHeader:viewInFiat')}</div>
+                    <div className="text-[15px] dark:text-white text-black">{t('fiatHeader:viewInFiat')}</div>
                   </div>
                   <div className="flex items-center gap-[5px]">
                     <Switch
                       checked={showSmallFiat}
                       onChange={setShowSmallFiat}
                       className={`${
-                        showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-gray-500 bg-gray-200'
-                      } relative inline-flex h-4 w-8 items-center rounded-full`}
+                        showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                      } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
                     >
                       <span
                         className={`${
-                          showSmallFiat ? 'translate-x-4 bg-amber-600' : 'translate-x-1 bg-gray-400'
-                        } inline-block h-3 w-3 transform rounded-full transition`}
+                          showSmallFiat ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
+                        } inline-block h-[18px] w-[18px] transform rounded-full transition`}
                       />
                     </Switch>
-                    <div className="text-[15px] text-gray-400">{t('fiatHeader:smallFiat')}</div>
+                    <div className="text-[15px] dark:text-white text-black">{t('fiatHeader:smallFiat')}</div>
                   </div>
                 </div>
               )}

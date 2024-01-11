@@ -53,6 +53,7 @@ module.exports = {
         'color-border-primary': '#3B3C41',
         'color-input-primary': '#1D1E22',
         'color-slider-primary': '#26282E',
+        'color-toggle-primary': '#3A4047',
         'color-progress-primary': '#25262A',
         'color-active-primary': '#1D1F24',
         primary: 'linear-gradient(209.24deg, #E5944B 35.23%, #CC6228 73.92%)',
