@@ -201,11 +201,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         >
           <Menu.Items
             className={cn(
-              'sm:absolute sm:mr-0 mr-[10px] fixed xl:right-[-115px] md:right-[-115px] sm:right-[auto] left-0 z-[50] mt-[67px] sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
+              'sm:absolute sm:mr-0 mr-[10px] fixed sm:right-0 sm:left-auto left-0 z-[50] mt-[67px] sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
               wrapperClass,
             )}
           >
-            <div className="sm:py-1 sm:relative fixed left-0 rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
+            <div className="sm:py-1 sm:relative fixed sm:right-0 sm:left-auto left-0 rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
               <div className="py-[20px] px-[20px] flex ">
                 <div className="grow">
                   <InputSearch
