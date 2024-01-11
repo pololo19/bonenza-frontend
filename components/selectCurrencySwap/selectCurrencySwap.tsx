@@ -187,8 +187,9 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
   const onBlurFromBalance = () => {
     const balance = getBalanceBySymbolId(watch('symbolFrom'));
-    if (Number(getValues('amountFrom')) > balance) {
-      setValue('amountFrom', balance.toFixed(4));
+    const minBalance = Math.min(balance, Number(minSwap));
+    if (Number(getValues('amountFrom')) > minBalance) {
+      setValue('amountFrom', minBalance.toFixed(4));
     }
   };
 
