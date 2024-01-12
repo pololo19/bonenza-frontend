@@ -13,9 +13,18 @@ type CardPlayProps = {
   textButton: string;
   icon: JSX.Element;
   href: string;
+  isClick?: boolean;
 };
 
-export default function CardPlay({ imgBackGround, title, description, textButton, href, icon }: CardPlayProps) {
+export default function CardPlay({
+  imgBackGround,
+  title,
+  description,
+  textButton,
+  href,
+  icon,
+  isClick = false,
+}: CardPlayProps) {
   const router = useRouter();
 
   return (
@@ -25,7 +34,13 @@ export default function CardPlay({ imgBackGround, title, description, textButton
         <div className="dark:text-white text-black text-[16px] font-bold uppercase">{title}</div>
       </div>
       <div
-        onClick={() => router.push(href)}
+        onClick={() => {
+          if (isClick) {
+            window.open(href);
+          } else {
+            router.push(href);
+          }
+        }}
         className={cn(
           styles.cardBox,
           'flex-1 bg-cover cursor-pointer overflow-hidden relative md:aspect-[190/145] lg:aspect-[275/145] aspect-[220/145] flex flex-col justify-end rounded-[5px]',
@@ -52,14 +67,25 @@ export default function CardPlay({ imgBackGround, title, description, textButton
             <div className="dark:text-white text-black sm:text-[#31373d] text-[14px] lg:text-[16px] mt-[4px] mb-5">
               {description}
             </div>
-            <Link
-              href={href}
-              type="button"
-              className="bg-color-primary w-full rounded-[5px] font-bold xl:text-[14px] text-[12px] text-white flex items-center justify-center gap-[7px] ld:p-[10px] px-[5px] py-[10px] hover:text-white"
-            >
-              <div />
-              {textButton}
-            </Link>
+            {!isClick && (
+              <Link
+                href={href}
+                type="button"
+                className="bg-color-primary w-full rounded-[5px] font-bold xl:text-[14px] text-[12px] text-white flex items-center justify-center gap-[7px] ld:p-[10px] px-[5px] py-[10px] hover:text-white"
+              >
+                <div />
+                {textButton}
+              </Link>
+            )}
+            {isClick && (
+              <div
+                role="button"
+                className="bg-color-primary w-full rounded-[5px] font-bold xl:text-[14px] text-[12px] text-white flex items-center justify-center gap-[7px] ld:p-[10px] px-[5px] py-[10px] hover:text-white"
+                onClick={() => window.open(href)}
+              >
+                {textButton}
+              </div>
+            )}
           </div>
         </div>
       </div>
