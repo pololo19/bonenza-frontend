@@ -86,6 +86,23 @@ function IndexPage() {
         href: ROUTER.Sports,
         icon: <SportBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
       },
+      {
+        imgBackGround: '/img/page/liveholdem.png',
+        title: t('homePage:introduceCardTitle3'),
+        description: t('homePage:introduceCardDes3'),
+        textButton: t('homePage:introduceCardButton3'),
+        href: 'https://cmd23.com/room/games.php',
+        icon: (
+          <Image
+            width={20}
+            height={20}
+            className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
+            src="/icon/liveholdem-green.png"
+            alt="logo"
+          />
+        ),
+        isClick: true,
+      },
     ],
     [],
   );
@@ -361,7 +378,7 @@ function IndexPage() {
             </div>
 
             <div className="flex flex-col items-start gap-[50px] mt-[15px] ">
-              <div className="sm:grid md:grid-cols-2 grid-cols-1 gap-[16px] w-full hidden">
+              <div className="sm:grid md:grid-cols-3 grid-cols-1 gap-[16px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -371,6 +388,7 @@ function IndexPage() {
                     textButton={item.textButton}
                     href={item.href}
                     icon={item.icon}
+                    isClick={item.isClick}
                   />
                 ))}
               </div>
