@@ -156,8 +156,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         cell: ({ row }) => (
           <div className="dark:text-white sm:text-[16px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]">
             {localFiat
-              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 4, localFiat.name)}`
-              : `${currencyFormat1(row.original.betAmount, 4, '', false)} `}
+              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 8, localFiat.name)}`
+              : `${currencyFormat1(row.original.betAmount, 8, '', false)} `}
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
               height={15}
@@ -194,14 +194,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             >
               {row.original.profit > 0 && '+'}
               {localFiat
-                ? `${currencyFormat1(
-                    Math.abs(row.original.profitAmountUsd * exchangeRate),
-                    2,
-                    localFiat.name,
-                    true,
-                    3,
-                  )}`
-                : `${currencyFormat1(Math.abs(row.original.profitAmount), 2, '', false, 3)} `}
+                ? `${currencyFormat1(Math.abs(row.original.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
+                : `${currencyFormat1(Math.abs(row.original.profitAmount), 8, '', false)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"

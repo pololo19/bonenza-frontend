@@ -379,13 +379,7 @@ export function formatCompactNumber(number: number, setting: any) {
     return 0;
   }
 }
-export function currencyFormat1(
-  number: number,
-  zeroNum: number,
-  currency: string = 'USD',
-  flag: boolean = true,
-  stable: number = 5,
-) {
+export function currencyFormat1(number: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
   try {
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
@@ -395,21 +389,29 @@ export function currencyFormat1(
       return res;
     }
     let zeroCount = -Math.floor(Math.log10(number));
-    if (zeroNum < stable && zeroCount < stable) {
+    if (zeroNum < 5) {
       res = formatCompactNumber(number, {
-        maximumFractionDigits: zeroNum,
+        maximumFractionDigits: 4,
         minimumFractionDigits: 2,
-        roundingMode: 'floor',
       }).toString();
       return `${symbol} ${res}`;
     }
-    const miniZeroNum = zeroNum > stable ? zeroNum : stable;
-    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: zeroCount + 2 }).format(number).toString();
+    if (zeroCount < zeroNum) {
+      res = formatCompactNumber(number, {
+        maximumFractionDigits: zeroCount + 2,
+        minimumFractionDigits: 2,
+      }).toString();
+      return `${symbol} ${res}`;
+    }
+    const miniZeroNum = zeroNum > 5 ? zeroNum : 5;
+    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: miniZeroNum - 1 })
+      .format(number)
+      .toString();
     if (zeroCount > miniZeroNum) {
       let nonZeros = '';
       for (
         let i = zeroCount + 1;
-        i < (numberString.length > zeroCount + stable ? zeroCount + stable : numberString.length);
+        i < (numberString.length > zeroCount + 5 ? zeroCount + 5 : numberString.length);
         i++
       ) {
         nonZeros += numberString[i];
@@ -419,7 +421,6 @@ export function currencyFormat1(
       res = formatCompactNumber(number, {
         maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
-        roundingMode: 'floor',
       }).toString();
     }
     return `${symbol} ${res}`;

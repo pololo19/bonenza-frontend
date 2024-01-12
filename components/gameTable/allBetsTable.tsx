@@ -175,8 +175,8 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
             >
               {row.original.profitAmount > 0 && '+'}
               {localFiat
-                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 2, localFiat.name)}`
-                : `${currencyFormat1(row.original.profitAmount, 2, '', false)} `}
+                ? `${currencyFormat1(Math.abs(row.original.profitAmountUsd * exchangeRate), 8, localFiat.name, true)}`
+                : `${currencyFormat1(Math.abs(row.original.profitAmount), 8, '', false)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"

@@ -375,7 +375,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
         onChangeCoin={(crypto: CurrencyType) => {
           const minValue: number = Math.min(getBalanceBySymbolId(crypto.id), SWAP_MIN / (crypto.price || 1));
           setValue('symbolFrom', String(crypto.id));
-          setValue('amountFrom', currencyFormat1(Number(minValue), 4, '', false));
+          setValue('amountFrom', minValue.toFixed(4));
         }}
         cryptoSymbol={watch('symbolFrom')}
         cryptoSymbols={fromSymbols}
