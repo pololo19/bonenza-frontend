@@ -82,6 +82,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         betId: item.id ?? '',
         time: item.time ?? new Date(),
       }));
+      console.log(tempBetData, '----85');
       dispatch(setBetHistory(tempBetData));
     } catch (error) {
       dispatch(setBetHistory([]));
@@ -117,7 +118,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betId',
         header: String(t('gameTable:game')),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-[#31373d] sm:text-[16px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px]">
+          <div className="dark:text-color-text-primary text-[#31373d] sm:text-[16px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px] sm:w-auto w-[20vw]">
             <Image
               height={24}
               width={24}
@@ -193,8 +194,14 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             >
               {row.original.profit > 0 && '+'}
               {localFiat
-                ? `${currencyFormat1(row.original.profitAmountUsd * exchangeRate, 2, localFiat.name)}`
-                : `${currencyFormat1(row.original.profitAmount, 2, '', false)} `}
+                ? `${currencyFormat1(
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    2,
+                    localFiat.name,
+                    true,
+                    3,
+                  )}`
+                : `${currencyFormat1(Math.abs(row.original.profitAmount), 2, '', false, 3)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"

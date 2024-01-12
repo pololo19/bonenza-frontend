@@ -10,6 +10,7 @@ type HomepageSessionProps = {
   iconUrl?: string;
   children?: React.ReactNode;
   showIcon: boolean;
+  isHome?: boolean;
 };
 
 const HomepageSession = ({
@@ -17,6 +18,7 @@ const HomepageSession = ({
   iconUrl = '/img/icon/live-stream.png',
   children,
   showIcon,
+  isHome = false,
 }: HomepageSessionProps) => {
   const { t } = useTranslation('');
   const { isLogin } = useSelector(
@@ -29,8 +31,8 @@ const HomepageSession = ({
   return (
     <div
       className={cn('w-full relative sm:block', {
-        hidden: !isLogin,
-        block: isLogin,
+        hidden: isHome && !isLogin,
+        block: !isHome || isLogin,
       })}
     >
       <div className="flex items-center gap-[10px]">

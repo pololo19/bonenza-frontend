@@ -492,7 +492,7 @@ function IndexPage() {
                 <div className="max-[857px]:block hidden absolute top-[45%] left-0 w-full h-1/2 bg-[#1D1E22]"></div>
               </div>
               <div className="relative w-full sm:block hidden">
-                <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false}>
+                <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false} isHome={true}>
                   <LatestBetRace />
                 </HomepageSession>
               </div>
