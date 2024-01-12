@@ -423,6 +423,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
         minimumFractionDigits: 2,
       }).toString();
     }
+    return `${symbol} ${res}`;
   } catch (error) {
     return '';
   }
