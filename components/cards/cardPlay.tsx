@@ -64,7 +64,7 @@ export default function CardPlay({
                 </div>
               </div>
             </div>
-            <div className="dark:text-white text-black sm:text-[#31373d] text-[14px] lg:text-[16px] mt-[4px] mb-5">
+            <div className="dark:text-white text-black sm:text-[#31373d] text-[14px] lg:text-[16px] mt-[4px] mb-5 min-h-[72px]">
               {description}
             </div>
             {!isClick && (
