@@ -7,6 +7,7 @@ import { Tooltip } from 'react-tooltip';
 import { api_getRecentBigWins } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
@@ -16,7 +17,6 @@ import { BetDetailType, BetTableDataType } from '@/base/types/common';
 import CasinoSwiper from '../casino/casinoSwiper';
 import LiveStream from '../icons/LiveStream';
 import ModalDetailBets from '../modal/detailBets/detailBets';
-import { useWidth } from '@/base/hooks/useWidth';
 
 type CardBigWinProps = {
   price?: string | number;

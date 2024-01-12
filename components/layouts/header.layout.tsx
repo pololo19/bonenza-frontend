@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { Add, Gift, Global, Message, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
+import { Add, Box1, Gift, Global, Message, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -113,6 +113,21 @@ export default function Navbar() {
               <SportBoldIcon className="w-[18px] h-[18px]" />
               <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white `}>{t('layout:sports')}</div>
             </Link>
+            <div
+              onClick={() => window.open('https://cmd23.com/room/games.php')}
+              className={cn(
+                'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+              )}
+            >
+              <Image
+                width={20}
+                height={20}
+                className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
+                src="/icon/liveholdem.png"
+                alt="logo"
+              />
+              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white`}>{t('layout:liveHoldem')}</div>
+            </div>
             <Link
               href={ROUTER.Racing}
               className={cn(
@@ -133,7 +148,7 @@ export default function Navbar() {
             {/* Button */}
             <button
               type="button"
-              className="truncate text-white flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
+              className="truncate text-color-text-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
               onClick={() => dispatch(changeIsShowCasinoSearch(!isShowCasinoSearch))}
             >
               <div className="sm:block hidden">
@@ -149,7 +164,7 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  className="truncate dark:text-white rounded-[5px] font-semibold py-[9px] px-5 text-[14px] font-bold text-[#31373d]  dark:hover:bg-color-hover-primary"
+                  className="truncate dark:text-color-text-primary rounded-[5px] font-semibold py-[9px] px-5 text-[14px] font-bold text-[#31373d]  dark:hover:bg-color-hover-primary"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -161,7 +176,7 @@ export default function Navbar() {
                 {/* Button */}
                 <button
                   type="button"
-                  className="truncate text-white rounded-[5px] font-semibold py-[9px] bg-color-primary px-5 text-[14px] font-bold"
+                  className="truncate text-white rounded-[5px] font-semibold py-[9px] bg-gradient-btn-default px-5 text-[14px] font-bold"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -175,7 +190,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-[3px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
+                className="truncate text-white rounded-[3px] bg-gradient-btn-default flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="sm:block hidden">

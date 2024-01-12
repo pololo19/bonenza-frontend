@@ -1,6 +1,7 @@
-import { useTranslation } from '@/base/config/i18next';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
+
+import { useTranslation } from '@/base/config/i18next';
 
 type NoDataComponentProps = {
   noDataText?: string;
@@ -13,6 +14,7 @@ export const NoDataComponent = ({ noDataText }: NoDataComponentProps) => {
   return (
     <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
       <Image
+        className="sm:w-[150px] sm:h-[150px] w-[80px] h-[80px]"
         src={theme === 'dark' ? '/img/no-data.png' : '/img/no-data-light-mode.png'}
         alt="noData"
         width={150}

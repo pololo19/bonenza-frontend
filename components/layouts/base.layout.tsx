@@ -1,5 +1,6 @@
 import cn from 'classnames';
-import { EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
+import { Box1, EmptyWallet, HambergerMenu, Message, RotateLeft, User } from 'iconsax-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -91,7 +92,7 @@ type BaseLayoutProps = {
   contentClass?: string;
 };
 
-const activeHrefsToMobileSubMenu = [ROUTER.Home, ROUTER.Casino];
+const activeHrefsToMobileSubMenu = [ROUTER.Home, ROUTER.Casino, ROUTER.Tagname('')];
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, contentClass }) => {
   const innerWidth = useWidth();
@@ -109,7 +110,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     dispatch(changeIsShowMenuPannel(false));
     dispatch(changeIsShowAccountPannel(false));
-    if (activeHrefsToMobileSubMenu.indexOf(router.route) !== -1) {
+    if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
       setIsShowMobileSubMenu(true);
     } else {
       setIsShowMobileSubMenu(false);
@@ -188,6 +189,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         title: 'layout:sports',
         href: ROUTER.Sports,
         icon: <SportBoldIcon className="text-[#FE073A] w-[18px] h-[18px]" />,
+      },
+      {
+        title: 'layout:liveHoldem',
+        href: 'https://cmd23.com/room/games.php',
+        icon: (
+          <Image
+            width={18}
+            height={18}
+            className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
+            src="/icon/liveholdem.png"
+            alt="logo"
+          />
+        ),
       },
       { title: 'layout:racing', href: ROUTER.Racing, icon: <RacingBoldIcon className="text-[#F48D19]" /> },
     ],
@@ -470,7 +484,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                       dispatch(changeIsShowAccountPannel(false));
                     }
                     if (isShowSidebar) {
-                      if (activeHrefsToMobileSubMenu.indexOf(router.route) !== -1) {
+                      if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
                         setIsShowMobileSubMenu(true);
                       } else {
                         setIsShowMobileSubMenu(false);
@@ -546,7 +560,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                       dispatch(changeIsShowMenuPannel(false));
                       setIsShowMobileSubMenu(false);
                     } else {
-                      if (activeHrefsToMobileSubMenu.indexOf(router.route) !== -1) {
+                      if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
                         setIsShowMobileSubMenu(true);
                       } else {
                         setIsShowMobileSubMenu(false);

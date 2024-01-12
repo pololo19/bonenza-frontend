@@ -1,13 +1,20 @@
 import cn from 'classnames';
 import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 
 import api from '@/api/api';
-import { api_getPickGames, api_getTopRelatedGames } from '@/api/game';
+import {
+  api_getCasinoWithKey,
+  api_getFavoriteGames,
+  api_getPickGames,
+  api_getRecentGames,
+  api_getTopRelatedGames,
+} from '@/api/game';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -17,6 +24,9 @@ import {
 } from '@/base/redux/reducers/modal.reducer';
 import { AuthenticationModeEnum, GameListType } from '@/base/types/common';
 import CardPlay from '@/components/cards/cardPlay';
+import CasinoSS from '@/components/casino/casinoSS';
+import Loader from '@/components/common/preloader/loader';
+import GameCard from '@/components/gameCard/gameCard';
 import withAuth from '@/components/hoc/withAuth';
 import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
 import LatestBetRace from '@/components/homepage/latestBetRace';
@@ -27,19 +37,26 @@ import CasinoBoldIcon from '@/components/icons/CasinoBoldIcon';
 import SportBoldIcon from '@/components/icons/SportBoldIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
+import { NoDataComponent } from '@/components/noData/noData';
 import GameBannerSlider from '@/components/sliders/gameSliders';
+import TabGames from '@/components/tabGames/tabGames';
 import VipProgressComponent from '@/components/vipProgress/vipProgress';
 import styles from '@/styles/dashboard/index.module.scss';
 
 import { useTranslation } from '../config/i18next';
 import { ROUTER } from '../constants/common';
 import { useExchange } from '../hooks/useExchange';
+import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
+import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
 
 function IndexPage() {
+  const width = useWidth();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
+  const { query } = useRouter();
+  const { key } = query;
 
   const { isLogin, userName, localFiat } = useSelector(
     (state: AppState) => ({
@@ -75,9 +92,18 @@ function IndexPage() {
 
   const dispatch = useDispatch();
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const [checkDeposit, setCheckDeposit] = useState(false);
   const [listRecommendedGame, setListRecommendedGame] = useState<GameListType[]>([]);
   const [listTopRated, setListTopRated] = useState<GameListType[]>([]);
+  const [listPicksForGame, setListPicksForGame] = useState<GameListType[]>([]);
+
+  const [selectedCasino, setSelectedCasino] = useState<string>('recent');
+  const [listRecentGames, setListRecentGame] = useState<GameListType[]>([]);
+  const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
+
+  const [listCasinoTabGame, setListCasinoTabGame] = useState<GameListType[]>([]);
 
   const handleCheckDeposit = async () => {
     try {
@@ -102,6 +128,7 @@ function IndexPage() {
 
   const initDataLoad = async () => {
     try {
+      setIsLoading(true);
       const [topRatedGames, recommendedGames] = await Promise.all([api_getTopRelatedGames(), api_getPickGames(1, 20)]);
       const tempListTopRatedGames: GameListType[] = topRatedGames.data.map((item: any) => ({
         id: item?.id ?? '',
@@ -115,7 +142,7 @@ function IndexPage() {
 
       const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
         id: item?.id ?? '',
-        title: item?.title ?? '',
+        title: item?.producerName ?? '',
         description: item?.description ?? '',
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
@@ -127,14 +154,110 @@ function IndexPage() {
     } catch (error) {
       setListTopRated([]);
       setListRecommendedGame([]);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  const getGameList = async () => {
+    const query = { sort: 'popular' };
+    let tempGameListData: GameListType[] = [];
+    let params: any = {
+      pageSize: 20,
+      page: 1,
+    };
+    try {
+      setIsLoading(true);
+      params = {
+        ...params,
+        ...query,
+        providers: JSON.stringify([]),
+      };
+      const res = await api_getCasinoWithKey(convert2Url(String(key)), params);
+
+      const games = res?.data?.games ?? [];
+      tempGameListData = games?.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item?.payout ?? 0),
+        multiplier: Number(item?.profitMultiplier ?? 0),
+        releasedAt: item?.releasedAt ?? '',
+      }));
+      setListCasinoTabGame(tempGameListData);
+    } catch (error) {
+      setListCasinoTabGame([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadDataAfterLogin = async () => {
+    try {
+      setIsLoading(true);
+      const [picksforYou, recentGames, favoriteGames] = await Promise.all([
+        api_getPickGames(1, 40),
+        api_getRecentGames(1, 3),
+        api_getFavoriteGames(1, 3),
+      ]);
+      const tempPicksForYou = picksforYou?.data?.games?.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item?.payout ?? 0),
+        multiplier: Number(item?.profitMultiplier ?? 0),
+        releasedAt: item?.releasedAt ?? '',
+      }));
+      const tempRecentGames = recentGames?.data?.games?.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item?.payout ?? 0),
+        multiplier: Number(item?.profitMultiplier ?? 0),
+        releasedAt: item?.releasedAt ?? '',
+      }));
+      const tempfavoriteGames: GameListType[] = favoriteGames.data.games.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item?.payout ?? 0),
+        multiplier: Number(item?.profitMultiplier ?? 0),
+        releasedAt: item?.releasedAt ?? '',
+      }));
+      setListPicksForGame(tempPicksForYou);
+      setListRecentGame(tempRecentGames);
+      setListFavoriteGames(tempfavoriteGames);
+    } catch (error) {
+      setListPicksForGame([]);
+      setListRecentGame([]);
+      setListFavoriteGames([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     initDataLoad();
   }, []);
 
+  useEffect(() => {
+    getGameList();
+  }, [key]);
+
+  useEffect(() => {
+    if (isLogin && width < 600) {
+      loadDataAfterLogin();
+    }
+  }, [width, isLogin]);
+
   return (
     <>
+      {isLoading && <Loader />}
+
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-color-bg-primary">
           <div className="flex-1 w-full">
@@ -196,7 +319,7 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-[5px] bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
@@ -212,7 +335,7 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                            className="truncate text-white rounded-[5px] bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}
@@ -251,7 +374,94 @@ function IndexPage() {
                   />
                 ))}
               </div>
-              <RecentBigWinComponent />
+              {!isLogin && <RecentBigWinComponent />}
+              {!isLogin && (
+                <>
+                  <div className="relative w-full sm:hidden block">
+                    <div className="flex justify-between items-center gap-[10px]">
+                      <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
+                        {String(t('layout:casino'))}
+                      </div>
+                    </div>
+                    <TabGames ishome={true} />
+                    <CasinoSS
+                      data={listCasinoTabGame}
+                      renderItem={(item) => <GameCard gameDetail={item} />}
+                      isShowArrow={false}
+                    />
+                  </div>
+                </>
+              )}
+              {isLogin && (
+                <>
+                  <div className="relative w-full sm:hidden block">
+                    <div className="flex justify-between items-center gap-[10px]">
+                      {/* <CasinoBoldIcon className="w-[18px] h-[18px]" /> */}
+                      <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
+                        {String(t('layout:casino'))}
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <Link
+                          href={selectedCasino === 'recent' ? ROUTER.Recent : ROUTER.Favorite}
+                          role="button"
+                          className="rounded-[5px] font-bold text-[10px] dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                        >
+                          {t('gameDetail:viewAll')}
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="flex gap-[10px] dark:text-color-text-primary text-[14px] mt-[10px] text-black">
+                      <span
+                        className={cn({ 'text-white': selectedCasino === 'recent' })}
+                        onClick={() => setSelectedCasino('recent')}
+                      >
+                        {String(t('casino:recent'))}
+                      </span>
+                      <span
+                        className={cn({ 'text-white': selectedCasino === 'favorite' })}
+                        onClick={() => setSelectedCasino('favorite')}
+                      >
+                        {String(t('casino:favorite'))}
+                      </span>
+                    </div>
+
+                    {selectedCasino === 'recent' && (
+                      <>
+                        {!!listRecentGames.length ? (
+                          <div className="game-grid-parent mt-[20px]">
+                            {listRecentGames.map((game, index) => (
+                              <div key={index} className="max-w-[185px]">
+                                <GameCard gameDetail={game} />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="py-[10px] w-full">
+                            <NoDataComponent />
+                          </div>
+                        )}
+                      </>
+                    )}
+                    {selectedCasino === 'favorite' && (
+                      <>
+                        {!!listFavoriteGames.length ? (
+                          <div className="game-grid-parent mt-[20px]">
+                            {listFavoriteGames.map((game, index) => (
+                              <div key={index} className="max-w-[185px]">
+                                <GameCard gameDetail={game} />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="py-[10px] w-full">
+                            <NoDataComponent />
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
               <div className="bg-[url('/img/octopus.png')] relative w-full sm:flex hidden flex-col max-[857px]:pt-[20px] min-[858px]:flex-row items-center bg-no-repeat justify-between max-[857px]:bg-[length:100%_45%] bg-[length:100%_100%] rounded-[5px]">
                 <div className="flex-1 flex items-center justify-center min-h-[105px]">
@@ -266,10 +476,11 @@ function IndexPage() {
                 <div className="py-[35px] max-sm:pt-[16px] w-full min-[858px]:pl-[56px] flex-1 min-[858px]:bg-[#1D1E2280] relative z-[1] md:backdrop-blur-[5px]">
                   <div className="min-[858px]:max-w-[362px] relative z-1 flex flex-col gap-[22px] max-[857px]:items-center">
                     <div className="sm:text-[20px] text-[16px] max-[857px]:max-w-[362px] max-[857px]:text-center">
-                      {t('homePage:getStarted')} <span className="text-color-red">300%</span> {t('bonus:depositBonus')}
+                      {t('homePage:getStarted')} <span className="text-color-primary">300%</span>{' '}
+                      {t('bonus:depositBonus')}
                     </div>
                     <div
-                      className="bg-color-red rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
+                      className="bg-gradient-btn-default rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
                       onClick={() => {
                         handleClickDeposit();
                       }}
@@ -280,9 +491,11 @@ function IndexPage() {
                 </div>
                 <div className="max-[857px]:block hidden absolute top-[45%] left-0 w-full h-1/2 bg-[#1D1E22]"></div>
               </div>
-              <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false}>
-                <LatestBetRace />
-              </HomepageSession>
+              <div className="relative w-full sm:block hidden">
+                <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false} isHome={true}>
+                  <LatestBetRace />
+                </HomepageSession>
+              </div>
               <div className="relative w-full sm:block hidden">
                 <div className="md:hidden block absolute top-0 left-0 h-full w-full z-[1] bg-[#1D1E22]"></div>
                 <div className="flex md:flex-row flex-col justify-between relative z-[2] min-[858px]:min-h-[270px] bg-no-repeat bg-[length:100%_50%] max-sm:bg-center sm:bg-[length:100%_100%] px-[20px] md:pl-[30px] md:bg-[url('/img/whale.png')]">
@@ -293,19 +506,19 @@ function IndexPage() {
                   >
                     {!isLogin && (
                       <div className="text-[20px] font-semibold text-white">
-                        {String(t('homePage:unlockExclusive'))} <span className="text-color-red">VIP</span>{' '}
+                        {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
                         <div className="text-[14px] text-color-text-secondary mt-5">
                           {String(t('homePage:onlyVIPClub'))}
                         </div>
                         <div className="mt-[50px]">
-                          <button className="px-[60px] py-[8px] bg-color-red text-[14px]">Sign Up</button>
+                          <button className="px-[60px] py-[8px] bg-gradient-btn-default text-[14px]">Sign Up</button>
                         </div>
                       </div>
                     )}
                     {isLogin && (
                       <div className="text-[20px] font-semibold text-white">
-                        {String(t('homePage:unlockExclusive'))} <span className="text-color-red">VIP</span>{' '}
+                        {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
                         <div className="text-[14px] text-color-text-secondary mt-5">
                           {String(t('homePage:onlyVIPClub'))}
@@ -325,7 +538,7 @@ function IndexPage() {
                         onClick={() => {
                           dispatch(changeIsShowVipClubModal(true));
                         }}
-                        className="cursor-pointer bg-color-red hover:opacity-[0.9] hover:text-white text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
+                        className="cursor-pointer bg-gradient-btn-default  hover:opacity-[0.9] hover:text-white text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
                       >
                         {t('referAndEarn:learnMore')}
                       </div>
@@ -335,6 +548,34 @@ function IndexPage() {
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
+              {isLogin && (
+                <div className="relative w-full sm:hidden block">
+                  <div className="flex items-center gap-[10px]">
+                    <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
+                      {String(t('casino:pickForYou'))}
+                    </div>
+                  </div>
+                  <div className="game-grid-parent mt-[20px]">
+                    {listPicksForGame.map((game, index) => {
+                      return (
+                        <div key={index} className="max-w-[185px]">
+                          <GameCard gameDetail={game} />
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <Link
+                      href={ROUTER.PicksForYou}
+                      role="button"
+                      className="dark:bg-[#2D3035] bg-white rounded-[5px] font-bold text-[10px] dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                    >
+                      {t('gameDetail:viewAll')}
+                    </Link>
+                  </div>
+                </div>
+              )}
+
               <div className="">
                 <div className="sm:py-[35px] py-[20px] lg:flex gap-[60px] rounded-[15px]">
                   <div className="lg:w-[50%]">
@@ -368,7 +609,7 @@ function IndexPage() {
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
-                      <div className="hover:opacity-[0.9] bg-color-red py-[10px] flex items-center justify-center text-white font-bold text-[14px] w-full lg:w-[162px] rounded-[5px] cursor-pointer">
+                      <div className="hover:opacity-[0.9] bg-gradient-btn-default py-[10px] flex items-center justify-center text-white font-bold text-[14px] w-full lg:w-[162px] rounded-[5px] cursor-pointer">
                         {String(t('homePage:leaveAMessage'))}
                       </div>
                       <div className="text-color-text-secondary text-[12px]">{String(t('footer:nowGetReward'))}</div>

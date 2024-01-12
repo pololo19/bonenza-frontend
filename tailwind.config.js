@@ -28,6 +28,7 @@ module.exports = {
         'gradient-default': 'linear-gradient(90deg, rgba(27,28,32, 0.9) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
         'gradient-top-bottom': 'linear-gradient(360deg, rgba(27,28,32, 0.9) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
         active: 'rgba(246, 27, 79, 0.2)',
+        'gradient-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
       },
       colors: {
         'color-header': '#24262B',
@@ -43,6 +44,7 @@ module.exports = {
         'color-bg-primary': '#1B1C20',
         'color-bg-secondary': '#151518',
         'color-btn-primary': '#26282C',
+        'color-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
         'color-text-primary': '#98A7B5',
         'color-text-secondary': '#939699',
         'color-primary': '#50C627',
