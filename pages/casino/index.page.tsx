@@ -161,7 +161,10 @@ function CasinoPage() {
             renderItem={(item) => <GameCard gameDetail={item} />}
             viewAllUrl={ROUTER.Category('Bonenza Mini Games')}
           />
-          <RecentBigWinComponent />
+          <div className="relative sm:block hidden">
+            <RecentBigWinComponent />
+          </div>
+
           <CasinoSS
             title={String(t('casino:slot'))}
             data={listGames.slots}

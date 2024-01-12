@@ -117,14 +117,15 @@ export default function Navbar() {
               onClick={() => window.open('https://cmd23.com/room/games.php')}
               className={cn(
                 'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
-                `${
-                  router.asPath.includes(ROUTER.Racing)
-                    ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
-                    : ''
-                }`,
               )}
             >
-              <Box1 className="" />
+              <Image
+                width={24}
+                height={24}
+                className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
+                src="/icon/liveholdem.png"
+                alt="logo"
+              />
               <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white`}>{t('layout:liveHoldem')}</div>
             </div>
             <Link
