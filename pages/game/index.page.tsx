@@ -107,6 +107,7 @@ function GamePage() {
         description: resGameDetail.data?.description ?? '',
         releasedAt: resGameDetail.data?.releasedAt ?? '',
         gameCnt: Number(resGameDetail.data?.producerDetails?.gameCount ?? 0),
+        allowedDemo: resGameDetail.data?.allowDemo,
       };
       setGameDetail(tempGameDetailData);
     } catch (error) {
@@ -399,6 +400,7 @@ function GamePage() {
                             <button
                               type="button"
                               className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                              disabled={!gameDetail.allowedDemo}
                               onClick={() => {
                                 handleFreePlay();
                               }}

@@ -25,6 +25,7 @@ import {
 import { AuthenticationModeEnum, GameListType } from '@/base/types/common';
 import CardPlay from '@/components/cards/cardPlay';
 import CasinoSS from '@/components/casino/casinoSS';
+import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import withAuth from '@/components/hoc/withAuth';
 import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
@@ -49,7 +50,6 @@ import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
-import Loader from '@/components/common/preloader/loader';
 
 function IndexPage() {
   const width = useWidth();
@@ -319,7 +319,7 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-[5px] bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
@@ -335,7 +335,7 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                            className="truncate text-white rounded-[5px] bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}
@@ -476,10 +476,11 @@ function IndexPage() {
                 <div className="py-[35px] max-sm:pt-[16px] w-full min-[858px]:pl-[56px] flex-1 min-[858px]:bg-[#1D1E2280] relative z-[1] md:backdrop-blur-[5px]">
                   <div className="min-[858px]:max-w-[362px] relative z-1 flex flex-col gap-[22px] max-[857px]:items-center">
                     <div className="sm:text-[20px] text-[16px] max-[857px]:max-w-[362px] max-[857px]:text-center">
-                      {t('homePage:getStarted')} <span className="text-color-red">300%</span> {t('bonus:depositBonus')}
+                      {t('homePage:getStarted')} <span className="text-color-primary">300%</span>{' '}
+                      {t('bonus:depositBonus')}
                     </div>
                     <div
-                      className="bg-color-red rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
+                      className="bg-gradient-btn-default rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
                       onClick={() => {
                         handleClickDeposit();
                       }}
@@ -505,19 +506,19 @@ function IndexPage() {
                   >
                     {!isLogin && (
                       <div className="text-[20px] font-semibold text-white">
-                        {String(t('homePage:unlockExclusive'))} <span className="text-color-red">VIP</span>{' '}
+                        {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
                         <div className="text-[14px] text-color-text-secondary mt-5">
                           {String(t('homePage:onlyVIPClub'))}
                         </div>
                         <div className="mt-[50px]">
-                          <button className="px-[60px] py-[8px] bg-color-red text-[14px]">Sign Up</button>
+                          <button className="px-[60px] py-[8px] bg-gradient-btn-default text-[14px]">Sign Up</button>
                         </div>
                       </div>
                     )}
                     {isLogin && (
                       <div className="text-[20px] font-semibold text-white">
-                        {String(t('homePage:unlockExclusive'))} <span className="text-color-red">VIP</span>{' '}
+                        {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
                         <div className="text-[14px] text-color-text-secondary mt-5">
                           {String(t('homePage:onlyVIPClub'))}
@@ -537,7 +538,7 @@ function IndexPage() {
                         onClick={() => {
                           dispatch(changeIsShowVipClubModal(true));
                         }}
-                        className="cursor-pointer bg-color-red hover:opacity-[0.9] hover:text-white text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
+                        className="cursor-pointer bg-gradient-btn-default  hover:opacity-[0.9] hover:text-white text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
                       >
                         {t('referAndEarn:learnMore')}
                       </div>
@@ -608,7 +609,7 @@ function IndexPage() {
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
-                      <div className="hover:opacity-[0.9] bg-color-red py-[10px] flex items-center justify-center text-white font-bold text-[14px] w-full lg:w-[162px] rounded-[5px] cursor-pointer">
+                      <div className="hover:opacity-[0.9] bg-gradient-btn-default py-[10px] flex items-center justify-center text-white font-bold text-[14px] w-full lg:w-[162px] rounded-[5px] cursor-pointer">
                         {String(t('homePage:leaveAMessage'))}
                       </div>
                       <div className="text-color-text-secondary text-[12px]">{String(t('footer:nowGetReward'))}</div>

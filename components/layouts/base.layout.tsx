@@ -195,8 +195,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         href: 'https://cmd23.com/room/games.php',
         icon: (
           <Image
-            width={24}
-            height={24}
+            width={18}
+            height={18}
             className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
             src="/icon/liveholdem.png"
             alt="logo"
