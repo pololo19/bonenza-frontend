@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
+import { Box1, EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
@@ -188,6 +188,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         title: 'layout:sports',
         href: ROUTER.Sports,
         icon: <SportBoldIcon className="text-[#FE073A] w-[18px] h-[18px]" />,
+      },
+      {
+        title: 'layout:liveHoldem',
+        href: 'https://cmd23.com/room/games.php',
+        icon: <Box1 className="text-color-primary" />,
       },
       { title: 'layout:racing', href: ROUTER.Racing, icon: <RacingBoldIcon className="text-[#F48D19]" /> },
     ],

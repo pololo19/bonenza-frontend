@@ -30,6 +30,16 @@ import api from '../api';
 
 export type SortType = 'popular' | 'asc' | 'desc' | 'new' | 'a-z' | 'z-a' | 'like';
 
+type CategoryType =
+  | 'all'
+  | 'live_casino'
+  | 'slots'
+  | 'table_games'
+  | 'blackjack'
+  | 'new_releases'
+  | 'feature_Buy_In'
+  | 'hot_games';
+
 export type CasinoRequest = {
   page: number;
   pageSize: number;
@@ -78,8 +88,8 @@ export const api_getSlots = async (params: CasinoRequest) => {
   return api.get(API_GAME_SLOT, { params });
 };
 
-export const api_getProviders = async () => {
-  return api.get(API_GAME_PROVIDER);
+export const api_getProviders = async (category: CategoryType = 'all') => {
+  return api.get(API_GAME_PROVIDER, { params: { category } });
 };
 
 export const api_getLiveCasinos = async (params: CasinoRequest) => {

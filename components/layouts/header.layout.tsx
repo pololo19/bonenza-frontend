@@ -1,6 +1,6 @@
 import { PlusIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { Add, Gift, Global, Message, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
+import { Add, Box1, Gift, Global, Message, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -113,6 +113,20 @@ export default function Navbar() {
               <SportBoldIcon className="w-[18px] h-[18px]" />
               <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white `}>{t('layout:sports')}</div>
             </Link>
+            <div
+              onClick={() => window.open('https://cmd23.com/room/games.php')}
+              className={cn(
+                'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                `${
+                  router.asPath.includes(ROUTER.Racing)
+                    ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
+                    : ''
+                }`,
+              )}
+            >
+              <Box1 className="" />
+              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white`}>{t('layout:liveHoldem')}</div>
+            </div>
             <Link
               href={ROUTER.Racing}
               className={cn(
