@@ -76,7 +76,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes1'),
         textButton: t('homePage:introduceCardButton1'),
         href: ROUTER.Casino,
-        icon: <CasinoBoldIcon className="w-[27px] h-[27px]" />,
+        icon: <CasinoBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
       },
       {
         imgBackGround: '/img/page/sports.png',
@@ -84,23 +84,24 @@ function IndexPage() {
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
         href: ROUTER.Sports,
-        icon: <SportBoldIcon className="w-[27px] h-[27px]" />,
+        icon: <SportBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
       },
       {
         imgBackGround: '/img/page/liveholdem.png',
         title: t('homePage:introduceCardTitle3'),
         description: t('homePage:introduceCardDes3'),
         textButton: t('homePage:introduceCardButton3'),
-        href: '',
+        href: 'https://cmd23.com/room/games.php',
         icon: (
           <Image
             width={20}
             height={20}
             className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
-            src="/icon/liveholdem.png"
+            src="/icon/liveholdem-green.png"
             alt="logo"
           />
         ),
+        isClick: true,
       },
     ],
     [],
@@ -387,6 +388,7 @@ function IndexPage() {
                     textButton={item.textButton}
                     href={item.href}
                     icon={item.icon}
+                    isClick={item.isClick}
                   />
                 ))}
               </div>
