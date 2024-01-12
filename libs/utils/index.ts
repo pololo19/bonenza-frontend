@@ -379,7 +379,13 @@ export function formatCompactNumber(number: number, setting: any) {
     return 0;
   }
 }
-export function currencyFormat1(number: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
+export function currencyFormat1(
+  number: number,
+  zeroNum: number,
+  currency: string = 'USD',
+  flag: boolean = true,
+  stable: number = 5,
+) {
   try {
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
@@ -389,7 +395,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
       return res;
     }
     let zeroCount = -Math.floor(Math.log10(number));
-    if (zeroNum < 5) {
+    if (zeroNum < stable && zeroCount < stable) {
       res = formatCompactNumber(number, {
         maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
@@ -397,15 +403,13 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
       }).toString();
       return `${symbol} ${res}`;
     }
-    const miniZeroNum = zeroNum > 5 ? zeroNum : 5;
-    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: miniZeroNum - 1 })
-      .format(number)
-      .toString();
+    const miniZeroNum = zeroNum > stable ? zeroNum : stable;
+    let numberString = new Intl.NumberFormat('en', { maximumFractionDigits: zeroCount + 2 }).format(number).toString();
     if (zeroCount > miniZeroNum) {
       let nonZeros = '';
       for (
         let i = zeroCount + 1;
-        i < (numberString.length > zeroCount + 5 ? zeroCount + 5 : numberString.length);
+        i < (numberString.length > zeroCount + stable ? zeroCount + stable : numberString.length);
         i++
       ) {
         nonZeros += numberString[i];
