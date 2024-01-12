@@ -106,7 +106,15 @@ const TransactionPage = () => {
               currencyFormat1(row.original.amount, 4, '', false)
             )}
 
-            <Image height={20} width={20} src={row.original.symbolLogo} alt="" />
+            <Image
+              height={20}
+              width={20}
+              src={row.original.symbolLogo}
+              onError={(e) => {
+                e.currentTarget.src = `/img/fiats/${row.original.symbolName}.png`;
+              }}
+              alt=""
+            />
           </div>
         ),
         minSize: 120,
@@ -166,7 +174,15 @@ const TransactionPage = () => {
                 formatLengthNumber(row.original.swapFrom, 8)
               )}
             </span>
-            <Image height={20} width={20} src={row.original?.swapFromLogo} alt="" />
+            <Image
+              height={20}
+              width={20}
+              src={row.original?.swapFromLogo}
+              alt=""
+              onError={(e) => {
+                e.currentTarget.src = `/img/fiats/USD.png`;
+              }}
+            />
           </div>
         ),
         minSize: 120,
