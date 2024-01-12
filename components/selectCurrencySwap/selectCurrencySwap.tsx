@@ -365,7 +365,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-color-input-primary rounded-b-[4px]">
             <p className="text-[#98a7b5]">{t('swap:swapFee')}</p>
             <p className="dark:text-white text-[#31373d]">
-              {Number(SWAP_FEE) * Number(watch('amountFrom'))}{' '}
+              {(Number(SWAP_FEE) * Number(watch('amountFrom'))).toFixed(8)}{' '}
               <span className="text-[#98a7b5]">{getSymbolById(watch('symbolFrom'))?.name}</span>
             </p>
           </div>
