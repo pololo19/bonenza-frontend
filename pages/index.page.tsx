@@ -142,7 +142,7 @@ function IndexPage() {
 
       const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
         id: item?.id ?? '',
-        title: item?.title ?? '',
+        title: item?.producerName ?? '',
         description: item?.description ?? '',
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
