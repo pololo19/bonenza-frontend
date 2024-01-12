@@ -68,6 +68,8 @@ export default function ModalDetailBets({
     dispatch(changeIsShowInformation(true));
   };
 
+  console.log(betDetail, '----71');
+
   return (
     <>
       {isLoading && <Loader />}
@@ -99,8 +101,8 @@ export default function ModalDetailBets({
                     >
                       {betDetail.profitAmount > 0 && '+'}
                       {localFiat
-                        ? `${currencyFormat1(betDetail.profitAmountUsd * exchangeRate, 4, localFiat.name)}`
-                        : `${currencyFormat1(betDetail.profitAmount, 4, '', false)} `}
+                        ? `${currencyFormat1(Math.abs(betDetail.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
+                        : `${currencyFormat1(Math.abs(betDetail.profitAmount), 8, '', false)} `}
                     </div>
                     <div className="text-[22px] text-black dark:text-white">
                       {localFiat ? handleLocaleSymbol(String(betDetail.currency)) : betDetail.currency}
@@ -119,8 +121,8 @@ export default function ModalDetailBets({
 
                   <div className="text-[12px] dark:text-white text-black">
                     {localFiat
-                      ? `${currencyFormat1(betDetail.betAmountUsd * exchangeRate, 4, localFiat.name)}`
-                      : `${currencyFormat1(betDetail.betAmount, 4, '', false)} `}
+                      ? `${currencyFormat1(betDetail.betAmountUsd * exchangeRate, 8, localFiat.name)}`
+                      : `${currencyFormat1(betDetail.betAmount, 8, '', false)} `}
                   </div>
                 </div>
               </div>
