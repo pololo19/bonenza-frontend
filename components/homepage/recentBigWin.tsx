@@ -61,14 +61,14 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 
   return (
     <>
-      <div className="sm:dark:bg-color-card-bg-primary sm:bg-white max-w-full sm:max-w-[150px] rounded-[5px] cursor-pointer sm:block flex justify-between">
-        <div className="rounded-[5px] sm:w-full w-[35px] sm:block flex items-center gap-[7px]">
+      <div className="sm:dark:bg-black sm:bg-white max-w-full sm:max-w-[150px] rounded-[3px] cursor-pointer sm:block flex justify-between">
+        <div className="rounded-[3px] sm:w-full w-[35px] sm:block flex items-center gap-[7px]">
           <Image
             height={150}
             width={150}
             src={imgCard}
             alt=""
-            className="w-full h-auto object-contain rounded-[5px]"
+            className="w-full h-auto object-contain rounded-[3px]"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(150, 150))}`}
           />

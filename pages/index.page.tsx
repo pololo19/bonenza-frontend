@@ -292,7 +292,7 @@ function IndexPage() {
                     height={0}
                     className="sm:object-cover object-contain absolute right-0 w-full"
                     style={{ width: '100% !important' }}
-                    src="/img/homepage-bg-5.png"
+                    src="/img/homepage-bg-7.png"
                     alt=""
                   />
                 </Slider>
