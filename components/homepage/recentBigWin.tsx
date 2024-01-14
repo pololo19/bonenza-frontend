@@ -195,7 +195,7 @@ function RecentBigWinComponent() {
     return (
       <CardBigWin
         userData={userData}
-        price={`${getExchangeRateLocalFiat(item.amount, item.currency)}`}
+        price={`${getExchangeRateLocalFiat(localFiat ? item.profitUsd : item.amount, item.currency)}`}
         imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
       />
     );
