@@ -116,7 +116,7 @@ const SidebarMobileLayout: React.FC = () => {
         },
       )}
     >
-      <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
+      <div className="flex flex-col gap-[10px] px-[20px] pb-[20px]">
         <div className="relative">
           <div
             className="relative mb-[20px] h-[40px] dark:bg-color-panel-bg-primary bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
@@ -159,7 +159,7 @@ const SidebarMobileLayout: React.FC = () => {
               title={game.title}
               href={game.href}
               icon={game.icon}
-              classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+              classNames="dark:hover:text-white !text-white !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
             />
           ))}
         </ul>
@@ -172,7 +172,7 @@ const SidebarMobileLayout: React.FC = () => {
               href={item.href}
               icon={item.icon}
               onClick={() => item.onClick}
-              classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+              classNames="dark:hover:text-white !text-white !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
             />
           ))}
         </ul>
@@ -181,7 +181,7 @@ const SidebarMobileLayout: React.FC = () => {
             title={String(t('sidebar:liveSupport'))}
             href={ROUTER.LiveSupport}
             icon={Headphone}
-            classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+            classNames="dark:hover:text-white !text-white !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
           />
         </ul>
         {/* <div className="dark:text-[#98A7B5] text-[#31373d] rounded dark:bg-[#25262B] bg-[#f5f6fa] flex items-center justify-center gap-[5px]">
