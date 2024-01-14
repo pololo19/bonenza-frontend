@@ -324,7 +324,9 @@ function IndexPage() {
                         <div className="sm:text-[24px] text-[20px] text-white mt-[6px]">
                           {String(t('homePage:firstDepositBonus'))}
                         </div>
-                        <div className={`text-color-primary sm:text-[48px] text-[32px] font-bold`}>
+                        <div
+                          className={`bg-gradient-text bg-clip-text text-transparent sm:text-[48px] text-[32px] font-bold`}
+                        >
                           +180% <span className="font-bold">{String(t('homePage:reward'))}</span>
                         </div>
                       </div>
@@ -392,7 +394,7 @@ function IndexPage() {
                   />
                 ))}
               </div>
-              {!isLogin && <RecentBigWinComponent />}
+              {(!isLogin || width > 600) && <RecentBigWinComponent />}
               {!isLogin && (
                 <>
                   <div className="relative w-full sm:hidden block">
@@ -422,7 +424,7 @@ function IndexPage() {
                         <Link
                           href={selectedCasino === 'recent' ? ROUTER.Recent : ROUTER.Favorite}
                           role="button"
-                          className="rounded-[5px] font-bold text-[10px] dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                          className="rounded-[5px] font-bold text-[10px] dark:text-color-primary text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
                         >
                           {t('gameDetail:viewAll')}
                         </Link>

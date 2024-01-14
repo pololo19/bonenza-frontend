@@ -126,7 +126,7 @@ const CasinoSS = <T,>({
                   <Link
                     href={viewAllUrl}
                     role="button"
-                    className="dark:bg-[#1D1E22] bg-white rounded-[5px] font-bold text-[10px] dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                    className="dark:bg-[#1D1E22] bg-white rounded-[5px] font-bold text-[10px] dark:text-color-primary text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
                   >
                     {t('gameDetail:viewAll')}
                   </Link>
