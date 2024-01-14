@@ -26,6 +26,7 @@ module.exports = {
         'btn-bg-warning': 'linear-gradient(95.56deg, #EEAA2B 8.9%, #8E600B 91.11%)',
         'gradient-text': 'linear-gradient(90deg,#b5e916 22.99%,#43c111 73.57%)',
         'gradient-default': 'linear-gradient(90deg, rgba(27,28,32, 0.95) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
+        'gradient-bottom-top': 'linear-gradient(270deg, rgba(27,28,32, 0.95) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
         'gradient-top-bottom': 'linear-gradient(360deg, rgba(27,28,32, 0.9) 23.22%, rgba(0, 0, 0, 0) 60.86%)',
         active: 'rgba(246, 27, 79, 0.2)',
         'gradient-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
