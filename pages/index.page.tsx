@@ -279,7 +279,7 @@ function IndexPage() {
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-color-bg-primary">
           <div className="flex-1 w-full">
             <div className="relative h-auto w-full mt-[20px] sm:mt-0">
-              <div className="object-contain absolute right-0 h-full w-full sm:block hidden">
+              <div className="object-contain absolute right-0 h-full w-[40vw] sm:block hidden">
                 <Slider
                   slidesToShow={1}
                   className={cn('h-full slide-header sm:mx-[auto] mx-[-12px]')}
@@ -292,13 +292,13 @@ function IndexPage() {
                     height={0}
                     className="sm:object-cover object-contain absolute right-0 w-full"
                     style={{ width: '100% !important' }}
-                    src="/img/homepage-bg-7.png"
+                    src="/img/homepage-bg-9.png"
                     alt=""
                   />
                 </Slider>
               </div>
 
-              <div className="absolute inset-0 bg-gradient-default" />
+              <div className="absolute h-full right-0 w-[50vw] bg-gradient-default" />
               <div className="relative z-[2] h-auto sm:pt-[60px] sm:pb-[20px] w-full">
                 {!isLogin && (
                   <div className="sm:text-start text-center font-semibold sm:block hidden">
