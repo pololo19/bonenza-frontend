@@ -113,8 +113,8 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
               <div className="flex items-center justify-center gap-[5px] truncate">
                 <div className="font-bold dark:text-white text-black truncate">
                   {localFiat
-                    ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 4, localFiat.name)}`
-                    : `${currencyFormat1(row.original.betAmount, 4, '', false)}`}
+                    ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 8, localFiat.name)}`
+                    : `${currencyFormat1(row.original.betAmount, 8, '', false)}`}
                 </div>
                 <Image
                   height={15}
@@ -155,14 +155,14 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           <div className={cn('flex items-center justify-end gap-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-green-500': row.original.profitAmount >= 0,
-                'text-red-500': row.original.profitAmount < 0,
+                'text-color-primary': row.original.profitAmount >= 0,
+                'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profitAmount > 0 && '+'}
+              {row.original.profitAmount > 0 ? '+' : '-'}
               {localFiat
                 ? `${currencyFormat1(Math.abs(row.original.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
-                : `${currencyFormat1(Math.abs(row.original.profitAmount), 2, '', false)}`}
+                : `${currencyFormat1(Math.abs(row.original.profitAmount), 8, '', false)}`}
             </div>
             <Image
               className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"

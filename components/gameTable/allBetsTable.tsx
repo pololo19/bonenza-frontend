@@ -169,11 +169,11 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           <div className={cn('flex items-center justify-end gap-[5px]  sm:p-2 p-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-green-500': row.original.profitAmount >= 0,
-                'text-red-500': row.original.profitAmount < 0,
+                'text-color-primary': row.original.profitAmount >= 0,
+                'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profitAmount > 0 && '+'}
+              {row.original.profitAmount > 0 ? '+' : '-'}
               {localFiat
                 ? `${currencyFormat1(Math.abs(row.original.profitAmountUsd * exchangeRate), 8, localFiat.name, true)}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), 8, '', false)} `}
