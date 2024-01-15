@@ -189,10 +189,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             <div
               className={cn('font-bold text-end truncate', {
                 'text-color-primary': row.original.profitAmount >= 0,
-                'text-red-500': row.original.profitAmount < 0,
+                'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profit > 0 && '+'}
+              {row.original.profit > 0 ? '+' : '-'}
               {localFiat
                 ? `${currencyFormat1(Math.abs(row.original.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), 8, '', false)} `}
