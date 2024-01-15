@@ -191,7 +191,7 @@ function CasinoPage() {
               <Link
                 href={ROUTER.Provider(String(item.name))}
                 role="button"
-                className="p-[8px] sm:max-h-[70px] max-h-[50px] bg-[#fff] dark:bg-[#31343a] hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
+                className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-[#fff] dark:bg-[#31343a] hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
               >
                 <Image
                   height={0}
@@ -221,6 +221,7 @@ function CasinoPage() {
           <CasinoSS
             title={String(t('casino:themes'))}
             data={listTheme}
+            viewAllUrl={ROUTER.Themes}
             renderItem={(item: string) => (
               <Link
                 href={ROUTER.Theme(String(item))}

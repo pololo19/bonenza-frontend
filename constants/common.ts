@@ -109,6 +109,7 @@ export const ROUTER = {
   Providers: '/providers',
   GameDetail: (gameIdentifier2: string) => `/game?gameId=${gameIdentifier2}`,
   Provider: (providerId: string) => `/provider?id=${providerId}`,
+  Themes: '/themes',
   Theme: (themeId: string) => `/theme?key=${themeId}`,
   Category: (categoryId: string) => `/category?key=${categoryId}`,
   Tagname: (tagname: string) => `/tagname?key=${tagname}`,
