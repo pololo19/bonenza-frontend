@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail } from '@/base/types/common';
+import { GameDetail, GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -25,7 +25,7 @@ function CasinoTagnamePage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
 

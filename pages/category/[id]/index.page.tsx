@@ -3,7 +3,7 @@ import { ReactElement, useEffect, useState } from 'react';
 
 import api from '@/api/api';
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail } from '@/base/types/common';
+import { GameDetail, GameListType } from '@/base/types/common';
 
 import { snakeCaseToString } from '@/base/libs/utils';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
@@ -18,13 +18,13 @@ function ProviderPage() {
   const { id } = query;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
 
   const handleGetListGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-all-games', { params: { limit: '0', category: id } });
-      setListGame(res.data.data);
+      // const res = await api.get('game/get-all-games', { params: { limit: '0', category: id } });
+      // setListGame(res.data.data);
     } catch (error) {
       setListGame([]);
     } finally {

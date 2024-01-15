@@ -34,7 +34,7 @@ function ProviderPage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [listGame, setListGame] = useState<GameListType[]>([]);
-  const [listRelated, setListRelated] = useState<GameDetail[]>([]);
+  const [listRelated, setListRelated] = useState<GameListType[]>([]);
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
@@ -57,6 +57,7 @@ function ProviderPage() {
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
         releasedAt: item?.releasedAt ?? '',
+        providerName: item?.producerName ?? '',
       }));
       if (games.length < 40 || listGame.length + games.length === totalGames) {
         setIsShowMore(false);

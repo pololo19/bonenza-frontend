@@ -27,14 +27,14 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
-  const [listRecommendGame, setListRecommendGame] = useState<GameDetail[]>([]);
+  const [listRecommendGame, setListRecommendGame] = useState<GameListType[]>([]);
   const [listSearchGame, setListSearchGame] = useState<GameListType[]>([]);
 
   const handleGetListRecommendGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-all-games', { params: { limit: 20 } });
-      setListRecommendGame(res.data.data);
+      // const res = await api.get('game/get-all-games', { params: { limit: 20 } });
+      // setListRecommendGame(res.data.data);
     } catch (error) {
       setListRecommendGame([]);
     } finally {

@@ -35,6 +35,7 @@ function PickForYouPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
       setListGame((current) => [...current, ...tempGameLists]);

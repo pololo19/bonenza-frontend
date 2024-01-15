@@ -86,6 +86,7 @@ function CasinoPage() {
           identifier: item?.identifier ?? '',
           payout: Number(item?.payout ?? 0),
           multiplier: Number(item?.profitMultiplier ?? 0),
+          providerName: item?.producerName ?? '',
           releasedAt: item?.releasedAt ?? '',
         }));
         if (i === 0) tempGameLists['slots'] = [...tempGameListData];

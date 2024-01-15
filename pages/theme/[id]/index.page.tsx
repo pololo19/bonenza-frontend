@@ -1,18 +1,17 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail } from '@/base/types/common';
-
 import { snakeCaseToString } from '@/base/libs/utils';
+import { GameDetail, GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
-import { useRouter } from 'next/router';
 
 function ProviderPage() {
   const { t } = useTranslation('');
@@ -20,13 +19,13 @@ function ProviderPage() {
   const { id } = query;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
 
   const handleGetListGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-all-games', { params: { limit: '0', theme: id } });
-      setListGame(res.data.data);
+      // const res = await api.get('game/get-all-games', { params: { limit: '0', theme: id } });
+      // setListGame(res.data.data);
     } catch (error) {
       setListGame([]);
     } finally {
