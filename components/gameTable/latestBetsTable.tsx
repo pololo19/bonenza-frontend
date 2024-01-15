@@ -176,7 +176,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary sm:text-[16px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]">
-            {formatLengthNumber(row.original.multiplier, 2)}
+            {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
       },

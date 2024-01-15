@@ -158,7 +158,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center font-bold  sm:p-2 p-[5px]">
-            {formatLengthNumber(row.original.multiplier, 2)}
+            {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
       },
