@@ -1,19 +1,18 @@
-import React, { ReactElement, useEffect, useState } from 'react';
 import Head from 'next/head';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import React, { ReactElement, useEffect, useState } from 'react';
 
-import { useTranslation } from '@/base/config/i18next';
 import api from '@/api/api';
-import { GameDetail, GameProviderDetail } from '@/base/types/common';
+import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-
-import BaseLayout from '@/components/layouts/base.layout';
+import { titleCase } from '@/base/libs/utils';
+import { GameDetail, GameListType, GameProviderDetail } from '@/base/types/common';
+import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
-import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
+import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-import { titleCase } from '@/base/libs/utils';
 
 function ProviderPage() {
   const { t } = useTranslation('');
@@ -21,7 +20,7 @@ function ProviderPage() {
   const { id } = query;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
 
   const handleGetProviderDetail = async () => {

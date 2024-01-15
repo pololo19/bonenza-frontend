@@ -55,6 +55,7 @@ function GamePage() {
     multiplier: 0,
     description: '',
     releasedAt: '',
+    providerName: '',
   });
   const [isNotFoundGame, setIsNotFoundGame] = useState<boolean>(false);
   const [openShareGame, setOpenShareGame] = useState<boolean>(false);

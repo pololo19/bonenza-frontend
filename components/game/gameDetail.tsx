@@ -26,7 +26,7 @@ const GameDetailComponent = ({
 }) => {
   const [openTab, setOpenTab] = useState(1);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [listRelatedGame, setListRelatedGame] = useState<GameDetail[]>([]);
+  const [listRelatedGame, setListRelatedGame] = useState<GameListType[]>([]);
 
   const { t } = useTranslation('');
 
