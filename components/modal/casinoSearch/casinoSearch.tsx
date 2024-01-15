@@ -3,13 +3,14 @@ import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import api from '@/api/api';
-import { api_getGamesByNameAndProvider } from '@/api/game';
+import { api_getGamesByNameAndProvider, api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
+import { useWidth } from '@/base/hooks/useWidth';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail, GameListType } from '@/base/types/common';
+import { AppState } from '@/base/redux/store';
+import { GameListType } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -22,25 +23,22 @@ type ModalCasinoSearchProps = {
   DialogProps<ElementType>;
 
 export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchProps) {
+  const width = useWidth();
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
+  const { isToggleSidebar, showChatType, listRecommendGame } = useSelector(
+    (state: AppState) => ({
+      isToggleSidebar: state.modal.isToggleSidebar,
+      showChatType: state.modal.showChatType,
+      listRecommendGame: state.game.recommandGames,
+    }),
+    shallowEqual,
+  );
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
-  const [listRecommendGame, setListRecommendGame] = useState<GameListType[]>([]);
   const [listSearchGame, setListSearchGame] = useState<GameListType[]>([]);
-
-  const handleGetListRecommendGame = async () => {
-    try {
-      setIsLoading(true);
-      // const res = await api.get('game/get-all-games', { params: { limit: 20 } });
-      // setListRecommendGame(res.data.data);
-    } catch (error) {
-      setListRecommendGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
 
   const handleGetSearchGame = async () => {
     try {
@@ -53,6 +51,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
       setListSearchGame(tempGameLists);
@@ -72,10 +71,16 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
       {isLoading && <Loader />}
       <div
         className={cn(
-          'relative dark:bg-color-header bg-whit w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)]',
+          'fixed top-[67px] left-0 z-[5] dark:bg-color-header-secondary bg-whit w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] backdrop-blur-md focus:outline-none',
           {
             'translate-y-0': show,
             '-translate-y-full': !show,
+          },
+          {
+            'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
+            'md:ml-[205px] md:max-w-[calc(100%-205px)]': isToggleSidebar && !showChatType,
+            'xl:ml-[205px] xl:max-w-[calc(100%-565px)]': showChatType && isToggleSidebar,
+            'sm:ml-[62px] xl:max-w-[calc(100%-422px)]': showChatType && !isToggleSidebar,
           },
         )}
       >
@@ -97,9 +102,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             <div
               role="button"
               className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white"
-              onClick={() => {
-                dispatch(changeIsShowCasinoSearch(false));
-              }}
+              onClick={onClose}
             >
               {t('setting:cancel')}
             </div>
@@ -133,19 +136,14 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <NoDataComponent />
             </div>
           )}
-          <CasinoSS
-            title={String(t('casino:recommendedForYou'))}
-            data={listRecommendGame}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-          />
+          <div className="">
+            <CasinoSS
+              title={String(t('casino:recommendedForYou'))}
+              data={listRecommendGame}
+              renderItem={(item) => <GameCard gameDetail={item} />}
+            />
+          </div>
         </div>
-
-        <div
-          className="absolute h-[100vh] w-full bg-[black]/50 mb-[-67px]"
-          onClick={() => {
-            dispatch(changeIsShowCasinoSearch(false));
-          }}
-        ></div>
       </div>
     </>
   );

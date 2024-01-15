@@ -8,6 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_validateToken } from '@/api/auth';
+import { api_getPickGames } from '@/api/game';
 import { api_getInitData } from '@/api/wallet';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
@@ -17,11 +18,12 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { addBetHistory } from '@/base/redux/reducers/game.reducer';
+import { addBetHistory, setRecommandGames } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
+  changeIsShowCasinoSearch,
   changeIsShowCropAvatar,
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
@@ -50,7 +52,7 @@ import {
   updateBalance,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetTableDataType, FiatType } from '@/base/types/common';
+import { BetTableDataType, FiatType, GameListType } from '@/base/types/common';
 import { CurrencyType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
@@ -64,6 +66,7 @@ import RacingBoldIcon from '../icons/RacingBoldIcon';
 import SportBoldIcon from '../icons/SportBoldIcon';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
+import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
 import ModalCropAvatar from '../modal/cropAvatar/cropAvatar';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDeposit from '../modal/depositModal/depositModal';
@@ -139,6 +142,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowModalBonusHistory,
     isShowAccount,
     isShowSidebar,
+    isShowCasinoSearch,
     cryptoArray,
     userId,
     walletSocket,
@@ -165,6 +169,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowCryptoOnlineModal: state.modal.isShowCryptoOnlineModal,
       isShowUpdateAvatar: state.modal.isShowUpdateAvatar,
       isShowResetPassword: state.modal.isShowResetPassword,
+      isShowCasinoSearch: state.modal.isShowCasinoSearch,
 
       isShowSidebar: state.modal.isShowMenuPannel,
       isShowAccount: state.modal.isShowAccountPannel,
@@ -207,6 +212,28 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     ],
     [],
   );
+
+  const getRecommandGames = async () => {
+    try {
+      setIsLoading(true);
+      const recommendedGames = await api_getPickGames(1, 20);
+      const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item.payout || 0),
+        multiplier: Number(item.profitMultiplier || 0),
+        providerName: item?.producerName ?? '',
+        releasedAt: item?.releasedAt ?? new Date(),
+      }));
+      dispatch(setRecommandGames(tempListRecommandedGames));
+    } catch (error) {
+      dispatch(setRecommandGames([]));
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const loadInitData = async () => {
     try {
@@ -270,6 +297,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         dispatch(setGameSocket(newGameSocket));
       }
     };
+    getRecommandGames();
     gameConnect();
 
     if (innerWidth < 1280) {
@@ -421,17 +449,31 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               <SidebarToggle />
             </div>
             <div
-              className="w-full overflow-y-auto flex-1 bg-[#f6f7fa] dark:bg-color-bg-primary flex flex-col"
+              className={cn(
+                'w-full overflow-y-auto flex-1 bg-[#f6f7fa] dark:bg-color-bg-primary flex flex-col relative',
+                {
+                  'dark:!bg-color-bg-primary/40': isShowCasinoSearch,
+                },
+              )}
               ref={baseBodyRef}
               id="base-layout"
             >
+              {isShowCasinoSearch && (
+                <ModalCasinoSearch
+                  show={isShowCasinoSearch}
+                  onClose={() => {
+                    dispatch(changeIsShowCasinoSearch(false));
+                  }}
+                />
+              )}
               <SubMobileMenu datas={subMobileMenDatas} isShow={isShowMobileSubMenu} />
 
               <WrapperBody
-                contentClassName={cn('dark:bg-color-bg-primary bg-[#f6f7fa]', contentClass)}
-                wrapperClassName={cn('dark:bg-color-bg-primary md:bg-[#f6f7fa] sm:block', {
+                contentClassName={cn(contentClass)}
+                wrapperClassName={cn({
                   hidden: isShowSidebar || isShowAccount,
                   block: !isShowSidebar && !isShowAccount,
+                  'opacity-10': isShowCasinoSearch,
                 })}
               >
                 {children}
@@ -441,6 +483,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 contentClassName={cn('bg-white dark:bg-[#1B1C20] sm:block', {
                   hidden: isShowSidebar || isShowAccount,
                   block: !isShowSidebar && !isShowAccount,
+                  'opacity-10': isShowCasinoSearch,
                 })}
               >
                 <Footer isDetailPage={isDetailPage} />

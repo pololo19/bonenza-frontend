@@ -282,7 +282,7 @@ function IndexPage() {
       {isLoading && <Loader />}
 
       <div className="w-full">
-        <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-color-bg-primary">
+        <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
             <div className="relative h-auto w-full mt-[20px] sm:mt-0">
               <div className="object-contain absolute right-0 h-full w-full sm:block hidden">

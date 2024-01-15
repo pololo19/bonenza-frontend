@@ -25,7 +25,7 @@ const DepositCryptoPage = () => {
           <Link
             href={ROUTER.DepositCrypto}
             className={cn(
-              'bg-gradient-to-t from-color-primary/20 border-color-primary max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid border-[#272C33] pb-[10px]',
+              'bg-gradient-to-t from-color-primary/20 border-color-primary max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid pb-[10px]',
             )}
             role="button"
           >

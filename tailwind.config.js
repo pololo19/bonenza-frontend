@@ -34,6 +34,7 @@ module.exports = {
       colors: {
         'color-header': '#1B1C20',
         'color-header-primary': '#181A1D',
+        'color-header-secondary': '#24262b',
         'color-modal-bg-primary': '#202327',
         'color-modal-bg-secondary': '#23252C',
         'color-card-bg-primary': '#1c1e22',
