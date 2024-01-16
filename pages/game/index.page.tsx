@@ -32,6 +32,7 @@ import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
+import Tooltip from '@/components/tooltip';
 
 type LaunchUrlTye = {
   gameUrl: string;
@@ -498,18 +499,29 @@ function GamePage() {
                 </div>
               </div>
               <div className="text-[#929395] flex gap-[20px] items-center">
-                <div
-                  role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
-                >
-                  <Image alt="" src={'/img/fairness.png'} width={18} height={18} />
-                </div>
-                <div
-                  role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
-                >
-                  <Image alt="" src={'/img/hierarchy.png'} width={18} height={18} />
-                </div>
+                <Tooltip
+                  message="Fairness"
+                  children={
+                    <div
+                      role="button"
+                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                    >
+                      <Image alt="" src={'/img/fairness.png'} width={18} height={18} />
+                    </div>
+                  }
+                />
+                <Tooltip
+                  message="Live Stats"
+                  children={
+                    <div
+                      role="button"
+                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                    >
+                      <Image alt="" src={'/img/hierarchy.png'} width={18} height={18} />
+                    </div>
+                  }
+                />
+
                 <div
                   role="button"
                   className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
