@@ -195,7 +195,11 @@ const SelectCurrency = ({
           >
             <Menu.Items className="absolute dark:text-white text-black dark:bg-color-input-primary bg-[#f6f7fa] w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer">
               <div className="py-[10px] px-[10px]">
-                <InputSearch value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+                <InputSearch
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  className="dark:text-white !bg-[#f5f6fa] dark:!bg-color-panel-bg-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
+                />
               </div>
               <div className="py-1 max-h-[250px] overflow-y-auto p-2">
                 {filterListCoin.map((symbol, index) => (

@@ -132,7 +132,7 @@ const DepositCryptoComponent = () => {
           )}
 
           {wallets.findIndex((wallet) => wallet.networkId === activeNetwork.id) != -1 && (
-            <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-[#31373d] rounded-[16px] gap-[20px] py-[13px] px-[20px] dark:bg-[#161D26]/50 bg-[#f5f6fa]">
+            <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-[#31373d] rounded-[3px] gap-[20px] py-[13px] px-[20px] dark:bg-color-input-primary bg-[#f5f6fa]">
               <div className="rounded-[16px]">
                 <Canvas
                   text={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
@@ -185,7 +185,7 @@ const DepositCryptoComponent = () => {
             </div>
           )}
         </div>
-        <div className="mt-[20px] w-full px-[20px] py-[10px] dark:text-[#0DFDE4] text-[#31373d] dark:bg-[#161D26] bg-[#f5f6fa] rounded-[16px] text-start">
+        <div className="mt-[20px] w-full px-[20px] py-[10px] dark:text-white text-[#31373d] dark:bg-color-notice-primary bg-[#f5f6fa] rounded-[3px] text-start">
           <h1 className="text-[14px]">
             <span className="text-[#0EC505] me-1 inline text-[16px]">{t('deposit:notice')}</span>{' '}
             {t('deposit:doNotDeposit', { crypto: String(activeCoin.name) })}
