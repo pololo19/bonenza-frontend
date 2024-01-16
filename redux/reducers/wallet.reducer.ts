@@ -158,6 +158,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         iso_decimals: item.iso_decimals,
         availableNetworks: item.availableNetworks,
         price: Number(item.price),
+        type: 'crypto',
       })) || [];
 
     const tempCurrencies: CryptoCurrencyType[] =
@@ -179,6 +180,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         iso_decimals: item.iso_decimals,
         availableNetworks: item.availableNetworks,
         price: Number(item.price),
+        type: 'fiat',
       })) || [];
     // console.log(result.data);
     dispatch(
