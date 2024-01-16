@@ -10,6 +10,7 @@ import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 
 const casinoPaths = [
+  ROUTER.Casino,
   ROUTER.PicksForYou,
   ROUTER.Favorite,
   ROUTER.Recent,
