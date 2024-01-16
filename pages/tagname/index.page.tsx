@@ -64,7 +64,7 @@ function CasinoTagnamePage() {
     setIsSort(true);
   }, []);
 
-  const getGameList = async () => {
+  const getGameList = async (pageNumber: number = currentPage) => {
     const query = key === 'slots' || key === 'Live Casino' ? { sort: selectedSortBy.orderValue } : {};
     let tempGameListData: GameListType[] = [];
     let params: any = {
@@ -156,16 +156,20 @@ function CasinoTagnamePage() {
 
   useEffect(() => {
     if (key) {
+      setIsShowMore(true);
       setListGame([]);
-      getGameList();
+      setCurrentPage(1);
+      getGameList(1);
     }
   }, [key]);
 
   useEffect(() => {
     if (selectedProvider.length > 0 || isClearAll) {
+      setIsShowMore(true);
       setListGame([]);
       setIsClearAll(false);
-      getGameList();
+      setCurrentPage(1);
+      getGameList(1);
     }
   }, [selectedProvider]);
 
@@ -181,9 +185,11 @@ function CasinoTagnamePage() {
 
   useEffect(() => {
     if (isSort) {
+      setCurrentPage(1);
+      setIsShowMore(true);
       setListGame([]);
       setIsSort(false);
-      getGameList();
+      getGameList(1);
     }
   }, [selectedSortBy]);
 
