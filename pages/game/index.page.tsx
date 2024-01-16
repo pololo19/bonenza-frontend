@@ -11,7 +11,13 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import api from '@/api/api';
-import { api_getGameDetail, api_getLatestBetsForGame, api_startGameDemo, api_startGameSession } from '@/api/game';
+import {
+  api_getGameDetail,
+  api_getLatestBetsForGame,
+  api_setGameFavorite,
+  api_startGameDemo,
+  api_startGameSession,
+} from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
@@ -185,6 +191,7 @@ function GamePage() {
       } else {
         setIsLoadingFavorite(true);
       }
+      await api_setGameFavorite(gameDetail.id);
       // await api.post('game/reaction', {
       //   gameIdentifier: gameDetail?.identifier,
       //   userId: 6,

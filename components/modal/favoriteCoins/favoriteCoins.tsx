@@ -1,4 +1,5 @@
 import { DialogProps, Switch, TransitionRootProps } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ArrowDown, ArrowUp } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
@@ -12,7 +13,6 @@ import { FiatType } from '@/base/types/common';
 import InputSearch from '@/components/input/typing/InputSearch';
 
 import CommonModal from '../commonModal/commonModal';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 
 type ModalFiatTypesProps = {
   onClose: () => void;
