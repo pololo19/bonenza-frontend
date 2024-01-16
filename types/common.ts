@@ -435,3 +435,13 @@ export type BetDetailType = {
   userId: string;
   userName: string;
 };
+
+export type CategoryType =
+  | 'all'
+  | 'live_casino'
+  | 'slots'
+  | 'table_games'
+  | 'blackjack'
+  | 'new_releases'
+  | 'feature_Buy_In'
+  | 'hot_games';

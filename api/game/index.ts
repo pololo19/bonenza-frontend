@@ -27,18 +27,9 @@ import {
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 
 import api from '../api';
+import { CategoryType } from '@/base/types/common';
 
 export type SortType = 'popular' | 'asc' | 'desc' | 'new' | 'a-z' | 'z-a' | 'like';
-
-type CategoryType =
-  | 'all'
-  | 'live_casino'
-  | 'slots'
-  | 'table_games'
-  | 'blackjack'
-  | 'new_releases'
-  | 'feature_Buy_In'
-  | 'hot_games';
 
 export type CasinoRequest = {
   page: number;
