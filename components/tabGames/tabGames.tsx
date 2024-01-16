@@ -94,7 +94,7 @@ const TabGames = (props: tabGamesProps) => {
               className={cn(
                 'flex items-center px-[20px] py-[10px] bg-[#f0f1f5] dark:bg-[#1D1E22] hover:bg-gray-700 gap-[10px] flex-shrink-0 rounded text-black/50 dark:text-white/50 dark:hover:text-white hover:text-black hover:bg-white/90',
                 {
-                  'bg-white text-black dark:bg-[#2D3035] dark:text-white': tab === option.id || route === option.link,
+                  'bg-white text-black dark:bg-[#2D3035] dark:text-white': route === option.link,
                 },
               )}
               onClick={() => {

@@ -199,17 +199,19 @@ function CasinoTagnamePage() {
         <title>Casino - Bonenza</title>
       </Head>
       {isLoading && <Loader />}
-      <div className="sm:hidden block">
-        <GameBannerSlider className="!mt-0" />
-        <div
-          className="relative mt-[20px] h-[40px] bg-white border border-solid border-white/10 dark:bg-color-input-primary rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
-          onClick={() => dispatch(changeIsShowCasinoSearch(true))}
-          role="button"
-        >
-          <SearchNormal width={24} height={24} className="text-gray-500" />
-          <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
-        </div>
-      </div>
+      {showTab && (
+        <>
+          <GameBannerSlider className="!mt-0" />
+          <div
+            className="relative mt-[20px] h-[40px] bg-white border border-solid border-white/10 dark:bg-color-input-primary rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+            onClick={() => dispatch(changeIsShowCasinoSearch(true))}
+            role="button"
+          >
+            <SearchNormal width={24} height={24} className="text-gray-500" />
+            <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
+          </div>
+        </>
+      )}
       {showTab ? (
         <TabGames setCurrentPage={setCurrentPage} />
       ) : (
