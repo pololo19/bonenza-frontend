@@ -75,7 +75,7 @@ const IconOption = ({
         >
           <IconElement
             size={18}
-            className={cn('', {
+            className={cn('dark:text-white', {
               'font-[700] dark:text-white text-black': router.route.includes(href),
             })}
           />
@@ -91,9 +91,10 @@ const IconOption = ({
       {isDropDown && (
         <div
           className={cn(
-            'capitalize block dark:bg-color-bg-primary dark:text-[#98A7B5] text-[14px] cursor-pointer transition-[height] ease-in-out duration-300',
+            'capitalize block dark:bg-color-bg-primary dark:text-color-text-primary text-[14px] cursor-pointer transition-[height] ease-in-out duration-300',
             classNames,
             {
+              'dark:bg-color-card-bg-primary': showDropDownCasino,
               // 'translate-y-0': showDropDownCasino,
               // 'translate-y-full': !showDropDownCasino
             },
@@ -111,7 +112,7 @@ const IconOption = ({
           >
             <IconElement
               size={18}
-              className={cn('', {
+              className={cn('dark:text-white', {
                 'font-[700]': router.route.includes(href),
                 'dark:text-white text-black': showDropDownCasino,
               })}
