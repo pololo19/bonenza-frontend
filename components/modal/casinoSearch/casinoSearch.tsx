@@ -86,7 +86,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         )}
       >
         <div
-          className={cn('relative bg-color-header-secondary')}
+          className={cn('relative bg-color-header-secondary sm:h-auto h-full')}
           style={{ transform: 'translateY(0%) translateZ(0px)' }}
         >
           <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto h-full">
@@ -121,11 +121,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               )}
             </div>
             {searchValue.length >= 3 && !!listSearchGame.length && (
-              <div className="sm:mb-[20px] mb-0">
+              <div className="sm:mb-[20px] mb-0 h-full">
                 <div className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]">
                   {t('casino:searchResult')}
                 </div>
-                <div className="game-grid-parent mt-[10px] max-h-[56vh] h-fit overflow-y-auto">
+                <div className="game-grid-parent mt-[10px] sm:max-h-[56vh] max-h-[calc(100%_-_100px)] h-fit overflow-y-auto">
                   {listSearchGame.map((game, index) => {
                     return (
                       <div key={index} className="max-w-[185px]">
@@ -141,7 +141,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 <NoDataComponent />
               </div>
             )}
-            <div className="">
+            <div className="sm:block hidden">
               <CasinoSS
                 title={String(t('casino:recommendedForYou'))}
                 data={listRecommendGame}
