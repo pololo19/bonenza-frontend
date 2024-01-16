@@ -113,6 +113,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     dispatch(changeIsShowMenuPannel(false));
     dispatch(changeIsShowAccountPannel(false));
+    dispatch(changeIsShowCasinoSearch(false));
     if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
       setIsShowMobileSubMenu(true);
     } else {
@@ -451,21 +452,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             <div
               className={cn(
                 'w-full overflow-y-auto flex-1 bg-[#f6f7fa] dark:bg-color-bg-primary flex flex-col relative',
-                {
-                  'dark:!bg-color-bg-primary/40': isShowCasinoSearch,
-                },
               )}
               ref={baseBodyRef}
               id="base-layout"
             >
-              {isShowCasinoSearch && (
-                <ModalCasinoSearch
-                  show={isShowCasinoSearch}
-                  onClose={() => {
-                    dispatch(changeIsShowCasinoSearch(false));
-                  }}
-                />
-              )}
               <SubMobileMenu datas={subMobileMenDatas} isShow={isShowMobileSubMenu} />
 
               <WrapperBody
@@ -473,7 +463,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 wrapperClassName={cn({
                   hidden: isShowSidebar || isShowAccount,
                   block: !isShowSidebar && !isShowAccount,
-                  'opacity-10': isShowCasinoSearch,
+                  // 'opacity-10': isShowCasinoSearch,
                 })}
               >
                 {children}
@@ -483,11 +473,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 contentClassName={cn('bg-white dark:bg-[#1B1C20] sm:block', {
                   hidden: isShowSidebar || isShowAccount,
                   block: !isShowSidebar && !isShowAccount,
-                  'opacity-10': isShowCasinoSearch,
+                  // 'opacity-10': isShowCasinoSearch,
                 })}
               >
                 <Footer isDetailPage={isDetailPage} />
               </WrapperBody>
+              {isShowCasinoSearch && (
+                <ModalCasinoSearch
+                  show={isShowCasinoSearch}
+                  onClose={() => {
+                    dispatch(changeIsShowCasinoSearch(false));
+                  }}
+                />
+              )}
               <ScrollToTop />
             </div>
 
