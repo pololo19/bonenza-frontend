@@ -71,36 +71,23 @@ function ProviderPage() {
     }
   };
 
-  const handleGetListRelatedGame = async () => {
-    try {
-      setIsLoading(true);
-      // const res = await api.get('game/get-total-favorite-game', { params: { limit: 20 } });
-      // setListRelated(res.data.data);
-    } catch (error) {
-      setListRelated([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const percent = useMemo(() => {
     return Number((listGame.length / totalGames) * 100).toFixed(0);
   }, [listGame, totalGames]);
 
   useEffect(() => {
-    if (id) {
+    if (id !== '' && id != undefined && id !== 'undefined') {
       setCurrentPage(1);
       setIsShowMore(true);
 
       setListGame([]);
-      // handleGetListGame(1);
-      // handleGetListRelatedGame();
+      handleGetListGame(1);
     }
   }, [id, selectedSortBy]);
 
   useEffect(() => {
-    if (id) handleGetListGame();
-  }, [currentPage, id]);
+    if (currentPage > 1) handleGetListGame();
+  }, [currentPage]);
 
   return (
     <div className="py-[24px]">
