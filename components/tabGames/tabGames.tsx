@@ -24,7 +24,7 @@ const TabGames = (props: tabGamesProps) => {
   const { setCurrentPage, ishome = false } = props;
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
-  const { route } = useRouter();
+  const router = useRouter();
   const [tab, setTab] = useState<number>(1);
 
   useEffect(() => {
@@ -83,18 +83,20 @@ const TabGames = (props: tabGamesProps) => {
       id: 7,
     },
   ];
-
+  console.log(router);
   return (
     <div className="relative sm:my-[20px] mt-[10px] max-w-full overflow-x-auto snap-x snap-mandatory flex sm:flex-wrap flex-nowrap gap-[8px]">
       {filterOptions.map((option, key) => {
+        console.log(router.asPath, option.link);
         return (
           <Link href={ishome ? option?.homeLink : option?.link} key={key} className="min-w-fit">
             <div
               role="button"
               className={cn(
-                'flex items-center px-[20px] py-[10px] bg-[#f0f1f5] dark:bg-[#1D1E22] hover:bg-gray-700 gap-[10px] flex-shrink-0 rounded text-black/50 dark:text-white/50 dark:hover:text-white hover:text-black hover:bg-white/90',
+                'flex items-center px-[20px] py-[10px] bg-[#f0f1f5] dark:bg-color-input-primary hover:bg-gray-700 gap-[10px] flex-shrink-0 rounded text-black/50 dark:text-white/50 dark:hover:text-white dark:hover:bg-color-hover-primary hover:text-black hover:bg-white/90',
                 {
-                  'bg-white text-black dark:bg-[#2D3035] dark:text-white': route === option.link,
+                  'bg-white text-black dark:!bg-color-hover-primary dark:text-white':
+                    `${router.pathname}${router.query?.key ? '/?key=' + router.query.key : ''}` === option.link,
                 },
               )}
               onClick={() => {
