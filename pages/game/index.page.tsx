@@ -44,7 +44,6 @@ function GamePage() {
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
   const [isLoadingGame, setIsLoadingGame] = useState<boolean>(true);
-  const [isSatisfied, setIsSatisfied] = useState<boolean>(true);
   const [launchUrl, setLaunchUrl] = useState<LaunchUrlTye | null>(null);
   const [gameDetail, setGameDetail] = useState<GameListType>({
     id: '',
@@ -90,6 +89,13 @@ function GamePage() {
     return selectedBalance?.amount ?? 0;
   }, [balances, activeCurrency]);
 
+  const isSatisfied = useMemo(() => {
+    const tempBalances = [...balances];
+    const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
+    const balance = selectedBalance?.amount ?? 0;
+    return balance > 0;
+  }, [balances, activeCurrency]);
+
   const handleGetGameDetail = async () => {
     try {
       setIsLoading(true);
@@ -119,9 +125,7 @@ function GamePage() {
   };
 
   const handlePlay = async () => {
-    if (Number(balance) <= 0) {
-      setIsSatisfied(false);
-    } else {
+    if (isSatisfied) {
       await handlePlayRequest();
     }
   };
@@ -145,7 +149,7 @@ function GamePage() {
       setIsLoading(true);
       const requestData: GameCreateSessionRequest = {
         gameId: gameDetail.id,
-        currencyType: 'crypto',
+        currencyType: activeCurrency.type,
         currencyId: activeCurrency.id,
       };
       const res = await api_startGameSession(requestData);
@@ -180,12 +184,12 @@ function GamePage() {
       } else {
         setIsLoadingFavorite(true);
       }
-      await api.post('game/reaction', {
-        gameIdentifier: gameDetail?.identifier,
-        userId: 6,
-        reaction: reaction,
-      });
-      await handleCurrentReactionGame();
+      // await api.post('game/reaction', {
+      //   gameIdentifier: gameDetail?.identifier,
+      //   userId: 6,
+      //   reaction: reaction,
+      // });
+      // await handleCurrentReactionGame();
     } catch (error) {
       toast.error('Reaction Failed', { containerId: TOAST_ENUM.COMMON });
     } finally {
@@ -194,18 +198,6 @@ function GamePage() {
       } else {
         setIsLoadingFavorite(false);
       }
-    }
-  };
-
-  const handleGameProvider = async () => {
-    try {
-      setIsLoading(true);
-      // const res = await api.get('game/get-provider-detail', { params: { provider: gameDetail?.provider } });
-      // setProviderDetail(res.data.data);
-    } catch (error) {
-      setProviderDetail({});
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -219,12 +211,11 @@ function GamePage() {
     }
   }, [gameId]);
 
-  useEffect(() => {
-    if (gameDetail.identifier) {
-      handleCurrentReactionGame();
-      handleGameProvider();
-    }
-  }, [gameDetail]);
+  // useEffect(() => {
+  //   if (gameDetail.identifier) {
+  //     handleCurrentReactionGame();
+  //   }
+  // }, [gameDetail]);
 
   useEffect(() => {
     try {
