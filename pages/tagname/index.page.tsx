@@ -1,21 +1,19 @@
 import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
-import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import { api_getCasinoWithKey, api_getHotGames, api_getLiveCasinos, api_getProviders, api_getSlots } from '@/api/game';
+import { api_getCasinoWithKey, api_getProviders, SortType } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
-import { camelToSnake, convert2Url, convertToUrlCase } from '@/base/libs/utils/convert';
+import { convert2Url } from '@/base/libs/utils/convert';
 import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { GameListType, GameProviderDetail } from '@/base/types/common';
+import { CategoryType, GameListType, GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -52,6 +50,8 @@ function CasinoTagnamePage() {
   const [isClearAll, setIsClearAll] = useState<boolean>(false);
   const [isSort, setIsSort] = useState<boolean>(false);
 
+  const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
+
   const { showTab } = useSelector(
     (state: AppState) => ({
       showTab: state.common.casinoTab,
@@ -64,19 +64,22 @@ function CasinoTagnamePage() {
     setIsSort(true);
   }, []);
 
-  const getGameList = async (pageNumber: number = currentPage) => {
-    const query = key === 'slots' || key === 'Live Casino' ? { sort: selectedSortBy.orderValue } : {};
+  const getGameList = async (pageNumber: number, providers: string[], sort: SortType) => {
+    // const query = key === 'slots' || key === 'Live Casino' ? { sort: selectedSortBy.orderValue } : {};
+    const query = key === 'slots' || key === 'Live Casino' ? { sort } : {};
+
     let tempGameListData: GameListType[] = [];
     let params: any = {
       pageSize,
-      page: currentPage || 1,
+      // page: currentPage || 1,
+      page: pageNumber,
     };
     try {
       setIsLoading(true);
       params = {
         ...params,
         ...query,
-        providers: JSON.stringify(selectedProvider),
+        providers: JSON.stringify(providers),
       };
       const res = await api_getCasinoWithKey(convert2Url(String(key)), params);
 
@@ -107,7 +110,34 @@ function CasinoTagnamePage() {
   const getListProviders = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getProviders();
+      let category: CategoryType = 'all';
+      switch (convert2Url(String(key))) {
+        case 'slots':
+          category = 'slots';
+          break;
+        case 'live-casino':
+          category = 'live_casino';
+          break;
+        case 'hot-games':
+          category = 'hot_games';
+          break;
+        case 'new-releases':
+          category = 'new_releases';
+          break;
+        case 'blackjack':
+          category = 'blackjack';
+          break;
+        case 'feature-buy-in':
+          category = 'feature_Buy_In';
+          break;
+        case 'table-games':
+          category = 'table_games';
+          break;
+        default:
+          category = 'all';
+          break;
+      }
+      const res = await api_getProviders(category);
       const providers = res.data.map((provider: any) => ({
         id: provider.id,
         name: provider.name,
@@ -156,42 +186,31 @@ function CasinoTagnamePage() {
 
   useEffect(() => {
     if (key) {
+      setIsClearAll(false);
+      setSelectedProvider([]);
+
       setIsShowMore(true);
       setListGame([]);
       setCurrentPage(1);
-      getGameList(1);
+
+      getListProviders();
+      getGameList(1, [], 'popular');
     }
   }, [key]);
 
   useEffect(() => {
-    if (selectedProvider.length > 0 || isClearAll) {
+    if (selectedProvider.length > 0 || isClearAll || isSort) {
       setIsShowMore(true);
       setListGame([]);
       setIsClearAll(false);
       setCurrentPage(1);
-      getGameList(1);
+      getGameList(1, selectedProvider, selectedSortBy.orderValue as SortType);
     }
-  }, [selectedProvider]);
+  }, [selectedProvider, isSort, selectedSortBy]);
 
   useEffect(() => {
-    getListProviders();
-  }, []);
-
-  useEffect(() => {
-    if (currentPage > 1) getGameList();
+    if (currentPage > 1) getGameList(currentPage, selectedProvider, selectedSortBy.orderValue as SortType);
   }, [currentPage]);
-
-  const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
-
-  useEffect(() => {
-    if (isSort) {
-      setCurrentPage(1);
-      setIsShowMore(true);
-      setListGame([]);
-      setIsSort(false);
-      getGameList(1);
-    }
-  }, [selectedSortBy]);
 
   return (
     <div className="py-[24px]">

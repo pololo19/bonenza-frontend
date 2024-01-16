@@ -83,7 +83,7 @@ const TabGames = (props: tabGamesProps) => {
       id: 7,
     },
   ];
-  console.log(router);
+
   return (
     <div className="relative sm:my-[20px] mt-[10px] max-w-full overflow-x-auto snap-x snap-mandatory flex sm:flex-wrap flex-nowrap gap-[8px]">
       {filterOptions.map((option, key) => {
