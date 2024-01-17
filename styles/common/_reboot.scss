@@ -718,3 +718,27 @@ input[type='number']::-webkit-outer-spin-button {
   height: 100vh;
   max-height: 100vh;
 }
+
+.scrollbar-dark {
+  --sb-track-color: #f9f9f914;
+  --sb-thumb-color: #1c1e22;
+  --sb-size: 5px;
+
+  scrollbar-color: var(--sb-thumb-color)
+                  var(--sb-track-color);
+}
+
+.scrollbar-dark::-webkit-scrollbar{
+  height: var(--sb-size);
+  width: var(--sb-size);
+}
+
+.scrollbar-dark::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
+
+.scrollbar-dark::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+}

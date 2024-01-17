@@ -15,6 +15,7 @@ import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;
@@ -102,7 +103,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             <div className="relative">
               <input
                 className={cn(
-                  'p-[18px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                  'p-[18px] pl-[70px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
@@ -113,6 +114,15 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 height={22}
                 className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-[#31373d]"
               />
+              {searchValue.length > 3 && (
+                <div
+                  role="button"
+                  className="absolute top-1/2 right-[65px] w-[14px] h-[14px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white cursor-pointer"
+                  onClick={() => setSearchValue('')}
+                >
+                  <XMarkIcon className="w-[14px] h-[14px] text-color-text-primary font-bold" />
+                </div>
+              )}
               <div
                 role="button"
                 className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white"
@@ -134,7 +144,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 <div className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]">
                   {t('casino:searchResult')}
                 </div>
-                <div className="game-grid-parent mt-[10px] sm:max-h-[56vh] max-h-[calc(100%_-_100px)] h-fit overflow-y-auto">
+                <div className="game-grid-parent mt-[10px] sm:max-h-[56vh] max-h-[calc(100%_-_100px)] h-fit overflow-y-auto scrollbar">
                   {listSearchGame.map((game, index) => {
                     return (
                       <div key={index} className="max-w-[185px]">
