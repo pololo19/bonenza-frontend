@@ -67,6 +67,7 @@ module.exports = {
         'color-toggle-primary': '#3A4047',
         'color-progress-primary': '#25262A',
         'color-active-primary': '#1D1F24',
+        'color-active-secondary': '#31353C',
         'color-notice-primary': '#223F18',
         primary: 'linear-gradient(209.24deg, #E5944B 35.23%, #CC6228 73.92%)',
         second: 'linear-gradient(180deg, #EDB652 0%, #E79D3D 30.21%, #FFFD8F 54.69%, #E79D3D 80.21%, #EDB652 100%)',
