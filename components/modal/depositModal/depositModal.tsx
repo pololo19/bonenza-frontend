@@ -31,7 +31,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:!max-w-[530px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0"
+        panelClass="sm:!max-w-[530px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0 "
         header={
           <>
             <div className="flex flex-col items-start">

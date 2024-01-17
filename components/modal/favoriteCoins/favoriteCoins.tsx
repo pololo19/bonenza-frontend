@@ -5,17 +5,15 @@ import Image from 'next/image';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import api from '@/api/api';
+import { api_setCurrencyFavorite } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { changeCryptoArray, changeFiatArray } from '@/base/redux/reducers/common.reducer';
+import { setFiatSymbols, setSymbols } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
+import Loader from '@/components/common/preloader/loader';
 import InputSearch from '@/components/input/typing/InputSearch';
 
 import CommonModal from '../commonModal/commonModal';
-import { api_setCurrencyFavorite } from '@/api/wallet';
-import { setCryptoCurrencies, setFiatSymbols, setSymbols } from '@/base/redux/reducers/wallet.reducer';
-import Loader from '@/components/common/preloader/loader';
 
 type ModalCurrencyTypesProps = {
   onClose: () => void;
@@ -144,7 +142,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:!max-w-[480px] sm:!h-[70vh] sm:!min-h-[70vh] sm:!my-0"
+        panelClass="sm:!max-w-[480px] sm:h-[90vh] sm:min-h-[90vh] sm:!my-0 dark:!bg-color-menu-primary"
         isShowCloseButton={false}
         header={
           <div className="flex gap-4 items-center w-full pb-[10px] pt-[25px] px-5">
@@ -171,8 +169,8 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 onClick={() => setOpenTab(1)}
                 className={`${
                   openTab === 1
-                    ? 'dark:text-white dark:bg-[#24262B] text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-input-primary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
+                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
+                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
                 } text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center`}
               >
                 {t('deposit:crypto')}
@@ -181,8 +179,8 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 onClick={() => setOpenTab(2)}
                 className={`${
                   openTab === 2
-                    ? 'dark:text-white dark:bg-[#24262B] text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-input-primary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
+                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
+                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
                 } text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center`}
               >
                 {t('deposit:fiat')}
@@ -191,8 +189,8 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 onClick={() => setOpenTab(3)}
                 className={`${
                   openTab === 3
-                    ? 'dark:text-white dark:bg-[#24262B] text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-input-primary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
+                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
+                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
                 } pointer-events-none cursor-not-allowed text-[14px] inline-block px-2 py-3 grow text-center`}
               >
                 {t('deposit:mNFT')}
@@ -201,8 +199,8 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 onClick={() => setOpenTab(4)}
                 className={`${
                   openTab === 4
-                    ? 'dark:text-white dark:bg-[#24262B] text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-input-primary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
+                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
+                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
                 } text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center`}
               >
                 {t('deposit:myFavorite')}
