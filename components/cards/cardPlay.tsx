@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CSSProperties, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { CSSProperties, useMemo } from 'react';
 
 import styles from './index.module.scss';
 
