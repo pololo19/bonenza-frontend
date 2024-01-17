@@ -65,6 +65,9 @@ export default function Navbar() {
             'sm:ml-[62px] xl:max-w-[calc(100%-422px)]': showChatType && !isToggleSidebar,
           },
         )}
+        onClick={() => {
+          if (isShowCasinoSearch) dispatch(changeIsShowCasinoSearch(false));
+        }}
       >
         <div
           className={cn(

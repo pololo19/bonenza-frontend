@@ -87,7 +87,6 @@ const TabGames = (props: tabGamesProps) => {
   return (
     <div className="relative sm:my-[20px] mt-[10px] max-w-full overflow-x-auto snap-x snap-mandatory flex sm:flex-wrap flex-nowrap gap-[8px]">
       {filterOptions.map((option, key) => {
-        console.log(router.asPath, option.link);
         return (
           <Link href={ishome ? option?.homeLink : option?.link} key={key} className="min-w-fit">
             <div

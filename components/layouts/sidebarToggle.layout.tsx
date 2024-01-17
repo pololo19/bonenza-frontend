@@ -25,7 +25,11 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { changeIsShowVipClubModal, changeToggleSidebar } from '@/base/redux/reducers/modal.reducer';
+import {
+  changeIsShowCasinoSearch,
+  changeIsShowVipClubModal,
+  changeToggleSidebar,
+} from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
@@ -87,6 +91,7 @@ export default function SidebarToggle() {
           'translate-x-0': isToggleSidebar,
           '-translate-x-full absolute': !isToggleSidebar,
         })}
+        onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
         <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-[#1D1E22]">
           <button
@@ -251,6 +256,7 @@ export default function SidebarToggle() {
           'translate-x-0': !isToggleSidebar,
           '-translate-x-full absolute': isToggleSidebar,
         })}
+        onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
         <div className="flex justify-center items-center min-h-[67px] px-[8px] py-[10px]">
           <button
