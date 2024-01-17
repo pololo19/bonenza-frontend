@@ -17,7 +17,7 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
       <div className="p-0">
         <div
           className={cn(
-            `relative mt-[10px] mx-[20px] max-w-full overflow-x-auto snap-x snap-mandatory sm:hidden flex sm:flex-wrap flex-nowrap gap-[8px]`,
+            `relative mt-[10px] mx-[12px] max-w-full overflow-x-auto snap-x snap-mandatory sm:hidden flex sm:flex-wrap flex-nowrap gap-[8px]`,
             {
               hidden: !isShow,
               '-translate-y-full': !isShow,
