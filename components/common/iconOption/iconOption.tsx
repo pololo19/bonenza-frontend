@@ -95,7 +95,7 @@ const IconOption = ({
             'capitalize block dark:bg-color-bg-primary dark:text-color-text-primary text-[14px] cursor-pointer transition-[height] ease-in-out duration-300',
             classNames,
             {
-              'dark:bg-color-card-bg-primary': showDropDownCasino,
+              'dark:bg-color-menu-secondary': showDropDownCasino,
               // 'translate-y-0': showDropDownCasino,
               // 'translate-y-full': !showDropDownCasino
             },
