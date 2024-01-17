@@ -116,7 +116,7 @@ const SidebarMobileLayout: React.FC = () => {
         },
       )}
     >
-      <div className="flex flex-col gap-[10px] px-[20px] pb-[20px]">
+      <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
         <div className="relative">
           <div
             className="relative mb-[20px] h-[40px] dark:bg-color-panel-bg-primary bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
