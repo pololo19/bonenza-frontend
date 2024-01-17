@@ -1,4 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
@@ -15,7 +16,6 @@ import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;
@@ -28,6 +28,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const { t } = useTranslation('');
   const dispatch = useDispatch();
   const casinoSearchRef = useRef<HTMLDivElement>(null);
+  const casinoSearchBodyRef = useRef<HTMLDivElement>(null);
 
   const { isToggleSidebar, showChatType, listRecommendGame } = useSelector(
     (state: AppState) => ({
@@ -96,8 +97,9 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         )}
       >
         <div
-          className={cn('relative bg-color-header-secondary sm:h-auto h-full')}
+          className={cn('relative bg-color-header-secondary sm:h-auto h-full z-[6]')}
           style={{ transform: 'translateY(0%) translateZ(0px)' }}
+          ref={casinoSearchBodyRef}
         >
           <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto h-full">
             <div className="relative">
@@ -169,6 +171,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             </div>
           </div>
         </div>
+        <div className="top-0 left-0 fixed w-[100vw] h-[100vh] z-[5] bg-transparent" onClick={onClose}></div>
       </div>
     </>
   );
