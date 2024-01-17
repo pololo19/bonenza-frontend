@@ -52,6 +52,7 @@ const WithdrawCryptoPage = () => {
     iso_decimals: 0,
     price: 0,
     type: 'crypto',
+    favorite: false,
   });
   const [activeNetwork, setActiveNetwork] = useState<CryptoNetWorkType>({
     id: '',
