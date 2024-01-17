@@ -43,7 +43,7 @@ function GameCard(props: GameCardProps) {
   const uuid = Math.random();
 
   return (
-    <div className="" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
+    <div className="pointer-events-auto" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
       <div
         className={classNames('sm:block rounded-[5px] dark:bg-color-card-bg-primary bg-white', {
           flex: listView,
