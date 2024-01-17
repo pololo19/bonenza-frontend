@@ -55,6 +55,7 @@ module.exports = {
         'color-primary': '#50C627',
         'color-tbl-primary': '#131315',
         'color-menu-primary': '#1E2024',
+        'color-menu-secondary': '#0F0F11',
         'color-red': '#F61B4F',
         'color-red-primary': '#F53202',
         'color-list-bg-primary': '#25262B',
