@@ -121,7 +121,7 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:bonus'))}
                 href={ROUTER.Bonus}
                 icon={Gift}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded px-[10px]"
               />
               <div className="flex items-center gap-[10px]">
                 <IconOption
