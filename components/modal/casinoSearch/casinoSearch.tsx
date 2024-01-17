@@ -3,19 +3,22 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, useEffect, useRef, useState } from 'react';
+import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useDebounce, useDebouncedCallback } from 'use-debounce';
 
-import { api_getGamesByNameAndProvider, api_getPickGames } from '@/api/game';
+import { api_getGamesByNameAndProvider } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useWidth } from '@/base/hooks/useWidth';
-import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { AppState } from '@/base/redux/store';
 import { GameListType } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
+
+import styles from './index.module.scss';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;
@@ -41,12 +44,14 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
+  const [debouncedSearchValue] = useDebounce(searchValue, 500);
   const [listSearchGame, setListSearchGame] = useState<GameListType[]>([]);
+  const [history, sethistory] = useState<string[]>([]);
 
-  const handleGetSearchGame = async () => {
+  const handleGetSearchGame = async (search: string) => {
     try {
       setIsLoading(true);
-      const res = await api_getGamesByNameAndProvider(searchValue);
+      const res = await api_getGamesByNameAndProvider(search);
       const tempGameLists = res.data.data.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
@@ -66,16 +71,78 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   };
 
   useEffect(() => {
-    if (searchValue.length >= 3) handleGetSearchGame();
-  }, [searchValue]);
+    if (debouncedSearchValue.length >= 3) {
+      handleGetSearchGame(debouncedSearchValue);
+
+      const casinoSearchHistories = CookiesStorage.getCookieData('casinoSearch');
+      if (!casinoSearchHistories) {
+        const value = [debouncedSearchValue];
+        CookiesStorage.setCookieData('casinoSearch', JSON.stringify(value));
+        sethistory(value);
+      } else {
+        let existValues = JSON.parse(casinoSearchHistories);
+        if (existValues?.indexOf(debouncedSearchValue) == -1) existValues = [debouncedSearchValue, ...existValues];
+        CookiesStorage.setCookieData('casinoSearch', JSON.stringify(existValues));
+        sethistory(existValues);
+      }
+    }
+    return () => {};
+  }, [debouncedSearchValue]);
+
+  useEffect(() => {
+    const casinoSearchHistories = CookiesStorage.getCookieData('casinoSearch');
+    if (casinoSearchHistories) {
+      const value = JSON.parse(casinoSearchHistories);
+      sethistory(value);
+    }
+  }, []);
 
   const wheelHandler = (event: any) => {
-    console.log(event);
     const layout = document.getElementById('base-layout');
     const currentPosition = layout?.scrollTop ?? 0;
     const scrollFactor = 3;
     layout?.scrollTo({ top: currentPosition + event.deltaY * scrollFactor, behavior: 'smooth' });
   };
+
+  const handleClickHistory = (val: string) => {
+    setSearchValue(val);
+  };
+
+  const handleDeletehistory = (index: number) => {
+    const tempHistory = [...history];
+    tempHistory.splice(index, 1);
+    CookiesStorage.setCookieData('casinoSearch', JSON.stringify(tempHistory));
+
+    sethistory(tempHistory);
+  };
+
+  const searchResult = useMemo(() => {
+    return (
+      <>
+        {debouncedSearchValue.length >= 3 && !!listSearchGame.length && (
+          <div className="sm:mb-[20px] mb-0 h-full">
+            <div className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]">
+              {t('casino:searchResult')}
+            </div>
+            <div className="game-grid-parent mt-[10px] sm:max-h-[56vh] max-h-[calc(100%_-_100px)] h-fit overflow-y-auto scrollbar">
+              {listSearchGame.map((game, index) => {
+                return (
+                  <div key={index} className="max-w-[185px]">
+                    <GameCard gameDetail={game} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        {debouncedSearchValue.length >= 3 && !listSearchGame.length && (
+          <div className="py-[10px]">
+            <NoDataComponent />
+          </div>
+        )}
+      </>
+    );
+  }, [listSearchGame, debouncedSearchValue]);
 
   return (
     <>
@@ -107,10 +174,12 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             <div className="relative">
               <input
                 className={cn(
-                  'p-[18px] pl-[70px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
                 )}
                 value={searchValue}
-                onChange={(e) => setSearchValue(e.target.value)}
+                onChange={(e) => {
+                  setSearchValue(e.target.value);
+                }}
                 placeholder={String(t('casino:gameNameAndProvider'))}
               />
               <SearchNormal
@@ -118,7 +187,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 height={22}
                 className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-[#31373d]"
               />
-              {searchValue.length > 3 && (
+              {debouncedSearchValue.length > 3 && (
                 <div
                   role="button"
                   className="absolute top-1/2 right-[65px] w-[14px] h-[14px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white cursor-pointer"
@@ -136,34 +205,38 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               </div>
             </div>
             <div className="flex flex-col items-center justify-center mt-[20px] ">
-              {searchValue && searchValue.length < 3 && (
+              {debouncedSearchValue && debouncedSearchValue.length < 3 && (
                 <Image src={'/img/empty.png'} alt="noData" width={150} height={150} />
               )}
-              {searchValue.length < 3 && (
+              {debouncedSearchValue.length < 3 && (
                 <div className="dark:text-gray-500 text-[#31373d]">{t('casino:searchRequires')}</div>
               )}
-            </div>
-            {searchValue.length >= 3 && !!listSearchGame.length && (
-              <div className="sm:mb-[20px] mb-0 h-full">
-                <div className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]">
-                  {t('casino:searchResult')}
-                </div>
-                <div className="game-grid-parent mt-[10px] sm:max-h-[56vh] max-h-[calc(100%_-_100px)] h-fit overflow-y-auto scrollbar">
-                  {listSearchGame.map((game, index) => {
-                    return (
-                      <div key={index} className="max-w-[185px]">
-                        <GameCard gameDetail={game} />
+              {history.length && debouncedSearchValue.length < 3 && (
+                <>
+                  <div className="flex justify-start w-full my-[10px]">
+                    <div className="font-[600] dark:text-white text-[#000] sm:text-[16px] text-[14px]">
+                      {t('casino:searchHistory')}
+                    </div>
+                  </div>
+                  <div className="flex gap-[10px] justify-start w-full mb-[20px] flex-nowrap relative max-w-full overflow-x-auto snap-x snap-mandatory">
+                    {history.map((item, index) => (
+                      <div key={index} className={styles.search_history_box}>
+                        {item}
+                        <div className={styles.close} onClick={() => handleDeletehistory(index)}>
+                          <XMarkIcon className="text-color-text-primary w-[14px] hover:text-white font-bold" />
+                        </div>
+                        <div
+                          className="left-0 top-0 w-full h-full z-[6] bg-transparent absolute"
+                          onClick={() => handleClickHistory(item)}
+                        />
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-            {searchValue.length >= 3 && !listSearchGame.length && (
-              <div className="py-[10px]">
-                <NoDataComponent />
-              </div>
-            )}
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+            {searchResult}
+
             <div className="sm:block hidden">
               <CasinoSS
                 title={String(t('casino:recommendedForYou'))}
