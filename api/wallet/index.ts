@@ -2,6 +2,7 @@ import {
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
   API_WALLET_INIT_DATA,
+  API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
   API_WALLET_TRANSACTIONS,
@@ -12,6 +13,7 @@ import {
 import { TransactionRequest, WithdrawRequest } from '@/base/types/requestTypes';
 
 import api from '../api';
+import { CurrencySymbolType } from '@/base/types/wallet';
 
 export const api_getWalletInfo = async () => {
   return api.get(API_WALLET_INFO);
@@ -51,4 +53,8 @@ export const api_getDepositTime = async () => {
 
 export const api_getInitData = async () => {
   return api.get(API_WALLET_INIT_DATA);
+};
+
+export const api_setCurrencyFavorite = async (currencyId: string, currencyType: CurrencySymbolType) => {
+  return api.post(API_WALLET_SET_FAVORITE, { currencyId, currencyType });
 };

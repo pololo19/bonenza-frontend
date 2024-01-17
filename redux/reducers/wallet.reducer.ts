@@ -27,6 +27,7 @@ const initialState: WalletState = {
     availableNetworks: [],
     type: 'crypto',
     price: 0,
+    favorite: false,
   },
   networks: [],
   symbols: [],
@@ -152,13 +153,14 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
       symbols?.map((item: any) => ({
         id: item.id,
         name: item.symbol,
-        alias: '',
+        alias: item.symbol,
         logo: item.logo,
         iso_currency: item.iso_currency,
         iso_decimals: item.iso_decimals,
         availableNetworks: item.availableNetworks,
         price: Number(item.price),
         type: 'crypto',
+        favorite: item.favorite,
       })) || [];
 
     const tempCurrencies: CryptoCurrencyType[] =
@@ -181,6 +183,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         availableNetworks: item.availableNetworks,
         price: Number(item.price),
         type: 'fiat',
+        favorite: item.favorite,
       })) || [];
     // console.log(result.data);
     dispatch(
@@ -235,7 +238,7 @@ export const getBalance = () => async (dispatch: AppDispatch) => {
 export const getDepositTime = () => async (dispatch: AppDispatch) => {
   try {
     const result = await api_getDepositTime();
-    dispatch(setDepositTime(result.data));
+    dispatch(setDepositTime(result.data?.times ?? 0));
   } catch (error) {
     console.log(error);
   }
