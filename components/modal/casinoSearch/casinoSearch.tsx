@@ -173,6 +173,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
           <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto h-full">
             <div className="relative">
               <input
+                autoFocus
                 className={cn(
                   'p-[18px] pr-[70px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
                 )}
