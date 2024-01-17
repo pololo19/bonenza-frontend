@@ -1,20 +1,20 @@
 import cn from 'classnames';
+import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
+import { api_getPickGames, api_getTopRelatedGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail } from '@/base/types/common';
-
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import { GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
-import { SearchNormal } from 'iconsax-react';
-import { useDispatch } from 'react-redux';
 
 function CasinoTagnamePage() {
   const { t } = useTranslation('');
@@ -22,7 +22,7 @@ function CasinoTagnamePage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [listGame, setListGame] = useState<GameListType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
 
@@ -33,10 +33,21 @@ function CasinoTagnamePage() {
     };
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-top-rated-list', { params });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40) {
+      const res = await api_getPickGames(currentPage || 1, 40);
+
+      const tempGameLists: GameListType[] = res.data.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item.payout || 0),
+        multiplier: Number(item.profitMultiplier || 0),
+        providerName: item?.producerName ?? '',
+        releasedAt: new Date(),
+      }));
+      setListGame((current) => [...current, ...tempGameLists]);
+      setTotalGames(res.data.totalCount);
+      if (res.data.games.length < 40) {
         setIsShowMore(false);
       }
     } catch (error) {

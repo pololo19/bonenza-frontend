@@ -19,6 +19,9 @@ import { BetTableDataType, GameDetail } from '@/base/types/common';
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
+const cryptoDecimals = 8;
+const fiatDecimals = 2;
+
 const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) => {
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
@@ -82,7 +85,6 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         betId: item.id ?? '',
         time: item.time ?? new Date(),
       }));
-      console.log(tempBetData, '----85');
       dispatch(setBetHistory(tempBetData));
     } catch (error) {
       dispatch(setBetHistory([]));
@@ -156,8 +158,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         cell: ({ row }) => (
           <div className="dark:text-white sm:text-[16px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]">
             {localFiat
-              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 8, localFiat.name)}`
-              : `${currencyFormat1(row.original.betAmount, 8, '', false)} `}
+              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat.name)}`
+              : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
               height={15}
@@ -176,7 +178,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary sm:text-[16px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]">
-            {formatLengthNumber(row.original.multiplier, 2)}
+            {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
       },
@@ -189,13 +191,17 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             <div
               className={cn('font-bold text-end truncate', {
                 'text-color-primary': row.original.profitAmount >= 0,
-                'text-red-500': row.original.profitAmount < 0,
+                'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profit > 0 && '+'}
+              {row.original.profitAmount > 0 ? '+' : '-'}
               {localFiat
-                ? `${currencyFormat1(Math.abs(row.original.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
-                : `${currencyFormat1(Math.abs(row.original.profitAmount), 8, '', false)} `}
+                ? `${currencyFormat1(
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    fiatDecimals,
+                    localFiat.name,
+                  )}`
+                : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"

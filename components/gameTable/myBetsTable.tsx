@@ -17,6 +17,9 @@ import { BetTableDataType, GameListType } from '@/base/types/common';
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
+const cryptoDecimals = 8;
+const fiatDecimals = 2;
+
 const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => {
   const [myBetData, setMyBetData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
@@ -113,8 +116,8 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
               <div className="flex items-center justify-center gap-[5px] truncate">
                 <div className="font-bold dark:text-white text-black truncate">
                   {localFiat
-                    ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, 4, localFiat.name)}`
-                    : `${currencyFormat1(row.original.betAmount, 4, '', false)}`}
+                    ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat.name)}`
+                    : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)}`}
                 </div>
                 <Image
                   height={15}
@@ -144,7 +147,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-[#98A7B5] text-[#31373d] font-bold truncate text-center">
-            {formatLengthNumber(row.original.multiplier, 2)}
+            {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
       },
@@ -155,14 +158,18 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           <div className={cn('flex items-center justify-end gap-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-green-500': row.original.profitAmount >= 0,
-                'text-red-500': row.original.profitAmount < 0,
+                'text-color-primary': row.original.profitAmount >= 0,
+                'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profitAmount > 0 && '+'}
+              {row.original.profitAmount > 0 ? '+' : '-'}
               {localFiat
-                ? `${currencyFormat1(Math.abs(row.original.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
-                : `${currencyFormat1(Math.abs(row.original.profitAmount), 2, '', false)}`}
+                ? `${currencyFormat1(
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    fiatDecimals,
+                    localFiat.name,
+                  )}`
+                : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)}`}
             </div>
             <Image
               className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"

@@ -57,7 +57,7 @@ export default function Navbar() {
       {isLoadingFull && <LoaderFull />}
       <div
         className={cn(
-          'w-full my-auto dark:bg-color-header bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
+          'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
             'md:ml-[205px] md:max-w-[calc(100%-205px)]': isToggleSidebar && !showChatType,
@@ -65,6 +65,9 @@ export default function Navbar() {
             'sm:ml-[62px] xl:max-w-[calc(100%-422px)]': showChatType && !isToggleSidebar,
           },
         )}
+        onClick={() => {
+          if (isShowCasinoSearch) dispatch(changeIsShowCasinoSearch(false));
+        }}
       >
         <div
           className={cn(
@@ -265,14 +268,6 @@ export default function Navbar() {
             )}
           </div>
         </div>
-        {isShowCasinoSearch && (
-          <ModalCasinoSearch
-            show={isShowCasinoSearch}
-            onClose={() => {
-              dispatch(changeIsShowCasinoSearch(false));
-            }}
-          />
-        )}
       </div>
       {/* End Navbar */}
     </>

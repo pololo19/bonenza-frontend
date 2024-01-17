@@ -88,6 +88,7 @@ function CasinoCategoryPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
       setListGame((current) => [...current, ...tempGameListData]);
@@ -136,14 +137,6 @@ function CasinoCategoryPage() {
       </Head>
       {isLoading && <Loader />}
 
-      <div
-        className="relative mb-[20px] h-[40px] dark:bg-[#161D26] bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
-        onClick={() => dispatch(changeIsShowCasinoSearch(true))}
-        role="button"
-      >
-        <SearchNormal width={24} height={24} className="text-gray-500" />
-        <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
-      </div>
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
         <Breadcrumbs
           data={[{ title: 'Casino', href: ROUTER.Casino }]}

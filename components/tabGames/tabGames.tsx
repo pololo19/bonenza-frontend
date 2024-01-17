@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -23,6 +24,7 @@ const TabGames = (props: tabGamesProps) => {
   const { setCurrentPage, ishome = false } = props;
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [tab, setTab] = useState<number>(1);
 
   useEffect(() => {
@@ -90,9 +92,10 @@ const TabGames = (props: tabGamesProps) => {
             <div
               role="button"
               className={cn(
-                'flex items-center px-[20px] py-[10px] bg-[#f0f1f5] dark:bg-[#1D1E22] hover:bg-gray-700 gap-[10px] flex-shrink-0 rounded text-black/50 dark:text-white/50 dark:hover:text-white hover:text-black hover:bg-white/90',
+                'flex items-center px-[20px] py-[10px] bg-[#f0f1f5] dark:bg-color-input-primary hover:bg-gray-700 gap-[10px] flex-shrink-0 rounded text-black/50 dark:text-white/50 dark:hover:text-white dark:hover:bg-color-hover-primary hover:text-black hover:bg-white/90',
                 {
-                  'bg-white text-black dark:bg-[#2D3035] dark:text-white': tab === option.id,
+                  'bg-white text-black dark:!bg-color-hover-primary dark:!text-white':
+                    `${router.pathname}${router.query?.key ? '/?key=' + router.query.key : ''}` === option.link,
                 },
               )}
               onClick={() => {
@@ -102,14 +105,8 @@ const TabGames = (props: tabGamesProps) => {
                 localStorage.setItem('tab', String(option.id));
               }}
             >
-              <div
-                className={cn(
-                  `${tab === option.id && styles.activeTab}, ${tab === option.id && 'dark:text-white text-black'}`,
-                )}
-              >
-                {option.icon}
-              </div>
-              <span className={`text-[14px] ${tab === option.id && 'dark:text-white text-black'}`}>{option.title}</span>
+              <div>{option.icon}</div>
+              <span className={`text-[14px] `}>{option.title}</span>
             </div>
           </Link>
         );

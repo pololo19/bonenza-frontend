@@ -187,8 +187,8 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                 leaveFrom="opacity-100 translate-x-0"
                 leaveTo="opacity-0 translate-x-1"
               >
-                <div className="w-full flex flex-col h-screen dark:bg-[#12181F] bg-white">
-                  <div className="w-full dark:bg-[#24262B] dark:text-color-text-primary bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
+                <div className="w-full flex flex-col h-screen dark:bg-color-modal-secondary bg-white">
+                  <div className="w-full dark:bg-color-header-secondary dark:text-color-text-primary bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
                     <div className="flex-1 flex justify-between items-center">
                       <div className="text-[14px] sm:text-[16px] font-bold dark:text-white text-black">
                         {t('sidebar:wallet')}
@@ -220,14 +220,14 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                       </div>
                     </div>
                     <div
-                      className="hover:bg-[#39B1C0] sm:bg-color-primary rounded-md p-1 z-[10]"
+                      className="sm:bg-color-primary rounded-md p-1 z-[10]"
                       role="button"
                       onClick={() => router.replace('/')}
                     >
                       <XMarkIcon width={20} className="sm:text-black text-gray-500" />
                     </div>
                   </div>
-                  <div className="flex-1 overflow-y-auto pt-[60px] pb-[100px]">
+                  <div className="flex-1 overflow-y-auto pt-[60px] pb-[60px]">
                     <div
                       className={cn(
                         styles.cardMain,

@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { BetTableDataType } from '@/base/types/common';
+import { BetTableDataType, GameListType } from '@/base/types/common';
 import { GameState } from '@/base/types/reducer-states';
 
 const initialState: GameState = {
   betHistory: [],
+  recommandGames: [],
 };
 
 export const gameReducer = createSlice({
@@ -17,8 +18,11 @@ export const gameReducer = createSlice({
     addBetHistory: (state: GameState, action: PayloadAction<BetTableDataType>) => {
       state.betHistory = [action.payload, ...state.betHistory].slice(0, 40);
     },
+    setRecommandGames: (state: GameState, action: PayloadAction<GameListType[]>) => {
+      state.recommandGames = [...action.payload];
+    },
   },
 });
 
-export const { setBetHistory, addBetHistory } = gameReducer.actions;
+export const { setBetHistory, addBetHistory, setRecommandGames } = gameReducer.actions;
 export default gameReducer.reducer;

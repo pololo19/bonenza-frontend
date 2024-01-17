@@ -149,21 +149,23 @@ function IndexPage() {
       const [topRatedGames, recommendedGames] = await Promise.all([api_getTopRelatedGames(), api_getPickGames(1, 20)]);
       const tempListTopRatedGames: GameListType[] = topRatedGames.data.map((item: any) => ({
         id: item?.id ?? '',
-        title: item?.producerName ?? '',
+        title: item?.title ?? '',
         description: '',
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
         multiplier: Number(item.profitMultiplier || 0),
+        providerName: item?.producerName ?? '',
         releasedAt: new Date(),
       }));
 
       const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
         id: item?.id ?? '',
-        title: item?.producerName ?? '',
+        title: item?.title ?? '',
         description: item?.description ?? '',
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
         multiplier: Number(item.profitMultiplier || 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? new Date(),
       }));
       setListTopRated(tempListTopRatedGames);
@@ -200,6 +202,7 @@ function IndexPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
       setListCasinoTabGame(tempGameListData);
@@ -218,22 +221,24 @@ function IndexPage() {
         api_getRecentGames(1, 3),
         api_getFavoriteGames(1, 3),
       ]);
-      const tempPicksForYou = picksforYou?.data?.games?.map((item: any) => ({
+      const tempPicksForYou: GameListType[] = picksforYou?.data?.games?.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
-      const tempRecentGames = recentGames?.data?.games?.map((item: any) => ({
+      const tempRecentGames: GameListType[] = recentGames?.data?.games?.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
       const tempfavoriteGames: GameListType[] = favoriteGames.data.games.map((item: any) => ({
@@ -243,6 +248,7 @@ function IndexPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
       setListPicksForGame(tempPicksForYou);
@@ -276,7 +282,7 @@ function IndexPage() {
       {isLoading && <Loader />}
 
       <div className="w-full">
-        <div className="w-full flex items-start xl:flex-row flex-col pb-[25px] bg-[#f6f7fa] dark:bg-color-bg-primary">
+        <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
             <div className="relative h-auto w-full mt-[20px] sm:mt-0">
               <div className="object-contain absolute right-0 h-full w-full sm:block hidden">
@@ -292,7 +298,7 @@ function IndexPage() {
                     height={0}
                     className="sm:object-cover object-contain absolute right-0 w-full"
                     style={{ width: '100% !important' }}
-                    src="/img/homepage-bg-7.png"
+                    src="/img/homepage-bg-9.png"
                     alt=""
                   />
                 </Slider>

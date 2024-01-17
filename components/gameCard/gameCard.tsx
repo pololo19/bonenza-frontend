@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,11 +11,10 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail, GameListType } from '@/base/types/common';
-import classNames from 'classnames';
+import { GameListType } from '@/base/types/common';
 
 type GameCardProps = {
-  gameDetail: GameListType | GameDetail;
+  gameDetail: GameListType;
   listView?: boolean;
   footer?: () => React.ReactNode;
 };
@@ -43,7 +43,7 @@ function GameCard(props: GameCardProps) {
   const uuid = Math.random();
 
   return (
-    <div className="" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
+    <div className="pointer-events-auto" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
       <div
         className={classNames('sm:block rounded-[5px] dark:bg-color-card-bg-primary bg-white', {
           flex: listView,
@@ -66,7 +66,7 @@ function GameCard(props: GameCardProps) {
         <div className="p-[10px]">
           <div className="flex justify-between items-center gap-[5px]">
             <div className="dark:text-white text-[#000] font-medium sm:text-[12px] text-[14px] truncate">
-              {String(gameDetail.title)?.charAt(0).toUpperCase() + String(gameDetail?.title)?.slice(1)}
+              {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
             </div>
             <InfoCircle
               data-tooltip-id={`${gameDetail.identifier} ${uuid}`}

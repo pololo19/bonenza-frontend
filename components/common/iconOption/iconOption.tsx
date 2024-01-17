@@ -10,6 +10,7 @@ import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 
 const casinoPaths = [
+  ROUTER.Casino,
   ROUTER.PicksForYou,
   ROUTER.Favorite,
   ROUTER.Recent,
@@ -63,7 +64,7 @@ const IconOption = ({
       {!isDropDown && (
         <Link
           className={cn(
-            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-[#eaecf3] hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[13px] flex items-center gap-[16px] flex-1 pl-[15px] px-[5px] py-[10px]',
+            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-[#eaecf3] hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[13px] flex items-center gap-[16px] flex-1 px-[10px] py-[10px]',
             classNames,
             router.route.includes(href) && activeClassNames,
           )}
@@ -75,7 +76,7 @@ const IconOption = ({
         >
           <IconElement
             size={18}
-            className={cn('', {
+            className={cn('dark:text-white', {
               'font-[700] dark:text-white text-black': router.route.includes(href),
             })}
           />
@@ -91,9 +92,10 @@ const IconOption = ({
       {isDropDown && (
         <div
           className={cn(
-            'capitalize block dark:bg-color-bg-primary dark:text-[#98A7B5] text-[14px] cursor-pointer transition-[height] ease-in-out duration-300',
+            'capitalize block dark:bg-color-bg-primary dark:text-color-text-primary text-[14px] cursor-pointer transition-[height] ease-in-out duration-300',
             classNames,
             {
+              'dark:bg-color-card-bg-primary': showDropDownCasino,
               // 'translate-y-0': showDropDownCasino,
               // 'translate-y-full': !showDropDownCasino
             },
@@ -111,7 +113,7 @@ const IconOption = ({
           >
             <IconElement
               size={18}
-              className={cn('', {
+              className={cn('dark:text-white', {
                 'font-[700]': router.route.includes(href),
                 'dark:text-white text-black': showDropDownCasino,
               })}
@@ -139,7 +141,7 @@ const IconOption = ({
                     <Link
                       href={item.href}
                       className={cn(
-                        'flex items-center gap-[16px] py-[10px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800',
+                        'flex items-center gap-[16px] py-[10px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] px-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800',
                         {
                           'font-[700] dark:text-white dark:bg-[#24262B] text-black bg-[#eaecf3]': router.route.includes(
                             item.href,

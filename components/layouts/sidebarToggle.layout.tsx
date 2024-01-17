@@ -25,7 +25,11 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { changeIsShowVipClubModal, changeToggleSidebar } from '@/base/redux/reducers/modal.reducer';
+import {
+  changeIsShowCasinoSearch,
+  changeIsShowVipClubModal,
+  changeToggleSidebar,
+} from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
@@ -87,6 +91,7 @@ export default function SidebarToggle() {
           'translate-x-0': isToggleSidebar,
           '-translate-x-full absolute': !isToggleSidebar,
         })}
+        onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
         <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-[#1D1E22]">
           <button
@@ -116,7 +121,7 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:bonus'))}
                 href={ROUTER.Bonus}
                 icon={Gift}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded px-[10px]"
               />
               <div className="flex items-center gap-[10px]">
                 <IconOption
@@ -136,9 +141,10 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:casino'))}
                 href={''}
                 icon={Notepad2}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:focus:bg-[#292C33] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:text-[#000] rounded"
+                classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-[#31373D] bg-[#F6F7FA] hover:text-[#000] rounded"
                 onClick={() => {
                   setShowDropDownCasino(!showDropDownCasino);
+                  router.push(ROUTER.Casino);
                 }}
                 isShowDropDown={showDropDownCasino ? true : false}
                 isDropDown={true}
@@ -148,19 +154,19 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:sports'))}
                 href={ROUTER.Sports}
                 icon={TrendUp}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:lottery'))}
                 href={ROUTER.History}
                 icon={Ticket}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:bingo'))}
                 href={ROUTER.Bingo}
                 icon={Award}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
             </ul>
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center">
@@ -168,7 +174,7 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:vipClub'))}
                 href={'#'}
                 icon={Diamonds}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-t pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-t pl-[10px]"
                 onClick={() => {
                   dispatch(changeIsShowVipClubModal(true));
                 }}
@@ -177,19 +183,19 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:exclusive'))}
                 href={ROUTER.Exclusive}
                 icon={Medal}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:affiliate'))}
                 href={ROUTER.Affiliate}
                 icon={Command}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:provablyFair'))}
                 href={ROUTER.ProvablyFair}
                 icon={Judge}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-b pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-b pl-[10px]"
               />
             </ul>
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
@@ -197,16 +203,16 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:sponsorships'))}
                 href={ROUTER.Sponsorships}
                 icon={SecurityCard}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:liveSupport'))}
                 href={ROUTER.LiveSupport}
                 icon={Headphone}
-                classNames="dark:hover:text-white dark:text-[#98A7B5] dark:bg-[#2D3035] text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
             </ul>
-            <div className="mt-[16px] text-[#98A7B5] rounded flex items-center justify-center gap-[5px]">
+            <div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
               <div
                 className={cn(
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
@@ -250,6 +256,7 @@ export default function SidebarToggle() {
           'translate-x-0': !isToggleSidebar,
           '-translate-x-full absolute': isToggleSidebar,
         })}
+        onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
         <div className="flex justify-center items-center min-h-[67px] px-[8px] py-[10px]">
           <button

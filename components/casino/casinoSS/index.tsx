@@ -126,17 +126,17 @@ const CasinoSS = <T,>({
                   <Link
                     href={viewAllUrl}
                     role="button"
-                    className="dark:bg-[#1D1E22] bg-white rounded-[5px] font-bold text-[10px] dark:text-color-primary text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                    className="dark:bg-[#1D1E22] bg-white rounded-[3px] font-bold text-[10px] dark:text-color-primary text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
                   >
                     {t('gameDetail:viewAll')}
                   </Link>
                 )}
-                {title !== String(t('casino:gameProvider')) && (
+                {
                   <>
                     <div
                       role="button"
                       className={classNames(
-                        'dark:bg-[#1D1E22] bg-white text-gray-400 rounded-[5px] p-[10px] hover:bg-[#6b7180]',
+                        'dark:bg-[#1D1E22] bg-white text-gray-400 rounded-[3px] p-[10px] hover:dark:bg-color-hover-primary',
                         {
                           'bg-[#1D1E22]/40 hover:bg-[#1D1E22]/40 text-gray-400 pointer-events-none': disablePrev,
                         },
@@ -150,7 +150,7 @@ const CasinoSS = <T,>({
                     <div
                       role="button"
                       className={classNames(
-                        'dark:bg-[#1D1E22] text-gray-400 bg-white rounded-[5px] p-[10px] hover:bg-[#6b7180]',
+                        'dark:bg-[#1D1E22] text-gray-400 bg-white rounded-[3px] p-[10px] hover:dark:bg-color-hover-primary',
                         {
                           'bg-[#1D1E22]/40 hover:bg-[#1D1E22]/40 text-gray-400 pointer-events-none': disableNext,
                         },
@@ -162,7 +162,7 @@ const CasinoSS = <T,>({
                       <ArrowRight2 size={10} />
                     </div>
                   </>
-                )}
+                }
               </div>
             )}
           </div>

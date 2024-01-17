@@ -17,6 +17,7 @@ import {
   API_GAME_PROVIDER,
   API_GAME_RECENT_BIG_WINS,
   API_GAME_RECENT_GAMES,
+  API_GAME_SET_FAVORITE,
   API_GAME_SLOT,
   API_GAME_START_DEMO,
   API_GAME_TABLE_GAMES,
@@ -27,18 +28,9 @@ import {
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 
 import api from '../api';
+import { CategoryType } from '@/base/types/common';
 
 export type SortType = 'popular' | 'asc' | 'desc' | 'new' | 'a-z' | 'z-a' | 'like';
-
-type CategoryType =
-  | 'all'
-  | 'live_casino'
-  | 'slots'
-  | 'table_games'
-  | 'blackjack'
-  | 'new_releases'
-  | 'feature_Buy_In'
-  | 'hot_games';
 
 export type CasinoRequest = {
   page: number;
@@ -142,4 +134,8 @@ export const api_getGamesByTheme = async (providers: string, page: number, pageS
 
 export const api_getGamesByNameAndProvider = async (search: string) => {
   return api.get(API_GAME_GAMES_BY_NAME_PROVIDER, { params: { search } });
+};
+
+export const api_setGameFavorite = async (gameId: string) => {
+  return api.post(API_GAME_SET_FAVORITE, { gameId });
 };
