@@ -459,21 +459,23 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               <SubMobileMenu datas={subMobileMenDatas} isShow={isShowMobileSubMenu} />
 
               <WrapperBody
+                id="wrapperBody"
                 contentClassName={cn(contentClass)}
                 wrapperClassName={cn({
                   hidden: isShowSidebar || isShowAccount,
                   block: !isShowSidebar && !isShowAccount,
-                  // 'opacity-10': isShowCasinoSearch,
+                  'pointer-events-none': isShowCasinoSearch,
                 })}
               >
                 {children}
               </WrapperBody>
               <WrapperBody
+                id="wrapperfooter"
                 wrapperClassName="bg-[#f6f7fa] dark:bg-[#1B1C20] min-[1786px]:max-w-full"
                 contentClassName={cn('bg-white dark:bg-[#1B1C20] sm:block', {
                   hidden: isShowSidebar || isShowAccount,
                   block: !isShowSidebar && !isShowAccount,
-                  // 'opacity-10': isShowCasinoSearch,
+                  'pointer-events-none': isShowCasinoSearch,
                 })}
               >
                 <Footer isDetailPage={isDetailPage} />

@@ -2,7 +2,7 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, useEffect, useState } from 'react';
+import { ElementType, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getGamesByNameAndProvider, api_getPickGames } from '@/api/game';
@@ -26,6 +26,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const width = useWidth();
   const { t } = useTranslation('');
   const dispatch = useDispatch();
+  const casinoSearchRef = useRef<HTMLDivElement>(null);
 
   const { isToggleSidebar, showChatType, listRecommendGame } = useSelector(
     (state: AppState) => ({
@@ -66,12 +67,20 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
     if (searchValue.length >= 3) handleGetSearchGame();
   }, [searchValue]);
 
+  const wheelHandler = (event: any) => {
+    const layout = document.getElementById('base-layout');
+    const currentPosition = layout?.scrollTop;
+    layout?.scrollTo({ top: currentPosition + event.deltaY, behavior: 'smooth' });
+  };
+
   return (
     <>
       {isLoading && <Loader />}
       <div
+        onWheel={wheelHandler}
+        ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] right-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5]',
+          'fixed top-[67px] right-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] bg-black/70',
 
           {
             'translate-y-0': show,
@@ -93,7 +102,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             <div className="relative">
               <input
                 className={cn(
-                  'p-[18px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none',
+                  'p-[18px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
