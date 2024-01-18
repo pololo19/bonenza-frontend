@@ -98,6 +98,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   }, []);
 
   const wheelHandler = (event: any) => {
+    console.log(event, '====101');
     const layout = document.getElementById('base-layout');
     const currentPosition = layout?.scrollTop ?? 0;
     const scrollFactor = 3;
