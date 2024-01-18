@@ -1,4 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import cn from 'classnames';
 import { ArrowRight2, Headphone, ShieldTick, Simcard2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,7 +19,6 @@ import { BetDetail, BetTableDataType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
-import cn from 'classnames';
 
 type ModalDetailBetsProps = {
   onClose: () => void;
@@ -68,15 +68,13 @@ export default function ModalDetailBets({
     dispatch(changeIsShowInformation(true));
   };
 
-  console.log(betDetail, '----71');
-
   return (
     <>
       {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:!max-w-[400px]"
+        panelClass="sm:!max-w-[480px]"
         header={
           <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-color-header-primary bg-[#f5f6fa]">
             <div className="text-[16px] dark:text-white text-black font-[600]">
@@ -85,21 +83,20 @@ export default function ModalDetailBets({
           </div>
         }
       >
-        <div className="dark:bg-[url('/img/bg-detail-bets.png')] bg-[url('/img/img-detail-bets-light.png')] bg-no-repeat bg-contain  min-h-[516px] h-full bg-cover pt-[16px] px-[16px]">
+        <div className="dark:bg-[url('/img/bg-detail-bets.png')] bg-[url('/img/img-detail-bets-light.png')] bg-no-repeat bg-containt  min-h-[516px] h-full bg-cover pt-[16px] px-[16px]">
           <div className="dark:bg-[url('/img/img-detail-bets.png')] bg-[length:100%_100%] pt-[8px] pb-[12px]">
             <div className="px-[16px]">
-              <div className="flex items-center justify-between">
-                <div />
+              <div className="flex items-center justify-center">
                 <div className="text-center">
                   <div className="font-bold dark:text-white text-black text-[12px]">{t('gameTable:profit')}</div>
                   <div className="flex items-center gap-[6px] font-bold">
                     <Image height={20} width={20} src={`/img/fiats/${betDetail.currency}.png`} alt="" />
                     <div
-                      className={`text-[22px] ${
-                        Number(betDetail.profitAmount) >= 0 ? 'text-color-primary' : 'text-[#FD6E0B]'
+                      className={`text-[22px] font-bold ${
+                        Number(betDetail.profitAmount) >= 0 ? 'text-color-primary' : 'text-white'
                       }`}
                     >
-                      {betDetail.profitAmount > 0 && '+'}
+                      {betDetail.profitAmount > 0 ? '+' : '-'}
                       {localFiat
                         ? `${currencyFormat1(Math.abs(betDetail.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
                         : `${currencyFormat1(Math.abs(betDetail.profitAmount), 8, '', false)} `}
@@ -109,13 +106,15 @@ export default function ModalDetailBets({
                     </div>
                   </div>
                 </div>
-                <Image src={'/img/icon/icon-share.png'} width={15} height={15} alt="" />
+                {/* <Image src={'/img/icon/icon-share.png'} width={15} height={15} alt="" /> */}
               </div>
               <div className="h-[1px] bg-white dark:bg-[#3E4349] mt-[10px]" />
             </div>
             <div className="mt-[8px] flex items-center justify-around mb-[44px]">
               <div>
-                <div className="text-[10px] text-[#31373d] dark:text-[#939699]">{t('gameTable:betAmount')}</div>
+                <div className="text-[10px] text-[#31373d] dark:text-color-text-primary">
+                  {t('gameTable:betAmount')}
+                </div>
                 <div className="flex items-center gap-[3px]">
                   <Image height={15} width={15} src={`/img/fiats/${betDetail?.currency}.png`} alt="" />
 
@@ -128,13 +127,13 @@ export default function ModalDetailBets({
               </div>
               <div className="w-[1px] h-[41px] dark:bg-[#3E4349] bg-white" />
               <div className="text-center">
-                <div className="text-[10px] dark:text-[#939699] text-[#f5f6fa]">{t('gameTable:payout')}</div>
+                <div className="text-[10px] dark:text-color-text-primary text-[#f5f6fa]">{t('gameTable:payout')}</div>
                 <div className="text-[12px] dark:text-white text-black">
                   {`${formatLengthNumber(betDetail.multiplier, 2)} X`}
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-[8px] pl-[16px]">
+            <div className="flex items-center gap-[8px] px-[16px]">
               {betDetail.playerId?.toString() !== userId && !isPublicProfile ? (
                 <Image height={44} width={44} className="rounded-full" src="/img/avatar-hidden.png" alt="" />
               ) : (
@@ -149,8 +148,8 @@ export default function ModalDetailBets({
                   }}
                 />
               )}
-              <div>
-                <div className="flex items-center gap-[5px] mb-[5px] justify-between mr-[10px]">
+              <div className="flex flex-col w-full">
+                <div className="flex items-center gap-[5px] mb-[5px] justify-between">
                   <div
                     className={cn('text-[12px]', {
                       'hover:underline cursor-pointer dark:text-white text-black': !(
@@ -166,20 +165,22 @@ export default function ModalDetailBets({
                       ? userName
                       : betDetail.player}
                   </div>
-                  <div className="text-[12px] dark:text-[#939699] text-[#31373d]">
+                  <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">
                     On {formatDate(new Date(betDetail.time ?? new Date()), TIME_SUBMIT_FORMAT_WITH_MARKER)}
                   </div>
                 </div>
-                <div className="flex items-center gap-[3px] pr-[10px]">
+                <div className="flex items-center gap-[3px] justify-between">
                   <div className="text-[12px] min-w-[40px]">{t('gameTable:betId')}:</div>
-                  <ShieldTick variant="Bold" className="w-[24px] h-[24px] text-color-primary" />
-                  <div className="text-[12px] dark:text-white text-black text-right mr-[10px]">{betDetail.betId}</div>
-                  <Simcard2
-                    role="button"
-                    variant="Bold"
-                    onClick={() => copy(String(betDetail.betId))}
-                    className="w-[20px] h-[20px] text-color-text-primary"
-                  />
+                  <div className="flex gap-[5px] items-center">
+                    <ShieldTick variant="Bold" className="w-[16px] h-[16px] text-color-primary" />
+                    <div className="text-[11px] dark:text-white text-black text-right">{betDetail.betId}</div>
+                    <Simcard2
+                      role="button"
+                      variant="Bold"
+                      onClick={() => copy(String(betDetail.betId))}
+                      className="w-[16px] h-[16px] text-color-text-primary"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -215,8 +216,8 @@ export default function ModalDetailBets({
               </Link>
             </div>
             {titleModal ? (
-              <div className="mt-5 dark:bg-[#282A30] bg-[#f5f6fa] cursor-pointer rounded-[5px] group py-[9px] px-[10px] flex items-center justify-between mx-[6px] dark:text-[#939699] text-[#31373d] dark:hover:text-white hover:text-black">
-                <p className="text-[12px] dark:text-[#939699] text-[#31373d]">{t('gameTable:gameDetails')}</p>
+              <div className="mt-5 dark:bg-[#282A30] bg-[#f5f6fa] cursor-pointer rounded-[5px] group py-[9px] px-[10px] flex items-center justify-between mx-[6px] dark:text-color-text-primary text-[#31373d] dark:hover:text-white hover:text-black">
+                <p className="text-[12px] dark:text-color-text-primary text-[#31373d]">{t('gameTable:gameDetails')}</p>
                 <ArrowRight2 className="w-[12px] h-[12px]" />
               </div>
             ) : (
