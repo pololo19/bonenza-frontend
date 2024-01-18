@@ -205,8 +205,8 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               wrapperClass,
             )}
           >
-            <div className="sm:py-1 sm:relative fixed sm:right-0 sm:left-auto left-0 rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
-              <div className="py-[20px] px-[20px] flex ">
+            <div className="sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
+              <div className="flex px-[20px] mt-[20px]">
                 <div className="grow">
                   <InputSearch
                     value={searchFiatInput}
@@ -228,8 +228,25 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   </div>
                 )}
               </div>
+
+              <div className="flex w-full px-[20px] ">
+                <div className="flex w-full p-[5px] dark:bg-color-header-secondary rounded-[3px]">
+                  <div
+                    role="button"
+                    className="flex w-full py-[10px] text-white text-center justify-center rounded-[3px] bg-color-panel-bg-primary"
+                  >
+                    Currency
+                  </div>
+                  <div
+                    role="button"
+                    className="flex w-full py-[10px] text-color-text-primary text-center justify-center"
+                  >
+                    mNFT
+                  </div>
+                </div>
+              </div>
               {/* Fiat */}
-              <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_265px)] overflow-y-auto p-[20px] w-full">
+              <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_265px)] overflow-y-auto px-[20px] w-full">
                 {!!filterListCrypto?.length && (
                   <div className="text-[14px] text-gray-400 mb-2 ml-4">{t('deposit:crypto')}</div>
                 )}
@@ -279,7 +296,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             )}
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
                               {crypto.name.toLowerCase() === 'usdt' && (
-                                <div className="mt-1 flex justify-end text-amber-500">
+                                <div className="mt-1 flex justify-end text-color-primary">
                                   <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                     <Lock size={12} variant="Bold" />{' '}
                                     {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
