@@ -115,7 +115,7 @@ export default function ModalAssetsPortfolio({
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
-                <Dialog.Panel className="dark:text-white text-black sm:max-w-[500px] max-w-full flex flex-col relative transform rounded-[3px] dark:!bg-color-menu-primary bg-[#fff] text-left shadow-xl transition-all my-8 w-full pb-[30px] overflow-y-auto max-h-[80vh]">
+                <Dialog.Panel className="dark:text-white text-black sm:max-w-[500px] max-w-full flex flex-col relative transform rounded-[3px] dark:!bg-color-modal-bg-primary bg-[#fff] text-left shadow-xl transition-all my-8 w-full pb-[30px] overflow-y-auto max-h-[80vh]">
                   <Dialog.Title
                     as="div"
                     className="relative px-[1rem] sm:px-[30px] py-[20px] flex justify-between items-center"
