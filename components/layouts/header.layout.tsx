@@ -1,4 +1,4 @@
-import { PlusIcon } from '@heroicons/react/24/outline';
+import { ChatBubbleOvalLeftEllipsisIcon, PlusIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import { Add, Box1, Gift, Global, Message, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
@@ -24,12 +24,13 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import LoaderFull from '../common/loaderFull/loaderFull';
 import CasinoBoldIcon from '../icons/CasinoBoldIcon';
+import ChatSignInIcon from '../icons/ChatSignInIcon';
 import RacingBoldIcon from '../icons/RacingBoldIcon';
 import SportBoldIcon from '../icons/SportBoldIcon';
-import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import ProfileDropdown from '../profileDropdown/profileDropdown';
 import FiatHeader from './header/fiatHeader';
+import ChatSignOutIcon from '../icons/ChatSignOutIcon';
 
 export default function Navbar() {
   const router = useRouter();
@@ -208,23 +209,33 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px]"
+                className="sm:block hidden ml-[8px] rounded-md relative dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
               >
-                <Notification width={18} height={18} variant="Bold" />
+                <Notification className="w-[20px] h-[20px]" variant="Bold" />
+                {/* <span className="absolute top-0 -right-[5px] px-[8px] rounded-full bg-color-primary text-white text-[10px]">
+                  8
+                </span> */}
               </button>
             )}
             {/* Message */}
+            {!isLogin && (
+              <button
+                type="button"
+                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+              >
+                <ChatSignOutIcon className="w-[20px] h-[20px] text-color-text-primary" />
+              </button>
+            )}
             {isLogin && (
               <button
                 type="button"
-                className={`sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black flex items-center justify-center gap-[7px] p-[10px] ${
-                  showChatType ? 'bg-gray-300 dark:bg-gray-800 text-black dark:text-white' : ''
-                }`}
+                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
                 onClick={() => {
                   dispatch(changeShowChatType(!showChatType));
                 }}
               >
-                <Message width={18} height={18} variant="Bold" />
+                <ChatSignOutIcon className="w-[20px] h-[20px] text-color-text-primary" />
+                <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]"></span>
               </button>
             )}
 
@@ -249,7 +260,7 @@ export default function Navbar() {
                 dispatch(changeIsShowMultiLanguageModal(true));
               }}
             >
-              <Global width={18} height={18} />
+              <Global className="w-[20px] h-[20px]" />
             </button>
             {viewInFiat && localFiat && <div className="w-px h-5 bg-slate-400 sm:block hidden"></div>}
             {viewInFiat && localFiat && (
