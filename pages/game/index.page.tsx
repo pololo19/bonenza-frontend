@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import api from '@/api/api';
 import {
   api_getGameDetail,
+  api_getGameFavorite,
   api_getLatestBetsForGame,
   api_setGameFavorite,
   api_startGameDemo,
@@ -36,9 +37,9 @@ import GameReviewComponent from '@/components/game/gameReview';
 import BaseLayout from '@/components/layouts/base.layout';
 import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
+import Tooltip from '@/components/tooltip';
 
 import styles from './index.module.scss';
-import Tooltip from '@/components/tooltip';
 
 type LaunchUrlTye = {
   gameUrl: string;
@@ -51,6 +52,7 @@ function GamePage() {
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
   const [isLoadingGame, setIsLoadingGame] = useState<boolean>(true);
+
   const [launchUrl, setLaunchUrl] = useState<LaunchUrlTye | null>(null);
   const [gameDetail, setGameDetail] = useState<GameListType>({
     id: '',
@@ -61,11 +63,17 @@ function GamePage() {
     multiplier: 0,
     description: '',
     releasedAt: '',
+    allowedLocation: false,
+    allowedDemo: false,
     providerName: '',
+    favorites: 0,
   });
   const [isNotFoundGame, setIsNotFoundGame] = useState<boolean>(false);
   const [openShareGame, setOpenShareGame] = useState<boolean>(false);
-  const [reactionData, setReactionData] = useState<GameReactionDetail>({});
+  const [reactionData, setReactionData] = useState({
+    isFavorite: false,
+    isLike: false,
+  });
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
   const gameScriptRef = useRef<Node | null>(null);
 
@@ -121,19 +129,19 @@ function GamePage() {
         description: resGameDetail.data?.description ?? '',
         releasedAt: resGameDetail.data?.releasedAt ?? '',
         gameCnt: Number(resGameDetail.data?.producerDetails?.gameCount ?? 0),
+        allowedLocation: resGameDetail.data?.allowLocation,
         allowedDemo: resGameDetail.data?.allowDemo,
+        favorites: resGameDetail.data?.favoriteCount,
       };
+      if (!resGameDetail.data?.allowLocation) {
+        toast.error(t('notification:errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
+      }
+
       setGameDetail(tempGameDetailData);
     } catch (error) {
       setIsNotFoundGame(true);
     } finally {
       setIsLoading(false);
-    }
-  };
-
-  const handlePlay = async () => {
-    if (isSatisfied) {
-      await handlePlayRequest();
     }
   };
 
@@ -153,6 +161,7 @@ function GamePage() {
 
   const handlePlayRequest = async () => {
     try {
+      if (!isSatisfied) return;
       setIsLoading(true);
       const requestData: GameCreateSessionRequest = {
         gameId: gameDetail.id,
@@ -167,7 +176,7 @@ function GamePage() {
       setLaunchUrl(lanuchGameOption);
       launchUrlRef.current = { ...lanuchGameOption };
     } catch (error) {
-      toast.error('Game launch failed', { containerId: TOAST_ENUM.COMMON });
+      toast.error(t('notification:errors:gameLaunchedFailed'), { containerId: TOAST_ENUM.COMMON });
       setLaunchUrl(null);
       setIsLoadingGame(true);
     } finally {
@@ -177,27 +186,39 @@ function GamePage() {
 
   const handleCurrentReactionGame = async () => {
     try {
-      // const res = await api.get('game/get-total-reaction', { params: { gameIdentifier: gameDetail?.identifier } });
-      // setReactionData(res.data);
+      if (!gameDetail.id) return;
+      const res = await api_getGameFavorite(gameDetail.id);
+      const favorite = res.data.state;
+      setReactionData({
+        ...reactionData,
+        isFavorite: favorite,
+      });
     } catch {
-      setReactionData((value) => value);
+      setReactionData({
+        isFavorite: false,
+        isLike: false,
+      });
     }
   };
 
   const handleReactionGame = async (reaction: 'like' | 'favorite') => {
     try {
+      if (!isLogin) {
+        dispatch(changeIsShowAuthenticationModal(true));
+        dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+        return;
+      }
       if (reaction === 'like') {
         setIsLoadingLike(true);
       } else {
         setIsLoadingFavorite(true);
       }
-      await api_setGameFavorite(gameDetail.id);
-      // await api.post('game/reaction', {
-      //   gameIdentifier: gameDetail?.identifier,
-      //   userId: 6,
-      //   reaction: reaction,
-      // });
-      // await handleCurrentReactionGame();
+
+      const res = await api_setGameFavorite(gameDetail.id);
+      const count = res.data?.count;
+      const state = res.data?.state;
+      setGameDetail({ ...gameDetail, favorites: count });
+      setReactionData({ ...reactionData, isFavorite: state });
     } catch (error) {
       toast.error('Reaction Failed', { containerId: TOAST_ENUM.COMMON });
     } finally {
@@ -219,11 +240,11 @@ function GamePage() {
     }
   }, [gameId]);
 
-  // useEffect(() => {
-  //   if (gameDetail.identifier) {
-  //     handleCurrentReactionGame();
-  //   }
-  // }, [gameDetail]);
+  useEffect(() => {
+    if (gameDetail.identifier) {
+      handleCurrentReactionGame();
+    }
+  }, [gameDetail]);
 
   useEffect(() => {
     try {
@@ -378,8 +399,9 @@ function GamePage() {
                             {isSatisfied && (
                               <button
                                 type="button"
+                                disabled={!gameDetail.allowedLocation}
                                 className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
-                                onClick={() => handlePlay()}
+                                onClick={() => handlePlayRequest()}
                               >
                                 <PlayCricle size={20} />
                                 <div>{t('gameDetail:realPlay')}</div>
@@ -465,38 +487,38 @@ function GamePage() {
                     className={cn(
                       'dark:hover:bg-gray-700 dark:text-[#929395] dark:hover:text-white hover:bg-[#f5f6fa] text-black rounded p-2 flex gap-2 items-center',
                       {
-                        '!text-amber-400': reactionData.favorite,
+                        '!text-amber-400': reactionData.isFavorite,
                       },
                     )}
                     onClick={() => handleReactionGame('favorite')}
                   >
                     <StarIcon width={20} />
-                    <span className="text-[12px]">{reactionData?.totalFavorite ?? 0}</span>
+                    <span className="text-[12px]">{gameDetail?.favorites ?? 0}</span>
                   </div>
                 ) : (
                   <div className="w-[49px] flex items-center justify-center">
                     <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
                   </div>
                 )}
-                {!isLoadingLike ? (
+                {/* {!isLoadingLike ? (
                   <div
                     role="button"
                     className={cn(
                       'dark:hover:bg-gray-700 dark:text-[#929395] dark:hover:text-white hover:bg-[#f5f6fa] rounded p-2 flex gap-2 items-center',
                       {
-                        '!text-[#ec4016]': reactionData?.liked,
+                        '!text-[#ec4016]': reactionData.isLike,
                       },
                     )}
                     onClick={() => handleReactionGame('like')}
                   >
                     <Heart variant="Bold" size={20} />
-                    <span className="text-[12px]">{reactionData?.totalLike ?? 0}</span>
+                    <span className="text-[12px]">{0}</span>
                   </div>
                 ) : (
                   <div className="w-[49px] flex items-center justify-center">
                     <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
                   </div>
-                )}
+                )} */}
                 <div
                   role="button"
                   className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"

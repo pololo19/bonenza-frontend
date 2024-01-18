@@ -10,6 +10,7 @@ import {
   API_GAME_GAMES_BY_NAME_PROVIDER,
   API_GAME_GAMES_BY_PROVIDER,
   API_GAME_GAMES_BY_THEME,
+  API_GAME_GET_FAVORITE,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
@@ -138,4 +139,8 @@ export const api_getGamesByNameAndProvider = async (search: string) => {
 
 export const api_setGameFavorite = async (gameId: string) => {
   return api.post(API_GAME_SET_FAVORITE, { gameId });
+};
+
+export const api_getGameFavorite = async (gameId: string) => {
+  return api.get(API_GAME_GET_FAVORITE, { params: { gameId } });
 };

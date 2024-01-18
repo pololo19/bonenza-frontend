@@ -1818,6 +1818,12 @@
     "referralCodeMinCharacter": "Referral code must be more than {{min}} characters",
     "referralCodeMaxCharacter": "Referral code must be less than {{max}} characters"
   },
+  "notification": {
+    "errors": {
+      "locationIsNotAllowed": "Your Location isnot allowed to play a game.",
+      "gameLaunchedFailed": "Game launch failed"
+    }
+  },
   "errors": {
     "internalServer": "Internal Server Error"
   }
