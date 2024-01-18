@@ -182,7 +182,9 @@ export type GameListType = {
   providerName: string;
   isExpiration?: boolean;
   gameCnt?: number;
+  allowedLocation?: boolean;
   allowedDemo?: boolean;
+  favorites?: number;
 };
 
 export type GameDetail = {
