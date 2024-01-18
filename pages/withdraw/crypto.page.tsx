@@ -237,12 +237,12 @@ const WithdrawCryptoPage = () => {
           <title>Withdraw Crypto - Bonenza</title>
         </Head>
         {isLoading && <Loader />}
-        <div className={`h-1/3 px-[12px] py-[24px] sm:p-0 ${styles.contentHeader}`}>
-          <div className="flex sm:mb-[32px] mb-[20px]">
+        <div className={`h-1/3 ${styles.contentHeader}`}>
+          <div className="flex sm:mb-[32px] mb-[20px] w-full">
             <Link
               href={ROUTER.WithdrawCrypto}
               className={cn(
-                'bg-gradient-to-t from-color-primary/20 border-color-primary max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid pb-[5px] mt-[10px]',
+                'bg-gradient-to-t from-color-primary/20 border-color-primary sm:max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid pb-[10px]',
               )}
               role="button"
             >
@@ -251,7 +251,7 @@ const WithdrawCryptoPage = () => {
             <Link
               href={ROUTER.WithdrawFiat}
               className={cn(
-                'flex-1 flex items-center hover:opacity-[0.9] max-w-[161px] justify-center border-b-2 border-solid dark:border-[#272C33] border-[#ccc] pb-[5px] mt-[10px]',
+                'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-[#272C33] border-[#ccc] pb-[10px]',
               )}
               role="button"
             >
@@ -379,7 +379,7 @@ const WithdrawCryptoPage = () => {
               <div className="dark:bg-color-input-primary bg-[#f5f6fa] rounded-[3px] px-[12px] py-[6px] dark:text-[#98a7b5] text-[#31373d] mt-[22px] flex flex-col gap-[12px]">
                 <div className="flex items-center justify-between">
                   <div className="text-[14px]">{t('withdraw:totalWithdrawAmount')}</div>
-                  <div className="dark:text-amber-500 text-[#31373d] font-semibold">
+                  <div className="dark:text-color-primary text-[#31373d] font-semibold">
                     {currencyFormat1(Number(watch('withdrawAmount')), 4, '', false)} {activeCoin.name}
                   </div>
                 </div>
@@ -388,7 +388,7 @@ const WithdrawCryptoPage = () => {
                     {t('withdraw:fee')}{' '}
                     <QuestionMarkCircleIcon
                       width={20}
-                      className="text-amber-500"
+                      className="text-color-primary"
                       role="button"
                       data-tooltip-id={'fee-tooltip'}
                     />
@@ -408,9 +408,9 @@ const WithdrawCryptoPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-[#0DFDE4] text-[#31373d] dark:bg-[#161D26] bg-[#f5f6fa] rounded-[16px] text-start">
+              <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-white text-[#31373d] dark:bg-color-notice-primary bg-[#f5f6fa] rounded-[3px] text-start">
                 <h1 className="text-[16px]">
-                  <span className="text-[#0EC505] me-1 inline">{t('withdraw:notice')}</span> {t('withdraw:note2')}{' '}
+                  <span className="text-color-primary me-1 inline">{t('withdraw:notice')}</span> {t('withdraw:note2')}{' '}
                   {activeCoin.name}
                 </h1>
               </div>

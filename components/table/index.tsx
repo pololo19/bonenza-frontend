@@ -1,21 +1,21 @@
-import React, { useEffect } from 'react';
-import Image from 'next/image';
 import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
-  useReactTable,
-  RowSelectionState,
   OnChangeFn,
   Row,
+  RowSelectionState,
+  useReactTable,
 } from '@tanstack/react-table';
 import cn from 'classnames';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+import React, { useEffect } from 'react';
 
-import { ObjectLiteral } from '@/base/types/common';
 import { useTranslation } from '@/base/config/i18next';
+import { ObjectLiteral } from '@/base/types/common';
 
 import styles from './index.module.scss';
-import { useTheme } from 'next-themes';
 
 export type TableComponentPropsType = {
   columns: ColumnDef<any>[];
@@ -79,7 +79,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
           theme === 'light' && styles.tableLight,
         )}
       >
-        <thead className={cn(styles.tableHeader)}>
+        <thead className={cn(styles.tableHeader, 'bg-color-table-header-bg-primary')}>
           {getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -88,7 +88,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
                     key={header.id}
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
-                      'whitespace-nowrap text-[#95989C] font-semibold dark:bg-[#24262B] bg-white sm:text-[14px] !text-[12px] text-slate-500 !border-0 text-center',
+                      'whitespace-nowrap text-color-text-primary font-semibold dark:bg-color-table-header-bg-primary bg-white sm:text-[14px] !text-[12px] !border-0 text-center',
                     )}
                     {...{
                       style: {

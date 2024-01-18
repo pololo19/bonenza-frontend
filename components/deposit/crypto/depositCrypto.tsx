@@ -111,7 +111,7 @@ const DepositCryptoComponent = () => {
               <InfoCircle
                 width={17}
                 height={17}
-                className="text-amber-500 w-[18px] h-[18px]"
+                className="text-color-primary w-[18px] h-[18px]"
                 role="button"
                 data-tooltip-id={'deposit-tooltip'}
               />
@@ -133,7 +133,7 @@ const DepositCryptoComponent = () => {
           )}
 
           {wallets.findIndex((wallet) => wallet.networkId === activeNetwork.id) != -1 && (
-            <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-[#31373d] rounded-[3px] gap-[20px] py-[13px] px-[20px] dark:bg-color-input-primary bg-[#f5f6fa]">
+            <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-[#31373d] rounded-[3px] gap-[20px] py-[13px] px-[20px] dark:bg-color-canvas-bg-primary bg-[#f5f6fa]">
               <div className="rounded-[16px]">
                 <Canvas
                   text={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
@@ -150,8 +150,10 @@ const DepositCryptoComponent = () => {
               </div>
               <div className="flex flex-col gap-[10px] items-start">
                 <>
-                  <div className="text-[12px] dark:text-[#C2C2C2] text-[#31373d]">{t('deposit:depositAddress')}</div>
-                  <div className="flex-1 flex items-center justify-between gap-[20px]">
+                  <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">
+                    {t('deposit:depositAddress')}
+                  </div>
+                  <div className="flex-1 flex items-center justify-between gap-[20px] bg-[#17181C] p-[10px]">
                     <DepositAddressComponent
                       className="text-[14px] text-start"
                       address={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
@@ -171,14 +173,16 @@ const DepositCryptoComponent = () => {
                 </>
                 {activeCoin.name === 'BNB' && (
                   <>
-                    <div className="text-[12px] dark:text-[#C2C2C2] text-[#31373d]">{t('deposit:orSupport')}</div>
+                    <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">
+                      {t('deposit:orSupport')}
+                    </div>
                     <div
                       className="flex items-center gap-[10px]"
                       role="button"
                       onClick={() => setOpenDepositMetamask(true)}
                     >
                       <Image src="/img/icon/MetaMask.png" alt="" width={30} height={30} />
-                      <div className="text-[12px] dark:text-[#C2C2C2] text-[#31373d]">Metamask</div>
+                      <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">Metamask</div>
                     </div>
                   </>
                 )}

@@ -2,6 +2,7 @@ import {
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
   API_WALLET_INIT_DATA,
+  API_WALLET_ROLLOVER,
   API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
@@ -10,10 +11,10 @@ import {
   API_WALLET_WITHDRAW,
 } from 'constants/endpoints';
 
-import { TransactionRequest, WithdrawRequest } from '@/base/types/requestTypes';
+import { RolloverRequest, TransactionRequest, WithdrawRequest } from '@/base/types/requestTypes';
+import { CurrencySymbolType } from '@/base/types/wallet';
 
 import api from '../api';
-import { CurrencySymbolType } from '@/base/types/wallet';
 
 export const api_getWalletInfo = async () => {
   return api.get(API_WALLET_INFO);
@@ -45,6 +46,10 @@ export const api_getTransactions = async ({
   status,
 }: TransactionRequest) => {
   return api.get(API_WALLET_TRANSACTIONS, { params: { type, symbolId, startDate, endDate, page, pageSize, status } });
+};
+
+export const api_getRollover = async ({ page, pageSize, status }: RolloverRequest) => {
+  return api.get(API_WALLET_ROLLOVER, { params: { page, pageSize, status } });
 };
 
 export const api_getDepositTime = async () => {

@@ -6,7 +6,13 @@ import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import {
+  currencyFormat,
+  exchangeByLocaleFiat,
+  formatDate,
+  getColorByStatus,
+  handleLocaleSymbol,
+} from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
@@ -35,22 +41,6 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
     return status.split('_').join(' ');
   };
 
-  const getColorStatus = (status: string) => {
-    let bgColor = '';
-    switch (status) {
-      case 'on_going':
-        bgColor = 'bg-[#efef19]';
-        break;
-      case 'not_started':
-        bgColor = 'bg-[#c31414]';
-        break;
-      default:
-        bgColor = 'bg-[#3BC117]';
-        break;
-    }
-    return bgColor;
-  };
-
   return (
     <>
       <CommonModal
@@ -71,7 +61,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
             <div
               className={cn('text-[22px]', {
                 'text-red-500': transaction.type.name === 'Withdraw',
-                'text-[#0DFDE4]': Number(transaction?.amount) >= 0,
+                'text-color-primary': Number(transaction?.amount) >= 0,
                 'text-[#FD6E0B]': Number(transaction?.amount) < 0,
               })}
             >
@@ -90,7 +80,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
             <div className="flex items-center justify-between">
               <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:status'))}</span>
               <div className="flex gap-2 items-center">
-                <div className={`w-[5px] h-[5px] rounded-full ${getColorStatus(transaction.status)}`}></div>
+                <div className={`w-[5px] h-[5px] rounded-full ${getColorByStatus(transaction.status)}`}></div>
                 <div className="dark:text-white text-black text-[12px] break-keep	">
                   {replaceStatus(transaction.status)?.charAt(0).toUpperCase() +
                     replaceStatus(transaction.status)?.slice(1)}

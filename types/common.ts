@@ -389,6 +389,7 @@ export type InformationWithdraw = {
 };
 
 export type TransactionStatus = 'process' | 'pending' | 'refunding' | 'rejected' | 'fail' | 'success' | 'approve';
+export type RolloverStatus = 'all' | 'not_started' | 'ongoing' | 'done';
 export type TransactionType = {
   amount: number;
   amountUsd: number;

@@ -1,5 +1,6 @@
 import { Currency } from 'iso-country-currency';
 import { CurrencySymbolType } from './wallet';
+import { RolloverStatus } from './common';
 
 export type VerifyRequestType = 'reset' | '';
 
@@ -65,6 +66,12 @@ export type TransactionRequest = {
   page: number;
   pageSize: number;
   status: number;
+};
+
+export type RolloverRequest = {
+  page: number;
+  pageSize: number;
+  status: RolloverStatus;
 };
 
 export type GameDemoRequest = {

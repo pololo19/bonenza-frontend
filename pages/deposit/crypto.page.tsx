@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import Head from 'next/head';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -13,15 +14,16 @@ import styles from './index.module.scss';
 
 const DepositCryptoPage = () => {
   const { t } = useTranslation('');
+  const router = useRouter();
 
   return (
     <div className={`${styles.cardContent}`}>
       <Head>
         <title>Deposit Crypto - Bonenza</title>
       </Head>
-      <div className={`h-1/3 px-[12px] py-[24px] sm:p-0 ${styles.contentHeader}`}>
+      <div className={`h-1/3 ${styles.contentHeader}`}>
         {/* Header Tabs */}
-        <div className="flex mb-[20px] sm:w-auto w-full">
+        <div className="flex mb-[20px] w-full">
           <Link
             href={ROUTER.DepositCrypto}
             className={cn(
