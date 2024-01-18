@@ -286,7 +286,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
             </div>
             <div
-              className="z-[9] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-[#f5f6fa] dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
+              className="z-[2] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-[#f5f6fa] dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
               role="button"
               onClick={handleChangeCoinSwap}
             >

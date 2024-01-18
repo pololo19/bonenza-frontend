@@ -639,11 +639,11 @@ const TransactionPage = () => {
       <Head>
         <title>Transactions History - Bonenza</title>
       </Head>
-      <div className="w-full h-1/3 p-3 md:p-5 dark:bg-[#31343D] bg-[#f5f6f7] dark:text-white text-black">
+      <div className="w-full">
         <div className="flex items-center flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -665,7 +665,7 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_TYPE.map((item, index) => (
                     <Menu.Item key={index}>
@@ -688,7 +688,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -712,7 +712,7 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
@@ -750,7 +750,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -772,7 +772,7 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_DATE.map((item, index) => (
                     <Menu.Item key={index}>
@@ -796,7 +796,7 @@ const TransactionPage = () => {
           {t(optionFilter.type.type) === TRANSACTION_TYPE.Bill && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -818,7 +818,7 @@ const TransactionPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {billTypes.map((item: BillType, index: number) => (
                       <Menu.Item key={index}>
@@ -843,7 +843,7 @@ const TransactionPage = () => {
           {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -867,7 +867,7 @@ const TransactionPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {LIST_FILTER_STATUS.filter((status) => status.flag).map((item, index) => (
                       <Menu.Item key={index}>

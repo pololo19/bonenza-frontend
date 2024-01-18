@@ -9,10 +9,18 @@ import { shallowEqual } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 import api from '@/api/api';
+import { api_getRollover } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import {
+  currencyFormat,
+  exchangeByLocaleFiat,
+  formatDate,
+  getColorByStatus,
+  handleLocaleSymbol,
+} from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
+import { RolloverStatus } from '@/base/types/common';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDetail';
@@ -20,7 +28,7 @@ import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
 
 const RolloverPage = () => {
-  const { t } = useTranslation('');
+  const { t, i18n } = useTranslation('');
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -29,35 +37,44 @@ const RolloverPage = () => {
   const [isShowDetailTransaction, setIsShowDetailTransaction] = useState<boolean>(false);
   const [transaction, setTransaction] = useState<any>({});
 
-  const { localeFiat, viewInFiat } = useSelector(
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
       viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
 
-  const LIST_FILTER_TYPE = [
-    { name: String(t('transaction:allType')), id: 1 },
-    { name: String(t('transaction:deposit')), id: 2 },
-    { name: String(t('transaction:Bonus')), id: 3 },
-  ];
+  const LIST_FILTER_TYPE = useMemo(
+    () => [
+      { name: String(t('transaction:allType')), id: 1 },
+      { name: String(t('transaction:deposit')), id: 2 },
+      { name: String(t('transaction:Bonus')), id: 3 },
+    ],
+    [i18n],
+  );
 
-  const LIST_FILTER_STATUS = [
-    { name: String(t('transaction:allStatus')), type: null },
-    { name: String(t('transaction:notStarted')), type: 'not_started' },
-    { name: String(t('transaction:onGoing')), type: 'on_going' },
-    { name: String(t('transaction:done')), type: 'done' },
-  ];
+  const LIST_FILTER_STATUS = useMemo(
+    () => [
+      { name: String(t('transaction:allStatus')), type: 'all' },
+      { name: String(t('transaction:notStarted')), type: 'not_started' },
+      { name: String(t('transaction:onGoing')), type: 'on_going' },
+      { name: String(t('transaction:done')), type: 'done' },
+    ],
+    [i18n],
+  );
 
-  const LIST_FILTER_EVENT_BONUS = [
-    { name: String(t('transaction:bonusType')), type: null },
-    { name: String(t('transaction:newbieTaskRewards')), type: 60 },
-    { name: String(t('transaction:depositBonus')), type: 1 },
-    { name: String(t('transaction:freeSpinWinnings')), type: 7 },
-    { name: String(t('transaction:newbieLuckySpinBonus')), type: 90 },
-    { name: String(t('transaction:eventBonus')), type: 90 },
-  ];
+  const LIST_FILTER_EVENT_BONUS = useMemo(
+    () => [
+      { name: String(t('transaction:bonusType')), type: null },
+      { name: String(t('transaction:newbieTaskRewards')), type: 60 },
+      { name: String(t('transaction:depositBonus')), type: 1 },
+      { name: String(t('transaction:freeSpinWinnings')), type: 7 },
+      { name: String(t('transaction:newbieLuckySpinBonus')), type: 90 },
+      { name: String(t('transaction:eventBonus')), type: 90 },
+    ],
+    [i18n],
+  );
 
   const [optionFilter, setOptionFilter] = useState({
     type: LIST_FILTER_TYPE[0],
@@ -69,49 +86,35 @@ const RolloverPage = () => {
     return status.split('_').join(' ');
   };
 
-  const getColorStatus = (status: string) => {
-    let bgColor = '';
-    switch (status) {
-      case 'on_going':
-        bgColor = 'bg-[#efef19]';
-        break;
-      case 'not_started':
-        bgColor = 'bg-[#c31414]';
-        break;
-      default:
-        bgColor = 'bg-[#3BC117]';
-        break;
-    }
-    return bgColor;
-  };
-
   const columns: ColumnDef<any>[] = useMemo(() => {
     return [
       {
         accessorKey: 'type',
-        header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:type'))}</div>,
+        header: () => (
+          <div className="text-left dark:text-color-text-primary text-black">{String(t('transaction:type'))}</div>
+        ),
         cell: ({ row }) => <div className="dark:text-white text-black text-left truncate">{row.original?.type}</div>,
         minSize: 30,
       },
       {
         accessorKey: 'amount',
         header: () => (
-          <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:amount'))}</div>
+          <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:amount'))}</div>
         ),
         cell: ({ row }) => (
           <div
             className={`${
-              optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-[#3BC117]'
+              optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
             {optionFilter.type.name === 'Withdraw' ? '-' : '+'}
             {viewInFiat ? (
               <>
-                {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
+                {/* {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
                 {currencyFormat(
                   exchangeByLocaleFiat(row.original?.symbol, String(localeFiat?.currency), row.original?.amount),
                   4,
-                )}
+                )} */}
               </>
             ) : (
               currencyFormat(Math.abs(row.original?.amount), 4)
@@ -124,7 +127,9 @@ const RolloverPage = () => {
       },
       {
         accessorKey: 'time',
-        header: () => <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:time'))}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:time'))}</div>
+        ),
         cell: ({ row }) => (
           <div className="dark:text-white text-black text-center">
             {formatDate(new Date(row.original.time), TIME_DATE_SUBMIT_FORMAT)}
@@ -135,23 +140,23 @@ const RolloverPage = () => {
       {
         accessorKey: 'status',
         header: () => (
-          <div className="text-right dark:text-[#64748b] text-black">{String(t('transaction:status'))}</div>
+          <div className="text-right dark:text-color-text-primary text-black">{String(t('transaction:status'))}</div>
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2 cursor-pointer">
-            <div className={`w-[5px] h-[5px] rounded-full ${getColorStatus(row.original.status)}`}></div>
+            <div className={`w-[5px] h-[5px] rounded-full ${getColorByStatus(row.original.status)}`}></div>
             <div className="dark:text-white text-black text-[12px] break-keep	">
               {replaceStatus(row.original.status)?.charAt(0).toUpperCase() +
                 replaceStatus(row.original.status)?.slice(1)}
             </div>
-            <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-[#31373d]" />
+            <ArrowRight2 className="h-[16px] w-[16px] dark:text-color-text-primary text-[#31373d]" />
           </div>
         ),
         maxSize: 30,
         minSize: 30,
       },
     ];
-  }, [localeFiat, viewInFiat, t]);
+  }, [localFiat, viewInFiat, t]);
 
   const handleGetRolloverOverview = async (page: number) => {
     if (optionFilter.type.name === LIST_FILTER_TYPE[2].name) {
@@ -161,16 +166,11 @@ const RolloverPage = () => {
     }
     try {
       setIsLoading(true);
-      const res = await api.get('transaction-histories/get-rollover-overview', {
-        params: {
-          type: optionFilter.type.name.toLowerCase(),
-          status: optionFilter.status.type,
-          page: page,
-          limit,
-        },
-      });
-      setDataTable(res.data.data);
-      setTotalTable(res.data.total);
+      console.log(optionFilter.status, '-----169');
+      const res = await api_getRollover({ page, pageSize: limit, status: optionFilter.status.type as RolloverStatus });
+      console.log(res);
+      // setDataTable(res.data.data);
+      // setTotalTable(res.data.total);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -204,11 +204,11 @@ const RolloverPage = () => {
       <Head>
         <title>Rollover Overview - Bonenza</title>
       </Head>
-      <div className="w-full h-1/3 sm:min-h-[400px] p-3 md:p-5 dark:bg-[#31343D] bg-[#f5f6f7] dark:text-white text-black">
+      <div className="w-full h-1/3 sm:min-h-[400px]">
         <div className="flex items-center flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -230,7 +230,7 @@ const RolloverPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_TYPE.map((item, index) => (
                     <Menu.Item key={index}>
@@ -254,7 +254,7 @@ const RolloverPage = () => {
           {optionFilter.type.name === String(t('transaction:Bonus')) && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -276,7 +276,7 @@ const RolloverPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {LIST_FILTER_EVENT_BONUS.map((item, index) => (
                       <Menu.Item key={index}>
@@ -300,7 +300,7 @@ const RolloverPage = () => {
           )}
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -322,7 +322,7 @@ const RolloverPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_STATUS.map((item, index) => (
                     <Menu.Item key={index}>

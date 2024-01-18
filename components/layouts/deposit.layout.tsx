@@ -40,7 +40,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
     {
       icon: MoneyRecive,
       name: 'sidebar:deposit',
-      href: ROUTER.Deposit,
+      href: ROUTER.DepositCrypto,
     },
     {
       icon: CardReceive,
@@ -163,7 +163,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div
                     className={cn(
                       styles.cardMain,
-                      'flex-1  text-white dark:bg-color-modal-bg-secondary bg-white rounded pt-[24px] px-[32px] pb-[32px]',
+                      'flex-1  text-white dark:bg-color-modal-bg-secondary bg-white rounded p-[20px] min-h-fit',
                     )}
                   >
                     {children}
@@ -188,7 +188,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                 leaveTo="opacity-0 translate-x-1"
               >
                 <div className="w-full flex flex-col h-screen dark:bg-color-modal-secondary bg-white">
-                  <div className="w-full dark:bg-color-header-secondary dark:text-color-text-primary bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
+                  <div className="w-full dark:bg-color-wallet-header dark:text-color-text-primary bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
                     <div className="flex-1 flex justify-between items-center">
                       <div className="text-[14px] sm:text-[16px] font-bold dark:text-white text-black">
                         {t('sidebar:wallet')}
@@ -227,18 +227,18 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                       <XMarkIcon width={20} className="sm:text-black text-gray-500" />
                     </div>
                   </div>
-                  <div className="flex-1 overflow-y-auto pt-[60px] pb-[60px]">
+                  <div className="flex-1 overflow-y-auto pt-[60px] pb-[60px] max-h-full dark:bg-color-modal-bg-secondary bg-white">
                     <div
                       className={cn(
                         styles.cardMain,
-                        'flex-1 dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black',
+                        'flex-1 dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black p-[20px] min-h-full',
                       )}
                     >
                       {children}
                     </div>
                   </div>
 
-                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-[#24262B] bg-[#f5f6fa] shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 rounded-t-xl bottom-0">
+                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-[#24262B] bg-[#f5f6fa] shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
                     <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
                       <Link
                         href={ROUTER.Deposit}

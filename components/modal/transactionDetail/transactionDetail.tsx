@@ -55,18 +55,18 @@ export default function ModalDetailTransaction({
         onClose={onClose}
         panelClass="sm:!max-w-[400px]"
         header={
-          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-[#161D26] bg-[#f5f6fa]">
+          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-color-header-primary bg-[#f5f6fa]">
             <div className="text-[16px] dark:text-white text-black font-[600]">{titleModal || 'Details'}</div>
           </div>
         }
       >
-        <div className=" min-h-[516px] overflow-auto h-full bg-cover p-4 dark:bg-[#25262B] bg-white">
+        <div className=" min-h-[516px] overflow-auto h-full bg-cover p-4">
           <div className="flex flex-col items-center py-5 gap-2">
             <Image height={40} width={40} src={transaction.symbolLogo} alt="" />
             <div
               className={cn('text-[22px]', {
                 'text-red-500': transaction.type === TRANSACTION_TYPE.Withdraw,
-                'text-[#0DFDE4]': Number(transaction?.amount) >= 0,
+                'text-color-primary': Number(transaction?.amount) >= 0,
                 'text-[#FD6E0B]': Number(transaction?.amount) < 0,
               })}
             >

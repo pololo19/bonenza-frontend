@@ -47,6 +47,7 @@ const API_WALLET_WITHDRAW = '/wallet/withdraw';
 const API_WALLET_SWAP_RATE = '/wallet/swap/prices';
 const API_WALLET_SWAP = '/wallet/swap';
 const API_WALLET_TRANSACTIONS = '/wallet/transaction';
+const API_WALLET_ROLLOVER = '/wallet/rollover';
 const API_WALLET_DEPOSIT_TIME = '/wallet/get-deposit-time-for-this-week';
 const API_WALLET_INIT_DATA = '/wallet/init-currency';
 const API_WALLET_SET_FAVORITE = '/wallet/set-currency-favorite-status';
@@ -158,6 +159,7 @@ export {
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
   API_WALLET_INIT_DATA,
+  API_WALLET_ROLLOVER,
   API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
