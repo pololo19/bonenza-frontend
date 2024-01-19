@@ -46,8 +46,6 @@ export default function ModalDetailTransaction({
     return transaction.status === LIST_FILTER_STATUS[4].type || transaction.status === LIST_FILTER_STATUS[5].type;
   }, [transaction]);
 
-  console.log(transaction, 'transaction');
-
   return (
     <>
       <CommonModal
