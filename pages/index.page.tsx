@@ -50,6 +50,7 @@ import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
+import { api_getDepositTime } from '@/api/wallet';
 
 function IndexPage() {
   const width = useWidth();
@@ -121,16 +122,6 @@ function IndexPage() {
   const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
 
   const [listCasinoTabGame, setListCasinoTabGame] = useState<GameListType[]>([]);
-
-  const handleCheckDeposit = async () => {
-    try {
-      const res = await api.get('deposit/get-all-deposit');
-      setCheckDeposit(res.data.deposited);
-    } catch (error) {
-      console.log(error);
-    } finally {
-    }
-  };
 
   const router = useRouter();
 
@@ -213,7 +204,7 @@ function IndexPage() {
     }
   };
 
-  const loadDataAfterLogin = async () => {
+  const loadDataAfterLoginMobile = async () => {
     try {
       setIsLoading(true);
       const [picksforYou, recentGames, favoriteGames] = await Promise.all([
@@ -263,6 +254,22 @@ function IndexPage() {
     }
   };
 
+  const loadDataAfterLogin = async () => {
+    try {
+      setIsLoading(true);
+      const result = await api_getDepositTime();
+      if (result.data.times === 0) {
+        setCheckDeposit(true);
+      } else {
+        setCheckDeposit(true);
+      }
+    } catch (error) {
+      setCheckDeposit(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     initDataLoad();
   }, []);
@@ -272,7 +279,10 @@ function IndexPage() {
   }, [key]);
 
   useEffect(() => {
-    if (isLogin && width < 600) {
+    if (isLogin && width <= 600) {
+      loadDataAfterLoginMobile();
+    }
+    if (isLogin && width > 600) {
       loadDataAfterLogin();
     }
   }, [width, isLogin]);
@@ -365,15 +375,6 @@ function IndexPage() {
                           >
                             {String(t('homePage:depositAndPlay'))}
                           </button>
-                          {/* <button
-                            type="button"
-                            className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[7px] p-[10px] xl:text-[14px] text-[12px] font-bold"
-                          >
-                            {String(t('homePage:freePlay'))}
-                            <div className="sm:p-[10px] p-[7px] items-center justify-center rounded-[5px] bg-white/20">
-                              <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
-                            </div>
-                          </button> */}
                         </div>
                       )}
                       {checkDeposit && <VipProgressComponent />}

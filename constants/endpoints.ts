@@ -90,6 +90,10 @@ const API_GAME_GET_FAVORITE = '/game/get-game-favorite-status';
 
 const API_AFFILIATE = '/affiliate/affiliate';
 
+/************************************ VIP **********************************/
+
+const API_VIP_VIP_PROGRESS = '/vip/vip-progress';
+
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
 
@@ -161,6 +165,7 @@ export {
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
+  API_VIP_VIP_PROGRESS,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
   API_WALLET_INIT_DATA,

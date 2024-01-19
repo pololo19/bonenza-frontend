@@ -78,8 +78,8 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const [showModalBonusHistory, setShowModalBonusHistory] = useState<boolean>(false);
 
   const filterListFiat = useMemo(() => {
-    const arraySearch = fiatSymbols.filter((item: CurrencyType) =>
-      item.name.toLowerCase().includes(searchFiatInput.toLowerCase()),
+    const arraySearch = fiatSymbols.filter(
+      (item: CurrencyType) => item.name.toLowerCase().includes(searchFiatInput.toLowerCase()) && item.favorite,
     );
 
     return showSmallFiat ? [] : arraySearch;
@@ -89,8 +89,8 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   }, [searchFiatInput, fiatSymbols, showSmallFiat]);
 
   const filterListCrypto = useMemo(() => {
-    let arraySearch = cryptoSymbols.filter((item: CurrencyType) =>
-      item.name.toLowerCase().includes(searchFiatInput.toLowerCase()),
+    let arraySearch = cryptoSymbols.filter(
+      (item: CurrencyType) => item.name.toLowerCase().includes(searchFiatInput.toLowerCase()) && item.favorite,
     );
     if (showSmallFiat) {
       const avaSymbols = cryptoBalances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
@@ -343,7 +343,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             {showFullNameCurrency && <div className="text-[12px] text-gray-400">{fiat.alias}</div>}
                           </div>
                           <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                            {viewInFiat && (
+                            {localFiat ? (
                               <>
                                 {currencyFormat1(
                                   getBalanceBySymbol(fiat) * fiat.price * exchangeRate,
@@ -351,12 +351,13 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                   localFiat?.name,
                                 )}
                                 <br />
+                                <span className="text-gray-400 text-[12px]">
+                                  {currencyFormat1(getBalanceBySymbol(fiat) * fiat.price, fiatDecimals, '', false)}
+                                </span>
                               </>
+                            ) : (
+                              <>{currencyFormat1(getBalanceBySymbol(fiat) * fiat.price, fiatDecimals, '', false)}</>
                             )}
-
-                            <span className="text-gray-400 text-[12px]">
-                              {currencyFormat1(0, fiatDecimals, '', false)}
-                            </span>
                           </div>
                         </div>
                       )}
