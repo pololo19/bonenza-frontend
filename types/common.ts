@@ -439,6 +439,24 @@ export type BetDetailType = {
   userName: string;
 };
 
+export type RolloverType = {
+  id: string;
+  type: string;
+  amount: number;
+  amountUsd: number;
+  pendingWagerRequiredAmount: number;
+  pendingWagerRequiredUsdAmount: number;
+  wagerCompletedAmount: number;
+  wagerCompletedUsdAmount: number;
+  withdrawableFoundsAmount: number;
+  withdrawableFoundsUsdAmount: number;
+  currency: string;
+  currencyLogo: string;
+  status: RolloverStatus;
+  times: number;
+  createdAt: Date;
+};
+
 export type CategoryType =
   | 'all'
   | 'live_casino'

@@ -4,7 +4,7 @@ import { ColumnDef, Row } from '@tanstack/react-table';
 import { ArrowRight2 } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
-import React, { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useSelector } from 'react-redux';
 
@@ -12,15 +12,10 @@ import api from '@/api/api';
 import { api_getRollover } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
-import {
-  currencyFormat,
-  exchangeByLocaleFiat,
-  formatDate,
-  getColorByStatus,
-  handleLocaleSymbol,
-} from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, formatDate, getColorByStatus } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { RolloverStatus } from '@/base/types/common';
+import { RolloverStatus, RolloverType } from '@/base/types/common';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDetail';
@@ -28,19 +23,35 @@ import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
 
 const RolloverPage = () => {
+  const exchange = useExchange();
   const { t, i18n } = useTranslation('');
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [totalTable, setTotalTable] = useState<number>(0);
-  const [dataTable, setDataTable] = useState<any[]>([]);
+  const [dataTable, setDataTable] = useState<RolloverType[]>([]);
   const [isShowDetailTransaction, setIsShowDetailTransaction] = useState<boolean>(false);
-  const [transaction, setTransaction] = useState<any>({});
+  const [transaction, setTransaction] = useState<RolloverType>({
+    id: '',
+    type: '',
+    amount: 0,
+    amountUsd: 0,
+    pendingWagerRequiredAmount: 0,
+    pendingWagerRequiredUsdAmount: 0,
+    wagerCompletedAmount: 0,
+    wagerCompletedUsdAmount: 0,
+    withdrawableFoundsAmount: 0,
+    withdrawableFoundsUsdAmount: 0,
+    currency: '',
+    currencyLogo: '',
+    status: 'not_started',
+    times: 0,
+    createdAt: new Date(),
+  });
 
-  const { localFiat, viewInFiat } = useSelector(
+  const { localFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
-      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -108,19 +119,13 @@ const RolloverPage = () => {
             } flex items-center justify-center gap-1`}
           >
             {optionFilter.type.name === 'Withdraw' ? '-' : '+'}
-            {viewInFiat ? (
-              <>
-                {/* {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                {currencyFormat(
-                  exchangeByLocaleFiat(row.original?.symbol, String(localeFiat?.currency), row.original?.amount),
-                  4,
-                )} */}
-              </>
+            {localFiat ? (
+              <>{currencyFormat1(Math.abs(row.original.amount) * exchange, 2, localFiat.name)}</>
             ) : (
-              currencyFormat(Math.abs(row.original?.amount), 4)
+              currencyFormat1(Math.abs(row.original.amount), 4, '', false)
             )}
 
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbol}.png`} alt="" />
+            <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="" />
           </div>
         ),
         minSize: 250,
@@ -132,7 +137,7 @@ const RolloverPage = () => {
         ),
         cell: ({ row }) => (
           <div className="dark:text-white text-black text-center">
-            {formatDate(new Date(row.original.time), TIME_DATE_SUBMIT_FORMAT)}
+            {formatDate(new Date(row.original.createdAt), TIME_DATE_SUBMIT_FORMAT)}
           </div>
         ),
         minSize: 150,
@@ -156,26 +161,51 @@ const RolloverPage = () => {
         minSize: 30,
       },
     ];
-  }, [localFiat, viewInFiat, t]);
+  }, [localFiat, t]);
 
-  const handleGetRolloverOverview = async (page: number) => {
-    if (optionFilter.type.name === LIST_FILTER_TYPE[2].name) {
-      setDataTable([]);
-      setTotalTable(0);
-      return;
-    }
-    try {
-      setIsLoading(true);
-      console.log(optionFilter.status, '-----169');
-      const res = await api_getRollover({ page, pageSize: limit, status: optionFilter.status.type as RolloverStatus });
-      console.log(res);
-      // setDataTable(res.data.data);
-      // setTotalTable(res.data.total);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const handleGetRolloverOverview = useCallback(
+    async (page: number) => {
+      if (optionFilter.type.name === LIST_FILTER_TYPE[2].name) {
+        setDataTable([]);
+        setTotalTable(0);
+        return;
+      }
+      try {
+        setIsLoading(true);
+        const res = await api_getRollover({
+          page,
+          pageSize: limit,
+          status: optionFilter.status.type as RolloverStatus,
+        });
+        const totalCount = res.data?.totalCount;
+        const tempRollovers: RolloverType[] = res.data?.transactions?.map((item: any) => ({
+          id: item?.id ?? '',
+          type: 'Deposit',
+          amount: Number(item?.amount ?? 0),
+          amountUsd: Number(item?.amountUsd ?? 0),
+          pendingWagerRequiredAmount: Number(item?.pendingWagerRequiredAmount ?? 0),
+          pendingWagerRequiredUsdAmount: Number(item?.pendingWagerRequiredAmountUsd ?? 0),
+          wagerCompletedAmount: Number(item?.wagerCompletedAmount ?? 0),
+          wagerCompletedUsdAmount: Number(item?.wagerCompletedAmountUsd ?? 0),
+          withdrawableFoundsAmount: Number(item?.withdrawableFoundsAmount ?? 0),
+          withdrawableFoundsUsdAmount: Number(item?.withdrawableFoundsAmountUsd ?? 0),
+          currency: item?.currendySymbol ?? 'USD',
+          currencyLogo: item?.currencyLogo ?? '/image/fiats/USD.png',
+          status: item?.rollover ?? 'not_started',
+          times: item?.times ?? 0,
+          createdAt: new Date(item?.createdAt ?? ''),
+        }));
+        setDataTable(tempRollovers);
+        setTotalTable(totalCount);
+      } catch (error) {
+        setDataTable([]);
+        setTotalTable(0);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [limit, optionFilter],
+  );
 
   const handleClickRow = (row: Row<any>) => {
     setIsShowDetailTransaction(true);
