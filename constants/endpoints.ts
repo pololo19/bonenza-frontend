@@ -86,6 +86,10 @@ const API_GAME_GAMES_BY_NAME_PROVIDER = '/game/get-game-by-name-and-provider';
 const API_GAME_SET_FAVORITE = '/game/set-game-favorite-status';
 const API_GAME_GET_FAVORITE = '/game/get-game-favorite-status';
 
+/************************************ Affiliate **********************************/
+
+const API_AFFILIATE = '/affiliate/affiliate';
+
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
 
@@ -102,6 +106,7 @@ const URL_EXCHANGE_RATE = 'exchange/get-exchange-rate';
 
 export {
   API_ADMIN_LOGIN,
+  API_AFFILIATE,
   API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GENERATE_QR_CODE,

@@ -26,10 +26,10 @@ import {
   API_GAME_TOP_RATED_GAMES,
 } from 'constants/endpoints';
 
+import { CategoryType } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 
 import api from '../api';
-import { CategoryType } from '@/base/types/common';
 
 export type SortType = 'popular' | 'asc' | 'desc' | 'new' | 'a-z' | 'z-a' | 'like';
 

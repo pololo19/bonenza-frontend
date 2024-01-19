@@ -70,7 +70,7 @@
     "commission": "COMMISSION",
     "signUpAndEarn": "Sign up and Earn",
     "referralTermsConditions": "Referral Terms & Conditions",
-    "everyFriendYouInvite": "Every friend you invite, will get you ₫25,011,968.90, the more you invite, the more you will get!",
+    "everyFriendYouInvite": "Every friend you invite, will get you {{reward}}, the more you invite, the more you will get!",
     "getYour": "GET YOUR",
     "referralRewards": "REFERRAL REWARDS",
     "pleaseSeeTheDetails": "Please see the details",
