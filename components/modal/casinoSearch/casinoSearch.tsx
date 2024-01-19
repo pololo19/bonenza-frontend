@@ -113,13 +113,16 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   }, [debouncedSearchValue]);
 
   useEffect(() => {
-    getRecommandGames();
+    if (width > 600) {
+      getRecommandGames();
+    }
+
     const casinoSearchHistories = CookiesStorage.getCookieData('casinoSearch');
     if (casinoSearchHistories) {
       const value = JSON.parse(casinoSearchHistories);
       sethistory(value);
     }
-  }, []);
+  }, [width]);
 
   const wheelHandler = (event: any) => {
     const layout = document.getElementById('base-layout');
@@ -254,7 +257,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                   </div>
                   <div className="flex gap-[10px] justify-start w-full mb-[20px] flex-nowrap relative max-w-full overflow-x-auto snap-x snap-mandatory">
                     {history.map((item, index) => (
-                      <div key={index} className={styles.search_history_box}>
+                      <div key={index} className={cn(styles.search_history_box, 'flex-shrink-0')}>
                         {item}
                         <div className={styles.close} onClick={() => handleDeletehistory(index)}>
                           <XMarkIcon className="text-color-text-primary w-[14px] hover:text-white font-bold" />
