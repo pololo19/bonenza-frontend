@@ -1,6 +1,5 @@
-import { ChatBubbleOvalLeftEllipsisIcon, PlusIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
-import { Add, Box1, Gift, Global, Message, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
+import { Add, Gift, Global, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,13 +23,12 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import LoaderFull from '../common/loaderFull/loaderFull';
 import CasinoBoldIcon from '../icons/CasinoBoldIcon';
-import ChatSignInIcon from '../icons/ChatSignInIcon';
+import ChatSignOutIcon from '../icons/ChatSignOutIcon';
 import RacingBoldIcon from '../icons/RacingBoldIcon';
 import SportBoldIcon from '../icons/SportBoldIcon';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import ProfileDropdown from '../profileDropdown/profileDropdown';
 import FiatHeader from './header/fiatHeader';
-import ChatSignOutIcon from '../icons/ChatSignOutIcon';
 
 export default function Navbar() {
   const router = useRouter();
@@ -156,7 +154,7 @@ export default function Navbar() {
               onClick={() => dispatch(changeIsShowCasinoSearch(!isShowCasinoSearch))}
             >
               <div className="sm:block hidden">
-                <SearchNormal />
+                <SearchNormal className="w-[18px] h-[18px]" />
               </div>
             </button>
             {!isLogin && (
@@ -168,7 +166,7 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  className="truncate dark:text-color-text-primary rounded-[5px] font-semibold py-[9px] px-5 text-[14px] font-bold text-[#31373d]  dark:hover:bg-color-hover-primary"
+                  className="truncate dark:text-color-text-primary rounded-[5px] py-[9px] px-5 text-[14px] font-bold text-[#31373d]  dark:hover:bg-color-hover-primary"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
