@@ -207,7 +207,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               </div>
             </div>
           </div>
-          <div className="text-color-text-primary  relative h-[calc(100%_-_159px)]">
+          <div className="text-color-text-primary block relative h-[calc(90vh_-_170px)]">
             <div className="flex justify-between items-center px-5">
               {t('deposit:myFavoriteCoins')}
               {isReverse ? (
@@ -228,7 +228,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 />
               )}
             </div>
-            <div className="flex flex-col pt-[10px] h-full max-h-[calc(100%_-_50px)] overflow-auto scrollbar  px-5">
+            <div className="flex flex-col pt-[10px] max-h-[calc(100%_-_30px)] overflow-y-auto scrollbar  px-5">
               {openTab === 1 &&
                 listCoinCrypto.length > 0 &&
                 listCoinCrypto?.map((coin, index) => (
