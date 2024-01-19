@@ -7,10 +7,11 @@ import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useDebounce, useDebouncedCallback } from 'use-debounce';
 
-import { api_getGamesByNameAndProvider } from '@/api/game';
+import { api_getGamesByNameAndProvider, api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useWidth } from '@/base/hooks/useWidth';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { setRecommandGames } from '@/base/redux/reducers/game.reducer';
 import { AppState } from '@/base/redux/store';
 import { GameListType } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
@@ -70,6 +71,28 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
     }
   };
 
+  const getRecommandGames = async () => {
+    try {
+      setIsLoading(true);
+      const recommendedGames = await api_getPickGames(1, 20);
+      const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item.payout || 0),
+        multiplier: Number(item.profitMultiplier || 0),
+        providerName: item?.producerName ?? '',
+        releasedAt: item?.releasedAt ?? new Date(),
+      }));
+      dispatch(setRecommandGames(tempListRecommandedGames));
+    } catch (error) {
+      dispatch(setRecommandGames([]));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (debouncedSearchValue.length >= 3) {
       handleGetSearchGame(debouncedSearchValue);
@@ -90,6 +113,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   }, [debouncedSearchValue]);
 
   useEffect(() => {
+    getRecommandGames();
     const casinoSearchHistories = CookiesStorage.getCookieData('casinoSearch');
     if (casinoSearchHistories) {
       const value = JSON.parse(casinoSearchHistories);
@@ -98,7 +122,6 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   }, []);
 
   const wheelHandler = (event: any) => {
-    console.log(event, '====101');
     const layout = document.getElementById('base-layout');
     const currentPosition = layout?.scrollTop ?? 0;
     const scrollFactor = 3;
@@ -121,10 +144,19 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
     return (
       <>
         {debouncedSearchValue.length >= 3 && !!listSearchGame.length && (
-          <div className="sm:mb-[20px] mb-0 h-full">
-            <div className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]">
-              {t('casino:searchResult')}
+          <div className="flex flex-col sm:mb-[20px] mb-0 h-full">
+            <div className="flex justify-between">
+              <div className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]">
+                {t('casino:searchResult')}
+              </div>
+              <div
+                className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]"
+                dangerouslySetInnerHTML={{
+                  __html: t('casino:searchNum', { length: listSearchGame.length }),
+                }}
+              />
             </div>
+
             <div className="game-grid-parent mt-[10px] sm:max-h-[56vh] max-h-[calc(100%_-_100px)] h-fit overflow-y-auto scrollbar">
               {listSearchGame.map((game, index) => {
                 return (
@@ -147,7 +179,6 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
 
   return (
     <>
-      {isLoading && <Loader />}
       <div
         onWheel={wheelHandler}
         ref={casinoSearchRef}
@@ -171,6 +202,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
           style={{ transform: 'translateY(0%) translateZ(0px)' }}
           ref={casinoSearchBodyRef}
         >
+          {isLoading && <Loader />}
           <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto h-full">
             <div className="relative">
               <input
@@ -189,7 +221,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 height={22}
                 className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-[#31373d]"
               />
-              {debouncedSearchValue.length > 3 && (
+              {debouncedSearchValue.length > 0 && (
                 <div
                   role="button"
                   className="absolute top-1/2 right-[65px] w-[14px] h-[14px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white cursor-pointer"

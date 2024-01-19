@@ -681,6 +681,7 @@
     "aboutUs": "About us",
     "searchRequires": "Search requires at least 3 characters",
     "searchResult": "Search Result",
+    "searchNum": "About <span class='text-color-primary'>{{length}}</span> results",
     "searchHistory": "Search History",
     "pickForYou": "Pick For You",
     "favorite": "Favorites",
