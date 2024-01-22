@@ -15,10 +15,6 @@ type ModalVerificationProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-type UpdateProfileFormType = {
-  username: string;
-};
-
 export default function ModalVerification({ show, onClose }: ModalVerificationProps) {
   const { t } = useTranslation('');
   const dispatch = useDispatch();

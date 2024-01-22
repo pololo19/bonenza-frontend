@@ -7,6 +7,8 @@ import {
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
+  API_AUTH_SEND_USER_MAIL,
+  API_AUTH_SEND_USER_PHONE,
   API_AUTH_SET_LOGIN,
   API_AUTH_SET_LOGIN_PASSWORD,
   API_AUTH_SIGNUP_WITH_EMAIL,
@@ -14,6 +16,7 @@ import {
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
+  API_AUTH_VERIFY_USER_CODE,
 } from 'constants/endpoints';
 
 import {
@@ -45,6 +48,18 @@ export const api_sendMail = (email: string, request: VerifyRequestType) => {
 
 export const api_signupWithEmail = (data: SignUpEmailRequest) => {
   return api.post(API_AUTH_SIGNUP_WITH_EMAIL, data);
+};
+
+export const api_sendMailToUser = (email: string, request: VerifyRequestType) => {
+  return api.post(API_AUTH_SEND_USER_MAIL, { email, request });
+};
+
+export const api_sendSMSToUser = (phone: string, request: VerifyRequestType) => {
+  return api.post(API_AUTH_SEND_USER_PHONE, { phone, request });
+};
+
+export const api_verifyCodeToUser = (data: VerifyCodeRequest) => {
+  return api.post(API_AUTH_VERIFY_USER_CODE, data);
 };
 
 export const api_signupWithPhone = (data: SignUpPhoneRequest) => {

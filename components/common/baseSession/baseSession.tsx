@@ -29,7 +29,7 @@ const CommonSession = ({ title, icon = Wallet, children, iconClass }: CommonSess
           className="dark:text-[#9FA5AC] sm:hidden block cursor-pointer dark:hover:text-white text-[#31373d] hover:text-black w-[1.5rem] h-[1.5rem]"
         />
       </div>
-      <div className="sm:mt-5 mt-1 w-full">{children}</div>
+      <div className="sm:mt-5 mt-3 w-full">{children}</div>
     </div>
   );
 };

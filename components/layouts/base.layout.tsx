@@ -36,6 +36,7 @@ import {
   changeIsShowResetPassword,
   changeIsShowUpdateAvatar,
   changeIsShowUpdateInformation,
+  changeIsShowVerifyMailAndPhone,
   changeIsShowVipClubModal,
   changeIsShowVipLevelModal,
   changeShowChatType,
@@ -88,6 +89,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndPhone';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -144,6 +146,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowAccount,
     isShowSidebar,
     isShowCasinoSearch,
+    isShowVerifyMailAndPhone,
+    verifyModeType,
     cryptoArray,
     userId,
     walletSocket,
@@ -171,6 +175,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowUpdateAvatar: state.modal.isShowUpdateAvatar,
       isShowResetPassword: state.modal.isShowResetPassword,
       isShowCasinoSearch: state.modal.isShowCasinoSearch,
+      isShowVerifyMailAndPhone: state.modal.isShowVerifyMailAndPhone,
+      verifyModeType: state.modal.verifyModeType,
 
       isShowSidebar: state.modal.isShowMenuPannel,
       isShowAccount: state.modal.isShowAccountPannel,
@@ -747,6 +753,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           onClose={() => {
             dispatch(changeIsShowResetPassword(false));
             router.replace(ROUTER.Home);
+          }}
+        />
+      )}
+      {isShowVerifyMailAndPhone && (
+        <ModalVerificationMailAndPhone
+          show={isShowVerifyMailAndPhone}
+          onClose={() => {
+            dispatch(changeIsShowVerifyMailAndPhone(false));
           }}
         />
       )}
