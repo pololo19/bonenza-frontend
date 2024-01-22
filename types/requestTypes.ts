@@ -76,6 +76,7 @@ export type RolloverRequest = {
 
 export type GameDemoRequest = {
   gameId: string;
+  locale: string;
 };
 
 export type GameCreateSessionRequest = {

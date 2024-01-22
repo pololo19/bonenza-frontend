@@ -1,34 +1,32 @@
 import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
-import { Heart, PlayCricle, Refresh, Send2 } from 'iconsax-react';
+import { PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useRef, useState } from 'react';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import api from '@/api/api';
 import {
   api_getGameDetail,
   api_getGameFavorite,
-  api_getLatestBetsForGame,
   api_setGameFavorite,
   api_startGameDemo,
   api_startGameSession,
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { useWidth } from '@/base/hooks/useWidth';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowDepositModal,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { AuthenticationModeEnum, GameListType, GameProviderDetail, GameReactionDetail } from '@/base/types/common';
+import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import GameDescriptionComponent from '@/components/game/gameDescription';
@@ -48,10 +46,12 @@ type LaunchUrlTye = {
 
 function GamePage() {
   const launchUrlRef = useRef<any>();
+  const width = useWidth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
   const [isLoadingGame, setIsLoadingGame] = useState<boolean>(true);
+  const [isPlayRequested, setIsPlayRequested] = useState<boolean>(true);
 
   const [launchUrl, setLaunchUrl] = useState<LaunchUrlTye | null>(null);
   const [gameDetail, setGameDetail] = useState<GameListType>({
@@ -87,13 +87,15 @@ function GamePage() {
 
   const dispatch = useDispatch();
 
-  const { isLogin, localFiat, activeCurrency, balances, betHistory } = useSelector(
+  const { isLogin, localFiat, activeCurrency, balances, betHistory, language } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       activeCurrency: state.wallet.activeCurrency,
       balances: state.wallet.balances,
       isLogin: state.auth.isLogin,
       betHistory: state.game.betHistory,
+
+      language: state.auth.user.generalSetting.settingLanguage,
     }),
     shallowEqual,
   );
@@ -113,8 +115,12 @@ function GamePage() {
 
   const handleGetGameDetail = async () => {
     try {
+      if (!String(gameId)) {
+        return;
+      }
       setIsLoading(true);
       setIsNotFoundGame(false);
+
       const resGameDetail = await api_getGameDetail(String(gameId));
 
       const tempGameDetailData: GameListType = {
@@ -133,8 +139,24 @@ function GamePage() {
         allowedDemo: resGameDetail.data?.allowDemo,
         favorites: resGameDetail.data?.favoriteCount,
       };
-      if (!resGameDetail.data?.allowLocation) {
-        toast.error(t('notification:errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
+
+      if (width > 600) {
+        const requestData: GameDemoRequest = {
+          gameId: resGameDetail.data?.id,
+          locale: language,
+        };
+        const resLaunchGameDetail = await api_startGameDemo(requestData);
+
+        const lanuchGameOption: LaunchUrlTye = {
+          gameUrl: resLaunchGameDetail.data.gameUrl,
+          strategy: resLaunchGameDetail.data.strategy,
+        };
+
+        if (!resGameDetail.data?.allowLocation) {
+          toast.error(t('notification:errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
+        }
+
+        setLaunchUrl(lanuchGameOption);
       }
 
       setGameDetail(tempGameDetailData);
@@ -149,12 +171,14 @@ function GamePage() {
     try {
       const requestData: GameDemoRequest = {
         gameId: gameDetail.id,
+        locale: language,
       };
       const res = await api_startGameDemo(requestData);
       const lanuchGameOption: LaunchUrlTye = {
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
       };
+      setIsPlayRequested(false);
       setLaunchUrl(lanuchGameOption);
     } catch (error) {}
   };
@@ -173,6 +197,7 @@ function GamePage() {
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
       };
+      setIsPlayRequested(false);
       setLaunchUrl(lanuchGameOption);
       launchUrlRef.current = { ...lanuchGameOption };
     } catch (error) {
@@ -186,7 +211,7 @@ function GamePage() {
 
   const handleCurrentReactionGame = async () => {
     try {
-      if (!gameDetail.id) return;
+      if (!gameDetail.id || !isLogin) return;
       const res = await api_getGameFavorite(gameDetail.id);
       const favorite = res.data.state;
       setReactionData({
@@ -238,7 +263,7 @@ function GamePage() {
     } else {
       setIsNotFoundGame(true);
     }
-  }, [gameId]);
+  }, [gameId, width, language]);
 
   useEffect(() => {
     if (gameDetail.identifier) {
@@ -315,25 +340,25 @@ function GamePage() {
           </div>
           <div>
             {/* Game play */}
-            <FullScreen handle={gameScreen} className="aspect-[2] w-full mt-[20px]">
+            <FullScreen handle={gameScreen} className="aspect-[2] w-full mt-[20px] relative">
               <div
                 id="game_wrapper"
                 key={String(gameId)}
-                className={cn('', styles.gameWrapper, {
+                className={cn('sm:block hidden', styles.gameWrapper, {
                   'h-full': !isLoadingGame,
                   hidden: isLoadingGame,
                 })}
               ></div>
-              {isLoadingGame && (
-                <div className="flex items-center justify-center rounded relative h-full">
-                  <Image
+              {isPlayRequested && (
+                <div className="flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full">
+                  {/* <Image
                     src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
                     fill
                     alt=""
                     onError={(e) => {
                       e.currentTarget.src = '/img/game-background.png';
                     }}
-                  />
+                  /> */}
                   <div className="h-full bg-black/80 w-full absolute"></div>
                   {isLoading && (
                     <div>
