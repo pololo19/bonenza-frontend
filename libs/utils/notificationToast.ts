@@ -45,7 +45,16 @@ export default function getErrorMessage(path: string, func: string, status: numb
         externalData = { user: data };
         break;
       case 406:
-        message = 'authentication:userNotAllow';
+        if (error === 'allowUser') {
+          message = 'authentication:userNotAllow';
+        }
+        if (error === 'verifyPhone') {
+          message = 'errors:verifyPhone';
+        }
+        if (error === 'verifyMail') {
+          message = 'errors:verifyMail';
+        }
+
         break;
 
       default:

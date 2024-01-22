@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthenticationModeEnum } from '@/base/types/common';
+import { AuthenticationModeEnum, VerifyModeEnum } from '@/base/types/common';
 import { ModalState } from '@/base/types/reducer-states';
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 
@@ -31,6 +31,8 @@ const initialCommonState: ModalState = {
   isShowModalBonusHistory: false,
   isShowAccountPannel: false,
   isShowMenuPannel: false,
+  isShowVerifyMailAndPhone: false,
+  verifyModeType: VerifyModeEnum.MAIL,
 };
 
 export const queryDataSlice = createSlice({
@@ -65,7 +67,6 @@ export const queryDataSlice = createSlice({
       state.isShowAuthenticationModal = action.payload;
     },
     changeAuthenticationType: (state: ModalState, action: PayloadAction<AuthenticationModeEnum>) => {
-      console.log('-------66');
       state.authenticationType = action.payload;
     },
     changeMultiLanguageTab: (state: ModalState, action: PayloadAction<MultiLanguageTabEnum>) => {
@@ -116,6 +117,12 @@ export const queryDataSlice = createSlice({
     changeIsShowMenuPannel: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowMenuPannel = action.payload;
     },
+    changeIsShowVerifyMailAndPhone: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowVerifyMailAndPhone = action.payload;
+    },
+    changeVerifyMode: (state: ModalState, action: PayloadAction<VerifyModeEnum>) => {
+      state.verifyModeType = action.payload;
+    },
   },
 });
 
@@ -146,5 +153,7 @@ export const {
   changeIsShowBonusHistory,
   changeIsShowAccountPannel,
   changeIsShowMenuPannel,
+  changeIsShowVerifyMailAndPhone,
+  changeVerifyMode,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

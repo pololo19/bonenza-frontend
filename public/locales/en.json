@@ -1347,7 +1347,8 @@
     "verifyNow": "Verify now",
     "reviewTime": "Review time: Few mins",
     "verificationVerified": "Basic Verification Verified",
-    "verificationPending": "Basic Verification Pending"
+    "verificationPending": "Basic Verification Pending",
+    "verifyCodeHeader": "We’ve sent a verification code to {{code}}, please enter the 6-digit code below:"
   },
   "wagerContest": {
     "daily": "Daily",
@@ -1827,6 +1828,10 @@
     }
   },
   "errors": {
-    "internalServer": "Internal Server Error"
+    "internalServer": "Internal Server Error",
+    "existPhone": "This Phone is already exists",
+    "existMail": "This Email is already exists",
+    "verifyPhone": "This Phone is not verified",
+    "verifyMail": "This Email is not verified"
   }
 }

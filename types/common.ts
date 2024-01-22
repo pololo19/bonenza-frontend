@@ -11,6 +11,11 @@ export enum AuthenticationModeEnum {
   VERIFY = 'VERIFY',
 }
 
+export enum VerifyModeEnum {
+  MAIL = 'mail',
+  PHONE = 'phone',
+}
+
 export enum EnumCSVValidateResult {
   CSV_ERROR_EXTENSION = 'CSV_ERROR_EXTENSION',
   CSV_ERROR_MAX_SIZE = 'CSV_ERROR_MAX_SIZE',

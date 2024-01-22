@@ -1,6 +1,14 @@
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 
-import { AuthenticationModeEnum, BetTableDataType, DepositAddress, FiatType, GameListType, UserDetail } from './common';
+import {
+  AuthenticationModeEnum,
+  BetTableDataType,
+  DepositAddress,
+  FiatType,
+  GameListType,
+  UserDetail,
+  VerifyModeEnum,
+} from './common';
 import { VerifyRequestType } from './requestTypes';
 import { BalanceType, CryptoCurrencyType, CryptoNetWorkType, CurrencyType, DepositAddressType } from './wallet';
 
@@ -47,6 +55,8 @@ export type ModalState = {
   isShowModalBonusHistory?: boolean;
   isShowAccountPannel?: boolean;
   isShowMenuPannel?: boolean;
+  isShowVerifyMailAndPhone?: boolean;
+  verifyModeType?: VerifyModeEnum;
 };
 
 export type LoadingState = {

@@ -22,6 +22,28 @@ import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDeta
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
 
+const LIST_FILTER_TYPE = [
+  { name: 'transaction:allType', id: 1 },
+  { name: 'transaction:deposit', id: 2 },
+  { name: 'transaction:Bonus', id: 3 },
+];
+
+const LIST_FILTER_STATUS = [
+  { name: 'transaction:allStatus', type: 'all' },
+  { name: 'transaction:notStarted', type: 'not_started' },
+  { name: 'transaction:onGoing', type: 'on_going' },
+  { name: 'transaction:done', type: 'done' },
+];
+
+const LIST_FILTER_EVENT_BONUS = [
+  { name: 'transaction:bonusType', type: null },
+  { name: 'transaction:newbieTaskRewards', type: 60 },
+  { name: 'transaction:depositBonus', type: 1 },
+  { name: 'transaction:freeSpinWinnings', type: 7 },
+  { name: 'transaction:newbieLuckySpinBonus', type: 90 },
+  { name: 'transaction:eventBonus', type: 90 },
+];
+
 const RolloverPage = () => {
   const exchange = useExchange();
   const { t, i18n } = useTranslation('');
@@ -54,37 +76,6 @@ const RolloverPage = () => {
       localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
-  );
-
-  const LIST_FILTER_TYPE = useMemo(
-    () => [
-      { name: String(t('transaction:allType')), id: 1 },
-      { name: String(t('transaction:deposit')), id: 2 },
-      { name: String(t('transaction:Bonus')), id: 3 },
-    ],
-    [i18n],
-  );
-
-  const LIST_FILTER_STATUS = useMemo(
-    () => [
-      { name: String(t('transaction:allStatus')), type: 'all' },
-      { name: String(t('transaction:notStarted')), type: 'not_started' },
-      { name: String(t('transaction:onGoing')), type: 'on_going' },
-      { name: String(t('transaction:done')), type: 'done' },
-    ],
-    [i18n],
-  );
-
-  const LIST_FILTER_EVENT_BONUS = useMemo(
-    () => [
-      { name: String(t('transaction:bonusType')), type: null },
-      { name: String(t('transaction:newbieTaskRewards')), type: 60 },
-      { name: String(t('transaction:depositBonus')), type: 1 },
-      { name: String(t('transaction:freeSpinWinnings')), type: 7 },
-      { name: String(t('transaction:newbieLuckySpinBonus')), type: 90 },
-      { name: String(t('transaction:eventBonus')), type: 90 },
-    ],
-    [i18n],
   );
 
   const [optionFilter, setOptionFilter] = useState({
@@ -161,7 +152,7 @@ const RolloverPage = () => {
         minSize: 30,
       },
     ];
-  }, [localFiat, t]);
+  }, [localFiat, i18n.language]);
 
   const handleGetRolloverOverview = useCallback(
     async (page: number) => {
@@ -243,7 +234,7 @@ const RolloverPage = () => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                  <div className="flex-1 text-start dark:text-white text-black">{optionFilter.type.name}</div>
+                  <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.type.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
                   <ChevronDownIcon className=" dark:text-white text-black" width={15} />
@@ -271,7 +262,7 @@ const RolloverPage = () => {
                           onClick={() => setOptionFilter({ ...optionFilter, type: item })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                            <div className="flex-1 text-start dark:text-white text-black">{item.name}</div>
+                            <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
                           </div>
                         </div>
                       )}
@@ -281,7 +272,7 @@ const RolloverPage = () => {
               </Menu.Items>
             </Transition>
           </Menu>
-          {optionFilter.type.name === String(t('transaction:Bonus')) && (
+          {optionFilter.type.id === 3 && (
             <Menu
               as="div"
               className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
@@ -289,7 +280,9 @@ const RolloverPage = () => {
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
                   <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                    <div className="flex-1 text-start dark:text-white text-black">{optionFilter.bonusEvent.name}</div>
+                    <div className="flex-1 text-start dark:text-white text-black">
+                      {t(optionFilter.bonusEvent.name)}
+                    </div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
                     <ChevronDownIcon className=" dark:text-white text-black" width={15} />
@@ -317,7 +310,7 @@ const RolloverPage = () => {
                             onClick={() => setOptionFilter({ ...optionFilter, bonusEvent: item })}
                           >
                             <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                              <div className="flex-1 text-start dark:text-white text-black">{item.name}</div>
+                              <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
                             </div>
                           </div>
                         )}
@@ -335,7 +328,7 @@ const RolloverPage = () => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                  <div className="flex-1 text-start dark:text-white text-black">{optionFilter.status.name}</div>
+                  <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.status.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
                   <ChevronDownIcon className=" dark:text-white text-black" width={15} />
@@ -363,7 +356,7 @@ const RolloverPage = () => {
                           onClick={() => setOptionFilter({ ...optionFilter, status: item })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                            <div className="flex-1 text-start dark:text-white text-black">{item.name}</div>
+                            <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
                           </div>
                         </div>
                       )}
@@ -390,7 +383,7 @@ const RolloverPage = () => {
         {!isLoading && dataTable.length === 0 && (
           <div className="relative flex items-center justify-center  my-[32px]">
             <Image src="/img/empty.png" width={200} height={200} alt="" />
-            <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
+            <p className="absolute dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
               {t('table:noData')}
             </p>
           </div>

@@ -7,6 +7,10 @@ const API_AUTH_SEND_SMS = '/auth/send-sms';
 const API_AUTH_VERIFY_CODE = '/auth/verify-code';
 const API_AUTH_VERIFY_QR_CODE = '/auth/send-verify-qr-code';
 
+const API_AUTH_SEND_USER_MAIL = '/auth/send-user-mail';
+const API_AUTH_SEND_USER_PHONE = '/auth/send-user-phone';
+const API_AUTH_VERIFY_USER_CODE = '/auth/verify-user-code';
+
 const API_AUTH_VALIDATE_TOKEN = (token: string) => `/auth/validate/${token}`;
 
 /************************************ Authrization **********************************/
@@ -120,6 +124,8 @@ export {
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
+  API_AUTH_SEND_USER_MAIL,
+  API_AUTH_SEND_USER_PHONE,
   API_AUTH_SET_LOGIN,
   API_AUTH_SET_LOGIN_PASSWORD,
   API_AUTH_SIGNUP_WITH_EMAIL,
@@ -127,6 +133,7 @@ export {
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
+  API_AUTH_VERIFY_USER_CODE,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,

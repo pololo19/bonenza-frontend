@@ -105,7 +105,7 @@ function BonusLoggedPage() {
         showDeposit: true,
       },
     ],
-    [i18n],
+    [i18n.language],
   );
 
   const dataCardVipBonus = useMemo(
@@ -183,7 +183,7 @@ function BonusLoggedPage() {
       //   showDescription: true,
       // },
     ],
-    [i18n],
+    [i18n.language],
   );
 
   const getVipListByRank = async () => {

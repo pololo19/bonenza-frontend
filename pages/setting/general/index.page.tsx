@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import { ArrowDown2, Moon, Sun1 } from 'iconsax-react';
 import { useTheme } from 'next-themes';
-import React, { Fragment, ReactElement, useEffect, useState } from 'react';
+import React, { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import * as yup from 'yup';
@@ -34,11 +34,12 @@ const GeneralPage = () => {
   const [mode, setMode] = useState(0);
   const { setTheme } = useTheme();
 
-  const { viewInFiat, settings } = useSelector(
+  const { viewInFiat, settings, defaultCurrencyId, fiatSymbols } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.common.viewInFiat,
       settings: state.auth.user.generalSetting,
-      user: state.auth.user,
+      fiatSymbols: state.wallet.fiatSymbols,
+      defaultCurrencyId: state.auth.user.generalSetting.settingCurrency,
     }),
     shallowEqual,
   );
@@ -66,6 +67,11 @@ const GeneralPage = () => {
     resolver: yupResolver(schema),
   });
 
+  const defaultCurrency = useMemo(() => {
+    const currency = [...fiatSymbols].find((item) => item.id === defaultCurrencyId);
+    return currency ?? null;
+  }, [fiatSymbols, defaultCurrencyId]);
+
   const { i18n } = useTranslation('');
 
   const handleChangeLang = (item: any) => {
@@ -76,6 +82,8 @@ const GeneralPage = () => {
   const handleChangeLocaleFiat = (item: CurrencyType) => {
     try {
       dispatch(setLocalFiat(item));
+
+      dispatch(updateSetting({ ...settings, settingCurrency: item.id }));
       // CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
     } catch (error) {}
   };
@@ -88,9 +96,9 @@ const GeneralPage = () => {
     <div className={`${styles.cardContent}`}>
       {isLoading && <Loader />}
       <div className="w-full h-1/3 px-[12px] py-[24px] sm:p-0 sm:mt-5 md:mt-0 dark:text-white text-black">
-        <div className="flex justify-between border-b border-solid border-[#3D4049] pb-[8px]">
+        <div className="flex justify-between border-b border-solid border-color-border-primary pb-[8px]">
           <div
-            className="dark:text-[#C2C2C2] text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
+            className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
             role="button"
           >
             {t('setting:showFullNameOfCurrencyInCryptoList')}
@@ -99,23 +107,19 @@ const GeneralPage = () => {
             checked={settings.settingShowFullNameCrypto}
             onChange={(value) => handleUpdateSetting({ ...settings, settingShowFullNameCrypto: value })}
             className={`${
-              settings.settingShowFullNameCrypto
-                ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
-                : 'dark:bg-[#272C33] bg-[#5f697566]'
+              settings.settingShowFullNameCrypto ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
             } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
-                settings.settingShowFullNameCrypto
-                  ? 'translate-x-5 bg-[#0DFDE4]'
-                  : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                settings.settingShowFullNameCrypto ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
         </div>
-        <div className="flex justify-between border-b border-solid border-[#3D4049] py-[8px]">
+        <div className="flex justify-between border-b border-solid border-color-border-primary py-[8px]">
           <div
-            className="dark:text-[#C2C2C2] text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
+            className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
             role="button"
           >
             {t('setting:receiveMarketingPromotions')}
@@ -124,23 +128,21 @@ const GeneralPage = () => {
             checked={settings.settingReceiveMarketPromotion}
             onChange={(value) => handleUpdateSetting({ ...settings, settingReceiveMarketPromotion: value })}
             className={`${
-              settings.settingReceiveMarketPromotion
-                ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
-                : 'dark:bg-[#272C33] bg-[#5f697566]'
+              settings.settingReceiveMarketPromotion ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
             } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
                 settings.settingReceiveMarketPromotion
-                  ? 'translate-x-5 bg-[#0DFDE4]'
-                  : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                  ? 'translate-x-[20px] bg-color-primary'
+                  : 'translate-x-1 bg-gray-400'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
         </div>
-        <div className="flex justify-between items-center border-b border-solid border-[#3D4049] py-[8px]">
+        <div className="flex justify-between items-center border-b border-solid border-color-border-primary py-[8px]">
           <div>
-            <div className="dark:text-[#C2C2C2] text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start">
+            <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start">
               {t('setting:currencySetting')}
             </div>
             <div className="mt-[10px]">
@@ -149,20 +151,23 @@ const GeneralPage = () => {
           </div>
           <Switch
             checked={viewInFiat}
-            onChange={(value) => dispatch(changeViewInFiat(value))}
+            onChange={(value) => {
+              dispatch(setLocalFiat(defaultCurrency));
+              dispatch(changeViewInFiat(value));
+            }}
             className={`${
-              viewInFiat ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]' : 'dark:bg-[#272C33] bg-[#5f697566]'
+              viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
             } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
           >
             <span
               className={`${
-                viewInFiat ? 'translate-x-5 bg-[#0DFDE4]' : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                viewInFiat ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
         </div>
-        <div className="border-b border-solid border-[#3D4049] py-[8px]">
-          <div className="dark:text-[#C2C2C2] text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start text-left">
+        <div className="border-b border-solid border-color-border-primary py-[8px]">
+          <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start text-left">
             {t('setting:displayMode')}
           </div>
           <div className="mt-[10px] dark:bg-[#2D3035] bg-white rounded-[5px] flex p-[3px] max-w-[70px]">
@@ -193,7 +198,7 @@ const GeneralPage = () => {
           </div>
         </div>
         <div className="pt-[13px]">
-          <div className="dark:text-[#C2C2C2] text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start text-left mb-[10px]">
+          <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start text-left mb-[10px]">
             {t('setting:language')}
           </div>
           <Menu as="div" className="relative w-auto text-left rounded-[7px] flex text-white">

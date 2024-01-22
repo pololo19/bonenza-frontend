@@ -8,15 +8,21 @@ import { ReactElement, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import PhoneInput from 'react-phone-number-input';
 import { shallowEqual, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import api from '@/api/api';
+import { api_sendMailToUser, api_sendSMSToUser } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
+import { saveVerifyInfo } from '@/base/redux/reducers/auth.reducer';
+import { changeIsShowVerifyMailAndPhone, changeVerifyMode } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
+import { VerifyModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
+import { InputPhoneNumber } from '@/components/input/typing';
 import InputText from '@/components/input/typing/InputText';
 import SettingLayout from '@/components/layouts/setting.layout';
 
@@ -35,30 +41,33 @@ type confirmCodeForm = {
 };
 
 const SettingEmail = () => {
+  const dispatch = useDispatch();
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [phoneNumber, setPhoneNumber] = useState<string | undefined>('');
-  const [isphoneNumberVerify, setPhoneNumberVerify] = useState<boolean>(false);
-  const [isConfirmCode, setIsConfirmCode] = useState<boolean>(false);
-  const [code, setCode] = useState<string>('');
-  const [emailUser, setEmailUser] = useState<string | undefined>('');
-  const [isEmailVerify, setEmailVerify] = useState<boolean>(false);
   const { t } = useTranslation('');
   const { theme } = useTheme();
 
-  const { email, phone } = useSelector(
+  const [emailInput, setEmailInut] = useState('');
+
+  const [countryCallingCode, setCountryCallingCode] = useState<(typeof COUNTRY_CALLING_CODES)[number]>();
+  const [phoneInput, setPhoneInput] = useState('');
+
+  const { email, phone, emailVerified, phoneVerified } = useSelector(
     (state: AppState) => ({
       phone: state.auth.user.phone,
       email: state.auth.user.email,
+      emailVerified: state.auth.user.verifiedSetting.emailVerified,
+      phoneVerified: state.auth.user.verifiedSetting.phoneVerified,
     }),
     shallowEqual,
   );
 
   const verificationEmailSchema = yup.object().shape({
-    email: yup.string().required(String(t('deposit:currencyRequired'))),
+    email: yup.string().required(String(t('authentication:email&emailRequired'))),
   });
 
   const verificationPhoneNumberSchema = yup.object().shape({
-    phoneNumber: yup.string().required(String(t('deposit:currencyRequired'))),
+    phoneNumber: yup.string().required(String(t('deposit:phoneRequired'))),
   });
 
   const confirmPhoneNumberSchema = yup.object().shape({
@@ -69,7 +78,7 @@ const SettingEmail = () => {
     resolver: yupResolver(verificationEmailSchema),
   });
 
-  const { control: verificationPhoneNumberControl } = useForm<VerificationPhoneNumberForm>({
+  const { control: verificationPhoneNumberControl, setValue: setPhoneValue } = useForm<VerificationPhoneNumberForm>({
     resolver: yupResolver(verificationPhoneNumberSchema),
   });
 
@@ -77,131 +86,70 @@ const SettingEmail = () => {
     resolver: yupResolver(confirmPhoneNumberSchema),
   });
 
-  useEffect(() => {
-    getVerifyPhoneEmail();
-  }, []);
-
-  useEffect(() => {
-    if (isphoneNumberVerify) {
-      setPhoneNumber('+' + phone);
-    }
-  }, [phone, isphoneNumberVerify]);
-
-  useEffect(() => {
-    if (isEmailVerify) {
-      setEmailValue('email', String(email));
-    }
-  }, [email, isEmailVerify]);
-
-  const handleSubmitPhoneNumber = async () => {
-    if (isphoneNumberVerify) {
-      setPhoneNumber('');
-      setPhoneNumberVerify(false);
-    } else if (isConfirmCode) {
-      confirmPhoneNumber();
-    } else {
-      sendPhoneNumber();
-    }
-  };
-
-  const sendPhoneNumber = async () => {
-    if (!phoneNumber) {
-      return;
-    }
-    setIsLoading(true);
+  const sendVerifyCode = async (type: VerifyModeEnum) => {
     try {
-      await api.post('user-setting/send-phone-number', {
-        phone: phoneNumber?.replace('+', ''),
-      });
-      setIsConfirmCode(true);
+      setIsLoading(true);
+      if (type === VerifyModeEnum.MAIL) {
+        await api_sendMailToUser(email, '');
+        dispatch(saveVerifyInfo({ verifyRequest: emailInput, isPhoneVerifyRequested: false }));
+      }
+      if (type === VerifyModeEnum.PHONE) {
+        const phoneNumber = `+${countryCallingCode?.countryCallingCode}${phoneInput}`;
+        await api_sendSMSToUser(phoneNumber, '');
+        dispatch(saveVerifyInfo({ verifyRequest: phoneNumber, isPhoneVerifyRequested: true }));
+      }
+      dispatch(changeVerifyMode(type));
+      dispatch(changeIsShowVerifyMailAndPhone(true));
+      toast.success(t('authentication:verificationSentSuccess'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
+
+      toast.error(t(`errors:${message}`), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const confirmPhoneNumber = async () => {
-    if (!code) {
-      return;
-    }
-    setIsLoading(true);
-    try {
-      await api.post('user-setting/confirm-phone-number', {
-        code: code,
-      });
-      setIsConfirmCode(false);
-    } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getVerifyPhoneEmail = async () => {
-    setIsLoading(true);
-    try {
-      const res = await api.get('user-setting/get-email-and-phone-verify');
-      setPhoneNumberVerify(res.data?.verifyPhone);
-      setEmailVerify(res.data?.verifyEmail);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const sendVerifyEmail = async () => {
-    if (!email) {
-      return;
-    }
-    setIsLoading(true);
-    try {
-      await api.post('user-setting/send-verify-email', {
-        email: emailUser,
-      });
-      toast.success(t('setting:verificationEmail'), { containerId: TOAST_ENUM.COMMON });
-    } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  useEffect(() => {
+    setEmailInut(email);
+    setEmailValue('email', email);
+    setPhoneInput(phone);
+    setPhoneValue('phoneNumber', phone);
+  }, [email, phone]);
 
   return (
     <>
       {isLoading && <Loader />}
-      <div className="xl:px-[80px] lg:px-[40px] md:px-[20px] xl:py-[32px] lg:py-[24px] md:py-[12px] md:mt-0 mt-[30px] flex min-[991px]:flex-row flex-col xl:gap-[80px] lg:gap-[40px] md:gap-[20px] gap-[10px]">
+      <div className="2xl:px-[80px] lg:px-[40px] md:px-[20px] px-2 xl:py-[32px] lg:py-[24px] md:py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex min-[991px]:flex-row flex-col xl:gap-[80px] lg:gap-[40px] md:gap-[20px] gap-[10px]">
         <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
             <div className="font-semibold text-[14px]">{t('setting:emailVerification')}</div>
-            <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
+            <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
               {t('setting:accordingToTheSecurityPolicy')}
             </div>
             <div className="relative w-full">
               <InputText
-                customClass="px-[10px] py-[10px] my-[10px] dark:bg-[#292C33] bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                customClass="px-[10px] h-[51px] py-[10px] my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                 name="email"
                 placeholder={`${t('setting:emailPlaceholder')}`}
-                disabled={isEmailVerify}
+                disabled={emailVerified}
                 control={verificationEmailControl}
-                value={emailUser}
-                onChange={(e) => setEmailUser(e.target.value)}
+                value={emailInput}
+                onChange={(e) => setEmailInut(e.target.value)}
               />
-              {isEmailVerify && (
-                <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-[#292C33] bg-[#f5f6fa]">
+              {emailVerified && (
+                <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
                   <TickCircle size="16" color="#3BC117" variant="Bold" />
                   <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">{t('setting:verified')}</span>
                 </div>
               )}
             </div>
-            {!isEmailVerify && (
+            {!emailVerified && (
               <div
-                onClick={sendVerifyEmail}
+                onClick={() => sendVerifyCode(VerifyModeEnum.MAIL)}
                 role="button"
-                className="bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                className="bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
               >
                 {t('setting:verify')}
               </div>
@@ -223,31 +171,33 @@ const SettingEmail = () => {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                    <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
+                    <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
                       {t('setting:accordingToTheSecurityPolicy')}
                     </div>
                     <div className="relative w-full">
                       <InputText
-                        customClass="px-[10px] py-[10px] my-[10px] dark:bg-[#292C33] bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                        customClass="px-[10px] py-[10px] my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                         name="email"
-                        disabled={isEmailVerify}
+                        disabled={!emailVerified}
                         placeholder={`${t('setting:emailPlaceholder')}`}
                         control={verificationEmailControl}
-                        value={emailUser}
-                        onChange={(e) => setEmailUser(e.target.value)}
+                        value={emailInput}
+                        onChange={(e) => setEmailInut(e.target.value)}
                       />
-                      {isEmailVerify && (
-                        <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-[#292C33] bg-[#f5f6fa]">
+                      {emailVerified && (
+                        <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
                           <TickCircle size="16" color="#3BC117" variant="Bold" />
-                          <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">{t('setting:verified')}</span>
+                          <span className="text-color-primary text-[14px] ml-[6px] font-bold">
+                            {t('setting:verified')}
+                          </span>
                         </div>
                       )}
                     </div>
-                    {!isEmailVerify && (
+                    {!emailVerified && (
                       <div
-                        onClick={sendVerifyEmail}
+                        onClick={() => sendVerifyCode(VerifyModeEnum.MAIL)}
                         role="button"
-                        className="w-fit bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                        className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:verify')}
                       </div>
@@ -258,53 +208,56 @@ const SettingEmail = () => {
             )}
           </Disclosure>
         </form>
-        <div className="bg-[#3D4049] w-[1px]"></div>
+        <div className="bg-color-border-primary w-[1px]"></div>
 
         <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
             <div className="font-semibold text-[14px]">{t('setting:phoneNumber')}</div>
-            <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
+            <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
               {t('setting:verifyYourPhoneNumber')}
             </div>
-            <div className="px-[10px] py-[10px] my-[10px] dark:bg-[#292C33] bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
-              <PhoneInput
-                className={cn('rounded-[5px] w-full', styles.phoneInput, theme === 'light' && styles.phoneInputLight)}
-                name="phoneNumber"
-                international
-                disabled={isphoneNumberVerify}
-                placeholder={`${t('setting:phonePlaceholder')}`}
-                control={verificationPhoneNumberControl}
-                value={phoneNumber}
-                onChange={(val) => setPhoneNumber(val)}
-              />
+            <div className="flex flex-col my-[10px] relative dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
+              {phoneVerified && (
+                <InputText
+                  customClass="px-[10px] h-[51px] py-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                  name="phoneNumber"
+                  placeholder={`${t('setting:phonePlaceholder')}`}
+                  disabled={phoneVerified}
+                  control={verificationPhoneNumberControl}
+                  value={phoneInput}
+                />
+              )}
+              {!phoneVerified && (
+                <InputPhoneNumber
+                  control={verificationPhoneNumberControl}
+                  onChangeCountryCallingCode={(value) => {
+                    setCountryCallingCode(value);
+                  }}
+                  disabled={phoneVerified}
+                  customClass="px-[10px] py-[10px] my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                  onChange={(e) => setPhoneInput(e.target.value)}
+                  name="phoneNumber"
+                  placeholder={String(t('setting:phonePlaceholder'))}
+                  autoComplete="off"
+                />
+              )}
+
+              {phoneVerified && (
+                <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
+                  <TickCircle size="16" color="#3BC117" variant="Bold" />
+                  <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">{t('setting:verified')}</span>
+                </div>
+              )}
             </div>
-            {isConfirmCode && (
-              <>
-                <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
-                  {t('setting:confirmYourPhoneNumber', { phone: phoneNumber })}
-                </div>
-                <div className="px-[10px] py-[10px] my-[10px] dark:bg-[#292C33] bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
-                  <InputText
-                    name="code"
-                    control={confirmPhoneNumberControl}
-                    customClass="dark:bg-[#292C33] bg-[#f5f6fa] !text-[14px] placeholder:text-[14px] rounded-0"
-                    placeholder={`${t('setting:verificationCode')}`}
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
-                  />
-                </div>
-                <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
-                  {t('setting:noVerifyCode')}
-                </div>
-              </>
+            {!phoneVerified && (
+              <div
+                onClick={() => sendVerifyCode(VerifyModeEnum.PHONE)}
+                role="button"
+                className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+              >
+                {t('setting:confirm')}
+              </div>
             )}
-            <div
-              onClick={handleSubmitPhoneNumber}
-              role="button"
-              className="w-fit bg-[#FD6E0B] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
-            >
-              {isphoneNumberVerify ? t('setting:change') : t('setting:confirm')}
-            </div>
           </div>
           <Disclosure>
             {({ open }) => (
@@ -322,7 +275,7 @@ const SettingEmail = () => {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                    <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
+                    <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
                       {t('setting:verifyYourPhoneNumber')}
                     </div>
                     <Controller
@@ -330,7 +283,7 @@ const SettingEmail = () => {
                       name={'phoneNumber'}
                       render={({ field }) => {
                         return (
-                          <div className="px-[10px] py-[10px] my-[10px] dark:bg-[#292C33] bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
+                          <div className="px-[10px] py-[10px] relative my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
                             <PhoneInput
                               className={cn(
                                 'rounded-[5px] w-full',
@@ -339,43 +292,33 @@ const SettingEmail = () => {
                               )}
                               name="phoneNumber"
                               international
-                              disabled={isphoneNumberVerify}
+                              disabled={phoneVerified}
                               placeholder={`${t('setting:phonePlaceholder')}`}
                               control={verificationPhoneNumberControl}
-                              value={phoneNumber}
-                              onChange={(val) => setPhoneNumber(val)}
+                              value={phoneInput}
+                              onChange={(val) => setPhoneInput(String(val))}
                             />
+                            {phoneVerified && (
+                              <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
+                                <TickCircle size="16" color="#3BC117" variant="Bold" />
+                                <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">
+                                  {t('setting:verified')}
+                                </span>
+                              </div>
+                            )}
                           </div>
                         );
                       }}
                     ></Controller>
-                    {isConfirmCode && (
-                      <>
-                        <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
-                          {t('setting:confirmYourPhoneNumber', { phone: phoneNumber })}
-                        </div>
-                        <div className="px-[10px] py-[10px] my-[10px] dark:bg-[#292C33] bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
-                          <InputText
-                            name="code"
-                            control={confirmPhoneNumberControl}
-                            customClass="dark:bg-[#292C33] bg-[#f5f6fa] !text-[14px] placeholder:text-[14px] rounded-0"
-                            placeholder={`${t('setting:verificationCode')}`}
-                            value={code}
-                            onChange={(e) => setCode(e.target.value)}
-                          />
-                        </div>
-                        <div className="text-start text-[10px] text-[#31373d] dark:text-[#C2C2C2]">
-                          {t('setting:noVerifyCode')}
-                        </div>
-                      </>
+                    {!phoneVerified && (
+                      <div
+                        onClick={() => sendVerifyCode(VerifyModeEnum.PHONE)}
+                        role="button"
+                        className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                      >
+                        {t('setting:confirm')}
+                      </div>
                     )}
-                    <div
-                      onClick={handleSubmitPhoneNumber}
-                      role="button"
-                      className="w-fit bg-[#FD6E0B] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
-                    >
-                      {isphoneNumberVerify ? t('setting:change') : t('setting:confirm')}
-                    </div>
                   </Disclosure.Panel>
                 </Transition>
               </div>
