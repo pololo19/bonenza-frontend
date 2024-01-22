@@ -15,6 +15,7 @@ import {
   api_getRecentGames,
   api_getTopRelatedGames,
 } from '@/api/game';
+import { api_getDepositTime } from '@/api/wallet';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -50,7 +51,6 @@ import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
-import { api_getDepositTime } from '@/api/wallet';
 
 function IndexPage() {
   const width = useWidth();
@@ -259,7 +259,7 @@ function IndexPage() {
       setIsLoading(true);
       const result = await api_getDepositTime();
       if (result.data.times === 0) {
-        setCheckDeposit(true);
+        setCheckDeposit(false);
       } else {
         setCheckDeposit(true);
       }
