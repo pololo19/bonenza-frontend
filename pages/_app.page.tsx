@@ -101,12 +101,14 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="url" content="https://www.bonenza.com" />
 
               <meta property="twitter:image" content="https://bonenza.com/img/logo.png" />
+              <script src="https://cdn.launcher.a8r.games/connector.js" defer></script>
               <noscript>Your browser does not support JavaScript!</noscript>
             </Head>
             {/* <Script src="https://js.stripe.com/v3/"></Script>
             <Script src="https://js.stripe.com/v3/"></Script> */}
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
             <Script src="https://casino.cur.a8r.games/public/sg.js"></Script>
+
             <ToastContainer
               autoClose={5000}
               className="z-index-toast !text-[12px]"
