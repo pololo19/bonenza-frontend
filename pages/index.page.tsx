@@ -51,6 +51,7 @@ import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
+import Script from 'next/script';
 
 function IndexPage() {
   const width = useWidth();
@@ -290,7 +291,7 @@ function IndexPage() {
   return (
     <>
       {isLoading && <Loader />}
-
+      <Script src="https://cdn.launcher.a8r.games/connector.js" />
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
