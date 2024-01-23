@@ -101,7 +101,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="url" content="https://www.bonenza.com" />
 
               <meta property="twitter:image" content="https://bonenza.com/img/logo.png" />
-              <script src="https://cdn.launcher.a8r.games/connector.js" defer></script>
+              {/* <script src="https://cdn.launcher.a8r.games/connector.js" defer></script> */}
               <script src="https://casino.int.a8r.games/public/sg.js"></script>
               <noscript>Your browser does not support JavaScript!</noscript>
             </Head>
