@@ -29,6 +29,7 @@ import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
+import Loader from '@/components/common/preloader/loader';
 import GameDescriptionComponent from '@/components/game/gameDescription';
 import GameDetailComponent from '@/components/game/gameDetail';
 import GameReviewComponent from '@/components/game/gameReview';
@@ -45,7 +46,6 @@ type LaunchUrlTye = {
 };
 
 function GamePage() {
-  const launchUrlRef = useRef<any>();
   const width = useWidth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
@@ -55,7 +55,6 @@ function GamePage() {
     request: '',
     status: false,
   });
-  const [isPlayRequested, setIsPlayRequested] = useState<boolean>(false);
 
   const [gameDetail, setGameDetail] = useState<GameListType>({
     id: '',
@@ -77,8 +76,8 @@ function GamePage() {
     isFavorite: false,
     isLike: false,
   });
+  const [successfullyLaunched, setSuccessfullyLaunched] = useState<boolean>(false);
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
-  const gameScriptRef = useRef<Node | null>(null);
 
   const [tab, setTab] = useState(1);
 
@@ -179,9 +178,8 @@ function GamePage() {
     } finally {
       setIsLoadingGame({
         request: 'demo',
-        status: true,
+        status: false,
       });
-      setIsPlayRequested(true);
     }
   };
 
@@ -214,7 +212,6 @@ function GamePage() {
         status: false,
       });
     } finally {
-      setIsPlayRequested(true);
       setIsLoadingGame({
         request: 'real',
         status: false,
@@ -294,8 +291,11 @@ function GamePage() {
       };
 
       window.sg.launch(gameLaunchOptions);
+      setSuccessfullyLaunched(true);
     } catch (error) {
       console.log('error', error);
+      setSuccessfullyLaunched(false);
+      toast(t('notification:errors:gameLaunchedFailed'));
     } finally {
       // setTimeout(() => {
       //   setIsLoading(false);
@@ -309,7 +309,7 @@ function GamePage() {
     } else {
       setIsNotFoundGame(true);
     }
-  }, [gameId, width, language]);
+  }, [gameId, language]);
 
   useEffect(() => {
     if (gameDetail.identifier) {
@@ -319,6 +319,7 @@ function GamePage() {
 
   return (
     <>
+      {isLoading && <Loader />}
       {!isNotFoundGame && (
         <div className="py-[24px]">
           <div className="flex w-full justify-between items-center">
@@ -346,9 +347,9 @@ function GamePage() {
                     'flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
                     {
                       // hidden: !isPlayRequested,
-                      'opacity-0': isPlayRequested,
-                      'opacity-100': !isPlayRequested,
-                      'pointer-events-none': isPlayRequested,
+                      'opacity-0': successfullyLaunched,
+                      'opacity-100': !successfullyLaunched,
+                      'pointer-events-none': successfullyLaunched,
                     },
                   )}
                 >
