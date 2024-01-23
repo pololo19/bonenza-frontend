@@ -273,6 +273,13 @@ function GamePage() {
       if (list?.firstElementChild) {
         list?.removeChild(list?.firstElementChild);
       }
+
+      const success = () => {
+        setSuccessfullyLaunched(true);
+      };
+      const error = () => {
+        setSuccessfullyLaunched(false);
+      };
       const gameLaunchOptions = {
         target_element: 'game_wrapper',
         launch_options: {
@@ -290,8 +297,7 @@ function GamePage() {
         },
       };
 
-      window.sg.launch(gameLaunchOptions);
-      setSuccessfullyLaunched(true);
+      window.sg.launch(gameLaunchOptions, success, error);
     } catch (error) {
       console.log('error', error);
       setSuccessfullyLaunched(false);
