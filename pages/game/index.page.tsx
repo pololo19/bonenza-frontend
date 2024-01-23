@@ -340,14 +340,18 @@ function GamePage() {
           <div>
             {/* Game play */}
             <FullScreen handle={gameScreen} className="aspect-[2] w-full mt-[20px] relative">
-              <div id="game_wrapper" key={String(gameId)} className={cn('h-full', styles.gameWrapper)} />
+              <div
+                id="game_wrapper"
+                key={String(gameId)}
+                className={cn('h-full dark:bg-black bg-white', styles.gameWrapper)}
+              />
               {
                 <div
                   className={cn(
                     'flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
                     {
                       // hidden: !isPlayRequested,
-                      'opacity-0': successfullyLaunched,
+                      // 'opacity-0': successfullyLaunched,
                       'opacity-100': !successfullyLaunched,
                       'pointer-events-none': successfullyLaunched,
                     },
