@@ -200,7 +200,7 @@
     "statisticsHidden": "Statistics hidden",
     "details": "Details",
     "masterMedals": "Master Medals",
-    "achieve": "Achieve <span class='dark:text-[#0DFDE4] text-[#3BC117] font-semibold'>{{medals}}</span> medals:Get {{achieve}} BND",
+    "achieve": "Achieve <span class='dark:text-color-primary text-[#3BC117] font-semibold'>{{medals}}</span> medals:Get {{achieve}} BND",
     "unlocked": "Unlocked",
     "awaitingUnlocking": "Awaiting unlocking",
     "tipContent": "TIP JB is not included in medal calculationStats",

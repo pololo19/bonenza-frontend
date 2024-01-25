@@ -1,36 +1,79 @@
-import { useTranslation } from '@/base/config/i18next';
 import { InfoCircle, Profile2User } from 'iconsax-react';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+
+import { api_medalStatistics } from '@/api/user';
+import { useTranslation } from '@/base/config/i18next';
+import { groupMedal } from '@/base/constants/common';
+
+const groupPrize = [
+  { img: '/img/flat-white.png', value: 0 },
+  { img: '/img/chest.png', value: 5 },
+  { img: '/img/chest.png', value: 10 },
+  { img: '/img/chest.png', value: 15 },
+  { img: '/img/chest.png', value: 'max' },
+];
+
+const groupAchieve = [
+  { medals: 5, achieve: 20 },
+  { medals: 10, achieve: 800 },
+  { medals: 15, achieve: 2400 },
+  { medals: 20, achieve: 10000 },
+];
 
 export default function MasterMedals() {
   const { t } = useTranslation('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [medalDatas, setMedalDatas] = useState<any>({
+    fearlessOne: 0,
+    chickenDinner: 0,
+    callMeRichMan: 0,
+    ethstop1: 0,
+    highestContributor: 0,
+    invincibleLuckyDog: 0,
+    loyalPlayer: 0,
+    theLoadedKing: 0,
+    theOldTimer: 0,
+    theTopGun: 0,
+  });
 
-  const groupPrize = [
-    { img: '/img/flat-white.png', value: 0 },
-    { img: '/img/chest.png', value: 5 },
-    { img: '/img/chest.png', value: 10 },
-    { img: '/img/chest.png', value: 15 },
-    { img: '/img/chest.png', value: 'max' },
-  ];
+  const getMedalDatas = async () => {
+    try {
+      setIsLoading(true);
+      const res = await api_medalStatistics();
+      setMedalDatas({
+        fearlessOne: Number(res.data?.fearlessOne ?? 0),
+        callMeRichMan: Number(res.data?.callMeRichMan ?? 0),
+        chickenDinner: Number(res.data?.chickenDinner ?? 0),
+        ethstop1: Number(res.data?.ethstop1 ?? 0),
+        highestContributor: Number(res.data?.highestContributor ?? 0),
+        invincibleLuckyDog: Number(res.data?.invincibleLuckyDog ?? 0),
+        loyalPlayer: Number(res.data?.loyalPlayer ?? 0),
+        theLoadedKing: Number(res.data?.theLoadedKing ?? 0),
+        theOldTimer: Number(res.data?.theOldTimer ?? 0),
+        theTopGun: Number(res.data?.theTopGun ?? 0),
+      });
+    } catch (error) {
+      setMedalDatas({
+        fearlessOne: 0,
+        chickenDinner: 0,
+        callMeRichMan: 0,
+        ethstop1: 0,
+        highestContributor: 0,
+        invincibleLuckyDog: 0,
+        loyalPlayer: 0,
+        theLoadedKing: 0,
+        theOldTimer: 0,
+        theTopGun: 0,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-  const groupAchieve = [
-    { medals: 5, achieve: 20 },
-    { medals: 10, achieve: 800 },
-    { medals: 15, achieve: 2400 },
-    { medals: 20, achieve: 10000 },
-  ];
-
-  const groupMedal = [
-    { img: '/img/medal-1.png', text: 'Talkative', accountNumber: 7913 },
-    { img: '/img/medal-2.png', text: 'Fearless One', accountNumber: 6 },
-    { img: '/img/medal-3.png', text: 'The Loaded King', accountNumber: 1 },
-    { img: '/img/medal-4.png', text: 'Highest Contributor', accountNumber: 9 },
-    { img: '/img/medal-5.png', text: 'The Top Gun', accountNumber: 23 },
-    { img: '/img/medal-6.png', text: 'The Rain Master', accountNumber: 12572 },
-    { img: '/img/medal-7.png', text: 'COCO Lover', accountNumber: 5540 },
-    { img: '/img/medal-1.png', text: 'The Rain Stormer', accountNumber: 2182 },
-    { img: '/img/medal-2.png', text: 'Chicken Dinner', accountNumber: 12124 },
-  ];
+  useEffect(() => {
+    getMedalDatas();
+  }, []);
 
   return (
     <div className="p-[20px] max-md:pb-[60px] dark:bg-[#1E2024] bg-white">
@@ -38,23 +81,23 @@ export default function MasterMedals() {
         {groupPrize.map((item: any, index: number) => (
           <div
             key={index}
-            className="px-[10px] sm:px-[20px] grow py-[10px] dark:bg-[#1A1B1E] bg-[#f5f6fa] rounded-[5px] flex flex-col items-center cursor-pointer "
+            className="px-[10px] sm:px-[20px] grow py-[10px] dark:bg-color-card-body-secondary bg-[#f5f6fa] rounded-[5px] flex flex-col items-center cursor-pointer "
           >
             <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="" />
             <span className="text-[10px] mt-[8px] dark:text-[#939699] text-[#5f6975cc]">{item.value}</span>
           </div>
         ))}
       </div>
-      <div className="h-[35px] dark:bg-[#1A1B1E] bg-[#f5f6fa] rounded-[5px] px-[20px] py-[14px] mt-[10px]">
+      <div className="h-[35px] dark:bg-color-card-body-secondary bg-[#f5f6fa] rounded-[5px] px-[20px] py-[14px] mt-[10px]">
         <div className="dark:bg-[#1E2024] bg-[#5f69752e] rounded-[10px] h-full">
-          <div className="bg-[#0DFDE4] relative rounded-[10px] w-[35px] h-full">
+          <div className="bg-color-primary relative rounded-[10px] w-[35px] h-full">
             <div className="absolute -top-[6px] left-1/2 -translate-x-2/4">
               <Image className="w-[11px] h-[9px]" height={9} width={11} src={`/img/triangle.png`} alt="" />
             </div>
           </div>
         </div>
       </div>
-      <div className="p-[10px] dark:bg-[#17181B] bg-[#f5f6fa] flex flex-col gap-[5px] rounded-[5px] dark:text-[#98A7B5] text-[#5f6975cc] text-[12px]">
+      <div className="p-[10px] dark:bg-color-card-body-secondary bg-[#f5f6fa] flex flex-col gap-[5px] rounded-[5px] dark:text-color-text-primary text-[#5f6975cc] text-[12px] mt-[10px]">
         {groupAchieve.map((item: any, index: number) => (
           <p
             key={index}
@@ -77,20 +120,18 @@ export default function MasterMedals() {
           {groupMedal.map((item: any, index: number) => (
             <div
               key={index}
-              className="px-[5px] py-[10px] dark:bg-[#1A1B1E] bg-[#f5f6fa] gap-[10px] rounded-[5px] flex flex-col items-center"
+              className="px-[5px] py-[10px] dark:bg-color-card-body-secondary bg-[#f5f6fa] gap-[10px] rounded-[5px] flex flex-col items-center"
             >
               <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="" />
-              <span className="text-[12px] text-[#818891]">{item.text}</span>
+              <span className="text-[12px] text-color-text-primary">{item.text}</span>
               <div className="flex items-center justify-center dark:bg-[#1E2024] bg-white gap-[5px] py-[5px] px-[10px]">
-                <Profile2User variant="Bold" className="w-[12px] h-[12px] dark:text-[#0DFDE4] text-[#3BC117]" />
-                <span className="text-[12px] font-semibold dark:text-[#0DFDE4] text-[#3BC117]">
-                  {item.accountNumber}
-                </span>
+                <Profile2User variant="Bold" className="w-[12px] h-[12px] text-color-primary" />
+                <span className="text-[12px] font-semibold text-color-primary">{medalDatas[item.val]}</span>
               </div>
             </div>
           ))}
         </div>
-        <div className="dark:text-[#0DFDE4] text-[#3BC117] text-[12px] flex flex-col items-center justify-center mt-[10px]">
+        <div className="text-color-primary text-[12px] flex flex-col items-center justify-center mt-[25px]">
           <div className="flex items-center">
             <InfoCircle />
             <span>{t('profile:tipContent')}</span>

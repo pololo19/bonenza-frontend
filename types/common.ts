@@ -284,6 +284,8 @@ export type UserDetail = {
   generalSetting: UserSettingGeneralType;
   privacySetting: UserSettingPrivacyType;
   verifiedSetting: UserSettingVerifiedType;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 };
 
 export type GameProviderDetail = {

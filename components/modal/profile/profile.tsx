@@ -1,5 +1,6 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import cn from 'classnames';
 import { ArrowLeft2, Edit2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,11 +9,12 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getProfile } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { API_AVATAR, ROUTER } from '@/base/constants/common';
-import { convertUserInfo, currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
+import { API_AVATAR, groupMedal, ROUTER } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
+import { convertUserInfo, currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowInformation, changeIsShowUpdateInformation } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { GameDetail, UserDetail } from '@/base/types/common';
+import { UserDetail } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
@@ -26,26 +28,22 @@ type ModalProfileProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-const groupMedal = [
-  { img: '/img/medal-1.png' },
-  { img: '/img/medal-2.png' },
-  { img: '/img/medal-3.png' },
-  { img: '/img/medal-4.png' },
-  { img: '/img/medal-5.png' },
-  { img: '/img/medal-6.png' },
-  { img: '/img/medal-7.png' },
-  { img: '/img/medal-1.png' },
-  { img: '/img/medal-2.png' },
-];
+type FavoriteGameType = {
+  id: string;
+  title: string;
+  identifier: string;
+  totalWageredAmountUsd: number;
+};
 
 export default function ModalProfile({ show, onClose }: ModalProfileProps) {
+  const exchange = useExchange();
   const { t } = useTranslation('');
-  const { localeFiat, userId, viewInFiat, userData } = useSelector(
+  const { userId, viewInFiat, userData, localFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
       viewInFiat: state.common.viewInFiat,
       userId: state.auth.user.userId,
       userData: state.user,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
@@ -53,25 +51,14 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const dispatch = useDispatch();
 
   const [user, setUser] = useState<UserDetail>();
-  const [listGame, setListGame] = useState<GameDetail[]>([]);
+  const [medals, setMedals] = useState<string[]>([]);
+  const [listGame, setListGame] = useState<FavoriteGameType[]>([]);
+
   const [isStatistic, setIsStatistic] = useState<boolean>(false);
   const [isMedalsDetail, setIsMedalDetail] = useState<boolean>(false);
+
   const [vipData, setVipData] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleGetListGame = async (selectedUserId: string) => {
-    try {
-      // const res = await api.get('game/get-top-3-favorites', {
-      //   params: {
-      //     userId: selectedUserId || userId,
-      //   },
-      // });
-      setListGame([]);
-    } catch (error) {
-      setListGame([]);
-    } finally {
-    }
-  };
 
   const getVipListByRank = async () => {
     setIsLoading(true);
@@ -88,7 +75,20 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
     try {
       setIsLoading(true);
       const res = await api_getProfile(selectedUserId || userId);
-      setUser({ ...convertUserInfo(res.data) });
+      const medals = res.data?.medals ?? [];
+      const totalWins = res.data?.totalWins ?? 0;
+      const totalBets = res.data?.totalBets ?? 0;
+      const totalWagered = res.data?.totalWageredAmountUsd ?? 0;
+
+      const tempFavoriteGame = res.data?.topThreeFavoriteGames?.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        identifier: item.identifier,
+        totalWageredAmountUsd: item.totalWageredAmountUsd,
+      }));
+      setMedals(medals);
+      setListGame(tempFavoriteGame);
+      setUser({ ...convertUserInfo(res.data), betCount: totalBets, winCount: totalWins, totalWager: totalWagered });
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -97,7 +97,6 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   useEffect(() => {
     const selectedUserId = userData.userId;
-    handleGetListGame(selectedUserId);
     getUserProfile(selectedUserId);
     getVipListByRank();
   }, [userData]);
@@ -105,7 +104,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const returnHeader = useCallback(() => {
     return (
       <>
-        <div className="relative px-[12px] pt-[20px] pb-[10px] bg-[#f5f6fa] dark:bg-[#161D26]">
+        <div className="relative px-[12px] py-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
           {!isStatistic && !isMedalsDetail && (
             <div>
               <div className="text-black dark:text-white md:text-[18px] text-[16px] px-[20px] font-bold">
@@ -152,7 +151,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     />
                   </div>
                   <div className="text-black dark:text-white text-[16px] font-[700]">{user?.userName}</div>
-                  <div className="text-[12px] text-[#939699]">
+                  <div className="text-[12px] text-color-text-primary">
                     {t('profile:userID')}:{user?.userId}
                   </div>
                 </div>
@@ -199,22 +198,25 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       </>
     );
   }, [isStatistic, isMedalsDetail, vipData, user]);
+
   const returnBody = useCallback(() => {
     if (!user) return <Loader />;
     // if selected User is not signIn user and selected user sets hideGamingData
     if (user?.userId !== userId && user?.privacySetting.settingHideGamingData) {
       return (
         <>
-          <div className="flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] bg-[#f5f6fa] dark:bg-[#161D26]">
-            <div className="dark:bg-[#12181F] bg-white rounded-[10px] px-5 py-5 h-[300px]">
-              <div className="text-[0.875rem] text-[#31373d] dark:text-white">{t('profile:statistics')}</div>
+          <div className="flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] scrollbar">
+            <div className="rounded-[10px] px-5 py-5 h-[300px]">
+              <div className="text-[12px] text-[#31373d] dark:text-white">{t('profile:statistics')}</div>
               <div className="flex justify-center mt-4">
                 <Image width={200} height={200} src="/img/noStatistic.png" alt="hidden statistic" />
               </div>
-              <div className="text-[10px] text-[#939699] flex justify-center">{t('profile:statisticsHidden')}</div>
+              <div className="text-[10px] text-color-text-primary flex justify-center">
+                {t('profile:statisticsHidden')}
+              </div>
             </div>
-            <div className="text-[#939699] text-[10px] w-full text-center mt-[10px]">
-              {t('profile:joinedOn')} 6/23/2023
+            <div className="text-color-text-primary text-[10px] w-full text-center mt-[10px]">
+              {t('profile:joinedOn')} {formatDate(new Date(user?.createdAt ?? ''), 'dd/MM/yyyy')}
             </div>
           </div>
         </>
@@ -223,44 +225,55 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
     return (
       <>
         <div
-          className={`flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] h-full bg-[#f5f6fa] dark:bg-[#161D26] ${
+          className={`flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] h-full bg-color-header-primary scrollbar ${
             isMedalsDetail && '!p-0'
           }`}
         >
           {!isStatistic && !isMedalsDetail && (
             <div className="flex flex-col gap-2">
-              <div className="rounded-[5px] bg-white dark:bg-[#12181F] px-[12px] pt-[16px] pb-[12px]">
+              <div className="rounded-[5px] dark:bg-color-modal-bg-primary px-[14px] pt-[16px] pb-[12px]">
                 <div className="flex items-center justify-between" onClick={() => setIsMedalDetail(true)}>
-                  <div className="flex gap-[5px] text-black dark:text-white text-[0.875rem] items-center">
+                  <div className="flex gap-[5px] text-black dark:text-white text-[12px] items-center">
                     <div>{t('profile:medal')}</div>
-                    <div>0</div>
+                    <div>{medals.length}</div>
                   </div>
                   <div className="flex items-center gap-[5px] cursor-pointer">
-                    <div className="text-[#20D4EB] text-[0.875rem]">{t('profile:details')}</div>
-                    <ChevronRightIcon width={14} className="text-[#20D4EB]" />
+                    <div className="text-color-primary text-[12px]">{t('profile:details')}</div>
+                    <ChevronRightIcon width={14} className="text-color-primary" />
                   </div>
                 </div>
                 <div className="mt-[12px] flex gap-[14px] items-center flex-nowrap overflow-auto scrollbar cursor-pointer pb-[5px]">
                   {groupMedal.map((item, index) => (
-                    <Image src={item.img} alt="" width={44} height={662} key={index} className="opacity-[0.5]" />
+                    <Image
+                      src={item.img}
+                      alt=""
+                      width={44}
+                      onClick={() => setIsMedalDetail(true)}
+                      height={662}
+                      key={index}
+                      className={cn({
+                        'opacity-[0.5]': medals.findIndex((medal) => medal === item.key) === -1,
+                        'opacity-100': medals.findIndex((medal) => medal === item.key) !== -1,
+                      })}
+                    />
                   ))}
                 </div>
               </div>
-              <div className="bg-white dark:bg-[#12181F] py-[15px] px-[12px] rounded-[5px]">
+              <div className="bg-white dark:bg-color-modal-bg-primary py-[12px] px-[14px] rounded-[5px]">
                 <div className="flex items-center justify-between">
-                  <div className="text-black dark:text-white text-[0.875rem]">{t('profile:statistics')}</div>
+                  <div className="text-black dark:text-white text-[12px]">{t('profile:statistics')}</div>
                   <div
                     className="flex items-center gap-[5px] cursor-pointer"
                     onClick={() => {
                       setIsStatistic(true);
                     }}
                   >
-                    <div className="text-[#20D4EB] text-[0.875rem]">{t('profile:details')}</div>
-                    <ChevronRightIcon width={14} className="text-[#20D4EB]" />
+                    <div className="text-color-primary text-[12px]">{t('profile:details')}</div>
+                    <ChevronRightIcon width={14} className="text-color-primary" />
                   </div>
                 </div>
                 <div className="flex items-center flex-row gap-2 sm:gap-[15px] sm:justify-between mt-5">
-                  <div className="bg-[#f5f6fa] dark:bg-[#1A1C1F] rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+                  <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                     <div className="flex gap-[5px] items-center">
                       <Image
                         src="/img/icon/total-win.png"
@@ -269,11 +282,11 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                         className="w-[12px] h-[12px]"
                         alt=""
                       />
-                      <div className="text-[0.75rem] text-[#939699]">{t('profile:totalWins')}</div>
+                      <div className="text-[0.75rem] text-color-text-primary">{t('profile:totalWins')}</div>
                     </div>
-                    <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user?.winCount || 0}</div>
+                    <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
                   </div>
-                  <div className="bg-[#f5f6fa] dark:bg-[#1A1C1F] rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+                  <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                     <div className="flex gap-[5px] items-center">
                       <Image
                         src="/img/icon/total-bets.png"
@@ -282,11 +295,11 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                         className="w-[12px] h-[12px]"
                         alt=""
                       />
-                      <div className="text-[0.75rem] text-[#939699]">{t('profile:totalBets')}</div>
+                      <div className="text-[0.75rem] text-color-text-primary">{t('profile:totalBets')}</div>
                     </div>
-                    <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user?.betCount || 0}</div>
+                    <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
                   </div>
-                  <div className="bg-[#f5f6fa] dark:bg-[#1A1C1F] rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+                  <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                     <div className="flex gap-[5px] items-center">
                       <Image
                         src="/img/icon/total-wagered.png"
@@ -295,29 +308,20 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                         className="w-[12px] h-[12px]"
                         alt=""
                       />
-                      <div className="text-[0.75rem] text-[#939699]">{t('profile:totalWagered')}</div>
+                      <div className="text-[0.75rem] text-color-text-primary">{t('profile:totalWagered')}</div>
                     </div>
                     <div className="text-[14px] sm:text-[1rem] dark:text-white text-black truncate max-w-full px-1">
-                      {viewInFiat ? (
-                        <>
-                          {handleLocaleSymbol(String(localeFiat?.currency))}
-                          {currencyFormat(
-                            exchangeByLocaleFiat('USD', String(localeFiat?.currency), user?.totalWager),
-                            2,
-                          )}
-                        </>
+                      {localFiat ? (
+                        <>{currencyFormat1(user.totalWager, 2, localFiat.name)}</>
                       ) : (
-                        <>
-                          {handleLocaleSymbol('USD')}
-                          {currencyFormat(Number(user?.totalWager), 2)}
-                        </>
+                        <>{currencyFormat1(user.totalWager, 2)}</>
                       )}
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="dark:bg-[#12181F] bg-white rounded-[10px] px-5 py-5">
-                <div className="text-[0.875rem] text-[#31373d] dark:text-white">{t('profile:top3FavoriteGames')}</div>
+              <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
+                <div className="text-[12px] text-[#31373d] dark:text-white">{t('profile:top3FavoriteGames')}</div>
                 {!!listGame.length && (
                   <div className="flex flex-col gap-[5px] mt-[15px]">
                     {listGame.map((item, index) => (
@@ -327,19 +331,20 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                             <Image
                               height={60}
                               width={60}
-                              src={`https://cdn.softswiss.net/i/s4/${item.provider}/${item.identifier2}.png`}
+                              src={`https://cdn.softswiss.net/i/s4/${(item.identifier || '').replace(':', '/')}.png`}
                               alt=""
                               className="object-cover max-h-auto rounded-[5px]"
                             />
-                            <div className="text-[12px] text-[#939699]">{item.title}</div>
+                            <div className="text-[12px] text-color-text-primary">{item.title}</div>
                           </div>
                         </Link>
-                        <div className="text-[10px] text-[#939699] text-right">
+                        <div className="text-[10px] text-color-text-primary text-right">
                           <div>{t('profile:wagered')}</div>
-                          <div>{`${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                            exchangeByLocaleFiat(item.currency, String(localeFiat?.currency), Number(item.wagered)),
-                            2,
-                          )}`}</div>
+                          <div className="text-white">
+                            {localFiat
+                              ? currencyFormat1(item.totalWageredAmountUsd, 2, localFiat.name)
+                              : currencyFormat1(item.totalWageredAmountUsd, 2)}
+                          </div>
                         </div>
                       </div>
                     ))}
@@ -354,12 +359,12 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   </div>
                 )}
               </div>
-              <div className="dark:bg-[#12181F] bg-white rounded-[10px] px-5 py-5">
-                <div className="text-[0.875rem] text-[#31373d] dark:text-white">{t('profile:wagerContest')}</div>
+              <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
+                <div className="text-[12px] text-[#31373d] dark:text-white">{t('profile:wagerContest')}</div>
                 <WagerContest userData={user} />
               </div>
-              <div className="text-[#939699] text-[10px] w-full text-center mt-[10px]">
-                {t('profile:joinedOn')} 10/05/2023
+              <div className="text-color-text-primary text-[10px] w-full text-center mt-[10px]">
+                {t('profile:joinedOn')} {formatDate(new Date(user?.createdAt ?? ''), 'dd/MM/yyyy')}
               </div>
             </div>
           )}
@@ -368,7 +373,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
         </div>
       </>
     );
-  }, [user, userId, isStatistic, isMedalsDetail, viewInFiat, listGame, isLoading]);
+  }, [user, userId, isStatistic, isMedalsDetail, viewInFiat, listGame, isLoading, medals]);
 
   return (
     <>
