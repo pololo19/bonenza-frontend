@@ -78,7 +78,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes1'),
         textButton: t('homePage:introduceCardButton1'),
         href: ROUTER.Casino,
-        icon: <CasinoBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
+        icon: <CasinoBoldIcon className="text-color-primary xl:w-[27px] xl:h-[27px] md:w-[20px] md:h-[20px]" />,
       },
       {
         imgBackGround: '/img/page/sports.png',
@@ -86,7 +86,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
         href: ROUTER.Sports,
-        icon: <SportBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
+        icon: <SportBoldIcon className="text-color-primary w-[27px] h-[27px] md:w-[20px] md:h-[20px]" />,
       },
       {
         imgBackGround: '/img/page/liveholdem.png',
@@ -96,10 +96,27 @@ function IndexPage() {
         href: 'https://cmd23.com/room/games.php',
         icon: (
           <Image
-            width={20}
-            height={20}
+            width={25}
+            height={25}
             className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
-            src="/icon/liveholdem-green.png"
+            src="/icon/liveholdem-1.png"
+            alt="logo"
+          />
+        ),
+        isClick: true,
+      },
+      {
+        imgBackGround: '/img/page/updown.png',
+        title: t('homePage:updown'),
+        description: t('homePage:introduceCardDes4'),
+        textButton: t('homePage:introduceCardButton4'),
+        href: 'https://trade.playnance.com/trade',
+        icon: (
+          <Image
+            width={25}
+            height={25}
+            className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
+            src="/icon/updownIcon.png"
             alt="logo"
           />
         ),
@@ -387,7 +404,7 @@ function IndexPage() {
             </div>
 
             <div className="flex flex-col items-start gap-[50px] mt-[15px] ">
-              <div className="sm:grid md:grid-cols-3 grid-cols-1 gap-[16px] w-full hidden">
+              <div className="sm:grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-[16px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}

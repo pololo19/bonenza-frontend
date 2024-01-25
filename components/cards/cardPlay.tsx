@@ -28,7 +28,7 @@ export default function CardPlay({
   const router = useRouter();
 
   return (
-    <div className="gap-[5px] flex flex-col lg:h-[390px]">
+    <div className="gap-[5px] flex flex-col  aspect-square">
       <div className="sm:hidden flex gap-[10px] items-center sm:items-end mb-[10px]">
         <Image height={25} width={25} className="h-[25px] rounded-[5px]" src="/img/three-cards.png" alt="" />
         <div className="dark:text-white text-black text-[16px] font-bold uppercase">{title}</div>
@@ -58,13 +58,13 @@ export default function CardPlay({
               <div className="mt-[5px]">{icon}</div>
 
               <div>
-                <div className="text-white text-[24px] font-bold uppercase mb-3">{title}</div>
-                <div className="sm:hidden block dark:text-white text-[#31373d] text-[14px] lg:text-[16px] mb-3">
+                <div className="text-white md:text-[18px] xl:text-[24px] font-bold uppercase mb-3">{title}</div>
+                <div className="sm:hidden block dark:text-white text-[#31373d] md:text-[14px] xl:text-[16px] mb-3">
                   {description}
                 </div>
               </div>
             </div>
-            <div className="dark:text-white text-black sm:text-[#31373d] text-[14px] lg:text-[16px] mt-[4px] mb-5 min-h-[72px]">
+            <div className="dark:text-white text-black sm:text-[#31373d] md:text-[14px] xl:text-[16px] mt-[4px] mb-5 min-h-[50px] xl:min-h-[72px]">
               {description}
             </div>
             {!isClick && (
