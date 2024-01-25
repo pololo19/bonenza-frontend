@@ -44,6 +44,7 @@ module.exports = {
         'color-card-bg-secondary': '#16171B',
         'color-card-header-primary': '#2F3339',
         'color-card-body-primary': '#24262B',
+        'color-card-body-secondary': '#1A1C1F',
         'color-card-input-primary': '#202227',
         'color-card-button-primary': '#2F3339',
         'color-panel-bg': '#25262B',

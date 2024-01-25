@@ -353,6 +353,8 @@ export const convertUserInfo = (userData: any) => {
     referralCode: userData?.referralCode,
     isKyc: userData?.isKyc,
     tfa: userData?.tfa,
+    createdAt: userData?.createdAt,
+    updatedAt: userData?.updatedAt,
     generalSetting: {
       settingShowFullNameCrypto: userData?.settingShowFullNameCrypto,
       settingReceiveMarketPromotion: userData?.settingReceiveMarketPromotion,
