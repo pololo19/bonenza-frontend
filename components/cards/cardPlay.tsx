@@ -50,21 +50,23 @@ export default function CardPlay({
         <div
           className={cn(
             styles.cardContent,
-            'px-[12px] py-[20px] backdrop-blur-[2px] dark:bg-none bg-gradient-to-t from-[#fff]  to-[#fff]/0',
+            'p-[10px] backdrop-blur-[2px] dark:bg-none bg-gradient-to-t from-[#fff]  to-[#fff]/0',
           )}
         >
           <div>
             <div className="sm:flex hidden gap-[10px]">
-              <div className="mt-[5px]">{icon}</div>
+              <div className="mt-[3px]">{icon}</div>
 
               <div>
-                <div className="text-white md:text-[18px] xl:text-[24px] font-bold uppercase mb-3">{title}</div>
-                <div className="sm:hidden block dark:text-white text-[#31373d] md:text-[14px] xl:text-[16px] mb-3">
+                <div className="text-white sm:text-[24px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] font-bold uppercase">
+                  {title}
+                </div>
+                <div className="sm:hidden block dark:text-white text-[#31373d] md:text-[14px] 2xl:text-[16px]">
                   {description}
                 </div>
               </div>
             </div>
-            <div className="dark:text-white text-black sm:text-[#31373d] md:text-[14px] xl:text-[16px] mt-[4px] mb-5 min-h-[50px] xl:min-h-[72px]">
+            <div className="dark:text-white text-black sm:text-[#31373d] text-[10px] sm:text-[20px] mt-1 tracking-tight lg:text-[10px] xl:text-[12px] 2xl:text-[15px] mb-1 sm:min-h-[120px] lg:min-h-[65px] xl:min-h-[72px]">
               {description}
             </div>
             {!isClick && (
