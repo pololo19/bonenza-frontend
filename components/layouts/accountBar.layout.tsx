@@ -1,5 +1,4 @@
 import { googleLogout } from '@react-oauth/google';
-import { useWeb3React } from '@web3-react/core';
 import cn from 'classnames';
 import {
   ArrowRight2,
@@ -30,7 +29,9 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, LANGUAGE_DATA, ROUTER } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { logoutState } from '@/base/redux/reducers/auth.reducer';
 import {
   changeAuthenticationType,
@@ -47,8 +48,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import VipProgressComponent from '../vipProgress/vipProgress';
-import { currencyFormat1 } from '@/base/libs/utils';
-import { useExchange } from '@/base/hooks/useExchange';
 
 type ListItemProps = {
   title: string;
@@ -110,7 +109,6 @@ const AccountPannel: React.FC = () => {
   const { setTheme } = useTheme();
   const [mode, setMode] = useState(0);
   const router = useRouter();
-  const { deactivate } = useWeb3React();
 
   useEffect(() => {
     const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
@@ -302,7 +300,6 @@ const AccountPannel: React.FC = () => {
   const handleLogout = () => {
     CookiesStorage.logout();
     googleLogout();
-    deactivate();
     dispatch(logoutState());
     dispatch(logoutWallet());
     router.replace(ROUTER.Home);

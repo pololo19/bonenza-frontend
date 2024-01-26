@@ -630,6 +630,8 @@ export const SOCKET_GAME_URL = process.env.SOCKET_GAME_URL;
 export const WITHDRAW_FEE = process.env.WITHDRAW_FEE;
 export const SWAP_FEE = process.env.SWAP_FEE;
 export const SWAP_MIN = 5;
+export const PROJECT_NAME = process.env.project;
+export const PROJECT_ID = process.env.projectId;
 
 export const DEFAULT_AVATAR = 'https://bonenza.com/img/avatar-1.png';
 

@@ -1,7 +1,3 @@
-import { InjectedConnector } from '@web3-react/injected-connector';
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
-import { WalletLinkConnector } from '@web3-react/walletlink-connector';
-
 export const RPC = 'https://eth-goerli.g.alchemy.com/v2/VmUYTX6cCOriZUksvlrrHpaxQPivUyBE';
 
 export const chainId = 56;
@@ -15,25 +11,6 @@ export const rpcUrls = [
   'https://1rpc.io/bnb',
   'https://bscrpc.com',
 ];
-export const metamask = new InjectedConnector({
-  supportedChainIds: supportedChainIds,
-});
-
-export const walletConnect = new WalletConnectConnector({
-  supportedChainIds: supportedChainIds,
-  chainId: chainId,
-  rpc: {
-    56: 'https://www.1rpc.io/',
-  },
-  bridge: 'https://bridge.walletconnect.org',
-});
-
-export const walletconnect = new WalletLinkConnector({
-  url: `https://eth-goerli.g.alchemy.com/v2/VmUYTX6cCOriZUksvlrrHpaxQPivUyBE`,
-  appName: 'Web3-react Demo',
-  supportedChainIds: supportedChainIds,
-});
-
 export const chainProvider = {
   goerli: 'https://goerli.infura.io/v3',
   eth: 'https://1rpc.io/eth',
