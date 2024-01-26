@@ -3,27 +3,24 @@ import { WalletButton } from '@rainbow-me/rainbowkit';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
 
-import api from '@/api/api';
 import { api_loginWithGoogle, api_loginWithTelegram, api_loginWithWallet } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
-import { useAccount, useSignMessage } from 'wagmi';
 
 declare let window: any;
 
 type LoginWalletProps = {
-  onClose?: () => void;
+  onClose: () => void;
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
@@ -32,6 +29,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const dispatch = useAppDispatch();
 
   const { address, isConnected, isConnecting } = useAccount();
+  const { disconnect } = useDisconnect();
   const { signMessageAsync } = useSignMessage();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -124,6 +122,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       } else {
         toast.error(String(t('authentication:loginGoogleFailed')), { containerId: TOAST_ENUM.MODAL });
       }
+      disconnect();
     } finally {
       setIsLoading(false);
     }
