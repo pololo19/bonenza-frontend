@@ -215,6 +215,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           />
         ),
       },
+      {
+        title: 'layout:updown',
+        href: 'https://trade.playnance.com/trade',
+        icon: (
+          <Image
+            width={18}
+            height={18}
+            className="text-color-primary w-[18px] h-[18px]"
+            src="/icon/updownIcon.png"
+            alt="logo"
+          />
+        ),
+      },
       { title: 'layout:racing', href: ROUTER.Racing, icon: <RacingBoldIcon className="text-[#F48D19]" /> },
     ],
     [],

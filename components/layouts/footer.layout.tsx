@@ -402,6 +402,15 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     className="max-w-[50px] max-h-[50px] cursor-pointer"
                   />
                 </div>
+                <div className="max-w-[50px] max-h-[50px]">
+                  <Image
+                    alt=""
+                    src="/img/icon/polygon-icon.png"
+                    width={50}
+                    height={50}
+                    className="max-w-[50px] max-h-[50px] cursor-pointer"
+                  />
+                </div>
                 {/* <div className="max-w-[50px] max-h-[50px]">
                   <Image
                     alt=""
