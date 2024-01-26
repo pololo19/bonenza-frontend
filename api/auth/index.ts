@@ -4,6 +4,8 @@ import {
   API_AUTH_GET_2FA_STATUS,
   API_AUTH_LOGIN,
   API_AUTH_LOGIN_WITH_GOOGLE,
+  API_AUTH_LOGIN_WITH_TELEGRAM,
+  API_AUTH_LOGIN_WITH_WALLET,
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
@@ -36,6 +38,14 @@ export const api_login = (data: LoginRequest) => {
 
 export const api_loginWithGoogle = (code: string) => {
   return api.post(API_AUTH_LOGIN_WITH_GOOGLE, { code });
+};
+
+export const api_loginWithTelegram = (data: any) => {
+  return api.post(API_AUTH_LOGIN_WITH_TELEGRAM, data);
+};
+
+export const api_loginWithWallet = (address: string, signature: string) => {
+  return api.post(API_AUTH_LOGIN_WITH_WALLET, { address, signature });
 };
 
 export const api_verify = (data: VerifyCodeRequest) => {

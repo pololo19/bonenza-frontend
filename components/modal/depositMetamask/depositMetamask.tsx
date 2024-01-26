@@ -10,7 +10,6 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 import { TOAST_ENUM } from '@/base/constants/common';
-import { metamask } from '@/base/constants/contracts';
 import Loader from '@/components/common/preloader/loader';
 import InputNumber from '@/components/input/typing/InputNumber';
 import Image from 'next/image';
@@ -45,30 +44,30 @@ export default function ModalDepositMetamask({ show, onClose, walletAddress }: M
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleSubmitMetamask = async (data: BnbDepositForm) => {
-    try {
-      // setIsLoading(true);
-      const provider = await metamask.getProvider();
-      const web3 = new Web3(provider);
-      const accounts = await provider.request({ method: 'eth_requestAccounts' });
-      await provider.request({
-        method: 'eth_sendTransaction',
-        params: [
-          {
-            chainId: 56,
-            from: accounts[0],
-            value: parseInt(web3.utils.toWei(String(data.amount), 'ether')).toString(16),
-            to: walletAddress,
-          },
-        ],
-      });
-      onClose();
-    } catch (error: any) {
-      if (error?.code !== 4001) {
-        toast.error('Deposit Failed', { containerId: TOAST_ENUM.MODAL });
-      }
-    } finally {
-      // setIsLoading(false);
-    }
+    // try {
+    //   // setIsLoading(true);
+    //   const provider = await metamask.getProvider();
+    //   const web3 = new Web3(provider);
+    //   const accounts = await provider.request({ method: 'eth_requestAccounts' });
+    //   await provider.request({
+    //     method: 'eth_sendTransaction',
+    //     params: [
+    //       {
+    //         chainId: 56,
+    //         from: accounts[0],
+    //         value: parseInt(web3.utils.toWei(String(data.amount), 'ether')).toString(16),
+    //         to: walletAddress,
+    //       },
+    //     ],
+    //   });
+    //   onClose();
+    // } catch (error: any) {
+    //   if (error?.code !== 4001) {
+    //     toast.error('Deposit Failed', { containerId: TOAST_ENUM.MODAL });
+    //   }
+    // } finally {
+    //   // setIsLoading(false);
+    // }
   };
 
   return (

@@ -80,12 +80,13 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       const totalBets = res.data?.totalBets ?? 0;
       const totalWagered = res.data?.totalWageredAmountUsd ?? 0;
 
-      const tempFavoriteGame = res.data?.topThreeFavoriteGames?.map((item: any) => ({
-        id: item.id,
-        title: item.title,
-        identifier: item.identifier,
-        totalWageredAmountUsd: item.totalWageredAmountUsd,
-      }));
+      const tempFavoriteGame =
+        res.data?.topThreeFavoriteGames?.map((item: any) => ({
+          id: item.id,
+          title: item.title,
+          identifier: item.identifier,
+          totalWageredAmountUsd: item.totalWageredAmountUsd,
+        })) ?? [];
       setMedals(medals);
       setListGame(tempFavoriteGame);
       setUser({ ...convertUserInfo(res.data), betCount: totalBets, winCount: totalWins, totalWager: totalWagered });
