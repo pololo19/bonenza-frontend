@@ -80,7 +80,7 @@ export default function CommonModal({
                     {header}
                     {isShowCloseButton && (
                       <div
-                        className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md p-1 z-[10]"
+                        className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md z-[10]"
                         role="button"
                         onClick={onClose}
                       >

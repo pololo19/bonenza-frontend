@@ -105,11 +105,11 @@ export default function WagerContest({ userData }: WagerContestProps) {
 
   return (
     <>
-      <div className="dark:bg-[#12181F] bg-white my-[24px]">
+      <div className="my-[24px]">
         {!isLoading && listWager.length > 0 && (
           <RankingTableComponent
             isLoading={isLoading}
-            containerClassName="w-full dark:bg-[#12181F] bg-white"
+            containerClassName="w-full"
             data={listWager}
             columns={wagerColumns}
           />

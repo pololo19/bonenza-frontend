@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -18,7 +18,7 @@ import CardVipBonus from '../cards/cardVipBonus';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 
 function BonusLoggedPage() {
-  const { t } = useTranslation('');
+  const { t, i18n } = useTranslation('');
   const { theme } = useTheme();
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -42,143 +42,149 @@ function BonusLoggedPage() {
       : `$${currencyFormat(amount, isDecimalNumber(amount) ? 3 : 0)}`;
   };
 
-  const dataGeneralBonus = [
-    {
-      backgroundDark: '/img/bg-quest.png',
-      backgroundLight: '/img/bg-quest-light.png',
-      name: t('bonus:quest'),
-      description: t('bonus:questDescription'),
-      title: t('bonus:questTitle'),
-      total: t('bonus:questTotal'),
-      titleValue: '0/4',
-      totalValue: '0/1',
-      nameButton: t('bonus:questButton'),
-      showDeposit: false,
-    },
-    {
-      backgroundDark: '/img/bg-lucky-spin.png',
-      backgroundLight: '/img/bg-lucky-spin-light.png',
-      name: t('bonus:spin'),
-      description: t('bonus:spinDescription'),
-      title: t('bonus:spinTitle'),
-      total: t('bonus:spinTotal'),
-      titleValue: '1',
-      totalValue: handleGetValue(0),
-      nameButton: t('bonus:spinButton'),
-      showDeposit: false,
-    },
-    // {
-    //   backgroundDark: '/img/bg-roll.png',
-    //   backgroundLight: '/img/bg-roll-light.png',
-    //   name: t('bonus:rollCompetition'),
-    //   description: t('bonus:rollDescription'),
-    //   title: t('bonus:rollTitle'),
-    //   total: t('bonus:rollTotal'),
-    //   titleValue: '0',
-    //   totalValue: '₫ 0.00',
-    //   nameButton: '',
-    //   showDeposit: false,
-    // },
-    {
-      backgroundDark: '/img/bg-rakeback.png',
-      backgroundLight: '/img/bg-rakeback-light.png',
-      name: t('bonus:BNZRakeback'),
-      description: t('bonus:BNZDescription'),
-      title: t('bonus:BNZTitle'),
-      total: t('bonus:BNZTotal'),
-      titleValue: '5.00 USDT',
-      totalValue: '0.00 USDT',
-      nameButton: t('bonus:questButton'),
-      showDeposit: false,
-    },
-    {
-      backgroundDark: '',
-      backgroundLight: '',
-      name: t('bonus:depositBonus'),
-      description: '',
-      title: '',
-      total: '',
-      titleValue: '',
-      totalValue: '',
-      nameButton: '',
-      showDeposit: true,
-    },
-  ];
+  const dataGeneralBonus = useMemo(
+    () => [
+      {
+        backgroundDark: '/img/bg-quest.png',
+        backgroundLight: '/img/bg-quest-light.png',
+        name: t('bonus:quest'),
+        description: t('bonus:questDescription'),
+        title: t('bonus:questTitle'),
+        total: t('bonus:questTotal'),
+        titleValue: '0/4',
+        totalValue: '0/1',
+        nameButton: t('bonus:questButton'),
+        showDeposit: false,
+      },
+      {
+        backgroundDark: '/img/bg-lucky-spin.png',
+        backgroundLight: '/img/bg-lucky-spin-light.png',
+        name: t('bonus:spin'),
+        description: t('bonus:spinDescription'),
+        title: t('bonus:spinTitle'),
+        total: t('bonus:spinTotal'),
+        titleValue: '1',
+        totalValue: handleGetValue(0),
+        nameButton: t('bonus:spinButton'),
+        showDeposit: false,
+      },
+      // {
+      //   backgroundDark: '/img/bg-roll.png',
+      //   backgroundLight: '/img/bg-roll-light.png',
+      //   name: t('bonus:rollCompetition'),
+      //   description: t('bonus:rollDescription'),
+      //   title: t('bonus:rollTitle'),
+      //   total: t('bonus:rollTotal'),
+      //   titleValue: '0',
+      //   totalValue: '₫ 0.00',
+      //   nameButton: '',
+      //   showDeposit: false,
+      // },
+      // {
+      //   backgroundDark: '/img/bg-rakeback.png',
+      //   backgroundLight: '/img/bg-rakeback-light.png',
+      //   name: t('bonus:BNZRakeback'),
+      //   description: t('bonus:BNZDescription'),
+      //   title: t('bonus:BNZTitle'),
+      //   total: t('bonus:BNZTotal'),
+      //   titleValue: '5.00 USDT',
+      //   totalValue: '0.00 USDT',
+      //   nameButton: t('bonus:questButton'),
+      //   showDeposit: false,
+      // },
+      {
+        backgroundDark: '',
+        backgroundLight: '',
+        name: t('bonus:depositBonus'),
+        description: '',
+        title: '',
+        total: '',
+        titleValue: '',
+        totalValue: '',
+        nameButton: '',
+        showDeposit: true,
+      },
+    ],
+    [i18n.language],
+  );
 
-  const dataCardVipBonus = [
-    {
-      backgroundDark: '/img/bg-recharge.png',
-      backgroundLight: '/img/bg-recharge-light.png',
-      name: t('bonus:recharge'),
-      description: '',
-      wagerRequired: t('bonus:wagerRequired'),
-      currentTier: t('bonus:currentTier'),
-      rechargeRate: t('bonus:rechargeRate'),
-      readyToClaim: t('bonus:readyToClaim'),
-      lastWeeklyBonus: '',
-      wagerValue: handleGetValue(1000),
-      tierValue: '-',
-      rechargeRateValue: '-',
-      readyToClaimValue: '-',
-      lastWeekBonusValue: '',
-      showHour: true,
-      showDescription: false,
-    },
-    {
-      backgroundDark: '/img/bg-weekly-cashback.png',
-      backgroundLight: '/img/bg-weekly-cashback-light.png',
-      name: t('bonus:weekCashback'),
-      description: t('bonus:receiveEveryFriday'),
-      wagerRequired: t('bonus:wagerRequired'),
-      currentTier: '',
-      rechargeRate: '',
-      readyToClaim: '',
-      lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-      wagerValue: handleGetValue(1000),
-      tierValue: '',
-      rechargeRateValue: '',
-      readyToClaimValue: '',
-      lastWeekBonusValue: '-',
-      showHour: false,
-      showDescription: true,
-    },
-    {
-      backgroundDark: '/img/bg-weekly-cashback2.png',
-      backgroundLight: '/img/bg-weekly-cashback2-light.png',
-      name: t('bonus:monthlyCashback'),
-      description: t('bonus:weekCashbackDescription'),
-      wagerRequired: t('bonus:wagerRequired'),
-      currentTier: '',
-      rechargeRate: '',
-      readyToClaim: '',
-      lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-      wagerValue: handleGetValue(10000),
-      tierValue: '',
-      rechargeRateValue: '',
-      readyToClaimValue: '',
-      lastWeekBonusValue: '-',
-      showHour: false,
-      showDescription: true,
-    },
-    {
-      backgroundDark: '/img/bg-sports.png',
-      backgroundLight: '/img/bg-sports-light.png',
-      name: t('bonus:sportsWeeklyBonus'),
-      description: t('bonus:receiveEverySaturday'),
-      wagerRequired: t('bonus:wagerRequired'),
-      currentTier: '',
-      rechargeRate: '',
-      readyToClaim: '',
-      lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-      wagerValue: handleGetValue(500),
-      tierValue: '',
-      rechargeRateValue: '',
-      readyToClaimValue: '',
-      lastWeekBonusValue: '-',
-      showHour: false,
-      showDescription: true,
-    },
-  ];
+  const dataCardVipBonus = useMemo(
+    () => [
+      // {
+      //   backgroundDark: '/img/bg-recharge.png',
+      //   backgroundLight: '/img/bg-recharge-light.png',
+      //   name: t('bonus:recharge'),
+      //   description: '',
+      //   wagerRequired: t('bonus:wagerRequired'),
+      //   currentTier: t('bonus:currentTier'),
+      //   rechargeRate: t('bonus:rechargeRate'),
+      //   readyToClaim: t('bonus:readyToClaim'),
+      //   lastWeeklyBonus: '',
+      //   wagerValue: 1000,
+      //   tierValue: '-',
+      //   rechargeRateValue: '-',
+      //   readyToClaimValue: '-',
+      //   lastWeekBonusValue: '',
+      //   showHour: true,
+      //   showDescription: false,
+      // },
+      {
+        backgroundDark: '/img/bg-weekly-cashback.png',
+        backgroundLight: '/img/bg-weekly-cashback-light.png',
+        name: t('bonus:weekCashback'),
+        description: t('bonus:receiveEveryFriday'),
+        wagerRequired: t('bonus:wagerRequired'),
+        currentTier: '',
+        rechargeRate: '',
+        readyToClaim: '',
+        lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
+        wagerValue: 1000,
+        tierValue: '',
+        rechargeRateValue: '',
+        readyToClaimValue: '',
+        lastWeekBonusValue: '-',
+        showHour: false,
+        showDescription: true,
+      },
+      {
+        backgroundDark: '/img/bg-weekly-cashback2.png',
+        backgroundLight: '/img/bg-weekly-cashback2-light.png',
+        name: t('bonus:monthlyCashback'),
+        description: t('bonus:weekCashbackDescription'),
+        wagerRequired: t('bonus:wagerRequired'),
+        currentTier: '',
+        rechargeRate: '',
+        readyToClaim: '',
+        lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
+        wagerValue: handleGetValue(10000),
+        tierValue: '',
+        rechargeRateValue: '',
+        readyToClaimValue: '',
+        lastWeekBonusValue: '-',
+        showHour: false,
+        showDescription: true,
+      },
+      // {
+      //   backgroundDark: '/img/bg-sports.png',
+      //   backgroundLight: '/img/bg-sports-light.png',
+      //   name: t('bonus:sportsWeeklyBonus'),
+      //   description: t('bonus:receiveEverySaturday'),
+      //   wagerRequired: t('bonus:wagerRequired'),
+      //   currentTier: '',
+      //   rechargeRate: '',
+      //   readyToClaim: '',
+      //   lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
+      //   wagerValue: handleGetValue(500),
+      //   tierValue: '',
+      //   rechargeRateValue: '',
+      //   readyToClaimValue: '',
+      //   lastWeekBonusValue: '-',
+      //   showHour: false,
+      //   showDescription: true,
+      // },
+    ],
+    [i18n.language],
+  );
 
   const getVipListByRank = async () => {
     try {
@@ -392,7 +398,7 @@ function BonusLoggedPage() {
                 rechargeRate={item.rechargeRate}
                 readyToClaim={item.readyToClaim}
                 lastWeeklyBonus={item.lastWeeklyBonus}
-                wagerValue={item.wagerValue}
+                wagerValue={String(item.wagerValue)}
                 tierValue={item.tierValue}
                 rechargeRateValue={item.rechargeRateValue}
                 readyToClaimValue={item.readyToClaimValue}

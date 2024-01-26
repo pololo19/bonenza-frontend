@@ -58,7 +58,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
     <>
       <BaseLayout contentClass="sm:mx-auto px-0">
         <>
-          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] sm:px-0 px-[20px] sm:mb-0 mb-14">
+          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] sm:px-0 sm:mb-0 mb-14">
             <CommonSession icon={Setting} title="Setting">
               <Menu
                 as="div"
@@ -67,7 +67,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 <Menu.Button>
                   <div
                     role="button"
-                    className="flex items-center gap-2 py-2 px-6 w-full rounded dark:bg-[#2B2E35] bg-[#fff] mt-[16px] mb-[14px] min-w-[200px]"
+                    className="flex items-center gap-2 py-2 px-6 w-full rounded dark:bg-color-modal-bg-secondary bg-[#fff]  min-w-[200px]"
                   >
                     <div className="flex-1 text-start">{activeRouter}</div>
                     <div className="dark:text-white text-black truncate text-right min-w-[15px]">
@@ -84,14 +84,14 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute dark:bg-[#161D26] bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2">
+                  <Menu.Items className="absolute dark:bg-color-modal-bg-secondary bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2">
                     {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <Link
                             href={item.href}
                             className={cn('flex items-center justify-start p-[10px] w-full rounded text-[14px]', {
-                              'border-[0.5px] border-solid border-amber-500 font-semibold dark:text-white text-black':
+                              'border-[0.5px] border-solid border-color-primary font-semibold dark:text-white text-black':
                                 router.route.includes(item.href),
                               'dark:hover:bg-gray-500 dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-[#3137ed]':
                                 !router.route.includes(item.href),
@@ -139,7 +139,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex-1 rounded-[3px] dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black px-3 pt-3 pb-5 md:p-5',
+                    'flex-1 rounded-[3px] dark:bg-transparent sm:dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black md:px-3 md:pt-3 md:pb-5 md:p-5 mt-[20px] md:mt-0 relative w-full',
                   )}
                 >
                   {children}

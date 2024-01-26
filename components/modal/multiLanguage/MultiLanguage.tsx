@@ -71,6 +71,9 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
     dispatch(changeViewInFiat(true));
 
     dispatch(setLocalFiat(item));
+    if (isLogin) {
+      dispatch(updateSetting({ ...settings, settingCurrency: item.id }));
+    }
   };
 
   return (
@@ -168,7 +171,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                   </div>
                 </>
                 <div className="md:col-span-3 sm:col-span-2 col-span-1"></div>
-                {fiatSymbols.map((item, key) => (
+                {fiatSymbols.map((item: CurrencyType, key: number) => (
                   <div
                     key={key}
                     role="button"

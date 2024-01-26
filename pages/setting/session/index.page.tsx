@@ -27,7 +27,7 @@ const SettingSession = () => {
         accessorKey: 'location',
         header: 'Location',
         minSize: 30,
-        cell: ({ row }) => <div className="dark:text-[#98A7B5] text-black">{row.original.location}</div>,
+        cell: ({ row }) => <div className="dark:text-color-text-primary text-black">{row.original.location}</div>,
       },
       {
         accessorKey: 'ip',
@@ -40,7 +40,7 @@ const SettingSession = () => {
         header: 'Last Used',
         maxSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-black">
+          <div className="dark:text-color-text-primary text-black">
             {Number(differenceDateInSeconds(new Date(), new Date(row.original.lastUsedAt))) > 60 ? 'Offline' : 'Online'}
           </div>
         ),
@@ -50,7 +50,7 @@ const SettingSession = () => {
         header: 'Action',
         maxSize: 80,
         cell: ({ row }) => (
-          <div className="text-[#0DFDE4]" role="button" onClick={() => removeUserSession(row.original.id)}>
+          <div className="text-color-primary" role="button" onClick={() => removeUserSession(row.original.id)}>
             Remove Device
           </div>
         ),
@@ -88,10 +88,10 @@ const SettingSession = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="px-[12px] py-[12px] md:mt-0 mt-[30px] flex flex-col items-start">
+      <div className="px-[12px] py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex flex-col items-start relative w-full">
         <div className="font-semibold text-[14px]">{t('setting:sessionsUsedInPast')}</div>
         <TableComponent
-          containerClassName="w-full sm:block hidden mt-[30px]"
+          containerClassName="w-full mt-[30px]"
           isLoading={isLoading}
           data={dataTable}
           columns={sessionColumns}

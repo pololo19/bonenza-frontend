@@ -4,7 +4,7 @@ import { ColumnDef, Row } from '@tanstack/react-table';
 import { ArrowRight2, Copy } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
+import { Fragment, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -496,54 +496,81 @@ const TransactionPage = () => {
     return statusId;
   };
 
-  const handleGetTransaction = async (page: number) => {
-    setDataTable([]);
-    setTotalRows(0);
-    if (optionFilter.type.type === LIST_FILTER_TYPE[3].type) {
-      return;
-    }
-    try {
-      setIsLoading(true);
-      const currentDate = new Date();
-      const endDateTimeStamp = Math.floor(currentDate.getTime() / 1000);
-      const startDate = new Date(currentDate);
-      startDate.setDate(currentDate.getDate() - optionFilter.dayPast.type);
-      const startDateTimeStamp = Math.floor(startDate.getTime() / 1000);
+  const handleGetTransaction = useCallback(
+    async (page: number) => {
+      setDataTable([]);
+      setTotalRows(0);
+      if (optionFilter.type.type === LIST_FILTER_TYPE[3].type) {
+        return;
+      }
+      try {
+        setIsLoading(true);
+        const currentDate = new Date();
+        const endDateTimeStamp = Math.floor(currentDate.getTime() / 1000);
+        const startDate = new Date(currentDate);
+        startDate.setDate(currentDate.getDate() - optionFilter.dayPast.type);
+        const startDateTimeStamp = Math.floor(startDate.getTime() / 1000);
 
-      const res = await api_getTransactions({
-        type: optionFilter.type.type,
-        symbolId: optionFilter.currency,
-        startDate: startDateTimeStamp,
-        endDate: endDateTimeStamp,
-        page,
-        pageSize: limit,
-        status: optionFilter.type.type === TRANSACTION_TYPE.Withdraw ? getStatusId(optionFilter.filterStatus.type) : -1,
-      });
+        const res = await api_getTransactions({
+          type: optionFilter.type.type,
+          symbolId: optionFilter.currency,
+          startDate: startDateTimeStamp,
+          endDate: endDateTimeStamp,
+          page,
+          pageSize: limit,
+          status:
+            optionFilter.type.type === TRANSACTION_TYPE.Withdraw ? getStatusId(optionFilter.filterStatus.type) : -1,
+        });
 
-      const { data, totalCount, totalPage } = res.data;
-      switch (optionFilter.type.type) {
-        case TRANSACTION_TYPE.Swap:
-          const tempSwapData: TransactionSwapType[] = data?.map((item: any) => ({
-            symbolFrom: item.fromSymbol,
-            swapFrom: item.fromAmount,
-            swapFromLogo: item.fromSymbolLogo,
-            swapFromUsd: item.fromAmountUsd,
-            symbolTo: item.toSymbol,
-            swapTo: item.toAmount,
-            swapToUsd: item.toAmountUsd,
-            swapToLogo: item.toSymbolLogo,
-            timeTransfer: item.time,
-          }));
-          setDataTable(tempSwapData);
-          break;
+        const { data, totalCount, totalPage } = res.data;
+        switch (optionFilter.type.type) {
+          case TRANSACTION_TYPE.Swap:
+            const tempSwapData: TransactionSwapType[] = data?.map((item: any) => ({
+              symbolFrom: item.fromSymbol,
+              swapFrom: item.fromAmount,
+              swapFromLogo: item.fromSymbolLogo,
+              swapFromUsd: item.fromAmountUsd,
+              symbolTo: item.toSymbol,
+              swapTo: item.toAmount,
+              swapToUsd: item.toAmountUsd,
+              swapToLogo: item.toSymbolLogo,
+              timeTransfer: item.time,
+            }));
+            setDataTable(tempSwapData);
+            break;
 
-        case TRANSACTION_TYPE.Deposit:
-          const tempDepositData: TransactionType[] = data?.map((item: any) => {
-            return {
-              amount: item.amount,
-              amountUsd: item.amountUsd,
-              fee: 0,
-              feeUsd: 0,
+          case TRANSACTION_TYPE.Deposit:
+            const tempDepositData: TransactionType[] = data?.map((item: any) => {
+              return {
+                amount: item.amount,
+                amountUsd: item.amountUsd,
+                fee: 0,
+                feeUsd: 0,
+                id: item.id,
+                orderId: item.id,
+                status: getStatusById(item.status),
+                symbolId: item.currencyId,
+                symbolName: item.currencyName,
+                symbolLogo: item.currencyLogo,
+                time: item.time,
+                txId: item.hash,
+                unitFee: '',
+                userId: userId,
+                username: username,
+                value: 0,
+                withdrawalAddress: item.fromAddress,
+                type: TRANSACTION_TYPE.Deposit,
+              };
+            });
+            setDataTable(tempDepositData);
+            break;
+
+          case TRANSACTION_TYPE.Withdraw:
+            const tempWithdrawData: TransactionType[] = data?.map((item: any) => ({
+              amount: Number(item.amountWithFee),
+              amountUsd: Number(item.amountWithFeeUsd),
+              fee: item.withdrawFee,
+              feeUsd: Number(item.amountWithFeeUsd) - Number(item.amount),
               id: item.id,
               orderId: item.id,
               status: getStatusById(item.status),
@@ -556,48 +583,25 @@ const TransactionPage = () => {
               userId: userId,
               username: username,
               value: 0,
-              withdrawalAddress: item.fromAddress,
-              type: TRANSACTION_TYPE.Deposit,
-            };
-          });
-          setDataTable(tempDepositData);
-          break;
+              type: TRANSACTION_TYPE.Withdraw,
+              withdrawalAddress: item.toAddress,
+            }));
+            setDataTable(tempWithdrawData);
+            break;
 
-        case TRANSACTION_TYPE.Withdraw:
-          const tempWithdrawData: TransactionType[] = data?.map((item: any) => ({
-            amount: Number(item.amountWithFee),
-            amountUsd: Number(item.amountWithFeeUsd),
-            fee: item.withdrawFee,
-            feeUsd: Number(item.amountWithFeeUsd) - Number(item.amount),
-            id: item.id,
-            orderId: item.id,
-            status: getStatusById(item.status),
-            symbolId: item.currencyId,
-            symbolName: item.currencyName,
-            symbolLogo: item.currencyLogo,
-            time: item.time,
-            txId: item.hash,
-            unitFee: '',
-            userId: userId,
-            username: username,
-            value: 0,
-            type: TRANSACTION_TYPE.Withdraw,
-            withdrawalAddress: item.toAddress,
-          }));
-          setDataTable(tempWithdrawData);
-          break;
-
-        default:
-          break;
+          default:
+            break;
+        }
+        setColumnType(optionFilter.type.type);
+        setTotalRows(totalCount);
+      } catch (error) {
+        setDataTable([]);
+      } finally {
+        setIsLoading(false);
       }
-      setColumnType(optionFilter.type.type);
-      setTotalRows(totalCount);
-    } catch (error) {
-      setDataTable([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    [optionFilter, limit],
+  );
 
   const getSymbolNameById = (symbolId: string) => {
     const symbol = cryptoSymbols.find((item) => item.id === symbolId);
@@ -639,11 +643,11 @@ const TransactionPage = () => {
       <Head>
         <title>Transactions History - Bonenza</title>
       </Head>
-      <div className="w-full h-1/3 p-3 md:p-5 dark:bg-[#31343D] bg-[#f5f6f7] dark:text-white text-black">
+      <div className="w-full">
         <div className="flex items-center flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -665,7 +669,7 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_TYPE.map((item, index) => (
                     <Menu.Item key={index}>
@@ -688,7 +692,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -712,7 +716,7 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
@@ -750,7 +754,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -772,7 +776,7 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_DATE.map((item, index) => (
                     <Menu.Item key={index}>
@@ -796,7 +800,7 @@ const TransactionPage = () => {
           {t(optionFilter.type.type) === TRANSACTION_TYPE.Bill && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -818,7 +822,7 @@ const TransactionPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {billTypes.map((item: BillType, index: number) => (
                       <Menu.Item key={index}>
@@ -843,7 +847,7 @@ const TransactionPage = () => {
           {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-[#24262B] bg-white rounded-[12px]"
+              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -867,7 +871,7 @@ const TransactionPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-[#24262B] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {LIST_FILTER_STATUS.filter((status) => status.flag).map((item, index) => (
                       <Menu.Item key={index}>

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT } from '@/base/constants/common';
 import { DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 import { ErrorResponse } from '@/base/types/api';
-import { DepositAddress, NetworkType, ObjectLiteral } from '@/base/types/common';
+import { DepositAddress, NetworkType, ObjectLiteral, RolloverStatus } from '@/base/types/common';
 import { TransactionStatus } from '@/types/common';
 
 import { CookiesStorage } from '../storage/cookie';
@@ -353,11 +353,13 @@ export const convertUserInfo = (userData: any) => {
     referralCode: userData?.referralCode,
     isKyc: userData?.isKyc,
     tfa: userData?.tfa,
+    createdAt: userData?.createdAt,
+    updatedAt: userData?.updatedAt,
     generalSetting: {
       settingShowFullNameCrypto: userData?.settingShowFullNameCrypto,
       settingReceiveMarketPromotion: userData?.settingReceiveMarketPromotion,
       settingLanguage: userData?.settingLanguage,
-      settingCurrency: 'usd',
+      settingCurrency: userData?.settingFiatCurrency?.id ?? 'usd',
     },
     privacySetting: {
       settingHideUserName: userData?.settingHideUserName,
@@ -429,7 +431,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
   }
 }
 
-export const getColorByStatus = (status: TransactionStatus) => {
+export const getColorByStatus = (status: TransactionStatus | RolloverStatus) => {
   let bgColor = '';
   switch (status) {
     case 'process':
@@ -445,6 +447,12 @@ export const getColorByStatus = (status: TransactionStatus) => {
       bgColor = 'bg-[#c31414]';
       break;
     case 'fail':
+      bgColor = 'bg-[#c31414]';
+      break;
+    case 'ongoing':
+      bgColor = 'bg-[#efef19]';
+      break;
+    case 'not_started':
       bgColor = 'bg-[#c31414]';
       break;
     default:

@@ -1,20 +1,22 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import Image from 'next/image';
-import { useDispatch } from 'react-redux';
-import { ElementType, useEffect, useState, useMemo } from 'react';
 import cn from 'classnames';
-import { useRouter } from 'next/router';
-
-import { useTranslation } from '@/base/config/i18next';
 import { InfoCircle } from 'iconsax-react';
-import CommonModal from '../commonModal/commonModal';
-import { changeIsShowVipClubModal, changeIsShowVipLevelModal } from '@/base/redux/reducers/modal.reducer';
-import api from '@/api/api';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { ElementType, useEffect, useMemo, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
+
+import api from '@/api/api';
+import { api_getVipProgress } from '@/api/vip';
+import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, VIP_LEVEL_DATA } from '@/base/constants/common';
-import styles from './index.module.scss';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { changeIsShowVipClubModal, changeIsShowVipLevelModal } from '@/base/redux/reducers/modal.reducer';
 import Loader from '@/components/common/preloader/loader';
+
+import CommonModal from '../commonModal/commonModal';
+import styles from './index.module.scss';
 
 type ModalVipClubProps = {
   onClose: () => void;
@@ -26,7 +28,16 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
   const { t } = useTranslation('');
   const router = useRouter();
   const dispatch = useDispatch();
-  const [vipData, setVipData] = useState<any>({});
+  const [vipData, setVipData] = useState({
+    xp: 0,
+    level: 0,
+    name: '',
+    remainingXp: 0,
+    nextLevel: 0,
+    nextName: '',
+    nextXp: 0,
+    nextLevelBonus: 0,
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [levelData, setLevelData] = useState<any>(VIP_LEVEL_DATA[0]);
   const [rankList, setRankList] = useState<any[]>([]);
@@ -48,16 +59,22 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     dispatch(changeIsShowVipLevelModal(true));
   };
 
-  const getVipListByRank = async () => {
-    setIsLoading(true);
+  const getVipProgress = async () => {
     try {
-      const res = await api.get('user-profile/get-vip');
-      const levelCurrent = VIP_LEVEL_DATA.find((level) => level.rank === res?.data?.vipCurrent?.rank);
-      if (levelCurrent) {
-        setLevelData(levelCurrent);
-      }
-      setVipData(res?.data);
+      setIsLoading(true);
+      const res = await api_getVipProgress();
+      setVipData({
+        xp: res.data?.currentXp ?? 0,
+        level: res.data?.currentVipLevel ?? 0,
+        name: res.data?.currentVipName ?? '',
+        remainingXp: res.data?.remainingXp ?? 0,
+        nextLevel: res.data?.nextVipLevel ?? 0,
+        nextName: res.data?.nextVipName ?? '',
+        nextXp: res.data?.nextVipXp ?? 0,
+        nextLevelBonus: Number(res.data?.nextLevelBonus ?? 0),
+      });
     } catch (error) {
+      console.log(error);
     } finally {
       setIsLoading(false);
     }
@@ -113,11 +130,11 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
   };
 
   const percent = useMemo(() => {
-    return Math.ceil((vipData.totalXp / (vipData.totalXp + vipData.xpNextLevel)) * 100);
+    return Math.ceil((vipData.xp / (vipData.xp + vipData.remainingXp)) * 100);
   }, [vipData]);
 
   useEffect(() => {
-    getVipListByRank();
+    getVipProgress();
     getRankList();
   }, []);
 
@@ -129,7 +146,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
         onClose={onClose}
         panelClass="rounded"
         header={
-          <div className="relative sm:px-[30px] px-[20px] sm:py-[30px] py-[25px] bg-white dark:bg-[#17191b]">
+          <div className="relative sm:px-[30px] px-[20px] sm:py-[30px] py-[25px] bg-white dark:bg-color-header-primary">
             <div className="absolute left-0 top-0 h-full w-full flex items-center justify-center">
               <Image src="/img/ribbon.png" width={353} height={48} alt="" />
             </div>
@@ -139,13 +156,13 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
           </div>
         }
       >
-        <div className="flex flex-col gap-[30px] overflow-y-auto px-[20px] pt-[10px] pb-[40px] bg-[#f6f7fa] dark:bg-[#24262B]">
-          <div className="text-[#939699] text-[13px] text-center bg-white dark:bg-[#17191b] px-5 py-4">
+        <div className="flex flex-col gap-[30px] overflow-y-auto px-[20px] pt-[10px] pb-[40px]">
+          <div className="text-color-text-primary text-[13px] text-center bg-white dark:bg-[#17191b] px-5 py-4">
             {t('vipClub:levelUpToGetExclusiveAccess')}{' '}
             <span
               role="button"
-              onClick={() => onOpenModalVipLevel(vipData?.vipCurrent?.level)}
-              className="text-[#0DFDE4] hover:opacity-[0.9] hover:underline"
+              onClick={() => onOpenModalVipLevel(vipData.level)}
+              className="text-color-primary hover:opacity-[0.9] hover:underline"
             >
               {t('vipClub:viewLevelUpDetails')}
             </span>
@@ -154,7 +171,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
             <div className="flex bg-[#47566A] rounded-[8px] gap-[28px] pl-[28px] pb-5 pr-[30px] md:max-w-[440px] w-full mb-5 md:mb-0">
               <div className="relative">
                 <Image
-                  src={`/img/${vipData?.vipCurrent?.medal}.png`}
+                  src={`/img/vip.png`}
                   onError={(e) => {
                     e.currentTarget.src = `/img/vip.png`;
                   }}
@@ -166,17 +183,17 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   <Image src="/img/light.svg" width={108} height={138} alt="" />
                 </div>
                 <div className="absolute h-full w-full left-0 top-0 flex items-center justify-center gap-1">
-                  <span className="text-[14px]">{vipData?.vipCurrent?.type}</span>
-                  <span className="text-[20px] font-semibold">{vipData?.vipCurrent?.level}</span>
+                  <span className="text-[14px]">{vipData.name}</span>
+                  <span className="text-[20px] font-semibold">{vipData.level}</span>
                 </div>
               </div>
               <div className="flex flex-col gap-[12px] pt-[24px]">
                 <div className="text-[20px] text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
                 <div className="flex items-center gap-[10px]">
-                  <div className="text-[14px] text-white">{vipData?.totalXp} XP</div>
-                  <InfoCircle size={20} className="text-[#0DFDE4]" data-tooltip-id={'your-vip-tooltip'} />
+                  <div className="text-[14px] text-white">{vipData.xp} XP</div>
+                  <InfoCircle size={20} className="text-color-primary" data-tooltip-id={'your-vip-tooltip'} />
                   <Tooltip id={'your-vip-tooltip'} place="bottom" className="z-[10]">
-                    <div className="dark:text-[#98a7b5] text-[#31373d]">
+                    <div className="dark:text-color-text-primary text-[#31373d]">
                       <p>{t('vipClub:yourTip1')}</p>
                       <p>{t('vipClub:yourTip2')}</p>
                     </div>
@@ -186,7 +203,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   <div className="absolute top-0 h-full bg-[#8098b6] left-0" style={{ width: `${percent}%` }}></div>
                 </div>
                 <div className="text-[14px] text-white">
-                  {vipData?.xpNextLevel} XP {t('vipClub:until')} {vipData.nextLevel}
+                  {vipData.remainingXp} XP {t('vipClub:until')} {vipData.nextName}
                 </div>
               </div>
             </div>
@@ -196,11 +213,11 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
               </div>
               <InfoCircle
                 size={20}
-                className="text-[#0DFDE4] absolute top-[9px] right-[10px]"
+                className="text-color-primary absolute top-[9px] right-[10px]"
                 data-tooltip-id={'vip-host-tooltip'}
               />
               <Tooltip id={'vip-host-tooltip'} place="bottom">
-                <div className="dark:text-[#98a7b5] text-[#31373d] max-w-[380px]">
+                <div className="dark:text-color-text-primary text-[#31373d] max-w-[380px]">
                   <p>{t('vipClub:vipHotToolTip')}</p>
                 </div>
               </Tooltip>
@@ -459,7 +476,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
           </div>
           <div
             onClick={navigationVipPage}
-            className="flex justify-center w-full items-center cursor-pointer text-[14px] text-[#0DFDE4] font-semibold border-[#ffffff1a] border border-solid p-[10px]"
+            className="flex justify-center w-full items-center cursor-pointer text-[14px] text-color-primary font-semibold border-[#ffffff1a] border border-solid p-[10px]"
           >
             {t('vipClub:learnMore')}
           </div>

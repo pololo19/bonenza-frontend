@@ -1194,3 +1194,16 @@ export const LIST_FILTER_STATUS = [
   { name: 'transaction:failed', type: 'fail', flag: true },
   { name: 'transaction:canceled', type: 'rejected', flag: false },
 ];
+
+export const groupMedal = [
+  { img: '/img/medal-1.png', key: 'fearless_one', text: 'Fearless One', val: 'fearlessOne' },
+  { img: '/img/medal-2.png', key: 'the_loaded_king', text: 'The Loaded King', val: 'theLoadedKing' },
+  { img: '/img/medal-3.png', key: 'highest_contributor', text: 'Highest Contributor', val: 'highestContributor' },
+  { img: '/img/medal-4.png', key: 'the_top_gun', text: 'The Top Gun', val: 'theTopGun' },
+  { img: '/img/medal-5.png', key: 'invincible_lucky_dog', text: 'Invincible Lucky Dog', val: 'invincibleLuckyDog' },
+  { img: '/img/medal-6.png', key: 'chicken_dinner', text: 'Chicken Dinner', val: 'chickenDinner' },
+  { img: '/img/medal-7.png', key: 'loyal_player', text: 'Loyal Player', val: 'loyalPlayer' },
+  { img: '/img/medal-1.png', key: 'call_me_richman', text: 'Call Me RichMan', val: 'callMeRichMan' },
+  { img: '/img/medal-2.png', key: 'the_old_timer', text: 'The Old Timer', val: 'theOldTimer' },
+  { img: '/img/medal-3.png', key: 'ethstop_1', text: 'Ethstop 1', val: 'ethStop1' },
+];

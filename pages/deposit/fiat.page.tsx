@@ -19,13 +19,13 @@ const DepositFiatPage = () => {
       <Head>
         <title>Deposit Fiat - Bonenza</title>
       </Head>
-      <div className={`h-1/3 px-[12px] py-[24px] sm:p-0 ${styles.contentHeader}`}>
+      <div className={`h-1/3 ${styles.contentHeader}`}>
         {/* Header Tabs */}
         <div className="flex mb-[20px]">
           <Link
             href={ROUTER.DepositCrypto}
             className={cn(
-              'flex-1 flex hover:opacity-[0.9] items-center max-w-[161px] justify-center border-b-2 border-solid dark:border-[#272C33] border-[#ccc] pb-[10px]',
+              'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-[#272C33] border-[#ccc] pb-[10px]',
             )}
             role="button"
           >
@@ -34,7 +34,7 @@ const DepositFiatPage = () => {
           <Link
             href={ROUTER.DepositFiat}
             className={cn(
-              'flex-1 flex items-center hover:opacity-[0.9] max-w-[161px] justify-center border-b-2 border-solid border-[#272C33] pb-[10px] bg-gradient-to-t from-[#F61B4F]/20 border-[#F61B4F]',
+              'bg-gradient-to-t from-color-primary/20 border-color-primary sm:max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid pb-[10px]',
             )}
             role="button"
           >

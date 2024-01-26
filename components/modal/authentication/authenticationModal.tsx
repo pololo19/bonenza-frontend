@@ -1,7 +1,7 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, useCallback, useState, Fragment } from 'react';
+import { ElementType, Fragment, useCallback, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';

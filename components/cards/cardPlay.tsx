@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import { CSSProperties, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { CSSProperties, useMemo } from 'react';
 
 import styles from './index.module.scss';
 
@@ -28,7 +28,7 @@ export default function CardPlay({
   const router = useRouter();
 
   return (
-    <div className="gap-[5px] flex flex-col lg:h-[390px]">
+    <div className="gap-[5px] flex flex-col  aspect-square">
       <div className="sm:hidden flex gap-[10px] items-center sm:items-end mb-[10px]">
         <Image height={25} width={25} className="h-[25px] rounded-[5px]" src="/img/three-cards.png" alt="" />
         <div className="dark:text-white text-black text-[16px] font-bold uppercase">{title}</div>
@@ -50,21 +50,23 @@ export default function CardPlay({
         <div
           className={cn(
             styles.cardContent,
-            'px-[12px] py-[20px] backdrop-blur-[2px] dark:bg-none bg-gradient-to-t from-[#fff]  to-[#fff]/0',
+            'p-[10px] backdrop-blur-[2px] dark:bg-none bg-gradient-to-t from-[#fff]  to-[#fff]/0',
           )}
         >
           <div>
             <div className="sm:flex hidden gap-[10px]">
-              <div className="mt-[5px]">{icon}</div>
+              <div className="mt-[3px]">{icon}</div>
 
               <div>
-                <div className="text-white text-[24px] font-bold uppercase mb-3">{title}</div>
-                <div className="sm:hidden block dark:text-white text-[#31373d] text-[14px] lg:text-[16px] mb-3">
+                <div className="text-white sm:text-[24px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] font-bold uppercase">
+                  {title}
+                </div>
+                <div className="sm:hidden block dark:text-white text-[#31373d] md:text-[14px] 2xl:text-[16px]">
                   {description}
                 </div>
               </div>
             </div>
-            <div className="dark:text-white text-black sm:text-[#31373d] text-[14px] lg:text-[16px] mt-[4px] mb-5 min-h-[72px]">
+            <div className="dark:text-white text-black sm:text-[#31373d] text-[10px] sm:text-[20px] mt-1 tracking-tight lg:text-[10px] xl:text-[12px] 2xl:text-[15px] mb-1 sm:min-h-[120px] lg:min-h-[65px] xl:min-h-[72px]">
               {description}
             </div>
             {!isClick && (

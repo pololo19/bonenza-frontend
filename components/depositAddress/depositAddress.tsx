@@ -1,6 +1,7 @@
-import { useTranslation } from '@/base/config/i18next';
 import classNames from 'classnames';
 import { HTMLAttributes, useMemo } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
 
 type DepositAddressProps = {
   address: string;
@@ -24,9 +25,9 @@ export const DepositAddressComponent = (props: DepositAddressProps) => {
 
   return (
     <div {...rest} className={classNames('break-all', rest?.className)}>
-      <span className="text-amber-500">{prefixAddress}</span>
+      <span className="text-color-primary">{prefixAddress}</span>
       {centerAddress}
-      <span className="text-amber-500">{suffixAddress}</span>
+      <span className="text-color-primary">{suffixAddress}</span>
     </div>
   );
 };

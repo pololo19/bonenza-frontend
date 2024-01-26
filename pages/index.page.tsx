@@ -15,6 +15,7 @@ import {
   api_getRecentGames,
   api_getTopRelatedGames,
 } from '@/api/game';
+import { api_getDepositTime } from '@/api/wallet';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -50,6 +51,7 @@ import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
+import Script from 'next/script';
 
 function IndexPage() {
   const width = useWidth();
@@ -76,7 +78,9 @@ function IndexPage() {
         description: t('homePage:introduceCardDes1'),
         textButton: t('homePage:introduceCardButton1'),
         href: ROUTER.Casino,
-        icon: <CasinoBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
+        icon: (
+          <CasinoBoldIcon className="text-color-primary xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] sm:w-[24px] sm:h-[24px]" />
+        ),
       },
       {
         imgBackGround: '/img/page/sports.png',
@@ -84,7 +88,9 @@ function IndexPage() {
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
         href: ROUTER.Sports,
-        icon: <SportBoldIcon className="text-color-primary w-[27px] h-[27px]" />,
+        icon: (
+          <SportBoldIcon className="text-color-primary xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] sm:w-[24px] sm:h-[24px]" />
+        ),
       },
       {
         imgBackGround: '/img/page/liveholdem.png',
@@ -94,10 +100,27 @@ function IndexPage() {
         href: 'https://cmd23.com/room/games.php',
         icon: (
           <Image
-            width={20}
-            height={20}
-            className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
-            src="/icon/liveholdem-green.png"
+            width={25}
+            height={25}
+            className="xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] text-color-primary sm:w-[24px] sm:h-[24px]"
+            src="/icon/liveholdem-1.png"
+            alt="logo"
+          />
+        ),
+        isClick: true,
+      },
+      {
+        imgBackGround: '/img/page/updown.png',
+        title: t('homePage:updown'),
+        description: t('homePage:introduceCardDes4'),
+        textButton: t('homePage:introduceCardButton4'),
+        href: 'https://trade.playnance.com/trade',
+        icon: (
+          <Image
+            width={25}
+            height={25}
+            className="xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] text-color-primary sm:w-[24px] sm:h-[24px]"
+            src="/icon/updownIcon.png"
             alt="logo"
           />
         ),
@@ -121,16 +144,6 @@ function IndexPage() {
   const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
 
   const [listCasinoTabGame, setListCasinoTabGame] = useState<GameListType[]>([]);
-
-  const handleCheckDeposit = async () => {
-    try {
-      const res = await api.get('deposit/get-all-deposit');
-      setCheckDeposit(res.data.deposited);
-    } catch (error) {
-      console.log(error);
-    } finally {
-    }
-  };
 
   const router = useRouter();
 
@@ -213,7 +226,7 @@ function IndexPage() {
     }
   };
 
-  const loadDataAfterLogin = async () => {
+  const loadDataAfterLoginMobile = async () => {
     try {
       setIsLoading(true);
       const [picksforYou, recentGames, favoriteGames] = await Promise.all([
@@ -263,6 +276,22 @@ function IndexPage() {
     }
   };
 
+  const loadDataAfterLogin = async () => {
+    try {
+      setIsLoading(true);
+      const result = await api_getDepositTime();
+      if (result.data.times === 0) {
+        setCheckDeposit(false);
+      } else {
+        setCheckDeposit(true);
+      }
+    } catch (error) {
+      setCheckDeposit(false);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     initDataLoad();
   }, []);
@@ -272,7 +301,10 @@ function IndexPage() {
   }, [key]);
 
   useEffect(() => {
-    if (isLogin && width < 600) {
+    if (isLogin && width <= 600) {
+      loadDataAfterLoginMobile();
+    }
+    if (isLogin && width > 600) {
       loadDataAfterLogin();
     }
   }, [width, isLogin]);
@@ -280,7 +312,6 @@ function IndexPage() {
   return (
     <>
       {isLoading && <Loader />}
-
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
@@ -365,15 +396,6 @@ function IndexPage() {
                           >
                             {String(t('homePage:depositAndPlay'))}
                           </button>
-                          {/* <button
-                            type="button"
-                            className="truncate text-white rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] sm:p-[7px] p-[10px] xl:text-[14px] text-[12px] font-bold"
-                          >
-                            {String(t('homePage:freePlay'))}
-                            <div className="sm:p-[10px] p-[7px] items-center justify-center rounded-[5px] bg-white/20">
-                              <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
-                            </div>
-                          </button> */}
                         </div>
                       )}
                       {checkDeposit && <VipProgressComponent />}
@@ -386,7 +408,7 @@ function IndexPage() {
             </div>
 
             <div className="flex flex-col items-start gap-[50px] mt-[15px] ">
-              <div className="sm:grid md:grid-cols-3 grid-cols-1 gap-[16px] w-full hidden">
+              <div className="sm:grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-[16px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}

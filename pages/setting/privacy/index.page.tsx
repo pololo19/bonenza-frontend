@@ -33,9 +33,9 @@ const PrivacyPage = () => {
     <div className={`${styles.cardContent}`}>
       {isLoading && <Loader />}
       <div className="w-full h-1/3 p-2 sm:p-0 md:mt-0 text-white">
-        <div className="flex justify-between items-center border-b border-solid gap-[40px] border-[#3D4049] pb-[8px]">
+        <div className="flex justify-between items-center border-b border-solid sm:gap-[40px] border-color-border-primary pb-[8px]">
           <label className="text-left cursor-pointer" htmlFor="hideGamingData">
-            <div className="dark:text-[#C2C2C2] text-[#5f6975cc] text-[12px] sm:text-[14px]">
+            <div className="dark:text-color-text-primary text-[#5f6975cc] text-[12px] sm:text-[14px]">
               {t('setting:hideMyGamingDataOnProfile')}
             </div>
             <div className="text-[#53575C] text-[10px]">{t('setting:evenIfHidden')}</div>
@@ -45,23 +45,19 @@ const PrivacyPage = () => {
             checked={settings.settingHideGamingData}
             onChange={(value) => handleUpdateSetting({ ...settings, settingHideGamingData: value })}
             className={`${
-              settings.settingHideGamingData
-                ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
-                : 'dark:bg-[#272C33] bg-[#5f697566]'
-            } relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full`}
+              settings.settingHideGamingData ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+            } relative inline-flex h-[24px] w-[44px] items-center rounded-full min-w-[44px]`}
           >
             <span
               className={`${
-                settings.settingHideGamingData
-                  ? 'translate-x-5 bg-[#0DFDE4]'
-                  : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                settings.settingHideGamingData ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
         </div>
-        <div className="flex justify-between border-b border-solid items-center gap-[40px] border-[#3D4049] py-[8px]">
+        <div className="flex justify-between border-b border-solid items-center gap-[40px] border-color-border-primary py-[8px]">
           <label className="text-left cursor-pointer" htmlFor="hideUserName">
-            <div className="dark:text-[#C2C2C2] text-[#5f6975cc] text-[12px] sm:text-[14px]">
+            <div className="dark:text-color-text-primary text-[#5f6975cc] text-[12px] sm:text-[14px]">
               {t('setting:hideMyUsernameFromPublicLists')}
             </div>
             <div className="text-[#53575C] text-[10px]">{t('setting:noOneCanViewYourProfile')}</div>
@@ -71,19 +67,19 @@ const PrivacyPage = () => {
             checked={settings.settingHideUserName}
             onChange={(value) => handleUpdateSetting({ ...settings, settingHideUserName: value })}
             className={`${
-              settings.settingHideUserName ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]' : 'dark:bg-[#272C33] bg-[#5f697566]'
-            } relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full`}
+              settings.settingHideUserName ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+            } relative inline-flex h-[24px] w-[44px] items-center rounded-full min-w-[44px]`}
           >
             <span
               className={`${
-                settings.settingHideUserName ? 'translate-x-5 bg-[#0DFDE4]' : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                settings.settingHideUserName ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
         </div>
-        <div className="flex justify-between border-b border-solid gap-[40px] border-[#3D4049] py-[8px]">
+        <div className="flex justify-between border-b border-solid gap-[40px] border-color-border-primary py-[8px]">
           <label
-            className="dark:text-[#C2C2C2] text-[#5f6975cc] text-[12px] sm:text-[14px] cursor-pointer"
+            className="dark:text-color-text-primary text-[#5f6975cc] text-[12px] sm:text-[14px] cursor-pointer"
             htmlFor="refuseTip"
           >
             {t('setting:refuseTipFromStrangers')}
@@ -93,16 +89,14 @@ const PrivacyPage = () => {
             checked={settings.settingRefuseTipFromStrangers}
             onChange={(value) => handleUpdateSetting({ ...settings, settingRefuseTipFromStrangers: value })}
             className={`${
-              settings.settingRefuseTipFromStrangers
-                ? 'dark:bg-[#0DFDE4]/30 bg-[#3bc11733]'
-                : 'dark:bg-[#272C33] bg-[#5f697566]'
-            } relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full`}
+              settings.settingRefuseTipFromStrangers ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+            } relative inline-flex h-[24px] w-[44px] items-center rounded-full min-w-[44px]`}
           >
             <span
               className={`${
                 settings.settingRefuseTipFromStrangers
-                  ? 'translate-x-5 bg-[#0DFDE4]'
-                  : 'translate-x-1 dark:bg-[#31343D] bg-white'
+                  ? 'translate-x-[20px] bg-color-primary'
+                  : 'translate-x-1 bg-gray-400'
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>

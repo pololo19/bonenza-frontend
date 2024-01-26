@@ -167,7 +167,7 @@ const AccountPannel: React.FC = () => {
     () => [
       {
         title: `${String(t('statistic:global'))} ${String(t('sidebar:settings'))}`,
-        href: ROUTER.Setting,
+        href: ROUTER.SettingGeneral,
         icon: <Setting />,
         isLink: true,
         extra: <></>,

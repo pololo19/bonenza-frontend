@@ -36,4 +36,5 @@ export type CurrencyType = {
   type: CurrencySymbolType;
   availableNetworks: string[]; // for cryptos
   price: number;
+  favorite: false;
 };

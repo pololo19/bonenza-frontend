@@ -90,10 +90,10 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                         <Menu.Item as={Fragment} key={index}>
                           {({ active }) => (
                             <div
-                              className={`${active ? 'bg-gray-700 text-white' : ''} ${
+                              className={`${active ? 'bg-gray-700 ' : ''} ${
                                 country.countryCode === activeCountry.countryCode &&
                                 'border border-color-primary border-solid'
-                              } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded`}
+                              } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded text-left`}
                               onClick={() => setActiveCountry(country)}
                             >
                               <div className="flex-1">{country.country}</div>

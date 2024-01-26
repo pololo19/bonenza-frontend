@@ -7,6 +7,10 @@ const API_AUTH_SEND_SMS = '/auth/send-sms';
 const API_AUTH_VERIFY_CODE = '/auth/verify-code';
 const API_AUTH_VERIFY_QR_CODE = '/auth/send-verify-qr-code';
 
+const API_AUTH_SEND_USER_MAIL = '/auth/send-user-mail';
+const API_AUTH_SEND_USER_PHONE = '/auth/send-user-phone';
+const API_AUTH_VERIFY_USER_CODE = '/auth/verify-user-code';
+
 const API_AUTH_VALIDATE_TOKEN = (token: string) => `/auth/validate/${token}`;
 
 /************************************ Authrization **********************************/
@@ -28,6 +32,8 @@ const API_USER_PROFILE_GET_PROFILE = `/user-profile/get-user-profile`;
 const API_USER_PROFILE_EDIT_PROFILE = '/user-profile/edit-profile';
 const API_USER_PROFILE_UPLOAD_AVATAR = '/user-profile/upload-avatar';
 
+const API_USER_MEDAL_STATISTICS = '/user-profile/medal/statistics';
+
 /************************************ User Setting **********************************/
 const API_USER_SETTING_GENERAL_SETTING = '/user-setting/get-general-setting';
 const API_USER_SETTING_PRIVACY_SETTING = '/user-setting/get-privacy-setting';
@@ -47,8 +53,10 @@ const API_WALLET_WITHDRAW = '/wallet/withdraw';
 const API_WALLET_SWAP_RATE = '/wallet/swap/prices';
 const API_WALLET_SWAP = '/wallet/swap';
 const API_WALLET_TRANSACTIONS = '/wallet/transaction';
+const API_WALLET_ROLLOVER = '/wallet/rollover';
 const API_WALLET_DEPOSIT_TIME = '/wallet/get-deposit-time-for-this-week';
 const API_WALLET_INIT_DATA = '/wallet/init-currency';
+const API_WALLET_SET_FAVORITE = '/wallet/set-currency-favorite-status';
 
 /************************************ Game **********************************/
 const API_GAME_PICK_GAMES = '/game/get-pick-games-for-you';
@@ -82,6 +90,15 @@ const API_GAME_GAMES_BY_THEME = '/game/get-games-by-theme';
 const API_GAME_GAMES_BY_NAME_PROVIDER = '/game/get-game-by-name-and-provider';
 
 const API_GAME_SET_FAVORITE = '/game/set-game-favorite-status';
+const API_GAME_GET_FAVORITE = '/game/get-game-favorite-status';
+
+/************************************ Affiliate **********************************/
+
+const API_AFFILIATE = '/affiliate/affiliate';
+
+/************************************ VIP **********************************/
+
+const API_VIP_VIP_PROGRESS = '/vip/vip-progress';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -99,6 +116,7 @@ const URL_EXCHANGE_RATE = 'exchange/get-exchange-rate';
 
 export {
   API_ADMIN_LOGIN,
+  API_AFFILIATE,
   API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GENERATE_QR_CODE,
@@ -108,6 +126,8 @@ export {
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
+  API_AUTH_SEND_USER_MAIL,
+  API_AUTH_SEND_USER_PHONE,
   API_AUTH_SET_LOGIN,
   API_AUTH_SET_LOGIN_PASSWORD,
   API_AUTH_SIGNUP_WITH_EMAIL,
@@ -115,6 +135,7 @@ export {
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
+  API_AUTH_VERIFY_USER_CODE,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,
@@ -126,6 +147,7 @@ export {
   API_GAME_GAMES_BY_NAME_PROVIDER,
   API_GAME_GAMES_BY_PROVIDER,
   API_GAME_GAMES_BY_THEME,
+  API_GAME_GET_FAVORITE,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
@@ -141,6 +163,7 @@ export {
   API_GAME_TABLE_GAMES,
   API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
+  API_USER_MEDAL_STATISTICS,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,
@@ -152,9 +175,12 @@ export {
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
+  API_VIP_VIP_PROGRESS,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
   API_WALLET_INIT_DATA,
+  API_WALLET_ROLLOVER,
+  API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,
   API_WALLET_SWAP_RATE,
   API_WALLET_TRANSACTIONS,

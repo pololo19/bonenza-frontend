@@ -36,6 +36,7 @@ import {
   changeIsShowResetPassword,
   changeIsShowUpdateAvatar,
   changeIsShowUpdateInformation,
+  changeIsShowVerifyMailAndPhone,
   changeIsShowVipClubModal,
   changeIsShowVipLevelModal,
   changeShowChatType,
@@ -88,6 +89,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndPhone';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -101,7 +103,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const innerWidth = useWidth();
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { t } = useTranslation('');
+  const { t, i18n } = useTranslation('');
 
   const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -144,6 +146,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowAccount,
     isShowSidebar,
     isShowCasinoSearch,
+    isShowVerifyMailAndPhone,
+    verifyModeType,
     cryptoArray,
     userId,
     walletSocket,
@@ -171,6 +175,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowUpdateAvatar: state.modal.isShowUpdateAvatar,
       isShowResetPassword: state.modal.isShowResetPassword,
       isShowCasinoSearch: state.modal.isShowCasinoSearch,
+      isShowVerifyMailAndPhone: state.modal.isShowVerifyMailAndPhone,
+      verifyModeType: state.modal.verifyModeType,
 
       isShowSidebar: state.modal.isShowMenuPannel,
       isShowAccount: state.modal.isShowAccountPannel,
@@ -278,7 +284,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           const newSocket = await initialSocketConnection(SOCKET_WALLET_URL ?? '');
           dispatch(setSocket(newSocket));
         }
-
+        i18n.changeLanguage(res.data?.settingLanguage ?? 'en');
         dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
         dispatch(initWalletInfo());
       } else {
@@ -298,7 +304,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         dispatch(setGameSocket(newGameSocket));
       }
     };
-    getRecommandGames();
     gameConnect();
 
     if (innerWidth < 1280) {
@@ -748,6 +753,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           onClose={() => {
             dispatch(changeIsShowResetPassword(false));
             router.replace(ROUTER.Home);
+          }}
+        />
+      )}
+      {isShowVerifyMailAndPhone && (
+        <ModalVerificationMailAndPhone
+          show={isShowVerifyMailAndPhone}
+          onClose={() => {
+            dispatch(changeIsShowVerifyMailAndPhone(false));
           }}
         />
       )}

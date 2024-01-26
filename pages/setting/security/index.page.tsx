@@ -234,10 +234,11 @@ const SettingSecurity = () => {
     }));
   };
 
+  console.log(otp, '-----237');
   return (
     <>
       {isLoading && <Loader />}
-      <div className="xl:px-[60px] lg:px-[40px] md:px-[20px] md:mt-0 mt-[30px] flex min-[991px]:flex-row flex-col lg:gap-[40px] md:gap-[20px] gap-[10px]">
+      <div className="xl:px-[60px] lg:px-[40px] md:px-[20px] px-2 md:mt-0 sm:mt-[30px] mt-0 flex min-[991px]:flex-row flex-col lg:gap-[40px] md:gap-[20px] gap-[10px]">
         {isSetLogin && (
           <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
             <Disclosure defaultOpen={true}>
@@ -257,11 +258,11 @@ const SettingSecurity = () => {
                   >
                     <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-[#C2C2C2] text-[#31373d] text-[12px]">
+                        <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
                           {t('setting:oldPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="oldPassword"
                           placeholder={`${t('setting:oldPassword')}`}
                           value={passwordBody?.oldPassword}
@@ -270,11 +271,11 @@ const SettingSecurity = () => {
                         />
                       </div>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-[#C2C2C2] text-[#31373d] text-[12px]">
+                        <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
                           {t('setting:newPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="newPassword"
                           placeholder={`${t('setting:newPassword')}`}
                           value={passwordBody?.newPassword}
@@ -283,11 +284,11 @@ const SettingSecurity = () => {
                         />
                       </div>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-[#C2C2C2] text-[#31373d] text-[12px]">
+                        <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
                           {t('setting:confirmNewPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="confirmNewPassword"
                           placeholder={`${t('setting:confirmNewPassword')}`}
                           value={passwordBody?.confirmNewPassword}
@@ -301,7 +302,7 @@ const SettingSecurity = () => {
                       <div
                         onClick={handleSubmitPassword}
                         role="button"
-                        className="bg-color-primary hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                        className="bg-gradient-btn-default hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:saveChanges')}
                       </div>
@@ -333,7 +334,7 @@ const SettingSecurity = () => {
                     <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                       <div className="flex flex-col items-start gap-[10px] mt-2">
                         <InputPassword
-                          customClass="rounded-[3px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                           name="oldPassword"
                           placeholder={`${t('setting:passwordPlaceholder')}`}
                           value={password}
@@ -344,7 +345,7 @@ const SettingSecurity = () => {
                       <div
                         onClick={setLoginPassword}
                         role="button"
-                        className="bg-color-primary hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                        className="bg-gradient-btn-default hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:confirm')}
                       </div>
@@ -377,14 +378,14 @@ const SettingSecurity = () => {
                   <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                     {tfa ? (
                       <>
-                        <div className="text-start text-[12px] dark:text-[#C2C2C2] text-[#31373d]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d]">
                           <p>{t('setting:disableTwoFactor')}</p>
                           <p className="mt-3">{t('setting:loginPassword')}</p>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="text-start text-[12px] dark:text-[#C2C2C2] text-[#31373d]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d]">
                           {t('setting:downloadAndInstall')} &nbsp;
                           <a
                             className="!underline"
@@ -396,30 +397,30 @@ const SettingSecurity = () => {
                           &nbsp;
                           {t('setting:enableTwoFactor')}
                         </div>
-                        <div className="text-start text-[12px] dark:text-[#C2C2C2] text-[#31373d] flex gap-[5px]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d] flex gap-[5px]">
                           {t('setting:scanTheQRCode')}
                         </div>
                         <div className="flex justify-center">
                           <Image height={100} width={100} src={qrCode} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-[10px]">
-                          <label className="dark:text-[#C2C2C2] text-[#31373d] text-[12px]">
+                          <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
                             {t('setting:yourSecretKey')}
                           </label>
-                          <div className="dark:bg-[#292C33] bg-[#f5f6fa] rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] w-full">
+                          <div className="dark:bg-color-input-primary bg-[#f5f6fa] rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] w-full">
                             <input
                               value={secret}
                               className={cn(
-                                'w-full dark:bg-[#292C33] bg-[#f5f6fa] focus:outline-none text-[12px] dark:text-white text-black',
+                                'w-full dark:bg-color-input-primary bg-[#f5f6fa] focus:outline-none text-[12px] dark:text-white text-black',
                               )}
                             />
                             <Copy onClick={() => copyClipBoard(String(secret))} className="text-color-text-primary" />
                           </div>
                         </div>
-                        <div className="text-start text-[12px] dark:text-[#C2C2C2] text-[#31373d] flex gap-[5px]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d] flex gap-[5px]">
                           {t('setting:writeDownThisCode')}
                         </div>
-                        <div className="flex justify-center dark:text-[#C2C2C2] text-[#31373d] text-[12px]">
+                        <div className="flex justify-center dark:text-color-text-primary text-[#31373d] text-[12px]">
                           {t('setting:2FAVerificationRequired')}
                         </div>
                         <div className="flex justify-center">
@@ -428,7 +429,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:bg-[#222328] bg-[#f5f6fa] dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-[3px] focus:!outline-none'
+                              'dark:!bg-color-input-primary bg-[#f5f6fa] dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-[3px] focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -454,7 +455,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:bg-[#222328] bg-[#f5f6fa] dark:text-white text-black !w-[32px] h-[32px] rounded-[3px] focus:outline-none'
+                              'dark:bg-color-input-primary bg-[#f5f6fa] dark:text-white text-black !w-[32px] h-[32px] rounded-[3px] focus:outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -464,7 +465,7 @@ const SettingSecurity = () => {
                     <div
                       onClick={handleSubmitTwoFactor}
                       role="button"
-                      className="bg-color-primary hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                      className="bg-gradient-btn-default hover:opacity-[0.9] rounded-[3px] text-white text-[14px] px-[30px] py-[10px] m-auto"
                     >
                       {tfa ? t('setting:disable') : t('setting:enable')}
                     </div>

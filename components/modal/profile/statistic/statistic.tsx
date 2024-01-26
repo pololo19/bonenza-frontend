@@ -8,7 +8,13 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import {
+  currencyFormat,
+  currencyFormat1,
+  exchangeByLocaleFiat,
+  formatLengthNumber,
+  handleLocaleSymbol,
+} from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import Paging from '@/components/paging/paging';
 import RankingTableComponent from '@/components/table/rankingTable';
@@ -16,7 +22,7 @@ import RankingTableComponent from '@/components/table/rankingTable';
 import { GameDetail, UserDetail } from '../../../../types/common';
 
 type ModalStatisticProps = {
-  userData?: UserDetail;
+  userData: UserDetail;
 };
 
 export default function Statistic({ userData }: ModalStatisticProps) {
@@ -30,11 +36,11 @@ export default function Statistic({ userData }: ModalStatisticProps) {
   const [statisticTransaction, setStatisticTransaction] = useState([]);
   const [listGames, setListGame] = useState<GameDetail[]>([]);
 
-  const { userName, userId, avatar, viewInFiat, localeFiat } = useSelector(
+  const { userName, userId, avatar, viewInFiat, localFiat } = useSelector(
     (state: AppState) => ({
       userName: state.auth.user.userName,
       avatar: state.auth.user.avatar,
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
       viewInFiat: state.common.viewInFiat,
       userId: state.auth.user.userId,
     }),
@@ -161,11 +167,11 @@ export default function Statistic({ userData }: ModalStatisticProps) {
           </div>
           <Menu
             as="div"
-            className="relative w-full max-w-[200px] text-left rounded flex dark:text-white text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
+            className="relative w-full max-w-[200px] text-left rounded flex dark:text-white text-[#000] dark:bg-color-input-primary bg-[#F6F7FA]"
           >
             <Menu.Button className="w-full">
               <div className="dark:bg-[#1e2024] bg-white flex items-center justify-between w-full h-[36px] px-[20px]">
-                <div className="dark:text-[#939699] text-[#31373d] text-[12px] sm:text-[14px] truncate">
+                <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] truncate">
                   {game?.title || t('statistic:global')}
                 </div>
                 <div className="dark:text-white truncate text-right min-w-[15px]">
@@ -195,7 +201,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute xl:right-0 sm:left-[100px] md:left-[auto] sm:right-[auto] right-0 z-[50] w-full mt-14 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1 rounded-[5px] dark:bg-[#17181b] bg-white max-w-[200px -top-[20px]">
+                <div className="py-1 rounded-[5px] dark:bg-color-input-primary bg-white max-w-[200px -top-[20px]">
                   <Menu.Item>
                     {({ active }) => (
                       <div
@@ -251,46 +257,38 @@ export default function Statistic({ userData }: ModalStatisticProps) {
             </div>
           </div>
         </div>
-        <div className="dark:bg-[#1e2024] bg-white rounded-[5px] p-[14px] flex items-center justify-between mt-[12px] gap-3">
-          <div className="bg-[#f5f6fa] dark:bg-[#1A1C1F] rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+        <div className="dark:bg-color-modal-bg-primary bg-white rounded-[5px] p-[14px] flex items-center justify-between mt-[12px] gap-3">
+          <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
               <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
-              <div className="text-[10px] sm:text-[12px] text-[#939699]">{t('profile:totalWins')}</div>
+              <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWins')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
-              {Number(dataStatistic?.countWin) || 0}
+              {Number(userData.winCount) || 0}
             </div>
           </div>
-          <div className="bg-[#f5f6fa] dark:bg-[#1A1C1F] rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+          <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
               <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
-              <div className="text-[10px] sm:text-[12px] text-[#939699]">{t('profile:totalBets')}</div>
+              <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalBets')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
-              {Number(dataStatistic?.countBet) || 0}
+              {Number(userData.betCount) || 0}
             </div>
           </div>
-          <div className="bg-[#f5f6fa] dark:bg-[#1A1C1F] rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%] max-w-[30%]">
+          <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%] max-w-[30%]">
             <div className="flex gap-[5px] items-center">
               <Image src="/img/icon/total-wagered.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
-              <div className="text-[10px] sm:text-[12px] text-[#939699]">{t('profile:totalWagered')}</div>
+              <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWagered')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black text-center w-full truncate">
-              {viewInFiat ? (
-                <>
-                  {handleLocaleSymbol(String(localeFiat?.currency))}
-                  {currencyFormat(exchangeByLocaleFiat('USD', String(localeFiat?.currency), userData?.totalWager), 2)}
-                </>
-              ) : (
-                <>
-                  {handleLocaleSymbol('USD')}
-                  {currencyFormat(Number(userData?.totalWager), 2)}
-                </>
-              )}
+              {localFiat
+                ? currencyFormat1(userData.totalWager, 2, localFiat.name)
+                : currencyFormat1(userData.totalWager, 2)}
             </div>
           </div>
         </div>
-        <div className="dark:bg-[#1e2024] bg-white mt-[10px]">
+        <div className="dark:bg-color-modal-bg-primary bg-white mt-[10px]">
           {!isLoading && statisticTransaction.length > 0 && (
             <RankingTableComponent
               isLoading={isLoading}

@@ -59,10 +59,10 @@ const SwapPage = () => {
       </Head>
       <div className={`${styles.cardContent}`}>
         {isLoading && <Loader />}
-        <div className={`h-1/3 lg:max-w-[75%] px-[12px] py-[24px] sm:p-0 ${styles.contentHeader}`}>
+        <div className={`lg:max-w-[75%] ${styles.contentHeader}`}>
           <div>
             <div>
-              <div className="mt-[20px] flex flex-col items-start gap-[15px] w-full text-[#31373d] dark:text-[#C2C2C2] rounded-[16px] text-start">
+              <div className="flex flex-col items-start gap-[15px] w-full text-start">
                 <SelectCurrencySwap onSubmit={onSubmit} ref={formDataRef} />
               </div>
 

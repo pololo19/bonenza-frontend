@@ -11,6 +11,11 @@ export enum AuthenticationModeEnum {
   VERIFY = 'VERIFY',
 }
 
+export enum VerifyModeEnum {
+  MAIL = 'mail',
+  PHONE = 'phone',
+}
+
 export enum EnumCSVValidateResult {
   CSV_ERROR_EXTENSION = 'CSV_ERROR_EXTENSION',
   CSV_ERROR_MAX_SIZE = 'CSV_ERROR_MAX_SIZE',
@@ -182,7 +187,9 @@ export type GameListType = {
   providerName: string;
   isExpiration?: boolean;
   gameCnt?: number;
+  allowedLocation?: boolean;
   allowedDemo?: boolean;
+  favorites?: number;
 };
 
 export type GameDetail = {
@@ -277,6 +284,8 @@ export type UserDetail = {
   generalSetting: UserSettingGeneralType;
   privacySetting: UserSettingPrivacyType;
   verifiedSetting: UserSettingVerifiedType;
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
 };
 
 export type GameProviderDetail = {
@@ -387,6 +396,7 @@ export type InformationWithdraw = {
 };
 
 export type TransactionStatus = 'process' | 'pending' | 'refunding' | 'rejected' | 'fail' | 'success' | 'approve';
+export type RolloverStatus = 'all' | 'not_started' | 'ongoing' | 'done';
 export type TransactionType = {
   amount: number;
   amountUsd: number;
@@ -434,6 +444,24 @@ export type BetDetailType = {
 
   userId: string;
   userName: string;
+};
+
+export type RolloverType = {
+  id: string;
+  type: string;
+  amount: number;
+  amountUsd: number;
+  pendingWagerRequiredAmount: number;
+  pendingWagerRequiredUsdAmount: number;
+  wagerCompletedAmount: number;
+  wagerCompletedUsdAmount: number;
+  withdrawableFoundsAmount: number;
+  withdrawableFoundsUsdAmount: number;
+  currency: string;
+  currencyLogo: string;
+  status: RolloverStatus;
+  times: number;
+  createdAt: Date;
 };
 
 export type CategoryType =

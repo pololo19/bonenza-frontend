@@ -1,6 +1,6 @@
 import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
-import { Heart, PlayCricle, Refresh, Send2 } from 'iconsax-react';
+import { PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,35 +10,35 @@ import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import api from '@/api/api';
 import {
   api_getGameDetail,
-  api_getLatestBetsForGame,
+  api_getGameFavorite,
   api_setGameFavorite,
   api_startGameDemo,
   api_startGameSession,
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { useWidth } from '@/base/hooks/useWidth';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowDepositModal,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { AuthenticationModeEnum, GameListType, GameProviderDetail, GameReactionDetail } from '@/base/types/common';
+import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
+import Loader from '@/components/common/preloader/loader';
 import GameDescriptionComponent from '@/components/game/gameDescription';
 import GameDetailComponent from '@/components/game/gameDetail';
 import GameReviewComponent from '@/components/game/gameReview';
 import BaseLayout from '@/components/layouts/base.layout';
 import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
+import Tooltip from '@/components/tooltip';
 
 import styles from './index.module.scss';
-import Tooltip from '@/components/tooltip';
 
 type LaunchUrlTye = {
   gameUrl: string;
@@ -46,12 +46,16 @@ type LaunchUrlTye = {
 };
 
 function GamePage() {
-  const launchUrlRef = useRef<any>();
+  const width = useWidth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
-  const [isLoadingGame, setIsLoadingGame] = useState<boolean>(true);
-  const [launchUrl, setLaunchUrl] = useState<LaunchUrlTye | null>(null);
+
+  const [isLoadingGame, setIsLoadingGame] = useState({
+    request: '',
+    status: false,
+  });
+
   const [gameDetail, setGameDetail] = useState<GameListType>({
     id: '',
     title: '',
@@ -61,31 +65,39 @@ function GamePage() {
     multiplier: 0,
     description: '',
     releasedAt: '',
+    allowedLocation: false,
+    allowedDemo: false,
     providerName: '',
+    favorites: 0,
   });
   const [isNotFoundGame, setIsNotFoundGame] = useState<boolean>(false);
   const [openShareGame, setOpenShareGame] = useState<boolean>(false);
-  const [reactionData, setReactionData] = useState<GameReactionDetail>({});
+  const [reactionData, setReactionData] = useState({
+    isFavorite: false,
+    isLike: false,
+  });
+  const [successfullyLaunched, setSuccessfullyLaunched] = useState<boolean>(false);
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
-  const gameScriptRef = useRef<Node | null>(null);
 
   const [tab, setTab] = useState(1);
 
   const gameScreen = useFullScreenHandle();
   const { t } = useTranslation('');
 
-  const { query, reload } = useRouter();
+  const { query, reload, route, pathname, asPath } = useRouter();
   const { gameId } = query;
 
   const dispatch = useDispatch();
 
-  const { isLogin, localFiat, activeCurrency, balances, betHistory } = useSelector(
+  const { isLogin, localFiat, activeCurrency, balances, betHistory, language } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       activeCurrency: state.wallet.activeCurrency,
       balances: state.wallet.balances,
       isLogin: state.auth.isLogin,
       betHistory: state.game.betHistory,
+
+      language: state.auth.user.generalSetting.settingLanguage,
     }),
     shallowEqual,
   );
@@ -105,8 +117,12 @@ function GamePage() {
 
   const handleGetGameDetail = async () => {
     try {
+      if (!String(gameId)) {
+        return;
+      }
       setIsLoading(true);
       setIsNotFoundGame(false);
+
       const resGameDetail = await api_getGameDetail(String(gameId));
 
       const tempGameDetailData: GameListType = {
@@ -121,8 +137,15 @@ function GamePage() {
         description: resGameDetail.data?.description ?? '',
         releasedAt: resGameDetail.data?.releasedAt ?? '',
         gameCnt: Number(resGameDetail.data?.producerDetails?.gameCount ?? 0),
+        allowedLocation: resGameDetail.data?.allowLocation,
         allowedDemo: resGameDetail.data?.allowDemo,
+        favorites: resGameDetail.data?.favoriteCount,
       };
+
+      if (!resGameDetail.data?.allowLocation) {
+        toast.error(t('notification:errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
+      }
+
       setGameDetail(tempGameDetailData);
     } catch (error) {
       setIsNotFoundGame(true);
@@ -131,29 +154,46 @@ function GamePage() {
     }
   };
 
-  const handlePlay = async () => {
-    if (isSatisfied) {
-      await handlePlayRequest();
-    }
-  };
-
   const handleFreePlay = async () => {
     try {
+      setIsLoadingGame({
+        request: 'demo',
+        status: true,
+      });
+      const list = document.getElementById('game_wrapper');
+      if (list?.firstElementChild) {
+        list?.removeChild(list?.firstElementChild);
+      }
       const requestData: GameDemoRequest = {
         gameId: gameDetail.id,
+        locale: language,
       };
       const res = await api_startGameDemo(requestData);
       const lanuchGameOption: LaunchUrlTye = {
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
       };
-      setLaunchUrl(lanuchGameOption);
-    } catch (error) {}
+      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.strategy);
+    } catch (error) {
+    } finally {
+      setIsLoadingGame({
+        request: 'demo',
+        status: false,
+      });
+    }
   };
 
   const handlePlayRequest = async () => {
     try {
-      setIsLoading(true);
+      if (!isSatisfied) return;
+      setIsLoadingGame({
+        request: 'real',
+        status: true,
+      });
+      const list = document.getElementById('game_wrapper');
+      if (list?.firstElementChild) {
+        list?.removeChild(list?.firstElementChild);
+      }
       const requestData: GameCreateSessionRequest = {
         gameId: gameDetail.id,
         currencyType: activeCurrency.type,
@@ -164,40 +204,56 @@ function GamePage() {
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
       };
-      setLaunchUrl(lanuchGameOption);
-      launchUrlRef.current = { ...lanuchGameOption };
+      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.strategy);
     } catch (error) {
-      toast.error('Game launch failed', { containerId: TOAST_ENUM.COMMON });
-      setLaunchUrl(null);
-      setIsLoadingGame(true);
+      toast.error(t('notification:errors:gameLaunchedFailed'), { containerId: TOAST_ENUM.COMMON });
+      setIsLoadingGame({
+        request: 'real',
+        status: false,
+      });
     } finally {
-      setIsLoading(false);
+      setIsLoadingGame({
+        request: 'real',
+        status: false,
+      });
     }
   };
 
   const handleCurrentReactionGame = async () => {
     try {
-      // const res = await api.get('game/get-total-reaction', { params: { gameIdentifier: gameDetail?.identifier } });
-      // setReactionData(res.data);
+      if (!gameDetail.id || !isLogin) return;
+      const res = await api_getGameFavorite(gameDetail.id);
+      const favorite = res.data.state;
+      setReactionData({
+        ...reactionData,
+        isFavorite: favorite,
+      });
     } catch {
-      setReactionData((value) => value);
+      setReactionData({
+        isFavorite: false,
+        isLike: false,
+      });
     }
   };
 
   const handleReactionGame = async (reaction: 'like' | 'favorite') => {
     try {
+      if (!isLogin) {
+        dispatch(changeIsShowAuthenticationModal(true));
+        dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+        return;
+      }
       if (reaction === 'like') {
         setIsLoadingLike(true);
       } else {
         setIsLoadingFavorite(true);
       }
-      await api_setGameFavorite(gameDetail.id);
-      // await api.post('game/reaction', {
-      //   gameIdentifier: gameDetail?.identifier,
-      //   userId: 6,
-      //   reaction: reaction,
-      // });
-      // await handleCurrentReactionGame();
+
+      const res = await api_setGameFavorite(gameDetail.id);
+      const count = res.data?.count;
+      const state = res.data?.state;
+      setGameDetail({ ...gameDetail, favorites: count });
+      setReactionData({ ...reactionData, isFavorite: state });
     } catch (error) {
       toast.error('Reaction Failed', { containerId: TOAST_ENUM.COMMON });
     } finally {
@@ -209,72 +265,67 @@ function GamePage() {
     }
   };
 
-  useEffect(() => {
-    if (gameId) {
-      setLaunchUrl(null);
-      setIsLoadingGame(true);
-      handleGetGameDetail();
-    } else {
-      setIsNotFoundGame(true);
-    }
-  }, [gameId]);
-
-  // useEffect(() => {
-  //   if (gameDetail.identifier) {
-  //     handleCurrentReactionGame();
-  //   }
-  // }, [gameDetail]);
-
-  useEffect(() => {
+  const launchGame = async (gameUrl: string, strategy: string) => {
     try {
-      if (!launchUrl) return;
       // Define the game launch options
+      // setIsLoading(true);
       const list = document.getElementById('game_wrapper');
       if (list?.firstElementChild) {
         list?.removeChild(list?.firstElementChild);
       }
 
+      const success = () => {
+        setSuccessfullyLaunched(true);
+      };
+      const error = () => {
+        setSuccessfullyLaunched(false);
+      };
       const gameLaunchOptions = {
         target_element: 'game_wrapper',
         launch_options: {
-          game_url: launchUrl.gameUrl,
-          strategy: launchUrl.strategy,
+          // IMPORTANT WARNING:
+          // You will receive all these parameters as a response by launch demo / session request to the SOFTSWISS Game Aggregator.
+          // Pass them directly here without any manual modifications, as this could disrupt the game launching process.
+
+          // Required
+          game_launcher_url: asPath, // URL to GameLauncher HTML page
+
+          // Game parameters. Required.
+          game_url: gameUrl,
+          strategy: strategy,
+          // The number of game parameters depends on 'strategy'.
         },
       };
 
-      // Define success and error functions
-      const success = async (gameDispatcher: any) => {
-        console.log('gameDispatcher', gameDispatcher);
-        setIsLoadingGame(false);
-        // Handle success
-        // ...
-      };
-
-      const error = (error: any) => {
-        console.log('error', error);
-        // Handle error
-        // ...
-      };
-
-      // Load the game script and launch the game
-      const script = document.createElement('script');
-      script.src = 'https://casino.int.a8r.games/public/sg.js';
-      script.async = true;
-      script.onload = () => {
-        window.sg.launch(gameLaunchOptions, success, error);
-      };
-      gameScriptRef.current = script;
-      document.body.appendChild(script);
-      // Cleanup function to remove the script when the component unmounts
-      return () => {
-        document.body.removeChild(script);
-      };
+      window.sg.launch(gameLaunchOptions, success, error);
     } catch (error) {
       console.log('error', error);
+      setSuccessfullyLaunched(false);
+      toast(t('notification:errors:gameLaunchedFailed'));
+    } finally {
+      // setTimeout(() => {
+      //   setIsLoading(false);
+      // }, 1000);
     }
-  }, [launchUrl]);
+  };
+
+  useEffect(() => {
+    if (gameId) {
+      handleGetGameDetail();
+    } else {
+      setIsNotFoundGame(true);
+    }
+  }, [gameId, language]);
+
+  useEffect(() => {
+    if (gameDetail.identifier) {
+      handleCurrentReactionGame();
+    }
+  }, [gameDetail]);
+
   return (
     <>
+      {isLoading && <Loader />}
       {!isNotFoundGame && (
         <div className="py-[24px]">
           <div className="flex w-full justify-between items-center">
@@ -294,17 +345,24 @@ function GamePage() {
           </div>
           <div>
             {/* Game play */}
-            <FullScreen handle={gameScreen} className="aspect-[2] w-full mt-[20px]">
+            <FullScreen handle={gameScreen} className="aspect-[2] w-full mt-[20px] relative">
               <div
                 id="game_wrapper"
                 key={String(gameId)}
-                className={cn('', styles.gameWrapper, {
-                  'h-full': !isLoadingGame,
-                  hidden: isLoadingGame,
-                })}
-              ></div>
-              {isLoadingGame && (
-                <div className="flex items-center justify-center rounded relative h-full">
+                className={cn('h-full dark:bg-black bg-white', styles.gameWrapper)}
+              />
+              {
+                <div
+                  className={cn(
+                    'flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
+                    {
+                      // hidden: !isPlayRequested,
+                      'opacity-0': successfullyLaunched,
+                      'opacity-100': !successfullyLaunched,
+                      'pointer-events-none': successfullyLaunched,
+                    },
+                  )}
+                >
                   <Image
                     src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
                     fill
@@ -313,28 +371,8 @@ function GamePage() {
                       e.currentTarget.src = '/img/game-background.png';
                     }}
                   />
-                  <div className="h-full bg-black/80 w-full absolute"></div>
-                  {isLoading && (
-                    <div>
-                      <svg
-                        aria-hidden="true"
-                        className="w-8 h-8 mr-2 text-gray-700 animate-spin fill-amber-500"
-                        viewBox="0 0 100 101"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                          fill="currentColor"
-                        />
-                        <path
-                          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                          fill="currentFill"
-                        />
-                      </svg>
-                    </div>
-                  )}
-                  {!isLoading && isLogin && (
+                  <div className={cn('h-full bg-black/80 w-full absolute')} />
+                  {isLogin && (
                     <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
                       {gameDetail?.isExpiration ? (
                         <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
@@ -378,10 +416,16 @@ function GamePage() {
                             {isSatisfied && (
                               <button
                                 type="button"
+                                disabled={!gameDetail.allowedLocation || isLoadingGame.status}
                                 className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
-                                onClick={() => handlePlay()}
+                                onClick={() => handlePlayRequest()}
                               >
-                                <PlayCricle size={20} />
+                                {isLoadingGame.status && isLoadingGame.request === 'real' ? (
+                                  <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                                ) : (
+                                  <PlayCricle size={20} />
+                                )}
+
                                 <div>{t('gameDetail:realPlay')}</div>
                               </button>
                             )}
@@ -400,12 +444,17 @@ function GamePage() {
                             <button
                               type="button"
                               className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
-                              disabled={!gameDetail.allowedDemo}
+                              disabled={!gameDetail.allowedDemo || isLoadingGame.status}
                               onClick={() => {
                                 handleFreePlay();
                               }}
                             >
-                              <PlayCricle size={20} />
+                              {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
+                                <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                              ) : (
+                                <PlayCricle size={20} />
+                              )}
+
                               <div>{t('gameDetail:freePlay')}</div>
                             </button>
                           </div>
@@ -413,7 +462,7 @@ function GamePage() {
                       )}
                     </div>
                   )}
-                  {!isLoading && !isLogin && (
+                  {!isLogin && (
                     <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
                       {gameDetail?.isExpiration ? (
                         <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
@@ -454,7 +503,7 @@ function GamePage() {
                     </div>
                   )}
                 </div>
-              )}
+              }
             </FullScreen>
             {/* Game actions */}
             <div className="p-[15px] dark:bg-[#17191B] bg-white flex items-center justify-between">
@@ -465,38 +514,38 @@ function GamePage() {
                     className={cn(
                       'dark:hover:bg-gray-700 dark:text-[#929395] dark:hover:text-white hover:bg-[#f5f6fa] text-black rounded p-2 flex gap-2 items-center',
                       {
-                        '!text-amber-400': reactionData.favorite,
+                        '!text-amber-400': reactionData.isFavorite,
                       },
                     )}
                     onClick={() => handleReactionGame('favorite')}
                   >
                     <StarIcon width={20} />
-                    <span className="text-[12px]">{reactionData?.totalFavorite ?? 0}</span>
+                    <span className="text-[12px]">{gameDetail?.favorites ?? 0}</span>
                   </div>
                 ) : (
                   <div className="w-[49px] flex items-center justify-center">
                     <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
                   </div>
                 )}
-                {!isLoadingLike ? (
+                {/* {!isLoadingLike ? (
                   <div
                     role="button"
                     className={cn(
                       'dark:hover:bg-gray-700 dark:text-[#929395] dark:hover:text-white hover:bg-[#f5f6fa] rounded p-2 flex gap-2 items-center',
                       {
-                        '!text-[#ec4016]': reactionData?.liked,
+                        '!text-[#ec4016]': reactionData.isLike,
                       },
                     )}
                     onClick={() => handleReactionGame('like')}
                   >
                     <Heart variant="Bold" size={20} />
-                    <span className="text-[12px]">{reactionData?.totalLike ?? 0}</span>
+                    <span className="text-[12px]">{0}</span>
                   </div>
                 ) : (
                   <div className="w-[49px] flex items-center justify-center">
                     <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
                   </div>
-                )}
+                )} */}
                 <div
                   role="button"
                   className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"

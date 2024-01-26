@@ -134,6 +134,7 @@
     "typescript": "5.0.4",
     "unique-names-generator": "^4.7.1",
     "universal-cookie": "4.0.4",
+    "use-debounce": "^10.0.0",
     "use-shopping-cart": "^3.1.8",
     "web3": "^1.7.5",
     "yarn": "^1.22.19",

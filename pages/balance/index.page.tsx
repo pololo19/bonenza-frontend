@@ -92,66 +92,70 @@ const BalancePage = () => {
   };
 
   return (
-    <div className={'mt-[-24px] sm:mx-[-32px] mb-[-32px]'}>
+    <div className={'relative'}>
       {isLoading && <Loader />}
       <Head>
         <title>Balance - Bonenza</title>
       </Head>
-      <div className="flex items-center justify-between pt-[24px] px-4 sm:px-[32px] pb-[32px] dark:bg-color-modal-bg-secondary bg-white">
-        <div className="flex items-center justify-start gap-[15px] max-sm:pt-[30px]">
+      <div className="flex items-center justify-between dark:bg-color-modal-bg-secondary bg-white">
+        <div className="flex items-center justify-start gap-[15px]">
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
-          <div className="flex items-center justify-start md:gap-[35px] gap-[15px] flex-wrap">
-            <div>
-              <div className="text-start text-[14px] dark:text-gray-300 text-[#000] font-[700]">
+          <div className="flex items-center justify-start md:gap-[40px] gap-[15px]">
+            <div className="md:pr-[40px] pr-[15px] border-solid border-r-[2px] border-color-border-secondary">
+              <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-300 text-[#000] font-[700]">
                 {t('balance:totalBalance')}
               </div>
-              <div className="text-start text-[#F39717] text-[16px] font-bold break-keep">
+              <div className="text-start text-[#F39717] sm:text-[16px] text-[14px] font-bold break-keep">
                 {currencyFormat1(totalUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
               </div>
             </div>
-            <div>
-              <div className="text-start text-[14px] dark:text-gray-400 text-[#000] font-[700]">
-                {t('balance:realBalance')}
+            <div className="flex sm:gap-[40px] gap-[15px]">
+              <div>
+                <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-400 text-[#000] font-[700]">
+                  {t('balance:realBalance')}
+                </div>
+                <div className="text-start dark:text-white text-black sm:text-[16px] text-[14px] font-bold break-keep">
+                  {currencyFormat1(realUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
+                </div>
               </div>
-              <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {currencyFormat1(realUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
-              </div>
-            </div>
-            <div>
-              <div className="text-start text-[14px] dark:text-gray-400 text-[#000] font-[700]">
-                {t('balance:bonusMoney')}
-              </div>
-              <div className="text-start dark:text-white text-black text-[16px] font-bold break-keep">
-                {currencyFormat1(bonusUsdBalance, fiatDecimals, localFiat?.name)}
+              <div>
+                <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-400 text-[#000] font-[700]">
+                  {t('balance:bonusMoney')}
+                </div>
+                <div className="text-start dark:text-white text-black sm:text-[16px] text-[14px] font-bold break-keep">
+                  {currencyFormat1(bonusUsdBalance, fiatDecimals, localFiat?.name)}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="w-full pt-[24px] sm:px-4 md:px-[32px] pb-[32px] mt-[20px] dark:bg-color-modal-bg-secondary bg-white">
-        <div className="w-full flex justify-between items-center mb-[18px] rounded">
+      <div className="w-full mt-[20px] dark:bg-color-modal-bg-secondary bg-white">
+        <div className="w-full flex justify-between items-center mb-[20px] sm:mb-[30px] gap-[30px]">
           <div className="flex items-center gap-[10px]">
-            <div className="max-sm:pl-[15px] dark:text-[#98A7B5] text-[#31373d] text-[14px]">
+            <div className="dark:text-[#98A7B5] text-[#31373d] sm:text-[14px] text-[12px]">
               {t('balance:hideBalance')}
             </div>
             <Switch
               checked={hideBalance}
               onChange={setHideBalance}
-              className={`${
-                hideBalance ? 'bg-[#3bc11733]' : 'dark:bg-[#272C33] bg-[#5f697566]'
-              } relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full`}
+              className={cn('relative inline-flex h-[24px] min-w-[44px] w-[44px] items-center rounded-full', {
+                'bg-[#3bc11733]': hideBalance,
+                'dark:bg-color-toggle-primary bg-gray-200': !hideBalance,
+              })}
             >
               <span
-                className={`${
-                  hideBalance ? 'translate-x-5 bg-amber-600' : 'translate-x-1 dark:bg-[#31343D] bg-white'
-                } inline-block h-[20px] w-[20px] transform rounded-full transition`}
+                className={cn('inline-block h-[20px] w-[20px] transform rounded-full transition', {
+                  'translate-x-[20px] bg-color-primary': hideBalance,
+                  'translate-x-1 bg-gray-400': !hideBalance,
+                })}
               />
             </Switch>
           </div>
           <div className="relative">
             <input
               className={cn(
-                'p-[18px] pl-[50px] border border-[#EAECF3] border-solid dark:border-0 dark:text-white text-[#31373d] w-full text-[16px] h-[40px] rounded-[5px] dark:bg-color-panel-bg-primary bg-[#f1f3f7] placeholder:text-[#4D545C] placeholder:text-[#31373d] outline-none',
+                'sm:pl-[50px] pl-[40px] dark:text-white text-[#31373d] sm:text-[14px] text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
               )}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -160,14 +164,14 @@ const BalancePage = () => {
             <SearchNormal
               width={24}
               height={24}
-              className="absolute top-1/2 dark:text-color-text-primary text-[#31373d] left-[30px] transform -translate-x-1/2 -translate-y-1/2 !text-[14px]"
+              className="absolute top-1/2 dark:text-color-text-primary text-[#31373d] sm:left-[30px] left-[20px] transform -translate-x-1/2 -translate-y-1/2 sm:!text-[14px] !text-[12px]"
             />
           </div>
         </div>
 
         {!!filterListCrypto?.length && (
           <div className="w-full flex flex-col justify-start items-start">
-            <div className="text-[14px] dark:text-[#C2C2C2] text-[#31373d] mb-[10px] max-sm:px-[15px]">
+            <div className="text-[14px] dark:text-[#C2C2C2] text-[#31373d] mb-[10px]">
               {t('balance:cryptoCurrency')}
             </div>
             <div className="w-full flex flex-col justify-start items-start gap-[5px]">
@@ -230,7 +234,7 @@ const BalancePage = () => {
 
         {!!filterListFiat.length && (
           <div className="w-full flex flex-col justify-start items-start mt-[20px]">
-            <div className="text-[14px] text-[#C2C2C2] mb-[10px] max-sm:px-[15px]">{t('balance:fiatCurrency')}</div>
+            <div className="text-[14px] text-[#C2C2C2] mb-[10px]">{t('balance:fiatCurrency')}</div>
             <div className="w-full flex flex-col justify-start items-start gap-[5px]">
               {filterListFiat.map((item: CurrencyType, index: number): any => (
                 <div

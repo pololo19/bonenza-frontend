@@ -21,44 +21,36 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { fiatSymbols, localFiat } = useSelector(
+  const { fiatSymbols, localFiat, defaultCurrencyId } = useSelector(
     (state: AppState) => ({
       fiatSymbols: state.wallet.fiatSymbols,
       localFiat: state.wallet.localFiat,
+      defaultCurrencyId: state.auth.user.generalSetting.settingCurrency,
     }),
     shallowEqual,
   );
 
   const [isShowFiatModal, setIsShowFiatModal] = useState<boolean>(false);
-  const [activeMoonpayFiat, setActiveMoonpayFiat] = useState<CurrencyType>();
+  const [activeFiat, setActiveFiat] = useState<CurrencyType>({
+    id: '',
+    name: '',
+    alias: '',
+    logo: '',
+    iso_currency: '',
+    iso_decimals: 0,
+    type: 'fiat',
+    availableNetworks: [], // for cryptos
+    price: 0,
+    favorite: false,
+  });
   const [searchInput, setSearchInput] = useState<string>('');
 
   useEffect(() => {
-    if (activeMoonpayFiat) onChangeMoonpayFiat?.(activeMoonpayFiat);
-  }, [activeMoonpayFiat]);
-
-  useEffect(() => {
-    const localFiatStorage: any = JSON.parse(String(CookiesStorage.getCookieData(CookieKey.localeFiatData)));
-    if (localFiatStorage) {
-      handleUpdateFiat(localFiatStorage);
-    } else {
-      if (fiatSymbols) setActiveMoonpayFiat(fiatSymbols[0]);
+    const defaultFiat = fiatSymbols.find((item) => item.id === defaultCurrencyId);
+    if (defaultFiat != undefined) {
+      setActiveFiat(defaultFiat);
     }
-  }, [fiatSymbols]);
-
-  useEffect(() => {
-    if (localFiat) {
-      onChangeMoonpayFiat?.(localFiat);
-      handleUpdateFiat(localFiat);
-    }
-  }, [localFiat]);
-
-  const handleUpdateFiat = (crypto: CurrencyType) => {
-    setActiveMoonpayFiat(crypto);
-    // dispatch(changeActiveFiat(crypto));
-    // sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(crypto));
-    // CookiesStorage.setCookieData(CookieKey.activeFiat, String(crypto?.currency));
-  };
+  }, [fiatSymbols, defaultCurrencyId]);
 
   const filterListFiat = useMemo(() => {
     return fiatSymbols?.filter((item) => {
@@ -73,15 +65,21 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
     <>
       <div
         role="button"
-        className="flex items-center gap-2 dark:bg-gray-700/50 bg-[#ffffff] py-2 px-2 dark:border border-0 border-solid border-gray-600 rounded"
+        className="flex items-center gap-2 dark:bg-gray-700/50 bg-[#ffffff] py-2 px-2 dark:border border-0 border-solid border-color-border-primary rounded"
         onClick={() => setIsShowFiatModal(true)}
       >
-        {activeMoonpayFiat ? (
+        {activeFiat ? (
           <div className="flex items-center gap-3">
-            <Image height={25} width={25} src={activeMoonpayFiat.logo} alt="" />
-            <div className="font-normal dark:text-white text-black sm:text-[14px] text-[12px]">
-              {activeMoonpayFiat.name}
-            </div>
+            <Image
+              height={25}
+              width={25}
+              src={activeFiat.logo}
+              alt=""
+              onError={(error) => {
+                error.currentTarget.src = '/image/fiats/USD.png';
+              }}
+            />
+            <div className="font-normal dark:text-white text-black sm:text-[14px] text-[12px]">{activeFiat.name}</div>
           </div>
         ) : (
           <Global />
@@ -102,7 +100,11 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
       >
         <>
           <div className="px-5 py-[10px]">
-            <InputSearch value={searchInput} onChange={(e) => setSearchInput(e.target.value)} />
+            <InputSearch
+              className="dark:!bg-color-panel-bg-primary border border-solid border-transparent focus-within:border-color-primary"
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
           </div>
           <div className="p-5 py-5 border overflow-y-auto">
             <div className={`grid grid-cols-1 gap-2`}>
@@ -110,13 +112,14 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
                 <button
                   key={key}
                   className={cn(
-                    'flex rounded-md text-left px-5 py-2 hover:bg-gray-200 dark:hover:bg-gray-800 items-center',
+                    'flex rounded-md text-left px-5 py-2 hover:bg-gray-200 dark:hover:bg-color-hover-primary items-center',
                     {
-                      'border border-solid border-amber-500': activeMoonpayFiat?.id === item.id,
+                      'border border-solid border-color-primary': activeFiat?.id === item.id,
                     },
                   )}
                   onClick={() => {
-                    setActiveMoonpayFiat(item);
+                    setActiveFiat(item);
+                    onChangeMoonpayFiat && onChangeMoonpayFiat(item);
                     setIsShowFiatModal(false);
                   }}
                 >

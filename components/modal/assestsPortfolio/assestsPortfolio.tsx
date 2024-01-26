@@ -54,6 +54,7 @@ export default function ModalAssetsPortfolio({
   const [searchFiatInput, setSearchFiatInput] = useState<string>('');
   const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
+  const [tab, setTab] = useState<number>(0);
 
   const handleChangeCoin = (coin: CurrencyType) => {
     setActiveCoin(coin);
@@ -101,7 +102,7 @@ export default function ModalAssetsPortfolio({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-[#000000aa] transition-opacity" />
           </Transition.Child>
           <div className="fixed inset-0 z-10">
             <div className="flex min-h-full items-center justify-center p-4 text-center items-center p-0">
@@ -117,7 +118,7 @@ export default function ModalAssetsPortfolio({
                 <Dialog.Panel className="dark:text-white text-black sm:max-w-[500px] max-w-full flex flex-col relative transform rounded-[3px] dark:!bg-color-modal-bg-primary bg-[#fff] text-left shadow-xl transition-all my-8 w-full pb-[30px] overflow-y-auto max-h-[80vh]">
                   <Dialog.Title
                     as="div"
-                    className="relative dark:bg-color-header-primary bg-[#f5f6fa] mb-2 px-[1rem] sm:px-[30px] py-[10px] flex justify-between items-center"
+                    className="relative px-[1rem] sm:px-[30px] py-[20px] flex justify-between items-center"
                   >
                     <div className="text-[0.875rem] sm:text-[1rem] dark:text-white text-black font-[600]">
                       {t('deposit:assetsPortfolio')}
@@ -126,6 +127,7 @@ export default function ModalAssetsPortfolio({
                       <div className="w-[7.5rem] sm:w-[9.375rem]">
                         <InputSearch
                           value={searchFiatInput}
+                          className="border border-solid border-transparent focus-within:border-color-primary dark:!bg-color-panel-bg-primary"
                           showClose={searchFiatInput !== '' ? true : false}
                           onClose={() => {
                             setSearchFiatInput('');
@@ -141,12 +143,20 @@ export default function ModalAssetsPortfolio({
                       </div>
                     </div>
                   </Dialog.Title>
-                  <div className="flex-1 flex-col flex gap-[10px] justify-between mt-[1rem] mx-[20px]">
-                    <div className="flex">
-                      <div className="dark:bg-[#2D3035] bg-white cursor-pointer px-2 dark:text-white text-black font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
+                  <div className="flex-1 flex-col flex gap-[10px] justify-between mx-[20px]">
+                    <div className="flex p-[5px] dark:bg-color-header-secondary">
+                      <div
+                        className={cn(
+                          ' cursor-pointer px-2 font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow rounded-[5px]',
+                          {
+                            'dark:bg-color-panel-bg-primary text-black bg-white font-bold dark:text-white': tab === 0,
+                            'dark:bg-color-header-secondary bg-white dark:text-white text-black': tab === 1,
+                          },
+                        )}
+                      >
                         Currency
                       </div>
-                      <div className="dark:bg-[#374151BF] bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
+                      <div className="dark:bg-color-header-secondary bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
                         mNFT
                       </div>
                     </div>
@@ -205,13 +215,13 @@ export default function ModalAssetsPortfolio({
                             if (value) setShowAllFiat(true);
                           }}
                           className={`${
-                            viewInFiat ? 'bg-[#3bc11733]' : 'bg-gray-500'
+                            viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
                           } relative inline-flex h-4 w-8 items-center rounded-full`}
                         >
                           <span
                             className={`${
-                              viewInFiat ? 'translate-x-4 bg-amber-600' : 'translate-x-1 bg-gray-400'
-                            } inline-block h-3 w-3 transform rounded-full transition`}
+                              viewInFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                            } inline-block h-4 w-4 transform rounded-full transition`}
                           />
                         </Switch>
                         <div className="text-[12px] dark:text-gray-400 text-[#31373d]">
@@ -223,13 +233,13 @@ export default function ModalAssetsPortfolio({
                           checked={showSmallFiat}
                           onChange={setShowSmallFiat}
                           className={`${
-                            showSmallFiat ? 'bg-[#3bc11733]' : 'bg-gray-500'
+                            showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
                           } relative inline-flex h-4 w-8 items-center rounded-full`}
                         >
                           <span
                             className={`${
-                              showSmallFiat ? 'translate-x-4 bg-amber-600' : 'translate-x-1 bg-gray-400'
-                            } inline-block h-3 w-3 transform rounded-full transition`}
+                              showSmallFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                            } inline-block h-4 w-4 transform rounded-full transition`}
                           />
                         </Switch>
                         <div className="text-[12px] dark:text-gray-400 text-[#31373d]">{t('fiatHeader:smallFiat')}</div>
