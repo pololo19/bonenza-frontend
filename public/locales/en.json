@@ -1837,6 +1837,7 @@
     "existPhone": "This Phone is already exists",
     "existMail": "This Email is already exists",
     "verifyPhone": "This Phone is not verified",
-    "verifyMail": "This Email is not verified"
+    "verifyMail": "This Email is not verified",
+    "locationIsNotAllowed": "Sorry, this game is not available in your region."
   }
 }

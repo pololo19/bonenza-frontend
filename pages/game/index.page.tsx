@@ -143,7 +143,7 @@ function GamePage() {
       };
 
       if (!resGameDetail.data?.allowLocation) {
-        toast.error(t('notification:errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
       }
 
       setGameDetail(tempGameDetailData);
