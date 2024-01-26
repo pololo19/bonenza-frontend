@@ -1,6 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
 import { googleLogout } from '@react-oauth/google';
-import { useWeb3React } from '@web3-react/core';
 import cn from 'classnames';
 import {
   Card,
@@ -25,6 +24,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { logoutState } from '@/base/redux/reducers/auth.reducer';
+import { useDisconnect } from 'wagmi';
 import {
   changeIsShowInformation,
   changeIsShowReferAndEarn,
@@ -36,8 +36,8 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 export default function ProfileDropdown() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const { deactivate } = useWeb3React();
   const { t } = useTranslation('');
+  const { disconnect } = useDisconnect();
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [openState, setOpenState] = useState(false);
@@ -77,7 +77,7 @@ export default function ProfileDropdown() {
   const handleLogout = () => {
     CookiesStorage.logout();
     googleLogout();
-    deactivate();
+    disconnect();
     dispatch(logoutState());
     dispatch(logoutWallet());
     router.replace(ROUTER.Home);

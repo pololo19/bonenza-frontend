@@ -2,7 +2,6 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { googleLogout } from '@react-oauth/google';
-import { useWeb3React } from '@web3-react/core';
 import cn from 'classnames';
 import { Copy, InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
@@ -57,7 +56,6 @@ const SettingSecurity = () => {
     confirmNewPassword: '',
   });
   const { t } = useTranslation('');
-  const { deactivate } = useWeb3React();
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -95,7 +93,6 @@ const SettingSecurity = () => {
   const handleLogout = () => {
     CookiesStorage.logout();
     googleLogout();
-    deactivate();
     dispatch(logoutState());
     dispatch(logoutWallet());
     router.replace(ROUTER.Home);
