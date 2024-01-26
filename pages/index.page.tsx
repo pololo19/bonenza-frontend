@@ -78,7 +78,9 @@ function IndexPage() {
         description: t('homePage:introduceCardDes1'),
         textButton: t('homePage:introduceCardButton1'),
         href: ROUTER.Casino,
-        icon: <CasinoBoldIcon className="text-color-primary xl:w-[27px] xl:h-[27px] md:w-[20px] md:h-[20px]" />,
+        icon: (
+          <CasinoBoldIcon className="text-color-primary xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] sm:w-[24px] sm:h-[24px]" />
+        ),
       },
       {
         imgBackGround: '/img/page/sports.png',
@@ -86,7 +88,9 @@ function IndexPage() {
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
         href: ROUTER.Sports,
-        icon: <SportBoldIcon className="text-color-primary w-[27px] h-[27px] md:w-[20px] md:h-[20px]" />,
+        icon: (
+          <SportBoldIcon className="text-color-primary xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] sm:w-[24px] sm:h-[24px]" />
+        ),
       },
       {
         imgBackGround: '/img/page/liveholdem.png',
@@ -98,7 +102,7 @@ function IndexPage() {
           <Image
             width={25}
             height={25}
-            className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
+            className="xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] text-color-primary sm:w-[24px] sm:h-[24px]"
             src="/icon/liveholdem-1.png"
             alt="logo"
           />
@@ -115,7 +119,7 @@ function IndexPage() {
           <Image
             width={25}
             height={25}
-            className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
+            className="xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] text-color-primary sm:w-[24px] sm:h-[24px]"
             src="/icon/updownIcon.png"
             alt="logo"
           />
