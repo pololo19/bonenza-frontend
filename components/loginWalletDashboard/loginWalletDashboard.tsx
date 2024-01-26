@@ -10,7 +10,6 @@ import api from '@/api/api';
 import { api_loginWithGoogle } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { LOGIN_REGISTRATION_METHOD, TOAST_ENUM } from '@/base/constants/common';
-import { blockExplorer, chainId, metamask, rpcUrls, walletConnect } from '@/base/constants/contracts';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
