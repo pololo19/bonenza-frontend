@@ -208,11 +208,10 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
   useEffect(() => {
     handleGetAllBet();
-  }, []);
+  }, [gameDetail]);
 
   useEffect(() => {
     if (gameSocket) {
-      console.log(gameSocket);
       gameSocket.on(`bets`, (item: any) => {
         console.log(item, '---------all bet Table');
         const data = JSON.parse(item);
