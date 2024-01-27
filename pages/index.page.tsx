@@ -354,7 +354,8 @@ function IndexPage() {
                 {isLogin && (
                   <div className="sm:text-start text-center hidden sm:block">
                     <div className="text-white text-[18px] font-semibold">
-                      {String(t('homePage:hello'))} {userName}! {String(t('homePage:welcomeAboard'))}
+                      {String(t('homePage:welcomeBack'))}
+                      {String(', ')} {userName}
                     </div>
                     {!checkDeposit && (
                       <div>
