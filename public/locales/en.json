@@ -602,7 +602,7 @@
     "userNotRegistered": "{{user}} is not registered",
     "loginEmailFailed": "Email or password is incorrect",
     "loginPhoneFailed": "Phone number or password is incorrect",
-    "loginWalletFailed": "Login failed",
+    "loginWalletFailed": "Login with Wallet failed",
     "loginGoogleFailed": "Login with Google failed",
     "loginTelegramFailed": "Login with Telegram failed",
     "sendMailSuccessfully": "Send mail successfully",

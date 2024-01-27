@@ -57,7 +57,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         }),
       );
       dispatch(initWalletInfo());
-      onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       if (error?.response?.data?.msg === 'Email was taken') {
@@ -117,13 +116,12 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         }),
       );
       dispatch(initWalletInfo());
-      onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       if (error?.response?.data?.msg === 'Email was taken') {
         toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
       } else {
-        toast.error(String(t('authentication:loginGoogleFailed')), { containerId: TOAST_ENUM.MODAL });
+        toast.error(String(t('authentication:loginWalletFailed')), { containerId: TOAST_ENUM.MODAL });
       }
       disconnect();
     } finally {
