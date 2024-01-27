@@ -289,6 +289,7 @@
     "startJourney": "START YOUR GAME JOURNEY NOW",
     "welcomeToJoin": "welcome to join",
     "welcomeAboard": "Welcome aboard",
+    "welcomeBack": "Welcome back",
     "firstDepositBonus": "FIRST DEPOSIT BONUS",
     "depositAndPlay": "Deposit & Play",
     "deposit": "Deposit",
@@ -602,7 +603,7 @@
     "userNotRegistered": "{{user}} is not registered",
     "loginEmailFailed": "Email or password is incorrect",
     "loginPhoneFailed": "Phone number or password is incorrect",
-    "loginWalletFailed": "Login failed",
+    "loginWalletFailed": "Login with Wallet failed",
     "loginGoogleFailed": "Login with Google failed",
     "loginTelegramFailed": "Login with Telegram failed",
     "sendMailSuccessfully": "Send mail successfully",
@@ -1837,6 +1838,7 @@
     "existPhone": "This Phone is already exists",
     "existMail": "This Email is already exists",
     "verifyPhone": "This Phone is not verified",
-    "verifyMail": "This Email is not verified"
+    "verifyMail": "This Email is not verified",
+    "locationIsNotAllowed": "Sorry, this game is not available in your region."
   }
 }

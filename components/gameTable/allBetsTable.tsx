@@ -23,6 +23,21 @@ const cryptoDecimals = 8;
 const fiatDecimals = 2;
 
 const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => {
+  const [newBetData, setNewBetData] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+  });
   const [betData, setbetData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
@@ -208,11 +223,10 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
   useEffect(() => {
     handleGetAllBet();
-  }, []);
+  }, [gameDetail]);
 
   useEffect(() => {
     if (gameSocket) {
-      console.log(gameSocket);
       gameSocket.on(`bets`, (item: any) => {
         console.log(item, '---------all bet Table');
         const data = JSON.parse(item);
@@ -236,7 +250,8 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           betId: data.id ?? '',
           time: data.time ?? new Date(),
         };
-        setbetData((prev) => [tempData, ...prev]);
+        setNewBetData(tempData);
+        // setbetData((prev) => [tempData, ...prev]);
       });
     }
 
@@ -246,6 +261,24 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       }
     };
   }, [gameSocket, gameDetail, isLogin]);
+
+  useEffect(() => {
+    if (newBetData.betId) {
+      let preBetDatas = [...betData];
+      if (preBetDatas.findIndex((item) => item.betId === newBetData.betId) !== -1) {
+        const upBetDatas = preBetDatas.map((item) => {
+          if (item.betId === newBetData.betId) {
+            return { ...newBetData };
+          } else {
+            return { ...item };
+          }
+        });
+        setbetData(upBetDatas);
+      } else {
+        setbetData((prev) => [newBetData, ...prev]);
+      }
+    }
+  }, [newBetData]);
 
   return (
     <>

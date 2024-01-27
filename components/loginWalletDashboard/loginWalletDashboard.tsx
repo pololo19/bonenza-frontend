@@ -1,15 +1,15 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { WalletButton } from '@rainbow-me/rainbowkit';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import Image from 'next/image';
-import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
-import { isMobile } from 'react-device-detect';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { ElementType, useEffect, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
 
-import api from '@/api/api';
-import { api_loginWithGoogle } from '@/api/auth';
+import { api_loginWithGoogle, api_loginWithTelegram, api_loginWithWallet } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
-import { LOGIN_REGISTRATION_METHOD, TOAST_ENUM } from '@/base/constants/common';
+import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
@@ -29,6 +29,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { address, isConnected, isConnecting } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { signMessageAsync } = useSignMessage();
 
   const { isLogin, wallet, isShowAuthenticationModal } = useSelector(
     (state: AppState) => ({
@@ -54,7 +57,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         }),
       );
       dispatch(initWalletInfo());
-      onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       if (error?.response?.data?.msg === 'Email was taken') {
@@ -80,25 +82,58 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
           setIsLoading(false);
           return;
         }
-        const resToken = await api.post('auth/save-info-login-telegram', data);
-        CookiesStorage.setAccessToken(resToken.data.data.accessToken);
-        const resUser = await api.get('auth/get-user-info');
-        if (!resUser.data.data.isDeposit) {
-          await api.post('deposit/create-deposit-address');
-        }
+        const resToken = await api_loginWithTelegram(data);
+        const { token, user } = resToken.data;
+        CookiesStorage.setAccessToken(token);
         dispatch(
           saveUserInfo({
-            ...convertUserInfo(resUser.data.data),
+            ...convertUserInfo(user),
           }),
         );
+        dispatch(initWalletInfo());
+        toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
       });
     } catch (error) {
-      toast.error(String(t('authentication:loginTelegramFailed')), { containerId: TOAST_ENUM.COMMON });
+      toast.error(String(t('authentication:loginTelegramFailed')), { containerId: TOAST_ENUM.MODAL });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleWallet = async () => {
+    try {
+      setIsLoading(true);
+
+      if (!isConnected) return;
+      const message = getMessageMetamask(String(address));
+      const signauture = await signMessageAsync({ message });
+      const res = await api_loginWithWallet(String(address), String(signauture));
+      const { token, user } = res.data;
+      CookiesStorage.setAccessToken(token);
+      dispatch(
+        saveUserInfo({
+          ...convertUserInfo(user),
+        }),
+      );
+      dispatch(initWalletInfo());
+      toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      if (error?.response?.data?.msg === 'Email was taken') {
+        toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
+      } else {
+        toast.error(String(t('authentication:loginWalletFailed')), { containerId: TOAST_ENUM.MODAL });
+      }
+      disconnect();
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isConnected) {
+      handleWallet();
+    }
+  }, [isConnected]);
   return (
     <>
       {isLoading && <Loader />}
@@ -116,6 +151,34 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
             <button className="px-2 py-2 w-full text-white">
               <Image height={30} width={30} src={'/img/telegram.svg'} alt="" className="inline w-[30px]" />
             </button>
+          </div>
+          <div className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
+            <WalletButton.Custom wallet="metamask">
+              {({ ready, connect }) => {
+                return (
+                  <button className="px-2 py-2 w-full text-white" disabled={!ready} onClick={connect}>
+                    <Image height={30} width={30} src={'/img/icon/MetaMask.png'} alt="" className="inline w-[30px]" />
+                  </button>
+                );
+              }}
+            </WalletButton.Custom>
+          </div>
+          <div className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
+            <WalletButton.Custom wallet="walletConnect">
+              {({ ready, connect }) => {
+                return (
+                  <button className="px-2 py-2 w-full text-white" disabled={!ready} onClick={connect}>
+                    <Image
+                      height={30}
+                      width={30}
+                      src={'/img/icon/WalletConnect.png'}
+                      alt=""
+                      className="inline w-[30px]"
+                    />
+                  </button>
+                );
+              }}
+            </WalletButton.Custom>
           </div>
         </div>
       </div>

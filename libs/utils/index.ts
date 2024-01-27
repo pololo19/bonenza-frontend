@@ -400,7 +400,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
     }
     if (zeroCount < zeroNum) {
       res = formatCompactNumber(number, {
-        maximumFractionDigits: zeroNum + 2,
+        maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
       }).toString();
       return `${symbol} ${res}`;
