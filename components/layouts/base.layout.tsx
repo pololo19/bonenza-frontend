@@ -18,7 +18,7 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { addBetHistory, setRecommandGames } from '@/base/redux/reducers/game.reducer';
+import { addBetHistory, setBetHistory, setRecommandGames } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
@@ -53,7 +53,7 @@ import {
   updateBalance,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetTableDataType, FiatType, GameListType } from '@/base/types/common';
+import { BetDetailType, BetTableDataType, FiatType, GameListType } from '@/base/types/common';
 import { CurrencyType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
@@ -80,6 +80,7 @@ import ModalReferAndEarn from '../modal/referAndEarn/referAndEarn';
 import ModalResetPassword from '../modal/resetPassword/resetPassword';
 import ModalUpdateAvatar from '../modal/updateAvatar/updateAvatar';
 import ModalUpdateProfile from '../modal/updateProfile/updateProfile';
+import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndPhone';
 import ModalVipClub from '../modal/vipClub/vipClub';
 import ModalVipLevel from '../modal/vipLevel/vipLevel';
 import AccountPannel from './accountBar.layout';
@@ -89,7 +90,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndPhone';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -105,6 +105,21 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const router = useRouter();
   const { t, i18n } = useTranslation('');
 
+  const [newBetData, setNewBetData] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+  });
   const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
@@ -152,6 +167,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     userId,
     walletSocket,
     gameSocket,
+    betHistory,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -185,6 +201,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       walletSocket: state.socket.walletSocket,
       gameSocket: state.socket.gameSocket,
       depositTime: state.wallet.depositTime,
+      betHistory: state.game.betHistory,
     }),
     shallowEqual,
   );
@@ -385,7 +402,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           betId: data.id ?? '',
           time: data.time ?? new Date(),
         };
-        dispatch(addBetHistory(tempData));
+        setNewBetData(tempData);
       });
 
       if (isLogin) {
@@ -443,6 +460,24 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     cryptoArray && setCryptoLocked(cryptoArray[0]);
   }, [cryptoArray]);
+
+  useEffect(() => {
+    if (newBetData.betId) {
+      let preBetDatas = [...betHistory];
+      if (preBetDatas.findIndex((item) => item.betId === newBetData.betId) !== -1) {
+        const upBetDatas = preBetDatas.map((item) => {
+          if (item.betId === newBetData.betId) {
+            return { ...newBetData };
+          } else {
+            return { ...item };
+          }
+        });
+        dispatch(setBetHistory(upBetDatas));
+      } else {
+        dispatch(addBetHistory(newBetData));
+      }
+    }
+  }, [newBetData]);
 
   return (
     <>
