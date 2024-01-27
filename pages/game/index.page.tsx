@@ -653,7 +653,7 @@ function GamePage() {
           )}
         </div>
       )}
-      {isNotFoundGame && (
+      {isNotFoundGame && !isLoading && (
         <div
           className={cn(
             'aspect-[2] w-full my-[20px] text-[14px] dark:text-white text-black flex flex-col items-center justify-center gap-[20px]',
