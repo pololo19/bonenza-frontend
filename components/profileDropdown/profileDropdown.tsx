@@ -44,7 +44,6 @@ export default function ProfileDropdown() {
 
   const toggleMenu = () => {
     setOpenState((openState) => !openState);
-    buttonRef?.current?.click(); // eslint-disable-line
   };
 
   // Open the menu after a delay of timeoutDuration
@@ -95,8 +94,8 @@ export default function ProfileDropdown() {
       <Popover className="relative w-auto text-left rounded-[7px] sm:flex hidden">
         {({ open }) => (
           <div
-            onMouseEnter={() => onHover(open, 'onMouseEnter')}
-            onMouseLeave={() => onHover(open, 'onMouseLeave')}
+            // onMouseEnter={() => onHover(open, 'onMouseEnter')}
+            // onMouseLeave={() => onHover(open, 'onMouseLeave')}
             className="flex flex-col"
           >
             <Popover.Button ref={buttonRef}>

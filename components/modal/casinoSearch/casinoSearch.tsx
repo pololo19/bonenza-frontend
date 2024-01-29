@@ -1,7 +1,7 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { SearchNormal } from 'iconsax-react';
+import { SearchNormal, Trash } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -143,6 +143,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
     sethistory(tempHistory);
   };
 
+  const handleDeleteAllHistory = () => {
+    CookiesStorage.setCookieData('casinoSearch', '[]');
+    sethistory([]);
+  };
+
   const searchResult = useMemo(() => {
     return (
       <>
@@ -186,7 +191,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] right-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] bg-black/70',
+          'fixed top-[67px] left-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] bg-black/70',
 
           {
             'translate-y-0': show,
@@ -248,11 +253,14 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               {debouncedSearchValue.length < 3 && (
                 <div className="dark:text-gray-500 text-[#31373d]">{t('casino:searchRequires')}</div>
               )}
-              {history.length && debouncedSearchValue.length < 3 && (
+              {history.length && debouncedSearchValue.length < 3 ? (
                 <>
-                  <div className="flex justify-start w-full my-[10px]">
+                  <div className="flex justify-between w-full my-[10px]">
                     <div className="font-[600] dark:text-white text-[#000] sm:text-[16px] text-[14px]">
                       {t('casino:searchHistory')}
+                    </div>
+                    <div className="text-color-text-primary cursor-pointer" onClick={handleDeleteAllHistory}>
+                      <Trash className="w-[20px] h-[20px]" />
                     </div>
                   </div>
                   <div className="flex gap-[10px] justify-start w-full mb-[20px] flex-nowrap relative max-w-full overflow-x-auto snap-x snap-mandatory">
@@ -270,6 +278,8 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                     ))}
                   </div>
                 </>
+              ) : (
+                ''
               )}
             </div>
             {searchResult}
