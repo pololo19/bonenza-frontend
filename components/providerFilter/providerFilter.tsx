@@ -21,6 +21,7 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider }: prov
 
   const handleSearchInput = (val: string) => {
     if (!val) {
+      setSearchInput('');
       setProviders(listProvider);
       return;
     }
