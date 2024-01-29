@@ -186,7 +186,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] right-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] bg-black/70',
+          'fixed top-[67px] left-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] bg-black/70',
 
           {
             'translate-y-0': show,
