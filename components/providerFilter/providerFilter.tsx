@@ -11,9 +11,10 @@ type providerFilterProps = {
   listProvider: GameProviderDetail[];
   selectedProvider: string[];
   selectProvider: (id?: string | undefined) => void;
+  viewCount?: boolean;
 };
 
-const ProviderFilter = ({ listProvider, selectedProvider, selectProvider }: providerFilterProps) => {
+const ProviderFilter = ({ listProvider, selectedProvider, selectProvider, viewCount = true }: providerFilterProps) => {
   const { t } = useTranslation('');
 
   const [providers, setProviders] = useState<GameProviderDetail[]>(listProvider);
@@ -81,7 +82,7 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider }: prov
                       {provider?.isSelect && <CheckIcon className="w-[20px] text-color-primary" />}
                     </div>
                     <span className="truncate flex-1">{titleCase(provider.name || '')}</span>
-                    <span className="text-color-primary">{provider.totalGames}</span>
+                    {viewCount && <span className="text-color-primary">{provider.totalGames}</span>}
                   </div>
                 </Listbox.Option>
               ))}
