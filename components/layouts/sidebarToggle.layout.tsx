@@ -144,7 +144,7 @@ export default function SidebarToggle() {
                 classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-[#31373D] bg-[#F6F7FA] hover:text-[#000] rounded"
                 onClick={() => {
                   setShowDropDownCasino(!showDropDownCasino);
-                  router.push(ROUTER.Casino);
+                  if (!(router.pathname === ROUTER.Casino)) router.push(ROUTER.Casino);
                 }}
                 isShowDropDown={showDropDownCasino ? true : false}
                 isDropDown={true}
