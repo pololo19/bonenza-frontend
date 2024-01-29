@@ -19,21 +19,27 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider }: prov
   const [providers, setProviders] = useState<GameProviderDetail[]>(listProvider);
   const [searchInput, setSearchInput] = useState('');
 
-  const handleSearchInput = (val: string) => {
-    if (!val) {
-      setSearchInput('');
-      setProviders(listProvider);
-      return;
-    }
-    let tempProviders = [...providers];
-    tempProviders = tempProviders.filter((item) => item.name.includes(searchInput));
-    setProviders(tempProviders);
-    setSearchInput(val);
-  };
+  // const handleSearchInput = (val: string) => {
+  //   if (!val) {
+  //     setSearchInput('');
+  //     setProviders(listProvider);
+  //     return;
+  //   }
+  //   let tempProviders = [...providers];
+  //   tempProviders = tempProviders.filter((item) => item.name.includes(searchInput));
+  //   setProviders(tempProviders);
+  //   setSearchInput(val);
+  // };
 
   useEffect(() => {
-    setProviders(listProvider);
-  }, [listProvider]);
+    if (searchInput) {
+      let tempProviders = [...listProvider];
+      tempProviders = tempProviders.filter((item) => item.name.includes(searchInput));
+      setProviders(tempProviders);
+    } else {
+      setProviders(listProvider);
+    }
+  }, [listProvider, searchInput]);
   return (
     <div className="flex items-center gap-[10px] grow sm-grow-0">
       <div className="hidden sm:block">{t('casino:provider')}</div>
@@ -61,7 +67,7 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider }: prov
               <input
                 className="w-full ml-[10px] outline-none bg-transparent"
                 value={searchInput}
-                onChange={(e) => handleSearchInput(e.target.value)}
+                onChange={(e) => setSearchInput(e.target.value)}
               />
             </div>
             <div className="py-1 max-h-[65vh] overflow-y-auto px-[6px] w-full scrollbar relative">
