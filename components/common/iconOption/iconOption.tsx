@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ElementType, ReactNode, useState } from 'react';
+import React, { ElementType, ReactNode, useEffect, useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
@@ -59,6 +59,10 @@ const IconOption = ({
   const [showDropDownCasino, setShowDropDownCasino] = useState(
     casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)),
   );
+
+  useEffect(() => {
+    setShowDropDownCasino(casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)));
+  }, [pathname]);
   return (
     <>
       {!isDropDown && (

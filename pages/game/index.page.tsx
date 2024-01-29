@@ -323,6 +323,12 @@ function GamePage() {
     }
   }, [gameDetail]);
 
+  useEffect(() => {
+    if (localFiat && successfullyLaunched) {
+      handlePlayRequest();
+    }
+  }, [localFiat]);
+
   return (
     <>
       {isLoading && <Loader />}
