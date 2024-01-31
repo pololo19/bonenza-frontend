@@ -61,13 +61,13 @@ const VipProgressComponent = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:bg-color-card-bg-default sm:min-w-[400px] rounded-[3px]">
+      <div className="flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:dark:bg-color-card-bg-default sm:bg-white sm:min-w-[400px] rounded-[3px]">
         <div className="dark:text-white text-black font-[600] sm:text-[20px] text-[14px]">
           {t('homePage:yourVipProgress')}
         </div>
         <div className="text-[12px] dark:text-gray-400 text-color-light-text-primary mt-[10px] pb-[10px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
           <div>{percent}%</div>
-          <div className="w-full rounded-[5px] h-[10px] sm:h-[13px] bg-color-progress-primary my-[5px]">
+          <div className="w-full rounded-[5px] h-[10px] sm:h-[13px] dark:bg-color-progress-primary bg-color-light-bg-primary my-[5px]">
             <div className="h-full bg-color-primary rounded-[5px]" style={{ width: `${percent}%` }}></div>
           </div>
           <div className="flex justify-between">
