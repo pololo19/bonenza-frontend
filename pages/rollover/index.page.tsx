@@ -152,7 +152,7 @@ const RolloverPage = () => {
         minSize: 30,
       },
     ];
-  }, [localFiat, i18n.language]);
+  }, [localFiat, i18n.language, exchange]);
 
   const handleGetRolloverOverview = useCallback(
     async (page: number) => {

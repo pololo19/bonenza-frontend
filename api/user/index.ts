@@ -1,6 +1,7 @@
 import {
   API_AUTH_GENERATE_QR_CODE,
   API_USER_MEDAL_STATISTICS,
+  API_USER_PROFILE_BET_STATISTICS,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,
@@ -74,4 +75,8 @@ export const api_disable2FA = async (codeOtp: string, password: string) => {
 
 export const api_medalStatistics = async () => {
   return api.get(API_USER_MEDAL_STATISTICS);
+};
+
+export const api_BetStatistics = async () => {
+  return api.get(API_USER_PROFILE_BET_STATISTICS);
 };

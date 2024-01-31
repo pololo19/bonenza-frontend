@@ -35,6 +35,7 @@ const API_USER_PROFILE_EDIT_PROFILE = '/user-profile/edit-profile';
 const API_USER_PROFILE_UPLOAD_AVATAR = '/user-profile/upload-avatar';
 
 const API_USER_MEDAL_STATISTICS = '/user-profile/medal/statistics';
+const API_USER_PROFILE_BET_STATISTICS = '/user-profile/bet-statistics';
 
 /************************************ User Setting **********************************/
 const API_USER_SETTING_GENERAL_SETTING = '/user-setting/get-general-setting';
@@ -168,6 +169,7 @@ export {
   API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
   API_USER_MEDAL_STATISTICS,
+  API_USER_PROFILE_BET_STATISTICS,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,
