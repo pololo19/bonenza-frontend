@@ -17,6 +17,7 @@ const API_AUTH_VALIDATE_TOKEN = (token: string) => `/auth/validate/${token}`;
 const API_ADMIN_LOGIN = '/admin-auth/login';
 const API_AUTH_LOGIN = '/auth/login';
 const API_AUTH_LOGIN_WITH_GOOGLE = '/auth/save-info-login-google';
+const API_AUTH_LOGIN_WITH_GOOGLE_TOP = 'save-info-login-google-one-tap';
 const API_AUTH_LOGIN_WITH_TELEGRAM = '/auth/save-info-login-telegram';
 const API_AUTH_LOGIN_WITH_WALLET = '/auth/save-info-login-wallet';
 const API_AUTH_SIGNUP_WITH_EMAIL = '/auth/sign-up-with-email';
@@ -126,6 +127,7 @@ export {
   API_AUTH_GET_2FA_STATUS,
   API_AUTH_LOGIN,
   API_AUTH_LOGIN_WITH_GOOGLE,
+  API_AUTH_LOGIN_WITH_GOOGLE_TOP,
   API_AUTH_LOGIN_WITH_TELEGRAM,
   API_AUTH_LOGIN_WITH_WALLET,
   API_AUTH_RESET_PASSWORD,

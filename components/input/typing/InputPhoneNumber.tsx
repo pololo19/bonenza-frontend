@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2 } from 'iconsax-react';
+import { useTheme } from 'next-themes';
 import { Fragment, InputHTMLAttributes, useEffect, useState } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
@@ -41,6 +42,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
   onChangeCountryCallingCode,
   ...rest
 }: InputTextProps<TFieldValues>) => {
+  const { theme } = useTheme();
   const handleChangeValue = (event: InputTextType, formOnChange: (event: InputTextType) => void) => {
     let data = '';
     if (typeInput === EnumTypeInput.EMAIL) {
@@ -71,8 +73,12 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'dark:bg-color-bg-primary bg-white rounded-[3px] flex items-center p-[15px] gap-[8px] h-[51px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent dark:dark-autofill light-autofill',
+                'dark:bg-color-bg-primary bg-white rounded-[3px] flex items-center p-[15px] gap-[8px] h-[51px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 customClass,
+                {
+                  'dark-autofill': theme === 'dark',
+                  'light-autofill': theme === 'light',
+                },
               )}
             >
               <Menu>
