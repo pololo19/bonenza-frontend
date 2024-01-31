@@ -353,17 +353,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   useEffect(() => {
     if (walletSocket && isLogin) {
-      walletSocket.on(`${userId}`, (data: any) => {
-        const action = data?.action || '';
+      walletSocket.on(`${userId}:deposit`, (item: any) => {
+        console.log(item, 'deposit');
+        const data = JSON.parse(item);
+        const status = data?.status || '';
         const amount = data?.amount || 0;
-        const currency = data?.currency || 'USDT';
-        switch (action) {
-          case 'Pending':
+        const symbol = data?.symbol || 'USDT';
+        switch (status) {
+          case 'Processing':
             toast.success(t('deposit:depositprogress'), { containerId: TOAST_ENUM.COMMON });
             dispatch(getBalance());
             break;
           case 'Complete':
-            toast.success(`${t('deposit:depositComplete')} ${amount} ${currency}`, {
+            toast.success(`${t('deposit:depositComplete')} ${amount} ${symbol}`, {
               containerId: TOAST_ENUM.COMMON,
             });
             dispatch(getBalance());
@@ -374,11 +376,31 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             break;
         }
       });
+
+      walletSocket.on(`${userId}:withdraw`, (item: string) => {
+        console.log(item, 'withdraw');
+        const data = JSON.parse(item);
+        const status = data.status;
+        switch (status) {
+          case 'Processing':
+            toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
+            break;
+          case 'Complete':
+            toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
+            dispatch(getBalance());
+
+            break;
+
+          default:
+            break;
+        }
+      });
     }
 
     return () => {
       if (walletSocket) {
-        walletSocket.off(`${userId}`);
+        walletSocket.off(`${userId}:deposit`);
+        walletSocket.off(`${userId}:withdraw`);
       }
     };
   }, [walletSocket, isLogin]);
@@ -418,24 +440,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             }),
           );
         });
-
-        gameSocket.on(`${userId}:withdraw`, (item: string) => {
-          const data = JSON.parse(item);
-          const status = data.status;
-          switch (status) {
-            case 'Processing':
-              toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
-              break;
-            case 'Complete':
-              toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
-              dispatch(getBalance());
-
-              break;
-
-            default:
-              break;
-          }
-        });
       }
     }
 
@@ -444,7 +448,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         gameSocket.off(`bets`);
         if (isLogin) {
           gameSocket.off(`${userId}:balance`);
-          gameSocket.off(`${userId}:withdraw`);
         }
       }
     };
