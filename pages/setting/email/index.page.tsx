@@ -121,16 +121,16 @@ const SettingEmail = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="2xl:px-[80px] lg:px-[40px] md:px-[20px] px-2 xl:py-[32px] lg:py-[24px] md:py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex min-[991px]:flex-row flex-col xl:gap-[80px] lg:gap-[40px] md:gap-[20px] gap-[10px]">
+      <div className="2xl:px-[80px] lg:px-[40px] md:px-[20px] px-[10px] xl:py-[32px] lg:py-[24px] md:py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex min-[991px]:flex-row flex-col xl:gap-[80px] lg:gap-[40px] md:gap-[20px] gap-[10px]">
         <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
             <div className="font-semibold text-[14px]">{t('setting:emailVerification')}</div>
-            <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
+            <div className="text-start text-[12px] text-color-light-text-primary dark:text-color-text-primary">
               {t('setting:accordingToTheSecurityPolicy')}
             </div>
             <div className="relative w-full">
               <InputText
-                customClass="px-[10px] h-[51px] py-[10px] my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                customClass="px-[10px] h-[51px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-input-primary rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                 name="email"
                 placeholder={`${t('setting:emailPlaceholder')}`}
                 disabled={emailVerified}
@@ -139,7 +139,7 @@ const SettingEmail = () => {
                 onChange={(e) => setEmailInut(e.target.value)}
               />
               {emailVerified && (
-                <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
+                <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-color-light-input-primary">
                   <TickCircle size="16" color="#3BC117" variant="Bold" />
                   <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">{t('setting:verified')}</span>
                 </div>
@@ -171,7 +171,7 @@ const SettingEmail = () => {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                    <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
+                    <div className="text-start text-[10px] text-color-light-text-primary dark:text-color-text-primary">
                       {t('setting:accordingToTheSecurityPolicy')}
                     </div>
                     <div className="relative w-full">
@@ -208,18 +208,18 @@ const SettingEmail = () => {
             )}
           </Disclosure>
         </form>
-        <div className="bg-color-border-primary w-[1px]"></div>
+        <div className="dark:bg-color-border-primary bg-color-light-border-primary w-[1px]"></div>
 
         <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
             <div className="font-semibold text-[14px]">{t('setting:phoneNumber')}</div>
-            <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
+            <div className="text-start text-[12px] text-color-light-text-primary dark:text-color-text-primary">
               {t('setting:verifyYourPhoneNumber')}
             </div>
-            <div className="flex flex-col my-[10px] relative dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
+            <div className="flex flex-col my-[10px] relative dark:bg-color-input-primary bg-color-light-input-primary rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
               {phoneVerified && (
                 <InputText
-                  customClass="px-[10px] h-[51px] py-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                  customClass="px-[10px] h-[51px] py-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                   name="phoneNumber"
                   placeholder={`${t('setting:phonePlaceholder')}`}
                   disabled={phoneVerified}
@@ -234,7 +234,7 @@ const SettingEmail = () => {
                     setCountryCallingCode(value);
                   }}
                   disabled={phoneVerified}
-                  customClass="px-[10px] py-[10px] my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                  customClass="px-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
                   onChange={(e) => setPhoneInput(e.target.value)}
                   name="phoneNumber"
                   placeholder={String(t('setting:phonePlaceholder'))}
@@ -274,8 +274,8 @@ const SettingEmail = () => {
                   leaveFrom="transform scale-100 opacity-100 w-full"
                   leaveTo="transform scale-95 opacity-0"
                 >
-                  <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                    <div className="text-start text-[10px] text-[#31373d] dark:text-color-text-primary">
+                  <Disclosure.Panel className={'flex flex-col gap-[20px] w-full mb-[20px]'}>
+                    <div className="text-start text-[10px] text-color-light-text-primary dark:text-color-text-primary">
                       {t('setting:verifyYourPhoneNumber')}
                     </div>
                     <Controller

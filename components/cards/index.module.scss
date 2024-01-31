@@ -1,13 +1,7 @@
 .cardBox {
 
     .cardContent {
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -70px;
-        z-index: 3;
-        backdrop-filter: blur(15px);
-        transition: all cubic-bezier(.42,0,.03,1) .7s;
+        @apply absolute left-0 right-0 -bottom-[70px] z-[3]  backdrop-blur-[5px] transition-all ease-in-out duration-700
     }
     
     .cardImage {
@@ -18,7 +12,6 @@
         height: 100%;
         object-fit: cover;
         transition: transform cubic-bezier(.42,0,.03,1) .7s;
-        border-radius: 5px;
     }
 
     &:hover {

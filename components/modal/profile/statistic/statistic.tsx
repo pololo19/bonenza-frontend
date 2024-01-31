@@ -3,6 +3,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
@@ -26,6 +27,7 @@ type ModalStatisticProps = {
 };
 
 export default function Statistic({ userData }: ModalStatisticProps) {
+  const { theme } = useTheme();
   const { t } = useTranslation('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [game, setGame] = useState<GameDetail>();
@@ -53,7 +55,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
         accessorKey: 'currency',
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:currency')}</div>,
         cell: ({ row }) => (
-          <div className="text-[#98A7B5] truncate flex items-center justify-center gap-[5px]">
+          <div className="text-color-text-primary truncate flex items-center justify-center gap-[5px]">
             <Image
               height={20}
               width={20}
@@ -299,8 +301,14 @@ export default function Statistic({ userData }: ModalStatisticProps) {
           )}
           {!isLoading && statisticTransaction.length === 0 && (
             <div className="flex justify-center relative py-6">
-              <Image src="/img/empty.png" width={200} height={200} className="w-[200px] h-[200px]" alt="" />
-              <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-[24px] text-center">
+              <Image
+                src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                width={200}
+                height={200}
+                className="w-[200px] h-[200px]"
+                alt=""
+              />
+              <p className="absolute dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] bottom-[24px] text-center">
                 {t('table:noData')}
               </p>
             </div>

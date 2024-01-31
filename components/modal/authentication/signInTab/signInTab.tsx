@@ -195,7 +195,7 @@ export default function SignInTab({
       {isLoading && <Loader />}
       {forgotKey ? (
         <div className="dark:bg-[#25262B] bg-white text-[16px]">
-          <div className="flex items-center justify-center h-[140px] dark:text-[#98A7b5] text-[#31373d]">
+          <div className="flex items-center justify-center h-[140px] dark:text-color-text-primary text-[#31373d]">
             {t('setting:2FASentEmail')}
           </div>
           <div className="flex items-center p-10 pt-0 gap-4 mt-[20px]">
@@ -276,7 +276,7 @@ export default function SignInTab({
               <div className="flex justify-end">
                 <div
                   role="button"
-                  className="text-[13px] text-black dark:text-white sm:mt-[19px] mt-[10px] hover:text-amber-500 max-w-[146px] hover:underline"
+                  className="text-[13px] text-color-text-primary sm:mt-[19px] mt-[10px] hover:text-amber-500 max-w-[146px] hover:underline"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.FORGOT_PASS));
                   }}
@@ -296,9 +296,9 @@ export default function SignInTab({
               </button>
               <div className="flex">
                 <div role="button" className="text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
-                  <span className="text-[#98A7B5]">{t('authentication:newtoBonenza')}&nbsp;&nbsp;</span>
+                  <span className="text-color-text-primary">{t('authentication:newtoBonenza')}&nbsp;&nbsp;</span>
                   <span
-                    className="text-[#50c627] hover:text-amber-500 hover:underline"
+                    className="text-color-primary font-bold hover:text-amber-500 hover:underline"
                     onClick={() => {
                       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     }}

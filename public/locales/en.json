@@ -360,7 +360,7 @@
     "share": "Share",
     "chooseNetwork": "Choose Network",
     "balance": "Balance",
-    "getExtra": "Get extra <span class='dark:text-white text-amber-600'>{{percent}}</span> bonus on minimum of <span class='dark:text-white text-amber-600'>{{value}}</span> deposit",
+    "getExtra": "Get extra <span class='dark:text-white text-color-primary'>{{percent}}</span> bonus on minimum of <span class='dark:text-white text-color-primary'>{{value}}</span> deposit",
     "deposit": "deposit",
     "notice": "Notice:",
     "doNotDeposit": "Send only {{crypto}} to this deposit address. Coins will be deposited automatically after 6 network confirmations. Smart contract addresses are not supported(Contact us).",

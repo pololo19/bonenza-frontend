@@ -36,7 +36,7 @@ const DepositCryptoPage = () => {
           <Link
             href={ROUTER.DepositFiat}
             className={cn(
-              'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-[#272C33] border-[#ccc] pb-[10px]',
+              'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
             )}
             role="button"
           >

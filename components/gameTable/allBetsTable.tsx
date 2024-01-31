@@ -135,16 +135,22 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
     const allBetColumnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'betId',
-        header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:betId')}</div>,
+        header: () => (
+          <div className="dark:text-color-text-primary text-color-light-text-primary">{t('gameTable:betId')}</div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate sm:p-2 p-[5px] sm:w-auto w-[30vw]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:p-2 p-[5px] sm:w-auto w-[30vw]">
             {row.original.betId}
           </div>
         ),
       },
       {
         accessorKey: 'player',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:player')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:player')}
+          </div>
+        ),
         cell: ({ row }) => (
           <div
             className={`${
@@ -153,7 +159,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
-              <div className="dark:text-[#98A7B5] text-[#31373d]">{t('homePage:hidden')}</div>
+              <div className="dark:text-color-text-primary text-color-light-text-primary">{t('homePage:hidden')}</div>
             ) : (
               <div className="dark:text-white text-black">
                 {row.original.playerId === userId ? userName : row.original.player}
@@ -164,25 +170,35 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       },
       {
         accessorKey: 'time',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:time')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:time')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center  sm:p-2 p-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate text-center  sm:p-2 p-[5px]">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}
           </div>
         ),
       },
       {
         accessorKey: 'payout',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:payout')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate text-center font-bold  sm:p-2 p-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate text-center font-bold  sm:p-2 p-[5px]">
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
       },
       {
         accessorKey: 'profit',
-        header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:profit')}</div>,
+        header: () => (
+          <div className="dark:text-color-text-primary text-color-light-text-primary">{t('gameTable:profit')}</div>
+        ),
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-end gap-[5px]  sm:p-2 p-[5px]')}>
             <div
@@ -299,13 +315,13 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-[10px] dark:text-[#FFFFFF] text-[#31373d] font-bold mr-[6px]">
+              <div className="text-[10px] dark:text-[#FFFFFF] text-color-light-text-primary font-bold mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (
-                <ArrowDown2 size={12} className="dark:text-[#FFFFFF] text-[#31373d]" />
+                <ArrowDown2 size={12} className="dark:text-[#FFFFFF] text-color-light-text-primary" />
               ) : (
-                <ArrowUp2 size={12} className="dark:text-[#FFFFFF] text-[#31373d]" />
+                <ArrowUp2 size={12} className="dark:text-[#FFFFFF] text-color-light-text-primary" />
               )}
             </div>
           </div>

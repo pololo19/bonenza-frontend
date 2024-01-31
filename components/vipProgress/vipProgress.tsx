@@ -65,24 +65,24 @@ const VipProgressComponent = () => {
         <div className="dark:text-white text-black font-[600] sm:text-[20px] text-[14px]">
           {t('homePage:yourVipProgress')}
         </div>
-        <div className="text-[12px] dark:text-gray-400 text-[#31373d] mt-[10px] pb-[10px] border-solid border-b-[1px] border-color-border-primary">
+        <div className="text-[12px] dark:text-gray-400 text-color-light-text-primary mt-[10px] pb-[10px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
           <div>{percent}%</div>
           <div className="w-full rounded-[5px] h-[10px] sm:h-[13px] bg-color-progress-primary my-[5px]">
             <div className="h-full bg-color-primary rounded-[5px]" style={{ width: `${percent}%` }}></div>
           </div>
           <div className="flex justify-between">
-            <div className="dark:text-color-text-primary text-[#31373d]">{currentLevel.name}</div>
+            <div className="dark:text-color-text-primary text-color-light-text-primary">{currentLevel.name}</div>
             <div className="text-amber-400">{currentLevel.nextName}</div>
           </div>
         </div>
         <div className="flex gap-[4px] mt-[10px]">
-          <div className="p-[4px] border border-solid rounded-full border-color-border-primary">
+          <div className="p-[4px] border border-solid rounded-full dark:border-color-border-primary border-color-light-border-primary">
             <Image width={30} height={30} src="/img/reward.png" className="w-[20px] h-[20px]" alt="" />
           </div>
-          <div className="dark:text-color-text-primary text-black text-[14px] flex items-center">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] flex items-center">
             {t('bonus:nextLevelBonus')}
           </div>
-          <div className="dark:text-color-secondary text-black text-[14px] flex items-center">
+          <div className="dark:text-color-secondary text-color-light-text-primary text-[14px] flex items-center">
             {`${currentLevel.nextLevelBonus.toFixed(2)} USDT`}
           </div>
         </div>

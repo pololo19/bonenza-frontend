@@ -9,6 +9,7 @@ import { AppState } from '@/base/redux/store';
 import { UserDetail, WagerDetail } from '@/base/types/common';
 import Paging from '@/components/paging/paging';
 import RankingTableComponent from '@/components/table/rankingTable';
+import { useTheme } from 'next-themes';
 
 type WagerContestProps = {
   userData?: UserDetail;
@@ -16,6 +17,7 @@ type WagerContestProps = {
 
 export default function WagerContest({ userData }: WagerContestProps) {
   const { t } = useTranslation('');
+  const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [limit] = useState(10);
@@ -116,7 +118,13 @@ export default function WagerContest({ userData }: WagerContestProps) {
         )}
         {!isLoading && listWager.length === 0 && (
           <div className="flex justify-center relative">
-            <Image src="/img/empty.png" width={200} height={200} className="w-[200px] h-[200px]" alt="" />
+            <Image
+              src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+              width={200}
+              height={200}
+              className="w-[200px] h-[200px]"
+              alt=""
+            />
             <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
               {t('table:noData')}
             </p>

@@ -125,7 +125,7 @@ export default function VerificationTab() {
           </div>
           <form onSubmit={handleSubmit(onVerify)} data-testid="user-detail-form">
             <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[12px] gap-[10px]">
-              <div className="items-start text-[16px] !text-[#98A7B5] text-start font-[400]">
+              <div className="items-start text-[16px] !text-color-text-primary text-start font-[400]">
                 {isPhoneVerifyRequested && t('setting:confirmYourPhoneNumber', { phone: verifyRequest })}
                 {!isPhoneVerifyRequested && t('setting:verificationEmail')}
               </div>

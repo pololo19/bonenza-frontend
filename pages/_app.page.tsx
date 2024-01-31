@@ -14,7 +14,7 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ThemeProvider } from 'next-themes';
+import { ThemeProvider, useTheme } from 'next-themes';
 import NextNProgress from 'nextjs-progressbar';
 import { ReactElement, ReactNode, useEffect } from 'react';
 import { Provider } from 'react-redux';
@@ -50,6 +50,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   const { store, props } = wrapper.useWrappedStore(rest);
   const getLayout = Component.getLayout ?? ((page) => page);
   const { i18n } = useTranslation('');
+  const { theme } = useTheme();
   const router = useRouter();
 
   const { chains, publicClient } = configureChains(
@@ -126,22 +127,24 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
             <Script src="https://js.stripe.com/v3/"></Script> */}
               <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
-              <ToastContainer
-                autoClose={5000}
-                className="z-index-toast !text-[12px]"
-                position="bottom-left"
-                theme="dark"
-                hideProgressBar={true}
-                icon={() => null}
-                closeButton={() => null}
-                toastClassName={'min-h-[40px]'}
-                bodyClassName={'!p-0 text-gray-200'}
-                enableMultiContainer
-                containerId={TOAST_ENUM.COMMON}
-              />
               <NextNProgress />
               <ThemeProvider defaultTheme="dark" attribute="class">
-                {getLayout(<Component {...props.pageProps} />)}
+                <>
+                  <ToastContainer
+                    autoClose={5000}
+                    className="z-index-toast !text-[12px]"
+                    position="bottom-left"
+                    theme={'dark'}
+                    hideProgressBar={true}
+                    icon={() => null}
+                    closeButton={() => null}
+                    toastClassName={'min-h-[40px]'}
+                    bodyClassName={'!p-0 text-gray-200'}
+                    enableMultiContainer
+                    containerId={TOAST_ENUM.COMMON}
+                  />
+                  {getLayout(<Component {...props.pageProps} />)}
+                </>
               </ThemeProvider>
             </Provider>
           </GoogleOAuthProvider>

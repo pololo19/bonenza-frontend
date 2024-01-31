@@ -1,7 +1,9 @@
 import { DialogProps, Switch, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import cn from 'classnames';
 import { ArrowDown, ArrowUp } from 'iconsax-react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
@@ -24,6 +26,7 @@ type ModalCurrencyTypesProps = {
 export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypesProps) {
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
+  const { theme } = useTheme();
   const dispatch = useDispatch();
 
   const { fiatArray, cryptoArray, usdtNetwork } = useSelector(
@@ -148,7 +151,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
           <div className="flex gap-4 items-center w-full pb-[10px] pt-[25px] px-5">
             <InputSearch
               value={searchInput}
-              className="!w-full border border-solid border-transparent focus-within:border-color-primary dark:!bg-color-panel-bg-primary"
+              className="!w-full border border-solid dark:border-transparent border-color-light-border-primary focus-within:border-color-primary dark:!bg-color-panel-bg-primary"
               showClose={searchInput !== '' ? true : false}
               onClose={() => {
                 setSearchInput('');
@@ -167,41 +170,45 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
             <div className="flex">
               <div
                 onClick={() => setOpenTab(1)}
-                className={`${
-                  openTab === 1
-                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
-                } text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center`}
+                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                  'dark:text-white dark:bg-color-active-secondary text-[#000] bg-color-light-active-primary font-bold':
+                    openTab === 1,
+                  'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
+                    openTab !== 1,
+                })}
               >
                 {t('deposit:crypto')}
               </div>
               <div
                 onClick={() => setOpenTab(2)}
-                className={`${
-                  openTab === 2
-                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
-                } text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center`}
+                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                  'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
+                    openTab === 2,
+                  'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
+                    openTab !== 2,
+                })}
               >
                 {t('deposit:fiat')}
               </div>
               <div
                 onClick={() => setOpenTab(3)}
-                className={`${
-                  openTab === 3
-                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
-                } pointer-events-none cursor-not-allowed text-[14px] inline-block px-2 py-3 grow text-center`}
+                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                  'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
+                    openTab === 3,
+                  'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
+                    openTab !== 3,
+                })}
               >
                 {t('deposit:mNFT')}
               </div>
               <div
                 onClick={() => setOpenTab(4)}
-                className={`${
-                  openTab === 4
-                    ? 'dark:text-white dark:bg-color-active-secondary text-[#000] bg-white font-bold'
-                    : 'dark:hover:text-white dark:bg-color-header-secondary bg-[#f0f1f5] hover:bg-[#f0f1f5] hover:text-black text-[#31373D] dark:text-color-text-primary'
-                } text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center`}
+                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                  'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
+                    openTab === 4,
+                  'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
+                    openTab !== 4,
+                })}
               >
                 {t('deposit:myFavorite')}
               </div>
@@ -240,7 +247,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
-                      <div className="flex-1 text-start text-[14px]">{coin.name}</div>
+                      <div className="flex-1 dark:text-white text-black text-start text-[14px]">{coin.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
                       <span>{coin.alias}</span>
@@ -271,7 +278,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={fiat.logo} className="inline" alt="" />
-                      <div className="flex-1 text-start text-[14px]">{fiat.name}</div>
+                      <div className="flex-1 dark:text-white text-black text-start text-[14px]">{fiat.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
                       <span>{fiat.alias}</span>
@@ -301,7 +308,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
-                      <div className="flex-1 text-start text-[14px]">{coin.name}</div>
+                      <div className="flex-1 text-start dark:text-white text-black text-[14px]">{coin.name}</div>
                     </div>
                     <div className="flex items-center">
                       <span>{coin.alias}</span>
@@ -310,7 +317,12 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 ))}
               {!!listCoinCrypto.length || !!listCoinFiat.length || (openTab === 4 && !!listCoinFavorite.length) || (
                 <div className="relative flex items-center justify-center">
-                  <Image src="/img/empty.png" width={200} height={200} alt="" />
+                  <Image
+                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                    width={200}
+                    height={200}
+                    alt=""
+                  />
                   <p className="absolute text-14 bottom-0 text-center">{t('deposit:noCoin')}</p>
                 </div>
               )}

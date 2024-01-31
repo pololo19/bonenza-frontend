@@ -285,12 +285,12 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           </div>
           <button
             type="submit"
-            className="bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
+            className="bg-gradient-btn-default w-full rounded-[3px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
             onClick={() => handleUpdateProfile()}
           >
             <div />
-            <div className="text-[14px] dark:text-white text-black">{t('profile:modify')}</div>
-            <div className="px-[10px] py-[5px] flex items-center justify-center rounded-large bg-white/20">
+            <div className="text-[14px] text-white">{t('profile:modify')}</div>
+            <div className="px-[10px] py-[5px] flex items-center justify-center rounded-[3px] bg-white/20">
               <NextImage height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
             </div>
           </button>

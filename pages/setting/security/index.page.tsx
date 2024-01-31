@@ -231,7 +231,6 @@ const SettingSecurity = () => {
     }));
   };
 
-  console.log(otp, '-----237');
   return (
     <>
       {isLoading && <Loader />}
@@ -255,7 +254,7 @@ const SettingSecurity = () => {
                   >
                     <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
+                        <label className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
                           {t('setting:oldPassword')}
                         </label>
                         <InputPassword
@@ -268,7 +267,7 @@ const SettingSecurity = () => {
                         />
                       </div>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
+                        <label className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
                           {t('setting:newPassword')}
                         </label>
                         <InputPassword
@@ -281,7 +280,7 @@ const SettingSecurity = () => {
                         />
                       </div>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
+                        <label className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
                           {t('setting:confirmNewPassword')}
                         </label>
                         <InputPassword
@@ -354,7 +353,7 @@ const SettingSecurity = () => {
           </form>
         )}
 
-        <div className="bg-[#3D4049] w-[1px]"></div>
+        <div className="dark:bg-color-border-primary bg-color-light-border-primary w-[1px]"></div>
 
         <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
           <Disclosure defaultOpen={true}>
@@ -375,14 +374,14 @@ const SettingSecurity = () => {
                   <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                     {tfa ? (
                       <>
-                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                           <p>{t('setting:disableTwoFactor')}</p>
                           <p className="mt-3">{t('setting:loginPassword')}</p>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                           {t('setting:downloadAndInstall')} &nbsp;
                           <a
                             className="!underline"
@@ -394,30 +393,30 @@ const SettingSecurity = () => {
                           &nbsp;
                           {t('setting:enableTwoFactor')}
                         </div>
-                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d] flex gap-[5px]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-color-light-text-primary flex gap-[5px]">
                           {t('setting:scanTheQRCode')}
                         </div>
                         <div className="flex justify-center">
                           <Image height={100} width={100} src={qrCode} alt="" />
                         </div>
                         <div className="flex flex-col items-start gap-[10px]">
-                          <label className="dark:text-color-text-primary text-[#31373d] text-[12px]">
+                          <label className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
                             {t('setting:yourSecretKey')}
                           </label>
-                          <div className="dark:bg-color-input-primary bg-[#f5f6fa] rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] w-full">
+                          <div className="dark:bg-color-input-primary bg-color-light-input-primary rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] w-full">
                             <input
                               value={secret}
                               className={cn(
-                                'w-full dark:bg-color-input-primary bg-[#f5f6fa] focus:outline-none text-[12px] dark:text-white text-black',
+                                'w-full dark:bg-color-input-primary bg-color-light-input-primary focus:outline-none text-[12px] dark:text-white text-black',
                               )}
                             />
                             <Copy onClick={() => copyClipBoard(String(secret))} className="text-color-text-primary" />
                           </div>
                         </div>
-                        <div className="text-start text-[12px] dark:text-color-text-primary text-[#31373d] flex gap-[5px]">
+                        <div className="text-start text-[12px] dark:text-color-text-primary text-color-light-text-primary flex gap-[5px]">
                           {t('setting:writeDownThisCode')}
                         </div>
-                        <div className="flex justify-center dark:text-color-text-primary text-[#31373d] text-[12px]">
+                        <div className="flex justify-center dark:text-color-text-primary text-color-light-text-primary text-[12px]">
                           {t('setting:2FAVerificationRequired')}
                         </div>
                         <div className="flex justify-center">
@@ -426,7 +425,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:!bg-color-input-primary bg-[#f5f6fa] dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-[3px] focus:!outline-none'
+                              'dark:!bg-color-input-primary bg-color-light-input-primary dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-[3px] focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -443,7 +442,7 @@ const SettingSecurity = () => {
                     />
                     {tfa && (
                       <div>
-                        <p className="mb-2 dark:text-[#98a7b5] text-[#31373d] text-[12px]">
+                        <p className="mb-2 dark:text-[#98a7b5] text-color-light-text-primary text-[12px]">
                           {t('setting:verificationCode')}
                         </p>
                         <div className="flex justify-center">
@@ -452,7 +451,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:bg-color-input-primary bg-[#f5f6fa] dark:text-white text-black !w-[32px] h-[32px] rounded-[3px] focus:outline-none'
+                              'dark:bg-color-input-primary bg-color-light-input-primary dark:text-white text-black !w-[32px] h-[32px] rounded-[3px] focus:outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />

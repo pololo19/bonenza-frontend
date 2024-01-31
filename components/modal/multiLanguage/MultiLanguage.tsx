@@ -87,9 +87,9 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
             <div
               onClick={() => dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE))}
               className={cn(
-                'min-w-[150px] text-black dark:text-[#C2C2C2] flex-1 flex items-center justify-center border-b-2 border-solid border-[#272C33] pb-[10px] pt-[25px]',
+                'min-w-[150px] text-black dark:text-[#C2C2C2] flex-1 flex items-center justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px] pt-[25px]',
                 {
-                  'border-color-primary text-black dark:text-white font-[700]':
+                  '!border-color-primary text-black dark:text-white font-[700]':
                     multiLanguageTab === MultiLanguageTabEnum.LANGUAGE,
                 },
               )}
@@ -100,9 +100,9 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
             <div
               onClick={() => dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT))}
               className={cn(
-                'min-w-[150px] text-black dark:text-[#C2C2C2] flex-1 flex items-center justify-center border-b-2 border-solid border-[#272C33] pb-[10px] pt-[25px]',
+                'min-w-[150px] text-black dark:text-[#C2C2C2] flex-1 flex items-center justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary  pb-[10px] pt-[25px]',
                 {
-                  'border-color-primary text-black dark:text-white font-[700]':
+                  '!border-color-primary text-black dark:text-white font-[700]':
                     multiLanguageTab === MultiLanguageTabEnum.FIAT,
                   'sm:flex hidden': !isLogin,
                 },
@@ -125,11 +125,14 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                 {LANGUAGE_DATA.map((item, key) => (
                   <button
                     key={key}
-                    className={`sm:py-[15px] py-[10px] rounded-md text-left ps-5 dark:hover:text-white text-[14px] dark:text-white text-black ${
-                      item.key === i18n.language
-                        ? 'bg-color-primary'
-                        : 'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600'
-                    }`}
+                    className={cn(
+                      'sm:py-[15px] py-[10px] rounded-md text-left ps-5 dark:hover:text-white text-[14px] ',
+                      {
+                        'bg-color-primary text-white': item.key === i18n.language,
+                        'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600 dark:text-white text-black':
+                          item.key !== i18n.language,
+                      },
+                    )}
                     onClick={() => {
                       handleChangeLang(item);
                       onClose();
@@ -178,8 +181,8 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     className={cn(
                       'sm:py-[12px] py-[10px] rounded-md text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-[14px]',
                       {
-                        'bg-color-primary': viewInFiat && item.id === localFiat?.id,
-                        'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': true,
+                        'bg-color-primary text-white': viewInFiat && item.id === localFiat?.id,
+                        'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': item.id !== localFiat?.id,
                       },
                     )}
                     onClick={() => {

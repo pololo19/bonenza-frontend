@@ -20,7 +20,7 @@ const SortBy = (props: sortByProps) => {
       {label && <div className="hidden sm:block">{t('casino:sortBy')}</div>}
       <Menu
         as="div"
-        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-color-text-primary h-[36px] sm:h-[40px] text-[#000] dark:bg-color-bg-secondary bg-[#F6F7FA]"
+        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-color-text-primary h-[36px] sm:h-[40px] text-[#000] dark:bg-color-bg-secondary bg-white"
       >
         <Menu.Button className="w-full px-[20px]">
           <div className="flex items-center justify-between">
@@ -49,20 +49,20 @@ const SortBy = (props: sortByProps) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute sm:mr-0 fixed right-0 z-[1] mt-12 w-full max-w-full origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none">
-            <div className="py-1 rounded-md max-sm:w-full dark:bg-[#1c1c20] bg-white sm:w-auto shadow-gray-900 shadow">
+          <Menu.Items className="absolute sm:mr-0 right-0 z-[1] mt-12 w-full max-w-full origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div className="py-1 rounded-md max-sm:w-full dark:bg-[#1c1c20] bg-white sm:w-auto shadow-bs-default">
               <div className="py-1 max-h-[65vh] overflow-y-auto px-[6px] w-full">
                 {sortBy.map((sort: any) => (
                   <Menu.Item key={sort.id}>
                     <div
                       onClick={() => selectSortBy(sort)}
                       className={`${
-                        sort.id === selectedSortBy.id && 'border border-solid border-[#f59e0b] rounded-[4px]'
-                      } text-[14px] dark:text-[#98a7b5] cursor-pointer px-[10px] my-[4px] h-[32px] flex items-center justify-between`}
+                        sort.id === selectedSortBy.id && 'border border-solid border-color-primary rounded-[3px]'
+                      } text-[14px] dark:text-color-text-primary cursor-pointer px-[10px] my-[4px] h-[32px] flex items-center justify-between`}
                     >
                       {sort.label}
                       {sort.id === selectedSortBy.id && (
-                        <div className="w-2 h-2 bg-[#f59e0b] rounded-full shadow shadow-[0px_0px_0px_5px_#f59e0b26]"></div>
+                        <div className="w-2 h-2 bg-color-primary rounded-full shadow-[0px_0px_0px_5px_#ffffff]"></div>
                       )}
                     </div>
                   </Menu.Item>

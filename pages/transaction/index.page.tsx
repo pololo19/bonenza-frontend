@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon, LinkIcon } from '@heroicons/react/24/outline';
 import { ColumnDef, Row } from '@tanstack/react-table';
+import cn from 'classnames';
 import { ArrowRight2, Copy } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -47,7 +48,7 @@ interface BillType {
 const billTypes: BillType[] = Object.values(billType).map((item: string) => ({ type: item }));
 
 const TransactionPage = () => {
-  const { t } = useTranslation('');
+  const { t, i18n } = useTranslation('');
   const exchangeRate = useExchange();
 
   const { localFiat, viewInFiat, cryptoSymbols, userId, username } = useSelector(
@@ -96,7 +97,7 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-[#3BC117]'
+              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
             {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : '+'}
@@ -138,7 +139,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2">
-            <div className={`w-[5px] h-[5px] rounded-full ${getColorByStatus(row.original.status)}`}></div>
+            <div className={cn('w-[5px] h-[5px] rounded-full', getColorByStatus(row.original.status))}></div>
             <div className="dark:text-white text-black text-[12px] break-keep	">
               {convertStatus(row.original.status)}
             </div>
@@ -149,7 +150,7 @@ const TransactionPage = () => {
         minSize: 30,
       },
     ];
-  }, [localFiat, viewInFiat, optionFilter.type, t]);
+  }, [localFiat, viewInFiat, optionFilter.type, i18n, getColorByStatus]);
 
   const swapColumns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -191,7 +192,7 @@ const TransactionPage = () => {
         accessorKey: 'swapTo',
         header: () => <div className="text-center">{String(t('transaction:swapTo'))}</div>,
         cell: ({ row }) => (
-          <div className="text-[#3BC117] flex items-center gap-1 justify-center truncate">
+          <div className="text-color-primary flex items-center gap-1 justify-center truncate">
             <span>
               +{' '}
               {viewInFiat ? (
@@ -269,7 +270,7 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              row.original?.amount < 0 ? 'text-red-500' : 'text-[#3BC117]'
+              row.original?.amount < 0 ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
             {row.original?.amount < 0 ? '-' : '+'}
@@ -370,7 +371,7 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              row.original?.amountClaimed < 0 ? 'text-red-500' : 'text-[#3BC117]'
+              row.original?.amountClaimed < 0 ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
             <span>{row.original?.amountClaimed < 0 ? '-' : '+'}</span>
@@ -647,7 +648,7 @@ const TransactionPage = () => {
         <div className="flex items-center flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -669,13 +670,13 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_TYPE.map((item, index) => (
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, type: item })}
                         >
@@ -692,7 +693,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -716,12 +717,12 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                        className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
                         role="button"
                         onClick={() => setOptionFilter({ ...optionFilter, currency: '' })}
                       >
@@ -735,7 +736,7 @@ const TransactionPage = () => {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, currency: coin.id })}
                         >
@@ -754,7 +755,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -776,13 +777,13 @@ const TransactionPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_DATE.map((item, index) => (
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, dayPast: item })}
                         >
@@ -822,7 +823,7 @@ const TransactionPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {billTypes.map((item: BillType, index: number) => (
                       <Menu.Item key={index}>
@@ -847,7 +848,7 @@ const TransactionPage = () => {
           {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -871,7 +872,7 @@ const TransactionPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {LIST_FILTER_STATUS.filter((status) => status.flag).map((item, index) => (
                       <Menu.Item key={index}>

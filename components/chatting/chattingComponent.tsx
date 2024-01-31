@@ -4,6 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2, CloseCircle, InfoCircle } from 'iconsax-react';
 import sign from 'jwt-encode';
+import { useTheme } from 'next-themes';
 import { Fragment, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { SendMessageOptions, StreamChat, User } from 'stream-chat';
@@ -22,6 +23,7 @@ import ModalChatRules from '@/components/modal/chatRules/chatRules';
 import LoadingChannelComponent from './loadingChannel';
 
 const ChattingComponent = () => {
+  const { theme } = useTheme();
   const [isShowChatRules, setIsShowChatRules] = useState(false);
   const [chatClient, setChatClient] = useState<StreamChat | undefined>(undefined);
   const [user, setUser] = useState<User>({
@@ -84,7 +86,7 @@ const ChattingComponent = () => {
     <>
       <div
         className={cn(
-          'shadow-gray-700 shadow w-full bg-[#ffffff] dark:bg-[#1D1E22] flex flex-col gap-[5px] right-0 justify-between sm:pb-0 pb-2 h-screen',
+          'shadow-gray-700 shadow w-full bg-white dark:bg-color-bg-primary flex flex-col right-0 justify-between sm:pb-0 pb-2 h-screen',
           {
             flex: showChatType,
             hidden: !showChatType,
@@ -93,12 +95,18 @@ const ChattingComponent = () => {
         )}
       >
         {chatClient && channel && (
-          <Chat client={chatClient} theme="str-chat__theme-dark flex-1 w-full !h-[calc(100vh-120px)]">
-            <div className="flex justify-between items-center px-5 pt-4 py-2">
+          <Chat
+            client={chatClient}
+            theme={cn(' flex-1 w-full !h-[calc(100vh-120px)]', {
+              'str-chat__theme-dark': theme === 'dark',
+              'str-chat__theme-light': theme === 'light',
+            })}
+          >
+            <div className="flex justify-between items-center h-[67px] px-5 py-2 border-b-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
               <div className="text-[18px] text-black dark:text-[#ffffff] font-semibold">{t('chatting:chat')}</div>
               <div className="flex gap-[13px]">
                 <button
-                  className="bg-[#F6F7FA] dark:bg-[#0B0F13] text-black dark:text-[#ffffff] hover:bg-gray-400 hover:text-white dark:hover:bg-gray-800 rounded-[14px] p-[10px] flex items-center justify-center"
+                  className="bg-color-light-bg-primary dark:bg-color-input-primary text-black dark:text-[#ffffff] hover:bg-gray-400 hover:text-white dark:hover:bg-gray-800 rounded-[14px] p-[10px] flex items-center justify-center"
                   onClick={() => {
                     setIsShowChatRules(true);
                   }}
@@ -106,7 +114,7 @@ const ChattingComponent = () => {
                   <InfoCircle className="" width={20} height={20} />
                 </button>
                 <button
-                  className="bg-[#F6F7FA] dark:bg-[#0B0F13] text-black dark:text-[#ffffff] hover:bg-gray-400 hover:text-white dark:hover:bg-gray-800 rounded-[14px] p-[10px] flex items-center justify-center"
+                  className="bg-color-light-bg-primary dark:bg-color-input-primary text-black dark:text-[#ffffff] hover:bg-gray-400 hover:text-white dark:hover:bg-gray-800 rounded-[14px] p-[10px] flex items-center justify-center"
                   onClick={() => {
                     dispatch(changeShowChatType(false));
                     dispatch(changeShowFullChat(false));
@@ -118,14 +126,18 @@ const ChattingComponent = () => {
             </div>
             <Channel channel={channel} LoadingIndicator={LoadingChannelComponent}>
               <MessageList />
-              {!user.id && <MessageInput overrideSubmitHandler={overrideSubmitHandler} />}
-              {user.id && <MessageInput />}
+              <div className="relative border-t-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
+                {!user.id && <MessageInput overrideSubmitHandler={overrideSubmitHandler} />}
+                {user.id && <MessageInput />}
+              </div>
             </Channel>
             <div className="px-2 py-2 flex gap-2 text-white">
               <div className="relative">
                 <Menu>
-                  <Menu.Button className="text-[12px] flex items-center gap-[4px] cursor-pointer min-w-[80px] bg-[#272a2f] px-2 hover:bg-gray-800">
-                    <div className="flex-1 text-[#99a1ad]">{activeChannel.name}</div>
+                  <Menu.Button className="text-[12px] flex items-center gap-[4px] cursor-pointer min-w-[80px] dark:bg-color-select-bg-primary bg-color-light-bg-primary px-2 ">
+                    <div className="flex-1 text-color-light-text-primary dark:text-color-text-primary">
+                      {activeChannel.name}
+                    </div>
                     <ArrowDown2 className="w-[11px]" />
                   </Menu.Button>
                   <Transition
@@ -137,7 +149,7 @@ const ChattingComponent = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute bg-[#12181f] w-full overflow-y-auto left-0 cursor-pointer rounded bottom-[35px] max-h-[135px]">
+                    <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-bg-primary w-full overflow-y-auto left-0 cursor-pointer rounded bottom-[35px] max-h-[135px]">
                       {CHANNELS.map((channel, index) => {
                         return (
                           <Menu.Item as={Fragment} key={index}>

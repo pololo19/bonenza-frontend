@@ -90,7 +90,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
                       { '!text-right': index === headerGroup.headers.length - 1 },
-                      'whitespace-nowrap text-color-text-secondary font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left !px-[5px]',
+                      'whitespace-nowrap dark:text-color-text-secondary text-color-light-text-primary font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left !px-[5px]',
                     )}
                     {...{
                       style: {
@@ -110,7 +110,10 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
             getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className={cn(renderRowClass?.(row), ' cursor-pointer hover:bg-[#2D3035] rounded-[10px]')}
+                className={cn(
+                  renderRowClass?.(row),
+                  ' cursor-pointer hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary rounded-[10px]',
+                )}
                 onClick={() => onRowClick?.(row)}
               >
                 {row.getVisibleCells?.().map((cell) => (

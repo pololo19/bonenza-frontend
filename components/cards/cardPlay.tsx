@@ -30,7 +30,7 @@ export default function CardPlay({
   return (
     <div className="gap-[5px] flex flex-col  aspect-square">
       <div className="sm:hidden flex gap-[10px] items-center sm:items-end mb-[10px]">
-        <Image height={25} width={25} className="h-[25px] rounded-[5px]" src="/img/three-cards.png" alt="" />
+        <Image height={25} width={25} className="h-[25px]" src="/img/three-cards.png" alt="" />
         <div className="dark:text-white text-black text-[16px] font-bold uppercase">{title}</div>
       </div>
       <div
@@ -43,14 +43,14 @@ export default function CardPlay({
         }}
         className={cn(
           styles.cardBox,
-          'flex-1 bg-cover cursor-pointer overflow-hidden relative md:aspect-[190/145] lg:aspect-[275/145] aspect-[220/145] flex flex-col justify-end rounded-[5px]',
+          'flex-1 bg-cover cursor-pointer overflow-hidden relative md:aspect-[190/145] lg:aspect-[275/145] aspect-[220/145] flex flex-col justify-end ',
         )}
       >
         <Image height={25} width={25} className={cn(styles.cardImage)} src={imgBackGround} alt="" />
         <div
           className={cn(
             styles.cardContent,
-            'p-[10px] backdrop-blur-[2px] dark:bg-none bg-gradient-to-t from-[#fff]  to-[#fff]/0',
+            'p-[10px] dark:!backdrop-blur-[15px] dark:bg-none bg-gradient-to-t dark:from-[#fff]  dark:to-[#fff]/0 from-white via-white via-70%',
           )}
         >
           <div>
@@ -58,15 +58,15 @@ export default function CardPlay({
               <div className="mt-[3px]">{icon}</div>
 
               <div>
-                <div className="text-white sm:text-[24px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] font-bold uppercase">
+                <div className="dark:text-white text-color-light-text-primary sm:text-[24px] lg:text-[14px] xl:text-[16px] 2xl:text-[20px] font-bold uppercase">
                   {title}
                 </div>
-                <div className="sm:hidden block dark:text-white text-[#31373d] md:text-[14px] 2xl:text-[16px]">
+                <div className="sm:hidden block dark:text-white text-color-text-primary md:text-[14px] 2xl:text-[16px]">
                   {description}
                 </div>
               </div>
             </div>
-            <div className="dark:text-white text-black sm:text-[#31373d] text-[10px] sm:text-[20px] mt-1 tracking-tight lg:text-[10px] xl:text-[12px] 2xl:text-[15px] mb-1 sm:min-h-[120px] lg:min-h-[65px] xl:min-h-[72px]">
+            <div className="dark:text-white text-color-text-primary text-[10px] sm:text-[20px] mt-1 tracking-tight lg:text-[10px] xl:text-[12px] 2xl:text-[15px] mb-1 sm:min-h-[120px] lg:min-h-[65px] xl:min-h-[72px]">
               {description}
             </div>
             {!isClick && (

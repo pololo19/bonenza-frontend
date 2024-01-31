@@ -69,7 +69,12 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
       render={({ field, fieldState: { error } }) => {
         return (
           <div className="w-full flex-1">
-            <div className="bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[8px] h-[51px] relative border-[1px] border-solid focus-within:border-color-primary border-color-bg-primary">
+            <div
+              className={cn(
+                'dark:bg-color-bg-primary bg-white rounded-[3px] flex items-center p-[15px] gap-[8px] h-[51px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent dark:dark-autofill light-autofill',
+                customClass,
+              )}
+            >
               <Menu>
                 <Menu.Button className="text-[12px] flex items-center gap-[4px] cursor-pointer min-w-[45px]">
                   <div className="flex-1">+{activeCountry.countryCallingCode}</div>
@@ -114,9 +119,12 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                 value={(field.value ?? '') as string}
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
-                className={cn('w-full bg-color-bg-primary focus:outline-none text-[14px] text-white', customClass, {
-                  'border-red-500': !!error?.message,
-                })}
+                className={cn(
+                  'w-full focus:outline-none text-[14px] bg-transparent dark:text-white text-color-light-text-primary',
+                  {
+                    'border-red-500': !!error?.message,
+                  },
+                )}
               />
             </div>
             {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}

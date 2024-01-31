@@ -270,7 +270,7 @@ function CasinoTagnamePage() {
                 </div>
                 <div className="max-w-[80px] w-full rounded-[5px] h-[5px] bg-gray-500">
                   <div
-                    className="h-full max-w-[80px] bg-amber-500 rounded-[5px]"
+                    className="h-full max-w-[80px] bg-color-primary rounded-[5px]"
                     style={{ width: `${percent}%` }}
                   ></div>
                 </div>
@@ -286,7 +286,7 @@ function CasinoTagnamePage() {
                     setCurrentPage(currentPage + 1);
                   }}
                 >
-                  <div className="text-[10px] text-[#FFFFFF] font-bold">{t('casino:loadMore')}</div>
+                  <div className="text-[10px] dark:text-white text-black font-bold">{t('casino:loadMore')}</div>
                 </div>
               </div>
             )}

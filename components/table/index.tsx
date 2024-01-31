@@ -88,7 +88,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
                     key={header.id}
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
-                      'whitespace-nowrap text-color-text-primary font-semibold dark:bg-color-table-header-bg-primary bg-white sm:text-[14px] !text-[12px] !border-0 text-center',
+                      'whitespace-nowrap dark:bg-transparent bg-color-light-bg-primary dark:text-color-text-primary text-color-light-text-primary font-semibold dark:bg-color-table-header-bg-primary sm:text-[14px] !text-[12px] border-none text-center',
                     )}
                     {...{
                       style: {
@@ -104,7 +104,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn(isLoading && styles.loader, isLoading && 'relative', '!sm:text-[14px] !text-[12px]')}>
+        <tbody className={cn(isLoading && styles.loader, isLoading && 'relative', 'sm:text-[14px] text-[12px]')}>
           {!!data?.length &&
             getRowModel().rows.map((row) => (
               <tr

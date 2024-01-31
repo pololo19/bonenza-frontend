@@ -3,6 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { SearchNormal, Trash } from 'iconsax-react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useDebounce, useDebouncedCallback } from 'use-debounce';
@@ -31,6 +32,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const width = useWidth();
   const { t } = useTranslation('');
   const dispatch = useDispatch();
+  const { theme } = useTheme();
   const casinoSearchRef = useRef<HTMLDivElement>(null);
   const casinoSearchBodyRef = useRef<HTMLDivElement>(null);
 
@@ -191,7 +193,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] left-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] bg-black/70',
+          'fixed top-[67px] left-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] dark:bg-black/70 bg-white/70',
 
           {
             'translate-y-0': show,
@@ -206,7 +208,9 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         )}
       >
         <div
-          className={cn('relative bg-color-header-secondary sm:h-auto h-full z-[6]')}
+          className={cn(
+            'relative dark:bg-color-header-secondary bg-color-light-header-secondary sm:h-auto h-full z-[6]',
+          )}
           style={{ transform: 'translateY(0%) translateZ(0px)' }}
           ref={casinoSearchBodyRef}
         >
@@ -216,7 +220,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <input
                 autoFocus
                 className={cn(
-                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-[#31373d] w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-white border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => {
@@ -227,7 +231,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <SearchNormal
                 width={22}
                 height={22}
-                className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-[#31373d]"
+                className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-color-light-text-primary"
               />
               {debouncedSearchValue.length > 0 && (
                 <div
@@ -240,7 +244,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               )}
               <div
                 role="button"
-                className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white"
+                className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 dark:text-white text-black"
                 onClick={onClose}
               >
                 {t('setting:cancel')}
@@ -248,10 +252,15 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             </div>
             <div className="flex flex-col items-center justify-center mt-[20px] ">
               {debouncedSearchValue && debouncedSearchValue.length < 3 && (
-                <Image src={'/img/empty.png'} alt="noData" width={150} height={150} />
+                <Image
+                  src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                  alt="noData"
+                  width={150}
+                  height={150}
+                />
               )}
               {debouncedSearchValue.length < 3 && (
-                <div className="dark:text-gray-500 text-[#31373d]">{t('casino:searchRequires')}</div>
+                <div className="dark:text-gray-500 text-color-light-text-primary">{t('casino:searchRequires')}</div>
               )}
               {history.length && debouncedSearchValue.length < 3 ? (
                 <>
@@ -265,7 +274,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                   </div>
                   <div className="flex gap-[10px] justify-start w-full mb-[20px] flex-nowrap relative max-w-full overflow-x-auto snap-x snap-mandatory">
                     {history.map((item, index) => (
-                      <div key={index} className={cn(styles.search_history_box, 'flex-shrink-0')}>
+                      <div key={index} className={cn(styles.search_history_box, 'bg-white', 'flex-shrink-0')}>
                         {item}
                         <div className={styles.close} onClick={() => handleDeletehistory(index)}>
                           <XMarkIcon className="text-color-text-primary w-[14px] hover:text-white font-bold" />

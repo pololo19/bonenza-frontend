@@ -208,7 +208,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   const subMobileMenDatas: OptionSidebarDataType[] = useMemo(
     () => [
-      { title: 'layout:home', href: '/', icon: <HomeIcon /> },
+      { title: 'layout:home', href: '/', icon: <HomeIcon className="text-color-light-text-primary dark:text-white" /> },
       {
         title: 'layout:casino',
         href: ROUTER.Casino,
@@ -482,7 +482,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   return (
     <>
       {isLoading && <Loader />}
-      <div className="min-h-screen h-full w-full overflow-hidden font-dayOne bg-color-bg-primary">
+      <div className="min-h-screen h-full w-full overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
         {isToggleSidebar && (
           <div
             className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0  dark:bg-black/60 z-[20]"
@@ -504,7 +504,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             </div>
             <div
               className={cn(
-                'w-full overflow-y-auto flex-1 bg-[#f6f7fa] dark:bg-color-bg-primary flex flex-col relative',
+                'w-full overflow-y-auto flex-1 bg-color-light-bg-primary dark:bg-color-bg-primary flex flex-col relative',
               )}
               ref={baseBodyRef}
               id="base-layout"
@@ -524,8 +524,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               </WrapperBody>
               <WrapperBody
                 id="wrapperfooter"
-                wrapperClassName="bg-[#f6f7fa] dark:bg-[#1B1C20] min-[1786px]:max-w-full"
-                contentClassName={cn('bg-white dark:bg-[#1B1C20] sm:block', {
+                wrapperClassName="min-[1786px]:max-w-full"
+                contentClassName={cn('sm:block', {
                   hidden: isShowSidebar || isShowAccount,
                   block: !isShowSidebar && !isShowAccount,
                   'pointer-events-none': isShowCasinoSearch,
@@ -588,10 +588,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     }
                   }}
                   className={cn(
-                    'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                     {
-                      'dark:text-color-text-primary text-[#31373d]': !isShowSidebar,
-                      'dark:text-white': isShowSidebar,
+                      'text-color-text-primary': !isShowSidebar,
+                      'dark:!text-white !text-color-light-text-primary': isShowSidebar,
                     },
                   )}
                 >
@@ -603,9 +603,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 <Link
                   href={ROUTER.Home}
                   className={cn(
-                    'dark:hover:text-white hover-text-black flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                     {
-                      'dark:text-white text-black': router.route.includes(ROUTER.Home),
+                      'text-color-text-primary': !router.route.includes(ROUTER.Home),
+                      'dark:!text-white !text-black': router.route.includes(ROUTER.Home),
                     },
                   )}
                   onClick={() => {
@@ -614,21 +615,17 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   }}
                 >
                   <div className="pt-2">
-                    <HomeIconOutline
-                      className="dark:text-color-text-primary text-[#e7e7e7] w-[21px] h-[21px]"
-                      size={22}
-                    />
+                    <HomeIconOutline className="w-[21px] h-[21px]" size={22} />
                   </div>
-                  <div className="pb-2 text-center dark:text-color-text-primary text-[#31373d] truncate w-full">
-                    {t('layout:home')}
-                  </div>
+                  <div className="pb-2 text-center truncate w-full">{t('layout:home')}</div>
                 </Link>
                 <Link
-                  href={ROUTER.Deposit}
+                  href={ROUTER.DepositCrypto}
                   className={cn(
-                    'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded relative',
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded relative',
                     {
-                      'dark:text-white text-black': router.route.includes(ROUTER.Deposit),
+                      'text-color-text-primary': !router.route.includes(ROUTER.DepositCrypto),
+                      'dark:!text-white !text-black': router.route.includes(ROUTER.DepositCrypto),
                     },
                   )}
                   onClick={() => {
@@ -637,14 +634,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   }}
                 >
                   <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-color-card-bg-primary bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
-                    <div className="m-auto h-[38px] w-[38px] bg-color-hover-primary rounded-full text-white flex items-center justify-center">
-                      <EmptyWallet className="dark:text-white text-[#31373d]" variant="Bold" size={22} />
+                    <div className="m-auto h-[38px] w-[38px] dark:bg-color-hover-primary rounded-full bg-color-light-hover-primary text-white flex items-center justify-center">
+                      <EmptyWallet className="dark:text-white text-color-text-primary" variant="Bold" size={22} />
                     </div>
                   </div>
                   <div className="pt-2 opacity-0">
-                    <EmptyWallet className="dark:text-white text-[#31373d]" variant="Bold" size={22} />
+                    <EmptyWallet className="dark:text-white text-color-text-primary" variant="Bold" size={22} />
                   </div>
-                  <div className="pb-2 dark:text-color-text-primary text-[#31373d] text-center truncate w-full">
+                  <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
                     {t('sidebar:wallet')}
                   </div>
                 </Link>
@@ -664,10 +661,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     }
                   }}
                   className={cn(
-                    'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded ',
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded ',
                     {
-                      'dark:text-white': isShowAccount,
-                      'dark:text-color-text-primary text-[#31373d]': !isShowAccount,
+                      'dark:!text-white !text-black': isShowAccount,
+                      'text-color-text-primary': !isShowAccount,
                     },
                   )}
                 >
@@ -679,7 +676,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 <div
                   role="button"
                   className={cn(
-                    'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                     {
                       'dark:text-white text-black': router.route.includes(ROUTER.Sports),
                     },
@@ -692,9 +689,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   }}
                 >
                   <div className="pt-2">
-                    <Message className="dark:text-color-text-primary text-[#31373d]" size={22} />
+                    <Message className="dark:text-color-text-primary text-color-text-primary" size={22} />
                   </div>
-                  <div className="pb-2 dark:text-color-text-primary text-[#31373d] text-center truncate w-full">
+                  <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
                     {t('sidebar:chat')}
                   </div>
                 </div>

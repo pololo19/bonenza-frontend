@@ -58,7 +58,7 @@ const InputEmailAuthentication = <TFieldValues extends Record<string, unknown>>(
       render={({ field, fieldState: { error } }) => {
         return (
           <div className="w-full flex-1">
-            <div className="bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-color-bg-primary">
+            <div className="bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-transparent dark:dark-autofill light-autofill">
               <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="" />
               <div className="w-[1px] h-[13px] bg-[#C3CDDB]" />
               <input

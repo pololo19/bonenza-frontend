@@ -76,6 +76,7 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
               setCountryCallingCode(value);
               props.setCountryCallingCode(value);
             }}
+            customClass="dark:bg-color-bg-primary bg-white "
             name="phone"
             placeholder={String(t('setting:phonePlaceholder'))}
             autoComplete="off"
@@ -89,7 +90,7 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
           />
         </div>
         <div
-          className="flex items-center text-[#98A7B5] text-[14px] gap-[4px] cursor-pointer mt-2"
+          className="flex items-center text-color-text-primary text-[14px] gap-[4px] cursor-pointer mt-2"
           onClick={() => {
             setCheckIsReferral(!isEnterReferral);
           }}
@@ -103,7 +104,7 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
           <InputText
             control={control}
             name="referralCode"
-            customClass="bg-color-bg-primary  focus:outline-none w-full h-[51px] px-[15px] placeholder:text-[14px] text-white mt-1"
+            customClass="dark:bg-color-bg-primary bg-white focus:outline-none w-full h-[51px] px-[15px] placeholder:text-[14px] dark:text-white mt-1"
             placeholder={String(t('authentication:referral'))}
             autoComplete="off"
           />

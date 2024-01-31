@@ -47,7 +47,7 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider, viewCo
       <Listbox
         multiple
         as="div"
-        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-color-text-primary h-[36px] sm:h-[40px] text-[#000] dark:bg-color-bg-secondary bg-[#F6F7FA]"
+        className="relative w-full sm:w-[172px] text-left rounded flex text-[14px] dark:text-color-text-primary h-[36px] sm:h-[40px] text-[#000] dark:bg-color-bg-secondary bg-white"
       >
         <Listbox.Button className="px-[20px] w-full text-left">
           <div className="flex items-center justify-between">
@@ -56,14 +56,14 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider, viewCo
           </div>
         </Listbox.Button>
         <Listbox.Options className="absolute sm:mr-0 right-0 z-[1] mt-12 w-full max-w-full origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1 rounded-md dark:bg-[#1c1c20] bg-white sm:w-auto shadow-gray-900 shadow">
+          <div className="py-1 rounded-md dark:bg-[#1c1c20] bg-white sm:w-auto shadow-bs-default">
             {/* <div
                 onClick={() => selectProvider()}
                 className="text-[14px] dark:text-color-text-primary cursor-pointer h-[32px] flex items-center justify-center border-b border-solid border-[#3b3f4a]"
               >
                 {t('casino:clearAll')}
               </div> */}
-            <div className="sticky text-[14px] px-[10px] dark:text-color-text-primary  h-[32px] flex items-center justify-center border-b border-solid border-[#3b3f4a]">
+            <div className="sticky text-[14px] px-[10px] dark:text-color-text-primary  h-[32px] flex items-center justify-center border-b border-solid dark:border-color-border-primary border-color-light-border-primary">
               <SearchNormal className="w-[20px] h-[20px]" />
               <input
                 className="w-full ml-[10px] outline-none bg-transparent"
@@ -78,7 +78,7 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider, viewCo
                     onClick={() => selectProvider(provider.id)}
                     className={`text-[14px] dark:text-color-text-primary cursor-pointer px-[10px] my-[4px] h-[32px] flex items-center gap-[10px]`}
                   >
-                    <div className="flex items-center justify-center rounded-[4px] border border-solid border-[#2d3035] w-4 h-4 bg-[#2d303580]">
+                    <div className="flex items-center justify-center rounded-[4px] border border-solid dark:border-color-border-primary border-color-light-border-primary w-4 h-4 dark:bg-[#2d303580] bg-color-light-bg-primary">
                       {provider?.isSelect && <CheckIcon className="w-[20px] text-color-primary" />}
                     </div>
                     <span className="truncate flex-1">{titleCase(provider.name || '')}</span>
