@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { ArrowLeft2, Edit2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import { ElementType, useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
@@ -38,6 +39,7 @@ type FavoriteGameType = {
 export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const exchange = useExchange();
   const { t } = useTranslation('');
+  const { theme } = useTheme();
   const { userId, viewInFiat, userData, localFiat } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.common.viewInFiat,
@@ -208,7 +210,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
         <>
           <div className="flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] scrollbar">
             <div className="rounded-[10px] px-5 py-5 h-[300px]">
-              <div className="text-[12px] text-[#31373d] dark:text-white">{t('profile:statistics')}</div>
+              <div className="text-[12px] text-color-light-text-primary dark:text-white">{t('profile:statistics')}</div>
               <div className="flex justify-center mt-4">
                 <Image width={200} height={200} src="/img/noStatistic.png" alt="hidden statistic" />
               </div>
@@ -226,13 +228,13 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
     return (
       <>
         <div
-          className={`flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] h-full bg-color-header-primary scrollbar ${
+          className={`flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] h-full dark:bg-color-header-primary bg-color-light-bg-primary scrollbar ${
             isMedalsDetail && '!p-0'
           }`}
         >
           {!isStatistic && !isMedalsDetail && (
             <div className="flex flex-col gap-2">
-              <div className="rounded-[5px] dark:bg-color-modal-bg-primary px-[14px] pt-[16px] pb-[12px]">
+              <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
                 <div className="flex items-center justify-between" onClick={() => setIsMedalDetail(true)}>
                   <div className="flex gap-[5px] text-black dark:text-white text-[12px] items-center">
                     <div>{t('profile:medal')}</div>
@@ -322,7 +324,9 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 </div>
               </div>
               <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
-                <div className="text-[12px] text-[#31373d] dark:text-white">{t('profile:top3FavoriteGames')}</div>
+                <div className="text-[12px] text-color-light-text-primary dark:text-white">
+                  {t('profile:top3FavoriteGames')}
+                </div>
                 {!!listGame.length && (
                   <div className="flex flex-col gap-[5px] mt-[15px]">
                     {listGame.map((item, index) => (
@@ -353,15 +357,23 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 )}
                 {!listGame.length && (
                   <div className="flex justify-center relative">
-                    <Image src="/img/empty.png" width={90} height={90} className="w-[200px] h-[200px]" alt="" />
-                    <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
+                    <Image
+                      src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                      width={90}
+                      height={90}
+                      className="w-[200px] h-[200px]"
+                      alt=""
+                    />
+                    <p className="absolute dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] bottom-0 text-center">
                       {t('table:noData')}
                     </p>
                   </div>
                 )}
               </div>
               <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
-                <div className="text-[12px] text-[#31373d] dark:text-white">{t('profile:wagerContest')}</div>
+                <div className="text-[12px] text-color-light-text-primary dark:text-white">
+                  {t('profile:wagerContest')}
+                </div>
                 <WagerContest userData={user} />
               </div>
               <div className="text-color-text-primary text-[10px] w-full text-center mt-[10px]">

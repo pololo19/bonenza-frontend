@@ -596,14 +596,28 @@ input[type='number'] {
   font-size: 10px !important;
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: #ffffff;
-  transition: background-color 5000s ease-in-out 0s;
-  box-shadow: inset 0 0 20px 20px #23232329;
+.dark-autofill {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #23232329;
+  }
+}
+
+.light-autofill {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #000000;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #ffffff;
+  }
 }
 
 input[type='range']::-webkit-slider-thumb {
@@ -673,19 +687,19 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .str-chat__message-bubble {
-  background-color: #24262b !important;
+  // background-color: #24262b !important;
 }
 
 .str-chat__list {
-  background-color: #1d1e22 !important;
+  // background-color: #1d1e22 !important;
 }
 
 .str-chat.str-chat__channel {
-  background-color: #1d1e22 !important;
+  // background-color: #1d1e22 !important;
 }
 
 .str-chat__message-input {
-  background-color: #1d1e22 !important;
+  // background-color: #1d1e22 !important;
 }
 
 .str-chat__message-textarea {
@@ -693,7 +707,7 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .str-chat__empty-channel {
-  background-color: #1d1e22 !important;
+  // background-color: #1d1e22 !important;
 }
 
 .str-chat__message-attachment-download-icon {
@@ -724,11 +738,10 @@ input[type='number']::-webkit-outer-spin-button {
   --sb-thumb-color: #1c1e22;
   --sb-size: 5px;
 
-  scrollbar-color: var(--sb-thumb-color)
-                  var(--sb-track-color);
+  scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
 }
 
-.scrollbar-dark::-webkit-scrollbar{
+.scrollbar-dark::-webkit-scrollbar {
   height: var(--sb-size);
   width: var(--sb-size);
 }

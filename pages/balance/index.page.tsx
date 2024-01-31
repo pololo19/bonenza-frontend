@@ -102,7 +102,7 @@ const BalancePage = () => {
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
           <div className="flex items-center justify-start md:gap-[40px] gap-[15px]">
             <div className="md:pr-[40px] pr-[15px] border-solid border-r-[2px] border-color-border-secondary">
-              <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-300 text-[#000] font-[700]">
+              <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-300 text-color-light-text-primary font-[700]">
                 {t('balance:totalBalance')}
               </div>
               <div className="text-start text-[#F39717] sm:text-[16px] text-[14px] font-bold break-keep">
@@ -111,7 +111,7 @@ const BalancePage = () => {
             </div>
             <div className="flex sm:gap-[40px] gap-[15px]">
               <div>
-                <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-400 text-[#000] font-[700]">
+                <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-400 text-color-light-text-primary font-[700]">
                   {t('balance:realBalance')}
                 </div>
                 <div className="text-start dark:text-white text-black sm:text-[16px] text-[14px] font-bold break-keep">
@@ -119,7 +119,7 @@ const BalancePage = () => {
                 </div>
               </div>
               <div>
-                <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-400 text-[#000] font-[700]">
+                <div className="text-start sm:text-[14px] text-[12px] dark:text-gray-400 text-color-light-text-primary font-[700]">
                   {t('balance:bonusMoney')}
                 </div>
                 <div className="text-start dark:text-white text-black sm:text-[16px] text-[14px] font-bold break-keep">
@@ -133,7 +133,7 @@ const BalancePage = () => {
       <div className="w-full mt-[20px] dark:bg-color-modal-bg-secondary bg-white">
         <div className="w-full flex justify-between items-center mb-[20px] sm:mb-[30px] gap-[30px]">
           <div className="flex items-center gap-[10px]">
-            <div className="dark:text-[#98A7B5] text-[#31373d] sm:text-[14px] text-[12px]">
+            <div className="dark:text-color-text-primary text-color-light-text-primary sm:text-[14px] text-[12px]">
               {t('balance:hideBalance')}
             </div>
             <Switch
@@ -155,7 +155,7 @@ const BalancePage = () => {
           <div className="relative">
             <input
               className={cn(
-                'sm:pl-[50px] pl-[40px] dark:text-white text-[#31373d] sm:text-[14px] text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                'sm:pl-[50px] pl-[40px] dark:text-white text-color-light-text-primary sm:text-[14px] text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
               )}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -164,14 +164,14 @@ const BalancePage = () => {
             <SearchNormal
               width={24}
               height={24}
-              className="absolute top-1/2 dark:text-color-text-primary text-[#31373d] sm:left-[30px] left-[20px] transform -translate-x-1/2 -translate-y-1/2 sm:!text-[14px] !text-[12px]"
+              className="absolute top-1/2 dark:text-color-text-primary text-color-light-text-primary sm:left-[30px] left-[20px] transform -translate-x-1/2 -translate-y-1/2 sm:!text-[14px] !text-[12px]"
             />
           </div>
         </div>
 
         {!!filterListCrypto?.length && (
           <div className="w-full flex flex-col justify-start items-start">
-            <div className="text-[14px] dark:text-[#C2C2C2] text-[#31373d] mb-[10px]">
+            <div className="text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary mb-[10px]">
               {t('balance:cryptoCurrency')}
             </div>
             <div className="w-full flex flex-col justify-start items-start gap-[5px]">
@@ -180,7 +180,7 @@ const BalancePage = () => {
                   key={index}
                   className="w-full dark:bg-color-active-primary  bg-[#f7f7fa] px-[20px] py-[10px] rounded-[3px] flex justify-between items-center"
                 >
-                  <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
+                  <div className="flex justify-center items-center md:gap-3 gap-2 sm:text-[16px] text-[14px]">
                     <Image
                       height={30}
                       width={30}
@@ -194,7 +194,7 @@ const BalancePage = () => {
                       {item.name} <span className="ml-[5px] text-[10px] text-gray-400">{item.alias}</span>
                     </div>
                   </div>
-                  <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-[#0AB247] font-normal">
+                  <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-color-primary font-normal">
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px]">
@@ -206,20 +206,20 @@ const BalancePage = () => {
                       </div>
                     ) : (
                       <div className="text-end">
-                        <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
+                        <div className="dark:text-white text-black truncate md:text-[14px] text-[12px] font-bold">
                           {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                       </div>
                     )}
-                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-color-primary text-[#F39717] font-normal">
+                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] text-color-primary font-normal">
                       <Link
-                        className="dark:hover:text-white hover:text-[#ff9400]"
+                        className="dark:hover:text-white hover:text-color-primary"
                         href={`${ROUTER.DepositCrypto}?coin=${item.name}`}
                       >
                         {t('balance:deposit')}
                       </Link>
                       <Link
-                        className="dark:hover:text-white hover:text-[#ff9400]"
+                        className="dark:hover:text-white hover:text-color-primary"
                         href={`${ROUTER.WithdrawCrypto}?coin=${item.name}`}
                       >
                         {t('balance:withdraw')}
@@ -241,7 +241,7 @@ const BalancePage = () => {
                   key={index}
                   className="w-full dark:bg-color-active-primary bg-[#f7f7fa] px-[20px] py-[10px] roundeded-[3px] flex justify-between items-center"
                 >
-                  <div className="flex justify-center items-center gap-1 md:gap-3 gap-2 sm:text-[16px] text-[14px]">
+                  <div className="flex justify-center items-center md:gap-3 gap-2 sm:text-[16px] text-[14px]">
                     <Image
                       height={30}
                       width={30}
@@ -253,10 +253,10 @@ const BalancePage = () => {
                     />
                     <div className="text-[14px] font-bold dark:text-white text-black">{item.name}</div>
                   </div>
-                  <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-[#0AB247] font-normal">
+                  <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-color-primary font-normal">
                     {viewInFiat ? (
                       <div className="text-end">
-                        <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
+                        <div className="dark:text-white text-black truncate md:text-[14px] text-[12px] font-bold">
                           {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
                         </div>
                         <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
@@ -265,12 +265,12 @@ const BalancePage = () => {
                       </div>
                     ) : (
                       <div className="text-end">
-                        <div className="dark:text-white text-black font-[600] truncate md:text-[14px] text-[12px] font-bold">
+                        <div className="dark:text-white text-black truncate md:text-[14px] text-[12px] font-bold">
                           {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                       </div>
                     )}
-                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] dark:text-color-primary text-[#F39717] font-normal">
+                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] text-color-primary font-normal">
                       <Link
                         className="dark:hover:text-white hover:text-[#ff9400]"
                         href={`${ROUTER.DepositFiat}?coin=${item.name}`}

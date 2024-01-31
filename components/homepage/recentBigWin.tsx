@@ -1,6 +1,6 @@
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
@@ -61,14 +61,14 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 
   return (
     <>
-      <div className="sm:dark:bg-black sm:bg-white max-w-full sm:max-w-[150px] rounded-[3px] cursor-pointer sm:block flex justify-between">
+      <div className="sm:dark:bg-black sm:bg-white max-w-full sm:max-w-[150px] cursor-pointer sm:block flex justify-between">
         <div className="rounded-[3px] sm:w-full w-[35px] sm:block flex items-center gap-[7px]">
           <Image
             height={150}
             width={150}
             src={imgCard}
             alt=""
-            className="w-full h-auto object-contain rounded-[3px]"
+            className="w-full h-auto object-contain"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(150, 150))}`}
           />
@@ -90,7 +90,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
               onClick={openModalProfileUser}
               className={`${
                 userData?.userId !== userId && !userData?.username
-                  ? 'dark:text-[#98A7B5] text-[#31373d] pointer-events-none cursor-text'
+                  ? 'dark:text-color-text-primary text-color-light-text-primary pointer-events-none cursor-text'
                   : 'dark:text-white text-[#000]'
               } font-medium text-[12px] truncate hover:underline min-h-[18px]`}
             >
@@ -103,9 +103,9 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
           </div>
           <div
             data-tooltip-id={'CardBigWinData' + price}
-            className="flex justify-center items-center dark:bg-transparent sm:dark:bg-color-primary/20 bg-[#3bc11780] cursor-text h-[28px] mt-[10px] px-[5px] gap-[15px]"
+            className="flex justify-center items-center dark:bg-transparent sm:dark:bg-color-primary-1/20 bg-color-primary-1/20 cursor-text h-[28px] mt-[10px] px-[5px] gap-[15px]"
           >
-            <div className="dark:text-color-primary text-[#3bc117] font-bold text-[14px] sm:text-[14px] truncate">
+            <div className="dark:text-color-primary text-color-primary font-bold text-[14px] sm:text-[14px] truncate">
               {price}
             </div>
             <div className="sm:hidden block">
@@ -187,19 +187,22 @@ function RecentBigWinComponent() {
     }
   };
 
-  const renderData = (item: BetDetailType) => {
-    const userData = {
-      userId: item.userId,
-      username: item.userName,
-    };
-    return (
-      <CardBigWin
-        userData={userData}
-        price={`${getExchangeRateLocalFiat(localFiat ? item.profitUsd : item.amount, item.currency)}`}
-        imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
-      />
-    );
-  };
+  const renderData = useCallback(
+    (item: BetDetailType) => {
+      const userData = {
+        userId: item.userId,
+        username: item.userName,
+      };
+      return (
+        <CardBigWin
+          userData={userData}
+          price={`${getExchangeRateLocalFiat(localFiat ? item.profitUsd : item.amount, item.currency)}`}
+          imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
+        />
+      );
+    },
+    [localFiat],
+  );
 
   return (
     <>

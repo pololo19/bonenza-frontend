@@ -73,9 +73,9 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
         accessorKey: 'level',
         header: () => <div className="text-left pr-6 text-[14px] font-normal">{t('vipClub:level')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] truncate flex items-center gap-2">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2">
             <Image height={18} width={16} src={`/img/${getLinkImage(row?.original?.rank)}.png`} alt="" />
-            <span className="dark:text-[#98A7B5] text-black text-[14px]">
+            <span className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
               {row?.original?.type} {row?.original?.level}
             </span>
           </div>
@@ -84,16 +84,20 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       {
         accessorKey: 'xp',
         header: () => (
-          <div className="text-center dark:text-[#98a7b5] pl-6 text-[14px] font-normal">{t('vipClub:requiredXP')}</div>
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary pl-6 text-[14px] font-normal">
+            {t('vipClub:requiredXP')}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] text-center dark:text-[#98a7b5] text-[#000] truncate">{row?.original?.xp}</div>
+          <div className="text-[14px] text-center dark:text-color-text-primary text-color-light-text-primary truncate">
+            {row?.original?.xp}
+          </div>
         ),
       },
       {
         accessorKey: 'levelUpBonus',
         header: () => (
-          <div className="text-right dark:text-[#98a7b5] text-[14px] font-normal">
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary text-[14px] font-normal">
             {t('vipClub:levelUpBonus')} (USDT)
           </div>
         ),

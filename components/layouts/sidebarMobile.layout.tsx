@@ -109,7 +109,7 @@ const SidebarMobileLayout: React.FC = () => {
   return (
     <div
       className={cn(
-        'fixed w-screen max-h-[calc(100vh_-_150px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[130px] bottom-[60px] dark:bg-color-bg-primary bg-white shadow sm:hidden',
+        'fixed w-screen max-h-[calc(100vh_-_150px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[130px] bottom-[60px] dark:bg-color-bg-primary bg-color-light-bg-primary shadow sm:hidden',
         {
           'translate-y-full': !isShowSidebar,
           'translate-y-0': isShowSidebar,
@@ -119,7 +119,7 @@ const SidebarMobileLayout: React.FC = () => {
       <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
         <div className="relative">
           <div
-            className="relative mb-[20px] h-[40px] dark:bg-color-panel-bg-primary bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+            className="relative h-[40px] dark:bg-color-panel-bg-primary bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
             onClick={() => dispatch(changeIsShowCasinoSearch(true))}
             role="button"
           >
@@ -134,7 +134,7 @@ const SidebarMobileLayout: React.FC = () => {
               <Link
                 key={index}
                 href={item.href}
-                className="flex flex-col gap-[5px] px-[10px] py-[16px] items-center justify-center bg-color-hover-primary rounded-[3px] text-color-text-primary"
+                className="flex flex-col gap-[5px] px-[10px] py-[16px] items-center justify-center dark:bg-color-hover-primary bg-white rounded-[3px] dark:text-color-text-primary text-color-light-text-primary"
               >
                 <IconElement
                   size={18}
@@ -149,8 +149,8 @@ const SidebarMobileLayout: React.FC = () => {
             );
           })}
         </div>
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-hover-primary rounded-[3px]">
-          <span className="text-color-text-primary px-[12px] py-[5px] text-[12px] border-solid border-b-[1px] border-color-border-primary">
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-hover-primary bg-white rounded-[3px]">
+          <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
             {t('layout:games')}
           </span>
           {gameDatas.map((game, index) => (
@@ -159,12 +159,12 @@ const SidebarMobileLayout: React.FC = () => {
               title={game.title}
               href={game.href}
               icon={game.icon}
-              classNames="dark:hover:text-white !text-white !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+              classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
             />
           ))}
         </ul>
 
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-hover-primary rounded-[3px]">
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-hover-primary bg-white rounded-[3px]">
           {initDatas.map((item, index) => (
             <IconOption
               key={index}
@@ -172,16 +172,16 @@ const SidebarMobileLayout: React.FC = () => {
               href={item.href}
               icon={item.icon}
               onClick={() => item.onClick}
-              classNames="dark:hover:text-white !text-white !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+              classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
             />
           ))}
         </ul>
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px] bg-color-hover-primary rounded-[3px]">
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px] dark:bg-color-hover-primary bg-white rounded-[3px]">
           <IconOption
             title={String(t('sidebar:liveSupport'))}
             href={ROUTER.LiveSupport}
             icon={Headphone}
-            classNames="dark:hover:text-white !text-white !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+            classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
           />
         </ul>
         {/* <div className="dark:text-[#98A7B5] text-[#31373d] rounded dark:bg-[#25262B] bg-[#f5f6fa] flex items-center justify-center gap-[5px]">

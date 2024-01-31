@@ -1,5 +1,5 @@
 .search_history_box {
-  @apply px-[15px] w-fit py-[5px] z-[6] bg-color-card-bg-default rounded-[5px] text-color-text-primary cursor-pointer relative overflow-hidden flex justify-between gap-[10px];
+  @apply px-[15px] w-fit py-[5px] z-[6] dark:bg-color-card-bg-default rounded-[5px] dark:text-color-text-primary cursor-pointer relative overflow-hidden flex justify-between gap-[10px];
   .close {
     position: relative;
     padding: 5px;

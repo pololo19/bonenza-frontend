@@ -45,7 +45,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
     {
       icon: CardReceive,
       name: 'sidebar:withdraw',
-      href: ROUTER.Withdraw,
+      href: ROUTER.WithdrawCrypto,
     },
     {
       icon: Money2,

@@ -34,7 +34,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
         panelClass="sm:!max-w-[530px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0 "
         header={
           <>
-            <div className="flex flex-col items-start dark:bg-color-header-primary px-[20px] py-[20px] gap-[20px]">
+            <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
               <div className="text-black dark:text-white md:text-[18px] text-[16px] sm:mb-0 mb-[10px] font-bold">
                 {t('layout:deposit')}
               </div>
@@ -42,9 +42,9 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                 <div
                   onClick={() => setDepositTab(DepositTabEnum.CRYPTO)}
                   className={cn(
-                    'flex-1 dark:bg-color-header-secondary dark:text-color-text-primary text-color-text-primary flex items-center justify-center py-[10px]',
+                    'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
                     {
-                      'dark:!bg-color-active-secondary dark:!text-white rounded-[3px]':
+                      'dark:!bg-color-active-secondary !bg-color-light-active-primary dark:!text-white !text-black rounded-[3px]':
                         depositTab === DepositTabEnum.CRYPTO,
                     },
                   )}
@@ -55,9 +55,9 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                 <div
                   onClick={() => setDepositTab(DepositTabEnum.FIAT)}
                   className={cn(
-                    'flex-1 dark:bg-color-header-secondary dark:text-color-text-primary text-color-text-primary flex items-center justify-center py-[10px]',
+                    'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
                     {
-                      'dark:!bg-color-active-secondary dark:!text-white rounded-[3px]':
+                      'dark:!bg-color-active-secondary !bg-color-light-active-primary dark:!text-white !text-black rounded-[3px]':
                         depositTab === DepositTabEnum.FIAT,
                     },
                   )}
@@ -68,9 +68,9 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                 <div
                   onClick={() => setDepositTab(DepositTabEnum.BUY_CRYPTO)}
                   className={cn(
-                    'flex-1 dark:bg-color-header-secondary dark:text-color-text-primary text-color-text-primary flex items-center justify-center py-[10px]',
+                    'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
                     {
-                      'dark:!bg-color-active-secondary dark:!text-white rounded-[3px]':
+                      'dark:!bg-color-active-secondary !bg-color-light-active-primary dark:!text-white !text-black rounded-[3px]':
                         depositTab === DepositTabEnum.BUY_CRYPTO,
                     },
                   )}

@@ -147,6 +147,7 @@ function CasinoCategoryPage() {
             listProvider={listProvider}
             selectedProvider={selectedProvider}
             selectProvider={handleSelectedProvider}
+            viewCount={false}
           />
         </div>
       </div>

@@ -4,11 +4,10 @@ import { ColumnDef, Row } from '@tanstack/react-table';
 import { ArrowRight2 } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import React, { Fragment, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { shallowEqual } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { api_getRollover } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
@@ -46,6 +45,7 @@ const LIST_FILTER_EVENT_BONUS = [
 
 const RolloverPage = () => {
   const exchange = useExchange();
+  const { theme } = useTheme();
   const { t, i18n } = useTranslation('');
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
@@ -229,7 +229,7 @@ const RolloverPage = () => {
         <div className="flex items-center flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -251,7 +251,7 @@ const RolloverPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_TYPE.map((item, index) => (
                     <Menu.Item key={index}>
@@ -275,7 +275,7 @@ const RolloverPage = () => {
           {optionFilter.type.id === 3 && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -299,7 +299,7 @@ const RolloverPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
                     {LIST_FILTER_EVENT_BONUS.map((item, index) => (
                       <Menu.Item key={index}>
@@ -323,7 +323,7 @@ const RolloverPage = () => {
           )}
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -345,7 +345,7 @@ const RolloverPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                 <div className="py-1">
                   {LIST_FILTER_STATUS.map((item, index) => (
                     <Menu.Item key={index}>
@@ -367,27 +367,15 @@ const RolloverPage = () => {
             </Transition>
           </Menu>
         </div>
-        {(isLoading || !!dataTable.length) && (
-          <>
-            <TableComponent isLoading={isLoading} handleClickRow={handleClickRow} data={dataTable} columns={columns} />
-            <Paging
-              onPageChange={handleChangePage}
-              itemPerPage={limit}
-              totalItem={totalTable}
-              currentPage={page}
-              setItemPerPage={handleChangeItemPerPage}
-              hiddenPerPage={true}
-            />
-          </>
-        )}
-        {!isLoading && dataTable.length === 0 && (
-          <div className="relative flex items-center justify-center  my-[32px]">
-            <Image src="/img/empty.png" width={200} height={200} alt="" />
-            <p className="absolute dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
-              {t('table:noData')}
-            </p>
-          </div>
-        )}
+        <TableComponent isLoading={isLoading} handleClickRow={handleClickRow} data={dataTable} columns={columns} />
+        <Paging
+          onPageChange={handleChangePage}
+          itemPerPage={limit}
+          totalItem={totalTable}
+          currentPage={page}
+          setItemPerPage={handleChangeItemPerPage}
+          hiddenPerPage={true}
+        />
         {isShowDetailTransaction && (
           <ModalDetailsRollover
             show={isShowDetailTransaction}

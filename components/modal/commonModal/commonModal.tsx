@@ -84,7 +84,7 @@ export default function CommonModal({
                         role="button"
                         onClick={onClose}
                       >
-                        <XMarkIcon width={20} className=" text-white dark:text-[#98A7B5]" />
+                        <XMarkIcon width={20} className=" dark:text-color-text-primary text-color-light-text-primary" />
                       </div>
                     )}
                   </Dialog.Title>

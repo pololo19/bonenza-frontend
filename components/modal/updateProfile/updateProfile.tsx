@@ -105,7 +105,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
         onClose={onClose}
         panelClass="rounded !max-w-[464px]"
         header={
-          <div className="relative p-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
+          <div className="relative p-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
             <div className="flex items-center text-black dark:text-white gap-[10px]">
               <ChevronLeftIcon width={20} role="button" onClick={() => goBackProfile()} />
               <div className="text-[18px] font-[600]">{t('profile:updateInformation')}</div>
@@ -113,7 +113,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
           </div>
         }
       >
-        <div className="flex-1 flex gap-[10px] justify-center sm:items-center items-start p-[20px] bg-[#f5f6fa] dark:bg-color-modal-bg-primary">
+        <div className="flex-1 flex gap-[10px] justify-center sm:items-center items-start p-[20px] bg-color-light-bg-primary dark:bg-color-modal-bg-primary">
           <div className="flex flex-col items-center gap-[10px] w-full">
             <div className="relative flex flex-col items-center gap-[10px] w-full">
               <div className="h-[150px] w-[150px] rounded-full overflow-hidden">
@@ -165,11 +165,11 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
               </div>
               <button
                 type="submit"
-                className="bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-default w-full rounded-[3px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
-                <div className="text-[14px] dark:text-white">{t('profile:modify')}</div>
-                <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
+                <div className="text-[14px] text-white">{t('profile:modify')}</div>
+                <div className="p-[10px] flex items-center justify-center rounded-[3px] bg-white/20">
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
               </button>

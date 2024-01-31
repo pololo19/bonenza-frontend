@@ -39,7 +39,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   return (
     <>
       <footer
-        className={cn('pt-20 h-fit bg-white dark:bg-[#1B1C20]  ', {
+        className={cn('pt-20 h-fit bg-transparent', {
           block: !isDetailPage,
           'sm:block hidden': isDetailPage,
         })}
@@ -332,7 +332,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           </div>
           {/* footer 2 */}
           {!isDetailPage && (
-            <div className="mt-[30px] pt-[30px] flex flex-col items-center border-t border-solid border-[#25272C]">
+            <div className="mt-[30px] pt-[30px] flex flex-col items-center border-t border-solid dark:border-color-border-primary border-color-light-border-primary">
               <div className="">
                 <div className="font-semibold text-black dark:text-white sm:text-lg max-md:text-left text-[14px]">
                   {String(t('footer:acceptedNetworks'))}
@@ -461,7 +461,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           )}
           {/* footer 3 */}
           {!isDetailPage && (
-            <div className="mt-[30px] pt-[30px] flex flex-col items-center border-t border-solid border-[#25272C]">
+            <div className="mt-[30px] py-[30px] flex flex-col items-center border-t border-solid dark:border-color-border-primary border-color-light-border-primary">
               <div className="">
                 <div className="font-semibold text-black dark:text-white max-md:text-center sm:text-lg text-[14px]">
                   {String(t('footer:sponsorshipAndGamingResponsibilities'))}
@@ -546,7 +546,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             </div>
           )}
           {/* footer 4 */}
-          <div className="mb-[60px] sm:mb-0 flex xl:flex-row flex-col justify-between sm:pt-[40px] pt-[20px] pb-[40px] md:mx-0 mx-[-1rem] gap-[70px] border-t border-solid border-[#25272C]">
+          <div className="mb-[60px] sm:mb-0 flex xl:flex-row flex-col justify-between sm:pt-[40px] pt-[20px] pb-[40px] md:mx-0 mx-[-1rem] gap-[70px] border-t border-solid dark:border-color-border-primary border-color-light-border-primary">
             <div className="xl:w-full flex flex-col xl:items-start items-center justify-between">
               <Link href={'/'}>
                 <Image height={54} width={170} src="/img/logo.png" alt="" className="object-cover" />

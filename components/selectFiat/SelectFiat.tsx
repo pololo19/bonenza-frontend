@@ -65,7 +65,7 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
     <>
       <div
         role="button"
-        className="flex items-center gap-2 dark:bg-gray-700/50 bg-[#ffffff] py-2 px-2 dark:border border-0 border-solid border-color-border-primary rounded"
+        className="flex items-center gap-2 dark:bg-gray-700/50 bg-color-light-bg-primary py-2 px-2 dark:border border-0 border-solid border-color-border-primary rounded"
         onClick={() => setIsShowFiatModal(true)}
       >
         {activeFiat ? (

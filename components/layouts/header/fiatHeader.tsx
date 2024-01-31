@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { ArrowDown2, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
@@ -36,6 +37,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const dispatch = useDispatch();
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
+  const { theme } = useTheme();
 
   const {
     viewInFiat,
@@ -205,7 +207,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               wrapperClass,
             )}
           >
-            <div className="sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-900 shadow">
+            <div className="sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] dark:shadow-gray-900 shadow-gray-200 shadow">
               <div className="flex px-[20px] mt-[20px]">
                 <div className="grow">
                   <InputSearch
@@ -230,10 +232,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               </div>
 
               <div className="flex w-full px-[20px] ">
-                <div className="flex w-full p-[5px] dark:bg-color-header-secondary rounded-[3px]">
+                <div className="flex w-full p-[5px] dark:bg-color-header-secondary bg-color-light-header-secondary rounded-[3px]">
                   <div
                     role="button"
-                    className="flex w-full py-[10px] text-white text-center justify-center rounded-[3px] bg-color-panel-bg-primary"
+                    className="flex w-full py-[10px] dark:text-white text-color-light-text-primary font-bold text-center justify-center rounded-[3px] dark:bg-color-panel-bg-primary bg-white"
                   >
                     Currency
                   </div>
@@ -413,7 +415,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   <>
                     <div className="relative flex items-center justify-center  my-[32px]">
                       <Image
-                        src="/img/empty.png"
+                        src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
                         width={200}
                         height={200}
                         alt=""
@@ -421,18 +423,18 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           e.currentTarget.src = '/img/fiats/USD.png';
                         }}
                       />
-                      <p className="absolute dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] bottom-0 text-center">
+                      <p className="absolute dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] bottom-0 text-center">
                         {t('table:noData')}
                       </p>
                     </div>
                     <div className="flex items-center justify-center mt-[60px] mb-[20px]">
-                      <div className="w-[80%]">
+                      <div className="w-full">
                         <Link href="/swap" className="hover:text-white">
-                          <div className="flex items-center bg-[#FD6E0B] w-full justify-center font-bold h-[40px] sm:h-[3rem] rounded-[4px] cursor-pointer text-[12px] sm:text-[14px]">
+                          <div className="flex text-white items-center bg-color-primary w-full justify-center font-bold h-[40px] sm:h-[3rem] rounded-[4px] cursor-pointer text-[12px] sm:text-[14px]">
                             {t('deposit:swapCoin')}
                           </div>
                         </Link>
-                        <p className="text-center dark:text-[#98a7b5] text-[#31373d] text-[12px] sm:text-[14px] mt-[10px]">
+                        <p className="text-center dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] mt-[10px]">
                           {t('deposit:swapCoinContent')}
                         </p>
                       </div>
@@ -527,7 +529,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         type="radio"
                         checked={true}
                         name="default-radio"
-                        className="w-4 h-4 accent-amber-500 bg-gray-100 border-gray-300 ring-none outline-none"
+                        className="w-4 h-4 accent-color-primary bg-gray-100 border-gray-300 ring-none outline-none"
                       />
                     )}
                     {item.id !== localFiat?.id && (

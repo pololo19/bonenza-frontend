@@ -224,10 +224,10 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     <>
       <div className="text-left w-full">
         <div className="flex items-center gap-1 justify-between">
-          <div className="text-[16px] text-[#31373d] dark:text-[#C2C2C2] mb-[20px] text-left">
+          <div className="text-[16px] text-color-light-text-primary dark:text-[#C2C2C2] mb-[20px] text-left">
             {t('swap:getApproximately')}
           </div>
-          <div className="text-[16px] text-[#31373d] dark:text-[#C2C2C2] mb-[20px] text-left">
+          <div className="text-[16px] text-color-light-text-primary dark:text-[#C2C2C2] mb-[20px] text-left">
             <div>
               Min:
               {currencyFormat1(Number(minSwap), 4, '', false)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
@@ -238,7 +238,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="flex flex-col gap-[5px] relative min-h-[45px]">
             <div
               className={cn(
-                'w-full pl-[18px] pr-[5px] h-full py-[5px] text-[16px] rounded-[3px] bg-[#f5f6fa] dark:bg-color-input-primary flex items-center justify-between border border-solid border-transparent gap-[10px] focus-within:border-color-primary min-h-[45px]',
+                'w-full pl-[18px] pr-[5px] h-full py-[5px] text-[16px] rounded-[3px] bg-color-light-input-primary dark:bg-color-input-primary flex items-center justify-between border border-solid border-transparent gap-[10px] focus-within:border-color-primary min-h-[45px]',
                 {
                   'border-red-50': errors.amountFrom?.message,
                 },
@@ -246,7 +246,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             >
               <InputNumber
                 size={7}
-                customClass="flex-1 !bg-color-input-primary pl-[2px]"
+                customClass="flex-1 pl-[2px]"
                 control={control}
                 onBlur={onBlurFromBalance}
                 isShowError={false}
@@ -261,7 +261,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                   {t('deposit:max')}
                 </div>
                 <div
-                  className="flex items-center dark:bg-color-btn-primary rounded-[5px] px-2 py-1 bg-white justify-start gap-[10px] w-full"
+                  className="flex items-center dark:bg-color-btn-primary rounded-[5px] px-2 py-1 bg-white dark:text-white text-black justify-start gap-[10px] w-full"
                   role="button"
                   onClick={() => setIsShowFromModal(true)}
                 >
@@ -275,7 +275,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                     className="inline"
                     alt=""
                   />
-                  <div className="text-[14px]">
+                  <div className="text-[14px] ">
                     {getSymbolById(watch('symbolFrom')) && getSymbolById(watch('symbolFrom'))?.name}
                   </div>
 
@@ -286,7 +286,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
             </div>
             <div
-              className="z-[2] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-[#f5f6fa] dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
+              className="z-[2] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-color-light-active-primary dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
               role="button"
               onClick={handleChangeCoinSwap}
             >
@@ -294,7 +294,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             </div>
             <div
               className={cn(
-                'w-full pl-[18px] pr-[5px] py-[5px] text-[16px] rounded-[3px] bg-[#f5f6fa] dark:bg-color-input-primary flex items-center justify-between gap-[10px] border border-solid border-transparent focus-within:border-color-primary min-h-[45px]',
+                'w-full pl-[18px] pr-[5px] py-[5px] text-[16px] rounded-[3px] bg-color-light-input-primary dark:bg-color-input-primary flex items-center justify-between gap-[10px] border border-solid border-transparent focus-within:border-color-primary min-h-[45px]',
                 {
                   'border-red-500': errors.amountFrom?.message,
                   'blur-[2px]': isLoadingApproximately,
@@ -313,7 +313,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
               <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-[16px] text-[12px]">
                 <div
-                  className="flex items-center dark:bg-color-btn-primary px-2 py-1 bg-white justify-start gap-[10px] w-full"
+                  className="flex items-center dark:bg-color-btn-primary px-2 py-1 bg-white dark:text-white text-black justify-start gap-[10px] w-full"
                   role="button"
                   onClick={() => setIsShowToModal(true)}
                 >
@@ -352,21 +352,21 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               },
             )}
           >
-            <div className="dark:text-white text-[#31373d] font-[700]">
-              <span className="inline-block w-1 h-1 rounded-full	bg-[#3BC117] mr-1"></span>{' '}
+            <div className="dark:text-white text-color-light-text-primary font-[700]">
+              <span className="inline-block w-1 h-1 rounded-full	bg-color-primary mr-1"></span>{' '}
               {currencyFormat1(1, 2, '', false)} {getSymbolById(watch('symbolFrom'))?.name} ≈{' '}
               {currencyFormat1(exchangeCoinRate, 8, '', false)} {getSymbolById(watch('symbolTo'))?.name}
             </div>
           </div>
           <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-color-input-primary rounded-t-[4px]">
-            <p className="text-[#98a7b5]">{t('swap:estimatedTime')}</p>
-            <p className="dark:text-white text-[#31373d]">{t('swap:seconds')}</p>
+            <p className="text-color-text-primary">{t('swap:estimatedTime')}</p>
+            <p className="dark:text-white text-color-light-text-primary">{t('swap:seconds')}</p>
           </div>
           <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-color-input-primary rounded-b-[4px]">
-            <p className="text-[#98a7b5]">{t('swap:swapFee')}</p>
-            <p className="dark:text-white text-[#31373d]">
+            <p className="text-color-text-primary">{t('swap:swapFee')}</p>
+            <p className="dark:text-white text-color-light-text-primary">
               {(Number(SWAP_FEE) * Number(watch('amountFrom'))).toFixed(8)}{' '}
-              <span className="text-[#98a7b5]">{getSymbolById(watch('symbolFrom'))?.name}</span>
+              <span className="text-color-text-primary">{getSymbolById(watch('symbolFrom'))?.name}</span>
             </p>
           </div>
         </form>

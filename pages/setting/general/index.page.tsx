@@ -31,8 +31,7 @@ type DepositFiatForm = {
 
 const GeneralPage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [mode, setMode] = useState(0);
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
 
   const { viewInFiat, settings, defaultCurrencyId, fiatSymbols } = useSelector(
     (state: AppState) => ({
@@ -45,8 +44,9 @@ const GeneralPage = () => {
   );
 
   useEffect(() => {
-    const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
-    setMode(theme);
+    const savedTheme = localStorage.getItem('theme') ?? 'dark';
+    // setMode(savedTheme);
+    setTheme(savedTheme);
   }, []);
 
   const { t } = useTranslation('');
@@ -96,9 +96,9 @@ const GeneralPage = () => {
     <div className={`${styles.cardContent}`}>
       {isLoading && <Loader />}
       <div className="w-full h-1/3 px-[12px] py-[24px] sm:p-0 sm:mt-5 md:mt-0 dark:text-white text-black">
-        <div className="flex justify-between border-b border-solid border-color-border-primary pb-[8px]">
+        <div className="flex justify-between border-b border-solid dark:border-color-border-primary border-color-light-border-primary pb-[8px]">
           <div
-            className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
+            className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start"
             role="button"
           >
             {t('setting:showFullNameOfCurrencyInCryptoList')}
@@ -117,9 +117,9 @@ const GeneralPage = () => {
             />
           </Switch>
         </div>
-        <div className="flex justify-between border-b border-solid border-color-border-primary py-[8px]">
+        <div className="flex justify-between border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <div
-            className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start"
+            className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start"
             role="button"
           >
             {t('setting:receiveMarketingPromotions')}
@@ -140,9 +140,9 @@ const GeneralPage = () => {
             />
           </Switch>
         </div>
-        <div className="flex justify-between items-center border-b border-solid border-color-border-primary py-[8px]">
+        <div className="flex justify-between items-center border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <div>
-            <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start">
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start">
               {t('setting:currencySetting')}
             </div>
             <div className="mt-[10px]">
@@ -166,46 +166,44 @@ const GeneralPage = () => {
             />
           </Switch>
         </div>
-        <div className="border-b border-solid border-color-border-primary py-[8px]">
-          <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start text-left">
+        <div className="border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start">
             {t('setting:displayMode')}
           </div>
-          <div className="mt-[10px] dark:bg-[#2D3035] bg-white rounded-[5px] flex p-[3px] max-w-[70px]">
+          <div className="mt-[10px] dark:bg-[#2D3035] bg-color-light-bg-primary rounded-[5px] flex p-[3px] max-w-[70px]">
             <div
               role="button"
               className={`w-[32px] h-[32px] p-[8px] rounded-[5px] ${
-                mode === 0 ? 'dark:bg-[#24262B] bg-[#f5f6f7]' : ''
+                theme === 'dark' ? 'dark:bg-color-bg-primary bg-white' : ''
               }`}
               onClick={() => {
-                setMode(0);
                 setTheme('dark');
               }}
             >
-              <Moon className="dark:white text-[#9FA5AC]" size={16} />
+              <Moon className="dark:text-white text-color-light-text-primary" size={16} />
             </div>
             <div
               role="button"
               className={`w-[32px] h-[32px] p-[8px] rounded-[5px] ${
-                mode === 1 ? 'dark:bg-[#24262B] bg-[#f5f6f7]' : ''
+                theme === 'light' ? 'dark:bg-color-bg-primary bg-white' : ''
               }`}
               onClick={() => {
-                setMode(1);
                 setTheme('light');
               }}
             >
-              <Sun1 className="dark:white text-[#9FA5AC]" size={16} />
+              <Sun1 className="dark:text-white text-color-light-text-primary" size={16} />
             </div>
           </div>
         </div>
         <div className="pt-[13px]">
-          <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] flex-1 text-start text-left mb-[10px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start mb-[10px]">
             {t('setting:language')}
           </div>
           <Menu as="div" className="relative w-auto text-left rounded-[7px] flex text-white">
             <Menu.Button>
               <div
                 role="button"
-                className="flex items-center justify-between dark:bg-[#282931] bg-[#f5f6fa] gap-2 py-2 px-2 rounded w-[146px]"
+                className="flex items-center justify-between dark:bg-[#282931] bg-color-light-bg-primary gap-2 py-2 px-2 rounded w-[146px]"
               >
                 <div className="dark:text-white text-black text-[14px] font-semibold">
                   {LANGUAGE_DATA.find((item) => item.key == settings.settingLanguage)?.language}
@@ -247,7 +245,7 @@ const GeneralPage = () => {
                               className={cn(
                                 active
                                   ? 'dark:bg-[#212b36] dark:text-white bg-[#f5f6fa] text-black'
-                                  : 'dark:text-gray-400 text-[#31373d]',
+                                  : 'dark:text-gray-400 text-color-light-text-primary',
                                 'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                               )}
                               onClick={() => {
