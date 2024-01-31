@@ -360,7 +360,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         const amount = data?.amount || 0;
         const symbol = data?.symbol || 'USDT';
         switch (status) {
-          case 'Processing':
+          case 'Pending':
             toast.success(t('deposit:depositprogress'), { containerId: TOAST_ENUM.COMMON });
             dispatch(getBalance());
             break;
