@@ -40,12 +40,14 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
         return (
           <div>
             {forgotKey ? null : isLoginTwoFactor ? (
-              <div className="flex gap-3 items-center text-black dark:text-white font-bold text-[16px] ">
+              <div className="flex gap-3 items-center text-color-light-text-primary dark:text-white font-bold text-[16px] ">
                 <ArrowLeft2 className="cursor-pointer" onClick={() => setIsLoginTwoFactor(false)} size="16" />
                 <div className="">{t('authentication:googleSecurity2FA')}</div>
               </div>
             ) : (
-              <div className="font-bold text-[16px] text-black dark:text-white">{t('authentication:welcomeBack')}</div>
+              <div className="font-bold text-[16px] text-color-light-text-primary dark:text-white">
+                {t('authentication:welcomeBack')}
+              </div>
             )}
             <SignInTab
               setForgotKey={setForgotKey}
@@ -60,7 +62,9 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
       case AuthenticationModeEnum.SIGN_UP:
         return (
           <div>
-            <div className="font-bold text-[16px] text-black dark:text-white">{t('authentication:signUp')}</div>
+            <div className="font-bold text-[16px] text-color-light-text-primary dark:text-white">
+              {t('authentication:signUp')}
+            </div>
             <SignUpTab onClose={onClose} />
           </div>
         );
@@ -80,7 +84,7 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
   return (
     <>
       <CommonModal show={show} onClose={onClose} isShowCloseButton={forgotKey ? false : true}>
-        <div className="flex sm:flex-row flex-col overflow-y-auto bg-color-modal-bg-primary sm:max-h-[634px] h-[100vh]">
+        <div className="flex sm:flex-row flex-col overflow-y-auto dark:bg-color-modal-bg-primary bg-color-light-modal-bg-primary sm:max-h-[634px] h-[100vh]">
           <div className="sm:flex-1 relative">
             <Image
               width={401}
@@ -89,12 +93,12 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
               alt=""
               className="sm:w-[400px] w-full sm:h-full sm:max-h-[none] max-h-[175px] object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-top-bottom" />
+            <div className="absolute inset-0 dark:bg-gradient-top-bottom bg-light-gradient-top-bottom" />
             <div className="absolute sm:bottom-[50px] bottom-[10px] text-center w-full">
-              <p className="text-[18px] text-white font-bold">
+              <p className="text-[18px] dark:text-white text-black font-bold">
                 {t('homePage:welcomeTo')} <span className="text-color-primary font-bold">BONENZA</span>
               </p>
-              <p className="text-[13px] text-white mt-[5px]">{t('homePage:startJourney')}</p>
+              <p className="text-[13px] dark:text-white text-black mt-[5px]">{t('homePage:startJourney')}</p>
             </div>
           </div>
           <div

@@ -106,7 +106,9 @@ export default function ModalForgotPassword() {
       {isLoading && <Loader />}
       <div className="sm:min-h-[428px]">
         <div className="sm:overflow-y-auto w-full h-full">
-          <div className="font-bold text-[16px] text-white">{t('resetPassword:resetPassword')}</div>
+          <div className="font-bold text-[16px] text-color-light-text-primary dark:text-white">
+            {t('resetPassword:resetPassword')}
+          </div>
           <form onSubmit={handleSubmit(onReset)} data-testid="user-detail-form">
             <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">
               <InputEmailPhone
@@ -126,8 +128,8 @@ export default function ModalForgotPassword() {
                 <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
               </div>
             </button>
-            <div className="text-white text-[13px] mt-5">
-              <span className="mr-[5px]">{t('resetPassword:haveAccount')}</span>
+            <div className="text-[13px] mt-5">
+              <span className="mr-[5px] text-color-text-primary dark:text-white">{t('resetPassword:haveAccount')}</span>
               <span
                 role="button"
                 className="text-color-primary text-[16px] hover:border-b hover:border-solid hover:border-color-primary"

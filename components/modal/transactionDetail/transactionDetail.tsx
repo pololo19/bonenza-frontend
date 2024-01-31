@@ -83,14 +83,16 @@ export default function ModalDetailTransaction({
           </div>
           <div className="mt-5 flex flex-col gap-5  text-[14px]">
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:status'))}</span>
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
+                {String(t('transaction:status'))}
+              </span>
               <div className="flex gap-2 items-center">
                 <div className={`w-[8px] h-[8px] rounded-full ${getColorByStatus(transaction.status)}`}></div>
                 <div className="dark:text-white text-black">{convertStatus(transaction.status)}</div>
               </div>
             </div>
             {transaction.status === LIST_FILTER_STATUS[1].type && (
-              <div className="flex items-center justify-between text-[#31373D] dark:text-[#98A7B5]">
+              <div className="flex items-center justify-between text-color-light-text-primary dark:text-color-text-primary">
                 <span className="">{String(t('transaction:txid'))}</span>
                 <div className="flex gap-2 items-center">
                   <span className="text-black dark:text-white">{transformWalletAddress(transaction.txId)}</span>
@@ -103,7 +105,9 @@ export default function ModalDetailTransaction({
               </div>
             )}
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:orderId'))}</span>
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
+                {String(t('transaction:orderId'))}
+              </span>
               <div className="flex gap-2 items-center">
                 <span className="text-black dark:text-white text-right">
                   {transformWalletAddress(transaction?.orderId)}
@@ -111,12 +115,14 @@ export default function ModalDetailTransaction({
                 <Simcard2
                   role="button"
                   onClick={() => copyClipBoard(String(transaction?.orderId))}
-                  className="w-[16px] h-[16px] text-[#31373D] dark:text-[#98A7B5]"
+                  className="w-[16px] h-[16px] text-color-light-text-primary dark:text-color-text-primary"
                 />
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-[#98A7B5]">{String(t('transaction:time'))}</span>
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
+                {String(t('transaction:time'))}
+              </span>
               <span className="text-black dark:text-white">
                 {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
               </span>
@@ -124,13 +130,15 @@ export default function ModalDetailTransaction({
             {type === TRANSACTION_TYPE.Withdraw && (
               <>
                 <div className="flex items-center justify-between">
-                  <span className="dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:fee'))}</span>
+                  <span className="dark:text-color-text-primary text-color-light-text-primary">
+                    {String(t('transaction:fee'))}
+                  </span>
                   <span className="text-black dark:text-white">
                     {currencyFormat1(transaction.fee, 4, '', false)} {transaction.symbolName}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="dark:text-[#98A7B5] text-[#31373d]">
+                  <span className="dark:text-color-text-primary text-color-light-text-primary">
                     {String(t('transaction:withdrawalAddress'))}
                   </span>
                   <span className="text-black dark:text-white">
@@ -150,7 +158,7 @@ export default function ModalDetailTransaction({
                     </div>
                     <div className="flex flex-col">
                       <span className="dark:text-white text-black">{String(t('transaction:sendOrderSubmitted'))}</span>
-                      <span className="dark:text-[#98A7B5] text-[#31373d] text-[12px]">
+                      <span className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
                         {String(t('transaction:submittedAt'))}{' '}
                         {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
                       </span>
@@ -173,7 +181,7 @@ export default function ModalDetailTransaction({
                       <span className="dark:text-white text-black">
                         {String(t('transaction:blockchainProcessing'))}
                       </span>
-                      <span className="dark:text-[#98A7B5] text-[#31373d] text-[12px]">
+                      <span className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
                         {String(t('transaction:blockchainProcessingContent'))}
                       </span>
                     </div>
@@ -207,7 +215,7 @@ export default function ModalDetailTransaction({
                       )}
                     </div>
                     <div className="flex flex-col">
-                      <span className="dark:text-white text-[#31373d]">
+                      <span className="dark:text-white text-color-light-text-primary">
                         {isFailed
                           ? String(t('transaction:transactionFailed'))
                           : String(t('transaction:transactionCompleted'))}

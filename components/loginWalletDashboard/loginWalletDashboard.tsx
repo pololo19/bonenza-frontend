@@ -29,18 +29,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { address, isConnected, isConnecting } = useAccount();
+  const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { signMessageAsync } = useSignMessage();
-
-  const { isLogin, wallet, isShowAuthenticationModal } = useSelector(
-    (state: AppState) => ({
-      isLogin: state.auth.isLogin,
-      wallet: state.auth.user.wallet,
-      isShowAuthenticationModal: state.modal.isShowAuthenticationModal,
-    }),
-    shallowEqual,
-  );
 
   const googleLogin = async (codeResponse: Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>) => {
     try {
@@ -140,14 +131,17 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       <div className="text-center text-white text-[14px] font-[600]">
         <div className="flex flex-row items-center justify-center gap-[10px]">
           <div
-            className="bg-[#12181F] hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
+            className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
             onClick={() => handleGoogleLogin()}
           >
             <button className="px-2 py-2 w-full text-white">
               <Image height={30} width={30} src={'/img/google.svg'} alt="" className="inline w-[30px]" />
             </button>
           </div>
-          <div className="bg-[#12181F] hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]" onClick={handleTelegram}>
+          <div
+            className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
+            onClick={handleTelegram}
+          >
             <button className="px-2 py-2 w-full text-white">
               <Image height={30} width={30} src={'/img/telegram.svg'} alt="" className="inline w-[30px]" />
             </button>

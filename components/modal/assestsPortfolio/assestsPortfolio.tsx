@@ -105,7 +105,7 @@ export default function ModalAssetsPortfolio({
             <div className="fixed inset-0 bg-[#000000aa] transition-opacity" />
           </Transition.Child>
           <div className="fixed inset-0 z-10">
-            <div className="flex min-h-full items-center justify-center p-4 text-center items-center p-0">
+            <div className="flex min-h-full items-center justify-center p-4 text-center p-0">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -127,7 +127,7 @@ export default function ModalAssetsPortfolio({
                       <div className="w-[7.5rem] sm:w-[9.375rem]">
                         <InputSearch
                           value={searchFiatInput}
-                          className="border border-solid border-transparent focus-within:border-color-primary dark:!bg-color-panel-bg-primary"
+                          className="border border-solid border-transparent focus-within:border-color-primary dark:!bg-color-panel-bg-primary !bg-color-light-bg-primary"
                           showClose={searchFiatInput !== '' ? true : false}
                           onClose={() => {
                             setSearchFiatInput('');
@@ -149,7 +149,8 @@ export default function ModalAssetsPortfolio({
                         className={cn(
                           ' cursor-pointer px-2 font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow rounded-[5px]',
                           {
-                            'dark:bg-color-panel-bg-primary text-black bg-white font-bold dark:text-white': tab === 0,
+                            'dark:bg-color-panel-bg-primary text-black bg-color-light-active-primary font-bold dark:text-white':
+                              tab === 0,
                             'dark:bg-color-header-secondary bg-white dark:text-white text-black': tab === 1,
                           },
                         )}
@@ -290,11 +291,11 @@ export default function ModalAssetsPortfolio({
                         type="radio"
                         checked={true}
                         name="default-radio"
-                        className="w-4 h-4 accent-amber-500 bg-gray-100 border-gray-300 ring-none outline-none"
+                        className="w-4 h-4 accent-color-primary bg-gray-100 border-gray-300 ring-none outline-none"
                       />
                     )}
                     {item.id !== localFiat?.id && (
-                      <div className="w-4 h-4 border border-solid border-gray-600 bg-gray-800 rounded-full"></div>
+                      <div className="w-4 h-4 border border-solid dark:border-gray-600 border-gray-300 dark:bg-gray-800 bg-gray-200 rounded-full"></div>
                     )}
 
                     <div className="text-[12px]">{item.name}</div>

@@ -98,7 +98,7 @@ const DepositCryptoComponent = () => {
           {currentDepositTime < 3 && (
             <div className="flex items-center gap-[5px]">
               <div
-                className="text-start text-[14px] dark:text-[#C2C2C2] text-[#31373d]"
+                className="text-start text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary"
                 dangerouslySetInnerHTML={{
                   __html: t('deposit:getExtra', {
                     percent: depositDetail.rankReturn,
@@ -115,15 +115,15 @@ const DepositCryptoComponent = () => {
                 role="button"
                 data-tooltip-id={'deposit-tooltip'}
               />
-              <Tooltip id={'deposit-tooltip'} place="bottom">
+              <Tooltip id={'deposit-tooltip'} place="bottom" className="dark:bg-black bg-white">
                 <div>
                   <p className="text-white">
                     {depositDetail.rankReturn}&nbsp;{t('deposit:depositBonus')}
                   </p>
-                  <p className="text-[#98a7b5]">{`${depositDetail.percent}% ${t('deposit:upTo')} ${
+                  <p className="text-color-text-primary">{`${depositDetail.percent}% ${t('deposit:upTo')} ${
                     depositDetail.uptoAmount
                   } USDT`}</p>
-                  <p className="text-[#98a7b5]">
+                  <p className="text-color-text-primary">
                     {t('deposit:minimumDeposit')}{' '}
                     {`${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${activeCoin.name}`}
                   </p>
@@ -133,7 +133,7 @@ const DepositCryptoComponent = () => {
           )}
 
           {wallets.findIndex((wallet) => wallet.networkId === activeNetwork.id) != -1 && (
-            <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-[#31373d] rounded-[3px] gap-[20px] py-[13px] px-[20px] dark:bg-color-canvas-bg-primary bg-[#f5f6fa]">
+            <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-color-light-text-primary rounded-[3px] gap-[20px] py-[13px] px-[20px] dark:bg-color-canvas-bg-primary bg-color-light-bg-primary">
               <div className="rounded-[16px]">
                 <Canvas
                   text={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
@@ -150,10 +150,10 @@ const DepositCryptoComponent = () => {
               </div>
               <div className="flex flex-col gap-[10px] items-start">
                 <>
-                  <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">
+                  <div className="text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                     {t('deposit:depositAddress')}
                   </div>
-                  <div className="flex-1 flex items-center justify-between gap-[20px] bg-[#17181C] p-[10px]">
+                  <div className="flex-1 flex items-center justify-between gap-[20px] dark:bg-[#17181C] bg-[#E7EAF0] p-[10px]">
                     <DepositAddressComponent
                       className="text-[14px] text-start"
                       address={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
@@ -171,28 +171,13 @@ const DepositCryptoComponent = () => {
                     </div>
                   </div>
                 </>
-                {activeCoin.name === 'BNB' && (
-                  <>
-                    <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">
-                      {t('deposit:orSupport')}
-                    </div>
-                    <div
-                      className="flex items-center gap-[10px]"
-                      role="button"
-                      onClick={() => setOpenDepositMetamask(true)}
-                    >
-                      <Image src="/img/icon/MetaMask.png" alt="" width={30} height={30} />
-                      <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">Metamask</div>
-                    </div>
-                  </>
-                )}
               </div>
             </div>
           )}
         </div>
-        <div className="mt-[20px] w-full px-[20px] py-[10px] dark:text-white text-[#31373d] dark:bg-color-notice-primary bg-[#f5f6fa] rounded-[3px] text-start">
+        <div className="mt-[20px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 rounded-[3px] text-start">
           <h1 className="text-[14px]">
-            <span className="text-[#0EC505] me-1 inline text-[16px]">{t('deposit:notice')}</span>{' '}
+            <span className="text-color-primary me-1 inline text-[16px]">{t('deposit:notice')}</span>{' '}
             {t('deposit:doNotDeposit', { crypto: String(activeCoin.name) })}
           </h1>
         </div>

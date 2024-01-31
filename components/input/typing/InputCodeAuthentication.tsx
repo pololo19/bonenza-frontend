@@ -56,7 +56,7 @@ const InputCodeAuthentication = <TFieldValues extends Record<string, unknown>>({
       render={({ field, fieldState: { error } }) => {
         return (
           <div className="w-full flex-1 ">
-            <div className="bg-white dark:bg-white rounded-[10px] flex items-center p-[15px] gap-[18px]">
+            <div className="bg-white dark:bg-white rounded-[10px] flex items-center p-[15px] gap-[18px] dark:dark-autofill light-autofill">
               <Code1 width={20} />
               <div className="w-[1px] h-[13px] bg-[#C3CDDB]" />
               <input

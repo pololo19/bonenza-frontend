@@ -251,7 +251,7 @@ const WithdrawCryptoPage = () => {
             <Link
               href={ROUTER.WithdrawFiat}
               className={cn(
-                'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-[#272C33] border-[#ccc] pb-[10px]',
+                'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
               )}
               role="button"
             >
@@ -271,11 +271,11 @@ const WithdrawCryptoPage = () => {
 
             <form onSubmit={handleSubmit(handleConfirmWithdraw)}>
               <div className="mt-[20px] text-left">
-                <div className="text-[14px] dark:text-[#98a7b5] text-[#31373d] mb-[10px] text-left">
+                <div className="text-[14px] dark:text-color-text-primary text-color-light-text-primary mb-[10px] text-left">
                   {t('withdraw:withdrawalAddress')}
                 </div>
                 <InputText
-                  customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-[#f6f7fa] !text-[14px]"
+                  customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-[14px]"
                   control={control}
                   placeholder={String(t('withdraw:withdrawalAddressPlaceholder'))}
                   name="withdrawAddress"
@@ -284,16 +284,16 @@ const WithdrawCryptoPage = () => {
 
               <div className="mt-[20px] text-left">
                 <div className="flex justify-between">
-                  <div className="text-[14px] dark:text-[#98a7b5] text-[#31373d] mb-[10px] text-left">
+                  <div className="text-[14px] dark:text-color-text-primary text-color-light-text-primary mb-[10px] text-left">
                     {t('withdraw:withdrawAmount')}
                   </div>
-                  <div className="text-[14px] dark:text-[#98a7b5] text-[#31373d] mb-[10px] text-left">
+                  <div className="text-[14px] dark:text-color-text-primary text-color-light-text-primary mb-[10px] text-left">
                     {t('deposit:min')} : {renderMinValue.min}
                   </div>
                 </div>
                 <div
                   className={cn(
-                    'w-full pl-[18px] min-h-[51px] pr-[20px] py-[5px] text-[16px] rounded-[3px] dark:bg-color-input-primary bg-[#f6f7fa] flex items-center justify-between gap-[10px] border-[1px] border-solid border-transparent focus-within:border-color-primary',
+                    'w-full pl-[18px] min-h-[51px] pr-[20px] py-[5px] text-[16px] rounded-[3px] dark:bg-color-input-primary bg-color-light-input-primary flex items-center justify-between gap-[10px] border-[1px] border-solid border-transparent focus-within:border-color-primary',
                     {
                       'border-red-500 border border-solid': errors.withdrawAmount?.message,
                     },
@@ -349,7 +349,9 @@ const WithdrawCryptoPage = () => {
                 </div>
                 <div className="flex justify-between mt-2 text-[14px]">
                   <div className="flex gap-1 flex-wrap">
-                    <span className="dark:text-[#98a7b5] text-[#37313d]">{t('withdraw:available')}:</span>
+                    <span className="dark:text-color-text-primary text-color-light-text-primary">
+                      {t('withdraw:available')}:
+                    </span>
                     <span className="dark:text-[#fff] text-[#000] flex">
                       {localFiat
                         ? currencyFormat1(
@@ -362,7 +364,7 @@ const WithdrawCryptoPage = () => {
                   </div>
                   <div className="flex gap-1 flex-wrap justify-end">
                     <span
-                      className="dark:text-[#98a7b5] text-[#37313d] underline cursor-pointer"
+                      className="dark:text-color-text-primary text-color-light-text-primary underline cursor-pointer"
                       onClick={() => setOpenRollover(true)}
                     >
                       {t('withdraw:lockedFunds')}:
@@ -376,10 +378,10 @@ const WithdrawCryptoPage = () => {
                   <span className="text-red-500 w-full"> {errors.withdrawAmount?.message}</span>
                 )}
               </div>
-              <div className="dark:bg-color-input-primary bg-[#f5f6fa] rounded-[3px] px-[12px] py-[6px] dark:text-[#98a7b5] text-[#31373d] mt-[22px] flex flex-col gap-[12px]">
+              <div className="dark:bg-color-input-primary bg-color-light-bg-primary rounded-[3px] px-[12px] py-[6px] dark:text-color-text-primary text-color-light-text-primary mt-[22px] flex flex-col gap-[12px]">
                 <div className="flex items-center justify-between">
                   <div className="text-[14px]">{t('withdraw:totalWithdrawAmount')}</div>
-                  <div className="dark:text-color-primary text-[#31373d] font-semibold">
+                  <div className="dark:text-color-primary text-color-light-text-primary font-semibold">
                     {currencyFormat1(Number(watch('withdrawAmount')), 4, '', false)} {activeCoin.name}
                   </div>
                 </div>
@@ -394,13 +396,13 @@ const WithdrawCryptoPage = () => {
                     />
                     <Tooltip id={'fee-tooltip'} place="bottom" content={String(t('withdraw:feeTooltip'))} />
                   </div>
-                  <div className="font-semibold dark:text-white text-[#31373d]">
+                  <div className="font-semibold dark:text-white text-color-light-text-primary">
                     {currencyFormat1(renderMinValue.fee, 4, '', false)} {activeCoin.name}
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="text-[14px]">{t('withdraw:withDrawAmount')}</div>
-                  <div className="font-semibold dark:text-white text-[#31373d]">
+                  <div className="font-semibold dark:text-white text-color-light-text-primary">
                     {Number(watch('withdrawAmount')) - renderMinValue.fee > 0
                       ? currencyFormat1(Number(watch('withdrawAmount')) - renderMinValue.fee, 4, '', false)
                       : currencyFormat1(0, 4, '', false)}{' '}
@@ -408,7 +410,7 @@ const WithdrawCryptoPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-white text-[#31373d] dark:bg-color-notice-primary bg-[#f5f6fa] rounded-[3px] text-start">
+              <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 rounded-[3px] text-start">
                 <h1 className="text-[16px]">
                   <span className="text-color-primary me-1 inline">{t('withdraw:notice')}</span> {t('withdraw:note2')}{' '}
                   {activeCoin.name}
@@ -423,7 +425,7 @@ const WithdrawCryptoPage = () => {
                   {t('withdraw:confirm')}
                 </button>
               </div>
-              <div className="flex items-center justify-end text-[16px] text-[#98a7b5] gap-[5px] mt-5">
+              <div className="flex items-center justify-end text-[16px] text-color-text-primary gap-[5px] mt-5">
                 <div>{t('deposit:share')}</div>
                 <Link href={'/'}>
                   <Image src={'/img/facebook.png'} alt="" width={30} height={30} />

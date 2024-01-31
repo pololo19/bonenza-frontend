@@ -93,14 +93,14 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                             className={cn('flex items-center justify-start p-[10px] w-full rounded text-[14px]', {
                               'border-[0.5px] border-solid border-color-primary font-semibold dark:text-white text-black':
                                 router.route.includes(item.href),
-                              'dark:hover:bg-gray-500 dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-[#3137ed]':
+                              'dark:hover:bg-gray-500 dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-color-light-text-primary':
                                 !router.route.includes(item.href),
                             })}
                             role="button"
                           >
                             <div
                               className={cn('flex-1 flex items-center justify-start gap-[10px]', {
-                                ' after:w-[8px] after:h-[8px] after:bg-[#3BC117] after:rounded-full after:shadow-[0_0_0_0.3125rem_#3bc11726]':
+                                ' after:w-[8px] after:h-[8px] after:bg-color-primary after:rounded-full after:shadow-[0_0_0_0.3125rem_#3bc11726]':
                                   router.route.includes(item.href),
                               })}
                             >
@@ -130,8 +130,8 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                           href={item.href}
                           icon={() => null}
                           key={index}
-                          classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
+                          classNames="dark:hover:text-white !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-primary !bg-color-light-bg-primary dark:text-white text-black"
                         />
                       ))}
                     </ul>

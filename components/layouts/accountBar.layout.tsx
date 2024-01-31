@@ -106,13 +106,12 @@ const AccountPannel: React.FC = () => {
   const { t, i18n } = useTranslation('');
   const dispatch = useAppDispatch();
 
-  const { setTheme } = useTheme();
-  const [mode, setMode] = useState(0);
+  const { setTheme, theme } = useTheme();
   const router = useRouter();
 
   useEffect(() => {
-    const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
-    setMode(theme);
+    const savedtheme = localStorage.getItem('theme') ?? 'dark';
+    setTheme(savedtheme);
   }, []);
 
   const { totalBalance, localFiat, isLogin, avatar, userName, userId, isShow } = useSelector(
@@ -206,15 +205,14 @@ const AccountPannel: React.FC = () => {
         isArrow: false,
         extra: (
           <>
-            <ul className="flex justify-center md:w-fit rounded-[3px] md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary">
+            <ul className="flex justify-center md:w-fit rounded-[3px] md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary bg-color-light-bg-primary">
               <div
                 role="button"
                 className={cn('p-[8px]', {
-                  'bg-color-panel-bg-primary': mode === 0,
-                  'bg-transparent': mode === 1,
+                  'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme === 'dark',
+                  'bg-transparent': theme === 'light',
                 })}
                 onClick={() => {
-                  setMode(0);
                   setTheme('dark');
                 }}
               >
@@ -223,11 +221,10 @@ const AccountPannel: React.FC = () => {
               <div
                 role="button"
                 className={cn('p-[8px]', {
-                  'bg-color-panel-bg-primary': mode === 1,
-                  'bg-transparent': mode === 0,
+                  'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme === 'light',
+                  'bg-transparent': theme === 'dark',
                 })}
                 onClick={() => {
-                  setMode(1);
                   setTheme('light');
                 }}
               >
@@ -240,7 +237,7 @@ const AccountPannel: React.FC = () => {
         classNames: '',
       },
     ],
-    [i18n.language, mode],
+    [i18n.language, theme],
   );
 
   const walletDatas: IconOptionProps[] = useMemo(
@@ -249,49 +246,57 @@ const AccountPannel: React.FC = () => {
         title: String(t('sidebar:deposit')),
         icon: MoneyRecive,
         href: ROUTER.DepositCrypto,
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
       {
         title: String(t('sidebar:withdraw')),
         icon: CardReceive,
         href: ROUTER.WithdrawCrypto,
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
       {
         title: String(t('sidebar:buyCrypto')),
         icon: Money2,
         href: ROUTER.BuyCrypto,
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
       {
         title: String(t('sidebar:swap')),
         icon: MoneyChange,
         href: ROUTER.Swap,
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
       {
         title: String(t('sidebar:vaultPro')),
         icon: Story,
         href: ROUTER.VaultPro,
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
       {
         title: String(t('sidebar:NFTs')),
         icon: Box,
         href: '/',
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
       {
         title: String(t('sidebar:rollover')),
         icon: Chart,
         href: ROUTER.Rollover,
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
       {
         title: String(t('sidebar:transactions')),
         icon: CardCoin,
         href: ROUTER.Transaction,
-        classNames: 'flex flex-col items-center !bg-transparent gap-[5px] !text-white',
+        classNames:
+          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
     ],
     [i18n.language],
@@ -308,7 +313,7 @@ const AccountPannel: React.FC = () => {
   return (
     <div
       className={cn(
-        'fixed w-screen max-h-[calc(100vh_-_70px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[85px] bottom-[60px] dark:bg-color-bg-primary bg-white shadow sm:hidden',
+        'fixed w-screen max-h-[calc(100vh_-_70px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[85px] bottom-[60px] dark:bg-color-bg-primary bg-color-light-bg-primary shadow sm:hidden',
         {
           'translate-y-full': !isShow,
           'translate-y-0': isShow,
@@ -317,9 +322,9 @@ const AccountPannel: React.FC = () => {
     >
       <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
         {isLogin && (
-          <div className="relative px-[10px] py-[14px] bg-color-panel-bg-secondary rounded-[3px]">
+          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-[3px]">
             <div
-              className="flex items-center flex-1 gap-[14px] border-b-[1px] pb-[15px] border-solid border-color-border-primary mb-[15px]"
+              className="flex items-center flex-1 gap-[14px] border-b-[1px] pb-[15px] border-solid dark:border-color-border-primary border-color-light-border-primary mb-[15px]"
               onClick={() => {
                 dispatch(setUserData({ userId: userId, userName: userName, avatar: avatar }));
                 dispatch(changeIsShowInformation(true));
@@ -347,7 +352,7 @@ const AccountPannel: React.FC = () => {
           </div>
         )}
         {!isLogin && (
-          <div className="relative px-[10px] py-[14px] bg-color-panel-bg-secondary rounded-[3px]">
+          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-[3px]">
             <div className="flex items-center flex-1 gap-[14px]">
               <div className="block w-[55px] h-[55px] rounded-full">
                 <Image height={40} width={40} src="/img/avatar-1.png" alt="" className="w-full h-full" />
@@ -362,7 +367,7 @@ const AccountPannel: React.FC = () => {
             <div className="relative grid grid-cols-2 gap-[10px] mt-[20px]">
               <button
                 type="button"
-                className="truncate text-white rounded-[5px] font-semibold py-[9px] bg-[#3c404a] px-5 text-[14px]"
+                className="truncate dark:text-white bg-color-light-bg-primary text-color-light-text-primary rounded-[5px] font-semibold py-[9px] dark:bg-[#3c404a] px-5 text-[14px]"
                 onClick={() => {
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                   dispatch(changeIsShowAuthenticationModal(true));
@@ -401,18 +406,18 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <div className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-panel-bg-primary rounded-[3px]">
-            <div className="flex justify-between border-solid border-b-[1px] border-color-border-primary">
-              <span className="text-color-text-primary px-[12px] py-[5px] text-[12px] ">
+          <div className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
+            <div className="flex justify-between border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
+              <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] ">
                 {t('balance:totalBalance')}
               </span>
-              <span className="text-color-text-primary px-[12px] py-[5px] text-[12px] ">
+              <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] ">
                 {localFiat && currencyFormat1(totalBalance * exchange, 2, localFiat.name)}
                 {!localFiat && currencyFormat1(totalBalance, 2)}
               </span>
             </div>
 
-            <div className="grid grid-cols-4 bg-color-panel-bg-primary rounded-[3px]">
+            <div className="grid grid-cols-4 dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
               {walletDatas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -427,7 +432,7 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-panel-bg-primary rounded-[3px]">
+          <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
             {initDatas.map((data, index) => (
               <ListItem
                 key={index}
@@ -438,13 +443,13 @@ const AccountPannel: React.FC = () => {
                 isLink={data.isLink}
                 activeClassNames={data.activeClassNames}
                 onClick={data.onClick}
-                classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+                classNames="dark:hover:text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
               />
             ))}
           </ul>
         )}
 
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center bg-color-panel-bg-primary rounded-[3px]">
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
           {settingDatas.map((item, index) => (
             <ListItem
               key={index}
@@ -456,13 +461,13 @@ const AccountPannel: React.FC = () => {
               isArrow={item.isArrow}
               activeClassNames={item.activeClassNames}
               onClick={item.onClick}
-              classNames="dark:hover:text-white text-[#31373d] !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
+              classNames="dark:hover:text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px]"
             />
           ))}
         </ul>
         {isLogin && (
           <div
-            className="dark:text-[#98A7B5] text-[#31373d] py-[15px] font-bold flex items-center justify-center gap-[5px]"
+            className="dark:text-color-text-primary text-color-light-text-primary py-[15px] font-bold flex items-center justify-center gap-[5px]"
             onClick={handleLogout}
           >
             {t('layout:logOut')}

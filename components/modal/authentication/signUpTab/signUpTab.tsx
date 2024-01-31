@@ -121,27 +121,31 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
           <div className="flex w-full">
             <div
               className={cn(
-                ' flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid border-[#272C33] pb-[10px]',
-                { 'bg-gradient-to-t from-[#50c6271a]/20 border-[#50C627]': !isPhoneNumber },
+                ' flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid border-transparent dark:border-color-border-primary pb-[10px]',
+                { 'bg-gradient-to-t from-color-primary/10 !border-color-primary': !isPhoneNumber },
               )}
               role="button"
               onClick={() => {
                 setCheckIsPhoneNumber(false);
               }}
             >
-              <div className="text-[16px] dark:text-white text-black font-[700]">{t('authentication:email')}</div>
+              <div className="text-[16px] dark:text-white text-color-light-text-primary font-[700]">
+                {t('authentication:email')}
+              </div>
             </div>
             <div
               className={cn(
-                'flex-1 flex items-center hover:opacity-[0.9]  justify-center border-b-2 border-solid border-[#272C33] pb-[10px]',
-                { 'bg-gradient-to-t from-[#50c6271a]/20 border-[#50C627]': isPhoneNumber },
+                'flex-1 flex items-center hover:opacity-[0.9]  justify-center border-b-2 border-solid border-transparent dark:border-color-border-primary pb-[10px]',
+                { 'bg-gradient-to-t from-color-primary/10 !border-color-primary': isPhoneNumber },
               )}
               role="button"
               onClick={() => {
                 setCheckIsPhoneNumber(true);
               }}
             >
-              <div className="text-[16px] dark:text-white text-black font-[700]">{t('setting:phoneNumber')}</div>
+              <div className="text-[16px] dark:text-white text-color-light-text-primary font-[700]">
+                {t('setting:phoneNumber')}
+              </div>
             </div>
           </div>
           {returnForm()}
@@ -151,14 +155,14 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               onChange={(event) => {
                 setCheckIsConfirm(event.target.checked);
               }}
-              className="w-[14px] h-[14px] before:bg-[#161D26]"
+              className="w-[14px] h-[14px] checked:bg-color-primary before:bg-[#161D26]"
               type="checkbox"
               id="confirm18"
             />
-            <label htmlFor="confirm18" className="text-[12px] !text-[#98A7B5] font-normal text-start">
+            <label htmlFor="confirm18" className="text-[12px] !text-color-text-primary font-normal text-start">
               <Trans i18nKey="authentication:confirmAtLeast18YearsOld">
                 I agree to the
-                <Link className="text-white font-bold" href="/helper-center/terms-of-service/" target="_blank">
+                <Link className="text-color-primary font-bold" href="/helper-center/terms-of-service/" target="_blank">
                   User Agreement
                 </Link>
                 & confirm I am at least 18 years old
@@ -175,7 +179,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               type="checkbox"
               id="vehicle1"
             />
-            <label htmlFor="vehicle1" className="text-[12px] !text-[#98A7B5] font-normal text-start">
+            <label htmlFor="vehicle1" className="text-[12px] !text-color-text-primary font-normal text-start">
               {t('authentication:agreeToReceive')}
             </label>
           </div>
@@ -193,7 +197,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         </button>
         <div className="flex">
           <div role="button" className="text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
-            <span className="text-[#98A7B5]">{t('authentication:alreadyHaveAccount')}&nbsp;&nbsp;</span>
+            <span className="text-color-text-primary">{t('authentication:alreadyHaveAccount')}&nbsp;&nbsp;</span>
             <span
               className="text-[#50c627] hover:text-amber-500 hover:underline"
               onClick={() => {

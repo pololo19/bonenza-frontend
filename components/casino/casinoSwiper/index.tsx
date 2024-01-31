@@ -45,7 +45,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
                 return (
                   <SwiperSlide
                     key={key}
-                    className="sm:!w-[150px] w-full !mb-0 !p-[10px] sm:!p-0 !bg-[#2E3035] sm:!bg-auto"
+                    className="sm:!w-[150px] w-full !mb-0 !p-[10px] sm:!p-0 dark:!bg-[#2E3035] !bg-white sm:!bg-auto"
                     onClick={() => onClickItem?.(game)}
                   >
                     {renderItem(game)}

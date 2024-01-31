@@ -102,14 +102,24 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
     const myBetColumnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'betId',
-        header: () => <div className="text-left dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:betId')}</div>,
+        header: () => (
+          <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:betId')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d] truncate sm:w-auto w-[30vw]">{row.original.betId}</div>
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:w-auto w-[30vw]">
+            {row.original.betId}
+          </div>
         ),
       },
       {
         accessorKey: 'betAmount',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:bet')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:bet')}
+          </div>
+        ),
         cell: ({ row }) => (
           <>
             {row.original.betAmount !== null && (
@@ -135,25 +145,37 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       },
       {
         accessorKey: 'time',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:time')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:time')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d] truncate text-center">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate text-center">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}
           </div>
         ),
       },
       {
         accessorKey: 'payout',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:payout')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:payout')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d] font-bold truncate text-center">
+          <div className="dark:text-color-text-primary text-color-light-text-primary font-bold truncate text-center">
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
       },
       {
         accessorKey: 'profit',
-        header: () => <div className="text-right dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:profit')}</div>,
+        header: () => (
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:profit')}
+          </div>
+        ),
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-end gap-[5px]')}>
             <div
@@ -254,7 +276,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-[10px] dark:text-[#FFFFFF] text-[#31373d] font-bold mr-[6px]">
+              <div className="text-[10px] dark:text-[#FFFFFF] text-color-light-text-primary font-bold mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (

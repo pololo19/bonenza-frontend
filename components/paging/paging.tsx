@@ -38,10 +38,10 @@ const Paging: React.FC<IProps> = ({
       {hiddenPerPage && (
         <Menu
           as="div"
-          className="relative h-[38px] flex items-center justify-center text-[14px] min-w-[60px] select-none"
+          className="relative h-[38px] flex items-center justify-center text-[14px] min-w-[60px] select-none bg-color-light-bg-primary dark:bg-transparent"
         >
-          <Menu.Button className="flex-1">
-            <div className="flex items-center justify-center w-full gap-2" role="button">
+          <Menu.Button className="flex-1 ">
+            <div className="flex items-center justify-center w-full gap-2 dark:text-white text-black" role="button">
               {itemPerPage}
               <ArrowDown2 className="h-[16px] w-[16px]" />
             </div>
@@ -56,7 +56,7 @@ const Paging: React.FC<IProps> = ({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute dark:bg-color-pagination-primary bg-white w-full origin-top-right right-0 top-[40px] z-[10] cursor-pointer">
+            <Menu.Items className="absolute dark:bg-color-pagination-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[40px] z-[10] cursor-pointer">
               <div className="py-0">
                 {LIST_ITEM_PER_PAGE.map((item, index) => (
                   <Menu.Item key={index}>
@@ -86,7 +86,9 @@ const Paging: React.FC<IProps> = ({
         <div className="flex">
           <button
             className={`p-2 ${
-              disablePrev ? 'opacity-20 cursor-not-allowed' : 'dark:hover:bg-[#24262b80] hover-bg[#f5f6fa]'
+              disablePrev
+                ? 'opacity-20 cursor-not-allowed'
+                : 'dark:hover:bg-[#24262b80] dark:text-white text-black hover:bg-[#f5f6fa] dark:bg-transparent bg-color-light-bg-primary'
             }`}
             onClick={() => onPageChange?.('Prev')}
             disabled={disablePrev}
@@ -95,7 +97,9 @@ const Paging: React.FC<IProps> = ({
           </button>
           <button
             className={`p-2 ${
-              disableNext ? 'opacity-20 cursor-not-allowed' : 'dark:hover:bg-[#24262b80] hover-bg[#f5f6fa]'
+              disableNext
+                ? 'opacity-20 cursor-not-allowed'
+                : 'dark:hover:bg-[#24262b80] dark:text-white text-black hover:bg-[#f5f6fa] dark:bg-transparent bg-color-light-bg-primary'
             }`}
             onClick={() => onPageChange?.('Next')}
             disabled={disableNext}

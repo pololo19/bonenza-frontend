@@ -60,7 +60,7 @@ const InputText = <TFieldValues extends Record<string, unknown>>({
               {...field}
               name={name}
               className={cn(
-                'dark:text-white text-[#31373d] w-full text-[16px] rounded-[3px] placeholder:text-[#53575C] outline-none border-[1px] border-solid border-transparent focus-within:border-color-primary',
+                'dark:text-white text-color-light-text-primary w-full text-[16px] rounded-[3px] placeholder:text-[#53575C] outline-none border-[1px] border-solid border-transparent focus-within:border-color-primary dark:dark-autofill light-autofill',
                 customClass,
                 {
                   'border-red-500 border border-solid': !!error?.message,

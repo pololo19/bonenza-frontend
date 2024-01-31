@@ -80,7 +80,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-color-bg-primary',
+                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent dark:dark-autofill light-autofill',
                 {
                   'py-[13.5px]': showPhoneNumber,
                   'py-[15px]': !showPhoneNumber,
@@ -135,7 +135,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full bg-white dark:bg-color-bg-primary focus:outline-none text-[14px] text-black dark:text-white',
+                  'w-full bg-transparent focus:outline-none text-[14px] text-black dark:text-white active:bg-transparent active:shadow-none',
                   customClass,
                   {
                     'border-red-500': !!error?.message,

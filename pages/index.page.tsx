@@ -3,6 +3,7 @@ import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
@@ -51,12 +52,13 @@ import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
-import Script from 'next/script';
+import { useTheme } from 'next-themes';
 
 function IndexPage() {
   const width = useWidth();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
+  const { theme } = useTheme();
   const { query } = useRouter();
   const { key } = query;
 
@@ -329,22 +331,26 @@ function IndexPage() {
                     height={0}
                     className="sm:object-cover object-contain absolute right-0 w-full"
                     style={{ width: '100% !important' }}
-                    src="/img/homepage-bg-9.png"
+                    src={theme === 'dark' ? '/img/homepage-bg-9.png' : '/img/homepage-bg-11.png'}
                     alt=""
                   />
                 </Slider>
               </div>
 
-              <div className="absolute inset-0 bg-gradient-default" />
+              <div className="absolute inset-0 dark:bg-gradient-default bg-light-gradient-default" />
               <div className="relative z-[2] h-auto sm:pt-[60px] sm:pb-[20px] w-full">
                 {!isLogin && (
                   <div className="sm:text-start text-center font-semibold sm:block hidden">
                     <div>
-                      <span className="text-white text-[20px]">{String(t('homePage:signUpUpper'))} & </span>
-                      <span className="text-color-primary text-[20px]">{String(t('homePage:getReward'))}</span>
+                      <span className="dark:text-white text-black text-[20px] font-bold">
+                        {String(t('homePage:signUpUpper'))} &{' '}
+                      </span>
+                      <span className="text-color-primary font-bold text-[20px]">
+                        {String(t('homePage:getReward'))}
+                      </span>
                     </div>
                     <div className={'lg:text-[56px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
-                      <span className="text-white font-bold">{String(t('homePage:upTo'))} </span>
+                      <span className="dark:text-white text-black font-bold">{String(t('homePage:upTo'))} </span>
                       <span className={`bg-gradient-text bg-clip-text text-transparent font-bold`}>
                         {currencyFormat1(20000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
                       </span>
@@ -353,13 +359,13 @@ function IndexPage() {
                 )}
                 {isLogin && (
                   <div className="sm:text-start text-center hidden sm:block">
-                    <div className="text-white text-[18px] font-semibold">
+                    <div className="dark:text-white text-black text-[18px] font-semibold">
                       {String(t('homePage:welcomeBack'))}
                       {String(', ')} {userName}
                     </div>
                     {!checkDeposit && (
                       <div>
-                        <div className="sm:text-[24px] text-[20px] text-white mt-[6px]">
+                        <div className="sm:text-[24px] text-[20px] dark:text-white font-bold text-black mt-[6px]">
                           {String(t('homePage:firstDepositBonus'))}
                         </div>
                         <div
@@ -384,7 +390,7 @@ function IndexPage() {
                       >
                         {t('homePage:signUpNow')}
                       </button>
-                      <div className="text-[16px] text-white">{t('homePage:or')}</div>
+                      <div className="text-[16px] dark:text-white text-black">{t('homePage:or')}</div>
                     </div>
                   )}
                   {isLogin && (
@@ -453,21 +459,21 @@ function IndexPage() {
                         <Link
                           href={selectedCasino === 'recent' ? ROUTER.Recent : ROUTER.Favorite}
                           role="button"
-                          className="rounded-[5px] font-bold text-[10px] dark:text-color-primary text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                          className="rounded-[5px] font-bold text-[10px] text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
                         >
                           {t('gameDetail:viewAll')}
                         </Link>
                       </div>
                     </div>
-                    <div className="flex gap-[10px] dark:text-color-text-primary text-[14px] mt-[10px] text-black">
+                    <div className="flex gap-[10px] dark:text-color-text-primary text-color-light-text-primary text-[14px] mt-[10px]">
                       <span
-                        className={cn({ 'text-white': selectedCasino === 'recent' })}
+                        className={cn({ 'dark:text-white text-black': selectedCasino === 'recent' })}
                         onClick={() => setSelectedCasino('recent')}
                       >
                         {String(t('casino:recent'))}
                       </span>
                       <span
-                        className={cn({ 'text-white': selectedCasino === 'favorite' })}
+                        className={cn({ 'dark:text-white text-black': selectedCasino === 'favorite' })}
                         onClick={() => setSelectedCasino('favorite')}
                       >
                         {String(t('casino:favorite'))}
@@ -512,7 +518,7 @@ function IndexPage() {
                 </>
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
-              <div className="bg-[url('/img/octopus.png')] relative w-full sm:flex hidden flex-col max-[857px]:pt-[20px] min-[858px]:flex-row items-center bg-no-repeat justify-between max-[857px]:bg-[length:100%_45%] bg-[length:100%_100%] rounded-[5px]">
+              <div className="dark:bg-[url('/img/octopus.png')] bg-[url('/img/octopus-light.png')] relative w-full sm:flex hidden flex-col max-[857px]:pt-[20px] min-[858px]:flex-row items-center bg-no-repeat justify-between max-[857px]:bg-[length:100%_45%] bg-[length:100%_100%] rounded-[5px]">
                 <div className="flex-1 flex items-center justify-center min-h-[105px]">
                   <Image
                     src={'/img/img-payment.png'}
@@ -522,11 +528,11 @@ function IndexPage() {
                     alt=""
                   />
                 </div>
-                <div className="py-[35px] max-sm:pt-[16px] w-full min-[858px]:pl-[56px] flex-1 min-[858px]:bg-[#1D1E2280] relative z-[1] md:backdrop-blur-[5px]">
+                <div className="py-[35px] max-sm:pt-[16px] w-full min-[858px]:pl-[56px] flex-1 dark:min-[858px]:bg-[#1D1E2280] min-[858px]:bg-white/50 relative z-[1] md:backdrop-blur-[5px]">
                   <div className="min-[858px]:max-w-[362px] relative z-1 flex flex-col gap-[22px] max-[857px]:items-center">
-                    <div className="sm:text-[20px] text-[16px] max-[857px]:max-w-[362px] max-[857px]:text-center">
-                      {t('homePage:getStarted')} <span className="text-color-primary">300%</span>{' '}
-                      {t('bonus:depositBonus')}
+                    <div className="sm:text-[20px] text-[16px] max-[857px]:max-w-[362px] max-[857px]:text-center dark:text-white text-color-light-text-primary">
+                      <span className="font-bold">{t('homePage:getStarted')}</span>{' '}
+                      <span className="text-color-primary">300%</span> {t('bonus:depositBonus')}
                     </div>
                     <div
                       className="bg-gradient-btn-default rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
@@ -547,26 +553,28 @@ function IndexPage() {
               </div>
               <div className="relative w-full sm:block hidden">
                 <div className="md:hidden block absolute top-0 left-0 h-full w-full z-[1] bg-[#1D1E22]"></div>
-                <div className="flex md:flex-row flex-col justify-between relative z-[2] min-[858px]:min-h-[270px] bg-no-repeat bg-[length:100%_50%] max-sm:bg-center sm:bg-[length:100%_100%] px-[20px] md:pl-[30px] md:bg-[url('/img/whale.png')]">
+                <div className="flex md:flex-row flex-col justify-between relative z-[2] min-[858px]:min-h-[270px] bg-no-repeat bg-[length:100%_50%] max-sm:bg-center sm:bg-[length:100%_100%] px-[20px] md:pl-[30px] md:dark:bg-[url('/img/whale.png')] md:bg-[url('/img/whale-light.png')]">
                   <div
                     className={`flex-col z-[2] md:items-start items-center py-[32px] md:py-[40px] pr-5 gap-[24px] md:gap-[30px] ${
                       isLogin ? 'flex' : 'md:flex'
                     }`}
                   >
                     {!isLogin && (
-                      <div className="text-[20px] font-semibold text-white">
+                      <div className="text-[20px] font-semibold dark:text-white text-black">
                         {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
                         <div className="text-[14px] text-color-text-secondary mt-5">
                           {String(t('homePage:onlyVIPClub'))}
                         </div>
                         <div className="mt-[50px]">
-                          <button className="px-[60px] py-[8px] bg-gradient-btn-default text-[14px]">Sign Up</button>
+                          <button className="px-[60px] py-[8px] bg-gradient-btn-default text-[14px] text-white">
+                            Sign Up
+                          </button>
                         </div>
                       </div>
                     )}
                     {isLogin && (
-                      <div className="text-[20px] font-semibold text-white">
+                      <div className="text-[20px] font-semibold dark:text-white text-black">
                         {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
                         <div className="text-[14px] text-color-text-secondary mt-5">
@@ -593,7 +601,7 @@ function IndexPage() {
                       </div>
                     )}
                   </div>
-                  <div className="absolute inset-0 bg-gradient-default" />
+                  <div className="absolute inset-0 dark:bg-gradient-default bg-light-gradient-default" />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
@@ -640,7 +648,7 @@ function IndexPage() {
                       dangerouslySetInnerHTML={{ __html: t('homePage:playersAreAlways') }}
                     ></div>
                     <div
-                      className="mt-5 cursor-pointer flex items-center gap-[10px] dark:text-color-primary text-amber-600"
+                      className="mt-5 cursor-pointer flex items-center gap-[10px] text-color-primary"
                       onClick={() => {
                         dispatch(changeIsShowCryptoOnlineModal(true));
                       }}
@@ -654,7 +662,7 @@ function IndexPage() {
                       {String(t('homePage:helpUsImproveYourExperience'))}
                     </div>
                     <textarea
-                      className="rounded-[16px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-[13px] p-[20px] resize-none placeholder:text-[13px] placeholder:text-[#53575C]"
+                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-[13px] p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
@@ -667,10 +675,7 @@ function IndexPage() {
                       <span className="text-[13px] text-color-text-secondary mr-[10px]">
                         {String(t('homePage:orEmail'))}
                       </span>
-                      <a
-                        href="mailto:feedback@bonenza.com"
-                        className="text-[13px] dark:text-color-primary text-amber-600 hover:text-color-primary cursor-pointer"
-                      >
+                      <a href="mailto:feedback@bonenza.com" className="text-[13px] text-color-primary cursor-pointer">
                         feedback@bonenza.com
                       </a>
                     </div>
