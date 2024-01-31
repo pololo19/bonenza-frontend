@@ -353,9 +353,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   useEffect(() => {
     if (walletSocket && isLogin) {
-      walletSocket.on(`${userId}:deposit`, (item: any) => {
-        console.log(item, 'deposit');
-        const data = JSON.parse(item);
+      walletSocket.on(`${userId}:deposit`, (data: any) => {
+        console.log(data, 'deposit');
+        // const data = JSON.parse(item);
         const status = data?.status || '';
         const amount = data?.amount || 0;
         const symbol = data?.symbol || 'USDT';
