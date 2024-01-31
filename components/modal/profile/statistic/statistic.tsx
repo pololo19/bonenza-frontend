@@ -7,15 +7,10 @@ import { useTheme } from 'next-themes';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
+import { api_BetStatistics } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import {
-  currencyFormat,
-  currencyFormat1,
-  exchangeByLocaleFiat,
-  formatLengthNumber,
-  handleLocaleSymbol,
-} from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import Paging from '@/components/paging/paging';
 import RankingTableComponent from '@/components/table/rankingTable';
@@ -26,16 +21,25 @@ type ModalStatisticProps = {
   userData: UserDetail;
 };
 
+type StatisticTransactionType = {
+  currencyLogo: string;
+  curency: string;
+  wins: number;
+  bets: number;
+  wagered: number;
+  wageredUsd: number;
+};
+
 export default function Statistic({ userData }: ModalStatisticProps) {
   const { theme } = useTheme();
   const { t } = useTranslation('');
+  const exchange = useExchange();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [game, setGame] = useState<GameDetail>();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalTable, setTotalTable] = useState(0);
-  const [dataStatistic, setDataStatistic] = useState<any>({});
-  const [statisticTransaction, setStatisticTransaction] = useState([]);
+  const [statisticTransaction, setStatisticTransaction] = useState<StatisticTransactionType[]>([]);
   const [listGames, setListGame] = useState<GameDetail[]>([]);
 
   const { userName, userId, avatar, viewInFiat, localFiat } = useSelector(
@@ -59,15 +63,13 @@ export default function Statistic({ userData }: ModalStatisticProps) {
             <Image
               height={20}
               width={20}
-              src={`/img/fiats/${row.original?.sourceAccount || row.original?.currency}.png`}
+              src={row.original.currencyLogo}
               alt=""
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
             />
-            <span className="dark:text-white text-black font-bold">
-              {row.original?.sourceAccount || row.original?.currency}
-            </span>
+            <span className="dark:text-white text-black font-bold">{row.original.currency}</span>
           </div>
         ),
       },
@@ -75,14 +77,14 @@ export default function Statistic({ userData }: ModalStatisticProps) {
         accessorKey: 'win',
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:win')}</div>,
         cell: ({ row }) => (
-          <div className="font-bold dark:text-white text-[#000] truncate text-center">{row.original?.countWin}</div>
+          <div className="font-bold dark:text-white text-[#000] truncate text-center">{row.original.wins}</div>
         ),
       },
       {
         accessorKey: 'betAmount',
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:bet')}</div>,
         cell: ({ row }) => (
-          <div className="font-bold dark:text-white text-[#000] truncate text-center">{row.original?.countBet}</div>
+          <div className="font-bold dark:text-white text-[#000] truncate text-center">{row.original.bets}</div>
         ),
       },
       {
@@ -90,63 +92,33 @@ export default function Statistic({ userData }: ModalStatisticProps) {
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:wagered')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-white text-[#000] truncate text-center font-bold">
-            {formatLengthNumber(row.original?.wagered)}
+            {localFiat
+              ? currencyFormat1(row.original.wageredUsd * exchange, 2, localFiat.name)
+              : currencyFormat1(row.original.wagered, 4, '', false)}
           </div>
         ),
       },
     ];
     return statisticsColumnsDefault;
-  }, []);
-
-  useEffect(() => {
-    handleGetListGame();
-  }, []);
-
-  useEffect(() => {
-    handleGetStatisticsGamingList();
-  }, [page, game]);
+  }, [exchange]);
 
   useEffect(() => {
     handleGetStatisticTransaction();
-  }, [game]);
-
-  const handleGetListGame = async () => {
-    try {
-      const res = await api.get('game/get-all-games');
-      setListGame(res.data.data);
-    } catch (error) {
-      setListGame([]);
-    } finally {
-    }
-  };
+  }, []);
 
   const handleGetStatisticTransaction = async () => {
     try {
-      const res = await api.get('game/statistics-gaming-transaction', {
-        params: {
-          gameId: game?.id,
-          userId: userData?.userId || userId,
-        },
-      });
-      setDataStatistic(res.data.data);
-    } catch (error) {
-    } finally {
-    }
-  };
-
-  const handleGetStatisticsGamingList = async () => {
-    try {
       setIsLoading(true);
-      const res = await api.get('game/statistics-game-list', {
-        params: {
-          gameId: game?.id,
-          userId: userData?.userId || userId,
-          limit,
-          page,
-        },
-      });
-      setStatisticTransaction(res.data.data);
-      setTotalTable(res.data.totalStatistics);
+      const res = await api_BetStatistics();
+      const tempStatisticTransactions: StatisticTransactionType[] = res.data?.map((item: any) => ({
+        currencyLogo: item.currencyLogo ?? '/image/fiats/USDT.png',
+        currency: item.currrencyName ?? 'USDT',
+        bets: Number(item.totalBets ?? 0),
+        wins: Number(item.totalWins ?? 0),
+        wagered: Number(item.wageredAmount ?? 0),
+        wageredUsd: Number(item.wageredAmountUsd ?? 0),
+      }));
+      setStatisticTransaction(tempStatisticTransactions);
     } catch (error) {
       setStatisticTransaction([]);
     } finally {

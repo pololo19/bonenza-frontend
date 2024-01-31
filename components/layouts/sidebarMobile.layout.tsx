@@ -78,7 +78,7 @@ const SidebarMobileLayout: React.FC = () => {
     () => [
       {
         title: String(t('sidebar:vipClub')),
-        href: ROUTER.Home,
+        href: '#',
         icon: Diamonds,
         onClick: () => dispatch(changeIsShowVipClubModal(true)),
       },
