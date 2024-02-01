@@ -49,11 +49,12 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
-  const { userId, localFiat, betHistory, userName } = useSelector(
+  const { userId, localFiat, betHistory, userName, viewInFiat } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.common.viewInFiat,
       betHistory: state.game.betHistory,
     }),
     shallowEqual,
@@ -157,8 +158,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:betAmount')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-white sm:text-[16px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]">
-            {localFiat
-              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat.name)}`
+            {viewInFiat
+              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
               : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
@@ -195,11 +196,11 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               })}
             >
               {row.original.profitAmount > 0 ? '+' : '-'}
-              {localFiat
+              {viewInFiat
                 ? `${currencyFormat1(
                     Math.abs(row.original.profitAmountUsd * exchangeRate),
                     fiatDecimals,
-                    localFiat.name,
+                    localFiat?.name || 'USD',
                   )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
@@ -222,7 +223,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localFiat, userId, innerWidth]);
+  }, [localFiat, userId, innerWidth, viewInFiat]);
 
   useEffect(() => {
     handleGetAllBet();

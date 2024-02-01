@@ -136,10 +136,11 @@ function AffiliateLoggedPage() {
     }
   };
 
-  const { referralCode, localFiat } = useSelector(
+  const { referralCode, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       referralCode: state.auth.user.referralCode,
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -178,8 +179,8 @@ function AffiliateLoggedPage() {
                     <div
                       className={`ml-[-30px] leading-[20px] text-[22px] font-bold text-center text-color-secondary ${styles.textBanner}`}
                     >
-                      {localFiat ? (
-                        <>{currencyFormat1(referralData.totalReward * exchange, 2, localFiat.name)}</>
+                      {viewInFiat ? (
+                        <>{currencyFormat1(referralData.totalReward * exchange, 2, localFiat?.name || 'USD')}</>
                       ) : (
                         <>{currencyFormat1(referralData.totalReward, 2)}</>
                       )}
@@ -228,8 +229,8 @@ function AffiliateLoggedPage() {
                 <div
                   className={`text-[22px] mt-[23px] font-bold text-center text-color-secondary ${styles.textBanner}`}
                 >
-                  {localFiat ? (
-                    <>{currencyFormat1(referralData.referralReward * exchange, 2, localFiat.name)}</>
+                  {viewInFiat ? (
+                    <>{currencyFormat1(referralData.referralReward * exchange, 2, localFiat?.name || 'USD')}</>
                   ) : (
                     <>{currencyFormat1(referralData.referralReward, 2)}</>
                   )}
@@ -261,8 +262,8 @@ function AffiliateLoggedPage() {
                   </button>
                 </div>
                 <div className={`text-[22px] mt-[23px] font-bold text-center text-color-primary ${styles.textBanner}`}>
-                  {localFiat ? (
-                    <>{currencyFormat1(referralData.commissionReward * exchange, 2, localFiat.name)}</>
+                  {viewInFiat ? (
+                    <>{currencyFormat1(referralData.commissionReward * exchange, 2, localFiat?.name || 'USD')}</>
                   ) : (
                     <>{currencyFormat1(referralData.commissionReward, 2)}</>
                   )}
@@ -307,8 +308,8 @@ function AffiliateLoggedPage() {
                           <span className="ml-1 text-gray-600">{item.currency}</span>
                         </div>
                         <div className="text-[14px]">
-                          {localFiat ? (
-                            <>{currencyFormat1(item.amount * exchange, 2, localFiat.name)}</>
+                          {viewInFiat ? (
+                            <>{currencyFormat1(item.amount * exchange, 2, localFiat?.name || 'USD')}</>
                           ) : (
                             <>{currencyFormat1(item.amount, 2)}</>
                           )}
@@ -339,8 +340,8 @@ function AffiliateLoggedPage() {
                     </div>
                     <div className="flex mb-[9px] gap-[10px]">
                       <div className="text-[#F39717] text-[14px] font-bold">
-                        {localFiat ? (
-                          <>{currencyFormat1(1000 * exchange, 2, localFiat.name)}</>
+                        {viewInFiat ? (
+                          <>{currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')}</>
                         ) : (
                           <>{currencyFormat1(1000, 2)}</>
                         )}
@@ -443,7 +444,11 @@ function AffiliateLoggedPage() {
                 <div className="w-full flex justify-center">
                   <div className="w-full dark:bg-color-panel-bg bg-[#F6F7FA] rounded-[5px] xl:w-[342px] h-[33px] flex justify-center items-center">
                     <span className={`font-bold text-[16px] text-color-primary  ${styles.textBanner}`}>
-                      {localFiat ? <>{currencyFormat1(0, 2, localFiat.name)}</> : <>{currencyFormat1(0, 2)}</>}
+                      {viewInFiat ? (
+                        <>{currencyFormat1(0, 2, localFiat?.name || 'USD')}</>
+                      ) : (
+                        <>{currencyFormat1(0, 2)}</>
+                      )}
                     </span>
                   </div>
                 </div>

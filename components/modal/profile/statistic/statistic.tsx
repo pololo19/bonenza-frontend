@@ -92,15 +92,15 @@ export default function Statistic({ userData }: ModalStatisticProps) {
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:wagered')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-white text-[#000] truncate text-center font-bold">
-            {localFiat
-              ? currencyFormat1(row.original.wageredUsd * exchange, 2, localFiat.name)
+            {viewInFiat
+              ? currencyFormat1(row.original.wageredUsd * exchange, 2, localFiat?.name || 'USD')
               : currencyFormat1(row.original.wagered, 4, '', false)}
           </div>
         ),
       },
     ];
     return statisticsColumnsDefault;
-  }, [exchange]);
+  }, [exchange, viewInFiat, localFiat]);
 
   useEffect(() => {
     handleGetStatisticTransaction();
@@ -256,8 +256,8 @@ export default function Statistic({ userData }: ModalStatisticProps) {
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWagered')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black text-center w-full truncate">
-              {localFiat
-                ? currencyFormat1(userData.totalWager, 2, localFiat.name)
+              {viewInFiat
+                ? currencyFormat1(userData.totalWager, 2, localFiat?.name || 'USD')
                 : currencyFormat1(userData.totalWager, 2)}
             </div>
           </div>

@@ -114,7 +114,7 @@ const AccountPannel: React.FC = () => {
     setTheme(savedtheme);
   }, []);
 
-  const { totalBalance, localFiat, isLogin, avatar, userName, userId, isShow } = useSelector(
+  const { totalBalance, localFiat, isLogin, avatar, userName, userId, isShow, viewInFiat } = useSelector(
     (state: AppState) => ({
       totalBalance: state.wallet.totalBalance,
       localFiat: state.wallet.localFiat,
@@ -123,6 +123,7 @@ const AccountPannel: React.FC = () => {
       userName: state.auth.user.userName,
       userId: state.auth.user.userId,
       isShow: state.modal.isShowAccountPannel,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -412,8 +413,8 @@ const AccountPannel: React.FC = () => {
                 {t('balance:totalBalance')}
               </span>
               <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] ">
-                {localFiat && currencyFormat1(totalBalance * exchange, 2, localFiat.name)}
-                {!localFiat && currencyFormat1(totalBalance, 2)}
+                {viewInFiat && currencyFormat1(totalBalance * exchange, 2, localFiat?.name || 'USD')}
+                {!viewInFiat && currencyFormat1(totalBalance, 2)}
               </span>
             </div>
 

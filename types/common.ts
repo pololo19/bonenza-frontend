@@ -418,6 +418,17 @@ export type TransactionType = {
   withdrawalAddress: string;
 };
 
+export type TransactionBillType = {
+  type: string;
+  currency: string;
+  amount: number;
+  amountUsd: number;
+  currencyType: CurrencySymbolType;
+  time: string;
+  balance: number;
+  balanceUsd: number;
+};
+
 export type TransactionSwapType = {
   symbolFrom: string;
   swapFrom: number;

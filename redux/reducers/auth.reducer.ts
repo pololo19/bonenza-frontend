@@ -30,7 +30,7 @@ const initialUser: UserDetail = {
     settingShowFullNameCrypto: false,
     settingReceiveMarketPromotion: false,
     settingLanguage: 'en',
-    settingCurrency: 'usd',
+    settingCurrency: '',
   },
   privacySetting: {
     settingHideUserName: false,

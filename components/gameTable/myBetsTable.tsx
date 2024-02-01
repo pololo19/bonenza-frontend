@@ -46,11 +46,12 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   const innerWidth = useWidth();
   const exchangeRate = useExchange();
 
-  const { isLogin, userId, localFiat, gameSocket } = useSelector(
+  const { isLogin, userId, localFiat, gameSocket, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       isLogin: state.auth.isLogin,
       userId: state.auth.user.userId,
+      viewInFiat: state.common.viewInFiat,
       gameSocket: state.socket.gameSocket,
     }),
     shallowEqual,
@@ -125,8 +126,12 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
             {row.original.betAmount !== null && (
               <div className="flex items-center justify-center gap-[5px] truncate">
                 <div className="font-bold dark:text-white text-black truncate">
-                  {localFiat
-                    ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat.name)}`
+                  {viewInFiat
+                    ? `${currencyFormat1(
+                        row.original.betAmountUsd * exchangeRate,
+                        fiatDecimals,
+                        localFiat?.name || 'USD',
+                      )}`
                     : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)}`}
                 </div>
                 <Image
@@ -185,11 +190,11 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
               })}
             >
               {row.original.profitAmount > 0 ? '+' : '-'}
-              {localFiat
+              {viewInFiat
                 ? `${currencyFormat1(
                     Math.abs(row.original.profitAmountUsd * exchangeRate),
                     fiatDecimals,
-                    localFiat.name,
+                    localFiat?.name || 'USD',
                   )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)}`}
             </div>
@@ -212,7 +217,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       myBetColumnsDefault.splice(2, 1);
       return myBetColumnsDefault;
     }
-  }, [localFiat, userId, innerWidth]);
+  }, [localFiat, userId, innerWidth, viewInFiat]);
 
   useEffect(() => {
     if (isLogin) {

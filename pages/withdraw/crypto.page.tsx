@@ -60,12 +60,13 @@ const WithdrawCryptoPage = () => {
     type: 1,
   });
 
-  const { cryptoCurrencies, balances, localFiat } = useSelector(
+  const { cryptoCurrencies, balances, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       // localeFiat: state.common.localeFiat,
       localFiat: state.wallet.localFiat,
       balances: state.wallet.balances,
       cryptoCurrencies: state.wallet.cryptoCurrencies,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -353,11 +354,11 @@ const WithdrawCryptoPage = () => {
                       {t('withdraw:available')}:
                     </span>
                     <span className="dark:text-[#fff] text-[#000] flex">
-                      {localFiat
+                      {viewInFiat
                         ? currencyFormat1(
                             renderBalanceValue * activeCoin.price * exchangeRate,
                             4,
-                            String(localFiat.name),
+                            String(localFiat?.name || 'USD'),
                           )
                         : `${currencyFormat1(renderBalanceValue, 4, '', false)}`}
                     </span>
@@ -370,7 +371,9 @@ const WithdrawCryptoPage = () => {
                       {t('withdraw:lockedFunds')}:
                     </span>
                     <span className="dark:text-[#fff] text-[#000] flex">
-                      {localFiat ? `${currencyFormat1(0, 4, localFiat.name)}` : `${currencyFormat1(0, 4, '', false)}`}
+                      {viewInFiat
+                        ? `${currencyFormat1(0, 4, localFiat?.name || 'USD')}`
+                        : `${currencyFormat1(0, 4, '', false)}`}
                     </span>
                   </div>
                 </div>

@@ -44,11 +44,12 @@ export default function ModalDetailBets({
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
 
-  const { userId, localFiat, userName } = useSelector(
+  const { userId, localFiat, userName, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -97,12 +98,16 @@ export default function ModalDetailBets({
                       }`}
                     >
                       {betDetail.profitAmount > 0 ? '+' : '-'}
-                      {localFiat
-                        ? `${currencyFormat1(Math.abs(betDetail.profitAmountUsd * exchangeRate), 8, localFiat.name)}`
+                      {viewInFiat
+                        ? `${currencyFormat1(
+                            Math.abs(betDetail.profitAmountUsd * exchangeRate),
+                            8,
+                            localFiat?.name || 'USD',
+                          )}`
                         : `${currencyFormat1(Math.abs(betDetail.profitAmount), 8, '', false)} `}
                     </div>
                     <div className="text-[22px] text-black dark:text-white">
-                      {localFiat ? handleLocaleSymbol(String(betDetail.currency)) : betDetail.currency}
+                      {viewInFiat ? handleLocaleSymbol(String(betDetail.currency)) : betDetail.currency}
                     </div>
                   </div>
                 </div>
@@ -119,8 +124,8 @@ export default function ModalDetailBets({
                   <Image height={15} width={15} src={`/img/fiats/${betDetail?.currency}.png`} alt="" />
 
                   <div className="text-[12px] dark:text-white text-black">
-                    {localFiat
-                      ? `${currencyFormat1(betDetail.betAmountUsd * exchangeRate, 8, localFiat.name)}`
+                    {viewInFiat
+                      ? `${currencyFormat1(betDetail.betAmountUsd * exchangeRate, 8, localFiat?.name || 'USD')}`
                       : `${currencyFormat1(betDetail.betAmount, 8, '', false)} `}
                   </div>
                 </div>
