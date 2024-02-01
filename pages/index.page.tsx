@@ -53,6 +53,7 @@ import { currencyFormat1 } from '../libs/utils';
 import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
 import { useTheme } from 'next-themes';
+import { api_checkDeposit } from '@/api/vip';
 
 function IndexPage() {
   const width = useWidth();
@@ -281,11 +282,11 @@ function IndexPage() {
   const loadDataAfterLogin = async () => {
     try {
       setIsLoading(true);
-      const result = await api_getDepositTime();
-      if (result.data.times === 0) {
-        setCheckDeposit(false);
-      } else {
+      const result = await api_checkDeposit();
+      if (result.data > 0) {
         setCheckDeposit(true);
+      } else {
+        setCheckDeposit(false);
       }
     } catch (error) {
       setCheckDeposit(false);
