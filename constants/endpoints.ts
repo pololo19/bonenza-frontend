@@ -17,6 +17,7 @@ const API_AUTH_VALIDATE_TOKEN = (token: string) => `/auth/validate/${token}`;
 const API_ADMIN_LOGIN = '/admin-auth/login';
 const API_AUTH_LOGIN = '/auth/login';
 const API_AUTH_LOGIN_WITH_GOOGLE = '/auth/save-info-login-google';
+const API_AUTH_LOGIN_WITH_GOOGLE_TOP = 'save-info-login-google-one-tap';
 const API_AUTH_LOGIN_WITH_TELEGRAM = '/auth/save-info-login-telegram';
 const API_AUTH_LOGIN_WITH_WALLET = '/auth/save-info-login-wallet';
 const API_AUTH_SIGNUP_WITH_EMAIL = '/auth/sign-up-with-email';
@@ -35,6 +36,7 @@ const API_USER_PROFILE_EDIT_PROFILE = '/user-profile/edit-profile';
 const API_USER_PROFILE_UPLOAD_AVATAR = '/user-profile/upload-avatar';
 
 const API_USER_MEDAL_STATISTICS = '/user-profile/medal/statistics';
+const API_USER_PROFILE_BET_STATISTICS = '/user-profile/bet-statistics';
 
 /************************************ User Setting **********************************/
 const API_USER_SETTING_GENERAL_SETTING = '/user-setting/get-general-setting';
@@ -125,6 +127,7 @@ export {
   API_AUTH_GET_2FA_STATUS,
   API_AUTH_LOGIN,
   API_AUTH_LOGIN_WITH_GOOGLE,
+  API_AUTH_LOGIN_WITH_GOOGLE_TOP,
   API_AUTH_LOGIN_WITH_TELEGRAM,
   API_AUTH_LOGIN_WITH_WALLET,
   API_AUTH_RESET_PASSWORD,
@@ -168,6 +171,7 @@ export {
   API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
   API_USER_MEDAL_STATISTICS,
+  API_USER_PROFILE_BET_STATISTICS,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,

@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { Eye, EyeSlash } from 'iconsax-react';
+import { useTheme } from 'next-themes';
 import { InputHTMLAttributes, useState } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
@@ -30,6 +31,7 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
   ...rest
 }: InputTextProps<TFieldValues>) => {
   const [showPass, setShowPass] = useState(false);
+  const { theme } = useTheme();
 
   const handleChangeValue = (event: InputTextType, formOnChange: (event: InputTextType) => void) => {
     let data = '';
@@ -60,8 +62,12 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
         <div className="w-full flex-1">
           <div
             className={cn(
-              'dark:bg-color-bg-primary bg-color-light-bg-primary rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] border-[1px] border-solid border-transparent focus-within:border-color-primary dark:dark-autofill light-autofill',
+              'dark:bg-color-bg-primary bg-color-light-bg-primary rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] border-[1px] border-solid border-transparent focus-within:border-color-primary',
               customClass,
+              {
+                'dark-autofill': theme === 'dark',
+                'light-autofill': theme === 'light',
+              },
             )}
           >
             <input

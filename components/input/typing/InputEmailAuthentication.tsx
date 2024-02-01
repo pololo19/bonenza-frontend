@@ -6,6 +6,7 @@ import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 import { MAX_LENGTH, SPECIAL_CHARACTER, SPECIAL_CHARACTER_WITHOUT_EMAIL } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
+import { useTheme } from 'next-themes';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;
@@ -37,6 +38,7 @@ const InputEmailAuthentication = <TFieldValues extends Record<string, unknown>>(
   autoComplete,
   ...rest
 }: InputTextProps<TFieldValues>) => {
+  const { theme } = useTheme();
   const handleChangeValue = (event: InputTextType, formOnChange: (event: InputTextType) => void) => {
     let data = '';
     if (typeInput === EnumTypeInput.EMAIL) {
@@ -58,7 +60,15 @@ const InputEmailAuthentication = <TFieldValues extends Record<string, unknown>>(
       render={({ field, fieldState: { error } }) => {
         return (
           <div className="w-full flex-1">
-            <div className="bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-transparent dark:dark-autofill light-autofill">
+            <div
+              className={cn(
+                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                {
+                  'dark-autofill': theme === 'dark',
+                  'light-autofill': theme === 'light',
+                },
+              )}
+            >
               <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="" />
               <div className="w-[1px] h-[13px] bg-[#C3CDDB]" />
               <input

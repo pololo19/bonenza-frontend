@@ -9,6 +9,7 @@ import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { MAX_LENGTH, SPECIAL_CHARACTER, SPECIAL_CHARACTER_WITHOUT_EMAIL } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
+import { useTheme } from 'next-themes';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;
@@ -42,6 +43,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
   onChangeCountryCallingCode,
   ...rest
 }: InputTextProps<TFieldValues>) => {
+  const { theme } = useTheme();
   const handleChangeValue = (event: InputTextType, formOnChange: (event: InputTextType) => void) => {
     let data = '';
     if (typeInput === EnumTypeInput.EMAIL) {
@@ -80,8 +82,10 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent dark:dark-autofill light-autofill',
+                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 {
+                  'dark-autofill': theme === 'dark',
+                  'light-autofill': theme === 'light',
                   'py-[13.5px]': showPhoneNumber,
                   'py-[15px]': !showPhoneNumber,
                 },

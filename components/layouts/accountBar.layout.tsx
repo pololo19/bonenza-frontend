@@ -280,7 +280,7 @@ const AccountPannel: React.FC = () => {
       {
         title: String(t('sidebar:NFTs')),
         icon: Box,
-        href: '/',
+        href: '#',
         classNames:
           'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },

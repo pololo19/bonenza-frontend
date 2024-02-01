@@ -7,6 +7,7 @@ import { UNICODE_NORMALIZATION } from '@/base/constants/common';
 import { MAX_LENGTH, NUMBER_FULL_WIDTH } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
+import { useTheme } from 'next-themes';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;
@@ -36,6 +37,7 @@ const InputCodeAuthentication = <TFieldValues extends Record<string, unknown>>({
   isBlockSpecialCharacter,
   ...rest
 }: InputTextProps<TFieldValues>) => {
+  const { theme } = useTheme();
   const handleChangeValue = (event: InputTextType, formOnChange: (event: InputTextType) => void) => {
     const numberMatched = (event.target.value ?? '').match(NUMBER_FULL_WIDTH);
     const value = numberMatched
@@ -56,7 +58,12 @@ const InputCodeAuthentication = <TFieldValues extends Record<string, unknown>>({
       render={({ field, fieldState: { error } }) => {
         return (
           <div className="w-full flex-1 ">
-            <div className="bg-white dark:bg-white rounded-[10px] flex items-center p-[15px] gap-[18px] dark:dark-autofill light-autofill">
+            <div
+              className={cn('bg-white dark:bg-white rounded-[10px] flex items-center p-[15px] gap-[18px] ', {
+                'dark-autofill': theme === 'dark',
+                'light-autofill': theme === 'light',
+              })}
+            >
               <Code1 width={20} />
               <div className="w-[1px] h-[13px] bg-[#C3CDDB]" />
               <input

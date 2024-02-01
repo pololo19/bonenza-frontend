@@ -150,7 +150,7 @@ const TransactionPage = () => {
         minSize: 30,
       },
     ];
-  }, [localFiat, viewInFiat, optionFilter.type, i18n, getColorByStatus]);
+  }, [localFiat, viewInFiat, optionFilter.type, i18n, exchangeRate]);
 
   const swapColumns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -217,7 +217,7 @@ const TransactionPage = () => {
         minSize: 150,
       },
     ];
-  }, [localFiat, viewInFiat, optionFilter, t]);
+  }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
 
   const billColumns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -349,7 +349,7 @@ const TransactionPage = () => {
         minSize: 120,
       },
     ];
-  }, [localFiat, viewInFiat, optionFilter, t]);
+  }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
 
   const bonusColumns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -435,7 +435,7 @@ const TransactionPage = () => {
         minSize: 120,
       },
     ];
-  }, [localFiat, viewInFiat, optionFilter, t]);
+  }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
 
   const handleChangePage = (action: string) => {
     let newPage: number;

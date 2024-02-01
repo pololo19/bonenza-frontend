@@ -4,6 +4,7 @@ import {
   API_AUTH_GET_2FA_STATUS,
   API_AUTH_LOGIN,
   API_AUTH_LOGIN_WITH_GOOGLE,
+  API_AUTH_LOGIN_WITH_GOOGLE_TOP,
   API_AUTH_LOGIN_WITH_TELEGRAM,
   API_AUTH_LOGIN_WITH_WALLET,
   API_AUTH_RESET_PASSWORD,
@@ -38,6 +39,10 @@ export const api_login = (data: LoginRequest) => {
 
 export const api_loginWithGoogle = (code: string) => {
   return api.post(API_AUTH_LOGIN_WITH_GOOGLE, { code });
+};
+
+export const api_loginWithGooglePop = (clientId: string, token: string) => {
+  return api.post(API_AUTH_LOGIN_WITH_GOOGLE_TOP, { clientId, token });
 };
 
 export const api_loginWithTelegram = (data: any) => {
