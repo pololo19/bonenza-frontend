@@ -161,7 +161,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     )}
                     onClick={() => {
                       dispatch(changeViewInFiat(false));
-                      dispatch(setLocalFiat(null));
+                      // dispatch(setLocalFiat(null));
                       onClose();
                     }}
                   >

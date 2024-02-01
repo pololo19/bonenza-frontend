@@ -243,7 +243,7 @@ const SelectCurrency = ({
                               {currencyFormat1(
                                 getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
                                 fiatDecimals,
-                                localFiat?.name,
+                                localFiat?.name || 'USD',
                               )}
                             </span>
                             <span className="text-[10px] font-semibold text-gray-400 text-right">
@@ -254,7 +254,11 @@ const SelectCurrency = ({
                                 <div className="mt-1 flex justify-end text-amber-500">
                                   <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                     <Lock size={12} variant="Bold" />{' '}
-                                    {currencyFormat1(bonus * exchangeRate, fiatDecimals, String(localFiat?.name))}
+                                    {currencyFormat1(
+                                      bonus * exchangeRate,
+                                      fiatDecimals,
+                                      String(localFiat?.name || 'USD'),
+                                    )}
                                   </span>
                                 </div>
                               </div>

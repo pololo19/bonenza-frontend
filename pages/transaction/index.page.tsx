@@ -37,7 +37,7 @@ import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailTransaction from '@/components/modal/transactionDetail/transactionDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
-import { TransactionStatus, TransactionSwapType, TransactionType } from '@/types/common';
+import { TransactionBillType, TransactionStatus, TransactionSwapType, TransactionType } from '@/types/common';
 
 import styles from './index.module.scss';
 
@@ -46,6 +46,8 @@ interface BillType {
 }
 
 const billTypes: BillType[] = Object.values(billType).map((item: string) => ({ type: item }));
+const cryptoLen = 8;
+const fiatLen = 4;
 
 const TransactionPage = () => {
   const { t, i18n } = useTranslation('');
@@ -65,7 +67,7 @@ const TransactionPage = () => {
   const [isShowDetailTransaction, setIsShowDetailTransaction] = useState<boolean>(false);
   const [transaction, setTransaction] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dataTable, setDataTable] = useState<TransactionType[] | TransactionSwapType[]>([]);
+  const [dataTable, setDataTable] = useState<TransactionType[] | TransactionSwapType[] | TransactionBillType[]>([]);
   const [typeBill, setTypeBill] = useState<string>(String(t('transaction:allType')));
 
   const [optionFilter, setOptionFilter] = useState({
@@ -102,9 +104,9 @@ const TransactionPage = () => {
           >
             {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : '+'}
             {viewInFiat ? (
-              <>{currencyFormat1(row.original.amountUsd * exchangeRate, 4, String(localFiat?.name))}</>
+              <>{currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}</>
             ) : (
-              currencyFormat1(row.original.amount, 4, '', false)
+              currencyFormat1(row.original.amount, cryptoLen, '', false)
             )}
 
             <Image
@@ -112,7 +114,7 @@ const TransactionPage = () => {
               width={20}
               src={row.original.symbolLogo}
               onError={(e) => {
-                e.currentTarget.src = `/img/fiats/${row.original.symbolName}.png`;
+                e.currentTarget.src = `/img/fiats/USD.png`;
               }}
               alt=""
             />
@@ -143,7 +145,7 @@ const TransactionPage = () => {
             <div className="dark:text-white text-black text-[12px] break-keep	">
               {convertStatus(row.original.status)}
             </div>
-            <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-[#31373d]" />
+            <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
           </div>
         ),
         maxSize: 30,
@@ -170,9 +172,11 @@ const TransactionPage = () => {
             <span>
               -
               {viewInFiat ? (
-                <>{currencyFormat1(row.original?.swapFromUsd * exchangeRate, 4, String(localFiat?.name))}</>
+                <>
+                  {currencyFormat1(row.original?.swapFromUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}
+                </>
               ) : (
-                formatLengthNumber(row.original.swapFrom, 8)
+                currencyFormat1(row.original.swapFrom, cryptoLen, '', false)
               )}
             </span>
             <Image
@@ -196,12 +200,22 @@ const TransactionPage = () => {
             <span>
               +{' '}
               {viewInFiat ? (
-                <>{currencyFormat1(row.original?.swapToUsd * exchangeRate, 4, String(localFiat?.name))}</>
+                <>
+                  {currencyFormat1(row.original?.swapToUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}
+                </>
               ) : (
-                formatLengthNumber(row.original.swapTo, 8)
+                currencyFormat1(row.original.swapTo, cryptoLen, '', false)
               )}
             </span>
-            <Image height={20} width={20} src={row.original?.swapToLogo} alt="" />
+            <Image
+              height={20}
+              width={20}
+              src={row.original?.swapToLogo}
+              alt=""
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USD.png';
+              }}
+            />
           </div>
         ),
         minSize: 120,
@@ -210,7 +224,7 @@ const TransactionPage = () => {
         accessorKey: 'timeTransfer',
         header: () => <div className="text-right">{String(t('transaction:time'))}</div>,
         cell: ({ row }) => (
-          <div className="text-[#98A7B5] text-right">
+          <div className="text-color-text-primary text-right">
             {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
@@ -224,12 +238,14 @@ const TransactionPage = () => {
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-left dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:type'))}</div>
+          <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+            {String(t('transaction:type'))}
+          </div>
         ),
         cell: ({ row }) => (
           <>
             <div className="dark:text-white text-black flex items-center gap-1 truncate">
-              {row.original?.actionType?.toUpperCase()}{' '}
+              {row.original?.type?.toUpperCase()}{' '}
               {row.original?.billType && row.original?.title && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
                   ({row.original?.title})
@@ -265,7 +281,9 @@ const TransactionPage = () => {
       {
         accessorKey: 'amount',
         header: () => (
-          <div className="text-center dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:amount'))}</div>
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {String(t('transaction:amount'))}
+          </div>
         ),
         cell: ({ row }) => (
           <div
@@ -275,26 +293,19 @@ const TransactionPage = () => {
           >
             {row.original?.amount < 0 ? '-' : '+'}
             {viewInFiat ? (
-              <>
-                {currencyFormat1(
-                  exchangeByLocaleFiat(
-                    row.original?.sourceAccount ?? row.original?.symbol,
-                    String(localFiat?.name),
-                    Math.abs(row.original?.amount),
-                  ),
-                  4,
-                  String(localFiat?.name),
-                )}
-              </>
+              <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
             ) : (
-              currencyFormat1(Math.abs(row.original?.amount), 6)
+              currencyFormat1(Math.abs(row.original?.amount), cryptoLen, '', false)
             )}
 
             <Image
               height={20}
               width={20}
-              src={`/img/fiats/${row.original?.sourceAccount ?? row.original?.symbol}.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               alt=""
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USD.png';
+              }}
             />
           </div>
         ),
@@ -303,11 +314,13 @@ const TransactionPage = () => {
       {
         accessorKey: 'createdAt',
         header: () => (
-          <div className="text-center dark:text-[#98A7B5] text-[#31373d] ">{String(t('transaction:time'))}</div>
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary ">
+            {String(t('transaction:time'))}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d]">
-            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+          <div className="dark:text-color-text-primary text-color-light-text-primary">
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
         minSize: 100,
@@ -316,32 +329,27 @@ const TransactionPage = () => {
       {
         accessorKey: 'balance',
         header: () => (
-          <div className="text-right dark:text-[#98A7B5] text-[#31373d] ">{String(t('transaction:balance'))}</div>
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary ">
+            {String(t('transaction:balance'))}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className={`dark:text-white text-[#31373d] text-left flex items-center justify-end gap-1`}>
+          <div
+            className={`dark:text-white text-color-light-text-primary text-left flex items-center justify-end gap-1`}
+          >
             <span className="flex-1 text-right">
-              {viewInFiat ? (
-                <>
-                  {currencyFormat1(
-                    exchangeByLocaleFiat(
-                      row.original?.sourceAccount ?? row.original?.symbol,
-                      String(localFiat?.name),
-                      Math.abs(row.original?.balance),
-                    ),
-                    4,
-                    String(localFiat?.name),
-                  )}
-                </>
-              ) : (
-                currencyFormat1(Math.abs(row.original?.balance), 6)
-              )}
+              {viewInFiat
+                ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
+                : currencyFormat1(row.original.balance, cryptoLen, '', false)}
             </span>
 
             <Image
               height={20}
               width={20}
-              src={`/img/fiats/${row.original?.sourceAccount ?? row.original?.symbol}.png`}
+              src={`/img/fiats/${row.original?.currency}.png`}
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USD.png';
+              }}
               alt=""
             />
           </div>
@@ -356,7 +364,9 @@ const TransactionPage = () => {
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-left dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:type'))}</div>
+          <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+            {String(t('transaction:type'))}
+          </div>
         ),
         cell: ({ row }) => (
           <div className="dark:text-white text-black flex items-center gap-1 truncate">{row?.original?.actionType}</div>
@@ -366,7 +376,9 @@ const TransactionPage = () => {
       {
         accessorKey: 'amountClaimed',
         header: () => (
-          <div className="text-center dark:text-[#98A7B5] text-[#31373d]">{String(t('transaction:amount'))}</div>
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {String(t('transaction:amount'))}
+          </div>
         ),
         cell: ({ row }) => (
           <div
@@ -392,7 +404,15 @@ const TransactionPage = () => {
                 currencyFormat1(Math.abs(row.original?.amountClaimed), 6)
               )}
             </span>
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbol}.png`} alt="" />
+            <Image
+              height={20}
+              width={20}
+              src={`/img/fiats/${row.original?.symbol}.png`}
+              alt=""
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USD.png';
+              }}
+            />
           </div>
         ),
         minSize: 120,
@@ -400,10 +420,12 @@ const TransactionPage = () => {
       {
         accessorKey: 'createdAt',
         header: () => (
-          <div className="text-center dark:text-[#98A7B5] text-[#31373d] ">{String(t('transaction:time'))}</div>
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary ">
+            {String(t('transaction:time'))}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373d]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary">
             {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
@@ -413,10 +435,14 @@ const TransactionPage = () => {
       {
         accessorKey: 'balance',
         header: () => (
-          <div className="text-right dark:text-[#98A7B5] text-[#31373d] ">{String(t('transaction:balance'))}</div>
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary ">
+            {String(t('transaction:balance'))}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className={`dark:text-white text-[#31373d] text-left truncate flex items-center justify-end gap-1`}>
+          <div
+            className={`dark:text-white text-color-light-text-primary text-left truncate flex items-center justify-end gap-1`}
+          >
             {viewInFiat ? (
               <>
                 {currencyFormat1(
@@ -429,7 +455,15 @@ const TransactionPage = () => {
               currencyFormat1(row.original.balance, 6)
             )}
 
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbol}.png`} alt="" />
+            <Image
+              height={20}
+              width={20}
+              src={`/img/fiats/${row.original?.symbol}.png`}
+              alt=""
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USD.png';
+              }}
+            />
           </div>
         ),
         minSize: 120,
@@ -590,6 +624,19 @@ const TransactionPage = () => {
             setDataTable(tempWithdrawData);
             break;
 
+          case TRANSACTION_TYPE.Bill:
+            const tempBillData = data?.map((item: any) => ({
+              type: item.type ?? '',
+              amount: Number(item.amount ?? 0),
+              amountUsd: Number(item.amountUsd ?? 0),
+              currency: item.currency ?? 'USDT',
+              currencyType: item.currencyType ?? 'crypto',
+              time: item.time,
+              balance: Number(item.walletBalance ?? 0),
+              balanceUsd: Number(item.walletBalanceUsd ?? 0),
+            }));
+            setDataTable(tempBillData);
+            break;
           default:
             break;
         }

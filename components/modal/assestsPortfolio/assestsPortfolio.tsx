@@ -195,7 +195,7 @@ export default function ModalAssetsPortfolio({
                               {currencyFormat1(
                                 getBalanceByCrypto(coin) * coin.price * exchangeRate,
                                 fiatDecimals,
-                                localFiat?.name,
+                                localFiat?.name || 'USD',
                               )}
                               <br />
                               <span className="dark:text-gray-400 text-[#31373d] text-[12px]">

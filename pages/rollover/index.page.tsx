@@ -71,9 +71,10 @@ const RolloverPage = () => {
     createdAt: new Date(),
   });
 
-  const { localFiat } = useSelector(
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -110,8 +111,8 @@ const RolloverPage = () => {
             } flex items-center justify-center gap-1`}
           >
             {optionFilter.type.name === 'Withdraw' ? '-' : '+'}
-            {localFiat ? (
-              <>{currencyFormat1(Math.abs(row.original.amount) * exchange, 2, localFiat.name)}</>
+            {viewInFiat ? (
+              <>{currencyFormat1(Math.abs(row.original.amount) * exchange, 2, localFiat?.name || 'USD')}</>
             ) : (
               currencyFormat1(Math.abs(row.original.amount), 4, '', false)
             )}
@@ -152,7 +153,7 @@ const RolloverPage = () => {
         minSize: 30,
       },
     ];
-  }, [localFiat, i18n.language, exchange]);
+  }, [localFiat, i18n.language, exchange, viewInFiat]);
 
   const handleGetRolloverOverview = useCallback(
     async (page: number) => {
