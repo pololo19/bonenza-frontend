@@ -9,6 +9,7 @@ import Loader from '@/components/common/preloader/loader';
 
 const VipProgressComponent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [checkDeposit, setCheckDeposit] = useState<boolean>(false);
   const [currentLevel, setCurrentLevel] = useState({
     xp: 0,
     level: 0,
@@ -32,6 +33,7 @@ const VipProgressComponent = () => {
     try {
       setIsLoading(true);
       const res = await api_getVipProgress();
+      setCheckDeposit(res.data.totalDepositAmountUsd > 0);
       setCurrentLevel({
         xp: res.data?.currentXp ?? 0,
         level: res.data?.currentVipLevel ?? 0,

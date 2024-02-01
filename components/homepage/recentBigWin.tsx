@@ -144,10 +144,11 @@ function RecentBigWinComponent() {
   });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
-  const { userId, localFiat } = useSelector(
+  const { userId, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -157,8 +158,8 @@ function RecentBigWinComponent() {
   }, [userId]);
 
   const getExchangeRateLocalFiat = (amount: number, currency: string) => {
-    return localFiat
-      ? `${currencyFormat1(amount * exchangeRate, 4, localFiat.name)}`
+    return viewInFiat
+      ? `${currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD')}`
       : `${currencyFormat1(amount, 4, '', false)} ${currency}`;
   };
 
@@ -196,12 +197,12 @@ function RecentBigWinComponent() {
       return (
         <CardBigWin
           userData={userData}
-          price={`${getExchangeRateLocalFiat(localFiat ? item.profitUsd : item.amount, item.currency)}`}
+          price={`${getExchangeRateLocalFiat(viewInFiat ? item.profitUsd : item.amount, item.currency)}`}
           imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
         />
       );
     },
-    [localFiat],
+    [localFiat, viewInFiat],
   );
 
   return (

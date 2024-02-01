@@ -314,8 +314,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                       <div className="text-[0.75rem] text-color-text-primary">{t('profile:totalWagered')}</div>
                     </div>
                     <div className="text-[14px] sm:text-[1rem] dark:text-white text-black truncate max-w-full px-1">
-                      {localFiat ? (
-                        <>{currencyFormat1(user.totalWager, 2, localFiat.name)}</>
+                      {viewInFiat ? (
+                        <>{currencyFormat1(user.totalWager, 2, localFiat?.name || 'USD')}</>
                       ) : (
                         <>{currencyFormat1(user.totalWager, 2)}</>
                       )}
@@ -346,8 +346,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                         <div className="text-[10px] text-color-text-primary text-right">
                           <div>{t('profile:wagered')}</div>
                           <div className="text-white">
-                            {localFiat
-                              ? currencyFormat1(item.totalWageredAmountUsd, 2, localFiat.name)
+                            {viewInFiat
+                              ? currencyFormat1(item.totalWageredAmountUsd, 2, localFiat?.name || 'USD')
                               : currencyFormat1(item.totalWageredAmountUsd, 2)}
                           </div>
                         </div>

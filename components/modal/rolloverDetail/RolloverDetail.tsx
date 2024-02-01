@@ -26,9 +26,10 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
   const { t } = useTranslation('');
   const exchange = useExchange();
 
-  const { localFiat } = useSelector(
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -66,8 +67,8 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 {transaction.type !== 'Withdraw' && (
                   <span>
                     {Number(transaction.amount) >= 0 ? '+' : ''}{' '}
-                    {localFiat
-                      ? currencyFormat1(transaction.amountUsd, 2, localFiat.name)
+                    {viewInFiat
+                      ? currencyFormat1(transaction.amountUsd, 2, localFiat?.name || 'USD')
                       : currencyFormat1(transaction.amount, 8, '', false)}
                   </span>
                 )}
@@ -110,8 +111,8 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 {String(t('transaction:totalWagerRequired'))}
               </span>
               <span className="text-black dark:text-white">
-                {localFiat ? (
-                  <>{currencyFormat1(transaction.amountUsd * exchange, 2, localFiat.name)}</>
+                {viewInFiat ? (
+                  <>{currencyFormat1(transaction.amountUsd * exchange, 2, localFiat?.name || 'USD')}</>
                 ) : (
                   currencyFormat1(transaction.amount, 4, '', false)
                 )}
@@ -122,8 +123,8 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 {String(t('transaction:wagerComplete'))}
               </span>
               <span className="text-black dark:text-white">
-                {localFiat ? (
-                  <>{currencyFormat1(transaction.wagerCompletedUsdAmount * exchange, 2, localFiat.name)}</>
+                {viewInFiat ? (
+                  <>{currencyFormat1(transaction.wagerCompletedUsdAmount * exchange, 2, localFiat?.name || 'USD')}</>
                 ) : (
                   currencyFormat1(transaction.wagerCompletedAmount, 4, '', false)
                 )}
@@ -134,8 +135,8 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 {String(t('transaction:pendingWagerRequired'))}
               </span>
               <span className="text-black dark:text-white">
-                {localFiat ? (
-                  <>{currencyFormat1(transaction.pendingWagerRequiredAmount * exchange, 2, localFiat.name)}</>
+                {viewInFiat ? (
+                  <>{currencyFormat1(transaction.pendingWagerRequiredAmount * exchange, 2, localFiat?.name || 'USD')}</>
                 ) : (
                   currencyFormat1(transaction.pendingWagerRequiredAmount, 4, '', false)
                 )}
@@ -146,8 +147,10 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 {String(t('transaction:withdrawableFunds'))}
               </span>
               <span className="text-black dark:text-white">
-                {localFiat ? (
-                  <>{currencyFormat1(transaction.withdrawableFoundsUsdAmount * exchange, 2, localFiat.name)}</>
+                {viewInFiat ? (
+                  <>
+                    {currencyFormat1(transaction.withdrawableFoundsUsdAmount * exchange, 2, localFiat?.name || 'USD')}
+                  </>
                 ) : (
                   currencyFormat1(transaction.withdrawableFoundsAmount, 4, '', false)
                 )}

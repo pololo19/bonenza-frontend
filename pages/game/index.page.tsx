@@ -329,6 +329,7 @@ function GamePage() {
     }
   }, [localFiat]);
 
+  console.log(localFiat, '---332');
   return (
     <>
       {isLoading && <Loader />}

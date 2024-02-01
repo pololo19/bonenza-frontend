@@ -32,23 +32,30 @@ export default function ViewInFiat({ show, onClose }: ViewInFiatProps) {
     price: 0,
     favorite: false,
   });
-  const { fiatSymbols, settings, localFiat } = useSelector((state: AppState) => ({
+  const { fiatSymbols, settings, localFiat, defaultCurrencyId } = useSelector((state: AppState) => ({
     fiatSymbols: state.wallet.fiatSymbols,
     settings: state.auth.user.generalSetting,
+    defaultCurrencyId: state.auth.user.generalSetting.settingCurrency,
     localFiat: state.wallet.localFiat,
   }));
 
   useEffect(() => {
     if (fiatSymbols.length > 0) {
       const usdFiat = fiatSymbols.find((item) => item.name.toLowerCase() === 'usd');
-      if (usdFiat && !localFiat) {
+      if (usdFiat && !defaultCurrencyId) {
+        dispatch(setLocalFiat(usdFiat));
         setSelectedFiat(usdFiat);
       }
     }
-    if (localFiat) {
-      setSelectedFiat(localFiat);
+    if (defaultCurrencyId) {
+      const currency = [...fiatSymbols].find((item) => item.id === defaultCurrencyId);
+      if (currency) {
+        dispatch(setLocalFiat(currency));
+
+        setSelectedFiat(currency);
+      }
     }
-  }, [fiatSymbols, localFiat]);
+  }, [fiatSymbols, defaultCurrencyId]);
 
   return (
     <CommonModal

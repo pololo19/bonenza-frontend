@@ -30,10 +30,11 @@ function AffiliatePage() {
   const [showDetailCommissionsRewards, setShowDetailCommissionsRewards] = useState(false);
   const [showReferralRewardRules, setShowReferralRewardRules] = useState(false);
 
-  const { isLogin, localFiat } = useSelector(
+  const { isLogin, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -99,7 +100,9 @@ function AffiliatePage() {
               <h5
                 className={`sm:text-[30px] text-[20px] mb-[30px] text-center font-bold bg-color-primary ${styles.textBanner}`}
               >
-                {`${localFiat ? currencyFormat1(1000 * exchange, 2, localFiat.name) : currencyFormat1(1000, 2)} + 25%`}{' '}
+                {`${
+                  viewInFiat ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(1000, 2)
+                } + 25%`}{' '}
                 {t('affiliate:commission')}
               </h5>
               <div
@@ -127,13 +130,17 @@ function AffiliatePage() {
                   {t('affiliate:getYour')}
                   <span className={`bg-gradient-to-r from-amber-500 to-amber-500 font-bold ${styles.textBanner}`}>
                     {' '}
-                    {localFiat ? currencyFormat1(1000 * exchange, 2, localFiat.name) : currencyFormat1(1000, 2)}{' '}
+                    {viewInFiat
+                      ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')
+                      : currencyFormat1(1000, 2)}{' '}
                   </span>
                   <span className="font-bold">{t('affiliate:referralRewards')}</span>
                 </div>
                 <span className={`text-[14px] bg-[#939699] ${styles.textBanner}`}>
                   {t('affiliate:everyFriendYouInvite', {
-                    reward: localFiat ? currencyFormat1(1000 * exchange, 2, localFiat.name) : currencyFormat1(1000, 2),
+                    reward: viewInFiat
+                      ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')
+                      : currencyFormat1(1000, 2),
                   })}
                 </span>
                 <div className="max-w-[200px] sm:hidden block">
@@ -189,7 +196,7 @@ function AffiliatePage() {
               <h5 className="mb-[10px] text-[14px] dark:text-white text-[#141414]">{t('affiliate:totalRewards')}</h5>
               <div className="dark:bg-color-panel-bg bg-[#F6F7FA] rounded-[5px] w-[420px] h-[60px] flex justify-center items-center ">
                 <span className={`font-bold text-[24px] bg-color-primary  ${styles.textBanner}`}>
-                  {localFiat ? currencyFormat1(0 * exchange, 2, localFiat.name) : currencyFormat1(0, 2)}
+                  {viewInFiat ? currencyFormat1(0 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(0, 2)}
                 </span>
               </div>
             </div>

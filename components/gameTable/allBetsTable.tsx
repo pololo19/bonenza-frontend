@@ -65,7 +65,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { localFiat, userId, gameSocket, userName, isLogin } = useSelector(
+  const { localFiat, userId, gameSocket, userName, isLogin, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
@@ -73,6 +73,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       betHistory: state.game.betHistory,
       gameSocket: state.socket.gameSocket,
       isLogin: state.auth.isLogin,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -208,11 +209,11 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
               })}
             >
               {row.original.profitAmount > 0 ? '+' : '-'}
-              {localFiat
+              {viewInFiat
                 ? `${currencyFormat1(
                     Math.abs(row.original.profitAmountUsd * exchangeRate),
                     fiatDecimals,
-                    localFiat.name,
+                    localFiat?.name || 'USD',
                   )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
@@ -235,7 +236,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localFiat, userId, innerWidth]);
+  }, [localFiat, userId, innerWidth, viewInFiat]);
 
   useEffect(() => {
     handleGetAllBet();

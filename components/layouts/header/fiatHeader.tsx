@@ -164,11 +164,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               />
               {viewInFiat && (
                 <div className="sm:text-[14px] text-[12px] truncate w-full font-bold">
-                  {localFiat
+                  {viewInFiat
                     ? `${currencyFormat1(
                         getBalanceBySymbol(activeCurrency) * activeCurrency.price * exchangeRate,
                         fiatDecimals,
-                        localFiat.name,
+                        localFiat?.name || 'USD',
                       )}`
                     : `${currencyFormat1(Number(getBalanceBySymbol(activeCurrency)), cryptoDecimals, '', false)}`}
                 </div>
@@ -288,7 +288,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               currencyFormat1(
                                 getBalanceBySymbol(crypto) * crypto.price * exchangeRate,
                                 fiatDecimals,
-                                localFiat?.name,
+                                localFiat?.name || 'USD',
                               )}
                             {!viewInFiat && currencyFormat1(getBalanceBySymbol(crypto), cryptoDecimals, '', false)}
                             {viewInFiat && (
@@ -305,7 +305,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                 <div className="mt-1 flex justify-end text-color-primary">
                                   <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                     <Lock size={12} variant="Bold" />{' '}
-                                    {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name))}
+                                    {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name || 'USD'))}
                                   </div>
                                 </div>
                               )}
@@ -349,7 +349,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             {showFullNameCurrency && <div className="text-[12px] text-gray-400">{fiat.alias}</div>}
                           </div>
                           <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-bold">
-                            {localFiat ? (
+                            {viewInFiat ? (
                               <>
                                 {currencyFormat1(
                                   getBalanceBySymbol(fiat) * fiat.price * exchangeRate,
@@ -454,7 +454,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                       checked={viewInFiat}
                       onChange={(value) => {
                         dispatch(changeViewInFiat(value));
-                        dispatch(setLocalFiat(null));
+                        // dispatch(setLocalFiat(null));
                         if (value) setShowAllFiat(true);
                       }}
                       className={`${
