@@ -12,9 +12,10 @@ import { CookieKey } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { currencyFormat1 } from '@/base/libs/utils';
+import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 import { changeActiveFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
 import { setActiveCurrency, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
-import { AppState } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import InputSearch from '@/components/input/typing/InputSearch';
@@ -23,6 +24,7 @@ import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ModalBonusHistory from '@/components/modal/rakeBack/bonusHistory/bonusHistory';
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
+import ViewInFiat from '@/components/modal/viewInFiat/viewInFiat';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -34,7 +36,7 @@ const fiatDecimals = 2;
 const cryptoDecimals = 4;
 
 export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: FiatHeaderProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
   const { theme } = useTheme();
@@ -47,12 +49,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     fiatSymbols,
     localFiat,
     bonus,
+    settings,
     activeCurrency,
   } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       // fiatArray: state.common.fiatArray,
       viewInFiat: state.common.viewInFiat,
+      settings: state.auth.user.generalSetting,
 
       activeCurrency: state.wallet.activeCurrency,
       showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
@@ -488,83 +492,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         </Transition>
       </Menu>
 
-      <CommonModal
-        show={showAllFiat}
-        panelClass="sm:max-w-[400px]"
-        onClose={() => setShowAllFiat(false)}
-        header={
-          <div className="relative p-[20px] pb-0">
-            <div className="flex items-center dark:text-white gap-[10px]">
-              <div className="text-[18px] font-[600]">Information</div>
-            </div>
-          </div>
-        }
-      >
-        <div className="p-[20px] flex flex-col gap-3 overflow-y-auto">
-          <div className="text-[12px] text-gray-500 text-center">
-            Please note that these are currency approximations. All bets & transactions will be calculated in equivalent
-            currencies. For more details feel free to contact our live support.
-          </div>
-          <div className={'grid grid-cols-3 gap-y-2 justify-between items-center'}>
-            {fiatSymbols.map((item, key) => (
-              <label
-                htmlFor={String(key)}
-                key={key}
-                role="button"
-                className={cn(
-                  'p-[2px] text-left flex items-center justify-between dark:text-white text-black dark:hover:text-white hover:text-amber-600 w-full text-[14px] max-w-[80px] rounded m-auto',
-                )}
-                onClick={() => {
-                  dispatch(setLocalFiat(item));
-                  // handleChangeLocaleFiat(item);
-                  // dispatch(changeLocaleFiat(item));
-                  // CookiesStorage.setCookieData(CookieKey.localeFiat, String(localeModalCoin?.currency));
-                }}
-              >
-                <div className="flex gap-3 items-center justify-between w-full">
-                  <div className="flex items-center gap-1">
-                    {item.id === localFiat?.id && (
-                      <input
-                        id={String(key)}
-                        type="radio"
-                        checked={true}
-                        name="default-radio"
-                        className="w-4 h-4 accent-color-primary bg-gray-100 border-gray-300 ring-none outline-none"
-                      />
-                    )}
-                    {item.id !== localFiat?.id && (
-                      <div className="w-4 h-4 border border-solid dark:border-gray-600 border-gray-300 dark:bg-gray-800 bg-gray-200 rounded-full"></div>
-                    )}
-
-                    <div className="text-[12px]">{item.name}</div>
-                  </div>
-                  <Image
-                    height={16}
-                    width={16}
-                    src={item.logo}
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/fiats/USD.png';
-                    }}
-                  />
-                </div>
-              </label>
-            ))}
-          </div>
-          <div className="m-auto">
-            <button
-              className="text-white rounded-[5px] bg-color-primary p-[10px] xl:text-[14px] text-[12px]"
-              onClick={() => {
-                // dispatch(changeLocaleFiat(localeModalCoin));
-                // CookiesStorage.setCookieData(CookieKey.localeFiat, String(localeModalCoin?.currency));
-                setShowAllFiat(false);
-              }}
-            >
-              {String(t('withdraw:confirm'))}
-            </button>
-          </div>
-        </div>
-      </CommonModal>
+      <ViewInFiat show={showAllFiat} onClose={() => setShowAllFiat(false)} />
       {showFavoriteCoins && (
         <ModalFavoriteCoins
           show={showFavoriteCoins}
