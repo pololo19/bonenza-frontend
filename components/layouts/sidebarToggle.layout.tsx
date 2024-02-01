@@ -42,9 +42,10 @@ import OriginalIcon from '../icons/OriginalIcon';
 import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
+import styles from './sidebar.module.scss';
 
 export default function SidebarToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme, theme } = useTheme();
   const { t } = useTranslation('');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -66,13 +67,6 @@ export default function SidebarToggle() {
     { title: String(t('casino:blackjack')), href: ROUTER.Tagname('Blackjack'), icon: <BlackjackIcon size={18} /> },
     { title: String(t('casino:tableGames')), href: ROUTER.Tagname('Table Games'), icon: <LiveCasinoIcon size={18} /> },
   ];
-
-  const [mode, setMode] = useState(0);
-
-  useEffect(() => {
-    const theme = localStorage.getItem('theme') === 'light' ? 1 : 0;
-    setMode(theme);
-  }, []);
 
   const { isToggleSidebar, isShowVipClubModal } = useSelector(
     (state: AppState) => ({
@@ -121,27 +115,33 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:bonus'))}
                 href={ROUTER.Bonus}
                 icon={Gift}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded px-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded px-[10px]"
               />
               <div className="flex items-center gap-[10px]">
                 <IconOption
                   title={String(t('sidebar:quest'))}
-                  href={ROUTER.Bonus}
+                  href={'/#'}
                   icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
-                  classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
+                  classNames={cn(
+                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i font-bold flex-1 dark:!text-color-text-primary !text-color-light-text-primary',
+                    styles.quest_btn,
+                  )}
                 />
                 <IconOption
                   title={String(t('sidebar:spin'))}
-                  href={ROUTER.Bonus}
+                  href={'/#'}
                   icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
-                  classNames="!bg-color-primary gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] text-10-i font-bold flex-1"
+                  classNames={cn(
+                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i font-bold flex-1 dark:!text-color-text-primary !text-color-light-text-primary',
+                    styles.spin_btn,
+                  )}
                 />
               </div>
               <IconOption
                 title={String(t('sidebar:casino'))}
                 href={''}
                 icon={Notepad2}
-                classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-[#31373D] bg-[#F6F7FA] hover:text-[#000] rounded"
+                classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-[#F6F7FA] hover:text-[#000] rounded"
                 onClick={() => {
                   setShowDropDownCasino(!showDropDownCasino);
                   if (!(router.pathname === ROUTER.Casino)) router.push(ROUTER.Casino);
@@ -154,19 +154,19 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:sports'))}
                 href={ROUTER.Sports}
                 icon={TrendUp}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:lottery'))}
                 href={ROUTER.History}
                 icon={Ticket}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:bingo'))}
                 href={ROUTER.Bingo}
                 icon={Award}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
             </ul>
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center">
@@ -174,7 +174,7 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:vipClub'))}
                 href={'#'}
                 icon={Diamonds}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-t pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-t pl-[10px]"
                 onClick={() => {
                   dispatch(changeIsShowVipClubModal(true));
                 }}
@@ -183,19 +183,19 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:exclusive'))}
                 href={ROUTER.Exclusive}
                 icon={Medal}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:affiliate'))}
                 href={ROUTER.Affiliate}
                 icon={Command}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:provablyFair'))}
                 href={ROUTER.ProvablyFair}
                 icon={Judge}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-b pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-b pl-[10px]"
               />
             </ul>
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
@@ -203,13 +203,13 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:sponsorships'))}
                 href={ROUTER.Sponsorships}
                 icon={SecurityCard}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
               <IconOption
                 title={String(t('sidebar:liveSupport'))}
                 href={ROUTER.LiveSupport}
                 icon={Headphone}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-[#31373D] bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
               />
             </ul>
             <div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
@@ -217,12 +217,11 @@ export default function SidebarToggle() {
                 className={cn(
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
                   {
-                    'bg-[#2D3035] text-white': mode === 0,
-                    'text-[#31373D] bg-[#F6F7FA]': mode === 1,
+                    'bg-[#2D3035] text-white': theme === 'dark',
+                    'text-color-light-text-primary bg-[#F6F7FA]': theme === 'light',
                   },
                 )}
                 onClick={() => {
-                  setMode(0);
                   setTheme('dark');
                 }}
               >
@@ -233,12 +232,11 @@ export default function SidebarToggle() {
                 className={cn(
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
                   {
-                    'text-[#000]  bg-[#eaecf3]': mode === 1,
-                    'hover:bg-gray-600': mode === 0,
+                    'text-[#000]  bg-[#eaecf3]': theme === 'light',
+                    'hover:bg-gray-600': theme === 'dark',
                   },
                 )}
                 onClick={() => {
-                  setMode(1);
                   setTheme('light');
                 }}
               >

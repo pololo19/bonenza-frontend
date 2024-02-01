@@ -34,6 +34,10 @@ module.exports = {
           'linear-gradient(360deg, rgba(255, 255, 255, 0.9) 23.22%, rgba(255, 255, 255, 0) 60.86%)',
         active: 'rgba(246, 27, 79, 0.2)',
         'gradient-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
+        'quest-gradient-btn':
+          'linear-gradient(26.79deg,rgba(109,43,255,.480402) 1.86%,rgba(109,43,255,.04) 85.25%,rgba(109,43,255,.04) 85.25%),rgba(216,216,216,.05)',
+        'spin-gradient-btn':
+          'linear-gradient(19.92deg,rgba(175,13,132,.511772) -6.45%,rgba(175,13,132,.04) 78.77%),rgba(216,216,216,.05)',
       },
       colors: {
         'color-wallet-header': '#1A1B21',
