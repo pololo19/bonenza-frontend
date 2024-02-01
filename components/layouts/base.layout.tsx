@@ -377,10 +377,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         }
       });
 
-      walletSocket.on(`${userId}:withdraw`, (item: string) => {
-        console.log(item, 'withdraw');
-        const data = JSON.parse(item);
-        const status = data.status;
+      walletSocket.on(`${userId}:withdraw`, (data: any) => {
+        console.log(data, 'withdraw');
+        const status = data?.status || '';
         switch (status) {
           case 'Processing':
             toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
