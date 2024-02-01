@@ -17,7 +17,7 @@ const API_AUTH_VALIDATE_TOKEN = (token: string) => `/auth/validate/${token}`;
 const API_ADMIN_LOGIN = '/admin-auth/login';
 const API_AUTH_LOGIN = '/auth/login';
 const API_AUTH_LOGIN_WITH_GOOGLE = '/auth/save-info-login-google';
-const API_AUTH_LOGIN_WITH_GOOGLE_TOP = 'save-info-login-google-one-tap';
+const API_AUTH_LOGIN_WITH_GOOGLE_TOP = '/auth/save-info-login-google-one-tap';
 const API_AUTH_LOGIN_WITH_TELEGRAM = '/auth/save-info-login-telegram';
 const API_AUTH_LOGIN_WITH_WALLET = '/auth/save-info-login-wallet';
 const API_AUTH_SIGNUP_WITH_EMAIL = '/auth/sign-up-with-email';
@@ -103,6 +103,7 @@ const API_AFFILIATE = '/affiliate/affiliate';
 /************************************ VIP **********************************/
 
 const API_VIP_VIP_PROGRESS = '/vip/vip-progress';
+const API_VIP_CHECK_DEPOSIT = '/vip/vip-check-deposit';
 
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
@@ -183,6 +184,7 @@ export {
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
+  API_VIP_CHECK_DEPOSIT,
   API_VIP_VIP_PROGRESS,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_INFO,
