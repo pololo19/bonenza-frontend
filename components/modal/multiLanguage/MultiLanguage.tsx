@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { Star1 } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { ElementType, useState } from 'react';
+import { ElementType, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -66,6 +66,12 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
     //   CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
     // }
   };
+
+  const usdFiat = useMemo(() => {
+    const usd = fiatSymbols.find((item) => item.name.toLowerCase() === 'usd');
+    if (usd) return usd;
+    return null;
+  }, [fiatSymbols]);
 
   const handleChangeLocaleFiat = (item: CurrencyType) => {
     dispatch(updateViewInFiat(true));
@@ -160,7 +166,12 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       },
                     )}
                     onClick={() => {
-                      dispatch(updateSetting({ ...settings, settingViewInFiat: false }));
+                      if (usdFiat) {
+                        dispatch(updateSetting({ ...settings, settingCurrency: usdFiat.id, settingViewInFiat: false }));
+                      } else {
+                        dispatch(updateSetting({ ...settings, settingViewInFiat: false }));
+                      }
+
                       onClose();
                     }}
                   >

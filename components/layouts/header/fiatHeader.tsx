@@ -105,6 +105,12 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     return arraySearch;
   }, [searchFiatInput, cryptoSymbols, cryptoBalances, showSmallFiat]);
 
+  const usdFiat = useMemo(() => {
+    const usd = fiatSymbols.find((item) => item.name.toLowerCase() === 'usd');
+    if (usd) return usd;
+    return null;
+  }, [fiatSymbols]);
+
   const getBalanceBySymbol = (symbol: CurrencyType) => {
     const tempBalances = [...cryptoBalances];
     const selectedBalance = tempBalances.find((item) => item.symbolId === symbol.id);
@@ -456,7 +462,15 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     <Switch
                       checked={viewInFiat}
                       onChange={(value) => {
-                        dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
+                        if (!value) {
+                          if (usdFiat) {
+                            dispatch(
+                              updateSetting({ ...settings, settingViewInFiat: value, settingCurrency: usdFiat.id }),
+                            );
+                          }
+                        } else {
+                          dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
+                        }
                         if (value) setShowAllFiat(true);
                       }}
                       className={`${
