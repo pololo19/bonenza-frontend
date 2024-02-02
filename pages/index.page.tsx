@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
+import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
@@ -16,6 +17,7 @@ import {
   api_getRecentGames,
   api_getTopRelatedGames,
 } from '@/api/game';
+import { api_checkDeposit } from '@/api/vip';
 import { api_getDepositTime } from '@/api/wallet';
 import {
   changeAuthenticationType,
@@ -43,17 +45,14 @@ import { NoDataComponent } from '@/components/noData/noData';
 import GameBannerSlider from '@/components/sliders/gameSliders';
 import TabGames from '@/components/tabGames/tabGames';
 import VipProgressComponent from '@/components/vipProgress/vipProgress';
-import styles from '@/styles/dashboard/index.module.scss';
 
 import { useTranslation } from '../config/i18next';
 import { ROUTER } from '../constants/common';
 import { useExchange } from '../hooks/useExchange';
 import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
-import { convert2Url, convertToUrlCase } from '../libs/utils/convert';
+import { convert2Url } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
-import { useTheme } from 'next-themes';
-import { api_checkDeposit } from '@/api/vip';
 
 function IndexPage() {
   const width = useWidth();
@@ -63,7 +62,7 @@ function IndexPage() {
   const { query } = useRouter();
   const { key } = query;
 
-  const { isLogin, userName, localFiat } = useSelector(
+  const { isLogin, userName, localFiat, user } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       userName: state.auth.user.userName,
@@ -147,6 +146,7 @@ function IndexPage() {
   const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
 
   const [listCasinoTabGame, setListCasinoTabGame] = useState<GameListType[]>([]);
+  const [isNew, setIsNew] = useState(false);
 
   const router = useRouter();
 
@@ -157,6 +157,15 @@ function IndexPage() {
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       dispatch(changeIsShowAuthenticationModal(true));
     }
+  };
+
+  const checkNewUser = (created: Date | string = new Date()) => {
+    const createdDate = new Date(created);
+    const today = new Date();
+
+    const timeDifference = today.getTime() - createdDate.getTime();
+
+    return timeDifference < 1000 * 24 * 3600 * 7;
   };
 
   const initDataLoad = async () => {
@@ -310,7 +319,7 @@ function IndexPage() {
     if (isLogin && width > 600) {
       loadDataAfterLogin();
     }
-  }, [width, isLogin]);
+  }, [width, isLogin, user]);
 
   return (
     <>
@@ -360,10 +369,17 @@ function IndexPage() {
                 )}
                 {isLogin && (
                   <div className="sm:text-start text-center hidden sm:block">
-                    <div className="dark:text-white text-black text-[18px] font-semibold">
-                      {String(t('homePage:welcomeBack'))}
-                      {String(', ')} {userName}
-                    </div>
+                    {!checkNewUser(user.createdAt) || checkDeposit ? (
+                      <div className="dark:text-white text-black text-[18px] font-semibold">
+                        {String(t('homePage:welcomeBack'))}
+                        {String(', ')} {userName}
+                      </div>
+                    ) : (
+                      <div className="sm:text-start text-center hidden sm:block">
+                        {`${String(t('homePage:hello'))} ${userName}! ${String(t('homePage:welcomeAboard'))}`}
+                      </div>
+                    )}
+
                     {!checkDeposit && (
                       <div>
                         <div className="sm:text-[24px] text-[20px] dark:text-white font-bold text-black mt-[6px]">

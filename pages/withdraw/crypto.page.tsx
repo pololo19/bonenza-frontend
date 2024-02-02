@@ -207,7 +207,11 @@ const WithdrawCryptoPage = () => {
       };
       const _res = await api_withdraw(formData);
       const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
-
+      const { status, message } = _res.data;
+      if (status) {
+        setValue('withdrawAddress', '');
+      }
+      toast.success(message, { containerId: TOAST_ENUM.COMMON });
       // router.push(ROUTER.Transaction);
     } catch (error) {
       if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue.min || 0)) {
