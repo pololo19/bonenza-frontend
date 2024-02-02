@@ -32,6 +32,7 @@ export default function LoginGoogleOneTap() {
         }),
       );
       dispatch(initWalletInfo());
+      toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       if (error?.response?.data?.msg === 'Email was taken') {
         toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.COMMON });
