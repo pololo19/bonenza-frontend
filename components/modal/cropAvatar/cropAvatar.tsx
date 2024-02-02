@@ -4,8 +4,7 @@ import Image from 'next/image';
 import { ElementType, useCallback, useState } from 'react';
 import Cropper from 'react-easy-crop';
 import { Area } from 'react-easy-crop/types';
-import { useDispatch } from 'react-redux';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_uploadAvatar } from '@/api/user';
@@ -18,7 +17,9 @@ import {
   changeIsShowInformation,
   changeIsShowUpdateInformation,
 } from '@/base/redux/reducers/modal.reducer';
+import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
@@ -54,11 +55,24 @@ export default function ModalCropAvatar({ show, onClose }: ModalCropAvatarProps)
         const formData = new FormData();
         formData.append('file', avatarFile);
         const resUser = await api_uploadAvatar(formData);
+        const localFiat: CurrencyType = {
+          id: resUser.data.settingFiatCurrency.id ?? '',
+          name: resUser.data.settingFiatCurrency.symbol ?? '',
+          alias: resUser.data.settingFiatCurrency.name ?? '',
+          logo: `/img/fiats/${resUser.data.settingFiatCurrency.symbol}.png`,
+          iso_currency: resUser.data.settingFiatCurrency.iso_currency,
+          iso_decimals: resUser.data.settingFiatCurrency.iso_decimals,
+          availableNetworks: [],
+          price: Number(resUser.data.settingFiatCurrency.price),
+          type: 'fiat',
+          favorite: resUser.data.settingFiatCurrency.favorite,
+        };
         dispatch(
           saveUserInfo({
             ...convertUserInfo(resUser.data),
           }),
         );
+        dispatch(setLocalFiat(localFiat));
         dispatch(changeIsShowInformation(true));
         dispatch(changeIsShowCropAvatar(false));
       }

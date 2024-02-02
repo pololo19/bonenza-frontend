@@ -13,8 +13,9 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 
 declare let window: any;
@@ -34,26 +35,11 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { isLogin, wallet } = useSelector(
-    (state: AppState) => ({
-      isLogin: state.auth.isLogin,
-      wallet: state.auth.user.wallet,
-    }),
-    shallowEqual,
-  );
-
   const googleLogin = async (codeResponse: Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>) => {
     try {
       setIsLoading(true);
-      const res = await api_loginWithGoogle(codeResponse.code);
-      const { token, user } = res.data;
-      CookiesStorage.setAccessToken(token);
-      dispatch(
-        saveUserInfo({
-          ...convertUserInfo(user),
-        }),
-      );
-      dispatch(initWalletInfo());
+      const result = await api_loginWithGoogle(codeResponse.code);
+      await successfullyLogined(result);
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
@@ -80,15 +66,8 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
           setIsLoading(false);
           return;
         }
-        const resToken = await api_loginWithTelegram(data);
-        const { token, user } = resToken.data;
-        CookiesStorage.setAccessToken(token);
-        dispatch(
-          saveUserInfo({
-            ...convertUserInfo(user),
-          }),
-        );
-        dispatch(initWalletInfo());
+        const result = await api_loginWithTelegram(data);
+        await successfullyLogined(result);
         onClose();
         toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
       });
@@ -106,15 +85,8 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       if (!isConnected) return;
       const message = getMessageMetamask(String(address));
       const signauture = await signMessageAsync({ message });
-      const res = await api_loginWithWallet(String(address), String(signauture));
-      const { token, user } = res.data;
-      CookiesStorage.setAccessToken(token);
-      dispatch(
-        saveUserInfo({
-          ...convertUserInfo(user),
-        }),
-      );
-      dispatch(initWalletInfo());
+      const result = await api_loginWithWallet(String(address), String(signauture));
+      await successfullyLogined(result);
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
@@ -127,6 +99,32 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const successfullyLogined = async (result: any) => {
+    try {
+      const { token, user } = result.data;
+      CookiesStorage.setAccessToken(token);
+      const localFiat: CurrencyType = {
+        id: user.settingFiatCurrency.id ?? '',
+        name: user.settingFiatCurrency.symbol ?? '',
+        alias: user.settingFiatCurrency.name ?? '',
+        logo: `/img/fiats/${user.settingFiatCurrency.symbol}.png`,
+        iso_currency: user.settingFiatCurrency.iso_currency,
+        iso_decimals: user.settingFiatCurrency.iso_decimals,
+        availableNetworks: [],
+        price: Number(user.settingFiatCurrency.price),
+        type: 'fiat',
+        favorite: user.settingFiatCurrency.favorite,
+      };
+      dispatch(
+        saveUserInfo({
+          ...convertUserInfo(user),
+        }),
+      );
+      dispatch(initWalletInfo());
+      dispatch(setLocalFiat(localFiat));
+    } catch (error) {}
   };
 
   useEffect(() => {

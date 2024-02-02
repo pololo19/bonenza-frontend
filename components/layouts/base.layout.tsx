@@ -50,6 +50,7 @@ import {
   initWalletInfo,
   logoutWallet,
   setFiatSymbols,
+  setLocalFiat,
   updateBalance,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -314,9 +315,22 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           const newSocket = await initialSocketConnection(SOCKET_WALLET_URL ?? '');
           dispatch(setSocket(newSocket));
         }
+        const localFiat: CurrencyType = {
+          id: res.data.settingFiatCurrency.id ?? '',
+          name: res.data.settingFiatCurrency.symbol ?? '',
+          alias: res.data.settingFiatCurrency.name ?? '',
+          logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
+          iso_currency: res.data.settingFiatCurrency.iso_currency,
+          iso_decimals: res.data.settingFiatCurrency.iso_decimals,
+          availableNetworks: [],
+          price: Number(res.data.settingFiatCurrency.price),
+          type: 'fiat',
+          favorite: res.data.settingFiatCurrency.favorite,
+        };
         i18n.changeLanguage(res.data?.settingLanguage ?? 'en');
         dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
         dispatch(initWalletInfo());
+        dispatch(setLocalFiat(localFiat));
       } else {
         await loadInitData();
       }

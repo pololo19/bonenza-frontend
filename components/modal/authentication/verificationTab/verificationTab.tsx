@@ -14,9 +14,10 @@ import { convertUserInfo } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowAuthenticationModal, changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
-import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { VerifyCodeRequest } from '@/base/types/requestTypes';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import { InputText } from '@/components/input/typing';
 
@@ -70,12 +71,25 @@ export default function VerificationTab() {
       // If verify not from forget-password is success, store user info and go ahead
       // If not, request to reset password
       if (!isForgetPassword) {
+        const localFiat: CurrencyType = {
+          id: resVerify.data.user.settingFiatCurrency.id ?? '',
+          name: resVerify.data.user.settingFiatCurrency.symbol ?? '',
+          alias: resVerify.data.user.settingFiatCurrency.name ?? '',
+          logo: `/img/fiats/${resVerify.data.user.settingFiatCurrency.symbol}.png`,
+          iso_currency: resVerify.data.user.settingFiatCurrency.iso_currency,
+          iso_decimals: resVerify.data.user.settingFiatCurrency.iso_decimals,
+          availableNetworks: [],
+          price: Number(resVerify.data.user.settingFiatCurrency.price),
+          type: 'fiat',
+          favorite: resVerify.data.user.settingFiatCurrency.favorite,
+        };
         dispatch(
           saveUserInfo({
             ...convertUserInfo(resVerify.data.user),
           }),
         );
         dispatch(initWalletInfo());
+        dispatch(setLocalFiat(localFiat));
         toast.success(
           t('authentication:verificationSuccess', { request: isPhoneVerifyRequested ? 'Phone' : 'Email' }),
           {

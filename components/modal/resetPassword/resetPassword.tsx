@@ -13,9 +13,10 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
-import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 import { ResetPasswordRequest } from '@/base/types/requestTypes';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import { InputPassAuthentication } from '@/components/input/typing';
 
@@ -59,7 +60,18 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
       setIsLoading(true);
 
       const res = await api_resetPassword(formReset);
-
+      const localFiat: CurrencyType = {
+        id: res.data.settingFiatCurrency.id ?? '',
+        name: res.data.settingFiatCurrency.symbol ?? '',
+        alias: res.data.settingFiatCurrency.name ?? '',
+        logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
+        iso_currency: res.data.settingFiatCurrency.iso_currency,
+        iso_decimals: res.data.settingFiatCurrency.iso_decimals,
+        availableNetworks: [],
+        price: Number(res.data.settingFiatCurrency.price),
+        type: 'fiat',
+        favorite: res.data.settingFiatCurrency.favorite,
+      };
       dispatch(
         saveUserInfo({
           ...convertUserInfo(res.data),
@@ -67,6 +79,8 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
       );
 
       dispatch(initWalletInfo());
+
+      dispatch(setLocalFiat(localFiat));
 
       dispatch(changeIsShowResetPassword(false));
       toast.success(t('authentication:resetPasswordSuccessfully'), { containerId: TOAST_ENUM.COMMON });

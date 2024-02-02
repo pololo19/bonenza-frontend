@@ -51,7 +51,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       localFiat: state.wallet.localFiat,
       isLogin: state.auth.isLogin,
       userId: state.auth.user.userId,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       gameSocket: state.socket.gameSocket,
     }),
     shallowEqual,

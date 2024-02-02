@@ -58,7 +58,7 @@ export default function ModalRakeBack({
 
   const { viewInFiat, localFiat } = useSelector(
     (state: AppState) => ({
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
     }),
     shallowEqual,

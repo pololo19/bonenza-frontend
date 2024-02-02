@@ -255,6 +255,7 @@ export type UserSettingGeneralType = {
   settingShowFullNameCrypto: boolean;
   settingLanguage: string;
   settingCurrency: string;
+  settingViewInFiat: boolean;
 };
 
 export type UserSettingPrivacyType = {

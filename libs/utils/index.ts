@@ -359,7 +359,8 @@ export const convertUserInfo = (userData: any) => {
       settingShowFullNameCrypto: userData?.settingShowFullNameCrypto,
       settingReceiveMarketPromotion: userData?.settingReceiveMarketPromotion,
       settingLanguage: userData?.settingLanguage,
-      settingCurrency: userData?.settingFiatCurrency?.id ?? 'usd',
+      settingCurrency: userData?.settingFiatCurrency?.id ?? '',
+      settingViewInFiat: userData?.settingViewInFiat,
     },
     privacySetting: {
       settingHideUserName: userData?.settingHideUserName,

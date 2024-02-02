@@ -89,8 +89,9 @@ function GamePage() {
 
   const dispatch = useDispatch();
 
-  const { isLogin, localFiat, activeCurrency, balances, betHistory, language } = useSelector(
+  const { isLogin, localFiat, activeCurrency, balances, betHistory, language, viewInFiat } = useSelector(
     (state: AppState) => ({
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       activeCurrency: state.wallet.activeCurrency,
       balances: state.wallet.balances,
@@ -328,8 +329,6 @@ function GamePage() {
       handlePlayRequest();
     }
   }, [localFiat]);
-
-  console.log(localFiat, '---332');
   return (
     <>
       {isLoading && <Loader />}
@@ -404,16 +403,19 @@ function GamePage() {
                           </div>
 
                           {isSatisfied && (
-                            <div className="sm:text-[12px] text-[11px] dark:text-[#C2C2C2] text-[#31373D] text-center">
+                            <div className="sm:text-[12px] text-[11px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
                               {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                              <span className="!text-amber-500">{localFiat?.name ?? 'USD'}</span>,{' '}
-                              {t('gameDetail:ifYouChangeCurrency')}
+                              <span className="!text-color-primary">
+                                {viewInFiat ? localFiat?.name ?? 'USD' : 'USD'}
+                              </span>
+                              , {t('gameDetail:ifYouChangeCurrency')}
                             </div>
                           )}
                           {!isSatisfied && (
                             <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
                               <span className="!text-red-500">
-                                {t('gameDetail:insufficient')} {localFiat?.name} {t('gameDetail:balance')},
+                                {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')}
+                                ,
                               </span>
                               {t('gameDetail:switchToAnotherAsset')}
                             </div>
@@ -477,9 +479,9 @@ function GamePage() {
                         </div>
                       ) : (
                         <>
-                          <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-[#31373D] text-center">
+                          <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
                             {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                            <span className="!text-amber-500">{localFiat?.name ?? 'USD'}</span>{' '}
+                            <span className="!text-color-primary">{localFiat?.name ?? 'USD'}</span>{' '}
                             {t('gameDetail:ifYouChangeCurrency')}
                           </div>
 
@@ -613,7 +615,7 @@ function GamePage() {
                   className={`${
                     tab === 1
                       ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-[#31373D] bg-white hover:bg-[#EAECF3]'
+                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary bg-white hover:bg-[#EAECF3]'
                   } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
                 >
                   {gameDetail.title}
@@ -624,7 +626,7 @@ function GamePage() {
                   className={`${
                     tab === 2
                       ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-[#31373D] bg-white hover:bg-[#EAECF3]'
+                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary bg-white hover:bg-[#EAECF3]'
                   } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
                 >
                   {t('gameDetail:description')}
@@ -635,7 +637,7 @@ function GamePage() {
                   className={`${
                     tab === 3
                       ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-[#31373D] bg-white hover:bg-[#EAECF3]'
+                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary bg-white hover:bg-[#EAECF3]'
                   } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
                 >
                   {t('gameDetail:reviews')}

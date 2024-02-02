@@ -73,7 +73,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       betHistory: state.game.betHistory,
       gameSocket: state.socket.gameSocket,
       isLogin: state.auth.isLogin,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );

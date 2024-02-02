@@ -44,7 +44,7 @@ const SelectCurrency = ({
       networks: state.wallet.networks,
       localFiat: state.wallet.localFiat,
       bonus: state.wallet.bonusBalance,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );

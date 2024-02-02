@@ -123,7 +123,7 @@ const AccountPannel: React.FC = () => {
       userName: state.auth.user.userName,
       userId: state.auth.user.userId,
       isShow: state.modal.isShowAccountPannel,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
