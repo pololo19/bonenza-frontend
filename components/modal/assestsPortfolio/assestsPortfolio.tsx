@@ -39,7 +39,7 @@ export default function ModalAssetsPortfolio({
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
 
-  const { balances, localFiat, viewInFiat, settings } = useSelector(
+  const { balances, localFiat, viewInFiat, settings, fiatSymbols } = useSelector(
     (state: AppState) => ({
       cryptoSymbols: state.wallet.symbols,
       balances: state.wallet.balances,
@@ -64,6 +64,12 @@ export default function ModalAssetsPortfolio({
     }
     onClose();
   };
+
+  const usdFiat = useMemo(() => {
+    const usd = fiatSymbols.find((item) => item.name.toLowerCase() === 'usd');
+    if (usd) return usd;
+    return null;
+  }, [fiatSymbols]);
 
   const filterListCryptos = useMemo(() => {
     let arraySearch = [...cryptoSymbols].filter((item) =>
@@ -213,6 +219,15 @@ export default function ModalAssetsPortfolio({
                         <Switch
                           checked={viewInFiat}
                           onChange={(value: any) => {
+                            if (!value) {
+                              if (usdFiat) {
+                                dispatch(
+                                  updateSetting({ ...settings, settingViewInFiat: value, settingCurrency: usdFiat.id }),
+                                );
+                              }
+                            } else {
+                              dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
+                            }
                             dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
                             if (value) setShowAllFiat(true);
                           }}
