@@ -746,7 +746,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isShowRakeBackModal && (
         <ModalRakeBack
           show={isShowRakeBackModal}
-          cryptoLocked={cryptoLocked}
           onClose={() => {
             dispatch(changeIsShowRakeBack(false));
           }}
