@@ -44,7 +44,7 @@ const BalancePage = () => {
       activeFiat: state.common.activeFiat,
       fiatArray: state.common.fiatArray,
       usdtNetwork: state.common.usdtNetwork,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
 
       userCurrency: state.auth.user.generalSetting.settingCurrency,
 

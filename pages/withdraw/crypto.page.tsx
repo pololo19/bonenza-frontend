@@ -66,7 +66,7 @@ const WithdrawCryptoPage = () => {
       localFiat: state.wallet.localFiat,
       balances: state.wallet.balances,
       cryptoCurrencies: state.wallet.cryptoCurrencies,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );

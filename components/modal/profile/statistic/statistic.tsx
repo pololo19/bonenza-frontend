@@ -47,7 +47,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
       userName: state.auth.user.userName,
       avatar: state.auth.user.avatar,
       localFiat: state.wallet.localFiat,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       userId: state.auth.user.userId,
     }),
     shallowEqual,

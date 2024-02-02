@@ -49,7 +49,7 @@ export default function ModalDetailBets({
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
