@@ -37,13 +37,14 @@ const SelectCurrency = ({
   const { t } = useTranslation('');
   const { query } = useRouter();
 
-  const { symbols, balances, networks, localFiat, bonus } = useSelector(
+  const { symbols, balances, networks, localFiat, bonus, viewInFiat } = useSelector(
     (state: AppState) => ({
       symbols: state.wallet.symbols,
       balances: state.wallet.balances,
       networks: state.wallet.networks,
       localFiat: state.wallet.localFiat,
       bonus: state.wallet.bonusBalance,
+      viewInFiat: state.common.viewInFiat,
     }),
     shallowEqual,
   );
@@ -239,14 +240,22 @@ const SelectCurrency = ({
                         </div>
                         <div className="flex items-center justify-start gap-[10px] py-[10px]">
                           <div className="flex flex-col">
-                            <span className="text-[14px] font-semibold dark:text-white text-black text-right">
-                              {currencyFormat1(
-                                getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
-                                fiatDecimals,
-                                localFiat?.name || 'USD',
-                              )}
-                            </span>
-                            <span className="text-[10px] font-semibold text-gray-400 text-right">
+                            {viewInFiat && (
+                              <span className="text-[14px] font-semibold dark:text-white text-black text-right">
+                                {currencyFormat1(
+                                  getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
+                                  fiatDecimals,
+                                  localFiat?.name || 'USD',
+                                )}
+                              </span>
+                            )}
+
+                            <span
+                              className={cn(' font-semibold text-right', {
+                                'text-[10px] text-gray-400 ': viewInFiat,
+                                'text-[14px] dark:text-white text-black': !viewInFiat,
+                              })}
+                            >
                               {currencyFormat1(getBalanceBySymbol(symbol), cryptoDecimals, '', false)}
                             </span>
                             {symbol.name.toLowerCase() === 'usdt' && (

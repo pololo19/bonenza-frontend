@@ -25,6 +25,7 @@ import ModalBonusHistory from '@/components/modal/rakeBack/bonusHistory/bonusHis
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ViewInFiat from '@/components/modal/viewInFiat/viewInFiat';
+import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -302,7 +303,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             )}
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
                               {crypto.name.toLowerCase() === 'usdt' && (
-                                <div className="mt-1 flex justify-end text-color-primary">
+                                <div
+                                  className="mt-1 flex justify-end text-color-primary"
+                                  onClick={() => dispatch(changeIsShowRakeBack(true))}
+                                >
                                   <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                     <Lock size={12} variant="Bold" />{' '}
                                     {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name || 'USD'))}
@@ -504,7 +508,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       {showModalRakeBack && (
         <ModalRakeBack
           show={showModalRakeBack}
-          cryptoLocked={cryptoLocked}
           onClose={() => {
             setShowModalRakeBack(false);
           }}
