@@ -35,7 +35,7 @@ const GeneralPage = () => {
 
   const { viewInFiat, settings, defaultCurrencyId, fiatSymbols } = useSelector(
     (state: AppState) => ({
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       settings: state.auth.user.generalSetting,
       fiatSymbols: state.wallet.fiatSymbols,
       defaultCurrencyId: state.auth.user.generalSetting.settingCurrency,
@@ -153,7 +153,7 @@ const GeneralPage = () => {
             checked={viewInFiat}
             onChange={(value) => {
               dispatch(setLocalFiat(defaultCurrency));
-              dispatch(changeViewInFiat(value));
+              dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
             }}
             className={`${
               viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'

@@ -148,7 +148,7 @@ function RecentBigWinComponent() {
     (state: AppState) => ({
       userId: state.auth.user.userId,
       localFiat: state.wallet.localFiat,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );

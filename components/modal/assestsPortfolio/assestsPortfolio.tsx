@@ -3,13 +3,13 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import Image from 'next/image';
 import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
-import { AppState } from '@/base/redux/store';
+import { updateSetting } from '@/base/redux/reducers/auth.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import InputSearch from '@/components/input/typing/InputSearch';
 
@@ -37,15 +37,16 @@ export default function ModalAssetsPortfolio({
   const exchangeRate = useExchange();
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const { balances, localFiat, viewInFiat } = useSelector(
+  const { balances, localFiat, viewInFiat, settings } = useSelector(
     (state: AppState) => ({
       cryptoSymbols: state.wallet.symbols,
       balances: state.wallet.balances,
       localFiat: state.wallet.localFiat,
       fiatSymbols: state.wallet.fiatSymbols,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      settings: state.auth.user.generalSetting,
     }),
     shallowEqual,
   );
@@ -212,7 +213,7 @@ export default function ModalAssetsPortfolio({
                         <Switch
                           checked={viewInFiat}
                           onChange={(value: any) => {
-                            dispatch(changeViewInFiat(value));
+                            dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
                             if (value) setShowAllFiat(true);
                           }}
                           className={`${

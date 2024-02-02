@@ -1,42 +1,23 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ChevronLeftIcon } from '@heroicons/react/24/outline';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { Mobile } from 'iconsax-react';
-import Image from 'next/image';
-import { ElementType, useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { ElementType, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { OtpInput } from 'reactjs-otp-input';
 import * as yup from 'yup';
 
-import {
-  api_sendMail,
-  api_sendMailToUser,
-  api_sendSMS,
-  api_sendSMSToUser,
-  api_verify,
-  api_verifyCodeToUser,
-} from '@/api/auth';
-import { api_editUserName } from '@/api/user';
+import { api_sendMailToUser, api_sendSMSToUser, api_verifyCodeToUser } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import {
-  changeIsShowInformation,
-  changeIsShowUpdateAvatar,
-  changeIsShowUpdateInformation,
-  changeIsShowVerifyMailAndPhone,
-  changeSelectedAvatar,
-} from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowVerifyMailAndPhone } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { EnumTypeInput, VerifyModeEnum } from '@/base/types/common';
+import { VerifyModeEnum } from '@/base/types/common';
 import { VerifyCodeRequest } from '@/base/types/requestTypes';
 import Loader from '@/components/common/preloader/loader';
-import InputText from '@/components/input/typing/InputText';
 
 import CommonModal from '../commonModal/commonModal';
 

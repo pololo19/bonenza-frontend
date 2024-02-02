@@ -54,7 +54,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
       localFiat: state.wallet.localFiat,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       betHistory: state.game.betHistory,
     }),
     shallowEqual,

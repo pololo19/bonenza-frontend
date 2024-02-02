@@ -34,7 +34,7 @@ function AffiliatePage() {
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       localFiat: state.wallet.localFiat,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );

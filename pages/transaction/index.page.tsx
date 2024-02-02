@@ -55,7 +55,7 @@ const TransactionPage = () => {
 
   const { localFiat, viewInFiat, cryptoSymbols, userId, username } = useSelector(
     (state: AppState) => ({
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       cryptoSymbols: state.wallet.symbols,
       userId: state.user.userId,

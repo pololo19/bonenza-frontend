@@ -43,7 +43,7 @@ export default function Navbar() {
         isToggleSidebar: state.modal.isToggleSidebar,
         isShowCasinoSearch: state.modal.isShowCasinoSearch,
         showChatType: state.modal.showChatType,
-        viewInFiat: state.common.viewInFiat,
+        viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
         localFiat: state.wallet.localFiat,
         isAccountPannel: state.modal.isShowAccountPannel,
       }),

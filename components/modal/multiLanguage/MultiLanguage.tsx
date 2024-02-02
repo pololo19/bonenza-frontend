@@ -9,7 +9,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { updateSetting } from '@/base/redux/reducers/auth.reducer';
+import { updateSetting, updateViewInFiat } from '@/base/redux/reducers/auth.reducer';
 import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
 import { changeMultiLanguageTab } from '@/base/redux/reducers/modal.reducer';
 import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
@@ -40,7 +40,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
       fiatArray: state.common.fiatArray,
       // localeFiat: state.common.localeFiat,
       activeFiat: state.common.activeFiat,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       isLogin: state.auth.isLogin,
       settings: state.auth.user.generalSetting,
 
@@ -68,7 +68,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
   };
 
   const handleChangeLocaleFiat = (item: CurrencyType) => {
-    dispatch(changeViewInFiat(true));
+    dispatch(updateViewInFiat(true));
 
     dispatch(setLocalFiat(item));
     if (isLogin) {
@@ -160,8 +160,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       },
                     )}
                     onClick={() => {
-                      dispatch(changeViewInFiat(false));
-                      // dispatch(setLocalFiat(null));
+                      dispatch(updateSetting({ ...settings, settingViewInFiat: false }));
                       onClose();
                     }}
                   >

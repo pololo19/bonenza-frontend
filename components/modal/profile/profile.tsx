@@ -37,12 +37,11 @@ type FavoriteGameType = {
 };
 
 export default function ModalProfile({ show, onClose }: ModalProfileProps) {
-  const exchange = useExchange();
   const { t } = useTranslation('');
   const { theme } = useTheme();
   const { userId, viewInFiat, userData, localFiat } = useSelector(
     (state: AppState) => ({
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       userId: state.auth.user.userId,
       userData: state.user,
       localFiat: state.wallet.localFiat,

@@ -22,6 +22,8 @@ import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 import getCroppedImg from '../cropAvatar/cropImage';
+import { CurrencyType } from '@/base/types/wallet';
+import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 
 type ModalUpdateAvatarProps = {
   onClose: () => void;
@@ -101,7 +103,20 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         const formData = new FormData();
         formData.append('file', avatarFile);
         const res = await api_uploadAvatar(formData);
+        const localFiat: CurrencyType = {
+          id: res.data.settingFiatCurrency.id ?? '',
+          name: res.data.settingFiatCurrency.symbol ?? '',
+          alias: res.data.settingFiatCurrency.name ?? '',
+          logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
+          iso_currency: res.data.settingFiatCurrency.iso_currency,
+          iso_decimals: res.data.settingFiatCurrency.iso_decimals,
+          availableNetworks: [],
+          price: Number(res.data.settingFiatCurrency.price),
+          type: 'fiat',
+          favorite: res.data.settingFiatCurrency.favorite,
+        };
         dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
+        dispatch(setLocalFiat(localFiat));
         dispatch(changeIsShowInformation(true));
         dispatch(changeIsShowUpdateAvatar(false));
       }

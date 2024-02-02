@@ -140,7 +140,7 @@ function AffiliateLoggedPage() {
     (state: AppState) => ({
       referralCode: state.auth.user.referralCode,
       localFiat: state.wallet.localFiat,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );

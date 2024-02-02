@@ -14,18 +14,17 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 import { changeActiveFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
 import { setActiveCurrency, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import InputSearch from '@/components/input/typing/InputSearch';
-import CommonModal from '@/components/modal/commonModal/commonModal';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ModalBonusHistory from '@/components/modal/rakeBack/bonusHistory/bonusHistory';
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
-import ViewInFiat from '@/components/modal/viewInFiat/viewInFiat';
-import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
+import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -56,7 +55,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       // fiatArray: state.common.fiatArray,
-      viewInFiat: state.common.viewInFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       settings: state.auth.user.generalSetting,
 
       activeCurrency: state.wallet.activeCurrency,
@@ -457,8 +456,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     <Switch
                       checked={viewInFiat}
                       onChange={(value) => {
-                        dispatch(changeViewInFiat(value));
-                        // dispatch(setLocalFiat(null));
+                        dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
                         if (value) setShowAllFiat(true);
                       }}
                       className={`${
@@ -496,7 +494,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         </Transition>
       </Menu>
 
-      <ViewInFiat show={showAllFiat} onClose={() => setShowAllFiat(false)} />
+      <ViewInFiatModal show={showAllFiat} onClose={() => setShowAllFiat(false)} />
       {showFavoriteCoins && (
         <ModalFavoriteCoins
           show={showFavoriteCoins}

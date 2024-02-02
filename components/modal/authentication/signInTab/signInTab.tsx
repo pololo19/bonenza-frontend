@@ -12,9 +12,10 @@ import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
-import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
 import InputPassAuthentication from '@/components/input/typing/InputPassAuthentication';
@@ -123,6 +124,18 @@ export default function SignInTab({
         };
         const res = await api_login(request);
         const { token, user } = res.data;
+        const localFiat: CurrencyType = {
+          id: user.settingFiatCurrency.id ?? '',
+          name: user.settingFiatCurrency.symbol ?? '',
+          alias: user.settingFiatCurrency.name ?? '',
+          logo: `/img/fiats/${user.settingFiatCurrency.symbol}.png`,
+          iso_currency: user.settingFiatCurrency.iso_currency,
+          iso_decimals: user.settingFiatCurrency.iso_decimals,
+          availableNetworks: [],
+          price: Number(user.settingFiatCurrency.price),
+          type: 'fiat',
+          favorite: user.settingFiatCurrency.favorite,
+        };
         CookiesStorage.setAccessToken(token);
         dispatch(
           saveUserInfo({
@@ -130,6 +143,7 @@ export default function SignInTab({
           }),
         );
         dispatch(initWalletInfo());
+        dispatch(setLocalFiat(localFiat));
         dispatch(changeIsShowAuthenticationModal(false));
       } catch (error: any) {
         const isPhoneNumber =

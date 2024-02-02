@@ -31,6 +31,7 @@ const initialUser: UserDetail = {
     settingReceiveMarketPromotion: false,
     settingLanguage: 'en',
     settingCurrency: '',
+    settingViewInFiat: false,
   },
   privacySetting: {
     settingHideUserName: false,
@@ -73,10 +74,14 @@ export const queryDataSlice = createSlice({
     setIsForgetPassword: (state: AuthState, action: PayloadAction<boolean>) => {
       state.isForgetPassword = action.payload;
     },
+    updateViewInFiat: (state: AuthState, action: PayloadAction<boolean>) => {
+      state.user.generalSetting.settingViewInFiat = action.payload;
+    },
   },
 });
 
-export const { saveUserInfo, logoutState, saveVerifyInfo, setIsForgetPassword } = queryDataSlice.actions;
+export const { saveUserInfo, logoutState, saveVerifyInfo, setIsForgetPassword, updateViewInFiat } =
+  queryDataSlice.actions;
 export default queryDataSlice.reducer;
 
 export const updateSetting =
