@@ -1,22 +1,29 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import cn from 'classnames';
 import { ArrowRight2, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { ElementType, Fragment, useEffect, useRef, useState } from 'react';
+import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 
-import api from '@/api/api';
+import { api_getClaims, api_postClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import {
+  currencyFormat,
+  currencyFormat1,
+  exchangeByLocaleFiat,
+  formatLengthNumber,
+  handleLocaleSymbol,
+} from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
+import { toast } from 'react-toastify';
 
 type ModalRakeBackProps = {
-  cryptoLocked?: FiatType;
   onClose: () => void;
   show: boolean;
   setShowModalRakeBackDetail: () => void;
@@ -24,36 +31,53 @@ type ModalRakeBackProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
+const cryptoLen = 4;
+const fiatLen = 2;
+
 export default function ModalRakeBack({
   show,
   onClose,
-  cryptoLocked,
   setShowModalRakeBackDetail,
   setShowModalBonusHistory,
 }: ModalRakeBackProps) {
   const cancelButtonRef = useRef(null);
+  const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [unlockedAmount, setUnlockedAmount] = useState<number>(0);
+  const [lockedAmount, setLockedAmount] = useState({
+    balance: 0,
+    balanceUsd: 0,
+  });
+  const [unlockedData, setUnlockedData] = useState({
+    amount: 0,
+    minimumUnlockAmount: 0,
+    minimumUnlockAmountUsd: 0,
+    minimumWagerAmountUsd: 0,
+  });
 
-  const { localeFiat, activeFiat } = useSelector(
+  const { viewInFiat, localFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
-      activeFiat: state.common.activeFiat,
+      viewInFiat: state.common.viewInFiat,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
 
-  const getWagerAmount = (): string => {
-    let amount = 5.0 / (0.01 * 0.2);
-    return activeFiat
-      ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-          exchangeByLocaleFiat(cryptoLocked?.currency, String(localeFiat?.currency), amount),
-          2,
-        )}`
-      : `$${formatLengthNumber(Number(amount), 4)}`;
-  };
+  // const getWagerAmount = (): string => {
+  //   let amount = 5.0 / (0.01 * 0.2);
+  //   return activeFiat
+  //     ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
+  //         exchangeByLocaleFiat(cryptoLocked?.currency, String(localeFiat?.currency), amount),
+  //         2,
+  //       )}`
+  //     : `$${formatLengthNumber(Number(amount), 4)}`;
+  // };
+  const requiredWagerAmount = useMemo(() => {
+    const requiredAmount = unlockedData.minimumUnlockAmount - lockedAmount.balance;
+    const requiredWager = requiredAmount / (0.01 * 0.2);
+    return requiredWager;
+  }, [localFiat, unlockedData, lockedAmount]);
 
   const handleShowModalDetail = () => {
     setShowModalRakeBackDetail();
@@ -65,30 +89,42 @@ export default function ModalRakeBack({
     onClose();
   };
 
-  const getUnlockAmount = async () => {
+  const getClaimData = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('deposit/get-unlocked-amount');
-      setUnlockedAmount(res.data?.unlockedAmount);
+      const res = await api_getClaims();
+      const tempUnlockedAmount = Number(res.data?.unlockedAmount ?? 0);
+      const tempUnlockMinimumAmount = Number(res.data?.minimumUnlockAmount ?? 0);
+      const tempUnlockMinimumAmountUsd = Number(res.data?.minimumUnlockAmountUsd ?? 0);
+      const tempMinimumWagerAmountUsd = Number(res.data?.minimumWagerAmountUsd ?? 0);
+      const tempLockedAmount = Number(res.data?.lockedAmount ?? 0);
+      const tempLockedAmountUsd = Number(res.data?.lockedAmountUsd ?? 0);
+      setUnlockedData({
+        amount: tempUnlockedAmount,
+        minimumUnlockAmount: tempUnlockMinimumAmount,
+        minimumUnlockAmountUsd: tempUnlockMinimumAmountUsd,
+        minimumWagerAmountUsd: tempMinimumWagerAmountUsd,
+      });
+      setLockedAmount({
+        balance: tempLockedAmount,
+        balanceUsd: tempLockedAmountUsd,
+      });
     } catch (error) {
+      setLockedAmount({
+        balance: 0,
+        balanceUsd: 0,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const claimUnlockAmount = async () => {
+  const handleCliam = async () => {
     try {
       setIsLoading(true);
-      const res = await api.post('deposit/claim-unlocked-amount');
-      setUnlockedAmount(0);
-      toast.success(
-        <div>
-          {t('deposit:claimComplete')}
-          <br /> {res.data.bonus} USDT
-        </div>,
-        { containerId: TOAST_ENUM.COMMON },
-      );
-    } catch (error) {
+      const res = await api_postClaims(unlockedData.amount);
+      toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
       toast.error(t('deposit:claimFailed'), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -96,7 +132,7 @@ export default function ModalRakeBack({
   };
 
   useEffect(() => {
-    getUnlockAmount();
+    getClaimData();
   }, []);
 
   return (
@@ -126,10 +162,10 @@ export default function ModalRakeBack({
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
-                <Dialog.Panel className="!overflow-hidden dark:text-[#98a7b5] text-[#31373d] dark:bg-[#1e2024] bg-white text-[14px] sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[15px] text-left shadow-xl transition-all my-0 w-full !p-0">
+                <Dialog.Panel className="!overflow-hidden dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-primary bg-white text-[14px] sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[3px] text-left shadow-xl transition-all my-0 w-full !p-0">
                   <Dialog.Title
                     as="div"
-                    className="relative h-[60px] px-[20px] flex justify-between dark:bg-[#17181b] bg-[#f5f6fa] items-center"
+                    className="relative h-[60px] px-[20px] flex justify-between dark:bg-color-header-primary bg-color-light-bg-primary items-center"
                   >
                     <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:rakeback')}</div>
                     <div className="group rounded-md" role="button" onClick={onClose}>
@@ -139,58 +175,51 @@ export default function ModalRakeBack({
                       />
                     </div>
                   </Dialog.Title>
-                  <div className="dark:text-[#98a7b5] text-[#31373d] flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
+                  <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
                     <div className="bg-[url('/img/rakeBackBg.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
                       <div className="flex flex-col items-center justify-center h-full gap-[10px]">
                         <div className="flex justify-center flex-col items-center">
                           <Image height={54} width={42} src="/img/coin-rakeBack.png" alt="" />
-                          <p className="text-[10px] mt-[2px] text-[#98a7b5">{t('deposit:unlocked')} USDT</p>
+                          <p className="text-[10px] mt-[2px] dark:text-color-text-primary text-white">
+                            {t('deposit:unlocked')} USDT
+                          </p>
                         </div>
-                        <div className="w-[236px] rounded-[5px] h-[36px] text-[#0DFDE4] bg-[#17181bb3] flex items-center justify-center gap-2">
+                        <div className="w-[236px] rounded-[5px] h-[36px] text-color-primary dark:bg-color-bg-primary bg-color-light-modal-bg-primary flex items-center justify-center gap-2">
                           <Image height={18} width={18} src="/img/fiats/USDT.png" alt="" />
-                          <p className="text-[16px] font-bold">{currencyFormat(unlockedAmount, 2)}</p>
+                          <p className="text-[16px] font-bold">{currencyFormat1(unlockedData.amount, 2, '', false)}</p>
                         </div>
                         <div>
                           <div
-                            onClick={() => claimUnlockAmount()}
-                            className={`${
-                              unlockedAmount < 5 ? 'pointer-events-none opacity-60' : ''
-                            } w-[161px] cursor-pointer h-[38px] bg-[#F39717] text-white text-[14px] font-bold flex items-center justify-center rounded-[5px]`}
+                            role="button"
+                            className={cn(
+                              'w-[161px] cursor-pointer h-[38px] bg-color-primary text-white text-[14px] font-bold flex items-center justify-center rounded-[5px]',
+                              {
+                                'pointer-events-none opacity-60':
+                                  unlockedData.amount < unlockedData.minimumUnlockAmount,
+                              },
+                            )}
+                            onClick={handleCliam}
                           >
                             {t('deposit:claim')}
                           </div>
-                          <div className="text-[10px] mt-[2px] flex items-center justify-center text-[#98a7b5]">
+                          <div className="text-[10px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-white text-color-light-text-primary">
                             <p>{t('deposit:mintoclaim')}:</p> &nbsp;
-                            <p className="text-white">5 USDT</p>
+                            <p className="text-white">{unlockedData.minimumUnlockAmount} USDT</p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="h-[48px] mt-2 mb-5 px-6 py-[6px] dark:bg-[#24272B] bg-[#f5f6fa] rounded-[5px] flex items-center justify-between">
-                      <div className="text-[#939699] flex items-center gap-1">
+                      <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1">
                         <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
                       </div>
                       <div className="h-full">
                         <div className="dark:text-white text-black">
-                          {localeFiat
-                            ? `${currencyFormat(
-                                exchangeByLocaleFiat(cryptoLocked?.currency, 'USDT', cryptoLocked?.amountLocked),
-                                2,
-                              )}`
-                            : `${formatLengthNumber(Number(cryptoLocked?.amountLocked), 4)}`}{' '}
-                          USDT
+                          {`${currencyFormat1(lockedAmount.balance, cryptoLen, '', false)} USDT`}
                         </div>
                         <div className="text-[10px]">
-                          {localeFiat
-                            ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                                exchangeByLocaleFiat(
-                                  cryptoLocked?.currency,
-                                  String(localeFiat?.currency),
-                                  cryptoLocked?.amountLocked,
-                                ),
-                                2,
-                              )}`
-                            : `${formatLengthNumber(Number(cryptoLocked?.amountLocked), 4)}`}
+                          {viewInFiat &&
+                            currencyFormat1(lockedAmount.balanceUsd * exchangeRate, fiatLen, localFiat?.name ?? 'USD')}
                         </div>
                       </div>
                     </div>
@@ -198,9 +227,11 @@ export default function ModalRakeBack({
                     <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
                       <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
                       <p className="mt-[14px] mb-[28px]">
-                        {t('deposit:youStillNeed')} {getWagerAmount()} {t('deposit:unlockable')} 5 USDT.{' '}
+                        {t('deposit:youStillNeed')}{' '}
+                        {`${currencyFormat1(requiredWagerAmount, cryptoLen, '', false)} USDT`} {t('deposit:unlockable')}{' '}
+                        {`${unlockedData.minimumUnlockAmount} USDT `}
                         <span
-                          className="text-[#0DFDE4] cursor-pointer hover:underline"
+                          className="text-color-primary cursor-pointer hover:underline"
                           onClick={() => handleShowModalDetail()}
                         >
                           {t('deposit:viewDetails')}
@@ -208,14 +239,20 @@ export default function ModalRakeBack({
                       </p>
                       <div className="flex flex-wrap gap-2">
                         <div
-                          onClick={() => router.push('/casino')}
-                          className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-[#20D4EB] px-[16px] justify-center text-white font-bold text-[14px] rounded-[5px]"
+                          onClick={() => {
+                            onClose();
+                            router.push('/casino');
+                          }}
+                          className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-purple px-[16px] justify-center text-white font-bold text-[14px]"
                         >
                           {t('deposit:goToCasino')}
                         </div>
                         <div
-                          onClick={() => router.push('/sports')}
-                          className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-[#F61B4F] px-[16px] justify-center text-white font-bold text-[14px] rounded-[5px]"
+                          onClick={() => {
+                            onClose();
+                            router.push('/sports');
+                          }}
+                          className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-default px-[16px] justify-center text-white font-bold text-[14px]"
                         >
                           {t('deposit:goToSports')}
                         </div>

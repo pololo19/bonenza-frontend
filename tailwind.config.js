@@ -34,6 +34,7 @@ module.exports = {
           'linear-gradient(360deg, rgba(255, 255, 255, 0.9) 23.22%, rgba(255, 255, 255, 0) 60.86%)',
         active: 'rgba(246, 27, 79, 0.2)',
         'gradient-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
+        'gradient-btn-purple': 'conic-gradient(from 1turn,rgba(136,83,252,1),rgba(110,52,226,1))',
         'quest-gradient-btn':
           'linear-gradient(26.79deg,rgba(109,43,255,.480402) 1.86%,rgba(109,43,255,.04) 85.25%,rgba(109,43,255,.04) 85.25%),rgba(216,216,216,.05)',
         'spin-gradient-btn':

@@ -288,10 +288,10 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              row.original?.amount < 0 ? 'text-red-500' : 'text-color-primary'
+              row.original?.type?.toLowerCase() == 'bet' ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
-            {row.original?.amount < 0 ? '-' : '+'}
+            {row.original?.type?.toLowerCase() == 'bet' ? '-' : '+'}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
             ) : (

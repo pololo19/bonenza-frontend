@@ -72,10 +72,10 @@ export default function ModalRakeBackDetail({
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
-                <Dialog.Panel className="!overflow-hidden dark:text-[#98a7b5] text-[#31373d] dark:bg-[#1e2024] bg-white text-[14px] sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[15px] text-left shadow-xl transition-all my-0 w-full !p-0">
+                <Dialog.Panel className="!overflow-hidden dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-primary bg-white text-[14px] sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[3px] text-left shadow-xl transition-all my-0 w-full !p-0">
                   <Dialog.Title
                     as="div"
-                    className="relative h-[60px] px-[20px] flex justify-between dark:bg-[#17181b] bg-[#f5f6fa] items-center"
+                    className="relative h-[60px] px-[20px] flex justify-between dark:bg-[#17181b] bg-color-light-bg-primary items-center"
                   >
                     <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:rakeback')}</div>
                     <div className="group rounded-md" role="button" onClick={() => handleClickCLose()}>
@@ -85,14 +85,14 @@ export default function ModalRakeBackDetail({
                       />
                     </div>
                   </Dialog.Title>
-                  <div className="dark:text-[#98a7b5] text-[#31373d] flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] overflow-auto">
+                  <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] overflow-auto">
                     <div className="bg-[url('/img/reBackDetail.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
                       <div className="flex flex-col items-start justify-center h-full gap-[10px] pl-8">
-                        <div className="w-[190px] rounded-[5px] h-[36px] text-[#0dfd41fe] bg-[#42d04238] flex items-center justify-center gap-2">
+                        <div className="w-[190px] rounded-[5px] h-[36px] text-color-primary bg-color-primary-1/20 flex items-center justify-center gap-2">
                           <p className="text-[16px] font-bold">1 USDT ($) = 1 USD ($)</p>
                         </div>
                         <div>
-                          <div className="text-[10px] mt-[2px] flex items-center justify-center text-[#98a7b5]">
+                          <div className="text-[10px] mt-[2px] flex items-center justify-center text-color-text-primary">
                             <p className="text-white cursor-pointer text-[12px]">{t('rakeBackDetail:viewContract')}</p>
                           </div>
                         </div>
@@ -102,7 +102,7 @@ export default function ModalRakeBackDetail({
                       <Disclosure defaultOpen>
                         {({ open }) => (
                           <>
-                            <Disclosure.Button className="flex w-full  h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-[#23252a] bg-[#f5f6fa] hover:dark:bg-[#2b2f33] focus:outline-none">
+                            <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-color-bg-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none">
                               <span className="text-white text-[14px] flex items-center gap-1 font-medium">
                                 {t('rakeBackDetail:howUnlockClaim', { currency: cryptoLocked?.currency })}
                               </span>
@@ -110,7 +110,7 @@ export default function ModalRakeBackDetail({
                                 className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-[#939699]`}
                               />
                             </Disclosure.Button>
-                            <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-[#98a7b5] text-[#31373d] dark:bg-[#282b2f] bg-[#f5f6fa]">
+                            <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-secondary bg-color-light-bg-primary">
                               <div className="text-white mb-4">
                                 {t('rakeBackDetail:howUnlock', { currency: cryptoLocked?.currency })}
                               </div>
@@ -139,7 +139,7 @@ export default function ModalRakeBackDetail({
                       <Disclosure defaultOpen>
                         {({ open }) => (
                           <>
-                            <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-[#23252a] bg-[#f5f6fa] hover:dark:bg-[#2b2f33] focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75">
+                            <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-color-bg-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75">
                               <span className="text-white text-[14px] flex items-center gap-1 font-medium">
                                 {t('rakeBackDetail:aboutCurrency', { currency: cryptoLocked?.currency })}
                               </span>
@@ -147,7 +147,7 @@ export default function ModalRakeBackDetail({
                                 className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-[#939699]`}
                               />
                             </Disclosure.Button>
-                            <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-[#98a7b5] text-[#31373d] dark:bg-[#282b2f] bg-[#f5f6fa]">
+                            <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-secondary bg-color-light-bg-primary">
                               <div className="text-white mb-4">
                                 {t('rakeBackDetail:canBeExchange', { currency: cryptoLocked?.currency })}
                               </div>
