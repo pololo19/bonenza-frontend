@@ -62,6 +62,9 @@ const API_WALLET_DEPOSIT_TIME = '/wallet/get-deposit-time-for-this-week';
 const API_WALLET_INIT_DATA = '/wallet/init-currency';
 const API_WALLET_SET_FAVORITE = '/wallet/set-currency-favorite-status';
 
+const API_WALLET_GET_CLAIM = '/wallet/claim';
+const API_WALLET_POST_CLAIM = '/wallet/claim';
+
 /************************************ Game **********************************/
 const API_GAME_PICK_GAMES = '/game/get-pick-games-for-you';
 const API_GAME_FAVORITE_GAMES = '/game/get-favorite-games';
@@ -187,8 +190,10 @@ export {
   API_VIP_CHECK_DEPOSIT,
   API_VIP_VIP_PROGRESS,
   API_WALLET_DEPOSIT_TIME,
+  API_WALLET_GET_CLAIM,
   API_WALLET_INFO,
   API_WALLET_INIT_DATA,
+  API_WALLET_POST_CLAIM,
   API_WALLET_ROLLOVER,
   API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,

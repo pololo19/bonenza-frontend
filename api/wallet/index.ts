@@ -1,7 +1,9 @@
 import {
   API_WALLET_DEPOSIT_TIME,
+  API_WALLET_GET_CLAIM,
   API_WALLET_INFO,
   API_WALLET_INIT_DATA,
+  API_WALLET_POST_CLAIM,
   API_WALLET_ROLLOVER,
   API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,
@@ -62,4 +64,12 @@ export const api_getInitData = async () => {
 
 export const api_setCurrencyFavorite = async (currencyId: string, currencyType: CurrencySymbolType) => {
   return api.post(API_WALLET_SET_FAVORITE, { currencyId, currencyType });
+};
+
+export const api_getClaims = async () => {
+  return api.get(API_WALLET_GET_CLAIM);
+};
+
+export const api_postClaims = async (amount: number) => {
+  return api.post(API_WALLET_POST_CLAIM, { amount });
 };
