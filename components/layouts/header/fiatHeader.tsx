@@ -148,7 +148,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     <>
       <Menu
         as="div"
-        className="relative w-auto text-left rounded flex dark:text-white h-[36px] sm:h-[44px] text-[#000] dark:bg-[#1D1E22] bg-[#F6F7FA]"
+        className="relative w-auto text-left rounded flex dark:text-white h-[36px] sm:h-[44px] text-[#000] dark:bg-color-modal-bg-primary bg-color-light-bg-primary"
       >
         <Menu.Button>
           {activeCurrency.id && (

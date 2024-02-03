@@ -2,12 +2,14 @@ import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessu
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
-import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { ElementType, Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
+import { api_bonusUsdtHistory } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import TableComponent from '@/components/table';
@@ -20,7 +22,14 @@ type ModalBonusHistory = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
+type ListTransactionType = {
+  amount: number;
+  amountUsd: number;
+  type: string;
+  time: string;
+};
 export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShowModalRakeBack }: ModalBonusHistory) {
+  const exchangeRate = useExchange();
   const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
@@ -28,46 +37,43 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const [limit, setLimit] = useState(10);
   const [listTypes, setListTypes] = useState<any[]>([]);
   const [typeFilter, setTypeFilter] = useState<string>('');
-  const [listTransactions, setListTransactions] = useState<any[]>([]);
+  const [listTransactions, setListTransactions] = useState<ListTransactionType[]>([]);
   const [totalTable, setTotalTable] = useState<number>(0);
-  const { localeFiat } = useSelector(
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
 
-  const getListBonusTransaction = async (page?: number) => {
+  const getListBonusTransaction = useCallback(async () => {
     try {
       setIsLoadingTable(true);
-      // const res = await api.get('vip/get-list-bonus-transactions', {
-      //   params: {
-      //     actionType: typeFilter,
-      //     page: page,
-      //     limit,
-      //   },
-      // });
-      // setListTransactions(res?.data?.data);
-      // setTotalTable(res?.data?.total);
-      setListTransactions([]);
+      const res = await api_bonusUsdtHistory(page, limit);
+      const tempListTransactionData: ListTransactionType[] = res.data?.map((item: any) => ({
+        amount: item.amount,
+        amountUsd: item.amountUsd,
+        type: item.type,
+        time: item.date,
+      }));
+      setListTransactions(tempListTransactionData);
       setTotalTable(0);
     } catch (error) {
     } finally {
       setIsLoadingTable(false);
     }
-  };
+  }, [page, limit]);
 
   const columns = useMemo(() => {
     const columnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-left text-[12px] text-[#98a7b5] font-normal">{t('historyBonus:bonusType')}</div>
+          <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] text-left dark:text-[#98a7b5] text-[#000] truncate">
-            {row?.original?.actionType}
-          </div>
+          <div className="text-[12px] text-left dark:text-color-text text-[#000] truncate">{row?.original?.type}</div>
         ),
         minSize: 50,
         maxSize: 80,
@@ -75,26 +81,14 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
       {
         accessorKey: 'amountClaimed',
         header: () => (
-          <div className="text-center text-[12px] font-normal text-[#98a7b5]">{t('historyBonus:amountClaimed')}</div>
+          <div className="text-center text-[12px] font-normal text-color-text">{t('historyBonus:amountClaimed')}</div>
         ),
         cell: ({ row }) => (
           <div className="font-bold text-[12px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
-            {localeFiat ? (
-              <>
-                {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                {currencyFormat(
-                  exchangeByLocaleFiat(
-                    row.original?.symbol,
-                    String(localeFiat?.currency),
-                    Math.abs(row.original?.amountClaimed),
-                  ),
-                  2,
-                )}
-              </>
-            ) : (
-              currencyFormat(Math.abs(row.original?.amountClaimed), 2)
-            )}
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbol}.png`} alt="" />
+            {viewInFiat
+              ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name || 'USD')
+              : currencyFormat1(row.original.amount, 4, '', false)}
+            <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />
           </div>
         ),
         minSize: 200,
@@ -102,16 +96,18 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
       },
       {
         accessorKey: 'createdAt',
-        header: () => <div className="text-right text-[12px] text-[#98a7b5] font-normal">{t('historyBonus:time')}</div>,
+        header: () => (
+          <div className="text-right text-[12px] text-color-text font-normal">{t('historyBonus:time')}</div>
+        ),
         cell: ({ row }) => (
-          <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px]">
-            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+          <div className="text-color-text truncate flex items-center justify-end gap-[5px]">
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
       },
     ];
     return columnsDefault;
-  }, [t, localeFiat]);
+  }, [t, localFiat, exchangeRate]);
 
   const handleCloseModal = () => {
     onClose();
@@ -147,10 +143,10 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
                 leaveFrom="opacity-100 translate-y-0 scale-100"
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
-                <Dialog.Panel className="!overflow-hidden dark:text-[#98a7b5] text-[#31373d] dark:bg-[#1e2024] bg-white text-[14px] sm:max-w-[550px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[15px] text-left shadow-xl transition-all my-0 w-full !p-0">
+                <Dialog.Panel className="!overflow-hidden dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-primary bg-white text-[14px] sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[3px] text-left shadow-xl transition-all my-0 w-full !p-0">
                   <Dialog.Title
                     as="div"
-                    className="relative h-[60px] px-[20px] flex justify-between dark:bg-[#17181b] bg-[#f5f6fa] items-center"
+                    className="relative h-[60px] px-[20px] flex justify-between dark:bg-color-header-primary bg-color-light-bg-primary items-center"
                   >
                     <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:bonusHistory')}</div>
                     <div className="group rounded-md" role="button" onClick={() => handleCloseModal()}>
@@ -160,7 +156,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
                       />
                     </div>
                   </Dialog.Title>
-                  <div className="bg-[#2D3035] p-3 pb-0">
+                  <div className="dark:bg-color-modal-bg-primary bg-white p-3 pb-0">
                     <TableComponent
                       isLoading={isLoadingTable}
                       handleClickRow={() => {}}
