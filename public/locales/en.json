@@ -1213,6 +1213,8 @@
     "balance": "balance",
     "switchToAnotherAsset": "switch to another asset or deposit to continue playing.",
     "realPlay": "Play With Real Money",
+    "realPlayMobile": "Real Play",
+    "freePlayMobile": "Free Play",
     "depositAndPlay": "Deposit & Play",
     "freePlay": "Free Play",
     "signUp": "Sign up",
