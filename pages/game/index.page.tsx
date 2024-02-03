@@ -710,7 +710,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
+                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
                     >
                       <Image className="w-[20px] h-[20px]" alt="" src={'/img/fairness.png'} width={14} height={14} />
                       Fairness
@@ -724,7 +724,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
+                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
                     >
                       <Image className="w-[20px] h-[20px]" alt="" src={'/img/hierarchy.png'} width={14} height={14} />
                       Live Stats
