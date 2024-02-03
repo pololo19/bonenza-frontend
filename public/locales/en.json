@@ -659,7 +659,8 @@
     "verificationCodeHasExpired": "Verification Code Has Expired",
     "verificationCodeIsNotMatch": "Verification Code is Invalid",
     "pleaseSubmitAgain": "Please Submit Again",
-    "invalid2FA": "Two Factor Authentication is Invalid"
+    "invalid2FA": "Two Factor Authentication is Invalid",
+    "passwordNotSet": "The Password is not set"
   },
   "casino": {
     "gameNameAndProvider": "Game name | Provider",

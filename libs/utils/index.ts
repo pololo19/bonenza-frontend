@@ -435,7 +435,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
 export const getColorByStatus = (status: TransactionStatus | RolloverStatus) => {
   let bgColor = '';
   switch (status) {
-    case 'process':
+    case 'processing':
       bgColor = 'bg-[#efef19]';
       break;
     case 'pending':
@@ -447,7 +447,7 @@ export const getColorByStatus = (status: TransactionStatus | RolloverStatus) => 
     case 'rejected':
       bgColor = 'bg-[#c31414]';
       break;
-    case 'fail':
+    case 'failed':
       bgColor = 'bg-[#c31414]';
       break;
     case 'ongoing':
@@ -465,7 +465,7 @@ export const getColorByStatus = (status: TransactionStatus | RolloverStatus) => 
 export const convertStatus = (status: TransactionStatus) => {
   let newStatus = '';
   switch (status) {
-    case 'process':
+    case 'processing':
       newStatus = 'processing';
       break;
     case 'pending':
@@ -474,13 +474,13 @@ export const convertStatus = (status: TransactionStatus) => {
     case 'refunding':
       newStatus = 'processing';
       break;
-    case 'fail':
+    case 'failed':
       newStatus = 'failed';
       break;
     case 'rejected':
       newStatus = 'failed';
       break;
-    case 'approve':
+    case 'approved':
       newStatus = 'success';
       break;
     default:

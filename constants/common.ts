@@ -1190,8 +1190,8 @@ export const LIST_FILTER_DATE = [
 ];
 export const LIST_FILTER_STATUS = [
   { name: 'transaction:allAssets', type: '', flag: true },
-  { name: 'transaction:complete', type: 'success', flag: true },
-  { name: 'transaction:processing', type: 'process', flag: true },
+  { name: 'transaction:complete', type: 'complete', flag: true },
+  { name: 'transaction:processing', type: 'processing', flag: true },
   { name: 'transaction:pending', type: 'pending', flag: false },
   { name: 'transaction:failed', type: 'fail', flag: true },
   { name: 'transaction:canceled', type: 'rejected', flag: false },

@@ -483,21 +483,50 @@ const TransactionPage = () => {
     setPage(1);
   };
 
-  const getStatusById = (statusId: number) => {
+  const getStatusByIdDeposit = (statusId: number) => {
+    let status: TransactionStatus = 'pending';
+    switch (statusId) {
+      case 0:
+        status = 'processing';
+        break;
+      case 1:
+        status = 'complete';
+        break;
+      case 2:
+        status = 'failed';
+        break;
+
+      default:
+        status = 'processing';
+        break;
+    }
+    return status;
+  };
+
+  const getStatusByIdWidthdraw = (statusId: number) => {
     let status: TransactionStatus = 'pending';
     switch (statusId) {
       case 0:
         status = 'pending';
         break;
       case 1:
-        status = 'success';
+        status = 'processing';
         break;
       case 2:
-        status = 'fail';
+        status = 'complete';
+        break;
+      case 3:
+        status = 'failed';
+        break;
+      case 4:
+        status = 'approved';
+        break;
+      case 5:
+        status = 'rejected';
         break;
 
       default:
-        status = 'pending';
+        status = 'processing';
         break;
     }
     return status;
@@ -583,7 +612,7 @@ const TransactionPage = () => {
                 feeUsd: 0,
                 id: item.id,
                 orderId: item.id,
-                status: getStatusById(item.status),
+                status: getStatusByIdDeposit(item.status),
                 symbolId: item.currencyId,
                 symbolName: item.currencyName,
                 symbolLogo: item.currencyLogo,
@@ -608,7 +637,7 @@ const TransactionPage = () => {
               feeUsd: Number(item.amountWithFeeUsd) - Number(item.amount),
               id: item.id,
               orderId: item.id,
-              status: getStatusById(item.status),
+              status: getStatusByIdWidthdraw(item.status),
               symbolId: item.currencyId,
               symbolName: item.currencyName,
               symbolLogo: item.currencyLogo,

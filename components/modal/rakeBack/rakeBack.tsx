@@ -213,14 +213,15 @@ export default function ModalRakeBack({
                       <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1">
                         <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
                       </div>
-                      <div className="h-full">
+                      <div className="h-full items-center flex flex-col justify-center">
                         <div className="dark:text-white text-black">
                           {`${currencyFormat1(lockedAmount.balance, cryptoLen, '', false)} USDT`}
                         </div>
-                        <div className="text-[10px]">
-                          {viewInFiat &&
-                            currencyFormat1(lockedAmount.balanceUsd * exchangeRate, fiatLen, localFiat?.name ?? 'USD')}
-                        </div>
+                        {viewInFiat && (
+                          <div className="text-[10px]">
+                            {currencyFormat1(lockedAmount.balanceUsd * exchangeRate, fiatLen, localFiat?.name ?? 'USD')}
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div className="text-[14px] font-bold text-center">{t('deposit:howClaim')}</div>

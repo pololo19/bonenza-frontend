@@ -38,7 +38,11 @@ export default function getErrorMessage(path: string, func: string, status: numb
       case 400:
         if (error === 'credentialMatch') {
           message = data === 'phone' ? 'authentication:loginPhoneFailed' : 'authentication:loginEmailFailed';
-        } else if (error === 'tfa') message = 'authentication:invalid2FA';
+        } else if (error === 'tfa') {
+          message = 'authentication:invalid2FA';
+        } else if (error === 'account') {
+          message = 'authentication:passwordNotSet';
+        }
         break;
       case 404:
         message = 'authentication:userNotRegistered';
