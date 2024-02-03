@@ -108,6 +108,11 @@ const API_AFFILIATE = '/affiliate/affiliate';
 const API_VIP_VIP_PROGRESS = '/vip/vip-progress';
 const API_VIP_CHECK_DEPOSIT = '/vip/vip-check-deposit';
 
+/************************************ Bonus **********************************/
+
+const API_BONUS_BONUS_STATISTIC = '/bonus/bonus-statistics';
+const API_BONUS_USDT_BONUS_HISTORY = '/bonus/usdt-bonus-history';
+
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
 
@@ -147,6 +152,8 @@ export {
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
   API_AUTH_VERIFY_USER_CODE,
+  API_BONUS_BONUS_STATISTIC,
+  API_BONUS_USDT_BONUS_HISTORY,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,

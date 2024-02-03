@@ -396,7 +396,15 @@ export type InformationWithdraw = {
   available?: number;
 };
 
-export type TransactionStatus = 'process' | 'pending' | 'refunding' | 'rejected' | 'fail' | 'success' | 'approve';
+export type TransactionStatus =
+  | 'processing'
+  | 'pending'
+  | 'refunding'
+  | 'rejected'
+  | 'complete'
+  | 'approved'
+  | 'failed';
+export type TransactionStatusByNum = '';
 export type RolloverStatus = 'all' | 'not_started' | 'ongoing' | 'done';
 export type TransactionType = {
   amount: number;

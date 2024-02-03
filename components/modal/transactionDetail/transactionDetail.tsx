@@ -39,11 +39,11 @@ export default function ModalDetailTransaction({
   const { t } = useTranslation('');
 
   const isProcess = useMemo(() => {
-    return transaction.status === LIST_FILTER_STATUS[2].type || transaction.status === LIST_FILTER_STATUS[3].type;
+    return transaction.status === 'processing' || transaction.status === 'pending';
   }, [transaction]);
 
   const isFailed = useMemo(() => {
-    return transaction.status === LIST_FILTER_STATUS[4].type || transaction.status === LIST_FILTER_STATUS[5].type;
+    return transaction.status === 'failed';
   }, [transaction]);
 
   return (
