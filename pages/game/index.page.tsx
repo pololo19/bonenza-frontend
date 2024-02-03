@@ -39,6 +39,7 @@ import ModalShareGame from '@/components/modal/shareGame/shareGame';
 import Tooltip from '@/components/tooltip';
 
 import styles from './index.module.scss';
+import { formatDate } from '@/base/libs/utils';
 
 type LaunchUrlTye = {
   gameUrl: string;
@@ -329,12 +330,13 @@ function GamePage() {
       handlePlayRequest();
     }
   }, [localFiat]);
+
   return (
     <>
       {isLoading && <Loader />}
       {!isNotFoundGame && (
         <div className="py-[24px]">
-          <div className="flex w-full justify-between items-center">
+          <div className="sm:flex hidden w-full justify-between items-center">
             <Breadcrumbs
               data={[{ title: 'Casino', href: ROUTER.Casino }]}
               endpoint={{ title: String(gameDetail.title), href: ROUTER.GameDetail(String(gameId)) }}
@@ -351,177 +353,274 @@ function GamePage() {
           </div>
           <div>
             {/* Game play */}
-            <FullScreen handle={gameScreen} className="aspect-[2] w-full mt-[20px] relative">
+            <FullScreen handle={gameScreen} className="sm:aspect-[2] aspect-[4/3] w-full mt-[20px] relative">
               <div
                 id="game_wrapper"
                 key={String(gameId)}
-                className={cn('h-full dark:bg-black bg-white', styles.gameWrapper)}
+                className={cn('h-full sm:dark:bg-black dark:bg-color-modal-bg-primary bg-white', styles.gameWrapper)}
               />
-              {
-                <div
-                  className={cn(
-                    'flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
-                    {
-                      // hidden: !isPlayRequested,
-                      'opacity-0': successfullyLaunched,
-                      'opacity-100': !successfullyLaunched,
-                      'pointer-events-none': successfullyLaunched,
-                    },
-                  )}
-                >
-                  <Image
-                    src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
-                    fill
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/game-background.png';
-                    }}
-                  />
-                  <div className={cn('h-full bg-black/80 w-full absolute')} />
-                  {isLogin && (
-                    <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
-                      {gameDetail?.isExpiration ? (
-                        <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
-                          {t('gameDetail:gameExpiration')}
+              <div
+                className={cn(
+                  'sm:hidden flex flex-col rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000 p-[15px] gap-[10px]',
+                  {
+                    // hidden: !isPlayRequested,
+                    'opacity-0': successfullyLaunched,
+                    'opacity-100': !successfullyLaunched,
+                    'pointer-events-none': successfullyLaunched,
+                  },
+                )}
+              >
+                <div className="grid grid-cols-2 w-full h-fit gap-[10px]">
+                  <div className="flex relative aspect-square">
+                    <Image
+                      src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
+                      fill
+                      alt=""
+                      className="rounded-[5px]"
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/game-background.png';
+                      }}
+                    />
+                  </div>
+                  <div className="flex flex-col aspect-square px-[10px] justify-between">
+                    <div className="flex flex-col gap-[20px]">
+                      <div className="dark:text-white text-black text-[16px] font-bold">{gameDetail.title}</div>
+                      <div className="dark:text-white text-black text-[14px]">
+                        <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
+                        <Link
+                          className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
+                          href={ROUTER.Provider(String(gameDetail.providerName))}
+                        >
+                          {gameDetail.providerName}
+                        </Link>
+                      </div>
+                      <div className="dark:text-color-text-secondary text-black text-[14px]">
+                        {`${t('gameDetail:release')}: ${formatDate(new Date(gameDetail.releasedAt), 'dd/MM/yyyy')}`}
+                      </div>
+                    </div>
+                    <div className="flex">
+                      {!isLoadingFavorite ? (
+                        <div
+                          role="button"
+                          className={cn(
+                            'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-[#f5f6fa] text-black rounded p-2 flex gap-2 items-center',
+                            {
+                              '!text-amber-400': reactionData.isFavorite,
+                            },
+                          )}
+                          onClick={() => handleReactionGame('favorite')}
+                        >
+                          <StarIcon width={20} />
+                          <span className="text-[12px]">{gameDetail?.favorites ?? 0}</span>
                         </div>
                       ) : (
-                        <>
-                          <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
-                            {isSatisfied && (
-                              <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
-                                {t('gameDetail:playWithBalanceIn')}
-                              </div>
-                            )}
-                            {!isSatisfied && (
-                              <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
-                                {t('gameDetail:insufficientBalanceIn')}
-                              </div>
-                            )}
-                            <div className="bg-[#17191B] rounded-[5px]">
-                              <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
-                            </div>
-                          </div>
+                        <div className="w-[49px] flex items-center justify-center">
+                          <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                        </div>
+                      )}
+                      <div
+                        role="button"
+                        className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                        onClick={() => setOpenShareGame(true)}
+                      >
+                        <Send2 size={20} variant="Bold" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 w-full gap-[10px] mt-[15px]">
+                  <button
+                    type="button"
+                    disabled={!gameDetail.allowedLocation || isLoadingGame.status}
+                    className="truncate hover:bg-[red] justify-center text-white rounded-[5px] font-semibold bg-gradient-btn-default py-[15px] text-[14px] flex items-center gap-[10px]"
+                    onClick={() => handlePlayRequest()}
+                  >
+                    {isLoadingGame.status && isLoadingGame.request === 'real' ? (
+                      <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                    ) : (
+                      <PlayCricle size={20} />
+                    )}
 
+                    <div>{t('gameDetail:realPlayMobile')}</div>
+                  </button>
+                  <button
+                    type="button"
+                    className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] py-[15px] text-[14px] flex items-center gap-[10px] justify-center"
+                    disabled={!gameDetail.allowedDemo || isLoadingGame.status}
+                    onClick={() => {
+                      handleFreePlay();
+                    }}
+                  >
+                    {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
+                      <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                    ) : (
+                      <PlayCricle size={20} />
+                    )}
+
+                    <div>{t('gameDetail:freePlayMobile')}</div>
+                  </button>
+                </div>
+              </div>
+              <div
+                className={cn(
+                  'sm:flex hidden items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
+                  {
+                    // hidden: !isPlayRequested,
+                    'opacity-0': successfullyLaunched,
+                    'opacity-100': !successfullyLaunched,
+                    'pointer-events-none': successfullyLaunched,
+                  },
+                )}
+              >
+                <Image
+                  src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
+                  fill
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/game-background.png';
+                  }}
+                />
+                <div className={cn('h-full bg-black/80 w-full absolute')} />
+                {isLogin && (
+                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
+                    {gameDetail?.isExpiration ? (
+                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
+                        {t('gameDetail:gameExpiration')}
+                      </div>
+                    ) : (
+                      <>
+                        <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
                           {isSatisfied && (
-                            <div className="sm:text-[12px] text-[11px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
-                              {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                              <span className="!text-color-primary">
-                                {viewInFiat ? localFiat?.name ?? 'USD' : 'USD'}
-                              </span>
-                              , {t('gameDetail:ifYouChangeCurrency')}
+                            <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
+                              {t('gameDetail:playWithBalanceIn')}
                             </div>
                           )}
                           {!isSatisfied && (
-                            <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
-                              <span className="!text-red-500">
-                                {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')}
-                                ,
-                              </span>
-                              {t('gameDetail:switchToAnotherAsset')}
+                            <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
+                              {t('gameDetail:insufficientBalanceIn')}
                             </div>
                           )}
+                          <div className="bg-[#17191B] rounded-[5px]">
+                            <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
+                          </div>
+                        </div>
 
-                          <div className="flex items-center gap-[20px]">
-                            {isSatisfied && (
-                              <button
-                                type="button"
-                                disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                                className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
-                                onClick={() => handlePlayRequest()}
-                              >
-                                {isLoadingGame.status && isLoadingGame.request === 'real' ? (
-                                  <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                                ) : (
-                                  <PlayCricle size={20} />
-                                )}
+                        {isSatisfied && (
+                          <div className="sm:text-[12px] text-[11px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
+                            {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
+                            <span className="!text-color-primary">{viewInFiat ? localFiat?.name ?? 'USD' : 'USD'}</span>
+                            , {t('gameDetail:ifYouChangeCurrency')}
+                          </div>
+                        )}
+                        {!isSatisfied && (
+                          <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
+                            <span className="!text-red-500">
+                              {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')},
+                            </span>
+                            {t('gameDetail:switchToAnotherAsset')}
+                          </div>
+                        )}
 
-                                <div>{t('gameDetail:realPlay')}</div>
-                              </button>
-                            )}
-                            {!isSatisfied && (
-                              <button
-                                type="button"
-                                className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
-                                onClick={() => {
-                                  dispatch(changeIsShowDepositModal(true));
-                                }}
-                              >
-                                <PlayCricle size={20} />
-                                <div>{t('gameDetail:depositAndPlay')}</div>
-                              </button>
-                            )}
+                        <div className="flex items-center gap-[20px]">
+                          {isSatisfied && (
                             <button
                               type="button"
-                              className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
-                              disabled={!gameDetail.allowedDemo || isLoadingGame.status}
-                              onClick={() => {
-                                handleFreePlay();
-                              }}
+                              disabled={!gameDetail.allowedLocation || isLoadingGame.status}
+                              className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                              onClick={() => handlePlayRequest()}
                             >
-                              {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
+                              {isLoadingGame.status && isLoadingGame.request === 'real' ? (
                                 <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
                               ) : (
                                 <PlayCricle size={20} />
                               )}
 
-                              <div>{t('gameDetail:freePlay')}</div>
+                              <div>{t('gameDetail:realPlay')}</div>
                             </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  )}
-                  {!isLogin && (
-                    <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
-                      {gameDetail?.isExpiration ? (
-                        <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
-                          {t('gameDetail:gameExpiration')}
-                        </div>
-                      ) : (
-                        <>
-                          <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
-                            {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                            <span className="!text-color-primary">{localFiat?.name ?? 'USD'}</span>{' '}
-                            {t('gameDetail:ifYouChangeCurrency')}
-                          </div>
-
-                          <div className="flex items-center gap-[20px]">
+                          )}
+                          {!isSatisfied && (
                             <button
                               type="button"
-                              className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                              className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
                               onClick={() => {
-                                dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
-                                dispatch(changeIsShowAuthenticationModal(true));
-                              }}
-                            >
-                              <div>{t('gameDetail:signUp')}</div>
-                            </button>
-                            <button
-                              type="button"
-                              className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
-                              onClick={() => {
-                                handleFreePlay();
+                                dispatch(changeIsShowDepositModal(true));
                               }}
                             >
                               <PlayCricle size={20} />
-                              <div>{t('gameDetail:freePlay')}</div>
+                              <div>{t('gameDetail:depositAndPlay')}</div>
                             </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-              }
+                          )}
+                          <button
+                            type="button"
+                            className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                            disabled={!gameDetail.allowedDemo || isLoadingGame.status}
+                            onClick={() => {
+                              handleFreePlay();
+                            }}
+                          >
+                            {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
+                              <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                            ) : (
+                              <PlayCricle size={20} />
+                            )}
+
+                            <div>{t('gameDetail:freePlay')}</div>
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+                {!isLogin && (
+                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
+                    {gameDetail?.isExpiration ? (
+                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
+                        {t('gameDetail:gameExpiration')}
+                      </div>
+                    ) : (
+                      <>
+                        <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
+                          {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
+                          <span className="!text-color-primary">{localFiat?.name ?? 'USD'}</span>{' '}
+                          {t('gameDetail:ifYouChangeCurrency')}
+                        </div>
+
+                        <div className="flex items-center gap-[20px]">
+                          <button
+                            type="button"
+                            className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                            onClick={() => {
+                              dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
+                              dispatch(changeIsShowAuthenticationModal(true));
+                            }}
+                          >
+                            <div>{t('gameDetail:signUp')}</div>
+                          </button>
+                          <button
+                            type="button"
+                            className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                            onClick={() => {
+                              handleFreePlay();
+                            }}
+                          >
+                            <PlayCricle size={20} />
+                            <div>{t('gameDetail:freePlay')}</div>
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+              </div>
             </FullScreen>
             {/* Game actions */}
-            <div className="p-[15px] dark:bg-[#17191B] bg-white flex items-center justify-between">
-              <div className="text-[#929395] flex gap-[20px] items-center">
+            <div className="p-[15px] dark:bg-[#17191B] bg-white items-center justify-between sm:flex hidden">
+              <div className="text-color-text-secondary flex gap-[20px] items-center">
                 {!isLoadingFavorite ? (
                   <div
                     role="button"
                     className={cn(
-                      'dark:hover:bg-gray-700 dark:text-[#929395] dark:hover:text-white hover:bg-[#f5f6fa] text-black rounded p-2 flex gap-2 items-center',
+                      'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-[#f5f6fa] text-black rounded p-2 flex gap-2 items-center',
                       {
                         '!text-amber-400': reactionData.isFavorite,
                       },
@@ -540,7 +639,7 @@ function GamePage() {
                   <div
                     role="button"
                     className={cn(
-                      'dark:hover:bg-gray-700 dark:text-[#929395] dark:hover:text-white hover:bg-[#f5f6fa] rounded p-2 flex gap-2 items-center',
+                      'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-[#f5f6fa] rounded p-2 flex gap-2 items-center',
                       {
                         '!text-[#ec4016]': reactionData.isLike,
                       },
@@ -563,7 +662,7 @@ function GamePage() {
                   <Send2 size={20} variant="Bold" />
                 </div>
               </div>
-              <div className="text-[#929395] flex gap-[20px] items-center">
+              <div className="text-color-text-secondary flex gap-[20px] items-center">
                 <Tooltip
                   message="Fairness"
                   children={
@@ -602,6 +701,36 @@ function GamePage() {
                 >
                   <Image alt="" src={'/img/expand.png'} width={18} height={18} />
                 </div>
+              </div>
+            </div>
+            <div className="p-[8px] dark:bg-[#17191B] bg-white items-center justify-between sm:hidden grid grid-cols-2 gap-[10px] border-t-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
+              <div className="flex justify-center border-r-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
+                <Tooltip
+                  message="Fairness"
+                  children={
+                    <div
+                      role="button"
+                      className="dark:hover:bg-gray-700 flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
+                    >
+                      <Image className="w-[20px] h-[20px]" alt="" src={'/img/fairness.png'} width={14} height={14} />
+                      Fairness
+                    </div>
+                  }
+                />
+              </div>
+              <div className="flex justify-center">
+                <Tooltip
+                  message="Live Stats"
+                  children={
+                    <div
+                      role="button"
+                      className="dark:hover:bg-gray-700 flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
+                    >
+                      <Image className="w-[20px] h-[20px]" alt="" src={'/img/hierarchy.png'} width={14} height={14} />
+                      Live Stats
+                    </div>
+                  }
+                />
               </div>
             </div>
           </div>
