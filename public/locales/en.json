@@ -1491,7 +1491,8 @@
     "prizePool7": "7th place – 0.9% of the Daily Contest prize pool",
     "prizePool8": "8th place – 0.7% of the Daily Contest prize pool",
     "prizePool9": "9th place – 0.5% of the Daily Contest prize pool",
-    "prizePool10": "10th place – 0.4% of the Daily Contest prize pool"
+    "prizePool10": "10th place – 0.4% of the Daily Contest prize pool",
+    "vipRankDescription": "* Benefits from previous levels are all included"
   },
   "privacy": {
     "privacyPolicy": "Privacy Policy",

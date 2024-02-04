@@ -107,6 +107,7 @@ const API_AFFILIATE = '/affiliate/affiliate';
 
 const API_VIP_VIP_PROGRESS = '/vip/vip-progress';
 const API_VIP_CHECK_DEPOSIT = '/vip/vip-check-deposit';
+const API_VIP_LEVEL_SYSTEM = '/vip/vip-level-system';
 
 /************************************ Bonus **********************************/
 
@@ -195,6 +196,7 @@ export {
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
   API_VIP_CHECK_DEPOSIT,
+  API_VIP_LEVEL_SYSTEM,
   API_VIP_VIP_PROGRESS,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_GET_CLAIM,
