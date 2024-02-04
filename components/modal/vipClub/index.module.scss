@@ -1,35 +1,56 @@
-.rank{
-    height: 20px;
-    position: relative;
+.rank {
+  height: 20px;
+  position: relative;
 
-    &::after {
-        content: " ";
-        position: absolute;
-        width: 0;
-        height: 100%;
-        border: 0.5rem solid transparent;
-        border-right: 0.25rem solid #24262B;
-        right: 0;
-        top: 0;
-    }
+  &::after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 100%;
+    border: 0.5rem solid transparent;
+    border-right: 0.25rem solid #24262b;
+    right: 0;
+    top: 0;
+  }
+}
+
+.rank_text {
+  .bronze_text {
+    color: rgb(224, 154, 106);
+  }
+
+  .silver_text {
+    color: rgb(225, 225, 225);
+  }
+
+  .gold_text {
+    color: rgb(255, 195, 41);
+  }
+
+  .platinum_text {
+    color: rgb(157, 99, 246);
+  }
+  .diamond_text {
+    color: rgb(244, 80, 169);
+  }
 }
 
 .bronze {
-    background: rgb(224, 154, 106);
+  background: rgb(224, 154, 106);
 }
 
 .silver {
-    background: rgb(225, 225, 225);
+  background: rgb(225, 225, 225);
 }
 
 .gold {
-    background: rgb(255, 195, 41);
+  background: rgb(255, 195, 41);
 }
 
 .platinum {
-    background: rgb(157, 99, 246);
+  background: rgb(157, 99, 246);
 }
 
 .diamond {
-    background: rgb(244, 80, 169);
+  background: rgb(244, 80, 169);
 }
