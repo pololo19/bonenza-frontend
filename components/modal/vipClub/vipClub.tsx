@@ -273,7 +273,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
               {rankList.map((item, index) => (
                 <div
                   className={cn(
-                    'flex flex-col items-center w-[87px] dark:hover:bg-color-hover-primary min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] bg-transparent',
+                    'flex flex-col items-center w-[87px] dark:hover:bg-color-hover-primary min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] px-[15px] bg-transparent',
                     {
                       'dark:!bg-color-header-secondary !bg-color-light-bg-primary': item.name === selectedRank.name,
                     },

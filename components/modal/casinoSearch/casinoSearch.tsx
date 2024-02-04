@@ -274,7 +274,14 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                   </div>
                   <div className="flex gap-[10px] justify-start w-full mb-[20px] flex-nowrap relative max-w-full overflow-x-auto snap-x snap-mandatory">
                     {history.map((item, index) => (
-                      <div key={index} className={cn(styles.search_history_box, 'bg-white', 'flex-shrink-0')}>
+                      <div
+                        key={index}
+                        className={cn(
+                          styles.search_history_box,
+                          'bg-white dark:bg-color-card-bg-default dark:text-color-text-primary ',
+                          'flex-shrink-0',
+                        )}
+                      >
                         {item}
                         <div className={styles.close} onClick={() => handleDeletehistory(index)}>
                           <XMarkIcon className="text-color-text-primary w-[14px] hover:text-white font-bold" />

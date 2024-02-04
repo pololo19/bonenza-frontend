@@ -171,7 +171,7 @@ const SidebarMobileLayout: React.FC = () => {
               title={item.title}
               href={item.href}
               icon={item.icon}
-              onClick={() => item.onClick}
+              onClick={item.onClick}
               classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
             />
           ))}
