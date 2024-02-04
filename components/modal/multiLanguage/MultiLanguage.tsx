@@ -74,11 +74,12 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
   }, [fiatSymbols]);
 
   const handleChangeLocaleFiat = (item: CurrencyType) => {
-    dispatch(updateViewInFiat(true));
-
-    dispatch(setLocalFiat(item));
     if (isLogin) {
-      dispatch(updateSetting({ ...settings, settingCurrency: item.id }));
+      dispatch(updateSetting({ ...settings, settingCurrency: item.id, settingViewInFiat: true }));
+    } else {
+      dispatch(updateViewInFiat(true));
+
+      dispatch(setLocalFiat(item));
     }
   };
 

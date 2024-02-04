@@ -54,48 +54,60 @@ const GameDetailComponent = ({
         {t('homePage:latestBetRace')}
       </div>
       <div className="w-full h-full rounded-[5px] dark:bg-[#1D1E22] bg-white relative">
-        <ul className="flex justify-center gap-[8px] w-fit rounded-full md:text-[13px] text-[11px] font-semibold p-[8px]  md:pt-[16px] md:pl-[30px]">
+        <div className="grid grid-cols-4 justify-center w-full rounded-full md:text-[13px] text-[11px] font-semibold p-[8px]  md:pt-[16px] md:pl-[30px]">
           <div
             role="button"
             onClick={() => setOpenTab(1)}
-            className={`${
-              openTab === 1 &&
-              'dark:text-white dark:bg-[#2D3035] bg-color-light-active-primary text-black font-semibold'
-            } inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 rounded-[5px] dark:hover:bg-gray-600 dark:hover:text-white dark:bg-[#24262B] dark:text-[rgba(255,255,255,0.5)] bg-[#f6f7fa] text-[#31373D] hover:text-[#000]`}
+            className={cn(
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] bg-color-light-bg-primary text-[#31373D] hover:text-[#000] text-center',
+              {
+                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                  openTab === 1,
+              },
+            )}
           >
             {t('gameTable:allBets')}
           </div>
           <div
             role="button"
             onClick={() => setOpenTab(2)}
-            className={`${
-              openTab === 2 &&
-              'dark:text-white dark:bg-[#2D3035]  bg-color-light-active-primary text-black font-semibold'
-            } inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 rounded-[5px] dark:hover:bg-gray-600 dark:hover:text-white dark:bg-[#24262B] dark:text-[rgba(255,255,255,0.5)] bg-[#f6f7fa] text-[#31373D] hover:text-[#000]`}
+            className={cn(
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
+              {
+                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                  openTab === 2,
+              },
+            )}
           >
             {t('gameTable:myBets')}
           </div>
           <div
             role="button"
             onClick={() => setOpenTab(3)}
-            className={`${
-              openTab === 3 &&
-              'dark:text-white dark:bg-[#2D3035]  bg-color-light-active-primary text-black font-semibold'
-            } inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 rounded-[5px] dark:hover:bg-gray-600 dark:hover:text-white dark:bg-[#24262B] dark:text-[rgba(255,255,255,0.5)] bg-[#f6f7fa] text-[#31373D] hover:text-[#000]`}
+            className={cn(
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
+              {
+                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                  openTab === 3,
+              },
+            )}
           >
             {t('gameTable:highRoller')}
           </div>
           <div
             role="button"
             onClick={() => setOpenTab(4)}
-            className={`${
-              openTab === 4 &&
-              'dark:text-white dark:bg-[#2D3035]  bg-color-light-active-primary text-black font-semibold'
-            } inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 rounded-[5px] dark:hover:bg-gray-600 dark:hover:text-white dark:bg-[#24262B] dark:text-[rgba(255,255,255,0.5)] bg-[#f6f7fa] text-[#31373D] hover:text-[#000]`}
+            className={cn(
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
+              {
+                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                  openTab === 4,
+              },
+            )}
           >
             {t('gameTable:wagerContest')}
           </div>
-        </ul>
+        </div>
         <div className="px-[8px] md:px-[30px] pt-[-4px] md:pt-[3px] z-[2] w-full">
           <div className="md:text-[13px] text-[12px] max-[430px]:text-[10px] text-[#939699]">
             {openTab === 1 && <AllBetsTableComponent gameDetail={gameDetail} />}
