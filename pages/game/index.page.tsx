@@ -383,7 +383,7 @@ function GamePage() {
                     />
                   </div>
                   <div className="flex flex-col aspect-square px-[10px] justify-between">
-                    <div className="flex flex-col gap-[20px]">
+                    <div className="flex flex-col gap-[10px]">
                       <div className="dark:text-white text-black text-[16px] font-bold">{gameDetail.title}</div>
                       <div className="dark:text-white text-black text-[14px]">
                         <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
@@ -395,15 +395,15 @@ function GamePage() {
                         </Link>
                       </div>
                       <div className="dark:text-color-text-secondary text-black text-[14px]">
-                        {`${t('gameDetail:release')}: ${formatDate(new Date(gameDetail.releasedAt), 'dd/MM/yyyy')}`}
+                        {`${formatDate(new Date(gameDetail.releasedAt), 'yyyy.MM.dd')}`}
                       </div>
                     </div>
-                    <div className="flex">
+                    <div className="flex text-color-text-primary">
                       {!isLoadingFavorite ? (
                         <div
                           role="button"
                           className={cn(
-                            'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-[#f5f6fa] text-black rounded p-2 flex gap-2 items-center',
+                            'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-color-light-bg-primary rounded p-2 flex gap-2 items-center',
                             {
                               '!text-amber-400': reactionData.isFavorite,
                             },
@@ -415,12 +415,12 @@ function GamePage() {
                         </div>
                       ) : (
                         <div className="w-[49px] flex items-center justify-center">
-                          <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                          <ReactLoading type={'balls'} width={20} height={20} />
                         </div>
                       )}
                       <div
                         role="button"
-                        className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                        className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                         onClick={() => setOpenShareGame(true)}
                       >
                         <Send2 size={20} variant="Bold" />
@@ -429,20 +429,38 @@ function GamePage() {
                   </div>
                 </div>
                 <div className="grid grid-cols-2 w-full gap-[10px] mt-[15px]">
-                  <button
-                    type="button"
-                    disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                    className="truncate hover:bg-[red] justify-center text-white rounded-[5px] font-semibold bg-gradient-btn-default py-[15px] text-[14px] flex items-center gap-[10px]"
-                    onClick={() => handlePlayRequest()}
-                  >
-                    {isLoadingGame.status && isLoadingGame.request === 'real' ? (
-                      <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                    ) : (
-                      <PlayCricle size={20} />
-                    )}
+                  {isLogin ? (
+                    <button
+                      type="button"
+                      disabled={!gameDetail.allowedLocation || isLoadingGame.status}
+                      className="truncate hover:bg-[red] justify-center text-white rounded-[5px] font-semibold bg-gradient-btn-default py-[15px] text-[14px] flex items-center gap-[10px] font-bold"
+                      onClick={() => handlePlayRequest()}
+                    >
+                      {isLoadingGame.status && isLoadingGame.request === 'real' ? (
+                        <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                      ) : (
+                        <PlayCricle size={20} />
+                      )}
 
-                    <div>{t('gameDetail:realPlayMobile')}</div>
-                  </button>
+                      <div className="font-bold">{t('gameDetail:realPlayMobile')}</div>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={!gameDetail.allowedLocation || isLoadingGame.status}
+                      className="truncate hover:bg-[red] justify-center text-white rounded-[5px] font-semibold bg-gradient-btn-default py-[15px] text-[14px] flex items-center gap-[10px]"
+                      onClick={() => handlePlayRequest()}
+                    >
+                      {isLoadingGame.status && isLoadingGame.request === 'real' ? (
+                        <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                      ) : (
+                        <PlayCricle size={20} />
+                      )}
+
+                      <div>{t('gameDetail:realPlayMobile')}</div>
+                    </button>
+                  )}
+
                   <button
                     type="button"
                     className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] py-[15px] text-[14px] flex items-center gap-[10px] justify-center"
@@ -620,7 +638,7 @@ function GamePage() {
                   <div
                     role="button"
                     className={cn(
-                      'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-[#f5f6fa] text-black rounded p-2 flex gap-2 items-center',
+                      'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-color-light-bg-primary rounded p-2 flex gap-2 items-center',
                       {
                         '!text-amber-400': reactionData.isFavorite,
                       },
@@ -632,14 +650,14 @@ function GamePage() {
                   </div>
                 ) : (
                   <div className="w-[49px] flex items-center justify-center">
-                    <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                    <ReactLoading type={'balls'} width={20} height={20} />
                   </div>
                 )}
                 {/* {!isLoadingLike ? (
                   <div
                     role="button"
                     className={cn(
-                      'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-[#f5f6fa] rounded p-2 flex gap-2 items-center',
+                      'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-color-light-bg-primary rounded p-2 flex gap-2 items-center',
                       {
                         '!text-[#ec4016]': reactionData.isLike,
                       },
@@ -656,7 +674,7 @@ function GamePage() {
                 )} */}
                 <div
                   role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                   onClick={() => setOpenShareGame(true)}
                 >
                   <Send2 size={20} variant="Bold" />
@@ -668,7 +686,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                     >
                       <Image alt="" src={'/img/fairness.png'} width={18} height={18} />
                     </div>
@@ -679,7 +697,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                     >
                       <Image alt="" src={'/img/hierarchy.png'} width={18} height={18} />
                     </div>
@@ -688,13 +706,13 @@ function GamePage() {
 
                 <div
                   role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                 >
                   <Image alt="" src={'/img/monitor.png'} width={18} height={18} />
                 </div>
                 <div
                   role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2"
+                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                   onClick={() => {
                     gameScreen.enter();
                   }}
@@ -710,7 +728,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
+                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-[14px]"
                     >
                       <Image className="w-[20px] h-[20px]" alt="" src={'/img/fairness.png'} width={14} height={14} />
                       Fairness
@@ -724,7 +742,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-[#f5f6fa] hover:text-black rounded p-2 text-[14px]"
+                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-[14px]"
                     >
                       <Image className="w-[20px] h-[20px]" alt="" src={'/img/hierarchy.png'} width={14} height={14} />
                       Live Stats
@@ -737,14 +755,14 @@ function GamePage() {
 
           {gameDetail.id && (
             <div>
-              <ul className="flex justify-center gap-[8px] w-fit rounded-full md:text-[13px] text-[11px] font-semibold p-[8px] md:pt-[16px] mb-[20px] md:mb-[25px] max-w-full">
+              <ul className="flex justify-center dark:bg-color-bg-secondary bg-white w-fit mt-[10px] md:text-[13px] text-[11px] font-semibold mb-[20px] md:mb-[25px] max-w-full">
                 <div
                   role="button"
                   onClick={() => setTab(1)}
                   className={`${
                     tab === 1
                       ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary bg-white hover:bg-[#EAECF3]'
+                      : 'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary hover:bg-[#EAECF3]'
                   } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
                 >
                   {gameDetail.title}
@@ -755,7 +773,7 @@ function GamePage() {
                   className={`${
                     tab === 2
                       ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary bg-white hover:bg-[#EAECF3]'
+                      : 'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary hover:bg-[#EAECF3]'
                   } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
                 >
                   {t('gameDetail:description')}
@@ -766,7 +784,7 @@ function GamePage() {
                   className={`${
                     tab === 3
                       ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white dark:bg-[#1D1E22] dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary bg-white hover:bg-[#EAECF3]'
+                      : 'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary hover:bg-[#EAECF3]'
                   } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
                 >
                   {t('gameDetail:reviews')}
