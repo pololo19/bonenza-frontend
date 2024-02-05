@@ -397,6 +397,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         switch (status) {
           case 'Processing':
             toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
+            dispatch(getBalance());
             break;
           case 'Complete':
             toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });

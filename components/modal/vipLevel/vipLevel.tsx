@@ -26,6 +26,7 @@ type ModalVipLevelProps = {
   DialogProps<ElementType>;
 
 type levelDataType = {
+  rank: string;
   level: number;
   name: string;
   xp: number;
@@ -65,6 +66,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
         startLevelDes: item.startLevel ?? '',
         endLevelDes: item.endLevel ?? '',
         levels: item.levels.map((level: any) => ({
+          rank: item.medalName ?? '',
           level: level.level,
           name: level.name,
           xp: level.requiredXp,
@@ -114,7 +116,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
         accessorKey: 'level',
         header: () => <div className="text-left pr-6 text-[14px] font-normal">{t('vipClub:level')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2 sm:px-2 p-[5px]">
             <Image height={18} width={16} src={`/img/${getLinkImage(row?.original?.rank)}.png`} alt="" />
             <span className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
               {row?.original?.type} {row?.original?.level}
@@ -130,7 +132,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] text-center dark:text-color-text-primary text-color-light-text-primary truncate">
+          <div className="text-[14px] text-center dark:text-color-text-primary text-color-light-text-primary truncate sm:px-2 p-[5px]">
             {row?.original?.xp}
           </div>
         ),
@@ -143,7 +145,9 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] dark:text-white text-[#000] truncate text-right">{row.original.levelUpBonus}</div>
+          <div className="text-[14px] dark:text-white text-[#000] truncate text-right sm:px-2 p-[5px]">
+            {row.original.levelUpBonus}
+          </div>
         ),
       },
     ];
