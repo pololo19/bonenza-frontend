@@ -96,7 +96,9 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
   const filterListCrypto = useMemo(() => {
     let arraySearch = cryptoSymbols.filter(
-      (item: CurrencyType) => item.name.toLowerCase().includes(searchFiatInput.toLowerCase()) && item.favorite,
+      (item: CurrencyType) =>
+        item.name.toLowerCase().includes(searchFiatInput.toLowerCase()) &&
+        (item.favorite || (cryptoBalances.find((bal) => bal.symbolId === item.id)?.amount ?? 0) > 0),
     );
     if (showSmallFiat) {
       const avaSymbols = cryptoBalances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
