@@ -1,7 +1,7 @@
 import 'swiper/css';
 
 import React, { ReactNode } from 'react';
-import { Autoplay } from 'swiper/modules';
+import { A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useWidth } from '@/base/hooks/useWidth';
@@ -30,6 +30,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
             </div>
             <Swiper
               slidesPerView={width > 600 ? 'auto' : 3}
+              freeMode={true}
               autoplay={{
                 delay: 500,
                 disableOnInteraction: false,
@@ -39,7 +40,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
               loop={true}
               className="sm:!h-auto !h-[160px]"
               direction={width > 600 ? 'horizontal' : 'vertical'}
-              modules={[Autoplay]}
+              modules={[Autoplay, A11y]}
             >
               {data?.map((game: T, key) => {
                 return (
