@@ -26,6 +26,8 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import {
+  changeAuthenticationType,
+  changeIsShowAuthenticationModal,
   changeIsShowCasinoSearch,
   changeIsShowVipClubModal,
   changeToggleSidebar,
@@ -43,6 +45,7 @@ import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
 import styles from './sidebar.module.scss';
+import { AuthenticationModeEnum } from '@/base/types/common';
 
 export default function SidebarToggle() {
   const { setTheme, theme } = useTheme();
@@ -68,7 +71,7 @@ export default function SidebarToggle() {
     { title: String(t('casino:tableGames')), href: ROUTER.Tagname('Table Games'), icon: <LiveCasinoIcon size={18} /> },
   ];
 
-  const { isToggleSidebar, isShowVipClubModal } = useSelector(
+  const { isToggleSidebar, isShowVipClubModal, isLogin } = useSelector(
     (state: AppState) => ({
       isToggleSidebar: state.modal.isToggleSidebar,
       isShowVipClubModal: state.modal.isShowVipClubModal,
@@ -176,7 +179,12 @@ export default function SidebarToggle() {
                 icon={Diamonds}
                 classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-t pl-[10px]"
                 onClick={() => {
-                  dispatch(changeIsShowVipClubModal(true));
+                  if (!isLogin) {
+                    dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                    dispatch(changeIsShowAuthenticationModal(true));
+                  } else {
+                    dispatch(changeIsShowVipClubModal(true));
+                  }
                 }}
               />
               <IconOption
@@ -359,7 +367,12 @@ export default function SidebarToggle() {
           </Link>
           <button
             onClick={() => {
-              dispatch(changeIsShowVipClubModal(true));
+              if (!isLogin) {
+                dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                dispatch(changeIsShowAuthenticationModal(true));
+              } else {
+                dispatch(changeIsShowVipClubModal(true));
+              }
             }}
             className={cn(
               'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',

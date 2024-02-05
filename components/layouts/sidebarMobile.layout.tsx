@@ -8,7 +8,12 @@ import { useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { changeIsShowCasinoSearch, changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
+import {
+  changeAuthenticationType,
+  changeIsShowAuthenticationModal,
+  changeIsShowCasinoSearch,
+  changeIsShowVipClubModal,
+} from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
@@ -21,14 +26,16 @@ import OriginalIcon from '../icons/OriginalIcon';
 import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
+import { AuthenticationModeEnum } from '@/base/types/common';
 
 const SidebarMobileLayout: React.FC = () => {
   const { t, i18n } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { isShowSidebar } = useSelector(
+  const { isShowSidebar, isLogin } = useSelector(
     (state: AppState) => ({
       isShowSidebar: state.modal.isShowMenuPannel,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -80,7 +87,14 @@ const SidebarMobileLayout: React.FC = () => {
         title: String(t('sidebar:vipClub')),
         href: '#',
         icon: Diamonds,
-        onClick: () => dispatch(changeIsShowVipClubModal(true)),
+        onClick: () => {
+          if (!isLogin) {
+            dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+            dispatch(changeIsShowAuthenticationModal(true));
+          } else {
+            dispatch(changeIsShowVipClubModal(true));
+          }
+        },
       },
       {
         title: String(t('sidebar:exclusive')),
@@ -103,7 +117,7 @@ const SidebarMobileLayout: React.FC = () => {
         icon: SecurityCard,
       },
     ],
-    [i18n.language],
+    [i18n.language, isLogin],
   );
 
   return (
