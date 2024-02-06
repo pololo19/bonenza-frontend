@@ -112,7 +112,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
       const res = await api_BetStatistics();
       const tempStatisticTransactions: StatisticTransactionType[] = res.data?.map((item: any) => ({
         currencyLogo: item.currencyLogo ?? '/image/fiats/USDT.png',
-        currency: item.currrencyName ?? 'USDT',
+        currency: item.currencyName ?? 'USDT',
         bets: Number(item.totalBets ?? 0),
         wins: Number(item.totalWins ?? 0),
         wagered: Number(item.wageredAmount ?? 0),
