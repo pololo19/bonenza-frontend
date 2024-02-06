@@ -114,6 +114,11 @@ const API_VIP_LEVEL_SYSTEM = '/vip/vip-level-system';
 const API_BONUS_BONUS_STATISTIC = '/bonus/bonus-statistics';
 const API_BONUS_USDT_BONUS_HISTORY = '/bonus/usdt-bonus-history';
 
+/************************************ Wager Contest **********************************/
+const API_WAGER_CONTEST_LIST = '/contest/list';
+const API_WAGER_CONTEST_HISTORY = '/contest/history';
+const API_WAGER_CONTEST_POSITION = '/contest/position';
+
 const URL_AUTH_COMPANIES = '/auth/companies';
 const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
 
@@ -198,6 +203,9 @@ export {
   API_VIP_CHECK_DEPOSIT,
   API_VIP_LEVEL_SYSTEM,
   API_VIP_VIP_PROGRESS,
+  API_WAGER_CONTEST_HISTORY,
+  API_WAGER_CONTEST_LIST,
+  API_WAGER_CONTEST_POSITION,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_GET_CLAIM,
   API_WALLET_INFO,

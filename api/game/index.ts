@@ -24,6 +24,9 @@ import {
   API_GAME_TABLE_GAMES,
   API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
+  API_WAGER_CONTEST_HISTORY,
+  API_WAGER_CONTEST_LIST,
+  API_WAGER_CONTEST_POSITION,
 } from 'constants/endpoints';
 
 import { CategoryType } from '@/base/types/common';
@@ -143,4 +146,16 @@ export const api_setGameFavorite = async (gameId: string) => {
 
 export const api_getGameFavorite = async (gameId: string) => {
   return api.get(API_GAME_GET_FAVORITE, { params: { gameId } });
+};
+
+export const api_wagerContestList = async () => {
+  return api.get(API_WAGER_CONTEST_LIST);
+};
+
+export const api_wagerContestHistory = async () => {
+  return api.get(API_WAGER_CONTEST_HISTORY);
+};
+
+export const api_wagerContestPosition = async () => {
+  return api.get(API_WAGER_CONTEST_POSITION);
 };

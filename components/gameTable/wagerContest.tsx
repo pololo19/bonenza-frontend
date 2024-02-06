@@ -1,19 +1,21 @@
+import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import cn from 'classnames';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import api from '@/api/api';
+import { api_wagerContestHistory, api_wagerContestList, api_wagerContestPosition } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useCountdown } from '@/base/constants/useCountdown';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
 } from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
@@ -21,20 +23,56 @@ import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
 
+type ContesterType = {
+  playerId: string;
+  playerName: string;
+  playerAvatar: string;
+  wageredAmountUsd: number;
+  prizeAmountUsd: number;
+  percentage: number;
+};
+
+type WagerContestType = {
+  currentTime: number;
+  endTime: number;
+  totalPrizePoolAmountUsd: number;
+  contesters: ContesterType[];
+};
+
 const WagerContestComponent = () => {
+  const exchangeRate = useExchange();
   const dispatch = useDispatch();
-  const [wagerContestData, setWagerContestData] = useState<any>({ data: [] });
+  const [wagerContestData, setWagerContestData] = useState<WagerContestType>({
+    currentTime: 0,
+    endTime: 0,
+    totalPrizePoolAmountUsd: 0,
+    contesters: [],
+  });
+  const [wagerHistory, setWagerHistory] = useState<ContesterType>({
+    playerId: '',
+    playerName: '',
+    playerAvatar: '',
+    wageredAmountUsd: 0,
+    percentage: 0,
+    prizeAmountUsd: 0,
+  });
+  const [positionData, setPositionData] = useState({
+    position: 1,
+    wageredAmountUsd: 0,
+  });
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
   const [isShowWagerRules, setIsShowWagerRules] = useState<boolean>(false);
 
   const { t } = useTranslation('');
 
-  const { localeFiat, userName, avatar, userId } = useSelector(
+  const { userName, avatar, userId, viewInFiat, localFiat, isLogin } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
       userName: state.auth.user.userName,
       avatar: state.auth.user.avatar,
       userId: state.auth.user.userId,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -44,65 +82,8 @@ const WagerContestComponent = () => {
     return currentDate.setDate(currentDate.getDate() + 1);
   };
 
-  const [timeCoundown] = useState(formatDate(getNextDay(), 'LL/dd/yyyy'));
+  const [timeCoundown, setTimeCount] = useState(formatDate(getNextDay(), 'LL/dd/yyyy'));
   const [days, hours, minutes, seconds] = useCountdown(timeCoundown);
-  const handleGetWagerContest = async () => {
-    try {
-      setIsLoadingTable(true);
-      const res = await api.get('game/get-wager-contest-list');
-      setWagerContestData(res.data);
-    } catch (error) {
-      setWagerContestData({});
-    } finally {
-      setIsLoadingTable(false);
-    }
-  };
-
-  const handleClickRow = (row: Row<any>) => {
-    return;
-  };
-
-  const getExchangeRateLocalFiat = (valueRate: number) => {
-    return localeFiat
-      ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-          exchangeByLocaleFiat('USD', String(localeFiat?.currency), valueRate),
-          2,
-        )}`
-      : `${handleLocaleSymbol('USD')} ${currencyFormat(Number(valueRate || 0), 2)}`;
-  };
-
-  const openModalProfileUser = (user: any) => {
-    const userData = {
-      userId: user?.original ? user?.original?.userId : user?.userId,
-      isHideNamePublicList: user?.original ? user?.original?.isHideNamePublicList : user?.isHideNamePublicList,
-    };
-    localStorage.setItem('userData', JSON.stringify(userData));
-    dispatch(changeIsShowInformation(true));
-  };
-
-  const handleTotalPrize = async () => {
-    try {
-      const res = await api.get('game/get-total-prize');
-      setWagerContestData((prev: any) => {
-        return { ...prev, totalPrize: res.data.totalPrize };
-      });
-    } catch (error) {}
-  };
-
-  const checkPosition = (position: number, getValue: string) => {
-    let wager = '';
-    let rank = 1;
-    if (position > 10) {
-      wager = getExchangeRateLocalFiat(wagerContestData?.data[wagerContestData?.data?.length - 1]?.wagered);
-      rank = 10;
-    } else if (position > 1 && position <= 10) {
-      wager = getExchangeRateLocalFiat(wagerContestData?.data[position - 2]?.wagered);
-      rank = position - 1;
-    } else {
-      wager = getExchangeRateLocalFiat(wagerContestData?.data[position - 1]?.wagered);
-    }
-    return getValue === 'wager' ? wager : rank;
-  };
 
   const getRank = (rank: number) => {
     let rankReturn = '';
@@ -126,15 +107,101 @@ const WagerContestComponent = () => {
     return rankReturn;
   };
 
+  const handleGetWagerContest = async () => {
+    try {
+      setIsLoadingTable(true);
+      const [wagerContestList, wagerContestHistory] = await Promise.all([
+        api_wagerContestList(),
+        api_wagerContestHistory(),
+      ]);
+      const tempContestData: WagerContestType = {
+        currentTime: Number(wagerContestList?.data.currentTime * 1000 ?? 0),
+        endTime: Number(wagerContestList?.data.endTime * 1000 ?? 0),
+        totalPrizePoolAmountUsd: Number(wagerContestList?.data.totalPrizePoolAmountUsd ?? 0),
+        contesters: wagerContestList?.data?.contesters?.map((item: any) => ({
+          playerId: item?.playerId ?? '',
+          playerName: item?.playerName ?? '',
+          playerAvatar: item?.playerAvatar ?? '',
+          wageredAmountUsd: Number(item?.wageredAmountUsd ?? 0),
+          prizeAmountUsd: Number(item?.prizeAmountUsd ?? 0),
+          percentage: Number(item?.percentage ?? 0),
+        })),
+      };
+
+      if (wagerContestHistory?.data?.contest?.length > 0) {
+        const tempTopContester = wagerContestHistory?.data?.contest[0];
+        setWagerHistory({
+          playerId: tempTopContester.playerId,
+          playerName: tempTopContester.playerName,
+          playerAvatar: tempTopContester.playerAvatar,
+          wageredAmountUsd: tempTopContester.wageredAmountUsd,
+          prizeAmountUsd: tempTopContester.prizeAmountUsd,
+          percentage: tempTopContester.percentage,
+        });
+      }
+
+      const timeCnt = wagerContestList.data.endTime - wagerContestList.data.currentTime;
+      const currentDate = new Date();
+      currentDate.setTime(currentDate.getTime() + timeCnt * 1000);
+      console.log(timeCnt, currentDate, formatDate(currentDate, 'LL/dd/yyyy'), '=====146');
+      setTimeCount(formatDate(currentDate, 'LL/dd/yyyy'));
+      setWagerContestData(tempContestData);
+    } catch (error) {
+      setWagerContestData({
+        currentTime: 0,
+        endTime: 0,
+        totalPrizePoolAmountUsd: 0,
+        contesters: [],
+      });
+    } finally {
+      setIsLoadingTable(false);
+    }
+  };
+
+  const handleGetPosition = async () => {
+    try {
+      const res = await api_wagerContestPosition();
+      setPositionData({
+        position: Number(res.data.position ?? 1),
+        wageredAmountUsd: Number(res.data.wageredAmountUsd ?? 0),
+      });
+    } catch (error) {}
+  };
+
+  const wagerAndPostion = useMemo(() => {
+    const position = positionData.position;
+    let wagerAmount = 0;
+    let nextPosition = '';
+    if (position >= 1) {
+      nextPosition = '1';
+      wagerAmount = wagerContestData.contesters[0]?.wageredAmountUsd ?? 0;
+    }
+    if (position > 5) {
+      nextPosition = '5';
+      wagerAmount = wagerContestData.contesters[4]?.wageredAmountUsd ?? 0;
+    }
+    if (position > 10) {
+      nextPosition = '10';
+      wagerAmount = wagerContestData.contesters[9]?.wageredAmountUsd ?? 0;
+    }
+    return { position: nextPosition, wagerAmount };
+  }, [positionData, wagerContestData]);
+
+  const openModalProfileUser = (user: any) => {
+    dispatch(setUserData({ userId: user.playerId, userName: user.playerName, avatar: user.playerAvatar }));
+    dispatch(changeIsShowInformation(true));
+  };
+
   const WagerContestColumns = useMemo(() => {
-    const innerWidth = window.innerWidth;
     const columnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'betId',
-        header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">#</div>,
+        header: () => (
+          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">#</div>
+        ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start gap-[5px] truncate')}>
+          <div className={cn('flex items-center justify-start gap-[5px] truncate sm:px-2 px-[5px]')}>
             {row.index === 0 && (
               <Image
                 height={25}
@@ -163,23 +230,32 @@ const WagerContestComponent = () => {
               />
             )}
             {row.index !== 0 && row.index !== 1 && row.index !== 2 && (
-              <div className="dark:text-[#98A7B5] text-[#31373D] font-bold truncate">{row.index + 1}th</div>
+              <div className="dark:text-color-text-primary text-color-light-text-primary font-bold truncate">
+                {row.index + 1}th
+              </div>
             )}
           </div>
         ),
       },
       {
         accessorKey: 'player',
-        header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:player')}</div>,
+        header: () => (
+          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+            {t('gameTable:player')}
+          </div>
+        ),
         minSize: 30,
         cell: ({ row }) => (
           <div
             onClick={() => openModalProfileUser(row)}
-            className={`${
-              row.original?.userId !== userId && row.original?.isHideNamePublicList && 'pointer-events-none cursor-text'
-            } dark:text-[#98A7B5] text-[#31373D] flex items-center justify-start gap-[10px] truncate'`}
+            className={cn(
+              'dark:text-white text-color-light-text-primary flex items-center justify-start gap-[10px] truncate sm:px-2 px-[5px]',
+              {
+                'pointer-events-none cursor-text': row.original?.playerId !== userId && !row.original?.playerName,
+              },
+            )}
           >
-            {row.original?.userId !== userId && row.original?.isHideNamePublicList ? (
+            {row.original?.playerId !== userId && row.original?.playerName ? (
               <Image
                 width={25}
                 height={25}
@@ -191,7 +267,7 @@ const WagerContestComponent = () => {
               <Image
                 height={25}
                 width={25}
-                src={String(process.env.API_AVATAR) + row.original?.avatar}
+                src={String(process.env.API_AVATAR) + row.original?.playerAvatar}
                 onError={(e) => {
                   e.currentTarget.src = '/img/avatar-1.png';
                 }}
@@ -200,61 +276,66 @@ const WagerContestComponent = () => {
               />
             )}
             <div className="font-bold truncate">
-              {row.original?.userId !== userId && row.original?.isHideNamePublicList
+              {row.original?.playerId !== userId && !row.original?.playerName
                 ? t('homePage:hidden')
-                : row.original.username}
+                : row.original.playerId === userId
+                ? userName
+                : row.original.playerName}
             </div>
           </div>
         ),
       },
       {
         accessorKey: 'betAmount',
-        header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:wagered')}</div>,
+        header: () => (
+          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+            {t('gameTable:wagered')}
+          </div>
+        ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="text-[#0DFDE4] truncate">{getExchangeRateLocalFiat(Number(row.original?.wagered) || 0)}</div>
+          <div className="text-color-primary truncate sm:px-2 px-[5px] font-bold">
+            {viewInFiat
+              ? currencyFormat1(row.original.wageredAmountUsd * exchangeRate, 8, localFiat?.name)
+              : currencyFormat1(row.original.wageredAmountUsd, 8)}
+          </div>
         ),
       },
       {
         accessorKey: 'payout',
-        header: () => <div className="dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:prize')}</div>,
+        header: () => (
+          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+            {t('gameTable:prize')}
+          </div>
+        ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate flex justify-end">
-            <span className=" text-[#0DFDE4]">{getExchangeRateLocalFiat(Number(row.original?.prize) || 0)}</span>
-            <span className="ml-[5px] hidden sm:block">({row.original?.percentPrize}%)</span>
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold">
+            <span className="text-color-primary font-bold">
+              {viewInFiat
+                ? currencyFormat1(row.original.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
+                : currencyFormat1(row.original.prizeAmountUsd, 4)}
+            </span>
+            <span className="ml-[5px] hidden sm:block font-bold text-color-text-primary/70">{`${row.original.percentage}%`}</span>
           </div>
         ),
       },
     ];
     return columnsDefault;
-  }, [localeFiat?.currency]);
-
-  const startTime = useMemo(() => {
-    let date = new Date();
-    return formatDate(date, 'LL/dd/yyyy');
-  }, []);
-
-  const endTime = useMemo(() => {
-    return formatDate(getNextDay(), 'LL/dd/yyyy');
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleTotalPrize();
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
+  }, [localFiat, exchangeRate]);
 
   useEffect(() => {
     handleGetWagerContest();
   }, []);
 
+  useEffect(() => {
+    handleGetPosition();
+  }, [isLogin]);
+
   return (
     <>
       <div className="flex gap-2 mb-3 flex-wrap">
-        <div className="rounded-[5px] dark:bg-[#24262B] bg-[#f6f7fa] p-3 pt-0 h-[8.313rem] justify-center flex gap-[0.75rem] sm:gap-[1.5rem] lg:gap-[2rem] min-w-fit grow">
+        <div className="rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-center flex gap-[12px] sm:gap-[1.5rem] lg:gap-[2rem] min-w-fit grow">
           <Image
             width={125}
             height={110}
@@ -264,20 +345,24 @@ const WagerContestComponent = () => {
           />
           <div className="flex">
             <div className="flex flex-col gap-2 justify-end">
-              <span className="text-[0.813rem] text-[#0DFDE4]">{t('wagerContest:daily')}</span>
-              <span className="text-[0.75rem]">{t('wagerContest:contestPrizePool')}</span>
-              <div className="rounder-[5px] dark:bg-[#2D3035] bg-white text-[0.875rem] md:text-[1.125rem] font-black h-[37px] px-2 flex items-center justify-center">
-                <p className={`${styles.textGradient}`}>
-                  {getExchangeRateLocalFiat(Number(wagerContestData?.totalPrize))}
+              <span className="text-[14px] text-color-primary font-bold">{t('wagerContest:daily')}</span>
+              <span className="text-[12px] dark:text-color-text-primary text-color-light-text-primary">
+                {t('wagerContest:contestPrizePool')}
+              </span>
+              <div className="rounder-[5px] dark:bg-[#2D3035] bg-white text-[14px] md:text-[20px] font-black h-[37px] px-2 flex items-center justify-center">
+                <p className="text-color-secondary font-bold">
+                  {viewInFiat
+                    ? currencyFormat1(wagerContestData.totalPrizePoolAmountUsd * exchangeRate, 4, localFiat?.name)
+                    : currencyFormat1(wagerContestData.totalPrizePoolAmountUsd, 4)}
                 </p>
               </div>
             </div>
           </div>
         </div>
         <div
-          className={`min-[830px]:max-w-[380px] rounded-[5px] dark:bg-[#24262B] bg-[#f6f7fa] ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
+          className={`min-[830px]:max-w-[380px] rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
         >
-          <p className="text-[#8E8E90] text-center">
+          <p className="text-color-text-primary text-center text-[14px]">
             {userId ? t('wagerContest:timeRemaining') : t('wagerContest:timeRemainingBeforeLogin')}
           </p>
           {userId ? (
@@ -286,19 +371,19 @@ const WagerContestComponent = () => {
                 className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
               >
                 <p className="font-bold text-[18px] dark:text-white text-[#000]">{hours}</p>
-                <p className="text-[#8E8E90] text-[8px]">{t('wagerContest:hours')}</p>
+                <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
               </div>
               <div
                 className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
               >
                 <p className="font-bold text-[18px] dark:text-white text-[#000]">{minutes}</p>
-                <p className="text-[#8E8E90] text-[8px]">{t('wagerContest:minute')}</p>
+                <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
               </div>
               <div
                 className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
               >
                 <p className="font-bold text-[18px] dark:text-white text-[#000]">{seconds}</p>
-                <p className="text-[#8E8E90] text-[8px]">{t('wagerContest:second')}</p>
+                <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
               </div>
             </div>
           ) : (
@@ -321,7 +406,9 @@ const WagerContestComponent = () => {
             src="/img/icon/winner.png"
             alt=""
           />
-          <div className={`dark:bg-[#24262B] bg-[#f6f7fa] h-full w-full ${styles.boxCenter} px-3`}>
+          <div
+            className={`dark:bg-color-card-body-primary bg-color-light-bg-primary h-full w-full ${styles.boxCenter} px-3`}
+          >
             <div className="flex flex-col items-center">
               <div className="flex items-center gap-2 mb-[14px] w-full pl-[66px]">
                 <Image
@@ -331,10 +418,12 @@ const WagerContestComponent = () => {
                   src="/img/icon/crown.png"
                   alt=""
                 />
-                <span className="text-[10px] text-[#8E8E90] leading-[18px]">{t('wagerContest:lastChampion')}</span>
+                <span className="text-[12px] text-color-text-primary leading-[18px]">
+                  {t('wagerContest:lastChampion')}
+                </span>
               </div>
               <div className="flex gap-4 items-center">
-                <div className="relative border-solid border-2 rounded-full border-[#F39717]">
+                <div className="relative border-solid border-2 rounded-full border-color-secondary">
                   <Image
                     width={16}
                     height={13}
@@ -342,8 +431,7 @@ const WagerContestComponent = () => {
                     src="/img/icon/crown.png"
                     alt=""
                   />
-                  {wagerContestData?.lastUserChampion?.userId !== userId &&
-                  wagerContestData?.lastUserChampion?.isHideNamePublicList ? (
+                  {wagerHistory.playerId !== userId && !wagerHistory.playerName ? (
                     <Image
                       width={46}
                       height={59}
@@ -356,7 +444,7 @@ const WagerContestComponent = () => {
                       width={46}
                       height={59}
                       className="object-cover"
-                      src={String(process.env.API_AVATAR) + wagerContestData?.lastUserChampion?.avatar}
+                      src={String(process.env.API_AVATAR) + wagerHistory.playerAvatar}
                       alt=""
                       onError={(e) => {
                         e.currentTarget.src = '/img/avatar-1.png';
@@ -366,116 +454,118 @@ const WagerContestComponent = () => {
                 </div>
                 <div className="">
                   <p
-                    className={`${
-                      wagerContestData?.lastUserChampion?.userId !== userId &&
-                      wagerContestData?.lastUserChampion?.isHideNamePublicList
-                        ? 'pointer-events-none'
-                        : 'hover:underline cursor-pointer'
-                    } dark:text-white text-[#000]`}
-                    onClick={() => openModalProfileUser(wagerContestData?.lastUserChampion)}
+                    className={cn('dark:text-white text-[#000]', {
+                      'pointer-events-none': wagerHistory.playerId !== userId && !wagerHistory.playerName,
+                      'hover:underline cursor-pointer': !(wagerHistory.playerId !== userId && !wagerHistory.playerName),
+                    })}
+                    onClick={() => openModalProfileUser(wagerHistory)}
                   >
-                    {wagerContestData?.lastUserChampion?.userId !== userId &&
-                    wagerContestData?.lastUserChampion?.isHideNamePublicList
+                    {wagerHistory.playerId !== userId && !wagerHistory.playerName
                       ? t('homePage:hidden')
-                      : wagerContestData?.lastUserChampion?.username}
+                      : wagerHistory.playerId === userId
+                      ? userName
+                      : wagerHistory.playerName}
                   </p>
-                  <div className="text-[12px] leading-[18px] text-[#8E8E90] mt-3 flex gap-[3px] flex-col md:flex-row">
+                  <div className="text-[12px] leading-[18px] text-color-text-primary mt-3 flex gap-[3px] flex-col md:flex-row">
                     <span>{t('wagerContest:profit')}</span>
                     <div className="flex items-center gap-[3px] ml-2">
                       <Image
                         width={16}
                         height={16}
                         className="object-cover w-[1rem] h-[1rem]"
-                        src={`/img/fiats/${wagerContestData?.lastUserChampion?.symbol}.png`}
+                        src={viewInFiat ? `/img/fiats/${localFiat?.name}` : `/img/fiats/USD.png`}
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USD.png';
                         }}
                         alt=""
                       />
-                      <span className="text-[#0DFDE4] ml-1">{wagerContestData?.lastUserChampion?.profit}</span>
-                      <span className="dark:text-white text-[#000]">
-                        ({wagerContestData?.lastUserChampion?.prizePercent})
+                      <span className="text-color-primary ml-1 font-bold">
+                        {viewInFiat
+                          ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
+                          : currencyFormat1(wagerHistory.prizeAmountUsd, 4)}
                       </span>
+                      <span className="dark:text-white text-[#000]">{`${wagerHistory.percentage}%`}</span>
                     </div>
                   </div>
                 </div>
               </div>
-              <Image
+              <QuestionMarkCircleIcon
+                width={24}
+                className="text-color-primary cursor-pointer object-cover h-[24px] mt-3 w-[24px] absolute top-0 right-[16px]"
+                role="button"
+                data-tooltip-id={'fee-tooltip'}
                 onClick={() => setIsShowWagerRules(true)}
-                width={22}
-                height={22}
-                className="cursor-pointer object-cover h-[18px] mt-3 w-[18px] absolute top-0 right-[16px]"
-                src="/img/question-cricle.svg"
-                alt=""
               />
             </div>
           </div>
         </div>
       </div>
       {userId && (
-        <div className="flex md:items-center flex-col md:flex-row md:px-4 p-2 md:h-[3.5rem] dark:bg-[#24262B] bg-[#f6f7fa] gap-y-4 text-[#8E8E90] text-[0.625rem]">
+        <div className="flex md:items-center flex-col md:flex-row md:px-4 p-2 md:h-[3.5rem] dark:bg-color-card-body-primary bg-color-light-bg-primary gap-y-4 text-color-text-primary text-[0.625rem]">
           <div
-            className={`flex ${styles.boxBorder} gap-3 w-full md:w-auto grow-[3] border-r items-center border-[#3E4349]`}
+            className={`flex ${styles.boxBorder} bg-transparent gap-3 w-full md:w-auto grow-[3] border-r items-center dark:border-color-border-primary border-color-light-border-primary`}
           >
             <Image
               width={28}
               height={28}
-              className="object-cover h-[1.75rem] w-[1.75rem]"
+              className="object-cover h-[1.75rem] w-[1.75rem] rounded-full"
               src={String(process.env.API_AVATAR) + avatar}
               alt=""
               onError={(e) => {
                 e.currentTarget.src = '/img/avatar-1.png';
               }}
             />
-            <span className="text-[0.75rem] dark:text-[#fff] text-[#000] font-bold">{userName}</span>
+            <span className="text-[12px] sm:text-[14px] dark:text-[#fff] text-[#000] font-bold">{userName}</span>
           </div>
           <div
-            className={`grow-[8] flex max-md:mx-auto max-md:gap-[8.5rem] pb-3 md:p-0 border-b md:border-b-0 border-solid border-[#3E4349] ${styles.boxBorderCenter}`}
+            className={`grow-[8] flex max-md:mx-auto max-md:gap-[8.5rem] pb-3 md:p-0 border-b md:border-b-0 border-solid dark:border-color-border-primary border-color-light-border-primary ${styles.boxBorderCenter}`}
           >
             <div className={`grow ${styles.boxBorder}`}>
               <p>{t('wagerContest:myPosition')}</p>
-              <p className="text-[#F39717] text-[0.75rem] font-bold">
-                {getRank(Number(wagerContestData?.currentUserRank?.position))}
+              <p className="text-color-secondary text-[12px] sm:text-[14px] font-bold">
+                {getRank(positionData.position)}
               </p>
             </div>
             <div className={`grow ${styles.boxBorder}`}>
               <p>{t('wagerContest:wagered')}</p>
-              <p className="text-[#F39717] text-[0.75rem] font-bold">
-                {getExchangeRateLocalFiat(Number(wagerContestData?.currentUserRank?.wagered))}
+              <p className="text-color-secondary text-[12px] sm:text-[14px] font-bold">
+                {viewInFiat
+                  ? currencyFormat1(positionData.wageredAmountUsd * exchangeRate, 4, localFiat?.name)
+                  : currencyFormat1(positionData.wageredAmountUsd, 4)}
               </p>
             </div>
           </div>
-          <div className="grow-[2] flex gap-[0.313rem] min-w-fit justify-center md:justify-start items-center">
-            {Number(wagerContestData?.currentUserRank?.position) > 1 ? (
-              <>
-                <span>{t('wagerContest:wager')}</span>
-                <p className="dark:text-[#fff] text-[#000] text-[0.75rem] font-bold">
-                  {checkPosition(wagerContestData?.currentUserRank?.position, 'wager')}
-                </p>
-                <span>{t('wagerContest:toReach')}</span>
-                <div className="bg-[#f397174d] min-w-fit rounded-[3px] flex items-center h-[1.25rem] px-[0.313rem] font-semibold text-[#F39717] uppercase">
-                  top {checkPosition(wagerContestData?.currentUserRank?.position, 'top')}
-                </div>
-              </>
-            ) : (
-              <p className="text-white text-[12px] font-bold m-auto">{t('wagerContest:youAreTop')}</p>
-            )}
+          <div className="grow-[2] flex gap-[0.313rem] min-w-fit justify-center md:justify-start items-center text-[12px]">
+            <span className="dark:text-color-text-primary text-color-light-text-primary">
+              {t('wagerContest:wager')}
+            </span>
+            <span className="text-white">
+              {viewInFiat
+                ? currencyFormat1(wagerAndPostion.wagerAmount * exchangeRate, 4, localFiat?.name)
+                : currencyFormat1(wagerAndPostion.wagerAmount, 4)}
+            </span>
+            <span className="dark:text-color-text-primary text-color-light-text-primary">
+              {t('wagerContest:toReach')}
+            </span>
+            <span className="bg-color-secondary/20 text-color-secondary text-[10px] rounded-[2px] p-[5px]">
+              {`Top ${wagerAndPostion.position}`}
+            </span>
           </div>
         </div>
       )}
       <div className="text-[0.813rem] flex items-center gap-4 mt-8 mb-4">
         <p className="dark:text-[#fff] text-[#000]">{t('wagerContest:active')}</p>
         <p className="text-[#939699]">
-          {startTime} ~ {endTime}
+          {formatDate(new Date(wagerContestData.currentTime), 'LL/dd/yyyy')} ~{' '}
+          {formatDate(new Date(wagerContestData.endTime), 'LL/dd/yyyy')}
         </p>
       </div>
       <div>
         <RankingTableComponent
           containerClassName="w-full"
           isLoading={isLoadingTable}
-          data={wagerContestData.data}
+          data={wagerContestData.contesters}
           columns={WagerContestColumns}
-          onRowClick={handleClickRow}
         />
       </div>
       {isShowWagerRules && <ModalWagerRules show={isShowWagerRules} onClose={() => setIsShowWagerRules(false)} />}

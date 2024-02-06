@@ -19,12 +19,12 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { useDisconnect } from 'wagmi';
 
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, ROUTER } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { logoutState } from '@/base/redux/reducers/auth.reducer';
-import { useDisconnect } from 'wagmi';
 import {
   changeIsShowInformation,
   changeIsShowReferAndEarn,
