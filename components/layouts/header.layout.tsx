@@ -128,7 +128,9 @@ export default function Navbar() {
                 src="/icon/liveholdem.png"
                 alt="logo"
               />
-              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white`}>{t('layout:liveHoldem')}</div>
+              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white text-nowrap`}>
+                {t('layout:liveHoldem')}
+              </div>
             </div>
             <Link
               href={ROUTER.Racing}
