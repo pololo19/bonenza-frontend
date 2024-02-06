@@ -39,6 +39,7 @@ type FavoriteGameType = {
 export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const { t } = useTranslation('');
   const { theme } = useTheme();
+  const exchangeRate = useExchange();
   const { userId, viewInFiat, userData, localFiat } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
@@ -314,7 +315,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     </div>
                     <div className="text-[14px] sm:text-[1rem] dark:text-white text-black truncate max-w-full px-1">
                       {viewInFiat ? (
-                        <>{currencyFormat1(user.totalWager, 2, localFiat?.name || 'USD')}</>
+                        <>{currencyFormat1(user.totalWager * exchangeRate, 2, localFiat?.name || 'USD')}</>
                       ) : (
                         <>{currencyFormat1(user.totalWager, 2)}</>
                       )}
@@ -346,7 +347,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                           <div>{t('profile:wagered')}</div>
                           <div className="text-white">
                             {viewInFiat
-                              ? currencyFormat1(item.totalWageredAmountUsd, 2, localFiat?.name || 'USD')
+                              ? currencyFormat1(item.totalWageredAmountUsd * exchangeRate, 2, localFiat?.name || 'USD')
                               : currencyFormat1(item.totalWageredAmountUsd, 2)}
                           </div>
                         </div>
@@ -385,7 +386,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
         </div>
       </>
     );
-  }, [user, userId, isStatistic, isMedalsDetail, viewInFiat, listGame, isLoading, medals]);
+  }, [user, userId, isStatistic, isMedalsDetail, viewInFiat, listGame, isLoading, medals, exchangeRate]);
 
   return (
     <>

@@ -6,8 +6,12 @@ import { api_getVipProgress } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
+import { ArrowRight } from 'iconsax-react';
+import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
+import { useDispatch } from 'react-redux';
 
 const VipProgressComponent = () => {
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [checkDeposit, setCheckDeposit] = useState<boolean>(false);
   const [currentLevel, setCurrentLevel] = useState({
@@ -66,6 +70,9 @@ const VipProgressComponent = () => {
       <div className="flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:dark:bg-color-card-bg-default sm:bg-white sm:min-w-[400px] rounded-[3px]">
         <div className="dark:text-white text-black font-[600] sm:text-[20px] text-[14px]">
           {t('homePage:yourVipProgress')}
+        </div>
+        <div className="top-[15px] absolute right-[25px] dark:text-white text-black">
+          <ArrowRight className="cursor-pointer" onClick={() => dispatch(changeIsShowVipClubModal(true))} />
         </div>
         <div className="text-[12px] dark:text-gray-400 text-color-light-text-primary mt-[10px] pb-[10px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
           <div>{percent}%</div>
