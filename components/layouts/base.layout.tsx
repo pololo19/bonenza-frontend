@@ -511,7 +511,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           <div className="flex h-full w-full max-h-[calc(100vh-67px)] mt-[67px] sm:flex-row flex-col">
             <div
               className={cn(
-                'z-[50] dark:bg-color-bg-secondary bg-[#fff] shadow-bs-default overflow-y-hidden sm:block hidden h-[calc(100vh)] mt-[-67px] drop-shadow-lg',
+                'z-[50] dark:bg-color-bg-secondary bg-[#fff] shadow-bs-default sm:block hidden h-[calc(100vh)] mt-[-67px] drop-shadow-lg',
                 {
                   'xl:relative fixed': isToggleSidebar,
                 },

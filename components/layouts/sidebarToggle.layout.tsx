@@ -20,8 +20,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
@@ -33,6 +34,7 @@ import {
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
+import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
 import BlackjackIcon from '../icons/BlackjackIcon';
@@ -45,11 +47,10 @@ import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
 import styles from './sidebar.module.scss';
-import { AuthenticationModeEnum } from '@/base/types/common';
 
 export default function SidebarToggle() {
   const { setTheme, theme } = useTheme();
-  const { t } = useTranslation('');
+  const { t, i18n } = useTranslation('');
   const dispatch = useDispatch();
   const router = useRouter();
   const [showDropDownCasino, setShowDropDownCasino] = useState(false);
@@ -80,11 +81,170 @@ export default function SidebarToggle() {
     shallowEqual,
   );
 
+  const panel_1_datas = useMemo(
+    () => [
+      {
+        title: String(t('sidebar:casino')),
+        href: '',
+        icon: Notepad2,
+        smallIcon: (
+          <Notepad2
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Casino),
+            })}
+          />
+        ),
+        onClick: () => {
+          setShowDropDownCasino(!showDropDownCasino);
+          if (!(router.pathname === ROUTER.Casino)) router.push(ROUTER.Casino);
+        },
+        isShowDropDown: showDropDownCasino ? true : false,
+        isDropDown: true,
+        data: dataDropDownCasino,
+      },
+      {
+        title: String(t('sidebar:sports')),
+        href: ROUTER.Sports,
+        icon: TrendUp,
+        smallIcon: (
+          <TrendUp
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Sports),
+            })}
+          />
+        ),
+      },
+      {
+        title: String(t('sidebar:lottery')),
+        href: ROUTER.History,
+        icon: Ticket,
+        smallIcon: (
+          <Ticket
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Lottery),
+            })}
+          />
+        ),
+      },
+      {
+        title: String(t('sidebar:bingo')),
+        href: ROUTER.Bingo,
+        icon: Award,
+        smallIcon: (
+          <Award
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Bingo),
+            })}
+          />
+        ),
+      },
+    ],
+    [i18n, router.route, showDropDownCasino],
+  );
+
+  const panel_2_datas = useMemo(
+    () => [
+      {
+        title: String(t('sidebar:vipClub')),
+        href: '',
+        icon: Diamonds,
+        smallIcon: (
+          <Diamonds
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': isShowVipClubModal,
+            })}
+          />
+        ),
+        onClick: () => {
+          dispatch(changeIsShowVipClubModal(true));
+        },
+      },
+      {
+        title: String(t('sidebar:exclusive')),
+        href: ROUTER.Exclusive,
+        icon: Medal,
+        smallIcon: (
+          <Medal
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Exclusive),
+            })}
+          />
+        ),
+      },
+      {
+        title: String(t('sidebar:affiliate')),
+        href: ROUTER.Affiliate,
+        icon: Command,
+        smallIcon: (
+          <Command
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Affiliate),
+            })}
+          />
+        ),
+      },
+      {
+        title: String(t('sidebar:provablyFair')),
+        href: ROUTER.ProvablyFair,
+        icon: Judge,
+        smallIcon: (
+          <Judge
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.ProvablyFair),
+            })}
+          />
+        ),
+      },
+    ],
+    [isShowVipClubModal, i18n, router.route],
+  );
+
+  const panel_3_datas = useMemo(
+    () => [
+      {
+        title: String(t('sidebar:sponsorships')),
+        href: ROUTER.Sponsorships,
+        icon: SecurityCard,
+        smallIcon: (
+          <SecurityCard
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Sponsorships),
+            })}
+          />
+        ),
+        onClick: () => {},
+      },
+      {
+        title: String(t('sidebar:liveSupport')),
+        href: ROUTER.LiveSupport,
+        icon: Headphone,
+        smallIcon: (
+          <Headphone
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.LiveSupport),
+            })}
+          />
+        ),
+      },
+    ],
+    [i18n, router.route],
+  );
+
   return (
     <>
       {/* Main Sidebar */}
       <div
-        className={cn('transition-transform h-full flex flex-col w-[205px]', {
+        className={cn('transition-transform h-full flex flex-col w-[205px] duration-500', {
           'translate-x-0': isToggleSidebar,
           '-translate-x-full absolute': !isToggleSidebar,
         })}
@@ -93,7 +253,7 @@ export default function SidebarToggle() {
         <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-[#1D1E22]">
           <button
             className={cn(
-              'sm:block hidden rounded-md dark:bg-[#16161B] bg-[#f6f7fa] dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
+              'sm:block hidden rounded-md dark:bg-[#16161B] bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
@@ -118,7 +278,7 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:bonus'))}
                 href={ROUTER.Bonus}
                 icon={Gift}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000] bg-[#F6F7FA] hover:bg-[#eaecf3] rounded px-[10px]"
+                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000] bg-color-light-bg-primary hover:bg-[#eaecf3] rounded px-[10px]"
               />
               <div className="flex items-center gap-[10px]">
                 <IconOption
@@ -140,85 +300,42 @@ export default function SidebarToggle() {
                   )}
                 />
               </div>
-              <IconOption
-                title={String(t('sidebar:casino'))}
-                href={''}
-                icon={Notepad2}
-                classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-[#F6F7FA] hover:text-[#000] rounded"
-                onClick={() => {
-                  setShowDropDownCasino(!showDropDownCasino);
-                  if (!(router.pathname === ROUTER.Casino)) router.push(ROUTER.Casino);
-                }}
-                isShowDropDown={showDropDownCasino ? true : false}
-                isDropDown={true}
-                data={dataDropDownCasino}
-              />
-              <IconOption
-                title={String(t('sidebar:sports'))}
-                href={ROUTER.Sports}
-                icon={TrendUp}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
-              />
-              <IconOption
-                title={String(t('sidebar:lottery'))}
-                href={ROUTER.History}
-                icon={Ticket}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
-              />
-              <IconOption
-                title={String(t('sidebar:bingo'))}
-                href={ROUTER.Bingo}
-                icon={Award}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
-              />
+              {panel_1_datas.map((item, index) => (
+                <IconOption
+                  key={index}
+                  title={item.title}
+                  href={item.href}
+                  icon={item.icon}
+                  classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
+                  onClick={item.onClick}
+                  isShowDropDown={item.isShowDropDown}
+                  isDropDown={item.isDropDown}
+                  data={item.data}
+                />
+              ))}
             </ul>
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center">
-              <IconOption
-                title={String(t('sidebar:vipClub'))}
-                href={'#'}
-                icon={Diamonds}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-t pl-[10px]"
-                onClick={() => {
-                  if (!isLogin) {
-                    dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-                    dispatch(changeIsShowAuthenticationModal(true));
-                  } else {
-                    dispatch(changeIsShowVipClubModal(true));
-                  }
-                }}
-              />
-              <IconOption
-                title={String(t('sidebar:exclusive'))}
-                href={ROUTER.Exclusive}
-                icon={Medal}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
-              />
-              <IconOption
-                title={String(t('sidebar:affiliate'))}
-                href={ROUTER.Affiliate}
-                icon={Command}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-none pl-[10px]"
-              />
-              <IconOption
-                title={String(t('sidebar:provablyFair'))}
-                href={ROUTER.ProvablyFair}
-                icon={Judge}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded-b pl-[10px]"
-              />
+              {panel_2_datas.map((item, index) => (
+                <IconOption
+                  key={index}
+                  title={item.title}
+                  href={item.href}
+                  icon={item.icon}
+                  classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
+                  onClick={item.onClick}
+                />
+              ))}
             </ul>
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
-              <IconOption
-                title={String(t('sidebar:sponsorships'))}
-                href={ROUTER.Sponsorships}
-                icon={SecurityCard}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
-              />
-              <IconOption
-                title={String(t('sidebar:liveSupport'))}
-                href={ROUTER.LiveSupport}
-                icon={Headphone}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-[#F6F7FA] hover:bg-[#eaecf3]  hover:text-[#000] rounded pl-[10px]"
-              />
+              {panel_3_datas.map((item, index) => (
+                <IconOption
+                  key={index}
+                  title={item.title}
+                  href={item.href}
+                  icon={item.icon}
+                  classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
+                />
+              ))}
             </ul>
             <div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
               <div
@@ -226,7 +343,7 @@ export default function SidebarToggle() {
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
                   {
                     'bg-[#2D3035] text-white': theme === 'dark',
-                    'text-color-light-text-primary bg-[#F6F7FA]': theme === 'light',
+                    'text-color-light-text-primary bg-color-light-bg-primary': theme === 'light',
                   },
                 )}
                 onClick={() => {
@@ -258,7 +375,7 @@ export default function SidebarToggle() {
 
       {/* Small Sidebar */}
       <div
-        className={cn('transition-transform h-full flex flex-col w-[62px]', {
+        className={cn('transition-transform h-full flex flex-col w-[62px] duration-500', {
           'translate-x-0': !isToggleSidebar,
           '-translate-x-full absolute': isToggleSidebar,
         })}
@@ -267,7 +384,7 @@ export default function SidebarToggle() {
         <div className="flex justify-center items-center min-h-[67px] px-[8px] py-[10px]">
           <button
             className={cn(
-              'sm:block hidden rounded-md  dark:bg-[#25262B] dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
+              'sm:block hidden rounded-md  dark:bg-[#25262B] dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
@@ -276,13 +393,14 @@ export default function SidebarToggle() {
             <HambergerMenu size={18} className={cn('m-auto')} />
           </button>
         </div>
-        <div className="flex-1 flex flex-col h-full pt-2 gap-[5px] overflow-y-auto">
+        <div className="flex-1 flex flex-col h-full pt-2 gap-[5px]">
           <Link
             href={ROUTER.Bonus}
             type="button"
             className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
             )}
+            data-tooltip-id={'bonus-tooltip'}
           >
             <Gift
               size={22}
@@ -291,170 +409,62 @@ export default function SidebarToggle() {
               })}
             />
           </Link>
+          <Tooltip id={'bonus-tooltip'} place="right" positionStrategy="fixed">
+            <div>
+              <p className="text-white">Bonus</p>
+            </div>
+          </Tooltip>
           <Link
             href={ROUTER.Bonus}
             type="button"
             className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
             )}
+            data-tooltip-id={'quest-tooltip'}
           >
             <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
           </Link>
+          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="fixed">
+            <div>
+              <p className="text-white">Quest</p>
+            </div>
+          </Tooltip>
           <Link
             href={ROUTER.Bonus}
             type="button"
             className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
             )}
+            data-tooltip-id={'spin-tooltip'}
           >
             <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
           </Link>
-          <Link
-            href={ROUTER.Casino}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Notepad2
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Casino),
-              })}
-            />
-          </Link>
-          <Link
-            href={ROUTER.Sports}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <TrendUp
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Sports),
-              })}
-            />
-          </Link>
-          <Link
-            href={ROUTER.History}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Ticket
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Lottery),
-              })}
-            />
-          </Link>
-          <Link
-            href={ROUTER.Bingo}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Award
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Bingo),
-              })}
-            />
-          </Link>
-          <button
-            onClick={() => {
-              if (!isLogin) {
-                dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-                dispatch(changeIsShowAuthenticationModal(true));
-              } else {
-                dispatch(changeIsShowVipClubModal(true));
-              }
-            }}
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Diamonds
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': isShowVipClubModal,
-              })}
-            />
-          </button>
-          <Link
-            href={ROUTER.Exclusive}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Medal
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Exclusive),
-              })}
-            />
-          </Link>
-          <Link
-            href={ROUTER.Affiliate}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Command
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Affiliate),
-              })}
-            />
-          </Link>
-          <Link
-            href={ROUTER.ProvablyFair}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Judge
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.ProvablyFair),
-              })}
-            />
-          </Link>
-          <Link
-            href={ROUTER.Sponsorships}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <SecurityCard
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Sponsorships),
-              })}
-            />
-          </Link>
-          <Link
-            href={ROUTER.LiveSupport}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-[#9FA5AC] bg-[#F6F7FA] hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-          >
-            <Headphone
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.LiveSupport),
-              })}
-            />
-          </Link>
+          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="fixed">
+            <div>
+              <p className="text-white">Spin</p>
+            </div>
+          </Tooltip>
+
+          {[...panel_1_datas, ...panel_2_datas, ...panel_3_datas].map((item, index) => (
+            <>
+              <Link
+                href={item.href}
+                type="button"
+                className={cn(
+                  'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                )}
+                onClick={item?.onClick && item?.onClick}
+                data-tooltip-id={`${item.title}-tooltip`}
+              >
+                {item.smallIcon}
+              </Link>
+              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
+                <div>
+                  <p className="text-white">{item.title}</p>
+                </div>
+              </Tooltip>
+            </>
+          ))}
         </div>
       </div>
     </>
