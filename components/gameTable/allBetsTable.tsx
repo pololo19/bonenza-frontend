@@ -119,7 +119,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       userId: row.original.playerId,
     };
     dispatch(setUserData(userData));
-    if (!row.original.isHideNamePublicList) {
+    if (row.original.player) {
       dispatch(changeIsShowInformation(true));
     }
   };
@@ -129,7 +129,6 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
     setBetIdDetail(Number(betId));
     setSelBetDetail(row.original);
     setIsShowDetailBet(true);
-    setIsPublicProfile(row.original?.isHideNamePublicList);
   };
 
   const allBetColumns = useMemo(() => {
