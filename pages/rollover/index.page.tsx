@@ -181,7 +181,7 @@ const RolloverPage = () => {
           wagerCompletedUsdAmount: Number(item?.wagerCompletedAmountUsd ?? 0),
           withdrawableFoundsAmount: Number(item?.withdrawableFoundsAmount ?? 0),
           withdrawableFoundsUsdAmount: Number(item?.withdrawableFoundsAmountUsd ?? 0),
-          currency: item?.currendySymbol ?? 'USD',
+          currency: item?.currencySymbol ?? 'USD',
           currencyLogo: item?.currencyLogo ?? '/image/fiats/USD.png',
           status: item?.rollover ?? 'not_started',
           times: item?.times ?? 0,
