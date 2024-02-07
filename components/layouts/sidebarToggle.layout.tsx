@@ -244,7 +244,7 @@ export default function SidebarToggle() {
     <>
       {/* Main Sidebar */}
       <div
-        className={cn('transition-transform h-full flex flex-col w-[205px] duration-500', {
+        className={cn('transition-transform h-full flex flex-col w-[205px]', {
           'translate-x-0': isToggleSidebar,
           '-translate-x-full absolute': !isToggleSidebar,
         })}
@@ -375,7 +375,7 @@ export default function SidebarToggle() {
 
       {/* Small Sidebar */}
       <div
-        className={cn('transition-transform h-full flex flex-col w-[62px] duration-500', {
+        className={cn('transition-transform h-full flex flex-col w-[62px]', {
           'translate-x-0': !isToggleSidebar,
           '-translate-x-full absolute': isToggleSidebar,
         })}
