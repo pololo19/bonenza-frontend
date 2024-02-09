@@ -18,6 +18,12 @@ import {
   API_GAME_PROVIDER,
   API_GAME_RECENT_BIG_WINS,
   API_GAME_RECENT_GAMES,
+  API_GAME_REVIEW_ADD,
+  API_GAME_REVIEW_COMMENT,
+  API_GAME_REVIEW_GET_RATING,
+  API_GAME_REVIEW_LIST,
+  API_GAME_REVIEW_RATING_STATISTICS,
+  API_GAME_REVIEW_SET_RATING,
   API_GAME_SET_FAVORITE,
   API_GAME_SLOT,
   API_GAME_START_DEMO,
@@ -35,6 +41,7 @@ import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestT
 import api from '../api';
 
 export type SortType = 'popular' | 'asc' | 'desc' | 'new' | 'a-z' | 'z-a' | 'like';
+export type ReviewListSortType = 'newest' | 'top_comments' | 'top_likes';
 
 export type CasinoRequest = {
   page: number;
@@ -158,4 +165,29 @@ export const api_wagerContestHistory = async () => {
 
 export const api_wagerContestPosition = async () => {
   return api.get(API_WAGER_CONTEST_POSITION);
+};
+
+export const api_reviewRatingStatistics = async (gameId: string) => {
+  return api.get(API_GAME_REVIEW_RATING_STATISTICS, { params: { gameId } });
+};
+
+export const api_reviewGetRating = async (gameId: string) => {
+  return api.get(API_GAME_REVIEW_GET_RATING, { params: { gameId } });
+};
+
+export const api_reviewSetRating = async (gameId: string, rating: number) => {
+  return api.post(API_GAME_REVIEW_SET_RATING, { gameId, rating });
+};
+
+export const api_reviewComment = async (gameId: string) => {
+  return api.get(API_GAME_REVIEW_COMMENT, { params: { id: gameId } });
+};
+
+export const api_reviewAdd = async (gameId: string, commentId: string = '', text: string) => {
+  if (!commentId) return api.post(API_GAME_REVIEW_ADD, { gameId, text });
+  return api.post(API_GAME_REVIEW_ADD, { gameId, commentId, text });
+};
+
+export const api_reviewList = async (commentId: string, page: number, pageSize: number, sort: ReviewListSortType) => {
+  return api.get(API_GAME_REVIEW_LIST, { params: { commentId, page, pageSize, sort } });
 };

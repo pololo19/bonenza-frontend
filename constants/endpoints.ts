@@ -99,6 +99,13 @@ const API_GAME_GAMES_BY_NAME_PROVIDER = '/game/get-game-by-name-and-provider';
 const API_GAME_SET_FAVORITE = '/game/set-game-favorite-status';
 const API_GAME_GET_FAVORITE = '/game/get-game-favorite-status';
 
+const API_GAME_REVIEW_RATING_STATISTICS = '/game/review/rating-statistics';
+const API_GAME_REVIEW_GET_RATING = '/game/review/rating';
+const API_GAME_REVIEW_SET_RATING = '/game/review/rating';
+const API_GAME_REVIEW_LIST = '/game/review/list';
+const API_GAME_REVIEW_COMMENT = '/game/review/comment';
+const API_GAME_REVIEW_ADD = '/game/review/add';
+
 /************************************ Affiliate **********************************/
 
 const API_AFFILIATE = '/affiliate/affiliate';
@@ -180,6 +187,12 @@ export {
   API_GAME_PROVIDER,
   API_GAME_RECENT_BIG_WINS,
   API_GAME_RECENT_GAMES,
+  API_GAME_REVIEW_ADD,
+  API_GAME_REVIEW_COMMENT,
+  API_GAME_REVIEW_GET_RATING,
+  API_GAME_REVIEW_LIST,
+  API_GAME_REVIEW_RATING_STATISTICS,
+  API_GAME_REVIEW_SET_RATING,
   API_GAME_ROLLBACK,
   API_GAME_SET_FAVORITE,
   API_GAME_SLOT,
