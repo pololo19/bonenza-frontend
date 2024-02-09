@@ -99,6 +99,7 @@ module.exports = {
         'color-slider-primary': '#26282E',
         'color-toggle-primary': '#3A4047',
         'color-progress-primary': '#25262A',
+        'color-progress-secondary': '#23242A',
         // 'color-active-primary': '#1D1F24',
         'color-light-active-primary': '#C0C2C9',
         'color-active-secondary': '#31353C',

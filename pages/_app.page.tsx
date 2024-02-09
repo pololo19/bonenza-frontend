@@ -114,6 +114,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
                   name="keywords"
                   content="NFT, play to earn, P2E, NFT games, GOD, metaverse, meta, metaverseNFT, NFTgaming, coin, DRON"
                 />
+                <meta name="theme-color" content="#24262b"></meta>
                 <meta name="language" content="English" />
                 <meta name="author" content="contact@bonenza.com" />
                 <meta name="url" content="https://www.bonenza.com" />

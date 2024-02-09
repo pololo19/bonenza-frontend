@@ -1,32 +1,74 @@
 import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import StarsRating from 'react-star-rate';
 import { toast } from 'react-toastify';
 
-import api from '@/api/api';
+import {
+  api_reviewGetRating,
+  api_reviewList,
+  api_reviewRatingStatistics,
+  api_reviewSetRating,
+  ReviewListSortType,
+} from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate } from '@/base/libs/utils';
-import { GameDetail, GameListType, GameProviderDetail, Rating } from '@/base/types/common';
+import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
+
+import Loader from '../common/preloader/loader';
+import CommentPostModal from '../modal/review/commentPost';
 
 const RateStarComponent = ({
   rate,
   total = 5,
   fillColor = true,
+  value = 0,
+  onClick = () => {},
 }: {
   rate: number;
   total?: number;
   fillColor?: boolean;
+  value?: number;
+  onClick?: () => void;
 }) => {
   return (
     <div className="flex items-center">
       {[...Array(total)].map((e, i) => {
-        return <StarIcon width={18} key={i} className={cn({ 'text-amber-600': i < rate && fillColor })} />;
+        return (
+          <StarIcon
+            width={18}
+            key={i}
+            className={cn({ 'text-color-primary': i < rate && fillColor })}
+            onClick={onClick}
+          />
+        );
       })}
     </div>
   );
+};
+
+type ReviewRatingType = {
+  totalCount: number;
+  averageRating: number;
+  avatars: string[];
+  counts: number[];
+  userRating: number;
+};
+
+type CommentType = {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  text: string;
+  time: string;
+  likes: number;
+  comments: number;
 };
 
 const GameReviewComponent = ({
@@ -36,64 +78,141 @@ const GameReviewComponent = ({
   gameDetail?: GameListType;
   gameProvider?: GameProviderDetail;
 }) => {
-  const dataFake = [
-    {
-      img: 'https://gtjai.com.vn/wp-content/uploads/2021/07/avt.png',
-    },
-    {
-      img: 'https://gtjai.com.vn/wp-content/uploads/2021/07/avt.png',
-    },
-    {
-      img: 'https://gtjai.com.vn/wp-content/uploads/2021/07/avt.png',
-    },
-    {
-      img: 'https://gtjai.com.vn/wp-content/uploads/2021/07/avt.png',
-    },
-    {
-      img: 'https://gtjai.com.vn/wp-content/uploads/2021/07/avt.png',
-    },
-    {
-      img: 'https://gtjai.com.vn/wp-content/uploads/2021/07/avt.png',
-    },
-    {
-      img: 'https://gtjai.com.vn/wp-content/uploads/2021/07/avt.png',
-    },
-  ];
+  const dispatch = useAppDispatch();
+  const { isLogin, userAvatar } = useSelector((state: AppState) => ({
+    isLogin: state.auth.isLogin,
+    userAvatar: state.auth.user.avatar,
+  }));
 
-  const [ratingData, setRatingData] = useState<Rating>({});
+  const [page, setPage] = useState(1);
+
+  const [loading, setLoading] = useState({
+    ratingLoading: false,
+    commentLoading: false,
+  });
+
+  const [ratingData, setRatingData] = useState<ReviewRatingType>({
+    totalCount: 0,
+    averageRating: 0,
+    avatars: [],
+    counts: [],
+    userRating: 0,
+  });
+
+  const [commentData, setCommentData] = useState<CommentType[]>([]);
+
+  const [showComment, setShowComment] = useState(false);
+  const [commentId, setCommentId] = useState('');
+  const [selectedSort, setSelectedSort] = useState<ReviewListSortType>('newest');
 
   const handleChangeRate = async (value?: number) => {
-    if (!value) return;
+    if (!isLogin) {
+      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+      dispatch(changeIsShowAuthenticationModal(true));
+      return;
+    }
+    if (!value || !gameDetail?.id) return;
     try {
-      const res = await api.post('/rating', {
-        gameId: gameDetail?.id,
-        rating: value,
+      setLoading((load) => ({ ...load, ratingLoading: true }));
+      const _res = await api_reviewSetRating(String(gameDetail?.id), value);
+      const userRating = _res?.data?.rating;
+      const _ratingStatistics = await api_reviewRatingStatistics(gameDetail?.id);
+      setRatingData({
+        totalCount: Number(_ratingStatistics?.data?.totalCount ?? 0),
+        averageRating: Number(_ratingStatistics?.data?.averageRating ?? 0),
+        avatars: _ratingStatistics?.data?.avatars ?? [],
+        counts: [
+          Number(_ratingStatistics?.data?.counts[1]),
+          Number(_ratingStatistics?.data?.counts[2]),
+          Number(_ratingStatistics?.data?.counts[3]),
+          Number(_ratingStatistics?.data?.counts[4]),
+          Number(_ratingStatistics?.data?.counts[5]),
+        ],
+        userRating: userRating,
       });
       toast.error('Rating Successfully', { containerId: TOAST_ENUM.COMMON });
     } catch (error) {
       toast.error('Rating Failed', { containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setLoading((load) => ({ ...load, ratingLoading: false }));
     }
   };
 
-  const handleGetRate = async () => {
+  const handleGetRateAndComments = useCallback(async () => {
     try {
-      // const res = await api.get('game/get-rating', { params: { game_id: gameDetail?.id } });
-      // setRatingData(res.data.data);
+      if (!gameDetail?.id) return;
+      setLoading({ ratingLoading: true, commentLoading: true });
+      const [_rates, _comments] = await Promise.all([
+        api_reviewRatingStatistics(gameDetail?.id),
+        api_reviewList('', page, 10, selectedSort),
+      ]);
+
+      const tempCommentDatas: CommentType[] = _comments?.data?.comments.map((item: any) => ({
+        id: item?.id ?? '',
+        userId: item?.userId ?? '',
+        userName: item?.userName ?? '',
+        userAvatar: item?.userAvatar ?? '',
+        text: item?.text ?? '',
+        time: item?.time ?? new Date(),
+        likes: Number(item?.likesCount ?? 0),
+        comments: Number(item?.commentsCount ?? 0),
+      }));
+      setRatingData({
+        totalCount: Number(_rates?.data?.totalCount ?? 0),
+        averageRating: Number(_rates?.data?.averageRating ?? 0),
+        avatars: _rates?.data?.avatars ?? [],
+        counts: [
+          Number(_rates?.data?.counts[1]),
+          Number(_rates?.data?.counts[2]),
+          Number(_rates?.data?.counts[3]),
+          Number(_rates?.data?.counts[4]),
+          Number(_rates?.data?.counts[5]),
+        ],
+        userRating: 0,
+      });
+      setCommentData(tempCommentDatas);
     } catch (error) {
-      setRatingData({});
+      setRatingData({
+        totalCount: 0,
+        averageRating: 0,
+        avatars: [],
+        counts: [],
+        userRating: 0,
+      });
+      setCommentData([]);
     } finally {
+      setLoading({ ratingLoading: false, commentLoading: false });
+    }
+  }, [page, gameDetail]);
+
+  const handleGetUserRate = async () => {
+    if (!gameDetail?.id) return;
+    try {
+      setLoading((load) => ({ ...load, ratingLoading: true }));
+      const _rating = await api_reviewGetRating(gameDetail.id);
+      setRatingData((current) => ({ ...current, userRating: _rating.data }));
+    } catch (error) {
+      setRatingData((current) => ({ ...current, userRating: 0 }));
+    } finally {
+      setLoading((load) => ({ ...load, ratingLoading: false }));
     }
   };
 
   useEffect(() => {
-    handleGetRate();
+    handleGetRateAndComments();
   }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      handleGetUserRate();
+    }
+  }, [isLogin]);
 
   const { t } = useTranslation('');
 
   return (
-    <div>
-      <div className="dark:bg-[#1A1C20] bg-white w-full h-[152px] p-[15px] rounded-md text-[11px] text-[#939699] font-normal mb-7">
+    <div className="relative">
+      <div className="dark:bg-color-bg-secondary bg-white w-full h-[152px] p-[15px] rounded-md text-[11px] text-color-text-primary font-normal mb-7">
         <div className="flex gap-5">
           <Image
             height={90}
@@ -106,231 +225,171 @@ const GameReviewComponent = ({
             <h2 className="sm:text-[18px] text-[16px] font-semibold dark:text-white text-black mb-3">
               {gameDetail?.title}
             </h2>
-            <p>
+            <p className="text-[13px]">
               {t('gameDetail:by')} <span className="dark:text-white text-black">{gameDetail?.provider}</span>
             </p>
             {gameDetail?.releasedAt && (
-              <p className="mt-2 dark:text-white text-[#31373d]">
-                {t('gameDetail:release')}: {formatDate(gameDetail?.releasedAt)}
+              <p className="mt-2 dark:text-white text-color-light-text-primary text-[13px]">
+                {t('gameDetail:release')}: {formatDate(new Date(gameDetail?.releasedAt))}
               </p>
             )}
           </div>
         </div>
         <div className="mt-4 flex items-center gap-2">
-          <span className="font-bold dark:text-[#0DFDE4] text-[#f59e0b]">{t('gameDetail:showMore')}</span>
+          <span className="font-bold dark:text-color-primary text-[#f59e0b]">{t('gameDetail:showMore')}</span>
           <i className="fi fi-rs-angle-small-down dark:text-white text-[#f59e0b] w-[10px] h-[10px]"></i>
         </div>
       </div>
-      <div className="mb-10 text-[#939699] text-[#000]">
+      <div className="mb-10 dark:text-color-text-primary text-[#000]">
+        {loading.ratingLoading && <Loader />}
         <h2 className="text-lg font-semibold mb-1 dark:text-white text-black">{t('gameDetail:ratings')} </h2>
-        <div className="dark:bg-[#1A1C20] bg-white w-full">
+        <div className="dark:bg-color-bg-secondary bg-white w-full">
           <div className="flex sm:p-4 p-2 md:gap-[30px] gap-[10px]">
-            <div className="flex md:flex-row flex-col gap-[10px] items-center">
-              <span className="text-4xl dark:text-[#0DFDE4] text-[#f59e0b] font-normal">
-                {ratingData?.avgRating?.toFixed(1)}{' '}
-                <span className="text-[11px] dark:text-[#939699] text-[#31373d] md:hidden -ml-3">/5</span>
+            <div className="flex md:flex-row flex-col gap-[10px]">
+              <span className="text-4xl dark:text-color-primary text-[#f59e0b] font-normal">
+                {ratingData.averageRating?.toFixed(1)}{' '}
+                <span className="text-[11px] dark:text-color-text-primary text-color-light-text-primary md:hidden -ml-3">
+                  /5
+                </span>
               </span>
               <div className="w-[max-content]">
                 <StarsRating
                   allowHalf={false}
                   classNamePrefix="!text-[14px] rate-star"
                   disabled
-                  value={ratingData?.avgRating}
+                  value={ratingData.averageRating}
                 />
                 <p className="hidden md:block text-[11px]">{t('gameDetail:outOf')} 5</p>
               </div>
             </div>
             <div className="w-full">
-              <div className="flex items-center">
-                <div className="min-w-[150px]">
-                  <StarsRating allowHalf={false} classNamePrefix="!text-[14px] rate-star" disabled />
+              {new Array(5).fill('').map((item, index) => (
+                <div className="flex items-center">
+                  <div className="min-w-[150px]">
+                    <StarsRating
+                      allowHalf={false}
+                      classNamePrefix="!text-[16px] rate-star"
+                      disabled
+                      count={5 - index}
+                    />
+                  </div>
+                  <div className="w-full h-[5px] bg-color-progress-secondary rounded">
+                    <div
+                      className="h-full bg-color-primary rounded"
+                      style={{ width: `${(ratingData.counts[4 - index] / (ratingData.totalCount || 1)) * 100}%` }}
+                    ></div>
+                  </div>
                 </div>
-                <div className="w-full h-[5px] bg-gray-300 rounded">
-                  <div className="h-full w-[5%] bg-amber-500 rounded"></div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <div className="min-w-[150px]">
-                  <StarsRating allowHalf={false} classNamePrefix="!text-[14px] rate-star" disabled count={4} />
-                </div>
-                <div className="w-full h-[5px] bg-gray-300 rounded">
-                  <div className="h-full w-[5%] bg-amber-500 rounded"></div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <div className="min-w-[150px]">
-                  <StarsRating allowHalf={false} classNamePrefix="!text-[14px] rate-star" disabled count={3} />
-                </div>
-                <div className="w-full h-[5px] bg-gray-300 rounded">
-                  <div className="h-full w-[5%] bg-amber-500 rounded"></div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <div className="min-w-[150px]">
-                  <StarsRating allowHalf={false} classNamePrefix="!text-[14px] rate-star" disabled count={2} />
-                </div>
-                <div className="w-full h-[5px] bg-gray-300 rounded">
-                  <div className="h-full w-[5%] bg-amber-500 rounded"></div>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <div className="min-w-[150px]">
-                  <StarsRating allowHalf={false} classNamePrefix="!text-[14px] rate-star" disabled count={1} />
-                </div>
-                <div className="w-full h-[5px] bg-gray-300 rounded">
-                  <div className="h-full w-[5%] bg-amber-500 rounded"></div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
-          <div className="w-full h-[1px] bg-[#3D4049]"></div>
+          <div className="w-full h-[1px] dark:bg-color-border-primary bg-color-light-border-primary"></div>
           <div className="flex justify-between px-4 text-[11px]">
             <div className="w-full flex flex-col md:flex-row md:justify-between justify-center pr-5 items-center">
               <span>{t('gameDetail:rateThisGame')}</span>
               <StarsRating
                 allowHalf={false}
                 value={ratingData.userRating}
-                classNamePrefix="!text-[18px] rate-star"
+                classNamePrefix="!text-[20px] rate-star"
                 onChange={handleChangeRate}
               />
             </div>
-            <div className="w-[1px] md:h-12 h-[86px] bg-[#3D4049]"></div>
+            <div className="w-[1px] md:h-12 h-[86px] dark:bg-color-border-primary bg-color-light-border-primary"></div>
             <div className="w-full flex flex-col md:flex-row items-center pl-4 justify-center md:justify-start">
               <div className="flex pr-2">
-                {dataFake.map((items, key) => (
+                {ratingData.avatars.map((item, key) => (
                   <div key={key}>
-                    <Image src={items.img} alt="" width={36} height={36} className="w-4 h-4" />
+                    <Image
+                      src={String(API_AVATAR) + item}
+                      alt=""
+                      width={36}
+                      height={36}
+                      className="w-4 h-4"
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/avatar-1.png';
+                      }}
+                    />
                   </div>
                 ))}
               </div>
               <span>
-                {ratingData.countRating} {t('gameDetail:ratings')}
+                {ratingData.totalCount} {t('gameDetail:ratings')}
               </span>
             </div>
           </div>
         </div>
       </div>
       <div className="mb-[50px]">
+        {loading.commentLoading && <Loader />}
         <div className="flex justify-between text-lg font-semibold items-center">
           <h2 className="text-black dark:text-white">{t('gameDetail:comments')}</h2>
           <i className="fi fi-sr-menu-burger w-4 h-4 text-[#929395]"></i>
         </div>
         <div className="flex gap-[13px] h-11 items-center relative mt-[9px]">
           <Image
-            src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7912642/avatar-icon-md.png"
+            src={String(API_AVATAR) + userAvatar}
             alt=""
             width={36}
             height={36}
             className="w-9 h-9"
+            onError={(e) => {
+              e.currentTarget.src = '/img/avatar-1.png';
+            }}
           />
-          <input
-            className="w-full h-full dark:bg-[#1C1E22] bg-[#eaecf3] dark:text-[#53575C] text-[#5f6975] placeholder-[#53575C] text-sm border-none px-7 focus:outline-none"
-            type="text"
-            placeholder="Leave your comment"
-          />
-          <i className="fi fi-rr-smile-beam absolute right-3 text-[#929395] w-[15px] h-[15px]"></i>
+          <div
+            className="w-full cursor-pointer h-full items-start flex flex-col dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary text-sm border-none px-7 focus:outline-none justify-center"
+            role="text"
+            onClick={() => {
+              setShowComment(true);
+              setCommentId('');
+            }}
+          >
+            Leave your comment
+          </div>
+          <i className="fi fi-rr-smile-beam absolute right-3 text-color-text-primary w-[15px] h-[15px]"></i>
         </div>
-        <div className="text-xs text-[#98A7B5]">
-          <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-[#1C1E22] bg-white">
-            <div className="ml-[17px]">
-              <div className="flex items-center gap-2">
-                <Image
-                  src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7912642/avatar-icon-md.png"
-                  alt=""
-                  width={36}
-                  height={36}
-                  className="w-7 h-7"
-                />
-                <span>
-                  Andre0008 <span className="text-[#53575C]">38d</span>
-                </span>
+        {commentData.map((comment) => (
+          <div className="text-xs dark:text-color-text-primary text-color-light-text-primary">
+            <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
+              <div className="ml-[17px]">
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={String(API_AVATAR) + comment.userAvatar}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="w-7 h-7"
+                    onError={(err) => {
+                      err.currentTarget.src = '/img/avatar-1.png';
+                    }}
+                  />
+                  <span>
+                    {comment.userName} <span className="text-[#53575C]">38d</span>
+                  </span>
+                </div>
+                <p className="mt-[13px] ml-[23px]">{comment.text}</p>
               </div>
-              <p className="mt-[13px] ml-[23px]">{t('gameDetail:threeTimeFreeGame')}</p>
-            </div>
-            <div className="-mt-8 flex gap-6 mr-3 text-sm">
-              <i className="fi fi-rr-social-network"></i>
-              <i className="fi fi-rs-beacon"></i>
-              <i className="fi fi-rr-menu-dots-vertical"></i>
+              <div className="-mt-8 flex gap-6 mr-3 text-sm">
+                <div className="flex gap-[5px] items-center justify-center">
+                  <i className="fi fi-rr-social-network"></i>
+                  {comment.likes > 0 && <span>{comment.likes}</span>}
+                </div>
+
+                <i className="fi fi-rs-beacon"></i>
+                <i className="fi fi-rr-menu-dots-vertical"></i>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="text-xs text-[#98A7B5]">
-          <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-1 dark:bg-[#1C1E22] bg-white">
-            <div className="ml-[17px]">
-              <div className="flex items-center gap-2">
-                <Image
-                  src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7912642/avatar-icon-md.png"
-                  alt=""
-                  width={36}
-                  height={36}
-                  className="w-7 h-7"
-                />
-                <span>
-                  Andre0008 <span className="text-[#53575C]">38d</span>
-                </span>
-              </div>
-              <p className="mt-[13px] ml-[23px]">{t('gameDetail:threeTimeFreeGame')}</p>
-            </div>
-            <div className="-mt-8 flex gap-6 mr-3 text-sm">
-              <i className="fi fi-rr-social-network"></i>
-              <i className="fi fi-rs-beacon"></i>
-              <i className="fi fi-rr-menu-dots-vertical"></i>
-            </div>
-          </div>
-        </div>
-        <div className="text-xs text-[#98A7B5]">
-          <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-1 dark:bg-[#1C1E22] bg-white">
-            <div className="ml-[17px]">
-              <div className="flex items-center gap-2">
-                <Image
-                  src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7912642/avatar-icon-md.png"
-                  alt=""
-                  width={36}
-                  height={36}
-                  className="w-7 h-7"
-                />
-                <span>
-                  Andre0008 <span className="text-[#53575C]">38d</span>
-                </span>
-              </div>
-              <p className="mt-[13px] ml-[23px]">{t('gameDetail:threeTimeFreeGame')}</p>
-            </div>
-            <div className="-mt-8 flex gap-6 mr-3 text-sm">
-              <i className="fi fi-rr-social-network"></i>
-              <i className="fi fi-rs-beacon"></i>
-              <i className="fi fi-rr-menu-dots-vertical"></i>
-            </div>
-          </div>
-        </div>
-        <div className="text-xs text-[#98A7B5]">
-          <div className="flex justify-between items-center h-[180px] md:h-[130px] mt-1 dark:bg-[#1C1E22] bg-white">
-            <div className="ml-[17px]">
-              <div className="flex items-center gap-2">
-                <Image
-                  src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7912642/avatar-icon-md.png"
-                  alt=""
-                  width={36}
-                  height={36}
-                  className="w-7 h-7"
-                />
-                <span>
-                  Andre0008 <span className="text-[#53575C]">38d</span>
-                </span>
-              </div>
-              <p className="mt-[13px] ml-[23px]">{t('gameDetail:reallyGoodGame')}</p>
-              <div className="mt-4 flex items-center gap-2 ml-[23px]">
-                <span className="font-bold dark:text-[#0DFDE4] text-[#f59e0b]">{t('gameDetail:showReplies')}</span>
-                <i className="fi fi-rs-angle-small-down text-white w-[10px] h-[10px]"></i>
-              </div>
-            </div>
-            <div className="-mt-8 flex gap-6 mr-3 text-sm">
-              <i className="fi fi-rr-social-network"></i>
-              <i className="fi fi-rs-beacon"></i>
-              <i className="fi fi-rr-menu-dots-vertical"></i>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
+      {showComment && (
+        <CommentPostModal
+          show={showComment}
+          onClose={() => setShowComment(false)}
+          gameId={String(gameDetail?.id)}
+          commentId={commentId}
+        />
+      )}
     </div>
   );
 };

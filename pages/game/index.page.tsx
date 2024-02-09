@@ -759,52 +759,40 @@ function GamePage() {
                 <div
                   role="button"
                   onClick={() => setTab(1)}
-                  className={`${
-                    tab === 1
-                      ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary hover:bg-[#EAECF3]'
-                  } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
+                  className={cn('inline-block text-center min-w-[100px] p-[10px] truncate', {
+                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3] font-semibold': tab === 1,
+                    'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary':
+                      tab !== 1,
+                  })}
                 >
                   {gameDetail.title}
                 </div>
                 <div
                   role="button"
                   onClick={() => setTab(2)}
-                  className={`${
-                    tab === 2
-                      ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary hover:bg-[#EAECF3]'
-                  } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
+                  className={cn('inline-block text-center min-w-[100px] p-[10px] truncate', {
+                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3] font-semibold': tab === 2,
+                    'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary':
+                      tab !== 2,
+                  })}
                 >
                   {t('gameDetail:description')}
                 </div>
                 <div
                   role="button"
                   onClick={() => setTab(3)}
-                  className={`${
-                    tab === 3
-                      ? 'dark:text-white dark:bg-[#2D3035] text-black bg-[#e3ecf3] font-semibold'
-                      : 'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary hover:bg-[#EAECF3]'
-                  } inline-block text-center min-w-[100px] p-[10px] rounded-[5px] truncate`}
+                  className={cn('inline-block text-center min-w-[100px] p-[10px] truncate', {
+                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3] font-semibold': tab === 3,
+                    'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary':
+                      tab !== 3,
+                  })}
                 >
                   {t('gameDetail:reviews')}
                 </div>
               </ul>
-              {
-                <div className={cn({ hidden: tab !== 1 })}>
-                  <GameDetailComponent gameDetail={gameDetail} gameProvider={providerDetail} />
-                </div>
-              }
-              {
-                <div className={cn({ hidden: tab !== 2 })}>
-                  <GameDescriptionComponent gameDetail={gameDetail} />
-                </div>
-              }
-              {
-                <div className={cn({ hidden: tab !== 3 })}>
-                  <GameReviewComponent gameDetail={gameDetail} gameProvider={providerDetail} />
-                </div>
-              }
+              {tab === 1 && <GameDetailComponent gameDetail={gameDetail} gameProvider={providerDetail} />}
+              {tab === 2 && <GameDescriptionComponent gameDetail={gameDetail} />}
+              {tab === 3 && <GameReviewComponent gameDetail={gameDetail} gameProvider={providerDetail} />}
             </div>
           )}
         </div>
