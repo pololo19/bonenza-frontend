@@ -95,6 +95,7 @@ export type WalletState = {
   balances: BalanceType[];
   cryptoCurrencies: CryptoCurrencyType[];
   depositAddress: DepositAddressType[];
+  lockedAmount: number;
 };
 
 export type GameState = {

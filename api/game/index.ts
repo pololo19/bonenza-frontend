@@ -21,6 +21,7 @@ import {
   API_GAME_REVIEW_ADD,
   API_GAME_REVIEW_COMMENT,
   API_GAME_REVIEW_GET_RATING,
+  API_GAME_REVIEW_LIKE,
   API_GAME_REVIEW_LIST,
   API_GAME_REVIEW_RATING_STATISTICS,
   API_GAME_REVIEW_SET_RATING,
@@ -188,6 +189,16 @@ export const api_reviewAdd = async (gameId: string, commentId: string = '', text
   return api.post(API_GAME_REVIEW_ADD, { gameId, commentId, text });
 };
 
-export const api_reviewList = async (commentId: string, page: number, pageSize: number, sort: ReviewListSortType) => {
-  return api.get(API_GAME_REVIEW_LIST, { params: { commentId, page, pageSize, sort } });
+export const api_reviewList = async (
+  commentId: string,
+  gameId: string,
+  page: number,
+  pageSize: number,
+  sort: ReviewListSortType,
+) => {
+  return api.get(API_GAME_REVIEW_LIST, { params: { commentId, page, pageSize, sort, gameId } });
+};
+
+export const api_reviewLike = async (commentId: string) => {
+  return api.post(API_GAME_REVIEW_LIKE, { commentId });
 };

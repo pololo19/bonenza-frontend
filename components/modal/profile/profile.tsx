@@ -59,7 +59,11 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const [isStatistic, setIsStatistic] = useState<boolean>(false);
   const [isMedalsDetail, setIsMedalDetail] = useState<boolean>(false);
 
-  const [vipData, setVipData] = useState<any>({});
+  const [vipData, setVipData] = useState<any>({
+    medal: `/img/vip.png`,
+    level: 'VIP 1',
+    type: 'VIP',
+  });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getVipListByRank = async () => {
@@ -91,6 +95,11 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
         })) ?? [];
       setMedals(medals);
       setListGame(tempFavoriteGame);
+      setVipData({
+        medal: res.data.medal ?? `/img/vip.png`,
+        level: res.data.currentVipName ?? 'VIP 1',
+        type: 'VIP',
+      });
       setUser({ ...convertUserInfo(res.data), betCount: totalBets, winCount: totalWins, totalWager: totalWagered });
     } catch (error) {
     } finally {
@@ -107,7 +116,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const returnHeader = useCallback(() => {
     return (
       <>
-        <div className="relative px-[12px] py-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
+        <div className="relative px-[12px] py-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
           {!isStatistic && !isMedalsDetail && (
             <div>
               <div className="text-black dark:text-white md:text-[18px] text-[16px] px-[20px] font-bold">
@@ -119,15 +128,15 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     onError={(e) => {
                       e.currentTarget.src = `/img/vip.png`;
                     }}
-                    src={`/img/${vipData?.vipCurrent?.medal}.png`}
-                    width={50}
+                    src={`/img/${vipData.medal}.png`}
+                    width={60}
                     height={52}
                     alt=""
                     className=""
                   />
                   <div className="absolute flex flex-col items-center left-0 top-[40%] w-full h-full">
-                    <p className="text-[6px] uppercase leading-[1]">{vipData?.vipCurrent?.type}</p>
-                    <p className="text-[10px] font-semibold">V{vipData?.vipCurrent?.level}</p>
+                    <p className="text-[8px] uppercase leading-[1]">{vipData.type}</p>
+                    <p className="text-[10px] font-semibold">{vipData.level}</p>
                   </div>
                 </div>
               </div>

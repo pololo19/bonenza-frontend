@@ -1,13 +1,15 @@
+import { Popover, Transition } from '@headlessui/react';
 import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import StarsRating from 'react-star-rate';
 import { toast } from 'react-toastify';
 
 import {
   api_reviewGetRating,
+  api_reviewLike,
   api_reviewList,
   api_reviewRatingStatistics,
   api_reviewSetRating,
@@ -15,13 +17,25 @@ import {
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
-import { formatDate } from '@/base/libs/utils';
-import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { formatDate, getDuration } from '@/base/libs/utils';
+import {
+  changeAuthenticationType,
+  changeIsShowAuthenticationModal,
+  changeIsShowInformation,
+} from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 
 import Loader from '../common/preloader/loader';
 import CommentPostModal from '../modal/review/commentPost';
+import ReplyModal from '../modal/review/replyModal';
+
+const sortByData = [
+  { title: 'Newest First', value: 'newest' },
+  { title: 'Top Comments', value: 'top_comments' },
+  { title: 'Top Likes', value: 'top_likes' },
+];
 
 const RateStarComponent = ({
   rate,
@@ -57,25 +71,27 @@ type ReviewRatingType = {
   averageRating: number;
   avatars: string[];
   counts: number[];
-  userRating: number;
 };
 
-type CommentType = {
+export type CommentType = {
   id: string;
   userId: string;
   userName: string;
   userAvatar: string;
   text: string;
   time: string;
+  like: boolean;
   likes: number;
   comments: number;
+  showReply: boolean;
+  child: CommentType[];
 };
 
 const GameReviewComponent = ({
   gameDetail,
   gameProvider,
 }: {
-  gameDetail?: GameListType;
+  gameDetail: GameListType;
   gameProvider?: GameProviderDetail;
 }) => {
   const dispatch = useAppDispatch();
@@ -96,14 +112,30 @@ const GameReviewComponent = ({
     averageRating: 0,
     avatars: [],
     counts: [],
-    userRating: 0,
   });
 
   const [commentData, setCommentData] = useState<CommentType[]>([]);
 
-  const [showComment, setShowComment] = useState(false);
+  const [isShowComment, setIsShowComment] = useState(false);
+  const [isShowReplyModal, setIsShowReplyModal] = useState(false);
+  const [isShowReply, setIsShowReply] = useState(false);
   const [commentId, setCommentId] = useState('');
+  const [selectedComment, setSelectedComment] = useState<CommentType>({
+    id: '',
+    userId: '',
+    userName: '',
+    userAvatar: '',
+    text: '',
+    time: '',
+    like: false,
+    likes: 0,
+    comments: 0,
+    child: [],
+    showReply: false,
+  });
+
   const [selectedSort, setSelectedSort] = useState<ReviewListSortType>('newest');
+  const [userRating, setUserRating] = useState(0);
 
   const handleChangeRate = async (value?: number) => {
     if (!isLogin) {
@@ -115,7 +147,7 @@ const GameReviewComponent = ({
     try {
       setLoading((load) => ({ ...load, ratingLoading: true }));
       const _res = await api_reviewSetRating(String(gameDetail?.id), value);
-      const userRating = _res?.data?.rating;
+      const _userRating = Number(_res?.data?.rating || 0);
       const _ratingStatistics = await api_reviewRatingStatistics(gameDetail?.id);
       setRatingData({
         totalCount: Number(_ratingStatistics?.data?.totalCount ?? 0),
@@ -128,8 +160,8 @@ const GameReviewComponent = ({
           Number(_ratingStatistics?.data?.counts[4]),
           Number(_ratingStatistics?.data?.counts[5]),
         ],
-        userRating: userRating,
       });
+      setUserRating(_userRating);
       toast.error('Rating Successfully', { containerId: TOAST_ENUM.COMMON });
     } catch (error) {
       toast.error('Rating Failed', { containerId: TOAST_ENUM.COMMON });
@@ -138,13 +170,38 @@ const GameReviewComponent = ({
     }
   };
 
+  const handleGetList = useCallback(async () => {
+    try {
+      if (!gameDetail.id) return;
+      setLoading({ ratingLoading: false, commentLoading: true });
+      const _comments = await api_reviewList('', gameDetail.id, page, 10, selectedSort);
+      const tempCommentDatas: CommentType[] = _comments?.data?.comments.map((item: any) => ({
+        id: item?.id ?? '',
+        userId: item?.userId ?? '',
+        userName: item?.userName ?? '',
+        userAvatar: item?.userAvatar ?? '',
+        text: item?.text ?? '',
+        time: item?.time ?? new Date(),
+        like: !!item?.like,
+        likes: Number(item?.likesCount ?? 0),
+        comments: Number(item?.commentsCount ?? 0),
+        child: [],
+      }));
+      setCommentData(tempCommentDatas);
+    } catch (error) {
+      setCommentData([]);
+    } finally {
+      setLoading({ ratingLoading: false, commentLoading: false });
+    }
+  }, [page, selectedSort]);
+
   const handleGetRateAndComments = useCallback(async () => {
     try {
       if (!gameDetail?.id) return;
       setLoading({ ratingLoading: true, commentLoading: true });
       const [_rates, _comments] = await Promise.all([
         api_reviewRatingStatistics(gameDetail?.id),
-        api_reviewList('', page, 10, selectedSort),
+        api_reviewList('', gameDetail.id, page, 10, selectedSort),
       ]);
 
       const tempCommentDatas: CommentType[] = _comments?.data?.comments.map((item: any) => ({
@@ -154,8 +211,10 @@ const GameReviewComponent = ({
         userAvatar: item?.userAvatar ?? '',
         text: item?.text ?? '',
         time: item?.time ?? new Date(),
+        like: !!item?.like,
         likes: Number(item?.likesCount ?? 0),
         comments: Number(item?.commentsCount ?? 0),
+        child: [],
       }));
       setRatingData({
         totalCount: Number(_rates?.data?.totalCount ?? 0),
@@ -168,8 +227,8 @@ const GameReviewComponent = ({
           Number(_rates?.data?.counts[4]),
           Number(_rates?.data?.counts[5]),
         ],
-        userRating: 0,
       });
+
       setCommentData(tempCommentDatas);
     } catch (error) {
       setRatingData({
@@ -177,36 +236,71 @@ const GameReviewComponent = ({
         averageRating: 0,
         avatars: [],
         counts: [],
-        userRating: 0,
       });
       setCommentData([]);
     } finally {
       setLoading({ ratingLoading: false, commentLoading: false });
     }
-  }, [page, gameDetail]);
+  }, [page, gameDetail, selectedSort]);
 
   const handleGetUserRate = async () => {
     if (!gameDetail?.id) return;
     try {
       setLoading((load) => ({ ...load, ratingLoading: true }));
       const _rating = await api_reviewGetRating(gameDetail.id);
-      setRatingData((current) => ({ ...current, userRating: _rating.data }));
+      setUserRating(Number(_rating.data || 0));
     } catch (error) {
-      setRatingData((current) => ({ ...current, userRating: 0 }));
+      setUserRating(0);
     } finally {
       setLoading((load) => ({ ...load, ratingLoading: false }));
     }
   };
 
+  const handleLikeComment = async (commentId: string) => {
+    try {
+      setLoading((load) => ({ ...load, ratingLoading: true }));
+      const _res = await api_reviewLike(commentId);
+      const tempCommentDatas = [...commentData].map((item) => {
+        if (item.id === commentId) {
+          item.like = !!_res.data?.like;
+          if (!!_res.data?.like) {
+            item.likes += 1;
+          } else {
+            item.likes -= 1;
+          }
+        }
+        return item;
+      });
+      setCommentData(tempCommentDatas);
+    } catch (error) {
+    } finally {
+      setLoading((load) => ({ ...load, ratingLoading: false }));
+    }
+  };
+
+  const openModalUserProfile = (userId: string, userAvatar: string, userName: string) => {
+    const userData = {
+      username: userName,
+      userId: userId,
+      avatar: userAvatar,
+    };
+    dispatch(setUserData(userData));
+    dispatch(changeIsShowInformation(true));
+  };
+
   useEffect(() => {
     handleGetRateAndComments();
-  }, []);
+  }, [gameDetail]);
 
   useEffect(() => {
     if (isLogin) {
       handleGetUserRate();
     }
   }, [isLogin]);
+
+  useEffect(() => {
+    handleGetList();
+  }, [selectedSort]);
 
   const { t } = useTranslation('');
 
@@ -264,7 +358,7 @@ const GameReviewComponent = ({
             </div>
             <div className="w-full">
               {new Array(5).fill('').map((item, index) => (
-                <div className="flex items-center">
+                <div className="flex items-center" key={index}>
                   <div className="min-w-[150px]">
                     <StarsRating
                       allowHalf={false}
@@ -289,7 +383,7 @@ const GameReviewComponent = ({
               <span>{t('gameDetail:rateThisGame')}</span>
               <StarsRating
                 allowHalf={false}
-                value={ratingData.userRating}
+                value={userRating}
                 classNamePrefix="!text-[20px] rate-star"
                 onChange={handleChangeRate}
               />
@@ -323,7 +417,59 @@ const GameReviewComponent = ({
         {loading.commentLoading && <Loader />}
         <div className="flex justify-between text-lg font-semibold items-center">
           <h2 className="text-black dark:text-white">{t('gameDetail:comments')}</h2>
-          <i className="fi fi-sr-menu-burger w-4 h-4 text-[#929395]"></i>
+          <Popover>
+            {({ open }) => (
+              <>
+                <Popover.Button>
+                  <i className="fi fi-sr-menu-burger w-4 h-4 text-[#929395]"></i>
+                </Popover.Button>
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0"
+                  enterTo="opacity-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100"
+                  leaveTo="opacity-0"
+                >
+                  <div className="fixed sm:hidden block inset-0 bg-black/80 transition-opacity z-[-1]" />
+                </Transition.Child>
+                <Transition
+                  show={open}
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <Popover.Panel
+                    static
+                    className="sm:absolute sm:mr-0 mr-[10px] fixed left-0 sm:left-auto h-auto right-0 z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  >
+                    <div className="py-1 px-[10px] sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-700 dark:shadow ">
+                      {sortByData.map((item, index) => (
+                        <div
+                          className={cn(
+                            'text-[14px] py-[5px] px-[10px] cursor-pointer dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary',
+                            {
+                              'dark:bg-color-active-primary bg-white': item.value === selectedSort,
+                            },
+                          )}
+                          key={index}
+                          onClick={() => setSelectedSort(item.value as ReviewListSortType)}
+                        >
+                          {' '}
+                          {item.title}
+                        </div>
+                      ))}
+                    </div>
+                  </Popover.Panel>
+                </Transition>
+              </>
+            )}
+          </Popover>
         </div>
         <div className="flex gap-[13px] h-11 items-center relative mt-[9px]">
           <Image
@@ -331,7 +477,7 @@ const GameReviewComponent = ({
             alt=""
             width={36}
             height={36}
-            className="w-9 h-9"
+            className="w-9 h-9 rounded-full"
             onError={(e) => {
               e.currentTarget.src = '/img/avatar-1.png';
             }}
@@ -340,7 +486,7 @@ const GameReviewComponent = ({
             className="w-full cursor-pointer h-full items-start flex flex-col dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary text-sm border-none px-7 focus:outline-none justify-center"
             role="text"
             onClick={() => {
-              setShowComment(true);
+              setIsShowComment(true);
               setCommentId('');
             }}
           >
@@ -348,8 +494,8 @@ const GameReviewComponent = ({
           </div>
           <i className="fi fi-rr-smile-beam absolute right-3 text-color-text-primary w-[15px] h-[15px]"></i>
         </div>
-        {commentData.map((comment) => (
-          <div className="text-xs dark:text-color-text-primary text-color-light-text-primary">
+        {commentData.map((comment, index) => (
+          <div className="flex flex-col text-xs dark:text-color-text-primary text-color-light-text-primary" key={index}>
             <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
               <div className="ml-[17px]">
                 <div className="flex items-center gap-2">
@@ -358,36 +504,144 @@ const GameReviewComponent = ({
                     alt=""
                     width={36}
                     height={36}
-                    className="w-7 h-7"
+                    className="w-7 h-7 rounded-full"
                     onError={(err) => {
                       err.currentTarget.src = '/img/avatar-1.png';
                     }}
                   />
-                  <span>
-                    {comment.userName} <span className="text-[#53575C]">38d</span>
+                  <span
+                    className="text-[14px] hover:underline cursor-pointer"
+                    onClick={() => openModalUserProfile(comment.userId, comment.userAvatar, comment.userName)}
+                  >
+                    {comment.userName}
                   </span>
+                  <span className="text-[#53575C]">{getDuration(comment.time)}</span>
                 </div>
-                <p className="mt-[13px] ml-[23px]">{comment.text}</p>
+                <p className="mt-[13px] ml-[23px] dark:text-white text-black">{comment.text}</p>
+                {comment.comments > 0 && (
+                  <p
+                    className="mt-[10px] text-color-primary hover:underline cursor-pointer"
+                    onClick={() => {
+                      setCommentId(comment.id);
+                      setSelectedComment(comment);
+                      // if (comment.comments > 3) {
+                      setIsShowReplyModal(true);
+                      // }
+                    }}
+                  >
+                    {t('gameDetail:showReplies', { count: comment.comments })}
+                  </p>
+                )}
               </div>
               <div className="-mt-8 flex gap-6 mr-3 text-sm">
-                <div className="flex gap-[5px] items-center justify-center">
+                <div
+                  className={cn('flex gap-[5px] items-center justify-center cursor-pointer', {
+                    'text-color-primary': comment.like,
+                  })}
+                  onClick={() => handleLikeComment(comment.id)}
+                >
                   <i className="fi fi-rr-social-network"></i>
-                  {comment.likes > 0 && <span>{comment.likes}</span>}
+                  {comment.likes > 0 && <span className="ml-[10px]">{comment.likes}</span>}
                 </div>
-
-                <i className="fi fi-rs-beacon"></i>
-                <i className="fi fi-rr-menu-dots-vertical"></i>
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setCommentId(comment.id);
+                    setIsShowComment(true);
+                  }}
+                >
+                  <i className="fi fi-rs-beacon"></i>
+                  {comment.comments > 0 && <span className="ml-[10px]">{comment.comments}</span>}
+                </div>
+                <div className="cursor-pointer">
+                  <i className="fi fi-rr-menu-dots-vertical"></i>
+                </div>
               </div>
+            </div>
+            <div className="flex flex-col text-xs dark:text-color-text-primary text-color-light-text-primary">
+              {comment.child.map((item) => (
+                <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
+                  <div className="ml-[17px]">
+                    <div className="flex items-center gap-2">
+                      <Image
+                        src={String(API_AVATAR) + item.userAvatar}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="w-7 h-7 rounded-full"
+                        onError={(err) => {
+                          err.currentTarget.src = '/img/avatar-1.png';
+                        }}
+                      />
+                      <span
+                        className="text-[14px] hover:underline cursor-pointer"
+                        onClick={() => openModalUserProfile(item.userId, item.userAvatar, item.userName)}
+                      >
+                        {item.userName}
+                      </span>
+                      <span className="text-[#53575C]">{getDuration(item.time)}</span>
+                    </div>
+                    <p className="mt-[13px] ml-[23px] dark:text-white text-black">{item.text}</p>
+                    {item.comments > 0 && (
+                      <p
+                        className="mt-[10px] text-color-primary hover:underline cursor-pointer"
+                        onClick={() => {
+                          setCommentId(item.id);
+                          setSelectedComment(item);
+                          setIsShowReplyModal(true);
+                        }}
+                      >
+                        {t('gameDetail:showReplies', { count: item.comments })}
+                      </p>
+                    )}
+                  </div>
+                  <div className="-mt-8 flex gap-6 mr-3 text-sm">
+                    <div
+                      className={cn('flex gap-[5px] items-center justify-center cursor-pointer', {
+                        'text-color-primary': item.like,
+                      })}
+                      onClick={() => handleLikeComment(item.id)}
+                    >
+                      <i className="fi fi-rr-social-network"></i>
+                      {item.likes > 0 && <span className="ml-[10px]">{item.likes}</span>}
+                    </div>
+                    <div
+                      className="cursor-pointer"
+                      onClick={() => {
+                        setCommentId(item.id);
+                        setIsShowComment(true);
+                      }}
+                    >
+                      <i className="fi fi-rs-beacon"></i>
+                      {item.comments > 0 && <span className="ml-[10px]">{item.comments}</span>}
+                    </div>
+                    <div className="cursor-pointer">
+                      <i className="fi fi-rr-menu-dots-vertical"></i>
+                    </div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ))}
       </div>
-      {showComment && (
+      {isShowComment && (
         <CommentPostModal
-          show={showComment}
-          onClose={() => setShowComment(false)}
+          show={isShowComment}
+          onClose={() => setIsShowComment(false)}
           gameId={String(gameDetail?.id)}
           commentId={commentId}
+          comments={commentData}
+          setCommentData={setCommentData}
+        />
+      )}
+      {isShowReplyModal && (
+        <ReplyModal
+          show={isShowReplyModal}
+          onClose={() => setIsShowReplyModal(false)}
+          gameId={String(gameDetail.id)}
+          commentId={commentId}
+          sourceComment={selectedComment}
         />
       )}
     </div>

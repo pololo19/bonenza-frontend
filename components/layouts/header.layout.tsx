@@ -90,10 +90,10 @@ export default function Navbar() {
             <Link
               href={ROUTER.Casino}
               className={cn(
-                'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:text-color-primary hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                 `${
                   router.route.includes(ROUTER.Casino)
-                    ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
+                    ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
                     : ''
                 }`,
               )}
@@ -104,10 +104,10 @@ export default function Navbar() {
             <Link
               href={ROUTER.Sports}
               className={cn(
-                'rounded-[5px] px-[12px]   py-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                'rounded-[5px] px-[12px]   py-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                 `${
                   router.asPath.includes(ROUTER.Sports)
-                    ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
+                    ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
                     : ''
                 }`,
               )}
@@ -118,7 +118,7 @@ export default function Navbar() {
             <div
               onClick={() => window.open('https://cmd23.com/room/games.php')}
               className={cn(
-                'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
               )}
             >
               <Image
@@ -135,10 +135,10 @@ export default function Navbar() {
             <Link
               href={ROUTER.Racing}
               className={cn(
-                'rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-[#F6F7FA] dark:hover:bg-color-hover-primary',
+                'rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                 `${
                   router.asPath.includes(ROUTER.Racing)
-                    ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
+                    ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
                     : ''
                 }`,
               )}
@@ -209,7 +209,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="sm:block hidden ml-[8px] rounded-md relative dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
+                className="sm:block hidden ml-[8px] rounded-md relative dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
               >
                 <Notification className="w-[20px] h-[20px]" variant="Bold" />
                 {/* <span className="absolute top-0 -right-[5px] px-[8px] rounded-full bg-color-primary text-white text-[10px]">
@@ -221,7 +221,7 @@ export default function Navbar() {
             {!isLogin && (
               <button
                 type="button"
-                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
               >
                 <ChatSignOutIcon className="w-[20px] h-[20px] text-color-text-primary" />
               </button>
@@ -229,7 +229,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
                 onClick={() => {
                   dispatch(changeShowChatType(!showChatType));
                 }}
@@ -241,7 +241,7 @@ export default function Navbar() {
 
             {isLogin && (
               <Link
-                className="hidden  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
+                className="hidden  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
                 href={ROUTER.Bonus}
               >
                 <Gift width={18} height={18} />
@@ -254,7 +254,7 @@ export default function Navbar() {
               type="button"
               className={`${
                 isLogin ? 'hidden sm:flex' : 'flex'
-              } rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
+              } rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
                 dispatch(changeIsShowMultiLanguageModal(true));
@@ -266,7 +266,7 @@ export default function Navbar() {
             {viewInFiat && localFiat && (
               <button
                 type="button"
-                className="sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-[#f6f7fa] text-gray-400 dark:hover:text-white hover:text-black text-[#31373D] p-[10px]"
+                className="sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black text-[#31373D] p-[10px]"
                 onClick={() => {
                   dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
                   dispatch(changeIsShowMultiLanguageModal(true));

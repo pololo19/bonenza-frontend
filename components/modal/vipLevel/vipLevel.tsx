@@ -111,7 +111,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
   };
 
   const vipColumns = useMemo(() => {
-    const wagerColumnsDefault: ColumnDef<RankDetail>[] = [
+    const wagerColumnsDefault: ColumnDef<levelDataType>[] = [
       {
         accessorKey: 'level',
         header: () => <div className="text-left pr-6 text-[14px] font-normal">{t('vipClub:level')}</div>,
@@ -119,7 +119,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2 sm:px-2 p-[5px]">
             <Image height={18} width={16} src={`/img/${getLinkImage(row?.original?.rank)}.png`} alt="" />
             <span className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
-              {row?.original?.type} {row?.original?.level}
+              {row?.original?.name}
             </span>
           </div>
         ),

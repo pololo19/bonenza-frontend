@@ -489,3 +489,20 @@ export const convertStatus = (status: TransactionStatus) => {
   }
   return newStatus?.charAt(0)?.toUpperCase() + newStatus?.slice(1);
 };
+
+export const getDuration = (time: string) => {
+  const before = new Date().getTime() - new Date(time).getTime();
+  if (before > 24 * 60 * 60 * 1000) {
+    const _d_res = Math.floor(before / (24 * 60 * 60 * 1000));
+    return `${_d_res}d`;
+  }
+  if (before > 60 * 60 * 1000) {
+    const _h_res = Math.floor(before / (60 * 60 * 1000));
+    return `${_h_res}h`;
+  }
+  if (before > 60 * 1000) {
+    const _m_res = Math.floor(before / (60 * 1000));
+    return `${_m_res}m`;
+  }
+  return 'now';
+};
