@@ -436,6 +436,8 @@ export type TransactionBillType = {
   time: string;
   balance: number;
   balanceUsd: number;
+  gameId: string;
+  gameName: string;
 };
 
 export type TransactionSwapType = {

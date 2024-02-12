@@ -51,6 +51,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     bonus,
     settings,
     activeCurrency,
+    lockedAmount,
   } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
@@ -65,6 +66,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       fiatSymbols: state.wallet.fiatSymbols,
       localFiat: state.wallet.localFiat,
       bonus: state.wallet.bonusBalance,
+      lockedAmount: state.wallet.lockedAmount,
     }),
 
     shallowEqual,
@@ -77,8 +79,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
   const [showFavoriteCoins, setShowFavoriteCoins] = useState<boolean>(false);
   const [showModalRakeBack, setShowModalRakeBack] = useState<boolean>(false);
-
-  const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
 
   const [showModalRakeBackDetail, setShowModalRakeBackDetail] = useState<boolean>(false);
   const [showModalBonusHistory, setShowModalBonusHistory] = useState<boolean>(false);
@@ -260,7 +260,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 </div>
               </div>
               {/* Fiat */}
-              <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_265px)] overflow-y-auto px-[20px] w-full">
+              <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_366px)] overflow-y-auto px-[20px] w-full">
                 {!!filterListCrypto?.length && (
                   <div className="text-[14px] text-gray-400 mb-2 ml-4">{t('deposit:crypto')}</div>
                 )}
@@ -310,13 +310,12 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             )}
                             <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
                               {crypto.name.toLowerCase() === 'usdt' && (
-                                <div
-                                  className="mt-1 flex justify-end text-color-primary"
-                                  onClick={() => dispatch(changeIsShowRakeBack(true))}
-                                >
-                                  <div className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
-                                    <Lock size={12} variant="Bold" />{' '}
-                                    {currencyFormat1(bonus * exchangeRate, 2, String(localFiat?.name || 'USD'))}
+                                <div className="mt-1 flex justify-end text-color-secondary">
+                                  <div
+                                    className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
+                                    onClick={() => dispatch(changeIsShowRakeBack(true))}
+                                  >
+                                    <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
                                   </div>
                                 </div>
                               )}
@@ -531,20 +530,20 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       )}
       <ModalRakeBackDetail
         show={showModalRakeBackDetail}
-        cryptoLocked={cryptoLocked}
         onClose={() => {
           setShowModalRakeBackDetail(false);
         }}
         setShowModalRakeBack={() => setShowModalRakeBack(true)}
       />
-      <ModalBonusHistory
-        show={showModalBonusHistory}
-        cryptoLocked={cryptoLocked}
-        onClose={() => {
-          setShowModalBonusHistory(false);
-        }}
-        setShowModalRakeBack={() => setShowModalRakeBack(true)}
-      />
+      {showModalBonusHistory && (
+        <ModalBonusHistory
+          show={showModalBonusHistory}
+          onClose={() => {
+            setShowModalBonusHistory(false);
+          }}
+          setShowModalRakeBack={() => setShowModalRakeBack(true)}
+        />
+      )}
     </>
   );
 }

@@ -84,7 +84,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute dark:bg-color-modal-bg-secondary bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2">
+                  <Menu.Items className="absolute dark:bg-color-modal-bg-secondary bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2 shadow-bs-default">
                     {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
@@ -104,7 +104,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                                   router.route.includes(item.href),
                               })}
                             >
-                              <div className="flex-1 text-start dark:text-white text-[#31373d] text-[14px]">
+                              <div className="flex-1 text-start dark:text-white text-color-light-text-primary text-[14px]">
                                 {String(t(item.name))}
                               </div>
                             </div>

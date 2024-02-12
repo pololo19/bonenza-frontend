@@ -35,6 +35,7 @@ const initialState: WalletState = {
   balances: [],
   depositAddress: [], // wallet address
   cryptoCurrencies: [],
+  lockedAmount: 0,
 };
 
 export const walletReducer = createSlice({
@@ -85,6 +86,9 @@ export const walletReducer = createSlice({
         state.balances[index] = action.payload;
       }
     },
+    setLockedAmount: (state: WalletState, action: PayloadAction<number>) => {
+      state.lockedAmount = action.payload;
+    },
   },
 });
 
@@ -101,6 +105,7 @@ export const {
   addDepositTime,
   setActiveCurrency,
   updateBalance,
+  setLockedAmount,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 
@@ -126,7 +131,7 @@ export const logoutWallet = () => async (dispath: AppDispatch) => {
 export const initWalletInfo = () => async (dispatch: AppDispatch) => {
   try {
     const result = await api_getWalletInfo();
-    const { wallets, balances, networks, symbols, currency, fiatSymbols, depositTime } = result.data;
+    const { wallets, balances, networks, symbols, currency, fiatSymbols, depositTime, lockedUSDT } = result.data;
 
     const tempWallets: DepositAddressType[] =
       wallets?.map((item: any) => ({
@@ -185,6 +190,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         type: 'fiat',
         favorite: item.favorite,
       })) || [];
+    const tempLockedAmount = Number(lockedUSDT || 0);
     // console.log(result.data);
     dispatch(
       setBalance({
@@ -200,12 +206,17 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
     dispatch(setFiatSymbols(tempFiatSymbols));
     dispatch(setCryptoCurrencies(tempCurrencies));
     dispatch(setDepositTime(Number(depositTime)));
+    dispatch(setLockedAmount(tempLockedAmount));
   } catch (error) {
     console.log(error);
     dispatch(setNetworks([]));
     dispatch(setBalances([]));
     dispatch(setDepositAddress([]));
     dispatch(setSymbols([]));
+    dispatch(setFiatSymbols([]));
+    dispatch(setCryptoCurrencies([]));
+    dispatch(setDepositTime(0));
+    dispatch(setLockedAmount(0));
   }
 };
 

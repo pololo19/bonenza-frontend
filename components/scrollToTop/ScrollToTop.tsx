@@ -56,7 +56,7 @@ const ScrollToTop = () => {
           )}
           onClick={handleScrollToTop}
         >
-          <ArrowUp2 className="w-[1rem] h-[1rem]" />
+          <ArrowUp2 className="w-[18px] h-[18px] text-color-primary" variant="Bold" />
           <p>{t('layout:top')}</p>
         </div>
       )}

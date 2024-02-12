@@ -760,7 +760,7 @@ function GamePage() {
                   role="button"
                   onClick={() => setTab(1)}
                   className={cn('inline-block text-center min-w-[100px] p-[10px] truncate', {
-                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3] font-semibold': tab === 1,
+                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3]': tab === 1,
                     'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary':
                       tab !== 1,
                   })}
@@ -771,7 +771,7 @@ function GamePage() {
                   role="button"
                   onClick={() => setTab(2)}
                   className={cn('inline-block text-center min-w-[100px] p-[10px] truncate', {
-                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3] font-semibold': tab === 2,
+                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3]': tab === 2,
                     'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary':
                       tab !== 2,
                   })}
@@ -782,7 +782,7 @@ function GamePage() {
                   role="button"
                   onClick={() => setTab(3)}
                   className={cn('inline-block text-center min-w-[100px] p-[10px] truncate', {
-                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3] font-semibold': tab === 3,
+                    'dark:text-white dark:bg-color-panel-bg-primary text-black bg-[#e3ecf3]': tab === 3,
                     'dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-color-light-text-primary dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary':
                       tab !== 3,
                   })}
