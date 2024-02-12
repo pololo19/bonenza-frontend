@@ -79,7 +79,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
           theme === 'light' && styles.tableLight,
         )}
       >
-        <thead className={cn(styles.tableHeader, 'bg-color-table-header-bg-primary')}>
+        <thead className={cn(styles.tableHeader, '')}>
           {getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
@@ -88,7 +88,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
                     key={header.id}
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
-                      'whitespace-nowrap dark:bg-transparent bg-color-light-bg-primary dark:text-color-text-primary text-color-light-text-primary font-semibold dark:bg-color-table-header-bg-primary sm:text-[14px] !text-[12px] border-none text-center',
+                      'whitespace-nowrap dark:bg-color-table-header-bg-primary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-text-primary font-semibold sm:text-[14px] !text-[12px] border-none text-center',
                     )}
                     {...{
                       style: {

@@ -105,6 +105,7 @@ const API_GAME_REVIEW_SET_RATING = '/game/review/rating';
 const API_GAME_REVIEW_LIST = '/game/review/list';
 const API_GAME_REVIEW_COMMENT = '/game/review/comment';
 const API_GAME_REVIEW_ADD = '/game/review/add';
+const API_GAME_REVIEW_LIKE = '/game/review/like';
 
 /************************************ Affiliate **********************************/
 
@@ -190,6 +191,7 @@ export {
   API_GAME_REVIEW_ADD,
   API_GAME_REVIEW_COMMENT,
   API_GAME_REVIEW_GET_RATING,
+  API_GAME_REVIEW_LIKE,
   API_GAME_REVIEW_LIST,
   API_GAME_REVIEW_RATING_STATISTICS,
   API_GAME_REVIEW_SET_RATING,

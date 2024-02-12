@@ -2,7 +2,7 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
@@ -32,12 +32,15 @@ export default function ViewInFiat({ show, onClose }: ViewInFiatProps) {
     price: 0,
     favorite: false,
   });
-  const { fiatSymbols, settings, localFiat, defaultCurrencyId } = useSelector((state: AppState) => ({
-    fiatSymbols: state.wallet.fiatSymbols,
-    settings: state.auth.user.generalSetting,
-    defaultCurrencyId: state.auth.user.generalSetting.settingCurrency,
-    localFiat: state.wallet.localFiat,
-  }));
+  const { fiatSymbols, settings, localFiat, defaultCurrencyId } = useSelector(
+    (state: AppState) => ({
+      fiatSymbols: state.wallet.fiatSymbols,
+      settings: state.auth.user.generalSetting,
+      defaultCurrencyId: state.auth.user.generalSetting.settingCurrency,
+      localFiat: state.wallet.localFiat,
+    }),
+    shallowEqual,
+  );
 
   useEffect(() => {
     if (fiatSymbols.length > 0) {

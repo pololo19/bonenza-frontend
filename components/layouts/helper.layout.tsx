@@ -106,13 +106,13 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
     <>
       <BaseLayout contentClass="sm:mx-auto px-0">
         <>
-          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] xl:px-[20px] sm:px-0 px-[20px] sm:mb-0 mb-14">
-            <CommonSession icon={MessageText} iconClass="text-[#0DFDE4]" title="Help Center">
+          <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] xl:px-[20px] sm:px-0 px-0 sm:mb-0 mb-14">
+            <CommonSession icon={MessageText} iconClass="text-color-primary" title="Help Center">
               <div className="flex flex-row gap-5 w-full text-center mt-0 mb-[50px]">
                 <div
                   className={cn(
                     styles.cardMenu,
-                    'bg-white dark:bg-[#31343D] text-black dark:text-white rounded-[15px] xl:min-w-[300px] min-w-[none] md:max-h-[940px] md:!flex !hidden',
+                    'bg-white dark:bg-color-modal-bg-secondary text-black dark:text-white rounded-[3px] xl:min-w-[300px] min-w-[none] md:max-h-[940px] md:!flex !hidden',
                   )}
                 >
                   <div className="xl:p-2 p-1 w-full">
@@ -123,8 +123,8 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                           href={item.href}
                           icon={() => null}
                           key={index}
-                          classNames="text-gray-400 dark:hover:text-white hover:text-black text rounded bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-[#292C33] !bg-[#f5f6fa] font-semibold"
+                          classNames="dark:hover:text-white !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-primary !bg-color-light-bg-primary dark:text-white text-black"
                         />
                       ))}
                     </ul>
@@ -132,7 +132,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex-1 bg-white dark:bg-[#31343D] rounded-[15px] text-white px-2 sm:px-3 pt-3 pb-5 md:p-5',
+                    'flex-1 bg-white dark:bg-color-modal-bg-secondary rounded-[3px] text-white px-2 sm:px-3 pt-3 pb-5 md:p-5',
                   )}
                 >
                   <Menu as="div" className="relative w-auto text-left sm:mb-5 rounded-[7px] flex text-white md:hidden">
@@ -156,26 +156,29 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="absolute bg-[#161D26] w-full origin-top-right right-0 top-[45px] z-[5] cursor-pointer rounded p-2">
+                      <Menu.Items className="absolute dark:bg-color-modal-bg-secondary bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2">
                         {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
                           <Menu.Item key={index}>
                             {({ active }) => (
                               <Link
                                 href={item.href}
                                 className={cn('flex items-center justify-start p-[10px] w-full rounded text-[14px]', {
-                                  'border-[0.5px] border-solid border-amber-500 font-semibold text-white':
+                                  'border-[0.5px] border-solid border-color-primary font-semibold dark:text-white text-black':
                                     router.route.includes(item.href),
-                                  'hover:bg-gray-500 hover:text-white text-gray-500': !router.route.includes(item.href),
+                                  'dark:hover:bg-gray-500 dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-color-light-text-primary':
+                                    !router.route.includes(item.href),
                                 })}
                                 role="button"
                               >
                                 <div
                                   className={cn('flex-1 flex items-center justify-start gap-[10px]', {
-                                    ' after:w-[8px] after:h-[8px] after:bg-[#3BC117] after:rounded-full after:shadow-[0_0_0_0.3125rem_#3bc11726]':
+                                    ' after:w-[8px] after:h-[8px] after:bg-color-primary after:rounded-full after:shadow-[0_0_0_0.3125rem_#3bc11726]':
                                       router.route.includes(item.href),
                                   })}
                                 >
-                                  <div className="flex-1 text-start text-[14px]">{String(t(item.name))}</div>
+                                  <div className="flex-1 text-start dark:text-white text-color-light-text-primary text-[14px]">
+                                    {String(t(item.name))}
+                                  </div>
                                 </div>
                               </Link>
                             )}

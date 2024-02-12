@@ -340,7 +340,7 @@ const AccountPannel: React.FC = () => {
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
-                  className="w-full h-full"
+                  className="w-full h-full rounded-full"
                 />
               </div>
               <div className="flex flex-col h-full justify-between flex-1">

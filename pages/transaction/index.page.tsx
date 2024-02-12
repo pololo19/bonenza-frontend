@@ -246,9 +246,9 @@ const TransactionPage = () => {
           <>
             <div className="dark:text-white text-black flex items-center gap-1 truncate">
               {row.original?.type?.toUpperCase()}{' '}
-              {row.original?.billType && row.original?.title && (
+              {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
-                  ({row.original?.title})
+                  ({row.original?.gameName})
                   <LinkIcon
                     width={12}
                     role="button"
@@ -354,7 +354,7 @@ const TransactionPage = () => {
             />
           </div>
         ),
-        minSize: 120,
+        minSize: 200,
       },
     ];
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
@@ -663,6 +663,8 @@ const TransactionPage = () => {
               time: item.time,
               balance: Number(item.walletBalance ?? 0),
               balanceUsd: Number(item.walletBalanceUsd ?? 0),
+              gameId: item.gameId ?? '',
+              gameName: item.gameTitle ?? '',
             }));
             setDataTable(tempBillData);
             break;
