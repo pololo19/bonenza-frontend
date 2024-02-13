@@ -30,7 +30,7 @@ const LIST_FILTER_TYPE = [
 const LIST_FILTER_STATUS = [
   { name: 'transaction:allStatus', type: 'all' },
   { name: 'transaction:notStarted', type: 'not_started' },
-  { name: 'transaction:onGoing', type: 'on_going' },
+  { name: 'transaction:onGoing', type: 'ongoing' },
   { name: 'transaction:done', type: 'done' },
 ];
 

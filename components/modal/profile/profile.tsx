@@ -96,7 +96,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       setMedals(medals);
       setListGame(tempFavoriteGame);
       setVipData({
-        medal: res.data.medal ?? `/img/vip.png`,
+        medal: res.data.currentVipMedal,
         level: res.data.currentVipName ?? 'VIP 1',
         type: 'VIP',
       });

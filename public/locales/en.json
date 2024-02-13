@@ -519,6 +519,8 @@
     "past24Hours": "Past 24 hours",
     "past7Days": "Past 7 days",
     "past90Days": "Past 90 days",
+    "game": "Game",
+    "affiliate": "Affiliate",
     "all": "All",
     "transactionHash": "Transaction Hash",
     "fee": "Fee",
