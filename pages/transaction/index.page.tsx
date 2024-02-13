@@ -12,7 +12,7 @@ import { toast } from 'react-toastify';
 import { api_getTransactions } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import {
-  billType,
+  billTypes,
   DATE_TIME_SUBMIT_FORMAT_WITH_SECOND,
   LIST_FILTER_DATE,
   LIST_FILTER_STATUS,
@@ -45,7 +45,6 @@ interface BillType {
   type: string;
 }
 
-const billTypes: BillType[] = Object.values(billType).map((item: string) => ({ type: item }));
 const cryptoLen = 8;
 const fiatLen = 4;
 
@@ -68,7 +67,7 @@ const TransactionPage = () => {
   const [transaction, setTransaction] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [dataTable, setDataTable] = useState<TransactionType[] | TransactionSwapType[] | TransactionBillType[]>([]);
-  const [typeBill, setTypeBill] = useState<string>(String(t('transaction:allType')));
+  const [typeBill, setTypeBill] = useState<(typeof billTypes)[0]>(billTypes[0]);
 
   const [optionFilter, setOptionFilter] = useState({
     type: LIST_FILTER_TYPE[0],
@@ -538,14 +537,17 @@ const TransactionPage = () => {
       case 'success':
         statusId = 1;
         break;
-      case 'process':
-        statusId = 0;
+      case 'processing':
+        statusId = 1;
+        break;
+      case 'complete':
+        statusId = 2;
         break;
       case 'pending':
         statusId = 0;
         break;
-      case 'fail':
-        statusId = 2;
+      case 'failed':
+        statusId = 3;
         break;
       case 'rejected':
         statusId = 4;
@@ -574,7 +576,7 @@ const TransactionPage = () => {
         const startDate = new Date(currentDate);
         startDate.setDate(currentDate.getDate() - optionFilter.dayPast.type);
         const startDateTimeStamp = Math.floor(startDate.getTime() / 1000);
-
+        console.log(typeBill, '----576');
         const res = await api_getTransactions({
           type: optionFilter.type.type,
           symbolId: optionFilter.currency,
@@ -583,7 +585,11 @@ const TransactionPage = () => {
           page,
           pageSize: limit,
           status:
-            optionFilter.type.type === TRANSACTION_TYPE.Withdraw ? getStatusId(optionFilter.filterStatus.type) : -1,
+            optionFilter.type.type === TRANSACTION_TYPE.Withdraw
+              ? getStatusId(optionFilter.filterStatus.type)
+              : optionFilter.type.type === TRANSACTION_TYPE.Bill
+              ? typeBill.value
+              : -1,
         });
 
         const { data, totalCount, totalPage } = res.data;
@@ -679,7 +685,7 @@ const TransactionPage = () => {
         setIsLoading(false);
       }
     },
-    [optionFilter, limit],
+    [optionFilter, limit, typeBill],
   );
 
   const getSymbolNameById = (symbolId: string) => {
@@ -884,7 +890,7 @@ const TransactionPage = () => {
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
                   <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                    <div className="flex-1 text-start dark:text-white text-black capitalize">{typeBill}</div>
+                    <div className="flex-1 text-start dark:text-white text-black capitalize">{t(typeBill.name)}</div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
                     <ChevronDownIcon className=" dark:text-white text-black" width={15} />
@@ -903,16 +909,18 @@ const TransactionPage = () => {
               >
                 <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-white shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1">
-                    {billTypes.map((item: BillType, index: number) => (
+                    {billTypes.map((item: any, index: number) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
-                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-bg-primary"
                             role="button"
-                            onClick={() => setTypeBill(item.type)}
+                            onClick={() => setTypeBill(item)}
                           >
                             <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                              <div className="flex-1 text-start dark:text-white text-black capitalize">{item.type}</div>
+                              <div className="flex-1 text-start dark:text-white text-black capitalize">
+                                {t(item.name)}
+                              </div>
                             </div>
                           </div>
                         )}
@@ -956,7 +964,7 @@ const TransactionPage = () => {
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
-                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-bg-primary"
                             role="button"
                             onClick={() => setOptionFilter({ ...optionFilter, filterStatus: item })}
                           >

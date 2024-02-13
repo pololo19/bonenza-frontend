@@ -65,7 +65,7 @@ const WagerContestComponent = () => {
 
   const { t } = useTranslation('');
 
-  const { userName, avatar, userId, viewInFiat, localFiat, isLogin } = useSelector(
+  const { userName, avatar, userId, viewInFiat, localFiat, isLogin, cryptoPrices } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userName: state.auth.user.userName,
@@ -73,9 +73,16 @@ const WagerContestComponent = () => {
       userId: state.auth.user.userId,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       isLogin: state.auth.isLogin,
+      cryptoPrices: state.wallet.symbols,
     }),
     shallowEqual,
   );
+
+  const usdtPrice = useMemo(() => {
+    const usdt = cryptoPrices.find((item) => item.name.toLowerCase() === 'usdt');
+    if (!usdt) return 1;
+    return usdt.price;
+  }, [cryptoPrices]);
 
   const getNextDay = () => {
     let currentDate = new Date();
@@ -143,7 +150,6 @@ const WagerContestComponent = () => {
       const timeCnt = wagerContestList.data.endTime - wagerContestList.data.currentTime;
       const currentDate = new Date();
       currentDate.setTime(currentDate.getTime() + timeCnt * 1000);
-      console.log(timeCnt, currentDate, formatDate(currentDate, 'LL/dd/yyyy'), '=====146');
       setTimeCount(formatDate(currentDate, 'LL/dd/yyyy'));
       setWagerContestData(tempContestData);
     } catch (error) {
@@ -473,16 +479,16 @@ const WagerContestComponent = () => {
                         width={16}
                         height={16}
                         className="object-cover w-[1rem] h-[1rem]"
-                        src={viewInFiat ? `/img/fiats/${localFiat?.name}` : `/img/fiats/USD.png`}
+                        src={viewInFiat ? `/img/fiats/${localFiat?.name}.png` : `/img/fiats/USDT.png`}
                         onError={(e) => {
-                          e.currentTarget.src = '/img/fiats/USD.png';
+                          e.currentTarget.src = '/img/fiats/USDT.png';
                         }}
                         alt=""
                       />
                       <span className="text-color-primary ml-1 font-bold">
                         {viewInFiat
                           ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
-                          : currencyFormat1(wagerHistory.prizeAmountUsd, 4)}
+                          : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
                       </span>
                       <span className="dark:text-white text-[#000]">{`${wagerHistory.percentage}%`}</span>
                     </div>
