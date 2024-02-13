@@ -47,6 +47,7 @@ export const api_getTransactions = async ({
   pageSize,
   status,
 }: TransactionRequest) => {
+  console.log(status, '----50');
   return api.get(API_WALLET_TRANSACTIONS, { params: { type, symbolId, startDate, endDate, page, pageSize, status } });
 };
 

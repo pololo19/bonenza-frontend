@@ -92,7 +92,6 @@ api.interceptors.request.use((config) => {
   return config;
 });
 api.interceptors.response.use(transformResponse, (error) => {
-  console.log('error-------', 92, error);
   const errorResponse = error;
 
   const errorData = errorResponse?.response?.data || {};

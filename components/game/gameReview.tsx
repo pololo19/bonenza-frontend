@@ -338,7 +338,7 @@ const GameReviewComponent = ({
         {loading.ratingLoading && <Loader />}
         <h2 className="text-lg font-semibold mb-1 dark:text-white text-black">{t('gameDetail:ratings')} </h2>
         <div className="dark:bg-color-bg-secondary bg-white w-full">
-          <div className="flex sm:p-4 p-2 md:gap-[30px] gap-[10px]">
+          <div className="flex sm:p-4 p-2 md:gap-[30px] gap-[30px]">
             <div className="flex md:flex-row flex-col gap-[10px]">
               <span className="text-4xl dark:text-color-primary text-[#f59e0b] font-normal">
                 {ratingData.averageRating?.toFixed(1)}{' '}
@@ -349,7 +349,7 @@ const GameReviewComponent = ({
               <div className="w-[max-content]">
                 <StarsRating
                   allowHalf={false}
-                  classNamePrefix="!text-[14px] rate-star"
+                  classNamePrefix="sm:!text-[14px] !text-[12px] !mr-[2px] sm:!mr-[5px] rate-star"
                   disabled
                   value={ratingData.averageRating}
                 />
@@ -359,10 +359,10 @@ const GameReviewComponent = ({
             <div className="w-full">
               {new Array(5).fill('').map((item, index) => (
                 <div className="flex items-center" key={index}>
-                  <div className="min-w-[150px]">
+                  <div className="sm:min-w-[150px] min-w-[100px]">
                     <StarsRating
                       allowHalf={false}
-                      classNamePrefix="!text-[16px] rate-star"
+                      classNamePrefix="sm:!text-[16px] !text-[14px] !mr-[2px] sm:!mr-[5px] rate-star"
                       disabled
                       count={5 - index}
                     />
@@ -384,7 +384,7 @@ const GameReviewComponent = ({
               <StarsRating
                 allowHalf={false}
                 value={userRating}
-                classNamePrefix="!text-[20px] rate-star"
+                classNamePrefix="!text-[20px] !mr-[2px] sm:!mr-[5px] rate-star"
                 onChange={handleChangeRate}
               />
             </div>
@@ -446,13 +446,13 @@ const GameReviewComponent = ({
                 >
                   <Popover.Panel
                     static
-                    className="sm:absolute sm:mr-0 mr-[10px] fixed left-0 sm:left-auto h-auto right-0 z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="absolute mr-0 left-auto right-0 z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
-                    <div className="py-1 px-[10px] sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-700 dark:shadow ">
+                    <div className="py-1 gap-[3px] px-[10px] flex flex-col relative rounded-md dark:bg-color-menu-primary bg-white w-auto shadow-gray-700 dark:shadow">
                       {sortByData.map((item, index) => (
                         <div
                           className={cn(
-                            'text-[14px] py-[5px] px-[10px] cursor-pointer dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary',
+                            'text-[14px] py-[5px] px-[10px] cursor-pointer dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary rounded-[5px]',
                             {
                               'dark:bg-color-active-primary bg-white': item.value === selectedSort,
                             },

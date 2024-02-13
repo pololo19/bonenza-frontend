@@ -373,7 +373,7 @@ function GamePage() {
                 <div className="grid grid-cols-2 w-full h-fit gap-[10px]">
                   <div className="flex relative aspect-square">
                     <Image
-                      src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
+                      src={`https://cdn.softswiss.net/i/s4/${gameDetail.identifier.replace(':', '/')}.png`}
                       fill
                       alt=""
                       className="rounded-[5px]"
@@ -384,8 +384,8 @@ function GamePage() {
                   </div>
                   <div className="flex flex-col aspect-square px-[10px] justify-between">
                     <div className="flex flex-col gap-[10px]">
-                      <div className="dark:text-white text-black text-[16px] font-bold">{gameDetail.title}</div>
-                      <div className="dark:text-white text-black text-[14px]">
+                      <div className="dark:text-white text-black text-[14px] font-bold">{gameDetail.title}</div>
+                      <div className="dark:text-white text-black text-[12px]">
                         <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
                         <Link
                           className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
@@ -394,7 +394,7 @@ function GamePage() {
                           {gameDetail.providerName}
                         </Link>
                       </div>
-                      <div className="dark:text-color-text-secondary text-black text-[14px]">
+                      <div className="dark:text-color-text-secondary text-black text-[12px]">
                         {`${formatDate(new Date(gameDetail.releasedAt), 'yyyy.MM.dd')}`}
                       </div>
                     </div>

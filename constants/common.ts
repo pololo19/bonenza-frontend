@@ -1139,12 +1139,19 @@ export const CHANNELS = [
   },
 ];
 
+export const billTypes = [
+  { name: 'transaction:allType', value: -1 },
+  { name: 'transaction:game', value: 1 },
+  { name: 'transaction:swap', value: 2 },
+  { name: 'transaction:affiliate', value: 3 },
+];
+
 export const billType = {
-  VAULT: 'vault',
+  // VAULT: 'vault',
   GAME: 'game',
   SWAP: 'swap',
   AFFILIATE: 'affiliate',
-  BONUS: 'bonus',
+  // BONUS: 'bonus',
 };
 
 export const DEPOSIT_BONUS = [
@@ -1193,7 +1200,7 @@ export const LIST_FILTER_STATUS = [
   { name: 'transaction:complete', type: 'complete', flag: true },
   { name: 'transaction:processing', type: 'processing', flag: true },
   { name: 'transaction:pending', type: 'pending', flag: false },
-  { name: 'transaction:failed', type: 'fail', flag: true },
+  { name: 'transaction:failed', type: 'failed', flag: true },
   { name: 'transaction:canceled', type: 'rejected', flag: false },
 ];
 
