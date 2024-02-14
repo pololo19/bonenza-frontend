@@ -152,10 +152,10 @@ export default function Navbar() {
             {/* Button */}
             <button
               type="button"
-              className="truncate text-color-text-primary flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
+              className="truncate sm:flex hidden text-color-text-primary items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
               onClick={() => dispatch(changeIsShowCasinoSearch(!isShowCasinoSearch))}
             >
-              <div className="sm:block hidden">
+              <div className="">
                 <SearchNormal className="w-[18px] h-[18px]" />
               </div>
             </button>
@@ -241,7 +241,7 @@ export default function Navbar() {
 
             {isLogin && (
               <Link
-                className="hidden  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
+                className="sm:hidden block dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
                 href={ROUTER.Bonus}
               >
                 <Gift width={18} height={18} />
