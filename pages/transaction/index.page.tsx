@@ -80,7 +80,7 @@ const TransactionPage = () => {
   const [totalRows, setTotalRows] = useState<number>(0);
   const [columnType, setColumnType] = useState<TRANSACTION_TYPE>(TRANSACTION_TYPE.Deposit);
 
-  const depositColumns: ColumnDef<any>[] = useMemo(() => {
+  const depositColumns: ColumnDef<TransactionType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'transactionType',
@@ -153,7 +153,7 @@ const TransactionPage = () => {
     ];
   }, [localFiat, viewInFiat, optionFilter.type, i18n, exchangeRate]);
 
-  const swapColumns: ColumnDef<any>[] = useMemo(() => {
+  const swapColumns: ColumnDef<TransactionSwapType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'swapFrom + swapTo',
@@ -232,7 +232,7 @@ const TransactionPage = () => {
     ];
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
 
-  const billColumns: ColumnDef<any>[] = useMemo(() => {
+  const billColumns: ColumnDef<TransactionBillType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'actionType',
@@ -474,7 +474,7 @@ const TransactionPage = () => {
     let newPage: number;
     newPage = action === 'Next' ? page + 1 : page - 1;
     setPage(newPage);
-    handleGetTransaction(newPage);
+    getTransactions(newPage);
   };
 
   const handleChangeItemPerPage = (itemPerPage: number) => {
@@ -562,7 +562,7 @@ const TransactionPage = () => {
     return statusId;
   };
 
-  const handleGetTransaction = useCallback(
+  const getTransactions = useCallback(
     async (page: number) => {
       setDataTable([]);
       setTotalRows(0);
@@ -706,7 +706,7 @@ const TransactionPage = () => {
 
   useEffect(() => {
     setPage(1);
-    handleGetTransaction(1);
+    getTransactions(1);
   }, [optionFilter, limit, typeBill]);
 
   const columns = useMemo(() => {

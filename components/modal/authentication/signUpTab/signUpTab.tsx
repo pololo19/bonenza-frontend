@@ -43,8 +43,8 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
   const onSubmitEmail = async (data: SignUpEmailRequest) => {
     try {
       setIsLoading(true);
-      const resSignUp = await api_signupWithEmail(data);
-      if (resSignUp?.status === 201) {
+      const _res = await api_signupWithEmail(data);
+      if (_res?.status === 201) {
         dispatch(saveVerifyInfo({ verifyRequest: data.email, isPhoneVerifyRequested: false }));
         dispatch(setIsForgetPassword(false));
         dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
@@ -68,8 +68,8 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         ...data,
         phone: phoneNumber,
       };
-      const resSignUp = await api_signupWithPhone(formData);
-      if (resSignUp?.status === 201) {
+      const _res = await api_signupWithPhone(formData);
+      if (_res?.status === 201) {
         // store verification data
         dispatch(saveVerifyInfo({ verifyRequest: phoneNumber, isPhoneVerifyRequested: true }));
 

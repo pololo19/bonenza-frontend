@@ -251,28 +251,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     [],
   );
 
-  const getRecommandGames = async () => {
-    try {
-      setIsLoading(true);
-      const recommendedGames = await api_getPickGames(1, 20);
-      const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
-        id: item?.id ?? '',
-        title: item?.title ?? '',
-        description: item?.description ?? '',
-        identifier: item?.identifier ?? '',
-        payout: Number(item.payout || 0),
-        multiplier: Number(item.profitMultiplier || 0),
-        providerName: item?.producerName ?? '',
-        releasedAt: item?.releasedAt ?? new Date(),
-      }));
-      dispatch(setRecommandGames(tempListRecommandedGames));
-    } catch (error) {
-      dispatch(setRecommandGames([]));
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const loadInitData = async () => {
     try {
       const res = await api_getInitData();
@@ -337,6 +315,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     } catch (error) {
       wrappedError();
       await loadInitData();
+    } finally {
     }
   };
 

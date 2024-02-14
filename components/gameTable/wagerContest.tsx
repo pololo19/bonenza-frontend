@@ -114,7 +114,7 @@ const WagerContestComponent = () => {
     return rankReturn;
   };
 
-  const handleGetWagerContest = async () => {
+  const getWagerContestData = async () => {
     try {
       setIsLoadingTable(true);
       const [wagerContestList, wagerContestHistory] = await Promise.all([
@@ -164,7 +164,7 @@ const WagerContestComponent = () => {
     }
   };
 
-  const handleGetPosition = async () => {
+  const getUserPosition = async () => {
     try {
       const res = await api_wagerContestPosition();
       setPositionData({
@@ -193,13 +193,13 @@ const WagerContestComponent = () => {
     return { position: nextPosition, wagerAmount };
   }, [positionData, wagerContestData]);
 
-  const openModalProfileUser = (user: any) => {
+  const handleModalUserProfile = (user: any) => {
     dispatch(setUserData({ userId: user.playerId, userName: user.playerName, avatar: user.playerAvatar }));
     dispatch(changeIsShowInformation(true));
   };
 
   const WagerContestColumns = useMemo(() => {
-    const columnsDefault: ColumnDef<any>[] = [
+    const columnsDefault: ColumnDef<ContesterType>[] = [
       {
         accessorKey: 'betId',
         header: () => (
@@ -253,7 +253,7 @@ const WagerContestComponent = () => {
         minSize: 30,
         cell: ({ row }) => (
           <div
-            onClick={() => openModalProfileUser(row)}
+            onClick={() => handleModalUserProfile(row)}
             className={cn(
               'dark:text-white text-color-light-text-primary flex items-center justify-start gap-[10px] truncate sm:px-2 px-[5px]',
               {
@@ -331,11 +331,11 @@ const WagerContestComponent = () => {
   }, [localFiat, exchangeRate]);
 
   useEffect(() => {
-    handleGetWagerContest();
+    getWagerContestData();
   }, []);
 
   useEffect(() => {
-    handleGetPosition();
+    getUserPosition();
   }, [isLogin]);
 
   return (
@@ -464,7 +464,7 @@ const WagerContestComponent = () => {
                       'pointer-events-none': wagerHistory.playerId !== userId && !wagerHistory.playerName,
                       'hover:underline cursor-pointer': !(wagerHistory.playerId !== userId && !wagerHistory.playerName),
                     })}
-                    onClick={() => openModalProfileUser(wagerHistory)}
+                    onClick={() => handleModalUserProfile(wagerHistory)}
                   >
                     {wagerHistory.playerId !== userId && !wagerHistory.playerName
                       ? t('homePage:hidden')

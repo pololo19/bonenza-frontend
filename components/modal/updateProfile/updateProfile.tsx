@@ -75,10 +75,10 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
   const handleUpdateProfile = async (formUpdateProfile: UpdateProfileFormType) => {
     try {
       setIsLoading(true);
-      const res = await api_editUserName(formUpdateProfile.username);
+      const _res = await api_editUserName(formUpdateProfile.username);
       dispatch(
         saveUserInfo({
-          ...convertUserInfo(res.data),
+          ...convertUserInfo(_res.data),
         }),
       );
       goBackProfile();

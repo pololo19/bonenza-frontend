@@ -54,7 +54,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
   );
 
   const statisticsColumn = useMemo(() => {
-    const statisticsColumnsDefault: ColumnDef<any>[] = [
+    const statisticsColumnsDefault: ColumnDef<StatisticTransactionType>[] = [
       {
         accessorKey: 'currency',
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:currency')}</div>,
@@ -69,7 +69,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
             />
-            <span className="dark:text-white text-black font-bold">{row.original.currency}</span>
+            <span className="dark:text-white text-black font-bold">{row.original.curency}</span>
           </div>
         ),
       },
@@ -103,10 +103,10 @@ export default function Statistic({ userData }: ModalStatisticProps) {
   }, [exchange, viewInFiat, localFiat]);
 
   useEffect(() => {
-    handleGetStatisticTransaction();
+    getStatisticTransaction();
   }, []);
 
-  const handleGetStatisticTransaction = async () => {
+  const getStatisticTransaction = async () => {
     try {
       setIsLoading(true);
       const res = await api_BetStatistics();
@@ -141,7 +141,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
           </div>
           <Menu
             as="div"
-            className="relative w-full max-w-[200px] text-left rounded flex dark:text-white text-[#000] dark:bg-color-input-primary bg-[#F6F7FA]"
+            className="relative w-full max-w-[200px] text-left rounded flex dark:text-white text-[#000] dark:bg-color-input-primary bg-color-light-bg-primary"
           >
             <Menu.Button className="w-full">
               <div className="dark:bg-[#1e2024] bg-white flex items-center justify-between w-full h-[36px] px-[20px]">
@@ -175,7 +175,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute xl:right-0 sm:left-[100px] md:left-[auto] sm:right-[auto] right-0 z-[50] w-full mt-14 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <div className="py-1 rounded-[5px] dark:bg-color-input-primary bg-white max-w-[200px -top-[20px]">
+                <div className="py-1 rounded-[5px] dark:bg-color-input-primary bg-white max-w-[200px] -top-[20px]">
                   <Menu.Item>
                     {({ active }) => (
                       <div

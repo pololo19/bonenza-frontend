@@ -50,8 +50,8 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const getListBonusTransaction = useCallback(async () => {
     try {
       setIsLoadingTable(true);
-      const res = await api_bonusUsdtHistory(page, limit);
-      const tempListTransactionData: ListTransactionType[] = res.data?.map((item: any) => ({
+      const _res = await api_bonusUsdtHistory(page, limit);
+      const tempListTransactionData: ListTransactionType[] = _res.data?.map((item: any) => ({
         amount: item.amount,
         amountUsd: item.amountUsd,
         type: item.type,
@@ -66,14 +66,14 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   }, [page, limit]);
 
   const columns = useMemo(() => {
-    const columnsDefault: ColumnDef<any>[] = [
+    const columnsDefault: ColumnDef<ListTransactionType>[] = [
       {
         accessorKey: 'actionType',
         header: () => (
           <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] text-left dark:text-color-text text-[#000] truncate">{row?.original?.type}</div>
+          <div className="text-[12px] text-left dark:text-color-text text-[#000] truncate">{row.original.type}</div>
         ),
         minSize: 50,
         maxSize: 80,

@@ -1,15 +1,13 @@
-import cn from 'classnames';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
-import api from '@/api/api';
 import { api_getGamesByProvider, SortType } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { titleCase } from '@/base/libs/utils';
-import { GameDetail, GameListType, GameProviderDetail } from '@/base/types/common';
+import { GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
@@ -17,8 +15,6 @@ import GameCard from '@/components/gameCard/gameCard';
 import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
 import SortBy from '@/components/sortBy/sortBy';
-
-import styles from './index.module.scss';
 
 const sortBy = [
   { id: 2, label: 'Popular', orderValue: 'popular', orderBy: 'total_favorite' },
@@ -35,41 +31,42 @@ function ProviderPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [listGame, setListGame] = useState<GameListType[]>([]);
   const [listRelated, setListRelated] = useState<GameListType[]>([]);
-  const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
-  const [isShowMoreProvider, setIsShowMoreProvider] = useState<boolean>(false);
 
   const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
 
-  const handleGetListGame = async (page: number = currentPage) => {
-    try {
-      setIsLoading(true);
-      const res = await api_getGamesByProvider(String(id), selectedSortBy.orderValue as SortType, page || 1, 40);
-      const totalCount = res?.data?.totalCount ?? 0;
-      const games = res?.data?.data ?? [];
-      const tempGameListData: GameListType[] = games?.map((item: any) => ({
-        id: item?.id ?? '',
-        title: item?.title ?? '',
-        description: item?.description ?? '',
-        identifier: item?.identifier ?? '',
-        payout: Number(item?.payout ?? 0),
-        multiplier: Number(item?.profitMultiplier ?? 0),
-        releasedAt: item?.releasedAt ?? '',
-        providerName: item?.producerName ?? '',
-      }));
-      if (games.length < 40 || listGame.length + games.length === totalGames) {
-        setIsShowMore(false);
+  const getListGames = useCallback(
+    async (page: number = currentPage) => {
+      try {
+        setIsLoading(true);
+        const _res = await api_getGamesByProvider(String(id), selectedSortBy.orderValue as SortType, page || 1, 40);
+        const totalCount = _res?.data?.totalCount ?? 0;
+        const games = _res?.data?.data ?? [];
+        const tempGameListData: GameListType[] = games?.map((item: any) => ({
+          id: item?.id ?? '',
+          title: item?.title ?? '',
+          description: item?.description ?? '',
+          identifier: item?.identifier ?? '',
+          payout: Number(item?.payout ?? 0),
+          multiplier: Number(item?.profitMultiplier ?? 0),
+          releasedAt: item?.releasedAt ?? '',
+          providerName: item?.producerName ?? '',
+        }));
+        if (games.length < 40 || listGame.length + games.length === totalGames) {
+          setIsShowMore(false);
+        }
+        setListGame((current) => [...current, ...tempGameListData]);
+        setTotalGames(totalCount);
+      } catch (error) {
+        setListGame([]);
+      } finally {
+        setIsLoading(false);
       }
-      setListGame((current) => [...current, ...tempGameListData]);
-      setTotalGames(totalCount);
-    } catch (error) {
-      setListGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+    },
+    [currentPage, id, selectedSortBy],
+  );
 
   const percent = useMemo(() => {
     return Number((listGame.length / totalGames) * 100).toFixed(0);
@@ -81,12 +78,12 @@ function ProviderPage() {
       setIsShowMore(true);
 
       setListGame([]);
-      handleGetListGame(1);
+      getListGames(1);
     }
   }, [id, selectedSortBy]);
 
   useEffect(() => {
-    if (currentPage > 1) handleGetListGame();
+    if (currentPage > 1) getListGames();
   }, [currentPage]);
 
   return (

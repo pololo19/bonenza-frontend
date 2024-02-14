@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 
-import api from '@/api/api';
 import { api_getRecentGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail, GameListType } from '@/base/types/common';
+import { GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -22,11 +21,11 @@ function RecentPage() {
 
   const { t } = useTranslation('');
 
-  const handleGetListGame = async () => {
+  const getListGames = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getRecentGames(currentPage, 40);
-      const tempGameLists = res.data.games.map((item: any) => ({
+      const _res = await api_getRecentGames(currentPage, 40);
+      const tempGameLists = _res.data.games.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -37,8 +36,8 @@ function RecentPage() {
         releasedAt: item?.releasedAt ?? '',
       }));
       setListGame((current) => [...current, ...tempGameLists]);
-      setTotalGames(res.data.totalCount ?? 0);
-      if (res.data.games.length < 40) {
+      setTotalGames(_res.data.totalCount ?? 0);
+      if (_res.data.games.length < 40) {
         setIsShowMore(false);
       }
     } catch (error) {
@@ -53,7 +52,7 @@ function RecentPage() {
   }, [listGame, totalGames]);
 
   useEffect(() => {
-    handleGetListGame();
+    getListGames();
   }, [currentPage]);
 
   return (

@@ -6,22 +6,15 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_getClaims, api_postClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import {
-  currencyFormat,
-  currencyFormat1,
-  exchangeByLocaleFiat,
-  formatLengthNumber,
-  handleLocaleSymbol,
-} from '@/base/libs/utils';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { FiatType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
-import { toast } from 'react-toastify';
 
 type ModalRakeBackProps = {
   onClose: () => void;
@@ -64,15 +57,6 @@ export default function ModalRakeBack({
     shallowEqual,
   );
 
-  // const getWagerAmount = (): string => {
-  //   let amount = 5.0 / (0.01 * 0.2);
-  //   return activeFiat
-  //     ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-  //         exchangeByLocaleFiat(cryptoLocked?.currency, String(localeFiat?.currency), amount),
-  //         2,
-  //       )}`
-  //     : `$${formatLengthNumber(Number(amount), 4)}`;
-  // };
   const requiredWagerAmount = useMemo(() => {
     const requiredAmount = unlockedData.minimumUnlockAmount - lockedAmount.balance;
     const requiredWager = requiredAmount / (0.01 * 0.2);
@@ -92,13 +76,13 @@ export default function ModalRakeBack({
   const getClaimData = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getClaims();
-      const tempUnlockedAmount = Number(res.data?.unlockedAmount ?? 0);
-      const tempUnlockMinimumAmount = Number(res.data?.minimumUnlockAmount ?? 0);
-      const tempUnlockMinimumAmountUsd = Number(res.data?.minimumUnlockAmountUsd ?? 0);
-      const tempMinimumWagerAmountUsd = Number(res.data?.minimumWagerAmountUsd ?? 0);
-      const tempLockedAmount = Number(res.data?.lockedAmount ?? 0);
-      const tempLockedAmountUsd = Number(res.data?.lockedAmountUsd ?? 0);
+      const _res = await api_getClaims();
+      const tempUnlockedAmount = Number(_res.data?.unlockedAmount ?? 0);
+      const tempUnlockMinimumAmount = Number(_res.data?.minimumUnlockAmount ?? 0);
+      const tempUnlockMinimumAmountUsd = Number(_res.data?.minimumUnlockAmountUsd ?? 0);
+      const tempMinimumWagerAmountUsd = Number(_res.data?.minimumWagerAmountUsd ?? 0);
+      const tempLockedAmount = Number(_res.data?.lockedAmount ?? 0);
+      const tempLockedAmountUsd = Number(_res.data?.lockedAmountUsd ?? 0);
       setUnlockedData({
         amount: tempUnlockedAmount,
         minimumUnlockAmount: tempUnlockMinimumAmount,
@@ -122,7 +106,7 @@ export default function ModalRakeBack({
   const handleCliam = async () => {
     try {
       setIsLoading(true);
-      const res = await api_postClaims(unlockedData.amount);
+      const _res = await api_postClaims(unlockedData.amount);
       toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       toast.error(t('deposit:claimFailed'), { containerId: TOAST_ENUM.COMMON });

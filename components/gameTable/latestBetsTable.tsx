@@ -66,7 +66,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
     return betHistory.slice(0, 10);
   }, [betHistory, isShowMore]);
 
-  const handleGetAllBet = async () => {
+  const getAllBetHistory = async () => {
     try {
       setIsLoadingTable(true);
       dispatch(setBetHistory([]));
@@ -94,7 +94,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
     }
   };
 
-  const openModalProfileUser = (row: Row<any>) => {
+  const openModalProfileUser = (row: Row<BetTableDataType>) => {
     const userData = {
       username: row.original.player,
       userId: row.original.playerId,
@@ -105,7 +105,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
     }
   };
 
-  const handleClickRow = (row: Row<any>) => {
+  const handleClickRow = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
 
@@ -116,7 +116,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   };
 
   const allBetColumns = useMemo(() => {
-    const allBetColumnsDefault: ColumnDef<any>[] = [
+    const allBetColumnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
         header: String(t('gameTable:game')),
@@ -226,7 +226,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   }, [localFiat, userId, innerWidth, viewInFiat]);
 
   useEffect(() => {
-    handleGetAllBet();
+    getAllBetHistory();
   }, []);
 
   return (

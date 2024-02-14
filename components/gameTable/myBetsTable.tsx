@@ -57,7 +57,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
     shallowEqual,
   );
 
-  const handleGetMyBet = async () => {
+  const getMyBetHistory = async () => {
     try {
       setIsLoadingTable(true);
       setMyBetData([]);
@@ -86,7 +86,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
     }
   };
 
-  const handleClickRow = (row: Row<any>) => {
+  const handleClickRow = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
     setSelBetDetail(row.original);
@@ -100,7 +100,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   }, [myBetData, isShowMore]);
 
   const myBetColumns = useMemo(() => {
-    const myBetColumnsDefault: ColumnDef<any>[] = [
+    const myBetColumnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
         header: () => (
@@ -221,7 +221,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
 
   useEffect(() => {
     if (isLogin) {
-      handleGetMyBet();
+      getMyBetHistory();
     }
   }, [isLogin]);
 

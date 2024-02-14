@@ -7,12 +7,8 @@ import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useMemo, useState } from 'react';
 
-import api from '@/api/api';
 import { api_vipLevelSystem } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { RankDetail } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import RankingTableComponent from '@/components/table/rankingTable';
 
@@ -58,8 +54,8 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
   const getRankList = async () => {
     try {
       setIsLoading(true);
-      const res = await api_vipLevelSystem();
-      const tempRankDatas = res?.data.levelUpDetails.map((item: any) => ({
+      const _res = await api_vipLevelSystem();
+      const tempRankDatas = _res?.data.levelUpDetails.map((item: any) => ({
         name: item.medalName ?? '',
         startLevel: Number(item.startLevelNum ?? 0),
         endLevel: Number(item.endLevelNum ?? 0),

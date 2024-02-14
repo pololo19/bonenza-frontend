@@ -65,27 +65,27 @@ export default function VerificationTab() {
         code: formReset.code,
         request: isForgetPassword ? 'reset' : '',
       };
-      const resVerify = await api_verify(request);
-      CookiesStorage.setAccessToken(resVerify.data.token);
+      const _res = await api_verify(request);
+      CookiesStorage.setAccessToken(_res.data.token);
 
       // If verify not from forget-password is success, store user info and go ahead
       // If not, request to reset password
       if (!isForgetPassword) {
         const localFiat: CurrencyType = {
-          id: resVerify.data.user.settingFiatCurrency.id ?? '',
-          name: resVerify.data.user.settingFiatCurrency.symbol ?? '',
-          alias: resVerify.data.user.settingFiatCurrency.name ?? '',
-          logo: `/img/fiats/${resVerify.data.user.settingFiatCurrency.symbol}.png`,
-          iso_currency: resVerify.data.user.settingFiatCurrency.iso_currency,
-          iso_decimals: resVerify.data.user.settingFiatCurrency.iso_decimals,
+          id: _res.data.user.settingFiatCurrency.id ?? '',
+          name: _res.data.user.settingFiatCurrency.symbol ?? '',
+          alias: _res.data.user.settingFiatCurrency.name ?? '',
+          logo: `/img/fiats/${_res.data.user.settingFiatCurrency.symbol}.png`,
+          iso_currency: _res.data.user.settingFiatCurrency.iso_currency,
+          iso_decimals: _res.data.user.settingFiatCurrency.iso_decimals,
           availableNetworks: [],
-          price: Number(resVerify.data.user.settingFiatCurrency.price),
+          price: Number(_res.data.user.settingFiatCurrency.price),
           type: 'fiat',
-          favorite: resVerify.data.user.settingFiatCurrency.favorite,
+          favorite: _res.data.user.settingFiatCurrency.favorite,
         };
         dispatch(
           saveUserInfo({
-            ...convertUserInfo(resVerify.data.user),
+            ...convertUserInfo(_res.data.user),
           }),
         );
         dispatch(initWalletInfo());

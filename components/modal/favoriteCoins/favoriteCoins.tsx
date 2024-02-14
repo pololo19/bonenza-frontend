@@ -77,8 +77,8 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
   const handleFavoriteCoin = async (coin: CurrencyType) => {
     try {
       setIsLoading(true);
-      const res = await api_setCurrencyFavorite(coin.id, coin.type);
-      const state = res.data.state;
+      const _res = await api_setCurrencyFavorite(coin.id, coin.type);
+      const state = _res.data.state;
       let tempCurrency = coin.type === 'crypto' ? [...cryptoArray] : [...fiatArray];
       tempCurrency = tempCurrency.map((item) => {
         if (item.id === coin.id) {
@@ -95,19 +95,6 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
     } finally {
       setIsLoading(false);
     }
-
-    // handleToggleLikeCoin(listCoin, coinChange);
-    // let key = openTab === 1 ? 'cryptoCurrency' : 'fiatCurrency';
-    // let param = {
-    //   [key]: coinChange.currency,
-    //   network: coinChange.currencyAlias,
-    // };
-    // try {
-    //   await api.post('currency/liked', param);
-    // } catch (error) {
-    // } finally {
-    //   setIsLoading(false);
-    // }
   };
 
   useEffect(() => {
@@ -120,7 +107,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
     setIsReverse(!isReverse);
   }, [openTab]);
 
-  const handlesortCoins = () => {
+  const handleSortCoins = () => {
     switch (openTab) {
       case 1:
         sort(listCrypto, setListCrypto);
@@ -223,7 +210,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   color="#98a7b5"
                   variant="Bold"
                   className="cursor-pointer"
-                  onClick={handlesortCoins}
+                  onClick={handleSortCoins}
                 />
               ) : (
                 <ArrowDown
@@ -231,7 +218,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   color="#98a7b5"
                   variant="Bold"
                   className="cursor-pointer"
-                  onClick={handlesortCoins}
+                  onClick={handleSortCoins}
                 />
               )}
             </div>

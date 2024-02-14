@@ -2,11 +2,9 @@ import cn from 'classnames';
 import { ArrowDown2, Global } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey } from '@/base/constants/common';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { AppState } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
 
@@ -19,9 +17,8 @@ type SelectFiatProps = {
 
 const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
 
-  const { fiatSymbols, localFiat, defaultCurrencyId } = useSelector(
+  const { fiatSymbols, defaultCurrencyId } = useSelector(
     (state: AppState) => ({
       fiatSymbols: state.wallet.fiatSymbols,
       localFiat: state.wallet.localFiat,

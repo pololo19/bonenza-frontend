@@ -84,7 +84,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
     return betData.slice(0, 10);
   }, [betData, isShowMore]);
 
-  const handleGetAllBet = async () => {
+  const getAllBetHistory = async () => {
     try {
       if (!gameDetail) return;
       setbetData([]);
@@ -113,7 +113,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
     }
   };
 
-  const openModalProfileUser = (row: Row<any>) => {
+  const handleModalProfile = (row: Row<BetTableDataType>) => {
     const userData = {
       username: row.original.player,
       userId: row.original.playerId,
@@ -124,7 +124,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
     }
   };
 
-  const handleClickRow = (row: Row<any>) => {
+  const handleClickRow = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
     setSelBetDetail(row.original);
@@ -132,7 +132,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   };
 
   const allBetColumns = useMemo(() => {
-    const allBetColumnsDefault: ColumnDef<any>[] = [
+    const allBetColumnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
         header: () => (
@@ -156,7 +156,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
             className={`${
               row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
             } font-bold truncate text-center  sm:p-2 p-[5px]`}
-            onClick={() => openModalProfileUser(row)}
+            onClick={() => handleModalProfile(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-color-text-primary text-color-light-text-primary">{t('homePage:hidden')}</div>
@@ -238,7 +238,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   }, [localFiat, userId, innerWidth, viewInFiat]);
 
   useEffect(() => {
-    handleGetAllBet();
+    getAllBetHistory();
   }, [gameDetail]);
 
   useEffect(() => {

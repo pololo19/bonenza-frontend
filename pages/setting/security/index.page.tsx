@@ -90,7 +90,7 @@ const SettingSecurity = () => {
 
   const handleChange = (otp: string) => setOtp(otp);
 
-  const handleLogout = () => {
+  const onLogout = () => {
     CookiesStorage.logout();
     googleLogout();
     dispatch(logoutState());
@@ -209,7 +209,7 @@ const SettingSecurity = () => {
         passwordBody.confirmNewPassword,
         passwordBody.codeOtp,
       );
-      handleLogout();
+      onLogout();
       setOpenModalCode(false);
       toast.success(t('setting:done'), { containerId: TOAST_ENUM.COMMON });
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));

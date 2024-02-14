@@ -66,17 +66,6 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const getVipListByRank = async () => {
-    setIsLoading(true);
-    try {
-      // const res = await api.get('user-profile/get-vip');
-      // setVipData(res?.data);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   const getUserProfile = async (selectedUserId: string) => {
     try {
       setIsLoading(true);
@@ -110,7 +99,6 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   useEffect(() => {
     const selectedUserId = userData.userId;
     getUserProfile(selectedUserId);
-    getVipListByRank();
   }, [userData]);
 
   const returnHeader = useCallback(() => {
