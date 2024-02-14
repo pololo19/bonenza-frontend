@@ -1,5 +1,3 @@
-import cn from 'classnames';
-import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -7,8 +5,7 @@ import { useDispatch } from 'react-redux';
 import { api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail, GameListType } from '@/base/types/common';
+import { GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -17,7 +14,6 @@ import { NoDataComponent } from '@/components/noData/noData';
 
 function PickForYouPage() {
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
   const [listGame, setListGame] = useState<GameListType[]>([]);
@@ -27,8 +23,8 @@ function PickForYouPage() {
   const handleGetListGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getPickGames(currentPage, 40);
-      const tempGameLists = res.data.games.map((item: any) => ({
+      const _res = await api_getPickGames(currentPage, 40);
+      const tempGameLists = _res.data.games.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -39,8 +35,8 @@ function PickForYouPage() {
         releasedAt: item?.releasedAt ?? '',
       }));
       setListGame((current) => [...current, ...tempGameLists]);
-      setTotalGames(res.data.totalCount);
-      if (res.data.games.length < 40) {
+      setTotalGames(_res.data.totalCount);
+      if (_res.data.games.length < 40) {
         setIsShowMore(false);
       }
     } catch (error) {

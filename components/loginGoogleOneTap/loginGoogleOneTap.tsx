@@ -20,11 +20,11 @@ export default function LoginGoogleOneTap() {
   const googleLogin = async (credentialResponse: CredentialResponse) => {
     try {
       setIsLoading(true);
-      const res = await api_loginWithGooglePop(
+      const _res = await api_loginWithGooglePop(
         String(credentialResponse.clientId),
         String(credentialResponse.credential),
       );
-      const { token, user } = res.data;
+      const { token, user } = _res.data;
       CookiesStorage.setAccessToken(token);
       dispatch(
         saveUserInfo({

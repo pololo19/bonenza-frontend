@@ -117,7 +117,7 @@ function GamePage() {
     return balance > 0;
   }, [balances, activeCurrency]);
 
-  const handleGetGameDetail = async () => {
+  const getGameDetail = async () => {
     try {
       if (!String(gameId)) {
         return;
@@ -125,26 +125,26 @@ function GamePage() {
       setIsLoading(true);
       setIsNotFoundGame(false);
 
-      const resGameDetail = await api_getGameDetail(String(gameId));
+      const _res = await api_getGameDetail(String(gameId));
 
       const tempGameDetailData: GameListType = {
-        id: resGameDetail.data?.id ?? '',
-        title: resGameDetail.data?.title ?? '',
-        provider: resGameDetail.data?.producerIdentifier ?? '',
-        providerName: resGameDetail.data?.producerName ?? '',
-        identifier: resGameDetail.data?.identifier ?? '',
-        payout: Number(resGameDetail.data?.payout ?? 0),
-        multiplier: Number(resGameDetail.data?.multiplier ?? 0),
-        isExpiration: resGameDetail.data?.isExpiration ?? false,
-        description: resGameDetail.data?.description ?? '',
-        releasedAt: resGameDetail.data?.releasedAt ?? '',
-        gameCnt: Number(resGameDetail.data?.producerDetails?.gameCount ?? 0),
-        allowedLocation: resGameDetail.data?.allowLocation,
-        allowedDemo: resGameDetail.data?.allowDemo,
-        favorites: resGameDetail.data?.favoriteCount,
+        id: _res.data?.id ?? '',
+        title: _res.data?.title ?? '',
+        provider: _res.data?.producerIdentifier ?? '',
+        providerName: _res.data?.producerName ?? '',
+        identifier: _res.data?.identifier ?? '',
+        payout: Number(_res.data?.payout ?? 0),
+        multiplier: Number(_res.data?.multiplier ?? 0),
+        isExpiration: _res.data?.isExpiration ?? false,
+        description: _res.data?.description ?? '',
+        releasedAt: _res.data?.releasedAt ?? '',
+        gameCnt: Number(_res.data?.producerDetails?.gameCount ?? 0),
+        allowedLocation: _res.data?.allowLocation,
+        allowedDemo: _res.data?.allowDemo,
+        favorites: _res.data?.favoriteCount,
       };
 
-      if (!resGameDetail.data?.allowLocation) {
+      if (!_res.data?.allowLocation) {
         toast.error(t('errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
       }
 
@@ -156,7 +156,7 @@ function GamePage() {
     }
   };
 
-  const handleFreePlay = async () => {
+  const handleFreeplay = async () => {
     try {
       setIsLoadingGame({
         request: 'demo',
@@ -221,7 +221,7 @@ function GamePage() {
     }
   };
 
-  const handleCurrentReactionGame = async () => {
+  const getGameReactInfo = async () => {
     try {
       if (!gameDetail.id || !isLogin) return;
       const res = await api_getGameFavorite(gameDetail.id);
@@ -238,7 +238,7 @@ function GamePage() {
     }
   };
 
-  const handleReactionGame = async (reaction: 'like' | 'favorite') => {
+  const handleReactGame = async (reaction: 'like' | 'favorite') => {
     try {
       if (!isLogin) {
         dispatch(changeIsShowAuthenticationModal(true));
@@ -313,7 +313,7 @@ function GamePage() {
 
   useEffect(() => {
     if (gameId) {
-      handleGetGameDetail();
+      getGameDetail();
     } else {
       setIsNotFoundGame(true);
     }
@@ -321,7 +321,7 @@ function GamePage() {
 
   useEffect(() => {
     if (gameDetail.identifier) {
-      handleCurrentReactionGame();
+      getGameReactInfo();
     }
   }, [gameDetail]);
 
@@ -408,7 +408,7 @@ function GamePage() {
                               '!text-amber-400': reactionData.isFavorite,
                             },
                           )}
-                          onClick={() => handleReactionGame('favorite')}
+                          onClick={() => handleReactGame('favorite')}
                         >
                           <StarIcon width={20} />
                           <span className="text-[12px]">{gameDetail?.favorites ?? 0}</span>
@@ -466,7 +466,7 @@ function GamePage() {
                     className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] py-[15px] text-[14px] flex items-center gap-[10px] justify-center"
                     disabled={!gameDetail.allowedDemo || isLoadingGame.status}
                     onClick={() => {
-                      handleFreePlay();
+                      handleFreeplay();
                     }}
                   >
                     {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
@@ -573,7 +573,7 @@ function GamePage() {
                             className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
                             disabled={!gameDetail.allowedDemo || isLoadingGame.status}
                             onClick={() => {
-                              handleFreePlay();
+                              handleFreeplay();
                             }}
                           >
                             {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
@@ -618,7 +618,7 @@ function GamePage() {
                             type="button"
                             className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
                             onClick={() => {
-                              handleFreePlay();
+                              handleFreeplay();
                             }}
                           >
                             <PlayCricle size={20} />
@@ -643,7 +643,7 @@ function GamePage() {
                         '!text-amber-400': reactionData.isFavorite,
                       },
                     )}
-                    onClick={() => handleReactionGame('favorite')}
+                    onClick={() => handleReactGame('favorite')}
                   >
                     <StarIcon width={20} />
                     <span className="text-[12px]">{gameDetail?.favorites ?? 0}</span>
@@ -662,7 +662,7 @@ function GamePage() {
                         '!text-[#ec4016]': reactionData.isLike,
                       },
                     )}
-                    onClick={() => handleReactionGame('like')}
+                    onClick={() => handleReactGame('like')}
                   >
                     <Heart variant="Bold" size={20} />
                     <span className="text-[12px]">{0}</span>

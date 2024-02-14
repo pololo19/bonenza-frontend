@@ -112,18 +112,18 @@ function AffiliateLoggedPage() {
   //   }
   // };
 
-  const handleGetReferralData = async () => {
+  const getReferralData = async () => {
     try {
       setIsLoading(true);
-      const res = await api_affiliate();
+      const _res = await api_affiliate();
       const tempReferralData = {
-        totalReward: res.data?.totalRewardEarnedUsd ?? 0,
-        totalFriends: res.data?.totalFriendsReferred ?? 0,
-        referralReward: res.data?.totalReferralRewardsUsd ?? 0,
-        commissionReward: res.data?.totalCommissionRewardsUsd ?? 0,
+        totalReward: _res.data?.totalRewardEarnedUsd ?? 0,
+        totalFriends: _res.data?.totalFriendsReferred ?? 0,
+        referralReward: _res.data?.totalReferralRewardsUsd ?? 0,
+        commissionReward: _res.data?.totalCommissionRewardsUsd ?? 0,
       };
       const tempRewardsActivities: ReferralActivityType[] =
-        res.data?.rewardsActivities?.map((item: any) => ({
+        _res.data?.rewardsActivities?.map((item: any) => ({
           type: item.type ?? 'commission',
           currency: 'USD',
           amount: item.amountUsd ?? 0,
@@ -146,7 +146,7 @@ function AffiliateLoggedPage() {
   );
 
   useEffect(() => {
-    handleGetReferralData();
+    getReferralData();
   }, []);
 
   return (
@@ -162,9 +162,9 @@ function AffiliateLoggedPage() {
       <div className="flex flex-col mt-[20px]">
         <div className="w-full flex flex-col-reverse lg:flex-row pb-[23px] lg:justify-center">
           <div className="flex flex-col mr-[0px] w-full  dark:bg-color-card-bg-secondary bg-white rounded-[5px] px-[16px] lg:mr-[21px]">
-            <div className="justify-between w-full dark:bg-color-panel-bg bg-[#F6F7FA] rounded-[10px]  mt-[18px] ">
+            <div className="justify-between w-full dark:bg-color-panel-bg bg-color-light-bg-primary rounded-[10px]  mt-[18px] ">
               <div className="flex h-[60px] px-[15px] py-[7px]  w-full">
-                <div className="flex items-center border-r-2 border-solid dark:border-[#1D1E22] border-[#DADEE6] w-1/2">
+                <div className="flex items-center border-r-2 border-solid dark:border-color-border-primary border-color-light-border-primary w-1/2">
                   <Image
                     className="mr-[23px] hidden sm:block"
                     height={50}
@@ -173,7 +173,7 @@ function AffiliateLoggedPage() {
                     alt=""
                   />
                   <div className="flex flex-col items-center">
-                    <div className="text-[12px] sm:text-[10px] mb-[5px] font-normal text-white">
+                    <div className="text-[10px] mb-[5px] font-normal text-white">
                       {t('affiliate:totalRewardEarned')}
                     </div>
                     <div
@@ -196,7 +196,7 @@ function AffiliateLoggedPage() {
                     alt=""
                   />
                   <div className="flex flex-col items-center">
-                    <div className="text-[10px] mb-[5px] font-normal text-[#939699]">
+                    <div className="text-[10px]  mb-[5px] font-normal text-[#939699]">
                       {t('affiliate:totalFriendsReferred')}
                     </div>
                     <div
@@ -210,7 +210,7 @@ function AffiliateLoggedPage() {
             </div>
 
             <div className="flex flex-col md:flex-row justify-between w-full mt-[17px] mb-[16px]">
-              <div className="w-full lg:w-1/2 dark:bg-color-card-body-primary bg-[#F6F7FA] rounded-[5px] mr-[15px]">
+              <div className="w-full lg:w-1/2 dark:bg-color-card-body-primary bg-color-light-bg-primary rounded-[5px] mr-[15px]">
                 <div
                   className="flex justify-between dark:bg-color-card-header-primary bg-[#EAECF3] rounded-[5px] p-[18px]"
                   role="button"
@@ -246,7 +246,7 @@ function AffiliateLoggedPage() {
                 </div>
               </div>
               <div
-                className=" w-full lg:w-1/2 dark:bg-color-card-body-primary bg-[#F6F7FA] rounded-[5px]"
+                className=" w-full lg:w-1/2 dark:bg-color-card-body-primary bg-color-light-bg-primary rounded-[5px]"
                 role="button"
               >
                 <div className="flex justify-between dark:bg-color-card-header-primary bg-[#EAECF3] rounded-[5px] p-[18px]">
@@ -280,7 +280,7 @@ function AffiliateLoggedPage() {
               </div>
             </div>
             <div className="flex justify-between w-full ">
-              <div className="w-full dark:bg-color-card-body-primary bg-[#F6F7FA] rounded-[10px]">
+              <div className="w-full dark:bg-color-card-body-primary bg-color-light-bg-primary rounded-[10px]">
                 <div className="flex justify-between dark:bg-color-card-header-primary bg-[#EAECF3] rounded-[5px] p-[9px]">
                   <div className="text-[12px] font-normal dark:text-[#FFFFFF] text-[#141414]">
                     {t('affiliate:rewardsActivities')}
@@ -320,7 +320,7 @@ function AffiliateLoggedPage() {
               </div>
             </div>
             <div className="flex justify-between w-full my-[18px] ">
-              <Link target="_blank" href={ROUTER.AdminReferral} className="w-full bg-color-panel-bg rounded-[5px]">
+              <Link target="_blank" href={ROUTER.AdminFriends} className="w-full bg-color-panel-bg rounded-[5px]">
                 <div className="bg-gradient-btn-default txt-center py-[17px] rounded-[5px] font-bold w-full flex justify-center items-center">
                   <Image height={18} width={18} src="/img/page/category.png" className="opacity-30" alt="" />
                   <div className="ml-[10px] mr-[10px] text-[14px] text-[#FFFFFF]">{t('affiliate:goToDashboard')}</div>
@@ -362,7 +362,7 @@ function AffiliateLoggedPage() {
                     {t('affiliate:referralCode')}
                   </div>
                   <div className="flex">
-                    <div className="dark:bg-color-card-input-primary bg-[#F6F7FA] py-[10px] text-[#43484E] w-full pl-[17px] rounded-l-[5px] dark:text-[#FFFFFF] text-[12px] font-normal ">
+                    <div className="dark:bg-color-card-input-primary bg-color-light-bg-primary py-[10px] text-[#43484E] w-full pl-[17px] rounded-l-[5px] dark:text-[#FFFFFF] text-[12px] font-normal ">
                       {referralCode}
                     </div>
                     <div
@@ -379,7 +379,7 @@ function AffiliateLoggedPage() {
                     {t('affiliate:referralLink')}
                   </div>
                   <div className="flex">
-                    <div className="dark:bg-color-card-input-primary bg-[#F6F7FA] py-[10px] w-full pl-[17px] rounded-l-[5px] text-gray-500 dark:text-[#FFFFF] text-[12px] font-normal ">
+                    <div className="dark:bg-color-card-input-primary bg-color-light-bg-primary py-[10px] w-full pl-[17px] rounded-l-[5px] text-gray-500 dark:text-[#FFFFF] text-[12px] font-normal ">
                       {ROUTER.REFERRAL_CODE(String(referralCode))}
                     </div>
                     <div
@@ -394,11 +394,11 @@ function AffiliateLoggedPage() {
               </div>
 
               <div className="flex justify-between w-full mt-[22px]  px-[16px]">
-                <div className="bg-gradient-btn-default text-center py-[15px] rounded-[5px] w-full flex justify-center items-center mr-[14px]">
+                {/* <div className="bg-gradient-btn-default text-center py-[15px] rounded-[5px] w-full flex justify-center items-center mr-[14px]">
                   <div className="ml-[10px] mr-[10px] text-[11px] md:text-[12px] text-[#FFFFFF] font-bold">
                     {t('affiliate:createAnotherCode')}
                   </div>
-                </div>
+                </div> */}
                 <div
                   className="dark:bg-color-card-button-primary bg-[#EAECF3] text-center py-[15px] rounded-[5px] w-full flex justify-center items-center"
                   role="button"
@@ -440,9 +440,11 @@ function AffiliateLoggedPage() {
                 <Image height={70} width={77} src="/img/Rewards.png" className="min-w-[77px]" alt="" />
               </div>
               <div className="mb-[25px] w-full mr-[0px] sm:mr-[20px] text-center">
-                <h5 className="mb-[10px] text-[14px] dark:text-white text-[#43484E]">{t('affiliate:totalRewards')}</h5>
+                <h5 className="mb-[10px] text-[12px] sm:text-[14px] dark:text-white text-[#43484E]">
+                  {t('affiliate:totalRewards')}
+                </h5>
                 <div className="w-full flex justify-center">
-                  <div className="w-full dark:bg-color-panel-bg bg-[#F6F7FA] rounded-[5px] xl:w-[342px] h-[33px] flex justify-center items-center">
+                  <div className="w-full dark:bg-color-panel-bg bg-color-light-bg-primary rounded-[5px] xl:w-[342px] h-[33px] flex justify-center items-center">
                     <span className={`font-bold text-[16px] text-color-primary  ${styles.textBanner}`}>
                       {viewInFiat ? (
                         <>{currencyFormat1(0, 2, localFiat?.name || 'USD')}</>
@@ -529,7 +531,7 @@ function AffiliateLoggedPage() {
             </div>
             <div className="text-[16px] mb-[7px] dark:text-white text-[#141414]">{t('affiliate:forMoreDetails')}</div>
             <Link
-              className="w-full flex justify-between lg:w-[309px] h-[41px] rounded-[5px] dark:bg-color-panel-bg bg-[#F6F7FA] items-center"
+              className="w-full flex justify-between lg:w-[309px] h-[41px] rounded-[5px] dark:bg-color-panel-bg bg-color-light-bg-primary items-center"
               href="mailto:business@bonenza.com"
             >
               <div className="text-[10px] text-gray-500 ml-[10px]">business@bonenza</div>

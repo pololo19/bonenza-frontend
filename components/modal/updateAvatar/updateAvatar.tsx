@@ -17,13 +17,13 @@ import {
   changeIsShowUpdateAvatar,
   changeIsShowUpdateInformation,
 } from '@/base/redux/reducers/modal.reducer';
+import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
+import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 import getCroppedImg from '../cropAvatar/cropImage';
-import { CurrencyType } from '@/base/types/wallet';
-import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 
 type ModalUpdateAvatarProps = {
   onClose: () => void;
@@ -102,20 +102,20 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         setIsLoading(true);
         const formData = new FormData();
         formData.append('file', avatarFile);
-        const res = await api_uploadAvatar(formData);
+        const _res = await api_uploadAvatar(formData);
         const localFiat: CurrencyType = {
-          id: res.data.settingFiatCurrency.id ?? '',
-          name: res.data.settingFiatCurrency.symbol ?? '',
-          alias: res.data.settingFiatCurrency.name ?? '',
-          logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
-          iso_currency: res.data.settingFiatCurrency.iso_currency,
-          iso_decimals: res.data.settingFiatCurrency.iso_decimals,
+          id: _res.data.settingFiatCurrency.id ?? '',
+          name: _res.data.settingFiatCurrency.symbol ?? '',
+          alias: _res.data.settingFiatCurrency.name ?? '',
+          logo: `/img/fiats/${_res.data.settingFiatCurrency.symbol}.png`,
+          iso_currency: _res.data.settingFiatCurrency.iso_currency,
+          iso_decimals: _res.data.settingFiatCurrency.iso_decimals,
           availableNetworks: [],
-          price: Number(res.data.settingFiatCurrency.price),
+          price: Number(_res.data.settingFiatCurrency.price),
           type: 'fiat',
-          favorite: res.data.settingFiatCurrency.favorite,
+          favorite: _res.data.settingFiatCurrency.favorite,
         };
-        dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
+        dispatch(saveUserInfo({ ...convertUserInfo(_res.data) }));
         dispatch(setLocalFiat(localFiat));
         dispatch(changeIsShowInformation(true));
         dispatch(changeIsShowUpdateAvatar(false));

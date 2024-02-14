@@ -123,7 +123,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
               <td colSpan={columns.length} className="text-center ">
                 <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
                   <Image
-                    src={theme === 'dark' ? '/img/no-data.png' : '/img/no-data-light-mode.png'}
+                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
                     alt="noData"
                     width={150}
                     height={150}

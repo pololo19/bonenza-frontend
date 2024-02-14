@@ -50,7 +50,7 @@ const SettingSession = () => {
         header: 'Action',
         maxSize: 80,
         cell: ({ row }) => (
-          <div className="text-color-primary" role="button" onClick={() => removeUserSession(row.original.id)}>
+          <div className="text-color-primary" role="button" onClick={() => handleRemoveUserSession(row.original.id)}>
             Remove Device
           </div>
         ),
@@ -58,19 +58,19 @@ const SettingSession = () => {
     ];
   }, []);
 
-  const removeUserSession = async (sessionId: string) => {
+  const handleRemoveUserSession = async (sessionId: string) => {
     try {
       console.log(sessionId, '====63');
       setIsLoading(true);
       const res = await api_deleteSession(sessionId);
-      handleGetListUserSession();
+      getListUserSessions();
     } catch (error) {
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleGetListUserSession = async () => {
+  const getListUserSessions = async () => {
     try {
       setIsLoading(true);
       const res = await api_getSessions();
@@ -82,7 +82,7 @@ const SettingSession = () => {
   };
 
   useEffect(() => {
-    handleGetListUserSession();
+    getListUserSessions();
   }, []);
 
   return (

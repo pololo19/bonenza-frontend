@@ -15,7 +15,7 @@ export const NoDataComponent = ({ noDataText }: NoDataComponentProps) => {
     <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
       <Image
         className="sm:w-[150px] sm:h-[150px] w-[80px] h-[80px]"
-        src={theme === 'dark' ? '/img/no-data.png' : '/img/no-data-light-mode.png'}
+        src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
         alt="noData"
         width={150}
         height={150}

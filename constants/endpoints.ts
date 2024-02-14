@@ -110,6 +110,9 @@ const API_GAME_REVIEW_LIKE = '/game/review/like';
 /************************************ Affiliate **********************************/
 
 const API_AFFILIATE = '/affiliate/affiliate';
+const API_AFFILIATE_FRIENDS = '/affiliate/friends';
+const API_AFFILIATE_COMMISSION_REWARDS = '/affiliate/commission-rewards';
+const API_AFFILIATE_REFERRAL_REWARDS = '/affiliate/referral-rewards';
 
 /************************************ VIP **********************************/
 
@@ -144,6 +147,9 @@ const URL_EXCHANGE_RATE = 'exchange/get-exchange-rate';
 export {
   API_ADMIN_LOGIN,
   API_AFFILIATE,
+  API_AFFILIATE_COMMISSION_REWARDS,
+  API_AFFILIATE_FRIENDS,
+  API_AFFILIATE_REFERRAL_REWARDS,
   API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GENERATE_QR_CODE,

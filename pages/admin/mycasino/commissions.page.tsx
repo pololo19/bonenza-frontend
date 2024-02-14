@@ -1,21 +1,27 @@
-import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
-import AdminInputText from '@/components/input/admin/AdminInputText';
-import AdminLayout from '@/components/layouts/admin.layout';
-import AdminTableComponent from '@/components/table/adminTable';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ColumnDef } from '@tanstack/react-table';
 import { Select, Space } from 'antd';
 import cn from 'classnames';
 import { Clock, RulerPen } from 'iconsax-react';
 import Image from 'next/image';
-import { ReactElement, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
+import { api_affiliateCommissionRewards } from '@/api/bonus';
+import AdminLayout from '@/components/layouts/admin.layout';
+import Paging from '@/components/paging/paging';
+import AdminTableComponent from '@/components/table/adminTable';
+
 type FilterType = {
   username?: string;
   registrationDate?: any[];
+};
+
+type CommissionRewardType = {
+  totalCommissionRewards: number;
+  commissionRewardsAvailable: number;
 };
 
 function AdminRewardsPage() {
@@ -23,34 +29,50 @@ function AdminRewardsPage() {
 
   const { t } = useTranslation('');
 
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [totalRows, setTotalRows] = useState(0);
+  const [totalCommissionRewardsAmountUsd, setTotalCommissionRewardsAmountUsd] = useState(0);
+  const [tableData, setTableData] = useState<CommissionRewardType[]>([]);
   const schema = yup.object().shape({});
 
   const { handleSubmit, control } = useForm<FilterType>({
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FilterType) => {
-    console.log('data', data);
+  const handleChangePage = (action: string) => {
+    let newPage: number;
+    newPage = action === 'Next' ? page + 1 : page - 1;
+    setPage(newPage);
+    getCommissionData();
   };
 
-  const tableData = [
-    {
-      totalCommissionRewards: 'totalCommissionRewards',
-      commissionRewardsAvailable: 'commissionRewardsAvailable',
-    },
-    {
-      totalCommissionRewards: 'totalCommissionRewards',
-      commissionRewardsAvailable: 'commissionRewardsAvailable',
-    },
-    {
-      totalCommissionRewards: 'totalCommissionRewards',
-      commissionRewardsAvailable: 'commissionRewardsAvailable',
-    },
-    {
-      totalCommissionRewards: 'totalCommissionRewards',
-      commissionRewardsAvailable: 'commissionRewardsAvailable',
-    },
-  ];
+  const handleChangeItemPerPage = (itemPerPage: number) => {
+    setLimit(itemPerPage);
+    setPage(1);
+  };
+
+  const getCommissionData = useCallback(async () => {
+    try {
+      setIsLoadingTable(true);
+      const _res = await api_affiliateCommissionRewards(page, limit);
+      const tempCommissionData = _res.data?.rewards?.map((reward: any) => ({
+        totalCommissionRewards: Number(reward.totalCommissionRewards || 0),
+        commissionRewardsAvailable: Number(reward.commissionRewardsAvailable || 0),
+      }));
+      setTotalCommissionRewardsAmountUsd(Number(_res.data?.totalCommissionRewardsAmountUsd));
+      setTotalRows(Number(_res.data?.totalCount || 0));
+      setTableData(tempCommissionData);
+    } catch (error) {
+      setTableData([]);
+    } finally {
+      setIsLoadingTable(false);
+    }
+  }, [page, limit]);
+
+  useEffect(() => {
+    getCommissionData();
+  }, []);
 
   const columns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -81,7 +103,7 @@ function AdminRewardsPage() {
         <div className="min-h-[75px] flex items-center justify-between gap-[20px]">
           <div>
             <span>{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
-            <span className="text-[40px] text-amber-400 font-[700]">20 USD</span>
+            <span className="text-[40px] text-amber-400 font-[700]">{totalCommissionRewardsAmountUsd} USD</span>
           </div>
           <div className="flex items-center text-[14px] gap-4">
             <button className="flex items-center gap-1 font-[500]">
@@ -98,6 +120,14 @@ function AdminRewardsPage() {
             isLoading={isLoadingTable}
             data={tableData}
             columns={columns}
+          />
+          <Paging
+            onPageChange={handleChangePage}
+            itemPerPage={limit}
+            totalItem={totalRows}
+            currentPage={page}
+            setItemPerPage={handleChangeItemPerPage}
+            hiddenPerPage={true}
           />
         </div>
         <div className="max-w-[500px] w-[500px] bg-[#f7f7fa] px-10 py-6">

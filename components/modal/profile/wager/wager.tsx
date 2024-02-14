@@ -1,5 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
@@ -9,7 +10,6 @@ import { AppState } from '@/base/redux/store';
 import { UserDetail, WagerDetail } from '@/base/types/common';
 import Paging from '@/components/paging/paging';
 import RankingTableComponent from '@/components/table/rankingTable';
-import { useTheme } from 'next-themes';
 
 type WagerContestProps = {
   userData?: UserDetail;

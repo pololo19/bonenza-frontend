@@ -1,7 +1,8 @@
-import { useTranslation } from '@/base/config/i18next';
-import BaseLayout from '@/components/layouts/base.layout';
 import Image from 'next/image';
 import { ReactElement } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
+import BaseLayout from '@/components/layouts/base.layout';
 
 function ConstructionPage() {
   const { t } = useTranslation('');

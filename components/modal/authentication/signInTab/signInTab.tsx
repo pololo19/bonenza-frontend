@@ -122,8 +122,8 @@ export default function SignInTab({
           password: formLogin.password,
           phone: isPhoneNumber ? `+${String(countryCallingCode?.countryCallingCode) + formLogin.email}` : '',
         };
-        const res = await api_login(request);
-        const { token, user } = res.data;
+        const _res = await api_login(request);
+        const { token, user } = _res.data;
         const localFiat: CurrencyType = {
           id: user.settingFiatCurrency.id ?? '',
           name: user.settingFiatCurrency.symbol ?? '',

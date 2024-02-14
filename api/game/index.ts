@@ -83,6 +83,8 @@ export const api_getCasinoWithKey = async (key: string, params: CasinoRequest) =
       return api.get(API_GAME_FEATURE_BUY_IN, { params });
     case 'table-games':
       return api.get(API_GAME_TABLE_GAMES, { params });
+    case 'top-picks':
+      return api.get(API_GAME_PICK_GAMES, { params });
     default:
       return api.get(API_GAME_SLOT, { params });
   }
