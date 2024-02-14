@@ -55,7 +55,6 @@ function CasinoPage() {
     megaways: [],
     exclusives: [],
   });
-  const [tab, setTab] = useState(1);
 
   const handleGetGames = async () => {
     const initGameDatas: ListGamesType = {
@@ -73,10 +72,10 @@ function CasinoPage() {
       setIsLoading(true);
       const keys = ['slots', 'hot-games', 'live-casino', 'new-releases', 'blackjack', 'table-games'];
       const params: CasinoRequest = { page: 1, pageSize: 20, providers: '[]', sort: 'like' };
-      const res = await Promise.all(keys.map((key) => api_getCasinoWithKey(key, params)));
+      const _res = await Promise.all(keys.map((key) => api_getCasinoWithKey(key, params)));
       let tempGameLists: ListGamesType = { ...initGameDatas };
-      for (let i = 0; i < res.length; i++) {
-        const element = res[i];
+      for (let i = 0; i < _res.length; i++) {
+        const element = _res[i];
         const totalCount = element?.data?.totalCount ?? 0;
         const games = element?.data?.games ?? [];
         const tempGameListData = games?.map((item: any) => ({
@@ -107,8 +106,8 @@ function CasinoPage() {
   const getListProvidersAndThemes = async () => {
     try {
       setIsLoading(true);
-      const [resProviders, resThemes] = await Promise.all([api_getProviders(), api_getThemes()]);
-      const providers = resProviders.data.map((provider: any) => ({
+      const [_resProviders, _resThemes] = await Promise.all([api_getProviders(), api_getThemes()]);
+      const providers = _resProviders.data.map((provider: any) => ({
         id: provider.id,
         name: provider.name,
         image: provider.identifier,
@@ -116,7 +115,7 @@ function CasinoPage() {
         totalGames: provider.gameCount,
       }));
 
-      const themes = [...resThemes.data];
+      const themes = [..._resThemes.data];
       setListProvider(providers);
       setListTheme(themes);
     } catch (error) {
@@ -154,106 +153,104 @@ function CasinoPage() {
       <TabGames />
 
       {/* Game Options */}
-      {tab === 1 && (
-        <div className="flex flex-col gap-[30px]">
-          <CasinoSS
-            title={String(t('casino:bonenzaOriginals'))}
-            data={listGames.games}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Category('Bonenza Mini Games')}
-          />
-          <div className="relative sm:block hidden">
-            <RecentBigWinComponent />
-          </div>
-
-          <CasinoSS
-            title={String(t('casino:slot'))}
-            data={listGames.slots}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('slots')}
-          />
-          <CasinoSS
-            title={String(t('casino:hotGame'))}
-            data={listGames.hotGames}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('Hot Games')}
-          />
-          <CasinoSS
-            title={String(t('casino:liveCasino'))}
-            data={listGames.liveCasinos}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('Live Casino')}
-          />
-          <CasinoSS
-            title={String(t('casino:gameProvider'))}
-            data={listProvider}
-            viewAllUrl={ROUTER.Providers}
-            renderItem={(item: GameProviderDetail) => (
-              <Link
-                href={ROUTER.Provider(String(item.name))}
-                role="button"
-                className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
-              >
-                <Image
-                  height={0}
-                  width={0}
-                  src={`https://cdn.softswiss.net/logos/providers_small/color/${item?.image}.svg`}
-                  alt=""
-                  onError={(e) => {
-                    e.currentTarget.src = `/img/providers/softswiss.png`;
-                  }}
-                  className="object-cover max-w-[150px] sm:max-h-[50px] max-h-[30px] w-auto rounded-[5px]"
-                />
-              </Link>
-            )}
-          />
-          <CasinoSS
-            title={String(t('casino:newReleases'))}
-            data={listGames.newReleases}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('New Releases')}
-          />
-          <CasinoSS
-            title={String(t('casino:blackjack'))}
-            data={listGames.blackjacks}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('Blackjack')}
-          />
-          <CasinoSS
-            title={String(t('casino:themes'))}
-            data={listTheme}
-            viewAllUrl={ROUTER.Themes}
-            renderItem={(item: string) => (
-              <Link
-                href={ROUTER.Theme(String(item))}
-                role="button"
-                className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70
-                 gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
-              >
-                {snakeCaseToString(item)}
-              </Link>
-            )}
-          />
-          <CasinoSS
-            title={String(t('casino:bonenzaExclusives'))}
-            data={listGames.exclusives}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('Bonenza Exclusives')}
-          />
-          <CasinoSS
-            title={String(t('casino:tableGames'))}
-            data={listGames.tableGames}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('Table Games')}
-          />
-          <CasinoSS
-            title={String(t('casino:megaways'))}
-            data={listGames.megaways}
-            renderItem={(item) => <GameCard gameDetail={item} />}
-            viewAllUrl={ROUTER.Tagname('Megaways')}
-          />
+      <div className="flex flex-col gap-[30px]">
+        <CasinoSS
+          title={String(t('casino:bonenzaOriginals'))}
+          data={listGames.games}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Category('Bonenza Mini Games')}
+        />
+        <div className="relative sm:block hidden">
+          <RecentBigWinComponent />
         </div>
-      )}
+
+        <CasinoSS
+          title={String(t('casino:slot'))}
+          data={listGames.slots}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('slots')}
+        />
+        <CasinoSS
+          title={String(t('casino:hotGame'))}
+          data={listGames.hotGames}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('Hot Games')}
+        />
+        <CasinoSS
+          title={String(t('casino:liveCasino'))}
+          data={listGames.liveCasinos}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('Live Casino')}
+        />
+        <CasinoSS
+          title={String(t('casino:gameProvider'))}
+          data={listProvider}
+          viewAllUrl={ROUTER.Providers}
+          renderItem={(item: GameProviderDetail) => (
+            <Link
+              href={ROUTER.Provider(String(item.name))}
+              role="button"
+              className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
+            >
+              <Image
+                height={0}
+                width={0}
+                src={`https://cdn.softswiss.net/logos/providers_small/color/${item?.image}.svg`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = `/img/providers/softswiss.png`;
+                }}
+                className="object-cover max-w-[150px] sm:max-h-[50px] max-h-[30px] w-auto rounded-[5px]"
+              />
+            </Link>
+          )}
+        />
+        <CasinoSS
+          title={String(t('casino:newReleases'))}
+          data={listGames.newReleases}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('New Releases')}
+        />
+        <CasinoSS
+          title={String(t('casino:blackjack'))}
+          data={listGames.blackjacks}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('Blackjack')}
+        />
+        <CasinoSS
+          title={String(t('casino:themes'))}
+          data={listTheme}
+          viewAllUrl={ROUTER.Themes}
+          renderItem={(item: string) => (
+            <Link
+              href={ROUTER.Theme(String(item))}
+              role="button"
+              className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70
+                 gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
+            >
+              {snakeCaseToString(item)}
+            </Link>
+          )}
+        />
+        <CasinoSS
+          title={String(t('casino:bonenzaExclusives'))}
+          data={listGames.exclusives}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('Bonenza Exclusives')}
+        />
+        <CasinoSS
+          title={String(t('casino:tableGames'))}
+          data={listGames.tableGames}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('Table Games')}
+        />
+        <CasinoSS
+          title={String(t('casino:megaways'))}
+          data={listGames.megaways}
+          renderItem={(item) => <GameCard gameDetail={item} />}
+          viewAllUrl={ROUTER.Tagname('Megaways')}
+        />
+      </div>
 
       <div className="w-full relative mt-4">
         <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false}>

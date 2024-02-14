@@ -165,7 +165,7 @@ const WithdrawCryptoPage = () => {
     }
   };
 
-  const handleError = (formWithdraw: WithdrawFormType) => {
+  const wrappErrors = (formWithdraw: WithdrawFormType) => {
     let messError = '';
     let validate = false;
     if (!formWithdraw.withdrawAddress) {
@@ -188,7 +188,7 @@ const WithdrawCryptoPage = () => {
   };
 
   const handleConfirmWithdraw = async (formWithdraw: WithdrawFormType) => {
-    const validate = handleError(formWithdraw);
+    const validate = wrappErrors(formWithdraw);
     if (validate) {
       return;
     }

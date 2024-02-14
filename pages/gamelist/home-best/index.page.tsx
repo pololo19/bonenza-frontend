@@ -4,8 +4,7 @@ import Head from 'next/head';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import api from '@/api/api';
-import { api_getPickGames, api_getTopRelatedGames } from '@/api/game';
+import { api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
@@ -26,16 +25,16 @@ function CasinoTagnamePage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
 
-  const handleGetListGame = async () => {
+  const getListGames = async () => {
     const params = {
       limit: 40,
       page: currentPage || 1,
     };
     try {
       setIsLoading(true);
-      const res = await api_getPickGames(currentPage || 1, 40);
+      const _res = await api_getPickGames(currentPage || 1, 40);
 
-      const tempGameLists: GameListType[] = res.data.map((item: any) => ({
+      const tempGameLists: GameListType[] = _res.data.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: '',
@@ -46,8 +45,8 @@ function CasinoTagnamePage() {
         releasedAt: new Date(),
       }));
       setListGame((current) => [...current, ...tempGameLists]);
-      setTotalGames(res.data.totalCount);
-      if (res.data.games.length < 40) {
+      setTotalGames(_res.data.totalCount);
+      if (_res.data.games.length < 40) {
         setIsShowMore(false);
       }
     } catch (error) {
@@ -62,7 +61,7 @@ function CasinoTagnamePage() {
   }, [listGame, totalGames]);
 
   useEffect(() => {
-    handleGetListGame();
+    getListGames();
   }, [currentPage]);
 
   return (

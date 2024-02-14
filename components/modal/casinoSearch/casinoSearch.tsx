@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { useDebounce, useDebouncedCallback } from 'use-debounce';
+import { useDebounce } from 'use-debounce';
 
 import { api_getGamesByNameAndProvider, api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
@@ -51,11 +51,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const [listSearchGame, setListSearchGame] = useState<GameListType[]>([]);
   const [history, sethistory] = useState<string[]>([]);
 
-  const handleGetSearchGame = async (search: string) => {
+  const onSearchGames = async (search: string) => {
     try {
       setIsLoading(true);
-      const res = await api_getGamesByNameAndProvider(search);
-      const tempGameLists = res.data.data.map((item: any) => ({
+      const _res = await api_getGamesByNameAndProvider(search);
+      const tempGameLists = _res.data.data.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -76,8 +76,8 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const getRecommandGames = async () => {
     try {
       setIsLoading(true);
-      const recommendedGames = await api_getPickGames(1, 20);
-      const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
+      const _res = await api_getPickGames(1, 20);
+      const tempListRecommandedGames: GameListType[] = _res.data.games.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -97,7 +97,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
 
   useEffect(() => {
     if (debouncedSearchValue.length >= 3) {
-      handleGetSearchGame(debouncedSearchValue);
+      onSearchGames(debouncedSearchValue);
 
       const casinoSearchHistories = CookiesStorage.getCookieData('casinoSearch');
       if (!casinoSearchHistories) {

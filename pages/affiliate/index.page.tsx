@@ -2,10 +2,8 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { Add, Minus, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
-import { useTheme } from 'next-themes';
 import { ReactElement, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -24,7 +22,6 @@ import styles from './index.module.scss';
 function AffiliatePage() {
   const exchange = useExchange();
   const { t, i18n } = useTranslation('');
-  const { theme } = useTheme();
   const dispatch = useDispatch();
 
   const [showDetailCommissionsRewards, setShowDetailCommissionsRewards] = useState(false);

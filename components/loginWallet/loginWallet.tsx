@@ -38,8 +38,8 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const googleLogin = async (codeResponse: Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>) => {
     try {
       setIsLoading(true);
-      const result = await api_loginWithGoogle(codeResponse.code);
-      await successfullyLogined(result);
+      const _res = await api_loginWithGoogle(codeResponse.code);
+      await onSuccessfullyLogined(_res);
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
@@ -66,8 +66,8 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
           setIsLoading(false);
           return;
         }
-        const result = await api_loginWithTelegram(data);
-        await successfullyLogined(result);
+        const _res = await api_loginWithTelegram(data);
+        await onSuccessfullyLogined(_res);
         onClose();
         toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
       });
@@ -85,8 +85,8 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       if (!isConnected) return;
       const message = getMessageMetamask(String(address));
       const signauture = await signMessageAsync({ message });
-      const result = await api_loginWithWallet(String(address), String(signauture));
-      await successfullyLogined(result);
+      const _res = await api_loginWithWallet(String(address), String(signauture));
+      await onSuccessfullyLogined(_res);
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
@@ -101,9 +101,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
     }
   };
 
-  const successfullyLogined = async (result: any) => {
+  const onSuccessfullyLogined = async (_res: any) => {
     try {
-      const { token, user } = result.data;
+      const { token, user } = _res.data;
       CookiesStorage.setAccessToken(token);
       const localFiat: CurrencyType = {
         id: user.settingFiatCurrency.id ?? '',

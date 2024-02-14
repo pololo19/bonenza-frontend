@@ -46,10 +46,10 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
       formData.append('photo_front', data.frontCard);
       formData.append('photo_back', data.backCard);
       await api.post('/user-setting/confirm-kyc', formData);
-      const resUser = await api.get('auth/get-user-info');
+      const _res = await api.get('auth/get-user-info');
       dispatch(
         saveUserInfo({
-          ...convertUserInfo(resUser.data.data),
+          ...convertUserInfo(_res.data.data),
         }),
       );
       onClose();

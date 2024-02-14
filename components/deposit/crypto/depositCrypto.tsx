@@ -34,7 +34,6 @@ const DepositCryptoComponent = () => {
     type: 1,
   });
   const [openDepositMetamask, setOpenDepositMetamask] = useState<boolean>(false);
-  const [depositBonus, setDepositBonus] = useState<any>();
 
   const { Canvas } = useQRCode();
   const { t } = useTranslation('');

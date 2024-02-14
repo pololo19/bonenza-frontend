@@ -99,7 +99,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn(isLoading && styles.loader, 'sm:!text-[14px] !text-[12px] bg-[#f7f8fa]')}>
+        <tbody className={cn(isLoading && styles.loader, 'sm:!text-[14px] !text-[12px] bg-[#f7f8fa] min-h-[500px]')}>
           {!!data.length &&
             getRowModel().rows.map((row) => (
               <tr
@@ -117,12 +117,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
             <tr className="">
               <td colSpan={columns.length} className="text-center ">
                 <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
-                  <Image
-                    src={'/img/no-data-light-mode.png'}
-                    alt="noData"
-                    width={150}
-                    height={150}
-                  />
+                  <Image src={'/img/no-data-light-mode.png'} alt="noData" width={150} height={150} />
                   {noDataText || t('table:noData')}
                 </div>
               </td>

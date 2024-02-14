@@ -89,14 +89,14 @@ const RolloverPage = () => {
     return status.split('_').join(' ');
   };
 
-  const columns: ColumnDef<any>[] = useMemo(() => {
+  const columns: ColumnDef<RolloverType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'type',
         header: () => (
           <div className="text-left dark:text-color-text-primary text-black">{String(t('transaction:type'))}</div>
         ),
-        cell: ({ row }) => <div className="dark:text-white text-black text-left truncate">{row.original?.type}</div>,
+        cell: ({ row }) => <div className="dark:text-white text-black text-left truncate">{row.original.type}</div>,
         minSize: 30,
       },
       {
@@ -155,7 +155,7 @@ const RolloverPage = () => {
     ];
   }, [localFiat, i18n.language, exchange, viewInFiat]);
 
-  const handleGetRolloverOverview = useCallback(
+  const getRolloverOverview = useCallback(
     async (page: number) => {
       if (optionFilter.type.name === LIST_FILTER_TYPE[2].name) {
         setDataTable([]);
@@ -164,13 +164,13 @@ const RolloverPage = () => {
       }
       try {
         setIsLoading(true);
-        const res = await api_getRollover({
+        const _res = await api_getRollover({
           page,
           pageSize: limit,
           status: optionFilter.status.type as RolloverStatus,
         });
-        const totalCount = res.data?.totalCount;
-        const tempRollovers: RolloverType[] = res.data?.transactions?.map((item: any) => ({
+        const totalCount = _res.data?.totalCount;
+        const tempRollovers: RolloverType[] = _res.data?.transactions?.map((item: any) => ({
           id: item?.id ?? '',
           type: 'Deposit',
           amount: Number(item?.amount ?? 0),
@@ -208,7 +208,7 @@ const RolloverPage = () => {
     let newPage: number;
     newPage = action === 'Next' ? page + 1 : page - 1;
     setPage(newPage);
-    handleGetRolloverOverview(newPage);
+    getRolloverOverview(newPage);
   };
 
   const handleChangeItemPerPage = (itemPerPage: number) => {
@@ -218,7 +218,7 @@ const RolloverPage = () => {
 
   useEffect(() => {
     setPage(1);
-    handleGetRolloverOverview(1);
+    getRolloverOverview(1);
   }, [optionFilter, limit]);
 
   return (

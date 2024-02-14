@@ -1,14 +1,14 @@
+import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { api_getVipProgress } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
+import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
-import { ArrowRight } from 'iconsax-react';
-import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
-import { useDispatch } from 'react-redux';
 
 const VipProgressComponent = () => {
   const dispatch = useDispatch();
@@ -36,17 +36,17 @@ const VipProgressComponent = () => {
   const handleGetVipProgress = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getVipProgress();
-      setCheckDeposit(res.data.totalDepositAmountUsd > 0);
+      const _res = await api_getVipProgress();
+      setCheckDeposit(_res.data.totalDepositAmountUsd > 0);
       setCurrentLevel({
-        xp: res.data?.currentXp ?? 0,
-        level: res.data?.currentVipLevel ?? 0,
-        name: res.data?.currentVipName ?? '',
-        remainingXp: res.data?.remainingXp ?? 0,
-        nextLevel: res.data?.nextVipLevel ?? 0,
-        nextName: res.data?.nextVipName ?? '',
-        nextXp: res.data?.nextVipXp ?? 0,
-        nextLevelBonus: Number(res.data?.nextLevelBonus ?? 0),
+        xp: _res.data?.currentXp ?? 0,
+        level: _res.data?.currentVipLevel ?? 0,
+        name: _res.data?.currentVipName ?? '',
+        remainingXp: _res.data?.remainingXp ?? 0,
+        nextLevel: _res.data?.nextVipLevel ?? 0,
+        nextName: _res.data?.nextVipName ?? '',
+        nextXp: _res.data?.nextVipXp ?? 0,
+        nextLevelBonus: Number(_res.data?.nextLevelBonus ?? 0),
       });
     } catch (error) {
       console.log(error);

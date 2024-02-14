@@ -87,8 +87,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
   const getVipData = async () => {
     try {
       setIsLoading(true);
-      const [vipProgress, vipLevels] = await Promise.all([api_getVipProgress(), api_vipLevelSystem()]);
-      const tempRankData: rankDataType[] = vipLevels.data?.levelSystem?.map((item: any) => ({
+      const [_resVipProgress, _resVipLevels] = await Promise.all([api_getVipProgress(), api_vipLevelSystem()]);
+      const tempRankData: rankDataType[] = _resVipLevels.data?.levelSystem?.map((item: any) => ({
         name: item.medalName ?? '',
         startLevel: Number(item.startLevelNum ?? 0),
         startLevelDes: item.startLevel ?? '',
@@ -101,16 +101,16 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
           monthlyCashbackPercentage: Number(bonus.monthlyCashbackPercentage ?? 0),
         })),
       }));
-      const currentLevel = vipProgress.data?.currentVipLevel ?? 1;
+      const currentLevel = _resVipProgress.data?.currentVipLevel ?? 1;
       setVipData({
-        xp: vipProgress.data?.currentXp ?? 0,
-        level: vipProgress.data?.currentVipLevel ?? 1,
-        name: vipProgress.data?.currentVipName ?? '',
-        remainingXp: vipProgress.data?.remainingXp ?? 0,
-        nextLevel: vipProgress.data?.nextVipLevel ?? 0,
-        nextName: vipProgress.data?.nextVipName ?? '',
-        nextXp: vipProgress.data?.nextVipXp ?? 0,
-        nextLevelBonus: Number(vipProgress.data?.nextLevelBonus ?? 0),
+        xp: _resVipProgress.data?.currentXp ?? 0,
+        level: _resVipProgress.data?.currentVipLevel ?? 1,
+        name: _resVipProgress.data?.currentVipName ?? '',
+        remainingXp: _resVipProgress.data?.remainingXp ?? 0,
+        nextLevel: _resVipProgress.data?.nextVipLevel ?? 0,
+        nextName: _resVipProgress.data?.nextVipName ?? '',
+        nextXp: _resVipProgress.data?.nextVipXp ?? 0,
+        nextLevelBonus: Number(_resVipProgress.data?.nextLevelBonus ?? 0),
       });
       if (tempRankData.length > 0) {
         const userRank = tempRankData.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);

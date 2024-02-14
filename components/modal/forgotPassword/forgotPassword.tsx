@@ -35,7 +35,7 @@ export default function ModalForgotPassword() {
       .trim(),
   });
 
-  const handleError = () => {
+  const wrappErrors = () => {
     let error = false;
     let mes = '';
     const email = getValues('email');
@@ -67,7 +67,7 @@ export default function ModalForgotPassword() {
   });
 
   const onReset = async (formReset: ForgotPasswordFormType) => {
-    if (handleError()) return;
+    if (wrappErrors()) return;
     try {
       setIsLoading(true);
       const isPhoneNumber = formReset.email?.length > 2 && Number.isInteger(Number(formReset.email));

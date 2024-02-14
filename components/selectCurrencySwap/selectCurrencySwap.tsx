@@ -96,7 +96,6 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const handleErrors = () => {
     let error = false;
     let messError = '';
-    console.log(minSwap, '-----99', Number(getValues('amountFrom')));
     if (Number(getValues('amountFrom')) == 0) {
       error = true;
       messError = t('swap:inValidSwapAmount');

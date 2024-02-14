@@ -1,18 +1,22 @@
-import api from '@/api/api';
-import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
-import { formatDate } from '@/base/libs/utils';
-import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
-import AdminInputText from '@/components/input/admin/AdminInputText';
-import AdminLayout from '@/components/layouts/admin.layout';
-import AdminTableComponent from '@/components/table/adminTable';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
 import { Clock, RulerPen } from 'iconsax-react';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { shallowEqual, useSelector } from 'react-redux';
 import * as yup from 'yup';
+
+import { api_affiliateReferralRewards } from '@/api/bonus';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { formatDate } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
+import AdminInputText from '@/components/input/admin/AdminInputText';
+import AdminLayout from '@/components/layouts/admin.layout';
+import Paging from '@/components/paging/paging';
+import AdminTableComponent from '@/components/table/adminTable';
 
 type FilterType = {
   username?: string;
@@ -20,17 +24,27 @@ type FilterType = {
 };
 
 type RewardType = {
-  level?: number;
-  referralCode?: string;
-  registrationTime?: Date;
-  totalEarnedMe?: string;
-  username?: string;
+  level: number;
+  referralCode: string;
+  registrationTime: Date;
+  totalEarnedMe: string;
+  username: string;
 };
 
 function AdminRewardsPage() {
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
   const [tableData, setTableData] = useState<RewardType[]>([]);
   const { t } = useTranslation('');
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState<number>(10);
+  const [totalRows, setTotalRows] = useState<number>(0);
+  const [referralRewardsAmount, setReferralRewardsAmount] = useState(0);
+  const { referralCode } = useSelector(
+    (state: AppState) => ({
+      referralCode: state.auth.user.referralCode,
+    }),
+    shallowEqual,
+  );
 
   const schema = yup.object().shape({});
 
@@ -38,28 +52,58 @@ function AdminRewardsPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = async (data: FilterType) => {
-    await handleListFriend(data);
-    console.log('data', data.registrationDate);
+  const handleChangePage = (action: string) => {
+    let newPage: number;
+    newPage = action === 'Next' ? page + 1 : page - 1;
+    setPage(newPage);
+    handleRewards();
   };
 
-  const handleListFriend = async (filter?: FilterType) => {
-    try {
-      setIsLoadingTable(true);
-      const res = await api.get('affiliate/get-reward-list', {
-        params: {
-          username: filter?.username,
-          startDate: filter?.registrationDate?.[0]?.$d,
-          endDate: filter?.registrationDate?.[1]?.$d,
-        },
-      });
-      setTableData(res.data.data);
-    } catch (error) {
-      setTableData([]);
-    } finally {
-      setIsLoadingTable(false);
-    }
+  const handleChangeItemPerPage = (itemPerPage: number) => {
+    setLimit(itemPerPage);
+    setPage(1);
   };
+
+  const onSubmit = async (data: FilterType) => {
+    await handleRewards(data);
+  };
+
+  const handleRewards = useCallback(
+    async (filter?: FilterType) => {
+      try {
+        setIsLoadingTable(true);
+        const registrationStartDate = filter?.registrationDate
+          ? new Date(filter.registrationDate[0]).getTime()
+          : undefined;
+        const registrationEndDate = filter?.registrationDate
+          ? new Date(filter.registrationDate[1]).getTime()
+          : undefined;
+        const _res = await api_affiliateReferralRewards(
+          page,
+          limit,
+          filter?.username,
+          registrationStartDate,
+          registrationEndDate,
+        );
+        const tempTableData: RewardType[] =
+          _res.data?.rewards?.map((item: any) => ({
+            level: item.vipLevel,
+            referralCode: referralCode,
+            registrationTime: new Date(item.registrationDate),
+            totalEarnedMe: item.earnedMe,
+            username: item.userName,
+          })) || [];
+        setTotalRows(Number(_res.data?.totalCount || 0));
+        setReferralRewardsAmount(Number(_res.data.totalReferralRewardsAmountUsd || 0));
+        setTableData(tempTableData);
+      } catch (error) {
+        setTableData([]);
+      } finally {
+        setIsLoadingTable(false);
+      }
+    },
+    [page, limit],
+  );
 
   const columns: ColumnDef<any>[] = useMemo(() => {
     return [
@@ -105,7 +149,7 @@ function AdminRewardsPage() {
   }, []);
 
   useEffect(() => {
-    handleListFriend();
+    handleRewards();
   }, []);
 
   return (
@@ -116,11 +160,12 @@ function AdminRewardsPage() {
             <div>
               <div>
                 <span className="text-[#6f6f6f]">{t('mycasino:newlyAvailable')}</span>&nbsp;&nbsp;
-                <span className="text-[40px] text-amber-400 font-[500]">20 USD</span>
+                <span className="text-[40px] text-amber-400 font-[500]">{referralRewardsAmount} USD</span>
               </div>
               <div className="flex lg:flex-row flex-col lg:items-center items-start gap-4 text-[14px]">
                 <div>
-                  {t('mycasino:receivedInTotal')} <span className="text-[14px] text-amber-400">20 USD</span>
+                  {t('mycasino:receivedInTotal')}{' '}
+                  <span className="text-[14px] text-amber-400">{referralRewardsAmount} USD</span>
                 </div>
                 <div>
                   {t('mycasino:theFriends')}
@@ -145,12 +190,12 @@ function AdminRewardsPage() {
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
         <form onSubmit={handleSubmit(onSubmit)} className="min-h-[120px] flex flex-wrap items-center gap-[20px]">
           <div className="flex flex-col items-start gap-1">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">{t('mycasino:Username')}</label>
             <AdminInputText control={control} name="username" placeholder="Please input" customClass="min-w-[200px]" />
           </div>
 
           <div className="flex flex-col items-start gap-1">
-            <label htmlFor="registrationDate">{t('mycasino:Username')}</label>
+            <label htmlFor="registrationDate">{t('mycasino:registrationDate')}</label>
             <AdminInputDateRange control={control} name="registrationDate" customClass="min-w-[350px]" />
           </div>
           <div className="flex flex-col items-start gap-1">
@@ -167,6 +212,14 @@ function AdminRewardsPage() {
           isLoading={isLoadingTable}
           data={tableData}
           columns={columns}
+        />
+        <Paging
+          onPageChange={handleChangePage}
+          itemPerPage={limit}
+          totalItem={totalRows}
+          currentPage={page}
+          setItemPerPage={handleChangeItemPerPage}
+          hiddenPerPage={true}
         />
       </div>
     </div>

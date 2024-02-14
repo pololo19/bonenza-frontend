@@ -9,8 +9,7 @@ import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
-import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail, GameListType } from '@/base/types/common';
+import { GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -19,7 +18,6 @@ import { NoDataComponent } from '@/components/noData/noData';
 
 function CasinoTagnamePage() {
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
   const { query } = useRouter();
   const { key } = query;
 
@@ -37,10 +35,10 @@ function CasinoTagnamePage() {
     };
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-all-games', { params: params });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40) {
+      const _res = await api.get('game/get-all-games', { params: params });
+      setListGame((current) => [...current, ..._res.data.data]);
+      setTotalGames(_res.data.totalGames);
+      if (_res.data.data.length < 40) {
         setIsShowMore(false);
       }
     } catch (error) {
@@ -53,10 +51,10 @@ function CasinoTagnamePage() {
   const handleGetListBonenzaMiniGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('game/get-bonenza-mini-games', { params: { limit: 40, page: currentPage || 1 } });
-      setListGame((current) => [...current, ...res.data.data]);
-      setTotalGames(res.data.totalGames);
-      if (res.data.data.length < 40) {
+      const _res = await api.get('game/get-bonenza-mini-games', { params: { limit: 40, page: currentPage || 1 } });
+      setListGame((current) => [...current, ..._res.data.data]);
+      setTotalGames(_res.data.totalGames);
+      if (_res.data.data.length < 40) {
         setIsShowMore(false);
       }
     } catch (error) {

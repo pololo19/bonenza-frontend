@@ -1,19 +1,23 @@
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ColumnDef } from '@tanstack/react-table';
+import cn from 'classnames';
+import { Coin } from 'iconsax-react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { shallowEqual, useSelector } from 'react-redux';
+import * as yup from 'yup';
+
+import { api_affiliateFriends } from '@/api/bonus';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { formatDate } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
 import AdminInputText from '@/components/input/admin/AdminInputText';
 import AdminSelectBox from '@/components/input/admin/AdminSelectBox';
 import AdminLayout from '@/components/layouts/admin.layout';
+import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { ColumnDef } from '@tanstack/react-table';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
-import cn from 'classnames';
-import api from '@/api/api';
-import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
-import { formatDate } from '@/base/libs/utils';
-import { Coin } from 'iconsax-react';
-import { useTranslation } from 'react-i18next';
 
 type FilterType = {
   username?: string;
@@ -27,46 +31,97 @@ type AffiliateFriendType = {
   referralCode: string;
   registrationDate: Date;
   status: string;
-  totalCommission: string;
-  totalDeposit: string;
-  totalWager: string;
+  totalCommission: number;
+  totalWager: number;
   userId: number;
   username: string;
 };
 
 function AdminFriendsManagementPage() {
+  const [totalFriendsCnt, setTotalFriendsCnt] = useState(0);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
+  const [limit, setLimit] = useState<number>(10);
+  const [totalRows, setTotalRows] = useState<number>(0);
   const schema = yup.object().shape({});
   const [tableData, setTableData] = useState<AffiliateFriendType[]>([]);
   const { t } = useTranslation('');
+
+  const { referralCode, user } = useSelector(
+    (state: AppState) => ({
+      referralCode: state.auth.user.referralCode,
+      user: state.auth.user,
+    }),
+    shallowEqual,
+  );
+
+  const [page, setPage] = useState(1);
+
+  const handleChangePage = (action: string) => {
+    let newPage: number;
+    newPage = action === 'Next' ? page + 1 : page - 1;
+    setPage(newPage);
+    getListFriends();
+  };
+
+  const handleChangeItemPerPage = (itemPerPage: number) => {
+    setLimit(itemPerPage);
+    setPage(1);
+  };
 
   const { handleSubmit, control } = useForm<FilterType>({
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (data: FilterType) => {
-    await handleListFriend(data);
+    await getListFriends(data);
   };
 
-  const handleListFriend = async (filter?: FilterType) => {
-    try {
-      setIsLoadingTable(true);
-      const res = await api.get('affiliate/get-list-friends-management', {
-        params: {
-          userid: filter?.userId,
-          username: filter?.username,
-        },
-      });
-      setTableData(res.data.data);
-    } catch (error) {
-      setTableData([]);
-    } finally {
-      setIsLoadingTable(false);
-    }
-  };
+  const getListFriends = useCallback(
+    async (filter?: FilterType) => {
+      try {
+        setIsLoadingTable(true);
+        const registrationStartDate = filter?.registrationDate
+          ? new Date(filter.registrationDate[0]).getTime()
+          : undefined;
+        const registrationEndDate = filter?.registrationDate
+          ? new Date(filter.registrationDate[1]).getTime()
+          : undefined;
+        const wagerStartDate = filter?.wagerDateRange ? new Date(filter.wagerDateRange[0]).getTime() : undefined;
+        const wagerEndDate = filter?.wagerDateRange ? new Date(filter.wagerDateRange[0]).getTime() : undefined;
+        const _res = await api_affiliateFriends(
+          page,
+          limit,
+          filter?.username,
+          filter?.userId,
+          registrationStartDate,
+          registrationEndDate,
+          wagerStartDate,
+          wagerEndDate,
+        );
+        const tempFriendsData =
+          _res.data?.friends.map((item: any) => ({
+            referralCode: referralCode,
+            registrationDate: new Date(item.userRegisteredDate),
+            status: '',
+            totalCommission: Number(item.totalCommissionRewardsAmountUsd || 0),
+            totalWager: Number(item.totalWagerAmountUsd || 0),
+            userId: item.userId,
+            username: item.userName,
+          })) || [];
+        setTotalRows(Number(_res.data?.totalCount || 0));
+        setTotalFriendsCnt(Number(_res.data?.totalCount || 0));
+        setTableData(tempFriendsData);
+      } catch (error) {
+        setTableData([]);
+      } finally {
+        setIsLoadingTable(false);
+      }
+    },
+    [page, referralCode, limit],
+  );
 
   useEffect(() => {
-    handleListFriend();
+    getListFriends();
   }, []);
 
   const columns: ColumnDef<any>[] = useMemo(() => {
@@ -86,15 +141,6 @@ function AdminFriendsManagementPage() {
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
             <div className="font-bold truncate">{row.original.userId}</div>
-          </div>
-        ),
-      },
-      {
-        accessorKey: 'totalDeposit',
-        header: () => <div className="text-left">{t('mycasino:totalDeposit')}</div>,
-        cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{row.original.totalDeposit}</div>
           </div>
         ),
       },
@@ -122,7 +168,7 @@ function AdminFriendsManagementPage() {
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
             <div className="font-bold truncate">
-              {formatDate(new Date(row.original.createdAt), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+              {formatDate(new Date(row.original.registrationDate), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
             </div>
           </div>
         ),
@@ -147,7 +193,7 @@ function AdminFriendsManagementPage() {
       },
       {
         accessorKey: 'tip',
-        header: () => <div className="text-left">{t('mycasino:status')}</div>,
+        header: () => <div className="text-left">{t('mycasino:tip')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-amber-500 gap-[5px] truncate')}>
             <Coin size={20} />
@@ -164,7 +210,7 @@ function AdminFriendsManagementPage() {
         <div className="min-h-[75px] flex items-center gap-[20px]">
           <span>
             <span>{t('mycasino:friendsNumber')}</span>&nbsp;&nbsp;
-            <span className="text-[40px]">20</span>
+            <span className="text-[40px]">{totalFriendsCnt}</span>
           </span>
         </div>
       </div>
@@ -222,6 +268,14 @@ function AdminFriendsManagementPage() {
           isLoading={isLoadingTable}
           data={tableData}
           columns={columns}
+        />
+        <Paging
+          onPageChange={handleChangePage}
+          itemPerPage={limit}
+          totalItem={totalRows}
+          currentPage={page}
+          setItemPerPage={handleChangeItemPerPage}
+          hiddenPerPage={true}
         />
       </div>
     </div>

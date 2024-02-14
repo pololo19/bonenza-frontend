@@ -59,12 +59,6 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
     if (isLogin) {
       dispatch(updateSetting({ ...settings, settingLanguage: item.key }));
     }
-    // if (router.pathname !== '/game') {
-    //   // change currency based on language
-    //   dispatch(changeViewInFiat(true));
-    //   // dispatch(changeLocaleFiat(item));
-    //   CookiesStorage.setCookieData(CookieKey.localeFiat, String(item?.currency));
-    // }
   };
 
   const usdFiat = useMemo(() => {

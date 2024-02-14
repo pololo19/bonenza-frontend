@@ -71,11 +71,11 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
         code: otp,
         request: '',
       };
-      const resVerify = await api_verifyCodeToUser(request);
-      CookiesStorage.setAccessToken(resVerify.data.token);
+      const _res = await api_verifyCodeToUser(request);
+      CookiesStorage.setAccessToken(_res.data.token);
       dispatch(
         saveUserInfo({
-          ...convertUserInfo(resVerify.data.user),
+          ...convertUserInfo(_res.data.user),
         }),
       );
       toast.success(t('authentication:verificationSuccess', { request: isPhoneVerifyRequested ? 'Phone' : 'Email' }), {

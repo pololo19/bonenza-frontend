@@ -1,14 +1,14 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { api_getProviders } from '@/api/game';
 import { ROUTER } from '@/base/constants/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import BaseLayout from '@/components/layouts/base.layout';
-import { api_getProviders } from '@/api/game';
 
 type ProviderDetailType = {
   id: string;
@@ -24,8 +24,8 @@ function ProvidersPage() {
   const getProviders = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getProviders();
-      const tempProviders: ProviderDetailType[] = res.data.map((provider: any) => ({
+      const _res = await api_getProviders();
+      const tempProviders: ProviderDetailType[] = _res.data.map((provider: any) => ({
         id: provider.id,
         name: provider.name,
         identifier: provider.identifier,
