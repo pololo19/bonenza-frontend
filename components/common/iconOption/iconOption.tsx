@@ -38,7 +38,8 @@ export type IconOptionProps = {
   onClick?: () => void;
   isDropDown?: boolean;
   isShowDropDown?: boolean;
-  isFontBold?: boolean;
+  fontWeight?: number;
+  isFontMedium?: boolean;
   data?: OptionSidebarDataType[];
 };
 
@@ -49,7 +50,8 @@ const IconOption = ({
   activeClassNames,
   icon,
   isDropDown,
-  isFontBold = false,
+  fontWeight = 600,
+  isFontMedium = false,
   data,
   onClick,
 }: IconOptionProps) => {
@@ -87,9 +89,9 @@ const IconOption = ({
             })}
           />
           <div
-            className={cn('flex-1 text-start', {
+            className={cn(`flex-1 text-start font-[${fontWeight}]`, {
               'dark:text-white text-black': router.route.includes(href),
-              'font-bold': isFontBold,
+              'text-base': isFontMedium,
             })}
           >
             {title}
@@ -101,6 +103,7 @@ const IconOption = ({
           className={cn(
             'capitalize block dark:bg-color-bg-primary dark:text-color-text-primary text-[14px] cursor-pointer transition-[height] ease-in-out duration-300',
             classNames,
+            `font-[${fontWeight}]`,
             {
               'dark:bg-color-menu-secondary': showDropDownCasino,
               // 'translate-y-0': showDropDownCasino,
@@ -129,9 +132,14 @@ const IconOption = ({
               })}
             />
             <div
-              className={cn('flex-1 text-start', {
-                'dark:text-white text-black': showDropDownCasino,
-              })}
+              className={cn(
+                'flex-1 text-start', 
+                `font-[${fontWeight}]`,
+                {
+                  'dark:text-white text-black': showDropDownCasino,
+                  'text-base': isFontMedium,
+                })
+              }
             >
               {title}
             </div>
@@ -153,15 +161,16 @@ const IconOption = ({
                       className={cn(
                         'flex items-center gap-[16px] py-[13px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] px-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
                         {
-                          'font-[700] dark:text-white dark:bg-[#24262B] text-black bg-[#eaecf3]': router.route.includes(
+                          'dark:text-white dark:bg-[#24262B] text-black bg-[#eaecf3]': router.route.includes(
                             item.href,
                           ),
+                          'text-base': isFontMedium,
                         },
                       )}
                       key={index}
                     >
                       {item.icon}
-                      <div className={cn('flex-1 text-start')}>{item.title}</div>
+                      <div className={cn('flex-1 text-start font-semibold')}>{item.title}</div>
                     </Link>
                   );
                 else
@@ -171,7 +180,7 @@ const IconOption = ({
                       key={index}
                     >
                       {item.icon}
-                      <div className={cn('flex-1 text-start')}>{item.title}</div>
+                      <div className={cn('flex-1 text-start font-semibold',{'text-base': isFontMedium})}>{item.title}</div>
                     </div>
                   );
               })}
