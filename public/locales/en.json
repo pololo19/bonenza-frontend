@@ -1697,11 +1697,12 @@
     "global": "Global"
   },
   "error": {
-    "comingSoon": "Coming soon",
-    "days": "Days",
-    "hours": "Hours",
-    "minutes": "Minutes",
-    "seconds": "Seconds"
+    "comingSoon": "We are left with few things",
+    "seeyou": "See you in",
+    "days": "Day",
+    "hours": "Hour",
+    "minutes": "Min",
+    "seconds": "Sec"
   },
   "gameTable": {
     "game": "Game",

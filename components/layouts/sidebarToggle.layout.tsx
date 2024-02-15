@@ -278,6 +278,7 @@ export default function SidebarToggle() {
                 title={String(t('sidebar:bonus'))}
                 href={ROUTER.Bonus}
                 icon={Gift}
+                isFontMedium
                 classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000] bg-color-light-bg-primary hover:bg-[#eaecf3] rounded px-[10px]"
               />
               <div className="flex items-center gap-[10px]">
@@ -285,9 +286,9 @@ export default function SidebarToggle() {
                   title={String(t('sidebar:quest'))}
                   href={'/#'}
                   icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
-                  isFontBold
+                  fontWeight={700}
                   classNames={cn(
-                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i font-bold flex-1 dark:!text-color-text-primary !text-color-light-text-primary',
+                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i flex-1 dark:!text-color-text-primary !text-color-light-text-primary font-semibold',
                     styles.quest_btn,
                   )}
                 />
@@ -295,9 +296,9 @@ export default function SidebarToggle() {
                   title={String(t('sidebar:spin'))}
                   href={'/#'}
                   icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
-                  isFontBold
+                  fontWeight={700}
                   classNames={cn(
-                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i font-bold flex-1 dark:!text-color-text-primary !text-color-light-text-primary',
+                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i flex-1 dark:!text-color-text-primary !text-color-light-text-primary',
                     styles.spin_btn,
                   )}
                 />
@@ -312,6 +313,7 @@ export default function SidebarToggle() {
                   onClick={item.onClick}
                   isShowDropDown={item.isShowDropDown}
                   isDropDown={item.isDropDown}
+                  isFontMedium
                   data={item.data}
                 />
               ))}
@@ -323,6 +325,7 @@ export default function SidebarToggle() {
                   title={item.title}
                   href={item.href}
                   icon={item.icon}
+                  isFontMedium
                   classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
                   onClick={item.onClick}
                 />
@@ -335,6 +338,7 @@ export default function SidebarToggle() {
                   title={item.title}
                   href={item.href}
                   icon={item.icon}
+                  isFontMedium
                   classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
                 />
               ))}
@@ -342,7 +346,7 @@ export default function SidebarToggle() {
             <div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
               <div
                 className={cn(
-                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
+                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base`,
                   {
                     'bg-[#2D3035] text-white': theme === 'dark',
                     'text-color-light-text-primary bg-color-light-bg-primary': theme === 'light',
@@ -353,11 +357,11 @@ export default function SidebarToggle() {
                 }}
               >
                 <Moon size={16} />
-                <div className="text-sm">{t('layout:dark')}</div>
+                <div className="text-base font-bold">{t('layout:dark')}</div>
               </div>
               <div
                 className={cn(
-                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer`,
+                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base font-bold`,
                   {
                     'text-[#000]  bg-[#eaecf3]': theme === 'light',
                     'hover:bg-gray-600': theme === 'dark',
@@ -368,7 +372,7 @@ export default function SidebarToggle() {
                 }}
               >
                 <Sun1 size={16} />
-                <div className="text-sm">{t('layout:light')}</div>
+                <div className="text-base font-bold">{t('layout:light')}</div>
               </div>
             </div>
           </div>
