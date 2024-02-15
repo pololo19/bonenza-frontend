@@ -94,29 +94,6 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(transformResponse, (error) => {
   const errorResponse = error;
 
-  const errorData = errorResponse?.response?.data || {};
-  const errorCode = errorData?.error?.error_code;
-  const messageErrorCode = errorData?.error?.message;
-  const errorCodeFirst = errorData?.error?.errors?.[0]?.error_code;
-
-  let errorMessage = '';
-  if (errorCodeFirst && i18n.exists(`errorApi:${errorCodeFirst}`)) {
-    errorMessage = i18n.t(`errorApi:${errorCodeFirst}`);
-  } else if (errorCode && i18n.exists(`errorApi:${errorCode}`)) {
-    errorMessage = i18n.t(`errorApi:${errorCode}`);
-  } else errorMessage = messageErrorCode;
-
-  errorResponse.response = {
-    ...errorResponse.response,
-    data: {
-      ...errorData,
-      error: {
-        ...errorResponse?.response?.data?.error,
-        message: errorMessage,
-      },
-    },
-  };
-
   return wrapApiErrors(errorResponse, api);
 });
 

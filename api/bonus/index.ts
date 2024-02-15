@@ -3,6 +3,8 @@ import {
   API_AFFILIATE_COMMISSION_REWARDS,
   API_AFFILIATE_FRIENDS,
   API_AFFILIATE_REFERRAL_REWARDS,
+  API_BONUS_CLAIM,
+  API_BONUS_CLAIM_LIST,
   API_BONUS_USDT_BONUS_HISTORY,
 } from '@/base/constants/endpoints';
 
@@ -54,4 +56,12 @@ export const api_affiliateReferralRewards = async (
 
 export const api_bonusUsdtHistory = async (page: number, pageSize: number) => {
   return api.get(API_BONUS_USDT_BONUS_HISTORY, { params: { page, pageSize } });
+};
+
+export const api_bonusClaimList = async () => {
+  return api.get(API_BONUS_CLAIM_LIST);
+};
+
+export const api_bonusClaim = async (bonusId: string, type: string = 'level_up') => {
+  return api.post(API_BONUS_CLAIM, { type, bonusId });
 };
