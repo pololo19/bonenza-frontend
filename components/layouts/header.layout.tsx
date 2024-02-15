@@ -59,8 +59,8 @@ export default function Navbar() {
           'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
-            'md:ml-[205px] md:max-w-[calc(100%-205px)]': isToggleSidebar && !showChatType,
-            'xl:ml-[205px] xl:max-w-[calc(100%-565px)]': showChatType && isToggleSidebar,
+            'md:ml-[260px] md:max-w-[calc(100%-260px)]': isToggleSidebar && !showChatType,
+            'xl:ml-[260px] xl:max-w-[calc(100%-610px)]': showChatType && isToggleSidebar,
             'sm:ml-[62px] xl:max-w-[calc(100%-422px)]': showChatType && !isToggleSidebar,
           },
         )}
