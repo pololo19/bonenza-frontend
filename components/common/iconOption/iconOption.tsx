@@ -50,7 +50,7 @@ const IconOption = ({
   activeClassNames,
   icon,
   isDropDown,
-  fontWeight = 600,
+  fontWeight = 400,
   isFontMedium = false,
   data,
   onClick,
@@ -72,7 +72,7 @@ const IconOption = ({
       {!isDropDown && (
         <Link
           className={cn(
-            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-color-light-hover-primary hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[15px] flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
+            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-color-light-hover-primary hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[12px] flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
 
             router.route.includes(href) ? activeClassNames : classNames,
           )}

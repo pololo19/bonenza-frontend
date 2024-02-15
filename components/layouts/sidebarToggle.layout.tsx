@@ -279,6 +279,7 @@ export default function SidebarToggle() {
                 href={ROUTER.Bonus}
                 icon={Gift}
                 isFontMedium
+                fontWeight={600}
                 classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000] bg-color-light-bg-primary hover:bg-[#eaecf3] rounded px-[10px]"
               />
               <div className="flex items-center gap-[10px]">
@@ -314,6 +315,7 @@ export default function SidebarToggle() {
                   isShowDropDown={item.isShowDropDown}
                   isDropDown={item.isDropDown}
                   isFontMedium
+                  fontWeight={600}
                   data={item.data}
                 />
               ))}
@@ -326,6 +328,7 @@ export default function SidebarToggle() {
                   href={item.href}
                   icon={item.icon}
                   isFontMedium
+                  fontWeight={600}
                   classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
                   onClick={item.onClick}
                 />
@@ -339,6 +342,7 @@ export default function SidebarToggle() {
                   href={item.href}
                   icon={item.icon}
                   isFontMedium
+                  fontWeight={600}
                   classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
                 />
               ))}
