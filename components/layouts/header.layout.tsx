@@ -1,14 +1,17 @@
+import { Popover, Transition } from '@headlessui/react';
 import cn from 'classnames';
-import { Add, Gift, Global, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
+import { Add, ArrowRight, ArrowRight2, Gift, Global, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
+import { api_bonusClaimList } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -28,10 +31,12 @@ import RacingBoldIcon from '../icons/RacingBoldIcon';
 import SportBoldIcon from '../icons/SportBoldIcon';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import ProfileDropdown from '../profileDropdown/profileDropdown';
+import RewardDropdown from '../rewardDropdown/rewardDropdown';
 import FiatHeader from './header/fiatHeader';
 
 export default function Navbar() {
   const router = useRouter();
+  const exchangeRate = useExchange();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
   const [isLoadingFull, setIsLoadingFull] = useState<boolean>(false);
@@ -239,14 +244,8 @@ export default function Navbar() {
               </button>
             )}
 
-            {isLogin && (
-              <Link
-                className="sm:hidden block dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
-                href={ROUTER.Bonus}
-              >
-                <Gift width={18} height={18} />
-              </Link>
-            )}
+            {/* Bonus  */}
+            {isLogin && <RewardDropdown />}
             {/* Avatar */}
             {isLogin && <ProfileDropdown />}
             {/* Multi Language */}

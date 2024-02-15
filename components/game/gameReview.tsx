@@ -170,7 +170,7 @@ const GameReviewComponent = ({
     }
   };
 
-  const handleGetList = useCallback(async () => {
+  const getCommentList = useCallback(async () => {
     try {
       if (!gameDetail.id) return;
       setLoading({ ratingLoading: false, commentLoading: true });
@@ -195,7 +195,7 @@ const GameReviewComponent = ({
     }
   }, [page, selectedSort]);
 
-  const handleGetRateAndComments = useCallback(async () => {
+  const getRateAndComments = useCallback(async () => {
     try {
       if (!gameDetail?.id) return;
       setLoading({ ratingLoading: true, commentLoading: true });
@@ -243,7 +243,7 @@ const GameReviewComponent = ({
     }
   }, [page, gameDetail, selectedSort]);
 
-  const handleGetUserRate = async () => {
+  const getUserRate = async () => {
     if (!gameDetail?.id) return;
     try {
       setLoading((load) => ({ ...load, ratingLoading: true }));
@@ -289,17 +289,17 @@ const GameReviewComponent = ({
   };
 
   useEffect(() => {
-    handleGetRateAndComments();
+    getRateAndComments();
   }, [gameDetail]);
 
   useEffect(() => {
     if (isLogin) {
-      handleGetUserRate();
+      getUserRate();
     }
   }, [isLogin]);
 
   useEffect(() => {
-    handleGetList();
+    getCommentList();
   }, [selectedSort]);
 
   const { t } = useTranslation('');

@@ -124,6 +124,8 @@ const API_VIP_LEVEL_SYSTEM = '/vip/vip-level-system';
 
 const API_BONUS_BONUS_STATISTIC = '/bonus/bonus-statistics';
 const API_BONUS_USDT_BONUS_HISTORY = '/bonus/usdt-bonus-history';
+const API_BONUS_CLAIM_LIST = '/bonus/claim/list';
+const API_BONUS_CLAIM = '/bonus/claim';
 
 /************************************ Wager Contest **********************************/
 const API_WAGER_CONTEST_LIST = '/contest/list';
@@ -173,6 +175,8 @@ export {
   API_AUTH_VERIFY_QR_CODE,
   API_AUTH_VERIFY_USER_CODE,
   API_BONUS_BONUS_STATISTIC,
+  API_BONUS_CLAIM,
+  API_BONUS_CLAIM_LIST,
   API_BONUS_USDT_BONUS_HISTORY,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,

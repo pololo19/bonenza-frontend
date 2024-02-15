@@ -1092,7 +1092,7 @@
     "claimBonuses": "Claim bonuses every 10 mins, hourly or daily",
     "rechargeRewardTiers": "Recharge Reward Tiers",
     "snowballYourRewards": "Snowball your rewards as you wager and climb from Tier 1 to Tier 4",
-    "weHaveMoreBenefit": "Wait. We Have <span class='text-[#E7A427]'>More</span> Benefits For You!",
+    "weHaveMoreBenefit": "Wait. We Have <span class='text-color-secondary'>More</span> Benefits For You!",
     "catchCocoForSurprisingRewards": "CATCH COCO FOR SURPRISING REWARDS!",
     "catchTheFleeting": "Catch the fleeting COCO spider every 6 hours on our page and earn exclusive BND/Fiat rewards based on your VIP level.",
     "winWithBonenzaLottery": "WIN WITH bonenza LOTTERY",
@@ -1170,7 +1170,9 @@
     "bonusCategories": "Bonus Categories",
     "bonusTransaction": "Bonus Transaction",
     "allBonuses": "All bonuses",
-    "onlyTheLatest": "Only the latest 60 days transactions will be displayed below."
+    "bonusDashboard": "Bonus Dashboard",
+    "onlyTheLatest": "Only the latest 60 days transactions will be displayed below.",
+    "bonusReady": "Bonus Ready"
   },
   "promotion": {
     "promotion": "Promotion",
@@ -1848,5 +1850,8 @@
     "verifyPhone": "This Phone is not verified",
     "verifyMail": "This Email is not verified",
     "locationIsNotAllowed": "Sorry, this game is not available in your region."
+  },
+  "success": {
+    "bonusClaimed": "Your Bonus is Claimed"
   }
 }
