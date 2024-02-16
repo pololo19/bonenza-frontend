@@ -45,19 +45,19 @@ function GameCard(props: GameCardProps) {
   return (
     <div className="pointer-events-auto" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
       <div
-        className={classNames('sm:block rounded-[5px] dark:bg-color-card-bg-primary bg-white', {
+        className={classNames('sm:block rounded-default dark:bg-color-card-bg-primary bg-white', {
           flex: listView,
           block: !listView,
         })}
       >
-        <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-[5px]">
+        <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-default">
           <LazyLoad className="min-h-[100px]">
             <Image
               height={160}
               width={160}
               src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
               alt=""
-              className="w-full object-cover max-h-auto rounded-[5px]"
+              className="w-full object-cover max-h-auto rounded-default"
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
             />
@@ -65,7 +65,7 @@ function GameCard(props: GameCardProps) {
         </Link>
         <div className="p-[10px]">
           <div className="flex justify-between items-center gap-[5px]">
-            <div className="dark:text-white text-[#000] font-medium sm:text-[12px] text-[14px] truncate">
+            <div className="dark:text-white text-black font-medium text-default truncate">
               {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
             </div>
             <InfoCircle

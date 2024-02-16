@@ -95,7 +95,7 @@ const GeneralPage = () => {
   return (
     <div className={`${styles.cardContent}`}>
       {isLoading && <Loader />}
-      <div className="w-full h-1/3 px-[12px] py-[24px] sm:p-0 sm:mt-5 md:mt-0 dark:text-white text-black">
+      <div className="w-full h-1/3 px-[12px] py-[24px] sm:p-0 md:mt-0 dark:text-white text-black">
         <div className="flex justify-between border-b border-solid dark:border-color-border-primary border-color-light-border-primary pb-[8px]">
           <div
             className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start"

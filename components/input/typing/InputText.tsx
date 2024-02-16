@@ -60,10 +60,10 @@ const InputText = <TFieldValues extends Record<string, unknown>>({
               {...field}
               name={name}
               className={cn(
-                'dark:text-white text-color-light-text-primary w-full text-[16px] rounded-[3px] placeholder:text-[#53575C] outline-none border-[1px] border-solid border-transparent focus-within:border-color-primary dark:dark-autofill light-autofill',
+                'dark:text-white text-color-light-text-primary w-full text-default rounded-default placeholder:text-[#53575C] outline-none border-[1px] border-solid border-transparent focus-within:border-color-primary dark:dark-autofill light-autofill',
                 customClass,
                 {
-                  'border-red-500 border border-solid': !!error?.message,
+                  'border-color-red border border-solid': !!error?.message,
                 },
               )}
               value={(field.value ?? '') as string}
@@ -79,7 +79,7 @@ const InputText = <TFieldValues extends Record<string, unknown>>({
                 {prefix}
               </span>
             )}
-            {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}
+            {error?.message && <span className="text-color-red text-[12px]"> {error?.message}</span>}
           </div>
         );
       }}

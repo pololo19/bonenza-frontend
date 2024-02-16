@@ -84,7 +84,7 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
           />
         </div>
         <div
-          className="flex items-center text-color-text-primary text-[14px] gap-[4px] cursor-pointer mt-2"
+          className="flex items-center text-color-text-primary text-default gap-[4px] cursor-pointer mt-2"
           onClick={() => {
             setCheckIsReferral(!isEnterReferral);
           }}
@@ -98,7 +98,7 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
           <InputText
             control={control}
             name="referralCode"
-            customClass="dark:bg-color-input-primary bg-white focus:outline-none w-full !rounded-[3px] h-[51px] px-[15px] placeholder:text-[14px] dark:text-white text-color-light-text-primary mt-1"
+            customClass="dark:bg-color-input-primary bg-white focus:outline-none w-full !rounded-[3px] h-[51px] px-[15px] placeholder:text-default dark:text-white text-color-light-text-primary mt-1"
             placeholder={String(t('authentication:referral'))}
             autoComplete="off"
           />

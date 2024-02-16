@@ -413,7 +413,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           multiplier: Number(data.multiplier || 0),
           profitAmount: Number(data.profit_amount || 0),
           profitAmountUsd: Number(data.profit_amount_usd || 0),
-          currency: data.currency.symbol ?? 'USD',
+          currency: data.currency ?? 'USDT',
           betId: data.id ?? '',
           time: data.time ?? new Date(),
         };

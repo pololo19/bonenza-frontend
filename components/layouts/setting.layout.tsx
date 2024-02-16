@@ -115,11 +115,11 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                   </Menu.Items>
                 </Transition>
               </Menu>
-              <div className="flex flex-row gap-5 w-full text-center mt-0 mb-[50px]">
+              <div className="flex flex-row gap-5 w-full text-center mt-0">
                 <div
                   className={cn(
                     styles.cardMenu,
-                    'dark:!bg-color-modal-bg-secondary bg-[#fff] rounded-[3px] md:max-h-[310px] min-w-[175px] md:!flex !hidden',
+                    'dark:!bg-color-modal-bg-secondary bg-[#fff] rounded-default md:max-h-[350px] min-w-[175px] md:!flex !hidden',
                   )}
                 >
                   <div className="xl:p-2 p-1 w-full">
@@ -130,7 +130,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                           href={item.href}
                           icon={() => null}
                           key={index}
-                          classNames="dark:hover:text-white !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          classNames="dark:hover:!text-white dark:hover:!bg-color-hover-primary hover:!bg-color-light-hover-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
                           activeClassNames="dark:!bg-color-active-primary !bg-color-light-bg-primary dark:text-white text-black"
                         />
                       ))}
@@ -139,7 +139,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex-1 rounded-[3px] dark:bg-transparent sm:dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black md:px-3 md:pt-3 md:pb-5 md:p-5 mt-[20px] md:mt-0 relative w-full',
+                    'flex-1 rounded-[3px] dark:bg-transparent sm:dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black sm:p-5 md:px-5 md:pt-5 md:pb-5 md:p-5 mt-[20px] md:mt-0 relative w-full',
                   )}
                 >
                   {children}
