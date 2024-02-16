@@ -11,7 +11,7 @@ import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { FiatType } from '@/base/types/common';
+import { BonusTransactionType, FiatType } from '@/base/types/common';
 import TableComponent from '@/components/table';
 
 type ModalBonusHistory = {
@@ -22,12 +22,6 @@ type ModalBonusHistory = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-type ListTransactionType = {
-  amount: number;
-  amountUsd: number;
-  type: string;
-  time: string;
-};
 export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShowModalRakeBack }: ModalBonusHistory) {
   const exchangeRate = useExchange();
   const cancelButtonRef = useRef(null);
@@ -37,7 +31,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const [limit, setLimit] = useState(10);
   const [listTypes, setListTypes] = useState<any[]>([]);
   const [typeFilter, setTypeFilter] = useState<string>('');
-  const [listTransactions, setListTransactions] = useState<ListTransactionType[]>([]);
+  const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
   const [totalTable, setTotalTable] = useState<number>(0);
   const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -51,7 +45,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
     try {
       setIsLoadingTable(true);
       const _res = await api_bonusUsdtHistory(page, limit);
-      const tempListTransactionData: ListTransactionType[] = _res.data?.map((item: any) => ({
+      const tempListTransactionData: BonusTransactionType[] = _res.data?.map((item: any) => ({
         amount: item.amount,
         amountUsd: item.amountUsd,
         type: item.type,
@@ -66,7 +60,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   }, [page, limit]);
 
   const columns = useMemo(() => {
-    const columnsDefault: ColumnDef<ListTransactionType>[] = [
+    const columnsDefault: ColumnDef<BonusTransactionType>[] = [
       {
         accessorKey: 'actionType',
         header: () => (

@@ -495,3 +495,10 @@ export type CategoryType =
   | 'new_releases'
   | 'feature_Buy_In'
   | 'hot_games';
+
+export type BonusTransactionType = {
+  amount: number;
+  amountUsd: number;
+  type: string;
+  time: string;
+};

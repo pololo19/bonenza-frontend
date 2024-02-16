@@ -66,7 +66,7 @@ function BonusPage() {
                 <div className="flex items-center sm:mt-[12px]">
                   <Image width={50} height={50} src="/img/gift-bonus.png" className="w-[50px] h-[50px]" alt="" />
                   <div>
-                    <div className="text-[14px] dark:text-white text-[#141414] font-bold uppercase">
+                    <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                       {t('bonus:levelUpBonus')}
                     </div>
                     <div className="text-[13px] text-color-text-primary">{t('bonus:reachNewHeight')}</div>
@@ -75,7 +75,7 @@ function BonusPage() {
                 <div className="flex items-center mt-[12px]">
                   <Image width={50} height={50} src="/img/coin-bonus.png" className="w-[50px] h-[50px]" alt="" />
                   <div>
-                    <div className="text-[14px] dark:text-white text-[#141414] font-bold uppercase">
+                    <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                       {t('bonus:recharge')}
                     </div>
                     <div className="text-[13px] text-color-text-primary">{t('bonus:scheduleYourRecharge')}</div>
@@ -84,7 +84,7 @@ function BonusPage() {
                 <div className="flex items-center mt-[12px]">
                   <Image width={50} height={50} src="/img/hourglass-bonus.png" className="w-[50px] h-[50px]" alt="" />
                   <div>
-                    <div className="text-[14px] dark:text-white text-[#141414] font-bold uppercase">
+                    <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                       {t('bonus:weeklyCashback')}
                     </div>
                     <div className="text-[13px] text-color-text-primary">{t('bonus:powerUpWith')}</div>
@@ -109,7 +109,7 @@ function BonusPage() {
                 <div className="text-white text-[16px] font-bold bg-color-primary px-[10px] py-[6px] rounded-[50%]">
                   01
                 </div>
-                <div className="dark:text-white text-[#43484E] text-[16px] font-bold">
+                <div className="dark:text-white text-color-light-text-primary text-[16px] font-bold">
                   {t('bonus:signUpAndMakeDeposit')}
                 </div>
               </div>
@@ -117,20 +117,24 @@ function BonusPage() {
                 <div className="text-white text-[16px] font-bold bg-color-primary px-[10px] py-[6px] rounded-[50%]">
                   02
                 </div>
-                <div className="dark:text-white text-[#43484E] text-[16px] font-bold">{t('bonus:playYourGame')}</div>
+                <div className="dark:text-white text-color-light-text-primary text-[16px] font-bold">
+                  {t('bonus:playYourGame')}
+                </div>
               </div>
               <div className="flex items-center gap-[15px]">
                 <div className="text-white text-[16px] font-bold bg-color-primary px-[10px] py-[6px] rounded-[50%]">
                   03
                 </div>
-                <div className="dark:text-white text-[#43484E] text-[16px] font-bold">{t('bonus:increaseYourVip')}</div>
+                <div className="dark:text-white text-color-light-text-primary text-[16px] font-bold">
+                  {t('bonus:increaseYourVip')}
+                </div>
               </div>
             </div>
             <div className="mt-[60px] flex flex-col gap-[20px]">
               <div className="flex flex-col md:flex-row items-center">
                 <Image width={100} height={100} src="/img/special-deposit.png" className="w-fit md:w-[50%]" alt="" />
                 <div className="flex md:block flex-col items-center">
-                  <div className="text-[24px] text-center md:text-left dark:text-white text-[#141414] font-bold uppercase">
+                  <div className="text-[24px] text-center md:text-left dark:text-white text-color-light-text-primary font-bold uppercase">
                     {t('bonus:discoverBonenza')}
                   </div>
                   <div className="mt-5 text-center md:text-left md:mt-[40px] text-color-text-primary text-[16px]">
@@ -150,7 +154,7 @@ function BonusPage() {
               </div>
               <div className="flex flex-col-reverse md:flex-row items-center">
                 <div className="flex flex-col items-center md:items-end gap-[40px]">
-                  <div className="text-[24px] dark:text-white text-[#141414] font-bold text-center md:text-right">
+                  <div className="text-[24px] dark:text-white text-color-light-text-primary font-bold text-center md:text-right">
                     {t('bonus:withOurLevelUpBonus')}
                   </div>
                   <div className="text-color-text-primary text-[16px] text-center md:text-right">
@@ -172,7 +176,7 @@ function BonusPage() {
               <div className="flex flex-col md:flex-row items-center">
                 <Image width={100} height={100} src="/img/potential-of-BCD.png" className="w-fit md:w-[50%]" alt="" />
                 <div className="flex md:block flex-col items-center">
-                  <div className="text-[24px] text-center md:text-left dark:text-white text-[#141414] font-bold">
+                  <div className="text-[24px] text-center md:text-left dark:text-white text-color-light-text-primary font-bold">
                     {t('bonus:maximizeThePotential')}
                   </div>
                   <div className="mt-5 text-center md:text-left md:mt-[40px] text-color-text-primary text-[16px]">
@@ -194,7 +198,7 @@ function BonusPage() {
             <div className="mt-[37px]">
               <div className="text-center mb-[40px]">
                 <div
-                  className="font-semibold dark:text-white text-[#141414] text-lg"
+                  className="font-semibold dark:text-white text-color-light-text-primary text-lg"
                   dangerouslySetInnerHTML={{ __html: t('bonus:getALotOfFreePerks') }}
                 ></div>
               </div>
@@ -205,7 +209,7 @@ function BonusPage() {
                   </div>
                   <div className="flex items-center mx-5 gap-5 pb-5">
                     <div>
-                      <div className="text-[14px] dark:text-white text-[#141414] font-bold uppercase">
+                      <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                         {t('bonus:questHub')}
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">{t('bonus:conquerDaily')}</div>
@@ -219,7 +223,7 @@ function BonusPage() {
                   </div>
                   <div className="flex items-center mx-5 gap-5 pb-5 pt-5 lg:pt-0">
                     <div>
-                      <div className="text-[14px] dark:text-white text-[#141414] font-bold uppercase">
+                      <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                         {t('bonus:freeLuckySpins')}
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">{t('bonus:spinAndWin')}</div>
@@ -233,7 +237,7 @@ function BonusPage() {
                   </div>
                   <div className="flex items-center mx-5 gap-5 pb-5">
                     <div>
-                      <div className="text-[14px] dark:text-white text-[#141414] font-bold uppercase">
+                      <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                         {t('bonus:freeRollCompetition')}
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">{t('bonus:theEarlier')}</div>
@@ -247,7 +251,7 @@ function BonusPage() {
               <div className="dark:bg-[url('/img/banner-galaxy-mobile.png')] bg-[url('/img/banner-galaxy-mobile-light-mode.png')] sm:dark:bg-[url('/img/banner-galaxy.png')] sm:bg-[url('/img/banner-galaxy-light-mode.png')] bg-no-repeat bg-cover px-[10px] sm:px-5 md:px-[60px] sm:pt-[146px] pb-5 sm:pb-[40px] flex flex-col gap-5 sm:gap-[106px]">
                 <div className="flex justify-center lg:justify-end sm:justify-start mt-[60%] sm:mt-0 text-center sm:text-left">
                   <div className="max-w-[490px]">
-                    <div className="font-bold text-[18px] sm:text-[24px] dark:text-white text-[#141414]">
+                    <div className="font-bold text-[18px] sm:text-[24px] dark:text-white text-color-light-text-primary">
                       {t('bonus:introducingOurVeryOwn')} <span className="text-[#E7A427]">{t('bonus:recharge')}</span>{' '}
                       {t('bonus:cashback')}
                     </div>
@@ -264,7 +268,7 @@ function BonusPage() {
                   <div className="flex items-center gap-[24px]">
                     <Image width={100} height={100} src="/img/treasure.png" className="w-[21%]" alt="" />
                     <div>
-                      <div className="text-[14px] dark:text-white text-[#141414] font-bold">
+                      <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
                         {t('bonus:rechargeActivation')}
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">
@@ -275,7 +279,7 @@ function BonusPage() {
                   <div className="flex items-center gap-[24px]">
                     <Image width={100} height={100} src="/img/star.png" className="w-[21%]" alt="" />
                     <div>
-                      <div className="text-[14px] dark:text-white text-[#141414] font-bold">
+                      <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
                         {t('bonus:rechargeAtYourPace')}
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">{t('bonus:claimBonuses')}</div>
@@ -284,7 +288,7 @@ function BonusPage() {
                   <div className="flex items-center gap-[24px]">
                     <Image width={100} height={100} src="/img/coin-bonus.png" className="w-[21%]" alt="" />
                     <div>
-                      <div className="text-[14px] dark:text-white text-[#141414] font-bold">
+                      <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
                         {t('bonus:rechargeRewardTiers')}
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">
@@ -298,14 +302,14 @@ function BonusPage() {
             <div className="mt-[25px]">
               <div className="text-center mb-[40px]">
                 <div
-                  className="font-semibold dark:text-white text-[#141414] text-lg"
+                  className="font-semibold dark:text-white text-color-light-text-primary text-lg"
                   dangerouslySetInnerHTML={{ __html: t('bonus:weHaveMoreBenefit') }}
                 ></div>
               </div>
               <div className="flex justify-between gap-5 xl:gap-0 flex-col items-center sm:flex-row sm:items-baseline">
                 <div className="flex flex-col items-center max-w-[284px]">
                   <Image src="/img/coco.png" width={139} height={139} className="object-cover" alt="" />
-                  <div className="text-[14px] font-bold dark:text-white text-[#141414] mt-[30px] text-center">
+                  <div className="text-[14px] font-bold dark:text-white text-color-light-text-primary mt-[30px] text-center">
                     {t('bonus:catchCocoForSurprisingRewards')}
                   </div>
                   <div className="text-[12px] text-color-text-primary mt-[10px] text-center">
@@ -314,7 +318,7 @@ function BonusPage() {
                 </div>
                 <div className="flex flex-col items-center max-w-[284px]">
                   <Image src="/img/lotto.png" width={139} height={139} className="object-cover" alt="" />
-                  <div className="text-[14px] font-bold dark:text-white text-[#141414] mt-[30px] text-center uppercase">
+                  <div className="text-[14px] font-bold dark:text-white text-color-light-text-primary mt-[30px] text-center uppercase">
                     {t('bonus:winWithBonenzaLottery')}
                   </div>
                   <div className="text-[12px] text-color-text-primary mt-[10px] text-center">
@@ -323,7 +327,7 @@ function BonusPage() {
                 </div>
                 <div className="flex flex-col items-center max-w-[284px]">
                   <Image src="/img/golden-bag.png" width={139} height={139} className="object-cover" alt="" />
-                  <div className="text-[14px] font-bold dark:text-white text-[#141414] mt-[30px] text-center">
+                  <div className="text-[14px] font-bold dark:text-white text-color-light-text-primary mt-[30px] text-center">
                     {t('bonus:waitForCoinDrop')}
                   </div>
                   <div className="text-[12px] text-color-text-primary mt-[10px] text-center">
@@ -332,8 +336,8 @@ function BonusPage() {
                 </div>
               </div>
             </div>
-            <div className="dark:bg-[#2C2D32] bg-white flex flex-col mt-[60px] items-center py-[50px] px-5 mb-[60px] sm:mb-5">
-              <div className="dark:text-white text-[#141414] text-[14px] sm:text-[24px] font-bold text-center">
+            <div className="dark:bg-color-panel-1-bg bg-white flex flex-col mt-[60px] items-center py-[50px] px-5 mb-[60px] sm:mb-5">
+              <div className="dark:text-white text-color-light-text-primary text-[14px] sm:text-[24px] font-bold text-center">
                 {t('bonus:weAreProud')}
               </div>
               <div className="flex justify-center mt-[30px]">
@@ -343,7 +347,7 @@ function BonusPage() {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
                   }}
-                  className="bg-btn-sign-in rounded-[5px] bg-color-primary py-[10px] px-5 font-bold text-white"
+                  className="bg-btn-sign-in rounded-[5px] bg-gradient-btn-default py-[10px] px-5 font-bold text-white"
                 >
                   {t('bonus:signUpNow')}
                 </div>
