@@ -99,7 +99,7 @@ export default function RewardDropdown() {
                 >
                   <Popover.Panel
                     static
-                    className="mr-0 right-0 absolute sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[60px]"
+                    className="mr-0 right-0 sm:absolute fixed sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[57px]"
                   >
                     <div className="gap-[10px] px-[20px] flex flex-col relative rounded-md p-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
                       <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">

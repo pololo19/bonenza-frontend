@@ -1,17 +1,13 @@
-import { Popover, Transition } from '@headlessui/react';
 import cn from 'classnames';
-import { Add, ArrowRight, ArrowRight2, Gift, Global, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
+import { Add, Global, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { Fragment, useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_bonusClaimList } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1, handleLocaleSymbol } from '@/base/libs/utils';
+import { handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -24,7 +20,6 @@ import {
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
-import LoaderFull from '../common/loaderFull/loaderFull';
 import CasinoBoldIcon from '../icons/CasinoBoldIcon';
 import ChatSignOutIcon from '../icons/ChatSignOutIcon';
 import RacingBoldIcon from '../icons/RacingBoldIcon';
@@ -36,10 +31,8 @@ import FiatHeader from './header/fiatHeader';
 
 export default function Navbar() {
   const router = useRouter();
-  const exchangeRate = useExchange();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
-  const [isLoadingFull, setIsLoadingFull] = useState<boolean>(false);
 
   const { isLogin, isToggleSidebar, showChatType, viewInFiat, isShowCasinoSearch, localFiat, isAccountPannel } =
     useSelector(
@@ -58,7 +51,6 @@ export default function Navbar() {
   return (
     <>
       {/* Navbar */}
-      {isLoadingFull && <LoaderFull />}
       <div
         className={cn(
           'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
@@ -95,7 +87,7 @@ export default function Navbar() {
             <Link
               href={ROUTER.Casino}
               className={cn(
-                'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
+                'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                 `${
                   router.route.includes(ROUTER.Casino)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
@@ -104,12 +96,14 @@ export default function Navbar() {
               )}
             >
               <CasinoBoldIcon className="w-[18px] h-[18px]" />
-              <div className={`text-[14px] dark:hover:text-white hover:text-[#31373d]`}>{t('layout:casino')}</div>
+              <div className={`text-default dark:hover:text-white hover:text-color-light-text-primary`}>
+                {t('layout:casino')}
+              </div>
             </Link>
             <Link
               href={ROUTER.Sports}
               className={cn(
-                'rounded-[5px] px-[12px]   py-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-[#31373D] hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
+                'rounded-[5px] px-[12px] py-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                 `${
                   router.asPath.includes(ROUTER.Sports)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
@@ -118,12 +112,14 @@ export default function Navbar() {
               )}
             >
               <SportBoldIcon className="w-[18px] h-[18px]" />
-              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white `}>{t('layout:sports')}</div>
+              <div className={`text-default hover:text-color-light-text-primary dark:hover:text-white `}>
+                {t('layout:sports')}
+              </div>
             </Link>
             <div
               onClick={() => window.open('https://cmd23.com/room/games.php')}
               className={cn(
-                'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
+                'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-color-light-text-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
               )}
             >
               <Image
@@ -133,14 +129,14 @@ export default function Navbar() {
                 src="/icon/liveholdem.png"
                 alt="logo"
               />
-              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white text-nowrap`}>
+              <div className={`text-default hover:text-color-light-text-primary dark:hover:text-white text-nowrap`}>
                 {t('layout:liveHoldem')}
               </div>
             </div>
             <Link
               href={ROUTER.Racing}
               className={cn(
-                'rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-[#31373D] hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
+                'rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-color-light-text-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                 `${
                   router.asPath.includes(ROUTER.Racing)
                     ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
@@ -149,7 +145,9 @@ export default function Navbar() {
               )}
             >
               <RacingBoldIcon className="" />
-              <div className={`text-[14px] hover:text-[#31373d] dark:hover:text-white`}>{t('layout:racing')}</div>
+              <div className={`text-default hover:text-color-light-text-primary dark:hover:text-white`}>
+                {t('layout:racing')}
+              </div>
             </Link>
           </div>
 
@@ -157,7 +155,7 @@ export default function Navbar() {
             {/* Button */}
             <button
               type="button"
-              className="truncate sm:flex hidden text-color-text-primary items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
+              className="truncate sm:flex hidden text-color-text-primary items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
               onClick={() => dispatch(changeIsShowCasinoSearch(!isShowCasinoSearch))}
             >
               <div className="">
@@ -173,7 +171,7 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  className="truncate dark:text-color-text-primary rounded-[5px] py-[9px] px-5 text-[14px] font-bold text-[#31373d]  dark:hover:bg-color-hover-primary"
+                  className="truncate dark:text-color-text-primary rounded-[5px] py-[9px] px-5 text-default font-bold text-color-light-text-primary  dark:hover:bg-color-hover-primary"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -185,7 +183,7 @@ export default function Navbar() {
                 {/* Button */}
                 <button
                   type="button"
-                  className="truncate text-white rounded-[5px] font-semibold py-[9px] bg-gradient-btn-default px-5 text-[14px] font-bold"
+                  className="truncate text-white rounded-[5px] py-[9px] bg-gradient-btn-default px-5 text-default font-bold"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -199,7 +197,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-[3px] bg-gradient-btn-default flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] md:text-[14px] text-[12px] font-semibold"
+                className="truncate text-white rounded-default bg-gradient-btn-default flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="sm:block hidden">
@@ -214,19 +212,16 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="sm:block hidden rounded-md relative dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
+                className="sm:block hidden rounded-default relative dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
               >
                 <Notification className="w-[20px] h-[20px]" variant="Bold" />
-                {/* <span className="absolute top-0 -right-[5px] px-[8px] rounded-full bg-color-primary text-white text-[10px]">
-                  8
-                </span> */}
               </button>
             )}
             {/* Message */}
             {!isLogin && (
               <button
                 type="button"
-                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+                className={`sm:block hidden relative rounded-default dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
               >
                 <ChatSignOutIcon className="w-[20px] h-[20px] text-color-text-primary" />
               </button>
@@ -234,7 +229,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className={`sm:block hidden relative rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+                className={`sm:block hidden relative rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
                 onClick={() => {
                   dispatch(changeShowChatType(!showChatType));
                 }}
@@ -253,7 +248,7 @@ export default function Navbar() {
               type="button"
               className={`${
                 isLogin ? 'hidden sm:flex' : 'flex'
-              } rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
+              } rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-color-text-primary dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
                 dispatch(changeIsShowMultiLanguageModal(true));
@@ -265,7 +260,7 @@ export default function Navbar() {
             {viewInFiat && localFiat && (
               <button
                 type="button"
-                className="sm:block hidden rounded-md  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black text-[#31373D] p-[10px]"
+                className="sm:block hidden rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary dark:hover:text-white hover:text-black dark:text-color-text-primary text-color-light-text-primary p-[10px]"
                 onClick={() => {
                   dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
                   dispatch(changeIsShowMultiLanguageModal(true));

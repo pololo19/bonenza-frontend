@@ -8,7 +8,7 @@ import qs from 'qs';
 import { Path, UseFormGetValues } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT } from '@/base/constants/common';
+import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT, KYC_ENUM } from '@/base/constants/common';
 import { DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 import { ErrorResponse } from '@/base/types/api';
 import { DepositAddress, NetworkType, ObjectLiteral, RolloverStatus } from '@/base/types/common';
@@ -351,7 +351,8 @@ export const convertUserInfo = (userData: any) => {
     winCount: userData?.winCount,
     totalWager: userData?.totalWager,
     referralCode: userData?.referralCode,
-    isKyc: userData?.isKyc,
+    // isKyc: userData?.isKyc,
+    isKyc: KYC_ENUM.REQUIRED,
     tfa: userData?.tfa,
     createdAt: userData?.createdAt,
     updatedAt: userData?.updatedAt,

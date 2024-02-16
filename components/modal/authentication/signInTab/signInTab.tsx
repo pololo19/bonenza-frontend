@@ -209,21 +209,21 @@ export default function SignInTab({
       {isLoading && <Loader />}
       {forgotKey ? (
         <div className="dark:bg-[#25262B] bg-white text-[16px]">
-          <div className="flex items-center justify-center h-[140px] dark:text-color-text-primary text-[#31373d]">
+          <div className="flex items-center justify-center h-[140px] dark:text-color-text-primary text-color-light-text-primary">
             {t('setting:2FASentEmail')}
           </div>
           <div className="flex items-center p-10 pt-0 gap-4 mt-[20px]">
             <div
               onClick={onClose}
               role="button"
-              className="bg-[#F61B4F] grow hover:opacity-[0.9] rounded-[5px] text-center text-white text-[14px] px-[30px] py-[10px] m-auto"
+              className="bg-color-red grow hover:opacity-[0.9] rounded-default text-center text-white text-default px-[30px] py-[10px] m-auto"
             >
               {t('setting:cancel')}
             </div>
             <div
               onClick={sendQrCodeToEmail}
               role="button"
-              className="bg-[#FD6E0B] grow hover:opacity-[0.9] text-center rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+              className="bg-color-secondary grow hover:opacity-[0.9] text-center rounded-default text-white text-default px-[30px] py-[10px] m-auto"
             >
               {t('setting:confirm')}
             </div>
@@ -236,7 +236,7 @@ export default function SignInTab({
               <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">
                 <div className="relative w-full">
                   <InputText
-                    customClass="px-[10px] py-[10px] my-[10px] dark:bg-[#12181f] bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                    customClass="px-[10px] py-[10px] my-[10px] dark:bg-[#12181f] bg-color-light-bg-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
                     name="codeOtp"
                     onChange={(e) => setCodeOtp(e.target.value)}
                     value={codeOtp}
@@ -245,14 +245,16 @@ export default function SignInTab({
                   />
                   <div
                     onClick={paste}
-                    className="absolute cursor-pointer right-[10px] h-[41px] top-[11px] flex items-center dark:bg-[#12181f] bg-[#f5f6fa]"
+                    className="absolute cursor-pointer right-[10px] h-[41px] top-[11px] flex items-center dark:bg-[#12181f] bg-color-light-bg-primary"
                   >
-                    <span className="dark:text-white text-black text-[14px] ml-[6px]">{t('authentication:paste')}</span>
+                    <span className="dark:text-white text-black text-default ml-[6px]">
+                      {t('authentication:paste')}
+                    </span>
                   </div>
                 </div>
                 <div
                   onClick={() => setForgotKey(true)}
-                  className="text-right cursor-pointer w-full mb-4 text-[14px] dark:text-white text-black hover:underline"
+                  className="text-right cursor-pointer w-full mb-4 text-default dark:text-white text-black hover:underline"
                 >
                   {t('authentication:lostSecutiry2FAKey')}
                 </div>
@@ -261,10 +263,10 @@ export default function SignInTab({
                 type="submit"
                 className={`${
                   codeOtp.length < 6 && 'opacity-70 pointer-events-none'
-                } bg-color-primary w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
+                } bg-color-primary w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
-                <div className="text-[14px] text-white">{t('authentication:submit')}</div>
+                <div className="text-default text-white">{t('authentication:submit')}</div>
                 <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
@@ -290,7 +292,7 @@ export default function SignInTab({
               <div className="flex justify-end">
                 <div
                   role="button"
-                  className="text-[13px] text-color-text-primary sm:mt-[19px] mt-[10px] hover:text-amber-500 max-w-[146px] hover:underline"
+                  className="text-default text-color-text-primary sm:mt-[19px] mt-[10px] hover:text-color-secondary max-w-[160px] hover:underline"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.FORGOT_PASS));
                   }}
@@ -300,19 +302,19 @@ export default function SignInTab({
               </div>
               <button
                 type="submit"
-                className="bg-gradient-btn-default w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-default w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
-                <div className="text-[14px] text-white">{t('authentication:continue')}</div>
+                <div className="text-default text-white">{t('authentication:continue')}</div>
                 <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
               </button>
               <div className="flex">
-                <div role="button" className="text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
+                <div role="button" className="text-default w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
                   <span className="text-color-text-primary">{t('authentication:newtoBonenza')}&nbsp;&nbsp;</span>
                   <span
-                    className="text-color-primary font-bold hover:text-amber-500 hover:underline"
+                    className="text-color-primary font-bold hover:text-color-secondary hover:underline"
                     onClick={() => {
                       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     }}

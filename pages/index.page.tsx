@@ -370,7 +370,7 @@ function IndexPage() {
                 {isLogin && (
                   <div className="sm:text-start text-center hidden sm:block">
                     {!checkNewUser(user.createdAt) || checkDeposit ? (
-                      <div className="dark:text-white text-black text-[18px] font-semibold">
+                      <div className="dark:text-white text-black text-[24px] font-semibold">
                         {String(t('homePage:welcomeBack'))}
                         {String(', ')} {userName}
                       </div>
@@ -399,7 +399,7 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-[5px] bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-default bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
@@ -415,7 +415,7 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-[5px] bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                            className="truncate text-white rounded-default bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}
@@ -482,7 +482,7 @@ function IndexPage() {
                         </Link>
                       </div>
                     </div>
-                    <div className="flex gap-[10px] dark:text-color-text-primary text-color-light-text-primary text-[14px] mt-[10px]">
+                    <div className="flex gap-[10px] dark:text-color-text-primary text-color-light-text-primary text-default mt-[10px]">
                       <span
                         className={cn({ 'dark:text-white text-black': selectedCasino === 'recent' })}
                         onClick={() => setSelectedCasino('recent')}
@@ -549,10 +549,10 @@ function IndexPage() {
                   <div className="min-[858px]:max-w-[362px] relative z-1 flex flex-col gap-[22px] max-[857px]:items-center">
                     <div className="sm:text-[20px] text-[16px] max-[857px]:max-w-[362px] max-[857px]:text-center dark:text-white text-color-light-text-primary">
                       <span className="font-bold">{t('homePage:getStarted')}</span>{' '}
-                      <span className="text-color-primary">300%</span> {t('bonus:depositBonus')}
+                      <span className="text-color-primary font-bold">300%</span> {t('bonus:depositBonus')}
                     </div>
                     <div
-                      className="bg-gradient-btn-default rounded-[5px] text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
+                      className="bg-gradient-btn-default rounded-default text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
                       onClick={() => {
                         handleClickDeposit();
                       }}
@@ -580,11 +580,11 @@ function IndexPage() {
                       <div className="text-[20px] font-semibold dark:text-white text-black">
                         {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
-                        <div className="text-[14px] text-color-text-secondary mt-5">
+                        <div className="text-default text-color-text-secondary mt-5">
                           {String(t('homePage:onlyVIPClub'))}
                         </div>
                         <div className="mt-[50px]">
-                          <button className="px-[60px] py-[8px] bg-gradient-btn-default text-[14px] text-white">
+                          <button className="px-[60px] py-[8px] bg-gradient-btn-default text-default text-white">
                             Sign Up
                           </button>
                         </div>
@@ -594,7 +594,7 @@ function IndexPage() {
                       <div className="text-[20px] font-semibold dark:text-white text-black">
                         {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
                         {String(t('homePage:rewardsAtBONENZA'))}
-                        <div className="text-[14px] text-color-text-secondary mt-5">
+                        <div className="text-default text-color-text-secondary mt-5">
                           {String(t('homePage:onlyVIPClub'))}
                         </div>
                       </div>
@@ -612,7 +612,7 @@ function IndexPage() {
                         onClick={() => {
                           dispatch(changeIsShowVipClubModal(true));
                         }}
-                        className="cursor-pointer bg-gradient-btn-default  hover:opacity-[0.9] hover:text-white text-white text-[14px] font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
+                        className="cursor-pointer bg-gradient-btn-default  hover:opacity-[0.9] hover:text-white text-white text-default font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
                       >
                         {t('referAndEarn:learnMore')}
                       </div>
@@ -653,7 +653,7 @@ function IndexPage() {
               <div className="">
                 <div className="sm:py-[35px] py-[20px] lg:flex gap-[60px] rounded-[15px]">
                   <div className="lg:w-[50%]">
-                    <div className="text-black dark:text-white text-[14px] font-semibold ">
+                    <div className="text-black dark:text-white text-default font-semibold ">
                       {String(t('homePage:cryptoOnlineCasino'))}
                     </div>
                     <div
@@ -675,7 +675,7 @@ function IndexPage() {
                     </div>
                   </div>
                   <div className="mt-[42px] lg:mt-0 lg:w-[50%]">
-                    <div className="text-black dark:text-white text-center lg:text-left text-[14px] font-semibold mb-5">
+                    <div className="text-black dark:text-white text-center lg:text-left text-default font-semibold mb-5">
                       {String(t('homePage:helpUsImproveYourExperience'))}
                     </div>
                     <textarea
@@ -683,7 +683,7 @@ function IndexPage() {
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
-                      <div className="hover:opacity-[0.9] bg-gradient-btn-default py-[10px] flex items-center justify-center text-white font-bold text-[14px] w-full lg:w-[162px] rounded-[5px] cursor-pointer">
+                      <div className="hover:opacity-[0.9] bg-gradient-btn-default py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer">
                         {String(t('homePage:leaveAMessage'))}
                       </div>
                       <div className="text-color-text-secondary text-[12px]">{String(t('footer:nowGetReward'))}</div>

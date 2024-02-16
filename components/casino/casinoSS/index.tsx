@@ -118,7 +118,7 @@ const CasinoSS = <T,>({
           <div className="flex items-center gap-[10px] justify-between">
             <div className="flex items-center gap-[10px]">
               {icon}
-              <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">{title}</div>
+              <div className="font-[600] dark:text-white text-[#000] sm:text-title text-m_title">{title}</div>
             </div>
             {isShowArrow && (
               <div className="flex gap-[5px] justify-end text-white">

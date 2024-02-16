@@ -122,6 +122,14 @@ module.exports = {
         Poppins: ['"Poppins"', 'sans-serif'],
         Casino: ['"Casino Shadow"', 'embedded-opentype'],
       },
+      fontSize: {
+        default: '14px',
+        m_default: '12px',
+        title: '18px',
+        m_title: '16px',
+        des: '12px',
+        m_des: '10px',
+      },
       borderRadius: {
         none: '0',
         sm: '0.125rem',
@@ -130,6 +138,8 @@ module.exports = {
         lg: '0.5rem',
         full: '9999px',
         large: '12px',
+        default: '3px',
+        'btn-default': '5px',
         20: '20px',
       },
       boxShadow: {

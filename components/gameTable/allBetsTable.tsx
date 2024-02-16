@@ -207,7 +207,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profitAmount >= 0 ? '+' : '-'}
+              {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
                     Math.abs(row.original.profitAmountUsd * exchangeRate),
@@ -222,7 +222,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
               width={15}
               src={`/img/fiats/${row.original.currency}.png`}
               onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
+                e.currentTarget.src = '/img/fiats/USDT.png';
               }}
               alt=""
             />
