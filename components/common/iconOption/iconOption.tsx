@@ -90,7 +90,7 @@ const IconOption = ({
           />
           <div
             className={cn(`flex-1 text-start font-[${fontWeight}]`, {
-              'dark:text-white text-black': router.route.includes(href),
+              'dark:text-color-text-primary text-color-btn-primary': router.route.includes(href),
               'text-base': isFontMedium,
             })}
           >
@@ -143,49 +143,51 @@ const IconOption = ({
             >
               {title}
             </div>
-            <ArrowRight2 className={`w-[15px] h-[15px] ${showDropDownCasino ? 'rotate-90' : ''}`} />
+            <ArrowRight2 className={`w-3 h-3 mr-1 transition-all duration-150 ${showDropDownCasino ? 'rotate-90' : 'rotate-0'}`} />
           </div>
-          {showDropDownCasino && (
-            <div
-              className={cn('')}
-              onClick={() => {
-                dispatch(setCasinoTab(false));
-                localStorage.removeItem('tab');
-              }}
-            >
-              {data?.map((item, index) => {
-                if (item.href)
-                  return (
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        'flex items-center gap-[16px] py-[13px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] px-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
-                        {
-                          'dark:text-white dark:bg-[#24262B] text-black bg-[#eaecf3]': router.route.includes(
-                            item.href,
-                          ),
-                          'text-base': isFontMedium,
-                        },
-                      )}
-                      key={index}
-                    >
-                      {item.icon}
-                      <div className={cn('flex-1 text-start font-semibold')}>{item.title}</div>
-                    </Link>
-                  );
-                else
-                  return (
-                    <div
-                      className="flex items-center gap-[16px] py-[10px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
-                      key={index}
-                    >
-                      {item.icon}
-                      <div className={cn('flex-1 text-start font-semibold',{'text-base': isFontMedium})}>{item.title}</div>
-                    </div>
-                  );
-              })}
-            </div>
-          )}
+          <div
+            className={cn(
+              'transition-all overflow-hidden duration-[200]', {
+                'max-h-0': !showDropDownCasino,
+                'max-h-[574px]': showDropDownCasino
+            })}
+            onClick={() => {
+              dispatch(setCasinoTab(false));
+              localStorage.removeItem('tab');
+            }}
+          >
+            {data?.map((item, index) => {
+              if (item.href)
+                return (
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      'flex items-center gap-[16px] py-[13px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
+                      {
+                        'dark:text-white dark:bg-[#24262B] text-black bg-[#eaecf3]': router.route.includes(
+                          item.href,
+                        ),
+                        'text-base': isFontMedium,
+                      },
+                    )}
+                    key={index}
+                  >
+                    {item.icon}
+                    <div className={cn('flex-1 text-start font-semibold')}>{item.title}</div>
+                  </Link>
+                );
+              else
+                return (
+                  <div
+                  className="flex items-center gap-[16px] py-[10px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
+                  key={index}
+                  >
+                    {item.icon}
+                    <div className={cn('flex-1 text-start font-semibold',{'text-base': isFontMedium})}>{item.title}</div>
+                  </div>
+                );
+            })}
+          </div>
         </div>
       )}
     </>
