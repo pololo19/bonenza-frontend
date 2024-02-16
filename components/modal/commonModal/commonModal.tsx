@@ -1,7 +1,7 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { ElementType, Fragment, useRef } from 'react';
+import { ElementType, Fragment, useRef, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 import { TOAST_ENUM } from '@/base/constants/common';
@@ -31,84 +31,70 @@ export default function CommonModal({
   isStatic,
   transitionRootProps,
 }: CommonModalProps) {
-  const cancelButtonRef = useRef(null);
 
   return (
     <>
-      <Transition.Root {...transitionRootProps} show={show} as={Fragment}>
-        <Dialog
-          {...dialogProps}
-          as="div"
-          className="relative z-50"
-          initialFocus={cancelButtonRef}
-          onClose={isStatic ? () => {} : onClose}
+      <div
+        className="relative z-50"
+      >
+        <div className={cn(
+          "fixed inset-0 bg-[#000000aa]",
+          {
+            'scale-0 opacity-0': !show,
+            'scale-100 opacity-100': show,
+          }
+        )}/>
+        <div className={cn(
+          "fixed inset-0 z-10",
+          "transition-all duration-200 ease-in",
+          {
+            'translate-x-full sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !show,
+            'translate-x-0 md:opacity-100 scale-100': show,
+          })}
         >
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+          <div
+            className={cn(
+              'flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0',
+              position,
+            )}
           >
-            <div className="fixed inset-0 bg-[#000000aa] transition-opacity" />
-          </Transition.Child>
-          <div className="fixed inset-0 z-10">
             <div
               className={cn(
-                'flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0',
-                position,
+                'text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
+                panelClass,
               )}
             >
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-4 translate-y-0 scale-95"
-                enterTo="opacity-100 translate-y-0 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0 scale-100"
-                leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
-              >
-                <Dialog.Panel
-                  className={cn(
-                    'text-black dark:text-white flex flex-col relative transform bg-white dark:bg-color-modal-bg-primary text-left shadow-xl transition-all sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
-                    panelClass,
-                  )}
-                >
-                  <Dialog.Title as="div" className="relative">
-                    {header}
-                    {isShowCloseButton && (
-                      <div
-                        className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md z-[10]"
-                        role="button"
-                        onClick={onClose}
-                      >
-                        <XMarkIcon width={20} className=" dark:text-color-text-primary text-color-light-text-primary" />
-                      </div>
-                    )}
-                  </Dialog.Title>
-                  {children}
-                  <ToastContainer
-                    autoClose={5000}
-                    enableMultiContainer
-                    containerId={TOAST_ENUM.MODAL}
-                    className="z-index-toast !text-[12px]"
-                    position="bottom-left"
-                    theme="dark"
-                    hideProgressBar={true}
-                    icon={() => null}
-                    closeButton={() => null}
-                    toastClassName={'min-h-[40px]'}
-                    bodyClassName={'!p-0 text-gray-200'}
-                    draggableDirection={'x'}
-                  />
-                </Dialog.Panel>
-              </Transition.Child>
+              <div className="relative">
+                {header}
+                {isShowCloseButton && (
+                  <div
+                    className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md z-[10] transition-all duration-150 rotate-0 hover:rotate-90"
+                    role="button"
+                    onClick={onClose}
+                  >
+                    <XMarkIcon width={20} className=" dark:text-color-text-primary text-color-light-text-primary" />
+                  </div>
+                )}
+              </div>
+              {children}
+              <ToastContainer
+                autoClose={5000}
+                enableMultiContainer
+                containerId={TOAST_ENUM.MODAL}
+                className="z-index-toast !text-[12px]"
+                position="bottom-left"
+                theme="dark"
+                hideProgressBar={true}
+                icon={() => null}
+                closeButton={() => null}
+                toastClassName={'min-h-[40px]'}
+                bodyClassName={'!p-0 text-gray-200'}
+                draggableDirection={'x'}
+              />
             </div>
           </div>
-        </Dialog>
-      </Transition.Root>
+        </div>
+      </div>
     </>
   );
 }
