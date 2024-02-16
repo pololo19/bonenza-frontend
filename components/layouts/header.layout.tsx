@@ -214,7 +214,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="sm:block hidden ml-[8px] rounded-md relative dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
+                className="sm:block hidden rounded-md relative dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
               >
                 <Notification className="w-[20px] h-[20px]" variant="Bold" />
                 {/* <span className="absolute top-0 -right-[5px] px-[8px] rounded-full bg-color-primary text-white text-[10px]">
