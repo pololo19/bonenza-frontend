@@ -3,14 +3,22 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
-import { ElementType, Fragment, useEffect, useMemo, useState } from 'react';
+import { ElementType, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import api from '@/api/api';
+import { api_bonusDetail, api_bonusUsdtHistory } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import {
+  currencyFormat,
+  currencyFormat1,
+  exchangeByLocaleFiat,
+  formatDate,
+  handleLocaleSymbol,
+} from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
+import { BonusTransactionType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
@@ -24,105 +32,122 @@ type ModalBonusDetailProps = {
   DialogProps<ElementType>;
 
 export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProps) {
+  const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [listTypes, setListTypes] = useState<any[]>([]);
+  const [bonusCategoriesValue, setbonusCategoriesValue] = useState({
+    weeklyCashbackUsd: 0,
+    monthlyCashbackUsd: 0,
+    depositBonusUsd: 0,
+    levelUpBonusUsd: 0,
+  });
   const [typeFilter, setTypeFilter] = useState<string>('');
-  const [listTransactions, setListTransactions] = useState<any[]>([]);
+  const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
   const [totalTable, setTotalTable] = useState<number>(0);
-  const { localeFiat } = useSelector(
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
 
   const bonusCategories = [
-    {
-      title: 'Quest',
-      img: '/img/modal/quests.png',
-      value: '0.00',
-    },
-    {
-      title: 'Lucky Spin',
-      img: '/img/modal/spin.png',
-      value: '0.00',
-    },
-    {
-      title: 'Roll Competition',
-      img: '/img/modal/roll.png',
-      value: '0.00',
-    },
-    {
-      title: 'Recharge',
-      img: '/img/modal/recharge.png',
-      value: '0.00',
-    },
+    // {
+    //   title: 'Quest',
+    //   img: '/img/modal/quests.png',
+    //   value: '0.00',
+    // },
+    // {
+    //   title: 'Lucky Spin',
+    //   img: '/img/modal/spin.png',
+    //   value: '0.00',
+    // },
+    // {
+    //   title: 'Roll Competition',
+    //   img: '/img/modal/roll.png',
+    //   value: '0.00',
+    // },
+    // {
+    //   title: 'Recharge',
+    //   img: '/img/modal/recharge.png',
+    //   value: '0.00',
+    // },
     {
       title: 'Weekly Cashback',
+      category: 'weeklyCashback',
       img: '/img/modal/weekly.png',
-      value: '0.00',
     },
     {
       title: 'Monthly Cashback',
+      category: 'monthlyCashback',
       img: '/img/modal/monthly.png',
-      value: '0.00',
     },
-    {
-      title: 'Sports Weekly Bonus',
-      img: '/img/modal/sports.png',
-      value: '0.00',
-    },
+    // {
+    //   title: 'Sports Weekly Bonus',
+    //   img: '/img/modal/sports.png',
+    //   value: '0.00',
+    // },
     {
       title: 'Level-up Bonus',
+      category: 'levelUpBonus',
       img: '/img/modal/levelup.png',
-      value: '0.00',
     },
-    {
-      title: 'Free Spin',
-      img: '/img/modal/freespin.png',
-      value: '0.00',
-    },
+    // {
+    //   title: 'Free Spin',
+    //   img: '/img/modal/freespin.png',
+    //   value: '0.00',
+    // },
     {
       title: 'Deposit Bonus',
+      category: 'depositBonus',
       img: '/img/modal/deposit.png',
-      value: '0.00',
     },
   ];
 
   const getListTypeBonus = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('vip/get-list-action-type-bonus');
-      setListTypes(res.data.data);
+      const _res = await api_bonusDetail();
+      setbonusCategoriesValue({
+        weeklyCashbackUsd: Number(_res.data?.categories?.weeklyCashbackAmountUsd || 0),
+        monthlyCashbackUsd: Number(_res.data?.categories?.monthlyCashbackAmountUsd || 0),
+        depositBonusUsd: Number(_res.data?.totalDepositBonusAmountUsd || 0),
+        levelUpBonusUsd: Number(_res.data?.totalVipLevelUpBonusAmountUsd || 0),
+      });
     } catch (error) {
+      setbonusCategoriesValue({
+        weeklyCashbackUsd: 0,
+        monthlyCashbackUsd: 0,
+        depositBonusUsd: 0,
+        levelUpBonusUsd: 0,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const getListBonusTransaction = async (page?: number) => {
+  const getListBonusTransaction = useCallback(async () => {
     try {
-      // setIsLoadingTable(true);
-      // const res = await api.get('vip/get-list-bonus-transactions', {
-      //   params: {
-      //     actionType: typeFilter,
-      //     page: page,
-      //     limit,
-      //   },
-      // });
-      // setListTransactions(res?.data?.data);
-      // setTotalTable(res?.data?.total);
+      setIsLoadingTable(true);
+      const _res = await api_bonusUsdtHistory(page, limit);
+      const tempListTransactionData: BonusTransactionType[] = _res.data?.map((item: any) => ({
+        amount: item.amount,
+        amountUsd: item.amountUsd,
+        type: item.type,
+        time: item.date,
+      }));
+      setListTransactions(tempListTransactionData);
       setListTransactions([]);
       setTotalTable(0);
     } catch (error) {
     } finally {
       setIsLoadingTable(false);
     }
-  };
+  }, [page, limit]);
 
   useEffect(() => {
     getListTypeBonus();
@@ -130,19 +155,19 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
 
   useEffect(() => {
     setPage(1);
-    getListBonusTransaction(1);
+    getListBonusTransaction();
   }, [limit, typeFilter]);
 
   const columns = useMemo(() => {
-    const columnsDefault: ColumnDef<any>[] = [
+    const columnsDefault: ColumnDef<BonusTransactionType>[] = [
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-left text-[12px] text-[#98a7b5] font-normal">{t('historyBonus:bonusType')}</div>
+          <div className="text-left text-[12px] text-color-text-primary font-normal">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate">
-            {row?.original?.actionType}
+          <div className="text-[14px] text-left dark:text-color-text-primary text-[#000] truncate">
+            {row.original.type}
           </div>
         ),
         minSize: 50,
@@ -151,26 +176,16 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
       {
         accessorKey: 'amountClaimed',
         header: () => (
-          <div className="text-center text-[12px] font-normal text-[#98a7b5]">{t('historyBonus:amountClaimed')}</div>
+          <div className="text-center text-[12px] font-normal text-color-text-primary">
+            {t('historyBonus:amountClaimed')}
+          </div>
         ),
         cell: ({ row }) => (
           <div className="font-bold text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
-            {localeFiat ? (
-              <>
-                {handleLocaleSymbol(String(localeFiat?.currency))}{' '}
-                {currencyFormat(
-                  exchangeByLocaleFiat(
-                    row.original?.symbol,
-                    String(localeFiat?.currency),
-                    Math.abs(row.original?.amountClaimed),
-                  ),
-                  2,
-                )}
-              </>
-            ) : (
-              currencyFormat(Math.abs(row.original?.amountClaimed), 2)
-            )}
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.symbol}.png`} alt="" />
+            {!viewInFiat && <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />}
+            {viewInFiat
+              ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name)
+              : currencyFormat1(row.original.amount, 4, '', false)}
           </div>
         ),
         minSize: 200,
@@ -178,22 +193,24 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
       },
       {
         accessorKey: 'createdAt',
-        header: () => <div className="text-right text-[12px] text-[#98a7b5] font-normal">{t('historyBonus:time')}</div>,
+        header: () => (
+          <div className="text-right text-[12px] text-color-text-primary font-normal">{t('historyBonus:time')}</div>
+        ),
         cell: ({ row }) => (
-          <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px]">
-            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+          <div className="text-color-text-primary truncate flex items-center justify-end gap-[5px]">
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
       },
     ];
     return columnsDefault;
-  }, [t, localeFiat]);
+  }, [t, localFiat]);
 
   const handleChangePage = (action: string) => {
     let newPage: number;
     newPage = action === 'Next' ? page + 1 : page - 1;
     setPage(newPage);
-    getListBonusTransaction(newPage);
+    getListBonusTransaction();
   };
 
   const handleChangeItemPerPage = (itemPerPage: number) => {
@@ -209,12 +226,12 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         onClose={onClose}
         panelClass="rounded"
         header={
-          <div className="relative px-[18px] h-[60px] flex items-center bg-white dark:bg-[#17191b]">
+          <div className="relative px-[18px] h-[60px] flex items-center dark:bg-color-header-primary bg-color-light-bg-primary">
             {t('bonus:bonusDetail')}
           </div>
         }
       >
-        <div className="flex flex-col dark:text-[#98A7B5] text-[#3137d] overflow-y-auto px-[20px] p-5 bg-[#f6f7fa] dark:bg-[#24262B]">
+        <div className="flex flex-col dark:text-color-text-primary text-[#3137d] overflow-y-auto px-[20px] p-5 bg-[#f6f7fa] dark:bg-[#24262B]">
           <div className="">
             <div className="dark:text-white text-black text-[16px] mb-3">{t('bonus:bonusCategories')}</div>
             <div className="grid grid-cols-2 sm:grid-cols-5 p-4 pt-0 bg-[#2D3035]">
@@ -227,10 +244,22 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
                     <div className="truncate max-w-full">{item.title}</div>
                   </div>
                   <div className="text-[14px] font-bold dark:text-white text-black pl-[6px]">
-                    {handleLocaleSymbol(localeFiat?.currency || 'USD')}
-                    {localeFiat
-                      ? ` ${currencyFormat(exchangeByLocaleFiat('USD', String(localeFiat?.currency), 0), 2)}`
-                      : currencyFormat(0, 2)}
+                    {item.category === 'weeklyCashback' &&
+                      (viewInFiat
+                        ? currencyFormat1(bonusCategoriesValue.weeklyCashbackUsd * exchangeRate, 2, localFiat?.name)
+                        : currencyFormat1(bonusCategoriesValue.weeklyCashbackUsd, 2))}
+                    {item.category === 'monthlyCashback' &&
+                      (viewInFiat
+                        ? currencyFormat1(bonusCategoriesValue.monthlyCashbackUsd * exchangeRate, 2, localFiat?.name)
+                        : currencyFormat1(bonusCategoriesValue.monthlyCashbackUsd, 2))}
+                    {item.category === 'levelUpBonus' &&
+                      (viewInFiat
+                        ? currencyFormat1(bonusCategoriesValue.levelUpBonusUsd * exchangeRate, 2, localFiat?.name)
+                        : currencyFormat1(bonusCategoriesValue.levelUpBonusUsd, 2))}
+                    {item.category === 'depositBonus' &&
+                      (viewInFiat
+                        ? currencyFormat1(bonusCategoriesValue.depositBonusUsd * exchangeRate, 2, localFiat?.name)
+                        : currencyFormat1(bonusCategoriesValue.depositBonusUsd, 2))}
                   </div>
                 </div>
               ))}
@@ -264,17 +293,17 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
               >
                 <Menu.Items className="absolute dark:bg-[#17181b] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
                   <div className="py-1  dark:bg-[#17181b] bg-white">
-                    {listTypes.map((type, index) => (
+                    {bonusCategories.map((bonus, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
                             className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#2d303566] hover:bg-[#f5f6fa]"
                             role="button"
-                            onClick={() => setTypeFilter(type.actionType)}
+                            onClick={() => setTypeFilter(bonus.category)}
                           >
                             <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
                               <div className="flex-1 text-start dark:text-white max-w-full truncate text-black capitalize">
-                                {type.actionType}
+                                {bonus.title}
                               </div>
                             </div>
                           </div>

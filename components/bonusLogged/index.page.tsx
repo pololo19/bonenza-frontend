@@ -2,12 +2,11 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 
-import api from '@/api/api';
+import { api_bonusStatistics } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol, isDecimalNumber } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
@@ -18,29 +17,44 @@ import CardVipBonus from '../cards/cardVipBonus';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 
 function BonusLoggedPage() {
+  const exchangeRate = useExchange();
   const { t, i18n } = useTranslation('');
   const { theme } = useTheme();
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [bonusData, setBonusData] = useState<any>({});
-  const [levelData, setLevelData] = useState<any>({});
   const [openModalBonusDetails, setOpenModalBonusDetails] = useState<boolean>(false);
-  const { localeFiat } = useSelector(
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [totalData, setTotalData] = useState({
+    bonusClaimedUsd: 0,
+    vipBonusUsd: 0,
+    specialBonusUsd: 0,
+    generalBonusUsd: 0,
+  });
+  const [bonusData, setBonusData] = useState({
+    general: {
+      depositTime: 0,
+    },
+    vip: {
+      levelUp: {
+        currentVipXP: 0,
+        currentVipName: '',
+        nextVipXP: 0,
+      },
+      weeklyCashBack: {
+        bonus: 0,
+      },
+      monthlyCashBack: {
+        bonus: 0,
+      },
+    },
+  });
+
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
-
-  const handleGetValue = (amount: number) => {
-    const exchange = exchangeByLocaleFiat('USD', String(localeFiat?.currency), amount);
-    return localeFiat
-      ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-          exchange,
-          isDecimalNumber(exchange) ? 3 : 0,
-        )}`
-      : `$${currencyFormat(amount, isDecimalNumber(amount) ? 3 : 0)}`;
-  };
 
   const dataGeneralBonus = useMemo(
     () => [
@@ -64,7 +78,7 @@ function BonusLoggedPage() {
         title: t('bonus:spinTitle'),
         total: t('bonus:spinTotal'),
         titleValue: '1',
-        totalValue: handleGetValue(0),
+        totalValue: viewInFiat ? currencyFormat1(0 * exchangeRate, 2, localFiat?.name) : currencyFormat1(1000, 2),
         nameButton: t('bonus:spinButton'),
         showDeposit: false,
       },
@@ -138,7 +152,7 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: 1000,
+        wagerValue: viewInFiat ? currencyFormat1(1000 * exchangeRate, 2, localFiat?.name) : currencyFormat1(1000, 2),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
@@ -156,7 +170,7 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: handleGetValue(10000),
+        wagerValue: viewInFiat ? currencyFormat1(1000 * exchangeRate, 2, localFiat?.name) : currencyFormat1(1000, 2),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
@@ -183,57 +197,45 @@ function BonusLoggedPage() {
       //   showDescription: true,
       // },
     ],
-    [i18n.language],
+    [i18n.language, viewInFiat, localFiat],
   );
 
-  const getVipListByRank = async () => {
-    try {
-      const res = await api.get('user-profile/get-vip');
-      setLevelData(res.data);
-    } catch (error) {
-    } finally {
-    }
-  };
-
-  const handleGetBonus = async () => {
+  const getBonusStatistics = async () => {
     try {
       setIsLoading(true);
-      const res = await api.get('vip/get-bonus');
-      setBonusData(res.data);
+      const _res = await api_bonusStatistics();
+      setTotalData({
+        bonusClaimedUsd: Number(_res.data?.totalBonusClaimedUsd || 0),
+        vipBonusUsd: Number(_res.data?.totalVipBonusUsd || 0),
+        specialBonusUsd: Number(_res.data?.totalSpecialBonusUsd || 0),
+        generalBonusUsd: Number(_res.data?.totalGeneralBonusUsd || 0),
+      });
+      setBonusData({
+        general: {
+          depositTime: Number(_res.data?.generalBonus?.depositTimes || 0),
+        },
+        vip: {
+          levelUp: {
+            currentVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.currentVipXp || 0),
+            currentVipName: _res.data?.vipBonus?.currentVipName,
+            nextVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.nextVipXp || 0),
+          },
+          weeklyCashBack: {
+            bonus: Number(_res.data?.vipBonus?.weeklyCashBack?.bonusUsd || 0),
+          },
+          monthlyCashBack: {
+            bonus: Number(_res.data?.vipBonus?.monthlyCashBack?.bonusUsd || 0),
+          },
+        },
+      });
     } catch (error) {
     } finally {
       setIsLoading(false);
     }
-  };
-
-  const handleClaimBonus = async () => {
-    try {
-      setIsLoading(true);
-      await api.post('vip/confirm-bonus-vip');
-      toast.success(
-        <div>
-          {t('bonus:haveReceived', {
-            bonus: bonusData?.totalBonusClaim,
-          })}
-        </div>,
-        { containerId: TOAST_ENUM.COMMON },
-      );
-      handleGetBonus();
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getValueBonus = (bonus: number) => {
-    return localeFiat
-      ? ` ${currencyFormat(exchangeByLocaleFiat('USD', String(localeFiat?.currency), bonus), 2)}`
-      : currencyFormat(bonus, 2);
   };
 
   useEffect(() => {
-    handleGetBonus();
-    getVipListByRank();
+    getBonusStatistics();
   }, []);
 
   return (
@@ -241,63 +243,69 @@ function BonusLoggedPage() {
       {isLoading && <Loader />}
       <div className="mb-[50px]">
         <div className="flex max-sm:flex-wrap items-center justify-between">
-          <div className="text-[18px] dark:text-white text-[#141414] font-semibold my-[16px] md:my-0">
+          <div className="text-[18px] dark:text-white text-color-light-text-primary font-semibold my-[16px] md:my-0">
             {t('bonus:bonus')}
           </div>
-          <div className="flex h-[40px]">
+          <div className="flex h-[40px] w-full justify-end">
             <input
-              className="focus:outline-none dark:bg-[#12181F] bg-white text-[13px] rounded-[5px] placeholder:text-[#939699] min-w-[200px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
+              className="focus:outline-none dark:bg-color-card-body-default bg-white text-[13px] rounded-[5px] placeholder:text-color-text-primary min-w-[200px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
               type="text"
             />
             <div
               role="button"
-              className="hover:opacity-[0.9] bg-[#20D4EB] text-[13px] text-white font-bold rounded-[5px] px-1 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
+              className="hover:opacity-[0.9] bg-color-primary text-[13px] text-white font-bold rounded-[5px] px-1 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
             >
               {t('bonus:redeemBonusCode')}
             </div>
           </div>
         </div>
-        <div className="mt-[18px] dark:bg-[#1C1E22] bg-white rounded-[5px] w-full flex items-center justify-between px-[16px] py-[20px] max-[923px]:flex-col">
+        <div className="mt-[18px] dark:bg-color-card-body-default bg-white rounded-[5px] w-full flex items-center justify-between px-[16px] py-[20px] max-[923px]:flex-col">
           <div className="flex items-center gap-[18px] pr-[5%] max-[414px]:w-full">
             <Image src={'/img/gold-coin.png'} width={61} height={51} alt="" />
             <div>
-              <div className="text-[12px] dark:text-white text-[#141414]">{t('bonus:totalBonusClaimed')}</div>
-              <div className={`font-bold text-[#fd6e08] text-[20px]`}>
-                {handleLocaleSymbol(localeFiat?.currency || 'USD')}
-                {getValueBonus(bonusData?.totalBonusClaim)}
+              <div className="text-[12px] dark:text-white text-color-light-text-primary">
+                {t('bonus:totalBonusClaimed')}
+              </div>
+              <div className={`font-bold text-color-primary text-[20px]`}>
+                {viewInFiat
+                  ? currencyFormat1(totalData.bonusClaimedUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(totalData.bonusClaimedUsd, 2)}
               </div>
             </div>
           </div>
-          <div className="flex gap-[70px] max-[923px]:mt-[30px]">
+          <div className="sm:flex grid grid-cols-2 gap-[70px] max-[923px]:mt-[30px]">
             <div>
-              <div className="text-[12px] text-[#939699]">{t('bonus:totalVIPBonus')}</div>
-              <div className="text-[14px] dark:text-white text-[#141414] font-bold">
-                {handleLocaleSymbol(localeFiat?.currency || 'USD')}
-                {getValueBonus(bonusData?.totalVipBonus)}
+              <div className="text-[12px] text-color-text-primary">{t('bonus:totalVIPBonus')}</div>
+              <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
+                {viewInFiat
+                  ? currencyFormat1(totalData.vipBonusUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(totalData.vipBonusUsd, 2)}
               </div>
             </div>
             <div>
-              <div className="text-[12px] text-[#939699]">{t('bonus:totalSpecialBonus')}</div>
-              <div className="text-[14px] dark:text-white text-[#141414] font-bold">
-                {handleLocaleSymbol(localeFiat?.currency || 'USD')}
-                {getValueBonus(bonusData?.totalSpecialBonus)}
+              <div className="text-[12px] text-color-text-primary">{t('bonus:totalSpecialBonus')}</div>
+              <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
+                {viewInFiat
+                  ? currencyFormat1(totalData.specialBonusUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(totalData.specialBonusUsd, 2)}
               </div>
             </div>
           </div>
-          <div className="flex gap-[70px] max-[923px]:mt-[13px]">
+          <div className="sm:flex grid grid-cols-2 gap-[70px] max-[923px]:mt-[13px]">
             <div>
-              <div className="text-[12px] text-[#939699]">{t('bonus:totalGeneralBonus')}</div>
-              <div className="text-[14px] dark:text-white text-[#141414] font-bold">
-                {handleLocaleSymbol(localeFiat?.currency || 'USD')}
-                {getValueBonus(bonusData?.totalGeneralBonus)}
+              <div className="text-[12px] text-color-text-primary">{t('bonus:totalGeneralBonus')}</div>
+              <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
+                {viewInFiat
+                  ? currencyFormat1(totalData.generalBonusUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(totalData.generalBonusUsd, 2)}
               </div>
             </div>
-            {bonusData?.totalBonusClaim > 0 ? (
+            {totalData.bonusClaimedUsd > 0 ? (
               <div
-                onClick={handleClaimBonus}
+                // onClick={handleClaimBonus}
                 role="button"
-                className="hover:opacity-[0.9] dark:bg-[#2D3035] bg-[#F6F7FA] rounded-[5px] dark:text-[#0DFDE4] text-black text-[14px] h-[38px] font-bold py-[10px] px-[16px] max-[923px]:min-w-[114px] max-[923px]:text-center"
+                className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-[5px] dark:text-color-text-primary text-black text-[14px] h-[38px] font-bold py-[10px] px-[16px] max-[923px]:min-w-[114px] max-[923px]:text-center"
               >
                 {t('bonus:claim')}
               </div>
@@ -305,7 +313,7 @@ function BonusLoggedPage() {
               <div
                 onClick={() => setOpenModalBonusDetails(true)}
                 role="button"
-                className="hover:opacity-[0.9] dark:bg-[#2D3035] bg-[#F6F7FA] rounded-[5px] dark:text-[#0DFDE4] text-black text-[14px] h-[38px] font-bold py-[10px] px-[16px] max-[923px]:min-w-[114px] max-[923px]:text-center"
+                className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-[5px] dark:text-color-text-primary text-black text-[14px] h-[38px] font-bold py-[10px] px-[16px] max-[923px]:min-w-[114px] max-[923px]:text-center"
               >
                 {t('bonus:details')}
               </div>
@@ -314,8 +322,10 @@ function BonusLoggedPage() {
         </div>
         <div className="mt-5">
           <div className="flex items-center gap-[10px] mb-[16px]">
-            <div className="text-[16px] dark:text-white text-[#141414] font-bold">{t('bonus:generalBonus')}</div>
-            <div className="bg-[#0DFDE4] text-white text-[14px] w-[20px] h-[20px] rounded-[50%] text-center">1</div>
+            <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
+              {t('bonus:generalBonus')}
+            </div>
+            <div className="bg-color-primary text-white text-[14px] w-[20px] h-[20px] rounded-[50%] text-center">1</div>
           </div>
           <div className="grid grid-cols-3 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
             {dataGeneralBonus.map((item, index) => (
@@ -334,14 +344,17 @@ function BonusLoggedPage() {
             ))}
           </div>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 ">
           <div className="text-[18px] font-semibold text-[#F39717] mb-[13px]">
-            VIP <span className="text-[18px] font-semibold dark:text-white text-[#141414]">{t('bonus:Bonus')}</span>
+            VIP{' '}
+            <span className="text-[18px] font-semibold dark:text-white text-color-light-text-primary">
+              {t('bonus:Bonus')}
+            </span>
           </div>
           <div className="grid grid-cols-3 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
-            <div className="rounded-[5px] relative">
+            <div className="rounded-[5px] relative dark:bg-color-card-body-default bg-white h-full">
               <Image
-                src="/img/bg-levelup-rewards.png"
+                src={theme === 'dark' ? '/img/bg-levelup-rewards.png' : '/img/bg-levelup'}
                 width={339}
                 height={192}
                 alt=""
@@ -349,32 +362,38 @@ function BonusLoggedPage() {
               />
               <div className="absolute top-5 left-[17px] right-[18px]">
                 <div className="flex items-center gap-[10px]">
-                  <div className="text-[14px] dark:text-white text-[#141414] font-bold">
+                  <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
                     {t('bonus:levelUpRewards')}
                   </div>
                 </div>
-                <div className="dark:text-[#98A7B5] text-[#43484E] text-[12px] mt-[5px]">
+                <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] mt-[5px]">
                   {t('bonus:levelUpRewardsDescription')}
                 </div>
                 <div className="mt-[10px] flex justify-between w-[60%]">
                   <div>
-                    <div className="dark:text-[#98A7B5] text-[#43484E] text-[12px]">{t('bonus:currentVIP')}</div>
-                    <div className="dark:text-[#98A7B5] text-[#43484E] text-[12px]">{t('bonus:xPNextLevel')}</div>
-                    <div className="dark:text-[#98A7B5] text-[#43484E] text-[12px]">{t('bonus:readyToClaim')}</div>
+                    <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+                      {t('bonus:currentVIP')}
+                    </div>
+                    <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+                      {t('bonus:xPNextLevel')}
+                    </div>
+                    <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+                      {t('bonus:readyToClaim')}
+                    </div>
                   </div>
                   <div>
-                    <div className="dark:text-[#fff] text-[#43484E] font-semibold text-[12px] text-right">
-                      {levelData?.vipCurrent?.type}
-                      {levelData?.vipCurrent?.level}
+                    <div className="dark:text-[#fff] text-color-light-text-primary font-semibold text-[12px] text-right">
+                      {bonusData.vip.levelUp.currentVipName}
                     </div>
-                    <div className="dark:text-[#98A7B5] text-[#43484E] text-[12px] text-right flex">
-                      <span className="font-bold dark:text-white">{levelData?.totalXp}</span>
+                    <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] text-right flex">
+                      <span className="font-bold dark:text-white">{bonusData.vip.levelUp.currentVipXP}</span>
                       <span>/</span>
-                      <span>{levelData?.totalXp + levelData?.xpNextLevel}</span>
+                      <span>{bonusData.vip.levelUp.nextVipXP}</span>
                     </div>
-                    <div className="dark:text-[#98A7B5] text-[#43484E] text-[12px] text-right">
-                      {handleLocaleSymbol(localeFiat?.currency || 'USD')}
-                      {getValueBonus(bonusData?.totalBonusClaim)}
+                    <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] text-right">
+                      {viewInFiat
+                        ? currencyFormat1(totalData.bonusClaimedUsd * exchangeRate, 2, localFiat?.name)
+                        : currencyFormat1(totalData.bonusClaimedUsd, 2)}
                     </div>
                   </div>
                 </div>
@@ -382,7 +401,7 @@ function BonusLoggedPage() {
               <div
                 role="button"
                 onClick={() => dispatch(changeIsShowVipClubModal(true))}
-                className="dark:bg-[#2D3035] bg-[#F6F7FA] flex gap-[10px] items-center justify-center rounded-[5px] h-[38px] absolute bottom-[17px] left-[17px] right-[18px]"
+                className="dark:bg-[#2D3035] bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px] absolute bottom-[17px] left-[17px] right-[18px]"
               >
                 <div className="text-[#fd6e08] font-semibold text-[12px]">{t('bonus:viewVIPClub')}</div>
               </div>
@@ -410,17 +429,17 @@ function BonusLoggedPage() {
           </div>
         </div>
         <div className="mt-5">
-          <div className="text-[16px] dark:text-white text-[#141414] font-bold mb-[18px]">
+          <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold mb-[18px]">
             {t('bonus:specialBonus')}
           </div>
-          <div className="dark:bg-[#1C1E22] bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">
+          <div className="dark:bg-color-card-body-default bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">
             <Image
               src={theme === 'dark' ? '/img/no-data.png' : '/img/no-data-light-mode.png'}
               width={90}
               height={90}
               alt=""
             />
-            <div className="dark:text-[#53575C] text-[#98A7B5] text-[13px]">{t('bonus:noData')}</div>
+            <div className="dark:text-[#53575C] text-color-text-primary text-[13px]">{t('bonus:noData')}</div>
           </div>
         </div>
       </div>
