@@ -4,7 +4,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { ReactElement, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-
+import cn from 'classnames';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
@@ -18,6 +18,7 @@ import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRule
 
 import AffiliateLoggedPage from '../affiliate-logged/index.module';
 import styles from './index.module.scss';
+import classNames from 'classnames';
 
 function AffiliatePage() {
   const exchange = useExchange();
@@ -81,7 +82,6 @@ function AffiliatePage() {
     ],
     [i18n],
   );
-
   return (
     <>
       <Head>
@@ -89,13 +89,19 @@ function AffiliatePage() {
       </Head>
       {!isLogin && (
         <>
-          <div className="bg-[url('/img/page/banner-affiliate-light-mode.png')] dark:bg-[url('/img/banner-affiliate.png')] bg-[length:100%_100%] bg-no-repeat py-[60px] mb-[40px] mt-[25px]">
-            <div className="flex flex-col ml-[56px] max-w-[588px] items-center">
-              <h1 className="sm:text-[36px] text-[28px] mb-[10px] dark:text-white text-[#141414] text-center font-bold">
+          <div className={cn(
+            "dark:bg-[#1C1E22] bg-[#FFFFFF] bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] pt-[50px] lg:pt-[25px] lg:h-[360px]",
+            "lg:dark:bg-[url('/img/page/banner-affiliate.png')]",
+            "lg:bg-[url('/img/page/banner-affiliate-light-mode.png')]",
+            "bg-[url('/img/page/banner-affiliate-back-mobile.png')]",
+            )}
+          >
+            <div className="flex flex-col lg:w-1/2 w-full h-full justify-center items-center">
+              <h1 className="italic text-[36px] lg:text-[28px] xl:text-[36px] mb-[10px] dark:text-white text-[#141414] text-center font-bold">
                 {t('affiliate:inviteFriendsToEarn')}
               </h1>
               <h5
-                className={`sm:text-[30px] text-[20px] mb-[30px] text-center font-bold bg-color-primary ${styles.textBanner}`}
+                className={`text-[30px] lg:text-[20px] xl:text-[30px] mb-[30px] text-center font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#ffd339] to-[#f59e00]`}
               >
                 {`${
                   viewInFiat ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(1000, 2)
@@ -104,7 +110,7 @@ function AffiliatePage() {
               </h5>
               <div
                 role="button"
-                className="bg-btn-sign-in rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] max-w-[208px] p-[10px] font-bold text-white mb-[10px]"
+                className="bg-btn-sign-in rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] max-w-[208px] px-[20px] py-[10px] font-bold text-white mb-[10px]"
                 onClick={() => {
                   dispatch(changeIsShowAuthenticationModal(true));
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
@@ -115,17 +121,23 @@ function AffiliatePage() {
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
               </div>
-              <h5 className="text-[16px] text-center dark:text-white text-[#141414]">
+              <h5 className="text-[16px] text-center dark:text-white text-[#141414] mt-3">
                 {t('affiliate:referralTermsConditions')}
               </h5>
+              <div className={cn(
+                "lg:hidden",
+                "bg-[url('/img/page/banner-affiliate-mobile.png')] bg-[length:100%_100%]",
+                "h-[300px] w-[450px] mt-10",
+                )}
+              />
             </div>
           </div>
-          <div className="flex lg:flex-row flex-col gap-[25px]">
-            <div className="dark:bg-[url('/img/banner-box.png')] bg-[url('/img/banner-box-light.png')] bg-[length:100%_100%] bg-no-repeat py-[44px] px-[25px] flex items-center gap-[10px]">
-              <div className="flex flex-col sm:items-start items-center">
-                <div className="text-[22px] mb-[20px] font-bold dark:text-white text-[#141414] lg:max-w-[262px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="py-7 px-5 dark:bg-[#2D3237] bg-[#D2CDC9] md:bg-[url('/img/banner-image-box1.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:28%_auto] rounded">
+              <div className="sm:w-[100%] md:w-[70%]">
+                <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
                   {t('affiliate:getYour')}
-                  <span className={`bg-gradient-to-r from-amber-500 to-amber-500 font-bold ${styles.textBanner}`}>
+                  <span className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}>
                     {' '}
                     {viewInFiat
                       ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')
@@ -133,49 +145,43 @@ function AffiliatePage() {
                   </span>
                   <span className="font-bold">{t('affiliate:referralRewards')}</span>
                 </div>
-                <span className={`text-[14px] bg-[#939699] ${styles.textBanner}`}>
+                <span className={`text-[16px] dark:text-[#939699] text-[#7C7A77]`}>
                   {t('affiliate:everyFriendYouInvite', {
                     reward: viewInFiat
                       ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')
                       : currencyFormat1(1000, 2),
                   })}
                 </span>
-                <div className="max-w-[200px] sm:hidden block">
-                  <Image width={200} height={30} src="/img/banner-image-box1.png" className="w-full h-full" alt="" />
+                <div className="md:hidden mt-5">
+                  <Image width={200} height={30} src="/img/banner-image-box1.png" className="w-[50%] h-[50%] m-auto" alt="" />
                 </div>
                 <div
                   role="button"
-                  className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[13px] px-[10px] max-w-[194px] mt-5 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowReferralRewardRules(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}
                 </div>
               </div>
-              <div className="max-w-[200px] sm:block hidden">
-                <Image width={200} height={30} src="/img/banner-image-box1.png" className="w-full h-full" alt="" />
-              </div>
             </div>
-            <div className="dark:bg-[url('/img/banner-box.png')] bg-[url('/img/banner-box-light.png')] bg-[length:100%_100%] bg-no-repeat py-[44px] px-[25px] flex justify-around items-center gap-[10px]">
-              <div className="flex flex-col sm:items-start items-center">
-                <div className="text-[22px] mb-[20px] font-bold dark:text-white text-[#141414] lg:max-w-[262px]">
-                  {t('affiliate:getYour')}{' '}
-                  <span className={`bg-gradient-to-r from-amber-500 to-amber-500  ${styles.textBanner}`}> 25% </span>
+            <div className="py-7 px-5 dark:bg-[#2D3237] bg-[#D2CDC9] md:bg-[url('/img/banner-image-box2.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:35%_auto] rounded">
+              <div className="sm:w-[100%] md:w-[70%]">
+                <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
+                  {t('affiliate:getYour')}{' '}                  
+                  <span className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}> 25% </span>
                   <span className="font-bold">{t('affiliate:commissionRewards')}</span>
                 </div>
-                <span className={`text-[14px] bg-[#939699] ${styles.textBanner}`}>{t('affiliate:youWillReceive')}</span>
-                <div className="max-w-[200px] sm:hidden block">
-                  <Image width={200} height={30} src="/img/banner-image-box1.png" className="w-full h-full" alt="" />
+                <span className="text-[16px] dark:text-[#939699] text-[#7C7A77]">{t('affiliate:youWillReceive')}</span>
+                <div className="md:hidden mt-5">
+                  <Image width={200} height={30} src="/img/banner-image-box2.png" className="w-[50%] h-[50%] m-auto" alt="" />
                 </div>
                 <div
                   role="button"
-                  className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[13px] px-[10px] max-w-[194px] mt-5 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowDetailCommissionsRewards(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}
                 </div>
-              </div>
-              <div className="max-w-[200px] sm:block hidden">
-                <Image width={200} height={30} src="/img/banner-image-box2.png" className="w-full h-full" alt="" />
               </div>
             </div>
           </div>
@@ -192,7 +198,7 @@ function AffiliatePage() {
             <div className="text-center mr-[40px]">
               <h5 className="mb-[10px] text-[14px] dark:text-white text-[#141414]">{t('affiliate:totalRewards')}</h5>
               <div className="dark:bg-color-panel-bg bg-[#F6F7FA] rounded-[5px] w-[420px] h-[60px] flex justify-center items-center ">
-                <span className={`font-bold text-[24px] bg-color-primary  ${styles.textBanner}`}>
+                <span className={`font-bold text-[24px] dark:text-white text-[#141414]`}>
                   {viewInFiat ? currencyFormat1(0 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(0, 2)}
                 </span>
               </div>
