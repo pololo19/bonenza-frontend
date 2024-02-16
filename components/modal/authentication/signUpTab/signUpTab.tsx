@@ -159,7 +159,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               type="checkbox"
               id="confirm18"
             />
-            <label htmlFor="confirm18" className="text-[12px] !text-color-text-primary font-normal text-start">
+            <label htmlFor="confirm18" className="text-des !text-color-text-primary font-normal text-start">
               <Trans i18nKey="authentication:confirmAtLeast18YearsOld">
                 I agree to the
                 <Link className="text-color-primary font-bold" href="/helper-center/terms-of-service/" target="_blank">
@@ -179,7 +179,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               type="checkbox"
               id="vehicle1"
             />
-            <label htmlFor="vehicle1" className="text-[12px] !text-color-text-primary font-normal text-start">
+            <label htmlFor="vehicle1" className="text-des !text-color-text-primary font-normal text-start">
               {t('authentication:agreeToReceive')}
             </label>
           </div>
@@ -187,7 +187,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         <button
           type="submit"
           onClick={onSignUp}
-          className="bg-gradient-btn-default  w-full rounded-[5px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-5"
+          className="bg-gradient-btn-default  w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-5"
         >
           <div />
           <div className="text-[14px] text-white">{t('authentication:continue')}</div>
@@ -199,7 +199,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
           <div role="button" className="text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
             <span className="text-color-text-primary">{t('authentication:alreadyHaveAccount')}&nbsp;&nbsp;</span>
             <span
-              className="text-[#50c627] hover:text-amber-500 hover:underline"
+              className="text-color-primary hover:text-color-secondary hover:underline"
               onClick={() => {
                 dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
               }}

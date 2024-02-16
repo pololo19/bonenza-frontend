@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2 } from 'iconsax-react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { Fragment, InputHTMLAttributes, useEffect, useState } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
@@ -9,7 +10,6 @@ import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { MAX_LENGTH, SPECIAL_CHARACTER, SPECIAL_CHARACTER_WITHOUT_EMAIL } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
-import { useTheme } from 'next-themes';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;
@@ -82,7 +82,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                'bg-white dark:bg-color-bg-primary rounded-default flex items-center px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 {
                   'dark-autofill': theme === 'dark',
                   'light-autofill': theme === 'light',
@@ -94,7 +94,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
               {!showPhoneNumber && <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="" />}
               {showPhoneNumber && (
                 <Menu>
-                  <Menu.Button className="text-[12px] flex items-center gap-[4px] cursor-pointer min-w-[45px]">
+                  <Menu.Button className="text-default flex items-center gap-[4px] cursor-pointer min-w-[45px]">
                     <div className="flex-1">+{activeCountry.countryCallingCode}</div>
                     <ArrowDown2 className="w-[11px]" />
                   </Menu.Button>
@@ -139,15 +139,15 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full bg-transparent focus:outline-none text-[14px] text-black dark:text-white active:bg-transparent active:shadow-none',
+                  'w-full bg-transparent focus:outline-none text-default text-black dark:text-white active:bg-transparent active:shadow-none',
                   customClass,
                   {
-                    'border-red-500': !!error?.message,
+                    'border-color-red': !!error?.message,
                   },
                 )}
               />
             </div>
-            {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}
+            {error?.message && <span className="text-color-red text-[12px]"> {error?.message}</span>}
           </div>
         );
       }}

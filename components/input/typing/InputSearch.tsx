@@ -16,7 +16,7 @@ const InputSearch = <TFieldValues extends Record<string, unknown>>({
   return (
     <div className="relative w-full">
       <input
-        className={`w-full px-2 py-2 outline-none dark:bg-gray-700/75 bg-white rounded pl-[35px] dark:text-white text-[#31373d] sm:text-[14px] text-[12px] placeholder:text-[14px] ${className}`}
+        className={`w-full px-2 py-2 outline-none dark:bg-gray-700/75 bg-white rounded pl-[35px] dark:text-white text-color-light-text-primary text-default placeholder:text-default ${className}`}
         placeholder="Search"
         {...rest}
       />

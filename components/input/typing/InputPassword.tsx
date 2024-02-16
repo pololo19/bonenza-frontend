@@ -62,7 +62,7 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
         <div className="w-full flex-1">
           <div
             className={cn(
-              'dark:bg-color-bg-primary bg-color-light-bg-primary rounded-[3px] flex items-center px-[10px] py-[10px] gap-[18px] text-[14px] border-[1px] border-solid border-transparent focus-within:border-color-primary',
+              'dark:bg-color-bg-primary bg-color-light-bg-primary rounded-default flex items-center px-[10px] py-[10px] gap-[18px] text-default border-[1px] border-solid border-transparent focus-within:border-color-primary',
               customClass,
               {
                 'dark-autofill': theme === 'dark',
@@ -78,7 +78,7 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
               value={(field.value ?? '') as string}
               onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
               className={cn(
-                'w-full bg-transparent focus:outline-none text-[14px] dark:text-white text-black',
+                'w-full bg-transparent focus:outline-none text-default dark:text-white text-black',
 
                 {
                   'border-red-500': !!error?.message,
@@ -95,7 +95,7 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
             )}
           </div>
 
-          {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}
+          {error?.message && <span className="text-red-500 text-des"> {error?.message}</span>}
         </div>
       )}
     />

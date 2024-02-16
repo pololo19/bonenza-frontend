@@ -2,7 +2,6 @@ import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { CSSProperties, useMemo } from 'react';
 
 import styles from './index.module.scss';
 
@@ -50,7 +49,7 @@ export default function CardPlay({
         <div
           className={cn(
             styles.cardContent,
-            'p-[10px] dark:!backdrop-blur-[15px] dark:bg-none bg-gradient-to-t dark:from-[#fff]  dark:to-[#fff]/0 from-white via-white via-70%',
+            'p-[10px] dark:!backdrop-blur-[15px] dark:bg-none bg-gradient-to-t dark:from-white  dark:to-white/0 from-white via-white via-70%',
           )}
         >
           <div>

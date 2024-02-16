@@ -68,7 +68,7 @@ const VipProgressComponent = () => {
     <>
       {isLoading && <Loader />}
       <div className="flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:dark:bg-color-card-bg-default sm:bg-white sm:min-w-[400px] rounded-[3px]">
-        <div className="dark:text-white text-black font-[600] sm:text-[20px] text-[14px]">
+        <div className="dark:text-white text-black font-[600] sm:text-[20px] text-default">
           {t('homePage:yourVipProgress')}
         </div>
         <div className="top-[15px] absolute right-[25px] dark:text-white text-black">
@@ -88,10 +88,10 @@ const VipProgressComponent = () => {
           <div className="p-[4px] border border-solid rounded-full dark:border-color-border-primary border-color-light-border-primary">
             <Image width={30} height={30} src="/img/reward.png" className="w-[20px] h-[20px]" alt="" />
           </div>
-          <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] flex items-center">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex items-center">
             {t('bonus:nextLevelBonus')}
           </div>
-          <div className="dark:text-color-secondary text-color-light-text-primary text-[14px] flex items-center">
+          <div className="dark:text-color-secondary text-color-light-text-primary text-default flex items-center">
             {`${currentLevel.nextLevelBonus.toFixed(2)} USDT`}
           </div>
         </div>

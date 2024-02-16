@@ -1,13 +1,13 @@
 import cn from 'classnames';
 import { Eye, EyeSlash } from 'iconsax-react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { InputHTMLAttributes, useState } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 import { MAX_LENGTH, SPECIAL_CHARACTER, SPECIAL_CHARACTER_WITHOUT_EMAIL } from '@/base/constants/validation';
 import { EnumTypeInput } from '@/base/types/common';
 import { InputTextType } from '@/base/types/form';
-import { useTheme } from 'next-themes';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttributes<HTMLInputElement> {
   name: Path<TFieldValues>;
@@ -65,7 +65,7 @@ const InputPassAuthentication = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                'bg-white dark:bg-color-bg-primary rounded-default flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 {
                   'dark-autofill': theme === 'dark',
                   'light-autofill': theme === 'light',
@@ -83,10 +83,10 @@ const InputPassAuthentication = <TFieldValues extends Record<string, unknown>>({
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full bg-transparent focus:outline-none text-[14px] text-black dark:text-white',
+                  'w-full bg-transparent focus:outline-none text-default text-black dark:text-white',
                   customClass,
                   {
-                    'border-red-500': !!error?.message,
+                    'border-color-red': !!error?.message,
                   },
                 )}
               />
@@ -97,7 +97,7 @@ const InputPassAuthentication = <TFieldValues extends Record<string, unknown>>({
               )}
             </div>
 
-            {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}
+            {error?.message && <span className="text-color-red text-[12px]"> {error?.message}</span>}
           </div>
         );
       }}

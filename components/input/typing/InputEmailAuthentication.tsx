@@ -62,7 +62,7 @@ const InputEmailAuthentication = <TFieldValues extends Record<string, unknown>>(
           <div className="w-full flex-1">
             <div
               className={cn(
-                'bg-white dark:bg-color-bg-primary rounded-[3px] flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                'bg-white dark:bg-color-bg-primary rounded-default flex items-center p-[15px] gap-[18px] border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 {
                   'dark-autofill': theme === 'dark',
                   'light-autofill': theme === 'light',
@@ -79,15 +79,15 @@ const InputEmailAuthentication = <TFieldValues extends Record<string, unknown>>(
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full bg-white dark:bg-color-bg-primary focus:outline-none text-[14px] gap-[18px] text-black dark:text-white',
+                  'w-full bg-white dark:bg-color-bg-primary focus:outline-none text-default gap-[18px] text-black dark:text-white',
                   customClass,
                   {
-                    'border-red-500': !!error?.message,
+                    'border-color-red': !!error?.message,
                   },
                 )}
               />
             </div>
-            {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}
+            {error?.message && <span className="text-color-red text-[12px]"> {error?.message}</span>}
           </div>
         );
       }}

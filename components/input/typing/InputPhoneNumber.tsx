@@ -73,7 +73,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'dark:bg-color-bg-primary bg-white rounded-[3px] flex items-center p-[15px] gap-[8px] h-[51px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                'dark:bg-color-bg-primary bg-white rounded-default flex items-center p-[15px] gap-[8px] h-[53px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 customClass,
                 {
                   'dark-autofill': theme === 'dark',
@@ -82,7 +82,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
               )}
             >
               <Menu>
-                <Menu.Button className="text-[12px] flex items-center gap-[4px] cursor-pointer min-w-[45px]">
+                <Menu.Button className="text-default flex items-center gap-[4px] cursor-pointer min-w-[45px]">
                   <div className="flex-1">+{activeCountry.countryCallingCode}</div>
                   <ArrowDown2 className="w-[11px]" />
                 </Menu.Button>
@@ -104,7 +104,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                               className={`${active ? 'bg-gray-700 ' : ''} ${
                                 country.countryCode === activeCountry.countryCode &&
                                 'border border-color-primary border-solid'
-                              } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded text-left`}
+                              } flex p-2 text-des text-gray-400 my-1 mx-1 rounded text-left`}
                               onClick={() => setActiveCountry(country)}
                             >
                               <div className="flex-1">{country.country}</div>
@@ -126,14 +126,14 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                 autoComplete={autoComplete}
                 onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
                 className={cn(
-                  'w-full focus:outline-none text-[14px] bg-transparent dark:text-white text-color-light-text-primary',
+                  'w-full focus:outline-none text-default bg-transparent dark:text-white text-color-light-text-primary',
                   {
-                    'border-red-500': !!error?.message,
+                    'border-color-red': !!error?.message,
                   },
                 )}
               />
             </div>
-            {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}
+            {error?.message && <span className="text-color-red text-[12px]"> {error?.message}</span>}
           </div>
         );
       }}

@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { ArrowDown, ArrowUp } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
+import { ElementType, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_setCurrencyFavorite } from '@/api/wallet';
@@ -24,16 +24,14 @@ type ModalCurrencyTypesProps = {
   DialogProps<ElementType>;
 
 export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypesProps) {
-  const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
   const { theme } = useTheme();
   const dispatch = useDispatch();
 
-  const { fiatArray, cryptoArray, usdtNetwork } = useSelector(
+  const { fiatArray, cryptoArray } = useSelector(
     (state: AppState) => ({
       fiatArray: state.wallet.fiatSymbols,
       cryptoArray: state.wallet.symbols,
-      usdtNetwork: state.common.usdtNetwork,
     }),
     shallowEqual,
   );
@@ -42,7 +40,6 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isReverse, setIsReverse] = useState<boolean>(false);
   const [openTab, setOpenTab] = useState<number>(1);
-  const [limit] = useState<number>(100);
   const [listCrypto, setListCrypto] = useState<CurrencyType[]>([]);
   const [listFiat, setListFiat] = useState<CurrencyType[]>([]);
   const [listFavorite, setListFavorite] = useState<CurrencyType[]>([]);
@@ -157,7 +154,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
             <div className="flex">
               <div
                 onClick={() => setOpenTab(1)}
-                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
                   'dark:text-white dark:bg-color-active-secondary text-[#000] bg-color-light-active-primary font-bold':
                     openTab === 1,
                   'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
@@ -168,7 +165,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               </div>
               <div
                 onClick={() => setOpenTab(2)}
-                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
                   'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
                     openTab === 2,
                   'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
@@ -179,7 +176,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               </div>
               <div
                 onClick={() => setOpenTab(3)}
-                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
                   'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
                     openTab === 3,
                   'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
@@ -190,7 +187,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               </div>
               <div
                 onClick={() => setOpenTab(4)}
-                className={cn('text-[14px] inline-block px-2 py-3 cursor-pointer grow text-center', {
+                className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
                   'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
                     openTab === 4,
                   'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
@@ -234,7 +231,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
-                      <div className="flex-1 dark:text-white text-black text-start text-[14px]">{coin.name}</div>
+                      <div className="flex-1 dark:text-white text-black text-start text-default">{coin.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
                       <span>{coin.alias}</span>
@@ -265,7 +262,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={fiat.logo} className="inline" alt="" />
-                      <div className="flex-1 dark:text-white text-black text-start text-[14px]">{fiat.name}</div>
+                      <div className="flex-1 dark:text-white text-black text-start text-default">{fiat.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
                       <span>{fiat.alias}</span>
@@ -295,7 +292,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
-                      <div className="flex-1 text-start dark:text-white text-black text-[14px]">{coin.name}</div>
+                      <div className="flex-1 text-start dark:text-white text-black text-default">{coin.name}</div>
                     </div>
                     <div className="flex items-center">
                       <span>{coin.alias}</span>
