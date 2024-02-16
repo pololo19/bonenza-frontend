@@ -246,7 +246,7 @@ function BonusLoggedPage() {
           <div className="text-[18px] dark:text-white text-color-light-text-primary font-semibold my-[16px] md:my-0">
             {t('bonus:bonus')}
           </div>
-          <div className="flex h-[40px] w-full">
+          <div className="flex h-[40px] w-full justify-end">
             <input
               className="focus:outline-none dark:bg-color-card-body-default bg-white text-[13px] rounded-[5px] placeholder:text-color-text-primary min-w-[200px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
