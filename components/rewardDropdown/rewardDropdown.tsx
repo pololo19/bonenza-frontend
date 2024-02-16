@@ -65,13 +65,13 @@ export default function RewardDropdown() {
     <>
       <>
         {bonuses.length > 0 && (
-          <Popover className="h-full mr-[10px]">
+          <Popover className="h-full mr-[10px] relative w-auto rounded-[7px] text-center aspect-square">
             {({ open }) => (
               <>
                 <Popover.Button className="h-full">
                   <div className="flex flex-col h-full justify-center dark:text-white text-color-text-primary items-center relative">
-                    <Gift width={18} height={18} variant="Bold" />
-                    <div className="absolute text-white bg-color-primary rounded-full top-0 -right-[calc(50%)] px-[6px] text-[12px]">
+                    <Gift variant="Bold" className="w-[24px] h-[24px] sm:w-[20px] sm:h-[20px]" />
+                    <div className="absolute text-white bg-color-primary rounded-full top-0 -right-[calc(50%)] px-[6px] text-[10px]">
                       {bonuses.length}
                     </div>
                   </div>
@@ -99,14 +99,14 @@ export default function RewardDropdown() {
                 >
                   <Popover.Panel
                     static
-                    className="absolute mr-0 left-auto right-0 z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[60px]"
+                    className="mr-0 right-0 absolute sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[60px]"
                   >
                     <div className="gap-[10px] px-[20px] flex flex-col relative rounded-md p-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
-                      <div className="dark:text-white text-color-light-text-primary text-[14px]">
+                      <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">
                         {t('bonus:bonusReady')}
                       </div>
                       {bonuses.map((bonus) => (
-                        <div className="flex w-full justify-between rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary">
+                        <div className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary">
                           <div className="flex gap-[10px]">
                             <div className="flex flex-col justify-center items-center">
                               <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />
@@ -134,7 +134,7 @@ export default function RewardDropdown() {
                           </div>
                           <div className="py-[2px]">
                             <button
-                              className="bg-gradient-btn-default px-[30px] h-full dark:text-white text-color-light-text-primary rounded-[3px]"
+                              className="bg-gradient-btn-default px-[30px] h-full text-white rounded-[3px]"
                               onClick={() => handleClaim(bonus)}
                             >
                               {t('deposit:claim')}
@@ -143,7 +143,7 @@ export default function RewardDropdown() {
                         </div>
                       ))}
                       <Link href={ROUTER.Bonus}>
-                        <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid border-color-border-primary justify-center">
+                        <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary justify-center">
                           {t('bonus:bonusDashboard')}
                           <ArrowRight2 size={16} />
                         </div>
