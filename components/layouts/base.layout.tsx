@@ -717,18 +717,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isShowUpdateAvatar && (
         <ModalUpdateAvatar show={isShowUpdateAvatar} onClose={() => dispatch(changeIsShowUpdateAvatar(false))} />
       )}
-      {isShowMultiLanguage && (
-        <ModalMultiLanguage
-          show={isShowMultiLanguage}
-          onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
-        />
-      )}
-      {isShowAuthenticationModal && (
-        <ModalAuthentication
-          show={isShowAuthenticationModal}
-          onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
-        />
-      )}
+      <ModalMultiLanguage
+        show={isShowMultiLanguage || false}
+        onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
+      />
+      <ModalAuthentication
+        show={isShowAuthenticationModal || false}
+        onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
+      />
       {isShowVipClubModal && (
         <ModalVipClub
           show={isShowVipClubModal}
@@ -757,16 +753,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
         />
       )}
-      {isShowModalBonusHistory && (
-        <ModalBonusHistory
-          show={isShowModalBonusHistory}
-          cryptoLocked={cryptoLocked}
-          onClose={() => {
-            dispatch(changeIsShowBonusHistory(false));
-          }}
-          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
-        />
-      )}
+      <ModalBonusHistory
+        show={isShowModalBonusHistory || false}
+        cryptoLocked={cryptoLocked}
+        onClose={() => {
+          dispatch(changeIsShowBonusHistory(false));
+        }}
+        setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+      />
       {isShowVipLevelModal && (
         <ModalVipLevel
           show={isShowVipLevelModal}
@@ -776,9 +770,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      {isShowDepositModal && (
-        <ModalDeposit show={isShowDepositModal} onClose={() => dispatch(changeIsShowDepositModal(false))} />
-      )}
+      <ModalDeposit show={isShowDepositModal ? isShowDepositModal : false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
       {isShowCryptoOnlineModal && (
         <ModalCryptoOnline
           show={isShowCryptoOnlineModal}
