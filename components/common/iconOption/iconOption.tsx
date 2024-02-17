@@ -72,7 +72,7 @@ const IconOption = ({
       {!isDropDown && (
         <Link
           className={cn(
-            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-color-light-hover-primary hover:text-[#000] dark:hover:text-white sm:text-[14px] text-[12px] flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
+            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-color-light-hover-primary hover:text-[#000] dark:hover:text-white sm:text-default text-m_default flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
 
             router.route.includes(href) ? activeClassNames : classNames,
           )}
@@ -90,7 +90,7 @@ const IconOption = ({
           />
           <div
             className={cn(`flex-1 text-start font-[${fontWeight}]`, {
-              'dark:text-color-text-primary text-color-btn-primary': router.route.includes(href),
+              'dark:text-white text-black': router.route.includes(href),
               'text-base': isFontMedium,
             })}
           >
@@ -101,7 +101,7 @@ const IconOption = ({
       {isDropDown && (
         <div
           className={cn(
-            'capitalize block dark:bg-color-bg-primary dark:text-color-text-primary text-[14px] cursor-pointer transition-[height] ease-in-out duration-300',
+            'capitalize block dark:bg-color-bg-primary dark:text-color-text-primary text-default cursor-pointer transition-[height] ease-in-out duration-300',
             classNames,
             `font-[${fontWeight}]`,
             {
@@ -114,9 +114,9 @@ const IconOption = ({
           <div
             className={cn(
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[13px] dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800',
-              { 
+              {
                 'dark:hover:bg-[#292C33]': showDropDownCasino,
-                'hover:rounded' : showDropDownCasino,
+                'hover:rounded': showDropDownCasino,
               },
             )}
             onClick={() => {
@@ -132,24 +132,21 @@ const IconOption = ({
               })}
             />
             <div
-              className={cn(
-                'flex-1 text-start', 
-                `font-[${fontWeight}]`,
-                {
-                  'dark:text-white text-black': showDropDownCasino,
-                  'text-base': isFontMedium,
-                })
-              }
+              className={cn('flex-1 text-start', `font-[${fontWeight}]`, {
+                'dark:text-white text-black': showDropDownCasino,
+                'text-base': isFontMedium,
+              })}
             >
               {title}
             </div>
-            <ArrowRight2 className={`w-3 h-3 mr-1 transition-all duration-150 ${showDropDownCasino ? 'rotate-90' : 'rotate-0'}`} />
+            <ArrowRight2
+              className={`w-3 h-3 mr-1 transition-all duration-150 ${showDropDownCasino ? 'rotate-90' : 'rotate-0'}`}
+            />
           </div>
           <div
-            className={cn(
-              'transition-all overflow-hidden duration-[200]', {
-                'max-h-0': !showDropDownCasino,
-                'max-h-[574px]': showDropDownCasino
+            className={cn('transition-all overflow-hidden duration-[200]', {
+              'max-h-0': !showDropDownCasino,
+              'max-h-[574px]': showDropDownCasino,
             })}
             onClick={() => {
               dispatch(setCasinoTab(false));
@@ -162,11 +159,9 @@ const IconOption = ({
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-[16px] py-[13px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
+                      'flex items-center gap-[16px] py-[13px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-color-light-bg-primary px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
                       {
-                        'dark:text-white dark:bg-[#24262B] text-black bg-[#eaecf3]': router.route.includes(
-                          item.href,
-                        ),
+                        'dark:text-white dark:bg-[#24262B] text-black bg-[#eaecf3]': router.route.includes(item.href),
                         'text-base': isFontMedium,
                       },
                     )}
@@ -179,11 +174,13 @@ const IconOption = ({
               else
                 return (
                   <div
-                  className="flex items-center gap-[16px] py-[10px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-[#f6f7fa] pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
-                  key={index}
+                    className="flex items-center gap-[16px] py-[10px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-color-light-bg-primary pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
+                    key={index}
                   >
                     {item.icon}
-                    <div className={cn('flex-1 text-start font-semibold',{'text-base': isFontMedium})}>{item.title}</div>
+                    <div className={cn('flex-1 text-start font-semibold', { 'text-base': isFontMedium })}>
+                      {item.title}
+                    </div>
                   </div>
                 );
             })}

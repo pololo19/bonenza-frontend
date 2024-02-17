@@ -241,7 +241,7 @@ const SettingSecurity = () => {
               {({ open }) => (
                 <div className="w-full">
                   <Disclosure.Button className="py-2 w-full flex justify-between sm:pointer-events-none pointer-events-auto">
-                    <div className="font-semibold text-[14px] mb-2">{t('setting:changePassword')}</div>
+                    <div className="font-semibold text-default mb-2">{t('setting:changePassword')}</div>
                     <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 sm:hidden block`} />
                   </Disclosure.Button>
                   <Transition
@@ -254,11 +254,11 @@ const SettingSecurity = () => {
                   >
                     <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+                        <label className="dark:text-color-text-primary text-color-light-text-primary text-des">
                           {t('setting:oldPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-[#777777]"
                           name="oldPassword"
                           placeholder={`${t('setting:oldPassword')}`}
                           value={passwordBody?.oldPassword}
@@ -267,11 +267,11 @@ const SettingSecurity = () => {
                         />
                       </div>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+                        <label className="dark:text-color-text-primary text-color-light-text-primary text-des">
                           {t('setting:newPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                          customClass="rounded-[3px] w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-[#777777]"
                           name="newPassword"
                           placeholder={`${t('setting:newPassword')}`}
                           value={passwordBody?.newPassword}
@@ -280,7 +280,7 @@ const SettingSecurity = () => {
                         />
                       </div>
                       <div className="flex flex-col items-start gap-[10px]">
-                        <label className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+                        <label className="dark:text-color-text-primary text-color-light-text-primary text-des">
                           {t('setting:confirmNewPassword')}
                         </label>
                         <InputPassword

@@ -113,7 +113,7 @@ const TransactionPage = () => {
               width={20}
               src={row.original.symbolLogo}
               onError={(e) => {
-                e.currentTarget.src = `/img/fiats/USD.png`;
+                e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
               alt=""
             />
@@ -141,9 +141,7 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2">
             <div className={cn('w-[5px] h-[5px] rounded-full', getColorByStatus(row.original.status))}></div>
-            <div className="dark:text-white text-black text-[12px] break-keep	">
-              {convertStatus(row.original.status)}
-            </div>
+            <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
             <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
           </div>
         ),
@@ -576,7 +574,6 @@ const TransactionPage = () => {
         const startDate = new Date(currentDate);
         startDate.setDate(currentDate.getDate() - optionFilter.dayPast.type);
         const startDateTimeStamp = Math.floor(startDate.getTime() / 1000);
-        console.log(typeBill, '----576');
         const res = await api_getTransactions({
           type: optionFilter.type.type,
           symbolId: optionFilter.currency,
@@ -732,11 +729,11 @@ const TransactionPage = () => {
         <div className="flex items-center flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
-                <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                   <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.type.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
@@ -764,7 +761,7 @@ const TransactionPage = () => {
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, type: item })}
                         >
-                          <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                          <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                             <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
                           </div>
                         </div>
@@ -777,11 +774,11 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
-                <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                   <div className="flex-1 text-start dark:text-white text-black">
                     {getSymbolNameById(optionFilter.currency)}
                   </div>
@@ -810,7 +807,7 @@ const TransactionPage = () => {
                         role="button"
                         onClick={() => setOptionFilter({ ...optionFilter, currency: '' })}
                       >
-                        <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                        <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                           <div className="flex-1 text-start dark:text-white text-black">{getSymbolNameById('')}</div>
                         </div>
                       </div>
@@ -824,7 +821,7 @@ const TransactionPage = () => {
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, currency: coin.id })}
                         >
-                          <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                          <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                             <div className="flex-1 text-start dark:text-white text-black">
                               {getSymbolNameById(coin.id)}
                             </div>
@@ -843,7 +840,7 @@ const TransactionPage = () => {
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
-                <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                   <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.dayPast.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
@@ -871,7 +868,7 @@ const TransactionPage = () => {
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, dayPast: item })}
                         >
-                          <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                          <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                             <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
                           </div>
                         </div>
@@ -889,7 +886,7 @@ const TransactionPage = () => {
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
-                  <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                  <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                     <div className="flex-1 text-start dark:text-white text-black capitalize">{t(typeBill.name)}</div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
@@ -917,7 +914,7 @@ const TransactionPage = () => {
                             role="button"
                             onClick={() => setTypeBill(item)}
                           >
-                            <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                            <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                               <div className="flex-1 text-start dark:text-white text-black capitalize">
                                 {t(item.name)}
                               </div>
@@ -938,7 +935,7 @@ const TransactionPage = () => {
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
-                  <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                  <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                     <div className="flex-1 text-start dark:text-white text-black">
                       {t(optionFilter?.filterStatus.name)}
                     </div>
@@ -968,7 +965,7 @@ const TransactionPage = () => {
                             role="button"
                             onClick={() => setOptionFilter({ ...optionFilter, filterStatus: item })}
                           >
-                            <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                            <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
                               <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
                             </div>
                           </div>

@@ -96,7 +96,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
               )}
               role="button"
             >
-              <div className="sm:text-[16px] text-[14px]">{t('language:language')}</div>
+              <div className="sm:text-[16px] text-default">{t('language:language')}</div>
             </div>
             <div
               onClick={() => dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT))}
@@ -110,7 +110,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
               )}
               role="button"
             >
-              <div className="sm:text-[16px] text-[14px]">{t('language:viewInFiat')}</div>
+              <div className="sm:text-[16px] text-default">{t('language:viewInFiat')}</div>
             </div>
           </div>
         }
@@ -127,7 +127,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                   <button
                     key={key}
                     className={cn(
-                      'sm:py-[15px] py-[10px] rounded-md text-left ps-5 dark:hover:text-white text-[14px] ',
+                      'sm:py-[15px] py-[10px] rounded-default text-left ps-5 dark:hover:text-white text-default ',
                       {
                         'bg-color-primary text-white': item.key === i18n.language,
                         'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600 dark:text-white text-black':
@@ -144,17 +144,17 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                 ))}
               </div>
               <div
-                className={`${
-                  !isLogin && multiLanguageTab === MultiLanguageTabEnum.FIAT ? 'hidden sm:grid' : ''
-                } grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2 ${
-                  multiLanguageTab === MultiLanguageTabEnum.FIAT ? 'block' : 'hidden'
-                }`}
+                className={cn('grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2', {
+                  'hidden sm:grid': !isLogin && multiLanguageTab === MultiLanguageTabEnum.FIAT,
+                  block: multiLanguageTab === MultiLanguageTabEnum.FIAT,
+                  hidden: multiLanguageTab !== MultiLanguageTabEnum.FIAT,
+                })}
               >
                 <>
                   <div
                     role="button"
                     className={cn(
-                      'sm:py-[12px] py-[10px] rounded-md text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-[14px]',
+                      'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
                       {
                         'bg-color-primary': !viewInFiat,
                         'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': viewInFiat,
@@ -184,7 +184,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     key={key}
                     role="button"
                     className={cn(
-                      'sm:py-[12px] py-[10px] rounded-md text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-[14px]',
+                      'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
                       {
                         'bg-color-primary text-white': viewInFiat && item.id === localFiat?.id,
                         'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': item.id !== localFiat?.id,
