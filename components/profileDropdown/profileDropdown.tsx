@@ -99,7 +99,7 @@ export default function ProfileDropdown() {
             className="flex flex-col"
           >
             <Popover.Button ref={buttonRef}>
-              <div className="relative rounded-full overflow-hidden dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary">
+              <div className="relative rounded-full overflow-hidden dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary aspect-square">
                 <Image
                   height={40}
                   width={40}

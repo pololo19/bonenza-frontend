@@ -67,7 +67,7 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'flex py-[10px] flex-1 h-full lg:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px] ',
+            'flex py-[10px] flex-1 h-full lg:justify-end 2xl:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px] ',
             {
               // 'sm:pl-[62px]': !isToggleSidebar && !showChatType,
               // 'md:pl-[205px]': isToggleSidebar && !showChatType,
@@ -83,7 +83,7 @@ export default function Navbar() {
               alt="logo"
             />
           </Link>
-          <div className={cn('gap-[8px] lg:flex hidden')}>
+          <div className={cn('gap-[8px] 2xl:flex hidden')}>
             <Link
               href={ROUTER.Casino}
               className={cn(

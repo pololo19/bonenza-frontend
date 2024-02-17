@@ -123,13 +123,13 @@ const SettingEmail = () => {
       <div className="2xl:px-[80px] lg:px-[40px] md:px-[20px] px-[10px] xl:py-[32px] lg:py-[24px] md:py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex min-[991px]:flex-row flex-col xl:gap-[80px] lg:gap-[40px] md:gap-[20px] gap-[10px]">
         <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
-            <div className="font-semibold text-[14px]">{t('setting:emailVerification')}</div>
-            <div className="text-start text-[12px] text-color-light-text-primary dark:text-color-text-primary">
+            <div className="font-semibold text-default">{t('setting:emailVerification')}</div>
+            <div className="text-start text-des text-color-light-text-primary dark:text-color-text-primary">
               {t('setting:accordingToTheSecurityPolicy')}
             </div>
             <div className="relative w-full">
               <InputText
-                customClass="px-[10px] h-[51px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-input-primary rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                customClass="px-[10px] h-[51px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
                 name="email"
                 placeholder={`${t('setting:emailPlaceholder')}`}
                 disabled={emailVerified}
@@ -140,7 +140,7 @@ const SettingEmail = () => {
               {emailVerified && (
                 <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-color-light-input-primary">
                   <TickCircle size="16" color="#3BC117" variant="Bold" />
-                  <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">{t('setting:verified')}</span>
+                  <span className="text-color-primary text-default ml-[6px] font-bold">{t('setting:verified')}</span>
                 </div>
               )}
             </div>
@@ -148,7 +148,7 @@ const SettingEmail = () => {
               <div
                 onClick={() => sendVerifyCode(VerifyModeEnum.MAIL)}
                 role="button"
-                className="bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                className="bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-default px-[30px] py-[10px] m-auto"
               >
                 {t('setting:verify')}
               </div>
@@ -158,7 +158,7 @@ const SettingEmail = () => {
             {({ open }) => (
               <div className="sm:hidden block w-full">
                 <Disclosure.Button className="py-2 w-full flex justify-between">
-                  <div className="font-semibold text-[14px]">{t('setting:emailVerification')}</div>
+                  <div className="font-semibold text-default">{t('setting:emailVerification')}</div>
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                 </Disclosure.Button>
                 <Transition
@@ -170,12 +170,12 @@ const SettingEmail = () => {
                   leaveTo="transform scale-95 opacity-0"
                 >
                   <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                    <div className="text-start text-[10px] text-color-light-text-primary dark:text-color-text-primary">
+                    <div className="text-start text-des text-color-light-text-primary dark:text-color-text-primary">
                       {t('setting:accordingToTheSecurityPolicy')}
                     </div>
                     <div className="relative w-full">
                       <InputText
-                        customClass="px-[10px] py-[10px] my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                        customClass="px-[10px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-text-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
                         name="email"
                         disabled={!emailVerified}
                         placeholder={`${t('setting:emailPlaceholder')}`}
@@ -184,9 +184,9 @@ const SettingEmail = () => {
                         onChange={(e) => setEmailInut(e.target.value)}
                       />
                       {emailVerified && (
-                        <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
+                        <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-color-light-bg-primary">
                           <TickCircle size="16" color="#3BC117" variant="Bold" />
-                          <span className="text-color-primary text-[14px] ml-[6px] font-bold">
+                          <span className="text-color-primary text-default ml-[6px] font-bold">
                             {t('setting:verified')}
                           </span>
                         </div>
@@ -196,7 +196,7 @@ const SettingEmail = () => {
                       <div
                         onClick={() => sendVerifyCode(VerifyModeEnum.MAIL)}
                         role="button"
-                        className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                        className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:verify')}
                       </div>
@@ -211,14 +211,14 @@ const SettingEmail = () => {
 
         <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
-            <div className="font-semibold text-[14px]">{t('setting:phoneNumber')}</div>
-            <div className="text-start text-[12px] text-color-light-text-primary dark:text-color-text-primary">
+            <div className="font-semibold text-default">{t('setting:phoneNumber')}</div>
+            <div className="text-start text-des text-color-light-text-primary dark:text-color-text-primary">
               {t('setting:verifyYourPhoneNumber')}
             </div>
-            <div className="flex flex-col my-[10px] relative dark:bg-color-input-primary bg-color-light-input-primary rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
+            <div className="flex flex-col my-[10px] relative dark:bg-color-input-primary bg-color-light-input-primary rounded-default w-full text-default placeholder:text-default">
               {phoneVerified && (
                 <InputText
-                  customClass="px-[10px] h-[51px] py-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                  customClass="px-[10px] h-[51px] py-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
                   name="phoneNumber"
                   placeholder={`${t('setting:phonePlaceholder')}`}
                   disabled={phoneVerified}
@@ -233,7 +233,7 @@ const SettingEmail = () => {
                     setCountryCallingCode(value);
                   }}
                   disabled={phoneVerified}
-                  customClass="px-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-[5px] w-full !text-[14px] placeholder:text-[14px] placeholder:text-[#777777]"
+                  customClass="px-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
                   onChange={(e) => setPhoneInput(e.target.value)}
                   name="phoneNumber"
                   placeholder={String(t('setting:phonePlaceholder'))}
@@ -242,9 +242,9 @@ const SettingEmail = () => {
               )}
 
               {phoneVerified && (
-                <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
+                <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-color-light-bg-primary">
                   <TickCircle size="16" color="#3BC117" variant="Bold" />
-                  <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">{t('setting:verified')}</span>
+                  <span className="text-color-primary text-default ml-[6px] font-bold">{t('setting:verified')}</span>
                 </div>
               )}
             </div>
@@ -252,7 +252,7 @@ const SettingEmail = () => {
               <div
                 onClick={() => sendVerifyCode(VerifyModeEnum.PHONE)}
                 role="button"
-                className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-default px-[30px] py-[10px] m-auto"
               >
                 {t('setting:confirm')}
               </div>
@@ -282,10 +282,10 @@ const SettingEmail = () => {
                       name={'phoneNumber'}
                       render={({ field }) => {
                         return (
-                          <div className="px-[10px] py-[10px] relative my-[10px] dark:bg-color-input-primary bg-[#f5f6fa] rounded-[5px] w-full text-[14px] placeholder:text-[14px]">
+                          <div className="px-[10px] py-[10px] relative my-[10px] dark:bg-color-input-primary bg-color-light-bg-primary rounded-default w-full text-default placeholder:text-default">
                             <PhoneInput
                               className={cn(
-                                'rounded-[5px] w-full',
+                                'rounded-default w-full',
                                 styles.phoneInput,
                                 theme === 'light' && styles.phoneInputLight,
                               )}
@@ -298,9 +298,9 @@ const SettingEmail = () => {
                               onChange={(val) => setPhoneInput(String(val))}
                             />
                             {phoneVerified && (
-                              <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-[#f5f6fa]">
+                              <div className="absolute right-[10px] h-[calc(100%-20px)] top-[10px] flex items-center dark:bg-color-input-primary bg-color-light-bg-primary">
                                 <TickCircle size="16" color="#3BC117" variant="Bold" />
-                                <span className="text-[#3BC117] text-[14px] ml-[6px] font-bold">
+                                <span className="text-color-primary text-default ml-[6px] font-bold">
                                   {t('setting:verified')}
                                 </span>
                               </div>
@@ -313,7 +313,7 @@ const SettingEmail = () => {
                       <div
                         onClick={() => sendVerifyCode(VerifyModeEnum.PHONE)}
                         role="button"
-                        className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                        className="w-fit bg-gradient-btn-default hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:confirm')}
                       </div>

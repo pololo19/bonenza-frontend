@@ -223,10 +223,10 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     <>
       <div className="text-left w-full">
         <div className="flex items-center gap-1 justify-between">
-          <div className="text-[16px] text-color-light-text-primary dark:text-[#C2C2C2] mb-[20px] text-left">
+          <div className="text-[16px] text-color-light-text-primary dark:text-color-text-primary mb-[20px] text-left">
             {t('swap:getApproximately')}
           </div>
-          <div className="text-[16px] text-color-light-text-primary dark:text-[#C2C2C2] mb-[20px] text-left">
+          <div className="text-[16px] text-color-light-text-primary dark:text-color-text-primary mb-[20px] text-left">
             <div>
               Min:
               {currencyFormat1(Number(minSwap), 4, '', false)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
@@ -255,7 +255,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                 <div
                   role="button"
                   onClick={handleGetMaxBalance}
-                  className="px-2 md:px-3 py-[6px] md:min-w-[60px] md:rounded-[5px] rounded-[5px] dark:bg-color-btn-primary bg-white dark:text-color-text-primary text-black text-center text-[14px]"
+                  className="px-2 md:px-3 py-[6px] md:min-w-[60px] rounded-default dark:bg-color-btn-primary bg-white dark:text-color-text-primary text-black text-center text-default"
                 >
                   {t('deposit:max')}
                 </div>
@@ -274,7 +274,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                     className="inline"
                     alt=""
                   />
-                  <div className="text-[14px] ">
+                  <div className="text-default ">
                     {getSymbolById(watch('symbolFrom')) && getSymbolById(watch('symbolFrom'))?.name}
                   </div>
 
@@ -345,7 +345,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           </div>
           <div
             className={cn(
-              'flex flex-col items-start gap-[15px] w-full px-[20px] py-[10px] text-[#C2C2C2] bg-[#f5f6fa] dark:bg-color-input-primary rounded-[3px] text-start',
+              'flex flex-col items-start gap-[15px] w-full px-[20px] py-[10px] dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary dark:bg-color-input-primary rounded-[3px] text-start',
               {
                 'blur-[2px]': isLoadingApproximately,
               },
@@ -357,11 +357,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               {currencyFormat1(exchangeCoinRate, 8, '', false)} {getSymbolById(watch('symbolTo'))?.name}
             </div>
           </div>
-          <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-color-input-primary rounded-t-[4px]">
+          <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-color-light-bg-primary dark:bg-color-input-primary rounded-t-[4px]">
             <p className="text-color-text-primary">{t('swap:estimatedTime')}</p>
             <p className="dark:text-white text-color-light-text-primary">{t('swap:seconds')}</p>
           </div>
-          <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-[#f5f6fa] dark:bg-color-input-primary rounded-b-[4px]">
+          <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-color-light-bg-primary dark:bg-color-input-primary rounded-b-[4px]">
             <p className="text-color-text-primary">{t('swap:swapFee')}</p>
             <p className="dark:text-white text-color-light-text-primary">
               {(Number(SWAP_FEE) * Number(watch('amountFrom'))).toFixed(8)}{' '}
@@ -370,26 +370,31 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           </div>
         </form>
       </div>
-      <ModalAssetsPortfolio
-        onChangeCoin={(crypto: CurrencyType) => {
-          const minValue: number = Math.min(getBalanceBySymbolId(crypto.id), SWAP_MIN / (crypto.price || 1));
-          setValue('symbolFrom', String(crypto.id));
-          setValue('amountFrom', minValue.toFixed(4));
-        }}
-        cryptoSymbol={watch('symbolFrom')}
-        cryptoSymbols={fromSymbols}
-        show={isShowFromModal}
-        onClose={() => setIsShowFromModal(false)}
-      />
-      <ModalAssetsPortfolio
-        onChangeCoin={(crypto: CurrencyType) => {
-          setValue('symbolTo', String(crypto.id));
-        }}
-        cryptoSymbol={watch('symbolTo')}
-        cryptoSymbols={toSymbols}
-        show={isShowToModal}
-        onClose={() => setIsShowToModal(false)}
-      />
+      {isShowFromModal && (
+        <ModalAssetsPortfolio
+          onChangeCoin={(crypto: CurrencyType) => {
+            const minValue: number = Math.min(getBalanceBySymbolId(crypto.id), SWAP_MIN / (crypto.price || 1));
+            setValue('symbolFrom', String(crypto.id));
+            setValue('amountFrom', minValue.toFixed(4));
+          }}
+          cryptoSymbol={watch('symbolFrom')}
+          cryptoSymbols={fromSymbols}
+          show={isShowFromModal}
+          onClose={() => setIsShowFromModal(false)}
+        />
+      )}
+
+      {isShowToModal && (
+        <ModalAssetsPortfolio
+          onChangeCoin={(crypto: CurrencyType) => {
+            setValue('symbolTo', String(crypto.id));
+          }}
+          cryptoSymbol={watch('symbolTo')}
+          cryptoSymbols={toSymbols}
+          show={isShowToModal}
+          onClose={() => setIsShowToModal(false)}
+        />
+      )}
     </>
   );
 };

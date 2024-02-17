@@ -193,7 +193,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] left-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] dark:bg-black/70 bg-white/70',
+          'fixed top-[67px] left-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] dark:bg-black/70 bg-white/70 shadow-bs-default',
 
           {
             'translate-y-0': show,
@@ -220,7 +220,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <input
                 autoFocus
                 className={cn(
-                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-[14px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-white border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-default h-[40px] rounded-default dark:bg-color-input-secondary bg-white border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => {
@@ -236,7 +236,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               {debouncedSearchValue.length > 0 && (
                 <div
                   role="button"
-                  className="absolute top-1/2 right-[65px] w-[14px] h-[14px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 text-white cursor-pointer"
+                  className="absolute top-1/2 right-[65px] w-[14px] h-[14px] transform -translate-x-1/2 text-default -translate-y-1/2 text-white cursor-pointer"
                   onClick={() => setSearchValue('')}
                 >
                   <XMarkIcon className="w-[14px] h-[14px] text-color-text-primary font-bold" />
@@ -244,7 +244,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               )}
               <div
                 role="button"
-                className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 text-[14px] -translate-y-1/2 dark:text-white text-black"
+                className="absolute top-1/2 right-[-10px] transform -translate-x-1/2 text-default -translate-y-1/2 dark:text-white text-black"
                 onClick={onClose}
               >
                 {t('setting:cancel')}
@@ -265,7 +265,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               {history.length && debouncedSearchValue.length < 3 ? (
                 <>
                   <div className="flex justify-between w-full my-[10px]">
-                    <div className="font-[600] dark:text-white text-[#000] sm:text-[16px] text-[14px]">
+                    <div className="font-[600] dark:text-white text-black sm:text-[16px] text-default">
                       {t('casino:searchHistory')}
                     </div>
                     <div className="text-color-text-primary cursor-pointer" onClick={handleDeleteAllHistory}>

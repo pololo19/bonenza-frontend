@@ -143,7 +143,7 @@ export default function SidebarToggle() {
         ),
       },
     ],
-    [i18n, router.route, showDropDownCasino],
+    [i18n.language, router.route, showDropDownCasino],
   );
 
   const panel_2_datas = useMemo(
@@ -161,7 +161,12 @@ export default function SidebarToggle() {
           />
         ),
         onClick: () => {
-          dispatch(changeIsShowVipClubModal(true));
+          if (!isLogin) {
+            dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+            dispatch(changeIsShowAuthenticationModal(true));
+          } else {
+            dispatch(changeIsShowVipClubModal(true));
+          }
         },
       },
       {
@@ -204,7 +209,7 @@ export default function SidebarToggle() {
         ),
       },
     ],
-    [isShowVipClubModal, i18n, router.route],
+    [isShowVipClubModal, i18n.language, router.route, isLogin],
   );
 
   const panel_3_datas = useMemo(
@@ -237,7 +242,7 @@ export default function SidebarToggle() {
         ),
       },
     ],
-    [i18n, router.route],
+    [i18n.language, router.route],
   );
 
   return (
