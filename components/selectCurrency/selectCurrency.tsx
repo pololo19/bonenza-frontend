@@ -111,12 +111,12 @@ const SelectCurrency = ({
     <div className="flex flex-col items-start md:gap-[20px] gap-[15px] text-white">
       <div className="flex flex-col items-start w-full gap-2">
         {!withDrawTab && (
-          <div className="text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary">
+          <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
             {t('deposit:depositCurrency')}
           </div>
         )}
         {withDrawTab && (
-          <div className="text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary">
+          <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
             {t('withdraw:withdrawCurrency')}
           </div>
         )}
@@ -130,7 +130,7 @@ const SelectCurrency = ({
                     'bg-color-primary my-auto': symbol.id === activeCoin.id,
                   },
                   {
-                    'border-2 border-solid dark:border-[#272C33] border-[#EAECF3] dark:bg-color-input-primary bg-[#F6F7FA]':
+                    'border-2 border-solid dark:border-[#272C33] border-[#EAECF3] dark:bg-color-input-primary bg-color-light-bg-primary':
                       symbol.id !== activeCoin.id,
                   },
                 )}
@@ -139,7 +139,7 @@ const SelectCurrency = ({
               >
                 <button
                   className={cn(
-                    'sm:min-w-[80px] min-w-[75px] px-1 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize dark:hover:bg-color-primary hover:bg-[#f6f7fa] bg-[#F6F7FA] dark:bg-color-input-primary',
+                    'sm:min-w-[80px] min-w-[80px] px-1 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize dark:hover:bg-color-primary hover:bg-color-light-bg-primary bg-color-light-bg-primary dark:bg-color-input-primary',
                   )}
                 >
                   <Image
@@ -152,7 +152,7 @@ const SelectCurrency = ({
                       e.currentTarget.src = '/img/fiat/USD.png';
                     }}
                   />
-                  <h1 className="sm:text-[14px] text-[12px] font-normal">{symbol.name}</h1>
+                  <h1 className="text-default font-normal">{symbol.name}</h1>
                 </button>
               </div>
             ))}
@@ -160,7 +160,7 @@ const SelectCurrency = ({
         )}
         <Menu
           as="div"
-          className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-[3px]"
+          className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-default"
         >
           <Menu.Button className="flex-1">
             <div className="flex items-center justify-between w-full py-[13px] px-[20px] " role="button">
@@ -175,15 +175,15 @@ const SelectCurrency = ({
                   className="inline"
                   alt=""
                 />
-                <div className="dark:text-white text-black flex-1 text-start text-[14px]">
+                <div className="dark:text-white text-black flex-1 text-start text-default">
                   {activeCoin.name}
                   <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin.name}</span>
                 </div>
               </div>
               <div className="flex items-center justify-start gap-[10px]">
-                <div className="flex items-center text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary gap-[10px]">
+                <div className="flex items-center text-default dark:text-color-text-primary text-color-light-text-primary gap-[10px]">
                   {t('deposit:balance')}{' '}
-                  <span className="text-[14px] font-semibold dark:text-white text-color-light-text-primary">
+                  <span className="text-default font-semibold dark:text-white text-color-light-text-primary">
                     {currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
                   </span>
                 </div>
@@ -234,14 +234,14 @@ const SelectCurrency = ({
                             className="inline"
                             alt=""
                           />
-                          <div className="flex-1 text-start text-[14px] dark:text-white text-black font-semibold">
+                          <div className="flex-1 text-start text-default dark:text-white text-black font-semibold">
                             {symbol.name}
                           </div>
                         </div>
                         <div className="flex items-center justify-start gap-[10px] py-[10px]">
                           <div className="flex flex-col">
                             {viewInFiat && (
-                              <span className="text-[14px] font-semibold dark:text-white text-black text-right">
+                              <span className="text-default font-semibold dark:text-white text-black text-right">
                                 {currencyFormat1(
                                   getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
                                   fiatDecimals,
@@ -253,14 +253,14 @@ const SelectCurrency = ({
                             <span
                               className={cn(' font-semibold text-right', {
                                 'text-[10px] text-gray-400 ': viewInFiat,
-                                'text-[14px] dark:text-white text-black': !viewInFiat,
+                                'text-default dark:text-white text-black': !viewInFiat,
                               })}
                             >
                               {currencyFormat1(getBalanceBySymbol(symbol), cryptoDecimals, '', false)}
                             </span>
                             {symbol.name.toLowerCase() === 'usdt' && (
-                              <div className="text-[14px] dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                                <div className="mt-1 flex justify-end text-amber-500">
+                              <div className="text-default dark:text-white text-black truncate text-right w-full font-vietnam-bold">
+                                <div className="mt-1 flex justify-end text-color-secondary">
                                   <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                     <Lock size={12} variant="Bold" />{' '}
                                     {currencyFormat1(
@@ -286,17 +286,17 @@ const SelectCurrency = ({
         </Menu>
       </div>
       <div className="flex flex-col items-start w-full gap-2">
-        <div className="text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary">
+        <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
           {t('deposit:chooseNetwork')}
         </div>
         <Menu
           as="div"
-          className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-[3px]"
+          className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-default"
         >
           <Menu.Button className="flex-1 py-[15px] px-[20px]">
             <div className="flex items-center justify-between w-full" role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
-                <div className="flex-1 text-start dark:text-white text-black text-[14px]">{activeNetwork.name}</div>
+                <div className="flex-1 text-start dark:text-white text-black text-default">{activeNetwork.name}</div>
               </div>
               <div className="flex items-center justify-start gap-[10px]">
                 <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />
@@ -313,19 +313,24 @@ const SelectCurrency = ({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute dark:bg-color-input-primary bg-[#f6f7fa] w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer  shadow-bs-default">
+            <Menu.Items className="absolute dark:bg-color-input-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer shadow-bs-default">
               <div className="py-1 max-h-[250px] overflow-y-auto p-2">
                 {availableNetworks.map((network, index) => (
                   <Menu.Item key={index}>
                     {({ active }) => (
                       <div
-                        className="flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary"
+                        className={cn(
+                          'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary mb-2 rounded-default',
+                          {
+                            'border border-color-primary/50 border-solid rounded': network.id === activeNetwork.id,
+                          },
+                        )}
                         role="button"
                         onClick={() => onChangeNetwork(network)}
                       >
                         <div className="flex-1 flex items-center justify-start gap-[10px]">
                           {network && (
-                            <div className="flex-1 dark:text-white text-color-light-text-primary text-start text-[14px] font-semibold">
+                            <div className="flex-1 dark:text-white text-color-light-text-primary text-start text-default font-semibold">
                               {network.name}
                             </div>
                           )}

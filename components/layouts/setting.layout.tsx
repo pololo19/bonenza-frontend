@@ -130,8 +130,8 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                           href={item.href}
                           icon={() => null}
                           key={index}
-                          classNames="dark:hover:!text-white dark:hover:!bg-color-hover-primary hover:!bg-color-light-hover-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-primary !bg-color-light-bg-primary dark:text-white text-black"
+                          classNames="dark:hover:!text-white dark:hover:!bg-color-hover-default hover:!bg-color-light-hover-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-default !bg-color-light-bg-primary dark:text-white text-black"
                         />
                       ))}
                     </ul>

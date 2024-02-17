@@ -83,7 +83,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div
                     className={cn(
                       styles.cardMenu,
-                      'dark:bg-color-modal-bg-secondary dark:text-color-text-primary bg-white text-[#31373d] rounded-[5px] xl:min-w-[175px] min-w-[none] h-fit',
+                      'dark:bg-color-modal-bg-secondary dark:text-color-text-primary bg-white text-color-light-text-primary rounded-default xl:min-w-[175px] min-w-[none] h-fit',
                     )}
                   >
                     <div className="xl:p-2 p-1 w-full">
@@ -94,8 +94,9 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                             href={item.href}
                             icon={item.icon}
                             key={index}
-                            classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
-                            activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
+                            fontWeight={600}
+                            classNames="dark:hover:text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
+                            activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
                           />
                         ))}
                         <div className="h-[1px] mx-[10px] dark:bg-color-modal-bg-secondary bg-white" />
@@ -103,15 +104,16 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           title={String(t('sidebar:transactions'))}
                           href={ROUTER.Transaction}
                           icon={Repeat}
-                          classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
+                          fontWeight={600}
+                          classNames="dark:hover:text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
                         />
                         <IconOption
                           title={String(t('sidebar:rolloverOverview'))}
                           href={ROUTER.Rollover}
                           icon={Chart}
-                          classNames="dark:hover:text-white text-[#31373d] rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black"
+                          classNames="dark:hover:text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
                         />
                       </ul>
                       <ul className="lg:hidden flex flex-col justify-center gap-3 rounded-xl">
@@ -188,7 +190,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                 leaveTo="opacity-0 translate-x-1"
               >
                 <div className="w-full flex flex-col h-screen dark:bg-color-modal-secondary bg-white">
-                  <div className="w-full dark:bg-color-wallet-header dark:text-color-text-primary bg-white text-[#31373d] pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
+                  <div className="w-full dark:bg-color-wallet-header dark:text-color-text-primary bg-white text-color-light-text-primary pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
                     <div className="flex-1 flex justify-between items-center">
                       <div className="text-[14px] sm:text-[16px] font-bold dark:text-white text-black">
                         {t('sidebar:wallet')}
@@ -197,7 +199,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         <Link
                           href={ROUTER.Transaction}
                           className={cn(
-                            'dark:hover:text-white hover:text-black dark:text-gray-400 text-[#31373d] flex items-center justify-center gap-2',
+                            'dark:hover:text-white hover:text-black dark:text-gray-400 text-color-light-text-primary flex items-center justify-center gap-2',
                             {
                               'dark:text-white text-black font-bold': router.route.includes(ROUTER.Transaction),
                             },
@@ -208,7 +210,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         <Link
                           href={ROUTER.Rollover}
                           className={cn(
-                            'dark:hover:text-white hover:text-black dark:text-gray-400 text-[#31373d] flex items-center justify-center gap-2',
+                            'dark:hover:text-white hover:text-black dark:text-gray-400 text-color-light-text-primary flex items-center justify-center gap-2',
                             {
                               'dark:text-white text-black font-bold': router.route.includes(ROUTER.Rollover),
                             },
@@ -251,9 +253,9 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         )}
                       >
                         <div className="pt-2">
-                          <MoneyRecive className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                          <MoneyRecive className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
                         </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
                           {t('sidebar:deposit')}
                         </div>
                       </Link>
@@ -268,9 +270,9 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         )}
                       >
                         <div className="pt-2">
-                          <CardReceive className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                          <CardReceive className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
                         </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
                           {t('sidebar:withdraw')}
                         </div>
                       </Link>
@@ -285,9 +287,9 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         )}
                       >
                         <div className="pt-2">
-                          <Money2 className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                          <Money2 className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
                         </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
                           {t('sidebar:buyCrypto')}
                         </div>
                       </Link>
@@ -302,9 +304,9 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         )}
                       >
                         <div className="pt-2">
-                          <MoneyChange className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                          <MoneyChange className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
                         </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
                           {t('sidebar:swap')}
                         </div>
                       </Link>
@@ -319,9 +321,9 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         )}
                       >
                         <div className="pt-2">
-                          <Story className="dark:text-[#9ca3af] text-[#31373d]" size={22} />
+                          <Story className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
                         </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-[#31373d] text-center truncate w-full">
+                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
                           {t('sidebar:vaultPro')}
                         </div>
                       </Link>

@@ -98,7 +98,7 @@ const GeneralPage = () => {
       <div className="w-full h-1/3 px-[12px] py-[24px] sm:p-0 md:mt-0 dark:text-white text-black">
         <div className="flex justify-between border-b border-solid dark:border-color-border-primary border-color-light-border-primary pb-[8px]">
           <div
-            className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start"
+            className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start"
             role="button"
           >
             {t('setting:showFullNameOfCurrencyInCryptoList')}
@@ -106,20 +106,22 @@ const GeneralPage = () => {
           <Switch
             checked={settings.settingShowFullNameCrypto}
             onChange={(value) => handleUpdateSetting({ ...settings, settingShowFullNameCrypto: value })}
-            className={`${
-              settings.settingShowFullNameCrypto ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-            } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
+            className={cn('relative inline-flex h-[24px] w-[44px] items-center rounded-full', {
+              'bg-[#3bc11733]': settings.settingShowFullNameCrypto,
+              'dark:bg-color-toggle-primary bg-gray-200': !settings.settingShowFullNameCrypto,
+            })}
           >
             <span
-              className={`${
-                settings.settingShowFullNameCrypto ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
-              } inline-block h-[20px] w-[20px] transform rounded-full transition`}
+              className={cn('inline-block h-[20px] w-[20px] transform rounded-full transition', {
+                'translate-x-[20px] bg-color-primary': settings.settingShowFullNameCrypto,
+                'translate-x-1 bg-gray-400': !settings.settingShowFullNameCrypto,
+              })}
             />
           </Switch>
         </div>
         <div className="flex justify-between border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <div
-            className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start"
+            className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start"
             role="button"
           >
             {t('setting:receiveMarketingPromotions')}
@@ -127,22 +129,22 @@ const GeneralPage = () => {
           <Switch
             checked={settings.settingReceiveMarketPromotion}
             onChange={(value) => handleUpdateSetting({ ...settings, settingReceiveMarketPromotion: value })}
-            className={`${
-              settings.settingReceiveMarketPromotion ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-            } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
+            className={cn('relative inline-flex h-[24px] w-[44px] items-center rounded-full', {
+              'bg-[#3bc11733]': settings.settingReceiveMarketPromotion,
+              'dark:bg-color-toggle-primary bg-gray-200': !settings.settingReceiveMarketPromotion,
+            })}
           >
             <span
-              className={`${
-                settings.settingReceiveMarketPromotion
-                  ? 'translate-x-[20px] bg-color-primary'
-                  : 'translate-x-1 bg-gray-400'
-              } inline-block h-[20px] w-[20px] transform rounded-full transition`}
+              className={cn('inline-block h-[20px] w-[20px] transform rounded-full transition', {
+                'translate-x-[20px] bg-color-primary': settings.settingReceiveMarketPromotion,
+                'translate-x-1 bg-gray-400': !settings.settingReceiveMarketPromotion,
+              })}
             />
           </Switch>
         </div>
         <div className="flex justify-between items-center border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start">
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start">
               {t('setting:currencySetting')}
             </div>
             <div className="mt-[10px]">
@@ -155,27 +157,29 @@ const GeneralPage = () => {
               dispatch(setLocalFiat(defaultCurrency));
               dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
             }}
-            className={`${
-              viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-            } relative inline-flex h-[24px] w-[44px] items-center rounded-full`}
+            className={cn('relative inline-flex h-[24px] w-[44px] items-center rounded-full', {
+              'bg-[#3bc11733]': viewInFiat,
+              'dark:bg-color-toggle-primary bg-gray-200': !viewInFiat,
+            })}
           >
             <span
-              className={`${
-                viewInFiat ? 'translate-x-[20px] bg-color-primary' : 'translate-x-1 bg-gray-400'
-              } inline-block h-[20px] w-[20px] transform rounded-full transition`}
+              className={cn('inline-block h-[20px] w-[20px] transform rounded-full transition', {
+                'translate-x-[20px] bg-color-primary': viewInFiat,
+                'translate-x-1 bg-gray-400': !viewInFiat,
+              })}
             />
           </Switch>
         </div>
         <div className="border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
-          <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start">
             {t('setting:displayMode')}
           </div>
-          <div className="mt-[10px] dark:bg-[#2D3035] bg-color-light-bg-primary rounded-[5px] flex p-[3px] max-w-[70px]">
+          <div className="mt-[10px] dark:bg-[#2D3035] bg-color-light-bg-primary rounded-default flex p-[3px] max-w-[70px]">
             <div
               role="button"
-              className={`w-[32px] h-[32px] p-[8px] rounded-[5px] ${
-                theme === 'dark' ? 'dark:bg-color-bg-primary bg-white' : ''
-              }`}
+              className={cn('w-[32px] h-[32px] p-[8px] rounded-default', {
+                'dark:bg-color-bg-primary bg-white': theme === 'dark',
+              })}
               onClick={() => {
                 setTheme('dark');
               }}
@@ -184,9 +188,9 @@ const GeneralPage = () => {
             </div>
             <div
               role="button"
-              className={`w-[32px] h-[32px] p-[8px] rounded-[5px] ${
-                theme === 'light' ? 'dark:bg-color-bg-primary bg-white' : ''
-              }`}
+              className={cn('w-[32px] h-[32px] p-[8px] rounded-default', {
+                'dark:bg-color-bg-primary bg-white': theme === 'light',
+              })}
               onClick={() => {
                 setTheme('light');
               }}
@@ -196,16 +200,16 @@ const GeneralPage = () => {
           </div>
         </div>
         <div className="pt-[13px]">
-          <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] flex-1 text-start mb-[10px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start mb-[10px]">
             {t('setting:language')}
           </div>
-          <Menu as="div" className="relative w-auto text-left rounded-[7px] flex text-white">
+          <Menu as="div" className="relative w-auto text-left rounded-default flex text-white">
             <Menu.Button>
               <div
                 role="button"
-                className="flex items-center justify-between dark:bg-[#282931] bg-color-light-bg-primary gap-2 py-2 px-2 rounded w-[146px]"
+                className="flex items-center justify-between dark:bg-[#282931] bg-color-light-bg-primary gap-2 py-2 px-2 rounded-default w-[146px]"
               >
-                <div className="dark:text-white text-black text-[14px] font-semibold">
+                <div className="dark:text-white text-black text-default font-semibold">
                   {LANGUAGE_DATA.find((item) => item.key == settings.settingLanguage)?.language}
                 </div>
                 <div className="dark:text-white text-black truncate text-right min-w-[15px]">
@@ -235,7 +239,7 @@ const GeneralPage = () => {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute z-10 mt-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none w-[146px]">
-                <div className="py-1 sm:relative rounded-md dark:bg-[#25262B] bg-[#f5f6fa] shadow-gray-700 shadow w-full">
+                <div className="py-1 sm:relative rounded-default dark:bg-[#25262B] bg-color-light-bg-primary shadow-gray-700 shadow w-full">
                   <div className="py-1 h-[250px] overflow-y-auto p-2">
                     {LANGUAGE_DATA.map((item, key) => {
                       return (
@@ -244,7 +248,7 @@ const GeneralPage = () => {
                             <div
                               className={cn(
                                 active
-                                  ? 'dark:bg-[#212b36] dark:text-white bg-[#f5f6fa] text-black'
+                                  ? 'dark:bg-[#212b36] dark:text-white bg-color-light-bg-primary text-black'
                                   : 'dark:text-gray-400 text-color-light-text-primary',
                                 'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
                               )}

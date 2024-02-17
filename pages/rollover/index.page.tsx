@@ -112,7 +112,7 @@ const RolloverPage = () => {
           >
             {optionFilter.type.name === 'Withdraw' ? '-' : '+'}
             {viewInFiat ? (
-              <>{currencyFormat1(Math.abs(row.original.amount) * exchange, 2, localFiat?.name || 'USD')}</>
+              <>{currencyFormat1(Math.abs(row.original.amountUsd) * exchange, 2, localFiat?.name || 'USD')}</>
             ) : (
               currencyFormat1(Math.abs(row.original.amount), 4, '', false)
             )}
@@ -173,14 +173,14 @@ const RolloverPage = () => {
         const tempRollovers: RolloverType[] = _res.data?.transactions?.map((item: any) => ({
           id: item?.id ?? '',
           type: 'Deposit',
-          amount: Number(item?.amount ?? 0),
-          amountUsd: Number(item?.amountUsd ?? 0),
-          pendingWagerRequiredAmount: Number(item?.pendingWagerRequiredAmount ?? 0),
-          pendingWagerRequiredUsdAmount: Number(item?.pendingWagerRequiredAmountUsd ?? 0),
-          wagerCompletedAmount: Number(item?.wagerCompletedAmount ?? 0),
-          wagerCompletedUsdAmount: Number(item?.wagerCompletedAmountUsd ?? 0),
-          withdrawableFoundsAmount: Number(item?.withdrawableFoundsAmount ?? 0),
-          withdrawableFoundsUsdAmount: Number(item?.withdrawableFoundsAmountUsd ?? 0),
+          amount: Number(item?.amount || 0),
+          amountUsd: Number(item?.amountUsd || 0),
+          pendingWagerRequiredAmount: Number(item?.pendingWagerRequiredAmount || 0),
+          pendingWagerRequiredUsdAmount: Number(item?.pendingWagerRequiredAmountUsd || 0),
+          wagerCompletedAmount: Number(item?.wagerCompletedAmount || 0),
+          wagerCompletedUsdAmount: Number(item?.wagerCompletedAmountUsd || 0),
+          withdrawableFoundsAmount: Number(item?.withdrawableFoundsAmount || 0),
+          withdrawableFoundsUsdAmount: Number(item?.withdrawableFoundsAmountUsd || 0),
           currency: item?.currencySymbol ?? 'USD',
           currencyLogo: item?.currencyLogo ?? '/image/fiats/USD.png',
           status: item?.rollover ?? 'not_started',
