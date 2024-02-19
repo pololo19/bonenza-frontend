@@ -28,8 +28,23 @@ module.exports = () => {
     projectId: process.env.WALLET_CONNECT_PROJECT,
   };
 
-  const webpack = (cfg) => {
+  const webpack = (cfg, { isServer }) => {
+    if (!isServer) {
+      cfg.module.rules.push({
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            publicPath: '/_next',
+            outputPath: 'static/fonts/',
+            name: '[name].[ext]',
+            esModule: false,
+          },
+        },
+      });
+    }
     const originalEntry = cfg.entry;
+    console.log(isServer);
     // eslint-disable-next-line no-param-reassign
     cfg.entry = async () => {
       const entries = await originalEntry();
@@ -63,8 +78,5 @@ module.exports = () => {
       disableStaticImages: true,
       unoptimized: true,
     },
-    fonts: {
-      unoptimized: true,
-    }
   };
 };
