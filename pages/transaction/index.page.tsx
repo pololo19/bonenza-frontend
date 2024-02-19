@@ -13,11 +13,11 @@ import { api_getTransactions } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import {
   billTypes,
-  DATE_TIME_SUBMIT_FORMAT_WITH_SECOND,
   LIST_FILTER_DATE,
   LIST_FILTER_STATUS,
   LIST_FILTER_TYPE,
   TIME_SUBMIT_FORMAT_WITH_MARKER,
+  TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER,
   TOAST_ENUM,
 } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -86,7 +86,7 @@ const TransactionPage = () => {
         accessorKey: 'transactionType',
         header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:type'))}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-white text-black text-left truncate">{t(optionFilter.type.name)}</div>
+          <div className="dark:text-white text-black text-left truncate py-2">{t(optionFilter.type.name)}</div>
         ),
         minSize: 30,
       },
@@ -101,7 +101,7 @@ const TransactionPage = () => {
               t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
-            {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : '+'}
+            {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
             {viewInFiat ? (
               <>{currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}</>
             ) : (
@@ -128,7 +128,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="dark:text-white text-black">
-            {formatDate(new Date(row.original.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
         maxSize: 30,
@@ -140,7 +140,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2">
-            <div className={cn('w-[5px] h-[5px] rounded-full', getColorByStatus(row.original.status))}></div>
+            <div className={`w-[5px] h-[5px] rounded-full ${getColorByStatus(row.original.status)}`}></div>
             <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
             <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
           </div>
@@ -165,7 +165,7 @@ const TransactionPage = () => {
         accessorKey: 'swapFrom',
         header: () => <div className="text-center">{String(t('transaction:swapFrom'))}</div>,
         cell: ({ row }) => (
-          <div className="text-[#FF053B] flex items-center justify-center gap-1 truncate">
+          <div className="text-[#FF053B] flex items-center justify-center gap-1 truncate py-2">
             <span>
               -
               {viewInFiat ? (
@@ -195,7 +195,6 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div className="text-color-primary flex items-center gap-1 justify-center truncate">
             <span>
-              +{' '}
               {viewInFiat ? (
                 <>
                   {currencyFormat1(row.original?.swapToUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}
@@ -222,7 +221,7 @@ const TransactionPage = () => {
         header: () => <div className="text-right">{String(t('transaction:time'))}</div>,
         cell: ({ row }) => (
           <div className="text-color-text-primary text-right">
-            {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+            {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
         minSize: 150,
@@ -288,7 +287,7 @@ const TransactionPage = () => {
               row.original?.type?.toLowerCase() == 'bet' ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
-            {row.original?.type?.toLowerCase() == 'bet' ? '-' : '+'}
+            {row.original?.type?.toLowerCase() == 'bet' ? '-' : ''}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
             ) : (
@@ -317,7 +316,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary">
-            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
         minSize: 100,
@@ -366,7 +365,7 @@ const TransactionPage = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black flex items-center gap-1 truncate">{row?.original?.actionType}</div>
+          <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row?.original?.actionType}</div>
         ),
         minSize: 30,
       },
@@ -383,7 +382,7 @@ const TransactionPage = () => {
               row.original?.amountClaimed < 0 ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
-            <span>{row.original?.amountClaimed < 0 ? '-' : '+'}</span>
+            <span>{row.original?.amountClaimed < 0 ? '-' : ''}</span>
             <span className="min-w-fit break-keep">
               {viewInFiat ? (
                 <>
@@ -423,7 +422,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary">
-            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
         minSize: 100,
@@ -987,17 +986,15 @@ const TransactionPage = () => {
           setItemPerPage={handleChangeItemPerPage}
           hiddenPerPage={true}
         />
-        {isShowDetailTransaction && (
-          <ModalDetailTransaction
-            show={isShowDetailTransaction}
-            titleModal={String(t('transaction:transactionDetail'))}
-            onClose={() => {
-              setIsShowDetailTransaction(false);
-            }}
-            transaction={transaction}
-            type={optionFilter.type.type}
-          />
-        )}
+        <ModalDetailTransaction
+          show={isShowDetailTransaction}
+          titleModal={String(t('transaction:transactionDetail'))}
+          onClose={() => {
+            setIsShowDetailTransaction(false);
+          }}
+          transaction={transaction}
+          type={optionFilter.type.type}
+        />
       </div>
     </div>
   );

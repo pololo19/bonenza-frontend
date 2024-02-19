@@ -549,6 +549,7 @@ export const DATE_TIME_SUBMIT_FORMAT_WITH_SECOND = 'yyyy-MM-dd HH:mm:ss';
 export const TIME_DATE_SUBMIT_FORMAT = 'HH:mm:ss yyyy-MM-dd';
 export const TIME_SUBMIT_FORMAT_WITH_SECOND = 'HH:mm:ss';
 export const TIME_SUBMIT_FORMAT_WITH_MARKER = 'yyyy-MM-dd hh:mm:ss a';
+export const TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER = 'MM/dd/yyyy, hh:mm:ss a';
 export const DATE_TIME_FORMAT_DEFAULT = 'yyyy/MM/dd HH:mm';
 export const DATE_TIME_FORMAT_CSV = 'yyyyMMdd_HHmmss';
 export const DATE_TIME_TRASH_FORMAT = 'yyyy/MM/dd - HH:mm';
