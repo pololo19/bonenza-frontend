@@ -254,7 +254,7 @@ function AffiliateLoggedPage() {
                     {t('affiliate:commissionReward')}
                   </div>
                   <button
-                    className="text-color-primary text-[16px] flex items-center"
+                    className="text-color-primary text-[16px] flex items-center uppercase"
                     onClick={() => setShowDetailCommissionsRewards(true)}
                   >
                     <p className="mr-[7px]">{t('affiliate:details')}</p>
