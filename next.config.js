@@ -78,5 +78,6 @@ module.exports = () => {
       disableStaticImages: true,
       unoptimized: true,
     },
+    optimizeFonts: false,
   };
 };
