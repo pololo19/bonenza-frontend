@@ -16,7 +16,6 @@ import {
   LIST_FILTER_DATE,
   LIST_FILTER_STATUS,
   LIST_FILTER_TYPE,
-  TIME_SUBMIT_FORMAT_WITH_MARKER,
   TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER,
   TOAST_ENUM,
 } from '@/base/constants/common';
@@ -27,7 +26,6 @@ import {
   currencyFormat1,
   exchangeByLocaleFiat,
   formatDate,
-  formatLengthNumber,
   getColorByStatus,
 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -140,7 +138,20 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2">
-            <div className={`w-[5px] h-[5px] rounded-full ${getColorByStatus(row.original.status)}`}></div>
+            <div className={cn(`w-[8px] h-[8px] rounded-full`, {
+              'bg-[#efef19]': row.original.status.toString() === 'processing' || 
+                                row.original.status.toString() === 'pending' || 
+                                row.original.status.toString() === 'refunding' ||
+                                row.original.status.toString() === 'ongoing',
+              'bg-[#c31414]': row.original.status.toString() === 'rejected' ||
+                                row.original.status.toString() === 'failed' ||
+                                row.original.status.toString() === 'not_started',
+              'bg-[#3BC117]': row.original.status.toString() === 'done' ||
+                                row.original.status.toString() === 'all' ||
+                                row.original.status.toString() === 'complete' ||
+                                row.original.status.toString() === 'approved'
+              })}
+            />
             <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
             <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
           </div>

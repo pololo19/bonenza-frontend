@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { ColumnDef, Row } from '@tanstack/react-table';
+import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -10,7 +11,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_getRollover } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_DATE_SUBMIT_FORMAT } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate, getColorByStatus } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -96,7 +97,7 @@ const RolloverPage = () => {
         header: () => (
           <div className="text-left dark:text-color-text-primary text-black">{String(t('transaction:type'))}</div>
         ),
-        cell: ({ row }) => <div className="dark:text-white text-black text-left truncate">{row.original.type}</div>,
+        cell: ({ row }) => <div className="dark:text-white text-black text-left truncate py-2">{row.original.type}</div>,
         minSize: 30,
       },
       {
@@ -110,7 +111,7 @@ const RolloverPage = () => {
               optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
-            {optionFilter.type.name === 'Withdraw' ? '-' : '+'}
+            {optionFilter.type.name === 'Withdraw' ? '-' : ''}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd) * exchange, 2, localFiat?.name || 'USD')}</>
             ) : (
@@ -129,7 +130,7 @@ const RolloverPage = () => {
         ),
         cell: ({ row }) => (
           <div className="dark:text-white text-black text-center">
-            {formatDate(new Date(row.original.createdAt), TIME_DATE_SUBMIT_FORMAT)}
+            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
         minSize: 150,
@@ -141,8 +142,20 @@ const RolloverPage = () => {
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2 cursor-pointer">
-            <div className={`w-[5px] h-[5px] rounded-full ${getColorByStatus(row.original.status)}`}></div>
-            <div className="dark:text-white text-black text-[12px] break-keep	">
+            <div className={cn('w-[8px] h-[8px] rounded-full', {
+              'bg-[#efef19]': row.original.status.toString() === 'processing' || 
+                                row.original.status.toString() === 'pending' || 
+                                row.original.status.toString() === 'refunding' ||
+                                row.original.status.toString() === 'ongoing',
+              'bg-[#c31414]': row.original.status.toString() === 'rejected' ||
+                                row.original.status.toString() === 'failed' ||
+                                row.original.status.toString() === 'not_started',
+              'bg-[#3BC117]': row.original.status.toString() === 'done' ||
+                                row.original.status.toString() === 'all' ||
+                                row.original.status.toString() === 'complete' ||
+                                row.original.status.toString() === 'approved'
+            })}></div>
+            <div className="dark:text-white text-black text-[14px] break-keep	">
               {replaceStatus(row.original.status)?.charAt(0).toUpperCase() +
                 replaceStatus(row.original.status)?.slice(1)}
             </div>
@@ -377,17 +390,15 @@ const RolloverPage = () => {
           setItemPerPage={handleChangeItemPerPage}
           hiddenPerPage={true}
         />
-        {isShowDetailTransaction && (
-          <ModalDetailsRollover
-            show={isShowDetailTransaction}
-            titleModal={String(t('transaction:transactionDetail'))}
-            onClose={() => {
-              setIsShowDetailTransaction(false);
-            }}
-            transaction={transaction}
-            type={optionFilter.type.name}
-          />
-        )}
+        <ModalDetailsRollover
+          show={isShowDetailTransaction}
+          titleModal={String(t('transaction:transactionDetail'))}
+          onClose={() => {
+            setIsShowDetailTransaction(false);
+          }}
+          transaction={transaction}
+          type={optionFilter.type.name}
+        />
       </div>
     </div>
   );
