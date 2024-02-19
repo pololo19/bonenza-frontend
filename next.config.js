@@ -28,7 +28,7 @@ module.exports = () => {
     projectId: process.env.WALLET_CONNECT_PROJECT,
   };
 
-  const webpack = (cfg, { isServer }) => {
+  const webpack = (cfg) => {
     const originalEntry = cfg.entry;
     // eslint-disable-next-line no-param-reassign
     cfg.entry = async () => {
@@ -48,8 +48,6 @@ module.exports = () => {
         outputPath: 'static/files',
       },
     });
-
-    if (!isServer) config.node = { fs: 'empty' };
     return cfg;
   };
 
