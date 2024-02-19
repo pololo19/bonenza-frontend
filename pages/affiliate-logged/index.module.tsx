@@ -495,10 +495,10 @@ function AffiliateLoggedPage() {
         <div className="w-full pl-[14px] dark:bg-[#1D1E22] bg-white rounded-[5px] flex lg:flex-row flex-col items-center justify-center mb-[60px] lg:pl-[52px] py-[35px] pr-[14px]">
           <div className="mr-[0px] lg:mr-[54px] ">
             <div className="inline-block flex-col items-center lg:flex-row gap-[5px] lg:hidden">
-              <div className="mr-[3px] text-[14px] lg:text-[24px] dark:text-white text-[#141414]">
+              <div className="mr-[3px] text-[20px] lg:text-[28px] dark:text-white text-[#141414]">
                 {t('affiliate:learnMoreAboutOur')}
               </div>
-              <div className={`font-bold text-[14px] lg:text-[24px] bg-color-primary ${styles.textBanner}`}>
+              <div className={`font-bold text-[20px] lg:text-[28px] bg-color-primary ${styles.textBanner}`}>
                 {t('affiliate:affiliateProgram')}
               </div>
             </div>
@@ -515,8 +515,8 @@ function AffiliateLoggedPage() {
             </div>
             <div>
               <div className="flex mb-[9px] gap-[10px]">
-                <CheckMarkIcon className="w-[14px] h-[14px] text-color-primary" />
-                <div className="w-full text-[10px] text-color-text-primary font-normal md:w-[593px] ">
+                <CheckMarkIcon className="w-[16px] h-[14px] text-color-primary" />
+                <div className="w-full text-[16px] text-color-text-primary font-normal md:w-[593px] ">
                   {t('affiliate:ifYouHaveA')}
                 </div>
               </div>
@@ -524,7 +524,7 @@ function AffiliateLoggedPage() {
             <div>
               <div className="flex mb-[12px] gap-[10px]">
                 <CheckMarkIcon className="w-[14px] h-[14px] text-color-primary" />
-                <div className="w-ful text-[10px] text-color-text-primary font-normal md:w-[593px]">
+                <div className="w-ful text-[16px] text-color-text-primary font-normal md:w-[593px]">
                   {t('affiliate:ifYouCanInvite')}
                 </div>
               </div>
@@ -534,9 +534,9 @@ function AffiliateLoggedPage() {
               className="w-full flex justify-between lg:w-[309px] h-[41px] rounded-[5px] dark:bg-color-panel-bg bg-color-light-bg-primary items-center"
               href="mailto:business@bonenza.com"
             >
-              <div className="text-[10px] text-gray-500 ml-[10px]">business@bonenza</div>
+              <div className="text-[16px] text-gray-500 ml-[16px]">business@bonenza</div>
               <div className="flex mr-[10px]">
-                <div className="text-[10px] font-bold text-color-primary mr-[10px]">{t('affiliate:sendNow')}</div>
+                <div className="text-[16px] font-bold text-color-primary mr-[10px]">{t('affiliate:sendNow')}</div>
                 <div>
                   <SmsTracking className="w-[18px] h-[18px] text-color-primary" />
                 </div>

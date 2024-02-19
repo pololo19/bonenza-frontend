@@ -356,10 +356,9 @@ export default function SidebarToggle() {
               <div
                 className={cn(
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base`,
-                  {
-                    'bg-[#2D3035] text-white': theme === 'dark',
-                    'text-color-light-text-primary bg-color-light-bg-primary': theme === 'light',
-                  },
+                  `dark:bg-[#2D3035] dark:text-white`,
+                  `text-color-light-text-primary bg-color-light-bg-primary`,
+                  `hover:bg-gray-300`
                 )}
                 onClick={() => {
                   setTheme('dark');
@@ -371,10 +370,9 @@ export default function SidebarToggle() {
               <div
                 className={cn(
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base font-bold`,
-                  {
-                    'text-[#000]  bg-[#eaecf3]': theme === 'light',
-                    'hover:bg-gray-600': theme === 'dark',
-                  },
+                  `bg-gray-300 text-color-light-text-primary`,
+                  `dark:text-white dark:bg-transparent`,
+                  `dark:hover:bg-[#2D3035]`
                 )}
                 onClick={() => {
                   setTheme('light');
