@@ -68,7 +68,7 @@ export default function CommonModal({
                 {header}
                 {isShowCloseButton && (
                   <div
-                    className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md z-[10] transition-all duration-150 rotate-0 hover:rotate-90"
+                    className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90"
                     role="button"
                     onClick={onClose}
                   >

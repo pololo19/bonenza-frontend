@@ -112,6 +112,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           title={String(t('sidebar:rolloverOverview'))}
                           href={ROUTER.Rollover}
                           icon={Chart}
+                          fontWeight={600}
                           classNames="dark:hover:text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
                           activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
                         />

@@ -87,7 +87,20 @@ export default function ModalDetailTransaction({
                 {String(t('transaction:status'))}
               </span>
               <div className="flex gap-2 items-center">
-                <div className={`w-[8px] h-[8px] rounded-full ${getColorByStatus(transaction.status)}`}></div>
+                <div className={cn(`w-[8px] h-[8px] rounded-full`, {
+                  'bg-[#efef19]': (transaction.status?.toString() || '') === 'processing' || 
+                                    (transaction.status?.toString() || '') === 'pending' || 
+                                    (transaction.status?.toString() || '') === 'refunding' ||
+                                    (transaction.status?.toString() || '') === 'ongoing',
+                  'bg-[#c31414]': (transaction.status?.toString() || '') === 'rejected' ||
+                                    (transaction.status?.toString() || '') === 'failed' ||
+                                    (transaction.status?.toString() || '') === 'not_started',
+                  'bg-[#3BC117]': (transaction.status?.toString() || '') === 'done' ||
+                                    (transaction.status?.toString() || '') === 'all' ||
+                                    (transaction.status?.toString() || '') === 'complete' ||
+                                    (transaction.status?.toString() || '') === 'approved'
+                  })}
+                />
                 <div className="dark:text-white text-black">{convertStatus(transaction.status)}</div>
               </div>
             </div>
