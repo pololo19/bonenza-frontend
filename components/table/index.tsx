@@ -88,7 +88,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
                     key={header.id}
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
-                      'whitespace-nowrap dark:bg-color-table-header-bg-primary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-text-primary font-semibold sm:text-[14px] !text-[12px] border-none text-center',
+                      'whitespace-nowrap dark:bg-color-table-header-bg-primary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-text-primary font-semibold !text-[14px] border-none text-center',
                     )}
                     {...{
                       style: {
