@@ -37,7 +37,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
   const replaceStatus = (status: string) => {
     return status.split('_').join(' ');
   };
-
+  console.log(transaction);
   return (
     <>
       <CommonModal
