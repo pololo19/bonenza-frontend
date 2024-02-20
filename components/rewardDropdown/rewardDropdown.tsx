@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_bonusClaim, api_bonusClaimList } from '@/api/bonus';
@@ -24,10 +24,13 @@ type BonusType = {
 export default function RewardDropdown() {
   const exchangeRate = useExchange();
   const { t } = useTranslation();
-  const { viewInFiat, localFiat } = useSelector((state: AppState) => ({
-    viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
-    localFiat: state.wallet.localFiat,
-  }));
+  const { viewInFiat, localFiat } = useSelector(
+    (state: AppState) => ({
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      localFiat: state.wallet.localFiat,
+    }),
+    shallowEqual,
+  );
 
   const [bonuses, setBonuses] = useState<BonusType[]>([]);
   const getBonusList = async () => {
@@ -105,8 +108,11 @@ export default function RewardDropdown() {
                       <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">
                         {t('bonus:bonusReady')}
                       </div>
-                      {bonuses.map((bonus) => (
-                        <div className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary">
+                      {bonuses.map((bonus, index) => (
+                        <div
+                          className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary"
+                          key={index}
+                        >
                           <div className="flex gap-[10px]">
                             <div className="flex flex-col justify-center items-center">
                               <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />

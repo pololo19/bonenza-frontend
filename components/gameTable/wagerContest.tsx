@@ -22,6 +22,7 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
+import { useUSDTPrice } from '@/base/hooks/useUsdtPrice';
 
 type ContesterType = {
   playerId: string;
@@ -41,6 +42,7 @@ type WagerContestType = {
 
 const WagerContestComponent = () => {
   const exchangeRate = useExchange();
+  const usdtPrice = useUSDTPrice();
   const dispatch = useDispatch();
   const [wagerContestData, setWagerContestData] = useState<WagerContestType>({
     currentTime: 0,
@@ -77,12 +79,6 @@ const WagerContestComponent = () => {
     }),
     shallowEqual,
   );
-
-  const usdtPrice = useMemo(() => {
-    const usdt = cryptoPrices.find((item) => item.name.toLowerCase() === 'usdt');
-    if (!usdt) return 1;
-    return usdt.price;
-  }, [cryptoPrices]);
 
   const getNextDay = () => {
     let currentDate = new Date();
