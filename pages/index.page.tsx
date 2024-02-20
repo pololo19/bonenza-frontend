@@ -116,7 +116,7 @@ function IndexPage() {
         title: t('homePage:updown'),
         description: t('homePage:introduceCardDes4'),
         textButton: t('homePage:introduceCardButton4'),
-        href: 'https://trade.playnance.com/trade',
+        href: 'https://bitup.game/trade',
         icon: (
           <Image
             width={25}

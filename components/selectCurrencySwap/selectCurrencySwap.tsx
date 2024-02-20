@@ -251,7 +251,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                 isShowError={false}
                 name="amountFrom"
               />
-              <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-[16px] text-[12px]">
+              <div className="flex items-center md:gap-[10px] gap-[5px] h-full md:text-[16px] text-[12px]">
                 <div
                   role="button"
                   onClick={handleGetMaxBalance}
@@ -260,7 +260,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                   {t('deposit:max')}
                 </div>
                 <div
-                  className="flex items-center dark:bg-color-btn-primary rounded-[5px] px-2 py-1 bg-white dark:text-white text-black justify-start gap-[10px] w-full"
+                  className="flex items-center dark:bg-color-btn-primary rounded px-2 py-1 bg-white dark:text-white text-black justify-between gap-[10px] w-full min-w-[120px]"
                   role="button"
                   onClick={() => setIsShowFromModal(true)}
                 >
@@ -312,13 +312,13 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
               <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-[16px] text-[12px]">
                 <div
-                  className="flex items-center dark:bg-color-btn-primary px-2 py-1 bg-white dark:text-white text-black justify-start gap-[10px] w-full"
+                  className="flex items-center dark:bg-color-btn-primary px-2 py-1 bg-white dark:text-white text-black justify-between gap-[10px] w-full rounded  min-w-[120px]"
                   role="button"
                   onClick={() => setIsShowToModal(true)}
                 >
                   <Image
-                    width={30}
-                    height={30}
+                    width={24}
+                    height={24}
                     src={getSymbolById(watch('symbolTo'))?.logo || ''}
                     onError={(e) => {
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
