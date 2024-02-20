@@ -138,18 +138,22 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2">
-            <div className={cn(`w-[8px] h-[8px] rounded-full`, {
-              'bg-[#efef19]': row.original.status.toString() === 'processing' || 
-                                row.original.status.toString() === 'pending' || 
-                                row.original.status.toString() === 'refunding' ||
-                                row.original.status.toString() === 'ongoing',
-              'bg-[#c31414]': row.original.status.toString() === 'rejected' ||
-                                row.original.status.toString() === 'failed' ||
-                                row.original.status.toString() === 'not_started',
-              'bg-[#3BC117]': row.original.status.toString() === 'done' ||
-                                row.original.status.toString() === 'all' ||
-                                row.original.status.toString() === 'complete' ||
-                                row.original.status.toString() === 'approved'
+            <div
+              className={cn(`w-[8px] h-[8px] rounded-full`, {
+                'bg-[#efef19]':
+                  row.original.status.toString() === 'processing' ||
+                  row.original.status.toString() === 'pending' ||
+                  row.original.status.toString() === 'refunding' ||
+                  row.original.status.toString() === 'ongoing',
+                'bg-[#c31414]':
+                  row.original.status.toString() === 'rejected' ||
+                  row.original.status.toString() === 'failed' ||
+                  row.original.status.toString() === 'not_started',
+                'bg-[#3BC117]':
+                  row.original.status.toString() === 'done' ||
+                  row.original.status.toString() === 'all' ||
+                  row.original.status.toString() === 'complete' ||
+                  row.original.status.toString() === 'approved',
               })}
             />
             <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
@@ -294,11 +298,15 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div
-            className={`${
-              row.original?.type?.toLowerCase() == 'bet' ? 'text-red-500' : 'text-color-primary'
-            } flex items-center justify-center gap-1`}
+            className={cn('flex items-center justify-center gap-1', {
+              'text-color-red':
+                row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw',
+              'text-color-primary': !(
+                row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw'
+              ),
+            })}
           >
-            {row.original?.type?.toLowerCase() == 'bet' ? '-' : ''}
+            {row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw' ? '-' : ''}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
             ) : (
@@ -376,7 +384,9 @@ const TransactionPage = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row?.original?.actionType}</div>
+          <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">
+            {row?.original?.actionType}
+          </div>
         ),
         minSize: 30,
       },
