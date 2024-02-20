@@ -123,38 +123,30 @@ const SelectCurrency = ({
         {!withDrawTab && (
           <div className="w-full flex flex-wrap gap-1 overflow-x-auto">
             {symbols.map((symbol, index) => (
-              <div
+              <button
                 className={cn(
-                  'w-fit p-[2px] font-semibold rounded-full',
+                  'sm:min-w-[80px] pl-1 pr-3 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
+                  'hover:bg-color-primary', // Hover color
                   {
-                    'bg-color-primary my-auto': symbol.id === activeCoin.id,
-                  },
-                  {
-                    'border-2 border-solid dark:border-[#272C33] border-[#EAECF3] dark:bg-color-input-primary bg-color-light-bg-primary':
-                      symbol.id !== activeCoin.id,
-                  },
+                    'border-2 border-color-primary': symbol.id === activeCoin.id, //Active Symbol
+                    'border-2 border-color-light-border-primary dark:border-color-border-primary': symbol.id !== activeCoin.id, //Not Active Symbol
+                  }
                 )}
                 key={index}
                 onClick={() => handleChangeCrypto(symbol)}
               >
-                <button
-                  className={cn(
-                    'sm:min-w-[80px] min-w-[80px] px-1 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize dark:hover:bg-color-primary hover:bg-color-light-bg-primary bg-color-light-bg-primary dark:bg-color-input-primary',
-                  )}
-                >
-                  <Image
-                    width={24}
-                    height={24}
-                    src={symbol.logo}
-                    className="inline"
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/fiat/USD.png';
-                    }}
-                  />
-                  <h1 className="text-default font-normal">{symbol.name}</h1>
-                </button>
-              </div>
+                <Image
+                  width={24}
+                  height={24}
+                  src={symbol.logo}
+                  className="inline"
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/fiat/USD.png';
+                  }}
+                />
+                <h1 className="text-default font-normal">{symbol.name}</h1>
+              </button>
             ))}
           </div>
         )}
