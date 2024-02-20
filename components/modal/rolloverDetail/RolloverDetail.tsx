@@ -75,7 +75,9 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
           </div>
           <div className="mt-5 flex flex-col gap-4 text-[14px]">
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary">{String(t('transaction:status'))}</span>
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
+                {String(t('transaction:status'))}
+              </span>
               <div className="flex gap-2 items-center">
                 <div
                   className={cn('w-[8px] h-[8px] rounded-full', {
@@ -101,27 +103,29 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-between text-[#31373D] dark:text-color-text-primary">
+            <div className="flex items-center justify-between text-color-light-text-primary dark:text-color-text-primary">
               <span className="">{String(t('transaction:type'))}</span>
               <div className="flex gap-2 items-center">
                 <span className="text-black dark:text-white">{transaction.type}</span>
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary">{String(t('transaction:createdOn'))}</span>
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
+                {String(t('transaction:createdOn'))}
+              </span>
               <span className="text-black dark:text-white">
                 {formatDate(new Date(transaction.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
               </span>
             </div>
             <div className="h-[1px] w-full dark:bg-[#98A7B5] bg-[#f5f6fa]" />
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary">
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:rolloverTimes'))}
               </span>
               <span className="text-black dark:text-white">{`${transaction.times} x`}</span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary">
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:totalWagerRequired'))}
               </span>
               <span className="text-black dark:text-white">
@@ -133,7 +137,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary">
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:wagerComplete'))}
               </span>
               <span className="text-black dark:text-white">
@@ -145,19 +149,21 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary">
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:pendingWagerRequired'))}
               </span>
               <span className="text-black dark:text-white">
                 {viewInFiat ? (
-                  <>{currencyFormat1(transaction.pendingWagerRequiredAmount * exchange, 2, localFiat?.name || 'USD')}</>
+                  <>
+                    {currencyFormat1(transaction.pendingWagerRequiredUsdAmount * exchange, 2, localFiat?.name || 'USD')}
+                  </>
                 ) : (
                   currencyFormat1(transaction.pendingWagerRequiredAmount, 4, '', false)
                 )}
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary">
+              <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:withdrawableFunds'))}
               </span>
               <span className="text-black dark:text-white">
@@ -180,7 +186,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               </span>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-[#31373D] dark:text-color-text-primary underline cursor-pointer">
+              <span className="text-color-light-text-primary dark:text-color-text-primary underline cursor-pointer">
                 {String(t('transaction:cancelBonus'))}
               </span>
             </div>
