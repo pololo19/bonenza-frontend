@@ -1,5 +1,5 @@
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
-import { ColumnDef, Row } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
@@ -9,6 +9,7 @@ import { api_wagerContestHistory, api_wagerContestList, api_wagerContestPosition
 import { useTranslation } from '@/base/config/i18next';
 import { useCountdown } from '@/base/constants/useCountdown';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
@@ -41,6 +42,7 @@ type WagerContestType = {
 
 const WagerContestComponent = () => {
   const exchangeRate = useExchange();
+  const usdtPrice = useUSDTPrice();
   const dispatch = useDispatch();
   const [wagerContestData, setWagerContestData] = useState<WagerContestType>({
     currentTime: 0,
@@ -77,12 +79,6 @@ const WagerContestComponent = () => {
     }),
     shallowEqual,
   );
-
-  const usdtPrice = useMemo(() => {
-    const usdt = cryptoPrices.find((item) => item.name.toLowerCase() === 'usdt');
-    if (!usdt) return 1;
-    return usdt.price;
-  }, [cryptoPrices]);
 
   const getNextDay = () => {
     let currentDate = new Date();
