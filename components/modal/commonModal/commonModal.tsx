@@ -68,11 +68,13 @@ export default function CommonModal({
                 {header}
                 {isShowCloseButton && (
                   <div
-                    className="absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90"
+                    className={cn("absolute sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90",
+                      "dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black"
+                    )}
                     role="button"
                     onClick={onClose}
                   >
-                    <XMarkIcon width={20} className=" dark:text-color-text-primary text-color-light-text-primary" />
+                    <XMarkIcon width={20} className="stroke-[3]"/>
                   </div>
                 )}
               </div>
