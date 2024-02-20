@@ -213,7 +213,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   <div className="absolute h-full w-full left-0 top-0 flex items-center justify-center gap-1">
                     <div className="flex flex-col gap-0 justify-center text-center">
                       <div className="p-0 text-[12px] font-semibold mt-4">
-                        {selectedRank.name}
+                        {rankList.map((rank) => rank.startLevel - 1 < vipData.level && rank.endLevel + 1 > vipData.level ? rank.name : '')}
                       </div>    
                       <div>
                         <span className="text-[18px] mr-[2px]">VIP</span>
