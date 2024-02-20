@@ -37,7 +37,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
   const replaceStatus = (status: string) => {
     return status.split('_').join(' ');
   };
-  console.log(transaction);
+
   return (
     <>
       <CommonModal
@@ -66,10 +66,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 {transaction.type === 'Withdraw' && <span>- {currencyFormat1(transaction.amount, 6)}</span>}
                 {transaction.type !== 'Withdraw' && (
                   <span>
-                    {Number(transaction.amount) >= 0 ? '+' : ''}{' '}
-                    {viewInFiat
-                      ? currencyFormat1(transaction.amountUsd, 2, localFiat?.name || 'USD', false)
-                      : currencyFormat1(transaction.amount, 8, '', false)}
+                    {Number(transaction.amount) >= 0 ? '+' : ''} {currencyFormat1(transaction.amount, 8, '', false)}
                   </span>
                 )}
               </span>
@@ -80,18 +77,22 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
             <div className="flex items-center justify-between">
               <span className="text-[#31373D] dark:text-color-text-primary">{String(t('transaction:status'))}</span>
               <div className="flex gap-2 items-center">
-                <div className={cn('w-[8px] h-[8px] rounded-full', {
-                  'bg-[#efef19]': transaction.status.toString() === 'processing' || 
-                                    transaction.status.toString() === 'pending' || 
-                                    transaction.status.toString() === 'refunding' ||
-                                    transaction.status.toString() === 'ongoing',
-                  'bg-[#c31414]': transaction.status.toString() === 'rejected' ||
-                                    transaction.status.toString() === 'failed' ||
-                                    transaction.status.toString() === 'not_started',
-                  'bg-[#3BC117]': transaction.status.toString() === 'done' ||
-                                    transaction.status.toString() === 'all' ||
-                                    transaction.status.toString() === 'complete' ||
-                                    transaction.status.toString() === 'approved'
+                <div
+                  className={cn('w-[8px] h-[8px] rounded-full', {
+                    'bg-[#efef19]':
+                      transaction.status.toString() === 'processing' ||
+                      transaction.status.toString() === 'pending' ||
+                      transaction.status.toString() === 'refunding' ||
+                      transaction.status.toString() === 'ongoing',
+                    'bg-[#c31414]':
+                      transaction.status.toString() === 'rejected' ||
+                      transaction.status.toString() === 'failed' ||
+                      transaction.status.toString() === 'not_started',
+                    'bg-[#3BC117]':
+                      transaction.status.toString() === 'done' ||
+                      transaction.status.toString() === 'all' ||
+                      transaction.status.toString() === 'complete' ||
+                      transaction.status.toString() === 'approved',
                   })}
                 />
                 <div className="dark:text-white text-black text-[14px] break-keep	">
@@ -162,10 +163,19 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               <span className="text-black dark:text-white">
                 {viewInFiat ? (
                   <>
-                    {currencyFormat1(transaction.status === 'done' ? transaction.withdrawableFoundsUsdAmount : 0 * exchange, 2, localFiat?.name || 'USD')}
+                    {currencyFormat1(
+                      transaction.status === 'done' ? transaction.withdrawableFoundsUsdAmount : 0 * exchange,
+                      2,
+                      localFiat?.name || 'USD',
+                    )}
                   </>
                 ) : (
-                  currencyFormat1(transaction.status === 'done' ? transaction.withdrawableFoundsUsdAmount : 0, 4, '', false)
+                  currencyFormat1(
+                    transaction.status === 'done' ? transaction.withdrawableFoundsUsdAmount : 0,
+                    4,
+                    '',
+                    false,
+                  )
                 )}
               </span>
             </div>
