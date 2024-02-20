@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { DEPOSIT_BONUS } from '@/base/constants/common';
-import { useUSDTPrice } from '@/base/hooks/useUsdtPrice';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { copyClipBoard, currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
