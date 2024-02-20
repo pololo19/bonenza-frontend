@@ -358,7 +358,7 @@ export default function SidebarToggle() {
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base`,
                   `dark:bg-[#2D3035] dark:text-white`,
                   `text-color-light-text-primary bg-color-light-bg-primary`,
-                  `hover:bg-gray-300`
+                  `hover:bg-gray-300`,
                 )}
                 onClick={() => {
                   setTheme('dark');
@@ -372,7 +372,7 @@ export default function SidebarToggle() {
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base font-bold`,
                   `bg-gray-300 text-color-light-text-primary`,
                   `dark:text-white dark:bg-transparent`,
-                  `dark:hover:bg-[#2D3035]`
+                  `dark:hover:bg-[#2D3035]`,
                 )}
                 onClick={() => {
                   setTheme('light');
@@ -461,6 +461,7 @@ export default function SidebarToggle() {
           {[...panel_1_datas, ...panel_2_datas, ...panel_3_datas].map((item, index) => (
             <>
               <Link
+                key={index}
                 href={item.href}
                 type="button"
                 className={cn(

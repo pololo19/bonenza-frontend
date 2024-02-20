@@ -1,6 +1,5 @@
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { InfoCircle } from 'iconsax-react';
-import Image from 'next/image';
 import { useQRCode } from 'next-qrcode';
 import { useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
@@ -8,14 +7,15 @@ import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { DEPOSIT_BONUS } from '@/base/constants/common';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { copyClipBoard, currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import { DepositAddressComponent } from '@/components/depositAddress/depositAddress';
-import ModalDepositMetamask from '@/components/modal/depositMetamask/depositMetamask';
 import SelectCurrency from '@/components/selectCurrency/selectCurrency';
 
 const DepositCryptoComponent = () => {
+  const usdtPrice = useUSDTPrice();
   const [activeCoin, setActiveCoin] = useState<CurrencyType>({
     id: '',
     name: '',
@@ -33,8 +33,6 @@ const DepositCryptoComponent = () => {
     name: '',
     type: 1,
   });
-  const [openDepositMetamask, setOpenDepositMetamask] = useState<boolean>(false);
-
   const { Canvas } = useQRCode();
   const { t } = useTranslation('');
 
@@ -119,9 +117,11 @@ const DepositCryptoComponent = () => {
                   <p className="text-white">
                     {depositDetail.rankReturn}&nbsp;{t('deposit:depositBonus')}
                   </p>
-                  <p className="text-color-text-primary">{`${depositDetail.percent}% ${t('deposit:upTo')} ${
-                    depositDetail.uptoAmount
-                  } USDT`}</p>
+                  <p className="text-color-text-primary">{`${depositDetail.percent}% ${t(
+                    'deposit:upTo',
+                  )} ${currencyFormat1((depositDetail.uptoAmount * usdtPrice) / activeCoin.price, 8, '', false)} ${
+                    activeCoin.name
+                  }`}</p>
                   <p className="text-color-text-primary">
                     {t('deposit:minimumDeposit')}{' '}
                     {`${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${activeCoin.name}`}
@@ -181,11 +181,6 @@ const DepositCryptoComponent = () => {
           </h1>
         </div>
       </div>
-      <ModalDepositMetamask
-        show={openDepositMetamask}
-        onClose={() => setOpenDepositMetamask(false)}
-        walletAddress={String(String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address))}
-      />
     </>
   );
 };
