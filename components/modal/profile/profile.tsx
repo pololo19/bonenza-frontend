@@ -1,5 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ChevronRightIcon } from '@heroicons/react/24/outline';
+import { ChevronRightIcon, ChartBarIcon, TrophyIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ArrowLeft2, Edit2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -117,14 +117,17 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                       e.currentTarget.src = `/img/vip.png`;
                     }}
                     src={`/img/${vipData.medal}.png`}
-                    width={60}
-                    height={52}
+                    width={80}
+                    height={69}
                     alt=""
                     className=""
                   />
                   <div className="absolute flex flex-col items-center left-0 top-[40%] w-full h-full">
-                    <p className="text-[8px] uppercase leading-[1]">{vipData.type}</p>
-                    <p className="text-[10px] font-semibold">{vipData.level}</p>
+                    <p className="text-[10px] uppercase leading-[1]">{`* ${vipData.type} *`}</p>
+                    <p className="text-[20px] font-semibold">
+                      {(`${vipData.level}`).split(' ').at(0)?.charAt(0).toUpperCase()}
+                      {(`${vipData.level}`).split(' ').at(1)}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -150,8 +153,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                       }}
                     />
                   </div>
-                  <div className="text-black dark:text-white text-[16px] font-[700]">{user?.userName}</div>
-                  <div className="text-[12px] text-color-text-primary">
+                  <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
+                  <div className="text-[14px] text-color-text-primary">
                     {t('profile:userID')}:{user?.userId}
                   </div>
                 </div>
@@ -233,12 +236,13 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             <div className="flex flex-col gap-2">
               <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
                 <div className="flex items-center justify-between" onClick={() => setIsMedalDetail(true)}>
-                  <div className="flex gap-[5px] text-black dark:text-white text-[12px] items-center">
+                  <div className="flex gap-2 text-black dark:text-white text-[16px] items-center align-middle">
+                    <TrophyIcon width={18} height={18} className="stroke-[2]"/>
                     <div>{t('profile:medal')}</div>
                     <div>{medals.length}</div>
                   </div>
                   <div className="flex items-center gap-[5px] cursor-pointer">
-                    <div className="text-color-primary text-[12px]">{t('profile:details')}</div>
+                    <div className="text-color-primary text-[14px]">{t('profile:details')}</div>
                     <ChevronRightIcon width={14} className="text-color-primary" />
                   </div>
                 </div>
@@ -261,14 +265,17 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
               <div className="bg-white dark:bg-color-modal-bg-primary py-[12px] px-[14px] rounded-[5px]">
                 <div className="flex items-center justify-between">
-                  <div className="text-black dark:text-white text-[12px]">{t('profile:statistics')}</div>
+                  <div className="flex items-center gap-2 align-middle">
+                    <ChartBarIcon width={18} height={18} className="stroke-[2]"/>
+                    <div className="text-black dark:text-white text-[16px]">{t('profile:statistics')}</div>
+                  </div>
                   <div
                     className="flex items-center gap-[5px] cursor-pointer"
                     onClick={() => {
                       setIsStatistic(true);
                     }}
                   >
-                    <div className="text-color-primary text-[12px]">{t('profile:details')}</div>
+                    <div className="text-color-primary text-[14px]">{t('profile:details')}</div>
                     <ChevronRightIcon width={14} className="text-color-primary" />
                   </div>
                 </div>
@@ -282,7 +289,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                         className="w-[12px] h-[12px]"
                         alt=""
                       />
-                      <div className="text-[0.75rem] text-color-text-primary">{t('profile:totalWins')}</div>
+                      <div className="text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
                     </div>
                     <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
                   </div>
@@ -295,7 +302,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                         className="w-[12px] h-[12px]"
                         alt=""
                       />
-                      <div className="text-[0.75rem] text-color-text-primary">{t('profile:totalBets')}</div>
+                      <div className="text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
                     </div>
                     <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
                   </div>
@@ -308,7 +315,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                         className="w-[12px] h-[12px]"
                         alt=""
                       />
-                      <div className="text-[0.75rem] text-color-text-primary">{t('profile:totalWagered')}</div>
+                      <div className="text-[14px] text-color-text-primary">{t('profile:totalWagered')}</div>
                     </div>
                     <div className="text-[14px] sm:text-[1rem] dark:text-white text-black truncate max-w-full px-1">
                       {viewInFiat ? (
@@ -321,7 +328,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 </div>
               </div>
               <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
-                <div className="text-[12px] text-color-light-text-primary dark:text-white">
+                <div className="text-[16px] text-color-light-text-primary dark:text-white">
                   {t('profile:top3FavoriteGames')}
                 </div>
                 {!!listGame.length && (
@@ -337,10 +344,10 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                               alt=""
                               className="object-cover max-h-auto rounded-[5px]"
                             />
-                            <div className="text-[12px] text-color-text-primary">{item.title}</div>
+                            <div className="text-[14px] text-color-text-primary">{item.title}</div>
                           </div>
                         </Link>
-                        <div className="text-[10px] text-color-text-primary text-right">
+                        <div className="text-[14px] text-color-text-primary text-right">
                           <div>{t('profile:wagered')}</div>
                           <div className="text-white">
                             {viewInFiat
@@ -368,7 +375,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 )}
               </div>
               <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
-                <div className="text-[12px] text-color-light-text-primary dark:text-white">
+                <div className="text-[16px] text-color-light-text-primary dark:text-white">
                   {t('profile:wagerContest')}
                 </div>
                 <WagerContest userData={user} />
