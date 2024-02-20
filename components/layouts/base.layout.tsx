@@ -747,14 +747,17 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         }}
         setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
       />
-      <ModalBonusHistory
-        show={isShowModalBonusHistory || false}
-        cryptoLocked={cryptoLocked}
-        onClose={() => {
-          dispatch(changeIsShowBonusHistory(false));
-        }}
-        setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
-      />
+      {isShowModalBonusHistory && (
+        <ModalBonusHistory
+          show={isShowModalBonusHistory || false}
+          cryptoLocked={cryptoLocked}
+          onClose={() => {
+            dispatch(changeIsShowBonusHistory(false));
+          }}
+          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+        />
+      )}
+
       {isShowVipLevelModal && (
         <ModalVipLevel
           show={isShowVipLevelModal}
@@ -764,7 +767,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      <ModalDeposit show={isShowDepositModal ? isShowDepositModal : false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
+      <ModalDeposit
+        show={isShowDepositModal ? isShowDepositModal : false}
+        onClose={() => dispatch(changeIsShowDepositModal(false))}
+      />
       {isShowCryptoOnlineModal && (
         <ModalCryptoOnline
           show={isShowCryptoOnlineModal}
