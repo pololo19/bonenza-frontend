@@ -139,7 +139,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           <div className="dark:text-color-text-primary text-color-light-text-primary">{t('gameTable:betId')}</div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:p-2 p-[5px] sm:w-auto w-[30vw]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate p-2 sm:w-auto w-[30vw]">
             {row.original.betId}
           </div>
         ),

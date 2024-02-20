@@ -109,7 +109,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:w-auto w-[30vw]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:w-auto w-[30vw] p-2">
             {row.original.betId}
           </div>
         ),
@@ -182,7 +182,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           </div>
         ),
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-end gap-[5px]')}>
+          <div className={cn('flex items-center justify-end gap-[5px] p-2')}>
             <div
               className={cn('font-bold text-end truncate', {
                 'text-color-primary': row.original.profitAmount >= 0,
