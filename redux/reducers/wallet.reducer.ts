@@ -191,7 +191,6 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         favorite: item.favorite,
       })) || [];
     const tempLockedAmount = Number(lockedUSDT || 0);
-    // console.log(result.data);
     dispatch(
       setBalance({
         totalBalance: Number(balances.totalBalance),

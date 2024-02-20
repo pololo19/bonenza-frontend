@@ -118,7 +118,7 @@ const CasinoSS = <T,>({
           <div className="flex items-center gap-[10px] justify-between">
             <div className="flex items-center gap-[10px]">
               {icon}
-              <div className="font-[600] dark:text-white text-[#000] sm:text-title text-m_title">{title}</div>
+              <div className="font-[600] dark:text-white text-black sm:text-title text-m_title">{title}</div>
             </div>
             {isShowArrow && (
               <div className="flex gap-[5px] justify-end text-white">
@@ -126,7 +126,7 @@ const CasinoSS = <T,>({
                   <Link
                     href={viewAllUrl}
                     role="button"
-                    className="bg-transparent rounded-[3px] font-bold text-[10px] text-color-primary px-[10px] py-[8px] hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary"
+                    className="bg-transparent rounded-default font-bold text-des text-color-primary px-[10px] py-[8px] hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary"
                   >
                     {t('gameDetail:viewAll')}
                   </Link>
