@@ -122,29 +122,29 @@ export default function ModalRakeBack({
   return (
     <>
       {isLoading && <Loader />}
-      <Transition.Root show={show} as={Fragment}>
+      <Transition.Root show={show} as={Fragment} appear>
         <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={onClose}>
           <Transition.Child
             as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
+            enter="transition-all ease-out duration-200"
+            enterFrom="opacity-0 scale-0"
+            enterTo="opacity-100 scale-100"
             leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-25 transition-opacity" />
           </Transition.Child>
           <div className="fixed inset-0 z-10">
             <div className="flex min-h-full justify-center p-0 sm:p-4 text-center items-center">
               <Transition.Child
                 as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-4 translate-y-0 scale-95"
-                enterTo="opacity-100 translate-y-0 scale-100"
+                enter="ease-out duration-200"
+                enterFrom="opacity-0 scale-100 translate-x-full md:scale-0 md:translate-x-0"
+                enterTo="opacity-100 scale-100 translate-x-0"
                 leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0 scale-100"
-                leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
+                leaveFrom="opacity-100 scale-100 translate-x-0"
+                leaveTo="opacity-0 scale-100 translate-x-full md:scale-0 md:translate-x-0"
               >
                 <Dialog.Panel className="!overflow-hidden dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-primary bg-white text-[14px] sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[3px] text-left shadow-xl transition-all my-0 w-full !p-0">
                   <Dialog.Title
@@ -152,11 +152,14 @@ export default function ModalRakeBack({
                     className="relative h-[60px] px-[20px] flex justify-between dark:bg-color-header-primary bg-color-light-bg-primary items-center"
                   >
                     <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:rakeback')}</div>
-                    <div className="group rounded-md" role="button" onClick={onClose}>
-                      <XMarkIcon
-                        width={15}
-                        className="text-[#9FA5AC] group-hover:text-black dark:group-hover:text-white w-[1.5rem] h-[1.5rem]"
-                      />
+                    <div
+                      className={cn("absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90",
+                        "dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black"
+                      )}
+                      role="button"
+                      onClick={onClose}
+                    >
+                      <XMarkIcon width={20} className="stroke-[3]"/>
                     </div>
                   </Dialog.Title>
                   <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
