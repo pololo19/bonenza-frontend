@@ -725,14 +725,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowAuthenticationModal || false}
         onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
       />
-      {isShowVipClubModal && (
-        <ModalVipClub
-          show={isShowVipClubModal}
-          onClose={() => {
-            dispatch(changeIsShowVipClubModal(false));
-          }}
-        />
-      )}
+      <ModalVipClub
+        show={isShowVipClubModal || false}
+        onClose={() => {
+          dispatch(changeIsShowVipClubModal(false));
+        }}
+      />
       <ModalRakeBack
         show={isShowRakeBackModal || false}
         onClose={() => {
