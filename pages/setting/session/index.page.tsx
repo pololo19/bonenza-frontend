@@ -15,7 +15,7 @@ const SettingSession = () => {
   const { t } = useTranslation('');
   const [dataTable, setDataTable] = useState<SessionType[]>([]);
 
-  const sessionColumns: ColumnDef<any>[] = useMemo(() => {
+  const sessionColumns: ColumnDef<SessionType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'browser',
@@ -41,7 +41,11 @@ const SettingSession = () => {
         maxSize: 30,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-black">
-            {Number(differenceDateInSeconds(new Date(), new Date(row.original.lastUsedAt))) > 60 ? 'Offline' : 'Online'}
+            {Number(
+              differenceDateInSeconds(new Date(), new Date(row.original.lastUsedAt ? row.original.lastUsedAt : '')),
+            ) > 60
+              ? 'Offline'
+              : 'Online'}
           </div>
         ),
       },
@@ -60,7 +64,6 @@ const SettingSession = () => {
 
   const handleRemoveUserSession = async (sessionId: string) => {
     try {
-      console.log(sessionId, '====63');
       setIsLoading(true);
       const res = await api_deleteSession(sessionId);
       getListUserSessions();
@@ -89,7 +92,7 @@ const SettingSession = () => {
     <>
       {isLoading && <Loader />}
       <div className="px-[12px] py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex flex-col items-start relative w-full">
-        <div className="font-semibold text-[14px]">{t('setting:sessionsUsedInPast')}</div>
+        <div className="font-semibold text-default">{t('setting:sessionsUsedInPast')}</div>
         <TableComponent
           containerClassName="w-full mt-[30px]"
           isLoading={isLoading}

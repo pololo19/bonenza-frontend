@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import cn from 'classnames';
 import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,6 +12,7 @@ import { ROUTER } from '@/base/constants/common';
 import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameListType } from '@/base/types/common';
+import classNames from 'classnames';
 
 type GameCardProps = {
   gameDetail: GameListType;
@@ -79,23 +80,26 @@ function GameCard(props: GameCardProps) {
         </div>
       </div>
       <Tooltip
-        className="max-w-[50vw] z-[50] !text-[12px] min-w-[250px] !bg-black"
+        className="max-w-[50vw] z-[50] !text-[14px] min-w-[250px] !p-3 !bg-color-light-bg-primary dark:!bg-color-bg-secondary"
+        opacity={100}
         id={`${gameDetail?.identifier} ${uuid}`}
         place="bottom"
         // content={String(gameDetail?.description)}
       >
-        <div className="rounded p-2 bg-gray-800 flex items-center justify-between">
-          <span>RPT:</span>
-          <span className="text-amber-600">{gameDetail.payout ?? 0}%</span>
-        </div>
-        <div className="rounded p-2 bg-gray-800 flex items-center justify-between mt-2">
-          <span>Recent biggest win:</span>
-          <span className="text-amber-600">{gameDetail.multiplier ?? 0}X</span>
-        </div>
-        <div className="flex items-center justify-end mt-2">
-          <span className="text-gray-500">
-            {/* {String(gameDetail?.producer)?.charAt(0).toUpperCase() + String(gameDetail?.producer)?.slice(1)} */}
+        <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3">
+          <span className="font-bold dark:text-gray-300 text-gray-700">RPT:</span>
+          <span
+            className={cn('font-bold', {
+              'text-[#0C0]': gameDetail.payout > 90,
+              'dark:text-gray-300 text-gray-700': gameDetail.payout < 90,
+            })}
+          >
+            {gameDetail.payout ?? 0}%
           </span>
+        </div>
+        <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
+          <span className="font-bold dark:text-gray-300 text-gray-700">Recent biggest win:</span>
+          <span className="font-bold dark:text-gray-300 text-gray-700">{`${gameDetail.multiplier ?? 0} x`}</span>
         </div>
       </Tooltip>
     </div>

@@ -20,6 +20,7 @@ import {
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useWidth } from '@/base/hooks/useWidth';
+import { formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -39,7 +40,6 @@ import ModalShareGame from '@/components/modal/shareGame/shareGame';
 import Tooltip from '@/components/tooltip';
 
 import styles from './index.module.scss';
-import { formatDate } from '@/base/libs/utils';
 
 type LaunchUrlTye = {
   gameUrl: string;
@@ -376,7 +376,7 @@ function GamePage() {
                       src={`https://cdn.softswiss.net/i/s4/${gameDetail.identifier.replace(':', '/')}.png`}
                       fill
                       alt=""
-                      className="rounded-[5px]"
+                      className="rounded-default"
                       onError={(e) => {
                         e.currentTarget.src = '/img/game-background.png';
                       }}
@@ -384,8 +384,8 @@ function GamePage() {
                   </div>
                   <div className="flex flex-col aspect-square px-[10px] justify-between">
                     <div className="flex flex-col gap-[10px]">
-                      <div className="dark:text-white text-black text-[14px] font-bold">{gameDetail.title}</div>
-                      <div className="dark:text-white text-black text-[12px]">
+                      <div className="dark:text-white text-black text-default font-bold">{gameDetail.title}</div>
+                      <div className="dark:text-white text-black text-des">
                         <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
                         <Link
                           className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
@@ -394,7 +394,7 @@ function GamePage() {
                           {gameDetail.providerName}
                         </Link>
                       </div>
-                      <div className="dark:text-color-text-secondary text-black text-[12px]">
+                      <div className="dark:text-color-text-secondary text-black text-des">
                         {`${formatDate(new Date(gameDetail.releasedAt), 'yyyy.MM.dd')}`}
                       </div>
                     </div>
@@ -411,7 +411,7 @@ function GamePage() {
                           onClick={() => handleReactGame('favorite')}
                         >
                           <StarIcon width={20} />
-                          <span className="text-[12px]">{gameDetail?.favorites ?? 0}</span>
+                          <span className="text-des">{gameDetail?.favorites ?? 0}</span>
                         </div>
                       ) : (
                         <div className="w-[49px] flex items-center justify-center">
@@ -433,7 +433,7 @@ function GamePage() {
                     <button
                       type="button"
                       disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                      className="truncate hover:bg-[red] justify-center text-white rounded-[5px] font-semibold bg-gradient-btn-default py-[15px] text-[14px] flex items-center gap-[10px] font-bold"
+                      className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-default py-[15px] text-default flex items-center gap-[10px] font-bold"
                       onClick={() => handlePlayRequest()}
                     >
                       {isLoadingGame.status && isLoadingGame.request === 'real' ? (
@@ -448,7 +448,7 @@ function GamePage() {
                     <button
                       type="button"
                       disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                      className="truncate hover:bg-[red] justify-center text-white rounded-[5px] font-semibold bg-gradient-btn-default py-[15px] text-[14px] flex items-center gap-[10px]"
+                      className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-default py-[15px] text-default flex items-center gap-[10px]"
                       onClick={() => handlePlayRequest()}
                     >
                       {isLoadingGame.status && isLoadingGame.request === 'real' ? (
@@ -463,7 +463,7 @@ function GamePage() {
 
                   <button
                     type="button"
-                    className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] py-[15px] text-[14px] flex items-center gap-[10px] justify-center"
+                    className="truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] py-[15px] text-default flex items-center gap-[10px] justify-center"
                     disabled={!gameDetail.allowedDemo || isLoadingGame.status}
                     onClick={() => {
                       handleFreeplay();
@@ -500,25 +500,25 @@ function GamePage() {
                 />
                 <div className={cn('h-full bg-black/80 w-full absolute')} />
                 {isLogin && (
-                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
+                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
                     {gameDetail?.isExpiration ? (
-                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
+                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
                         {t('gameDetail:gameExpiration')}
                       </div>
                     ) : (
                       <>
                         <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
                           {isSatisfied && (
-                            <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
+                            <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
                               {t('gameDetail:playWithBalanceIn')}
                             </div>
                           )}
                           {!isSatisfied && (
-                            <div className="text-start md:text-[18px] sm:text-[14px] text-[12px] dark:text-white text-black">
+                            <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
                               {t('gameDetail:insufficientBalanceIn')}
                             </div>
                           )}
-                          <div className="bg-[#17191B] rounded-[5px]">
+                          <div className="bg-[#17191B] rounded-default">
                             <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
                           </div>
                         </div>
@@ -544,7 +544,7 @@ function GamePage() {
                             <button
                               type="button"
                               disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                              className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                              className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-default text-[12px] flex items-center gap-[10px]"
                               onClick={() => handlePlayRequest()}
                             >
                               {isLoadingGame.status && isLoadingGame.request === 'real' ? (
@@ -559,7 +559,7 @@ function GamePage() {
                           {!isSatisfied && (
                             <button
                               type="button"
-                              className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[5px] sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                              className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[5px] sm:text-default text-[12px] flex items-center gap-[10px]"
                               onClick={() => {
                                 dispatch(changeIsShowDepositModal(true));
                               }}
@@ -570,7 +570,7 @@ function GamePage() {
                           )}
                           <button
                             type="button"
-                            className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                            className="truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
                             disabled={!gameDetail.allowedDemo || isLoadingGame.status}
                             onClick={() => {
                               handleFreeplay();
@@ -590,9 +590,9 @@ function GamePage() {
                   </div>
                 )}
                 {!isLogin && (
-                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-[#f6f7fa] rounded">
+                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
                     {gameDetail?.isExpiration ? (
-                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-[14px]">
+                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
                         {t('gameDetail:gameExpiration')}
                       </div>
                     ) : (
@@ -606,7 +606,7 @@ function GamePage() {
                         <div className="flex items-center gap-[20px]">
                           <button
                             type="button"
-                            className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                            className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
                             onClick={() => {
                               dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                               dispatch(changeIsShowAuthenticationModal(true));
@@ -616,7 +616,7 @@ function GamePage() {
                           </button>
                           <button
                             type="button"
-                            className="truncate hover:bg-gray-400 text-white rounded-[5px] font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+                            className="truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
                             onClick={() => {
                               handleFreeplay();
                             }}
@@ -728,7 +728,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-[14px]"
+                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-default"
                     >
                       <Image className="w-[20px] h-[20px]" alt="" src={'/img/fairness.png'} width={14} height={14} />
                       Fairness
@@ -742,7 +742,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-[14px]"
+                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-default"
                     >
                       <Image className="w-[20px] h-[20px]" alt="" src={'/img/hierarchy.png'} width={14} height={14} />
                       Live Stats
@@ -800,13 +800,13 @@ function GamePage() {
       {isNotFoundGame && !isLoading && (
         <div
           className={cn(
-            'aspect-[2] w-full my-[20px] text-[14px] dark:text-white text-black flex flex-col items-center justify-center gap-[20px]',
+            'aspect-[2] w-full my-[20px] text-default dark:text-white text-black flex flex-col items-center justify-center gap-[20px]',
           )}
         >
           {t('gameDetail:theGameDoesNotExist')}
           <button
             type="button"
-            className="truncate hover:bg-[red] text-white rounded-[5px] font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+            className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
             onClick={() => reload()}
           >
             <Refresh size={20} />

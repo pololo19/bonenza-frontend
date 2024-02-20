@@ -76,7 +76,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                 'dark:bg-color-bg-primary bg-white rounded-default flex items-center p-[15px] gap-[8px] h-[53px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 customClass,
                 {
-                  'dark-autofill': theme === 'dark',
+                  'dark-autofill': theme !== 'light',
                   'light-autofill': theme === 'light',
                 },
               )}

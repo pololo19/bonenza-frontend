@@ -20,7 +20,7 @@ function PickForYouPage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
 
-  const handleGetListGame = async () => {
+  const getListGames = async () => {
     try {
       setIsLoading(true);
       const _res = await api_getPickGames(currentPage, 40);
@@ -51,7 +51,7 @@ function PickForYouPage() {
   }, [listGame, totalGames]);
 
   useEffect(() => {
-    handleGetListGame();
+    getListGames();
   }, [currentPage]);
 
   return (
@@ -82,8 +82,11 @@ function PickForYouPage() {
               <div>
                 {listGame.length}/{totalGames}
               </div>
-              <div className="max-w-[80px] w-full rounded-[5px] h-[5px] bg-gray-500">
-                <div className="h-full max-w-[80px] bg-amber-500 rounded-[5px]" style={{ width: `${percent}%` }}></div>
+              <div className="max-w-[80px] w-full rounded-default h-[5px] bg-gray-500">
+                <div
+                  className="h-full max-w-[80px] bg-color-secondary rounded-default"
+                  style={{ width: `${percent}%` }}
+                ></div>
               </div>
               <div>{percent}%</div>
             </div>
@@ -91,13 +94,13 @@ function PickForYouPage() {
           {isShowMore && (
             <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
               <div
-                className="flex items-center dark:bg-[#2D3035] bg-white py-[9px] px-[10px] rounded-[5px]"
+                className="flex items-center dark:bg-[#2D3035] bg-white py-[9px] px-[10px] rounded-default"
                 role="button"
                 onClick={() => {
                   setCurrentPage(currentPage + 1);
                 }}
               >
-                <div className="text-[10px] dark:text-[#FFFFFF] text-black font-bold mr-[6px]">
+                <div className="text-des dark:text-[#FFFFFF] text-center text-black font-bold">
                   {t('gameDetail:loadMore')}
                 </div>
               </div>

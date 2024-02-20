@@ -59,49 +59,49 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 <Link
                   href={ROUTER.Casino}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:casinoHome'))}
                 </Link>
                 <Link
                   href={ROUTER.Tagname('slots')}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:slots'))}
                 </Link>
                 <Link
                   href={ROUTER.Tagname('Live Casino')}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:liveCasino'))}
                 </Link>
                 <Link
                   href={ROUTER.Tagname('New Releases')}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:newReleases'))}
                 </Link>
                 <Link
                   href={ROUTER.HomeRecommend}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:recommended'))}
                 </Link>
                 <Link
                   href={ROUTER.Tagname('Table Games')}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:tableGame'))}
                 </Link>
                 <Link
                   href={ROUTER.Tagname('Blackjack')}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:blackJack'))}
                 </Link>
                 <Link
                   href={ROUTER.Tagname('Megaways')}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('casino:megaways'))}
                 </Link>
@@ -115,19 +115,19 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 <Link
                   href={ROUTER.Sports}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:sportsHome'))}
                 </Link>
                 <Link
                   href={ROUTER.LiveSupport}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:live'))}
                 </Link>
                 <Link
                   href={ROUTER.HelperTermsOfSports}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:rules'))}
                 </Link>
@@ -143,25 +143,25 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   onClick={() => {
                     isLogin ? dispatch(changeIsShowVipClubModal(true)) : openModalLogin();
                   }}
-                  className="text-[13px] cursor-pointer text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] cursor-pointer text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:vipClub'))}
                 </div>
                 <Link
                   href={ROUTER.Affiliate}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:affiliate'))}
                 </Link>
                 <Link
                   href={ROUTER.Promotion}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:promotions'))}
                 </Link>
                 <Link
                   href={ROUTER.Lottery}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:lottery'))}
                 </Link>
@@ -169,7 +169,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   onClick={() => {
                     isLogin ? dispatch(changeIsShowReferAndEarn(true)) : openModalLogin();
                   }}
-                  className="text-[13px] cursor-pointer text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] cursor-pointer text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:referAFriend'))}
                 </div>
@@ -185,61 +185,61 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 {/* <Link
                   href={ROUTER.HelperPrivacy}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:helpCenter'))}
                 </Link> */}
                 <Link
                   href={ROUTER.HelperGambleAware}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:gambleAware'))}
                 </Link>
                 {/* <Link
                   href={ROUTER.Helper}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:fairness'))}
                 </Link> */}
                 {/* <Link
                   href={ROUTER.HelperFAQ}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:faq'))}
                 </Link> */}
                 <Link
                   href={ROUTER.HelperPrivacy}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:privacyPolicy'))}
                 </Link>
                 <Link
                   href={ROUTER.HelperTermsOfService}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:termsOfService'))}
                 </Link>
                 <Link
                   href={ROUTER.HelperSelfExclusion}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:selfExclusion'))}
                 </Link>
                 <Link
                   href={ROUTER.HelperAML}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:aml'))}
                 </Link>
                 {/* <Link
                   href={ROUTER.Home}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:app'))}
                 </Link> */}
                 <Link
                   href={ROUTER.LiveSupport}
-                  className="text-[13px] text-[#31373d] dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:liveSupport'))}
                 </Link>
@@ -253,13 +253,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 <div
                   onClick={() => setShowModalContacts(true)}
-                  className="text-[13px] text-[#31373d] cursor-pointer dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary cursor-pointer dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:businessContacts'))}
                 </div>
                 <div
                   onClick={() => setShowModalVerify(true)}
-                  className="text-[13px] text-[#31373d] cursor-pointer dark:text-[#939699] hover:text-black dark:hover:text-white"
+                  className="text-[13px] text-color-light-text-primary cursor-pointer dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:verifyRepresentative'))}
                 </div>
@@ -551,13 +551,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               <Link href={'/'}>
                 <Image height={54} width={170} src="/img/logo.png" alt="" className="object-cover" />
               </Link>
-              <div className="dark:text-[#939699] text-[#31373d] text-[13px] mt-5 leading-[24px] xl:text-start text-center">
+              <div className="dark:text-color-text-primary text-color-light-text-primary text-[13px] mt-5 leading-[24px] xl:text-start text-center">
                 {String(t('footer:aMultiAwardWinningCryptoCasino'))}
               </div>
             </div>
             {/* <div className="xl:w-[50%] flex flex-col xl:items-start items-center justify-end">
               <div
-                className="dark:text-[#939699] text-[#31373d] text-[13px] mt-5 leading-[24px] xl:text-start text-center"
+                className="dark:text-color-text-primary text-color-light-text-primary text-[13px] mt-5 leading-[24px] xl:text-start text-center"
                 dangerouslySetInnerHTML={{ __html: t('footer:BCGAMEAllRightsReserved') }}
               ></div>
             </div> */}

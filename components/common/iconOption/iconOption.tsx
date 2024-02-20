@@ -90,7 +90,7 @@ const IconOption = ({
           />
           <div
             className={cn(`flex-1 text-start font-[${fontWeight}]`, {
-              'dark:text-color-text-primary text-color-light-text-primary': router.route.includes(href),
+              'dark:text-white text-color-light-text-primary': router.route.includes(href),
               'text-base': isFontMedium,
             })}
           >
@@ -133,7 +133,7 @@ const IconOption = ({
             />
             <div
               className={cn('flex-1 text-start', `font-[${fontWeight}]`, {
-                'dark:text-color-text-primary text-color-light-text-primary': showDropDownCasino,
+                'dark:text-white text-color-light-text-primary': showDropDownCasino,
                 'text-base': isFontMedium,
               })}
             >
@@ -161,7 +161,8 @@ const IconOption = ({
                     className={cn(
                       'flex items-center gap-[16px] py-[13px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-color-light-bg-primary px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
                       {
-                        'dark:text-color-text-primary text-color-light-text-primary dark:bg-[#24262B] bg-[#eaecf3]': router.route.includes(item.href),
+                        'dark:text-color-text-primary text-color-light-text-primary dark:bg-[#24262B] bg-[#eaecf3]':
+                          router.route.includes(item.href),
                         'text-base': isFontMedium,
                       },
                     )}

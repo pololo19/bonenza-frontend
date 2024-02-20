@@ -60,7 +60,7 @@ const InputCodeAuthentication = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1 ">
             <div
               className={cn('bg-white dark:bg-white rounded-[10px] flex items-center p-[15px] gap-[18px] ', {
-                'dark-autofill': theme === 'dark',
+                'dark-autofill': theme !== 'light',
                 'light-autofill': theme === 'light',
               })}
             >
