@@ -518,16 +518,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
           }}
         />
       )}
-      {showModalRakeBack && (
-        <ModalRakeBack
-          show={showModalRakeBack}
-          onClose={() => {
-            setShowModalRakeBack(false);
-          }}
-          setShowModalRakeBackDetail={() => setShowModalRakeBackDetail(true)}
-          setShowModalBonusHistory={() => setShowModalBonusHistory(true)}
-        />
-      )}
+      <ModalRakeBack
+        show={showModalRakeBack}
+        onClose={() => {
+          setShowModalRakeBack(false);
+        }}
+        setShowModalRakeBackDetail={() => setShowModalRakeBackDetail(true)}
+        setShowModalBonusHistory={() => setShowModalBonusHistory(true)}
+      />
       <ModalRakeBackDetail
         show={showModalRakeBackDetail}
         onClose={() => {

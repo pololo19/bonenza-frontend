@@ -733,26 +733,22 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      {isShowRakeBackModal && (
-        <ModalRakeBack
-          show={isShowRakeBackModal}
-          onClose={() => {
-            dispatch(changeIsShowRakeBack(false));
-          }}
-          setShowModalRakeBackDetail={() => dispatch(changeIsShowRakeBackDetail(true))}
-          setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
-        />
-      )}
-      {isShowRakeBackDetailModal && (
-        <ModalRakeBackDetail
-          show={isShowRakeBackDetailModal}
-          cryptoLocked={cryptoLocked}
-          onClose={() => {
-            dispatch(changeIsShowRakeBackDetail(false));
-          }}
-          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
-        />
-      )}
+      <ModalRakeBack
+        show={isShowRakeBackModal || false}
+        onClose={() => {
+          dispatch(changeIsShowRakeBack(false));
+        }}
+        setShowModalRakeBackDetail={() => dispatch(changeIsShowRakeBackDetail(true))}
+        setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
+      />
+      <ModalRakeBackDetail
+        show={isShowRakeBackDetailModal || false}
+        cryptoLocked={cryptoLocked}
+        onClose={() => {
+          dispatch(changeIsShowRakeBackDetail(false));
+        }}
+        setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+      />
       <ModalBonusHistory
         show={isShowModalBonusHistory || false}
         cryptoLocked={cryptoLocked}
