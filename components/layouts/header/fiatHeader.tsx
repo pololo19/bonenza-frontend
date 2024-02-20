@@ -215,7 +215,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         >
           <Menu.Items
             className={cn(
-              'sm:absolute sm:mr-0 mr-[10px] fixed sm:right-0 sm:left-auto left-0 z-[50] mt-[57px] sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
+              'sm:absolute sm:mr-0 mr-[10px] fixed sm:-right-[123px] lg:right-0 sm:left-auto left-0 z-[50] mt-[57px] sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
               wrapperClass,
             )}
           >
@@ -533,15 +533,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         }}
         setShowModalRakeBack={() => setShowModalRakeBack(true)}
       />
-      {showModalBonusHistory && (
-        <ModalBonusHistory
-          show={showModalBonusHistory}
-          onClose={() => {
-            setShowModalBonusHistory(false);
-          }}
-          setShowModalRakeBack={() => setShowModalRakeBack(true)}
-        />
-      )}
     </>
   );
 }

@@ -12,7 +12,10 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BonusTransactionType, FiatType } from '@/base/types/common';
+import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
+
+import CommonModal from '../../commonModal/commonModal';
 
 type ModalBonusHistory = {
   cryptoLocked?: FiatType;
@@ -32,7 +35,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const [listTypes, setListTypes] = useState<any[]>([]);
   const [typeFilter, setTypeFilter] = useState<string>('');
   const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
-  const [totalTable, setTotalTable] = useState<number>(0);
+  const [totalRows, setTotalRows] = useState<number>(0);
   const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
@@ -41,18 +44,32 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
     shallowEqual,
   );
 
+  const handleChangePage = async (action: string) => {
+    let newPage: number;
+    newPage = action === 'Next' ? page + 1 : page - 1;
+    setPage(newPage);
+    await getListBonusTransaction();
+  };
+
+  const handleChangeItemPerPage = async (itemPerPage: number) => {
+    setLimit(itemPerPage);
+    setPage(1);
+    await getListBonusTransaction();
+  };
+
   const getListBonusTransaction = useCallback(async () => {
     try {
       setIsLoadingTable(true);
       const _res = await api_bonusUsdtHistory(page, limit);
-      const tempListTransactionData: BonusTransactionType[] = _res.data?.map((item: any) => ({
+      const tempListTransactionData: BonusTransactionType[] = _res.data.bonuses?.map((item: any) => ({
         amount: item.amount,
         amountUsd: item.amountUsd,
         type: item.type,
         time: item.date,
       }));
+      const totalCounts = Number(_res.data?.totalCount || 0);
       setListTransactions(tempListTransactionData);
-      setTotalTable(0);
+      setTotalRows(totalCounts);
     } catch (error) {
     } finally {
       setIsLoadingTable(false);
@@ -113,57 +130,33 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
 
   return (
     <>
-      <Transition.Root show={show} as={Fragment}>
-        <Dialog as="div" className="relative z-50" initialFocus={cancelButtonRef} onClose={onClose}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
-          <div className="fixed inset-0 z-10">
-            <div className="flex min-h-full justify-center p-0 sm:p-4 text-center items-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 translate-y-4 translate-y-0 scale-95"
-                enterTo="opacity-100 translate-y-0 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 translate-y-0 scale-100"
-                leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
-              >
-                <Dialog.Panel className="!overflow-hidden dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-primary bg-white text-[14px] sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] relative transform rounded-[3px] text-left shadow-xl transition-all my-0 w-full !p-0">
-                  <Dialog.Title
-                    as="div"
-                    className="relative h-[60px] px-[20px] flex justify-between dark:bg-color-header-primary bg-color-light-bg-primary items-center"
-                  >
-                    <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:bonusHistory')}</div>
-                    <div className="group rounded-md" role="button" onClick={() => handleCloseModal()}>
-                      <XMarkIcon
-                        width={15}
-                        className="text-[#9FA5AC] group-hover:text-black dark:group-hover:text-white w-[1.5rem] h-[1.5rem]"
-                      />
-                    </div>
-                  </Dialog.Title>
-                  <div className="dark:bg-color-modal-bg-primary bg-white p-3 pb-0">
-                    <TableComponent
-                      isLoading={isLoadingTable}
-                      handleClickRow={() => {}}
-                      data={listTransactions}
-                      columns={columns}
-                    />
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
+      <CommonModal
+        show={show}
+        onClose={onClose}
+        panelClass="sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] sm:my-0"
+        header={
+          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+            <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:bonusHistory')}</div>
           </div>
-        </Dialog>
-      </Transition.Root>
+        }
+      >
+        <div className="dark:bg-color-modal-bg-primary bg-white p-3 pb-0">
+          <TableComponent
+            isLoading={isLoadingTable}
+            handleClickRow={() => {}}
+            data={listTransactions}
+            columns={columns}
+          />
+          <Paging
+            onPageChange={handleChangePage}
+            itemPerPage={limit}
+            totalItem={totalRows}
+            currentPage={page}
+            setItemPerPage={handleChangeItemPerPage}
+            hiddenPerPage={true}
+          />
+        </div>
+      </CommonModal>
     </>
   );
 }
