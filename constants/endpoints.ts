@@ -124,7 +124,7 @@ const API_VIP_LEVEL_SYSTEM = '/vip/vip-level-system';
 
 const API_BONUS_BONUS_STATISTIC = '/bonus/statistics';
 const API_BONUS_DETAILS = '/bonus/details';
-const API_BONUS_USDT_BONUS_HISTORY = '/bonus/usdt-bonus-history';
+const API_BONUS_USDT_BONUS_HISTORY = '/bonus/usdt-history';
 const API_BONUS_CLAIM_LIST = '/bonus/claim/list';
 const API_BONUS_CLAIM = '/bonus/claim';
 

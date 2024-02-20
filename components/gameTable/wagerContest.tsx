@@ -14,6 +14,7 @@ import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
+  changeIsShowBonusHistory,
   changeIsShowInformation,
 } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
@@ -23,6 +24,7 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
+import { ArrowRight2 } from 'iconsax-react';
 
 type ContesterType = {
   playerId: string;
@@ -404,7 +406,7 @@ const WagerContestComponent = () => {
           <Image
             width={48}
             height={48}
-            className="object-cover h-[3rem] w-[3rem] absolute left-0 top-0"
+            className="object-cover h-[3rem] w-[3rem] absolute left-0 top-0 rounded-full"
             src="/img/icon/winner.png"
             alt=""
           />
@@ -445,7 +447,7 @@ const WagerContestComponent = () => {
                     <Image
                       width={46}
                       height={59}
-                      className="object-cover"
+                      className="object-cover rounded-full"
                       src={String(process.env.API_AVATAR) + wagerHistory.playerAvatar}
                       alt=""
                       onError={(e) => {
@@ -555,12 +557,28 @@ const WagerContestComponent = () => {
           </div>
         </div>
       )}
-      <div className="text-[0.813rem] flex items-center gap-4 mt-8 mb-4">
-        <p className="dark:text-[#fff] text-[#000]">{t('wagerContest:active')}</p>
-        <p className="text-[#939699]">
-          {formatDate(new Date(wagerContestData.currentTime), 'LL/dd/yyyy')} ~{' '}
-          {formatDate(new Date(wagerContestData.endTime), 'LL/dd/yyyy')}
-        </p>
+      <div className="text-[0.813rem] flex items-center justify-between">
+        <div className="flex  gap-4 mt-8 mb-4 items-center">
+          <p className="dark:text-[#fff] text-[#000]">{t('wagerContest:active')}</p>
+          <p className="dark:text-color-text-primary text-color-light-text-primary">
+            {formatDate(new Date(wagerContestData.currentTime), 'LL/dd/yyyy')} ~{' '}
+            {formatDate(new Date(wagerContestData.endTime), 'LL/dd/yyyy')}
+          </p>
+        </div>
+        <div
+          className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-[#f5f6fa] min-w-[131px] mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
+          onClick={() => {
+            if (isLogin) {
+              dispatch(changeIsShowBonusHistory(true));
+            } else {
+              dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+              dispatch(changeIsShowAuthenticationModal(true));
+            }
+          }}
+        >
+          USDT {t('deposit:bonusHistory')}
+          <ArrowRight2 size={12} />
+        </div>
       </div>
       <div>
         <RankingTableComponent

@@ -169,19 +169,10 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               <span className="text-black dark:text-white">
                 {viewInFiat ? (
                   <>
-                    {currencyFormat1(
-                      transaction.status === 'done' ? transaction.withdrawableFoundsUsdAmount : 0 * exchange,
-                      2,
-                      localFiat?.name || 'USD',
-                    )}
+                    {currencyFormat1(transaction.withdrawableFoundsUsdAmount * exchange, 2, localFiat?.name || 'USD')}
                   </>
                 ) : (
-                  currencyFormat1(
-                    transaction.status === 'done' ? transaction.withdrawableFoundsUsdAmount : 0,
-                    4,
-                    '',
-                    false,
-                  )
+                  currencyFormat1(transaction.withdrawableFoundsAmount, 4, '', false)
                 )}
               </span>
             </div>
