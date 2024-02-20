@@ -1,5 +1,5 @@
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
-import { ColumnDef, Row } from '@tanstack/react-table';
+import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
@@ -9,6 +9,7 @@ import { api_wagerContestHistory, api_wagerContestList, api_wagerContestPosition
 import { useTranslation } from '@/base/config/i18next';
 import { useCountdown } from '@/base/constants/useCountdown';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
@@ -22,7 +23,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
-import { useUSDTPrice } from '@/base/hooks/useUsdtPrice';
 
 type ContesterType = {
   playerId: string;
