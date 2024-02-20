@@ -211,9 +211,14 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     <Image src="/img/light.svg" width={108} height={138} alt="" />
                   </div>
                   <div className="absolute h-full w-full left-0 top-0 flex items-center justify-center gap-1">
-                    <div>
-                      <span className="text-[16px] mr-[2px]">VIP</span>
-                      <span className="text-[24px] font-semibold">{vipData.level}</span>
+                    <div className="flex flex-col gap-0 justify-center text-center">
+                      <div className="p-0 text-[12px] font-semibold mt-4">
+                        {selectedRank.name}
+                      </div>    
+                      <div>
+                        <span className="text-[18px] mr-[2px]">VIP</span>
+                        <span className="text-[24px] font-semibold">{vipData.level}</span>
+                    </div>
                     </div>
                   </div>
                 </div>
