@@ -22,7 +22,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
   const { t } = useTranslation('');
   const router = useRouter();
 
-  const LIST_SIDEBAR_DEPOSIT = [
+  const LIST_SIDEBAR_SETTINGS = [
     {
       name: t('layout:general'),
       href: ROUTER.SettingGeneral,
@@ -50,7 +50,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
   ];
 
   const activeRouter = useMemo(() => {
-    const activeSidebar = LIST_SIDEBAR_DEPOSIT.find((item) => router.route.includes(item.href));
+    const activeSidebar = LIST_SIDEBAR_SETTINGS.find((item) => router.route.includes(item.href));
     return activeSidebar?.name;
   }, [router]);
 
@@ -85,7 +85,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute dark:bg-color-modal-bg-secondary bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2 shadow-bs-default">
-                    {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
+                    {LIST_SIDEBAR_SETTINGS.map((item, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <Link
@@ -124,12 +124,13 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 >
                   <div className="xl:p-2 p-1 w-full">
                     <ul className="flex flex-col justify-center gap-2 w-full rounded-xl">
-                      {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
+                      {LIST_SIDEBAR_SETTINGS.map((item, index) => (
                         <IconOption
                           title={String(t(item.name))}
                           href={item.href}
                           icon={() => null}
                           key={index}
+                          fontWeight={600}
                           classNames="dark:hover:!text-white dark:hover:!bg-color-hover-default hover:!bg-color-light-hover-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
                           activeClassNames="dark:!bg-color-active-default !bg-color-light-bg-primary dark:text-white text-black"
                         />

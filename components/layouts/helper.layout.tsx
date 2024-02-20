@@ -23,7 +23,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
     return link.split('helper-center/')[1];
   };
 
-  const LIST_SIDEBAR_DEPOSIT = [
+  const LIST_SIDEBAR_Helpers = [
     {
       name: 'Privacy Policy',
       href: fixRouter(ROUTER.HelperPrivacy),
@@ -98,7 +98,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
   const router = useRouter();
 
   const activeRouter = useMemo(() => {
-    const activeSidebar = LIST_SIDEBAR_DEPOSIT.find((item) => router.route.includes(item.href));
+    const activeSidebar = LIST_SIDEBAR_Helpers.find((item) => router.route.includes(item.href));
     return activeSidebar?.name;
   }, [router]);
 
@@ -117,14 +117,15 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                 >
                   <div className="xl:p-2 p-1 w-full">
                     <ul className="flex flex-col justify-center gap-2 w-full rounded-xl">
-                      {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
+                      {LIST_SIDEBAR_Helpers.map((item, index) => (
                         <IconOption
                           title={String(t(item.name))}
                           href={item.href}
                           icon={() => null}
                           key={index}
-                          classNames="dark:hover:text-white !text-color-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-primary !bg-color-light-bg-primary dark:text-white text-black"
+                          fontWeight={600}
+                          classNames="dark:hover:!text-white hover:dark:!bg-color-hover-default hover:!bg-color-light-bg-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-active-default !bg-color-light-bg-primary dark:!text-white text-black"
                         />
                       ))}
                     </ul>
@@ -157,7 +158,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute dark:bg-color-modal-bg-secondary bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2">
-                        {LIST_SIDEBAR_DEPOSIT.map((item, index) => (
+                        {LIST_SIDEBAR_Helpers.map((item, index) => (
                           <Menu.Item key={index}>
                             {({ active }) => (
                               <Link

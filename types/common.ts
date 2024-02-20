@@ -49,11 +49,11 @@ export type BasicColorsData = {
 };
 
 export type SessionType = {
-  lastUsedAt?: Date;
-  ipAddress?: string;
-  location?: string;
-  id?: number;
-  browser?: string;
+  lastUsedAt: Date;
+  ipAddress: string;
+  location: string;
+  id: string;
+  browser: string;
 };
 
 export type PaginationResponse = {

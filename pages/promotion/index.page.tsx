@@ -1,12 +1,13 @@
+import { ArrowRight, Shop } from 'iconsax-react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { ReactElement, useState } from 'react';
+
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import CardPromotion from '@/components/cards/cardPromotion';
 import BaseLayout from '@/components/layouts/base.layout';
 import styles from '@/styles/dashboard/index.module.scss';
-import { ArrowRight, Shop } from 'iconsax-react';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
-import { ReactElement, useState } from 'react';
 function PromotionPage() {
   const [tab, setTab] = useState(0);
   const dataPromotion = [
@@ -47,19 +48,19 @@ function PromotionPage() {
 
   return (
     <>
-      <div className="bg-[#161D26] w-full px-[25px] pt-[50px]">
+      <div className=" w-full px-[25px] pt-[50px]">
         <div className="flex items-center gap-[10px] text-white">
           <Shop />
           <div className="text-[18px] text-white font-semibold">{t('promotion:promotion')}</div>
         </div>
-        <div className="mt-5 bg-[#12181F] py-[40px]">
+        <div className="mt-5 py-[40px]">
           <div className="flex justify-between pl-[12px] pr-[12px] sm:pl-[59px] sm:pr-[30px] xl:gap-[30px] flex-col xl:flex-row">
             <div className="xl:max-w-[387px]">
               <div className="text-[24px] sm:text-[36px] max-[414px]:text-[20px] font-bold text-white flex justify-between">
                 <div className="uppercase">{t('promotion:greatBonusFor')}</div>
                 <div className="flex sm:hidden items-center gap-[7px]">
-                  <div className="text-[13px] text-[#0DFDE4]">{t('promotion:details')}</div>
-                  <ArrowRight className="text-[#0DFDE4] w-[14px] h-[14px]" />
+                  <div className="text-[13px] text-color-primary">{t('promotion:details')}</div>
+                  <ArrowRight className="text-color-primary w-[14px] h-[14px]" />
                 </div>
               </div>
               <div
@@ -68,7 +69,7 @@ function PromotionPage() {
                 {t('promotion:everyDeposit')}
               </div>
               <div className="text-[24px] sm:text-[36px] max-[414px]:text-[20px] font-bold text-white uppercase mt-[8px] sm:mt-[30px]">
-                {t('promotion:upTo')} <span className={`${styles.textGradient} bg-color-primary`}>360%</span>
+                {t('promotion:upTo')} <span className={`${styles.textGradient} bg-color-primary font-bold`}>360%</span>
               </div>
               <div className="text-[12px] sm:text-[16px] text-white mt-[8px] sm:mt-[30px]">
                 {t('promotion:availableForAllPlayers')}
@@ -77,8 +78,8 @@ function PromotionPage() {
                 {t('promotion:before')} <span className="text-[#F61B4F]">8/1/2023</span>
               </div>
               <div className="hidden sm:flex items-center gap-[7px]">
-                <div className="text-[13px] text-[#0DFDE4]">{t('promotion:details')}</div>
-                <ArrowRight className="text-[#0DFDE4] w-[14px] h-[14px]" />
+                <div className="text-[13px] text-color-primary">{t('promotion:details')}</div>
+                <ArrowRight className="text-color-primary w-[14px] h-[14px]" />
               </div>
               <div></div>
             </div>
@@ -93,7 +94,7 @@ function PromotionPage() {
                 </div>
                 <div
                   role="button"
-                  className="hidden md:block bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[14px] text-center w-full h-[44px] py-[13px] absolute bottom-[-25%]"
+                  className="hidden md:block bg-gradient-btn-default hover:opacity-[0.9] rounded-default text-white text-[14px] text-center w-full h-[44px] py-[13px] absolute bottom-[-25%]"
                   onClick={() => {
                     router.replace(ROUTER.DepositFiat);
                   }}
@@ -141,8 +142,8 @@ function PromotionPage() {
           <div
             onClick={() => setTab(0)}
             role="button"
-            className={`w-[180px] hover:opacity-[0.9] h-[44px] rounded-[5px] text-center py-[12px] font-semibold ${
-              tab === 0 ? 'bg-[#20D4EB] text-white' : 'bg-[gray] text-[#E4E4E4]'
+            className={`w-[180px] hover:opacity-[0.9] h-[44px] rounded-default text-center py-[12px] font-semibold ${
+              tab === 0 ? 'bg-color-primary text-white' : 'bg-[gray] text-[#E4E4E4]'
             }`}
           >
             {t('promotion:latestPromotions')}
@@ -150,8 +151,8 @@ function PromotionPage() {
           <div
             onClick={() => setTab(1)}
             role="button"
-            className={`w-[180px] hover:opacity-[0.9] h-[44px] rounded-[5px] text-center py-[12px] font-semibold ${
-              tab === 1 ? 'bg-[#20D4EB] text-white' : 'bg-[gray] text-[#E4E4E4]'
+            className={`w-[180px] hover:opacity-[0.9] h-[44px] rounded-default text-center py-[12px] font-semibold ${
+              tab === 1 ? 'bg-color-primary text-white' : 'bg-[gray] text-[#E4E4E4]'
             }`}
           >
             {t('promotion:archived')}

@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { useTheme } from 'next-themes';
 import { InputHTMLAttributes } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
@@ -47,6 +48,7 @@ const InputText = <TFieldValues extends Record<string, unknown>>({
     onChange?.(eventAfter);
     formOnChange(eventAfter);
   };
+  const { theme } = useTheme();
 
   return (
     <Controller
@@ -60,8 +62,12 @@ const InputText = <TFieldValues extends Record<string, unknown>>({
               {...field}
               name={name}
               className={cn(
-                'dark:text-white text-color-light-text-primary w-full text-default rounded-default placeholder:text-[#53575C] outline-none border-[1px] border-solid border-transparent focus-within:border-color-primary dark:dark-autofill light-autofill',
+                'dark:text-white text-color-light-text-primary w-full text-default rounded-default placeholder:text-[#53575C] outline-none border-[1px] border-solid border-transparent focus-within:border-color-primary',
                 customClass,
+                {
+                  'dark-autofill': theme !== 'light',
+                  'light-autofill': theme === 'light',
+                },
                 {
                   'border-color-red border border-solid': !!error?.message,
                 },

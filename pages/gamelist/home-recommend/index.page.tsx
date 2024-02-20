@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
@@ -26,7 +26,7 @@ function CasinoTagnamePage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalGames, setTotalGames] = useState<number>(0);
 
-  const getListGames = async () => {
+  const getListGames = useCallback(async () => {
     const params = {
       limit: 40,
       page: currentPage || 1,
@@ -35,7 +35,7 @@ function CasinoTagnamePage() {
       setIsLoading(true);
       const _res = await api_getPickGames(currentPage || 1, 40);
 
-      const tempGameLists: GameListType[] = _res.data.map((item: any) => ({
+      const tempGameLists: GameListType[] = _res.data?.games.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: '',
@@ -55,7 +55,7 @@ function CasinoTagnamePage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentPage]);
 
   const percent = useMemo(() => {
     return Number((listGame.length / totalGames) * 100).toFixed(0);
@@ -73,12 +73,12 @@ function CasinoTagnamePage() {
       {isLoading && <Loader />}
 
       <div
-        className="relative mb-[20px] h-[40px] dark:bg-[#161D26] bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+        className="relative mt-[20px] h-[40px] mb-[10px] border border-solid dark:bg-transparent bg-white dark:border-white/10 rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
         onClick={() => dispatch(changeIsShowCasinoSearch(true))}
         role="button"
       >
         <SearchNormal width={24} height={24} className="text-gray-500" />
-        <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
+        <div className={cn('w-full text-default text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
       </div>
 
       <Breadcrumbs

@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Settings } from 'react-slick';
 
 import { api_getCasinoWithKey, api_getProviders, api_getThemes, CasinoRequest } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
@@ -56,7 +55,7 @@ function CasinoPage() {
     exclusives: [],
   });
 
-  const handleGetGames = async () => {
+  const getGames = async () => {
     const initGameDatas: ListGamesType = {
       games: [],
       slots: [],
@@ -127,7 +126,7 @@ function CasinoPage() {
   };
 
   useEffect(() => {
-    handleGetGames();
+    getGames();
     getListProvidersAndThemes();
     localStorage.removeItem('tab');
   }, []);
@@ -147,7 +146,7 @@ function CasinoPage() {
         role="button"
       >
         <SearchNormal width={24} height={24} className="text-gray-500" />
-        <div className={cn('w-full text-[14px] text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
+        <div className={cn('w-full text-default text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
       </div>
       {/* Filter Horizontal */}
       <TabGames />
@@ -190,7 +189,7 @@ function CasinoPage() {
             <Link
               href={ROUTER.Provider(String(item.name))}
               role="button"
-              className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
+              className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-white dark:bg-color-card-bg-default hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
             >
               <Image
                 height={0}
@@ -200,7 +199,7 @@ function CasinoPage() {
                 onError={(e) => {
                   e.currentTarget.src = `/img/providers/softswiss.png`;
                 }}
-                className="object-cover max-w-[150px] sm:max-h-[50px] max-h-[30px] w-auto rounded-[5px]"
+                className="object-cover max-w-[150px] sm:max-h-[50px] max-h-[30px] w-auto rounded-default"
               />
             </Link>
           )}
@@ -225,7 +224,7 @@ function CasinoPage() {
             <Link
               href={ROUTER.Theme(String(item))}
               role="button"
-              className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70
+              className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-default text-default min-w-fit p-[10px] bg-white dark:bg-color-card-bg-default hover:opacity-70
                  gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
             >
               {snakeCaseToString(item)}
