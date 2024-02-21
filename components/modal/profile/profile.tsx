@@ -1,5 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ChevronRightIcon, ChartBarIcon, TrophyIcon } from '@heroicons/react/24/outline';
+import { ChartBarIcon, ChevronRightIcon, TrophyIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ArrowLeft2, Edit2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -125,8 +125,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   <div className="absolute flex flex-col items-center left-0 top-[40%] w-full h-full">
                     <p className="text-[10px] uppercase leading-[1]">{`* ${vipData.type} *`}</p>
                     <p className="text-[20px] font-semibold">
-                      {(`${vipData.level}`).split(' ').at(0)?.charAt(0).toUpperCase()}
-                      {(`${vipData.level}`).split(' ').at(1)}
+                      {`${vipData.level}`.split(' ').at(0)?.charAt(0).toUpperCase()}
+                      {`${vipData.level}`.split(' ').at(1)}
                     </p>
                   </div>
                 </div>
@@ -237,7 +237,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
                 <div className="flex items-center justify-between" onClick={() => setIsMedalDetail(true)}>
                   <div className="flex gap-2 text-black dark:text-white text-[16px] items-center align-middle">
-                    <TrophyIcon width={18} height={18} className="stroke-[2]"/>
+                    <TrophyIcon width={18} height={18} className="stroke-[2]" />
                     <div>{t('profile:medal')}</div>
                     <div>{medals.length}</div>
                   </div>
@@ -266,7 +266,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               <div className="bg-white dark:bg-color-modal-bg-primary py-[12px] px-[14px] rounded-[5px]">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 align-middle">
-                    <ChartBarIcon width={18} height={18} className="stroke-[2]"/>
+                    <ChartBarIcon width={18} height={18} className="stroke-[2]" />
                     <div className="text-black dark:text-white text-[16px]">{t('profile:statistics')}</div>
                   </div>
                   <div

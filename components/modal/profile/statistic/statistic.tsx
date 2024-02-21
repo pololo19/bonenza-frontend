@@ -23,7 +23,7 @@ type ModalStatisticProps = {
 
 type StatisticTransactionType = {
   currencyLogo: string;
-  curency: string;
+  currency: string;
   wins: number;
   bets: number;
   wagered: number;
@@ -69,7 +69,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
             />
-            <span className="dark:text-white text-black font-bold">{row.original.curency}</span>
+            <span className="dark:text-white text-black font-bold">{row.original.currency}</span>
           </div>
         ),
       },
