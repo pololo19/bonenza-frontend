@@ -51,6 +51,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
       icon: Money2,
       name: 'sidebar:buyCrypto',
       href: ROUTER.BuyCrypto,
+      isdisabled: true,
     },
     {
       icon: MoneyChange,
@@ -61,11 +62,13 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
       icon: Story,
       name: 'sidebar:vaultPro',
       href: ROUTER.VaultPro,
+      isdisabled: true,
     },
     {
       icon: Box,
       name: 'sidebar:NFTs',
       href: '/nfts',
+      isdisabled: true,
     },
   ];
 
@@ -95,7 +98,11 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                             icon={item.icon}
                             key={index}
                             fontWeight={600}
-                            classNames="dark:hover:text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
+                            classNames={
+                              !!item.isdisabled
+                                ? 'text-color-light-text-primary rounded !bg-transparent pr-[15px] hover:!bg-transparent dark:hover:!text-color-text-primary hover:!text-color-light-text-primary !cursor-not-allowed'
+                                : 'dark:hover:!text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]'
+                            }
                             activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
                           />
                         ))}
