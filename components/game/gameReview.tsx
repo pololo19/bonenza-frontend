@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import { StarIcon } from '@heroicons/react/24/solid';
+import { ChevronDownIcon, StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
@@ -119,6 +119,7 @@ const GameReviewComponent = ({
   const [isShowComment, setIsShowComment] = useState(false);
   const [isShowReplyModal, setIsShowReplyModal] = useState(false);
   const [isShowReply, setIsShowReply] = useState(false);
+  const [isShowMoreAboutGame, setIsShowMoreAboutGame] = useState<boolean>(false);
   const [commentId, setCommentId] = useState('');
   const [selectedComment, setSelectedComment] = useState<CommentType>({
     id: '',
@@ -306,7 +307,7 @@ const GameReviewComponent = ({
 
   return (
     <div className="relative">
-      <div className="dark:bg-color-bg-secondary bg-white w-full h-[152px] p-[15px] rounded-md text-[11px] text-color-text-primary font-normal mb-7">
+      <div className="dark:bg-color-bg-secondary bg-white w-full p-6 rounded-md text-[11px] text-color-text-primary font-normal mb-7">
         <div className="flex gap-5">
           <Image
             height={90}
@@ -316,22 +317,126 @@ const GameReviewComponent = ({
             className="max-w-[90px] object-cover max-h-auto rounded-[5px]"
           />
           <div>
-            <h2 className="sm:text-[18px] text-[16px] font-semibold dark:text-white text-black mb-3">
+            <h2 className="text-[22px] font-semibold dark:text-white text-black mb-3">
               {gameDetail?.title}
             </h2>
-            <p className="text-[13px]">
+            <p className="text-[16px]">
               {t('gameDetail:by')} <span className="dark:text-white text-black">{gameDetail?.provider}</span>
             </p>
             {gameDetail?.releasedAt && (
-              <p className="mt-2 dark:text-white text-color-light-text-primary text-[13px]">
-                {t('gameDetail:release')}: {formatDate(new Date(gameDetail?.releasedAt))}
+              <p className="mt-2 dark:text-color-text-primary text-color-light-text-primary text-[16px]">
+                {t('gameDetail:release')}: {formatDate(new Date(gameDetail?.releasedAt),"MM/dd/yyyy" )}
               </p>
             )}
           </div>
         </div>
-        <div className="mt-4 flex items-center gap-2">
-          <span className="font-bold dark:text-color-primary text-[#f59e0b]">{t('gameDetail:showMore')}</span>
-          <i className="fi fi-rs-angle-small-down dark:text-white text-[#f59e0b] w-[10px] h-[10px]"></i>
+        <div 
+          className={cn(
+            'mt-4 overflow-hidden transition-all ease-in duration-[300]',
+            {
+              'max-h-0': !isShowMoreAboutGame,
+              'max-h-[3000px]': isShowMoreAboutGame,
+            }
+          )}
+        >
+          <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 border-solid border-b-[1px] border-b-color-light-text-primary pb-8">
+            <div className="min-h-[150px]">
+              <span className="dark:text-color-text-primary text-color-light-text-primary text-[18px]">
+              {t('gameDetail:gamePreview')}
+              </span>
+            </div>
+            <div>
+              <span className="dark:text-color-text-primary  text-color-light-text-primary text-[18px]">
+              {t('gameDetail:gameInfo')}
+              </span>
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 pt-4 gap-1">
+                <div className="w-full bg-color-panel-bg-primary p-3 text-[14px] flex justify-between rounded">
+                  <span>{t('gameDetail:rtp')}</span>
+                  <span className="text-color-primary">{gameDetail.payout}</span>
+                </div>
+                <div className="w-full bg-color-panel-bg-primary p-3 text-[14px] flex justify-between rounded">
+                  <span>{t('gameDetail:provider')}</span>
+                  <span className="text-white">{gameDetail.providerName}</span>
+                </div>
+                <div className="w-full bg-color-panel-bg-primary p-3 text-[14px] flex justify-between rounded">
+                  <span>{t('gameDetail:multiplier')}</span>
+                  <span className="text-color-primary">{gameDetail.multiplier}</span>
+                </div>
+                <div className="w-full bg-color-panel-bg-primary p-3 text-[14px] flex justify-between rounded">
+                  <span>{t('gameDetail:favorites')}</span>
+                  <span className="text-white">{gameDetail.favorites}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="grid sm:grid-cols-1 lg:grid-cols-2 mt-8 mb-4 gap-12 lg:gap-4">
+            <div className="lg:border-solid lg:border-r-[1px] lg:border-r-color-light-text-primary pr-8">
+              <div className="dark:text-color-text-primary  text-color-light-text-primary text-[18px]">
+                {t('gameDetail:aboutThisGame')}
+              </div>
+              <div className="pt-4 text-[14px] text-color-text-secondary">
+                {gameDetail?.title}: {t('gameDetail:gameReviewTheme')}
+              </div>
+              <div className="dark:text-color-text-primary  text-color-light-text-primary text-[18px] mt-12">
+                {t('gameDetail:featuresTags')}
+              </div>
+              <div className="pt-4 text-[14px] text-color-text-primary flex flex-wrap gap-2">
+                <div className="bg-color-panel-bg-primary p-2 rounded">
+                  {`${gameDetail.provider} ${t('gameDetail:originals')}`}
+                </div>
+              </div>
+            </div>
+            <div className="lg:pl-8">
+              <span className="dark:text-color-text-primary  text-color-light-text-primary text-[18px] sm:mt-12 md:mt-0">
+                Share This Game
+              </span>
+              <div className="mt-4">
+                <div className="flex flex-wrap gap-4">
+                  <Image
+                    alt=""
+                    src="/img/icon/facebook.png"
+                    width={45}
+                    height={45}
+                    className="w-[45px] h-[45px] cursor-pointer"
+                  />
+                  <Image
+                    alt=""
+                    src="/img/icon/twitter.png"
+                    width={45}
+                    height={45}
+                    className="w-[45px] h-[45px] cursor-pointer"
+                  />
+                  <Image
+                    alt=""
+                    src="/img/icon/telegram.png"
+                    width={45}
+                    height={45}
+                    className="w-[45px] h-[45px] cursor-pointer"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="mt-4 flex items-center gap-2 cursor-pointer w-[100px] justify-between"
+          onClick={() => setIsShowMoreAboutGame(!isShowMoreAboutGame)}
+        >
+          <span className="font-bold dark:text-color-primary text-[#f59e0b] text-[14px]">
+            {isShowMoreAboutGame ? t('gameDetail:showLess') : t('gameDetail:showMore')}
+          </span>
+          <ChevronDownIcon 
+            width={14} 
+            height={14} 
+            className={cn(
+              'dark:text-white text-[#f59e0b] stroke-[3]',
+              'transition-all ease-in duration-200',
+              {
+                'rotate-0': !isShowMoreAboutGame,
+                'rotate-180': isShowMoreAboutGame,
+              }
+            )}
+          />
         </div>
       </div>
       <div className="mb-10 dark:text-color-text-primary text-[#000]">
@@ -378,7 +483,7 @@ const GameReviewComponent = ({
             </div>
           </div>
           <div className="w-full h-[1px] dark:bg-color-border-primary bg-color-light-border-primary"></div>
-          <div className="flex justify-between px-4 text-[11px]">
+          <div className="flex justify-between px-4 text-[14px]">
             <div className="w-full flex flex-col md:flex-row md:justify-between justify-center pr-5 items-center">
               <span>{t('gameDetail:rateThisGame')}</span>
               <StarsRating
