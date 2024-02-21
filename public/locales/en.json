@@ -1227,6 +1227,7 @@
     "gameNameProvider": "Game name | Provider",
     "loadMore": "Load More",
     "release": "Release",
+    "showLess": "Show less",
     "showMore": "Show more",
     "ratings": "Ratings",
     "outOf": "out of",
@@ -1237,7 +1238,16 @@
     "showReplies": "Show {{count}} Replies",
     "gameExpiration": "Temporary under constructions",
     "betDetail": "Bet Slip",
-    "post": "Post"
+    "post": "Post",
+    "gamePreview": "Game Preview",
+    "gameInfo": "Game Info",
+    "shareThisGame": "Share This Game",
+    "featuresTags": "Features Tags",
+    "rtp": "RTP (Return to Player)",
+    "provider": "Provider",
+    "multiplier": "Multiplier",
+    "favorites": "Favorites",
+    "originals": "Originals"
   },
   "construction": {
     "toMakeThingsRight": "To make things right we need some time to rebuild",
