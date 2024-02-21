@@ -202,7 +202,7 @@ export default function ModalVipClub ({ show, onClose }: ModalVipClubProps) {
                 className={cn(
                   'flex rounded-[8px] gap-[28px] pl-[28px] pb-5 pr-[30px] md:max-w-[440px] w-full mb-5 md:mb-0',
                   'bg-gradient-to-l  dark:to-gray-500 to-color-light-bg-primary',
-                  'border-solid border-2 ',
+                  'border-solid border-2 border-transparent',
                   {
                     'from-[#47566A] border-[#47566A]': currentRank === 'zero',
                     'from-[#e09a6a] border-[#e09a6a]': currentRank === 'Bronze',
