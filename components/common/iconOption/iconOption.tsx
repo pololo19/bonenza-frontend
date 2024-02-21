@@ -40,6 +40,7 @@ export type IconOptionProps = {
   isShowDropDown?: boolean;
   fontWeight?: number;
   isFontMedium?: boolean;
+  isDisabled?: boolean;
   data?: OptionSidebarDataType[];
 };
 
@@ -53,6 +54,7 @@ const IconOption = ({
   fontWeight = 400,
   isFontMedium = false,
   data,
+  isDisabled = false,
   onClick,
 }: IconOptionProps) => {
   const { t } = useTranslation('');
@@ -72,7 +74,7 @@ const IconOption = ({
       {!isDropDown && (
         <Link
           className={cn(
-            'capitalize dark:hover:bg-color-hover-secondary dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-color-light-hover-primary hover:text-[#000] dark:hover:text-white sm:text-default text-m_default flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
+            'capitalize dark:hover:bg-color-hover-default dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-color-light-hover-primary hover:text-[#000] dark:hover:text-white sm:text-default text-m_default flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
 
             router.route.includes(href) ? activeClassNames : classNames,
           )}
@@ -115,7 +117,7 @@ const IconOption = ({
             className={cn(
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[13px] dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800',
               {
-                'dark:hover:bg-[#292C33]': showDropDownCasino,
+                'dark:hover:bg-color-hover-default': showDropDownCasino,
                 'hover:rounded': showDropDownCasino,
               },
             )}
@@ -159,7 +161,7 @@ const IconOption = ({
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-[16px] py-[13px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-color-light-bg-primary px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
+                      'flex items-center gap-[16px] py-[13px] dark:hover:bg-color-hover-default focus:bg-color-light-bg-primary px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
                       {
                         'dark:text-color-text-primary text-color-light-text-primary dark:bg-[#24262B] bg-[#eaecf3]':
                           router.route.includes(item.href),
@@ -175,7 +177,7 @@ const IconOption = ({
               else
                 return (
                   <div
-                    className="flex items-center gap-[16px] py-[10px] dark:hover:bg-[#292C33] dark:focus:bg-[#292C33] focus:bg-color-light-bg-primary pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
+                    className="flex items-center gap-[16px] py-[10px] dark:hover:bg-color-hover-default focus:bg-color-light-bg-primary pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
                     key={index}
                   >
                     {item.icon}

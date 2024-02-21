@@ -53,7 +53,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                   <div className="sm:text-[16px] text-[14px]">{t('deposit:crypto')}</div>
                 </div>
                 <div
-                  onClick={() => setDepositTab(DepositTabEnum.FIAT)}
+                  // onClick={() => setDepositTab(DepositTabEnum.FIAT)}
                   className={cn(
                     'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
                     {
@@ -66,7 +66,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                   <div className="sm:text-[16px] text-[14px]">{t('deposit:fiat')}</div>
                 </div>
                 <div
-                  onClick={() => setDepositTab(DepositTabEnum.BUY_CRYPTO)}
+                  // onClick={() => setDepositTab(DepositTabEnum.BUY_CRYPTO)}
                   className={cn(
                     'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
                     {
