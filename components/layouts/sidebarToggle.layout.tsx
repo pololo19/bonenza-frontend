@@ -107,6 +107,7 @@ export default function SidebarToggle() {
         title: String(t('sidebar:sports')),
         href: ROUTER.Sports,
         icon: TrendUp,
+        isDisabled: true,
         smallIcon: (
           <TrendUp
             size={22}
@@ -120,6 +121,8 @@ export default function SidebarToggle() {
         title: String(t('sidebar:lottery')),
         href: ROUTER.History,
         icon: Ticket,
+
+        isDisabled: true,
         smallIcon: (
           <Ticket
             size={22}
@@ -133,6 +136,8 @@ export default function SidebarToggle() {
         title: String(t('sidebar:bingo')),
         href: ROUTER.Bingo,
         icon: Award,
+
+        isDisabled: true,
         smallIcon: (
           <Award
             size={22}
@@ -173,6 +178,8 @@ export default function SidebarToggle() {
         title: String(t('sidebar:exclusive')),
         href: ROUTER.Exclusive,
         icon: Medal,
+
+        isDisabled: true,
         smallIcon: (
           <Medal
             size={22}
@@ -199,6 +206,8 @@ export default function SidebarToggle() {
         title: String(t('sidebar:provablyFair')),
         href: ROUTER.ProvablyFair,
         icon: Judge,
+
+        isDisabled: true,
         smallIcon: (
           <Judge
             size={22}
@@ -218,6 +227,8 @@ export default function SidebarToggle() {
         title: String(t('sidebar:sponsorships')),
         href: ROUTER.Sponsorships,
         icon: SecurityCard,
+
+        isDisabled: true,
         smallIcon: (
           <SecurityCard
             size={22}
@@ -232,6 +243,8 @@ export default function SidebarToggle() {
         title: String(t('sidebar:liveSupport')),
         href: ROUTER.LiveSupport,
         icon: Headphone,
+
+        isDisabled: true,
         smallIcon: (
           <Headphone
             size={22}
@@ -315,7 +328,11 @@ export default function SidebarToggle() {
                   title={item.title}
                   href={item.href}
                   icon={item.icon}
-                  classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
+                  classNames={
+                    !!item.isDisabled
+                      ? 'dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary cursor-not-allowed dark:hover:!bg-color-bg-primary dark:hover:!text-color-text-primary hover:!bg-color-light-bg-primary hover:!text-color-light-text-primary'
+                      : 'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                  }
                   onClick={item.onClick}
                   isShowDropDown={item.isShowDropDown}
                   isDropDown={item.isDropDown}
@@ -332,9 +349,13 @@ export default function SidebarToggle() {
                   title={item.title}
                   href={item.href}
                   icon={item.icon}
+                  classNames={
+                    !!item.isDisabled
+                      ? 'dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary cursor-not-allowed dark:hover:!bg-color-bg-primary dark:hover:!text-color-text-primary hover:!bg-color-light-bg-primary hover:!text-color-light-text-primary'
+                      : 'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                  }
                   isFontMedium
                   fontWeight={600}
-                  classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
                   onClick={item.onClick}
                 />
               ))}
@@ -348,7 +369,11 @@ export default function SidebarToggle() {
                   icon={item.icon}
                   isFontMedium
                   fontWeight={600}
-                  classNames="dark:hover:text-white dark:text-color-text-primary dark:focus:bg-[#292C33] text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000] rounded"
+                  classNames={
+                    !!item.isDisabled
+                      ? 'dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary cursor-not-allowed dark:hover:!bg-color-bg-primary dark:hover:!text-color-text-primary hover:!bg-color-light-bg-primary hover:!text-color-light-text-primary'
+                      : 'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                  }
                 />
               ))}
             </ul>

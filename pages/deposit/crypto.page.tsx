@@ -33,15 +33,23 @@ const DepositCryptoPage = () => {
           >
             <div className="text-[16px] dark:text-white text-black font-[700]">{t('deposit:crypto')}</div>
           </Link>
-          <Link
+          <div
+            className={cn(
+              'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
+            )}
+          >
+            <div className="text-[16px] text-color-text-primary font-[700]">{t('deposit:fiat')}</div>
+          </div>
+          {/* <Link
             href={ROUTER.DepositFiat}
             className={cn(
               'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
             )}
             role="button"
+            aria-disabled
           >
             <div className="text-[16px] dark:text-white text-black font-[700]">{t('deposit:fiat')}</div>
-          </Link>
+          </Link> */}
         </div>
 
         <DepositCryptoComponent />
