@@ -201,7 +201,7 @@ export default function ModalVipClub ({ show, onClose }: ModalVipClubProps) {
               <div
                 className={cn(
                   'flex rounded-[8px] gap-[28px] pl-[28px] pb-5 pr-[30px] md:max-w-[440px] w-full mb-5 md:mb-0',
-                  'bg-gradient-to-l  dark:to-gray-500 to-color-light-bg-primary',
+                  'bg-gradient-to-l  dark:to-gray-700 to-color-light-bg-primary',
                   'border-solid border-2 border-transparent',
                   {
                     'from-[#47566A] border-[#47566A]': currentRank === 'zero',
@@ -215,13 +215,13 @@ export default function ModalVipClub ({ show, onClose }: ModalVipClubProps) {
               >
                 <div className='relative'>
                   <Image
-                    src={`/img/vip.png`}
-                    onError={(e) => {
-                      e.currentTarget.src = `/img/vip.png`;
-                    }}
+                    src={`/img/${currentRank === 'zero' ? '': currentRank}.png`}
                     width={120}
                     height={138}
                     alt=''
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/vip.png';
+                    }}
                   />
                   <div className='absolute flex justify-center left-0 top-0 w-full h-full'>
                     <Image src='/img/light.svg' width={108} height={138} alt='' />
@@ -327,7 +327,7 @@ export default function ModalVipClub ({ show, onClose }: ModalVipClubProps) {
                         }}
                       />
                       {vipData.level >= item.startLevel && vipData.level <= item.endLevel && (
-                        <div className='absolute w-5 h-5 -right-1 -top-1 bg-green-700 rounded-full'>
+                        <div className='absolute w-5 h-5 -right-1 -top-1 bg-green-700 rounded-full text-white'>
                           <CheckIcon width={14} height={10} className='stroke-[5] my-[5px] mx-[3px]' />
                         </div>
                       )}
@@ -368,7 +368,7 @@ export default function ModalVipClub ({ show, onClose }: ModalVipClubProps) {
                             styles.rank,
                             'flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-color-card-body-primary after:!border-r-color-light-bg-primary',
                             {
-                             'dark:text-[#e1e1e1] text-black': (selectedRank.name.split(' ').at(0) || '').toLowerCase() === 'silver',
+                             'text-black': (selectedRank.name.split(' ').at(0) || '').toLowerCase() === 'silver',
                             }
                           )}
                         >
