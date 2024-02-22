@@ -124,7 +124,7 @@ module.exports = {
         BlakaInk: ['"Blaka Ink"', 'cursive'],
         Poppins: ['"Poppins"', 'sans-serif'],
         Casino: ['"Casino Shadow"', 'embedded-opentype'],
-        Inter: ["'Inter'", 'sans-serif']
+        Inter: ['"Inter"', 'sans-serif']
       },
       fontSize: {
         default: '14px',

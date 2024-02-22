@@ -161,7 +161,8 @@ const IconOption = ({
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-[16px] py-[13px] dark:hover:bg-color-hover-default focus:bg-color-light-bg-primary px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 hover:rounded',
+                      'flex items-center gap-[16px] py-[13px]',
+                      'dark:hover:bg-color-hover-default dark:focus:bg-color-hover-default focus:bg-color-light-bg-primary px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 rounded',
                       {
                         'dark:text-color-text-primary text-color-light-text-primary dark:bg-[#24262B] bg-[#eaecf3]':
                           router.route.includes(item.href),
