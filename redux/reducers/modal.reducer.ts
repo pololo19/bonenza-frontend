@@ -33,6 +33,7 @@ const initialCommonState: ModalState = {
   isShowMenuPannel: false,
   isShowVerifyMailAndPhone: false,
   verifyModeType: VerifyModeEnum.MAIL,
+  isShowWagerContestHistory: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -123,6 +124,9 @@ export const queryDataSlice = createSlice({
     changeVerifyMode: (state: ModalState, action: PayloadAction<VerifyModeEnum>) => {
       state.verifyModeType = action.payload;
     },
+    changeIsShowWagerContestHistory: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowWagerContestHistory = action.payload;
+    },
   },
 });
 
@@ -155,5 +159,6 @@ export const {
   changeIsShowMenuPannel,
   changeIsShowVerifyMailAndPhone,
   changeVerifyMode,
+  changeIsShowWagerContestHistory,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
