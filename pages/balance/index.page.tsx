@@ -1,6 +1,6 @@
 import { Switch } from '@headlessui/react';
 import cn from 'classnames';
-import { SearchNormal } from 'iconsax-react';
+import { Lock,SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,7 +11,8 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { AppState } from '@/base/redux/store';
+import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
@@ -28,6 +29,7 @@ const BalancePage = () => {
   const [totalBonus, setTotalBonus] = useState<number>(0);
 
   const { t } = useTranslation('');
+  const dispatch = useAppDispatch();
 
   const {
     localFiat,
@@ -38,6 +40,7 @@ const BalancePage = () => {
     totalUsdBalance,
     realUsdBalance,
     bonusUsdBalance,
+    lockedAmount,
   } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
@@ -56,6 +59,7 @@ const BalancePage = () => {
       totalUsdBalance: state.wallet.totalBalance,
       realUsdBalance: state.wallet.realBalance,
       bonusUsdBalance: state.wallet.bonusBalance,
+      lockedAmount: state.wallet.lockedAmount,
     }),
     shallowEqual,
   );
@@ -200,15 +204,35 @@ const BalancePage = () => {
                         <div className="dark:text-white text-black font-[600] truncate md:text-default text-[12px]">
                           {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
                         </div>
-                        <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
+                        <div className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
                           {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
-                        </span>
+                        </div>
+                        {item.name.toLowerCase() === 'usdt' && (
+                          <div className="mt-1 flex justify-end text-color-secondary">
+                            <div
+                              className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2 text-[10px]"
+                              onClick={() => dispatch(changeIsShowRakeBack(true))}
+                            >
+                              <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <div className="text-end">
                         <div className="dark:text-white text-black truncate md:text-default text-[12px] font-bold">
                           {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
+                        {item.name.toLowerCase() === 'usdt' && (
+                          <div className="mt-1 flex justify-end text-color-secondary">
+                            <div
+                              className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2 text-[10px]"
+                              onClick={() => dispatch(changeIsShowRakeBack(true))}
+                            >
+                              <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     )}
                     <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] text-color-primary font-normal">

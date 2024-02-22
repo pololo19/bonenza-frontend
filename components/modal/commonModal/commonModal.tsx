@@ -37,13 +37,17 @@ export default function CommonModal({
       <div
         className="relative z-50"
       >
-        <div className={cn(
-          "fixed inset-0 bg-[#000000aa]",
-          {
-            'scale-0 opacity-0': !show,
-            'scale-100 opacity-100': show,
+        <div 
+          className={
+            cn(
+              "fixed inset-0 bg-[#000000aa] cursor-pointer",
+              {
+                'scale-0 opacity-0': !show,
+                'scale-100 opacity-100': show,
+              }
+            )
           }
-        )}/>
+        />
         <div className={cn(
           "fixed inset-0 z-10",
           "transition-all duration-200 ease-in",
@@ -54,15 +58,17 @@ export default function CommonModal({
         >
           <div
             className={cn(
-              'flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0',
+              'flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0 z-[11]',
               position,
             )}
+            onClick={onClose}
           >
             <div
               className={cn(
-                'text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
+                'z-[20] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
                 panelClass,
               )}
+              onClick={(e) => e.stopPropagation()}
             >
               <div className="relative">
                 {header}
