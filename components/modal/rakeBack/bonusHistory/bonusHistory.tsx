@@ -84,7 +84,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
           <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] text-left dark:text-color-text text-[#000] truncate">{row.original.type}</div>
+          <div className="text-[12px] text-left dark:text-white text-[#000] truncate">{row.original.type}</div>
         ),
         minSize: 50,
         maxSize: 80,
