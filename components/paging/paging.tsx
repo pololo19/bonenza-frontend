@@ -1,4 +1,5 @@
 import { Menu, Transition } from '@headlessui/react';
+import cn from 'classnames';
 import { ArrowDown2, ArrowLeft2, ArrowRight2 } from 'iconsax-react';
 import { Fragment, useMemo } from 'react';
 
@@ -12,6 +13,8 @@ interface IProps {
   totalItem: number;
   hiddenPerPage?: boolean;
 }
+
+const LIST_ITEM_PER_PAGE = [5, 10, 20];
 
 const Paging: React.FC<IProps> = ({
   currentPage,
@@ -29,8 +32,6 @@ const Paging: React.FC<IProps> = ({
     return currentPage === 1;
   }, [currentPage]);
 
-  const LIST_ITEM_PER_PAGE = [5, 10, 20];
-
   const { t } = useTranslation('');
 
   return (
@@ -38,7 +39,7 @@ const Paging: React.FC<IProps> = ({
       {hiddenPerPage && (
         <Menu
           as="div"
-          className="relative h-[38px] flex items-center justify-center text-[14px] min-w-[60px] select-none bg-color-light-bg-primary dark:bg-transparent"
+          className="relative h-[38px] flex items-center justify-center text-[14px] min-w-[70px] select-none dark:bg-color-menu-primary bg-color-light-bg-primary"
         >
           <Menu.Button className="flex-1 ">
             <div className="flex items-center justify-center w-full gap-2 dark:text-white text-black" role="button">
@@ -56,18 +57,26 @@ const Paging: React.FC<IProps> = ({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute dark:bg-color-pagination-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[40px] z-[10] cursor-pointer">
+            <Menu.Items className="absolute dark:bg-color-menu-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[40px] z-[10] cursor-pointer p-1">
               <div className="py-0">
                 {LIST_ITEM_PER_PAGE.map((item, index) => (
                   <Menu.Item key={index}>
                     {() => (
                       <div
-                        className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                        className={cn(
+                          'flex items-center justify-start py-[5px] px-[5px] w-full dark:hover:bg-color-hover-default hover:bg-color-light-bg-p rounded-default',
+                          {
+                            'border-[1px] border-solid border-color-primary': item === itemPerPage,
+                          },
+                        )}
                         role="button"
                         onClick={() => setItemPerPage?.(item)}
                       >
-                        <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                        <div className="flex-1 flex items-center justify-between gap-[10px] sm:text-[14px] text-[12px]">
                           <div className="flex-1 text-start dark:text-white text-black">{item}</div>
+                          {item === itemPerPage && (
+                            <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
+                          )}
                         </div>
                       </div>
                     )}
@@ -79,28 +88,26 @@ const Paging: React.FC<IProps> = ({
         </Menu>
       )}
       <div className="flex items-center gap-6">
-        <p className="dark:text-[#98A7B5] text-[#31373d] text-[12px]">
-          {t('paging:total')}: {totalItem}
+        <p className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+          {t('paging:total')}: {Math.ceil(totalItem / itemPerPage)}
         </p>
         <div className="dark:text-white text-black font-bold p-1 px-4 text-[12px]">{currentPage}</div>
         <div className="flex">
           <button
-            className={`p-2 ${
-              disablePrev
-                ? 'opacity-20 cursor-not-allowed'
-                : 'dark:hover:bg-[#24262b80] dark:text-white text-black hover:bg-[#f5f6fa] dark:bg-transparent bg-color-light-bg-primary'
-            }`}
+            className={cn('p-2 dark:bg-color-menu-primary bg-color-light-bg-primary dark:text-white text-black', {
+              'opacity-20 cursor-not-allowed': disablePrev,
+              // 'dark:text-white text-black': !disablePrev,
+            })}
             onClick={() => onPageChange?.('Prev')}
             disabled={disablePrev}
           >
             <ArrowLeft2 className="h-[16px] w-[16px] flex justify-center items-center" />
           </button>
           <button
-            className={`p-2 ${
-              disableNext
-                ? 'opacity-20 cursor-not-allowed'
-                : 'dark:hover:bg-[#24262b80] dark:text-white text-black hover:bg-[#f5f6fa] dark:bg-transparent bg-color-light-bg-primary'
-            }`}
+            className={cn('p-2 dark:bg-color-menu-primary bg-color-light-bg-primary dark:text-white text-black', {
+              'opacity-20 cursor-not-allowed': disableNext,
+              // 'dark:text-white text-black': !disableNext,
+            })}
             onClick={() => onPageChange?.('Next')}
             disabled={disableNext}
           >
