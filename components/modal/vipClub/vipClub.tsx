@@ -204,12 +204,12 @@ export default function ModalVipClub ({ show, onClose }: ModalVipClubProps) {
                   'bg-gradient-to-l  dark:to-gray-700 to-color-light-bg-primary',
                   'border-solid border-2 border-transparent',
                   {
-                    'from-[#47566A] border-[#47566A]': currentRank === 'zero',
-                    'from-[#e09a6a] border-[#e09a6a]': currentRank === 'Bronze',
-                    'from-[#e1e1e1] border-[#e1e1e1]': currentRank === 'Silver',
-                    'from-[#ffc329] border-[#ffc329]': currentRank === 'Gold',
-                    'from-[#9d63f6] border-[#9d63f6]': currentRank === 'Platinum',
-                    'from-[#dd80b3] border-[#dd80b3]': currentRank === 'Diamond',
+                    'from-[#47566A] border-[#47566A] border-l-0': currentRank === 'zero',
+                    'from-[#e09a6a] border-[#e09a6a] border-l-0': currentRank === 'Bronze',
+                    'from-[#e1e1e1] border-[#e1e1e1] border-l-0': currentRank === 'Silver',
+                    'from-[#ffc329] border-[#ffc329] border-l-0': currentRank === 'Gold',
+                    'from-[#9d63f6] border-[#9d63f6] border-l-0': currentRank === 'Platinum',
+                    'from-[#dd80b3] border-[#dd80b3] border-l-0': currentRank === 'Diamond',
                   }
                 )}
               >
@@ -322,6 +322,14 @@ export default function ModalVipClub ({ show, onClose }: ModalVipClubProps) {
                         width={40}
                         height={40}
                         alt=''
+                        className={
+                          cn(
+                            {
+                              'opacity-100': selectedRank.startLevel === item.startLevel,
+                              'opacity-30': selectedRank.startLevel !== item.startLevel
+                            }
+                          )
+                        }
                         onError={(e) => {
                           e.currentTarget.src = '/img/bronze-medal.png';
                         }}
