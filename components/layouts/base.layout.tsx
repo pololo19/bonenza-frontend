@@ -725,28 +725,34 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowAuthenticationModal || false}
         onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
       />
-      <ModalVipClub
-        show={isShowVipClubModal || false}
-        onClose={() => {
-          dispatch(changeIsShowVipClubModal(false));
-        }}
-      />
-      <ModalRakeBack
-        show={isShowRakeBackModal || false}
-        onClose={() => {
-          dispatch(changeIsShowRakeBack(false));
-        }}
-        setShowModalRakeBackDetail={() => dispatch(changeIsShowRakeBackDetail(true))}
-        setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
-      />
-      <ModalRakeBackDetail
-        show={isShowRakeBackDetailModal || false}
-        cryptoLocked={cryptoLocked}
-        onClose={() => {
-          dispatch(changeIsShowRakeBackDetail(false));
-        }}
-        setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
-      />
+      {isShowVipClubModal && (
+        <ModalVipClub
+          show={isShowVipClubModal || false}
+          onClose={() => {
+            dispatch(changeIsShowVipClubModal(false));
+          }}
+        />
+      )}
+      {isShowRakeBackModal && (
+        <ModalRakeBack
+          show={isShowRakeBackModal || false}
+          onClose={() => {
+            dispatch(changeIsShowRakeBack(false));
+          }}
+          setShowModalRakeBackDetail={() => dispatch(changeIsShowRakeBackDetail(true))}
+          setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
+        />
+      )}
+      {isShowRakeBackDetailModal && (
+        <ModalRakeBackDetail
+          show={isShowRakeBackDetailModal || false}
+          cryptoLocked={cryptoLocked}
+          onClose={() => {
+            dispatch(changeIsShowRakeBackDetail(false));
+          }}
+          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+        />
+      )}
 
       {isShowModalBonusHistory && (
         <ModalBonusHistory
@@ -768,10 +774,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      <ModalDeposit
-        show={isShowDepositModal || false}
-        onClose={() => dispatch(changeIsShowDepositModal(false))}
-      />
+      <ModalDeposit show={isShowDepositModal || false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
 
       {isShowCryptoOnlineModal && (
         <ModalCryptoOnline
