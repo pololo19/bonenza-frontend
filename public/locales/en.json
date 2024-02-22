@@ -1375,6 +1375,7 @@
     "verifyCodeHeader": "We’ve sent a verification code to {{code}}, please enter the 6-digit code below:"
   },
   "wagerContest": {
+    "history": "History",
     "daily": "Daily",
     "contestPrizePool": "Contest prize pool",
     "timeRemaining": "Time Remaining",

@@ -60,7 +60,7 @@ export default function ModalRakeBack({
   );
 
   const requiredWagerAmount = useMemo(() => {
-    const requiredAmount = unlockedData.minimumUnlockAmount - lockedAmount.balance;
+    const requiredAmount = unlockedData.minimumUnlockAmount - unlockedData.amount;
     const requiredWager = requiredAmount / (0.01 * 0.2);
     return requiredWager;
   }, [localFiat, unlockedData, lockedAmount]);
