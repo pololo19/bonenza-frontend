@@ -1,6 +1,7 @@
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
+import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -16,6 +17,7 @@ import {
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
   changeIsShowInformation,
+  changeIsShowWagerContestHistory,
 } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
@@ -24,7 +26,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
-import { ArrowRight2 } from 'iconsax-react';
 
 type ContesterType = {
   playerId: string;
@@ -566,17 +567,18 @@ const WagerContestComponent = () => {
           </p>
         </div>
         <div
-          className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-[#f5f6fa] min-w-[131px] mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
+          className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-color-light-bg-primary mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
           onClick={() => {
             if (isLogin) {
-              dispatch(changeIsShowBonusHistory(true));
+              console.log('00000573');
+              dispatch(changeIsShowWagerContestHistory(true));
             } else {
               dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
               dispatch(changeIsShowAuthenticationModal(true));
             }
           }}
         >
-          USDT {t('deposit:bonusHistory')}
+          {t('wagerContest:history')}
           <ArrowRight2 size={12} />
         </div>
       </div>

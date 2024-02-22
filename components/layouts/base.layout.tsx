@@ -39,6 +39,7 @@ import {
   changeIsShowVerifyMailAndPhone,
   changeIsShowVipClubModal,
   changeIsShowVipLevelModal,
+  changeIsShowWagerContestHistory,
   changeShowChatType,
   changeShowFullChat,
   changeToggleSidebar,
@@ -84,6 +85,7 @@ import ModalUpdateProfile from '../modal/updateProfile/updateProfile';
 import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndPhone';
 import ModalVipClub from '../modal/vipClub/vipClub';
 import ModalVipLevel from '../modal/vipLevel/vipLevel';
+import ModalWagerContestHistory from '../modal/wagerContestHistory/wagerContestHistory';
 import AccountPannel from './accountBar.layout';
 import Footer from './footer.layout';
 import HeaderStats from './header.layout';
@@ -164,6 +166,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowCasinoSearch,
     isShowVerifyMailAndPhone,
     verifyModeType,
+    isShowWagerContestHistory,
     cryptoArray,
     userId,
     walletSocket,
@@ -194,6 +197,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowCasinoSearch: state.modal.isShowCasinoSearch,
       isShowVerifyMailAndPhone: state.modal.isShowVerifyMailAndPhone,
       verifyModeType: state.modal.verifyModeType,
+      isShowWagerContestHistory: state.modal.isShowWagerContestHistory,
 
       isShowSidebar: state.modal.isShowMenuPannel,
       isShowAccount: state.modal.isShowAccountPannel,
@@ -799,6 +803,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           onClose={() => {
             dispatch(changeIsShowVerifyMailAndPhone(false));
           }}
+        />
+      )}
+      {isShowWagerContestHistory && (
+        <ModalWagerContestHistory
+          show={isShowWagerContestHistory}
+          onClose={() => dispatch(changeIsShowWagerContestHistory(false))}
         />
       )}
       {/* Google One Tap */}

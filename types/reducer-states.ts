@@ -57,6 +57,7 @@ export type ModalState = {
   isShowMenuPannel?: boolean;
   isShowVerifyMailAndPhone?: boolean;
   verifyModeType?: VerifyModeEnum;
+  isShowWagerContestHistory?: boolean;
 };
 
 export type LoadingState = {
