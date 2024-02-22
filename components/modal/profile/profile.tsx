@@ -1,5 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ChartBarIcon, ChevronRightIcon, TrophyIcon } from '@heroicons/react/24/outline';
+import { ChartBarIcon, ChevronRightIcon, ClipboardDocumentIcon,TrophyIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ArrowLeft2, Edit2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -12,7 +12,7 @@ import { api_getProfile } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, groupMedal, ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { convertUserInfo, currencyFormat1, formatDate } from '@/base/libs/utils';
+import { convertUserInfo, copyClipBoard, currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowInformation, changeIsShowUpdateInformation } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import { UserDetail } from '@/base/types/common';
@@ -124,7 +124,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   />
                   <div className="absolute flex flex-col items-center left-0 top-[40%] w-full h-full">
                     <p className="text-[10px] uppercase leading-[1]">{`* ${vipData.type} *`}</p>
-                    <p className="text-[20px] font-semibold">
+                    <p className="text-[16px] font-semibold">
                       {`${vipData.level}`.split(' ').at(0)?.charAt(0).toUpperCase()}
                       {`${vipData.level}`.split(' ').at(1)}
                     </p>
@@ -154,8 +154,16 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     />
                   </div>
                   <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
-                  <div className="text-[14px] text-color-text-primary">
-                    {t('profile:userID')}:{user?.userId}
+                  <div className="text-[14px] text-color-text-primary w-full flex justify-between items-center">
+                    <div className="truncate max-w-[280px]">
+                      {t('profile:userID')}:{user?.userId}
+                    </div>
+                    <button
+                      className="dark:hover:text-white hover:text-gray-500"
+                      onClick={() => copyClipBoard(user?.userId || '')}
+                    >
+                      <ClipboardDocumentIcon width={20} height={20} />
+                    </button>
                   </div>
                 </div>
                 {user?.userId === userId ? (
