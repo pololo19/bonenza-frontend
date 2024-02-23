@@ -80,7 +80,7 @@ function GameCard(props: GameCardProps) {
         </div>
       </div>
       <Tooltip
-        className="max-w-[50vw] z-[50] !text-[14px] min-w-[250px] !p-3 !bg-color-light-bg-primary dark:!bg-color-bg-secondary"
+        className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-color-bg-secondary"
         opacity={100}
         id={`${gameDetail?.identifier} ${uuid}`}
         place="bottom"
@@ -99,7 +99,7 @@ function GameCard(props: GameCardProps) {
         </div>
         <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
           <span className="font-bold dark:text-gray-300 text-gray-700">Recent biggest win:</span>
-          <span className="font-bold dark:text-gray-300 text-gray-700">{`${gameDetail.multiplier ?? 0} x`}</span>
+          <span className="font-bold dark:text-gray-300 text-gray-700">{`${gameDetail?.multiplier.toFixed(2) || "0"} x`}</span>
         </div>
       </Tooltip>
     </div>
