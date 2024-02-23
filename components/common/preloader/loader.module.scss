@@ -1,18 +1,16 @@
 @import '~/styles/main/custom-variables';
 
 .preloader {
-  position: fixed;
-  top: 0;
+  position: absolute;
   left: 0;
   right: 0;
+  top: 0;
   bottom: 0;
-  background-color: rgba($color-white, 0.15);
   z-index: $z-index-preloader;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
+
 
   .spinner {
     color: var(--basic-color);
