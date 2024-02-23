@@ -16,6 +16,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { ObjectLiteral } from '@/base/types/common';
 
 import styles from './index.module.scss';
+import ReactLoading from 'react-loading';
 
 export type TableComponentPropsType = {
   columns: ColumnDef<any>[];
@@ -104,7 +105,22 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn(isLoading && styles.loader, isLoading && 'relative', 'sm:text-[14px] text-[12px]')}>
+        <tbody className={cn('sm:text-[14px] text-[12px]', {'relative py-10': isLoading})}>
+          {isLoading && 
+            <div 
+              className={
+                cn
+                (
+                  'flex justify-center',
+                  {
+                    'absolute left-0 right-0 top-0 bottom-0': isLoading,
+                  }
+                )
+              }
+            >
+              <ReactLoading type="bubbles" color="#50C627" delay={50}/>
+            </div>
+          }
           {!!data?.length &&
             getRowModel().rows.map((row) => (
               <tr

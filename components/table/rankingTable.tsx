@@ -17,6 +17,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { ObjectLiteral } from '@/base/types/common';
 
 import styles from './rankingTable.module.scss';
+import ReactLoading from 'react-loading';
 
 export type RankingTableComponentPropsType = {
   columns: ColumnDef<any>[];
@@ -105,7 +106,22 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn(isLoading && styles.loader, 'md:!text-[14px] sm:!text-[12px] !text-[10px]')}>
+        <tbody className={cn({'relative py-10': isLoading}, 'md:!text-[14px] sm:!text-[12px] !text-[10px]')}>
+          {isLoading && 
+            <div 
+              className={
+                cn
+                (
+                  'flex justify-center',
+                  {
+                    'absolute left-0 right-0 top-0 bottom-0': isLoading,
+                  }
+                )
+              }
+            >
+              <ReactLoading type="bubbles" color="#50C627" delay={50}/>
+            </div>
+          }
           {!!data?.length &&
             getRowModel().rows.map((row) => (
               <tr
