@@ -23,7 +23,6 @@ module.exports = () => {
     SOCKET_WALLET_URL: process.env.SOCKET_WALLET_URL,
     SOCKET_GAME_URL: process.env.SOCKET_GAME_URL,
     WITHDRAW_FEE: process.env.WITHDRAW_FEE,
-    SWAP_FEE: process.env.SWAP_FEE,
     project: process.env.NAME,
     projectId: process.env.WALLET_CONNECT_PROJECT,
   };

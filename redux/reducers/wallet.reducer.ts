@@ -1,3 +1,4 @@
+import { Wallet } from '@rainbow-me/rainbowkit';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { api_getDepositTime, api_getUserBalance, api_getWalletInfo } from '@/api/wallet';
@@ -36,6 +37,7 @@ const initialState: WalletState = {
   depositAddress: [], // wallet address
   cryptoCurrencies: [],
   lockedAmount: 0,
+  swapFee: 0.015,
 };
 
 export const walletReducer = createSlice({
@@ -88,6 +90,9 @@ export const walletReducer = createSlice({
     },
     setLockedAmount: (state: WalletState, action: PayloadAction<number>) => {
       state.lockedAmount = action.payload;
+    },
+    setSwapFee: (state: WalletState, action: PayloadAction<number>) => {
+      state.swapFee = action.payload;
     },
   },
 });
