@@ -1,5 +1,4 @@
 const URL_REFRESH_TOKEN = '/refresh';
-const URL_COMPANIES = '/admin/companies';
 
 /************************************ Verify **********************************/
 const API_AUTH_SEND_MAIL = '/auth/send-mail';
@@ -132,20 +131,6 @@ const API_BONUS_CLAIM = '/bonus/claim';
 const API_WAGER_CONTEST_LIST = '/contest/list';
 const API_WAGER_CONTEST_HISTORY = '/contest/history';
 const API_WAGER_CONTEST_POSITION = '/contest/position';
-
-const URL_AUTH_COMPANIES = '/auth/companies';
-const URL_LOGIN_COMPANY = (companyId: number) => `/companies/${companyId}/login`;
-
-const URL_SEND_VERIFY_QR_CODE = '/auth/send-verify-qr-code';
-const URL_GET_USER_INFO = '/auth/get-user-info';
-
-const URL_VERIFY_TOKEN = '/verify-token';
-const URL_UPDATE_PASS = 'update-password';
-const URL_LOGOUT = '/logout';
-
-const URL_FIAT_EXCHANGE_RATE = 'exchange/get-fiat-exchange-rate';
-const URL_CRYPTO_EXCHANGE_RATE = 'exchange/get-crypto-exchange-rate';
-const URL_EXCHANGE_RATE = 'exchange/get-exchange-rate';
 
 export {
   API_ADMIN_LOGIN,

@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import { useTranslation } from '@/base/config/i18next';
-import { SWAP_FEE, SWAP_MIN, TOAST_ENUM } from '@/base/constants/common';
+import { SWAP_MIN, TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BasicFormRef } from '@/base/types/common';
@@ -42,10 +42,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const { onSubmit } = props;
   const { t } = useTranslation('');
 
-  const { cryptoSymbols, balances } = useSelector(
+  const { cryptoSymbols, balances, swapFee } = useSelector(
     (state: AppState) => ({
       cryptoSymbols: state.wallet.symbols,
       balances: state.wallet.balances,
+      swapFee: state.wallet.swapFee,
     }),
     shallowEqual,
   );
@@ -364,7 +365,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-color-light-bg-primary dark:bg-color-input-primary rounded-b-[4px]">
             <p className="text-color-text-primary">{t('swap:swapFee')}</p>
             <p className="dark:text-white text-color-light-text-primary">
-              {(Number(SWAP_FEE) * Number(watch('amountFrom'))).toFixed(8)}{' '}
+              {(Number(swapFee) * Number(watch('amountFrom'))).toFixed(8)}{' '}
               <span className="text-color-text-primary">{getSymbolById(watch('symbolFrom'))?.name}</span>
             </p>
           </div>

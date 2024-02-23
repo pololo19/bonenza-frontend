@@ -17,6 +17,7 @@ import { ObjectLiteral } from '@/base/types/common';
 
 import styles from './adminTable.module.scss';
 import { useTheme } from 'next-themes';
+import ReactLoading from 'react-loading';
 
 export type AdminTableComponentPropsType = {
   columns: ColumnDef<any>[];
@@ -99,7 +100,22 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn(isLoading && styles.loader, 'sm:!text-[14px] !text-[12px] bg-[#f7f8fa] min-h-[500px]')}>
+        <tbody className={cn({'relative py-10': isLoading}, 'sm:!text-[14px] !text-[12px] bg-[#f7f8fa] min-h-[500px]')}>
+          {isLoading && 
+            <div 
+              className={
+                cn
+                (
+                  'flex justify-center',
+                  {
+                    'absolute left-0 right-0 top-0 bottom-0': isLoading,
+                  }
+                )
+              }
+            >
+              <ReactLoading type="bubbles" color="#50C627" delay={50}/>
+            </div>
+          }
           {!!data.length &&
             getRowModel().rows.map((row) => (
               <tr

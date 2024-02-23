@@ -707,10 +707,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isShowReferAndEarn && (
         <ModalReferAndEarn show={isShowReferAndEarn} onClose={() => dispatch(changeIsShowReferAndEarn(false))} />
       )}
-      <ModalUpdateProfile
-        show={isShowUpdateInformation || false}
-        onClose={() => dispatch(changeIsShowUpdateInformation(false))}
-      />
+      {!!isShowUpdateInformation && (
+        <ModalUpdateProfile
+          show={isShowUpdateInformation || false}
+          onClose={() => dispatch(changeIsShowUpdateInformation(false))}
+        />
+      )}
+
       {isShowCropAvatar && (
         <ModalCropAvatar show={isShowCropAvatar} onClose={() => dispatch(changeIsShowCropAvatar(false))} />
       )}
@@ -725,7 +728,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowAuthenticationModal || false}
         onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
       />
-      {isShowVipClubModal && (
+      {!!isShowVipClubModal && (
         <ModalVipClub
           show={isShowVipClubModal || false}
           onClose={() => {
@@ -733,7 +736,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      {isShowRakeBackModal && (
+      {!!isShowRakeBackModal && (
         <ModalRakeBack
           show={isShowRakeBackModal || false}
           onClose={() => {
@@ -743,6 +746,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
         />
       )}
+
       {isShowRakeBackDetailModal && (
         <ModalRakeBackDetail
           show={isShowRakeBackDetailModal || false}
@@ -753,7 +757,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
         />
       )}
-
       {isShowModalBonusHistory && (
         <ModalBonusHistory
           show={isShowModalBonusHistory || false}
