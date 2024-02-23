@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
-import { ArrowRight2 } from 'iconsax-react';
+import { ArrowLeft2, ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Fragment, useEffect, useMemo, useState } from 'react';
@@ -16,9 +16,13 @@ import Paging from '@/components/paging/paging';
 import RankingTableComponent from '@/components/table/rankingTable';
 
 import { GameDetail, UserDetail } from '../../../../types/common';
+import CommonModal from '../../commonModal/commonModal';
 
 type ModalStatisticProps = {
-  userData: UserDetail;
+  userData?: UserDetail;
+  isShow: boolean;
+  onClose: () => void;
+  goBackToProfile: () => void;
 };
 
 type StatisticTransactionType = {
@@ -30,7 +34,12 @@ type StatisticTransactionType = {
   wageredUsd: number;
 };
 
-export default function Statistic({ userData }: ModalStatisticProps) {
+export default function Statistic({ 
+  userData,
+  isShow,
+  onClose,
+  goBackToProfile,
+}: ModalStatisticProps) {
   const { theme } = useTheme();
   const { t } = useTranslation('');
   const exchange = useExchange();
@@ -133,8 +142,25 @@ export default function Statistic({ userData }: ModalStatisticProps) {
   };
 
   return (
-    <>
-      <div className="mt-[14px]">
+    <CommonModal
+      show={isShow}
+      onClose={onClose}
+      panelClass="rounded !max-w-[464px]"
+      header={
+        <div className="px-[12px] py-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
+          <div>
+            <div
+              className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer"
+              onClick={() => goBackToProfile()}
+            >
+              <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
+              <div className="text-[16px]">{t('profile:details')}</div>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <div className="mt-[14px] !h-[calc(100%-64px)] p-5">
         <div className="flex gap-[16px] items-center justify-between">
           <div className="dark:text-white text-black text-[14px] sm:text-[16px] font-semibold">
             {t('statistic:statistics')}
@@ -238,7 +264,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWins')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
-              {Number(userData.winCount) || 0}
+              {Number(userData?.winCount || "0")}
             </div>
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
@@ -247,7 +273,7 @@ export default function Statistic({ userData }: ModalStatisticProps) {
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalBets')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
-              {Number(userData.betCount) || 0}
+              {Number(userData?.betCount || "0")}
             </div>
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%] max-w-[30%]">
@@ -257,8 +283,8 @@ export default function Statistic({ userData }: ModalStatisticProps) {
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black text-center w-full truncate">
               {viewInFiat
-                ? currencyFormat1(userData.totalWager, 2, localFiat?.name || 'USD')
-                : currencyFormat1(userData.totalWager, 2)}
+                ? currencyFormat1(userData?.totalWager || 0, 2, localFiat?.name || 'USD')
+                : currencyFormat1(userData?.totalWager || 0, 2)}
             </div>
           </div>
         </div>
@@ -290,6 +316,6 @@ export default function Statistic({ userData }: ModalStatisticProps) {
           <Paging onPageChange={handleChangePage} itemPerPage={limit} totalItem={totalTable} currentPage={page} />
         )}
       </div>
-    </>
+    </CommonModal>
   );
 }
