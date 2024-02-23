@@ -97,6 +97,7 @@ export type WalletState = {
   cryptoCurrencies: CryptoCurrencyType[];
   depositAddress: DepositAddressType[];
   lockedAmount: number;
+  swapFee: number;
 };
 
 export type GameState = {
