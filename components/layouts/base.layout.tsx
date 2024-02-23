@@ -703,18 +703,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       </div>
 
       {/* Modal */}
-      {isShowInformation && (
-        <ModalProfile show={isShowInformation} onClose={() => dispatch(changeIsShowInformation(false))} />
-      )}
+      <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />
       {isShowReferAndEarn && (
         <ModalReferAndEarn show={isShowReferAndEarn} onClose={() => dispatch(changeIsShowReferAndEarn(false))} />
       )}
-      {isShowUpdateInformation && (
-        <ModalUpdateProfile
-          show={isShowUpdateInformation}
-          onClose={() => dispatch(changeIsShowUpdateInformation(false))}
-        />
-      )}
+      <ModalUpdateProfile
+        show={isShowUpdateInformation || false}
+        onClose={() => dispatch(changeIsShowUpdateInformation(false))}
+      />
       {isShowCropAvatar && (
         <ModalCropAvatar show={isShowCropAvatar} onClose={() => dispatch(changeIsShowCropAvatar(false))} />
       )}
