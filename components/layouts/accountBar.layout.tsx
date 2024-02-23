@@ -257,13 +257,13 @@ const AccountPannel: React.FC = () => {
         classNames:
           'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
-      {
-        title: String(t('sidebar:buyCrypto')),
-        icon: Money2,
-        href: ROUTER.BuyCrypto,
-        classNames:
-          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      },
+      // {
+      //   title: String(t('sidebar:buyCrypto')),
+      //   icon: Money2,
+      //   href: ROUTER.BuyCrypto,
+      //   classNames:
+      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
+      // },
       {
         title: String(t('sidebar:swap')),
         icon: MoneyChange,
@@ -271,27 +271,27 @@ const AccountPannel: React.FC = () => {
         classNames:
           'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
-      {
-        title: String(t('sidebar:vaultPro')),
-        icon: Story,
-        href: ROUTER.VaultPro,
-        classNames:
-          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      },
-      {
-        title: String(t('sidebar:NFTs')),
-        icon: Box,
-        href: '#',
-        classNames:
-          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      },
-      {
-        title: String(t('sidebar:rollover')),
-        icon: Chart,
-        href: ROUTER.Rollover,
-        classNames:
-          'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      },
+      // {
+      //   title: String(t('sidebar:vaultPro')),
+      //   icon: Story,
+      //   href: ROUTER.VaultPro,
+      //   classNames:
+      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
+      // },
+      // {
+      //   title: String(t('sidebar:NFTs')),
+      //   icon: Box,
+      //   href: '#',
+      //   classNames:
+      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
+      // },
+      // {
+      //   title: String(t('sidebar:rollover')),
+      //   icon: Chart,
+      //   href: ROUTER.Rollover,
+      //   classNames:
+      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
+      // },
       {
         title: String(t('sidebar:transactions')),
         icon: CardCoin,
