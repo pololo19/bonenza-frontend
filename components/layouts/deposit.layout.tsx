@@ -47,29 +47,29 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
       name: 'sidebar:withdraw',
       href: ROUTER.WithdrawCrypto,
     },
-    {
-      icon: Money2,
-      name: 'sidebar:buyCrypto',
-      href: ROUTER.BuyCrypto,
-      isdisabled: true,
-    },
+    // {
+    //   icon: Money2,
+    //   name: 'sidebar:buyCrypto',
+    //   href: ROUTER.BuyCrypto,
+    //   isdisabled: true,
+    // },
     {
       icon: MoneyChange,
       name: 'sidebar:swap',
       href: ROUTER.Swap,
     },
-    {
-      icon: Story,
-      name: 'sidebar:vaultPro',
-      href: ROUTER.VaultPro,
-      isdisabled: true,
-    },
-    {
-      icon: Box,
-      name: 'sidebar:NFTs',
-      href: '/nfts',
-      isdisabled: true,
-    },
+    // {
+    //   icon: Story,
+    //   name: 'sidebar:vaultPro',
+    //   href: ROUTER.VaultPro,
+    //   isdisabled: true,
+    // },
+    // {
+    //   icon: Box,
+    //   name: 'sidebar:NFTs',
+    //   href: '/nfts',
+    //   isdisabled: true,
+    // },
   ];
 
   const router = useRouter();
@@ -98,11 +98,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                             icon={item.icon}
                             key={index}
                             fontWeight={600}
-                            classNames={
-                              !!item.isdisabled
-                                ? 'text-color-light-text-primary rounded !bg-transparent pr-[15px] hover:!bg-transparent dark:hover:!text-color-text-primary hover:!text-color-light-text-primary !cursor-not-allowed'
-                                : 'dark:hover:!text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]'
-                            }
+                            classNames="dark:hover:!text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
                             activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
                           />
                         ))}
@@ -160,7 +156,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           className={cn(
                             'flex flex-col dark:text-color-text-primary text-black dark:hover:text-white dark:hover:bg-color-hover-secondary hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
                             {
-                              'dark:text-white text-black dark:!bg-color-active-primary bg-[#f5f6fa]':
+                              'dark:text-white text-black dark:!bg-color-active-primary bg-color-light-bg-primary':
                                 router.route.includes(ROUTER.Rollover),
                             },
                           )}
@@ -248,7 +244,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                     </div>
                   </div>
 
-                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-[#24262B] bg-[#f5f6fa] shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
+                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-[#24262B] bg-color-light-bg-primary shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
                     <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
                       <Link
                         href={ROUTER.Deposit}
@@ -268,6 +264,23 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         </div>
                       </Link>
                       <Link
+                        href={ROUTER.Balance}
+                        className={cn(
+                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                          {
+                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
+                              router.route.includes(ROUTER.Balance),
+                          },
+                        )}
+                      >
+                        <div className="pt-2">
+                          <EmptyWallet className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
+                        </div>
+                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
+                          {t('sidebar:balance')}
+                        </div>
+                      </Link>
+                      <Link
                         href={ROUTER.Withdraw}
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
@@ -284,7 +297,9 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           {t('sidebar:withdraw')}
                         </div>
                       </Link>
-                      <Link
+
+                      {/* This features will be enabled soon */}
+                      {/* <Link
                         href={ROUTER.BuyCrypto}
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
@@ -334,7 +349,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
                           {t('sidebar:vaultPro')}
                         </div>
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 </div>
