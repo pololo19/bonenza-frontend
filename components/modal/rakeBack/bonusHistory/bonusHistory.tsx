@@ -7,7 +7,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_bonusUsdtHistory } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_MARKER, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -79,12 +79,24 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const columns = useMemo(() => {
     const columnsDefault: ColumnDef<BonusTransactionType>[] = [
       {
-        accessorKey: 'actionType',
+        accessorKey: 'createdAt',
         header: () => (
-          <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:bonusType')}</div>
+          <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:time')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] text-left dark:text-white text-[#000] truncate">{row.original.type}</div>
+          <div className="text-color-text truncate flex items-center justify-end gap-[5px] text-[14px]">
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+          </div>
+        ),
+        maxSize: 200,
+      },
+      {
+        accessorKey: 'actionType',
+        header: () => (
+          <div className="text-center text-[12px] text-color-text font-normal">{t('historyBonus:bonusType')}</div>
+        ),
+        cell: ({ row }) => (
+          <div className="text-[14px] text-left dark:text-white text-[#000] truncate">{row.original.type}</div>
         ),
         minSize: 50,
         maxSize: 80,
@@ -95,24 +107,11 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
           <div className="text-center text-[12px] font-normal text-color-text">{t('historyBonus:amountClaimed')}</div>
         ),
         cell: ({ row }) => (
-          <div className="font-bold text-[12px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
+          <div className="font-bold text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
             {viewInFiat
               ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name || 'USD')
               : currencyFormat1(row.original.amount, 4, '', false)}
             <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />
-          </div>
-        ),
-        minSize: 200,
-        maxSize: 200,
-      },
-      {
-        accessorKey: 'createdAt',
-        header: () => (
-          <div className="text-right text-[12px] text-color-text font-normal">{t('historyBonus:time')}</div>
-        ),
-        cell: ({ row }) => (
-          <div className="text-color-text truncate flex items-center justify-end gap-[5px]">
-            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
       },

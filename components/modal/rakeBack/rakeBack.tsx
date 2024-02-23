@@ -123,7 +123,6 @@ export default function ModalRakeBack({
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -134,96 +133,99 @@ export default function ModalRakeBack({
           </div>
         }
       >
-        <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
-          <div className="bg-[url('/img/rakeBackBg.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
-            <div className="flex flex-col items-center justify-center h-full gap-[10px]">
-              <div className="flex justify-center flex-col items-center">
-                <Image height={54} width={42} src="/img/coin-rakeBack.png" alt="" />
-                <p className="text-[10px] mt-[2px] dark:text-color-text-primary text-white">
-                  {t('deposit:unlocked')} USDT
-                </p>
+        <>
+          {isLoading && <Loader />}
+          <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
+            <div className="bg-[url('/img/rakeBackBg.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
+              <div className="flex flex-col items-center justify-center h-full gap-[10px]">
+                <div className="flex justify-center flex-col items-center">
+                  <Image height={54} width={42} src="/img/coin-rakeBack.png" alt="" />
+                  <p className="text-[10px] mt-[2px] dark:text-color-text-primary text-white">
+                    {t('deposit:unlocked')} USDT
+                  </p>
+                </div>
+                <div className="w-[236px] rounded-[5px] h-[36px] text-color-primary dark:bg-color-bg-primary bg-color-light-modal-bg-primary flex items-center justify-center gap-2">
+                  <Image height={18} width={18} src="/img/fiats/USDT.png" alt="" />
+                  <p className="text-[16px] font-bold">{currencyFormat1(unlockedData.amount, 2, '', false)}</p>
+                </div>
+                <div>
+                  <div
+                    role="button"
+                    className={cn(
+                      'w-[161px] cursor-pointer h-[38px] bg-color-primary text-white text-[14px] font-bold flex items-center justify-center rounded-[5px]',
+                      {
+                        'pointer-events-none opacity-60': unlockedData.amount < unlockedData.minimumUnlockAmount,
+                      },
+                    )}
+                    onClick={handleCliam}
+                  >
+                    {t('deposit:claim')}
+                  </div>
+                  <div className="text-[10px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-white text-color-light-text-primary">
+                    <p>{t('deposit:mintoclaim')}:</p> &nbsp;
+                    <p className="text-white">{unlockedData.minimumUnlockAmount} USDT</p>
+                  </div>
+                </div>
               </div>
-              <div className="w-[236px] rounded-[5px] h-[36px] text-color-primary dark:bg-color-bg-primary bg-color-light-modal-bg-primary flex items-center justify-center gap-2">
-                <Image height={18} width={18} src="/img/fiats/USDT.png" alt="" />
-                <p className="text-[16px] font-bold">{currencyFormat1(unlockedData.amount, 2, '', false)}</p>
+            </div>
+            <div className="h-[48px] mt-2 mb-5 px-6 py-[6px] dark:bg-[#24272B] bg-[#f5f6fa] rounded-[5px] flex items-center justify-between">
+              <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1">
+                <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
               </div>
-              <div>
-                <div
-                  role="button"
-                  className={cn(
-                    'w-[161px] cursor-pointer h-[38px] bg-color-primary text-white text-[14px] font-bold flex items-center justify-center rounded-[5px]',
-                    {
-                      'pointer-events-none opacity-60': unlockedData.amount < unlockedData.minimumUnlockAmount,
-                    },
-                  )}
-                  onClick={handleCliam}
+              <div className="h-full items-center flex flex-col justify-center">
+                <div className="dark:text-white text-black">
+                  {`${currencyFormat1(lockedAmount.balance, cryptoLen, '', false)} USDT`}
+                </div>
+                {viewInFiat && (
+                  <div className="text-[10px]">
+                    {currencyFormat1(lockedAmount.balanceUsd * exchangeRate, fiatLen, localFiat?.name ?? 'USD')}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="text-[14px] font-bold text-center">{t('deposit:howClaim')}</div>
+            <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
+              <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
+              <p className="mt-[14px] mb-[28px]">
+                {t('deposit:youStillNeed')} {`${currencyFormat1(requiredWagerAmount, cryptoLen, '', false)} USDT`}{' '}
+                {t('deposit:unlockable')} {`${unlockedData.minimumUnlockAmount} USDT `}
+                <span
+                  className="text-color-primary cursor-pointer hover:underline"
+                  onClick={() => handleShowModalDetail()}
                 >
-                  {t('deposit:claim')}
+                  {t('deposit:viewDetails')}
+                </span>
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <div
+                  onClick={() => {
+                    onClose();
+                    router.push('/casino');
+                  }}
+                  className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-purple px-[16px] justify-center text-white font-bold text-[14px]"
+                >
+                  {t('deposit:goToCasino')}
                 </div>
-                <div className="text-[10px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-white text-color-light-text-primary">
-                  <p>{t('deposit:mintoclaim')}:</p> &nbsp;
-                  <p className="text-white">{unlockedData.minimumUnlockAmount} USDT</p>
+                <div
+                  onClick={() => {
+                    onClose();
+                    router.push('/sports');
+                  }}
+                  className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-default px-[16px] justify-center text-white font-bold text-[14px]"
+                >
+                  {t('deposit:goToSports')}
                 </div>
               </div>
             </div>
-          </div>
-          <div className="h-[48px] mt-2 mb-5 px-6 py-[6px] dark:bg-[#24272B] bg-[#f5f6fa] rounded-[5px] flex items-center justify-between">
-            <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1">
-              <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
-            </div>
-            <div className="h-full items-center flex flex-col justify-center">
-              <div className="dark:text-white text-black">
-                {`${currencyFormat1(lockedAmount.balance, cryptoLen, '', false)} USDT`}
-              </div>
-              {viewInFiat && (
-                <div className="text-[10px]">
-                  {currencyFormat1(lockedAmount.balanceUsd * exchangeRate, fiatLen, localFiat?.name ?? 'USD')}
-                </div>
-              )}
+            <div
+              className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-[#f5f6fa] min-w-[131px] max-w-fit m-auto dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
+              onClick={() => handleClickModalHistory()}
+            >
+              USDT {t('deposit:bonusHistory')}
+              <ArrowRight2 size={12} />
             </div>
           </div>
-          <div className="text-[14px] font-bold text-center">{t('deposit:howClaim')}</div>
-          <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
-            <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
-            <p className="mt-[14px] mb-[28px]">
-              {t('deposit:youStillNeed')} {`${currencyFormat1(requiredWagerAmount, cryptoLen, '', false)} USDT`}{' '}
-              {t('deposit:unlockable')} {`${unlockedData.minimumUnlockAmount} USDT `}
-              <span
-                className="text-color-primary cursor-pointer hover:underline"
-                onClick={() => handleShowModalDetail()}
-              >
-                {t('deposit:viewDetails')}
-              </span>
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <div
-                onClick={() => {
-                  onClose();
-                  router.push('/casino');
-                }}
-                className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-purple px-[16px] justify-center text-white font-bold text-[14px]"
-              >
-                {t('deposit:goToCasino')}
-              </div>
-              <div
-                onClick={() => {
-                  onClose();
-                  router.push('/sports');
-                }}
-                className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-default px-[16px] justify-center text-white font-bold text-[14px]"
-              >
-                {t('deposit:goToSports')}
-              </div>
-            </div>
-          </div>
-          <div
-            className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-[#f5f6fa] min-w-[131px] max-w-fit m-auto dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
-            onClick={() => handleClickModalHistory()}
-          >
-            USDT {t('deposit:bonusHistory')}
-            <ArrowRight2 size={12} />
-          </div>
-        </div>
+        </>
       </CommonModal>
     </>
   );
