@@ -67,7 +67,6 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -81,6 +80,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
         }
       >
         <form onSubmit={handleSubmit(submitForm)} className="flex flex-col items-center">
+          {isLoading && <Loader />}
           <div className="flex sm:flex-row flex-col items-center gap-[20px] justify-between w-full ">
             <Controller
               control={control}

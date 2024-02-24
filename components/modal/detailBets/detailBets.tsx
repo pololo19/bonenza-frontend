@@ -71,7 +71,6 @@ export default function ModalDetailBets({
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -85,6 +84,7 @@ export default function ModalDetailBets({
         }
       >
         <div className="dark:bg-[url('/img/bg-detail-bets.png')] bg-[url('/img/img-detail-bets-light.png')] bg-no-repeat bg-containt  min-h-[516px] h-full bg-cover pt-[16px] px-[16px]">
+          {isLoading && <Loader />}
           <div className="dark:bg-[url('/img/img-detail-bets.png')] bg-[length:100%_100%] pt-[8px] pb-[12px]">
             <div className="px-[16px]">
               <div className="flex items-center justify-center">

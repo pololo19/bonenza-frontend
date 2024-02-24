@@ -156,7 +156,6 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -176,6 +175,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
         }
       >
         <div className="flex max-sm:flex-1 flex-col gap-3 overflow-y-auto px-[20px] pt-[10px] pb-[30px] bg-white dark:bg-color-header-primary">
+          {isLoading && <Loader />}
           {rankList.map((item, index) => (
             <div key={index}>
               <Disclosure defaultOpen={item.name === levelCurrent.name}>

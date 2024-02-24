@@ -78,9 +78,9 @@ export default function CommentPostModal({
   };
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal show={show} onClose={onClose} panelClass="sm:!max-w-[530px] sm:my-0 ">
         <div className="flex flex-col p-[20px] gap-[20px] mt-[40px] ">
+          {isLoading && <Loader />}
           <div className="flex gap-[10px]">
             <Image
               height={45}
