@@ -368,7 +368,6 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -376,6 +375,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
         header={returnHeader()}
       >
         <>
+          {isLoading && <Loader />}
           <Statistic
             userData={user}
             isShow={isStatistic}

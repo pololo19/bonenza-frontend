@@ -98,7 +98,6 @@ export default function ModalCropAvatar({ show, onClose }: ModalCropAvatarProps)
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -113,6 +112,7 @@ export default function ModalCropAvatar({ show, onClose }: ModalCropAvatarProps)
         }
       >
         <div className="flex-1 p-[20px] bg-[#161D26]">
+          {isLoading && <Loader />}
           <div className="relative h-[300px] w-auto">
             <Cropper
               image={selectedAvatar}

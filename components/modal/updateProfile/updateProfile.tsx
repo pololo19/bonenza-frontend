@@ -99,7 +99,6 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -114,6 +113,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
         }
       >
         <div className="flex-1 flex gap-[10px] justify-center sm:items-center items-start p-[20px] bg-color-light-bg-primary dark:bg-color-modal-bg-primary">
+          {isLoading && <Loader />}
           <div className="flex flex-col items-center gap-[10px] w-full">
             <div className="relative flex flex-col items-center gap-[10px] w-full">
               <div className="h-[150px] w-[150px] rounded-full overflow-hidden">
