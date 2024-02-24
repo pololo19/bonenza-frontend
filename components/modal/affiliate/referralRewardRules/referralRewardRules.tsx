@@ -125,7 +125,11 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
                 <thead className="text-xs text-[#94a9bf] bg-[#1e2024]">
                   <tr>
                     {titleColumn.map((item, index) => (
-                      <th scope="col" key={index} className="px-3 py-3">
+                      <th 
+                        scope="col"
+                        key={index}
+                        className={`px-3 py-3 ${index === 2 ? 'text-right' : index === 1 ? 'text-center' : ''}`}
+                      >
                         {item}
                       </th>
                     ))}
@@ -144,8 +148,8 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
                       <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {item.friendLevel}
                       </th>
-                      <td className="px-6 py-4">{item.totalWager}</td>
-                      <td className="px-6 py-4 font-bold text-[#ffbf39] flex">
+                      <td className="px-6 py-4 min-w-[180px] text-center">{item.totalWager}</td>
+                      <td className="px-6 py-4 font-bold text-[#ffbf39] flex justify-between">
                         <span className="w-5 h-5 bg-[#ffbf39] text-[#17191b] rounded-full flex items-center justify-center">
                           $
                         </span>
