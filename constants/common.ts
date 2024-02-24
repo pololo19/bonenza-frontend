@@ -864,10 +864,10 @@ export enum TOAST_ENUM {
 }
 
 export enum KYC_ENUM {
-  REQUIRED = 0,
-  REJECT = -1,
-  PENDING = 1,
-  APPROVE = 2,
+  REQUIRED = 1,
+  REJECT = 4,
+  PENDING = 2,
+  APPROVE = 3,
 }
 
 export const LIST_NETWORK_USDT = ['BEP20', 'ERC20'];
