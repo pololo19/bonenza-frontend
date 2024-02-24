@@ -104,50 +104,52 @@ export default function RewardDropdown() {
                     static
                     className="mr-0 right-0 sm:absolute fixed sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[57px]"
                   >
-                    <div className="gap-[10px] px-[20px] flex flex-col relative rounded-md p-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
+                    <div className="px-[20px] flex flex-col gap-[10px] relative rounded-md py-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
                       <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">
                         {t('bonus:bonusReady')}
                       </div>
-                      {bonuses.map((bonus, index) => (
-                        <div
-                          className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary"
-                          key={index}
-                        >
-                          <div className="flex gap-[10px]">
-                            <div className="flex flex-col justify-center items-center">
-                              <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />
-                            </div>
+                      <div className="max-h-[calc(100vh-300px)] overflow-auto flex flex-col gap-[10px]">
+                        {bonuses.map((bonus, index) => (
+                          <div
+                            className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary"
+                            key={index}
+                          >
+                            <div className="flex gap-[10px]">
+                              <div className="flex flex-col justify-center items-center">
+                                <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />
+                              </div>
 
-                            <div className="flex flex-col gap-[5px]">
-                              <p className="text-[14px] dark:text-white text-color-light-text-primary">
-                                {bonus.type === 'level_up' && t('bonus:levelUpRewards')}
-                              </p>
-                              <div className="flex text-[12px] text-color-text-primary gap-[5px] items-center">
-                                {!viewInFiat && (
-                                  <Image
-                                    width={12}
-                                    height={12}
-                                    src="/img/fiats/USDT.png"
-                                    className="w-[12px] h-[12px]"
-                                    alt=""
-                                  />
-                                )}
-                                {viewInFiat
-                                  ? currencyFormat1(bonus.amountUsd * exchangeRate, 4, localFiat?.name)
-                                  : currencyFormat1(bonus.amount, 4, '', false)}
+                              <div className="flex flex-col gap-[5px]">
+                                <p className="text-[14px] dark:text-white text-color-light-text-primary">
+                                  {bonus.type === 'level_up' && t('bonus:levelUpRewards')}
+                                </p>
+                                <div className="flex text-[12px] text-color-text-primary gap-[5px] items-center">
+                                  {!viewInFiat && (
+                                    <Image
+                                      width={12}
+                                      height={12}
+                                      src="/img/fiats/USDT.png"
+                                      className="w-[12px] h-[12px]"
+                                      alt=""
+                                    />
+                                  )}
+                                  {viewInFiat
+                                    ? currencyFormat1(bonus.amountUsd * exchangeRate, 4, localFiat?.name)
+                                    : currencyFormat1(bonus.amount, 4, '', false)}
+                                </div>
                               </div>
                             </div>
+                            <div className="py-[2px]">
+                              <button
+                                className="bg-gradient-btn-default px-[30px] h-full text-white rounded-[3px]"
+                                onClick={() => handleClaim(bonus)}
+                              >
+                                {t('deposit:claim')}
+                              </button>
+                            </div>
                           </div>
-                          <div className="py-[2px]">
-                            <button
-                              className="bg-gradient-btn-default px-[30px] h-full text-white rounded-[3px]"
-                              onClick={() => handleClaim(bonus)}
-                            >
-                              {t('deposit:claim')}
-                            </button>
-                          </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                       <Link href={ROUTER.Bonus}>
                         <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary justify-center">
                           {t('bonus:bonusDashboard')}

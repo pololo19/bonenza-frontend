@@ -24,7 +24,7 @@ const initialUser: UserDetail = {
   winCount: '',
   totalWager: 0,
   referralCode: '',
-  isKyc: KYC_ENUM.REQUIRED,
+  isKyc: KYC_ENUM.REQUIRED, // 1: required, 2: pending, 3: accepted, 4: rejected
   tfa: false,
   generalSetting: {
     settingShowFullNameCrypto: false,

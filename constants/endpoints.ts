@@ -44,6 +44,7 @@ const API_USER_SETTING_EMAIL_AND_PHONE_VERIFY = '/user-setting/get-email-and-pho
 const API_USER_SETTING_UPDATE = '/user-setting/edit-setting';
 const API_USER_SETTING_ENABLE_TFA = '/user-setting/confirm-qr-code';
 const API_USER_SETTING_DISABLE_TFA = '/user-setting/disable-two-factor-authentication';
+const API_USER_SETTING_UPLOAD_ID_CARD = '/user-setting/upload-id-cards';
 
 /************************************ User Session **********************************/
 const API_USER_SESSION_LIST_SESSIONS = '/user-session/get-list-user-session';
@@ -85,6 +86,7 @@ const API_GAME_PLAY = '/game/play';
 const API_GAME_ROLLBACK = '/game/rollback';
 
 const API_GAME_BET_HISTORY = '/game/get-latest-bets';
+const API_GAME_HIGH_ROLLERs = '/game/high-rolloers';
 const API_GAME_BET_HISTORY_FOR_GAME = '/game/get-latest-bets-for-game';
 const API_GAME_BET_HISTORY_FOR_USER = '/game/get-latest-bets-for-user-game';
 const API_GAME_RECENT_BIG_WINS = '/game/get-recent-big-wins';
@@ -177,6 +179,7 @@ export {
   API_GAME_GAMES_BY_PROVIDER,
   API_GAME_GAMES_BY_THEME,
   API_GAME_GET_FAVORITE,
+  API_GAME_HIGH_ROLLERs,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
@@ -212,6 +215,7 @@ export {
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
+  API_USER_SETTING_UPLOAD_ID_CARD,
   API_VIP_CHECK_DEPOSIT,
   API_VIP_LEVEL_SYSTEM,
   API_VIP_VIP_PROGRESS,
