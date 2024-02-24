@@ -50,7 +50,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
       const _res = await api_uploadIdCards(formData);
       dispatch(
         saveUserInfo({
-          ...convertUserInfo(_res.data.data),
+          ...convertUserInfo(_res.data),
         }),
       );
       onClose();
