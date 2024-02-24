@@ -103,9 +103,17 @@ const HighRollerTableComponent = () => {
     const columnsDefault: ColumnDef<any>[] = [
       {
         accessorKey: 'betId',
-        header: () => <div className="text-left dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:game')}</div>,
+        header: () => (
+          <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:game')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className={cn('flex items-center dark:text-[#98A7B5] text-[#31373D] justify-start gap-[5px] truncate')}>
+          <div
+            className={cn(
+              'flex items-center dark:text-color-text-primary text-color-light-text-primary justify-start gap-[5px] truncate',
+            )}
+          >
             <Image
               height={25}
               width={25}
@@ -119,7 +127,11 @@ const HighRollerTableComponent = () => {
       },
       {
         accessorKey: 'player',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:player')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:player')}
+          </div>
+        ),
         cell: ({ row }) => (
           <div
             className={`${
@@ -128,7 +140,7 @@ const HighRollerTableComponent = () => {
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && row.original.isHideNamePublicList ? (
-              <div className="dark:text-[#98A7B5] text-[#31373d]">{t('homePage:hidden')}</div>
+              <div className="dark:text-color-text-primary text-color-light-text-primary">{t('homePage:hidden')}</div>
             ) : (
               <div className="dark:text-white text-black">{row.original.player}</div>
             )}
@@ -137,11 +149,15 @@ const HighRollerTableComponent = () => {
       },
       {
         accessorKey: 'betAmount',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:betAmount')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:betAmount')}
+          </div>
+        ),
         cell: ({ row }) => (
           <>
             {row.original.betAmount !== null && (
-              <div className="flex items-center dark:text-[#98A7B5] text-[#31373D] justify-center gap-[5px] truncate">
+              <div className="flex items-center dark:text-color-text-primary text-color-light-text-primary justify-center gap-[5px] truncate">
                 <div className="font-bold truncate">
                   {localeFiat
                     ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
@@ -170,18 +186,30 @@ const HighRollerTableComponent = () => {
       },
       {
         accessorKey: 'payout',
-        header: () => <div className="text-center dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:multiplier')}</div>,
+        header: () => (
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:multiplier')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-[#98A7B5] text-[#31373D] truncate font-bold text-center">{row.original.payout}</div>
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate font-bold text-center">
+            {row.original.payout}
+          </div>
         ),
       },
       {
         accessorKey: 'profit',
         header: () => (
-          <div className="text-right dark:text-[#98A7B5] text-[#31373D]">{t('gameTable:profitAmount')}</div>
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary">
+            {t('gameTable:profitAmount')}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className={cn('flex items-center dark:text-[#98A7B5] text-[#31373D] justify-end gap-[5px]')}>
+          <div
+            className={cn(
+              'flex items-center dark:text-color-text-primary text-color-light-text-primary justify-end gap-[5px]',
+            )}
+          >
             <div
               className={cn('font-bold text-end truncate', {
                 'text-green-500': row.original.profit >= 0,
@@ -265,13 +293,13 @@ const HighRollerTableComponent = () => {
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-[10px] dark:text-[#FFFFFF] text-[#31373D] font-bold mr-[6px]">
+              <div className="text-[10px] dark:text-[#FFFFFF] text-color-light-text-primary font-bold mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (
-                <ArrowDown2 size={12} className="dark:text-white text-[#31373D]" />
+                <ArrowDown2 size={12} className="dark:text-white text-color-light-text-primary" />
               ) : (
-                <ArrowUp2 size={12} className="text-white text-[#31373D]" />
+                <ArrowUp2 size={12} className="text-white text-color-light-text-primary" />
               )}
             </div>
           </div>
