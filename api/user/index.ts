@@ -13,6 +13,7 @@ import {
   API_USER_SETTING_GENERAL_SETTING,
   API_USER_SETTING_PRIVACY_SETTING,
   API_USER_SETTING_UPDATE,
+  API_USER_SETTING_UPLOAD_ID_CARD,
 } from 'constants/endpoints';
 
 import { UserSettingGeneralType, UserSettingPrivacyType, UserSettingVerifiedType } from '@/base/types/common';
@@ -33,6 +34,10 @@ export const api_uploadAvatar = async (formData: any) => {
       'Content-Type': 'multipart/form-data',
     },
   });
+};
+
+export const api_uploadIdCards = async (formData: any) => {
+  return api.post(API_USER_SETTING_UPLOAD_ID_CARD, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
 };
 
 export const api_getGeneralSetting = async () => {

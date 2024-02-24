@@ -4,15 +4,17 @@ import { Folder2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import api from '@/api/api';
+import { api_uploadIdCards } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
@@ -43,10 +45,9 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
     try {
       setIsLoading(true);
       const formData = new FormData();
-      formData.append('photo_front', data.frontCard);
-      formData.append('photo_back', data.backCard);
-      await api.post('/user-setting/confirm-kyc', formData);
-      const _res = await api.get('auth/get-user-info');
+      formData.append('files', data.frontCard);
+      formData.append('files', data.backCard);
+      const _res = await api_uploadIdCards(formData);
       dispatch(
         saveUserInfo({
           ...convertUserInfo(_res.data.data),
@@ -101,7 +102,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                             height={193.5}
                             src={handleImageUrl(watch('frontCard'))}
                             alt="front"
-                            className="rounded-[5px] h-full w-full object-cover"
+                            className="rounded-default h-full w-full object-cover"
                           />
                         </div>
                       )}
@@ -118,7 +119,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                       <label
                         htmlFor="frontCard"
                         role="button"
-                        className="bg-[#272C33] hover:bg-gray-700 px-[20px] py-[8px] flex items-center text-[12px] gap-[5px] rounded-[5px]"
+                        className="bg-[#272C33] hover:bg-gray-700 px-[20px] py-[8px] flex items-center text-[12px] gap-[5px] rounded-default"
                       >
                         <Folder2 size={14} />
                         {t('setting:chooseFile')}
@@ -153,7 +154,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                             height={193.5}
                             src={handleImageUrl(watch('backCard'))}
                             alt="front"
-                            className="rounded-[5px] h-full w-full object-cover"
+                            className="rounded-default h-full w-full object-cover"
                           />
                         </div>
                       )}
@@ -171,7 +172,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                       <label
                         htmlFor="backCard"
                         role="button"
-                        className="bg-[#272C33] hover:bg-gray-700 px-[20px] py-[8px] flex items-center text-[12px] gap-[5px] rounded-[5px]"
+                        className="bg-[#272C33] hover:bg-gray-700 px-[20px] py-[8px] flex items-center text-[12px] gap-[5px] rounded-default"
                       >
                         <Folder2 size={14} />
                         {t('setting:chooseFile')}
@@ -185,7 +186,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
           <button
             role="button"
             type="submit"
-            className="bg-[#F61B4F] hover:opacity-[0.9] rounded-[5px] text-white text-[12px] sm:text-[14px] px-[30px] py-[10px] m-auto mt-[20px] w-fit"
+            className="bg-gradient-btn-default hover:opacity-[0.9] rounded-default text-white text-[12px] sm:text-[14px] px-[30px] py-[10px] m-auto mt-[20px] w-fit"
           >
             Next
           </button>

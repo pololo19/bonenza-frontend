@@ -41,79 +41,13 @@ const SettingVerify = () => {
     shallowEqual,
   );
 
-  const handleGetAccessTokenFacia = async () => {
-    try {
-      setIsLoading(true);
-      const res = await axios.post('https://app.facia.ai/backend/api/transaction/get-access-token', {
-        email: 'zh@sparklucky.com',
-        password: 'JKRjgr232580!',
-      });
-      setAccessTokenFacia(res.data.result.data.token);
-      console.log('res.data.result.data.token', res.data.result.data.token);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleGetGenerateLivenessURL = async () => {
-    try {
-      setIsLoading(true);
-      const res = await axios.post(
-        'https://app.facia.ai/backend/api/transaction/generate-liveness-url',
-        {
-          redirect_url: 'http://localhost:3000/setting/verify/',
-          callback_url: 'http://localhost:3000/setting/verify/',
-          customer_id: userId,
-          customer_email: email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessTokenFacia}`,
-          },
-        },
-      );
-      setIsLoading(false);
-      setIframeData(res.data.result.data);
-      setModalIsOpen(true);
-    } catch (error) {}
-  };
-
-  const handleGetLivenessStatus = async () => {
-    try {
-      setIsLoading(true);
-      const res = await axios.get(
-        `https://app.facia.ai/backend/api/transaction/liveness-url-status/${iframeData.reference_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessTokenFacia}`,
-          },
-        },
-      );
-      setIsLoading(false);
-      if (res.data.message === 'Success') {
-        setShowVerificationModal(true);
-      }
-    } catch (error) {}
-  };
-
-  useEffect(() => {
-    handleGetAccessTokenFacia();
-  }, []);
-
-  // useEffect(() => {
-  //   if (!showVerificationModal && iframeData.reference_id) {
-  //     handleGetLivenessStatus();
-  //   }
-  // }, [showVerificationModal]);
-
   return (
     <>
       {isLoading && <Loader />}
-      <div className="flex flex-col md:gap-[20px] gap-[10px] text-[#31373d] dark:text-[#C2C2C2] md:mt-0 mt-[30px]">
+      <div className="flex flex-col md:gap-[20px] gap-[10px] text-color-light-text-primary dark:text-[#C2C2C2] md:mt-0 mt-[30px]">
         <div className="text-start border-b border-solid border-gray-600 pb-2">
           <div className="dark:text-white text-black font-[500] mb-1">{t('setting:verifySetup')}</div>
-          <div className="dark:text-[#98A7B5] text-gray-500 text-[14px] font-[300]">
+          <div className="dark:text-color-text-primary text-gray-500 text-[14px] font-[300]">
             {t('setting:toServeYouBetter')}
           </div>
         </div>
@@ -122,12 +56,12 @@ const SettingVerify = () => {
           <div className="dark:text-red-500 text-red-500">{t('setting:verificationRejected')}</div>
         )}
 
-        <div className="flex sm:flex-row flex-col items-start gap-[20px] text-[#98A7B5]">
+        <div className="flex sm:flex-row flex-col items-start gap-[20px] text-color-text-primary">
           <div className="bg-cover bg-no-repeat dark:bg-[url('/img/verification_card.png')] bg-[url('/img/light_verification_card.png')] rounded-lg flex flex-col items-center flex-1 p-[20px] gap-[12px] w-full">
             {(isKyc === KYC_ENUM.REQUIRED || isKyc === KYC_ENUM.REJECT) && (
               <>
                 <div className="dark:text-white text-black">{t('setting:basicVerification')}</div>
-                <div className="flex flex-col items-start justify-start w-full gap-[10px] font-[300] text-[14px] dark:text-[#98A7B5] text-gray-500 ">
+                <div className="flex flex-col items-start justify-start w-full gap-[10px] font-[300] text-[14px] dark:text-color-text-primary text-gray-500 ">
                   <div className="flex items-center gap-2">
                     <Edit size={16} />
                     {t('setting:personalInformation')}
@@ -142,8 +76,10 @@ const SettingVerify = () => {
                   </div>
                 </div>
                 <button
-                  className={cn('bg-primary w-full p-2 rounded-lg dark:text-white text-black text-[14px] mt-2')}
-                  onClick={handleGetGenerateLivenessURL}
+                  className={cn(
+                    'bg-color-primary w-full p-2 rounded-default dark:text-white text-black text-[14px] mt-2',
+                  )}
+                  onClick={() => setShowVerificationModal(true)}
                 >
                   {t('setting:verifyNow')}
                 </button>
@@ -171,7 +107,7 @@ const SettingVerify = () => {
       {showVerificationModal && (
         <ModalVerificationUploadCard show={showVerificationModal} onClose={() => setShowVerificationModal(false)} />
       )}
-      {modalIsOpen && (
+      {/* {modalIsOpen && (
         <CommonModal
           show={modalIsOpen}
           onClose={() => {
@@ -187,7 +123,7 @@ const SettingVerify = () => {
             allow="camera;microphone"
           />
         </CommonModal>
-      )}
+      )} */}
     </>
   );
 };
