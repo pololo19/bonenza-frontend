@@ -11,6 +11,7 @@ import {
   API_GAME_GAMES_BY_PROVIDER,
   API_GAME_GAMES_BY_THEME,
   API_GAME_GET_FAVORITE,
+  API_GAME_HIGH_ROLLERs,
   API_GAME_HOT_GAMES,
   API_GAME_LIVE_CASINO,
   API_GAME_NEW_RELEASE,
@@ -203,4 +204,8 @@ export const api_reviewList = async (
 
 export const api_reviewLike = async (commentId: string) => {
   return api.post(API_GAME_REVIEW_LIKE, { commentId });
+};
+
+export const api_highRollers = async () => {
+  return api.get(API_GAME_HIGH_ROLLERs);
 };
