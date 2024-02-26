@@ -90,7 +90,7 @@ const WagerContestComponent = () => {
   };
 
   const [timeCoundown, setTimeCount] = useState(formatDate(getNextDay(), 'LL/dd/yyyy'));
-  const { days, hours, minutes, seconds } = useCountdown(timeCoundown);
+  const [days, hours, minutes, seconds] = useCountdown(timeCoundown);
 
   const getRank = (rank: number) => {
     let rankReturn = '';
