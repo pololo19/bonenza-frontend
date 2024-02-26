@@ -21,6 +21,21 @@ const cryptoDecimals = 8;
 const fiatDecimals = 2;
 
 const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => {
+  const [newBetData, setNewBetData] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+  });
   const [myBetData, setMyBetData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
@@ -63,7 +78,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       setMyBetData([]);
       if (!gameDetail) return;
       const res = await api_getLatestBetForUser(gameDetail.id);
-      const tempBetData = res.data.map((item: any) => ({
+      const tempBetDatas = res.data.map((item: any) => ({
         game: item.gameName ?? '',
         gameIdenfiter: item.gameIdentifier ?? '',
         player: item.playerName || '',
@@ -78,7 +93,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         betId: item.id ?? '',
         time: item.time ?? new Date(),
       }));
-      setMyBetData(tempBetData);
+      setMyBetData(tempBetDatas);
     } catch (error) {
       setMyBetData([]);
     } finally {
@@ -189,7 +204,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profitAmount > 0 ? '' : '-'}
+              {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
                     Math.abs(row.original.profitAmountUsd * exchangeRate),
@@ -251,7 +266,8 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           betId: data.id ?? '',
           time: data.time ?? new Date(),
         };
-        setMyBetData((prev) => [tempData, ...prev]);
+        setNewBetData(tempData);
+        // setMyBetData((prev) => [tempData, ...prev]);
       });
     }
 
@@ -261,6 +277,24 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       }
     };
   }, [userId, gameDetail, gameSocket]);
+
+  useEffect(() => {
+    if (newBetData.betId) {
+      let preBetDatas = [...myBetData];
+      if (preBetDatas.findIndex((item) => item.betId === newBetData.betId) !== -1) {
+        const upBetDatas = preBetDatas.map((item) => {
+          if (item.betId === newBetData.betId) {
+            return { ...newBetData };
+          } else {
+            return { ...item };
+          }
+        });
+        setMyBetData(upBetDatas);
+      } else {
+        setMyBetData((prev) => [newBetData, ...prev]);
+      }
+    }
+  }, [newBetData]);
 
   return (
     <>
