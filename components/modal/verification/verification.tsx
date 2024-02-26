@@ -24,9 +24,9 @@ export default function ModalVerification({ show, onClose }: ModalVerificationPr
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal show={show} onClose={onClose} panelClass="rounded sm:max-w-[512px]">
         <div className="flex-1 flex flex-col gap-[10px] justify-center items-start px-[80px] my-[20px]">
+          {isLoading && <Loader />}
           <div className="dark:text-white font-semibold text-center">{t('profile:selectType')}</div>
           <div className="w-full">
             <label className="text-[12px] font-[300] text-[#939699] mb-2 required">{t('profile:issuingCountry')}</label>

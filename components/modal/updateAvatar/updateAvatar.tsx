@@ -129,7 +129,6 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -144,6 +143,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         }
       >
         <div className="flex-1 p-[20px] bg-[#f5f6fa] dark:bg-color-modal-bg-primary flex flex-col gap-[20px]">
+          {isLoading && <Loader />}
           <div className="flex flex-col gap-[20px]">
             <div className="relative h-[300px] w-auto ">
               <Cropper

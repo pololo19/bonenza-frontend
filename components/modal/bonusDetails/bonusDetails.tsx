@@ -220,7 +220,6 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -232,6 +231,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         }
       >
         <div className="flex flex-col dark:text-color-text-primary text-[#3137d] overflow-y-auto px-[20px] p-5 bg-[#f6f7fa] dark:bg-[#24262B]">
+          {isLoading && <Loader />}
           <div className="">
             <div className="dark:text-white text-black text-[16px] mb-3">{t('bonus:bonusCategories')}</div>
             <div className="grid grid-cols-2 sm:grid-cols-5 p-4 pt-0 bg-[#2D3035]">

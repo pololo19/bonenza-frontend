@@ -72,9 +72,9 @@ export default function ModalDepositMetamask({ show, onClose, walletAddress }: M
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal isStatic show={show} onClose={onClose} panelClass="rounded sm:max-w-[420px]">
         <form className="flex-1 p-[20px]" onSubmit={handleSubmit(handleSubmitMetamask)}>
+          {isLoading && <Loader />}
           <div className="flex items-center gap-[10px] mb-[20px]">
             <Image src={'img/icon/MetaMask.png'} alt="bnb" width={40} height={40} />
             <div className="text-[14px] dark:text-gray-300 text-gray-500">

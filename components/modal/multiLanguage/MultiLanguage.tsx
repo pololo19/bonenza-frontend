@@ -79,7 +79,6 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
 
   return (
     <>
-      {isLoading && <Loader />}
       <CommonModal
         show={show}
         onClose={onClose}
@@ -116,6 +115,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
         }
       >
         <div className="overflow-y-auto dark:text-white text-black">
+          {isLoading && <Loader />}
           <div>
             <div className="p-5 py-5 border overflow-y-auto">
               <div

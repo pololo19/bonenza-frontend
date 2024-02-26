@@ -43,19 +43,19 @@ export default function ModalEnterCodeSecurity({ show, onClose, value, onChange,
   };
 
   return (
-    <>
-      {isLoading && <Loader />}
-      <CommonModal
-        show={show}
-        onClose={onClose}
-        isShowCloseButton={false}
-        panelClass="sm:!max-w-[400px]"
-        header={
-          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-[#25262B] bg-white">
-            <div className="text-[16px] dark:text-white text-black font-[600]"></div>
-          </div>
-        }
-      >
+    <CommonModal
+      show={show}
+      onClose={onClose}
+      isShowCloseButton={false}
+      panelClass="sm:!max-w-[400px]"
+      header={
+        <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-[#25262B] bg-white">
+          <div className="text-[16px] dark:text-white text-black font-[600]"></div>
+        </div>
+      }
+    >
+      <>
+        {isLoading && <Loader />}
         {forgotKey ? (
           <div className="dark:bg-[#25262B] bg-white text-[16px]">
             <div className="flex items-center justify-center h-[140px] dark:text-[#98A7b5] text-[#31373d] px-4">
@@ -106,7 +106,7 @@ export default function ModalEnterCodeSecurity({ show, onClose, value, onChange,
             </div>
           </div>
         )}
-      </CommonModal>
-    </>
+      </>
+    </CommonModal>
   );
 }
