@@ -189,7 +189,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profitAmount > 0 ? '' : '-'}
+              {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
                     Math.abs(row.original.profitAmountUsd * exchangeRate),
