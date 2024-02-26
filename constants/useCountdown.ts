@@ -1,19 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const useCountdown = (targetDate: number | string | Date) => {
+  const intervalId = useRef<any>();
   const countDownDate = new Date(targetDate).getTime();
 
   const [countDown, setCountDown] = useState(countDownDate - new Date().getTime());
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    intervalId.current = setInterval(() => {
       setCountDown(countDownDate - new Date().getTime());
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalId.current);
   }, [countDownDate]);
 
-  return getReturnValues(countDown);
+  return [...getReturnValues(countDown)];
 };
 
 const getReturnValues = (countDown: number) => {

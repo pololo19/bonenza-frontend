@@ -26,6 +26,7 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 
 type ContesterType = {
   playerId: string;
@@ -122,7 +123,7 @@ const WagerContestComponent = () => {
       ]);
       const tempContestData: WagerContestType = {
         currentTime: Number(wagerContestList?.data.currentTime * 1000 ?? 0),
-        endTime: Number(wagerContestList?.data.endTime * 1000 ?? 0),
+        endTime: Number(wagerContestList?.data.lastContentEndTime * 1000 ?? 0),
         totalPrizePoolAmountUsd: Number(wagerContestList?.data.totalPrizePoolAmountUsd ?? 0),
         contesters: wagerContestList?.data?.contesters?.map((item: any) => ({
           playerId: item?.playerId ?? '',
@@ -148,8 +149,10 @@ const WagerContestComponent = () => {
 
       const timeCnt = wagerContestList.data.endTime - wagerContestList.data.currentTime;
       const currentDate = new Date();
+      const updatedValue = currentDate.getTime() + timeCnt * 1000;
       currentDate.setTime(currentDate.getTime() + timeCnt * 1000);
-      setTimeCount(formatDate(currentDate, 'LL/dd/yyyy'));
+      setTimeCount(formatDate(currentDate, DATE_TIME_SUBMIT_FORMAT_WITH_SECOND));
+      // reset(updatedValue);
       setWagerContestData(tempContestData);
     } catch (error) {
       setWagerContestData({
@@ -375,19 +378,19 @@ const WagerContestComponent = () => {
               <div
                 className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
               >
-                <p className="font-bold text-[18px] dark:text-white text-[#000]">{hours}</p>
+                <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(hours)}</p>
                 <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
               </div>
               <div
                 className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
               >
-                <p className="font-bold text-[18px] dark:text-white text-[#000]">{minutes}</p>
+                <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(minutes)}</p>
                 <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
               </div>
               <div
                 className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
               >
-                <p className="font-bold text-[18px] dark:text-white text-[#000]">{seconds}</p>
+                <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(seconds)}</p>
                 <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
               </div>
             </div>
@@ -570,7 +573,6 @@ const WagerContestComponent = () => {
           className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-color-light-bg-primary mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
           onClick={() => {
             if (isLogin) {
-              console.log('00000573');
               dispatch(changeIsShowWagerContestHistory(true));
             } else {
               dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
