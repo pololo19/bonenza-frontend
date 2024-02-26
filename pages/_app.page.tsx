@@ -79,15 +79,14 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
     }
   };
 
-  const handleAuthenticationWeb = () => {
-    const auth = CookiesStorage.getCookieData(CookieKey.auth);
-    if (!auth || auth !== AUTH_KEY) {
-      router.push('/auth');
-    }
-  };
+  // const handleAuthenticationWeb = () => {
+  //   const auth = CookiesStorage.getCookieData(CookieKey.auth);
+  //   if (!auth || auth !== AUTH_KEY) {
+  //     router.push('/auth');
+  //   }
+  // };
 
   useEffect(() => {
-    handleAuthenticationWeb();
     handleLang();
   }, []);
 

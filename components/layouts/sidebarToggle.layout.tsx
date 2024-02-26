@@ -497,7 +497,7 @@ export default function SidebarToggle() {
               >
                 {item.smallIcon}
               </Link>
-              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
+              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={index}>
                 <div>
                   <p className="text-white">{item.title}</p>
                 </div>

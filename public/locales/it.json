@@ -383,6 +383,8 @@
     "deposit": "Depositare",
     "withdraw": "Ritirare",
     "swap": "Scambio",
+    "bill": "fattura",
+    "bonus": "BONUS",
     "buyCrypto": "Acquista criptovalute",
     "past60Days": "Ultimi 60 giorni",
     "past24Hours": "Ultime 24 ore",
