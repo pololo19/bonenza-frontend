@@ -2,16 +2,16 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType } from 'react';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
 import { copyClipBoard, currencyFormat, currencyFormat1 } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
-import { useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
-import { useExchange } from '@/base/hooks/useExchange';
 
 type ModalProfileProps = {
   onClose: () => void;

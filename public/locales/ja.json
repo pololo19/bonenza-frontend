@@ -383,6 +383,8 @@
     "deposit": "デポジット",
     "withdraw": "撤回する",
     "swap": "スワップ",
+    "bill": "請求書",
+    "bonus": "ボーナス",
     "buyCrypto": "仮想通貨を購入する",
     "past60Days": "過去60日間",
     "past24Hours": "過去 24 時間",

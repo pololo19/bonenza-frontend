@@ -703,7 +703,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       </div>
 
       {/* Modal */}
-      <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />
+      {isShowInformation && (
+        <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />
+      )}
+
       {isShowReferAndEarn && (
         <ModalReferAndEarn show={isShowReferAndEarn} onClose={() => dispatch(changeIsShowReferAndEarn(false))} />
       )}

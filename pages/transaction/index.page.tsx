@@ -707,7 +707,7 @@ const TransactionPage = () => {
 
   const getSymbolNameById = (symbolId: string) => {
     const symbol = cryptoSymbols.find((item) => item.id === symbolId);
-    return symbol ? symbol.name : 'All Assets';
+    return symbol ? symbol.name : t('transaction:allAssets');
   };
 
   const handleClickRow = (row: Row<any>) => {
