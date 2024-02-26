@@ -272,7 +272,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     ></div>
                   </div>
                   <div className="text-[14px] text-white">
-                    {vipData.remainingXp} XP {t('vipClub:until')} {vipData.nextName}
+                    {vipData.remainingXp.toFixed(3)} XP {t('vipClub:until')} {vipData.nextName}
                   </div>
                 </div>
               </div>
