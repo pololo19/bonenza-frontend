@@ -300,13 +300,21 @@ const TransactionPage = () => {
           <div
             className={cn('flex items-center justify-center gap-1', {
               'text-color-red':
-                row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw',
+                row.original?.type?.toLowerCase() == 'bet' ||
+                row.original.type.toLowerCase() === 'withdraw' ||
+                row.original.type.toLocaleLowerCase() === 'swap send',
               'text-color-primary': !(
-                row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw'
+                row.original?.type?.toLowerCase() == 'bet' ||
+                row.original.type.toLowerCase() === 'withdraw' ||
+                row.original.type.toLocaleLowerCase() === 'swap send'
               ),
             })}
           >
-            {row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw' ? '-' : ''}
+            {row.original?.type?.toLowerCase() == 'bet' ||
+            row.original.type.toLowerCase() === 'withdraw' ||
+            row.original.type.toLocaleLowerCase() === 'swap send'
+              ? '-'
+              : ''}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
             ) : (
