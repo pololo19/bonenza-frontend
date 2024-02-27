@@ -1,6 +1,7 @@
 import { Popover, Transition } from '@headlessui/react';
 import { ChevronDownIcon, StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
+import { HambergerMenu, Happyemoji, Like1, Messages } from 'iconsax-react';
 import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -317,37 +318,32 @@ const GameReviewComponent = ({
             className="max-w-[90px] object-cover max-h-auto rounded-[5px]"
           />
           <div>
-            <h2 className="text-[22px] font-semibold dark:text-white text-black mb-3">
-              {gameDetail?.title}
-            </h2>
+            <h2 className="text-[22px] font-semibold dark:text-white text-black mb-3">{gameDetail?.title}</h2>
             <p className="text-[16px]">
               {t('gameDetail:by')} <span className="dark:text-white text-black">{gameDetail?.provider}</span>
             </p>
             {gameDetail?.releasedAt && (
               <p className="mt-2 dark:text-color-text-primary text-color-light-text-primary text-[16px]">
-                {t('gameDetail:release')}: {formatDate(new Date(gameDetail?.releasedAt),"MM/dd/yyyy" )}
+                {t('gameDetail:release')}: {formatDate(new Date(gameDetail?.releasedAt), 'MM/dd/yyyy')}
               </p>
             )}
           </div>
         </div>
-        <div 
-          className={cn(
-            'mt-4 overflow-hidden transition-all ease-in duration-[300]',
-            {
-              'max-h-0': !isShowMoreAboutGame,
-              'max-h-[3000px]': isShowMoreAboutGame,
-            }
-          )}
+        <div
+          className={cn('mt-4 overflow-hidden transition-all ease-in duration-[300]', {
+            'max-h-0': !isShowMoreAboutGame,
+            'max-h-[3000px]': isShowMoreAboutGame,
+          })}
         >
           <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-4 border-solid border-b-[1px] border-b-color-light-text-primary pb-8">
             <div className="min-h-[150px]">
               <span className="dark:text-color-text-primary text-color-light-text-primary text-[18px]">
-              {t('gameDetail:gamePreview')}
+                {t('gameDetail:gamePreview')}
               </span>
             </div>
             <div>
               <span className="dark:text-color-text-primary  text-color-light-text-primary text-[18px]">
-              {t('gameDetail:gameInfo')}
+                {t('gameDetail:gameInfo')}
               </span>
               <div className="grid sm:grid-cols-1 md:grid-cols-2 pt-4 gap-1">
                 <div className="w-full bg-color-panel-bg-primary p-3 text-[14px] flex justify-between rounded">
@@ -425,17 +421,13 @@ const GameReviewComponent = ({
           <span className="font-bold dark:text-color-primary text-[#f59e0b] text-[14px]">
             {isShowMoreAboutGame ? t('gameDetail:showLess') : t('gameDetail:showMore')}
           </span>
-          <ChevronDownIcon 
-            width={14} 
-            height={14} 
-            className={cn(
-              'dark:text-white text-[#f59e0b] stroke-[3]',
-              'transition-all ease-in duration-200',
-              {
-                'rotate-0': !isShowMoreAboutGame,
-                'rotate-180': isShowMoreAboutGame,
-              }
-            )}
+          <ChevronDownIcon
+            width={14}
+            height={14}
+            className={cn('dark:text-white text-[#f59e0b] stroke-[3]', 'transition-all ease-in duration-200', {
+              'rotate-0': !isShowMoreAboutGame,
+              'rotate-180': isShowMoreAboutGame,
+            })}
           />
         </div>
       </div>
@@ -526,7 +518,7 @@ const GameReviewComponent = ({
             {({ open }) => (
               <>
                 <Popover.Button>
-                  <i className="fi fi-sr-menu-burger w-4 h-4 text-[#929395]"></i>
+                  <HambergerMenu size={18} className={cn('m-auto')} />
                 </Popover.Button>
                 <Transition.Child
                   as={Fragment}
@@ -591,13 +583,20 @@ const GameReviewComponent = ({
             className="w-full cursor-pointer h-full items-start flex flex-col dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary text-sm border-none px-7 focus:outline-none justify-center"
             role="text"
             onClick={() => {
+              if (!isLogin) {
+                dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                dispatch(changeIsShowAuthenticationModal(true));
+                return;
+              }
               setIsShowComment(true);
               setCommentId('');
             }}
           >
             Leave your comment
           </div>
-          <i className="fi fi-rr-smile-beam absolute right-3 text-color-text-primary w-[15px] h-[15px]"></i>
+          <div className="absolute right-3">
+            <Happyemoji size={18} className={cn('m-auto')} />
+          </div>
         </div>
         {commentData.map((comment, index) => (
           <div className="flex flex-col text-xs dark:text-color-text-primary text-color-light-text-primary" key={index}>
@@ -645,17 +644,17 @@ const GameReviewComponent = ({
                   })}
                   onClick={() => handleLikeComment(comment.id)}
                 >
-                  <i className="fi fi-rr-social-network"></i>
+                  <Like1 size={18} className={cn('m-auto')} />
                   {comment.likes > 0 && <span className="ml-[10px]">{comment.likes}</span>}
                 </div>
                 <div
-                  className="cursor-pointer"
+                  className="cursor-pointer flex gap-[5px] items-center justify-center "
                   onClick={() => {
                     setCommentId(comment.id);
                     setIsShowComment(true);
                   }}
                 >
-                  <i className="fi fi-rs-beacon"></i>
+                  <Messages size={18} className={cn('m-auto')} />
                   {comment.comments > 0 && <span className="ml-[10px]">{comment.comments}</span>}
                 </div>
                 <div className="cursor-pointer">
