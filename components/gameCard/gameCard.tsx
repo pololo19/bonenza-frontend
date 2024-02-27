@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import classNames from 'classnames';
 import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +13,6 @@ import { ROUTER } from '@/base/constants/common';
 import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameListType } from '@/base/types/common';
-import classNames from 'classnames';
 
 type GameCardProps = {
   gameDetail: GameListType;
@@ -99,7 +99,9 @@ function GameCard(props: GameCardProps) {
         </div>
         <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
           <span className="font-bold dark:text-gray-300 text-gray-700">Recent biggest win:</span>
-          <span className="font-bold dark:text-gray-300 text-gray-700">{`${gameDetail?.multiplier.toFixed(2) || "0"} x`}</span>
+          <span className="font-bold dark:text-gray-300 text-gray-700">{`${
+            gameDetail?.multiplier.toFixed(2) || '0'
+          } x`}</span>
         </div>
       </Tooltip>
     </div>

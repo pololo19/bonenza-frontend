@@ -13,6 +13,7 @@ import {
   currencyFormat1,
   formatDate,
   getColorByStatus,
+  transformUUID,
   transformWalletAddress,
 } from '@/base/libs/utils';
 import { TransactionType } from '@/base/types/common';
@@ -87,18 +88,22 @@ export default function ModalDetailTransaction({
                 {String(t('transaction:status'))}
               </span>
               <div className="flex gap-2 items-center">
-                <div className={cn(`w-[8px] h-[8px] rounded-full`, {
-                  'bg-[#efef19]': (transaction.status?.toString() || '') === 'processing' || 
-                                    (transaction.status?.toString() || '') === 'pending' || 
-                                    (transaction.status?.toString() || '') === 'refunding' ||
-                                    (transaction.status?.toString() || '') === 'ongoing',
-                  'bg-[#c31414]': (transaction.status?.toString() || '') === 'rejected' ||
-                                    (transaction.status?.toString() || '') === 'failed' ||
-                                    (transaction.status?.toString() || '') === 'not_started',
-                  'bg-[#3BC117]': (transaction.status?.toString() || '') === 'done' ||
-                                    (transaction.status?.toString() || '') === 'all' ||
-                                    (transaction.status?.toString() || '') === 'complete' ||
-                                    (transaction.status?.toString() || '') === 'approved'
+                <div
+                  className={cn(`w-[8px] h-[8px] rounded-full`, {
+                    'bg-color-secondary':
+                      (transaction.status?.toString() || '') === 'processing' ||
+                      (transaction.status?.toString() || '') === 'pending' ||
+                      (transaction.status?.toString() || '') === 'refunding' ||
+                      (transaction.status?.toString() || '') === 'ongoing',
+                    'bg-color-red':
+                      (transaction.status?.toString() || '') === 'rejected' ||
+                      (transaction.status?.toString() || '') === 'failed' ||
+                      (transaction.status?.toString() || '') === 'not_started',
+                    'bg-color-primary':
+                      (transaction.status?.toString() || '') === 'done' ||
+                      (transaction.status?.toString() || '') === 'all' ||
+                      (transaction.status?.toString() || '') === 'complete' ||
+                      (transaction.status?.toString() || '') === 'approved',
                   })}
                 />
                 <div className="dark:text-white text-black">{convertStatus(transaction.status)}</div>
@@ -122,9 +127,7 @@ export default function ModalDetailTransaction({
                 {String(t('transaction:orderId'))}
               </span>
               <div className="flex gap-2 items-center">
-                <span className="text-black dark:text-white text-right">
-                  {transformWalletAddress(transaction?.orderId)}
-                </span>
+                <span className="text-black dark:text-white text-right">{transformUUID(transaction.orderId)}</span>
                 <Simcard2
                   role="button"
                   onClick={() => copyClipBoard(String(transaction?.orderId))}
@@ -180,7 +183,7 @@ export default function ModalDetailTransaction({
                   <div className="flex items-center gap-2">
                     {isProcess ? (
                       <div className="relative z-1 flex items-center justify-center w-[32px] h-[32px]">
-                        <div className="relative bg-[#caca11] rounded-full flex items-center justify-center w-[26px] h-[26px]">
+                        <div className="relative bg-color-secondary rounded-full flex items-center justify-center w-[26px] h-[26px]">
                           <ReactLoading type={'spinningBubbles'} color={'white'} width={20} height={20} />
                         </div>
                       </div>
@@ -201,7 +204,7 @@ export default function ModalDetailTransaction({
                   </div>
                   <div
                     className={`${
-                      isProcess ? 'bg-[#414346]' : 'bg-[#008000]'
+                      isProcess ? 'bg-[#414346]' : 'bg-color-primary'
                     } h-[50%] absolute top-[60px] w-[2px] left-[14px]`}
                   ></div>
                   <div className="flex items-center gap-2">

@@ -176,11 +176,11 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 )}
               </span>
             </div>
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <span className="text-color-light-text-primary dark:text-color-text-primary underline cursor-pointer">
                 {String(t('transaction:cancelBonus'))}
               </span>
-            </div>
+            </div> */}
           </div>
         </div>
       </CommonModal>

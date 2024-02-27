@@ -154,6 +154,11 @@ export const transformWalletAddress = (address: string, dots = 3) => {
   return `${match[1]}${' .'.repeat(dots)} ${match[2]}`;
 };
 
+export const transformUUID = (id: string, dots = 3) => {
+  if (!id) return 'NO Account';
+  return `${id.slice(0, 7)}${' .'.repeat(dots)}${id.slice(-4)}`;
+};
+
 export const getListNetwork = (coin: DepositAddress) => {
   switch (coin.symbol) {
     case 'USDT':

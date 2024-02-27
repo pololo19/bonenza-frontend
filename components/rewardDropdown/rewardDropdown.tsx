@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import { ArrowRight2, Gift } from 'iconsax-react';
+import { ArrowRight2, Gift, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
@@ -9,10 +9,10 @@ import { toast } from 'react-toastify';
 
 import { api_bonusClaim, api_bonusClaimList } from '@/api/bonus';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { API_BONUS_CLAIM } from '@/base/constants/endpoints';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { AppState } from '@/base/redux/store';
+import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 
 type BonusType = {
   id: string;
@@ -24,10 +24,12 @@ type BonusType = {
 export default function RewardDropdown() {
   const exchangeRate = useExchange();
   const { t } = useTranslation();
-  const { viewInFiat, localFiat } = useSelector(
+  const dispatch = useAppDispatch();
+  const { viewInFiat, localFiat, lockedAmount } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
+      lockedAmount: state.wallet.lockedAmount,
     }),
     shallowEqual,
   );
@@ -105,8 +107,18 @@ export default function RewardDropdown() {
                     className="mr-0 right-0 sm:absolute fixed sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[57px]"
                   >
                     <div className="px-[20px] flex flex-col gap-[10px] relative rounded-md py-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
-                      <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">
-                        {t('bonus:bonusReady')}
+                      <div className="flex justify-between">
+                        <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">
+                          {t('bonus:bonusReady')}
+                        </div>
+                        <div className="text-color-secondary text-left  text-[14px]">
+                          <div
+                            className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
+                            onClick={() => dispatch(changeIsShowRakeBack(true))}
+                          >
+                            <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
+                          </div>
+                        </div>
                       </div>
                       <div className="max-h-[calc(100vh-300px)] overflow-auto flex flex-col gap-[10px]">
                         {bonuses.map((bonus, index) => (
@@ -141,7 +153,8 @@ export default function RewardDropdown() {
                             </div>
                             <div className="py-[2px]">
                               <button
-                                className="bg-gradient-btn-default px-[30px] h-full text-white rounded-[3px]"
+                                className="bg-gradient-btn-default px-[30px] h-full text-white rounded-[3px] disabled:cursor-not-allowed"
+                                disabled={lockedAmount <= bonus.amount}
                                 onClick={() => handleClaim(bonus)}
                               >
                                 {t('deposit:claim')}
