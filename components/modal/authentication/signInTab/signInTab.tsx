@@ -158,7 +158,7 @@ export default function SignInTab({
 
         // user is not allowed
         if (status == 406) {
-          const phone = isPhoneNumber ? String(countryCallingCode?.countryCallingCode) + formLogin.email : '';
+          const phone = isPhoneNumber ? `+${String(countryCallingCode?.countryCallingCode) + formLogin.email}` : '';
           dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
           dispatch(setIsForgetPassword(false));
           dispatch(
