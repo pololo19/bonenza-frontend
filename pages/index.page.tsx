@@ -3,13 +3,11 @@ import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import Script from 'next/script';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 
-import api from '@/api/api';
 import {
   api_getCasinoWithKey,
   api_getFavoriteGames,
@@ -18,7 +16,6 @@ import {
   api_getTopRelatedGames,
 } from '@/api/game';
 import { api_checkDeposit } from '@/api/vip';
-import { api_getDepositTime } from '@/api/wallet';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -146,13 +143,11 @@ function IndexPage() {
   const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
 
   const [listCasinoTabGame, setListCasinoTabGame] = useState<GameListType[]>([]);
-  const [isNew, setIsNew] = useState(false);
 
-  const router = useRouter();
 
   const handleClickDeposit = () => {
     if (isLogin) {
-      router.push(ROUTER.BuyCrypto);
+      dispatch(changeIsShowDepositModal(true));
     } else {
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       dispatch(changeIsShowAuthenticationModal(true));
