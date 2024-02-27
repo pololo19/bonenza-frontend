@@ -194,15 +194,15 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
         <>
           <div className="flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] scrollbar">
             <div className="rounded-[10px] px-5 py-5 h-[300px]">
-              <div className="text-[12px] text-color-light-text-primary dark:text-white">{t('profile:statistics')}</div>
+              <div className="text-[16px] text-color-light-text-primary dark:text-white">{t('profile:statistics')}</div>
               <div className="flex justify-center mt-4">
                 <Image width={200} height={200} src="/img/noStatistic.png" alt="hidden statistic" />
               </div>
-              <div className="text-[10px] text-color-text-primary flex justify-center">
+              <div className="text-[14px] text-color-text-primary flex justify-center">
                 {t('profile:statisticsHidden')}
               </div>
             </div>
-            <div className="text-color-text-primary text-[10px] w-full text-center mt-[10px]">
+            <div className="text-color-text-primary text-[14px] w-full text-center mt-[10px]">
               {t('profile:joinedOn')} {formatDate(new Date(user?.createdAt ?? ''), 'dd/MM/yyyy')}
             </div>
           </div>
