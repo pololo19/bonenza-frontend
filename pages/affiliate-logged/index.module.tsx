@@ -35,6 +35,12 @@ type ReferralActivityType = {
   amount: number;
 };
 
+type LiveRewardDataType = {
+  userName: string;
+  symbolLogo: string;
+  amountUsd: number;
+};
+
 function AffiliateLoggedPage() {
   const exchange = useExchange();
   const { t, i18n } = useTranslation('');
@@ -96,21 +102,15 @@ function AffiliateLoggedPage() {
   });
   const [showDetailCommissionsRewards, setShowDetailCommissionsRewards] = useState(false);
   const [showReferralRewardRules, setShowReferralRewardRules] = useState(false);
-  const [liveRewardData, setLiveRewardData] = useState<any[]>([]);
+  const [liveRewardData, setLiveRewardData] = useState<LiveRewardDataType[]>([]);
   const [rewardActivitiesData, setRewardActivitiesData] = useState<ReferralActivityType[]>();
-  const [sumReward, setSumReward] = useState(0);
 
-  // const handleGetLiveReward = async () => {
-  //   try {
-  //     setIsLoading(true);
-  //     const res = await api.get('/affiliate/get-live-reward-list');
-  //     setLiveRewardData(res.data.data);
-  //     setSumReward(res.data.sumReferralBonus);
-  //   } catch (error) {
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
+  const { gameSocket } = useSelector(
+    (state: AppState) => ({
+      gameSocket: state.socket.gameSocket,
+    }),
+    shallowEqual,
+  );
 
   const getReferralData = async () => {
     try {
@@ -148,6 +148,22 @@ function AffiliateLoggedPage() {
   useEffect(() => {
     getReferralData();
   }, []);
+
+  useEffect(() => {
+    if (gameSocket) {
+      gameSocket.on(`rewards`, (reward: any) => {
+        console.log(reward, '------- Live Rewards ------');
+        const data = JSON.parse(reward);
+        console.log(data, '------- Live Rewards data ------');
+        const tempReward: LiveRewardDataType = {
+          userName: data.user_name ?? '',
+          symbolLogo: data.symbol_logo ?? '',
+          amountUsd: data.amount_usd || 0,
+        };
+        setLiveRewardData((prev) => [tempReward, ...prev]);
+      });
+    }
+  }, [gameSocket]);
 
   return (
     <div className="">
@@ -199,9 +215,7 @@ function AffiliateLoggedPage() {
                     <div className="text-[16px] mb-[15px] font-normal dark:text-white text-black uppercase">
                       {t('affiliate:totalFriendsReferred')}
                     </div>
-                    <div
-                      className={`leading-[22px] text-[22px] font-bold w-full text-black dark:text-white`}
-                    >
+                    <div className={`leading-[22px] text-[22px] font-bold w-full text-black dark:text-white`}>
                       {referralData.totalFriends ?? 0}
                     </div>
                   </div>
@@ -346,11 +360,15 @@ function AffiliateLoggedPage() {
                           <>{currencyFormat1(1000, 2)}</>
                         )}
                       </div>
-                      <div className="text-[#FFFFFF] text-[16px] font-normal uppercase">{t('affiliate:referralReward')}</div>
+                      <div className="text-[#FFFFFF] text-[16px] font-normal uppercase">
+                        {t('affiliate:referralReward')}
+                      </div>
                     </div>
                     <div className="flex gap-[10px]">
                       <div className="text-[#F39717] text-[16px] font-bold">25%</div>
-                      <div className="text-[#FFFFFF] text-[16px] font-normal uppercase">{t('affiliate:commissionReward')}</div>
+                      <div className="text-[#FFFFFF] text-[16px] font-normal uppercase">
+                        {t('affiliate:commissionReward')}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -472,17 +490,12 @@ function AffiliateLoggedPage() {
                   return (
                     <div className="flex mb-[5px] lg:mb-[10px] items-center w-[45%]" key={index}>
                       <div className="mr-[5px]">
-                        <Image
-                          height={16}
-                          width={16}
-                          src={`/img/fiats/${reward.currency}.png`}
-                          className="w-[16px] h-[16px]"
-                          alt=""
-                        />
+                        <Image height={16} width={16} src={reward.symbolLogo} className="w-[16px] h-[16px]" alt="" />
                       </div>
                       <div className="text-[12px] dark:text-white text-[#43484E]">
-                        {reward.username}
-                        {t('affiliate:got')} <span className="text-[#20D4EB]">{reward.referralBonus}</span>{' '}
+                        {reward.userName}
+                        {t('affiliate:got')}{' '}
+                        <span className="text-color-primary">{currencyFormat1(reward.amountUsd, 2, '', false)}</span>{' '}
                         {t('affiliate:rewards')}
                       </div>
                     </div>
