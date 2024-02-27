@@ -477,8 +477,8 @@ export type RolloverType = {
   pendingWagerRequiredUsdAmount: number;
   wagerCompletedAmount: number;
   wagerCompletedUsdAmount: number;
-  withdrawableFoundsAmount: number;
-  withdrawableFoundsUsdAmount: number;
+  withdrawableFundsAmount: number;
+  withdrawableFundsUsdAmount: number;
   currency: string;
   currencyLogo: string;
   status: RolloverStatus;

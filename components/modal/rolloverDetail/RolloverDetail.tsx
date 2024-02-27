@@ -186,13 +186,13 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 {viewInFiat ? (
                   <>
                     {currencyFormat1(
-                      transaction.withdrawableFoundsUsdAmount * exchange,
+                      transaction.withdrawableFundsUsdAmount * exchange,
                       fiatDecimals,
                       localFiat?.name || 'USD',
                     )}
                   </>
                 ) : (
-                  currencyFormat1(transaction.withdrawableFoundsAmount, cryptoDecimals, '', false)
+                  currencyFormat1(transaction.withdrawableFundsAmount, cryptoDecimals, '', false)
                 )}
               </span>
             </div>
