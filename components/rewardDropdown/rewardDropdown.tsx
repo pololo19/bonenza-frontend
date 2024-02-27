@@ -56,6 +56,10 @@ export default function RewardDropdown() {
     try {
       const _res = await api_bonusClaim(bonus.id, bonus.type);
       const status = _res.data.status;
+      const tempBonuses = [...bonuses];
+      const pos = tempBonuses.findIndex((item) => item.id === bonus.id);
+      tempBonuses.splice(pos, 1);
+      setBonuses(tempBonuses);
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
