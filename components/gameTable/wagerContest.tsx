@@ -123,7 +123,7 @@ const WagerContestComponent = () => {
       ]);
       const tempContestData: WagerContestType = {
         currentTime: Number(wagerContestList?.data.currentTime * 1000 ?? 0),
-        endTime: Number(wagerContestList?.data.lastContentEndTime * 1000 ?? 0),
+        endTime: Number(wagerContestList?.data.endTime * 1000 ?? 0),
         totalPrizePoolAmountUsd: Number(wagerContestList?.data.totalPrizePoolAmountUsd ?? 0),
         contesters: wagerContestList?.data?.contesters?.map((item: any) => ({
           playerId: item?.playerId ?? '',
