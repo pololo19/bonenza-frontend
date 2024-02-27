@@ -1007,15 +1007,17 @@ const TransactionPage = () => {
           setItemPerPage={handleChangeItemPerPage}
           hiddenPerPage={true}
         />
-        <ModalDetailTransaction
-          show={isShowDetailTransaction}
-          titleModal={String(t('transaction:transactionDetail'))}
-          onClose={() => {
-            setIsShowDetailTransaction(false);
-          }}
-          transaction={transaction}
-          type={optionFilter.type.type}
-        />
+        {isShowDetailTransaction && (
+          <ModalDetailTransaction
+            show={isShowDetailTransaction}
+            titleModal={String(t('transaction:transactionDetail'))}
+            onClose={() => {
+              setIsShowDetailTransaction(false);
+            }}
+            transaction={transaction}
+            type={optionFilter.type.type}
+          />
+        )}
       </div>
     </div>
   );
