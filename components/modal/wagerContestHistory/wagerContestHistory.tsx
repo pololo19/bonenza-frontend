@@ -7,7 +7,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_wagerContestHistory } from '@/api/game';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1 } from '@/base/libs/utils';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -35,6 +35,10 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const dispatch = useAppDispatch();
   const [wagerHistory, setWagerHistory] = useState<WagerContestHistoryItemType[]>([]);
+  const [wagerData, setWagerData] = useState({
+    currentTime: 0,
+    endTime: 0,
+  });
 
   const { viewInFiat, localFiat, userId, userName } = useSelector(
     (state: AppState) => ({
@@ -59,6 +63,10 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
         percent: item?.percentage || 0,
       }));
       setWagerHistory(tempHistory);
+      setWagerData({
+        currentTime: _res.data?.lastContentStartTime * 1000,
+        endTime: _res.data?.lastContentEndTime * 1000,
+      });
     } catch (error) {
       setWagerHistory([]);
     } finally {
@@ -214,7 +222,13 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       panelClass="rounded"
       header={
         <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
-          <div className="text-[16px] dark:text-white text-black"> {t('wagerContest:history')}</div>
+          <div className="flex justify-between text-[16px] dark:text-white text-black gap-[10px]">
+            <p>{t('wagerContest:history')}</p>
+            <p className="dark:text-color-text-primary text-color-light-text-primary">
+              {formatDate(new Date(wagerData.currentTime), 'LL/dd/yyyy')} ~{' '}
+              {formatDate(new Date(wagerData.endTime), 'LL/dd/yyyy')}
+            </p>
+          </div>
         </div>
       }
     >
