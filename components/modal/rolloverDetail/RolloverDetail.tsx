@@ -22,6 +22,9 @@ type ModalDetailTransactionProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
+const cryptoDecimals = 8;
+const fiatDecimals = 4;
+
 export default function ModalDetailsRollover({ show, onClose, transaction }: ModalDetailTransactionProps) {
   const { t } = useTranslation('');
   const exchange = useExchange();
@@ -63,10 +66,13 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               })}
             >
               <span>
-                {transaction.type === 'Withdraw' && <span>- {currencyFormat1(transaction.amount, 6)}</span>}
+                {transaction.type === 'Withdraw' && (
+                  <span>- {currencyFormat1(transaction.amount, cryptoDecimals)}</span>
+                )}
                 {transaction.type !== 'Withdraw' && (
                   <span>
-                    {Number(transaction.amount) >= 0 ? '+' : ''} {currencyFormat1(transaction.amount, 8, '', false)}
+                    {Number(transaction.amount) >= 0 ? '+' : ''}{' '}
+                    {currencyFormat1(transaction.amount, cryptoDecimals, '', false)}
                   </span>
                 )}
               </span>
@@ -130,9 +136,9 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               </span>
               <span className="text-black dark:text-white">
                 {viewInFiat ? (
-                  <>{currencyFormat1(transaction.amountUsd * exchange, 2, localFiat?.name || 'USD')}</>
+                  <>{currencyFormat1(transaction.amountUsd * exchange, fiatDecimals, localFiat?.name || 'USD')}</>
                 ) : (
-                  currencyFormat1(transaction.amount, 4, '', false)
+                  currencyFormat1(transaction.amount, cryptoDecimals, '', false)
                 )}
               </span>
             </div>
@@ -142,9 +148,15 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               </span>
               <span className="text-black dark:text-white">
                 {viewInFiat ? (
-                  <>{currencyFormat1(transaction.wagerCompletedUsdAmount * exchange, 2, localFiat?.name || 'USD')}</>
+                  <>
+                    {currencyFormat1(
+                      transaction.wagerCompletedUsdAmount * exchange,
+                      fiatDecimals,
+                      localFiat?.name || 'USD',
+                    )}
+                  </>
                 ) : (
-                  currencyFormat1(transaction.wagerCompletedAmount, 4, '', false)
+                  currencyFormat1(transaction.wagerCompletedAmount, cryptoDecimals, '', false)
                 )}
               </span>
             </div>
@@ -155,10 +167,14 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               <span className="text-black dark:text-white">
                 {viewInFiat ? (
                   <>
-                    {currencyFormat1(transaction.pendingWagerRequiredUsdAmount * exchange, 2, localFiat?.name || 'USD')}
+                    {currencyFormat1(
+                      transaction.pendingWagerRequiredUsdAmount * exchange,
+                      fiatDecimals,
+                      localFiat?.name || 'USD',
+                    )}
                   </>
                 ) : (
-                  currencyFormat1(transaction.pendingWagerRequiredAmount, 4, '', false)
+                  currencyFormat1(transaction.pendingWagerRequiredAmount, cryptoDecimals, '', false)
                 )}
               </span>
             </div>
@@ -169,10 +185,14 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               <span className="text-black dark:text-white">
                 {viewInFiat ? (
                   <>
-                    {currencyFormat1(transaction.withdrawableFoundsUsdAmount * exchange, 2, localFiat?.name || 'USD')}
+                    {currencyFormat1(
+                      transaction.withdrawableFoundsUsdAmount * exchange,
+                      fiatDecimals,
+                      localFiat?.name || 'USD',
+                    )}
                   </>
                 ) : (
-                  currencyFormat1(transaction.withdrawableFoundsAmount, 4, '', false)
+                  currencyFormat1(transaction.withdrawableFoundsAmount, cryptoDecimals, '', false)
                 )}
               </span>
             </div>

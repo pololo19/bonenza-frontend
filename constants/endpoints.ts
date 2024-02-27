@@ -86,7 +86,7 @@ const API_GAME_PLAY = '/game/play';
 const API_GAME_ROLLBACK = '/game/rollback';
 
 const API_GAME_BET_HISTORY = '/game/get-latest-bets';
-const API_GAME_HIGH_ROLLERs = '/game/high-rolloers';
+const API_GAME_HIGH_ROLLERs = '/game/high-rollers';
 const API_GAME_BET_HISTORY_FOR_GAME = '/game/get-latest-bets-for-game';
 const API_GAME_BET_HISTORY_FOR_USER = '/game/get-latest-bets-for-user-game';
 const API_GAME_RECENT_BIG_WINS = '/game/get-recent-big-wins';

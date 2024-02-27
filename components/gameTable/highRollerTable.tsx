@@ -7,16 +7,29 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
+import { api_highRollers } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, exchangeByLocaleFiat, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import {
+  currencyFormat,
+  currencyFormat1,
+  exchangeByLocaleFiat,
+  formatLengthNumber,
+  handleLocaleSymbol,
+} from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, BetTableDetailType } from '@/base/types/common';
 
 import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
+const cryptoDecimals = 8;
+const fiatDecimals = 2;
+
 const HighRollerTableComponent = () => {
+  const exchangeRate = useExchange();
   const [hightRollerData, setHightRollerData] = useState<BetTableDetailType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
@@ -43,10 +56,12 @@ const HighRollerTableComponent = () => {
   const { t } = useTranslation('');
   const dispatch = useDispatch();
 
-  const { localeFiat, userId } = useSelector(
+  const { localFiat, userId, userName, viewInFiat } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
+      userName: state.auth.user.userName,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
@@ -65,7 +80,7 @@ const HighRollerTableComponent = () => {
   const handleGetHighRoller = async () => {
     try {
       setIsLoadingTable(true);
-      const res = await api.get('game/high-roller');
+      const res = await api_highRollers();
       setHightRollerData(res.data);
     } catch (error) {
       setHightRollerData([]);
@@ -74,23 +89,22 @@ const HighRollerTableComponent = () => {
     }
   };
 
-  const openModalProfileUser = (row: Row<any>) => {
+  const handleModalProfile = (row: Row<BetTableDataType>) => {
     const userData = {
       username: row.original.player,
       userId: row.original.playerId,
     };
-    localStorage.setItem('userData', JSON.stringify(userData));
-    if (!row.original.isHideNamePublicList) {
+    dispatch(setUserData(userData));
+    if (row.original.player) {
       dispatch(changeIsShowInformation(true));
     }
   };
 
-  const handleClickRow = (row: Row<any>) => {
+  const handleClickRow = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
-    setIsShowDetailBet(true);
     setSelBetDetail(row.original);
-    setIsPublicProfile(row.original?.isHideNamePublicList);
+    setIsShowDetailBet(true);
   };
 
   const hightRollerDataFilter = useMemo(() => {
@@ -100,7 +114,7 @@ const HighRollerTableComponent = () => {
 
   const highRollerColumns = useMemo(() => {
     const innerWidth = window.innerWidth;
-    const columnsDefault: ColumnDef<any>[] = [
+    const columnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
         header: () => (
@@ -117,11 +131,11 @@ const HighRollerTableComponent = () => {
             <Image
               height={25}
               width={25}
-              src={`https://cdn.softswiss.net/i/s4/${row.original.provider}/${row.original.identifier2}.png`}
+              src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter.replace(':', '/')}.png`}
               alt=""
               className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
             />
-            <div className="font-bold truncate">{row.original.title}</div>
+            <div className="font-bold truncate">{row.original.game}</div>
           </div>
         ),
       },
@@ -135,14 +149,16 @@ const HighRollerTableComponent = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              row.original.playerId !== userId && row.original.isHideNamePublicList && 'pointer-events-none'
-            } font-bold truncate text-center`}
-            onClick={() => openModalProfileUser(row)}
+              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
+            } font-bold truncate text-center  sm:p-2 p-[5px]`}
+            onClick={() => handleModalProfile(row)}
           >
-            {row.original.playerId !== userId && row.original.isHideNamePublicList ? (
+            {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-color-text-primary text-color-light-text-primary">{t('homePage:hidden')}</div>
             ) : (
-              <div className="dark:text-white text-black">{row.original.player}</div>
+              <div className="dark:text-white text-black">
+                {row.original.playerId === userId ? userName : row.original.player}
+              </div>
             )}
           </div>
         ),
@@ -159,21 +175,14 @@ const HighRollerTableComponent = () => {
             {row.original.betAmount !== null && (
               <div className="flex items-center dark:text-color-text-primary text-color-light-text-primary justify-center gap-[5px] truncate">
                 <div className="font-bold truncate">
-                  {localeFiat
-                    ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                        exchangeByLocaleFiat(
-                          row.original.currency,
-                          String(localeFiat?.currency),
-                          row.original.betAmount,
-                        ),
-                        2,
-                      )}`
-                    : `${formatLengthNumber(row.original.betAmount)}`}
+                  {viewInFiat
+                    ? currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name)
+                    : currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)}
                 </div>
                 <Image
                   height={15}
                   width={15}
-                  src={`/img/fiats/${row.original.sourceAccount}.png`}
+                  src={`/img/fiats/${row.original.currency}.png`}
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USD.png';
                   }}
@@ -193,7 +202,7 @@ const HighRollerTableComponent = () => {
         ),
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate font-bold text-center">
-            {row.original.payout}
+            {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
       },
@@ -205,32 +214,29 @@ const HighRollerTableComponent = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <div
-            className={cn(
-              'flex items-center dark:text-color-text-primary text-color-light-text-primary justify-end gap-[5px]',
-            )}
-          >
+          <div className={cn('flex items-center justify-end gap-[5px]  sm:p-2 p-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-green-500': row.original.profit >= 0,
-                'text-red-500': row.original.profit < 0,
+                'text-color-primary': row.original.profitAmount >= 0,
+                'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
-              {row.original.profit > 0 && '+'}
-              {localeFiat
-                ? `${handleLocaleSymbol(String(localeFiat?.currency))} ${currencyFormat(
-                    exchangeByLocaleFiat(row.original.currency, String(localeFiat?.currency), row.original.profit),
-                    2,
+              {row.original.profitAmount >= 0 ? '' : '-'}
+              {viewInFiat
+                ? `${currencyFormat1(
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    fiatDecimals,
+                    localFiat?.name || 'USD',
                   )}`
-                : `${formatLengthNumber(row.original.profit)}`}
+                : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
               height={15}
               width={15}
-              src={`/img/fiats/${row.original.sourceAccount}.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
+                e.currentTarget.src = '/img/fiats/USDT.png';
               }}
               alt=""
             />
@@ -243,35 +249,10 @@ const HighRollerTableComponent = () => {
       columnsDefault.splice(2, 1);
       return columnsDefault;
     }
-  }, [localeFiat?.currency, userId, windowSize]);
+  }, [localFiat, userId, windowSize]);
 
   useEffect(() => {
     handleGetHighRoller();
-  }, []);
-
-  useEffect(() => {
-    // const socket = io(String(process.env.SOCKET_URL), socketConfig);
-    // socket.on('high_roller', (data) => {
-    //   const camelizeKeysData = camelizeKeys(data) as BetTableDetailType;
-    //   setHightRollerData((oldArray) => {
-    //     const index = oldArray.findIndex((bet) => bet.gameId === camelizeKeysData.gameId);
-    //     if (index >= 0) {
-    //       const newData = oldArray.map((bet) => {
-    //         if (bet.gameId === camelizeKeysData.gameId) {
-    //           return camelizeKeysData;
-    //         }
-    //         return bet;
-    //       });
-    //       return newData;
-    //     } else {
-    //       return [camelizeKeysData, ...oldArray];
-    //     }
-    //   });
-    // });
-    // Clean up the socket connection on unmount
-    // return () => {
-    //   socket.disconnect();
-    // };
   }, []);
 
   return (
