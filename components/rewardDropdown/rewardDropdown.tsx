@@ -135,11 +135,14 @@ export default function RewardDropdown() {
                                 <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />
                               </div>
 
-                              <div className="flex flex-col gap-[5px]">
+                              <div className="flex flex-col gap-[5px] justify-center">
                                 <p className="text-[14px] dark:text-white text-color-light-text-primary">
                                   {bonus.type === 'level_up' && t('bonus:levelUpRewards')}
+                                  {bonus.type === 'wager_contest' && t('bonus:wagerContestRewards')}
+                                  {bonus.type === 'weekly_cashback' && t('bonus:weeklyCashBackRewards')}
+                                  {bonus.type === 'monthly_cashback' && t('bonus:monthlyCashBackRewards')}
                                 </p>
-                                <div className="flex text-[12px] text-color-text-primary gap-[5px] items-center">
+                                <div className="flex text-[14px] text-color-text-primary gap-[5px] items-center">
                                   {!viewInFiat && (
                                     <Image
                                       width={12}
@@ -157,7 +160,7 @@ export default function RewardDropdown() {
                             </div>
                             <div className="py-[2px]">
                               <button
-                                className="bg-gradient-btn-default px-[30px] h-full text-white rounded-[3px] disabled:cursor-not-allowed"
+                                className="bg-gradient-btn-default px-[20px] h-full text-white rounded-[3px] disabled:cursor-not-allowed min-h-[40px]"
                                 disabled={lockedAmount <= bonus.amount}
                                 onClick={() => handleClaim(bonus)}
                               >
