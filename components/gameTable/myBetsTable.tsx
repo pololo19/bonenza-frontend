@@ -248,7 +248,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         const data = JSON.parse(item);
         console.log(data, '------- my bet table data ------');
         const gameId = data.game_id;
-        if (gameId !== gameDetail?.id && data.player_id !== userId) {
+        if (gameId !== gameDetail?.id || data.player_id !== userId) {
           return;
         }
         const tempData: BetTableDataType = {

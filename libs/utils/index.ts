@@ -512,3 +512,8 @@ export const getDuration = (time: string) => {
   }
   return 'now';
 };
+
+export const roundDeciamls = (val: number, decimals: number) => {
+  const roundedVal = Math.floor(val * Math.pow(10, decimals)) / Math.pow(10, decimals);
+  return roundedVal;
+};

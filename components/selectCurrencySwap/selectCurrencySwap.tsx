@@ -11,7 +11,7 @@ import * as yup from 'yup';
 
 import { useTranslation } from '@/base/config/i18next';
 import { SWAP_MIN, TOAST_ENUM } from '@/base/constants/common';
-import { currencyFormat1 } from '@/base/libs/utils';
+import { currencyFormat1, roundDeciamls } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BasicFormRef } from '@/base/types/common';
 import { CurrencyType } from '@/base/types/wallet';
@@ -169,7 +169,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
       // const { fromPrice, toPrice } = res.data;
       const amountTo = (Number(balance) * fromPrice) / toPrice;
 
-      setValue('amountTo', amountTo.toFixed(8));
+      setValue('amountTo', roundDeciamls(amountTo, 8).toString());
     } catch (error) {
       setValue('amountTo', '0');
     } finally {
@@ -181,7 +181,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     const symbolFrom = getSymbolById(watch('symbolFrom'));
     if (symbolFrom) {
       const avaBalance = getBalanceBySymbolId(symbolFrom.id);
-      setValue('amountFrom', avaBalance.toFixed(4));
+      setValue('amountFrom', roundDeciamls(avaBalance, 4).toString());
     }
   };
 
