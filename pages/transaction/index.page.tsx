@@ -298,15 +298,23 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div
-            className={cn('flex items-center justify-center gap-1', {
+            className={cn('flex items-center justify-center gap-1 truncate', {
               'text-color-red':
-                row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw',
+                row.original?.type?.toLowerCase() == 'bet' ||
+                row.original.type.toLowerCase() === 'withdraw' ||
+                row.original.type.toLocaleLowerCase() === 'swap send',
               'text-color-primary': !(
-                row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw'
+                row.original?.type?.toLowerCase() == 'bet' ||
+                row.original.type.toLowerCase() === 'withdraw' ||
+                row.original.type.toLocaleLowerCase() === 'swap send'
               ),
             })}
           >
-            {row.original?.type?.toLowerCase() == 'bet' || row.original.type.toLowerCase() === 'withdraw' ? '-' : ''}
+            {row.original?.type?.toLowerCase() == 'bet' ||
+            row.original.type.toLowerCase() === 'withdraw' ||
+            row.original.type.toLocaleLowerCase() === 'swap send'
+              ? '-'
+              : ''}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
             ) : (
@@ -324,7 +332,7 @@ const TransactionPage = () => {
             />
           </div>
         ),
-        minSize: 120,
+        minSize: 150,
       },
       {
         accessorKey: 'createdAt',
@@ -338,8 +346,8 @@ const TransactionPage = () => {
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
-        minSize: 100,
-        maxSize: 100,
+        minSize: 150,
+        maxSize: 150,
       },
       {
         accessorKey: 'balance',
