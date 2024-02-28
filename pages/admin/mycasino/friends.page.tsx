@@ -124,7 +124,7 @@ function AdminFriendsManagementPage() {
     getListFriends();
   }, []);
 
-  const columns: ColumnDef<any>[] = useMemo(() => {
+  const columns: ColumnDef<AffiliateFriendType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'username',
@@ -256,7 +256,7 @@ function AdminFriendsManagementPage() {
           </div>
           <div className="flex flex-col items-start gap-1">
             <label className="opacity-0">1</label>
-            <button className="bg-primary px-6 py-1 rounded-md" type="submit">
+            <button className="bg-gradient-btn-default px-6 py-1 rounded-default text-white" type="submit">
               {t('mycasino:search')}
             </button>
           </div>
