@@ -39,14 +39,14 @@ const VipProgressComponent = () => {
       const _res = await api_getVipProgress();
       setCheckDeposit(_res.data.totalDepositAmountUsd > 0);
       setCurrentLevel({
-        xp: _res.data?.currentXp ?? 0,
-        level: _res.data?.currentVipLevel ?? 0,
+        xp: Number(_res.data?.currentXp || 0),
+        level: Number(_res.data?.currentVipLevel || 0),
         name: _res.data?.currentVipName ?? '',
-        remainingXp: _res.data?.remainingXp ?? 0,
-        nextLevel: _res.data?.nextVipLevel ?? 0,
+        remainingXp: Number(_res.data?.remainingXp || 0),
+        nextLevel: Number(_res.data?.nextVipLevel || 0),
         nextName: _res.data?.nextVipName ?? '',
-        nextXp: _res.data?.nextVipXp ?? 0,
-        nextLevelBonus: Number(_res.data?.nextLevelBonus ?? 0),
+        nextXp: Number(_res.data?.nextVipXp || 0),
+        nextLevelBonus: Number(_res.data?.nextLevelBonus || 0),
       });
     } catch (error) {
       console.log(error);
@@ -92,7 +92,7 @@ const VipProgressComponent = () => {
             {t('bonus:nextLevelBonus')}
           </div>
           <div className="dark:text-color-secondary text-color-light-text-primary text-default flex items-center">
-            {`${currentLevel.nextLevelBonus.toFixed(2)} USDT`}
+            {`${currentLevel.nextLevelBonus?.toFixed(2)} USDT`}
           </div>
         </div>
       </div>
