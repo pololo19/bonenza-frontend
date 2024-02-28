@@ -112,8 +112,9 @@ const API_GAME_REVIEW_LIKE = '/game/review/like';
 
 const API_AFFILIATE = '/affiliate/affiliate';
 const API_AFFILIATE_FRIENDS = '/affiliate/friends';
-const API_AFFILIATE_COMMISSION_REWARDS = '/affiliate/commission-rewards';
-const API_AFFILIATE_REFERRAL_REWARDS = '/affiliate/referral-rewards';
+const API_AFFILIATE_COMMISSION_REWARDS = '/affiliate/commission/rewards';
+const API_AFFILIATE_COMMISSION_HISTORY = '/affiliate/commission/history';
+const API_AFFILIATE_REFERRAL_REWARDS = '/affiliate/referral/rewards';
 
 /************************************ VIP **********************************/
 
@@ -137,6 +138,7 @@ const API_WAGER_CONTEST_POSITION = '/contest/position';
 export {
   API_ADMIN_LOGIN,
   API_AFFILIATE,
+  API_AFFILIATE_COMMISSION_HISTORY,
   API_AFFILIATE_COMMISSION_REWARDS,
   API_AFFILIATE_FRIENDS,
   API_AFFILIATE_REFERRAL_REWARDS,
