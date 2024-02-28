@@ -42,7 +42,7 @@ export default function CardVipBonus({
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="rounded-[5px] relative">
+    <div className="rounded-[5px] relative min-h-[250px]">
       <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" />
       <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
         <div>
