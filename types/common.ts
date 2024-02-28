@@ -464,6 +464,17 @@ export type BetDetailType = {
   userName: string;
 };
 
+export type TransactionBonusType = {
+  type: string;
+  balance: number;
+  balanceUsd: number;
+  amount: number;
+  amountUsd: number;
+  currency: string;
+  currencyType: CurrencySymbolType;
+  time: string;
+};
+
 export type RolloverType = {
   id: string;
   type: string;
