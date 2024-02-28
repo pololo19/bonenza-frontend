@@ -226,11 +226,11 @@ export default function ModalDetailBets({
                 <ArrowRight2 className="w-[12px] h-[12px]" />
               </div>
             ) : (
-              <div className="flex items-center mt-5 mx-[6px] justify-between">
+              <div className="flex items-center mt-5 mx-[6px] justify-between px-4">
                 <div className="text-[11px] dark:text-color-text-primary text-[#31373d] max-w-[230px]">
                   {t('gameTable:anyIssues')}
                 </div>
-                <div className="flex items-center gap-[5px]">
+                <div className="flex items-center gap-[5px] cursor-pointer" onClick={() => window.open("mailto:info@bonenza.com")}>
                   <Headphone className="w-[14px] h-[14px] text-color-primary" />
                   <div className="text-[11px] dark:text-color-text-primary text-[#31373d]">
                     {t('gameTable:liveSupport')}
