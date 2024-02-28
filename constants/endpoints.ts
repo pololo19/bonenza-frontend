@@ -31,6 +31,7 @@ const API_AUTH_GET_2FA_STATUS = '/auth/get-two-factor-auth-status';
 
 /************************************ User Profile **********************************/
 const API_USER_PROFILE_GET_PROFILE = `/user-profile/get-user-profile`;
+const API_USER_PROFILE_CONTEST_HISTORY = `/user-profile/contest/history`;
 const API_USER_PROFILE_EDIT_PROFILE = '/user-profile/edit-profile';
 const API_USER_PROFILE_UPLOAD_AVATAR = '/user-profile/upload-avatar';
 
@@ -207,6 +208,7 @@ export {
   API_GAME_TOP_RATED_GAMES,
   API_USER_MEDAL_STATISTICS,
   API_USER_PROFILE_BET_STATISTICS,
+  API_USER_PROFILE_CONTEST_HISTORY,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,

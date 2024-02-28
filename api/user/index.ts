@@ -2,6 +2,7 @@ import {
   API_AUTH_GENERATE_QR_CODE,
   API_USER_MEDAL_STATISTICS,
   API_USER_PROFILE_BET_STATISTICS,
+  API_USER_PROFILE_CONTEST_HISTORY,
   API_USER_PROFILE_EDIT_PROFILE,
   API_USER_PROFILE_GET_PROFILE,
   API_USER_PROFILE_UPLOAD_AVATAR,
@@ -22,6 +23,10 @@ import api from '../api';
 
 export const api_getProfile = async (userId: string) => {
   return api.get(API_USER_PROFILE_GET_PROFILE, { params: { userId } });
+};
+
+export const api_getContestHistory = async (page: number, page_size: number) => {
+  return api.get(API_USER_PROFILE_CONTEST_HISTORY, { params: { page, page_size } });
 };
 
 export const api_editUserName = async (userName: string) => {

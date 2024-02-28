@@ -4,6 +4,7 @@ import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
+import { api_getContestHistory } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -20,11 +21,11 @@ export default function WagerContest({ userData }: WagerContestProps) {
   const { theme } = useTheme();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [page, setPage] = useState(1);
-  const [limit] = useState(10);
-  const [totalTable, setTotalTable] = useState(0);
+  const [limit] = useState(5);
+  const [totalRows, setTotalRows] = useState(0);
   const [listWager, setListWager] = useState<WagerDetail[]>([]);
 
-  const { localeFiat, userId } = useSelector(
+  const { localeFiat } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
       userId: state.auth.user.userId,
@@ -35,26 +36,27 @@ export default function WagerContest({ userData }: WagerContestProps) {
   const wagerColumns = useMemo(() => {
     const wagerColumnsDefault: ColumnDef<any>[] = [
       {
-        accessorKey: 'dateReceive',
-        header: () => <div className="text-left pl-6 text-[12px] font-normal">{t('profile:date')}</div>,
+        accessorKey: 'date',
+        header: () => <div className="text-left text-[14px] font-normal">{t('profile:date')}</div>,
         cell: ({ row }) => (
-          <div className="font-bold text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate">
-            {formatDate(new Date(row.original?.dateReceive), 'LL/dd/yyyy')} {t('profile:daily')}
+          <div className="font-medium text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate">
+            {formatDate(new Date(row.original?.date), 'L/dd/yyyy')} {t('profile:daily')}
           </div>
         ),
       },
       {
-        accessorKey: 'rank',
-        header: () => <div className="text-center text-[12px] font-normal">{t('profile:position')}</div>,
+        accessorKey: 'position',
+        header: () => <div className="text-center text-[14px] font-normal">{t('profile:position')}</div>,
         cell: ({ row }) => (
-          <div className="font-bold text-[14px] dark:text-white text-[#000] truncate text-center">
-            {row.original.rank}th
+          <div className="font-medium text-[14px] dark:text-white text-[#000] truncate text-center">
+            {row.original.position}
+            {row.original.position === 1 ? 'st' : row.original.position === 2 ? 'nd' : row.original.position === 3 ? 'rd' : 'th'} 
           </div>
         ),
       },
       {
-        accessorKey: 'currency',
-        header: () => <div className="text-right pr-6 text-[12px] font-normal">{t('profile:prize')}</div>,
+        accessorKey: 'prize',
+        header: () => <div className="text-right text-[14px] font-normal">{t('profile:prize')}</div>,
         cell: ({ row }) => (
           <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px]">
             <span className="dark:text-white text-black font-bold text-[14px]">
@@ -65,7 +67,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
                   )}`
                 : `${currencyFormat(Number(row.original?.prize || 0), 2)}`}
             </span>
-            <Image height={20} width={20} src={`/img/fiats/${row.original?.currency}.png`} alt="" />
+            <Image height={20} width={20} src={`/img/fiats/usdt.png`} alt="" />
           </div>
         ),
       },
@@ -78,20 +80,11 @@ export default function WagerContest({ userData }: WagerContestProps) {
   }, [page, userData]);
 
   const getUserWagerContestList = async () => {
-    let id = userData?.userId || userId;
     try {
       setIsLoading(true);
-      // const res = await api.get(`user-profile/get-wager-contest-list/${id}`, {
-      //   params: {
-      //     userId: id,
-      //     limit,
-      //     page,
-      //   },
-      // });
-      // setListWager(res?.data.data);
-      // setTotalTable(res?.data.total);
-      setListWager([]);
-      setTotalTable(0);
+      const wager = await api_getContestHistory(page, limit);
+      setListWager(wager.data.contest);
+      setTotalRows(wager.data.totalCount);
     } catch (error) {
       setListWager([]);
     } finally {
@@ -106,8 +99,8 @@ export default function WagerContest({ userData }: WagerContestProps) {
   };
 
   return (
-    <>
-      <div className="my-[24px]">
+    <div>
+      <div className="mt-[24px] w-full">
         {!isLoading && listWager.length > 0 && (
           <RankingTableComponent
             isLoading={isLoading}
@@ -131,9 +124,9 @@ export default function WagerContest({ userData }: WagerContestProps) {
           </div>
         )}
       </div>
-      {totalTable > 0 && (
-        <Paging onPageChange={handleChangePage} itemPerPage={limit} totalItem={totalTable} currentPage={page} />
+      {totalRows > 0 && (
+        <Paging onPageChange={handleChangePage} itemPerPage={limit} totalItem={totalRows} currentPage={page} />
       )}
-    </>
+    </div>
   );
 }

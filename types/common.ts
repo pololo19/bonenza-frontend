@@ -227,14 +227,10 @@ export type GameDetail = {
 };
 
 export type WagerDetail = {
-  id?: number;
-  rank?: number;
-  userId?: number;
-  wagered?: string | number;
-  prizePercent?: string | number;
+  date?: string;
+  position?: number;
   prize?: string | number;
-  dateReceive?: string;
-  currency?: string;
+  prizeUsd?: string | number;
 };
 
 export type RankDetail = {
