@@ -182,25 +182,6 @@ function AdminFriendsManagementPage() {
           </div>
         ),
       },
-      {
-        accessorKey: 'status',
-        header: () => <div className="text-left">{t('mycasino:status')}</div>,
-        cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{row.original.status}</div>
-          </div>
-        ),
-      },
-      {
-        accessorKey: 'tip',
-        header: () => <div className="text-left">{t('mycasino:tip')}</div>,
-        cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start text-amber-500 gap-[5px] truncate')}>
-            <Coin size={20} />
-            <div className="font-bold truncate">{t('mycasino:tip')}</div>
-          </div>
-        ),
-      },
     ];
   }, []);
 
