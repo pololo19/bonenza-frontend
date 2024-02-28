@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
 import * as yup from 'yup';
 
-import { api_withdraw } from '@/api/wallet';
+import { api_withdraw, api_withdrawInfo } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM, WITHDRAW_FEE } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -42,6 +42,12 @@ const WithdrawCryptoPage = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openRollover, setOpenRollover] = useState<boolean>(false);
+  const [withdrawInfo, setWithdrawInfo] = useState({
+    availableAmountUsd: 0,
+    availableAmount: 0,
+    lockedAmount: 0,
+    lockedAmountUsd: 0,
+  });
   const [activeCoin, setActiveCoin] = useState<CurrencyType>({
     id: '',
     name: '',
@@ -150,6 +156,28 @@ const WithdrawCryptoPage = () => {
     defaultValues: { withdrawAmount: '0' },
   });
 
+  const getWithdrawInfo = useCallback(async () => {
+    try {
+      if (!activeCoin.id) {
+        return;
+      }
+      const _res = await api_withdrawInfo(activeCoin.id);
+      setWithdrawInfo({
+        availableAmountUsd: Number(_res.data.availableWithdrawalAmountUsd || 0),
+        availableAmount: Number(_res.data.availableWithdrawalAmount || 0),
+        lockedAmount: Number(_res.data.lockedAmount || 0),
+        lockedAmountUsd: Number(_res.data.lockedAmountUsd || 0),
+      });
+    } catch (error) {
+      setWithdrawInfo({
+        availableAmountUsd: 0,
+        availableAmount: 0,
+        lockedAmount: 0,
+        lockedAmountUsd: 0,
+      });
+    }
+  }, [activeCoin]);
+
   const setAmountByPercent = useCallback(
     (percent: number) => {
       let avaBalance = (renderBalanceValue * percent) / 100;
@@ -236,6 +264,10 @@ const WithdrawCryptoPage = () => {
       ),
     );
   }, [renderMinValue, renderBalanceValue]);
+
+  useEffect(() => {
+    getWithdrawInfo();
+  }, [activeCoin]);
 
   return (
     <>
@@ -369,11 +401,11 @@ const WithdrawCryptoPage = () => {
                     <span className="dark:text-white text-black flex">
                       {viewInFiat
                         ? currencyFormat1(
-                            renderBalanceValue * activeCoin.price * exchangeRate,
+                            withdrawInfo.availableAmountUsd * exchangeRate,
                             4,
                             String(localFiat?.name || 'USD'),
                           )
-                        : `${currencyFormat1(renderBalanceValue, 4, '', false)}`}
+                        : `${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)}`}
                     </span>
                   </div>
                   <div className="flex gap-1 flex-wrap justify-end">
@@ -385,8 +417,8 @@ const WithdrawCryptoPage = () => {
                     </span>
                     <span className="dark:text-white text-black flex">
                       {viewInFiat
-                        ? `${currencyFormat1(0, 4, localFiat?.name || 'USD')}`
-                        : `${currencyFormat1(0, 4, '', false)}`}
+                        ? `${currencyFormat1(withdrawInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
+                        : `${currencyFormat1(withdrawInfo.lockedAmount, 4, '', false)}`}
                     </span>
                   </div>
                 </div>
