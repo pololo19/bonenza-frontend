@@ -30,6 +30,7 @@ import {
   formatDate,
   getColorByStatus,
 } from '@/base/libs/utils';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { AppState } from '@/base/redux/store';
 import { TRANSACTION_TYPE } from '@/base/types/requestTypes';
 import withAuth from '@/components/hoc/withAuth';
@@ -37,10 +38,15 @@ import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailTransaction from '@/components/modal/transactionDetail/transactionDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
-import { TransactionBillType, TransactionStatus, TransactionSwapType, TransactionType } from '@/types/common';
+import {
+  TransactionBillType,
+  TransactionBonusType,
+  TransactionStatus,
+  TransactionSwapType,
+  TransactionType,
+} from '@/types/common';
 
 import styles from './index.module.scss';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
 
 interface BillType {
   type: string;
@@ -67,7 +73,9 @@ const TransactionPage = () => {
   const [isShowDetailTransaction, setIsShowDetailTransaction] = useState<boolean>(false);
   const [transaction, setTransaction] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [dataTable, setDataTable] = useState<TransactionType[] | TransactionSwapType[] | TransactionBillType[]>([]);
+  const [dataTable, setDataTable] = useState<
+    TransactionType[] | TransactionSwapType[] | TransactionBillType[] | TransactionBonusType[]
+  >([]);
   const [typeBill, setTypeBill] = useState<(typeof billTypes)[0]>(billTypes[0]);
 
   const [optionFilter, setOptionFilter] = useState({
@@ -378,7 +386,7 @@ const TransactionPage = () => {
     ];
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
 
-  const bonusColumns: ColumnDef<any>[] = useMemo(() => {
+  const bonusColumns: ColumnDef<TransactionBonusType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'actionType',
@@ -388,9 +396,7 @@ const TransactionPage = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">
-            {row?.original?.actionType}
-          </div>
+          <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row.original.type}</div>
         ),
         minSize: 30,
       },
@@ -404,31 +410,19 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              row.original?.amountClaimed < 0 ? 'text-red-500' : 'text-color-primary'
+              row.original.amount < 0 ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-center gap-1`}
           >
-            <span>{row.original?.amountClaimed < 0 ? '-' : ''}</span>
+            <span>{row.original.amount < 0 ? '-' : ''}</span>
             <span className="min-w-fit break-keep">
-              {viewInFiat ? (
-                <>
-                  {`${currencyFormat1(
-                    exchangeByLocaleFiat(
-                      row.original?.symbol,
-                      String(localFiat?.name),
-                      Math.abs(row.original?.amountClaimed),
-                    ),
-                    4,
-                    String(localFiat?.name),
-                  )}`}
-                </>
-              ) : (
-                currencyFormat1(Math.abs(row.original?.amountClaimed), 6)
-              )}
+              {viewInFiat
+                ? currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, localFiat?.name)
+                : currencyFormat1(row.original.amount, cryptoLen, '', false)}
             </span>
             <Image
               height={20}
               width={20}
-              src={`/img/fiats/${row.original?.symbol}.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               alt=""
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
@@ -447,7 +441,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary">
-            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
         minSize: 100,
@@ -464,22 +458,14 @@ const TransactionPage = () => {
           <div
             className={`dark:text-white text-color-light-text-primary text-left truncate flex items-center justify-end gap-1`}
           >
-            {viewInFiat ? (
-              <>
-                {currencyFormat1(
-                  exchangeByLocaleFiat(row.original?.symbol, String(localFiat?.name), row.original?.balance),
-                  4,
-                  String(localFiat?.name),
-                )}
-              </>
-            ) : (
-              currencyFormat1(row.original.balance, 6)
-            )}
+            {viewInFiat
+              ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
+              : currencyFormat1(row.original.balance, cryptoLen, '', false)}
 
             <Image
               height={20}
               width={20}
-              src={`/img/fiats/${row.original?.symbol}.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               alt=""
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
@@ -620,10 +606,10 @@ const TransactionPage = () => {
               symbolFrom: item.fromSymbol,
               swapFrom: item.fromAmount,
               swapFromLogo: item.fromSymbolLogo,
-              swapFromUsd: item.fromAmountUsd,
+              swapFromUsd: Number(item.fromAmountUsd || 0),
               symbolTo: item.toSymbol,
-              swapTo: item.toAmount,
-              swapToUsd: item.toAmountUsd,
+              swapTo: Number(item.toAmount || 0),
+              swapToUsd: Number(item.toAmountUsd || 0),
               swapToLogo: item.toSymbolLogo,
               timeTransfer: item.time,
             }));
@@ -633,8 +619,8 @@ const TransactionPage = () => {
           case TRANSACTION_TYPE.Deposit:
             const tempDepositData: TransactionType[] = data?.map((item: any) => {
               return {
-                amount: item.amount,
-                amountUsd: item.amountUsd,
+                amount: Number(item.amount || 0),
+                amountUsd: Number(item.amountUsd || 0),
                 fee: 0,
                 feeUsd: 0,
                 id: item.id,
@@ -658,10 +644,10 @@ const TransactionPage = () => {
 
           case TRANSACTION_TYPE.Withdraw:
             const tempWithdrawData: TransactionType[] = data?.map((item: any) => ({
-              amount: Number(item.amountWithFee),
-              amountUsd: Number(item.amountWithFeeUsd),
+              amount: Number(item.amountWithFee || 0),
+              amountUsd: Number(item.amountWithFeeUsd || 0),
               fee: item.withdrawFee,
-              feeUsd: Number(item.amountWithFeeUsd) - Number(item.amount),
+              feeUsd: Number(item.amountWithFeeUsd || 0) - Number(item.amount || 0),
               id: item.id,
               orderId: item.id,
               status: getStatusByIdWidthdraw(item.status),
@@ -683,17 +669,30 @@ const TransactionPage = () => {
           case TRANSACTION_TYPE.Bill:
             const tempBillData = data?.map((item: any) => ({
               type: item.type ?? '',
-              amount: Number(item.amount ?? 0),
-              amountUsd: Number(item.amountUsd ?? 0),
+              amount: Number(item.amount || 0),
+              amountUsd: Number(item.amountUsd || 0),
               currency: item.currency ?? 'USDT',
               currencyType: item.currencyType ?? 'crypto',
               time: item.time,
-              balance: Number(item.walletBalance ?? 0),
-              balanceUsd: Number(item.walletBalanceUsd ?? 0),
+              balance: Number(item.walletBalance || 0),
+              balanceUsd: Number(item.walletBalanceUsd || 0),
               gameId: item.gameId ?? '',
               gameName: item.gameTitle ?? '',
             }));
             setDataTable(tempBillData);
+            break;
+          case TRANSACTION_TYPE.Bonus:
+            const tempBonusData: TransactionBonusType[] = data?.map((item: any) => ({
+              type: item.type ?? '',
+              balance: Number(item.walletBalance || 0),
+              balanceUsd: Number(item.walletBalanceUsd || 0),
+              amount: Number(item.amount || 0),
+              amountUsd: Number(item.amountUsd || 0),
+              currency: item.currency,
+              currencyType: item.currencyType === 'crypto' ? 'crypto' : 'fiat',
+              time: item.time,
+            }));
+            setDataTable(tempBonusData);
             break;
           default:
             break;
