@@ -32,7 +32,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
               slidesPerView={width > 600 ? 'auto' : 3}
               freeMode={true}
               autoplay={{
-                delay: 500,
+                delay: 2000,
                 disableOnInteraction: false,
               }}
               speed={1000}
