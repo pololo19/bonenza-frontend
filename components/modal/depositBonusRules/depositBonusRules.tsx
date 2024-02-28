@@ -95,7 +95,7 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">
                       <p>{t('bonus:minimum')}</p>
                       <p className="dark:text-white text-black font-semibold">
-                        {/* {handleLocaleSymbol(localeFiat?.currency || 'USD')} */}
+                        {`${handleLocaleSymbol(localFiat?.iso_currency || 'USD')} ${item.depositAmount}`}
                       </p>
                     </div>
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">
