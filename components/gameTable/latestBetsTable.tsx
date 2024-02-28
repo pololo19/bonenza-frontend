@@ -105,7 +105,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
     }
   };
 
-  const handleClickRow = (row: Row<BetTableDataType>) => {
+  const openModalBetDetail = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
 
@@ -157,7 +157,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betAmount',
         header: () => <div className="text-center">{t('gameTable:betAmount')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-white sm:text-[16px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]">
+          <div
+            className="dark:text-white sm:text-[16px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]"
+            onClick={() => openModalBetDetail(row)}
+          >
             {viewInFiat
               ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
               : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
@@ -237,7 +240,6 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           isLoading={isLoadingTable}
           data={betHistoryFilter}
           columns={allBetColumns}
-          onRowClick={handleClickRow}
         />
         {!!betHistoryFilter.length && (
           <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
