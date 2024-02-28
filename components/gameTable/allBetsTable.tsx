@@ -118,6 +118,8 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       username: row.original.player,
       userId: row.original.playerId,
     };
+    setIsShowDetailBet(false);
+
     dispatch(setUserData(userData));
     if (row.original.player) {
       dispatch(changeIsShowInformation(true));

@@ -487,14 +487,16 @@ const WagerContestComponent = () => {
                         width={16}
                         height={16}
                         className="object-cover w-[1rem] h-[1rem]"
-                        src={`/img/fiats/USDT.png`}
+                        src={viewInFiat ? `/img/fiats/${localFiat?.name}.png` : `/img/fiats/USDT.png`}
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USDT.png';
                         }}
                         alt=""
                       />
                       <span className="text-color-primary ml-1 font-bold">
-                        {currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
+                        {viewInFiat
+                          ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
+                          : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
                       </span>
                       <span className="dark:text-white text-[#000]">{`${wagerHistory.percentage}%`}</span>
                     </div>
@@ -547,21 +549,34 @@ const WagerContestComponent = () => {
               </p>
             </div>
           </div>
-          <div className="grow-[2] flex gap-[0.313rem] min-w-fit justify-center md:justify-start items-center text-[12px]">
-            <span className="dark:text-color-text-primary text-color-light-text-primary">
-              {t('wagerContest:wager')}
-            </span>
-            <span className="text-white">
-              {viewInFiat
-                ? currencyFormat1(wagerAndPostion.wagerAmount * exchangeRate, 4, localFiat?.name)
-                : currencyFormat1(wagerAndPostion.wagerAmount, 4)}
-            </span>
-            <span className="dark:text-color-text-primary text-color-light-text-primary">
-              {t('wagerContest:toReach')}
-            </span>
-            <span className="bg-color-secondary/20 text-color-secondary text-[10px] rounded-[2px] p-[5px]">
-              {`Top ${wagerAndPostion.position}`}
-            </span>
+          <div
+            className={cn(
+              'grow-[2] flex gap-[0.313rem] min-w-fit justify-center md:justify-start items-center text-[12px]',
+              {
+                'text-color-secondary': wagerAndPostion.position === '1',
+              },
+            )}
+          >
+            {wagerAndPostion.position === '1' ? (
+              t('wagerContest:youAreTop')
+            ) : (
+              <>
+                <span className="dark:text-color-text-primary text-color-light-text-primary">
+                  {t('wagerContest:wager')}
+                </span>
+                <span className="text-white">
+                  {viewInFiat
+                    ? currencyFormat1(wagerAndPostion.wagerAmount * exchangeRate, 4, localFiat?.name)
+                    : currencyFormat1(wagerAndPostion.wagerAmount, 4)}
+                </span>
+                <span className="dark:text-color-text-primary text-color-light-text-primary">
+                  {t('wagerContest:toReach')}
+                </span>
+                <span className="bg-color-secondary/20 text-color-secondary text-[10px] rounded-[2px] p-[5px]">
+                  {`Top ${wagerAndPostion.position}`}
+                </span>
+              </>
+            )}
           </div>
         </div>
       )}
