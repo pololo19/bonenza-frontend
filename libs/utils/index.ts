@@ -517,3 +517,11 @@ export const roundDeciamls = (val: number, decimals: number) => {
   const roundedVal = Math.floor(val * Math.pow(10, decimals)) / Math.pow(10, decimals);
   return roundedVal;
 };
+
+export const checkFiletypes = (type: string, avaTypes: string[]) => {
+  return avaTypes.includes(type);
+};
+
+export const getSizeOfFileByMega = (size: number) => {
+  return size / 1024 / 1024;
+};

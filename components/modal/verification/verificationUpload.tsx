@@ -12,7 +12,7 @@ import * as yup from 'yup';
 import { api_uploadIdCards } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { convertUserInfo } from '@/base/libs/utils';
+import { checkFiletypes, convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
@@ -47,6 +47,19 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
       const formData = new FormData();
       formData.append('files', data.frontCard);
       formData.append('files', data.backCard);
+      console.log(data, '====50');
+      const frontendCard = data.frontCard;
+      const backendCard = data.backCard;
+      const avaTypes = ['image/jpeg', 'image/png'];
+      if (!checkFiletypes(frontendCard.type, avaTypes) || !checkFiletypes(backendCard.type, avaTypes)) {
+        toast.error(String(t('setting:fileSizeLimit')), { containerId: TOAST_ENUM.COMMON });
+        return;
+      }
+
+      if (getSizeOfFileByMega(frontendCard.size) > 1 || getSizeOfFileByMega(backendCard.size) > 1) {
+        toast.error(String(t('setting:fileSizeLimit')), { containerId: TOAST_ENUM.COMMON });
+        return;
+      }
       const _res = await api_uploadIdCards(formData);
       dispatch(
         saveUserInfo({
@@ -110,6 +123,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                       <input
                         type="file"
                         {...field}
+                        accept=".jpg, .jpeg, .png"
                         id="frontCard"
                         className="hidden"
                         onChange={(event) => {
@@ -165,6 +179,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                         {...field}
                         id="backCard"
                         className="hidden"
+                        accept=".jpg, .jpeg, .png"
                         onChange={(event) => {
                           onChange(event.target.files?.[0]);
                         }}
