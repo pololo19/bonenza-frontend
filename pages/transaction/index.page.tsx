@@ -5,6 +5,7 @@ import cn from 'classnames';
 import { ArrowRight2, Copy } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Fragment, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -16,6 +17,7 @@ import {
   LIST_FILTER_DATE,
   LIST_FILTER_STATUS,
   LIST_FILTER_TYPE,
+  ROUTER,
   TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER,
   TOAST_ENUM,
 } from '@/base/constants/common';
@@ -38,6 +40,7 @@ import TableComponent from '@/components/table';
 import { TransactionBillType, TransactionStatus, TransactionSwapType, TransactionType } from '@/types/common';
 
 import styles from './index.module.scss';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 
 interface BillType {
   type: string;
@@ -260,16 +263,9 @@ const TransactionPage = () => {
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
                   ({row.original?.gameName})
-                  <LinkIcon
-                    width={12}
-                    role="button"
-                    className="hover:text-amber-500"
-                    onClick={() =>
-                      toast.success('Only the latest 100 betting history is recorded', {
-                        containerId: TOAST_ENUM.COMMON,
-                      })
-                    }
-                  />
+                  {/* <Link href={ROUTER.GameDetail(convertToUrlCase(row.original.gameName || ''))}>
+                    <LinkIcon width={12} role="button" className="hover:text-amber-500" />
+                  </Link> */}
                 </span>
               )}
             </div>

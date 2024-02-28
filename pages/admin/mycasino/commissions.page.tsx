@@ -9,7 +9,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
-import { api_affiliateCommissionRewards } from '@/api/bonus';
+import { api_affiliateCommissionRewards, api_affiliateCommissionRewardsHistory } from '@/api/bonus';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
@@ -22,6 +22,8 @@ type FilterType = {
 type CommissionRewardType = {
   totalCommissionRewards: number;
   commissionRewardsAvailable: number;
+  currencyLogo: string;
+  currencyName: string;
 };
 
 function AdminRewardsPage() {
@@ -55,13 +57,18 @@ function AdminRewardsPage() {
   const getCommissionData = useCallback(async () => {
     try {
       setIsLoadingTable(true);
-      const _res = await api_affiliateCommissionRewards(page, limit);
-      const tempCommissionData = _res.data?.rewards?.map((reward: any) => ({
+      const [_resAffiliateTotal, _resAffiliateHistory] = await Promise.all([
+        api_affiliateCommissionRewards(),
+        api_affiliateCommissionRewardsHistory(page, limit),
+      ]);
+      const tempCommissionData = _resAffiliateHistory.data?.rewards?.map((reward: any) => ({
         totalCommissionRewards: Number(reward.totalCommissionRewards || 0),
-        commissionRewardsAvailable: Number(reward.commissionRewardsAvailable || 0),
+        commissionRewardsAvailable: Number(reward.amount || 0),
+        currencyLogo: reward.currencyLogo,
+        currencyName: reward.currencyName,
       }));
-      setTotalCommissionRewardsAmountUsd(Number(_res.data?.totalCommissionRewardsAmountUsd));
-      setTotalRows(Number(_res.data?.totalCount || 0));
+      setTotalCommissionRewardsAmountUsd(Number(_resAffiliateTotal.data?.totalCommissionRewardsAmountUsd));
+      setTotalRows(Number(_resAffiliateTotal.data?.totalCount || 0));
       setTableData(tempCommissionData);
     } catch (error) {
       setTableData([]);
@@ -74,7 +81,7 @@ function AdminRewardsPage() {
     getCommissionData();
   }, []);
 
-  const columns: ColumnDef<any>[] = useMemo(() => {
+  const columns: ColumnDef<CommissionRewardType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'totalCommissionRewards',
@@ -90,7 +97,7 @@ function AdminRewardsPage() {
         header: () => <div className="text-left">{t('mycasino:commissionRewards')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{row.original.commissionRewardsAvailable}</div>
+            <div className="font-bold truncate">{`${row.original.commissionRewardsAvailable} ${row.original.currencyName}`}</div>
           </div>
         ),
       },
