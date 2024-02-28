@@ -101,17 +101,17 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
           monthlyCashbackPercentage: Number(bonus.monthlyCashbackPercentage ?? 0),
         })),
       }));
-      const currentLevel = _resVipProgress.data?.currentVipLevel ?? 1;
+      const currentLevel = Number(_resVipProgress.data?.currentVipLevel || 0);
 
       setVipData({
-        xp: _resVipProgress.data?.currentXp ?? 0,
-        level: _resVipProgress.data?.currentVipLevel ?? 1,
+        xp: Number(_resVipProgress.data?.currentXp || 0),
+        level: Number(_resVipProgress.data?.currentVipLevel || 0),
         name: _resVipProgress.data?.currentVipName ?? '',
-        remainingXp: _resVipProgress.data?.remainingXp ?? 0,
-        nextLevel: _resVipProgress.data?.nextVipLevel ?? 0,
+        remainingXp: Number(_resVipProgress.data?.remainingXp || 0),
+        nextLevel: Number(_resVipProgress.data?.nextVipLevel || 0),
         nextName: _resVipProgress.data?.nextVipName ?? '',
-        nextXp: _resVipProgress.data?.nextVipXp ?? 0,
-        nextLevelBonus: Number(_resVipProgress.data?.nextLevelBonus ?? 0),
+        nextXp: Number(_resVipProgress.data?.nextVipXp || 0),
+        nextLevelBonus: Number(_resVipProgress.data?.nextLevelBonus || 0),
       });
       if (tempRankData.length > 0) {
         const userRank = tempRankData.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);
@@ -167,6 +167,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
   useEffect(() => {
     getVipData();
   }, []);
+
+  console.log(vipData, '---171');
 
   return (
     <>
@@ -272,7 +274,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     ></div>
                   </div>
                   <div className="text-[14px] text-white">
-                    {vipData.remainingXp.toFixed(3)} XP {t('vipClub:until')} {vipData.nextName}
+                    {vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)} XP{' '}
+                    {t('vipClub:until')} {vipData.nextName}
                   </div>
                 </div>
               </div>
@@ -417,7 +420,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                   </div>
                                   <div className="text-color-text-primary text-[12px]">
                                     {t('vipClub:totalPrize')}:{' '}
-                                    <span className="text-[#efc94c] font-semibold">
+                                    <span className="text-color-secondary font-semibold">
                                       {bonus.levelUpTotalPrizeAmountUsd} USDT
                                     </span>
                                   </div>
