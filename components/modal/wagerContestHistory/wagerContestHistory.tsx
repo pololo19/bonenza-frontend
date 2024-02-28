@@ -8,7 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { api_wagerContestHistory } from '@/api/game';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
-import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowInformation, changeIsShowWagerContestHistory } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import RankingTableComponent from '@/components/table/rankingTable';
@@ -75,7 +75,14 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
   };
 
   const handleModalUserProfile = (user: any) => {
-    dispatch(setUserData({ userId: user.playerId, userName: user.playerName, avatar: user.playerAvatar }));
+    dispatch(
+      setUserData({
+        userId: user.original.playerId,
+        userName: user.original.playerName,
+        avatar: user.original.playerAvatar,
+      }),
+    );
+    dispatch(changeIsShowWagerContestHistory(false));
     dispatch(changeIsShowInformation(true));
   };
 
