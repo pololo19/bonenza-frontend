@@ -11,6 +11,7 @@ import {
   API_WALLET_TRANSACTIONS,
   API_WALLET_USER_BALANCE,
   API_WALLET_WITHDRAW,
+  API_WALLET_WITHDRAW_INFO,
 } from 'constants/endpoints';
 
 import { RolloverRequest, TransactionRequest, WithdrawRequest } from '@/base/types/requestTypes';
@@ -72,4 +73,8 @@ export const api_getClaims = async () => {
 
 export const api_postClaims = async (amount: number) => {
   return api.post(API_WALLET_POST_CLAIM, { amount });
+};
+
+export const api_withdrawInfo = async (symbolId: string) => {
+  return api.get(API_WALLET_WITHDRAW_INFO, { params: { symbolId } });
 };
