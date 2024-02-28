@@ -121,7 +121,7 @@ function AdminRewardsPage() {
         </div>
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4 flex gap-4">
-        <div className="max-w-[500px] w-[500px]">
+        <div className="w-full">
           <AdminTableComponent
             containerClassName="w-full"
             isLoading={isLoadingTable}
@@ -136,39 +136,6 @@ function AdminRewardsPage() {
             setItemPerPage={handleChangeItemPerPage}
             hiddenPerPage={true}
           />
-        </div>
-        <div className="max-w-[500px] w-[500px] bg-[#f7f7fa] px-10 py-6">
-          <div className="flex flex-col gap-2 items-center">
-            <div className="text-[24px] text-[#36434c] font-[600] text-center">{t('mycasino:swapAll')}</div>
-            <Select
-              showSearch
-              optionFilterProp="children"
-              className="w-[80%]"
-              options={[
-                { label: 'USDT ($1 ~ $100000)', value: 'USDT', icon: 'USDT' },
-                { label: 'BNB ($1 ~ $100000)', value: 'BNB', icon: 'BNB' },
-                { label: 'ETH ($1 ~ $100000)', value: 'ETH', icon: 'ETH' },
-                { label: 'GOD ($1 ~ $100000)', value: 'GOD', icon: 'GOD' },
-                { label: 'DRON ($1 ~ $100000)', value: 'DRON', icon: 'DRON' },
-              ]}
-              optionRender={(option) => (
-                <Space>
-                  <Image src={`/img/fiats/${option.data.icon}.png`} alt="" width={20} height={20} />
-                  {option.data.label}
-                </Space>
-              )}
-            />
-            <span className="text-[14px] text-[#36434c] font-[500] w-[60%] text-center">{t('mycasino:note')}</span>
-            <button className="bg-color-primary px-6 py-1 rounded-md w-fit text-white text-[20px]" type="submit">
-              {t('mycasino:swap')}
-            </button>
-          </div>
-          <div className="flex flex-col gap-2 items-center mt-4">
-            <div className="text-[24px] text-[#36434c] font-[600] text-center">{t('mycasino:allCryptos')}</div>
-            <button className="bg-color-primary px-6 py-1 rounded-md w-fit text-white text-[20px]" type="submit">
-              {t('mycasino:withdraw')}
-            </button>
-          </div>
         </div>
       </div>
     </div>
