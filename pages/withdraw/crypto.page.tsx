@@ -165,8 +165,8 @@ const WithdrawCryptoPage = () => {
       setWithdrawInfo({
         availableAmountUsd: Number(_res.data.availableWithdrawalAmountUsd || 0),
         availableAmount: Number(_res.data.availableWithdrawalAmount || 0),
-        lockedAmount: Number(_res.data.lockedAmount || 0),
-        lockedAmountUsd: Number(_res.data.lockedAmountUsd || 0),
+        lockedAmount: Number(_res.data.lockedWithdrawalAmount || 0),
+        lockedAmountUsd: Number(_res.data.lockedWithdrawalAmountUsd || 0),
       });
     } catch (error) {
       setWithdrawInfo({
