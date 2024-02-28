@@ -196,7 +196,13 @@ const WagerContestComponent = () => {
   }, [positionData, wagerContestData]);
 
   const handleModalUserProfile = (user: any) => {
-    dispatch(setUserData({ userId: user.original.playerId, userName: user.original.playerName, avatar: user.original.playerAvatar }));
+    dispatch(
+      setUserData({
+        userId: user.original.playerId,
+        userName: user.original.playerName,
+        avatar: user.original.playerAvatar,
+      }),
+    );
     dispatch(changeIsShowInformation(true));
   };
 
@@ -481,16 +487,14 @@ const WagerContestComponent = () => {
                         width={16}
                         height={16}
                         className="object-cover w-[1rem] h-[1rem]"
-                        src={viewInFiat ? `/img/fiats/${localFiat?.name}.png` : `/img/fiats/USDT.png`}
+                        src={`/img/fiats/USDT.png`}
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USDT.png';
                         }}
                         alt=""
                       />
                       <span className="text-color-primary ml-1 font-bold">
-                        {viewInFiat
-                          ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
-                          : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
+                        {currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
                       </span>
                       <span className="dark:text-white text-[#000]">{`${wagerHistory.percentage}%`}</span>
                     </div>
