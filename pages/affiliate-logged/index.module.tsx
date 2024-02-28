@@ -41,6 +41,8 @@ type LiveRewardDataType = {
   amountUsd: number;
 };
 
+const fiatDecimals = 8;
+
 function AffiliateLoggedPage() {
   const exchange = useExchange();
   const { t, i18n } = useTranslation('');
@@ -117,16 +119,16 @@ function AffiliateLoggedPage() {
       setIsLoading(true);
       const _res = await api_affiliate();
       const tempReferralData = {
-        totalReward: _res.data?.totalRewardEarnedUsd ?? 0,
-        totalFriends: _res.data?.totalFriendsReferred ?? 0,
-        referralReward: _res.data?.totalReferralRewardsUsd ?? 0,
-        commissionReward: _res.data?.totalCommissionRewardsUsd ?? 0,
+        totalReward: Number(_res.data?.totalRewardEarnedUsd || 0),
+        totalFriends: Number(_res.data?.totalFriendsReferred || 0),
+        referralReward: Number(_res.data?.totalReferralRewardsUsd || 0),
+        commissionReward: Number(_res.data?.totalCommissionRewardsUsd || 0),
       };
       const tempRewardsActivities: ReferralActivityType[] =
         _res.data?.rewardsActivities?.map((item: any) => ({
           type: item.type ?? 'commission',
           currency: 'USD',
-          amount: item.amountUsd ?? 0,
+          amount: Number(item.amountUsd || 0),
         })) ?? [];
       setRewardActivitiesData(tempRewardsActivities);
       setReferralData(tempReferralData);
@@ -196,9 +198,11 @@ function AffiliateLoggedPage() {
                       className={`leading-[22px] text-[22px] font-bold w-full text-color-secondary ${styles.textBanner}`}
                     >
                       {viewInFiat ? (
-                        <>{currencyFormat1(referralData.totalReward * exchange, 2, localFiat?.name || 'USD')}</>
+                        <>
+                          {currencyFormat1(referralData.totalReward * exchange, fiatDecimals, localFiat?.name || 'USD')}
+                        </>
                       ) : (
-                        <>{currencyFormat1(referralData.totalReward, 2)}</>
+                        <>{currencyFormat1(referralData.totalReward, fiatDecimals)}</>
                       )}
                     </div>
                   </div>
@@ -244,9 +248,11 @@ function AffiliateLoggedPage() {
                   className={`text-[22px] mt-[23px] font-bold text-center text-color-secondary ${styles.textBanner}`}
                 >
                   {viewInFiat ? (
-                    <>{currencyFormat1(referralData.referralReward * exchange, 2, localFiat?.name || 'USD')}</>
+                    <>
+                      {currencyFormat1(referralData.referralReward * exchange, fiatDecimals, localFiat?.name || 'USD')}
+                    </>
                   ) : (
-                    <>{currencyFormat1(referralData.referralReward, 2)}</>
+                    <>{currencyFormat1(referralData.referralReward, fiatDecimals)}</>
                   )}
                 </div>
                 <div className="px-[18px] pb-[14px] mt-[28px]">
@@ -277,9 +283,15 @@ function AffiliateLoggedPage() {
                 </div>
                 <div className={`text-[22px] mt-[23px] font-bold text-center text-color-primary ${styles.textBanner}`}>
                   {viewInFiat ? (
-                    <>{currencyFormat1(referralData.commissionReward * exchange, 2, localFiat?.name || 'USD')}</>
+                    <>
+                      {currencyFormat1(
+                        referralData.commissionReward * exchange,
+                        fiatDecimals,
+                        localFiat?.name || 'USD',
+                      )}
+                    </>
                   ) : (
-                    <>{currencyFormat1(referralData.commissionReward, 2)}</>
+                    <>{currencyFormat1(referralData.commissionReward, fiatDecimals)}</>
                   )}
                 </div>
                 <div className="px-[18px] pb-[14px] mt-[28px]">
@@ -323,9 +335,9 @@ function AffiliateLoggedPage() {
                         </div>
                         <div className="text-[18px] text-color-secondary font-bold">
                           {viewInFiat ? (
-                            <>{currencyFormat1(item.amount * exchange, 2, localFiat?.name || 'USD')}</>
+                            <>{currencyFormat1(item.amount * exchange, 8, localFiat?.name || 'USD')}</>
                           ) : (
-                            <>{currencyFormat1(item.amount, 2)}</>
+                            <>{currencyFormat1(item.amount, 8)}</>
                           )}
                         </div>
                       </div>
@@ -338,7 +350,6 @@ function AffiliateLoggedPage() {
                 <div className="bg-gradient-btn-default txt-center py-[17px] rounded-[5px] font-bold w-full flex justify-center items-center">
                   <Image height={18} width={18} src="/img/page/category.png" className="opacity-30" alt="" />
                   <div className="ml-[10px] mr-[10px] text-[14px] text-[#FFFFFF]">{t('affiliate:goToDashboard')}</div>
-                  <i className="fi fi-br-angle-right  mt-[2px] text-[12px] font-bold"></i>
                 </div>
               </Link>
             </div>
