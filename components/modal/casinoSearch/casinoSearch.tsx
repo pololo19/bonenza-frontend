@@ -302,11 +302,10 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             {searchResult}
 
             <div className="sm:block hidden">
-              <CasinoSwiper
+              <CasinoSS
                 title={String(t('casino:recommendedForYou'))}
                 data={listRecommendGame}
                 renderItem={(item) => <GameCard gameDetail={item}/>}
-                isBigMode
               />
             </div>
           </div>

@@ -14,10 +14,9 @@ type CasinoSwiperProps<T> = {
   data: T[];
   renderItem: (game: T) => ReactNode;
   onClickItem?: (game: T) => void;
-  isBigMode?: boolean;
 };
 
-const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem, isBigMode = false }: CasinoSwiperProps<T>): JSX.Element => {
+const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: CasinoSwiperProps<T>): JSX.Element => {
   const width = useWidth();
 
   const [slide, setSlide] = useState<number>(8);
@@ -77,7 +76,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem, isBigMod
               </div>
             </div>
             <Swiper
-              slidesPerView={isBigMode ? slide : width > 600 ? 'auto' : 3}
+              slidesPerView={width > 600 ? 'auto' : 3}
               freeMode={true}
               autoplay={{
                 delay: 2000,
@@ -94,7 +93,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem, isBigMod
                 return (
                   <SwiperSlide
                     key={key}
-                    className={`${!isBigMode ? 'sm:!w-[150px]' : ''} w-full !mb-0 !p-[10px] sm:!p-0 dark:!bg-[#2E3035] !bg-white sm:!bg-auto`}
+                    className={`sm:!w-[150px] w-full !mb-0 !p-[10px] sm:!p-0 dark:!bg-[#2E3035] !bg-white sm:!bg-auto`}
                     onClick={() => onClickItem?.(game)}
                   >
                     {renderItem(game)}

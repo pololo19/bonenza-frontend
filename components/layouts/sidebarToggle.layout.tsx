@@ -58,11 +58,11 @@ export default function SidebarToggle() {
     { title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou, icon: <Element3 size={18} /> },
     { title: String(t('casino:favorite')), href: ROUTER.Favorite, icon: <FavoriteIcon size={18} /> },
     { title: String(t('casino:recent')), href: ROUTER.Recent, icon: <RecentIcon size={18} /> },
-    {
-      title: String(t('casino:bonenzaOriginals')),
-      href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
-      icon: <OriginalIcon size={18} />,
-    },
+    // {
+    //   title: String(t('casino:bonenzaOriginals')),
+    //   href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
+    //   icon: <OriginalIcon size={18} />,
+    // },
     { title: String(t('casino:slot')), href: ROUTER.Tagname('slots'), icon: <SlotIcon size={18} /> },
     { title: String(t('casino:liveCasino')), href: ROUTER.Tagname('Live Casino'), icon: <LiveCasinoIcon size={18} /> },
     { title: String(t('casino:hotGame')), href: ROUTER.Tagname('Hot Games'), icon: <HotGameIcon size={18} /> },
@@ -155,7 +155,7 @@ export default function SidebarToggle() {
     () => [
       {
         title: String(t('sidebar:vipClub')),
-        href: '',
+        href: '#',
         icon: Diamonds,
         smallIcon: (
           <Diamonds

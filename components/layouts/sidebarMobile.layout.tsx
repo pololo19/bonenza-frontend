@@ -15,6 +15,7 @@ import {
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
+import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import BlackjackIcon from '../icons/BlackjackIcon';
@@ -26,7 +27,6 @@ import OriginalIcon from '../icons/OriginalIcon';
 import RecentIcon from '../icons/RecentIcon';
 import ReleaseIcon from '../icons/ReleaseIcon';
 import SlotIcon from '../icons/SlotIcon';
-import { AuthenticationModeEnum } from '@/base/types/common';
 
 const SidebarMobileLayout: React.FC = () => {
   const { t, i18n } = useTranslation('');
@@ -44,11 +44,11 @@ const SidebarMobileLayout: React.FC = () => {
 
   const gameDatas: IconOptionProps[] = useMemo(
     () => [
-      {
-        title: String(t('casino:bonenzaOriginals')),
-        href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
-        icon: OriginalIcon,
-      },
+      // {
+      //   title: String(t('casino:bonenzaOriginals')),
+      //   href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
+      //   icon: OriginalIcon,
+      // },
       { title: String(t('casino:slot')), href: ROUTER.Tagname('slots'), icon: SlotIcon },
       {
         title: String(t('casino:liveCasino')),
