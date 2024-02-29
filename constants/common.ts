@@ -42,7 +42,7 @@ export const AUTH_KEY = 'BONENZA@2023';
 
 export const ROUTER = {
   Home: '/',
-  REFERRAL_CODE: (code: string) => `https://bonenza.com/referral/${code}`,
+  REFERRAL_CODE: (code: string) => `https://bonenza.com/?referral=${code}`,
   Dashboard: '/dashboard',
   Sports: '/sports',
   Racing: '/racing',

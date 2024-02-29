@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ArrowDown2 } from 'iconsax-react';
-import { forwardRef, Ref, useImperativeHandle, useState } from 'react';
+import { useRouter } from 'next/router';
+import { forwardRef, Ref, useEffect, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -21,6 +22,8 @@ type SignUpEmailFormProps = {
 const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRef>) => {
   const { onSubmit } = props;
   const [isEnterReferral, setCheckIsReferral] = useState<boolean>(false);
+  const { query } = useRouter();
+  const { referral } = query;
 
   const { t } = useTranslation('');
 
@@ -45,9 +48,7 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
   } = useForm<SignUpEmailRequest>({
     resolver: yupResolver(schema),
     defaultValues: {
-      referralCode: CookiesStorage.getCookieData(CookieKey.referralCode)
-        ? String(CookiesStorage.getCookieData(CookieKey.referralCode))
-        : '',
+      referralCode: referral ? String(referral) : '',
     },
   });
 
@@ -58,6 +59,13 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
   useImperativeHandle(ref, () => ({
     emitData: handleSubmitForm,
   }));
+
+  useEffect(() => {
+    if (referral) {
+      setValue('referralCode', String(referral));
+      setCheckIsReferral(true);
+    }
+  }, [referral]);
 
   return (
     <>

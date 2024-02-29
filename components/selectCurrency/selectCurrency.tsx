@@ -98,6 +98,7 @@ const SelectCurrency = ({
 
     return selectedBalance?.amount || 0;
   };
+
   useEffect(() => {
     if (query.coin) {
       const coin = symbols.find((e) => e.name.toUpperCase() === String(query.coin).toUpperCase());
@@ -129,8 +130,9 @@ const SelectCurrency = ({
                   'hover:bg-color-primary', // Hover color
                   {
                     'border-2 border-color-primary': symbol.id === activeCoin.id, //Active Symbol
-                    'border-2 border-color-light-border-primary dark:border-color-border-primary': symbol.id !== activeCoin.id, //Not Active Symbol
-                  }
+                    'border-2 border-color-light-border-primary dark:border-color-border-primary':
+                      symbol.id !== activeCoin.id, //Not Active Symbol
+                  },
                 )}
                 key={index}
                 onClick={() => handleChangeCrypto(symbol)}
@@ -176,7 +178,13 @@ const SelectCurrency = ({
                 <div className="flex items-center text-default dark:text-color-text-primary text-color-light-text-primary gap-[10px]">
                   {t('deposit:balance')}{' '}
                   <span className="text-default font-semibold dark:text-white text-color-light-text-primary">
-                    {currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
+                    {viewInFiat
+                      ? currencyFormat1(
+                          getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
+                          fiatDecimals,
+                          localFiat?.name,
+                        )
+                      : currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
                   </span>
                 </div>
                 <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />

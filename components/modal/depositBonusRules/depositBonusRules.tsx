@@ -1,11 +1,11 @@
-import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
-import { ElementType, Fragment, useRef } from 'react';
+import { ElementType } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, exchangeByLocaleFiat, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
@@ -17,11 +17,12 @@ type ModalDepositBonusRulesProps = {
   DialogProps<ElementType>;
 
 export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBonusRulesProps) {
-  const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
-  const { localFiat } = useSelector(
+  const exchangeRate = useExchange();
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
@@ -95,7 +96,12 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">
                       <p>{t('bonus:minimum')}</p>
                       <p className="dark:text-white text-black font-semibold">
-                        {`${handleLocaleSymbol(localFiat?.iso_currency || 'USD')} ${item.depositAmount}`}
+                        {viewInFiat ? (
+                          <>{currencyFormat1(item.depositAmount * exchangeRate, 2, String(localFiat?.name || 'USD'))}</>
+                        ) : (
+                          currencyFormat1(item.depositAmount, 2, 'USD')
+                        )}
+
                       </p>
                     </div>
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">

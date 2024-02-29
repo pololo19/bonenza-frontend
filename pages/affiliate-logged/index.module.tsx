@@ -160,7 +160,7 @@ function AffiliateLoggedPage() {
         const tempReward: LiveRewardDataType = {
           userName: data.user_name ?? '',
           symbolLogo: data.symbol_logo ?? '',
-          amountUsd: data.amount_usd || 0,
+          amountUsd: Number(data.amount_usd || 0),
         };
         setLiveRewardData((prev) => [tempReward, ...prev]);
       });
@@ -503,10 +503,12 @@ function AffiliateLoggedPage() {
                       <div className="mr-[5px]">
                         <Image height={16} width={16} src={reward.symbolLogo} className="w-[16px] h-[16px]" alt="" />
                       </div>
-                      <div className="text-[12px] dark:text-white text-[#43484E]">
-                        {reward.userName}
-                        {t('affiliate:got')}{' '}
-                        <span className="text-color-primary">{currencyFormat1(reward.amountUsd, 2, '', false)}</span>{' '}
+                      <div className="text-default dark:text-color-text-primary text-[#43484E] gap-[5px]">
+                        <span className="dark:text-white text-color-light-text-primary mr-[5px]">{`${reward.userName}`}</span>
+                        {`${t('affiliate:got')}`}{' '}
+                        <span className="text-color-primary">
+                          {currencyFormat1(reward.amountUsd, fiatDecimals, '', false)}
+                        </span>{' '}
                         {t('affiliate:rewards')}
                       </div>
                     </div>
