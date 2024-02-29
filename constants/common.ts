@@ -1185,7 +1185,7 @@ export const LIST_FILTER_TYPE = [
   { name: 'transaction:deposit', type: TRANSACTION_TYPE.Deposit },
   { name: 'transaction:withdraw', type: TRANSACTION_TYPE.Withdraw },
   { name: 'transaction:swap', type: TRANSACTION_TYPE.Swap },
-  { name: 'transaction:buyCrypto', type: TRANSACTION_TYPE.Buy_Crypto },
+  // { name: 'transaction:buyCrypto', type: TRANSACTION_TYPE.Buy_Crypto },
   { name: 'transaction:bill', type: TRANSACTION_TYPE.Bill },
   { name: 'transaction:bonus', type: TRANSACTION_TYPE.Bonus },
 ];
