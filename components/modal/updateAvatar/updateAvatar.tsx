@@ -132,7 +132,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded !max-w-[464px]"
+        panelClass="rounded !max-w-[464px] !h-[calc(100vh - 200px)]"
         header={
           <div className="relative p-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
             <div className="flex items-center dark:text-white text-black gap-[10px]">
@@ -142,7 +142,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           </div>
         }
       >
-        <div className="flex-1 p-[20px] bg-[#f5f6fa] dark:bg-color-modal-bg-primary flex flex-col gap-[20px]">
+        <div className="flex-1 p-[20px] bg-[#f5f6fa] dark:bg-color-modal-bg-primary flex flex-col gap-[20px] h-full overflow-scroll">
           {isLoading && <Loader />}
           <div className="flex flex-col gap-[20px]">
             <div className="relative h-[300px] w-auto ">
