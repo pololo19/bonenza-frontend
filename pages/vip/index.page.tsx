@@ -82,56 +82,56 @@ function VipPage() {
 
   const faqs = [
     { title: t('vipClub:whatLevelBonus'), contents: [t('vipClub:whatLevelBonusContent')] },
-    {
-      title: t('vipClub:whatRaining'),
-      contents: [
-        t('vipClub:whatRainingContent1'),
-        t('vipClub:rules'),
-        t('vipClub:whatRainingContent2'),
-        t('vipClub:whatRainingContent3'),
-        t('vipClub:whatRainingContent4'),
-        t('vipClub:whatRainingContent5'),
-        t('vipClub:whatRainingContent6'),
-        t('vipClub:whatRainingContent7'),
-      ],
-    },
-    {
-      title: t('vipClub:whatCoinDrop'),
-      contents: [t('vipClub:whatCoinDropContent1'), t('vipClub:whatCoinDropContent2')],
-    },
-    {
-      title: t('vipClub:whatTips'),
-      contents: [t('vipClub:whatTipsContent')],
-    },
-    {
-      title: t('vipClub:whatRecharge'),
-      contents: [
-        t('vipClub:whatRechargeContent1'),
-        t('vipClub:whatRechargeContent2'),
-        t('vipClub:whatRechargeContent3'),
-        t('vipClub:whatRechargeContent4'),
-        t('vipClub:whatRechargeContent5'),
-        t('vipClub:whatRechargeContent6'),
-        t('vipClub:whatRechargeContent6'),
-      ],
-    },
+    // {
+    //   title: t('vipClub:whatRaining'),
+    //   contents: [
+    //     t('vipClub:whatRainingContent1'),
+    //     t('vipClub:rules'),
+    //     t('vipClub:whatRainingContent2'),
+    //     t('vipClub:whatRainingContent3'),
+    //     t('vipClub:whatRainingContent4'),
+    //     t('vipClub:whatRainingContent5'),
+    //     t('vipClub:whatRainingContent6'),
+    //     t('vipClub:whatRainingContent7'),
+    //   ],
+    // },
+    // {
+    //   title: t('vipClub:whatCoinDrop'),
+    //   contents: [t('vipClub:whatCoinDropContent1'), t('vipClub:whatCoinDropContent2')],
+    // },
+    // {
+    //   title: t('vipClub:whatTips'),
+    //   contents: [t('vipClub:whatTipsContent')],
+    // },
+    // {
+    //   title: t('vipClub:whatRecharge'),
+    //   contents: [
+    //     t('vipClub:whatRechargeContent1'),
+    //     t('vipClub:whatRechargeContent2'),
+    //     t('vipClub:whatRechargeContent3'),
+    //     t('vipClub:whatRechargeContent4'),
+    //     t('vipClub:whatRechargeContent5'),
+    //     t('vipClub:whatRechargeContent6'),
+    //     t('vipClub:whatRechargeContent6'),
+    //   ],
+    // },
     {
       title: t('vipClub:whatWeeklyCashback'),
       contents: [t('vipClub:whatWeeklyCashbackContent')],
     },
-    {
-      title: t('vipClub:WhatWeeklyBonus'),
-      contents: [
-        t('vipClub:WhatWeeklyBonus1'),
-        t('vipClub:WhatWeeklyBonus2'),
-        t('vipClub:WhatWeeklyBonus3'),
-        t('vipClub:WhatWeeklyBonus4'),
-        t('vipClub:WhatWeeklyBonus5'),
-        t('vipClub:WhatWeeklyBonus6'),
-        t('vipClub:WhatWeeklyBonus7'),
-        t('vipClub:WhatWeeklyBonus8'),
-      ],
-    },
+    // {
+    //   title: t('vipClub:WhatWeeklyBonus'),
+    //   contents: [
+    //     t('vipClub:WhatWeeklyBonus1'),
+    //     t('vipClub:WhatWeeklyBonus2'),
+    //     t('vipClub:WhatWeeklyBonus3'),
+    //     t('vipClub:WhatWeeklyBonus4'),
+    //     t('vipClub:WhatWeeklyBonus5'),
+    //     t('vipClub:WhatWeeklyBonus6'),
+    //     t('vipClub:WhatWeeklyBonus7'),
+    //     t('vipClub:WhatWeeklyBonus8'),
+    //   ],
+    // },
   ];
 
   const onOpenModalVipClub = () => {
