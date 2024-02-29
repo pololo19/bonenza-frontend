@@ -1,8 +1,8 @@
+import cn from 'classnames';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import cn from 'classnames';
 
 import { api_bonusStatistics } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
@@ -261,18 +261,20 @@ function BonusLoggedPage() {
             </div>
           </div>
         </div>
-        <div className={cn
-          (
-            "dark:bg-color-card-body-default bg-white rounded-[5px] max-[923px]", // Color & Border-radius
-            "w-full gap-4 flex flex-col lg:flex-row lg:justify-between", // Layout
-            "mt-[24px] px-[16px] py-[20px]" // Margin & Padding
+        <div
+          className={cn(
+            'dark:bg-color-card-body-default bg-white rounded-[5px] max-[923px]', // Color & Border-radius
+            'w-full gap-4 flex flex-col lg:flex-row lg:justify-between', // Layout
+            'mt-[24px] px-[16px] py-[20px]', // Margin & Padding
           )}
         >
-          <div className={cn(
-            "flex justify-center items-center gap-[18px] max-[414px] pr-0 pb-[20px] lg:pr-[40px] lg:pb-0",
-            "border-solid border-b-[1px] border-b-gray-300 dark:border-b-gray-700 lg:border-r-[1px] lg:border-r-gray-300 dark:lg:border-r-gray-700 lg:border-b-0"
-          )}>
-            <Image src={'/img/gold-coin.png'} width={93} height={76} alt="" className="pl-4"/>
+          <div
+            className={cn(
+              'flex justify-center items-center gap-[18px] max-[414px] pr-0 pb-[20px] lg:pr-[40px] lg:pb-0',
+              'border-solid border-b-[1px] border-b-gray-300 dark:border-b-gray-700 lg:border-r-[1px] lg:border-r-gray-300 dark:lg:border-r-gray-700 lg:border-b-0',
+            )}
+          >
+            <Image src={'/img/gold-coin.png'} width={93} height={76} alt="" className="pl-4" />
             <div className="flex flex-col items-center">
               <div className="text-[14px] dark:text-white text-color-light-text-primary min-w-[155px]">
                 {t('bonus:totalBonusClaimed')}
@@ -313,23 +315,13 @@ function BonusLoggedPage() {
               </div>
             </div>
             {/* Claim & Details Button */}
-            {totalData.bonusClaimedUsd > 0 ? (
-              <div
-                // onClick={handleClaimBonus}
-                role="button"
-                className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-[5px] dark:text-color-text-primary text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
-              >
-                {t('bonus:claim')}
-              </div>
-            ) : (
-              <div
-                onClick={() => setOpenModalBonusDetails(true)}
-                role="button"
-                className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-[5px] dark:text-color-text-primary text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
-              >
-                {t('bonus:details')}
-              </div>
-            )}
+            <div
+              onClick={() => setOpenModalBonusDetails(true)}
+              role="button"
+              className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-default dark:text-color-text-primary text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
+            >
+              {t('bonus:details')}
+            </div>
           </div>
         </div>
         <div className="mt-5">
@@ -405,9 +397,9 @@ function BonusLoggedPage() {
                         <span>{bonusData.vip.levelUp.nextVipXP}</span>
                       </div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right">
-                        {totalData.bonusClaimedUsd === 0 ? 
-                        '-' :  
-                        viewInFiat
+                        {totalData.bonusClaimedUsd === 0
+                          ? '-'
+                          : viewInFiat
                           ? currencyFormat1(totalData.bonusClaimedUsd * exchangeRate, 2, localFiat?.name)
                           : currencyFormat1(totalData.bonusClaimedUsd, 2)}
                       </div>
