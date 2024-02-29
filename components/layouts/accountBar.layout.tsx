@@ -210,7 +210,7 @@ const AccountPannel: React.FC = () => {
               <div
                 role="button"
                 className={cn('p-[8px]', {
-                  'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme === 'dark',
+                  'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme !== 'light',
                   'bg-transparent': theme === 'light',
                 })}
                 onClick={() => {
@@ -223,7 +223,7 @@ const AccountPannel: React.FC = () => {
                 role="button"
                 className={cn('p-[8px]', {
                   'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme === 'light',
-                  'bg-transparent': theme === 'dark',
+                  'bg-transparent': theme !== 'light',
                 })}
                 onClick={() => {
                   setTheme('light');

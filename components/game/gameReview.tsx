@@ -657,9 +657,9 @@ const GameReviewComponent = ({
                   <Messages size={18} className={cn('m-auto')} />
                   {comment.comments > 0 && <span className="ml-[10px]">{comment.comments}</span>}
                 </div>
-                <div className="cursor-pointer">
+                {/* <div className="cursor-pointer">
                   <i className="fi fi-rr-menu-dots-vertical"></i>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="flex flex-col text-xs dark:text-color-text-primary text-color-light-text-primary">
