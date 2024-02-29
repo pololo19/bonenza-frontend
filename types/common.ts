@@ -227,10 +227,11 @@ export type GameDetail = {
 };
 
 export type WagerDetail = {
-  date?: string;
-  position?: number;
-  prize?: string | number;
-  prizeUsd?: string | number;
+  date: string;
+  position: number;
+  prize: number;
+  prizeUsd: number;
+  currencyLogo: string;
 };
 
 export type RankDetail = {

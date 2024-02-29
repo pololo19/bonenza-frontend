@@ -149,7 +149,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
               },
             )}
           >
-            {row.original?.playerId !== userId && row.original?.playerName ? (
+            {row.original?.playerId !== userId && !row.original?.playerName ? (
               <Image
                 width={25}
                 height={25}
