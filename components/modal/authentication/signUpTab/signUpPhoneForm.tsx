@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ArrowDown2 } from 'iconsax-react';
-import { Dispatch, forwardRef, Ref, SetStateAction, useImperativeHandle, useState } from 'react';
+import { Dispatch, forwardRef, Ref, SetStateAction, useEffect, useImperativeHandle, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
@@ -13,6 +13,7 @@ import { SignUpPhoneRequest } from '@/base/types/requestTypes';
 import InputPassAuthentication from '@/components/input/typing/InputPassAuthentication';
 import InputPhoneNumber from '@/components/input/typing/InputPhoneNumber';
 import InputText from '@/components/input/typing/InputText';
+import { useRouter } from 'next/router';
 
 type SignUpPhoneFormProps = {
   onSubmit: (data: SignUpPhoneRequest) => void;
@@ -25,6 +26,8 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
   const { onSubmit } = props;
   const [countryCallingCode, setCountryCallingCode] = useState<(typeof COUNTRY_CALLING_CODES)[number]>();
   const [isEnterReferral, setCheckIsReferral] = useState<boolean>(false);
+  const { query } = useRouter();
+  const { referral } = query;
 
   const { t } = useTranslation('');
 
@@ -47,9 +50,7 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
   } = useForm<SignUpPhoneRequest>({
     resolver: yupResolver(schema),
     defaultValues: {
-      referralCode: CookiesStorage.getCookieData(CookieKey.referralCode)
-        ? String(CookiesStorage.getCookieData(CookieKey.referralCode))
-        : '',
+      referralCode: referral ? String(referral) : '',
     },
   });
 
@@ -60,6 +61,13 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
   useImperativeHandle(ref, () => ({
     emitData: handleSubmitForm,
   }));
+
+  useEffect(() => {
+    if (referral) {
+      setValue('referralCode', String(referral));
+      setCheckIsReferral(true);
+    }
+  }, [referral]);
 
   return (
     <>
