@@ -3,7 +3,6 @@ import { WalletButton } from '@rainbow-me/rainbowkit';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
 
@@ -14,7 +13,7 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
-import { AppState, useAppDispatch } from '@/base/redux/store';
+import { useAppDispatch } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 
