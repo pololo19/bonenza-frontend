@@ -223,10 +223,6 @@ const WithdrawCryptoPage = () => {
       return;
     }
     try {
-      toast.success(
-        `Congratulations! Your withdrawal of ${formWithdraw.withdrawAmount} ${activeCoin.name} is in progress, any large or suspicious withdrawal amount will be audited and manually processed. As always we appreciate your patience!`,
-        { containerId: TOAST_ENUM.COMMON },
-      );
       // setIsLoading(true);
 
       const formData: WithdrawRequest = {
@@ -239,6 +235,10 @@ const WithdrawCryptoPage = () => {
       const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
       const { status, message } = _res.data;
       if (status) {
+        toast.success(
+          `Congratulations! Your withdrawal of ${formWithdraw.withdrawAmount} ${activeCoin.name} is in progress, any large or suspicious withdrawal amount will be audited and manually processed. As always we appreciate your patience!`,
+          { containerId: TOAST_ENUM.COMMON },
+        );
         setValue('withdrawAddress', '');
       }
       toast.success(message, { containerId: TOAST_ENUM.COMMON });
