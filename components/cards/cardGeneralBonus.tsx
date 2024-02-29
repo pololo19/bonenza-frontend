@@ -2,12 +2,14 @@ import { ArrowRight, Clock } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowDepositModal } from '@/base/redux/reducers/modal.reducer';
 
 import ModalDepositBonusRules from '../modal/depositBonusRules/depositBonusRules';
+import { useSelector } from 'react-redux';
+import { AppState } from '@/base/redux/store';
 
 type CardGeneralBonusProps = {
   background: string;
@@ -36,6 +38,13 @@ export default function CardGeneralBonus({
   const { t } = useTranslation('');
   const dispatch = useDispatch();
   const [openModalDepositRule, setOpenModalDepositRule] = useState<boolean>(false);
+
+  const { currentDepositTime } = useSelector(
+    (state: AppState) => ({
+      currentDepositTime: state.wallet.depositTime,
+    }),
+    shallowEqual,
+  );
 
   return (
     <div className="relative h-full">
@@ -142,7 +151,10 @@ export default function CardGeneralBonus({
             onClick={() => dispatch(changeIsShowDepositModal(true))}
             className="w-full dark:bg-color-btn-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary text-color-primary rounded-[5px] text-[14px] font-medium text-center py-[11px] mt-[10px]"
           >
-            {t('bonus:firstDesposit')}
+            {currentDepositTime == 0 && t('bonus:firstDesposit')}
+            {currentDepositTime == 1 && t('promotion:secondDeposit')}
+            {currentDepositTime == 2 && t('promotion:thirdDeposit')}
+            {currentDepositTime > 2 && t('promotion:depositNow')}
           </div>
         </div>
       )}
