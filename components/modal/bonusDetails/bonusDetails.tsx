@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ElementType, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_bonusDetail, api_bonusUsdtHistory } from '@/api/bonus';
+import { api_bonusDetail, api_bonusUsdtHistory, bonusCategoryType } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -44,7 +44,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
     depositBonusUsd: 0,
     levelUpBonusUsd: 0,
   });
-  const [typeFilter, setTypeFilter] = useState<string>('');
+  const [typeFilter, setTypeFilter] = useState<string>('all');
   const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
   const [totalTable, setTotalTable] = useState<number>(0);
   const { localFiat, viewInFiat } = useSelector(
@@ -77,14 +77,22 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
     //   value: '0.00',
     // },
     {
-      title: 'Weekly Cashback',
-      category: 'weeklyCashback',
-      img: '/img/modal/weekly.png',
+      title: t('bonus:allBonuses'),
+      category: 'all',
+      img: '',
+      show: false,
     },
     {
-      title: 'Monthly Cashback',
-      category: 'monthlyCashback',
+      title: t('bonus:weeklyCashback'),
+      category: 'weekly_cashback',
+      img: '/img/modal/weekly.png',
+      show: true,
+    },
+    {
+      title: t('bonus:monthlyCashback'),
+      category: 'monthly_cashback',
       img: '/img/modal/monthly.png',
+      show: true,
     },
     // {
     //   title: 'Sports Weekly Bonus',
@@ -92,9 +100,10 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
     //   value: '0.00',
     // },
     {
-      title: 'Level-up Bonus',
-      category: 'levelUpBonus',
+      title: t('bonus:levelUpBonus'),
+      category: 'level_up',
       img: '/img/modal/levelup.png',
+      show: true,
     },
     // {
     //   title: 'Free Spin',
@@ -103,21 +112,30 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
     // },
     {
       title: 'Deposit Bonus',
-      category: 'depositBonus',
+      category: 'deposit_bonus',
       img: '/img/modal/deposit.png',
+      show: true,
     },
   ];
 
-  const getListTypeBonus = async () => {
+  const getListTypeBonus = useCallback(async () => {
     try {
-      setIsLoading(true);
-      const _res = await api_bonusDetail();
+      setIsLoadingTable(true);
+      const _res = await api_bonusDetail(typeFilter as bonusCategoryType);
+      const tempListTransactionData: BonusTransactionType[] =
+        _res.data?.categories?.transactions.map((item: any) => ({
+          amount: Number(item.amount || 0),
+          amountUsd: Number(item.amountUsd || 0),
+          type: item.bonusType,
+          time: item.time,
+        })) ?? [];
       setbonusCategoriesValue({
         weeklyCashbackUsd: Number(_res.data?.categories?.weeklyCashbackAmountUsd || 0),
         monthlyCashbackUsd: Number(_res.data?.categories?.monthlyCashbackAmountUsd || 0),
-        depositBonusUsd: Number(_res.data?.totalDepositBonusAmountUsd || 0),
-        levelUpBonusUsd: Number(_res.data?.totalVipLevelUpBonusAmountUsd || 0),
+        depositBonusUsd: Number(_res.data?.categories?.totalDepositBonusAmountUsd || 0),
+        levelUpBonusUsd: Number(_res.data?.categories?.totalVipLevelUpBonusAmountUsd || 0),
       });
+      setListTransactions(tempListTransactionData);
     } catch (error) {
       setbonusCategoriesValue({
         weeklyCashbackUsd: 0,
@@ -126,36 +144,16 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         levelUpBonusUsd: 0,
       });
     } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const getListBonusTransaction = useCallback(async () => {
-    try {
-      setIsLoadingTable(true);
-      const _res = await api_bonusUsdtHistory(page, limit);
-      const tempListTransactionData: BonusTransactionType[] = _res.data?.map((item: any) => ({
-        amount: item.amount,
-        amountUsd: item.amountUsd,
-        type: item.type,
-        time: item.date,
-      }));
-      setListTransactions(tempListTransactionData);
-      setListTransactions([]);
-      setTotalTable(0);
-    } catch (error) {
-    } finally {
       setIsLoadingTable(false);
     }
-  }, [page, limit]);
+  }, [typeFilter]);
 
   useEffect(() => {
     getListTypeBonus();
   }, []);
 
   useEffect(() => {
-    setPage(1);
-    getListBonusTransaction();
+    getListTypeBonus();
   }, [limit, typeFilter]);
 
   const columns = useMemo(() => {
@@ -210,7 +208,6 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
     let newPage: number;
     newPage = action === 'Next' ? page + 1 : page - 1;
     setPage(newPage);
-    getListBonusTransaction();
   };
 
   const handleChangeItemPerPage = (itemPerPage: number) => {
@@ -230,39 +227,41 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
           </div>
         }
       >
-        <div className="flex flex-col dark:text-color-text-primary text-[#3137d] overflow-y-auto px-[20px] p-5 bg-[#f6f7fa] dark:bg-[#24262B]">
+        <div className="flex flex-col dark:text-color-text-primary text-[#3137d] overflow-y-auto px-[20px] p-5 bg-color-light-bg-primary dark:bg-[#24262B]">
           {isLoading && <Loader />}
           <div className="">
             <div className="dark:text-white text-black text-[16px] mb-3">{t('bonus:bonusCategories')}</div>
-            <div className="grid grid-cols-2 sm:grid-cols-5 p-4 pt-0 bg-[#2D3035]">
-              {bonusCategories.map((item, index) => (
-                <div key={index} className="text-[12px] mt-4">
-                  <div className="flex items-center">
-                    <div className="w-[28px] h-[28px] flex items-center justify-center">
-                      <Image src={item.img} width={21} height={21} alt="" />
+            <div className="grid grid-cols-2 sm:grid-cols-5 p-4 pt-0 dark:bg-[#2D3035] bg-white">
+              {bonusCategories
+                .filter((item) => item.show)
+                .map((item, index) => (
+                  <div key={index} className="text-[12px] mt-4">
+                    <div className="flex items-center">
+                      <div className="w-[28px] h-[28px] flex items-center justify-center">
+                        <Image src={item.img} width={21} height={21} alt="" />
+                      </div>
+                      <div className="truncate max-w-full">{item.title}</div>
                     </div>
-                    <div className="truncate max-w-full">{item.title}</div>
+                    <div className="text-[14px] font-bold dark:text-white text-black pl-[6px]">
+                      {item.category === 'weekly_cashback' &&
+                        (viewInFiat
+                          ? currencyFormat1(bonusCategoriesValue.weeklyCashbackUsd * exchangeRate, 2, localFiat?.name)
+                          : currencyFormat1(bonusCategoriesValue.weeklyCashbackUsd, 2))}
+                      {item.category === 'monthly_cashback' &&
+                        (viewInFiat
+                          ? currencyFormat1(bonusCategoriesValue.monthlyCashbackUsd * exchangeRate, 2, localFiat?.name)
+                          : currencyFormat1(bonusCategoriesValue.monthlyCashbackUsd, 2))}
+                      {item.category === 'level_up' &&
+                        (viewInFiat
+                          ? currencyFormat1(bonusCategoriesValue.levelUpBonusUsd * exchangeRate, 2, localFiat?.name)
+                          : currencyFormat1(bonusCategoriesValue.levelUpBonusUsd, 2))}
+                      {item.category === 'deposit_bonus' &&
+                        (viewInFiat
+                          ? currencyFormat1(bonusCategoriesValue.depositBonusUsd * exchangeRate, 2, localFiat?.name)
+                          : currencyFormat1(bonusCategoriesValue.depositBonusUsd, 2))}
+                    </div>
                   </div>
-                  <div className="text-[14px] font-bold dark:text-white text-black pl-[6px]">
-                    {item.category === 'weeklyCashback' &&
-                      (viewInFiat
-                        ? currencyFormat1(bonusCategoriesValue.weeklyCashbackUsd * exchangeRate, 2, localFiat?.name)
-                        : currencyFormat1(bonusCategoriesValue.weeklyCashbackUsd, 2))}
-                    {item.category === 'monthlyCashback' &&
-                      (viewInFiat
-                        ? currencyFormat1(bonusCategoriesValue.monthlyCashbackUsd * exchangeRate, 2, localFiat?.name)
-                        : currencyFormat1(bonusCategoriesValue.monthlyCashbackUsd, 2))}
-                    {item.category === 'levelUpBonus' &&
-                      (viewInFiat
-                        ? currencyFormat1(bonusCategoriesValue.levelUpBonusUsd * exchangeRate, 2, localFiat?.name)
-                        : currencyFormat1(bonusCategoriesValue.levelUpBonusUsd, 2))}
-                    {item.category === 'depositBonus' &&
-                      (viewInFiat
-                        ? currencyFormat1(bonusCategoriesValue.depositBonusUsd * exchangeRate, 2, localFiat?.name)
-                        : currencyFormat1(bonusCategoriesValue.depositBonusUsd, 2))}
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
           <div className="flex items-center gap-3 flex-wrap justify-between mt-5">
@@ -274,7 +273,9 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
                   <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                    <div className="flex-1 text-start dark:text-white text-black">{t('bonus:allBonuses')}</div>
+                    <div className="flex-1 text-start dark:text-white text-black">
+                      {bonusCategories.find((item) => item.category === typeFilter)?.title}
+                    </div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
                     <ChevronDownIcon className=" dark:text-white text-black" width={15} />
@@ -316,7 +317,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
             </Menu>
           </div>
           <div className="mt-2 mb-3 text-[14px]">{t('bonus:onlyTheLatest')}</div>
-          <div className="bg-[#2D3035] p-3 pb-0">
+          <div className="dark:bg-[#2D3035] bg-white p-3 pb-0">
             <TableComponent
               isLoading={isLoadingTable}
               handleClickRow={() => {}}
@@ -324,7 +325,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
               columns={columns}
             />
           </div>
-          <div className="bg-[#2D3035] pb-3">
+          {/* <div className="dark:bg-[#2D3035] pb-3">
             <Paging
               onPageChange={handleChangePage}
               itemPerPage={limit}
@@ -333,7 +334,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
               setItemPerPage={handleChangeItemPerPage}
               hiddenPerPage={true}
             />
-          </div>
+          </div> */}
         </div>
       </CommonModal>
     </>
