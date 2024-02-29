@@ -29,8 +29,9 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
             },
           )}
         >
-          {datas.map(({ title, href, icon }) => (
+          {datas.map(({ title, href, icon }, index) => (
             <Link
+              key={index}
               href={href}
               className={cn(
                 'min-w-fit flex items-center px-[10px] py-[10px] bg-[#f0f1f5] dark:bg-[#1D1E22] gap-[10px] flex-shrink-0 rounded dark:text-white text-[#31373D] hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',

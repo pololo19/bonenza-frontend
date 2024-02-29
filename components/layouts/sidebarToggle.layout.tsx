@@ -433,6 +433,7 @@ export default function SidebarToggle() {
         </div>
         <div className="flex-1 flex flex-col h-full pt-2 gap-[5px]">
           <Link
+            key={`bonus`}
             href={ROUTER.Bonus}
             type="button"
             className={cn(
@@ -447,13 +448,14 @@ export default function SidebarToggle() {
               })}
             />
           </Link>
-          <Tooltip id={'bonus-tooltip'} place="right" positionStrategy="fixed">
+          <Tooltip id={'bonus-tooltip'} place="right" positionStrategy="fixed" key={`bonus_tooltip`}>
             <div>
               <p className="text-white">Bonus</p>
             </div>
           </Tooltip>
           <Link
             href={ROUTER.Bonus}
+            key={`quest`}
             type="button"
             className={cn(
               'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
@@ -462,13 +464,14 @@ export default function SidebarToggle() {
           >
             <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
           </Link>
-          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="fixed">
+          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="fixed" key={`quest_tooltip`}>
             <div>
               <p className="text-white">Quest</p>
             </div>
           </Tooltip>
           <Link
             href={ROUTER.Bonus}
+            key={`spin`}
             type="button"
             className={cn(
               'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
@@ -477,7 +480,7 @@ export default function SidebarToggle() {
           >
             <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
           </Link>
-          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="fixed">
+          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="fixed" key={`spin_tooltip`}>
             <div>
               <p className="text-white">Spin</p>
             </div>
@@ -497,7 +500,7 @@ export default function SidebarToggle() {
               >
                 {item.smallIcon}
               </Link>
-              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={index}>
+              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={`tip_${index}`}>
                 <div>
                   <p className="text-white">{item.title}</p>
                 </div>

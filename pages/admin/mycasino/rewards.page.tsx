@@ -8,8 +8,8 @@ import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
-import { api_affiliateReferralRewards } from '@/api/bonus';
-import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { api_affiliateReferralRewards, api_affiliateReferralRewardsWithdrw } from '@/api/bonus';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
@@ -17,6 +17,7 @@ import AdminInputText from '@/components/input/admin/AdminInputText';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
+import { toast } from 'react-toastify';
 
 type FilterType = {
   username?: string;
@@ -28,7 +29,7 @@ type RewardType = {
   referralCode: string;
   registrationTime: Date;
   totalEarnedMe: string;
-  username: string;
+  userName: string;
 };
 
 function AdminRewardsPage() {
@@ -39,6 +40,10 @@ function AdminRewardsPage() {
   const [limit, setLimit] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
   const [referralRewardsAmount, setReferralRewardsAmount] = useState(0);
+  const [referralRewards, setReferralRewards] = useState({
+    totalReferralRewardsReceivedAmountUsd: 0,
+    rewardsAvailableAmountUsd: 0,
+  });
   const { referralCode } = useSelector(
     (state: AppState) => ({
       referralCode: state.auth.user.referralCode,
@@ -91,10 +96,13 @@ function AdminRewardsPage() {
             referralCode: referralCode,
             registrationTime: new Date(item.registrationDate),
             totalEarnedMe: item.earnedMe,
-            username: item.userName,
+            userName: item.userName,
           })) || [];
         setTotalRows(Number(_res.data?.totalCount || 0));
-        setReferralRewardsAmount(Number(_res.data.totalReferralRewardsAmountUsd || 0));
+        setReferralRewards({
+          totalReferralRewardsReceivedAmountUsd: Number(_res.data?.totalReferralRewardsReceivedAmountUsd || 0),
+          rewardsAvailableAmountUsd: Number(_res.data?.referralRewardsAvailableAmountUsd || 0),
+        });
         setTableData(tempTableData);
       } catch (error) {
         setTableData([]);
@@ -105,14 +113,26 @@ function AdminRewardsPage() {
     [page, limit],
   );
 
-  const columns: ColumnDef<any>[] = useMemo(() => {
+  const handleWithdraw = async () => {
+    try {
+      const _res = await api_affiliateReferralRewardsWithdrw();
+      toast.success('Successfully Withdrawed', { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
+      const description = error.response?.data?.error ?? '';
+      toast.error(description, { containerId: TOAST_ENUM.COMMON });
+    }
+  };
+
+  const columns: ColumnDef<RewardType>[] = useMemo(() => {
     return [
       {
         accessorKey: 'username',
         header: () => <div className="text-left">Username</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{row.original.username}</div>
+            <div className="font-bold truncate">{row.original.userName}</div>
           </div>
         ),
       },
@@ -160,22 +180,28 @@ function AdminRewardsPage() {
             <div>
               <div>
                 <span className="text-[#6f6f6f]">{t('mycasino:newlyAvailable')}</span>&nbsp;&nbsp;
-                <span className="text-[40px] text-amber-400 font-[500]">{referralRewardsAmount} USD</span>
+                <span className="text-[40px] text-color-secondary font-[500]">
+                  {referralRewards.rewardsAvailableAmountUsd} USD
+                </span>
               </div>
               <div className="flex lg:flex-row flex-col lg:items-center items-start gap-4 text-[14px]">
                 <div>
                   {t('mycasino:receivedInTotal')}{' '}
-                  <span className="text-[14px] text-amber-400">{referralRewardsAmount} USD</span>
+                  <span className="text-[14px] text-color-secondary">
+                    {referralRewards.totalReferralRewardsReceivedAmountUsd} USD
+                  </span>
                 </div>
                 <div>
                   {t('mycasino:theFriends')}
-                  <span className="text-[14px] text-amber-400">20 USD</span>
+                  <span className="text-[14px] text-color-secondary">20 USD</span>
                 </div>
               </div>
             </div>
-            <button className="bg-color-primary px-6 py-2 rounded-md text-white">{t('mycasino:withdraw')}</button>
+            <button className="bg-gradient-btn-default px-6 py-2 rounded-default text-white" onClick={handleWithdraw}>
+              {t('mycasino:withdraw')}
+            </button>
           </div>
-          <div className="flex items-center text-[14px] gap-4">
+          {/* <div className="flex items-center text-[14px] gap-4">
             <button className="flex items-center gap-1 font-[500]">
               <Clock size={18} variant="Bold" />
               {t('mycasino:history')}
@@ -184,7 +210,7 @@ function AdminRewardsPage() {
               <RulerPen size={18} variant="Bold" />
               {t('mycasino:rule')}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
@@ -200,8 +226,8 @@ function AdminRewardsPage() {
           </div>
           <div className="flex flex-col items-start gap-1">
             <label className="opacity-0">1</label>
-            <button className="bg-color-primary px-6 py-1 rounded-md text-white" type="submit">
-              {t('m')}
+            <button className="bg-gradient-btn-default px-6 py-1 rounded-default text-white" type="submit">
+              {t('mycasino:search')}
             </button>
           </div>
         </form>

@@ -112,12 +112,12 @@ function AdminRewardsPage() {
             <span>{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
             <span className="text-[40px] text-amber-400 font-[700]">{totalCommissionRewardsAmountUsd} USD</span>
           </div>
-          <div className="flex items-center text-[14px] gap-4">
+          {/* <div className="flex items-center text-[14px] gap-4">
             <button className="flex items-center gap-1 font-[500]">
               <Clock size={18} variant="Bold" />
               {t('mycasino:history')}
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4 flex gap-4">

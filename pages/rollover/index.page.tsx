@@ -205,7 +205,7 @@ const RolloverPage = () => {
           currencyLogo: item?.currencyLogo ?? '/image/fiats/USD.png',
           status: item?.rollover ?? 'not_started',
           times: item?.times ?? 0,
-          createdAt: new Date(item?.createdAt ?? ''),
+          createdAt: new Date(item?.time ?? ''),
         }));
         setDataTable(tempRollovers);
         setTotalTable(totalCount);
