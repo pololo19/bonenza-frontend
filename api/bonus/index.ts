@@ -14,7 +14,7 @@ import {
 
 import api from '../api';
 
-type bonusCategoryType = 'all' | 'level_up' | 'weekly_cashback' | 'monthly_cashback' | 'deposit_bonus';
+export type bonusCategoryType = 'all' | 'level_up' | 'weekly_cashback' | 'monthly_cashback' | 'deposit_bonus';
 
 export const api_affiliate = async () => {
   return api.get(API_AFFILIATE);
