@@ -358,7 +358,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             </div>
             <WagerContest userData={user} />
           </div>
-          <div className="text-color-text-primary text-[10px] w-full text-center mt-[10px]">
+          <div className="text-color-text-primary text-[14px] w-full text-center mt-[10px]">
             {t('profile:joinedOn')} {formatDate(new Date(user?.createdAt ?? ''), 'dd/MM/yyyy')}
           </div>
         </div>
