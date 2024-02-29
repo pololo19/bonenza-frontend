@@ -170,6 +170,8 @@ const GeneralPage = () => {
             />
           </Switch>
         </div>
+        {/* Hiding dark & light mode button */}
+        { /*
         <div className="border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start">
             {t('setting:displayMode')}
@@ -199,6 +201,7 @@ const GeneralPage = () => {
             </div>
           </div>
         </div>
+            */}
         <div className="pt-[13px]">
           <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start mb-[10px]">
             {t('setting:language')}

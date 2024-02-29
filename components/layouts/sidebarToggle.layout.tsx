@@ -377,7 +377,8 @@ export default function SidebarToggle() {
                 />
               ))}
             </ul>
-            <div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
+            { /* Hiding Dark & Light Mode Buttons*/ }
+            { /*<div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
               <div
                 className={cn(
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base`,
@@ -406,7 +407,7 @@ export default function SidebarToggle() {
                 <Sun1 size={16} />
                 <div className="text-base font-bold">{t('layout:light')}</div>
               </div>
-            </div>
+              </div>*/} 
           </div>
         </div>
       </div>
