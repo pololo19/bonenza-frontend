@@ -218,7 +218,7 @@ function BonusLoggedPage() {
         vip: {
           levelUp: {
             currentVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.currentVipXp || 0),
-            currentVipName: _res.data?.vipBonus?.currentVipName,
+            currentVipName: _res.data?.vipBonus?.levelUpRewards?.currentVipName || '',
             nextVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.nextVipXp || 0),
           },
           weeklyCashBack: {
@@ -405,7 +405,9 @@ function BonusLoggedPage() {
                         <span>{bonusData.vip.levelUp.nextVipXP}</span>
                       </div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right">
-                        {viewInFiat
+                        {totalData.bonusClaimedUsd === 0 ? 
+                        '-' :  
+                        viewInFiat
                           ? currencyFormat1(totalData.bonusClaimedUsd * exchangeRate, 2, localFiat?.name)
                           : currencyFormat1(totalData.bonusClaimedUsd, 2)}
                       </div>
