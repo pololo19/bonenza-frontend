@@ -8,6 +8,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_wagerContestHistory, api_wagerContestList, api_wagerContestPosition } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useCountdown } from '@/base/constants/useCountdown';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
@@ -15,7 +16,6 @@ import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
-  changeIsShowBonusHistory,
   changeIsShowInformation,
   changeIsShowWagerContestHistory,
 } from '@/base/redux/reducers/modal.reducer';
@@ -26,7 +26,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
-import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 
 type ContesterType = {
   playerId: string;
@@ -71,7 +70,7 @@ const WagerContestComponent = () => {
 
   const { t } = useTranslation('');
 
-  const { userName, avatar, userId, viewInFiat, localFiat, isLogin, cryptoPrices } = useSelector(
+  const { userName, avatar, userId, viewInFiat, localFiat, isLogin } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userName: state.auth.user.userName,
@@ -90,7 +89,7 @@ const WagerContestComponent = () => {
   };
 
   const [timeCoundown, setTimeCount] = useState(formatDate(getNextDay(), 'LL/dd/yyyy'));
-  const [days, hours, minutes, seconds] = useCountdown(timeCoundown);
+  const [hours, minutes, seconds] = useCountdown(timeCoundown);
 
   const getRank = (rank: number) => {
     let rankReturn = '';
@@ -149,7 +148,6 @@ const WagerContestComponent = () => {
 
       const timeCnt = wagerContestList.data.endTime - wagerContestList.data.currentTime;
       const currentDate = new Date();
-      const updatedValue = currentDate.getTime() + timeCnt * 1000;
       currentDate.setTime(currentDate.getTime() + timeCnt * 1000);
       setTimeCount(formatDate(currentDate, DATE_TIME_SUBMIT_FORMAT_WITH_SECOND));
       // reset(updatedValue);
@@ -198,9 +196,9 @@ const WagerContestComponent = () => {
   const handleModalUserProfile = (user: any) => {
     dispatch(
       setUserData({
-        userId: user.original.playerId,
-        userName: user.original.playerName,
-        avatar: user.original.playerAvatar,
+        userId: user.playerId || user.original.playerId || '',
+        userName: user.playerName || user.original.playerName || '',
+        avatar: user.playerAvatar || user.original.playerAvatar || '',
       }),
     );
     dispatch(changeIsShowInformation(true));
