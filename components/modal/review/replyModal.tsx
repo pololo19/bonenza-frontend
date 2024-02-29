@@ -12,6 +12,8 @@ import { CommentType } from '@/components/game/gameReview';
 import Textarea from '@/components/input/typing/Textarea';
 
 import CommonModal from '../commonModal/commonModal';
+import { Like1, Messages } from 'iconsax-react';
+import cn from 'classnames';
 
 export default function ReplyModal({
   show,
@@ -98,22 +100,22 @@ export default function ReplyModal({
                     className="flex gap-[5px] items-center justify-center cursor-pointer"
                     //   onClick={() => handleLikeComment(comment.id)}
                   >
-                    <i className="fi fi-rr-social-network"></i>
+                    <Like1 size={18} className={cn('m-auto')} />
                     {sourceComment.likes > 0 && <span className="ml-[10px]">{sourceComment.likes}</span>}
                   </div>
                   <div
-                    className="cursor-pointer"
+                    className="flex gap-[5px] cursor-pointer"
                     //   onClick={() => {
                     //     setCommentId(comment.id);
                     //     setShowComment(true);
                     //   }}
                   >
-                    <i className="fi fi-rs-beacon"></i>
+                    <Messages size={18} className={cn('m-auto')} />
                     {sourceComment.comments > 0 && <span className="ml-[10px]">{sourceComment.comments}</span>}
                   </div>
-                  <div className="cursor-pointer">
+                  {/* <div className="cursor-pointer">
                     <i className="fi fi-rr-menu-dots-vertical"></i>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -155,22 +157,22 @@ export default function ReplyModal({
                       className="flex gap-[5px] items-center justify-center cursor-pointer"
                       //   onClick={() => handleLikeComment(comment.id)}
                     >
-                      <i className="fi fi-rr-social-network"></i>
+                      <Like1 size={18} className={cn('m-auto')} />
                       {comment.likes > 0 && <span className="ml-[10px]">{comment.likes}</span>}
                     </div>
                     <div
-                      className="cursor-pointer"
+                      className="flex gap-[5px] cursor-pointer"
                       //   onClick={() => {
                       //     setCommentId(comment.id);
                       //     setShowComment(true);
                       //   }}
                     >
-                      <i className="fi fi-rs-beacon"></i>
+                      <Messages size={18} className={cn('m-auto')} />
                       {comment.comments > 0 && <span className="ml-[10px]">{comment.comments}</span>}
                     </div>
-                    <div className="cursor-pointer">
+                    {/* <div className="cursor-pointer">
                       <i className="fi fi-rr-menu-dots-vertical"></i>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>

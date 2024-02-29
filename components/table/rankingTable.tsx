@@ -11,13 +11,13 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { useEffect } from 'react';
+import ReactLoading from 'react-loading';
 import { useDispatch } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ObjectLiteral } from '@/base/types/common';
 
 import styles from './rankingTable.module.scss';
-import ReactLoading from 'react-loading';
 
 export type RankingTableComponentPropsType = {
   columns: ColumnDef<any>[];
@@ -106,22 +106,16 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn({'relative py-10': isLoading}, 'md:!text-[14px] sm:!text-[12px] !text-[10px]')}>
-          {isLoading && 
-            <div 
-              className={
-                cn
-                (
-                  'flex justify-center',
-                  {
-                    'absolute left-0 right-0 top-0 bottom-0': isLoading,
-                  }
-                )
-              }
+        <tbody className={cn({ 'relative py-10': isLoading }, 'md:!text-[14px] sm:!text-[12px] !text-[10px]')}>
+          {isLoading && (
+            <div
+              className={cn('flex justify-center', {
+                'absolute left-0 right-0 top-0 bottom-0': isLoading,
+              })}
             >
-              <ReactLoading type="bubbles" color="#50C627" delay={50}/>
+              <ReactLoading type="bubbles" color="#50C627" delay={50} />
             </div>
-          }
+          )}
           {!!data?.length &&
             getRowModel().rows.map((row) => (
               <tr

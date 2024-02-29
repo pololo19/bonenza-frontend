@@ -4,6 +4,7 @@ import {
   API_AFFILIATE_COMMISSION_REWARDS,
   API_AFFILIATE_FRIENDS,
   API_AFFILIATE_REFERRAL_REWARDS,
+  API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
   API_BONUS_BONUS_STATISTIC,
   API_BONUS_CLAIM,
   API_BONUS_CLAIM_LIST,
@@ -61,6 +62,10 @@ export const api_affiliateReferralRewards = async (
   return api.get(API_AFFILIATE_REFERRAL_REWARDS, {
     params: { userName, registrationStartDate, registrationEndDate, page, pageSize },
   });
+};
+
+export const api_affiliateReferralRewardsWithdrw = async () => {
+  return api.post(API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW);
 };
 
 export const api_bonusUsdtHistory = async (page: number, pageSize: number) => {
