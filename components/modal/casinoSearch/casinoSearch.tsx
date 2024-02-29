@@ -21,6 +21,7 @@ import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
 
 import styles from './index.module.scss';
+import CasinoSwiper from '@/components/casino/casinoSwiper';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;
@@ -301,10 +302,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             {searchResult}
 
             <div className="sm:block hidden">
-              <CasinoSS
+              <CasinoSwiper
                 title={String(t('casino:recommendedForYou'))}
                 data={listRecommendGame}
-                renderItem={(item) => <GameCard gameDetail={item} />}
+                renderItem={(item) => <GameCard gameDetail={item}/>}
+                isBigMode
               />
             </div>
           </div>
