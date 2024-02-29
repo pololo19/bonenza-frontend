@@ -196,9 +196,9 @@ const WagerContestComponent = () => {
   const handleModalUserProfile = (user: any) => {
     dispatch(
       setUserData({
-        userId: user.playerId || '',
-        userName: user.playerName || '',
-        avatar: user.playerAvatar || '',
+        userId: user.playerId || user.original.playerId || '',
+        userName: user.playerName || user.original.playerName || '',
+        avatar: user.playerAvatar || user.original.playerAvatar || '',
       }),
     );
     dispatch(changeIsShowInformation(true));
