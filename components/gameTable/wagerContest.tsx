@@ -194,7 +194,6 @@ const WagerContestComponent = () => {
   }, [positionData, wagerContestData]);
 
   const handleModalUserProfile = (user: any) => {
-    console.log(user);
     dispatch(
       setUserData({
         userId: user.playerId || '',
