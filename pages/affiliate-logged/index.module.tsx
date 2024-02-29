@@ -331,7 +331,7 @@ function AffiliateLoggedPage() {
                           {item?.type === 'commission'
                             ? t('affiliate:commissionReward')
                             : t('affiliate:referralRewards')}{' '}
-                          <span className="ml-1">{item.currency}</span>
+                          <span className="ml-1">USDT</span>
                         </div>
                         <div className="text-[18px] text-color-secondary font-bold">
                           {viewInFiat ? (
