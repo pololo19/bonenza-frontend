@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { api_deleteSession, api_getSessions } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
@@ -9,11 +9,16 @@ import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
 import TableComponent from '@/components/table';
+import cn from 'classnames';
+import Paging from '@/components/paging/paging';
 
 const SettingSession = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t } = useTranslation('');
   const [dataTable, setDataTable] = useState<SessionType[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [limit, setLimit] = useState<number>(10);
+  const [totalRows, setTotalRows] = useState<number>(0);
 
   const sessionColumns: ColumnDef<SessionType>[] = useMemo(() => {
     return [
@@ -40,12 +45,16 @@ const SettingSession = () => {
         header: 'Last Used',
         maxSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-black">
-            {Number(
-              differenceDateInSeconds(new Date(), new Date(row.original.lastUsedAt ? row.original.lastUsedAt : '')),
-            ) > 60
-              ? 'Offline'
-              : 'Online'}
+          <div
+            className={cn('flex-1 flex items-center justify-between gap-[10px]', {
+              'text-color-primary': row.original.active,
+              'dark:text-color-text-primary text-black': !row.original.active,
+            })}
+          >
+            {row.original.active && (
+              <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
+            )}
+            <div className="flex-1 text-start">{row.original.active ? 'Online' : 'Offline'}</div>
           </div>
         ),
       },
@@ -73,16 +82,45 @@ const SettingSession = () => {
     }
   };
 
-  const getListUserSessions = async () => {
-    try {
-      setIsLoading(true);
-      const res = await api_getSessions();
-      setDataTable(res.data);
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
+  const handleChangePage = (action: string) => {
+    let newPage: number;
+    newPage = action === 'Next' ? page + 1 : page - 1;
+    setPage(newPage);
+    getListUserSessions(newPage);
   };
+
+  const handleChangeItemPerPage = (itemPerPage: number) => {
+    setLimit(itemPerPage);
+    setPage(1);
+    getListUserSessions();
+  };
+
+  const getListUserSessions = useCallback(
+    async (sessionPage: number = page) => {
+      try {
+        setIsLoading(true);
+        setDataTable([]);
+        setTotalRows(0);
+        const _res = await api_getSessions(sessionPage, limit);
+        const tempSessions: SessionType[] = _res.data?.sessions?.map((item: any) => ({
+          lastUsedAt: new Date(item.lastUsedAt),
+          ipAddress: item.ipAddress ?? '',
+          location: item.location ?? '',
+          id: item.id ?? '',
+          browser: item.browser ?? '',
+          active: !!item.active,
+        }));
+        setPage(Number(_res.data?.page || 0));
+        setTotalRows(Number(_res.data?.totalCount || 0));
+        setDataTable(tempSessions);
+      } catch (error) {
+        setDataTable([]);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [page, limit],
+  );
 
   useEffect(() => {
     getListUserSessions();
@@ -98,6 +136,14 @@ const SettingSession = () => {
           isLoading={isLoading}
           data={dataTable}
           columns={sessionColumns}
+        />
+        <Paging
+          onPageChange={handleChangePage}
+          itemPerPage={limit}
+          totalItem={totalRows}
+          currentPage={page}
+          setItemPerPage={handleChangeItemPerPage}
+          hiddenPerPage={true}
         />
       </div>
     </>

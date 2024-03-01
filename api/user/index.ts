@@ -63,8 +63,8 @@ export const api_updateSetting = async (
   return api.put(API_USER_SETTING_UPDATE, data);
 };
 
-export const api_getSessions = async () => {
-  return api.get(API_USER_SESSION_LIST_SESSIONS);
+export const api_getSessions = async (page: number, limit: number) => {
+  return api.get(API_USER_SESSION_LIST_SESSIONS, { params: { page, limit } });
 };
 
 export const api_deleteSession = async (userSessionId: string) => {

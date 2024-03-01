@@ -54,6 +54,7 @@ export type SessionType = {
   location: string;
   id: string;
   browser: string;
+  active: boolean;
 };
 
 export type PaginationResponse = {
