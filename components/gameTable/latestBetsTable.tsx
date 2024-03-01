@@ -1,6 +1,6 @@
 import { ColumnDef, Row } from '@tanstack/react-table';
 import cn from 'classnames';
-import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
+import { ArrowDown2, ArrowUp2, Ghost } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
@@ -144,7 +144,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
-              <div className="dark:text-color-text-primary text-[#31373d]">{t('homePage:hidden')}</div>
+              <div className="dark:text-color-text-primary text-[#31373d] flex justify-center items-center gap-[5px]">
+                <Ghost width={12} height={12} variant="Bulk" className="w-5 h-5" /> 
+                {t('homePage:hidden')}
+              </div>
             ) : (
               <div className="dark:text-white text-black">
                 {row.original.playerId === userId ? userName : row.original.player}
