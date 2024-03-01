@@ -1,6 +1,6 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
-import { ArrowRight2, Headphone, ShieldTick, Simcard2 } from 'iconsax-react';
+import { ArrowRight2, Ghost,Headphone, ShieldTick, Simcard2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ElementType, useState } from 'react';
@@ -15,7 +15,7 @@ import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetDetail, BetTableDataType } from '@/base/types/common';
+import { BetTableDataType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
@@ -140,7 +140,7 @@ export default function ModalDetailBets({
             </div>
             <div className="flex items-center gap-[8px] px-[16px]">
               {betDetail.playerId?.toString() !== userId && !isPublicProfile ? (
-                <Image height={44} width={44} className="rounded-full" src="/img/avatar-hidden.png" alt="" />
+                <Image height={44} width={44} className="rounded-full blur-[1px] grayscale brightness-50" src="/img/avatar-hidden.png" alt="" />
               ) : (
                 <Image
                   height={44}
@@ -165,7 +165,10 @@ export default function ModalDetailBets({
                     onClick={() => openModalProfileUser(betDetail)}
                   >
                     {betDetail.playerId !== userId && !isPublicProfile
-                      ? t('homePage:hidden')
+                      ? <div className="flex gap-[5px] items-center">
+                          <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" /> 
+                          {t('homePage:hidden')}
+                        </div>
                       : betDetail.playerId === userId
                       ? userName
                       : betDetail.player}
