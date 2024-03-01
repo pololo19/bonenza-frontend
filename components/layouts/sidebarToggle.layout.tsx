@@ -26,6 +26,7 @@ import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
+import { casinoCategories, casinoGames } from '@/base/constants/config-menus';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -36,16 +37,7 @@ import {
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
-import IconOption, { OptionSidebarDataType } from '../common/iconOption/iconOption';
-import BlackjackIcon from '../icons/BlackjackIcon';
-import BuyInIcon from '../icons/BuyInIcon';
-import FavoriteIcon from '../icons/FavoriteIcon';
-import HotGameIcon from '../icons/HotGameIcon';
-import LiveCasinoIcon from '../icons/LiveCasinoIcon';
-import OriginalIcon from '../icons/OriginalIcon';
-import RecentIcon from '../icons/RecentIcon';
-import ReleaseIcon from '../icons/ReleaseIcon';
-import SlotIcon from '../icons/SlotIcon';
+import IconOption from '../common/iconOption/iconOption';
 import styles from './sidebar.module.scss';
 
 export default function SidebarToggle() {
@@ -54,23 +46,6 @@ export default function SidebarToggle() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [showDropDownCasino, setShowDropDownCasino] = useState(false);
-  const dataDropDownCasino: OptionSidebarDataType[] = [
-    { title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou, icon: <Element3 size={18} /> },
-    { title: String(t('casino:favorite')), href: ROUTER.Favorite, icon: <FavoriteIcon size={18} /> },
-    { title: String(t('casino:recent')), href: ROUTER.Recent, icon: <RecentIcon size={18} /> },
-    // {
-    //   title: String(t('casino:bonenzaOriginals')),
-    //   href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
-    //   icon: <OriginalIcon size={18} />,
-    // },
-    { title: String(t('casino:slot')), href: ROUTER.Tagname('slots'), icon: <SlotIcon size={18} /> },
-    { title: String(t('casino:liveCasino')), href: ROUTER.Tagname('Live Casino'), icon: <LiveCasinoIcon size={18} /> },
-    { title: String(t('casino:hotGame')), href: ROUTER.Tagname('Hot Games'), icon: <HotGameIcon size={18} /> },
-    { title: String(t('casino:newReleases')), href: ROUTER.Tagname('New Releases'), icon: <ReleaseIcon size={18} /> },
-    { title: String(t('casino:featureBuyIn')), href: ROUTER.Tagname('Feature Buy-in'), icon: <BuyInIcon size={18} /> },
-    { title: String(t('casino:blackjack')), href: ROUTER.Tagname('Blackjack'), icon: <BlackjackIcon size={18} /> },
-    { title: String(t('casino:tableGames')), href: ROUTER.Tagname('Table Games'), icon: <LiveCasinoIcon size={18} /> },
-  ];
 
   const { isToggleSidebar, isShowVipClubModal, isLogin } = useSelector(
     (state: AppState) => ({
@@ -101,7 +76,7 @@ export default function SidebarToggle() {
         },
         isShowDropDown: showDropDownCasino ? true : false,
         isDropDown: true,
-        data: dataDropDownCasino,
+        data: [...casinoCategories, ...casinoGames],
       },
       {
         title: String(t('sidebar:sports')),
@@ -377,8 +352,8 @@ export default function SidebarToggle() {
                 />
               ))}
             </ul>
-            { /* Hiding Dark & Light Mode Buttons*/ }
-            { /*<div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
+            {/* Hiding Dark & Light Mode Buttons*/}
+            {/*<div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
               <div
                 className={cn(
                   `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base`,
@@ -407,7 +382,7 @@ export default function SidebarToggle() {
                 <Sun1 size={16} />
                 <div className="text-base font-bold">{t('layout:light')}</div>
               </div>
-              </div>*/} 
+              </div>*/}
           </div>
         </div>
       </div>

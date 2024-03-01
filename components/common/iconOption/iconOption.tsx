@@ -26,7 +26,8 @@ const casinoPaths = [
 export type OptionSidebarDataType = {
   title: string;
   href: string;
-  icon: JSX.Element;
+  icon: ElementType;
+  isMobile?: boolean;
 };
 
 export type IconOptionProps = {
@@ -156,6 +157,7 @@ const IconOption = ({
             }}
           >
             {data?.map((item, index) => {
+              const SubIconElement = item.icon;
               if (item.href)
                 return (
                   <Link
@@ -171,8 +173,8 @@ const IconOption = ({
                     )}
                     key={index}
                   >
-                    {item.icon}
-                    <div className={cn('flex-1 text-start font-semibold')}>{item.title}</div>
+                    <SubIconElement size={18} />
+                    <div className={cn('flex-1 text-start font-semibold')}>{t(item.title)}</div>
                   </Link>
                 );
               else
@@ -181,7 +183,7 @@ const IconOption = ({
                     className="flex items-center gap-[16px] py-[10px] dark:hover:bg-color-hover-default focus:bg-color-light-bg-primary pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
                     key={index}
                   >
-                    {item.icon}
+                    <SubIconElement size={18} />
                     <div className={cn('flex-1 text-start font-semibold', { 'text-base': isFontMedium })}>
                       {item.title}
                     </div>

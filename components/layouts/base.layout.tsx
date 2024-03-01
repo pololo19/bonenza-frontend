@@ -93,6 +93,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import { headerMenus } from '@/base/constants/config-menus';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -209,50 +210,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       betHistory: state.game.betHistory,
     }),
     shallowEqual,
-  );
-
-  const subMobileMenDatas: OptionSidebarDataType[] = useMemo(
-    () => [
-      { title: 'layout:home', href: '/', icon: <HomeIcon className="text-color-light-text-primary dark:text-white" /> },
-      {
-        title: 'layout:casino',
-        href: ROUTER.Casino,
-        icon: <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />,
-      },
-      {
-        title: 'layout:sports',
-        href: ROUTER.Sports,
-        icon: <SportBoldIcon className="text-[#FE073A] w-[18px] h-[18px]" />,
-      },
-      {
-        title: 'layout:liveHoldem',
-        href: 'https://cmd23.com/room/games.php',
-        icon: (
-          <Image
-            width={18}
-            height={18}
-            className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
-            src="/icon/liveholdem.png"
-            alt="logo"
-          />
-        ),
-      },
-      {
-        title: 'layout:updown',
-        href: 'https://trade.playnance.com/trade',
-        icon: (
-          <Image
-            width={18}
-            height={18}
-            className="text-color-primary w-[18px] h-[18px]"
-            src="/icon/updownIcon.png"
-            alt="logo"
-          />
-        ),
-      },
-      { title: 'layout:racing', href: ROUTER.Racing, icon: <RacingBoldIcon className="text-[#F48D19]" /> },
-    ],
-    [],
   );
 
   const loadInitData = async () => {
@@ -509,7 +466,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               ref={baseBodyRef}
               id="base-layout"
             >
-              <SubMobileMenu datas={subMobileMenDatas} isShow={isShowMobileSubMenu} />
+              <SubMobileMenu datas={headerMenus} isShow={isShowMobileSubMenu} />
 
               <WrapperBody
                 id="wrapperBody"

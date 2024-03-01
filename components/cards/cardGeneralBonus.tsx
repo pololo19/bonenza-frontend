@@ -120,30 +120,22 @@ export default function CardGeneralBonus({
               <ArrowRight size={10} className="text-color-primary" />
             </div>
           </div>
-          <div className="mt-[14px] grid grid-cols-2 gap-[10px] text-[14px]">
+          <div className="mt-[14px] flex flex-col gap-[5px] text-[14px]">
             <div className="flex justify-between">
               <div className="text-color-text-primary">1st Bonus</div>
-              <div className="dark:bg-color-card-body-primary bg-[#EAECF3] text-color-text-primary py-[2px] px-[10px]">
-                180%
-              </div>
+              <div className="text-color-text-primary py-[2px] px-[10px]">180%</div>
             </div>
             <div className="flex justify-between">
               <div className="text-color-text-primary">2nd Bonus</div>
-              <div className="dark:bg-color-card-body-primary bg-[#EAECF3] text-color-text-primary py-[2px] px-[10px]">
-                240%
-              </div>
+              <div className="text-color-text-primary py-[2px] px-[10px]">240%</div>
             </div>
             <div className="flex justify-between">
               <div className="text-color-text-primary">3rd Bonus</div>
-              <div className="dark:bg-color-card-body-primary bg-[#EAECF3] text-color-text-primary py-[2px] px-[10px]">
-                300%
-              </div>
+              <div className="text-color-text-primary py-[2px] px-[10px]">300%</div>
             </div>
             <div className="flex justify-between">
               <div className="text-color-text-primary">4th Bonus</div>
-              <div className="dark:bg-color-card-body-primary bg-[#EAECF3] text-color-text-primary py-[2px] px-[10px]">
-                360%
-              </div>
+              <div className="text-color-text-primary py-[2px] px-[10px]">360%</div>
             </div>
           </div>
           <div

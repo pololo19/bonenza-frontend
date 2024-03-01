@@ -12,15 +12,18 @@ import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
-import { AppState, useAppDispatch } from '@/base/redux/store';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 
 type BonusType = {
   id: string;
   amount: number;
   amountUsd: number;
   type: string;
+  allow: boolean;
 };
+
+const fiatDecimals = 8;
 
 export default function RewardDropdown() {
   const exchangeRate = useExchange();
@@ -44,6 +47,7 @@ export default function RewardDropdown() {
         amount: Number(item.amount || 0),
         amountUsd: Number(item.amountUsd || 0),
         type: item.type,
+        allow: item.allowClaim,
       }));
       setBonuses(tempBonuses);
     } catch (error) {
@@ -76,7 +80,7 @@ export default function RewardDropdown() {
   return (
     <>
       <>
-        {bonuses.length > 0 && (
+        {bonuses.filter((item) => item.allow).length > 0 && (
           <Popover className="h-full mr-[10px] relative w-auto rounded-[7px] text-center aspect-square">
             {({ open }) => (
               <>
@@ -128,50 +132,52 @@ export default function RewardDropdown() {
                         </div>
                       </div>
                       <div className="max-h-[calc(100vh-300px)] overflow-auto flex flex-col gap-[10px]">
-                        {bonuses.map((bonus, index) => (
-                          <div
-                            className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary"
-                            key={index}
-                          >
-                            <div className="flex gap-[10px]">
-                              <div className="flex flex-col justify-center items-center">
-                                <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />
-                              </div>
+                        {bonuses
+                          .filter((item) => item.allow)
+                          .map((bonus, index) => (
+                            <div
+                              className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary"
+                              key={index}
+                            >
+                              <div className="flex gap-[10px]">
+                                <div className="flex flex-col justify-center items-center">
+                                  <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />
+                                </div>
 
-                              <div className="flex flex-col gap-[5px] justify-center">
-                                <p className="text-[14px] dark:text-white text-color-light-text-primary">
-                                  {bonus.type === 'level_up' && t('bonus:levelUpRewards')}
-                                  {bonus.type === 'wager_contest' && t('bonus:wagerContestRewards')}
-                                  {bonus.type === 'weekly_cashback' && t('bonus:weeklyCashBackRewards')}
-                                  {bonus.type === 'monthly_cashback' && t('bonus:monthlyCashBackRewards')}
-                                </p>
-                                <div className="flex text-[14px] text-color-text-primary gap-[5px] items-center">
-                                  {!viewInFiat && (
-                                    <Image
-                                      width={12}
-                                      height={12}
-                                      src="/img/fiats/USDT.png"
-                                      className="w-[12px] h-[12px]"
-                                      alt=""
-                                    />
-                                  )}
-                                  {viewInFiat
-                                    ? currencyFormat1(bonus.amountUsd * exchangeRate, 4, localFiat?.name)
-                                    : currencyFormat1(bonus.amount, 4, '', false)}
+                                <div className="flex flex-col gap-[5px] justify-center">
+                                  <p className="text-[14px] dark:text-white text-color-light-text-primary">
+                                    {bonus.type === 'level_up' && t('bonus:levelUpRewards')}
+                                    {bonus.type === 'wager_contest' && t('bonus:wagerContestRewards')}
+                                    {bonus.type === 'weekly_cashback' && t('bonus:weeklyCashBackRewards')}
+                                    {bonus.type === 'monthly_cashback' && t('bonus:monthlyCashBackRewards')}
+                                  </p>
+                                  <div className="flex text-[14px] text-color-text-primary gap-[5px] items-center">
+                                    {!viewInFiat && (
+                                      <Image
+                                        width={12}
+                                        height={12}
+                                        src="/img/fiats/USDT.png"
+                                        className="w-[12px] h-[12px]"
+                                        alt=""
+                                      />
+                                    )}
+                                    {viewInFiat
+                                      ? currencyFormat1(bonus.amountUsd * exchangeRate, fiatDecimals, localFiat?.name)
+                                      : currencyFormat1(bonus.amount, fiatDecimals, '', false)}
+                                  </div>
                                 </div>
                               </div>
+                              <div className="py-[2px] flex items-center">
+                                <button
+                                  className="bg-gradient-btn-default px-[20px] text-white rounded-[3px] font-bold disabled:cursor-not-allowed min-h-[40px]"
+                                  disabled={lockedAmount <= bonus.amount}
+                                  onClick={() => handleClaim(bonus)}
+                                >
+                                  {t('deposit:claim')}
+                                </button>
+                              </div>
                             </div>
-                            <div className="py-[2px]">
-                              <button
-                                className="bg-gradient-btn-default px-[20px] h-full text-white rounded-[3px] disabled:cursor-not-allowed min-h-[40px]"
-                                disabled={lockedAmount <= bonus.amount}
-                                onClick={() => handleClaim(bonus)}
-                              >
-                                {t('deposit:claim')}
-                              </button>
-                            </div>
-                          </div>
-                        ))}
+                          ))}
                       </div>
                       <Link href={ROUTER.Bonus}>
                         <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary justify-center">
@@ -186,7 +192,7 @@ export default function RewardDropdown() {
             )}
           </Popover>
         )}
-        {bonuses.length == 0 && (
+        {bonuses.filter((item) => item.allow).length == 0 && (
           <Link
             className="sm:hidden block dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
             href={ROUTER.Bonus}
