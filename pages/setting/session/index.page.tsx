@@ -1,4 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
+import cn from 'classnames';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { api_deleteSession, api_getSessions } from '@/api/user';
@@ -8,9 +9,8 @@ import { SessionType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
-import TableComponent from '@/components/table';
-import cn from 'classnames';
 import Paging from '@/components/paging/paging';
+import TableComponent from '@/components/table';
 
 const SettingSession = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -114,6 +114,7 @@ const SettingSession = () => {
         setTotalRows(Number(_res.data?.totalCount || 0));
         setDataTable(tempSessions);
       } catch (error) {
+        console.log(error, '---117');
         setDataTable([]);
       } finally {
         setIsLoading(false);
