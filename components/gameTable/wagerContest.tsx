@@ -89,7 +89,7 @@ const WagerContestComponent = () => {
   };
 
   const [timeCoundown, setTimeCount] = useState(formatDate(getNextDay(), 'LL/dd/yyyy'));
-  const [hours, minutes, seconds] = useCountdown(timeCoundown);
+  const [days, hours, minutes, seconds] = useCountdown(timeCoundown);
 
   const getRank = (rank: number) => {
     let rankReturn = '';
@@ -485,7 +485,7 @@ const WagerContestComponent = () => {
                         width={16}
                         height={16}
                         className="object-cover w-[1rem] h-[1rem]"
-                        src={viewInFiat ? `/img/fiats/${localFiat?.name}.png` : `/img/fiats/USDT.png`}
+                        src={`/img/fiats/USDT.png`}
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USDT.png';
                         }}
