@@ -151,20 +151,17 @@ const TransactionPage = () => {
           <div className="flex items-center justify-end gap-2">
             <div
               className={cn(`w-[8px] h-[8px] rounded-full`, {
-                'bg-[#efef19]':
-                  row.original.status.toString() === 'processing' ||
-                  row.original.status.toString() === 'pending' ||
-                  row.original.status.toString() === 'refunding' ||
-                  row.original.status.toString() === 'ongoing',
-                'bg-[#c31414]':
-                  row.original.status.toString() === 'rejected' ||
-                  row.original.status.toString() === 'failed' ||
-                  row.original.status.toString() === 'not_started',
-                'bg-[#3BC117]':
-                  row.original.status.toString() === 'done' ||
-                  row.original.status.toString() === 'all' ||
-                  row.original.status.toString() === 'complete' ||
-                  row.original.status.toString() === 'approved',
+                'bg-color-secondary':
+                  row.original.status === 'processing' ||
+                  row.original.status === 'pending' ||
+                  row.original.status === 'refunding',
+                // row.original.status === 'ongoing',
+                'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
+                // row.original.status === 'not_started',
+                'bg-color-primary':
+                  // row.original.status === 'done' ||
+                  // row.original.status === 'all' ||
+                  row.original.status === 'complete' || row.original.status === 'approved',
               })}
             />
             <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
@@ -574,9 +571,6 @@ const TransactionPage = () => {
     async (page: number) => {
       setDataTable([]);
       setTotalRows(0);
-      if (optionFilter.type.type === LIST_FILTER_TYPE[3].type) {
-        return;
-      }
       try {
         setIsLoading(true);
         const currentDate = new Date();

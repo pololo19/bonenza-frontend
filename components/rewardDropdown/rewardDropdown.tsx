@@ -13,6 +13,7 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
+import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 
 type BonusType = {
   id: string;
@@ -56,10 +57,12 @@ export default function RewardDropdown() {
     try {
       const _res = await api_bonusClaim(bonus.id, bonus.type);
       const status = _res.data.status;
+
       const tempBonuses = [...bonuses];
       const pos = tempBonuses.findIndex((item) => item.id === bonus.id);
       tempBonuses.splice(pos, 1);
       setBonuses(tempBonuses);
+      dispatch(getBalance());
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
