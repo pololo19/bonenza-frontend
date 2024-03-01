@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
+import { casinoCategories, casinoGames } from '@/base/constants/config-menus';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -18,15 +19,6 @@ import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
-import BlackjackIcon from '../icons/BlackjackIcon';
-import BuyInIcon from '../icons/BuyInIcon';
-import FavoriteIcon from '../icons/FavoriteIcon';
-import HotGameIcon from '../icons/HotGameIcon';
-import LiveCasinoIcon from '../icons/LiveCasinoIcon';
-import OriginalIcon from '../icons/OriginalIcon';
-import RecentIcon from '../icons/RecentIcon';
-import ReleaseIcon from '../icons/ReleaseIcon';
-import SlotIcon from '../icons/SlotIcon';
 
 const SidebarMobileLayout: React.FC = () => {
   const { t, i18n } = useTranslation('');
@@ -41,45 +33,6 @@ const SidebarMobileLayout: React.FC = () => {
   );
 
   const router = useRouter();
-
-  const gameDatas: IconOptionProps[] = useMemo(
-    () => [
-      // {
-      //   title: String(t('casino:bonenzaOriginals')),
-      //   href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
-      //   icon: OriginalIcon,
-      // },
-      { title: String(t('casino:slot')), href: ROUTER.Tagname('slots'), icon: SlotIcon },
-      {
-        title: String(t('casino:liveCasino')),
-        href: ROUTER.Tagname('Live Casino'),
-        icon: LiveCasinoIcon,
-      },
-      { title: String(t('casino:hotGame')), href: ROUTER.Tagname('Hot Games'), icon: HotGameIcon },
-      { title: String(t('casino:newReleases')), href: ROUTER.Tagname('New Releases'), icon: ReleaseIcon },
-      {
-        title: String(t('casino:featureBuyIn')),
-        href: ROUTER.Tagname('Feature Buy-in'),
-        icon: BuyInIcon,
-      },
-      { title: String(t('casino:blackjack')), href: ROUTER.Tagname('Blackjack'), icon: BlackjackIcon },
-      {
-        title: String(t('casino:tableGames')),
-        href: ROUTER.Tagname('Table Games'),
-        icon: LiveCasinoIcon,
-      },
-    ],
-    [i18n.language],
-  );
-
-  const casinos: IconOptionProps[] = useMemo(
-    () => [
-      { title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou, icon: Element3 },
-      { title: String(t('casino:favorite')), href: ROUTER.Favorite, icon: FavoriteIcon },
-      { title: String(t('casino:recent')), href: ROUTER.Recent, icon: RecentIcon },
-    ],
-    [i18n.language],
-  );
 
   const initDatas: IconOptionProps[] = useMemo(
     () => [
@@ -142,7 +95,7 @@ const SidebarMobileLayout: React.FC = () => {
           </div>
         </div>
         <div className="relative grid grid-cols-3 gap-[8px]">
-          {casinos.map((item, index) => {
+          {casinoCategories.map((item, index) => {
             const IconElement = item.icon;
             return (
               <Link
@@ -150,14 +103,16 @@ const SidebarMobileLayout: React.FC = () => {
                 href={item.href}
                 className="flex flex-col gap-[5px] px-[10px] py-[16px] items-center justify-center dark:bg-color-hover-primary bg-white rounded-[3px] dark:text-color-text-primary text-color-light-text-primary"
               >
-                <IconElement
-                  size={18}
-                  className={cn('', {
-                    'font-[700] dark:text-white text-black': router.route.includes(item.href),
-                  })}
-                />
+                {
+                  <IconElement
+                    size={18}
+                    className={cn('', {
+                      'font-[700] dark:text-white text-black': router.route.includes(item.href),
+                    })}
+                  />
+                }
                 <span className={cn('text-[13px]', { 'dark:text-white text-black': router.route.includes(item.href) })}>
-                  {item.title}
+                  {t(item.title)}
                 </span>
               </Link>
             );
@@ -167,10 +122,10 @@ const SidebarMobileLayout: React.FC = () => {
           <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
             {t('layout:games')}
           </span>
-          {gameDatas.map((game, index) => (
+          {casinoGames.map((game, index) => (
             <IconOption
               key={index}
-              title={game.title}
+              title={String(t(game.title))}
               href={game.href}
               icon={game.icon}
               classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
