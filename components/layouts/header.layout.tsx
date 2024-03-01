@@ -28,6 +28,7 @@ import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import ProfileDropdown from '../profileDropdown/profileDropdown';
 import RewardDropdown from '../rewardDropdown/rewardDropdown';
 import FiatHeader from './header/fiatHeader';
+import { headerMenus } from '@/base/constants/config-menus';
 
 export default function Navbar() {
   const router = useRouter();
@@ -84,71 +85,33 @@ export default function Navbar() {
             />
           </Link>
           <div className={cn('gap-[8px] 2xl:flex hidden')}>
-            <Link
-              href={ROUTER.Casino}
-              className={cn(
-                'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
-                `${
-                  router.route.includes(ROUTER.Casino)
-                    ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
-                    : ''
-                }`,
-              )}
-            >
-              <CasinoBoldIcon className="w-[18px] h-[18px]" />
-              <div className={`text-default dark:hover:text-white hover:text-color-light-text-primary`}>
-                {t('layout:casino')}
-              </div>
-            </Link>
-            <Link
-              href={ROUTER.Sports}
-              className={cn(
-                'rounded-[5px] px-[12px] py-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
-                `${
-                  router.asPath.includes(ROUTER.Sports)
-                    ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
-                    : ''
-                }`,
-              )}
-            >
-              <SportBoldIcon className="w-[18px] h-[18px]" />
-              <div className={`text-default hover:text-color-light-text-primary dark:hover:text-white `}>
-                {t('layout:sports')}
-              </div>
-            </Link>
-            <div
-              onClick={() => window.open('https://cmd23.com/room/games.php')}
-              className={cn(
-                'cursor-pointer rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-color-light-text-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
-              )}
-            >
-              <Image
-                width={20}
-                height={20}
-                className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
-                src="/icon/liveholdem.png"
-                alt="logo"
-              />
-              <div className={`text-default hover:text-color-light-text-primary dark:hover:text-white text-nowrap`}>
-                {t('layout:liveHoldem')}
-              </div>
-            </div>
-            <Link
-              href={ROUTER.Racing}
-              className={cn(
-                'rounded-[5px] px-[12px] dark:text-color-text-primary py-[12px] group flex items-center gap-[5px] text-color-light-text-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
-                `${
-                  router.asPath.includes(ROUTER.Racing)
-                    ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
-                    : ''
-                }`,
-              )}
-            >
-              <RacingBoldIcon className="" />
-              <div className={`text-default hover:text-color-light-text-primary dark:hover:text-white`}>
-                {t('layout:racing')}
-              </div>
-            </Link>
+            {headerMenus
+              .filter((item) => !item.isMobile)
+              .map((menu, index) => {
+                const IconElement = menu.icon;
+                return (
+                  <Link
+                    key={index}
+                    href={menu.href}
+                    className={cn(
+                      'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
+                      `${
+                        router.route.includes(menu.href)
+                          ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
+                          : ''
+                      }`,
+                    )}
+                  >
+                    <IconElement
+                      size={18}
+                      className="text-color-light-text-primary dark:text-white w-[18px] h-[18px]"
+                    />
+                    <div className={`text-default dark:hover:text-white hover:text-color-light-text-primary`}>
+                      {t(menu.title)}
+                    </div>
+                  </Link>
+                );
+              })}
           </div>
 
           <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
