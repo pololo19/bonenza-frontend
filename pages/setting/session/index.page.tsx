@@ -14,7 +14,7 @@ import TableComponent from '@/components/table';
 
 const SettingSession = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { t } = useTranslation('');
+  const { t, i18n } = useTranslation('');
   const [dataTable, setDataTable] = useState<SessionType[]>([]);
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
@@ -24,29 +24,29 @@ const SettingSession = () => {
     return [
       {
         accessorKey: 'browser',
-        header: 'Browser',
+        header: String(t('setting:browser')),
         cell: ({ row }) => <div className="dark:text-white text-black">{row.original.browser}</div>,
         minSize: 100,
       },
       {
         accessorKey: 'location',
-        header: 'Location',
+        header: String(t('setting:location')),
         minSize: 30,
         cell: ({ row }) => <div className="dark:text-color-text-primary text-black">{row.original.location}</div>,
       },
       {
         accessorKey: 'ip',
-        header: 'IP Address',
+        header: String(t('setting:IPAddress')),
         cell: ({ row }) => <div className="dark:text-white text-black">{row.original.ipAddress}</div>,
         maxSize: 80,
       },
       {
         accessorKey: 'lastUsed',
-        header: 'Last Used',
+        header: String(t('setting:lastUsed')),
         maxSize: 30,
         cell: ({ row }) => (
           <div
-            className={cn('flex-1 flex items-center justify-between gap-[10px]', {
+            className={cn('flex items-center justify-center gap-[10px]', {
               'text-color-primary': row.original.active,
               'dark:text-color-text-primary text-black': !row.original.active,
             })}
@@ -54,7 +54,7 @@ const SettingSession = () => {
             {row.original.active && (
               <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
             )}
-            <div className="flex-1 text-start">{row.original.active ? 'Online' : 'Offline'}</div>
+            <div className="text-center font-bold">{row.original.active ? 'Online' : 'Offline'}</div>
           </div>
         ),
       },
@@ -69,7 +69,7 @@ const SettingSession = () => {
         ),
       },
     ];
-  }, []);
+  }, [i18n.language]);
 
   const handleRemoveUserSession = async (sessionId: string) => {
     try {
