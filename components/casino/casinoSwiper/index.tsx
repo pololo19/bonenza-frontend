@@ -63,7 +63,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
       setSlide(3);
     }
   };
-  console.log(slide);
+  
   return (
     <>
       {!!data.length && (

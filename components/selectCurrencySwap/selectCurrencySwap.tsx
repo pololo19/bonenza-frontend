@@ -151,9 +151,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
   const handleChangeCoinSwap = () => {
     const curVal = JSON.parse(JSON.stringify(getValues()));
+    const currentSymbolBalance = getBalanceBySymbolId(curVal.symbolTo);
     setValue('symbolFrom', curVal.symbolTo);
     setValue('symbolTo', curVal.symbolFrom);
-    setValue('amountFrom', curVal.amountTo);
+    setValue('amountFrom',  curVal.amountTo > currentSymbolBalance ? currentSymbolBalance : curVal.amountTo);
+
   };
 
   const handleApproximately = async (balance: string) => {
