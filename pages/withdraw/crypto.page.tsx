@@ -204,7 +204,7 @@ const WithdrawCryptoPage = () => {
     } else if (!formWithdraw.withdrawAmount) {
       messError = t('withdraw:withdrawFailMess2');
       validate = true;
-    } else if (Number(formWithdraw.withdrawAmount) > renderBalanceValue) {
+    } else if (Number(formWithdraw.withdrawAmount) > withdrawInfo.availableAmount) {
       messError = t('withdraw:withdrawFailMess4');
       validate = true;
     } else if (Number(formWithdraw.withdrawAmount) <= renderMinValue.min) {
