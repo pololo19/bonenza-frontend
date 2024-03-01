@@ -1,9 +1,10 @@
+import cn from 'classnames';
+import { ReactElement } from 'react';
+
 import { useTranslation } from '@/base/config/i18next';
 import { useCountdown } from '@/base/constants/useCountdown';
 import BaseLayout from '@/components/layouts/base.layout';
 import styles from '@/styles/dashboard/index.module.scss';
-import cn from 'classnames';
-import { ReactElement } from 'react';
 
 function NotFoundPage() {
   const [days, hours, minutes, seconds] = useCountdown('3/1/2024');
@@ -21,16 +22,12 @@ function NotFoundPage() {
             {t('error:comingSoon')}
           </div>
           <div className="text-center flex flex-col gap-2">
-            <div className="text-color-primary sm:text-[18px] lg:text-[32px]">
-              {t('error:seeyou')}
-            </div>
+            <div className="text-color-primary sm:text-[18px] lg:text-[32px]">{t('error:seeyou')}</div>
             <div className="flex justify-center gap-0">
               {detailsValue.map((_, index) => (
-                <div 
-                  className={
-                    cn('text-center text-color-primary flex flex-col gap-2 w-20',
-                    {
-                      'border-solid border-l-[1px] border-color-primary': index !== 0,
+                <div
+                  className={cn('text-center text-color-primary flex flex-col gap-2 w-20', {
+                    'border-solid border-l-[1px] border-color-primary': index !== 0,
                   })}
                 >
                   <p className="font-bold text-[26px] sm:text-[20px] lg:text-[32px]">{detailsValue[index]}</p>
