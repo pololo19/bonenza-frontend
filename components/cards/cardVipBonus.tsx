@@ -1,6 +1,7 @@
-import Image from 'next/image';
 import { Crown } from 'iconsax-react';
+import Image from 'next/image';
 import { useTheme } from 'next-themes';
+
 import { useTranslation } from '@/base/config/i18next';
 
 type CardVipBonusProps = {
@@ -42,8 +43,8 @@ export default function CardVipBonus({
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="rounded-[5px] relative min-h-[250px]">
-      <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" />
+    <div className="rounded-[5px] relative min-h-[250px] dark:bg-color-card-body-default bg-white">
+      {/* <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" /> */}
       <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-[10px]">
@@ -66,7 +67,7 @@ export default function CardVipBonus({
             </div>
           )}
         </div>
-        <div className="mt-[10px] flex justify-between max-[400px]:w-[65%] w-[60%] md:w-[65%] lg:w-[60%]">
+        <div className="mt-[10px] flex justify-between">
           <div>
             <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
               {wagerRequired}

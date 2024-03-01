@@ -60,54 +60,6 @@ function BonusLoggedPage() {
   const dataGeneralBonus = useMemo(
     () => [
       {
-        backgroundDark: '/img/bg-quest.png',
-        backgroundLight: '/img/bg-quest-light.png',
-        name: t('bonus:quest'),
-        description: t('bonus:questDescription'),
-        title: t('bonus:questTitle'),
-        total: t('bonus:questTotal'),
-        titleValue: '0 / 4',
-        totalValue: '0 / 1',
-        nameButton: t('bonus:questButton'),
-        showDeposit: false,
-      },
-      {
-        backgroundDark: '/img/bg-lucky-spin.png',
-        backgroundLight: '/img/bg-lucky-spin-light.png',
-        name: t('bonus:spin'),
-        description: t('bonus:spinDescription'),
-        title: t('bonus:spinTitle'),
-        total: t('bonus:spinTotal'),
-        titleValue: '1',
-        totalValue: viewInFiat ? currencyFormat1(0 * exchangeRate, 2, localFiat?.name) : currencyFormat1(1000, 2),
-        nameButton: t('bonus:spinButton'),
-        showDeposit: false,
-      },
-      // {
-      //   backgroundDark: '/img/bg-roll.png',
-      //   backgroundLight: '/img/bg-roll-light.png',
-      //   name: t('bonus:rollCompetition'),
-      //   description: t('bonus:rollDescription'),
-      //   title: t('bonus:rollTitle'),
-      //   total: t('bonus:rollTotal'),
-      //   titleValue: '0',
-      //   totalValue: '₫ 0.00',
-      //   nameButton: '',
-      //   showDeposit: false,
-      // },
-      // {
-      //   backgroundDark: '/img/bg-rakeback.png',
-      //   backgroundLight: '/img/bg-rakeback-light.png',
-      //   name: t('bonus:BNZRakeback'),
-      //   description: t('bonus:BNZDescription'),
-      //   title: t('bonus:BNZTitle'),
-      //   total: t('bonus:BNZTotal'),
-      //   titleValue: '5.00 USDT',
-      //   totalValue: '0.00 USDT',
-      //   nameButton: t('bonus:questButton'),
-      //   showDeposit: false,
-      // },
-      {
         backgroundDark: '',
         backgroundLight: '',
         name: t('bonus:depositBonus'),
@@ -125,24 +77,6 @@ function BonusLoggedPage() {
 
   const dataCardVipBonus = useMemo(
     () => [
-      // {
-      //   backgroundDark: '/img/bg-recharge.png',
-      //   backgroundLight: '/img/bg-recharge-light.png',
-      //   name: t('bonus:recharge'),
-      //   description: '',
-      //   wagerRequired: t('bonus:wagerRequired'),
-      //   currentTier: t('bonus:currentTier'),
-      //   rechargeRate: t('bonus:rechargeRate'),
-      //   readyToClaim: t('bonus:readyToClaim'),
-      //   lastWeeklyBonus: '',
-      //   wagerValue: 1000,
-      //   tierValue: '-',
-      //   rechargeRateValue: '-',
-      //   readyToClaimValue: '-',
-      //   lastWeekBonusValue: '',
-      //   showHour: true,
-      //   showDescription: false,
-      // },
       {
         backgroundDark: '/img/bg-weekly-cashback.png',
         backgroundLight: '/img/bg-weekly-cashback-light.png',
@@ -153,7 +87,7 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: viewInFiat ? currencyFormat1(1000 * exchangeRate, 2, localFiat?.name) : currencyFormat1(1000, 2),
+        wagerValue: 1000,
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
@@ -171,7 +105,7 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: viewInFiat ? currencyFormat1(1000 * exchangeRate, 2, localFiat?.name) : currencyFormat1(1000, 2),
+        wagerValue: 1000,
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
@@ -179,24 +113,6 @@ function BonusLoggedPage() {
         showHour: false,
         showDescription: true,
       },
-      // {
-      //   backgroundDark: '/img/bg-sports.png',
-      //   backgroundLight: '/img/bg-sports-light.png',
-      //   name: t('bonus:sportsWeeklyBonus'),
-      //   description: t('bonus:receiveEverySaturday'),
-      //   wagerRequired: t('bonus:wagerRequired'),
-      //   currentTier: '',
-      //   rechargeRate: '',
-      //   readyToClaim: '',
-      //   lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-      //   wagerValue: handleGetValue(500),
-      //   tierValue: '',
-      //   rechargeRateValue: '',
-      //   readyToClaimValue: '',
-      //   lastWeekBonusValue: '-',
-      //   showHour: false,
-      //   showDescription: true,
-      // },
     ],
     [i18n.language, viewInFiat, localFiat],
   );
@@ -327,42 +243,14 @@ function BonusLoggedPage() {
         <div className="mt-5">
           <div className="flex items-center gap-[10px] mb-[16px]">
             <div className="text-[20px] dark:text-white text-color-light-text-primary font-medium">
-              {t('bonus:generalBonus')}
+              {t('bonus:generalBonus')} && VIP{' '}
+              <span className="text-[20px] font-medium dark:text-white text-color-light-text-primary">
+                {t('bonus:Bonus')}
+              </span>
             </div>
           </div>
-          <div className="grid grid-cols-3 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
-            {dataGeneralBonus.map((item, index) => (
-              <CardGeneralBonus
-                key={index}
-                background={theme === 'dark' ? item.backgroundDark : item.backgroundLight}
-                name={item.name}
-                description={item.description}
-                title={item.title}
-                total={item.total}
-                titleValue={item.titleValue}
-                totalValue={item.totalValue}
-                nameButton={item.nameButton}
-                showDeposit={item.showDeposit}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="mt-5 ">
-          <div className="text-[20px] font-medium text-[#F39717] mb-[13px]">
-            VIP{' '}
-            <span className="text-[20px] font-medium dark:text-white text-color-light-text-primary">
-              {t('bonus:Bonus')}
-            </span>
-          </div>
-          <div className="grid grid-cols-3 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
+          <div className="grid grid-cols-4 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
             <div className="rounded-[5px] relative dark:bg-color-card-body-default bg-white h-full">
-              <Image
-                src={theme === 'dark' ? '/img/bg-levelup-rewards.png' : '/img/bg-levelup'}
-                width={339}
-                height={210}
-                alt=""
-                className="h-full w-full object-cover"
-              />
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-[10px]">
@@ -375,7 +263,7 @@ function BonusLoggedPage() {
                   </div>
                 </div>
                 <div>
-                  <div className="flex justify-between w-[60%]">
+                  <div className="flex justify-between">
                     <div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
                         {t('bonus:currentVIP')}
@@ -411,10 +299,24 @@ function BonusLoggedPage() {
                   onClick={() => dispatch(changeIsShowVipClubModal(true))}
                   className="dark:bg-[#2D3035] bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
                 >
-                  <div className="text-[#fd6e08] font-medium text-[14px]">{t('bonus:viewVIPClub')}</div>
+                  <div className="text-color-primary font-medium text-[14px]">{t('bonus:viewVIPClub')}</div>
                 </div>
               </div>
             </div>
+            {dataGeneralBonus.map((item, index) => (
+              <CardGeneralBonus
+                key={index}
+                background={theme === 'dark' ? item.backgroundDark : item.backgroundLight}
+                name={item.name}
+                description={item.description}
+                title={item.title}
+                total={item.total}
+                titleValue={item.titleValue}
+                totalValue={item.totalValue}
+                nameButton={item.nameButton}
+                showDeposit={item.showDeposit}
+              />
+            ))}
             {dataCardVipBonus.map((item, index) => (
               <CardVipBonus
                 key={index}
