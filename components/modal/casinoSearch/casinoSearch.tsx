@@ -127,11 +127,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
     }
   }, [width]);
 
-  const wheelHandler = (event: any) => {
-    const layout = document.getElementById('base-layout');
+  const layout = document.getElementById('base-layout');
+  const wheelHandler = (event: any) => {  
     const currentPosition = layout?.scrollTop ?? 0;
-    const scrollFactor = 3;
-    layout?.scrollTo({ top: currentPosition + event.deltaY * scrollFactor, behavior: 'smooth' });
+    const scrollFactor = 2;
+    layout?.scrollTo({ top: currentPosition + event.deltaY * scrollFactor, behavior: 'instant' });
   };
 
   const handleClickHistory = (val: string) => {
@@ -194,17 +194,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] left-0 bottom-0 w-full transition-transform duration-800 sm:h-auto h-[calc(100vh_-_67px)] z-[5] dark:bg-black/70 bg-white/70 shadow-bs-default',
-
+          'fixed top-[67px] right-0 z-[5]  bottom-0 sshadow-bs-default dark:bg-black/70 bg-white/70',
           {
-            'translate-y-0': show,
-            '-translate-y-full': !show,
-          },
-          {
-            'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
-            'md:ml-[260px] md:max-w-[calc(100%-260px)]': isToggleSidebar && !showChatType,
-            'xl:ml-[260px] xl:max-w-[calc(100%-610px)]': showChatType && isToggleSidebar,
-            'sm:ml-[62px] xl:max-w-[calc(100%-422px)]': showChatType && !isToggleSidebar,
+            'sm:left-[62px]': (!isToggleSidebar && !showChatType) || (showChatType && !isToggleSidebar),
+            'md:left-[260px]': isToggleSidebar && !showChatType,
+            'xl:left-[260px]': showChatType && isToggleSidebar,
           },
         )}
       >
