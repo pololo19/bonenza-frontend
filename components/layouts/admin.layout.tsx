@@ -146,7 +146,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
                   'bg-gray-500/40 text-[#dab03a]': ROUTER.AdminRewards.includes(router.pathname),
                 })}
               >
-                USD Rewards
+                USDT Rewards
               </Link>
             </div>
             <div className="overflow-y-auto w-full p-6">{children}</div>
