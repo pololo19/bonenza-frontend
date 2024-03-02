@@ -49,26 +49,26 @@ const SidebarMobileLayout: React.FC = () => {
           }
         },
       },
-      {
-        title: String(t('sidebar:exclusive')),
-        href: ROUTER.Exclusive,
-        icon: Medal,
-      },
+      // {
+      //   title: String(t('sidebar:exclusive')),
+      //   href: ROUTER.Exclusive,
+      //   icon: Medal,
+      // },
       {
         title: String(t('sidebar:affiliate')),
         href: ROUTER.Affiliate,
         icon: Command,
       },
-      {
-        title: String(t('sidebar:provablyFair')),
-        href: ROUTER.ProvablyFair,
-        icon: Judge,
-      },
-      {
-        title: String(t('sidebar:sponsorships')),
-        href: ROUTER.Sponsorships,
-        icon: SecurityCard,
-      },
+      // {
+      //   title: String(t('sidebar:provablyFair')),
+      //   href: ROUTER.ProvablyFair,
+      //   icon: Judge,
+      // },
+      // {
+      //   title: String(t('sidebar:sponsorships')),
+      //   href: ROUTER.Sponsorships,
+      //   icon: SecurityCard,
+      // },
     ],
     [i18n.language, isLogin],
   );
@@ -145,14 +145,14 @@ const SidebarMobileLayout: React.FC = () => {
             />
           ))}
         </ul>
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px] dark:bg-color-hover-primary bg-white rounded-[3px]">
+        {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px] dark:bg-color-hover-primary bg-white rounded-[3px]">
           <IconOption
             title={String(t('sidebar:liveSupport'))}
             href={ROUTER.LiveSupport}
             icon={Headphone}
             classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
           />
-        </ul>
+        </ul> */}
         {/* <div className="dark:text-[#98A7B5] text-[#31373d] rounded dark:bg-[#25262B] bg-[#f5f6fa] flex items-center justify-center gap-[5px]">
           <div
             className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer ${

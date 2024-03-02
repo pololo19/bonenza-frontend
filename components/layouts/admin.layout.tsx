@@ -112,7 +112,7 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       <div className="min-h-screen h-full w-full overflow-hidden font-dayOne bg-[#f8f8f8]">
         <div className="md:pt-0 h-full w-full relative">
           <div className="h-[60px] py-2 px-6 w-full bg-[#24262b]">
-            <Link href={ROUTER.AdminReferral} className="flex items-center">
+            <Link href={ROUTER.AdminFriends} className="flex items-center">
               <Image
                 width={165}
                 height={57}

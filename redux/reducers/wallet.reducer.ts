@@ -10,6 +10,7 @@ import {
   CryptoNetWorkType,
   CurrencyType,
   DepositAddressType,
+  PriceUpdateType,
 } from '@/base/types/wallet';
 
 const initialState: WalletState = {
@@ -88,6 +89,38 @@ export const walletReducer = createSlice({
         state.balances[index] = action.payload;
       }
     },
+    updateCryptoPrice: (state: WalletState, action: PayloadAction<PriceUpdateType[]>) => {
+      const priceUpdateData = [...action.payload];
+      const _cryptos = [...state.symbols];
+      const _res = _cryptos.map((crypto) => {
+        const selectedPriceUpdateData = priceUpdateData.find((item) => item.id === crypto.id);
+        let updatedPrice = crypto.price;
+        if (selectedPriceUpdateData) {
+          updatedPrice = selectedPriceUpdateData.price;
+        }
+        return {
+          ...crypto,
+          price: updatedPrice,
+        };
+      });
+      state.symbols = [..._res];
+    },
+    updatedFiatPrice: (state: WalletState, action: PayloadAction<PriceUpdateType[]>) => {
+      const priceUpdateData = [...action.payload];
+      const _fiats = [...state.fiatSymbols];
+      const _res = _fiats.map((fiat) => {
+        const selectedPriceUpdateData = priceUpdateData.find((item) => item.id === fiat.id);
+        let updatedPrice = fiat.price;
+        if (selectedPriceUpdateData) {
+          updatedPrice = selectedPriceUpdateData.price;
+        }
+        return {
+          ...fiat,
+          price: updatedPrice,
+        };
+      });
+      state.fiatSymbols = [..._res];
+    },
     setLockedAmount: (state: WalletState, action: PayloadAction<number>) => {
       state.lockedAmount = action.payload;
     },
@@ -111,6 +144,8 @@ export const {
   setActiveCurrency,
   updateBalance,
   setLockedAmount,
+  updateCryptoPrice,
+  updatedFiatPrice,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 

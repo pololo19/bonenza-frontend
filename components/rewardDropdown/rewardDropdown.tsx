@@ -81,12 +81,12 @@ export default function RewardDropdown() {
     <>
       <>
         {bonuses.filter((item) => item.allow).length > 0 && (
-          <Popover className="h-full mr-[10px] relative w-auto rounded-[7px] text-center aspect-square">
+          <Popover className="h-full mr-[10px] relative w-auto rounded-[7px] text-center aspect-square dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary">
             {({ open }) => (
               <>
                 <Popover.Button className="h-full">
-                  <div className="flex flex-col h-full justify-center dark:text-white text-color-text-primary items-center relative">
-                    <Gift variant="Bold" className="w-[24px] h-[24px] sm:w-[20px] sm:h-[20px]" />
+                  <div className="flex flex-col h-full justify-center dark:text-white text-color-text-primary items-center relative ">
+                    <Gift variant="Bold" className="w-[28px] h-[28px] sm:w-[20px] sm:h-[20px]" />
                     <div className="absolute text-white bg-color-primary rounded-full top-0 -right-[calc(50%)] px-[6px] text-[10px]">
                       {bonuses.filter((item) => item.allow).length}
                     </div>

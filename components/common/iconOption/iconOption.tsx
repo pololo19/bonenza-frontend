@@ -64,12 +64,13 @@ const IconOption = ({
   const { pathname } = router;
   const IconElement = icon;
   const [showDropDownCasino, setShowDropDownCasino] = useState(
-    casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)),
+    // casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)),
+    true,
   );
 
-  useEffect(() => {
-    setShowDropDownCasino(casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)));
-  }, [pathname]);
+  // useEffect(() => {
+  //   setShowDropDownCasino(casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)));
+  // }, [pathname]);
   return (
     <>
       {!isDropDown && (
@@ -81,7 +82,8 @@ const IconOption = ({
           )}
           href={href}
           onClick={() => {
-            setShowDropDownCasino(!showDropDownCasino);
+            // disable hide menus
+            // setShowDropDownCasino(!showDropDownCasino);
             onClick?.();
           }}
         >
@@ -109,8 +111,6 @@ const IconOption = ({
             `font-[${fontWeight}]`,
             {
               'dark:bg-color-menu-secondary': showDropDownCasino,
-              // 'translate-y-0': showDropDownCasino,
-              // 'translate-y-full': !showDropDownCasino
             },
           )}
         >
@@ -123,7 +123,8 @@ const IconOption = ({
               },
             )}
             onClick={() => {
-              setShowDropDownCasino(!showDropDownCasino);
+              // disable hide menus
+              // setShowDropDownCasino(!showDropDownCasino);
               onClick?.();
             }}
           >
@@ -142,9 +143,9 @@ const IconOption = ({
             >
               {title}
             </div>
-            <ArrowRight2
+            {/* <ArrowRight2
               className={`w-3 h-3 mr-1 transition-all duration-150 ${showDropDownCasino ? 'rotate-90' : 'rotate-0'}`}
-            />
+            /> */}
           </div>
           <div
             className={cn('transition-all overflow-hidden duration-[200]', {
