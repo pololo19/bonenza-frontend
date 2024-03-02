@@ -2,6 +2,7 @@ import {
   API_AFFILIATE,
   API_AFFILIATE_COMMISSION_HISTORY,
   API_AFFILIATE_COMMISSION_REWARDS,
+  API_AFFILIATE_COMMISSION_WITHDRAW,
   API_AFFILIATE_FRIENDS,
   API_AFFILIATE_REFERRAL_REWARDS,
   API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
@@ -50,6 +51,10 @@ export const api_affiliateCommissionRewards = async () => {
 
 export const api_affiliateCommissionRewardsHistory = async (page: number, pageSize: number) => {
   return api.get(API_AFFILIATE_COMMISSION_HISTORY, { params: { page, pageSize } });
+};
+
+export const api_affiliateCommissionRewardsWithdraw = async () => {
+  return api.post(API_AFFILIATE_COMMISSION_WITHDRAW);
 };
 
 export const api_affiliateReferralRewards = async (

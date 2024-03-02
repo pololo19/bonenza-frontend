@@ -116,6 +116,8 @@ const API_AFFILIATE = '/affiliate/affiliate';
 const API_AFFILIATE_FRIENDS = '/affiliate/friends';
 const API_AFFILIATE_COMMISSION_REWARDS = '/affiliate/commission/rewards';
 const API_AFFILIATE_COMMISSION_HISTORY = '/affiliate/commission/history';
+const API_AFFILIATE_COMMISSION_WITHDRAW = '/affiliate/commission/withdraw';
+
 const API_AFFILIATE_REFERRAL_REWARDS = '/affiliate/referral/rewards';
 const API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW = '/affiliate/referral/withdraw';
 
@@ -143,6 +145,7 @@ export {
   API_AFFILIATE,
   API_AFFILIATE_COMMISSION_HISTORY,
   API_AFFILIATE_COMMISSION_REWARDS,
+  API_AFFILIATE_COMMISSION_WITHDRAW,
   API_AFFILIATE_FRIENDS,
   API_AFFILIATE_REFERRAL_REWARDS,
   API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
