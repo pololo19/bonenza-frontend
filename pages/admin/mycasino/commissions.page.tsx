@@ -9,10 +9,19 @@ import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 
-import { api_affiliateCommissionRewards, api_affiliateCommissionRewardsHistory } from '@/api/bonus';
+import {
+  api_affiliateCommissionRewards,
+  api_affiliateCommissionRewardsHistory,
+  api_affiliateCommissionRewardsWithdraw,
+} from '@/api/bonus';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
+import { formatDate } from '@/base/libs/utils';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
+import { toast } from 'react-toastify';
+import Loader from '@/components/common/preloader/loader';
+import LoaderFull from '@/components/common/loaderFull/loaderFull';
 
 type FilterType = {
   username?: string;
@@ -24,9 +33,12 @@ type CommissionRewardType = {
   commissionRewardsAvailable: number;
   currencyLogo: string;
   currencyName: string;
+  time: string;
+  status: boolean;
 };
 
 function AdminRewardsPage() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
 
   const { t } = useTranslation('');
@@ -34,7 +46,11 @@ function AdminRewardsPage() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [totalRows, setTotalRows] = useState(0);
-  const [totalCommissionRewardsAmountUsd, setTotalCommissionRewardsAmountUsd] = useState(0);
+  const [totalCommissionRewardsData, setTotalCommissionRewardsData] = useState({
+    totalCommissionRewardsAmountUsd: 0,
+    totalCommissionRewardsReceivedAmountUsd: 0,
+    commissionRewardsAvailableAmountUsd: 0,
+  });
   const [tableData, setTableData] = useState<CommissionRewardType[]>([]);
   const schema = yup.object().shape({});
 
@@ -66,9 +82,18 @@ function AdminRewardsPage() {
         commissionRewardsAvailable: Number(reward.amount || 0),
         currencyLogo: reward.currencyLogo,
         currencyName: reward.currencyName,
+        time: reward.time,
+        status: reward.status,
       }));
-      setTotalCommissionRewardsAmountUsd(Number(_resAffiliateTotal.data?.totalCommissionRewardsAmountUsd));
-      setTotalRows(Number(_resAffiliateTotal.data?.totalCount || 0));
+      setTotalCommissionRewardsData({
+        totalCommissionRewardsAmountUsd: Number(_resAffiliateTotal.data?.totalCommissionRewardsAmountUsd || 0),
+        totalCommissionRewardsReceivedAmountUsd: Number(
+          _resAffiliateTotal.data?.totalCommissionRewardsReceivedAmountUsd || 0,
+        ),
+        commissionRewardsAvailableAmountUsd: Number(_resAffiliateTotal.data?.commissionRewardsAvailableAmountUsd || 0),
+      });
+
+      setTotalRows(Number(_resAffiliateHistory.data?.totalCount || 0));
       setTableData(tempCommissionData);
     } catch (error) {
       setTableData([]);
@@ -81,46 +106,115 @@ function AdminRewardsPage() {
     getCommissionData();
   }, []);
 
+  const handleWithdraw = async () => {
+    try {
+      setIsLoading(true);
+      const _res = await api_affiliateCommissionRewardsWithdraw();
+      await getCommissionData();
+      toast.success(`Your withdraw is successful`, { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      console.log(error);
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
+      const description = error.response?.data?.error ?? '';
+      toast.error(description, { containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const columns: ColumnDef<CommissionRewardType>[] = useMemo(() => {
     return [
-      {
-        accessorKey: 'totalCommissionRewards',
-        header: () => <div className="text-left">{t('mycasino:totalCommission')}</div>,
-        cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{row.original.totalCommissionRewards}</div>
-          </div>
-        ),
-      },
       {
         accessorKey: 'commissionRewardsAvailable',
         header: () => <div className="text-left">{t('mycasino:commissionRewards')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{`${row.original.commissionRewardsAvailable} ${row.original.currencyName}`}</div>
+            <div className="font-bold truncate flex gap-1">
+              <Image
+                height={20}
+                width={20}
+                src={`/img/fiats/USDT.png`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USDT.png';
+                }}
+              />
+              {`${row.original.commissionRewardsAvailable} ${row.original.currencyName}`}
+            </div>
           </div>
         ),
+        minSize: 120,
+        maxSize: 120,
+      },
+      {
+        accessorKey: 'totalCommissionRewards',
+        header: () => <div className="text-left">{t('historyBonus:time')}</div>,
+        cell: ({ row }) => (
+          <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
+            <div className="font-bold truncate">
+              {formatDate(new Date(row.original.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+            </div>
+          </div>
+        ),
+        minSize: 100,
+        maxSize: 100,
+      },
+      {
+        accessorKey: 'status',
+        header: () => <div className="text-left">{t('mycasino:status')}</div>,
+        cell: ({ row }) => (
+          <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
+            <div
+              className={cn('font-bold truncate', {
+                'text-color-primary': row.original.status,
+                'text-color-secondary': !row.original.status,
+              })}
+            >
+              {row.original.status ? 'Successed' : 'Available'}
+            </div>
+          </div>
+        ),
+        minSize: 30,
+        maxSize: 30,
       },
     ];
   }, []);
 
   return (
-    <div>
-      <div className="bg-white rounded border border-solid border-gray-200 p-4">
-        <div className="min-h-[75px] flex items-center justify-between gap-[20px]">
-          <div>
-            <span>{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
-            <span className="text-[40px] text-amber-400 font-[700]">{totalCommissionRewardsAmountUsd} USD</span>
-          </div>
-          {/* <div className="flex items-center text-[14px] gap-4">
-            <button className="flex items-center gap-1 font-[500]">
-              <Clock size={18} variant="Bold" />
-              {t('mycasino:history')}
-            </button>
-          </div> */}
+    <div className="bg-white rounded border border-solid border-gray-200 p-4 flex flex-col xl:grid xl:grid-cols-2 gap-[40px]">
+      {isLoading && <Loader />}
+      <div className="flex flex-col items-center justify-start gap-[5px] mt-[15px]">
+        <div className="flex items-center justify-between w-full">
+          <span className="font-[600]">{t('mycasino:totalCommission')}</span>&nbsp;&nbsp;
+          <span className="text-[32px] 2xl:text-[40px] text-amber-400 font-[700]">
+            {totalCommissionRewardsData.totalCommissionRewardsAmountUsd} USD
+          </span>
+        </div>
+        <div className="flex items-center justify-between w-full">
+          <span className="font-[600]">{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
+          <span className="text-[32px] 2xl:text-[40px] text-amber-400 font-[700]">
+            {totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd} USD
+          </span>
+        </div>
+
+        <div className="flex items-center justify-between w-full">
+          <span className="font-[600]">{t('mycasino:commissionRewards')}</span>&nbsp;&nbsp;
+          <span className="text-[32px] 2xl:text-[40px] text-amber-400 font-[700]">
+            {totalCommissionRewardsData.commissionRewardsAvailableAmountUsd} USD
+          </span>
+        </div>
+        <div className="flex items-center justify-end w-full">
+          <button className="bg-gradient-btn-default px-6 py-2 rounded-default text-white" onClick={handleWithdraw}>
+            {t('mycasino:withdraw')}
+          </button>
         </div>
       </div>
-      <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4 flex gap-4">
+      <div className="flex flex-col gap-[10px]">
+        <div className="flex items-center gap-1">
+          <Clock size={18} variant="Bold" />
+          <span className="font-[600]">{t('mycasino:history')}</span>
+        </div>
         <div className="w-full">
           <AdminTableComponent
             containerClassName="w-full"
