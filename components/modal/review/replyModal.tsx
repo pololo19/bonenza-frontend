@@ -1,3 +1,5 @@
+import cn from 'classnames';
+import { Like1, Messages } from 'iconsax-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,21 +14,25 @@ import { CommentType } from '@/components/game/gameReview';
 import Textarea from '@/components/input/typing/Textarea';
 
 import CommonModal from '../commonModal/commonModal';
-import { Like1, Messages } from 'iconsax-react';
-import cn from 'classnames';
+import CommentPostModal from './commentPost';
+import Paging from '@/components/paging/paging';
 
 export default function ReplyModal({
   show,
   onClose,
   gameId,
-  commentId,
+  comments,
+  setComments,
   sourceComment,
+  setSourceComment,
 }: {
   show: boolean;
   onClose: () => void;
+  comments: CommentType[];
+  setComments: (comments: CommentType[]) => void;
   gameId: string;
-  commentId: string;
   sourceComment: CommentType;
+  setSourceComment: (comment: CommentType) => void;
 }) {
   const { avatar } = useSelector(
     (state: AppState) => ({
@@ -35,15 +41,18 @@ export default function ReplyModal({
     shallowEqual,
   );
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState<number>(10);
+  const [totalRows, setTotalRows] = useState<number>(0);
   const { t } = useTranslation();
   const [review, setReview] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isShowComment, setIsShowComment] = useState(false);
   const [commentData, setCommentData] = useState<CommentType[]>([]);
 
   const handleGetList = useCallback(async () => {
     try {
       setIsLoading(true);
-      const _res = await api_reviewList(commentId, gameId, page, 10, 'newest');
+      const _res = await api_reviewList(sourceComment.id, gameId, page, limit, 'newest');
       const tempCommentDatas: CommentType[] = _res?.data?.comments.map((item: any) => ({
         id: item?.id ?? '',
         userId: item?.userId ?? '',
@@ -55,12 +64,63 @@ export default function ReplyModal({
         comments: Number(item?.commentsCount ?? 0),
       }));
       setCommentData(tempCommentDatas);
+      setTotalRows(Number(_res.data?.totalCount || 0));
     } catch (error) {
       setCommentData([]);
     } finally {
       setIsLoading(false);
     }
-  }, [page]);
+  }, [page, sourceComment, limit]);
+
+  const handleLikeComment = async (commentId: string) => {
+    try {
+      setIsLoading(true);
+      const _res = await api_reviewLike(commentId);
+      if (sourceComment.id === commentId) {
+        const likes = !!_res.data?.like ? sourceComment.likes + 1 : sourceComment.likes - 1;
+        const tempParentsCommentsData = [...comments].map((item) => {
+          if (item.id === commentId) {
+            item.likes = likes;
+          }
+          return item;
+        });
+        setComments(tempParentsCommentsData);
+        setSourceComment({
+          ...sourceComment,
+          like: !!_res.data?.like,
+          likes,
+        });
+      } else {
+        const tempCommentDatas = [...commentData].map((item) => {
+          if (item.id === commentId) {
+            item.like = !!_res.data?.like;
+            if (!!_res.data?.like) {
+              item.likes += 1;
+            } else {
+              item.likes -= 1;
+            }
+          }
+          return item;
+        });
+        setCommentData(tempCommentDatas);
+      }
+    } catch (error) {
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChangePage = (action: string) => {
+    let newPage: number;
+    newPage = action === 'Next' ? page + 1 : page - 1;
+    setPage(newPage);
+    handleGetList();
+  };
+
+  const handleChangeItemPerPage = (itemPerPage: number) => {
+    setLimit(itemPerPage);
+    setPage(1);
+  };
 
   useEffect(() => {
     handleGetList();
@@ -98,17 +158,17 @@ export default function ReplyModal({
                 <div className="-mt-8 flex gap-6 mr-3 text-sm">
                   <div
                     className="flex gap-[5px] items-center justify-center cursor-pointer"
-                    //   onClick={() => handleLikeComment(comment.id)}
+                    onClick={() => handleLikeComment(sourceComment.id)}
                   >
                     <Like1 size={18} className={cn('m-auto')} />
                     {sourceComment.likes > 0 && <span className="ml-[10px]">{sourceComment.likes}</span>}
                   </div>
                   <div
                     className="flex gap-[5px] cursor-pointer"
-                    //   onClick={() => {
-                    //     setCommentId(comment.id);
-                    //     setShowComment(true);
-                    //   }}
+                    // onClick={() => {
+                    //   setCommentId(comment.id);
+                    //   setShowComment(true);
+                    // }}
                   >
                     <Messages size={18} className={cn('m-auto')} />
                     {sourceComment.comments > 0 && <span className="ml-[10px]">{sourceComment.comments}</span>}
@@ -120,7 +180,7 @@ export default function ReplyModal({
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-[10px]">
+          <div className="flex flex-col gap-[5px]">
             {isLoading && <Loader />}
             {commentData.map((comment, index) => (
               <div className="text-xs dark:text-color-text-primary text-color-light-text-primary" key={index}>
@@ -155,17 +215,16 @@ export default function ReplyModal({
                   <div className="-mt-8 flex gap-6 mr-3 text-sm">
                     <div
                       className="flex gap-[5px] items-center justify-center cursor-pointer"
-                      //   onClick={() => handleLikeComment(comment.id)}
+                      onClick={() => handleLikeComment(comment.id)}
                     >
                       <Like1 size={18} className={cn('m-auto')} />
                       {comment.likes > 0 && <span className="ml-[10px]">{comment.likes}</span>}
                     </div>
                     <div
                       className="flex gap-[5px] cursor-pointer"
-                      //   onClick={() => {
-                      //     setCommentId(comment.id);
-                      //     setShowComment(true);
-                      //   }}
+                      onClick={() => {
+                        setIsShowComment(true);
+                      }}
                     >
                       <Messages size={18} className={cn('m-auto')} />
                       {comment.comments > 0 && <span className="ml-[10px]">{comment.comments}</span>}
@@ -178,8 +237,27 @@ export default function ReplyModal({
               </div>
             ))}
           </div>
+          <Paging
+            onPageChange={handleChangePage}
+            itemPerPage={limit}
+            totalItem={totalRows}
+            currentPage={page}
+            setItemPerPage={handleChangeItemPerPage}
+            hiddenPerPage={true}
+          />
         </div>
       </CommonModal>
+
+      {isShowComment && (
+        <CommentPostModal
+          show={isShowComment}
+          onClose={() => setIsShowComment(false)}
+          gameId={String(gameId)}
+          commentId={sourceComment.id}
+          comments={commentData}
+          setCommentData={setCommentData}
+        />
+      )}
     </>
   );
 }

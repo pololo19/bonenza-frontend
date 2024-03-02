@@ -130,15 +130,15 @@ const AccountPannel: React.FC = () => {
 
   const initDatas: ListItemProps[] = useMemo(
     () => [
-      {
-        title: String(t('sidebar:notification')),
-        href: '',
-        icon: <NotificationBing />,
-        extra: <></>,
-        isLink: false,
-        classNames: '',
-        activeClassNames: '',
-      },
+      // {
+      //   title: String(t('sidebar:notification')),
+      //   href: '',
+      //   icon: <NotificationBing />,
+      //   extra: <></>,
+      //   isLink: false,
+      //   classNames: '',
+      //   activeClassNames: '',
+      // },
       {
         title: String(t('layout:referAndEarn')),
         href: '',
@@ -198,45 +198,45 @@ const AccountPannel: React.FC = () => {
           dispatch(changeIsShowMultiLanguageModal(true));
         },
       },
-      {
-        title: String(t('setting:theme')),
-        href: '',
-        icon: <ArrowSwapHorizontal />,
-        isLink: false,
-        isArrow: false,
-        extra: (
-          <>
-            <ul className="flex justify-center md:w-fit rounded-[3px] md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary bg-color-light-bg-primary">
-              <div
-                role="button"
-                className={cn('p-[8px]', {
-                  'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme !== 'light',
-                  'bg-transparent': theme === 'light',
-                })}
-                onClick={() => {
-                  setTheme('dark');
-                }}
-              >
-                <Moon size={16} />
-              </div>
-              <div
-                role="button"
-                className={cn('p-[8px]', {
-                  'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme === 'light',
-                  'bg-transparent': theme !== 'light',
-                })}
-                onClick={() => {
-                  setTheme('light');
-                }}
-              >
-                <Sun1 size={16} />
-              </div>
-            </ul>
-          </>
-        ),
-        activeClassNames: '',
-        classNames: '',
-      },
+      // {
+      //   title: String(t('setting:theme')),
+      //   href: '',
+      //   icon: <ArrowSwapHorizontal />,
+      //   isLink: false,
+      //   isArrow: false,
+      //   extra: (
+      //     <>
+      //       <ul className="flex justify-center md:w-fit rounded-[3px] md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary bg-color-light-bg-primary">
+      //         <div
+      //           role="button"
+      //           className={cn('p-[8px]', {
+      //             'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme !== 'light',
+      //             'bg-transparent': theme === 'light',
+      //           })}
+      //           onClick={() => {
+      //             setTheme('dark');
+      //           }}
+      //         >
+      //           <Moon size={16} />
+      //         </div>
+      //         <div
+      //           role="button"
+      //           className={cn('p-[8px]', {
+      //             'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme === 'light',
+      //             'bg-transparent': theme !== 'light',
+      //           })}
+      //           onClick={() => {
+      //             setTheme('light');
+      //           }}
+      //         >
+      //           <Sun1 size={16} />
+      //         </div>
+      //       </ul>
+      //     </>
+      //   ),
+      //   activeClassNames: '',
+      //   classNames: '',
+      // },
     ],
     [i18n.language, theme],
   );
@@ -389,7 +389,8 @@ const AccountPannel: React.FC = () => {
             </div>
           </div>
         )}
-        {isLogin && (
+        {/*  *********************************** Hide quest & spin feld ************************************************  */}
+        {/* {isLogin && (
           <div className="flex items-center gap-[10px]">
             <IconOption
               title={String(t('sidebar:quest'))}
@@ -404,7 +405,7 @@ const AccountPannel: React.FC = () => {
               classNames="!bg-color-primary gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
             />
           </div>
-        )}
+        )} */}
 
         {isLogin && (
           <div className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
