@@ -151,7 +151,7 @@
   "mycasino": {
     "totalCommission": "Total Commission Rewards",
     "commissionRewards": "Commission Rewards Available",
-    "totalCommissionRewards": "Total Commission Rewards Received (Approx.):",
+    "totalCommissionRewards": "Total Commission Rewards Received (Approx.)",
     "history": "History",
     "swapAll": "Swap All currencies into",
     "note": "Note: Some currencies that do not support swap will remain",
