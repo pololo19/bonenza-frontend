@@ -7,6 +7,8 @@ import Image from 'next/image';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import ReactLoading from 'react-loading';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import {
@@ -15,13 +17,12 @@ import {
   api_affiliateCommissionRewardsWithdraw,
 } from '@/api/bonus';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
-import { formatDate } from '@/base/libs/utils';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import LoaderFull from '@/components/common/loaderFull/loaderFull';
+import Loader from '@/components/common/preloader/loader';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
-import { toast } from 'react-toastify';
-import Loader from '@/components/common/preloader/loader';
-import LoaderFull from '@/components/common/loaderFull/loaderFull';
 
 type FilterType = {
   username?: string;
@@ -36,6 +37,8 @@ type CommissionRewardType = {
   time: string;
   status: boolean;
 };
+
+const decimals = 6;
 
 function AdminRewardsPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -140,7 +143,9 @@ function AdminRewardsPage() {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
-              {`${row.original.commissionRewardsAvailable} ${row.original.currencyName}`}
+              {`${currencyFormat1(row.original.commissionRewardsAvailable, decimals, '', false)} ${
+                row.original.currencyName
+              }`}
             </div>
           </div>
         ),
@@ -183,29 +188,38 @@ function AdminRewardsPage() {
 
   return (
     <div className="bg-white rounded border border-solid border-gray-200 p-4 flex flex-col xl:grid xl:grid-cols-2 gap-[40px]">
-      {isLoading && <Loader />}
       <div className="flex flex-col items-center justify-start gap-[5px] mt-[15px]">
         <div className="flex items-center justify-between w-full">
-          <span className="font-[600]">{t('mycasino:totalCommission')}</span>&nbsp;&nbsp;
-          <span className="text-[32px] 2xl:text-[40px] text-amber-400 font-[700]">
-            {totalCommissionRewardsData.totalCommissionRewardsAmountUsd} USD
+          <span className="font-[600] text-[16px]">{t('mycasino:totalCommission')}</span>&nbsp;&nbsp;
+          <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
+            {currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsAmountUsd, decimals, '', false)} USD
           </span>
         </div>
         <div className="flex items-center justify-between w-full">
-          <span className="font-[600]">{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
-          <span className="text-[32px] 2xl:text-[40px] text-amber-400 font-[700]">
-            {totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd} USD
+          <span className="font-[600] text-[16px]">{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
+          <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right truncate">
+            {currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd, decimals, '', false)}{' '}
+            USD
           </span>
         </div>
 
         <div className="flex items-center justify-between w-full">
-          <span className="font-[600]">{t('mycasino:commissionRewards')}</span>&nbsp;&nbsp;
-          <span className="text-[32px] 2xl:text-[40px] text-amber-400 font-[700]">
-            {totalCommissionRewardsData.commissionRewardsAvailableAmountUsd} USD
+          <span className="font-[600] text-[16px]">{t('mycasino:commissionRewards')}</span>&nbsp;&nbsp;
+          <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
+            {currencyFormat1(totalCommissionRewardsData.commissionRewardsAvailableAmountUsd, decimals, '', false)} USD
           </span>
         </div>
         <div className="flex items-center justify-end w-full">
-          <button className="bg-gradient-btn-default px-6 py-2 rounded-default text-white" onClick={handleWithdraw}>
+          <button
+            className="bg-gradient-btn-default px-6 py-3 rounded-default text-white flex items-center"
+            onClick={handleWithdraw}
+          >
+            {isLoading && (
+              <div className="w-fit px-1 flex items-center justify-center">
+                <ReactLoading type={'spin'} width={20} height={20} />
+              </div>
+            )}
+
             {t('mycasino:withdraw')}
           </button>
         </div>

@@ -74,54 +74,54 @@ export default function SidebarToggle() {
           setShowDropDownCasino(!showDropDownCasino);
           if (!(router.pathname === ROUTER.Casino)) router.push(ROUTER.Casino);
         },
-        isShowDropDown: showDropDownCasino ? true : false,
+        isShowDropDown: false,
         isDropDown: true,
         data: [...casinoCategories, ...casinoGames],
       },
-      {
-        title: String(t('sidebar:sports')),
-        href: ROUTER.Sports,
-        icon: TrendUp,
-        isDisabled: true,
-        smallIcon: (
-          <TrendUp
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Sports),
-            })}
-          />
-        ),
-      },
-      {
-        title: String(t('sidebar:lottery')),
-        href: ROUTER.History,
-        icon: Ticket,
+      // {
+      //   title: String(t('sidebar:sports')),
+      //   href: ROUTER.Sports,
+      //   icon: TrendUp,
+      //   isDisabled: true,
+      //   smallIcon: (
+      //     <TrendUp
+      //       size={22}
+      //       className={cn('m-auto', {
+      //         'dark:text-white text-black': router.route.includes(ROUTER.Sports),
+      //       })}
+      //     />
+      //   ),
+      // },
+      // {
+      //   title: String(t('sidebar:lottery')),
+      //   href: ROUTER.History,
+      //   icon: Ticket,
 
-        isDisabled: true,
-        smallIcon: (
-          <Ticket
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Lottery),
-            })}
-          />
-        ),
-      },
-      {
-        title: String(t('sidebar:bingo')),
-        href: ROUTER.Bingo,
-        icon: Award,
+      //   isDisabled: true,
+      //   smallIcon: (
+      //     <Ticket
+      //       size={22}
+      //       className={cn('m-auto', {
+      //         'dark:text-white text-black': router.route.includes(ROUTER.Lottery),
+      //       })}
+      //     />
+      //   ),
+      // },
+      // {
+      //   title: String(t('sidebar:bingo')),
+      //   href: ROUTER.Bingo,
+      //   icon: Award,
 
-        isDisabled: true,
-        smallIcon: (
-          <Award
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Bingo),
-            })}
-          />
-        ),
-      },
+      //   isDisabled: true,
+      //   smallIcon: (
+      //     <Award
+      //       size={22}
+      //       className={cn('m-auto', {
+      //         'dark:text-white text-black': router.route.includes(ROUTER.Bingo),
+      //       })}
+      //     />
+      //   ),
+      // },
     ],
     [i18n.language, router.route, showDropDownCasino],
   );
@@ -149,21 +149,21 @@ export default function SidebarToggle() {
           }
         },
       },
-      {
-        title: String(t('sidebar:exclusive')),
-        href: ROUTER.Exclusive,
-        icon: Medal,
+      // {
+      //   title: String(t('sidebar:exclusive')),
+      //   href: ROUTER.Exclusive,
+      //   icon: Medal,
 
-        isDisabled: true,
-        smallIcon: (
-          <Medal
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Exclusive),
-            })}
-          />
-        ),
-      },
+      //   isDisabled: true,
+      //   smallIcon: (
+      //     <Medal
+      //       size={22}
+      //       className={cn('m-auto', {
+      //         'dark:text-white text-black': router.route.includes(ROUTER.Exclusive),
+      //       })}
+      //     />
+      //   ),
+      // },
       {
         title: String(t('sidebar:affiliate')),
         href: ROUTER.Affiliate,
@@ -177,21 +177,21 @@ export default function SidebarToggle() {
           />
         ),
       },
-      {
-        title: String(t('sidebar:provablyFair')),
-        href: ROUTER.ProvablyFair,
-        icon: Judge,
+      // {
+      //   title: String(t('sidebar:provablyFair')),
+      //   href: ROUTER.ProvablyFair,
+      //   icon: Judge,
 
-        isDisabled: true,
-        smallIcon: (
-          <Judge
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.ProvablyFair),
-            })}
-          />
-        ),
-      },
+      //   isDisabled: true,
+      //   smallIcon: (
+      //     <Judge
+      //       size={22}
+      //       className={cn('m-auto', {
+      //         'dark:text-white text-black': router.route.includes(ROUTER.ProvablyFair),
+      //       })}
+      //     />
+      //   ),
+      // },
     ],
     [isShowVipClubModal, i18n.language, router.route, isLogin],
   );
@@ -275,7 +275,9 @@ export default function SidebarToggle() {
                 fontWeight={600}
                 classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000] bg-color-light-bg-primary hover:bg-[#eaecf3] rounded px-[10px]"
               />
-              <div className="flex items-center gap-[10px]">
+
+              {/*  ********************************* Disable Spin & qeust********************************** */}
+              {/* <div className="flex items-center gap-[10px]">
                 <IconOption
                   title={String(t('sidebar:quest'))}
                   href={'/#'}
@@ -296,7 +298,7 @@ export default function SidebarToggle() {
                     styles.spin_btn,
                   )}
                 />
-              </div>
+              </div> */}
               {panel_1_datas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -304,9 +306,7 @@ export default function SidebarToggle() {
                   href={item.href}
                   icon={item.icon}
                   classNames={
-                    !!item.isDisabled
-                      ? 'dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary cursor-not-allowed dark:hover:!bg-color-bg-primary dark:hover:!text-color-text-primary hover:!bg-color-light-bg-primary hover:!text-color-light-text-primary'
-                      : 'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
                   }
                   onClick={item.onClick}
                   isShowDropDown={item.isShowDropDown}
@@ -325,9 +325,7 @@ export default function SidebarToggle() {
                   href={item.href}
                   icon={item.icon}
                   classNames={
-                    !!item.isDisabled
-                      ? 'dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary cursor-not-allowed dark:hover:!bg-color-bg-primary dark:hover:!text-color-text-primary hover:!bg-color-light-bg-primary hover:!text-color-light-text-primary'
-                      : 'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
                   }
                   isFontMedium
                   fontWeight={600}
@@ -335,7 +333,7 @@ export default function SidebarToggle() {
                 />
               ))}
             </ul>
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
+            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
               {panel_3_datas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -345,13 +343,11 @@ export default function SidebarToggle() {
                   isFontMedium
                   fontWeight={600}
                   classNames={
-                    !!item.isDisabled
-                      ? 'dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary cursor-not-allowed dark:hover:!bg-color-bg-primary dark:hover:!text-color-text-primary hover:!bg-color-light-bg-primary hover:!text-color-light-text-primary'
-                      : 'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
                   }
                 />
               ))}
-            </ul>
+            </ul> */}
             {/* Hiding Dark & Light Mode Buttons*/}
             {/*<div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
               <div
@@ -429,7 +425,7 @@ export default function SidebarToggle() {
               <p className="text-white">Bonus</p>
             </div>
           </Tooltip>
-          <Link
+          {/* <Link
             href={ROUTER.Bonus}
             key={`quest`}
             type="button"
@@ -460,9 +456,58 @@ export default function SidebarToggle() {
             <div>
               <p className="text-white">Spin</p>
             </div>
-          </Tooltip>
+          </Tooltip> */}
 
-          {[...panel_1_datas, ...panel_2_datas, ...panel_3_datas].map((item, index) => (
+          {panel_1_datas.map((item, index) => (
+            <>
+              <Link
+                key={index}
+                href={item.href}
+                type="button"
+                className={cn(
+                  'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                )}
+                onClick={item?.onClick && item?.onClick}
+                data-tooltip-id={`${item.title}-tooltip`}
+              >
+                {item.smallIcon}
+              </Link>
+              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={`tip_${index}`}>
+                <div>
+                  <p className="text-white">{item.title}</p>
+                </div>
+              </Tooltip>
+            </>
+          ))}
+          {[...casinoCategories, ...casinoGames].map((item, index) => {
+            const IconElement = item.icon;
+            return (
+              <>
+                <Link
+                  key={index}
+                  href={item.href}
+                  type="button"
+                  className={cn(
+                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                  )}
+                  data-tooltip-id={`${item.title}-tooltip`}
+                >
+                  <IconElement
+                    size={22}
+                    className={cn('m-auto', {
+                      'dark:text-white text-black': router.route.includes(ROUTER.Casino),
+                    })}
+                  />
+                </Link>
+                <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={`tip_${index}`}>
+                  <div>
+                    <p className="text-white">{String(t(item.title))}</p>
+                  </div>
+                </Tooltip>
+              </>
+            );
+          })}
+          {panel_2_datas.map((item, index) => (
             <>
               <Link
                 key={index}

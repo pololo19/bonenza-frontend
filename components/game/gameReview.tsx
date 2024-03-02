@@ -744,8 +744,10 @@ const GameReviewComponent = ({
           show={isShowReplyModal}
           onClose={() => setIsShowReplyModal(false)}
           gameId={String(gameDetail.id)}
-          commentId={commentId}
+          comments={commentData}
+          setComments={setCommentData}
           sourceComment={selectedComment}
+          setSourceComment={setSelectedComment}
         />
       )}
     </div>
