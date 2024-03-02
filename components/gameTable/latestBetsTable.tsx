@@ -71,6 +71,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       setIsLoadingTable(true);
       dispatch(setBetHistory([]));
       const res = await api_getLatestBets();
+      console.log(res.data);
       const tempBetData = res.data.map((item: any) => ({
         game: item.gameName ?? '',
         gameIdenfiter: item.gameIdentifier ?? '',
@@ -108,7 +109,6 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const openModalBetDetail = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
-
     setSelBetDetail(row.original);
     setIsShowDetailBet(true);
 
