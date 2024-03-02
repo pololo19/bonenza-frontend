@@ -53,10 +53,12 @@ import {
   setFiatSymbols,
   setLocalFiat,
   updateBalance,
+  updateCryptoPrice,
+  updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BetDetailType, BetTableDataType, FiatType, GameListType } from '@/base/types/common';
-import { CurrencyType } from '@/base/types/wallet';
+import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
 import ChattingComponent from '../chatting/chattingComponent';
@@ -173,6 +175,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     walletSocket,
     gameSocket,
     betHistory,
+    fiatSymbols,
+    cryptoSymbols,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -204,6 +208,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowAccount: state.modal.isShowAccountPannel,
       userId: state.auth.user.userId,
       cryptoArray: state.common.cryptoArray,
+      fiatSymbols: state.wallet.fiatSymbols,
+      cryptoSymbols: state.wallet.symbols,
       walletSocket: state.socket.walletSocket,
       gameSocket: state.socket.gameSocket,
       depositTime: state.wallet.depositTime,
@@ -395,17 +401,37 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           );
         });
       }
+
+      gameSocket.on(`prices`, (item: string) => {
+        console.log('price is updated', item);
+        const data = JSON.parse(item);
+        const cryptoDatas: PriceUpdateType[] =
+          data?.cryptocurrency?.map((item: any) => ({
+            id: item.id,
+            price: item.price,
+          })) || [];
+
+        const fiatDatas: PriceUpdateType[] =
+          data?.fiat?.map((item: any) => ({
+            id: item.id,
+            price: item.price,
+          })) || [];
+
+        dispatch(updatedFiatPrice(fiatDatas));
+        dispatch(updateCryptoPrice(cryptoDatas));
+      });
     }
 
     return () => {
       if (gameSocket) {
         gameSocket.off(`bets`);
+        gameSocket.off('prices');
         if (isLogin) {
           gameSocket.off(`${userId}:balance`);
         }
       }
     };
-  }, [gameSocket, gameId, isLogin]);
+  }, [gameSocket, gameId, isLogin, fiatSymbols, cryptoSymbols]);
 
   useEffect(() => {
     if (router.query['forgot-pass-token']) {

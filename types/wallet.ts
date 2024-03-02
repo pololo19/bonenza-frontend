@@ -38,3 +38,8 @@ export type CurrencyType = {
   price: number;
   favorite: false;
 };
+
+export type PriceUpdateType = {
+  id: string;
+  price: number;
+};

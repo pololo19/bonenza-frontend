@@ -68,7 +68,7 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'flex py-[10px] flex-1 h-full lg:justify-end 2xl:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px] ',
+            'flex py-[10px] flex-1 h-full lg:justify-end xl:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px] ',
             {
               // 'sm:pl-[62px]': !isToggleSidebar && !showChatType,
               // 'md:pl-[205px]': isToggleSidebar && !showChatType,
@@ -84,7 +84,7 @@ export default function Navbar() {
               alt="logo"
             />
           </Link>
-          <div className={cn('gap-[8px] 2xl:flex hidden')}>
+          <div className={cn('gap-[8px] xl:flex hidden')}>
             {headerMenus
               .filter((item) => !item.isMobile)
               .map((menu, index) => {
@@ -172,14 +172,14 @@ export default function Navbar() {
                 <span className="sm:block hidden">{t('layout:deposit')}</span>
               </button>
             )}
-            {isLogin && (
+            {/* {isLogin && (
               <button
                 type="button"
                 className="sm:block hidden rounded-default relative dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]"
               >
                 <Notification className="w-[20px] h-[20px]" variant="Bold" />
               </button>
-            )}
+            )} */}
             {/* Message */}
             {!isLogin && (
               <button

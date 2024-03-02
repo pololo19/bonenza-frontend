@@ -197,7 +197,7 @@ function AdminRewardsPage() {
                 </div>
               </div>
             </div>
-            <button className="bg-gradient-btn-default px-6 py-2 rounded-default text-white" onClick={handleWithdraw}>
+            <button className="bg-gradient-btn-default px-6 py-3 rounded-default text-white" onClick={handleWithdraw}>
               {t('mycasino:withdraw')}
             </button>
           </div>
@@ -214,7 +214,7 @@ function AdminRewardsPage() {
         </div>
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
-        <form onSubmit={handleSubmit(onSubmit)} className="min-h-[120px] flex flex-wrap items-center gap-[20px]">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap items-center gap-[20px]">
           <div className="flex flex-col items-start gap-1">
             <label htmlFor="username">{t('mycasino:Username')}</label>
             <AdminInputText control={control} name="username" placeholder="Please input" customClass="min-w-[200px]" />
