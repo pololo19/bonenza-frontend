@@ -130,8 +130,8 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const layout = document.getElementById('base-layout');
   const wheelHandler = (event: any) => {  
     const currentPosition = layout?.scrollTop ?? 0;
-    const scrollFactor = 2;
-    layout?.scrollTo({ top: currentPosition + event.deltaY * scrollFactor, behavior: 'instant' });
+    const scrollFactor = 4;
+    layout?.scrollTo({ top: currentPosition + event.deltaY * scrollFactor });
   };
 
   const handleClickHistory = (val: string) => {
