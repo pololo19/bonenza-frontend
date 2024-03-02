@@ -88,7 +88,7 @@ export default function RewardDropdown() {
                   <div className="flex flex-col h-full justify-center dark:text-white text-color-text-primary items-center relative">
                     <Gift variant="Bold" className="w-[24px] h-[24px] sm:w-[20px] sm:h-[20px]" />
                     <div className="absolute text-white bg-color-primary rounded-full top-0 -right-[calc(50%)] px-[6px] text-[10px]">
-                      {bonuses.length}
+                      {bonuses.filter((item) => item.allow).length}
                     </div>
                   </div>
                 </Popover.Button>
@@ -122,14 +122,14 @@ export default function RewardDropdown() {
                         <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">
                           {t('bonus:bonusReady')}
                         </div>
-                        <div className="text-color-secondary text-left  text-[14px]">
+                        {/* <div className="text-color-secondary text-left  text-[14px]">
                           <div
                             className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
                             onClick={() => dispatch(changeIsShowRakeBack(true))}
                           >
                             <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="max-h-[calc(100vh-300px)] overflow-auto flex flex-col gap-[10px]">
                         {bonuses
