@@ -19,7 +19,7 @@ import {
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, getDuration } from '@/base/libs/utils';
-import {
+import { 
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
@@ -382,7 +382,8 @@ const GameReviewComponent = ({
                 </div>
               </div>
             </div>
-            <div className="lg:pl-8">
+            {/* Hiding ShareThisGame */}
+            {/* <div className="lg:pl-8">
               <span className="dark:text-color-text-primary  text-color-light-text-primary text-[18px] sm:mt-12 md:mt-0">
                 Share This Game
               </span>
@@ -411,7 +412,7 @@ const GameReviewComponent = ({
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         <div
