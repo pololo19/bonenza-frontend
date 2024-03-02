@@ -206,7 +206,8 @@ export default function ModalRakeBack({
                 >
                   {t('deposit:goToCasino')}
                 </div>
-                <div
+                {/* Hiding Go To Sports */}
+                {/* <div
                   onClick={() => {
                     onClose();
                     router.push('/sports');
@@ -214,7 +215,7 @@ export default function ModalRakeBack({
                   className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-default px-[16px] justify-center text-white font-bold text-[14px]"
                 >
                   {t('deposit:goToSports')}
-                </div>
+                </div> */}
               </div>
             </div>
             <div
