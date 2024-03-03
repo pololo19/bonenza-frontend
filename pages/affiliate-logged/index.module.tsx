@@ -101,6 +101,7 @@ function AffiliateLoggedPage() {
     totalFriends: 0,
     referralReward: 0,
     commissionReward: 0,
+    totalRewardsSentToDate: 0,
   });
   const [showDetailCommissionsRewards, setShowDetailCommissionsRewards] = useState(false);
   const [showReferralRewardRules, setShowReferralRewardRules] = useState(false);
@@ -123,6 +124,7 @@ function AffiliateLoggedPage() {
         totalFriends: Number(_res.data?.totalFriendsReferred || 0),
         referralReward: Number(_res.data?.totalReferralRewardsUsd || 0),
         commissionReward: Number(_res.data?.totalCommissionRewardsUsd || 0),
+        totalRewardsSentToDate: Number(_res.data?.totalRewardsSentToDate || 0),
       };
       const tempRewardsActivities: ReferralActivityType[] =
         _res.data?.rewardsActivities?.map((item: any) => ({
@@ -297,7 +299,7 @@ function AffiliateLoggedPage() {
                 <div className="px-[18px] pb-[14px] mt-[28px]">
                   <Link
                     target="_blank"
-                    href={ROUTER.AdminRewards}
+                    href={ROUTER.AdminCommissions}
                     className="block dark:bg-color-active-primary bg-[#0DFDE4]/20 text-center py-[9px] rounded-[5px] font-bold text-[16px] text-color-primary w-full"
                   >
                     {t('affiliate:withdraw')}
@@ -476,9 +478,15 @@ function AffiliateLoggedPage() {
                   <div className="w-full dark:bg-color-panel-bg bg-color-light-bg-primary rounded-[5px] xl:w-[342px] py-3 flex justify-center items-center">
                     <span className={`font-bold text-[16px] text-color-secondary  ${styles.textBanner}`}>
                       {viewInFiat ? (
-                        <>{currencyFormat1(0, 2, localFiat?.name || 'USD')}</>
+                        <>
+                          {currencyFormat1(
+                            referralData.totalRewardsSentToDate * exchange,
+                            fiatDecimals,
+                            localFiat?.name || 'USD',
+                          )}
+                        </>
                       ) : (
-                        <>{currencyFormat1(0, 2)}</>
+                        <>{currencyFormat1(referralData.totalRewardsSentToDate, fiatDecimals)}</>
                       )}
                     </span>
                   </div>
