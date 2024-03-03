@@ -672,16 +672,18 @@ function GamePage() {
                     <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
                   </div>
                 )} */}
-                <div
+                {/* Hiding Share game button */}
+                {/* <div
                   role="button"
                   className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                   onClick={() => setOpenShareGame(true)}
                 >
-                  <Send2 size={20} variant="Bold" />
-                </div>
+                  <Send2 size={20} variant="Bold" /> 
+              </div>*/ }
               </div>
               <div className="text-color-text-secondary flex gap-[20px] items-center">
-                <Tooltip
+                {/* Hiding three Tooltips for Game */}
+                {/* <Tooltip
                   message="Fairness"
                   children={
                     <div
@@ -709,7 +711,7 @@ function GamePage() {
                   className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
                 >
                   <Image alt="" src={'/img/monitor.png'} width={18} height={18} />
-                </div>
+                </div> */}
                 <div
                   role="button"
                   className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
