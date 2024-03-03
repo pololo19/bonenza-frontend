@@ -178,7 +178,7 @@ const WagerContestComponent = () => {
     const position = positionData.position;
     let wagerAmount = 0;
     let nextPosition = '';
-    if (position >= 1) {
+    if (position > 1) {
       nextPosition = '1';
       wagerAmount = wagerContestData.contesters[0]?.wageredAmountUsd ?? 0;
     }
@@ -555,7 +555,7 @@ const WagerContestComponent = () => {
               },
             )}
           >
-            {wagerAndPostion.position === '1' ? (
+            {positionData.position === 1 ? (
               t('wagerContest:youAreTop')
             ) : (
               <>
