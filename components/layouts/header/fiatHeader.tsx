@@ -1,6 +1,6 @@
 import { Menu, Switch, Transition } from '@headlessui/react';
 import cn from 'classnames';
-import { ArrowDown2, Lock } from 'iconsax-react';
+import { AddSquare, ArrowDown2, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -237,8 +237,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     onClick={() => setShowFavoriteCoins(true)}
                     className="flex flex-col items-center justify-center px-[10px] pb-[2px] dark:text-[#67707B] text-[36px] text-[#9FA5AC] cursor-pointer"
                   >
-                    <span className="leading-[0.5]">+</span>
-                    <span className="leading-[0.1]">-</span>
+                    <AddSquare size={24} stroke="2" />
                   </div>
                 )}
               </div>
@@ -251,12 +250,13 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   >
                     Currency
                   </div>
-                  <div
+                  {/* Hiding mNFT */}
+                  {/* <div
                     role="button"
                     className="flex w-full py-[10px] text-color-text-primary text-center justify-center"
                   >
                     mNFT
-                  </div>
+                  </div> */}
                 </div>
               </div>
               {/* Fiat */}

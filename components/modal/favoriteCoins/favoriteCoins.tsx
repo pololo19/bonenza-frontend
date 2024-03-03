@@ -163,7 +163,8 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               >
                 {t('deposit:crypto')}
               </div>
-              <div
+              {/* Hiding fiat header & mnFT */}
+              {/* <div
                 onClick={() => setOpenTab(2)}
                 className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
                   'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
@@ -184,7 +185,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 })}
               >
                 {t('deposit:mNFT')}
-              </div>
+              </div> */}
               <div
                 onClick={() => setOpenTab(4)}
                 className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
