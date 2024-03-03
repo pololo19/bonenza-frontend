@@ -140,9 +140,7 @@ export default function ModalRakeBack({
               <div className="flex flex-col items-center justify-center h-full gap-[10px]">
                 <div className="flex justify-center flex-col items-center">
                   <Image height={54} width={42} src="/img/coin-rakeBack.png" alt="" />
-                  <p className="text-[10px] mt-[2px] dark:text-color-text-primary text-white">
-                    {t('deposit:unlocked')} USDT
-                  </p>
+                  <p className="text-default mt-[2px] text-white font-bold">{t('deposit:unlocked')} USDT</p>
                 </div>
                 <div className="w-[236px] rounded-[5px] h-[36px] text-color-primary dark:bg-color-bg-primary bg-color-light-modal-bg-primary flex items-center justify-center gap-2">
                   <Image height={18} width={18} src="/img/fiats/USDT.png" alt="" />
@@ -152,7 +150,7 @@ export default function ModalRakeBack({
                   <div
                     role="button"
                     className={cn(
-                      'w-[161px] cursor-pointer h-[38px] bg-color-primary text-white text-[14px] font-bold flex items-center justify-center rounded-[5px]',
+                      'w-[161px] cursor-pointer h-[38px] bg-color-primary text-white text-[14px] font-bold flex items-center justify-center rounded-default',
                       {
                         'pointer-events-none opacity-60': unlockedData.amount < unlockedData.minimumUnlockAmount,
                       },
@@ -161,7 +159,7 @@ export default function ModalRakeBack({
                   >
                     {t('deposit:claim')}
                   </div>
-                  <div className="text-[10px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-white text-color-light-text-primary">
+                  <div className="text-[12px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-color-light-text-primary">
                     <p>{t('deposit:mintoclaim')}:</p> &nbsp;
                     <p className="text-white">{unlockedData.minimumUnlockAmount} USDT</p>
                   </div>
@@ -169,15 +167,15 @@ export default function ModalRakeBack({
               </div>
             </div>
             <div className="h-[48px] mt-2 mb-5 px-6 py-[6px] dark:bg-[#24272B] bg-[#f5f6fa] rounded-[5px] flex items-center justify-between">
-              <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1">
+              <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1 font-bold">
                 <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
               </div>
               <div className="h-full items-center flex flex-col justify-center">
-                <div className="dark:text-white text-black">
+                <div className="dark:text-white text-black font-bold">
                   {`${currencyFormat1(lockedAmount.balance, cryptoLen, '', false)} USDT`}
                 </div>
                 {viewInFiat && (
-                  <div className="text-[10px]">
+                  <div className="text-[10px] text-right">
                     {currencyFormat1(lockedAmount.balanceUsd * exchangeRate, fiatLen, localFiat?.name ?? 'USD')}
                   </div>
                 )}

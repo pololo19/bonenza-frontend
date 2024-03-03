@@ -1,13 +1,12 @@
-import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Dialog, DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
-import { ElementType, Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ElementType, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_bonusUsdtHistory } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_SUBMIT_FORMAT_WITH_MARKER, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -27,13 +26,10 @@ type ModalBonusHistory = {
 
 export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShowModalRakeBack }: ModalBonusHistory) {
   const exchangeRate = useExchange();
-  const cancelButtonRef = useRef(null);
   const { t } = useTranslation('');
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [listTypes, setListTypes] = useState<any[]>([]);
-  const [typeFilter, setTypeFilter] = useState<string>('');
   const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
   const [totalRows, setTotalRows] = useState<number>(0);
   const { localFiat, viewInFiat } = useSelector(
@@ -80,15 +76,13 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
     const columnsDefault: ColumnDef<BonusTransactionType>[] = [
       {
         accessorKey: 'createdAt',
-        header: () => (
-          <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:time')}</div>
-        ),
+        header: () => <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:time')}</div>,
         cell: ({ row }) => (
-          <div className="text-color-text truncate flex items-center justify-end gap-[5px] text-[14px]">
+          <div className="text-color-text truncate flex items-center justify-end gap-[5px] text-[12px]">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
-        maxSize: 200,
+        maxSize: 150,
       },
       {
         accessorKey: 'actionType',
@@ -96,7 +90,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
           <div className="text-center text-[12px] text-color-text font-normal">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] text-left dark:text-white text-[#000] truncate">{row.original.type}</div>
+          <div className="text-[12px] text-left dark:text-white text-[#000] truncate">{row.original.type}</div>
         ),
         minSize: 50,
         maxSize: 80,
@@ -109,7 +103,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
         cell: ({ row }) => (
           <div className="font-bold text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
             {viewInFiat
-              ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name || 'USD')
+              ? currencyFormat1(row.original.amountUsd * exchangeRate, 4, localFiat?.name || 'USD')
               : currencyFormat1(row.original.amount, 4, '', false)}
             <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />
           </div>
@@ -131,7 +125,7 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
     <>
       <CommonModal
         show={show}
-        onClose={onClose}
+        onClose={handleCloseModal}
         panelClass="sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] sm:my-0"
         header={
           <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
