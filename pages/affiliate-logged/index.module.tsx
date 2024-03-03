@@ -600,7 +600,7 @@ function AffiliateLoggedPage() {
                       <div
                         className={`${
                           open
-                            ? 'bg-[#f61b4f] text-white'
+                            ? 'bg-color-primary text-white'
                             : 'dark:bg-[#ffffff33] bg-[#f5f6fa] dark:text-[#98A7B5] text-[#31373d]'
                         } w-[30px] h-[30px] rounded-full flex items-center justify-center`}
                       >

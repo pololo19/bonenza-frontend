@@ -3,20 +3,12 @@ import cn from 'classnames';
 import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import api from '@/api/api';
 import { api_highRollers } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
-import {
-  currencyFormat,
-  currencyFormat1,
-  exchangeByLocaleFiat,
-  formatLengthNumber,
-  handleLocaleSymbol,
-} from '@/base/libs/utils';
+import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';

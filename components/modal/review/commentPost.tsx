@@ -23,6 +23,8 @@ export default function CommentPostModal({
   commentId,
   comments,
   setCommentData,
+  subComment = false,
+  onSubmit,
 }: {
   show: boolean;
   onClose: () => void;
@@ -30,6 +32,8 @@ export default function CommentPostModal({
   commentId?: string;
   comments: CommentType[];
   setCommentData: (comments: CommentType[]) => void;
+  subComment?: boolean;
+  onSubmit?: () => void;
 }) {
   const { theme } = useTheme();
   const { avatar } = useSelector(
@@ -59,7 +63,7 @@ export default function CommentPostModal({
         child: [],
         showReply: false,
       };
-      if (commentId) {
+      if (commentId && !subComment) {
         const tempCommentDatas = [...comments].map((item) => {
           if (item.id === commentId) {
             item.comments += 1;
@@ -70,6 +74,7 @@ export default function CommentPostModal({
       } else {
         setCommentData([newComment, ...comments]);
       }
+      if (onSubmit) onSubmit();
     } catch (error) {
     } finally {
       onClose();
