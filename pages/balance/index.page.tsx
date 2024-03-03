@@ -255,7 +255,8 @@ const BalancePage = () => {
             </div>
           </div>
         )}
-
+        {/* Hiding Fiat Currency in Wallet */}
+        {/* 
         {!!filterListFiat.length && (
           <div className="w-full flex flex-col justify-start items-start mt-[20px]">
             <div className="text-default text-[#C2C2C2] mb-[10px]">{t('balance:fiatCurrency')}</div>
@@ -313,7 +314,7 @@ const BalancePage = () => {
               ))}
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
