@@ -190,16 +190,16 @@ function AdminRewardsPage() {
     <div className="bg-white rounded border border-solid border-gray-200 p-4 flex flex-col xl:grid xl:grid-cols-2 gap-[40px]">
       <div className="flex flex-col items-center justify-start gap-[5px] mt-[15px]">
         <div className="flex items-center justify-between w-full">
-          <span className="font-[600] text-[16px]">{t('mycasino:totalCommission')}</span>&nbsp;&nbsp;
-          <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
-            {currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsAmountUsd, decimals, '', false)} USD
-          </span>
-        </div>
-        <div className="flex items-center justify-between w-full">
           <span className="font-[600] text-[16px]">{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
           <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right truncate">
             {currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd, decimals, '', false)}{' '}
             USD
+          </span>
+        </div>
+        <div className="flex items-center justify-between w-full">
+          <span className="font-[600] text-[16px]">{t('mycasino:totalCommission')}</span>&nbsp;&nbsp;
+          <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
+            {currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsAmountUsd, decimals, '', false)} USD
           </span>
         </div>
 
