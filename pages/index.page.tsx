@@ -144,7 +144,6 @@ function IndexPage() {
 
   const [listCasinoTabGame, setListCasinoTabGame] = useState<GameListType[]>([]);
 
-
   const handleClickDeposit = () => {
     if (isLogin) {
       dispatch(changeIsShowDepositModal(true));
