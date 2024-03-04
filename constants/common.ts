@@ -890,65 +890,69 @@ export const BANNER_DATA = [
   //   url: '/',
   // },
   {
-    img: '/img/banners/Aloha_King_Elvis.jpg',
+    img: '/img/banners/Aloha_King_Elvis.png',
     url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),
   },
   {
-    img: '/img/banners/Blackjack_Salon_Prive.jpg',
+    img: '/img/banners/Blackjack_Salon_Prive.png',
     url: ROUTER.GameDetail('ezugi:BlackjackSalonPrive'),
   },
+  // {
+  //   img: '/img/banners/Dice_Bonanza.jpg',
+  //   url: ROUTER.GameDetail('softswiss:DiceBonanza'),
+  // },
   {
-    img: '/img/banners/Dice_Bonanza.jpg',
-    url: ROUTER.GameDetail('softswiss:DiceBonanza'),
-  },
-  {
-    img: "/img/banners/Dolphin's_Wealth.jpg",
+    img: "/img/banners/Dolphin's_Wealth.png",
     url: ROUTER.GameDetail('1spin4win:DolphinsWealth'),
   },
+  // {
+  //   img: '/img/banners/Easter_Plinko.jpg',
+  //   url: ROUTER.GameDetail('softswiss:EasterPlinko'),
+  // },
+  // {
+  //   img: '/img/banners/Galaxy_Blackjack.jpg',
+  //   url: ROUTER.GameDetail('alg:GalaxyBlackjack'),
+  // },
   {
-    img: '/img/banners/Easter_Plinko.jpg',
-    url: ROUTER.GameDetail('softswiss:EasterPlinko'),
-  },
-  {
-    img: '/img/banners/Galaxy_Blackjack.jpg',
-    url: ROUTER.GameDetail('alg:GalaxyBlackjack'),
-  },
-  {
-    img: '/img/banners/Multihand_Blackjack.jpg',
+    img: '/img/banners/Multihand_Blackjack.png',
     url: ROUTER.GameDetail('ezugi:BlackjackDaSorte'),
   },
+  // {
+  //   img: '/img/banners/Russian_Poker.jpg',
+  //   url: ROUTER.GameDetail('ezugi:RussianPoker'),
+  // },
+  // {
+  //   img: '/img/banners/Sic_Bo.jpg',
+  //   url: ROUTER.GameDetail('ezugi:Sicbo'),
+  // },
+  // {
+  //   img: '/img/banners/SPace_XY.jpg',
+  //   url: ROUTER.GameDetail('softswiss:SpaceXY'),
+  // },
+  // {
+  //   img: '/img/banners/Speed_Fortune_Baccarat-1.jpg',
+  //   url: ROUTER.GameDetail('ezugi:BlackjackDaSorte'),
+  // },
   {
-    img: '/img/banners/Russian_Poker.jpg',
-    url: ROUTER.GameDetail('ezugi:RussianPoker'),
-  },
-  {
-    img: '/img/banners/Sic_Bo.jpg',
-    url: ROUTER.GameDetail('ezugi:Sicbo'),
-  },
-  {
-    img: '/img/banners/SPace_XY.jpg',
-    url: ROUTER.GameDetail('softswiss:SpaceXY'),
-  },
-  {
-    img: '/img/banners/Speed_Fortune_Baccarat-1.jpg',
-    url: ROUTER.GameDetail('ezugi:BlackjackDaSorte'),
-  },
-  {
-    img: '/img/banners/Speed_Fortune_Baccarat.jpg',
+    img: '/img/banners/Speed_Fortune_Baccarat.png',
     url: ROUTER.GameDetail('ezugi:SpeedFortuneBaccarat'),
   },
   {
-    img: '/img/banners/Teen_Patti_Face_Off.jpg',
-    url: ROUTER.GameDetail('alg:TeenPattiFaceOff'),
+    img: '/img/banners/Plinko.png',
+    url: ROUTER.GameDetail('softswiss:easterplinko'),
   },
-  {
-    img: '/img/banners/The_Lost_Kingdom.jpg',
-    url: ROUTER.GameDetail('softswiss:Avalon'),
-  },
-  {
-    img: '/img/banners/Turkish_Blackjack.jpg',
-    url: ROUTER.GameDetail('ezugi:TurkishBlackjack'),
-  },
+  // {
+  //   img: '/img/banners/Teen_Patti_Face_Off.jpg',
+  //   url: ROUTER.GameDetail('alg:TeenPattiFaceOff'),
+  // },
+  // {
+  //   img: '/img/banners/The_Lost_Kingdom.jpg',
+  //   url: ROUTER.GameDetail('softswiss:Avalon'),
+  // },
+  // {
+  //   img: '/img/banners/Turkish_Blackjack.jpg',
+  //   url: ROUTER.GameDetail('ezugi:TurkishBlackjack'),
+  // },
 ];
 
 export const VIP_LEVEL_DATA = [
