@@ -168,8 +168,6 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     getVipData();
   }, []);
 
-  console.log(vipData, '---171');
-
   return (
     <>
       <CommonModal

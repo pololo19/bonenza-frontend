@@ -156,9 +156,7 @@ function AffiliateLoggedPage() {
   useEffect(() => {
     if (gameSocket) {
       gameSocket.on(`rewards`, (reward: any) => {
-        console.log(reward, '------- Live Rewards ------');
         const data = JSON.parse(reward);
-        console.log(data, '------- Live Rewards data ------');
         const tempReward: LiveRewardDataType = {
           userName: data.user_name ?? '',
           symbolLogo: data.symbol_logo ?? '',
