@@ -6,12 +6,12 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_getContestHistory } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { currencyFormat, currencyFormat1, exchangeByLocaleFiat, formatDate, handleLocaleSymbol } from '@/base/libs/utils';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { UserDetail, WagerDetail } from '@/base/types/common';
 import Paging from '@/components/paging/paging';
 import RankingTableComponent from '@/components/table/rankingTable';
-import { useExchange } from '@/base/hooks/useExchange';
 
 type WagerContestProps = {
   userData?: UserDetail;
@@ -56,7 +56,13 @@ export default function WagerContest({ userData }: WagerContestProps) {
         cell: ({ row }) => (
           <div className="font-medium text-[14px] dark:text-white text-[#000] truncate text-center">
             {row.original.position}
-            {row.original.position === 1 ? 'st' : row.original.position === 2 ? 'nd' : row.original.position === 3 ? 'rd' : 'th'} 
+            {row.original.position === 1
+              ? 'st'
+              : row.original.position === 2
+              ? 'nd'
+              : row.original.position === 3
+              ? 'rd'
+              : 'th'}
           </div>
         ),
       },
@@ -66,7 +72,9 @@ export default function WagerContest({ userData }: WagerContestProps) {
         cell: ({ row }) => (
           <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px]">
             <span className="dark:text-white text-black font-bold text-[14px]">
-              {viewInFiat ? currencyFormat1(row.original.prizeUsd * exchangeRate, fiatDecimals, localFiat?.name) : currencyFormat1(row.original?.prize , cryptoDecimals, '', false)}
+              {viewInFiat
+                ? currencyFormat1(row.original.prizeUsd * exchangeRate, fiatDecimals, localFiat?.name)
+                : currencyFormat1(row.original?.prize, cryptoDecimals, '', false)}
             </span>
             <Image height={20} width={20} src={row.original?.currencyLogo} alt="" />
           </div>
@@ -86,7 +94,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
       setListWager([]);
       const wager = await api_getContestHistory(page, limit);
       const wagerContestLength = wager.data.totalCount;
-      const wagerContests= wager.data.contest.map((contest: WagerDetail) => ({
+      const wagerContests = wager.data.contest.map((contest: WagerDetail) => ({
         date: contest.date || '',
         position: contest.position || 1,
         prize: contest.prize || 0,

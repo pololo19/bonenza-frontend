@@ -1,26 +1,18 @@
-import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { Menu, Transition } from '@headlessui/react';
+import { DialogProps, Menu, Transition, TransitionRootProps } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import Image from 'next/image';
 import { ElementType, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_bonusDetail, api_bonusUsdtHistory, bonusCategoryType } from '@/api/bonus';
+import { api_bonusDetail, bonusCategoryType } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import {
-  currencyFormat,
-  currencyFormat1,
-  exchangeByLocaleFiat,
-  formatDate,
-  handleLocaleSymbol,
-} from '@/base/libs/utils';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BonusTransactionType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
-import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
 
 import CommonModal from '../commonModal/commonModal';

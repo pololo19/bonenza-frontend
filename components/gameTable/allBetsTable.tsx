@@ -246,9 +246,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   useEffect(() => {
     if (gameSocket) {
       gameSocket.on(`bets`, (item: any) => {
-        console.log(item, '---------all bet Table');
         const data = JSON.parse(item);
-        console.log(data);
         const gameId = data.game_id;
         if (gameId !== gameDetail?.id) {
           return;

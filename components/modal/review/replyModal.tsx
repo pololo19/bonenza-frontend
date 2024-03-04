@@ -5,17 +5,16 @@ import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_reviewAdd, api_reviewComment, api_reviewLike, api_reviewList } from '@/api/game';
+import { api_reviewLike, api_reviewList } from '@/api/game';
 import { API_AVATAR } from '@/base/constants/common';
 import { getDuration } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import { CommentType } from '@/components/game/gameReview';
-import Textarea from '@/components/input/typing/Textarea';
+import Paging from '@/components/paging/paging';
 
 import CommonModal from '../commonModal/commonModal';
 import CommentPostModal from './commentPost';
-import Paging from '@/components/paging/paging';
 
 export default function ReplyModal({
   show,
@@ -44,7 +43,6 @@ export default function ReplyModal({
   const [limit, setLimit] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
   const { t } = useTranslation();
-  const [review, setReview] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isShowComment, setIsShowComment] = useState(false);
   const [commentData, setCommentData] = useState<CommentType[]>([]);
@@ -110,6 +108,21 @@ export default function ReplyModal({
     }
   };
 
+  const handleUpdateComment = () => {
+    const updatedComments = sourceComment.comments + 1;
+    const tempParentsCommentsData = [...comments].map((item) => {
+      if (item.id === sourceComment.id) {
+        item.comments = updatedComments;
+      }
+      return item;
+    });
+    setComments(tempParentsCommentsData);
+    setSourceComment({
+      ...sourceComment,
+      comments: updatedComments,
+    });
+  };
+
   const handleChangePage = (action: string) => {
     let newPage: number;
     newPage = action === 'Next' ? page + 1 : page - 1;
@@ -165,10 +178,9 @@ export default function ReplyModal({
                   </div>
                   <div
                     className="flex gap-[5px] cursor-pointer"
-                    // onClick={() => {
-                    //   setCommentId(comment.id);
-                    //   setShowComment(true);
-                    // }}
+                    onClick={() => {
+                      setIsShowComment(true);
+                    }}
                   >
                     <Messages size={18} className={cn('m-auto')} />
                     {sourceComment.comments > 0 && <span className="ml-[10px]">{sourceComment.comments}</span>}
@@ -255,6 +267,8 @@ export default function ReplyModal({
           gameId={String(gameId)}
           commentId={sourceComment.id}
           comments={commentData}
+          subComment={true}
+          onSubmit={handleUpdateComment}
           setCommentData={setCommentData}
         />
       )}

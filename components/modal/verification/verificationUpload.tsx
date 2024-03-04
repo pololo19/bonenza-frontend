@@ -47,7 +47,6 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
       const formData = new FormData();
       formData.append('files', data.frontCard);
       formData.append('files', data.backCard);
-      console.log(data, '====50');
       const frontendCard = data.frontCard;
       const backendCard = data.backCard;
       const avaTypes = ['image/jpeg', 'image/png'];
