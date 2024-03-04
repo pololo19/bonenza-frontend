@@ -12,8 +12,9 @@ import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
-import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
+import { api_getClaims } from '@/api/wallet';
 
 type BonusType = {
   id: string;
@@ -62,11 +63,16 @@ export default function RewardDropdown() {
       const _res = await api_bonusClaim(bonus.id, bonus.type);
       const status = _res.data.status;
 
+      const _resBonus = await api_getClaims();
+
+      const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+
       const tempBonuses = [...bonuses];
       const pos = tempBonuses.findIndex((item) => item.id === bonus.id);
       tempBonuses.splice(pos, 1);
       setBonuses(tempBonuses);
       dispatch(getBalance());
+      dispatch(setLockedAmount(tempLockedAmount));
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
