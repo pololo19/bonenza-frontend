@@ -314,7 +314,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     if (walletSocket && isLogin) {
       walletSocket.on(`${userId}:deposit`, (data: any) => {
-        console.log(data, 'deposit');
         // const data = JSON.parse(item);
         const status = data?.status || '';
         const amount = data?.amount || 0;
@@ -338,7 +337,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       });
 
       walletSocket.on(`${userId}:withdraw`, (data: any) => {
-        console.log(data, 'withdraw');
         const status = data?.status || '';
         switch (status) {
           case 'Processing':
@@ -390,7 +388,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       if (isLogin) {
         gameSocket.on(`${userId}:balance`, (item: string) => {
           const data = JSON.parse(item);
-          console.log('balance update', data);
           const currencyType = data.currency_type;
           dispatch(
             updateBalance({
@@ -403,7 +400,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       }
 
       gameSocket.on(`prices`, (item: string) => {
-        console.log('price is updated', item);
         const data = JSON.parse(item);
         const cryptoDatas: PriceUpdateType[] =
           data?.cryptocurrency?.map((item: any) => ({

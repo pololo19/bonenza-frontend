@@ -121,7 +121,6 @@ var Sg;
         this.source.postMessage(data, this.targetOrigin);
       },
       processGameMessage: function (e) {
-        console.log('GameCommunicator received: ', e.data);
         switch (e.data.type) {
           case 'reloadGame':
             window.location.reload();
