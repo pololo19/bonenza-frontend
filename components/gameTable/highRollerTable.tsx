@@ -256,7 +256,7 @@ const HighRollerTableComponent = () => {
       columnsDefault.splice(2, 1);
       return columnsDefault;
     }
-  }, [localFiat, userId, windowSize]);
+  }, [localFiat, userId, windowSize, exchangeRate]);
 
   useEffect(() => {
     handleGetHighRoller();

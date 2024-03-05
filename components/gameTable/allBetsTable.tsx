@@ -237,7 +237,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localFiat, userId, innerWidth, viewInFiat]);
+  }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
 
   useEffect(() => {
     getAllBetHistory();

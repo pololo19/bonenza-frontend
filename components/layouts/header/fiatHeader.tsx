@@ -25,6 +25,7 @@ import ModalBonusHistory from '@/components/modal/rakeBack/bonusHistory/bonusHis
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -36,6 +37,7 @@ const fiatDecimals = 2;
 const cryptoDecimals = 4;
 
 export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: FiatHeaderProps) {
+  const usdtPrice = useUSDTPrice();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
@@ -309,7 +311,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                     className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
                                     onClick={() => dispatch(changeIsShowRakeBack(true))}
                                   >
-                                    <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
+                                    <Lock size={12} variant="Bold" />{' '}
+                                    {viewInFiat
+                                      ? currencyFormat1(
+                                          (lockedAmount / usdtPrice) * exchangeRate,
+                                          fiatDecimals,
+                                          localFiat?.name,
+                                        )
+                                      : currencyFormat1(lockedAmount, 2, '', false)}
                                   </div>
                                 </div>
                               )}
