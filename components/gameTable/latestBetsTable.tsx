@@ -167,12 +167,12 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
               : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
             <Image
-              className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
-              height={15}
-              width={15}
-              src={`/img/fiats/${row.original.currency}.png`}
+              className="w-[32px] h-[25px]"
+              height={25}
+              width={32}
+              src={`/img/fiats/coin.png`}
               onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
+                e.currentTarget.src = '/img/fiats/coin.png';
               }}
               alt=""
             />
@@ -210,10 +210,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
-              className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"
+              className="h-[25px] w-[32px]"
               height={15}
               width={15}
-              src={`/img/fiats/${row.original.currency}.png`}
+              src={`/img/fiats/coin.png`}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
@@ -246,13 +246,13 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         {!!betHistoryFilter.length && (
           <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
             <div
-              className="flex items-center dark:bg-[#25262B] bg-[#f6f7fa] py-[9px] px-[10px] rounded-[5px]"
+              className="flex items-center py-[9px] px-[10px] rounded-[5px]"
               role="button"
               onClick={() => {
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-[10px] dark:text-[#FFFFFF] text-[#000] font-bold mr-[6px]">
+              <div className="text-default dark:text-[#FFFFFF] text-[#000] font-normal mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (

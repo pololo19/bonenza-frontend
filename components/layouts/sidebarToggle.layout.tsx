@@ -237,16 +237,16 @@ export default function SidebarToggle() {
     <>
       {/* Main Sidebar */}
       <div
-        className={cn('transition-transform h-full flex flex-col w-[260px]', {
+        className={cn('transition-transform h-full flex flex-col w-[244px]', {
           'translate-x-0': isToggleSidebar,
           '-translate-x-full absolute': !isToggleSidebar,
         })}
         onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
-        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-[#1D1E22]">
+        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-color-header-secondary">
           <button
             className={cn(
-              'sm:block hidden rounded-md dark:bg-[#16161B] bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[14px] py-[14px]',
+              'sm:block hidden rounded-md dark:bg-color-header-secondary bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[14px] py-[14px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
@@ -264,7 +264,7 @@ export default function SidebarToggle() {
             />
           </Link>
         </div>
-        <div className=" flex-1 md:w-full flex flex-col h-full pt-[20px] pb-[80px] px-[10px] overflow-auto">
+        <div className=" flex-1 md:w-full flex flex-col h-full pt-[12px] pb-[80px] px-[12px] overflow-auto">
           <div className="flex-1 w-full gap-[5px] flex flex-col">
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
               <IconOption
