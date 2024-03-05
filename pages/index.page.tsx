@@ -77,52 +77,20 @@ function IndexPage() {
         description: t('homePage:introduceCardDes1'),
         textButton: t('homePage:introduceCardButton1'),
         href: ROUTER.Casino,
-        icon: (
-          <CasinoBoldIcon className="text-color-primary xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] sm:w-[24px] sm:h-[24px]" />
-        ),
       },
       {
-        imgBackGround: '/img/page/sports.png',
+        imgBackGround: '/img/page/bitup.png',
         title: t('homePage:introduceCardTitle2'),
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
         href: ROUTER.Sports,
-        icon: (
-          <SportBoldIcon className="text-color-primary xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] sm:w-[24px] sm:h-[24px]" />
-        ),
       },
       {
-        imgBackGround: '/img/page/liveholdem.png',
+        imgBackGround: '/img/page/slots.png',
         title: t('homePage:introduceCardTitle3'),
         description: t('homePage:introduceCardDes3'),
         textButton: t('homePage:introduceCardButton3'),
         href: 'https://cmd23.com/room/games.php',
-        icon: (
-          <Image
-            width={25}
-            height={25}
-            className="xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] text-color-primary sm:w-[24px] sm:h-[24px]"
-            src="/icon/liveholdem-1.png"
-            alt="logo"
-          />
-        ),
-        isClick: true,
-      },
-      {
-        imgBackGround: '/img/page/updown.png',
-        title: t('homePage:updown'),
-        description: t('homePage:introduceCardDes4'),
-        textButton: t('homePage:introduceCardButton4'),
-        href: 'https://bitup.game/trade',
-        icon: (
-          <Image
-            width={25}
-            height={25}
-            className="xl:w-[20px] xl:h-[20px] lg:w-[16px] lg:h-[16px] text-color-primary sm:w-[24px] sm:h-[24px]"
-            src="/icon/updownIcon.png"
-            alt="logo"
-          />
-        ),
         isClick: true,
       },
     ],
@@ -321,8 +289,8 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full mt-[20px] sm:mt-0">
-              <div className="object-contain absolute right-0 h-full w-full sm:block hidden">
+            <div className="relative h-auto w-full mt-[20px] sm:mt-0 min-h-[450px] lg:block hidden">
+              <div className="rounded-[50px] overflow-hidden absolute right-0 h-full w-full">
                 <Slider
                   slidesToShow={1}
                   className={cn('h-full slide-header sm:mx-[auto] mx-[-12px]')}
@@ -333,16 +301,15 @@ function IndexPage() {
                   <Image
                     width={0}
                     height={0}
-                    className="sm:object-cover object-contain absolute right-0 w-full"
-                    style={{ width: '100% !important' }}
-                    src={theme === 'dark' ? '/img/homepage-bg-9.png' : '/img/homepage-bg-11.png'}
+                    className="absolute right-[0px] bg-cover bg-right overflow-hidden min-h-[450px] min-w-[1566px] rounded-[50px]"
+                    src={theme === 'dark' ? '/img/homepage-bg-12.png' : '/img/homepage-bg-11.png'}
                     alt=""
                   />
                 </Slider>
               </div>
 
-              <div className="absolute inset-0 dark:bg-gradient-default bg-light-gradient-default" />
-              <div className="relative z-[2] h-auto sm:pt-[60px] sm:pb-[20px] w-full">
+              <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-r from-[5%] from-color-bg-primary to-transparent" />
+              <div className="relative z-[2] w-full min-h-[450px] gap-[20px] pl-10 pt-20 flex flex-col justify-center">
                 {!isLogin && (
                   <div className="sm:text-start text-center font-semibold sm:block hidden">
                     <div>
@@ -421,12 +388,12 @@ function IndexPage() {
                   )}
                   {!isLogin && <LoginWalletDashboard onClose={() => {}} />}
                 </div>
-                <GameBannerSlider />
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[50px] mt-[15px] ">
-              <div className="sm:grid md:grid-cols-2 lg:grid-cols-4 grid-cols-1 gap-[16px] w-full hidden">
+            <div className="flex flex-col items-start gap-[50px] mt-[62px]">
+              <GameBannerSlider className="w-full"/>
+              <div className="sm:grid md:grid-cols-2 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -435,7 +402,6 @@ function IndexPage() {
                     description={item.description}
                     textButton={item.textButton}
                     href={item.href}
-                    icon={item.icon}
                     isClick={item.isClick}
                   />
                 ))}
@@ -463,14 +429,14 @@ function IndexPage() {
                   <div className="relative w-full sm:hidden block">
                     <div className="flex justify-between items-center gap-[10px]">
                       {/* <CasinoBoldIcon className="w-[18px] h-[18px]" /> */}
-                      <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
+                      <div className="font-[600] dark:text-white text-[#000] text-m_title">
                         {String(t('layout:casino'))}
                       </div>
                       <div className="flex items-center justify-center">
                         <Link
                           href={selectedCasino === 'recent' ? ROUTER.Recent : ROUTER.Favorite}
                           role="button"
-                          className="rounded-[5px] font-bold text-[10px] text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                          className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
                         >
                           {t('gameDetail:viewAll')}
                         </Link>
@@ -496,7 +462,7 @@ function IndexPage() {
                         {!!listRecentGames.length ? (
                           <div className="game-grid-parent mt-[20px]">
                             {listRecentGames.map((game, index) => (
-                              <div key={index} className="max-w-[185px]">
+                              <div key={index} className="min-w-[237px]">
                                 <GameCard gameDetail={game} />
                               </div>
                             ))}
@@ -529,104 +495,58 @@ function IndexPage() {
                 </>
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
-              <div className="dark:bg-[url('/img/octopus.png')] bg-[url('/img/octopus-light.png')] relative w-full sm:flex hidden flex-col max-[857px]:pt-[20px] min-[858px]:flex-row items-center bg-no-repeat justify-between max-[857px]:bg-[length:100%_45%] bg-[length:100%_100%] rounded-[5px]">
-                <div className="flex-1 flex items-center justify-center min-h-[105px]">
-                  <Image
-                    src={'/img/img-payment.png'}
-                    width={382}
-                    height={116}
-                    className="max-[857px]:w-[60%] max-[857px]:py-[16px] min-[858px]:pr-5"
-                    alt=""
-                  />
-                </div>
-                <div className="py-[35px] max-sm:pt-[16px] w-full min-[858px]:pl-[56px] flex-1 dark:min-[858px]:bg-[#1D1E2280] min-[858px]:bg-white/50 relative z-[1] md:backdrop-blur-[5px]">
-                  <div className="min-[858px]:max-w-[362px] relative z-1 flex flex-col gap-[22px] max-[857px]:items-center">
-                    <div className="sm:text-[20px] text-[16px] max-[857px]:max-w-[362px] max-[857px]:text-center dark:text-white text-color-light-text-primary">
-                      <span className="font-bold">{t('homePage:getStarted')}</span>{' '}
-                      <span className="text-color-primary font-bold">300%</span> {t('bonus:depositBonus')}
-                    </div>
-                    <div
-                      className="bg-gradient-btn-default rounded-default text-center text-white py-[11px] w-[176px] hover:opacity-[0.9] cursor-pointer"
-                      onClick={() => {
-                        handleClickDeposit();
-                      }}
-                    >
-                      {t('layout:deposit')}
-                    </div>
+              <div className={
+                cn
+                (
+                  "rounded-[50px]",
+                  "bg-[url('/img/octopus.png')] w-full",
+                  "bg-no-repeat object-cover bg-[length:100%_100%]",
+                )
+              }
+              >
+                <div className="my-14 ml-[10%] flex flex-col gap-5">
+                  <div className="sm:text-3xl lg:text-4xl 2xl:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
+                    <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
+                    <span className="font-bold">{` `}{t('homePage:getStarted')}{` `}300%{` `}</span>
+                    <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
+                  </div>
+                  <div
+                    className="bg-color-primary rounded-[100px] text-center text-white py-[20px] w-[236px] hover:opacity-[0.9] cursor-pointer"
+                    onClick={() => {
+                      handleClickDeposit();
+                    }}
+                  >
+                    {t('layout:deposit')}
                   </div>
                 </div>
-                <div className="max-[857px]:block hidden absolute top-[45%] left-0 w-full h-1/2 bg-[#1D1E22]"></div>
               </div>
               <div className="relative w-full sm:block hidden">
-                <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false} isHome={true}>
+                <HomepageSession showIcon={false} isHome={true}>
                   <LatestBetRace />
                 </HomepageSession>
               </div>
               <div className="relative w-full sm:block hidden">
-                <div className="md:hidden block absolute top-0 left-0 h-full w-full z-[1] bg-[#1D1E22]"></div>
-                <div className="flex md:flex-row flex-col justify-between relative z-[2] min-[858px]:min-h-[270px] bg-no-repeat bg-[length:100%_50%] max-sm:bg-center sm:bg-[length:100%_100%] px-[20px] md:pl-[30px] md:dark:bg-[url('/img/whale.png')] md:bg-[url('/img/whale-light.png')]">
-                  <div
-                    className={`flex-col z-[2] md:items-start items-center py-[32px] md:py-[40px] pr-5 gap-[24px] md:gap-[30px] ${
-                      isLogin ? 'flex' : 'md:flex'
-                    }`}
-                  >
-                    {!isLogin && (
-                      <div className="text-[20px] font-semibold dark:text-white text-black">
-                        {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
-                        {String(t('homePage:rewardsAtBONENZA'))}
-                        <div className="text-default text-color-text-secondary mt-5">
-                          {String(t('homePage:onlyVIPClub'))}
-                        </div>
-                        <div className="mt-[50px]">
-                          <button className="px-[60px] py-[8px] bg-gradient-btn-default text-default text-white">
-                            Sign Up
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                    {isLogin && (
-                      <div className="text-[20px] font-semibold dark:text-white text-black">
-                        {String(t('homePage:unlockExclusive'))} <span className="text-color-primary">VIP</span>{' '}
-                        {String(t('homePage:rewardsAtBONENZA'))}
-                        <div className="text-default text-color-text-secondary mt-5">
-                          {String(t('homePage:onlyVIPClub'))}
-                        </div>
-                      </div>
-                    )}
-                    <Image
-                      width={100}
-                      height={100}
-                      className="w-full h-auto md:hidden max-h-[220px]"
-                      alt=""
-                      src="/img/mermaid-nobg.png"
-                    />
-
-                    {isLogin && (
-                      <div
-                        onClick={() => {
-                          dispatch(changeIsShowVipClubModal(true));
-                        }}
-                        className="cursor-pointer bg-gradient-btn-default  hover:opacity-[0.9] hover:text-white text-white text-default font-bold text-center h-[44px] w-full sm:max-w-[162px] rounded-[5px] py-[13px] sm:w-[162px]"
-                      >
-                        {t('referAndEarn:learnMore')}
-                      </div>
-                    )}
-                  </div>
-                  <div className="absolute inset-0 dark:bg-gradient-default bg-light-gradient-default" />
+                <div 
+                  onClick={() => {
+                    if(isLogin) dispatch(changeIsShowVipClubModal(true));
+                  }}
+                  className="relative cursor-pointer flex md:flex-row flex-col justify-between z-[2] bg-no-repeat bg-[length:100%] object-cover max-sm:bg-center px-[20px] md:pl-[30px] md:dark:bg-[url('/img/whale.png')] md:bg-[url('/img/whale-light.png')]"
+                >
+                  <div className="lg:min-h-[180px] 2xl: min-h-[250px]"/>
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
               {isLogin && (
                 <div className="relative w-full sm:hidden block">
                   <div className="flex items-center gap-[10px]">
-                    <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
+                    <div className="font-[600] dark:text-white text-[#000] text-m_title">
                       {String(t('casino:pickForYou'))}
                     </div>
                   </div>
                   <div className="game-grid-parent mt-[20px]">
                     {listPicksForGame.map((game, index) => {
                       return (
-                        <div key={index} className="max-w-[185px]">
+                        <div key={index} className="max-w-[237px]">
                           <GameCard gameDetail={game} />
                         </div>
                       );
@@ -636,7 +556,7 @@ function IndexPage() {
                     <Link
                       href={ROUTER.PicksForYou}
                       role="button"
-                      className="dark:bg-[#2D3035] bg-white rounded-[5px] font-bold text-[10px] dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                      className="mt-5 dark:bg-[#2D3035] bg-white rounded-[5px] font-bold text-default dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
                     >
                       {t('gameDetail:viewAll')}
                     </Link>
@@ -651,11 +571,11 @@ function IndexPage() {
                       {String(t('homePage:cryptoOnlineCasino'))}
                     </div>
                     <div
-                      className="text-color-text-secondary text-[13px] mt-5 text-justify"
+                      className="text-color-text-secondary text-default mt-5 text-justify"
                       dangerouslySetInnerHTML={{ __html: t('homePage:casinosOnlineHaveNot') }}
                     ></div>
                     <div
-                      className="text-color-text-secondary text-[13px] mt-5 text-justify"
+                      className="text-color-text-secondary text-default mt-5 text-justify"
                       dangerouslySetInnerHTML={{ __html: t('homePage:playersAreAlways') }}
                     ></div>
                     <div
@@ -664,11 +584,11 @@ function IndexPage() {
                         dispatch(changeIsShowCryptoOnlineModal(true));
                       }}
                     >
-                      <div className="text-13">{String(t('homePage:showMore'))}</div>
+                      <div className="text-default">{String(t('homePage:showMore'))}</div>
                       <ArrowRight size={16} />
                     </div>
                   </div>
-                  <div className="mt-[42px] lg:mt-0 lg:w-[50%]">
+                  <div className="mt-[42px] lg:mt-0 lg:w-[50%] text-default">
                     <div className="text-black dark:text-white text-center lg:text-left text-default font-semibold mb-5">
                       {String(t('homePage:helpUsImproveYourExperience'))}
                     </div>
