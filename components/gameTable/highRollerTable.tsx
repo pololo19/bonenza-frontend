@@ -22,7 +22,7 @@ const fiatDecimals = 2;
 
 const HighRollerTableComponent = () => {
   const exchangeRate = useExchange();
-  const [hightRollerData, setHightRollerData] = useState<BetTableDetailType[]>([]);
+  const [hightRollerData, setHightRollerData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
   const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
@@ -73,7 +73,22 @@ const HighRollerTableComponent = () => {
     try {
       setIsLoadingTable(true);
       const res = await api_highRollers();
-      setHightRollerData(res.data);
+      const tempHighRollers: BetTableDataType[] = res.data?.map((item: any) => ({
+        game: item.gameName ?? '',
+        gameIdenfiter: item.gameIdentifier ?? '',
+        player: item.playerName || '',
+        playerId: item.playerId ?? '',
+        playerAvatar: item.playerAvatar ?? '',
+        betAmount: Number(item.betAmount || 0),
+        betAmountUsd: Number(item.betAmountUsd || 0),
+        multiplier: Number(item.multiplier || 0),
+        profitAmount: Number(item.profitAmount || 0),
+        profitAmountUsd: Number(item.profitAmountUsd || 0),
+        currency: item.currency ?? 'USD',
+        betId: item.id ?? '',
+        time: item.time ?? new Date(),
+      }));
+      setHightRollerData(tempHighRollers);
     } catch (error) {
       setHightRollerData([]);
     } finally {
@@ -123,7 +138,7 @@ const HighRollerTableComponent = () => {
             <Image
               height={25}
               width={25}
-              src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter.replace(':', '/')}.png`}
+              src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
               alt=""
               className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
             />
