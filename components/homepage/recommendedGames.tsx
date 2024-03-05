@@ -58,9 +58,9 @@ function RecommendedGamesComponent({ listRecommendedGame }: RecommendedGamesProp
           footer={() => (
             <Link
               href={ROUTER.GameDetail(convertToUrlCase(String(item.identifier)))}
-              className="sm:flex hidden justify-center items-center rounded-default bg-gradient-btn-default hover:opacity-[0.9] max-w-fit px-2 cursor-pointer py-[10px] gap-[10px] mt-[10px]"
+              className="sm:flex hidden bg-color-primary rounded-[100px] hover:opacity-[0.9] cursor-pointer py-5 text-center"
             >
-              <div className="text-white font-bold text-m_default">{String(t('homePage:playNow'))}</div>
+              <div className="text-white font-semibold text-m_title w-full">{String(t('homePage:playNow'))}</div>
             </Link>
           )}
         />
