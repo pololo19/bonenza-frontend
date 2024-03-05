@@ -66,16 +66,16 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     bonuses: [],
   });
   const [rankList, setRankList] = useState<rankDataType[]>([]);
-  const [currentRank, setCurrentRank] = useState<string>('');
+  const [currentRank, setCurrentRank] = useState<{img: string, name: string}>();
   const dataMedal = [
     { img: '/img/bronze-medal.png', name: 'Bronze' },
     { img: '/img/silver-medal.png', name: 'Silver' },
     { img: '/img/gold-medal.png', name: 'Gold' },
-    { img: '/img/platinum-medal.png', name: 'Platinum I' },
-    { img: '/img/platinum-medal.png', name: 'Platinum II' },
-    { img: '/img/diamond-medal.png', name: 'Diamond I' },
-    { img: '/img/diamond-medal.png', name: 'Diamond II' },
-    { img: '/img/diamond-medal.png', name: 'Diamond III' },
+    { img: '/img/platinum1-medal.png', name: 'Platinum I' },
+    { img: '/img/platinum2-medal.png', name: 'Platinum II' },
+    { img: '/img/diamond1-medal.png', name: 'Diamond I' },
+    { img: '/img/diamond2-medal.png', name: 'Diamond II' },
+    { img: '/img/diamond3-medal.png', name: 'Diamond III' },
   ];
 
   const onOpenModalVipLevel = (level: number) => {
@@ -117,7 +117,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
         const userRank = tempRankData.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);
         // if (userRank) {
         setSelectedRank(userRank ?? tempRankData[0]);
-        setCurrentRank(userRank?.name.split(' ').at(0) || 'zero');
+        setCurrentRank(dataMedal.find((item) => item.name === userRank?.name));
         // }
       }
 
@@ -173,21 +173,16 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded"
+        panelClass="rounded-[35px] overflow-hidden"
         header={
-          <div className="relative sm:px-[30px] px-[20px] sm:py-[30px] py-[25px] bg-white dark:bg-color-header-primary">
-            <div className="absolute left-0 top-0 h-full w-full flex items-center justify-center">
-              <Image src="/img/ribbon.png" width={353} height={48} alt="" />
-            </div>
-            <div className="relative text-[16px] text-black dark:text-white font-[600] text-center uppercase">
-              {t('vipClub:vipClub')}
-            </div>
+          <div className="relative text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
+            {t('vipClub:vipClub')}
           </div>
         }
       >
         <>
-          <div className="flex flex-col gap-[30px] overflow-y-auto px-[20px] pt-[10px] pb-[40px] bg-color-light-bg-primary dark:bg-color-modal-bg-primary">
-            <div className="dark:text-color-text-primary text-black text-[13px] text-center bg-white dark:bg-[#17191b] px-5 py-4">
+          <div className="flex flex-col gap-[30px] overflow-y-auto px-[20px] pb-[40px] bg-color-light-bg-primary dark:bg-color-modal-bg-primary">
+            <div className="dark:text-color-text-primary text-black text-default text-center px-5 py-2">
               {t('vipClub:levelUpToGetExclusiveAccess')}{' '}
               <span
                 role="button"
@@ -197,286 +192,212 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 {t('vipClub:viewLevelUpDetails')}
               </span>
             </div>
-            <div className="md:flex justify-between gap-[25px]">
-              <div
-                className={cn(
-                  'flex rounded-[8px] gap-[28px] pl-[28px] pb-5 pr-[30px] md:max-w-[440px] w-full mb-5 md:mb-0',
-                  'bg-gradient-to-l ',
-                  'border-solid border-2 border-transparent',
-                  {
-                    'from-[#47566A] border-[#47566A] border-l-0 dark:to-[#6F7F93] to-color-light-bg-primary':
-                      currentRank === 'zero',
-                    'from-[#e09a6a] border-[#e09a6a] border-l-0 dark:to-[#705F4B] to-color-light-bg-primary':
-                      currentRank === 'Bronze',
-                    'from-[#e1e1e1] border-[#e1e1e1] border-l-0 dark:to-[#BD9548] to-color-light-bg-primary':
-                      currentRank === 'Silver',
-                    'from-[#ffc329] border-[#ffc329] border-l-0 dark:to-[#E7C171] to-color-light-bg-primary':
-                      currentRank === 'Gold',
-                    'from-[#9d63f6] border-[#9d63f6] border-l-0 dark:to-[#8051B5] to-color-light-bg-primary':
-                      currentRank === 'Platinum',
-                    'from-[#dd80b3] border-[#dd80b3] border-l-0 dark:to-[#B56691] to-color-light-bg-primary':
-                      currentRank === 'Diamond',
-                  },
-                )}
-              >
-                <div className="relative">
-                  <Image
-                    src={`/img/${currentRank === 'zero' ? '' : currentRank}.png`}
-                    width={120}
-                    height={138}
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/vip.png';
-                    }}
-                  />
-                  <div className="absolute flex justify-center left-0 top-0 w-full h-full">
-                    <Image src="/img/light.svg" width={108} height={138} alt="" />
-                  </div>
-                  <div className="absolute h-full w-full left-0 top-0 flex items-center justify-center gap-1">
-                    <div className="flex flex-col gap-0 justify-center text-center">
-                      <div className="p-0 text-[12px] font-semibold mt-4">
-                        {rankList.map((rank) =>
-                          rank.startLevel - 1 < vipData.level && rank.endLevel + 1 > vipData.level ? rank.name : '',
-                        )}
+            <div className="rounded-[25px] bg-[#12151A]">
+              <div className="grid grid-cols-2">
+                <div className="pl-[28px] pt-[28px] pr-[28px]">
+                  <div className="text-[20px] text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
+                  <div className="flex gap-[30px] mt-5">
+                    <Image
+                      src={currentRank?.img || ''}
+                      width={69}
+                      height={69}
+                      alt=""
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/vip.png';
+                      }}
+                    />
+                    <div className="w-full flex flex-col gap-[10px]">
+                      <div className="bg-white rounded-[5px] h-[14px] relative overflow-hidden">
+                        <div
+                          className="absolute top-0 h-full left-0 bg-color-primary"
+                          style={{ width: `${percent}%` }}
+                        >
+                        </div>
+                        <div className="absolute flex justify-center left-0 top-0 w-full h-full">
+                          <Image src="/img/light.svg" width={108} height={138} alt="" />
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-[10px]">
+                        <div className="text-[14px] text-white">
+                          {`${vipData.xp} / ${vipData.nextXp} XP`}
+                        </div>
+                        <InfoCircle size={20} className="text-color-primary" data-tooltip-id={'your-vip-tooltip'} />
+                        <Tooltip id={'your-vip-tooltip'} place="bottom" className="z-[10] !bg-white dark:!bg-black">
+                          <div className="dark:text-color-text-primary text-color-light-text-primary">
+                            <p>{t('vipClub:yourTip1')}</p>
+                            <p>{t('vipClub:yourTip2')}</p>
+                          </div>
+                        </Tooltip>
                       </div>
                       <div>
-                        <span className="text-[18px] mr-[2px]">VIP</span>
-                        <span className="text-[24px] font-semibold">{vipData.level}</span>
+                        <span className="font-bold text-[#50C627]">
+                          {t('vipClub:gain')}{' +'}{vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)}{' XP '}
+                        </span>
+                         {t('vipClub:until')}{' '}{vipData.nextName}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-col gap-[12px] pt-[24px]">
-                  <div className="text-[20px] text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
-                  <div className="flex items-center gap-[10px]">
-                    <div className="text-[14px] text-white">{vipData.xp} XP</div>
-                    <InfoCircle size={20} className="text-color-primary" data-tooltip-id={'your-vip-tooltip'} />
-                    <Tooltip id={'your-vip-tooltip'} place="bottom" className="z-[10] !bg-white dark:!bg-black">
-                      <div className="dark:text-color-text-primary text-color-light-text-primary">
-                        <p>{t('vipClub:yourTip1')}</p>
-                        <p>{t('vipClub:yourTip2')}</p>
-                      </div>
-                    </Tooltip>
+                <div className="pl-[28px] pt-[28px] pr-[28px] flex flex-col justify-between">
+                  <div className="text-m_title text-white font-[700]">
+                    {t('vipClub:vipHost')}
                   </div>
-                  <div className="bg-white rounded-[5px] h-[14px] relative overflow-hidden">
-                    <div
-                      className={cn('absolute top-0 h-full left-0', {
-                        'bg-[#47566A]': currentRank === 'zero',
-                        'bg-[#e48241]': currentRank === 'Bronze',
-                        'bg-[#e1e1e1]': currentRank === 'Silver',
-                        'bg-[#ffc329]': currentRank === 'Gold',
-                        'bg-[#9d63f6]': currentRank === 'Platinum',
-                        'bg-[#dd80b3]': currentRank === 'Diamond',
-                      })}
-                      style={{ width: `${percent}%` }}
-                    ></div>
-                  </div>
-                  <div className="text-[14px] text-white">
-                    {vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)} XP{' '}
-                    {t('vipClub:until')} {vipData.nextName}
+                  <Image src={'/img/img-vip-host.png'} width={231} height={40} alt="" className="w-full object-cover" />
+                  <div className="text-default font-bold">
+                    <span className="font-bold">{t('vipClub:unlockYourExclusiveVip')}</span>
+                    <span className="uppercase text-[#FF9E4F] font-bold">{t('vipClub:vipHost')}{` `}</span>
+                    <span className="font-bold">{t('vipClub:hostAt')}{` `}</span>
+                    <span className="uppercase text-[#FF9E4F] font-bold">{t('vipClub:vipClub')}</span>
                   </div>
                 </div>
               </div>
-              <div className="bg-white dark:bg-color-panel-bg-primary rounded-[8px] relative flex-1 w-full">
-                <div
-                  className={cn(
-                    'text-[12px] text-white w-fit px-[14px] bg-contain bg-no-repeat text-center !h-[24px] p-[4px] top-[10px]',
-                    styles.rank,
-                    'dark:after:!border-r-color-panel-bg-primary after:!border-r-white',
-                    {
-                      'bg-[#47566A]': currentRank === 'zero',
-                      'bg-[#e09a6a]': currentRank === 'Bronze',
-                      'bg-[#e1e1e1] text-black': currentRank === 'Silver',
-                      'bg-[#ffc329]': currentRank === 'Gold',
-                      'bg-[#9d63f6]': currentRank === 'Platinum',
-                      'bg-[#dd80b3]': currentRank === 'Diamond',
-                    },
-                  )}
-                >
-                  {t('vipClub:vipHost')}
-                </div>
-                <InfoCircle
-                  size={20}
-                  className="text-color-primary absolute top-[9px] right-[10px]"
-                  data-tooltip-id={'vip-host-tooltip'}
-                />
-                <Tooltip id={'vip-host-tooltip'} place="bottom" className="!bg-white dark:!bg-black">
-                  <div className="dark:text-color-text-primary text-color-light-text-primary max-w-[380px]">
-                    <p>{t('vipClub:vipHotToolTip')}</p>
-                  </div>
-                </Tooltip>
-                <div className="flex flex-col gap-[10px] items-center mt-5 px-[30px] pb-5 md:pb-0">
-                  <div>
-                    <Image src={'/img/img-vip-host.png'} width={107} height={30} alt="" />
-                  </div>
-                  <div className="text-color-text-primary text-[14px]">{t('vipClub:unlockYourExclusiveVip')}</div>
-                  <div className="text-[14px] text-color-text-primary">
-                    {t('vipClub:hostAt')} <span className="dark:text-white text-black font-bold">VIP 38</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="p-4 dark:bg-color-card-bg-primary bg-white">
-              <div className="dark:text-color-text-primary text-black text-[14px] text-center mb-4 bg-white dark:bg-color-card-bg-primary">
+              <div className="dark:text-white text-black text-[14px] text-center mt-6">
                 {t('vipClub:discoverTheUltimateGamingExperience')}
               </div>
-              <div className={`flex justify-between gap-1 overflow-x-auto scrollbar`}>
-                {rankList.map((item, index) => (
-                  <div
-                    className={cn(
-                      'flex flex-col items-center w-[87px] dark:hover:bg-color-hover-primary min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] px-[15px] bg-transparent',
-                      {
-                        'dark:!bg-color-header-secondary !bg-color-light-bg-primary': item.name === selectedRank.name,
-                      },
-                      styles.rank_text,
-                    )}
-                    key={index}
-                    onClick={() => setSelectedRank(item)}
-                  >
-                    <div className="relative">
+              <div className="mt-[22px] blur-[1px] h-[1px] rounded-[481px] bg-gradient-to-r from-black/[5%] via-white to-black/[5%]" />
+              <div className="p-4">
+                <div className={`flex justify-between gap-1 overflow-x-auto scrollbar`}>
+                  {rankList.map((item, index) => (
+                    <div
+                      className={cn(
+                        'relative flex flex-col justify-between items-center w-[87px] min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] px-[15px] bg-transparent',                      
+                        styles.rank_text,
+                      )}
+                      key={index}
+                      onClick={() => setSelectedRank(item)}
+                    >
                       <Image
                         src={dataMedal.find((medal) => medal.name === item.name)?.img || '/img/bronze-medal.png'}
                         width={40}
                         height={40}
                         alt=""
-                        className={cn({
-                          'opacity-100': selectedRank.startLevel === item.startLevel,
-                          'opacity-30': selectedRank.startLevel !== item.startLevel,
-                        })}
                         onError={(e) => {
                           e.currentTarget.src = '/img/bronze-medal.png';
                         }}
                       />
                       {vipData.level >= item.startLevel && vipData.level <= item.endLevel && (
-                        <div className="absolute w-5 h-5 -right-1 -top-1 bg-green-700 rounded-full text-white">
+                        <div className="absolute w-5 h-5 right-5 top-4 bg-green-700 rounded-full text-white">
                           <CheckIcon width={14} height={10} className="stroke-[5] my-[5px] mx-[3px]" />
                         </div>
                       )}
-                    </div>
-                    <div
-                      className={cn(`text-[12px] font-semibold mt-[8px]`, {
-                        'text-[#e09a6a]':
-                          item.name === selectedRank.name &&
-                          (item.name.split(' ').at(0) || '').toLowerCase() === 'bronze',
-                        'dark:text-[#e1e1e1] text-black':
-                          item.name === selectedRank.name &&
-                          (item.name.split(' ').at(0) || '').toLowerCase() === 'silver',
-                        'text-[#ffc329]':
-                          item.name === selectedRank.name &&
-                          (item.name.split(' ').at(0) || '').toLowerCase() === 'gold',
-                        'text-[#9d63f6]':
-                          item.name === selectedRank.name &&
-                          (item.name.split(' ').at(0) || '').toLowerCase() === 'platinum',
-                        'text-[#dd80b3]':
-                          item.name === selectedRank.name &&
-                          (item.name.split(' ').at(0) || '').toLowerCase() === 'diamond',
-                      })}
-                    >
-                      {item.name}
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <div className="py-4 px-[10px] bg-color-light-bg-primary dark:bg-color-card-body-primary min-h-[17.5rem]">
-                {isLoading && <Loader />}
-                {!isLoading && (
-                  <>
-                    <div className="flex gap-[10px] items-center">
-                      <div className="text-[13px] h-[24px] dark:text-black text-white bg-contain bg-no-repeat text-center">
-                        <div
-                          className={cn(
-                            styles[getColorBg(String(selectedRank.name))],
-                            styles.rank,
-                            'flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-color-card-body-primary after:!border-r-color-light-bg-primary',
-                            {
-                              'text-black': (selectedRank.name.split(' ').at(0) || '').toLowerCase() === 'silver',
-                            },
-                          )}
-                        >
-                          {selectedRank.name}
-                        </div>
+                      {selectedRank.startLevel === item.startLevel && (
+                        <Image
+                          src="/img/selected-medal.png"
+                          width={50}
+                          height={50}
+                          alt=""
+                          className="absolute left-0 right-0 -bottom-0 w-full h-full"
+                        />
+                      )}
+                      <div
+                        className="text-white text-[12px] font-semibold mt-[8px]"
+                      >
+                        {item.name}
                       </div>
-                      <div className="dark:text-color-text-primary text-color-light-text-primary text-[13px]">{`${selectedRank.startLevelDes}-${selectedRank.endLevelDes}`}</div>
                     </div>
-                    <div className="mt-[18px] grid sm:grid-cols-2 grid-cols-1 gap-4">
-                      {selectedRank.bonuses.map((bonus) => {
-                        const type = bonus.bonusType;
+                  ))}
+                </div>
+                <div className="py-4 px-[10px] min-h-[17.5rem]">
+                  {isLoading && <Loader />}
+                  {!isLoading && (
+                    <>
+                      <div className="flex gap-[10px] items-center">
+                        <div className="text-[13px] h-[24px] dark:text-black text-white bg-contain bg-no-repeat text-center">
+                          <div
+                            className={cn(
+                              styles[getColorBg(String(selectedRank.name))],
+                              styles.rank,
+                              'flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-[#12151A] after:!border-r-color-light-bg-primary',
+                              {
+                                'text-black': (selectedRank.name.split(' ').at(0) || '').toLowerCase() === 'silver',
+                              },
+                            )}
+                          >
+                            {selectedRank.name}
+                          </div>
+                        </div>
+                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[13px]">{`${selectedRank.startLevelDes}-${selectedRank.endLevelDes}`}</div>
+                      </div>
+                      <div className="mt-[18px] grid sm:grid-cols-2 grid-cols-1 gap-4">
+                        {selectedRank.bonuses.map((bonus) => {
+                          const type = bonus.bonusType;
 
-                        return (
-                          <>
-                            {type === 'level_up' && (
-                              <div
-                                className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
-                                role="button"
-                              >
-                                <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
-                                  <Image src={'/img/lock.png'} width={62} height={62} alt="" />
-                                </div>
-                                <div className="flex flex-col gap-[6px]">
-                                  <div className="text-[14px] text-black dark:text-white font-bold ">
-                                    {t('vipClub:levelUpBonus')}
+                          return (
+                            <>
+                              {type === 'level_up' && (
+                                <div
+                                  className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
+                                  role="button"
+                                >
+                                  <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
+                                    <Image src={'/img/lock.png'} width={62} height={62} alt="" />
                                   </div>
-                                  <div className="text-color-text-primary text-[12px]">
-                                    {t('vipClub:totalPrize')}:{' '}
-                                    <span className="text-color-secondary font-semibold">
-                                      {bonus.levelUpTotalPrizeAmountUsd} USDT
-                                    </span>
+                                  <div className="flex flex-col gap-[6px]">
+                                    <div className="text-[14px] text-black dark:text-white font-bold ">
+                                      {t('vipClub:levelUpBonus')}
+                                    </div>
+                                    <div className="text-color-text-primary text-[12px]">
+                                      {t('vipClub:totalPrize')}:{' '}
+                                      <span className="text-color-secondary font-semibold">
+                                        {bonus.levelUpTotalPrizeAmountUsd} USDT
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            )}
-                            {type === 'weekly_cashback' && (
-                              <div
-                                className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
-                                role="button"
-                              >
-                                <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
-                                  <Image src={'/img/lock.png'} width={62} height={62} alt="" />
-                                </div>
-                                <div className="flex flex-col gap-[6px]">
-                                  <div className="text-[14px] text-black dark:text-white font-bold ">
-                                    {t('vipClub:weeklyCashback')}
+                              )}
+                              {type === 'weekly_cashback' && (
+                                <div
+                                  className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
+                                  role="button"
+                                >
+                                  <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
+                                    <Image src={'/img/lock.png'} width={62} height={62} alt="" />
                                   </div>
-                                  <div
-                                    className="text-color-text-primary text-[12px]"
-                                    dangerouslySetInnerHTML={{
-                                      __html: t('vipClub:weeklyCashbackContent', {
-                                        weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
-                                      }),
-                                    }}
-                                  ></div>
-                                </div>
-                              </div>
-                            )}
-                            {type === 'monthly_cashback' && (
-                              <div
-                                className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
-                                role="button"
-                              >
-                                <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
-                                  <Image src={'/img/lock.png'} width={62} height={62} alt="" />
-                                </div>
-                                <div className="flex flex-col gap-[6px]">
-                                  <div className="text-[14px] text-black dark:text-white font-bold ">
-                                    {t('vipClub:monthlyCashback')}
+                                  <div className="flex flex-col gap-[6px]">
+                                    <div className="text-[14px] text-black dark:text-white font-bold ">
+                                      {t('vipClub:weeklyCashback')}
+                                    </div>
+                                    <div
+                                      className="text-color-text-primary text-[12px]"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t('vipClub:weeklyCashbackContent', {
+                                          weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
+                                        }),
+                                      }}
+                                    ></div>
                                   </div>
-                                  <div
-                                    className="text-color-text-primary text-[12px]"
-                                    dangerouslySetInnerHTML={{
-                                      __html: t('vipClub:monthlyCashbackContent', {
-                                        monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
-                                      }),
-                                    }}
-                                  ></div>
                                 </div>
-                              </div>
-                            )}
-                          </>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
+                              )}
+                              {type === 'monthly_cashback' && (
+                                <div
+                                  className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
+                                  role="button"
+                                >
+                                  <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
+                                    <Image src={'/img/lock.png'} width={62} height={62} alt="" />
+                                  </div>
+                                  <div className="flex flex-col gap-[6px]">
+                                    <div className="text-[14px] text-black dark:text-white font-bold ">
+                                      {t('vipClub:monthlyCashback')}
+                                    </div>
+                                    <div
+                                      className="text-color-text-primary text-[12px]"
+                                      dangerouslySetInnerHTML={{
+                                        __html: t('vipClub:monthlyCashbackContent', {
+                                          monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
+                                        }),
+                                      }}
+                                    ></div>
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
             <div

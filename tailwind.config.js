@@ -44,10 +44,10 @@ module.exports = {
       colors: {
         'color-wallet-header': '#1A1B21',
         'color-header': '#1B1C20',
-        'color-header-secondary': '#24262b',
+        'color-header-primary': '#1B1C20',
         'color-header-secondary': '#1A1B1F',
         'color-light-header-secondary': '#F0F1F5',
-        'color-modal-bg-default': '#1E2024',
+        'color-modal-bg-default': '#1B1C20',
         'color-modal-bg-primary': '#202327',
         'color-light-modal-bg-primary': '#F6F7FA',
         'color-modal-bg-secondary': '#23252C',
