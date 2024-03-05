@@ -102,7 +102,7 @@ const ChattingComponent = () => {
               'str-chat__theme-light': theme === 'light',
             })}
           >
-            <div className="flex justify-between items-center h-[70px] px-5 py-2 border-b-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
+            <div className="flex justify-between items-center h-[67px] px-5 py-2 border-b-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
               <div className="text-[18px] text-black dark:text-[#ffffff] font-semibold">{t('chatting:chat')}</div>
               <div className="flex gap-[13px]">
                 <button

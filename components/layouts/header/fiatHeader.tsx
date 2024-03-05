@@ -150,7 +150,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     <>
       <Menu
         as="div"
-        className="relative w-auto text-left rounded flex dark:text-white h-full text-[#000]"
+        className="relative w-auto text-left rounded flex dark:text-white h-full text-[#000] dark:bg-color-modal-bg-primary bg-color-light-bg-primary"
       >
         <Menu.Button>
           {activeCurrency.id && (
@@ -164,11 +164,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               <Image
                 height={20}
                 width={20}
-                src="/img/fiats/diamond.png"
+                src={activeCurrency.logo}
                 alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
               />
               {viewInFiat && (
-                <div className="text-[16px] truncate w-full font-semibold">
+                <div className="text-default truncate w-full font-bold">
                   {viewInFiat
                     ? `${currencyFormat1(
                         getBalanceBySymbol(activeCurrency) * activeCurrency.price * exchangeRate,
@@ -183,6 +186,9 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   {currencyFormat1(getBalanceBySymbol(activeCurrency), cryptoDecimals, '', false)}
                 </div>
               )}
+              <div className="text-white truncate text-right min-w-[15px]">
+                <ArrowDown2 size={15} className="fill-[#abb6c2] dark:fill-none" />
+              </div>
             </div>
           )}
         </Menu.Button>

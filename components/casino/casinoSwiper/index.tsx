@@ -46,21 +46,21 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
 
   const handleNumberSlide = (width: number) => {
     if (width > 1890) {
-      setSlide(6);
+      setSlide(7);
     } else if (width > 1335) {
-      setSlide(handleSlideToShow(5));
+      setSlide(handleSlideToShow(7));
     } else if (width > 1200) {
-      setSlide(handleSlideToShow(4));
+      setSlide(handleSlideToShow(6));
     } else if (width > 1163) {
-      setSlide(4);
+      setSlide(6);
     } else if (width > 991) {
-      setSlide(3);
+      setSlide(5);
     } else if (width > 860) {
-      setSlide(3);
+      setSlide(4);
     } else if (width > 693) {
-      setSlide(2);
+      setSlide(3);
     } else {
-      setSlide(2);
+      setSlide(3);
     }
   };
   
@@ -72,7 +72,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
             <div className="flex items-center gap-[10px] justify-between mb-[15px]">
               <div className="flex items-center gap-[10px]">
                 {icon}
-                <div className="font-[600] dark:text-white text-black text-m_title">{title}</div>
+                <div className="font-[600] dark:text-white text-black sm:text-title text-m_title">{title}</div>
               </div>
             </div>
             <Swiper
@@ -83,9 +83,9 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
                 disableOnInteraction: false,
               }}
               speed={1000}
-              spaceBetween={width > 600 ? 25 : 0}
+              spaceBetween={width > 600 ? 10 : 0}
               loop={true}
-              className="sm:!h-auto"
+              className="sm:!h-auto !h-[160px]"
               direction={width > 600 ? 'horizontal' : 'vertical'}
               modules={[Autoplay, A11y]}
             >
@@ -93,7 +93,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
                 return (
                   <SwiperSlide
                     key={key}
-                    className={`sm:!w-[237px] w-full !mb-0 !p-[0px] sm:!p-0`}
+                    className={`sm:!w-[150px] w-full !mb-0 !p-[10px] sm:!p-0 dark:!bg-[#2E3035] !bg-white sm:!bg-auto`}
                     onClick={() => onClickItem?.(game)}
                   >
                     {renderItem(game)}

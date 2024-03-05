@@ -28,7 +28,6 @@ export type OptionSidebarDataType = {
   href: string;
   icon: ElementType;
   isMobile?: boolean;
-  image?: string;
 };
 
 export type IconOptionProps = {
@@ -77,11 +76,8 @@ const IconOption = ({
       {!isDropDown && (
         <Link
           className={cn(
-            'capitalize sm:text-default text-m_default ',
-            'dark:hover:bg-color-hover-default hover:bg-color-light-hover-primary',
-            'dark:bg-color-bg-primary dark:text-color-text-primary  hover:text-[#000] dark:hover:text-white',
-            'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
-            'rounded hover:rounded',
+            'capitalize dark:hover:bg-color-hover-default dark:bg-color-bg-primary dark:text-color-text-primary hover:bg-color-light-hover-primary hover:text-[#000] dark:hover:text-white sm:text-default text-m_default flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
+
             router.route.includes(href) ? activeClassNames : classNames,
           )}
           href={href}
@@ -114,16 +110,16 @@ const IconOption = ({
             classNames,
             `font-[${fontWeight}]`,
             {
-              'dark:bg-color-bg-primary': showDropDownCasino,
+              'dark:bg-color-menu-secondary': showDropDownCasino,
             },
           )}
         >
           <div
             className={cn(
-              'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[13px]',
-              'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 bg-color-bg-primary',
+              'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[13px] dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800',
               {
-                'dark:hover:bg-color-hover-default hover:rounded': showDropDownCasino,
+                'dark:hover:bg-color-hover-default': showDropDownCasino,
+                'hover:rounded': showDropDownCasino,
               },
             )}
             onClick={() => {

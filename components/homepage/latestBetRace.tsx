@@ -12,14 +12,15 @@ const LatestBetRace = () => {
   const { t } = useTranslation('');
 
   return (
-    <div className="overflow-hidden rounded-[20px] border-solid border-[1px] border-color-table-header-text-primary">
-      <div className="flex gap-[144px] py-[44px] px-[64px]">
+    <>
+      <ul className="flex justify-center md:w-fit rounded-full sm:text-default text-[12px] font-semibold">
         <div
           role="button"
           onClick={() => setOpenTab(1)}
-          className={cn('font-bold', {
-            'dark:text-color-table-header-text-primary': openTab === 1,
-            'dark:text-color-table-header-text-secondary': openTab !== 1,
+          className={cn('inline-block md:px-6 sm:px-4 px-2 py-[15px] max-md:grow max-md:text-center font-bold', {
+            'dark:text-white dark:bg-color-active-primary bg-color-light-active-primary text-black': openTab === 1,
+            'dark:hover:text-white dark:bg-color-btn-secondary bg-white hover:bg-color-light-hover-primary hover:text-black text-color-light-text-primary dark:text-color-text-primary':
+              openTab !== 1,
           })}
         >
           {t('homePage:latestBets')}
@@ -27,9 +28,10 @@ const LatestBetRace = () => {
         <div
           role="button"
           onClick={() => setOpenTab(2)}
-          className={cn('font-bold', {
-            'dark:text-color-table-header-text-primary': openTab === 2,
-            'dark:text-color-table-header-text-secondary': openTab !== 2,
+          className={cn('inline-block md:px-6 sm:px-4 px-2 py-[15px] max-md:grow max-md:text-center font-bold', {
+            'dark:text-white dark:bg-color-active-primary bg-color-light-active-primary text-black': openTab === 2,
+            'dark:hover:text-white dark:bg-color-btn-secondary bg-white hover:bg-color-light-hover-primary hover:text-black text-color-light-text-primary dark:text-color-text-primary':
+              openTab !== 2,
           })}
         >
           {t('homePage:highRollers')}
@@ -37,16 +39,16 @@ const LatestBetRace = () => {
         <div
           role="button"
           onClick={() => setOpenTab(3)}
-          className={cn('font-bold', {
-            'dark:text-color-table-header-text-primary': openTab === 3,
-            'dark:text-color-table-header-text-secondary': openTab !== 3,
+          className={cn('inline-block md:px-6 sm:px-4 px-2 py-[15px] max-md:grow max-md:text-center font-bold', {
+            'dark:text-white dark:bg-color-active-primary bg-color-light-active-primary text-black': openTab === 3,
+            'dark:hover:text-white dark:bg-color-btn-secondary bg-white hover:bg-color-light-hover-primary hover:text-black text-color-light-text-primary dark:text-color-text-primary':
+              openTab !== 3,
           })}
         >
           {t('homePage:wagerContest')}
         </div>
-      </div>
-      <div className="bg-color-table-header-text-primary h-[1px] ml-[35px] mr-[35px]"/>
-      <div className="w-full h-full rounded-[5px] relative">
+      </ul>
+      <div className="w-full h-full rounded-[5px] dark:bg-color-table-bg-primary bg-color-light-table-bg-primary relative mt-[15px]">
         <div className="md:px-[20px] sm:px-[10px] sm:py-[10px] px-[5px] py-[5px] z-[2] w-full">
           <div className="md:text-[13px] text-[12px] max-[430px]:text-[10px] text-[#939699]">
             {openTab === 1 && <LatestBetsTableComponent />}
@@ -55,7 +57,7 @@ const LatestBetRace = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
