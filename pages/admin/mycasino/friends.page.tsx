@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 import { api_affiliateFriends } from '@/api/bonus';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
-import { formatDate } from '@/base/libs/utils';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
 import AdminInputText from '@/components/input/admin/AdminInputText';
@@ -18,6 +18,7 @@ import AdminSelectBox from '@/components/input/admin/AdminSelectBox';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
+import { useExchange } from '@/base/hooks/useExchange';
 
 type FilterType = {
   username?: string;
@@ -37,7 +38,11 @@ type AffiliateFriendType = {
   username: string;
 };
 
+const fiatDecimals = 4;
+const cryptoDecimals = 8;
+
 function AdminFriendsManagementPage() {
+  const exchangeRate = useExchange();
   const [totalFriendsCnt, setTotalFriendsCnt] = useState(0);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
   const [limit, setLimit] = useState<number>(10);
@@ -46,10 +51,12 @@ function AdminFriendsManagementPage() {
   const [tableData, setTableData] = useState<AffiliateFriendType[]>([]);
   const { t } = useTranslation('');
 
-  const { referralCode, user } = useSelector(
+  const { referralCode, user, viewInFiat, localFiat } = useSelector(
     (state: AppState) => ({
       referralCode: state.auth.user.referralCode,
       user: state.auth.user,
+      localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
@@ -149,7 +156,11 @@ function AdminFriendsManagementPage() {
         header: () => <div className="text-left">{t('mycasino:totalWager')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{row.original.totalWager}</div>
+            <div className="font-bold truncate">
+              {viewInFiat
+                ? currencyFormat1(row.original.totalWager * exchangeRate, fiatDecimals, localFiat?.name)
+                : currencyFormat1(row.original.totalWager, fiatDecimals)}
+            </div>
           </div>
         ),
       },
@@ -158,7 +169,11 @@ function AdminFriendsManagementPage() {
         header: () => <div className="text-left">{t('mycasino:totalCommissionReward')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate">{row.original.totalCommission}</div>
+            <div className="font-bold truncate">
+              {viewInFiat
+                ? currencyFormat1(row.original.totalCommission * exchangeRate, fiatDecimals, localFiat?.name)
+                : currencyFormat1(row.original.totalCommission, fiatDecimals)}
+            </div>
           </div>
         ),
       },

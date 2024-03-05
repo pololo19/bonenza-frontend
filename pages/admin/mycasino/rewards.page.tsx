@@ -11,13 +11,15 @@ import * as yup from 'yup';
 
 import { api_affiliateReferralRewards, api_affiliateReferralRewardsWithdrw } from '@/api/bonus';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
-import { formatDate } from '@/base/libs/utils';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
 import AdminInputText from '@/components/input/admin/AdminInputText';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
+import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 
 type FilterType = {
   username?: string;
@@ -32,21 +34,27 @@ type RewardType = {
   userName: string;
 };
 
+const fiatDecimals = 2;
+const cryptoDecimals = 4;
+
 function AdminRewardsPage() {
+  const exchangeRate = useExchange();
+  const usdtPrice = useUSDTPrice();
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
   const [tableData, setTableData] = useState<RewardType[]>([]);
   const { t } = useTranslation('');
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
-  const [referralRewardsAmount, setReferralRewardsAmount] = useState(0);
   const [referralRewards, setReferralRewards] = useState({
     totalReferralRewardsReceivedAmountUsd: 0,
     rewardsAvailableAmountUsd: 0,
   });
-  const { referralCode } = useSelector(
+  const { referralCode, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       referralCode: state.auth.user.referralCode,
+      localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
@@ -181,19 +189,27 @@ function AdminRewardsPage() {
               <div>
                 <span className="text-[#6f6f6f]">{t('mycasino:newlyAvailable')}</span>&nbsp;&nbsp;
                 <span className="text-[40px] text-color-secondary font-[500]">
-                  {referralRewards.rewardsAvailableAmountUsd} USD
+                  {viewInFiat
+                    ? currencyFormat1(
+                        referralRewards.rewardsAvailableAmountUsd * exchangeRate,
+                        fiatDecimals,
+                        localFiat?.name,
+                      )
+                    : currencyFormat1(referralRewards.rewardsAvailableAmountUsd, fiatDecimals)}
                 </span>
               </div>
               <div className="flex lg:flex-row flex-col lg:items-center items-start gap-4 text-[14px]">
                 <div>
                   {t('mycasino:receivedInTotal')}{' '}
                   <span className="text-[14px] text-color-secondary">
-                    {referralRewards.totalReferralRewardsReceivedAmountUsd} USD
+                    {viewInFiat
+                      ? currencyFormat1(
+                          referralRewards.totalReferralRewardsReceivedAmountUsd * exchangeRate,
+                          fiatDecimals,
+                          localFiat?.name,
+                        )
+                      : currencyFormat1(referralRewards.totalReferralRewardsReceivedAmountUsd, fiatDecimals)}
                   </span>
-                </div>
-                <div>
-                  {t('mycasino:theFriends')}
-                  <span className="text-[14px] text-color-secondary">20 USD</span>
                 </div>
               </div>
             </div>
@@ -201,16 +217,6 @@ function AdminRewardsPage() {
               {t('mycasino:withdraw')}
             </button>
           </div>
-          {/* <div className="flex items-center text-[14px] gap-4">
-            <button className="flex items-center gap-1 font-[500]">
-              <Clock size={18} variant="Bold" />
-              {t('mycasino:history')}
-            </button>
-            <button className="flex items-center gap-1 font-[500]">
-              <RulerPen size={18} variant="Bold" />
-              {t('mycasino:rule')}
-            </button>
-          </div> */}
         </div>
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
