@@ -44,7 +44,7 @@ function GameCard(props: GameCardProps) {
   const uuid = Math.random();
 
   return (
-    <div className="pointer-events-auto max-w-[237px]" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
+    <div className="pointer-events-auto max-w-[150px] sm:max-w-[237px]" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
       <div
         className={classNames('sm:block rounded-default', {
           flex: listView,
@@ -58,7 +58,7 @@ function GameCard(props: GameCardProps) {
               width={160}
               src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
               alt=""
-              className="max-w-[237px] w-full object-cover max-h-auto rounded-[30px]"
+              className="max-w-[150px] sm:max-w-[237px] w-full object-cover max-h-auto rounded-[30px]"
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
             />
@@ -66,7 +66,7 @@ function GameCard(props: GameCardProps) {
         </Link>
         <div className="flex flex-col gap-5 pt-5">
           <div className="flex justify-center items-center gap-[5px]">
-            <div className="dark:text-white text-black font-light text-m_title truncate">
+            <div className="dark:text-white text-black font-light text-default lg:text-m_title truncate">
               {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
             </div>
             <InfoCircle

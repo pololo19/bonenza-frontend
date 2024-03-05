@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ElementType, ReactNode, useEffect, useState } from 'react';
@@ -34,6 +35,9 @@ export type OptionSidebarDataType = {
 export type IconOptionProps = {
   title?: string;
   icon: ElementType;
+  imageURL?: string;
+  imageClass?: string;
+  textClass?: string;
   href: string;
   classNames?: string;
   activeClassNames?: string;
@@ -56,6 +60,9 @@ const IconOption = ({
   fontWeight = 400,
   isFontMedium = false,
   data,
+  imageURL,
+  imageClass,
+  textClass,
   isDisabled = false,
   onClick,
 }: IconOptionProps) => {
@@ -77,11 +84,11 @@ const IconOption = ({
       {!isDropDown && (
         <Link
           className={cn(
-            'capitalize sm:text-default text-m_default ',
-            'dark:hover:bg-color-hover-default hover:bg-color-light-hover-primary',
-            'dark:bg-color-bg-primary dark:text-color-text-primary  hover:text-[#000] dark:hover:text-white',
-            'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[13px]',
-            'rounded hover:rounded',
+            'relative capitalize sm:text-default text-m_default ',
+            'hover:bg-gradient-to-r hover:from-[#475069] hover:to-[#6487E2]',
+            'dark:text-color-text-primary  hover:text-[#000] dark:hover:text-white',
+            'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
+            'rounded-[100px] hover:rounded-[100px]',
             router.route.includes(href) ? activeClassNames : classNames,
           )}
           href={href}
@@ -91,17 +98,32 @@ const IconOption = ({
             onClick?.();
           }}
         >
+          {imageURL ? 
+            <Image
+              src={imageURL}
+              width={20}
+              height={20}
+              className={imageClass}
+              alt=""
+            />
+          :
           <IconElement
             size={18}
             className={cn('dark:text-white', {
               'font-[700] dark:text-white text-black': router.route.includes(href),
             })}
-          />
+          />}
           <div
-            className={cn(`flex-1 text-start font-[${fontWeight}]`, {
-              'dark:text-white text-color-light-text-primary': router.route.includes(href),
-              'text-base': isFontMedium,
-            })}
+            className={
+              cn(
+                `flex-1 text-start font-[${fontWeight}]`,
+                textClass,
+                {
+                  'dark:text-white text-color-light-text-primary': router.route.includes(href),
+                  'text-base': isFontMedium,
+                }
+              )
+            }
           >
             {title}
           </div>
@@ -120,10 +142,11 @@ const IconOption = ({
         >
           <div
             className={cn(
-              'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[13px]',
-              'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 bg-color-bg-primary',
+              'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[8px]',
+              'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 rounded-[100px]',
+              'hover:bg-gradient-to-r hover:from-[#475069] hover:to-[#6487E2]',
               {
-                'dark:hover:bg-color-hover-default hover:rounded': showDropDownCasino,
+                'dark:bg-color-hover-default/60': showDropDownCasino,
               },
             )}
             onClick={() => {
@@ -152,9 +175,9 @@ const IconOption = ({
             /> */}
           </div>
           <div
-            className={cn('transition-all overflow-hidden duration-[200]', {
+            className={cn('transition-all overflow-hidden duration-[200] flex flex-col gap-[10px] mt-10px', {
               'max-h-0': !showDropDownCasino,
-              'max-h-[574px]': showDropDownCasino,
+              'max-h-[800px]': showDropDownCasino,
             })}
             onClick={() => {
               dispatch(setCasinoTab(false));
@@ -168,11 +191,11 @@ const IconOption = ({
                   <Link
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-[16px] py-[13px]',
-                      'dark:hover:bg-color-hover-default dark:focus:bg-color-hover-default focus:bg-color-light-bg-primary px-7 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 rounded',
+                      'flex items-center gap-[16px] py-[8px]',
+                      'pl-9 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 rounded-[100px]',
+                      'hover:bg-gradient-to-r hover:from-[#475069] hover:to-[#6487E2]',
                       {
-                        'dark:text-color-text-primary text-color-light-text-primary dark:bg-[#24262B] bg-[#eaecf3]':
-                          router.route.includes(item.href),
+                        'dark:bg-color-hover-default': router.asPath.toLowerCase().replace("%20", " ").includes(item.href.toLowerCase()),
                         'text-base': isFontMedium,
                       },
                     )}
