@@ -1,26 +1,19 @@
 .cardBox {
 
     .cardContent {
-        @apply absolute left-0 right-0 -bottom-[70px] z-[3]  backdrop-blur-[5px] transition-all ease-in-out duration-700
+        @apply absolute left-0 right-0 -bottom-full z-[3]  backdrop-blur-[5px] transition-all ease-in-out duration-700
     }
     
     .cardImage {
         position: relative;
         z-index: 2;
         display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
         transition: transform cubic-bezier(.42,0,.03,1) .7s;
     }
 
     &:hover {
         .cardContent {
             bottom: 0;
-        }
-    
-        .cardImage {
-            transform: scale3d(1.1,1.1,1);
         }
     }
 }

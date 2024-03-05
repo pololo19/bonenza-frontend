@@ -38,6 +38,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     href: '/',
     // icon: <HomeIcon className="text-color-light-text-primary dark:text-white" />,
     icon: HomeIcon,
+    image: '',
     isMobile: true,
   },
   {
@@ -45,6 +46,23 @@ export const headerMenus: OptionSidebarDataType[] = [
     href: ROUTER.Casino,
     // icon: <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />,
     icon: CasinoBoldIcon,
+    image: 'casino.png',
+    isMobile: false,
+  },
+  {
+    title: 'layout:updown',
+    href: 'https://bitup.game/trade',
+    // icon: (
+    //   <Image
+    //     width={18}
+    //     height={18}
+    //     className="text-color-primary w-[18px] h-[18px]"
+    //     src="/icon/updownIcon.png"
+    //     alt="logo"
+    //   />
+    // ),
+    image: 'slots.png',
+    icon: ArrowSwapVertical,
     isMobile: false,
   },
   // {
@@ -77,6 +95,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     //     alt="logo"
     //   />
     // ),
+    image: 'bitup.png',
     icon: ArrowSwapVertical,
     isMobile: false,
   },
