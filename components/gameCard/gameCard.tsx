@@ -44,9 +44,9 @@ function GameCard(props: GameCardProps) {
   const uuid = Math.random();
 
   return (
-    <div className="pointer-events-auto max-w-[237px]" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
+    <div className="pointer-events-auto" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
       <div
-        className={classNames('sm:block rounded-default', {
+        className={classNames('sm:block rounded-default dark:bg-color-card-bg-primary bg-white', {
           flex: listView,
           block: !listView,
         })}
@@ -58,20 +58,20 @@ function GameCard(props: GameCardProps) {
               width={160}
               src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
               alt=""
-              className="max-w-[237px] w-full object-cover max-h-auto rounded-[30px]"
+              className="w-full object-cover max-h-auto rounded-default"
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
             />
           </LazyLoad>
         </Link>
-        <div className="flex flex-col gap-5 pt-5">
-          <div className="flex justify-center items-center gap-[5px]">
-            <div className="dark:text-white text-black font-light text-m_title truncate">
+        <div className="p-[10px]">
+          <div className="flex justify-between items-center gap-[5px]">
+            <div className="dark:text-white text-black font-medium text-default truncate">
               {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
             </div>
             <InfoCircle
               data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
-              size={20}
+              size={16}
               className="text-[#8E8E90] min-w-[16px]"
               role="button"
             />

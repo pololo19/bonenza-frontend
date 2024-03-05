@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Add, Global, MessageText1, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
+import { Add, Global, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -54,12 +54,12 @@ export default function Navbar() {
       {/* Navbar */}
       <div
         className={cn(
-          'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[70px]',
+          'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[67px] shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
-            'md:ml-[244px] md:max-w-[calc(100%-244px)]': isToggleSidebar && !showChatType,
-            'xl:ml-[244px] xl:max-w-[calc(100%-594px)]': showChatType && isToggleSidebar,
-            'sm:ml-[62px] xl:max-w-[calc(100%-406px)]': showChatType && !isToggleSidebar,
+            'md:ml-[260px] md:max-w-[calc(100%-260px)]': isToggleSidebar && !showChatType,
+            'xl:ml-[260px] xl:max-w-[calc(100%-610px)]': showChatType && isToggleSidebar,
+            'sm:ml-[62px] xl:max-w-[calc(100%-422px)]': showChatType && !isToggleSidebar,
           },
         )}
         onClick={() => {
@@ -68,7 +68,7 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'flex py-[10px] flex-1 h-full lg:justify-end xl:justify-between sm:max-md:justify-center md:justify-end justify-between w-full sm:px-[40px] px-[12px]',
+            'flex py-[10px] flex-1 h-full lg:justify-end xl:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px] ',
             {
               // 'sm:pl-[62px]': !isToggleSidebar && !showChatType,
               // 'md:pl-[205px]': isToggleSidebar && !showChatType,
@@ -79,7 +79,7 @@ export default function Navbar() {
             <Image
               width={165}
               height={57}
-              className="max-w-[26px] sm:max-w-[26px] md:max-w-[none] md:max-h-[none] max-h-[40px]"
+              className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px]"
               src="/img/logo-mobile.png"
               alt="logo"
             />
@@ -102,7 +102,13 @@ export default function Navbar() {
                       }`,
                     )}
                   >
-                    <img width={20} height={20} src={`/img/header/${menu?.image || ''}`} className="object-cover w-full"/>
+                    <IconElement
+                      size={18}
+                      className="text-color-light-text-primary dark:text-white w-[18px] h-[18px]"
+                    />
+                    <div className={`text-default dark:hover:text-white hover:text-color-light-text-primary`}>
+                      {t(menu.title)}
+                    </div>
                   </Link>
                 );
               })}
@@ -112,11 +118,11 @@ export default function Navbar() {
             {/* Button */}
             <button
               type="button"
-              className="truncate sm:flex hidden text-white items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
+              className="truncate sm:flex hidden text-color-text-primary items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
               onClick={() => dispatch(changeIsShowCasinoSearch(!isShowCasinoSearch))}
             >
               <div className="">
-                <SearchNormal className="w-[20px] h-[20px] stroke-[2px]"/>
+                <SearchNormal className="w-[18px] h-[18px]" />
               </div>
             </button>
             {!isLogin && (
@@ -191,7 +197,7 @@ export default function Navbar() {
                   dispatch(changeShowChatType(!showChatType));
                 }}
               >
-                <MessageText1 className="w-[20px] h-[20px] text-white" variant="Bold" />
+                <ChatSignOutIcon className="w-[20px] h-[20px] text-color-text-primary" />
                 <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]"></span>
               </button>
             )}

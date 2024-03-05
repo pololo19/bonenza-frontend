@@ -75,7 +75,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
   return (
     <div
       className={cn(
-        'table-responsive relative sm:px-[20px] px-[5px] py-[5px] bg-transparent',
+        'table-responsive relative sm:px-[20px] px-[5px] py-[5px]',
         containerClassName,
         styles.tableWrapper,
       )}

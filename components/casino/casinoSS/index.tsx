@@ -27,7 +27,7 @@ const CasinoSS = <T,>({
   onClickItem,
 }: CasinoSSProps<T>): JSX.Element => {
   const { t } = useTranslation('');
-  const [slide, setSlide] = useState<number>(6);
+  const [slide, setSlide] = useState<number>(8);
   const [disablePrev, setDisablePrev] = useState<boolean>();
   const [disableNext, setDisableNext] = useState<boolean>();
 
@@ -56,21 +56,21 @@ const CasinoSS = <T,>({
 
   const handleNumberSlide = (width: number) => {
     if (width > 1890) {
-      setSlide(6);
+      setSlide(7);
     } else if (width > 1335) {
-      setSlide(handleSlideToShow(5));
+      setSlide(handleSlideToShow(7));
     } else if (width > 1200) {
-      setSlide(handleSlideToShow(5));
+      setSlide(handleSlideToShow(6));
     } else if (width > 1163) {
-      setSlide(4);
+      setSlide(6);
     } else if (width > 991) {
-      setSlide(3);
+      setSlide(5);
     } else if (width > 860) {
-      setSlide(3);
+      setSlide(4);
     } else if (width > 693) {
-      setSlide(2);
+      setSlide(3);
     } else {
-      setSlide(2);
+      setSlide(3);
     }
   };
 
@@ -118,7 +118,7 @@ const CasinoSS = <T,>({
           <div className="flex items-center gap-[10px] justify-between">
             <div className="flex items-center gap-[10px]">
               {icon}
-              <div className="font-[600] dark:text-white text-black text-m_title">{title}</div>
+              <div className="font-[600] dark:text-white text-black sm:text-title text-m_title">{title}</div>
             </div>
             {isShowArrow && (
               <div className="flex gap-[5px] justify-end text-white">
