@@ -597,9 +597,9 @@ const GameReviewComponent = ({
             }}
           >
             Leave your comment
-          </div>
-          <div className="absolute right-3">
-            <Happyemoji size={18} className={cn('m-auto')} />
+            <div className="absolute right-3">
+              <Happyemoji size={18} className={cn('m-auto')} />
+            </div>
           </div>
         </div>
         {commentData.map((comment, index) => (
