@@ -1,13 +1,13 @@
-import { Dialog, DialogProps, Disclosure, Transition, TransitionRootProps } from '@headlessui/react';
+import { DialogProps, Disclosure, TransitionRootProps } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/20/solid';
-import { XMarkIcon } from '@heroicons/react/24/outline';
-import { ElementType, Fragment, useRef } from 'react';
+import { ArrowLeft2 } from 'iconsax-react';
+import { ElementType } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
-import { currencyFormat, currencyFormat1 } from '@/base/libs/utils';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 
@@ -62,7 +62,11 @@ export default function ModalRakeBackDetail({
         onClose={handleClickCLose}
         panelClass="sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] sm:my-0"
         header={
-          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+          <div
+            className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px]"
+            onClick={handleClickCLose}
+          >
+            <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
             <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:rakeback')}</div>
           </div>
         }

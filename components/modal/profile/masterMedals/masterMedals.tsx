@@ -30,12 +30,7 @@ interface MasterMedalsInterface {
   goBackToProfile: () => void;
 }
 
-export default function MasterMedals( {
-  isShow,
-  onClose,
-  goBackToProfile,
-  }: MasterMedalsInterface) 
-{
+export default function MasterMedals({ isShow, onClose, goBackToProfile }: MasterMedalsInterface) {
   const { t } = useTranslation('');
   const [isLoading, setIsLoading] = useState(false);
   const [medalDatas, setMedalDatas] = useState<any>({
@@ -96,14 +91,12 @@ export default function MasterMedals( {
       panelClass="rounded !max-w-[464px]"
       header={
         <div className="px-[12px] py-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
-          <div>
-            <div
-              className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer"
-              onClick={() => goBackToProfile()}
-            >
-              <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
-              <div className="text-[16px]">{t('profile:masterMedals')}</div>
-            </div>
+          <div
+            className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer"
+            onClick={() => goBackToProfile()}
+          >
+            <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
+            <div className="text-[16px]">{t('profile:masterMedals')}</div>
           </div>
         </div>
       }
