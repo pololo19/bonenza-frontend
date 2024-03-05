@@ -19,7 +19,7 @@ import {
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, getDuration } from '@/base/libs/utils';
-import { 
+import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
@@ -165,8 +165,11 @@ const GameReviewComponent = ({
       });
       setUserRating(_userRating);
       toast.error('Rating Successfully', { containerId: TOAST_ENUM.COMMON });
-    } catch (error) {
-      toast.error('Rating Failed', { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
+      const description = error.response?.data?.error ?? 'Rating Failed';
+      toast.error(description, { containerId: TOAST_ENUM.COMMON });
     } finally {
       setLoading((load) => ({ ...load, ratingLoading: false }));
     }
