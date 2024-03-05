@@ -232,7 +232,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       myBetColumnsDefault.splice(2, 1);
       return myBetColumnsDefault;
     }
-  }, [localFiat, userId, innerWidth, viewInFiat]);
+  }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
 
   useEffect(() => {
     if (isLogin) {

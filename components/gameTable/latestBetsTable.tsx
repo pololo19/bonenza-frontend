@@ -144,7 +144,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           >
             {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-color-text-primary text-[#31373d] flex justify-center items-center gap-[5px]">
-                <Ghost width={12} height={12} variant="Bulk" className="w-5 h-5" /> 
+                <Ghost width={12} height={12} variant="Bulk" className="w-5 h-5" />
                 {t('homePage:hidden')}
               </div>
             ) : (
@@ -228,7 +228,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localFiat, userId, innerWidth, viewInFiat]);
+  }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
 
   useEffect(() => {
     getAllBetHistory();
