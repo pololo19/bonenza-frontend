@@ -45,6 +45,7 @@ export const ROUTER = {
   REFERRAL_CODE: (code: string) => `https://bonenza.com/?referral=${code}`,
   Dashboard: '/dashboard',
   Sports: '/sports',
+  Slots: '/tagname/?key=slots',
   Racing: '/racing',
   PageNotAllowed: '/403',
   PageNotFound: '/404',

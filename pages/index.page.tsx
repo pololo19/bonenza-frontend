@@ -83,15 +83,15 @@ function IndexPage() {
         title: t('homePage:introduceCardTitle2'),
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
-        href: ROUTER.Sports,
+        isClick: true,
+        href: 'https://bitup.game/trade',
       },
       {
         imgBackGround: '/img/page/slots.png',
         title: t('homePage:introduceCardTitle3'),
         description: t('homePage:introduceCardDes3'),
         textButton: t('homePage:introduceCardButton3'),
-        href: 'https://cmd23.com/room/games.php',
-        isClick: true,
+        href: ROUTER.Slots,
       },
     ],
     [],
@@ -462,7 +462,7 @@ function IndexPage() {
                         {!!listRecentGames.length ? (
                           <div className="game-grid-parent mt-[20px]">
                             {listRecentGames.map((game, index) => (
-                              <div key={index} className="min-w-[237px]">
+                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
                                 <GameCard gameDetail={game} />
                               </div>
                             ))}
@@ -479,7 +479,7 @@ function IndexPage() {
                         {!!listFavoriteGames.length ? (
                           <div className="game-grid-parent mt-[20px]">
                             {listFavoriteGames.map((game, index) => (
-                              <div key={index} className="max-w-[185px]">
+                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
                                 <GameCard gameDetail={game} />
                               </div>
                             ))}
@@ -530,9 +530,15 @@ function IndexPage() {
                   onClick={() => {
                     if(isLogin) dispatch(changeIsShowVipClubModal(true));
                   }}
-                  className="relative cursor-pointer flex md:flex-row flex-col justify-between z-[2] bg-no-repeat bg-[length:100%] object-cover max-sm:bg-center px-[20px] md:pl-[30px] md:dark:bg-[url('/img/whale.png')] md:bg-[url('/img/whale-light.png')]"
+                  className="cursor-pointer"
                 >
-                  <div className="lg:min-h-[180px] 2xl: min-h-[250px]"/>
+                  <Image
+                    src="/img/whale.png"
+                    width={20}
+                    height={20}
+                    className="w-full object-cover"
+                    alt=""
+                  />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />

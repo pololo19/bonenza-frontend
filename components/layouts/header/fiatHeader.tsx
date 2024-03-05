@@ -164,8 +164,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               <Image
                 height={20}
                 width={20}
-                src="/img/fiats/diamond.png"
+                src={activeCurrency.logo}
                 alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
               />
               {viewInFiat && (
                 <div className="text-[16px] truncate w-full font-semibold">
