@@ -44,7 +44,10 @@ function GameCard(props: GameCardProps) {
   const uuid = Math.random();
 
   return (
-    <div className="pointer-events-auto max-w-[150px] sm:max-w-[237px]" onClick={() => dispatch(changeIsShowCasinoSearch(false))}>
+    <div
+      className="pointer-events-auto max-w-[150px] sm:max-w-game-card"
+      onClick={() => dispatch(changeIsShowCasinoSearch(false))}
+    >
       <div
         className={classNames('sm:block rounded-default', {
           flex: listView,
@@ -58,7 +61,7 @@ function GameCard(props: GameCardProps) {
               width={160}
               src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
               alt=""
-              className="max-w-[150px] sm:max-w-[237px] w-full object-cover max-h-auto rounded-[30px]"
+              className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-[30px]"
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
             />

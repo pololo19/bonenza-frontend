@@ -1,17 +1,13 @@
-import cn from 'classnames';
-import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import api from '@/api/api';
 import { api_getGamesByTheme, api_getProviders } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
-import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail, GameListType, GameProviderDetail } from '@/base/types/common';
+import { GameListType, GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -21,7 +17,6 @@ import ProviderFilter from '@/components/providerFilter/providerFilter';
 
 function CasinoCategoryPage() {
   const { t } = useTranslation('');
-  const dispatch = useDispatch();
   const { query } = useRouter();
   const { key } = query;
 
@@ -157,7 +152,7 @@ function CasinoCategoryPage() {
           <div className="game-grid-parent mt-[20px]">
             {listGame.map((game, index) => {
               return (
-                <div key={index} className="max-w-[185px]">
+                <div key={index} className="max-w-game-card">
                   <GameCard gameDetail={game} />
                 </div>
               );
