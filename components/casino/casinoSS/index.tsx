@@ -56,19 +56,19 @@ const CasinoSS = <T,>({
 
   const handleNumberSlide = (width: number) => {
     if (width > 1890) {
-      setSlide(6);
+      setSlide(8);
     } else if (width > 1335) {
-      setSlide(handleSlideToShow(5));
+      setSlide(handleSlideToShow(7));
     } else if (width > 1200) {
-      setSlide(handleSlideToShow(5));
+      setSlide(handleSlideToShow(6));
     } else if (width > 1163) {
-      setSlide(4);
+      setSlide(5);
     } else if (width > 991) {
-      setSlide(4);
+      setSlide(5);
     } else if (width > 860) {
       setSlide(4);
     } else if (width > 693) {
-      setSlide(3);
+      setSlide(4);
     } else {
       setSlide(3);
     }

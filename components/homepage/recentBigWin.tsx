@@ -1,4 +1,5 @@
-import { ArrowRight2 } from 'iconsax-react';
+import cn from 'classnames';
+import { ArrowRight2, Ghost } from 'iconsax-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -61,37 +62,38 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 
   return (
     <>
-      <div className="max-w-[237px] min-h-[237px] cursor-pointer flex flex-col gap-[20px] items-center">
-        <Image
-          height={237}
-          width={237}
-          src={imgCard}
-          alt=""
-          className="w-full h-auto object-contain rounded-[30px]"  placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(237, 237))}`}
-        
-        />
-        <div
-          onClick={openModalProfileUser}
-          className={`${
-            userData?.userId !== userId && !userData?.username
-              ? 'dark:text-color-text-primary text-color-light-text-primary pointer-events-none cursor-text'
-              : 'dark:text-white text-black'
-          } font-light text-[20px] truncate hover:underline min-h-[18px] text-center`}
-        >
-          {userData?.userId !== userId && !userData?.username
-            ? String(t('homePage:hidden'))
-            : userData.userId === userId
-            ? userName
-            : userData?.username}
+      <div className="sm:max-w-[96px] max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] rounded-[10px] overflow-hidden pb-2">
+        <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[6px]">
+          <Image
+            height={96}
+            width={96}
+            src={imgCard}
+            alt=""
+            className="sm:w-full w-[35px] h-auto object-contain rounded-[0px]"
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(96, 96))}`}
+          />
+          <div
+            onClick={openModalProfileUser}
+            className={cn('font-light text-[13px] sm:text-[13px] hover:underline min-h-[18px] text-center', {
+              'dark:text-color-text-primary text-color-light-text-primary pointer-events-none cursor-text':
+                userData?.userId !== userId && !userData?.username,
+              'dark:text-white text-black': !(userData?.userId !== userId && !userData?.username),
+            })}
+          >
+          
+            {userData?.userId !== userId && !userData?.username
+              ? <span className="flex items-center"><Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 mr-1" />{String(t('homePage:hidden'))}</span>
+              : userData.userId === userId
+              ? <div className="w-[96px] truncate px-1">{userName}</div>
+              : <div className="w-[96px] truncate px-1">{userData?.username}</div>}
+          </div>
         </div>
         <div
           data-tooltip-id={'CardBigWinData' + price}
-          className="cursor-text w-full dark:bg-[#31373D] text-center py-4 rounded-[100px]"
+          className="cursor-pointer sm:w-full flex justify-center text-center sm:rounded-[5px]"
         >
-          <div className="text-color-primary-1 font-semibold text-[20px] truncate">
-            {price}
-          </div>
+          <div className="text-color-primary font-semibold text-[13px] sm:text-[12px] truncate">{price}</div>
         </div>
       </div>
       <Tooltip id={'CardBigWinData' + price} place="bottom" content={String(price)} />

@@ -308,7 +308,7 @@ function IndexPage() {
                 </Slider>
               </div>
 
-              <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-r from-[5%] from-color-bg-primary to-transparent" />
+              <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-r from-[10%] via-[40%] from-color-bg-primary via-white/0 to-white/0" />
               <div className="relative z-[2] w-full min-h-[450px] gap-[20px] pl-10 pt-20 flex flex-col justify-center">
                 {!isLogin && (
                   <div className="sm:text-start text-center font-semibold sm:block hidden">
@@ -391,9 +391,9 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[50px] mt-[62px]">
-              <GameBannerSlider className="w-full"/>
-              <div className="sm:grid md:grid-cols-2 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
+            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:mt-[62px]">
+              <GameBannerSlider className="w-full" />
+              <div className="md:grid md:grid-cols-2 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -495,23 +495,25 @@ function IndexPage() {
                 </>
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
-              <div className={
-                cn
-                (
-                  "rounded-[50px]",
+              <div
+                className={cn(
+                  'rounded-[50px]',
                   "bg-[url('/img/octopus.png')] w-full",
-                  "bg-no-repeat object-cover bg-[length:100%_100%]",
-                )
-              }
+                  'bg-no-repeat object-cover bg-[length:100%_100%]',
+                )}
               >
                 <div className="my-14 ml-[10%] flex flex-col gap-5">
                   <div className="sm:text-3xl lg:text-4xl 2xl:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
-                    <span className="font-bold">{` `}{t('homePage:getStarted')}{` `}300%{` `}</span>
+                    <span className="font-bold">
+                      {` `}
+                      {t('homePage:getStarted')}
+                      {` `}300%{` `}
+                    </span>
                     <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
                   </div>
                   <div
-                    className="bg-color-primary rounded-[100px] text-center text-white py-[20px] w-[236px] hover:opacity-[0.9] cursor-pointer"
+                    className="bg-gradient-btn-play rounded-large text-center text-white py-[20px] w-[236px] hover:opacity-[0.9] cursor-pointer"
                     onClick={() => {
                       handleClickDeposit();
                     }}
@@ -526,19 +528,13 @@ function IndexPage() {
                 </HomepageSession>
               </div>
               <div className="relative w-full sm:block hidden">
-                <div 
+                <div
                   onClick={() => {
-                    if(isLogin) dispatch(changeIsShowVipClubModal(true));
+                    if (isLogin) dispatch(changeIsShowVipClubModal(true));
                   }}
                   className="cursor-pointer"
                 >
-                  <Image
-                    src="/img/whale.png"
-                    width={20}
-                    height={20}
-                    className="w-full object-cover"
-                    alt=""
-                  />
+                  <Image src="/img/whale.png" width={20} height={20} className="w-full object-cover" alt="" />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
@@ -599,20 +595,20 @@ function IndexPage() {
                       {String(t('homePage:helpUsImproveYourExperience'))}
                     </div>
                     <textarea
-                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-[13px] p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
+                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
                       <div className="hover:opacity-[0.9] bg-gradient-btn-default py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer">
                         {String(t('homePage:leaveAMessage'))}
                       </div>
-                      <div className="text-color-text-secondary text-[12px]">{String(t('footer:nowGetReward'))}</div>
+                      <div className="text-color-text-secondary text-default">{String(t('footer:nowGetReward'))}</div>
                     </div>
                     <div className="mt-5 text-center lg:text-left">
-                      <span className="text-[13px] text-color-text-secondary mr-[10px]">
+                      <span className="text-default text-color-text-secondary mr-[10px]">
                         {String(t('homePage:orEmail'))}
                       </span>
-                      <a href="mailto:feedback@bonenza.com" className="text-[13px] text-color-primary cursor-pointer">
+                      <a href="mailto:feedback@bonenza.com" className="text-default text-color-primary cursor-pointer">
                         feedback@bonenza.com
                       </a>
                     </div>

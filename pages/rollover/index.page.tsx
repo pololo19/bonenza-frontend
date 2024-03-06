@@ -11,7 +11,11 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_getRollover } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
+import {
+  DATE_FORMAT_DEFAULT,
+  TIME_SUBMIT_FORMAT_WITH_SECOND,
+  TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER,
+} from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate, getColorByStatus } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -100,7 +104,7 @@ const RolloverPage = () => {
         cell: ({ row }) => (
           <div className="dark:text-white text-black text-left truncate py-2">{row.original.type}</div>
         ),
-        minSize: 30,
+        minSize: 20,
       },
       {
         accessorKey: 'amount',
@@ -123,7 +127,7 @@ const RolloverPage = () => {
             <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="" />
           </div>
         ),
-        minSize: 250,
+        minSize: 150,
       },
       {
         accessorKey: 'time',
@@ -131,11 +135,17 @@ const RolloverPage = () => {
           <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:time'))}</div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black text-center">
-            {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+          <div className="dark:text-white text-black text-center flex sm:flex-row flex-col">
+            <div className="sm:hidden flex flex-col">
+              <span>{formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SECOND)}</span>
+              <span>{formatDate(new Date(row.original.createdAt), DATE_FORMAT_DEFAULT)}</span>
+            </div>
+            <div className="hidden sm:block">
+              {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
           </div>
         ),
-        minSize: 150,
+        minSize: 100,
       },
       {
         accessorKey: 'status',
@@ -162,7 +172,7 @@ const RolloverPage = () => {
                   row.original.status.toString() === 'approved',
               })}
             ></div>
-            <div className="dark:text-white text-black text-[14px] break-keep	">
+            <div className="dark:text-white text-black break-keep	">
               {replaceStatus(row.original.status)?.charAt(0).toUpperCase() +
                 replaceStatus(row.original.status)?.slice(1)}
             </div>

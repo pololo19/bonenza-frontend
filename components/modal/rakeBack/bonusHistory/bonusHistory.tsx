@@ -1,12 +1,17 @@
 import { Dialog, DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ColumnDef } from '@tanstack/react-table';
+import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_bonusUsdtHistory } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
+import {
+  DATE_FORMAT_DEFAULT,
+  TIME_SUBMIT_FORMAT_WITH_SECOND,
+  TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER,
+} from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -76,10 +81,13 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
     const columnsDefault: ColumnDef<BonusTransactionType>[] = [
       {
         accessorKey: 'createdAt',
-        header: () => <div className="text-left text-[12px] text-color-text font-normal">{t('historyBonus:time')}</div>,
+        header: () => (
+          <div className="text-left text-default text-color-text font-normal">{t('historyBonus:time')}</div>
+        ),
         cell: ({ row }) => (
-          <div className="text-color-text truncate flex items-center justify-end gap-[5px] text-[12px]">
-            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+          <div className="text-color-text truncate flex flex-col items-start justify-start gap-[5px] text-default">
+            <span>{formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}</span>
+            <span>{formatDate(new Date(row.original.time), DATE_FORMAT_DEFAULT)}</span>
           </div>
         ),
         maxSize: 150,
@@ -87,10 +95,10 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-center text-[12px] text-color-text font-normal">{t('historyBonus:bonusType')}</div>
+          <div className="text-center text-default text-color-text font-normal">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] text-left dark:text-white text-[#000] truncate">{row.original.type}</div>
+          <div className="text-default dark:text-white text-[#000] truncate text-center">{row.original.type}</div>
         ),
         minSize: 50,
         maxSize: 80,
@@ -98,13 +106,15 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
       {
         accessorKey: 'amountClaimed',
         header: () => (
-          <div className="text-center text-[12px] font-normal text-color-text">{t('historyBonus:amountClaimed')}</div>
+          <div className="text-center text-default font-normal text-color-text">{t('transaction:amount')}</div>
         ),
         cell: ({ row }) => (
-          <div className="font-bold text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
-            {viewInFiat
-              ? currencyFormat1(row.original.amountUsd * exchangeRate, 4, localFiat?.name || 'USD')
-              : currencyFormat1(row.original.amount, 4, '', false)}
+          <div className="font-bold text-[14px] flex justify-center gap-1 text-color-primary truncate text-center">
+            {`+ ${
+              viewInFiat
+                ? currencyFormat1(row.original.amountUsd * exchangeRate, 4, localFiat?.name || 'USD')
+                : currencyFormat1(row.original.amount, 4, '', false)
+            }`}
             <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />
           </div>
         ),
@@ -128,7 +138,11 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
         onClose={handleCloseModal}
         panelClass="sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] sm:my-0"
         header={
-          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+          <div
+            className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px]"
+            onClick={handleCloseModal}
+          >
+            <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
             <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:bonusHistory')}</div>
           </div>
         }

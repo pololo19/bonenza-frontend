@@ -1,21 +1,5 @@
 import cn from 'classnames';
-import {
-  Award,
-  Command,
-  Diamonds,
-  Element3,
-  Gift,
-  HambergerMenu,
-  Headphone,
-  Judge,
-  Medal,
-  Moon,
-  Notepad2,
-  SecurityCard,
-  Sun1,
-  Ticket,
-  TrendUp,
-} from 'iconsax-react';
+import { Command, Diamonds, Gift, HambergerMenu, Headphone, Notepad2, SecurityCard } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -38,10 +22,8 @@ import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption from '../common/iconOption/iconOption';
-import styles from './sidebar.module.scss';
 
 export default function SidebarToggle() {
-  const { setTheme, theme } = useTheme();
   const { t, i18n } = useTranslation('');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -243,7 +225,7 @@ export default function SidebarToggle() {
         })}
         onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
-        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-color-header-secondary">
+        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[10px] dark:bg-color-header-secondary">
           <button
             className={cn(
               'sm:block hidden rounded-md dark:bg-color-header-secondary bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[14px] py-[14px]',
