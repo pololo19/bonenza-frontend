@@ -35,7 +35,7 @@ export default function CardPlay({
       }}
       className={cn(
         styles.cardBox,
-        'relative overflow-hidden rounded-[50px] cursor-pointer',
+        'relative overflow-hidden rounded-large cursor-pointer',
       )}
     >
       <Image

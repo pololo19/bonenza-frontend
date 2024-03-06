@@ -88,7 +88,7 @@ const IconOption = ({
             'hover:bg-gradient-to-r hover:from-[#475069] hover:to-[#6487E2]',
             'dark:text-color-text-primary  hover:text-[#000] dark:hover:text-white',
             'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
-            'rounded-[100px] hover:rounded-[100px]',
+            'rounded-large hover:rounded-large',
             router.route.includes(href) ? activeClassNames : classNames,
           )}
           href={href}
@@ -143,7 +143,7 @@ const IconOption = ({
           <div
             className={cn(
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[8px]',
-              'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 rounded-[100px]',
+            'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 rounded-large',
               'hover:bg-gradient-to-r hover:from-[#475069] hover:to-[#6487E2]',
               {
                 'dark:bg-color-hover-default/60': showDropDownCasino,
@@ -192,7 +192,7 @@ const IconOption = ({
                     href={item.href}
                     className={cn(
                       'flex items-center gap-[16px] py-[8px]',
-                      'pl-9 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 rounded-[100px]',
+                      'pl-9 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 rounded-large',
                       'hover:bg-gradient-to-r hover:from-[#475069] hover:to-[#6487E2]',
                       {
                         'dark:bg-color-hover-default': router.asPath.toLowerCase().replace("%20", " ").includes(item.href.toLowerCase()),
