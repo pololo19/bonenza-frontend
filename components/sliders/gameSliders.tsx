@@ -16,7 +16,7 @@ import { useWidth } from '@/base/hooks/useWidth';
 const GameBannerSlider = ({ className }: { className?: string }) => {
   const width = useWidth();
   return (
-    <div className={cn('block mt-[20px] sm:mt-[70px]', className)}>
+    <div className={cn('block', className)}>
       <Swiper
         spaceBetween={10}
         slidesPerView={2}
@@ -48,7 +48,7 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
           return (
             <SwiperSlide key={id}>
               <Link href={banner.url}>
-                <Image width={300} height={140} className="object-cover w-full rounded-[5px]" src={banner.img} alt="" />
+                <Image width={443} height={196} className="object-cover w-full rounded-[30px]" src={banner.img} alt="" />
               </Link>
             </SwiperSlide>
           );
