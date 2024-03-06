@@ -173,7 +173,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded-[35px] overflow-hidden"
+        panelClass="rounded sm:rounded-[35px] overflow-hidden"
         header={
           <div className="relative text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
             {t('vipClub:vipClub')}
@@ -193,8 +193,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
               </span>
             </div>
             <div className="rounded-[25px] bg-[#12151A]">
-              <div className="grid grid-cols-2">
-                <div className="pl-[28px] pt-[28px] pr-[28px]">
+              <div className="block lg:flex">
+                <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px]">
                   <div className="text-[20px] text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
                   <div className="flex gap-[30px] mt-5">
                     <Image
@@ -238,7 +238,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     </div>
                   </div>
                 </div>
-                <div className="pl-[28px] pt-[28px] pr-[28px] flex flex-col justify-between">
+                <div className="hidden lg:block blur-[1px] w-[1px] h-[120px] mt-[30px] rounded-[481px] bg-gradient-to-b from-black/[5%] via-white to-black/[5%]" />
+                <div className="block lg:hidden blur-[1px] h-[1px] w-[84%] ml-[8%] mt-[28px] rounded-[481px] bg-gradient-to-r from-black/[5%] via-white to-black/[5%]" />
+                <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px] flex flex-col justify-between">
                   <div className="text-m_title text-white font-[700]">
                     {t('vipClub:vipHost')}
                   </div>
@@ -271,15 +273,14 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         width={40}
                         height={40}
                         alt=""
+                        className={cn({
+                          'opacity-100': selectedRank.startLevel === item.startLevel,
+                          'opacity-30': selectedRank.startLevel !== item.startLevel,
+                        })}
                         onError={(e) => {
                           e.currentTarget.src = '/img/bronze-medal.png';
                         }}
                       />
-                      {vipData.level >= item.startLevel && vipData.level <= item.endLevel && (
-                        <div className="absolute w-5 h-5 right-5 top-4 bg-green-700 rounded-full text-white">
-                          <CheckIcon width={14} height={10} className="stroke-[5] my-[5px] mx-[3px]" />
-                        </div>
-                      )}
                       {selectedRank.startLevel === item.startLevel && (
                         <Image
                           src="/img/selected-medal.png"
@@ -326,68 +327,86 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                             <>
                               {type === 'level_up' && (
                                 <div
-                                  className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
+                                  className={cn(
+                                    " p-[1px] rounded-[20px]",
+                                    "bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]",
+                                    "dark:border-color-border-primary border-color-light-border-primary border border-solid"
+                                  )}
                                   role="button"
                                 >
-                                  <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
-                                    <Image src={'/img/lock.png'} width={62} height={62} alt="" />
-                                  </div>
-                                  <div className="flex flex-col gap-[6px]">
-                                    <div className="text-[14px] text-black dark:text-white font-bold ">
-                                      {t('vipClub:levelUpBonus')}
+                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center">
+                                    <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
+                                      <Image src={'/img/lock.png'} width={23} height={27} alt="" />
                                     </div>
-                                    <div className="text-color-text-primary text-[12px]">
-                                      {t('vipClub:totalPrize')}:{' '}
-                                      <span className="text-color-secondary font-semibold">
-                                        {bonus.levelUpTotalPrizeAmountUsd} USDT
-                                      </span>
+                                    <div className="flex flex-col gap-[6px]">
+                                      <div className="text-[14px] text-black dark:text-white font-bold ">
+                                        {t('vipClub:levelUpBonus')}
+                                      </div>
+                                      <div className="text-color-text-primary text-[11px]">
+                                        {t('vipClub:totalPrize')}:{' '}
+                                        <span className="text-color-secondary font-semibold">
+                                          {bonus.levelUpTotalPrizeAmountUsd} USDT
+                                        </span>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
                               )}
                               {type === 'weekly_cashback' && (
                                 <div
-                                  className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
+                                  className={cn(
+                                    " p-[1px] rounded-[20px]",
+                                    "bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]",
+                                    "dark:border-color-border-primary border-color-light-border-primary border border-solid"
+                                  )}
                                   role="button"
                                 >
-                                  <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
-                                    <Image src={'/img/lock.png'} width={62} height={62} alt="" />
-                                  </div>
-                                  <div className="flex flex-col gap-[6px]">
-                                    <div className="text-[14px] text-black dark:text-white font-bold ">
-                                      {t('vipClub:weeklyCashback')}
+                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center">
+                                    <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
+                                      <Image src={'/img/lock.png'} width={23} height={27} alt="" />
                                     </div>
-                                    <div
-                                      className="text-color-text-primary text-[12px]"
-                                      dangerouslySetInnerHTML={{
-                                        __html: t('vipClub:weeklyCashbackContent', {
-                                          weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
-                                        }),
-                                      }}
-                                    ></div>
+                                    <div className="flex flex-col gap-[6px]">
+                                      <div className="text-[14px] text-black dark:text-white font-bold ">
+                                        {t('vipClub:weeklyCashback')}
+                                      </div>
+                                      <div
+                                        className="text-color-text-primary text-[11px]"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t('vipClub:weeklyCashbackContent', {
+                                            weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
+                                          }),
+                                        }}
+                                      ></div>
+                                    </div>
                                   </div>
                                 </div>
                               )}
                               {type === 'monthly_cashback' && (
                                 <div
-                                  className="bg-color-light-bg-primary dark:bg-[#24262B] flex gap-[16px] p-3 dark:border-color-border-primary border-color-light-border-primary border border-solid items-center rounded-[4px]"
+                                  className={cn(
+                                    " p-[1px] rounded-[20px]",
+                                    "bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]",
+                                    "dark:border-color-border-primary border-color-light-border-primary border border-solid"
+                                  )}
                                   role="button"
                                 >
-                                  <div className="rounded-full w-[70px] h-[70px] flex items-center justify-center flex-none bg-[#2D3035] border border-solid dark:border-color-border-primary border-color-light-border-primary">
-                                    <Image src={'/img/lock.png'} width={62} height={62} alt="" />
-                                  </div>
-                                  <div className="flex flex-col gap-[6px]">
-                                    <div className="text-[14px] text-black dark:text-white font-bold ">
-                                      {t('vipClub:monthlyCashback')}
+                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center">
+                                    <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
+                                      <Image src={'/img/lock.png'} width={23} height={27} alt="" />
                                     </div>
-                                    <div
-                                      className="text-color-text-primary text-[12px]"
-                                      dangerouslySetInnerHTML={{
-                                        __html: t('vipClub:monthlyCashbackContent', {
-                                          monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
-                                        }),
-                                      }}
-                                    ></div>
+                                    <div className="flex flex-col gap-[6px]">
+                                      <div className="text-[14px] text-black dark:text-white font-bold ">
+                                        {t('vipClub:monthlyCashback')}
+                                      </div>
+                                      <div
+                                        className="text-color-text-primary text-[11px]"
+                                        dangerouslySetInnerHTML={{
+                                          __html: t('vipClub:monthlyCashbackContent', {
+                                            monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
+                                          }),
+                                        }}
+                                      ></div>
+                                    </div>
                                   </div>
                                 </div>
                               )}
@@ -402,7 +421,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
             </div>
             <div
               onClick={navigationVipPage}
-              className="flex justify-center w-full items-center cursor-pointer text-[14px] text-color-primary font-semibold dark:border-color-border-primary border-color-light-border-primary border border-solid p-[10px]"
+              className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-color-primary font-semibold dark:border-color-border-primary border-color-light-border-primary border border-solid p-[10px]"
             >
               {t('vipClub:learnMore')}
             </div>
