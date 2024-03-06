@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
@@ -61,35 +62,37 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 
   return (
     <>
-      <div className="sm:max-w-[237px] max-w-full sm:min-h-[237px] cursor-pointer flex sm:flex-col flex-row gap-[20px] items-center">
-        <Image
-          height={237}
-          width={237}
-          src={imgCard}
-          alt=""
-          className="sm:w-full w-[35px] h-auto object-contain rounded-[30px]"
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(237, 237))}`}
-        />
-        <div
-          onClick={openModalProfileUser}
-          className={`${
-            userData?.userId !== userId && !userData?.username
-              ? 'dark:text-color-text-primary text-color-light-text-primary pointer-events-none cursor-text'
-              : 'dark:text-white text-black'
-          } font-light text-[20px] truncate hover:underline min-h-[18px] text-center`}
-        >
-          {userData?.userId !== userId && !userData?.username
-            ? String(t('homePage:hidden'))
-            : userData.userId === userId
-            ? userName
-            : userData?.username}
+      <div className="sm:max-w-[237px] max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[20px] items-center justify-between">
+        <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[20px]">
+          <Image
+            height={237}
+            width={237}
+            src={imgCard}
+            alt=""
+            className="sm:w-full w-[35px] h-auto object-contain rounded-[30px]"
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(237, 237))}`}
+          />
+          <div
+            onClick={openModalProfileUser}
+            className={cn('font-light text-[16px] sm:text-[20px] truncate hover:underline min-h-[18px] text-center', {
+              'dark:text-color-text-primary text-color-light-text-primary pointer-events-none cursor-text':
+                userData?.userId !== userId && !userData?.username,
+              'dark:text-white text-black': !(userData?.userId !== userId && !userData?.username),
+            })}
+          >
+            {userData?.userId !== userId && !userData?.username
+              ? String(t('homePage:hidden'))
+              : userData.userId === userId
+              ? userName
+              : userData?.username}
+          </div>
         </div>
         <div
           data-tooltip-id={'CardBigWinData' + price}
-          className="cursor-text sm:w-full flex justify-center sm:dark:bg-[#31373D] text-center py-4 sm:rounded-[100px]"
+          className="cursor-pointer sm:w-full flex justify-center sm:dark:bg-[#31373D] text-center sm:py-4 sm:rounded-[100px]"
         >
-          <div className="text-color-primary-1 font-semibold text-[20px] truncate">{price}</div>
+          <div className="text-color-primary-1 font-semibold text-[16px] sm:text-[20px] truncate">{price}</div>
         </div>
       </div>
       <Tooltip id={'CardBigWinData' + price} place="bottom" content={String(price)} />
