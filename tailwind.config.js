@@ -44,6 +44,7 @@ module.exports = {
       colors: {
         'color-wallet-header': '#1A1B21',
         'color-header': '#1B1C20',
+        'color-header-primary': '#181A1D',
         'color-header-secondary': '#24262b',
         'color-header-secondary': '#1A1B1F',
         'color-light-header-secondary': '#F0F1F5',
@@ -122,12 +123,15 @@ module.exports = {
       width: {
         custom: 'calc(var(--width) * 1%)',
       },
+      maxWidth: {
+        'game-card': '237px',
+      },
       fontFamily: {
         dayOne: ['"Days One"', 'sans-serif'],
         BlakaInk: ['"Blaka Ink"', 'cursive'],
         Poppins: ['"Poppins"', 'sans-serif'],
         Casino: ['"Casino Shadow"', 'embedded-opentype'],
-        Inter: ['"Inter"', 'sans-serif']
+        Inter: ['"Inter"', 'sans-serif'],
       },
       fontSize: {
         default: '14px',
