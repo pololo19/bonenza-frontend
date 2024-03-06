@@ -391,9 +391,9 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[50px] mt-[62px]">
-              <GameBannerSlider className="w-full"/>
-              <div className="sm:grid md:grid-cols-2 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
+            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:mt-[62px]">
+              <GameBannerSlider className="w-full" />
+              <div className="md:grid md:grid-cols-3 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -495,19 +495,21 @@ function IndexPage() {
                 </>
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
-              <div className={
-                cn
-                (
-                  "rounded-[50px]",
+              <div
+                className={cn(
+                  'rounded-[50px]',
                   "bg-[url('/img/octopus.png')] w-full",
-                  "bg-no-repeat object-cover bg-[length:100%_100%]",
-                )
-              }
+                  'bg-no-repeat object-cover bg-[length:100%_100%]',
+                )}
               >
                 <div className="my-14 ml-[10%] flex flex-col gap-5">
                   <div className="sm:text-3xl lg:text-4xl 2xl:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
-                    <span className="font-bold">{` `}{t('homePage:getStarted')}{` `}300%{` `}</span>
+                    <span className="font-bold">
+                      {` `}
+                      {t('homePage:getStarted')}
+                      {` `}300%{` `}
+                    </span>
                     <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
                   </div>
                   <div
@@ -526,19 +528,13 @@ function IndexPage() {
                 </HomepageSession>
               </div>
               <div className="relative w-full sm:block hidden">
-                <div 
+                <div
                   onClick={() => {
-                    if(isLogin) dispatch(changeIsShowVipClubModal(true));
+                    if (isLogin) dispatch(changeIsShowVipClubModal(true));
                   }}
                   className="cursor-pointer"
                 >
-                  <Image
-                    src="/img/whale.png"
-                    width={20}
-                    height={20}
-                    className="w-full object-cover"
-                    alt=""
-                  />
+                  <Image src="/img/whale.png" width={20} height={20} className="w-full object-cover" alt="" />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
