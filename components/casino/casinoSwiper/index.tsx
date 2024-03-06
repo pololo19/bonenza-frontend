@@ -63,7 +63,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
       setSlide(2);
     }
   };
-  
+
   return (
     <>
       {!!data.length && (
@@ -85,7 +85,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
               speed={1000}
               spaceBetween={width > 600 ? 25 : 0}
               loop={true}
-              className="sm:!h-auto"
+              className="sm:!h-auto !h-[120px]"
               direction={width > 600 ? 'horizontal' : 'vertical'}
               modules={[Autoplay, A11y]}
             >

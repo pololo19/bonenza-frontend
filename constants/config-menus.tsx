@@ -50,8 +50,8 @@ export const headerMenus: OptionSidebarDataType[] = [
     isMobile: false,
   },
   {
-    title: 'layout:updown',
-    href: 'https://bitup.game/trade',
+    title: 'layout:slot',
+    href: ROUTER.Slots,
     // icon: (
     //   <Image
     //     width={18}
@@ -62,7 +62,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     //   />
     // ),
     image: 'slots.png',
-    icon: ArrowSwapVertical,
+    icon: SlotIcon,
     isMobile: false,
   },
   // {

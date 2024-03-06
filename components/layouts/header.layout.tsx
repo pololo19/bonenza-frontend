@@ -108,7 +108,7 @@ export default function Navbar() {
               })}
           </div>
 
-          <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
+          <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto min-[1700px]:pr-24">
             {/* Button */}
             <button
               type="button"

@@ -45,7 +45,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
         })}
       >
         <div className="container mx-auto px-4">
-          <div className="flex gap-[55px] justify-center">
+          <div className="flex gap-[20px] md:gap-[55px] justify-center">
             <Link
               href={ROUTER.Tagname('slots')}
               className="text-[12px] font-bold text-color-light-text-primary dark:text-white hover:text-black dark:hover:text-white"
@@ -93,8 +93,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               className="w-[48px] h-[48px] cursor-pointer"
             />
           </div>
-          <div className="mt-[50px] grid grid-cols-1 md:grid-cols-2">
-            <div className="flex flex-col gap-5 px-20">
+          <div className="mb-[60px] sm:mb-0 mt-[50px] grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-0">
+            <div className="flex flex-col gap-5 px-0 md:px-5 xl:px-20">
               <Image
                 alt=""
                 src="/img/logo-light.png"
@@ -120,7 +120,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-5 px-20">
+            <div className="flex flex-col gap-5 px-0 md:px-5 xl:px-20">
               <Image
                 alt=""
                 src="/img/footer/sprite.png"

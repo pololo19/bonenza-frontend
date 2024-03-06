@@ -1,6 +1,6 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
-import { ArrowRight2, Ghost,Headphone, ShieldTick, Simcard2 } from 'iconsax-react';
+import { ArrowRight2, Ghost, Headphone, ShieldTick, Simcard2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ElementType, useState } from 'react';
@@ -140,7 +140,13 @@ export default function ModalDetailBets({
             </div>
             <div className="flex items-center gap-[8px] px-[16px]">
               {betDetail.playerId?.toString() !== userId && !isPublicProfile ? (
-                <Image height={44} width={44} className="rounded-full blur-[1px] grayscale brightness-50" src="/img/avatar-hidden.png" alt="" />
+                <Image
+                  height={44}
+                  width={44}
+                  className="rounded-full blur-[1px] grayscale brightness-50"
+                  src="/img/avatar-hidden.png"
+                  alt=""
+                />
               ) : (
                 <Image
                   height={44}
@@ -162,16 +168,21 @@ export default function ModalDetailBets({
                       ),
                       'point-event-none text-color-text-primary': betDetail.playerId !== userId && !isPublicProfile,
                     })}
-                    onClick={() => openModalProfileUser(betDetail)}
+                    onClick={() => {
+                      if (betDetail.playerId !== userId && !isPublicProfile) return;
+                      openModalProfileUser(betDetail);
+                    }}
                   >
-                    {betDetail.playerId !== userId && !isPublicProfile
-                      ? <div className="flex gap-[5px] items-center">
-                          <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" /> 
-                          {t('homePage:hidden')}
-                        </div>
-                      : betDetail.playerId === userId
-                      ? userName
-                      : betDetail.player}
+                    {betDetail.playerId !== userId && !isPublicProfile ? (
+                      <div className="flex gap-[5px] items-center">
+                        <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" />
+                        {t('homePage:hidden')}
+                      </div>
+                    ) : betDetail.playerId === userId ? (
+                      userName
+                    ) : (
+                      betDetail.player
+                    )}
                   </div>
                   <div className="text-[12px] dark:text-color-text-primary text-[#31373d]">
                     On {formatDate(new Date(betDetail.time ?? new Date()), TIME_SUBMIT_FORMAT_WITH_MARKER)}
@@ -233,7 +244,10 @@ export default function ModalDetailBets({
                 <div className="text-[11px] dark:text-color-text-primary text-[#31373d] max-w-[230px]">
                   {t('gameTable:anyIssues')}
                 </div>
-                <div className="flex items-center gap-[5px] cursor-pointer" onClick={() => window.open("mailto:info@bonenza.com")}>
+                <div
+                  className="flex items-center gap-[5px] cursor-pointer"
+                  onClick={() => window.open('mailto:info@bonenza.com')}
+                >
                   <Headphone className="w-[14px] h-[14px] text-color-primary" />
                   <div className="text-[11px] dark:text-color-text-primary text-[#31373d]">
                     {t('gameTable:liveSupport')}

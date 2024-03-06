@@ -144,7 +144,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           >
             {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-color-text-primary text-[#31373d] flex justify-center items-center gap-[5px]">
-                <Ghost width={12} height={12} variant="Bulk" className="w-5 h-5" /> 
+                <Ghost width={12} height={12} variant="Bulk" className="w-5 h-5" />
                 {t('homePage:hidden')}
               </div>
             ) : (
@@ -167,10 +167,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
               : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
             <Image
-              className="w-[32px] h-[25px]"
+              className="w-[18px] h-[18px]"
               height={25}
               width={32}
-              src={`/img/fiats/coin.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/coin.png';
               }}
@@ -210,10 +210,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
-              className="h-[25px] w-[32px]"
+              className="h-[18px] w-[18px]"
               height={15}
               width={15}
-              src={`/img/fiats/coin.png`}
+              src={`/img/fiats/${row.original.currency}.png`}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
@@ -228,7 +228,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       allBetColumnsDefault.splice(2, 1);
       return allBetColumnsDefault;
     }
-  }, [localFiat, userId, innerWidth, viewInFiat]);
+  }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
 
   useEffect(() => {
     getAllBetHistory();

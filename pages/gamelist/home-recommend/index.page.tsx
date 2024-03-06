@@ -91,7 +91,7 @@ function CasinoTagnamePage() {
           <div className="game-grid-parent mt-[20px]">
             {listGame.map((game, index) => {
               return (
-                <div key={index} className="max-w-[185px]">
+                <div key={index} className="max-w-game-card">
                   <GameCard gameDetail={game} />
                 </div>
               );

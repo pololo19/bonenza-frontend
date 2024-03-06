@@ -83,15 +83,15 @@ function IndexPage() {
         title: t('homePage:introduceCardTitle2'),
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
-        href: ROUTER.Sports,
+        isClick: true,
+        href: 'https://bitup.game/trade',
       },
       {
         imgBackGround: '/img/page/slots.png',
         title: t('homePage:introduceCardTitle3'),
         description: t('homePage:introduceCardDes3'),
         textButton: t('homePage:introduceCardButton3'),
-        href: 'https://cmd23.com/room/games.php',
-        isClick: true,
+        href: ROUTER.Slots,
       },
     ],
     [],
@@ -391,9 +391,9 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[50px] mt-[62px]">
-              <GameBannerSlider className="w-full"/>
-              <div className="sm:grid md:grid-cols-2 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
+            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:mt-[62px]">
+              <GameBannerSlider className="w-full" />
+              <div className="md:grid md:grid-cols-3 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -462,7 +462,7 @@ function IndexPage() {
                         {!!listRecentGames.length ? (
                           <div className="game-grid-parent mt-[20px]">
                             {listRecentGames.map((game, index) => (
-                              <div key={index} className="min-w-[237px]">
+                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
                                 <GameCard gameDetail={game} />
                               </div>
                             ))}
@@ -479,7 +479,7 @@ function IndexPage() {
                         {!!listFavoriteGames.length ? (
                           <div className="game-grid-parent mt-[20px]">
                             {listFavoriteGames.map((game, index) => (
-                              <div key={index} className="max-w-[185px]">
+                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
                                 <GameCard gameDetail={game} />
                               </div>
                             ))}
@@ -495,19 +495,21 @@ function IndexPage() {
                 </>
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
-              <div className={
-                cn
-                (
-                  "rounded-[50px]",
+              <div
+                className={cn(
+                  'rounded-[50px]',
                   "bg-[url('/img/octopus.png')] w-full",
-                  "bg-no-repeat object-cover bg-[length:100%_100%]",
-                )
-              }
+                  'bg-no-repeat object-cover bg-[length:100%_100%]',
+                )}
               >
                 <div className="my-14 ml-[10%] flex flex-col gap-5">
                   <div className="sm:text-3xl lg:text-4xl 2xl:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
-                    <span className="font-bold">{` `}{t('homePage:getStarted')}{` `}300%{` `}</span>
+                    <span className="font-bold">
+                      {` `}
+                      {t('homePage:getStarted')}
+                      {` `}300%{` `}
+                    </span>
                     <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
                   </div>
                   <div
@@ -526,13 +528,13 @@ function IndexPage() {
                 </HomepageSession>
               </div>
               <div className="relative w-full sm:block hidden">
-                <div 
+                <div
                   onClick={() => {
-                    if(isLogin) dispatch(changeIsShowVipClubModal(true));
+                    if (isLogin) dispatch(changeIsShowVipClubModal(true));
                   }}
-                  className="relative cursor-pointer flex md:flex-row flex-col justify-between z-[2] bg-no-repeat bg-[length:100%] object-cover max-sm:bg-center px-[20px] md:pl-[30px] md:dark:bg-[url('/img/whale.png')] md:bg-[url('/img/whale-light.png')]"
+                  className="cursor-pointer"
                 >
-                  <div className="lg:min-h-[180px] 2xl: min-h-[250px]"/>
+                  <Image src="/img/whale.png" width={20} height={20} className="w-full object-cover" alt="" />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />

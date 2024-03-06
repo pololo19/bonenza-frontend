@@ -1,21 +1,5 @@
 import cn from 'classnames';
-import {
-  Award,
-  Command,
-  Diamonds,
-  Element3,
-  Gift,
-  HambergerMenu,
-  Headphone,
-  Judge,
-  Medal,
-  Moon,
-  Notepad2,
-  SecurityCard,
-  Sun1,
-  Ticket,
-  TrendUp,
-} from 'iconsax-react';
+import { Command, Diamonds, Gift, HambergerMenu, Headphone, Notepad2, SecurityCard } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -38,10 +22,8 @@ import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption from '../common/iconOption/iconOption';
-import styles from './sidebar.module.scss';
 
 export default function SidebarToggle() {
-  const { setTheme, theme } = useTheme();
   const { t, i18n } = useTranslation('');
   const dispatch = useDispatch();
   const router = useRouter();
@@ -243,7 +225,7 @@ export default function SidebarToggle() {
         })}
         onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
-        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[30px] dark:bg-color-header-secondary">
+        <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[10px] dark:bg-color-header-secondary">
           <button
             className={cn(
               'sm:block hidden rounded-md dark:bg-color-header-secondary bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[14px] py-[14px]',
@@ -256,9 +238,9 @@ export default function SidebarToggle() {
           </button>
           <Link href={'/'} className="hidden sm:flex items-center">
             <Image
-              width={96}
-              height={27}
-              className="max-w-[96px] md:max-w-[none] md:max-h-[none] max-h-[27px]"
+              width={158}
+              height={31}
+              className="w-[158px] md:max-w-[none] md:max-h-[none] h-[31px]"
               src="/img/logo.png"
               alt="logo"
             />
@@ -266,39 +248,43 @@ export default function SidebarToggle() {
         </div>
         <div className=" flex-1 md:w-full flex flex-col h-full pt-[12px] pb-[80px] px-[12px] overflow-auto">
           <div className="flex-1 w-full gap-[5px] flex flex-col">
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
               <IconOption
+                imageURL="/img/sidebar/bonus.png"
+                imageClass="absolute left-[16px] -top-[11px] w-[69px] h-[61px]"
+                textClass="text-white ml-[64px] !text-[20px] !font-[500]"
                 title={String(t('sidebar:bonus'))}
                 href={ROUTER.Bonus}
                 icon={Gift}
                 isFontMedium
                 fontWeight={600}
-                classNames="dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000] bg-color-light-bg-primary hover:bg-[#eaecf3] rounded px-[10px]"
+                classNames="!h-[50px] !py-[13px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
               />
 
-              {/*  ********************************* Disable Spin & qeust********************************** */}
-              {/* <div className="flex items-center gap-[10px]">
+              <div className="flex items-center gap-[5px] mt-[20px]">
                 <IconOption
+                  imageURL="/img/sidebar/quest.png"
+                  imageClass="absolute left-[2px] -top-[13px] w-[43px] h-[43px]"
+                  textClass="text-white ml-[22px]"
                   title={String(t('sidebar:quest'))}
                   href={'/#'}
-                  icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
-                  fontWeight={700}
-                  classNames={cn(
-                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i flex-1 dark:!text-color-text-primary !text-color-light-text-primary font-semibold',
-                    styles.quest_btn,
-                  )}
+                  icon={Gift}
+                  isFontMedium
+                  fontWeight={600}
+                  classNames="h-[40px] bg-gradient-to-r hover:from-[#8C7BA4] hover:to-[#8C22FF] from-[#6A5982] to-[#6A00FF] rounded-[100px] px-[10px]"
                 />
                 <IconOption
+                  imageURL="/img/sidebar/spin.png"
+                  imageClass="absolute left-[2px] -top-[12px] w-[54px] h-[37px]"
+                  textClass="text-white ml-[32px]"
                   title={String(t('sidebar:spin'))}
                   href={'/#'}
-                  icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
-                  fontWeight={700}
-                  classNames={cn(
-                    'gap-[5px] hover:opacity-[0.9] hover:text-white rounded pl-[10px] py-[5px] text-10-i flex-1 dark:!text-color-text-primary !text-color-light-text-primary',
-                    styles.spin_btn,
-                  )}
+                  icon={Gift}
+                  isFontMedium
+                  fontWeight={600}
+                  classNames="h-[40px] bg-gradient-to-r hover:from-[#FF55B4] hover:to-[#FC223E] from-[#F450A9] to-[#EA001C] rounded-[100px] px-[10px]"
                 />
-              </div> */}
+              </div>
               {panel_1_datas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -317,7 +303,7 @@ export default function SidebarToggle() {
                 />
               ))}
             </ul>
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center">
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
               {panel_2_datas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -325,7 +311,7 @@ export default function SidebarToggle() {
                   href={item.href}
                   icon={item.icon}
                   classNames={
-                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000]'
                   }
                   isFontMedium
                   fontWeight={600}

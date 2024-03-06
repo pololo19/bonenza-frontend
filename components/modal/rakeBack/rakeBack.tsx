@@ -12,6 +12,7 @@ import { api_getClaims, api_postClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
@@ -35,7 +36,7 @@ export default function ModalRakeBack({
   setShowModalRakeBackDetail,
   setShowModalBonusHistory,
 }: ModalRakeBackProps) {
-  const cancelButtonRef = useRef(null);
+  const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const router = useRouter();
@@ -144,7 +145,11 @@ export default function ModalRakeBack({
                 </div>
                 <div className="w-[236px] rounded-[5px] h-[36px] text-color-primary dark:bg-color-bg-primary bg-color-light-modal-bg-primary flex items-center justify-center gap-2">
                   <Image height={18} width={18} src="/img/fiats/USDT.png" alt="" />
-                  <p className="text-[16px] font-bold">{currencyFormat1(unlockedData.amount, 2, '', false)}</p>
+                  <p className="text-[16px] font-bold">
+                    {viewInFiat
+                      ? currencyFormat1((unlockedData.amount / usdtPrice) * exchangeRate, fiatLen, localFiat?.name)
+                      : currencyFormat1(unlockedData.amount, 2, '', false)}
+                  </p>
                 </div>
                 <div>
                   <div
@@ -161,7 +166,12 @@ export default function ModalRakeBack({
                   </div>
                   <div className="text-[12px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-color-light-text-primary">
                     <p>{t('deposit:mintoclaim')}:</p> &nbsp;
-                    <p className="text-white">{unlockedData.minimumUnlockAmount} USDT</p>
+                    <p className="text-white">
+                      {viewInFiat
+                        ? currencyFormat1(unlockedData.minimumUnlockAmountUsd * exchangeRate, fiatLen, localFiat?.name)
+                        : currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)}{' '}
+                      USDT
+                    </p>
                   </div>
                 </div>
               </div>
@@ -170,7 +180,12 @@ export default function ModalRakeBack({
               <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1 font-bold">
                 <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
               </div>
-              <div className="h-full items-center flex flex-col justify-center">
+              <div
+                className={cn('h-full flex flex-col', {
+                  'items-end': viewInFiat,
+                  'items-center justify-center': !viewInFiat,
+                })}
+              >
                 <div className="dark:text-white text-black font-bold">
                   {`${currencyFormat1(lockedAmount.balance, cryptoLen, '', false)} USDT`}
                 </div>
@@ -185,8 +200,18 @@ export default function ModalRakeBack({
             <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
               <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
               <p className="mt-[14px] mb-[28px]">
-                {t('deposit:youStillNeed')} {`${currencyFormat1(requiredWagerAmount, cryptoLen, '', false)} USDT`}{' '}
-                {t('deposit:unlockable')} {`${unlockedData.minimumUnlockAmount} USDT `}
+                {t('deposit:youStillNeed')}{' '}
+                {`${
+                  viewInFiat
+                    ? currencyFormat1((requiredWagerAmount / usdtPrice) * exchangeRate, fiatLen, localFiat?.name)
+                    : currencyFormat1(requiredWagerAmount, cryptoLen, '', false)
+                } USDT`}{' '}
+                {t('deposit:unlockable')}{' '}
+                {`${
+                  viewInFiat
+                    ? currencyFormat1(unlockedData.minimumUnlockAmountUsd * exchangeRate, fiatLen, localFiat?.name)
+                    : currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)
+                } USDT `}
                 <span
                   className="text-color-primary cursor-pointer hover:underline"
                   onClick={() => handleShowModalDetail()}

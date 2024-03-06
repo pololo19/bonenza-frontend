@@ -1,13 +1,13 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ColumnDef } from '@tanstack/react-table';
-import { Select, Space } from 'antd';
 import cn from 'classnames';
-import { Clock, RulerPen } from 'iconsax-react';
+import { Clock } from 'iconsax-react';
 import Image from 'next/image';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -16,13 +16,16 @@ import {
   api_affiliateCommissionRewardsHistory,
   api_affiliateCommissionRewardsWithdraw,
 } from '@/api/bonus';
+import { api_getClaims } from '@/api/wallet';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
-import LoaderFull from '@/components/common/loaderFull/loaderFull';
-import Loader from '@/components/common/preloader/loader';
+import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 
 type FilterType = {
   username?: string;
@@ -41,10 +44,13 @@ type CommissionRewardType = {
 const decimals = 6;
 
 function AdminRewardsPage() {
+  const exchangeRate = useExchange();
+  const usdtPrice = useUSDTPrice();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
 
   const { t } = useTranslation('');
+  const dispatch = useAppDispatch();
 
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -54,6 +60,14 @@ function AdminRewardsPage() {
     totalCommissionRewardsReceivedAmountUsd: 0,
     commissionRewardsAvailableAmountUsd: 0,
   });
+
+  const { viewInFiat, localFiat } = useSelector(
+    (state: AppState) => ({
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      localFiat: state.wallet.localFiat,
+    }),
+    shallowEqual,
+  );
   const [tableData, setTableData] = useState<CommissionRewardType[]>([]);
   const schema = yup.object().shape({});
 
@@ -113,7 +127,13 @@ function AdminRewardsPage() {
     try {
       setIsLoading(true);
       const _res = await api_affiliateCommissionRewardsWithdraw();
+
+      const _resBonus = await api_getClaims();
+
+      const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
       await getCommissionData();
+
+      dispatch(setLockedAmount(tempLockedAmount));
       toast.success(`Your withdraw is successful`, { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       console.log(error);
@@ -130,10 +150,19 @@ function AdminRewardsPage() {
     return [
       {
         accessorKey: 'commissionRewardsAvailable',
-        header: () => <div className="text-left">{t('mycasino:commissionRewards')}</div>,
+        header: () => <div className="text-center text-[12px]">{t('mycasino:commissionRewards')}</div>,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
+          <div className={cn('flex items-center justify-center text-[#6f6f6f] gap-[5px] truncate')}>
             <div className="font-bold truncate flex gap-1">
+              {`${
+                viewInFiat
+                  ? currencyFormat1(
+                      (row.original.commissionRewardsAvailable / usdtPrice) * exchangeRate,
+                      decimals,
+                      localFiat?.name,
+                    )
+                  : currencyFormat1(row.original.commissionRewardsAvailable / usdtPrice, decimals)
+              }`}
               <Image
                 height={20}
                 width={20}
@@ -143,18 +172,15 @@ function AdminRewardsPage() {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
-              {`${currencyFormat1(row.original.commissionRewardsAvailable, decimals, '', false)} ${
-                row.original.currencyName
-              }`}
             </div>
           </div>
         ),
-        minSize: 120,
-        maxSize: 120,
+        minSize: 250,
+        maxSize: 250,
       },
       {
         accessorKey: 'totalCommissionRewards',
-        header: () => <div className="text-left">{t('historyBonus:time')}</div>,
+        header: () => <div className="text-center text-[12px]">{t('historyBonus:time')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
             <div className="font-bold truncate">
@@ -167,7 +193,7 @@ function AdminRewardsPage() {
       },
       {
         accessorKey: 'status',
-        header: () => <div className="text-left">{t('mycasino:status')}</div>,
+        header: () => <div className="text-center text-[12px]">{t('mycasino:status')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
             <div
@@ -184,7 +210,7 @@ function AdminRewardsPage() {
         maxSize: 30,
       },
     ];
-  }, []);
+  }, [exchangeRate]);
 
   return (
     <div className="bg-white rounded border border-solid border-gray-200 p-4 flex flex-col xl:grid xl:grid-cols-2 gap-[40px]">
@@ -192,21 +218,38 @@ function AdminRewardsPage() {
         <div className="flex items-center justify-between w-full">
           <span className="font-[600] text-[16px]">{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
           <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right truncate">
-            {currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd, decimals, '', false)}{' '}
-            USD
+            {viewInFiat
+              ? currencyFormat1(
+                  totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd * exchangeRate,
+                  decimals,
+                  localFiat?.name,
+                )
+              : currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd, decimals)}
           </span>
         </div>
         <div className="flex items-center justify-between w-full">
           <span className="font-[600] text-[16px]">{t('mycasino:totalCommission')}</span>&nbsp;&nbsp;
           <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
-            {currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsAmountUsd, decimals, '', false)} USD
+            {viewInFiat
+              ? currencyFormat1(
+                  totalCommissionRewardsData.totalCommissionRewardsAmountUsd * exchangeRate,
+                  decimals,
+                  localFiat?.name,
+                )
+              : currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsAmountUsd, decimals)}
           </span>
         </div>
 
         <div className="flex items-center justify-between w-full">
           <span className="font-[600] text-[16px]">{t('mycasino:commissionRewards')}</span>&nbsp;&nbsp;
           <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
-            {currencyFormat1(totalCommissionRewardsData.commissionRewardsAvailableAmountUsd, decimals, '', false)} USD
+            {viewInFiat
+              ? currencyFormat1(
+                  totalCommissionRewardsData.commissionRewardsAvailableAmountUsd * exchangeRate,
+                  decimals,
+                  localFiat?.name,
+                )
+              : currencyFormat1(totalCommissionRewardsData.commissionRewardsAvailableAmountUsd, decimals)}
           </span>
         </div>
         <div className="flex items-center justify-end w-full">

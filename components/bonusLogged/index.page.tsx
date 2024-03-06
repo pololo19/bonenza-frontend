@@ -345,7 +345,7 @@ function BonusLoggedPage() {
           </div>
           <div className="dark:bg-color-card-body-default bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">
             <Image
-              src={theme === 'dark' ? '/img/no-data.png' : '/img/no-data-light-mode.png'}
+              src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
               width={90}
               height={90}
               alt=""
