@@ -1,9 +1,8 @@
 .cardBox {
 
     .cardContent {
-        @apply absolute left-0 right-0 -bottom-full z-[3]  backdrop-blur-[5px] transition-all ease-in-out duration-700
+        @apply absolute left-0 right-0 -bottom-[74px] z-[3]  backdrop-blur-[5px] transition-all ease-in-out duration-700
     }
-    
     .cardImage {
         position: relative;
         z-index: 2;
@@ -19,4 +18,14 @@
             transform: scale3d(1.1,1.1,1);
         }
     }
+}
+
+.casino {
+    @apply bg-gradient-to-r from-[#990000] to-[#FF3333] from-[5%] hover:text-white
+}
+.bitup {
+    @apply bg-gradient-to-r from-[#009900] to-[#33FF33] from-[5%] hover:text-white
+}
+.slots {
+    @apply bg-gradient-to-r from-[#F6A023] to-[#EBAE30] from-[5%] hover:text-white
 }

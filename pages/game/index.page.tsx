@@ -433,7 +433,7 @@ function GamePage() {
                     <button
                       type="button"
                       disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                      className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-default py-[15px] text-default flex items-center gap-[10px] font-bold"
+                      className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px] font-bold"
                       onClick={() => handlePlayRequest()}
                     >
                       {isLoadingGame.status && isLoadingGame.request === 'real' ? (
@@ -448,7 +448,7 @@ function GamePage() {
                     <button
                       type="button"
                       disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                      className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-default py-[15px] text-default flex items-center gap-[10px]"
+                      className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px]"
                       onClick={() => handlePlayRequest()}
                     >
                       {isLoadingGame.status && isLoadingGame.request === 'real' ? (

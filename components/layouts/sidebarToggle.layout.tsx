@@ -258,6 +258,7 @@ export default function SidebarToggle() {
                 icon={Gift}
                 isFontMedium
                 fontWeight={600}
+                activeClassNames="!h-[50px] !py-[13px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
                 classNames="!h-[50px] !py-[13px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
               />
 

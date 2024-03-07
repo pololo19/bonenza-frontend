@@ -94,7 +94,7 @@ function PromotionPage() {
                 </div>
                 <div
                   role="button"
-                  className="hidden md:block bg-gradient-btn-default hover:opacity-[0.9] rounded-default text-white text-[14px] text-center w-full h-[44px] py-[13px] absolute bottom-[-25%]"
+                  className="hidden md:block bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-[14px] text-center w-full h-[44px] py-[13px] absolute bottom-[-25%]"
                   onClick={() => {
                     router.replace(ROUTER.DepositFiat);
                   }}

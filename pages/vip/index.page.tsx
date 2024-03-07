@@ -161,7 +161,7 @@ function VipPage() {
             <div className="flex items-center gap-6 mt-4">
               <button
                 onClick={() => router.push('/casino')}
-                className="bg-gradient-btn-default py-[10px] px-[20px] hover:opacity-90 rounded-default text-[14px] sm:text-[12px] lg:text-[14px] font-bold"
+                className="bg-gradient-btn-play py-[10px] px-[20px] hover:opacity-90 rounded-default text-[14px] sm:text-[12px] lg:text-[14px] font-bold"
               >
                 {t('vipClub:startPlaying')}
               </button>

@@ -467,7 +467,7 @@ const WithdrawCryptoPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-gradient-btn-default hover:opacity-[0.9] rounded-default py-[10px] px-[20px] min-w-[140px]"
+                  className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default py-[10px] px-[20px] min-w-[140px]"
                 >
                   {t('withdraw:confirm')}
                 </button>

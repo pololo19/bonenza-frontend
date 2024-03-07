@@ -175,7 +175,7 @@ export default function RewardDropdown() {
                               </div>
                               <div className="py-[2px] flex items-center">
                                 <button
-                                  className="bg-gradient-btn-default px-[20px] text-white rounded-[3px] font-bold disabled:cursor-not-allowed min-h-[40px]"
+                                  className="bg-gradient-btn-play px-[20px] text-white rounded-[3px] font-bold disabled:cursor-not-allowed min-h-[40px]"
                                   disabled={lockedAmount <= bonus.amount}
                                   onClick={() => handleClaim(bonus)}
                                 >
