@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 type TooltipPropsType = {
-  message: string;
+  message: ReactNode;
   children: JSX.Element;
 };
 
