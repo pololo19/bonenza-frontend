@@ -54,7 +54,8 @@ export default function CardPlay({
       <div
         className={cn(
           styles.cardContent,
-          'flex flex-col gap-[20px] pt-5 px-8 pb-5 bg-black opacity-80 items-center',
+          'flex flex-col gap-[20px] pt-5 px-8 pb-5 items-center',
+          'dark:!backdrop-blur-[15px] dark:bg-none bg-gradient-to-t dark:from-white  dark:to-white/0 from-white via-white via-70%',
         )}
       >
         <div className="dark:text-white text-color-text-primary text-[14px] md:text-[16px] min-[1600px]:text-[20px] font-light text-center">
