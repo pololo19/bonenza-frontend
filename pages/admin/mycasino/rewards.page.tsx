@@ -213,7 +213,7 @@ function AdminRewardsPage() {
                 </div>
               </div>
             </div>
-            <button className="bg-gradient-btn-default px-6 py-3 rounded-default text-white" onClick={handleWithdraw}>
+            <button className="bg-gradient-btn-play px-6 py-3 rounded-default text-white" onClick={handleWithdraw}>
               {t('mycasino:withdraw')}
             </button>
           </div>
@@ -232,7 +232,7 @@ function AdminRewardsPage() {
           </div>
           <div className="flex flex-col items-start gap-1">
             <label className="opacity-0">1</label>
-            <button className="bg-gradient-btn-default px-6 py-1 rounded-default text-white" type="submit">
+            <button className="bg-gradient-btn-play px-6 py-1 rounded-default text-white" type="submit">
               {t('mycasino:search')}
             </button>
           </div>

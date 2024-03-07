@@ -254,7 +254,7 @@ function AdminRewardsPage() {
         </div>
         <div className="flex items-center justify-end w-full">
           <button
-            className="bg-gradient-btn-default px-6 py-3 rounded-default text-white flex items-center"
+            className="bg-gradient-btn-play px-6 py-3 rounded-default text-white flex items-center"
             onClick={handleWithdraw}
           >
             {isLoading && (

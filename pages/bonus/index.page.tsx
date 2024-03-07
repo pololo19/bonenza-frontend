@@ -58,7 +58,7 @@ function BonusPage() {
                 <div className="flex sm:hidden justify-center my-[10px] w-full">
                   <div
                     role="button"
-                    className="rounded-large bg-gradient-btn-default py-[10px] px-5 font-bold text-white"
+                    className="rounded-large bg-gradient-btn-play py-[10px] px-5 font-bold text-white"
                   >
                     {t('bonus:joinNow')}
                   </div>
@@ -98,7 +98,7 @@ function BonusPage() {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
                   }}
-                  className="rounded-[5px] bg-gradient-btn-default py-[10px] px-5 font-bold text-white"
+                  className="rounded-[5px] bg-gradient-btn-play py-[10px] px-5 font-bold text-white"
                 >
                   {t('bonus:joinNow')}
                 </div>
@@ -347,7 +347,7 @@ function BonusPage() {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
                   }}
-                  className="bg-btn-sign-in rounded-[5px] bg-gradient-btn-default py-[10px] px-5 font-bold text-white"
+                  className="bg-btn-sign-in rounded-[5px] bg-gradient-btn-play py-[10px] px-5 font-bold text-white"
                 >
                   {t('bonus:signUpNow')}
                 </div>

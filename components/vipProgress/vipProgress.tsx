@@ -67,7 +67,7 @@ const VipProgressComponent = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:dark:bg-color-card-bg-default sm:bg-white sm:min-w-[400px] rounded-[3px]">
+      <div className="flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:dark:bg-color-card-bg-default/[40%] sm:bg-white sm:min-w-[400px] rounded-large overflow-hidden">
         <div className="dark:text-white text-black font-[600] sm:text-[20px] text-default">
           {t('homePage:yourVipProgress')}
         </div>

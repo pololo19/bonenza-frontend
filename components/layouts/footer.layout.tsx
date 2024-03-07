@@ -376,7 +376,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       id={`accepted-${network.token}-tooltip`}
                       place="bottom"
                       className="dark:bg-black bg-white"
-                      delayHide={300}
+                      opacity={100}
+                      delayHide={0}
                       clickable
                     >
                       <div className="flex justify-center items-center w-[200px] gap-8 pt-3">

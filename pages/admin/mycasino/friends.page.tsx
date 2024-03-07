@@ -252,7 +252,7 @@ function AdminFriendsManagementPage() {
           </div>
           <div className="flex flex-col items-start gap-1">
             <label className="opacity-0">1</label>
-            <button className="bg-gradient-btn-default px-6 py-1 rounded-default text-white" type="submit">
+            <button className="bg-gradient-btn-play px-6 py-1 rounded-default text-white" type="submit">
               {t('mycasino:search')}
             </button>
           </div>
