@@ -473,7 +473,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           <div className="flex h-full w-full max-h-[calc(100vh-70px)] mt-[70px] sm:flex-row flex-col">
             <div
               className={cn(
-                'z-[50] dark:bg-color-bg-primary bg-[#fff] sm:block hidden h-[calc(100vh)] mt-[-70px]',
+                'z-[50] dark:bg-color-bg-primary bg-[#fff] sm:block hidden h-[calc(100vh)] mt-[-70px] border-solid border-[1px] border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',
                 {
                   'xl:relative fixed': isToggleSidebar,
                 },

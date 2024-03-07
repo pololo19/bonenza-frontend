@@ -251,18 +251,18 @@ export default function SidebarToggle() {
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
               <IconOption
                 imageURL="/img/sidebar/bonus.png"
-                imageClass="absolute left-[16px] -top-[11px] w-[69px] h-[61px]"
-                textClass="text-white ml-[64px] !text-[20px] !font-[500]"
+                imageClass="absolute left-[16px] -top-[18px] w-[69px] h-[61px]"
+                textClass="text-white ml-[64px] !text-[16px] !font-[500]"
                 title={String(t('sidebar:bonus'))}
                 href={ROUTER.Bonus}
                 icon={Gift}
                 isFontMedium
                 fontWeight={600}
-                activeClassNames="!h-[50px] !py-[13px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
-                classNames="!h-[50px] !py-[13px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
+                activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
+                classNames="!h-[45px] !py-[10px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
               />
 
-              <div className="flex items-center gap-[5px] mt-[20px]">
+              <div className="flex items-center gap-[5px] mt-[10px]">
                 <IconOption
                   imageURL="/img/sidebar/quest.png"
                   imageClass="absolute left-[2px] -top-[13px] w-[43px] h-[43px]"

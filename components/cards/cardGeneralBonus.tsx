@@ -10,6 +10,7 @@ import { changeIsShowDepositModal } from '@/base/redux/reducers/modal.reducer';
 import ModalDepositBonusRules from '../modal/depositBonusRules/depositBonusRules';
 import { useSelector } from 'react-redux';
 import { AppState } from '@/base/redux/store';
+import { Tooltip } from 'react-tooltip';
 
 type CardGeneralBonusProps = {
   background: string;
@@ -21,6 +22,7 @@ type CardGeneralBonusProps = {
   totalValue: string;
   nameButton: string;
   showDeposit: boolean;
+  tooltip: string;
 };
 
 export default function CardGeneralBonus({
@@ -33,6 +35,7 @@ export default function CardGeneralBonus({
   totalValue,
   nameButton,
   showDeposit,
+  tooltip,
 }: CardGeneralBonusProps) {
   const { theme, setTheme } = useTheme();
   const { t } = useTranslation('');
@@ -108,7 +111,12 @@ export default function CardGeneralBonus({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[10px]">
               <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">{name}</div>
-              <Image src={'/img/icon/icon-question.png'} width={16} height={16} alt="" />
+              <Image src={'/img/icon/icon-question.png'} width={16} height={16} alt="" data-tooltip-id={'deposit-bonus-tooltip'} />
+              <Tooltip id={'deposit-bonus-tooltip'} place="bottom" className="dark:bg-black/0 bg-white z-[30]" opacity={100}>
+                <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">
+                  {tooltip}
+                </div>
+              </Tooltip>
             </div>
             <div className="flex items-center gap-[7px]">
               <div
