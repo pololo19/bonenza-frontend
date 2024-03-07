@@ -478,7 +478,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   'xl:relative fixed': isToggleSidebar,
                 },
               )}
-            >
+s            >
               <SidebarToggle />
             </div>
             <div
@@ -702,20 +702,30 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isShowUpdateAvatar && (
         <ModalUpdateAvatar show={isShowUpdateAvatar} onClose={() => dispatch(changeIsShowUpdateAvatar(false))} />
       )}
-      <ModalMultiLanguage
-        show={isShowMultiLanguage || false}
-        onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
-      />
-      <ModalAuthentication
-        show={isShowAuthenticationModal || false}
-        onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
-      />
-      <ModalVipClub
-        show={isShowVipClubModal || false}
-        onClose={() => {
-          dispatch(changeIsShowVipClubModal(false));
-        }}
-      />
+
+      {isShowMultiLanguage && (
+        <ModalMultiLanguage
+          show={isShowMultiLanguage || false}
+          onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
+        />
+      )}
+
+      {isShowAuthenticationModal && (
+        <ModalAuthentication
+          show={isShowAuthenticationModal || false}
+          onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
+        />
+      )}
+
+      {isShowVipClubModal && (
+        <ModalVipClub
+          show={isShowVipClubModal || false}
+          onClose={() => {
+            dispatch(changeIsShowVipClubModal(false));
+          }}
+        />
+      )}
+
       {!!isShowRakeBackModal && (
         <ModalRakeBack
           show={isShowRakeBackModal || false}
@@ -757,7 +767,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      <ModalDeposit show={isShowDepositModal || false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
+      {isShowDepositModal && (
+        <ModalDeposit show={isShowDepositModal || false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
+      )}
 
       {isShowCryptoOnlineModal && (
         <ModalCryptoOnline
