@@ -472,12 +472,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           <HeaderStats />
           <div className="flex h-full w-full max-h-[calc(100vh-70px)] mt-[70px] sm:flex-row flex-col">
             <div
-              className={cn(
-                'z-[50] dark:bg-color-bg-primary bg-[#fff] sm:block hidden h-[calc(100vh)] mt-[-70px]',
-                {
-                  'xl:relative fixed': isToggleSidebar,
-                },
-              )}
+              className={cn('z-[50] dark:bg-color-bg-primary bg-[#fff] sm:block hidden h-[calc(100vh)] mt-[-70px]', {
+                'xl:relative fixed': isToggleSidebar,
+              })}
             >
               <SidebarToggle />
             </div>
@@ -702,20 +699,30 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isShowUpdateAvatar && (
         <ModalUpdateAvatar show={isShowUpdateAvatar} onClose={() => dispatch(changeIsShowUpdateAvatar(false))} />
       )}
-      <ModalMultiLanguage
-        show={isShowMultiLanguage || false}
-        onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
-      />
-      <ModalAuthentication
-        show={isShowAuthenticationModal || false}
-        onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
-      />
-      <ModalVipClub
-        show={isShowVipClubModal || false}
-        onClose={() => {
-          dispatch(changeIsShowVipClubModal(false));
-        }}
-      />
+
+      {isShowMultiLanguage && (
+        <ModalMultiLanguage
+          show={isShowMultiLanguage || false}
+          onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
+        />
+      )}
+
+      {isShowAuthenticationModal && (
+        <ModalAuthentication
+          show={isShowAuthenticationModal || false}
+          onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
+        />
+      )}
+
+      {isShowVipClubModal && (
+        <ModalVipClub
+          show={isShowVipClubModal || false}
+          onClose={() => {
+            dispatch(changeIsShowVipClubModal(false));
+          }}
+        />
+      )}
+
       {!!isShowRakeBackModal && (
         <ModalRakeBack
           show={isShowRakeBackModal || false}
@@ -757,7 +764,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      <ModalDeposit show={isShowDepositModal || false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
+      {isShowDepositModal && (
+        <ModalDeposit show={isShowDepositModal || false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
+      )}
 
       {isShowCryptoOnlineModal && (
         <ModalCryptoOnline
