@@ -110,7 +110,7 @@ const SelectCurrency = ({
 
   return (
     <div className="flex flex-col items-start md:gap-[20px] gap-[15px] text-white">
-      <div className="flex flex-col items-start w-full gap-2">
+      <div className="flex flex-col items-start w-full gap-4">
         {!withDrawTab && (
           <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
             {t('deposit:depositCurrency')}
@@ -285,7 +285,7 @@ const SelectCurrency = ({
           </Transition>
         </Menu>
       </div>
-      <div className="flex flex-col items-start w-full gap-2">
+      <div className="flex flex-col items-start w-full gap-4">
         <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
           {t('deposit:chooseNetwork')}
         </div>

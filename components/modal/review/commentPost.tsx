@@ -153,7 +153,7 @@ export default function CommentPostModal({
             </Popover>
             <button
               type="button"
-              className="truncate bg-gradient-btn-default rounded-[5px] font-semibold sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
+              className="truncate bg-gradient-btn-play rounded-[5px] font-semibold sm:py-[9px] py-[5px] px-5 sm:text-[14px] text-[12px] flex items-center gap-[10px]"
               onClick={handlePost}
             >
               <div>{t('gameDetail:post')}</div>

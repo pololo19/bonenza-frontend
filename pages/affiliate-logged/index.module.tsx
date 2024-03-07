@@ -347,7 +347,7 @@ function AffiliateLoggedPage() {
             </div>
             <div className="flex justify-between w-full my-[18px] ">
               <Link target="_blank" href={ROUTER.AdminFriends} className="w-full bg-color-panel-bg rounded-[5px]">
-                <div className="bg-gradient-btn-default txt-center py-[17px] rounded-[5px] font-bold w-full flex justify-center items-center">
+                <div className="bg-gradient-btn-play txt-center py-[17px] rounded-[5px] font-bold w-full flex justify-center items-center">
                   <Image height={18} width={18} src="/img/page/category.png" className="opacity-30" alt="" />
                   <div className="ml-[10px] mr-[10px] text-[14px] text-[#FFFFFF]">{t('affiliate:goToDashboard')}</div>
                 </div>
@@ -423,7 +423,7 @@ function AffiliateLoggedPage() {
               </div>
 
               <div className="flex justify-between w-full mt-[22px]  px-[16px]">
-                {/* <div className="bg-gradient-btn-default text-center py-[15px] rounded-[5px] w-full flex justify-center items-center mr-[14px]">
+                {/* <div className="bg-gradient-btn-play text-center py-[15px] rounded-[5px] w-full flex justify-center items-center mr-[14px]">
                   <div className="ml-[10px] mr-[10px] text-[11px] md:text-[12px] text-[#FFFFFF] font-bold">
                     {t('affiliate:createAnotherCode')}
                   </div>

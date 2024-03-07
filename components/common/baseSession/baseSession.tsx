@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { Wallet } from 'iconsax-react';
+import { Wallet1 } from 'iconsax-react';
 import { useRouter } from 'next/router';
 import React, { ElementType } from 'react';
 
@@ -12,7 +12,7 @@ type CommonSessionProps = {
   iconClass?: string;
 };
 
-const CommonSession = ({ title, icon = Wallet, children, iconClass }: CommonSessionProps) => {
+const CommonSession = ({ title, icon = Wallet1, children, iconClass }: CommonSessionProps) => {
   const { t } = useTranslation('');
   const router = useRouter();
   const IconElement = icon;

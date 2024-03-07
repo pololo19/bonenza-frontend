@@ -76,6 +76,7 @@ function IndexPage() {
         title: t('homePage:introduceCardTitle1'),
         description: t('homePage:introduceCardDes1'),
         textButton: t('homePage:introduceCardButton1'),
+        action: 'casino',
         href: ROUTER.Casino,
       },
       {
@@ -84,6 +85,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes2'),
         textButton: t('homePage:introduceCardButton2'),
         isClick: true,
+        action: 'bitup',
         href: 'https://bitup.game/trade',
       },
       {
@@ -91,6 +93,7 @@ function IndexPage() {
         title: t('homePage:introduceCardTitle3'),
         description: t('homePage:introduceCardDes3'),
         textButton: t('homePage:introduceCardButton3'),
+        action: 'slots',
         href: ROUTER.Slots,
       },
     ],
@@ -311,7 +314,7 @@ function IndexPage() {
               <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-r from-[10%] via-[40%] from-color-bg-primary via-white/0 to-white/0" />
               <div className="relative z-[2] w-full min-h-[450px] gap-[20px] pl-10 pt-20 flex flex-col justify-center">
                 {!isLogin && (
-                  <div className="sm:text-start text-center font-semibold sm:block hidden">
+                  <div className=" sm:text-start text-center font-semibold sm:block hidden">
                     <div>
                       <span className="dark:text-white text-black text-[20px] font-bold">
                         {String(t('homePage:signUpUpper'))} &{' '}
@@ -360,7 +363,7 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-default bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-default bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
@@ -376,7 +379,7 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-default bg-gradient-btn-default flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                            className="truncate text-white rounded-default bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}
@@ -403,6 +406,7 @@ function IndexPage() {
                     textButton={item.textButton}
                     href={item.href}
                     isClick={item.isClick}
+                    action={item.action}
                   />
                 ))}
               </div>
@@ -599,7 +603,7 @@ function IndexPage() {
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
-                      <div className="hover:opacity-[0.9] bg-gradient-btn-default py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer">
+                      <div className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer">
                         {String(t('homePage:leaveAMessage'))}
                       </div>
                       <div className="text-color-text-secondary text-default">{String(t('footer:nowGetReward'))}</div>

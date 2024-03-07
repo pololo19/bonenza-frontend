@@ -154,7 +154,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
+                className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold hover:opacity-90"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="sm:block hidden">

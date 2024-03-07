@@ -12,6 +12,7 @@ type CardPlayProps = {
   textButton: string;
   href: string;
   isClick?: boolean;
+  action: string;
 };
 
 export default function CardPlay({
@@ -21,6 +22,7 @@ export default function CardPlay({
   textButton,
   href,
   isClick = false,
+  action,
 }: CardPlayProps) {
   const router = useRouter();
 
@@ -54,18 +56,21 @@ export default function CardPlay({
       <div
         className={cn(
           styles.cardContent,
-          'flex flex-col gap-[20px] pt-5 px-8 pb-5 items-center',
-          'dark:!backdrop-blur-[15px] dark:bg-none bg-gradient-to-t dark:from-white  dark:to-white/0 from-white via-white via-70%',
+          'flex flex-col gap-[20px] pt-5 px-[20px] pb-5 items-center',
+          'dark:!backdrop-blur-[15px] dark:bg-black/[30%]',
         )}
       >
-        <div className="dark:text-white text-color-text-primary text-[14px] md:text-[16px] min-[1600px]:text-[20px] font-light text-center">
+        <div className="dark:text-white text-color-text-secondary text-[14px] md:text-[16px] min-[1600px]:text-[20px] font-light text-left">
           {description}
         </div>
         {!isClick && (
           <Link
             href={href}
             type="button"
-            className="bg-color-primary w-[80%] rounded-[100px] font-medium text-[20px] text-white py-0 md:py-1 min-[1600px]:py-[12px] text-center"
+            className={cn(
+              styles[action],
+              'w-[100%] rounded-large font-medium text-[20px] text-white py-[12px] text-center'
+            )}
           >
             {textButton}
           </Link>
@@ -73,7 +78,10 @@ export default function CardPlay({
         {isClick && (
           <div
             role="button"
-            className="bg-color-primary w-[80%] rounded-[100px] font-medium text-[20px] text-white py-0 md:py-1 min-[1600px]:py-[12px] text-center"
+            className={cn(
+              styles[action],
+              'w-[100%] rounded-large font-medium text-[20px] text-white py-[12px] text-center'
+            )}
             onClick={() => window.open(href)}
           >
             {textButton}

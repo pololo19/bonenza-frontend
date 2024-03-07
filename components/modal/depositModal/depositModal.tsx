@@ -38,6 +38,8 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
               <div className="text-black dark:text-white md:text-[18px] text-[16px] sm:mb-0 mb-[10px] font-bold">
                 {t('layout:deposit')}
               </div>
+              {/* Hiding Crypto & Fiat & Buy Crypto */}
+              {/*
               <div className="flex w-full">
                 <div
                   onClick={() => setDepositTab(DepositTabEnum.CRYPTO)}
@@ -52,8 +54,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                 >
                   <div className="sm:text-[16px] text-[14px]">{t('deposit:crypto')}</div>
                 </div>
-                {/* Hiding Fiat & Buy Crypto */}
-                {/* <div
+                 <div
                   // onClick={() => setDepositTab(DepositTabEnum.FIAT)}
                   className={cn(
                     'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
@@ -78,13 +79,13 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
                   role="button"
                 >
                   <div className="sm:text-[16px] text-[14px]">{t('deposit:buyCrypto')}</div>
-                </div> */}
-              </div>
+                </div>
+              </div> */}
             </div>
           </>
         }
       >
-        <div className="overflow-y-auto sm:p-5 p-3 pb-[80px]">
+        <div className="overflow-y-auto sm:p-5 sm:pt-6 px-3 pb-[80px]">
           {depositTab === DepositTabEnum.CRYPTO && <DepositCryptoComponent />}
           {depositTab === DepositTabEnum.FIAT && <DepositFiatComponent />}
           {depositTab === DepositTabEnum.BUY_CRYPTO && <BuyCryptoComponent />}
