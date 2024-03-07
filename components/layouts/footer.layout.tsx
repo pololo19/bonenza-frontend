@@ -9,6 +9,7 @@ import { ROUTER } from '@/base/constants/common';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
+  changeIsShowDepositModal,
   changeIsShowReferAndEarn,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
@@ -17,6 +18,7 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import ModalBusinessContacts from '../modal/businessContacts/businessContacts';
 import ModalVerifyRepresentative from '../modal/verifyRepresentative/verifyRepresentative';
+import { Tooltip } from 'react-tooltip';
 
 export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const { t } = useTranslation('');
@@ -35,7 +37,28 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
     dispatch(changeIsShowAuthenticationModal(true));
   };
-
+  const acceptedNetworks = [
+    {
+      icon: '/img/icon/eth-icon.png',
+      network: 'Ethereum',
+      token: 'ETH',
+    },
+    {
+      icon: '/img/icon/trx-icon.png',
+      network: 'TRON',
+      token: 'TRX',
+    },
+    {
+      icon: '/img/icon/binance-icon.png',
+      network: 'BSC',
+      token: 'BNB',
+    },
+    {
+      icon: '/img/icon/polygon-icon.png',
+      network: 'Polygon',
+      token: 'MATIC',
+    },
+  ];
   return (
     <>
       <footer
@@ -338,25 +361,49 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   {String(t('footer:acceptedNetworks'))}
                 </div>
               </div>
-              <div className="flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">
-                {/* <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/bitcoin-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div> */}
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/eth-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
+              <div className="flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">            
+                {acceptedNetworks.map((network) => (
+                  <div className="max-w-[50px] max-h-[50px]">
+                    <Image
+                      alt=""
+                      src={network.icon}
+                      width={50}
+                      height={50}
+                      className="max-w-[50px] max-h-[50px] cursor-pointer"
+                      data-tooltip-id={`accepted-${network.token}-tooltip`}
+                    />
+                    <Tooltip
+                      id={`accepted-${network.token}-tooltip`}
+                      place="bottom"
+                      className="dark:bg-black bg-white"
+                      delayHide={300}
+                      clickable
+                    >
+                      <div className="flex justify-center items-center w-[200px] gap-8 pt-3">
+                        <Image
+                          alt=""
+                          src={network.icon}
+                          width={50}
+                          height={50}
+                          className="max-w-[50px] max-h-[50px] cursor-pointer"
+                        />
+                        <div>
+                          <div>{network.network}</div>
+                          <div>{network.token}</div>
+                        </div>
+                      </div>
+                      
+                      <button
+                        type="button"
+                        className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
+                        onClick={() => dispatch(changeIsShowDepositModal(true))}
+                      >
+                        {t('layout:deposit')}
+                      </button>
+                    </Tooltip>
+                  </div>
+                ))}
+                
                 {/* <div className="max-w-[50px] max-h-[50px]">
                   <Image
                     alt=""
@@ -384,33 +431,6 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     className="max-w-[50px] max-h-[50px] cursor-pointer"
                   />
                 </div> */}
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/trx-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/binance-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/polygon-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
                 {/* <div className="max-w-[50px] max-h-[50px]">
                   <Image
                     alt=""

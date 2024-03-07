@@ -71,7 +71,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
         header: () => <div className="text-right text-[14px] font-normal">{t('profile:prize')}</div>,
         cell: ({ row }) => (
           <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px]">
-            <span className="dark:text-white text-black font-bold text-[14px]">
+            <span className="dark:text-white text-black font-bold text-[13px]">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, fiatDecimals, localFiat?.name)
                 : currencyFormat1(row.original?.prize, cryptoDecimals, '', false)}
@@ -92,7 +92,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
     try {
       setIsLoading(true);
       setListWager([]);
-      const wager = await api_getContestHistory(page, limit);
+      const wager = await api_getContestHistory(userData?.userId || '', page, limit);
       const wagerContestLength = wager.data.totalCount;
       const wagerContests = wager.data.contest.map((contest: WagerDetail) => ({
         date: contest.date || '',

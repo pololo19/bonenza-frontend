@@ -25,8 +25,8 @@ export const api_getProfile = async (userId: string) => {
   return api.get(API_USER_PROFILE_GET_PROFILE, { params: { userId } });
 };
 
-export const api_getContestHistory = async (page: number, page_size: number) => {
-  return api.get(API_USER_PROFILE_CONTEST_HISTORY, { params: { page, page_size } });
+export const api_getContestHistory = async (userID: string, page: number, page_size: number) => {
+  return api.get(API_USER_PROFILE_CONTEST_HISTORY, { params: { user_id: userID, page, page_size } });
 };
 
 export const api_editUserName = async (userName: string) => {
