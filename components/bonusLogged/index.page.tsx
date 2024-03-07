@@ -243,7 +243,7 @@ function BonusLoggedPage() {
         <div className="mt-5">
           <div className="flex items-center gap-[10px] mb-[16px]">
             <div className="text-[20px] dark:text-white text-color-light-text-primary font-medium">
-              {t('bonus:generalBonus')} && VIP{' '}
+              {t('bonus:generalBonus')} & VIP{' '}
               <span className="text-[20px] font-medium dark:text-white text-color-light-text-primary">
                 {t('bonus:Bonus')}
               </span>
