@@ -49,7 +49,7 @@ function GameCard(props: GameCardProps) {
       onClick={() => dispatch(changeIsShowCasinoSearch(false))}
     >
       <div
-        className={classNames('sm:block rounded-default', {
+        className={classNames('bg-[#31373D77] sm:block rounded-large overflow-hidden p-2', {
           flex: listView,
           block: !listView,
         })}
@@ -61,15 +61,15 @@ function GameCard(props: GameCardProps) {
               width={160}
               src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
               alt=""
-              className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-[30px]"
+              className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-large"
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
             />
           </LazyLoad>
         </Link>
-        <div className="flex flex-col gap-5 pt-5">
+        <div className="flex flex-col gap-5 py-2">
           <div className="flex justify-center items-center gap-[5px]">
-            <div className="dark:text-white text-black font-light text-default lg:text-m_title truncate">
+            <div className="dark:text-white text-black font-light text-default sm:text-[16px] truncate">
               {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
             </div>
             <InfoCircle
@@ -79,8 +79,8 @@ function GameCard(props: GameCardProps) {
               role="button"
             />
           </div>
-          {footer?.()}
         </div>
+        {footer?.()}
       </div>
       <Tooltip
         className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-color-bg-secondary"

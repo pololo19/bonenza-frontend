@@ -12,14 +12,15 @@ type CasinoSwiperProps<T> = {
   icon?: JSX.Element;
   title?: string;
   data: T[];
+  maxCount?: number;
   renderItem: (game: T) => ReactNode;
   onClickItem?: (game: T) => void;
 };
 
-const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: CasinoSwiperProps<T>): JSX.Element => {
+const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem, maxCount=7 }: CasinoSwiperProps<T>): JSX.Element => {
   const width = useWidth();
 
-  const [slide, setSlide] = useState<number>(8);
+  const [slide, setSlide] = useState<number>(maxCount);
 
   const { showChatType, isToggleSidebar } = useSelector(
     (state: AppState) => ({
@@ -46,21 +47,21 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
 
   const handleNumberSlide = (width: number) => {
     if (width > 1890) {
-      setSlide(6);
+      setSlide(14);
     } else if (width > 1335) {
-      setSlide(handleSlideToShow(5));
+      setSlide(handleSlideToShow(12));
     } else if (width > 1200) {
-      setSlide(handleSlideToShow(4));
+      setSlide(handleSlideToShow(10));
     } else if (width > 1163) {
-      setSlide(4);
+      setSlide(9);
     } else if (width > 991) {
-      setSlide(3);
+      setSlide(8);
     } else if (width > 860) {
-      setSlide(3);
+      setSlide(7);
     } else if (width > 693) {
-      setSlide(2);
+      setSlide(6);
     } else {
-      setSlide(2);
+      setSlide(5);
     }
   };
 
@@ -76,14 +77,14 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
               </div>
             </div>
             <Swiper
-              slidesPerView={width > 600 ? 'auto' : 3}
+              slidesPerView={width > 600 ? slide : 3}
               freeMode={true}
               autoplay={{
                 delay: 2000,
                 disableOnInteraction: false,
               }}
               speed={1000}
-              spaceBetween={width > 600 ? 25 : 0}
+              spaceBetween={width > 600 ? 15 : 0}
               loop={true}
               className="sm:!h-auto !h-[120px]"
               direction={width > 600 ? 'horizontal' : 'vertical'}
@@ -93,7 +94,7 @@ const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem }: Casino
                 return (
                   <SwiperSlide
                     key={key}
-                    className={`sm:!w-[237px] w-full !mb-0 !p-[0px] sm:!p-0`}
+                    className={`w-full !mb-0 !p-[0px] sm:!p-0`}
                     onClick={() => onClickItem?.(game)}
                   >
                     {renderItem(game)}
