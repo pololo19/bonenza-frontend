@@ -66,13 +66,14 @@ const WithdrawCryptoPage = () => {
     type: 1,
   });
 
-  const { cryptoCurrencies, balances, localFiat, viewInFiat } = useSelector(
+  const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       // localeFiat: state.common.localeFiat,
       localFiat: state.wallet.localFiat,
       balances: state.wallet.balances,
       cryptoCurrencies: state.wallet.cryptoCurrencies,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      cryptoSymbols: state.wallet.symbols,
     }),
     shallowEqual,
   );
@@ -85,7 +86,14 @@ const WithdrawCryptoPage = () => {
       min: cryptoCurrency ? cryptoCurrency.minWithdrawAmount : 0,
       fee: cryptoCurrency ? cryptoCurrency.withdrawFee : 0,
     };
-  }, [activeNetwork, activeCoin, cryptoCurrencies]);
+  }, [activeNetwork, activeCoin, cryptoCurrencies, withdrawInfo]);
+
+  const renderMaxValue = useMemo(() => {
+    const activeCrypto = cryptoSymbols.find((item) => item.id === activeCoin.id);
+    const withdrawableAmountUsd = withdrawInfo.availableAmountUsd;
+    const withdrawableAmount = withdrawableAmountUsd / (activeCrypto?.price || 1);
+    return withdrawableAmount;
+  }, [cryptoSymbols, withdrawInfo, activeCoin]);
 
   const renderBalanceValue = useMemo(() => {
     const selectedBalanceInfo = balances.find((item) => item.symbolId === activeCoin.id);
@@ -184,6 +192,8 @@ const WithdrawCryptoPage = () => {
       if (avaBalance < renderMinValue.min) {
         avaBalance = renderMinValue.min;
       }
+      if(avaBalance > renderMaxValue)
+        avaBalance = renderMaxValue;
       setValue('withdrawAmount', avaBalance.toFixed(4));
     },
     [renderBalanceValue, renderMinValue],
@@ -467,7 +477,7 @@ const WithdrawCryptoPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default py-[10px] px-[20px] min-w-[140px]"
+                  className="bg-gradient-btn-play hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px]"
                 >
                   {t('withdraw:confirm')}
                 </button>

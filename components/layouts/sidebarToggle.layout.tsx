@@ -265,25 +265,25 @@ export default function SidebarToggle() {
               <div className="flex items-center gap-[5px] mt-[10px]">
                 <IconOption
                   imageURL="/img/sidebar/quest.png"
-                  imageClass="absolute left-[2px] -top-[13px] w-[43px] h-[43px]"
-                  textClass="text-white ml-[22px]"
+                  imageClass="absolute -left-[5px] -top-[13px] w-[43px] h-[43px]"
+                  textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[8px]"
                   title={String(t('sidebar:quest'))}
                   href={'/#'}
                   icon={Gift}
                   isFontMedium
-                  fontWeight={600}
-                  classNames="h-[40px] bg-gradient-to-r hover:from-[#8C7BA4] hover:to-[#8C22FF] from-[#6A5982] to-[#6A00FF] rounded-[100px] px-[10px]"
+                  fontWeight={700}
+                  classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:to-[#6A00FF] rounded-[100px] px-[10px] !pr-[4px]"
                 />
                 <IconOption
                   imageURL="/img/sidebar/spin.png"
-                  imageClass="absolute left-[2px] -top-[12px] w-[54px] h-[37px]"
-                  textClass="text-white ml-[32px]"
+                  imageClass="absolute -left-[2px] -top-[10px] w-[47px] h-[32px]"
+                  textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
                   title={String(t('sidebar:spin'))}
                   href={'/#'}
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
-                  classNames="h-[40px] bg-gradient-to-r hover:from-[#FF55B4] hover:to-[#FC223E] from-[#F450A9] to-[#EA001C] rounded-[100px] px-[10px]"
+                  classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:to-[#EA001C] rounded-[100px] px-[10px] !pr-[4px]"
                 />
               </div>
               {panel_1_datas.map((item, index) => (
