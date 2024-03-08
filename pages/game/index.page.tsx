@@ -351,7 +351,7 @@ function GamePage() {
               </Link>
             </div>
           </div>
-          <div>
+          <div className="max-w-[1230px] m-auto">
             {/* Game play */}
             <FullScreen handle={gameScreen} className="sm:aspect-[2] aspect-[4/3] w-full mt-[20px] relative">
               <div
