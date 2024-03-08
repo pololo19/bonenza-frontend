@@ -216,14 +216,14 @@ export default function SignInTab({
             <div
               onClick={onClose}
               role="button"
-              className="bg-color-red grow hover:opacity-[0.9] rounded-default text-center text-white text-default px-[30px] py-[10px] m-auto"
+              className="bg-color-red grow hover:opacity-[0.9] rounded-large text-center text-white text-default px-[30px] py-[10px] m-auto"
             >
               {t('setting:cancel')}
             </div>
             <div
               onClick={sendQrCodeToEmail}
               role="button"
-              className="bg-color-secondary grow hover:opacity-[0.9] text-center rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+              className="bg-color-secondary grow hover:opacity-[0.9] text-center rounded-large text-white text-default px-[30px] py-[10px] m-auto"
             >
               {t('setting:confirm')}
             </div>
@@ -263,7 +263,7 @@ export default function SignInTab({
                 type="submit"
                 className={`${
                   codeOtp.length < 6 && 'opacity-70 pointer-events-none'
-                } bg-color-primary w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
+                } bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
                 <div className="text-default text-white">{t('authentication:submit')}</div>
@@ -302,7 +302,7 @@ export default function SignInTab({
               </div>
               <button
                 type="submit"
-                className="bg-gradient-btn-play w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-default text-white">{t('authentication:continue')}</div>
