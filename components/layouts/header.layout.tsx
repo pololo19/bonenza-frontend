@@ -94,7 +94,7 @@ export default function Navbar() {
                     key={index}
                     href={menu.href}
                     className={cn(
-                      'rounded-[3px] px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
+                      'rounded-large px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                       `${
                         router.route.includes(menu.href)
                           ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
