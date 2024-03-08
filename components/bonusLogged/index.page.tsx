@@ -179,14 +179,14 @@ function BonusLoggedPage() {
           </div>
           <div className="flex h-[48px] w-full justify-end">
             <input
-              className="focus:outline-none dark:bg-color-card-body-default bg-white text-[14px] rounded-[5px] placeholder:text-color-text-primary min-w-[200px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
+              className="focus:outline-none dark:bg-color-table-header-text-secondary/30 bg-white text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[200px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
               type="text"
             />
             <div
               onClick={onRedeemClick}
               role="button"
-              className="hover:opacity-[0.9] bg-color-primary text-[14px] text-white font-medium rounded-[5px] px-1 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
+              className="hover:opacity-[0.9] bg-gradient-btn-play text-[14px] text-white font-medium rounded-r-large px-1 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
             >
               {t('bonus:redeemBonusCode')}
             </div>
@@ -249,7 +249,7 @@ function BonusLoggedPage() {
             <div
               onClick={() => setOpenModalBonusDetails(true)}
               role="button"
-              className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-default dark:text-color-text-primary text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
+              className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-large dark:text-color-text-primary text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
             >
               {t('bonus:details')}
             </div>
