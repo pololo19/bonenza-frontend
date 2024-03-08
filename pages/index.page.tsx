@@ -500,15 +500,11 @@ function IndexPage() {
                 </>
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
-              <div
-                className={cn(
-                  'rounded-[50px]',
-                  "bg-[url('/img/octopus.png')] w-full",
-                  'bg-no-repeat object-cover bg-[length:100%_100%]',
-                )}
-              >
-                <div className="my-14 ml-[10%] flex flex-col gap-5">
-                  <div className="sm:text-3xl lg:text-4xl 2xl:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
+              <div className="relative w-full">
+                <Image src="/img/octopus.png" width={20} height={20} className="inset w-full object-cover hidden lg:block" alt="" />
+                <Image src="/img/mobile-octopus.png" width={20} height={20} className="inset w-full object-cover block lg:hidden" alt="" />
+                <div className="absolute left-[8%] right-0 top-[10%] bottom-[10%] flex flex-col justify-between">
+                  <div className="text-xl min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
                     <span className="font-bold">
                       {` `}
@@ -518,15 +514,20 @@ function IndexPage() {
                     <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
                   </div>
                   <div
-                    className="bg-gradient-btn-play rounded-large text-center text-white py-[20px] w-[236px] hover:opacity-[0.9] cursor-pointer"
+                    className={cn(
+                      "text-xl min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-2xl  min-[1400px]:text-3xl min-[1750px]:text-4xl",
+                      "font-bold bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[300px]",
+                      "hover:opacity-[0.9] cursor-pointer flex justify-center items-center"
+                    )}
                     onClick={() => {
                       handleClickDeposit();
                     }}
                   >
-                    {t('layout:deposit')}
+                    <span className="font-bold">{t('layout:deposit')}</span>
                   </div>
                 </div>
               </div>
+              
               <div className="relative w-full sm:block hidden">
                 <HomepageSession showIcon={false} isHome={true}>
                   <LatestBetRace />
