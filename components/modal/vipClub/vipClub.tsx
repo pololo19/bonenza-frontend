@@ -66,7 +66,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     bonuses: [],
   });
   const [rankList, setRankList] = useState<rankDataType[]>([]);
-  const [currentRank, setCurrentRank] = useState<{img: string, name: string}>();
+  const [currentRank, setCurrentRank] = useState<{ img: string; name: string }>();
   const dataMedal = [
     { img: '/img/bronze-medal.png', name: 'Bronze' },
     { img: '/img/silver-medal.png', name: 'Silver' },
@@ -201,6 +201,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                       src={currentRank?.img || ''}
                       width={69}
                       height={69}
+                      className="w-auto h-[68px]"
                       alt=""
                       onError={(e) => {
                         e.currentTarget.src = '/img/vip.png';
@@ -211,16 +212,13 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         <div
                           className="absolute top-0 h-full left-0 bg-color-primary"
                           style={{ width: `${percent}%` }}
-                        >
-                        </div>
+                        ></div>
                         <div className="absolute flex justify-center left-0 top-0 w-full h-full">
                           <Image src="/img/light.svg" width={108} height={138} alt="" />
                         </div>
                       </div>
                       <div className="flex items-center gap-[10px]">
-                        <div className="text-[14px] text-white">
-                          {`${vipData.xp} / ${vipData.nextXp} XP`}
-                        </div>
+                        <div className="text-[14px] text-white">{`${vipData.xp} / ${vipData.nextXp} XP`}</div>
                         <InfoCircle size={20} className="text-color-primary" data-tooltip-id={'your-vip-tooltip'} />
                         <Tooltip id={'your-vip-tooltip'} place="bottom" className="z-[10] !bg-white dark:!bg-black">
                           <div className="dark:text-color-text-primary text-color-light-text-primary">
@@ -231,9 +229,12 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                       </div>
                       <div>
                         <span className="font-bold text-[#50C627]">
-                          {t('vipClub:gain')}{' +'}{vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)}{' XP '}
+                          {t('vipClub:gain')}
+                          {' +'}
+                          {vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)}
+                          {' XP '}
                         </span>
-                         {t('vipClub:until')}{' '}{vipData.nextName}
+                        {t('vipClub:until')} {vipData.nextName}
                       </div>
                     </div>
                   </div>
@@ -241,14 +242,18 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 <div className="hidden lg:block blur-[1px] w-[1px] h-[120px] mt-[30px] rounded-[481px] bg-gradient-to-b from-black/[5%] via-white to-black/[5%]" />
                 <div className="block lg:hidden blur-[1px] h-[1px] w-[84%] ml-[8%] mt-[28px] rounded-[481px] bg-gradient-to-r from-black/[5%] via-white to-black/[5%]" />
                 <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px] flex flex-col justify-between">
-                  <div className="text-m_title text-white font-[700]">
-                    {t('vipClub:vipHost')}
-                  </div>
+                  <div className="text-m_title text-white font-[700]">{t('vipClub:vipHost')}</div>
                   <Image src={'/img/img-vip-host.png'} width={231} height={40} alt="" className="w-full object-cover" />
                   <div className="text-default font-bold">
                     <span className="font-bold">{t('vipClub:unlockYourExclusiveVip')}</span>
-                    <span className="uppercase text-[#FF9E4F] font-bold">{t('vipClub:vipHost')}{` `}</span>
-                    <span className="font-bold">{t('vipClub:hostAt')}{` `}</span>
+                    <span className="uppercase text-[#FF9E4F] font-bold">
+                      {t('vipClub:vipHost')}
+                      {` `}
+                    </span>
+                    <span className="font-bold">
+                      {t('vipClub:hostAt')}
+                      {` `}
+                    </span>
                     <span className="uppercase text-[#FF9E4F] font-bold">{t('vipClub:vipClub')}</span>
                   </div>
                 </div>
@@ -262,7 +267,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   {rankList.map((item, index) => (
                     <div
                       className={cn(
-                        'relative flex flex-col justify-between items-center w-[87px] min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] px-[15px] bg-transparent',                      
+                        'relative flex flex-col justify-between items-center w-[87px] min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] px-[15px] bg-transparent',
                         styles.rank_text,
                       )}
                       key={index}
@@ -290,11 +295,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           className="absolute left-0 right-0 -bottom-0 w-full h-full"
                         />
                       )}
-                      <div
-                        className="text-white text-[12px] font-semibold mt-[8px]"
-                      >
-                        {item.name}
-                      </div>
+                      <div className="text-white text-[12px] font-semibold mt-[8px]">{item.name}</div>
                     </div>
                   ))}
                 </div>
@@ -328,9 +329,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                               {type === 'level_up' && (
                                 <div
                                   className={cn(
-                                    " p-[1px] rounded-[20px]",
-                                    "bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]",
-                                    "dark:border-color-border-primary border-color-light-border-primary border border-solid"
+                                    ' p-[1px] rounded-[20px]',
+                                    'bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]',
+                                    'dark:border-color-border-primary border-color-light-border-primary border border-solid',
                                   )}
                                   role="button"
                                 >
@@ -355,9 +356,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                               {type === 'weekly_cashback' && (
                                 <div
                                   className={cn(
-                                    " p-[1px] rounded-[20px]",
-                                    "bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]",
-                                    "dark:border-color-border-primary border-color-light-border-primary border border-solid"
+                                    ' p-[1px] rounded-[20px]',
+                                    'bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]',
+                                    'dark:border-color-border-primary border-color-light-border-primary border border-solid',
                                   )}
                                   role="button"
                                 >
@@ -384,9 +385,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                               {type === 'monthly_cashback' && (
                                 <div
                                   className={cn(
-                                    " p-[1px] rounded-[20px]",
-                                    "bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]",
-                                    "dark:border-color-border-primary border-color-light-border-primary border border-solid"
+                                    ' p-[1px] rounded-[20px]',
+                                    'bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]',
+                                    'dark:border-color-border-primary border-color-light-border-primary border border-solid',
                                   )}
                                   role="button"
                                 >
