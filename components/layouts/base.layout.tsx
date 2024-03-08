@@ -478,7 +478,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   'xl:relative fixed': isToggleSidebar,
                 },
               )}
-s            >
+            >
               <SidebarToggle />
             </div>
             <div
