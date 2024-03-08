@@ -241,7 +241,8 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 )}
               </div>
 
-              <div className="flex w-full px-[20px] ">
+              {/* Hiding header */}
+              {/*<div className="flex w-full px-[20px] ">
                 <div className="flex w-full p-[5px] dark:bg-color-header-secondary bg-color-light-header-secondary rounded-[3px]">
                   <div
                     role="button"
@@ -249,15 +250,14 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   >
                     Currency
                   </div>
-                  {/* Hiding mNFT */}
-                  {/* <div
+                  <div
                     role="button"
                     className="flex w-full py-[10px] text-color-text-primary text-center justify-center"
                   >
                     mNFT
-                  </div> */}
+                  </div>
                 </div>
-              </div>
+                </div>*/}
               {/* Fiat */}
               <div className="sm:max-h-[40vh] max-h-[calc(100vh_-_366px)] overflow-y-auto px-[20px] w-full">
                 {!!filterListCrypto?.length && (

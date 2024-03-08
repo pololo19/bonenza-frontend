@@ -363,7 +363,7 @@ function IndexPage() {
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-default bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
@@ -379,7 +379,7 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-default bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                            className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}
@@ -396,7 +396,7 @@ function IndexPage() {
 
             <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:mt-[62px]">
               <GameBannerSlider className="w-full" />
-              <div className="md:grid md:grid-cols-2 min-[1400px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
+              <div className="md:grid md:grid-cols-2 min-[900px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}

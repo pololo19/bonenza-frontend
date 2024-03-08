@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_bonusStatistics } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
@@ -16,6 +17,7 @@ import BaseLayout from '@/components/layouts/base.layout';
 import CardGeneralBonus from '../cards/cardGeneralBonus';
 import CardVipBonus from '../cards/cardVipBonus';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
+import { TOAST_ENUM } from '@/base/constants/common';
 
 function BonusLoggedPage() {
   const exchangeRate = useExchange();
@@ -70,6 +72,7 @@ function BonusLoggedPage() {
         totalValue: '',
         nameButton: '',
         showDeposit: true,
+        tooltip: t('bonus:depositBonusRulesContent')
       },
     ],
     [i18n.language],
@@ -94,6 +97,10 @@ function BonusLoggedPage() {
         lastWeekBonusValue: '-',
         showHour: false,
         showDescription: true,
+        tooltip: [
+          t('bonus:weeklyCashBackTooltip1'),
+          t('bonus:weeklyCashBackTooltip2'),
+        ],
       },
       {
         backgroundDark: '/img/bg-weekly-cashback2.png',
@@ -112,6 +119,10 @@ function BonusLoggedPage() {
         lastWeekBonusValue: '-',
         showHour: false,
         showDescription: true,
+        tooltip: [
+          t('bonus:monthlyCashBackTooltip1'),
+          t('bonus:monthlyCashBackTooltip2'),
+        ],
       },
     ],
     [i18n.language, viewInFiat, localFiat],
@@ -154,6 +165,9 @@ function BonusLoggedPage() {
   useEffect(() => {
     getBonusStatistics();
   }, []);
+  const onRedeemClick = () => {
+    toast.error("The code doesn't exist", { containerId: TOAST_ENUM.COMMON, icon: true, autoClose: 3000, hideProgressBar: false });
+  };
 
   return (
     <>
@@ -170,6 +184,7 @@ function BonusLoggedPage() {
               type="text"
             />
             <div
+              onClick={onRedeemClick}
               role="button"
               className="hover:opacity-[0.9] bg-color-primary text-[14px] text-white font-medium rounded-[5px] px-1 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
             >
@@ -315,6 +330,7 @@ function BonusLoggedPage() {
                 totalValue={item.totalValue}
                 nameButton={item.nameButton}
                 showDeposit={item.showDeposit}
+                tooltip={item.tooltip}
               />
             ))}
             {dataCardVipBonus.map((item, index) => (
@@ -335,6 +351,7 @@ function BonusLoggedPage() {
                 lastWeekBonusValue={item.lastWeekBonusValue}
                 showHour={item.showHour}
                 showDescription={item.showDescription}
+                tooltip={item.tooltip}
               />
             ))}
           </div>
