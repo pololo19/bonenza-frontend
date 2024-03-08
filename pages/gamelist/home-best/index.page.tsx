@@ -34,7 +34,7 @@ function CasinoTagnamePage() {
       setIsLoading(true);
       const _res = await api_getPickGames(currentPage || 1, 40);
 
-      const tempGameLists: GameListType[] = _res.data.map((item: any) => ({
+      const tempGameLists: GameListType[] = _res.data?.games.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: '',
