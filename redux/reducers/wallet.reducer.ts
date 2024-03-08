@@ -39,6 +39,10 @@ const initialState: WalletState = {
   cryptoCurrencies: [],
   lockedAmount: 0,
   swapFee: 0.015,
+  activeTransactionStatus: {
+    id: '',
+    status: 0,
+  }, // socket deposit address
 };
 
 export const walletReducer = createSlice({
@@ -127,6 +131,9 @@ export const walletReducer = createSlice({
     setSwapFee: (state: WalletState, action: PayloadAction<number>) => {
       state.swapFee = action.payload;
     },
+    setActiveTransactionStatus: (state: WalletState, action: PayloadAction<{ id: string; status: number }>) => {
+      state.activeTransactionStatus = action.payload;
+    },
   },
 });
 
@@ -146,6 +153,7 @@ export const {
   setLockedAmount,
   updateCryptoPrice,
   updatedFiatPrice,
+  setActiveTransactionStatus,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 

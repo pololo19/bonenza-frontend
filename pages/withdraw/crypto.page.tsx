@@ -192,8 +192,7 @@ const WithdrawCryptoPage = () => {
       if (avaBalance < renderMinValue.min) {
         avaBalance = renderMinValue.min;
       }
-      if(avaBalance > renderMaxValue)
-        avaBalance = renderMaxValue;
+      if (avaBalance > renderMaxValue) avaBalance = renderMaxValue;
       setValue('withdrawAmount', avaBalance.toFixed(4));
     },
     [renderBalanceValue, renderMinValue],
@@ -250,8 +249,9 @@ const WithdrawCryptoPage = () => {
           { containerId: TOAST_ENUM.COMMON },
         );
         setValue('withdrawAddress', '');
+      } else {
+        toast.success(message, { containerId: TOAST_ENUM.COMMON });
       }
-      // toast.success(message, { containerId: TOAST_ENUM.COMMON });
       // router.push(ROUTER.Transaction);
     } catch (error) {
       if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue.min || 0)) {
