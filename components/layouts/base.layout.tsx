@@ -340,13 +340,17 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         const status = data?.status || '';
         switch (status) {
           case 'Processing':
-            toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
-            dispatch(getBalance());
+            setTimeout(() => {
+              toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
+              dispatch(getBalance());
+            }, 2000);
+
             break;
           case 'Complete':
-            toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
-            dispatch(getBalance());
-
+            setTimeout(() => {
+              toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
+              dispatch(getBalance());
+            }, 2500);
             break;
 
           default:
