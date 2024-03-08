@@ -62,14 +62,14 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 
   return (
     <>
-      <div className="sm:max-w-[96px] max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] rounded-[10px] overflow-hidden pb-2">
+      <div className="sm:max-w-[96px] max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 rounded-default sm:rounded-large overflow-hidden pr-4 sm:px-0">
         <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[6px]">
           <Image
             height={96}
             width={96}
             src={imgCard}
             alt=""
-            className="sm:w-full w-[35px] h-auto object-contain rounded-[0px]"
+            className="sm:w-full w-[36px] h-[auto] object-contain rounded-[0px]"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(96, 96))}`}
           />
@@ -93,7 +93,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
           data-tooltip-id={'CardBigWinData' + price}
           className="cursor-pointer sm:w-full flex justify-center text-center sm:rounded-[5px]"
         >
-          <div className="text-color-primary font-semibold text-[13px] sm:text-[12px] truncate">{price}</div>
+          <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
         </div>
       </div>
       <Tooltip id={'CardBigWinData' + price} place="bottom" content={String(price)} />
