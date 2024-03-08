@@ -241,7 +241,7 @@ const WithdrawCryptoPage = () => {
         );
         setValue('withdrawAddress', '');
       }
-      toast.success(message, { containerId: TOAST_ENUM.COMMON });
+      // toast.success(message, { containerId: TOAST_ENUM.COMMON });
       // router.push(ROUTER.Transaction);
     } catch (error) {
       if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue.min || 0)) {
