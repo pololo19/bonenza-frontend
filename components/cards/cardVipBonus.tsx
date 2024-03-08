@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 import { useTranslation } from '@/base/config/i18next';
+import { Tooltip } from 'react-tooltip';
 
 type CardVipBonusProps = {
   background: string;
@@ -20,6 +21,7 @@ type CardVipBonusProps = {
   lastWeekBonusValue: string;
   showHour: boolean;
   showDescription: boolean;
+  tooltip: string[];
 };
 
 export default function CardVipBonus({
@@ -38,6 +40,7 @@ export default function CardVipBonus({
   lastWeekBonusValue,
   showHour,
   showDescription,
+  tooltip,
 }: CardVipBonusProps) {
   const { t } = useTranslation('');
   const { theme, setTheme } = useTheme();
@@ -59,7 +62,20 @@ export default function CardVipBonus({
               width={16}
               height={16}
               alt=""
+              data-tooltip-id={`${name}-bonus-tooltip`}
             />
+            <Tooltip id={`${name}-bonus-tooltip`} place="bottom" className="dark:bg-black/0 bg-white z-[30]" opacity={100}>
+              <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">
+                {tooltip.map((item, index) => (
+                  <div key={index} className="w-full flex gap-2">
+                    <div className="min-w-[6px] h-[6px] mt-2 rounded-full bg-color-text-primary"></div>
+                    <div>
+                      {item}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </Tooltip>
           </div>
           {showDescription && (
             <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] mt-[5px]">
