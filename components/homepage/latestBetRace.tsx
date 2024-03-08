@@ -18,7 +18,7 @@ const LatestBetRace = () => {
           role="button"
           onClick={() => setOpenTab(1)}
           className={cn('font-bold', {
-            'dark:text-color-table-header-text-primary': openTab === 1,
+            'dark:text-color-primary': openTab === 1,
             'dark:text-color-table-header-text-secondary': openTab !== 1,
           })}
         >
@@ -28,7 +28,7 @@ const LatestBetRace = () => {
           role="button"
           onClick={() => setOpenTab(2)}
           className={cn('font-bold', {
-            'dark:text-color-table-header-text-primary': openTab === 2,
+            'dark:text-color-primary': openTab === 2,
             'dark:text-color-table-header-text-secondary': openTab !== 2,
           })}
         >
@@ -38,14 +38,14 @@ const LatestBetRace = () => {
           role="button"
           onClick={() => setOpenTab(3)}
           className={cn('font-bold', {
-            'dark:text-color-table-header-text-primary': openTab === 3,
+            'dark:text-color-primary': openTab === 3,
             'dark:text-color-table-header-text-secondary': openTab !== 3,
           })}
         >
           {t('homePage:wagerContest')}
         </div>
       </div>
-      <div className="bg-color-table-header-text-primary h-[1px] ml-[35px] mr-[35px]"/>
+      <div className="bg-color-table-header-text-primary h-[1px] ml-[35px] mr-[35px]" />
       <div className="w-full h-full rounded-[5px] relative">
         <div className="md:px-[20px] sm:px-[10px] sm:py-[10px] px-[5px] py-[5px] z-[2] w-full">
           <div className="md:text-[13px] text-[12px] max-[430px]:text-[10px] text-[#939699]">
