@@ -258,8 +258,8 @@ export default function SidebarToggle() {
                 icon={Gift}
                 isFontMedium
                 fontWeight={600}
-                activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
-                classNames="!h-[45px] !py-[10px] bg-gradient-to-r hover:from-[#3E8AD1] hover:to-[#284FAD] from-[#3ED18A] to-[#28AD4F] rounded-[100px] px-[10px]"
+                activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
+                classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
               />
 
               <div className="flex items-center gap-[5px] mt-[10px]">

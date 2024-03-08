@@ -88,7 +88,7 @@ module.exports = {
         'color-primary-1': '#46a41f',
         'color-secondary': '#F4C416',
         'color-table-header-bg-primary': '#1D1E22',
-        'color-table-header-text-primary': '#0DFDE4',
+        'color-table-header-text-primary': '#1E8E00',
         'color-table-header-text-secondary': '#888',
         'color-tbl-primary': '#131315',
         'color-table-bg-primary': '#141518',
