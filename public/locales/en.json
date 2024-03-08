@@ -1880,6 +1880,7 @@
     "locationIsNotAllowed": "Sorry, this game is not available in your region."
   },
   "success": {
-    "bonusClaimed": "Your Bonus is Claimed"
+    "bonusClaimed": "Your Bonus is Claimed",
+    "success": "Success"
   }
 }

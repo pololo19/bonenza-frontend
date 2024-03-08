@@ -44,17 +44,18 @@ import TabGames from '@/components/tabGames/tabGames';
 import VipProgressComponent from '@/components/vipProgress/vipProgress';
 
 import { useTranslation } from '../config/i18next';
-import { ROUTER } from '../constants/common';
+import { ROUTER, TOAST_ENUM } from '../constants/common';
 import { useExchange } from '../hooks/useExchange';
 import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
+import { toast } from 'react-toastify';
 
 function IndexPage() {
   const width = useWidth();
   const exchangeRate = useExchange();
-  const { t } = useTranslation('');
+  const { t, i18n } = useTranslation('');
   const { theme } = useTheme();
   const { query } = useRouter();
   const { key } = query;
@@ -97,7 +98,7 @@ function IndexPage() {
         href: ROUTER.Slots,
       },
     ],
-    [],
+    [i18n.language],
   );
 
   const dispatch = useDispatch();
@@ -603,7 +604,12 @@ function IndexPage() {
                       placeholder={String(t('homePage:foundBug'))}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
-                      <div className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer">
+                      <div
+                        className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
+                        onClick={() => {
+                          toast.success(String(t('success:success')), { containerId: TOAST_ENUM.COMMON });
+                        }}
+                      >
                         {String(t('homePage:leaveAMessage'))}
                       </div>
                       <div className="text-color-text-secondary text-default">{String(t('footer:nowGetReward'))}</div>
