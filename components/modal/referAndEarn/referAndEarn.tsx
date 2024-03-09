@@ -3,12 +3,11 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType } from 'react';
 import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { copyClipBoard, currencyFormat, currencyFormat1 } from '@/base/libs/utils';
+import { copyClipBoard, currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
@@ -80,14 +79,14 @@ export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) 
             {t('referAndEarn:shareYourReferralLink')}
           </div>
           <div className="bg-[#f5f6fa] dark:bg-[#12181F] text-black dark:text-white rounded-default px-5 py-5 h-[70px] flex justify-between items-center">
-            <div className="max-sm:text-[14px]">{`https://bonenza/${referralCode}`}</div>
+            <div className="max-sm:text-[14px]">{ROUTER.REFERRAL_CODE(referralCode)}</div>
             <div className="flex w-[74px] h-[38px] bg-color-primary rounded-default justify-center items-center">
               <div className="mr-[3px]">
                 <Image height={18} width={18} className="w-[18px] h-[18px]" src="/img/simcard-2.png" alt="" />
               </div>
               <div
                 className="text-[12px] text-[#ffffff]"
-                onClick={() => copyClipBoard(`https://bonenza/${referralCode}`)}
+                onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(referralCode))}
               >
                 {' '}
                 {t('referAndEarn:copy')}

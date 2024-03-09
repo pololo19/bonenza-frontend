@@ -48,7 +48,7 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
           return (
             <SwiperSlide key={id}>
               <Link href={banner.url}>
-                <Image width={443} height={196} className="object-cover w-full rounded-[30px]" src={banner.img} alt="" />
+                <Image width={443} height={196} className="object-cover w-full rounded-large" src={banner.img} alt="" />
               </Link>
             </SwiperSlide>
           );

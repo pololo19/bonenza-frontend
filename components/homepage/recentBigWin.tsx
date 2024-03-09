@@ -62,14 +62,14 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
 
   return (
     <>
-      <div className="sm:max-w-[96px] max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 rounded-default sm:rounded-large overflow-hidden pr-4 sm:px-0">
+      <div className="sm:max-w-[96px] h-full max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
         <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[6px]">
           <Image
             height={96}
             width={96}
             src={imgCard}
             alt=""
-            className="sm:w-full w-[36px] h-[auto] object-contain rounded-[0px]"
+            className="sm:w-full w-[36px] h-[auto] object-contain rounded-default"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(96, 96))}`}
           />
@@ -81,12 +81,16 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
               'dark:text-white text-black': !(userData?.userId !== userId && !userData?.username),
             })}
           >
-          
-            {userData?.userId !== userId && !userData?.username
-              ? <span className="flex items-center"><Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 mr-1" />{String(t('homePage:hidden'))}</span>
-              : userData.userId === userId
-              ? <div className="w-[96px] truncate px-1">{userName}</div>
-              : <div className="w-[96px] truncate px-1">{userData?.username}</div>}
+            {userData?.userId !== userId && !userData?.username ? (
+              <span className="flex items-center">
+                <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 mr-1" />
+                {String(t('homePage:hidden'))}
+              </span>
+            ) : userData.userId === userId ? (
+              <div className="w-[96px] truncate px-1 text-left sm:text-center">{userName}</div>
+            ) : (
+              <div className="w-[96px] truncate px-1 text-left sm:text-center">{userData?.username}</div>
+            )}
           </div>
         </div>
         <div

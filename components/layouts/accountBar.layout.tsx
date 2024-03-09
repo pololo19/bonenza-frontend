@@ -2,29 +2,21 @@ import { googleLogout } from '@react-oauth/google';
 import cn from 'classnames';
 import {
   ArrowRight2,
-  ArrowSwapHorizontal,
-  Box,
   CardCoin,
   CardReceive,
-  Chart,
   Coin1,
   Command,
   DollarCircle,
   Global,
-  Money2,
   MoneyChange,
   MoneyRecive,
-  Moon,
-  NotificationBing,
   Setting,
-  Story,
-  Sun1,
 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -38,6 +30,7 @@ import {
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
   changeIsShowMultiLanguageModal,
+  changeIsShowReferAndEarn,
   changeMultiLanguageTab,
 } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
@@ -147,13 +140,14 @@ const AccountPannel: React.FC = () => {
         isLink: false,
         classNames: '',
         activeClassNames: '',
+        onClick: () => dispatch(changeIsShowReferAndEarn(true)),
       },
       {
         title: String(t('sidebar:affiliate')),
-        href: '',
+        href: ROUTER.Affiliate,
         icon: <Command />,
         extra: <></>,
-        isLink: false,
+        isLink: true,
         classNames: '',
         activeClassNames: '',
       },
@@ -186,7 +180,7 @@ const AccountPannel: React.FC = () => {
         },
       },
       {
-        title: String(t('currency:currency')),
+        title: String(t('setting:currencySetting')),
         href: '',
         icon: <DollarCircle />,
         isLink: false,
