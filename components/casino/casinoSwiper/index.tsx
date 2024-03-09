@@ -84,7 +84,7 @@ const CasinoSwiper = <T,>({
               </div>
             </div>
             <Swiper
-              slidesPerView={width > 600 ? slide : 3}
+              slidesPerView={width > 600 ? 'auto' : 3}
               freeMode={true}
               autoplay={{
                 delay: 2000,
@@ -101,7 +101,7 @@ const CasinoSwiper = <T,>({
                 return (
                   <SwiperSlide
                     key={key}
-                    className={`w-full !mb-0 !p-[0px] sm:!p-0`}
+                    className={`w-full !mb-0 !p-[0px] sm:!p-0 max-w-[96px]`}
                     onClick={() => onClickItem?.(game)}
                   >
                     {renderItem(game)}
