@@ -59,13 +59,14 @@ const TransactionPage = () => {
   const { t, i18n } = useTranslation('');
   const exchangeRate = useExchange();
 
-  const { localFiat, viewInFiat, cryptoSymbols, userId, username } = useSelector(
+  const { localFiat, viewInFiat, cryptoSymbols, userId, username, activeTransaction } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       cryptoSymbols: state.wallet.symbols,
       userId: state.user.userId,
       username: state.user.userName,
+      activeTransaction: state.wallet.activeTransactionStatus,
     }),
     shallowEqual,
   );
@@ -736,6 +737,31 @@ const TransactionPage = () => {
         return depositColumns;
     }
   }, [columnType, viewInFiat, localFiat, optionFilter, t]);
+
+  useEffect(() => {
+    if (activeTransaction.id) {
+      console.log(activeTransaction);
+
+      if (activeTransaction.status == 0) {
+        getTransactions(1);
+        return;
+      }
+      const tempTransactions = [...dataTable];
+      if (optionFilter.type.type === TRANSACTION_TYPE.Deposit || optionFilter.type.type === TRANSACTION_TYPE.Withdraw) {
+        if (tempTransactions.findIndex((item: any) => item.id === activeTransaction.id) !== -1) {
+          const _updatedTransactions = tempTransactions.map((item: any) => {
+            if (item.id === activeTransaction.id) {
+              item.status = getStatusByIdDeposit(activeTransaction.status);
+            }
+            return item;
+          });
+          setDataTable(_updatedTransactions);
+        }
+      }
+    }
+  }, [activeTransaction, optionFilter]);
+
+  console.log(activeTransaction, '----764');
 
   return (
     <div className={`${styles.cardContent}`}>

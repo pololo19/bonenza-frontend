@@ -89,7 +89,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
                     key={header.id}
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
-                      'whitespace-nowrap dark:text-color-text-primary text-color-light-text-primary font-semibold !text-[14px] border-none text-center',
+                      'whitespace-nowrap bg-color-table-header-bg-primary dark:text-color-text-primary text-color-light-text-primary font-semibold !text-[14px] border-none text-center',
                     )}
                     {...{
                       style: {
@@ -105,22 +105,16 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn('sm:text-[14px] text-[12px]', {'relative py-10': isLoading})}>
-          {isLoading && 
-            <div 
-              className={
-                cn
-                (
-                  'flex justify-center',
-                  {
-                    'absolute left-0 right-0 top-0 bottom-0': isLoading,
-                  }
-                )
-              }
+        <tbody className={cn('sm:text-[14px] text-[12px]', { 'relative py-10': isLoading })}>
+          {isLoading && (
+            <div
+              className={cn('flex justify-center', {
+                'absolute left-0 right-0 top-0 bottom-0': isLoading,
+              })}
             >
-              <ReactLoading type="bubbles" color="#50C627" delay={50}/>
+              <ReactLoading type="bubbles" color="#50C627" delay={50} />
             </div>
-          }
+          )}
           {!!data?.length &&
             getRowModel().rows.map((row) => (
               <tr

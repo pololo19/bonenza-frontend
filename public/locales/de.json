@@ -63,7 +63,7 @@
     "verify": "Verifizieren",
     "racing": "Rennen",
     "top": "Spitze",
-    "updown": "Hoch"
+    "updown": "Up & Down"
   },
   "affiliate": {
     "inviteFriendsToEarn": "LADEN SIE FREUNDE EIN, UM ZU VERDIENEN",
@@ -302,7 +302,7 @@
     "rewardsAtBONENZA": "Prämien bei BONENZA",
     "onlyVIPClub": "Nur im VIP-Club",
     "requireSign": "Bitte registrieren Sie sich zuerst oder melden Sie sich an",
-    "updown": "HOCH",
+    "updown": "UP & DOWN",
     "updownDescription": "Sichern Sie sich den Sieg im Wettbewerb durch die Bereitstellung eines Echtzeit-Bitcoin-Charts."
   },
   "sidebar": {
@@ -528,7 +528,7 @@
     "transactionHash": "Transaktions-Hash",
     "fee": "Gebühr",
     "withdrawalAddress": "Auszahlungsadresse",
-    "progess": "Fortschritt",
+    "progress": "Fortschritt",
     "sendOrderSubmitted": "Bestellung abschicken",
     "submittedAt": "Eingereicht bei",
     "blockchainProcessing": "Blockchain-Verarbeitung",
