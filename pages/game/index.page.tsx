@@ -331,6 +331,10 @@ function GamePage() {
     }
   }, [localFiat]);
 
+  useEffect(() => {
+    setSuccessfullyLaunched(false);
+  }, [gameId]);
+
   return (
     <>
       {isLoading && <Loader />}
@@ -679,7 +683,7 @@ function GamePage() {
                   onClick={() => setOpenShareGame(true)}
                 >
                   <Send2 size={20} variant="Bold" /> 
-              </div>*/ }
+              </div>*/}
               </div>
               <div className="text-color-text-secondary flex gap-[20px] items-center">
                 {/* Hiding three Tooltips for Game */}
