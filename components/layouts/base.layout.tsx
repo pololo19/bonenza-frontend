@@ -508,7 +508,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               id="base-layout"
             >
               <SubMobileMenu datas={headerMenus} isShow={isShowMobileSubMenu} />
-
+              
               <WrapperBody
                 id="wrapperBody"
                 contentClassName={cn(contentClass)}

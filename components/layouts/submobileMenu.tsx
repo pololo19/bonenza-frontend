@@ -13,11 +13,11 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
   const router = useRouter();
 
   return (
-    <>
+    <div className="sticky top-0 z-[9] dark:bg-color-header-primary">
       <div className="p-0">
         <div
           className={cn(
-            `relative mt-[10px] mx-[12px] max-w-full overflow-x-auto snap-x snap-mandatory sm:hidden flex sm:flex-wrap flex-nowrap gap-[8px]`,
+            `relative my-[4px] mx-[12px] max-w-full overflow-x-auto snap-x snap-mandatory sm:hidden flex sm:flex-wrap flex-nowrap gap-[8px]`,
             {
               hidden: !isShow,
               '-translate-y-full': !isShow,
@@ -51,7 +51,7 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
           })}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
