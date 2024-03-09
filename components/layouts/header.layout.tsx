@@ -1,12 +1,12 @@
 import cn from 'classnames';
-import { Add, Global, MessageText1, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
+import { Add, Global, MessageText1, MoneyRecive, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
+import { headerMenus } from '@/base/constants/config-menus';
 import { handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
@@ -20,15 +20,11 @@ import {
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
-import CasinoBoldIcon from '../icons/CasinoBoldIcon';
 import ChatSignOutIcon from '../icons/ChatSignOutIcon';
-import RacingBoldIcon from '../icons/RacingBoldIcon';
-import SportBoldIcon from '../icons/SportBoldIcon';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import ProfileDropdown from '../profileDropdown/profileDropdown';
 import RewardDropdown from '../rewardDropdown/rewardDropdown';
 import FiatHeader from './header/fiatHeader';
-import { headerMenus } from '@/base/constants/config-menus';
 
 export default function Navbar() {
   const router = useRouter();
@@ -53,22 +49,19 @@ export default function Navbar() {
     <>
       {/* Navbar */}
       <div
-        className={cn(
-          'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[70px]',
-          {
-            'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
-            'md:ml-[244px] md:max-w-[calc(100%-244px)]': isToggleSidebar && !showChatType,
-            'xl:ml-[244px] xl:max-w-[calc(100%-594px)]': showChatType && isToggleSidebar,
-            'sm:ml-[62px] xl:max-w-[calc(100%-406px)]': showChatType && !isToggleSidebar,
-          },
-        )}
+        className={cn('w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[70px]', {
+          'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
+          'md:ml-[244px] md:max-w-[calc(100%-244px)]': isToggleSidebar && !showChatType,
+          'xl:ml-[244px] xl:max-w-[calc(100%-594px)]': showChatType && isToggleSidebar,
+          'sm:ml-[62px] xl:max-w-[calc(100%-406px)]': showChatType && !isToggleSidebar,
+        })}
         onClick={() => {
           if (isShowCasinoSearch) dispatch(changeIsShowCasinoSearch(false));
         }}
       >
         <div
           className={cn(
-            'flex py-[10px] flex-1 h-full lg:justify-end xl:justify-between sm:max-md:justify-center md:justify-end justify-between w-full sm:px-[40px] px-[12px]',
+            'flex py-[10px] flex-1 h-full lg:justify-end xl:justify-between sm:max-md:justify-center md:justify-end justify-between w-full px-[12px] sm:px-1 md:px-[12px] xl:pl-[40px] xl:pr-[73px]',
             {
               // 'sm:pl-[62px]': !isToggleSidebar && !showChatType,
               // 'md:pl-[205px]': isToggleSidebar && !showChatType,
@@ -102,13 +95,18 @@ export default function Navbar() {
                       }`,
                     )}
                   >
-                    <img width={20} height={20} src={`/img/header/${menu?.image || ''}`} className="object-cover w-full"/>
+                    <img
+                      width={20}
+                      height={20}
+                      src={`/img/header/${menu?.image || ''}`}
+                      className="object-cover w-full"
+                    />
                   </Link>
                 );
               })}
           </div>
 
-          <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto min-[1700px]:pr-24">
+          <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
             {/* Button */}
             <button
               type="button"
@@ -116,7 +114,7 @@ export default function Navbar() {
               onClick={() => dispatch(changeIsShowCasinoSearch(!isShowCasinoSearch))}
             >
               <div className="">
-                <SearchNormal className="w-[20px] h-[20px] stroke-[2px]"/>
+                <SearchNormal className="w-[20px] h-[20px] stroke-[2px]" />
               </div>
             </button>
             {!isLogin && (
