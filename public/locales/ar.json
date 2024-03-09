@@ -528,7 +528,7 @@
     "transactionHash": "تجزئة الصفقة",
     "fee": "مصاريف",
     "withdrawalAddress": "عنوان السحب",
-    "progess": "التقدم",
+    "progress": "التقدم",
     "sendOrderSubmitted": "إرسال الطلب المقدم",
     "submittedAt": "قدمت في",
     "blockchainProcessing": "معالجة بلوكتشين",

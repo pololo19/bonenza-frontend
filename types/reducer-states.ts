@@ -98,6 +98,10 @@ export type WalletState = {
   depositAddress: DepositAddressType[];
   lockedAmount: number;
   swapFee: number;
+  activeTransactionStatus: {
+    id: string;
+    status: number; // 0 processing, 1 complete
+  };
 };
 
 export type GameState = {

@@ -161,25 +161,39 @@ export default function ModalDetailTransaction({
                     {transformWalletAddress(transaction.withdrawalAddress)}
                   </span>
                 </div>
+              </>
+            )}
+            {(type === TRANSACTION_TYPE.Withdraw || type === TRANSACTION_TYPE.Deposit) && (
+              <>
                 <div className="h-[1px] w-full dark:bg-[#98A7B5] bg-[#f5f6fa]" />
                 <div className="flex items-center">
-                  <span className="dark:text-white text-black">{String(t('transaction:progess'))}</span>
+                  <span className="dark:text-white text-black">{String(t('transaction:progress'))}</span>
                 </div>
                 <div className="relative flex flex-col gap-3">
-                  <div className={`h-[50%] absolute top-[16px] bg-[#008000] w-[2px] left-[14px]`}></div>
-                  <div className="flex items-center gap-2">
-                    <div className="relative flex items-center jutify-center w-[32px] h-[32px]">
-                      <div className="absolute bg-white w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	"></div>
-                      <TickCircle size="32" color="green" variant="Bold" className="absolute w-[32px] h-[32px] z-1" />
+                  <div
+                    className={cn('h-[50%] absolute top-[16px] w-[2px] left-[14px]', {
+                      'bg-[#414346]': isProcess,
+                      'bg-color-primary': !isProcess,
+                    })}
+                  ></div>
+                  {type === TRANSACTION_TYPE.Withdraw && (
+                    <div className="flex items-center gap-2">
+                      <div className="relative flex items-center jutify-center w-[32px] h-[32px]">
+                        <div className="absolute bg-white w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	"></div>
+                        <TickCircle size="32" color="green" variant="Bold" className="absolute w-[32px] h-[32px] z-1" />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="dark:text-white text-black">
+                          {String(t('transaction:sendOrderSubmitted'))}
+                        </span>
+                        <span className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
+                          {String(t('transaction:submittedAt'))}{' '}
+                          {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <span className="dark:text-white text-black">{String(t('transaction:sendOrderSubmitted'))}</span>
-                      <span className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
-                        {String(t('transaction:submittedAt'))}{' '}
-                        {formatDate(new Date(transaction.time), DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
-                      </span>
-                    </div>
-                  </div>
+                  )}
+
                   <div className="flex items-center gap-2">
                     {isProcess ? (
                       <div className="relative z-1 flex items-center justify-center w-[32px] h-[32px]">
@@ -202,11 +216,14 @@ export default function ModalDetailTransaction({
                       </span>
                     </div>
                   </div>
-                  <div
-                    className={`${
-                      isProcess ? 'bg-[#414346]' : 'bg-color-primary'
-                    } h-[50%] absolute top-[60px] w-[2px] left-[14px]`}
-                  ></div>
+                  {type === TRANSACTION_TYPE.Withdraw && (
+                    <div
+                      className={cn('h-[50%] absolute top-[60px] w-[2px] left-[14px]', {
+                        'bg-[#414346]': isProcess,
+                        'bg-color-primary': !isProcess,
+                      })}
+                    ></div>
+                  )}
                   <div className="flex items-center gap-2">
                     <div className="relative flex items-center jutify-center w-[32px] h-[32px]">
                       <div

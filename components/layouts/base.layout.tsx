@@ -50,6 +50,7 @@ import {
   getBalance,
   initWalletInfo,
   logoutWallet,
+  setActiveTransactionStatus,
   setFiatSymbols,
   setLocalFiat,
   updateBalance,
@@ -314,19 +315,33 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     if (walletSocket && isLogin) {
       walletSocket.on(`${userId}:deposit`, (data: any) => {
+        console.log(data, '----318');
         // const data = JSON.parse(item);
         const status = data?.status || '';
         const amount = data?.amount || 0;
         const symbol = data?.symbol || 'USDT';
+        const id = data?.transaction_id || '';
         switch (status) {
           case 'Processing':
             toast.success(t('deposit:depositprogress'), { containerId: TOAST_ENUM.COMMON });
+            dispatch(
+              setActiveTransactionStatus({
+                id,
+                status: 0,
+              }),
+            );
             dispatch(getBalance());
             break;
           case 'Complete':
             toast.success(`${t('deposit:depositComplete')} ${amount} ${symbol}`, {
               containerId: TOAST_ENUM.COMMON,
             });
+            dispatch(
+              setActiveTransactionStatus({
+                id,
+                status: 1,
+              }),
+            );
             dispatch(getBalance());
             dispatch(addDepositTime(1));
             break;
@@ -493,7 +508,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               id="base-layout"
             >
               <SubMobileMenu datas={headerMenus} isShow={isShowMobileSubMenu} />
-
+              
               <WrapperBody
                 id="wrapperBody"
                 contentClassName={cn(contentClass)}
