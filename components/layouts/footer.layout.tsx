@@ -43,11 +43,11 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
       network: 'Ethereum',
       token: 'ETH',
     },
-    {
-      icon: '/img/icon/trx-icon.png',
-      network: 'TRON',
-      token: 'TRX',
-    },
+    // {
+    //   icon: '/img/icon/trx-icon.png',
+    //   network: 'TRON',
+    //   token: 'TRX',
+    // },
     {
       icon: '/img/icon/binance-icon.png',
       network: 'BSC',
@@ -567,7 +567,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             </div>
           )}
           {/* footer 4 */}
-          <div className="flex flex-col gap-5 px-5 sm:px-10 xl:px-20">
+          <div className="flex flex-col gap-5 px-5 sm:px-10 xl:px-20 pb-[60px] sm:pb-4">
             <Image
               alt=""
               src="/img/logo-light.png"
