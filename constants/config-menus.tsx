@@ -1,24 +1,6 @@
-import {
-  ArrowSwapVertical,
-  Award,
-  Command,
-  Diamonds,
-  Element3,
-  Gift,
-  HambergerMenu,
-  Headphone,
-  Judge,
-  Medal,
-  Moon,
-  Notepad2,
-  SecurityCard,
-  Sun1,
-  Ticket,
-  TrendUp,
-} from 'iconsax-react';
-import Image from 'next/image';
+import { ArrowSwapVertical, Element3 } from 'iconsax-react';
 
-import { IconOptionProps, OptionSidebarDataType } from '@/components/common/iconOption/iconOption';
+import { OptionSidebarDataType } from '@/components/common/iconOption/iconOption';
 import BlackjackIcon from '@/components/icons/BlackjackIcon';
 import BuyInIcon from '@/components/icons/BuyInIcon';
 import CasinoBoldIcon from '@/components/icons/CasinoBoldIcon';

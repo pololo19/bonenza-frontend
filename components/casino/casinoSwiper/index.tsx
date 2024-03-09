@@ -17,7 +17,14 @@ type CasinoSwiperProps<T> = {
   onClickItem?: (game: T) => void;
 };
 
-const CasinoSwiper = <T,>({ title, icon, data, renderItem, onClickItem, maxCount=7 }: CasinoSwiperProps<T>): JSX.Element => {
+const CasinoSwiper = <T,>({
+  title,
+  icon,
+  data,
+  renderItem,
+  onClickItem,
+  maxCount = 7,
+}: CasinoSwiperProps<T>): JSX.Element => {
   const width = useWidth();
 
   const [slide, setSlide] = useState<number>(maxCount);
