@@ -7,6 +7,7 @@ import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
+import { toast } from 'react-toastify';
 
 import {
   api_getCasinoWithKey,
@@ -34,8 +35,6 @@ import LatestBetRace from '@/components/homepage/latestBetRace';
 import RecentBigWinComponent from '@/components/homepage/recentBigWin';
 import RecommendedGamesComponent from '@/components/homepage/recommendedGames';
 import TopRateGameComponent from '@/components/homepage/topRateGame';
-import CasinoBoldIcon from '@/components/icons/CasinoBoldIcon';
-import SportBoldIcon from '@/components/icons/SportBoldIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
 import { NoDataComponent } from '@/components/noData/noData';
@@ -50,7 +49,6 @@ import { useWidth } from '../hooks/useWidth';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
 import { AppState } from '../redux/store';
-import { toast } from 'react-toastify';
 
 function IndexPage() {
   const width = useWidth();
@@ -501,8 +499,20 @@ function IndexPage() {
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
               <div className="relative w-full">
-                <Image src="/img/octopus.png" width={20} height={20} className="inset w-full object-cover hidden lg:block" alt="" />
-                <Image src="/img/mobile-octopus.png" width={20} height={20} className="inset w-full object-cover block lg:hidden" alt="" />
+                <Image
+                  src="/img/octopus.png"
+                  width={20}
+                  height={20}
+                  className="inset w-full object-cover hidden lg:block"
+                  alt=""
+                />
+                <Image
+                  src="/img/mobile-octopus.png"
+                  width={20}
+                  height={20}
+                  className="inset w-full object-cover block lg:hidden"
+                  alt=""
+                />
                 <div className="absolute left-[8%] right-0 top-[10%] bottom-[10%] flex flex-col justify-between">
                   <div className="text-xl min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
@@ -515,9 +525,9 @@ function IndexPage() {
                   </div>
                   <div
                     className={cn(
-                      "text-xl min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-2xl  min-[1400px]:text-3xl min-[1750px]:text-4xl",
-                      "font-bold bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[300px]",
-                      "hover:opacity-[0.9] cursor-pointer flex justify-center items-center"
+                      'text-[16px] xl:text-title 2xl:text-m_title',
+                      'font-bold bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[200px]',
+                      'hover:opacity-[0.9] cursor-pointer flex justify-center items-center',
                     )}
                     onClick={() => {
                       handleClickDeposit();
@@ -527,7 +537,7 @@ function IndexPage() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="relative w-full sm:block hidden">
                 <HomepageSession showIcon={false} isHome={true}>
                   <LatestBetRace />

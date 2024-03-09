@@ -1,24 +1,23 @@
 import cn from 'classnames';
-import { Box1, EmptyWallet, HambergerMenu, Message, RotateLeft, User } from 'iconsax-react';
-import Image from 'next/image';
+import { EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_validateToken } from '@/api/auth';
-import { api_getPickGames } from '@/api/game';
 import { api_getInitData } from '@/api/wallet';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL, TOAST_ENUM } from '@/base/constants/common';
+import { headerMenus } from '@/base/constants/config-menus';
 import { useWidth } from '@/base/hooks/useWidth';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { addBetHistory, setBetHistory, setRecommandGames } from '@/base/redux/reducers/game.reducer';
+import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
@@ -58,18 +57,13 @@ import {
   updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetDetailType, BetTableDataType, FiatType, GameListType } from '@/base/types/common';
+import { BetTableDataType, FiatType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
 import ChattingComponent from '../chatting/chattingComponent';
-import { OptionSidebarDataType } from '../common/iconOption/iconOption';
 import Loader from '../common/preloader/loader';
-import CasinoBoldIcon from '../icons/CasinoBoldIcon';
-import HomeIcon from '../icons/HomeIcon';
 import HomeIconOutline from '../icons/HomeIconOutline';
-import RacingBoldIcon from '../icons/RacingBoldIcon';
-import SportBoldIcon from '../icons/SportBoldIcon';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
@@ -96,7 +90,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import { headerMenus } from '@/base/constants/config-menus';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -315,7 +308,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   useEffect(() => {
     if (walletSocket && isLogin) {
       walletSocket.on(`${userId}:deposit`, (data: any) => {
-        console.log(data, '----318');
         // const data = JSON.parse(item);
         const status = data?.status || '';
         const amount = data?.amount || 0;
@@ -508,7 +500,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               id="base-layout"
             >
               <SubMobileMenu datas={headerMenus} isShow={isShowMobileSubMenu} />
-              
+
               <WrapperBody
                 id="wrapperBody"
                 contentClassName={cn(contentClass)}
