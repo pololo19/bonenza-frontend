@@ -238,7 +238,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
     if (isLogin) {
       getMyBetHistory();
     }
-  }, [isLogin]);
+  }, [isLogin, gameDetail]);
 
   useEffect(() => {
     if (!userId) return;

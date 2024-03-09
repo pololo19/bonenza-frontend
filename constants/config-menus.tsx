@@ -24,7 +24,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     isMobile: true,
   },
   {
-    title: 'layout:casino',
+    title: 'Casino',
     href: ROUTER.Casino,
     // icon: <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />,
     icon: CasinoBoldIcon,
@@ -32,7 +32,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     isMobile: false,
   },
   {
-    title: 'layout:slot',
+    title: 'Slots',
     href: ROUTER.Slots,
     // icon: (
     //   <Image
@@ -66,7 +66,7 @@ export const headerMenus: OptionSidebarDataType[] = [
   //   ),
   // },
   {
-    title: 'layout:updown',
+    title: 'BitUp Game',
     href: 'https://bitup.game/trade',
     // icon: (
     //   <Image
