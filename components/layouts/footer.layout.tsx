@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
@@ -18,7 +19,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import ModalBusinessContacts from '../modal/businessContacts/businessContacts';
 import ModalVerifyRepresentative from '../modal/verifyRepresentative/verifyRepresentative';
-import { Tooltip } from 'react-tooltip';
 
 export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const { t } = useTranslation('');
@@ -361,9 +361,9 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   {String(t('footer:acceptedNetworks'))}
                 </div>
               </div>
-              <div className="flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">            
-                {acceptedNetworks.map((network) => (
-                  <div className="max-w-[50px] max-h-[50px]">
+              <div className="flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">
+                {acceptedNetworks.map((network, index) => (
+                  <div className="max-w-[50px] max-h-[50px]" key={index}>
                     <Image
                       alt=""
                       src={network.icon}
@@ -393,18 +393,25 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                           <div>{network.token}</div>
                         </div>
                       </div>
-                      
+
                       <button
                         type="button"
                         className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
-                        onClick={() => dispatch(changeIsShowDepositModal(true))}
+                        onClick={() => {
+                          if (isLogin) {
+                            dispatch(changeIsShowDepositModal(true));
+                          } else {
+                            dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                            dispatch(changeIsShowAuthenticationModal(true));
+                          }
+                        }}
                       >
                         {t('layout:deposit')}
                       </button>
                     </Tooltip>
                   </div>
                 ))}
-                
+
                 {/* <div className="max-w-[50px] max-h-[50px]">
                   <Image
                     alt=""
@@ -575,21 +582,15 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               height={27}
               className="w-[220px] h-[44px] cursor-pointer"
             />
-            <div className="text-default font-light">
-              {String(t('footer:bonenzaDescription1'))}
-            </div>
+            <div className="text-default font-light">{String(t('footer:bonenzaDescription1'))}</div>
             <div className="flex flex-col gap-[10px] text-default font-light">
               <div className="flex gap-[5px]">
                 {String(t('footer:business'))}
-                <span className="text-color-text-mailto">
-                  {String(t('footer:businessMail'))}
-                </span>
+                <span className="text-color-text-mailto">{String(t('footer:businessMail'))}</span>
               </div>
               <div className="flex gap-[5px]">
                 {String(t('footer:help'))}
-                <span className="text-color-text-mailto">
-                  {String(t('footer:helpMail'))}
-                </span>
+                <span className="text-color-text-mailto">{String(t('footer:helpMail'))}</span>
               </div>
             </div>
           </div>
