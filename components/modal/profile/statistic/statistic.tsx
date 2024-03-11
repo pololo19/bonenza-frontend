@@ -34,12 +34,7 @@ type StatisticTransactionType = {
   wageredUsd: number;
 };
 
-export default function Statistic({ 
-  userData,
-  isShow,
-  onClose,
-  goBackToProfile,
-}: ModalStatisticProps) {
+export default function Statistic({ userData, isShow, onClose, goBackToProfile }: ModalStatisticProps) {
   const { theme } = useTheme();
   const { t } = useTranslation('');
   const exchange = useExchange();
@@ -51,13 +46,14 @@ export default function Statistic({
   const [statisticTransaction, setStatisticTransaction] = useState<StatisticTransactionType[]>([]);
   const [listGames, setListGame] = useState<GameDetail[]>([]);
 
-  const { userName, userId, avatar, viewInFiat, localFiat } = useSelector(
+  const { userName, userId, avatar, viewInFiat, localFiat, isLogin } = useSelector(
     (state: AppState) => ({
       userName: state.auth.user.userName,
       avatar: state.auth.user.avatar,
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       userId: state.auth.user.userId,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -112,13 +108,15 @@ export default function Statistic({
   }, [exchange, viewInFiat, localFiat]);
 
   useEffect(() => {
-    getStatisticTransaction();
-  }, [userData]);
+    if (isLogin && isShow) {
+      getStatisticTransaction();
+    }
+  }, [userData, isLogin, isShow]);
 
   const getStatisticTransaction = async () => {
     try {
       setIsLoading(true);
-      if(!userData) return;
+      if (!userData) return;
       const res = await api_BetStatistics(userData.userId);
       const tempStatisticTransactions: StatisticTransactionType[] = res.data?.map((item: any) => ({
         currencyLogo: item.currencyLogo ?? '/image/fiats/USDT.png',
@@ -265,7 +263,7 @@ export default function Statistic({
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWins')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
-              {Number(userData?.winCount || "0")}
+              {Number(userData?.winCount || '0')}
             </div>
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
@@ -274,7 +272,7 @@ export default function Statistic({
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalBets')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
-              {Number(userData?.betCount || "0")}
+              {Number(userData?.betCount || '0')}
             </div>
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%] max-w-[30%]">

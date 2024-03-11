@@ -37,8 +37,9 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
   const [limit, setLimit] = useState(10);
   const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
   const [totalRows, setTotalRows] = useState<number>(0);
-  const { localFiat, viewInFiat } = useSelector(
+  const { localFiat, viewInFiat, isLogin } = useSelector(
     (state: AppState) => ({
+      isLogin: state.auth.isLogin,
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
@@ -128,8 +129,10 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
     setShowModalRakeBack();
   };
   useEffect(() => {
-    getListBonusTransaction();
-  }, []);
+    if (isLogin && show) {
+      getListBonusTransaction();
+    }
+  }, [isLogin, show]);
 
   return (
     <>
