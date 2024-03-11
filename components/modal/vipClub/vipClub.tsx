@@ -235,7 +235,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     <div className="w-full flex flex-col gap-[10px]">
                       <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div
-                          className="absolute top-0 h-full left-0 bg-color-primary"
+                          className="absolute top-0 h-full left-0 bg-color-primary rounded-[25px]"
                           style={{ width: `${percent}%` }}
                         ></div>
                         <div className="absolute -top-[26px] w-[22px] h-[61px] -translate-x-[11px]" style={{left: `${percent}%`}}>
