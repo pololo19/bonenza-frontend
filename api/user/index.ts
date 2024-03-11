@@ -87,6 +87,6 @@ export const api_medalStatistics = async () => {
   return api.get(API_USER_MEDAL_STATISTICS);
 };
 
-export const api_BetStatistics = async () => {
-  return api.get(API_USER_PROFILE_BET_STATISTICS);
+export const api_BetStatistics = async (userId: string) => {
+  return api.get(API_USER_PROFILE_BET_STATISTICS, {params: {user_id: userId}});
 };

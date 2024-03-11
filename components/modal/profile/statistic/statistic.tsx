@@ -113,12 +113,13 @@ export default function Statistic({
 
   useEffect(() => {
     getStatisticTransaction();
-  }, []);
+  }, [userData]);
 
   const getStatisticTransaction = async () => {
     try {
       setIsLoading(true);
-      const res = await api_BetStatistics();
+      if(!userData) return;
+      const res = await api_BetStatistics(userData.userId);
       const tempStatisticTransactions: StatisticTransactionType[] = res.data?.map((item: any) => ({
         currencyLogo: item.currencyLogo ?? '/image/fiats/USDT.png',
         currency: item.currencyName ?? 'USDT',
