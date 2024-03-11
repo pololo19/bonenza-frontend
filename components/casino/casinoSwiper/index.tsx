@@ -101,7 +101,7 @@ const CasinoSwiper = <T,>({
                 return (
                   <SwiperSlide
                     key={key}
-                    className={`w-full !mb-0 !p-[0px] sm:!p-0 max-w-[96px]`}
+                    className={`w-full !mb-0 !p-[0px] sm:!p-0 max-w-full sm:max-w-[96px]`}
                     onClick={() => onClickItem?.(game)}
                   >
                     {renderItem(game)}
