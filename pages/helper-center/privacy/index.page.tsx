@@ -45,12 +45,12 @@ const HelperPrivacyPage = () => {
   return (
     <>
       {/* TODO: Tron code */}
-      <div className="sm:block hidden pl-[7px] pr-[5px] pb-[15px]">
+      <div className="sm:block hidden pl-[7px] pr-[5px] pb-[15px] pt-[20px]">
         <div className="">
-          <div className="text-black dark:text-[#ffff] text-[14px] font-bold text-left mb-[10px]">
+          <div className="text-black dark:text-[#FFF] text-[16px] font-bold text-left mb-[10px]">
             {t('privacy:privacyPolicy')}
           </div>
-          <div className="">
+          <div className="pl-2">
             <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[9px]">
               {listPrivacyBlock.map((item, index) => {
                 return (
@@ -63,13 +63,13 @@ const HelperPrivacyPage = () => {
             </div>
           </div>
         </div>
-        <div className="mt-[35px]">
-          <div className="text-black dark:text-[#ffff] text-[14px] font-bold text-left mb-[7px]">
+        <div className="mt-[10px]">
+          <div className="text-black dark:text-[#ffff] text-[16px] font-bold text-left mb-[7px]">
             {t('privacy:cookiesPolicy')}
           </div>
-          <div className="">
-            <div className="mb-[9px]">
-              <div className="text-black dark:text-[#ffff] text-[14px] dark:font-bold text-left mb-[10px]">
+          <div className="pl-2">
+            <div className="mb-[24px]">
+              <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[4px]">
                 {t('privacy:whatCookies')}
               </div>
               <div
@@ -77,16 +77,16 @@ const HelperPrivacyPage = () => {
                 dangerouslySetInnerHTML={{ __html: t('privacy:cookiePolicy4') }}
               ></div>
             </div>
-            <div className="mb-[9px]">
-              <div className="text-black dark:text-[#ffff] text-[14px] dark:font-bold text-left mb-[10px]">
+            <div className="mb-[24px]">
+              <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[4px]">
                 {t('privacy:cookiePolicy1')}
               </div>
               <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left">
                 {t('privacy:cookiePolicy2')}
               </div>
             </div>
-            <div className="mb-[9px]">
-              <div className="text-black dark:text-[#ffff] text-[14px] dark:font-bold text-left mb-[10px]">
+            <div className="mb-[24px]">
+              <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[4px]">
                 {t('privacy:cookiePolicy3')}
               </div>
               <div
@@ -104,16 +104,16 @@ const HelperPrivacyPage = () => {
                 );
               })}
             </div>
-            <div className="mb-[9px]">
-              <div className="text-black dark:text-[#ffff] text-[14px] dark:font-bold text-left mb-[10px]">
+            <div className="mb-[24px]">
+              <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[4px]">
                 {t('privacy:cookiePolicy15')}
               </div>
               <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left">
                 {t('privacy:cookiePolicy16')}
               </div>
             </div>
-            <div className="mb-[9px]">
-              <div className="text-black dark:text-[#ffff] text-[14px] dark:font-bold text-left mb-[10px]">
+            <div className="mb-[24px]">
+              <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[4px]">
                 {t('privacy:personalDataProtection')}
               </div>
               <div
@@ -121,14 +121,14 @@ const HelperPrivacyPage = () => {
                 dangerouslySetInnerHTML={{ __html: t('privacy:personalDataProtection1') }}
               ></div>
             </div>
-            <div className="mb-[9px]">
-              <div className="text-black dark:text-[#ffff] text-[14px] dark:font-bold text-left mb-[10px]">
+            <div className="mb-[24px]">
+              <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[4px]">
                 {t('privacy:protectionPolicy')}
               </div>
               {listProtectionPolicy.map((item, index) => {
                 return (
                   <div
-                    className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left mb-[11px]"
+                    className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left mb-[4px]"
                     key={index}
                   >
                     {item}
@@ -136,8 +136,8 @@ const HelperPrivacyPage = () => {
                 );
               })}
             </div>
-            <div className="mb-[9px]">
-              <div className="text-black dark:text-[#ffff] text-[14px] dark:font-bold text-left mb-[10px]">
+            <div className="mb-[24px]">
+              <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[10px]">
                 {t('privacy:dataInternational')}
               </div>
               <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left mb-[11px]">
@@ -152,8 +152,8 @@ const HelperPrivacyPage = () => {
             </div>
           </div>
         </div>
-        <div className="">
-          <div className="text-black dark:text-[#ffff] text-[14px] font-bold text-left mb-[10px]">
+        <div className="pl-2">
+          <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[10px]">
             {t('privacy:technicalIssues')}
           </div>
           <div className="">
@@ -163,13 +163,13 @@ const HelperPrivacyPage = () => {
             <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[20px]">
               {t('privacy:technicalIssues2')}
             </div>
-            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[20px]">
+            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[4px]">
               Username
             </div>
-            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[20px]">
+            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[4px]">
               {t('privacy:technicalIssues4')}
             </div>
-            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[20px]">
+            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[4px]">
               {t('privacy:technicalIssues5')}
             </div>
             <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[20px]">
@@ -180,23 +180,23 @@ const HelperPrivacyPage = () => {
             </div>
           </div>
         </div>
-        <div className="mt-[35px]">
-          <div className="text-black dark:text-[#ffff] text-[14px] font-bold text-left mb-[10px]">
+        <div className="mt-[36px]">
+          <div className="text-black dark:text-[#ffff] text-[16px] font-bold text-left mb-[10px]">
             {t('privacy:collectingAndUsing')}
           </div>
         </div>
-        <div className="mt-[20px]">
-          <div className="text-black dark:text-[#ffff] text-[14px] font-bold text-left mb-[10px]">
+        <div className="mt-[20px] pl-2">
+          <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[10px]">
             {t('privacy:typesOfData')}
           </div>
           <div className="">
-            <div className="text-black dark:text-[#C2C2C2] text-[14px] font-bold text-left pb-[12px]">
-              {t('privacy:personalData')}
+            <div className="text-black dark:text-[#C2C2C2] text-[14px] font-normal text-left pb-[12px]">
+              {'- '}{t('privacy:personalData')}
             </div>
-            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px]">
+            <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px] pl-2">
               {t('privacy:personalData1')}
             </div>
-            <ul className="text-left list-disc ml-[15px]">
+            <ul className="text-left list-disc ml-[15px] pl-2">
               <li className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal  pb-[12px]">
                 {t('privacy:personalData2')}
               </li>
@@ -209,10 +209,10 @@ const HelperPrivacyPage = () => {
             </ul>
           </div>
           <div className="">
-            <div className="text-black dark:text-[#C2C2C2] text-[14px] font-bold text-left pb-[10px]">
-              {t('privacy:usageData')}
+            <div className="text-black dark:text-[#C2C2C2] text-[14px] font-normal text-left pb-[10px]">
+              {'- '}{t('privacy:usageData')}
             </div>
-            <div className="">
+            <div className="pl-2">
               <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px]">
                 {t('privacy:usageData1')}
               </div>
@@ -229,8 +229,8 @@ const HelperPrivacyPage = () => {
             </div>
           </div>
         </div>
-        <div className="mt-[20px]">
-          <div className="text-black dark:text-[#ffff] text-[14px] font-bold text-left mb-[10px]">
+        <div className="mt-[20px] pl-2">
+          <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[10px]">
             {t('privacy:information')}
           </div>
           <div className="">
@@ -264,8 +264,8 @@ const HelperPrivacyPage = () => {
             ></div>
           </div>
         </div>
-        <div className="">
-          <div className="text-black dark:text-[#ffff] text-[14px] font-bold text-left mb-[10px]">
+        <div className="pl-2">
+          <div className="text-black dark:text-[#ffff] text-[14px] font-normal text-left mb-[10px]">
             {t('privacy:deletePersonalData')}
           </div>
           <div className="">

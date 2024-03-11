@@ -69,9 +69,9 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
       >
         <div className="container mx-auto px-4">
           <div
-            className={cn('grid 2xl:grid-cols-6 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4', {
+            className={cn('grid 2xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4', {
               'xl:grid-cols-3': showChatType,
-              'xl:grid-cols-6': !showChatType,
+              'xl:grid-cols-5': !showChatType,
             })}
           >
             <div className="flex flex-col md:items-start items-center">
@@ -130,7 +130,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </Link>
               </div>
             </div>
-            <div className="flex flex-col md:items-start items-center">
+            {/* Hiding Sports */}
+            {/* <div className="flex flex-col md:items-start items-center">
               <div className="flex gap-[10px] items-center mb-[10px]">
                 <div className="w-[2px] h-[12px] bg-[#F61B4F]"></div>
                 <div className="text-sm text-black dark:text-white font-semibold">{String(t('footer:sports'))}</div>
@@ -155,7 +156,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   {String(t('footer:rules'))}
                 </Link>
               </div>
-            </div>
+            </div> */}
             <div className="flex flex-col md:items-start items-center">
               <div className="flex gap-[10px] items-center mb-[10px]">
                 <div className="w-[2px] h-[12px] bg-[#F39717]"></div>
@@ -182,12 +183,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 >
                   {String(t('footer:promotions'))}
                 </Link>
-                <Link
+                {/* <Link
                   href={ROUTER.Lottery}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:lottery'))}
-                </Link>
+                </Link> */}
                 <div
                   onClick={() => {
                     isLogin ? dispatch(changeIsShowReferAndEarn(true)) : openModalLogin();
@@ -375,7 +376,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     <Tooltip
                       id={`accepted-${network.token}-tooltip`}
                       place="bottom"
-                      className="dark:bg-black bg-white"
+                      className="dark:bg-color-card-header-primary bg-white !rounded-large"
                       opacity={100}
                       delayHide={0}
                       clickable
@@ -574,7 +575,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             </div>
           )}
           {/* footer 4 */}
-          <div className="flex flex-col gap-5 px-5 sm:px-10 xl:px-20 pb-[60px] sm:pb-4">
+          <div className="flex flex-col gap-5 pb-[60px] sm:pb-4">
             <Image
               alt=""
               src="/img/logo-light.png"

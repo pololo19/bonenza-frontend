@@ -195,6 +195,7 @@ function RecentBigWinComponent() {
     <>
       <CasinoSwiper
         title={String(t('homePage:recentBigWins'))}
+        delay={1400}
         data={listBigWinGame}
         icon={width < 600 ? <LiveStream className="text-color-primary " /> : undefined}
         renderItem={(item) => renderData(item)}
