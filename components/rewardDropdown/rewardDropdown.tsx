@@ -8,13 +8,12 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_bonusClaim, api_bonusClaimList } from '@/api/bonus';
+import { api_getClaims } from '@/api/wallet';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
 import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { api_getClaims } from '@/api/wallet';
 
 type BonusType = {
   id: string;
@@ -30,11 +29,12 @@ export default function RewardDropdown() {
   const exchangeRate = useExchange();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { viewInFiat, localFiat, lockedAmount } = useSelector(
+  const { viewInFiat, localFiat, lockedAmount, isLogin } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       lockedAmount: state.wallet.lockedAmount,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -80,8 +80,10 @@ export default function RewardDropdown() {
   };
 
   useEffect(() => {
-    getBonusList();
-  }, []);
+    if (isLogin) {
+      getBonusList();
+    }
+  }, [isLogin]);
 
   return (
     <>

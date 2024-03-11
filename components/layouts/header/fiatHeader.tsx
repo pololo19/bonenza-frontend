@@ -150,10 +150,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
   return (
     <>
-      <Menu
-        as="div"
-        className="relative w-auto text-left rounded flex dark:text-white h-full text-[#000]"
-      >
+      <Menu as="div" className="relative w-auto text-left rounded flex dark:text-white h-full text-[#000]">
         <Menu.Button>
           {activeCurrency.id && (
             <div

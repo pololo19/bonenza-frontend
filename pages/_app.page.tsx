@@ -95,59 +95,59 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
       <RainbowKitProvider chains={chains}>
         <ErrorProvider>
           <GoogleOAuthProvider clientId={String(process.env.GOOGLE_CLIENT_ID || '')}>
-            <Provider store={store}>
-              <Head>
-                <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico" />
-                <base href="/"></base>
-                <meta charSet="utf-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <meta name="google-site-verification" content="8Pg6SQ4ANq-BBmT7jN0wRovBqUpW0JNxU5kuiVO4aLc" />
+            {/* <Provider store={store}> */}
+            <Head>
+              <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico" />
+              <base href="/"></base>
+              <meta charSet="utf-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <meta name="google-site-verification" content="8Pg6SQ4ANq-BBmT7jN0wRovBqUpW0JNxU5kuiVO4aLc" />
 
-                <title>Bonenza</title>
-                <meta name="title" content="Bonenza" />
-                <meta
-                  name="description"
-                  content="Bonenza develops platforms of various genres. It aims to achieve a new experience by identifying the needs of the market and launching an interesting platform to secure a variety of users and apply AI technology to add fun."
-                />
-                <meta
-                  name="keywords"
-                  content="NFT, play to earn, P2E, NFT games, GOD, metaverse, meta, metaverseNFT, NFTgaming, coin, DRON"
-                />
-                <meta name="theme-color" content="#24262b"></meta>
-                <meta name="language" content="English" />
-                <meta name="author" content="contact@bonenza.com" />
-                <meta name="url" content="https://www.bonenza.com" />
+              <title>Bonenza</title>
+              <meta name="title" content="Bonenza" />
+              <meta
+                name="description"
+                content="Bonenza develops platforms of various genres. It aims to achieve a new experience by identifying the needs of the market and launching an interesting platform to secure a variety of users and apply AI technology to add fun."
+              />
+              <meta
+                name="keywords"
+                content="NFT, play to earn, P2E, NFT games, GOD, metaverse, meta, metaverseNFT, NFTgaming, coin, DRON"
+              />
+              <meta name="theme-color" content="#24262b"></meta>
+              <meta name="language" content="English" />
+              <meta name="author" content="contact@bonenza.com" />
+              <meta name="url" content="https://www.bonenza.com" />
 
-                <meta property="twitter:image" content="https://bonenza.com/img/logo.png" />
-                {/* <script src="https://cdn.launcher.a8r.games/connector.js" defer></script> */}
-                {/* <script src="https://casino.int.a8r.games/public/sg.js"></script> */}
-                <noscript>Your browser does not support JavaScript!</noscript>
-              </Head>
-              {/* <Script src="https://js.stripe.com/v3/"></Script>
+              <meta property="twitter:image" content="https://bonenza.com/img/logo.png" />
+              {/* <script src="https://cdn.launcher.a8r.games/connector.js" defer></script> */}
+              {/* <script src="https://casino.int.a8r.games/public/sg.js"></script> */}
+              <noscript>Your browser does not support JavaScript!</noscript>
+            </Head>
+            {/* <Script src="https://js.stripe.com/v3/"></Script>
             <Script src="https://js.stripe.com/v3/"></Script> */}
-              <Script async src="/game.js"></Script>
-              <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
+            <Script async src="/game.js"></Script>
+            <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
-              <NextNProgress />
-              <ThemeProvider defaultTheme="dark" attribute="class">
-                <>
-                  <ToastContainer
-                    autoClose={5000}
-                    className="z-index-toast !text-[12px]"
-                    position="bottom-left"
-                    theme={'dark'}
-                    hideProgressBar={true}
-                    icon={() => null}
-                    closeButton={() => null}
-                    toastClassName={'min-h-[40px]'}
-                    bodyClassName={'!p-0 text-gray-200'}
-                    enableMultiContainer
-                    containerId={TOAST_ENUM.COMMON}
-                  />
-                  {getLayout(<Component {...props.pageProps} />)}
-                </>
-              </ThemeProvider>
-            </Provider>
+            <NextNProgress />
+            <ThemeProvider defaultTheme="dark" attribute="class">
+              <>
+                <ToastContainer
+                  autoClose={5000}
+                  className="z-index-toast !text-[12px]"
+                  position="bottom-left"
+                  theme={'dark'}
+                  hideProgressBar={true}
+                  icon={() => null}
+                  closeButton={() => null}
+                  toastClassName={'min-h-[40px]'}
+                  bodyClassName={'!p-0 text-gray-200'}
+                  enableMultiContainer
+                  containerId={TOAST_ENUM.COMMON}
+                />
+                {getLayout(<Component {...props.pageProps} />)}
+              </>
+            </ThemeProvider>
+            {/* </Provider> */}
           </GoogleOAuthProvider>
         </ErrorProvider>
       </RainbowKitProvider>
@@ -155,4 +155,4 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
