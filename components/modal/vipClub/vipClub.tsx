@@ -233,13 +233,13 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     </div>
 
                     <div className="w-full flex flex-col gap-[10px]">
-                      <div className="bg-white rounded-[5px] h-[14px] relative overflow-hidden">
+                      <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div
-                          className="absolute top-0 h-full left-0 bg-color-primary"
+                          className="absolute top-0 h-full left-0 bg-color-primary rounded-[25px]"
                           style={{ width: `${percent}%` }}
                         ></div>
-                        <div className="absolute flex justify-center left-0 top-0 w-full h-full">
-                          <Image src="/img/light.svg" width={108} height={138} alt="" />
+                        <div className="absolute -top-[26px] w-[22px] h-[61px] -translate-x-[11px]" style={{left: `${percent}%`}}>
+                          <Image src="/img/flare.png" className="w-[22px] h-[61px]" width={6} height={16} alt="" />
                         </div>
                       </div>
                       <div className="flex items-center gap-[10px]">
