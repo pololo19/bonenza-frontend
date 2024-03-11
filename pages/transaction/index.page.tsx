@@ -761,8 +761,6 @@ const TransactionPage = () => {
     }
   }, [activeTransaction, optionFilter]);
 
-  console.log(activeTransaction, '----764');
-
   return (
     <div className={`${styles.cardContent}`}>
       <Head>

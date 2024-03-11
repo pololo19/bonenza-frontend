@@ -95,7 +95,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
         </div>
         <div
           data-tooltip-id={'CardBigWinData' + price}
-          className="cursor-pointer sm:w-full flex justify-center text-center sm:rounded-[5px]"
+          className="cursor-pointer sm:w-full flex justify-center text-center sm:rounded-[5px] mr-1"
         >
           <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
         </div>
