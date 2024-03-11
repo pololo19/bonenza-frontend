@@ -4,7 +4,7 @@ import { AuthenticationModeEnum, VerifyModeEnum } from '@/base/types/common';
 import { ModalState } from '@/base/types/reducer-states';
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 
-const initialCommonState: ModalState = {
+export const initialCommonState: ModalState = {
   isShowInformation: false,
   isShowReferAndEarn: false,
   isShowDepositModal: false,
@@ -127,6 +127,38 @@ export const queryDataSlice = createSlice({
     changeIsShowWagerContestHistory: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowWagerContestHistory = action.payload;
     },
+    setInitialModals: (state: ModalState) => {
+      state.isShowAccountPannel = false;
+      state.isShowInformation = false;
+      state.isShowReferAndEarn = false;
+      state.isShowDepositModal = false;
+      state.isShowAuthenticationModal = false;
+      state.isShowForgotPassModal = false;
+      state.isShowUpdateInformation = false;
+      state.isShowUpdateAvatar = false;
+      state.isShowCropAvatar = false;
+      state.isShowMultiLanguage = false;
+      state.authenticationType = AuthenticationModeEnum.SIGN_IN;
+      state.multiLanguageTab = MultiLanguageTabEnum.LANGUAGE;
+      state.selectedAvatar = '';
+      state.showChatType = false;
+      state.isToggleSidebar = true;
+      state.showFullChat = false;
+      state.isShowVipClubModal = false;
+      state.isShowVipLevelModal = false;
+      state.isShowCryptoOnlineModal = false;
+      state.isShowResetPassword = false;
+      state.isShowDetailBets = false;
+      state.isShowCasinoSearch = false;
+      state.isShowRakeBackModal = false;
+      state.isShowRakeBackDetailModal = false;
+      state.isShowModalBonusHistory = false;
+      state.isShowAccountPannel = false;
+      state.isShowMenuPannel = false;
+      state.isShowVerifyMailAndPhone = false;
+      state.verifyModeType = VerifyModeEnum.MAIL;
+      state.isShowWagerContestHistory = false;
+    },
   },
 });
 
@@ -160,5 +192,6 @@ export const {
   changeIsShowVerifyMailAndPhone,
   changeVerifyMode,
   changeIsShowWagerContestHistory,
+  setInitialModals,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

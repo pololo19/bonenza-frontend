@@ -1,5 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ChartBarIcon, ChevronRightIcon, ClipboardDocumentIcon,TrophyIcon } from '@heroicons/react/24/outline';
+import { ChartBarIcon, ChevronRightIcon, ClipboardDocumentIcon, TrophyIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ArrowLeft2, Edit2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -40,12 +40,13 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const { t } = useTranslation('');
   const { theme } = useTheme();
   const exchangeRate = useExchange();
-  const { userId, viewInFiat, userData, localFiat } = useSelector(
+  const { userId, viewInFiat, userData, localFiat, isLogin } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       userId: state.auth.user.userId,
       userData: state.user,
       localFiat: state.wallet.localFiat,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -98,8 +99,10 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   useEffect(() => {
     const selectedUserId = userData.userId;
-    getUserProfile(selectedUserId);
-  }, [userData]);
+    if (isLogin && show) {
+      getUserProfile(selectedUserId);
+    }
+  }, [userData, isLogin, show]);
 
   const returnHeader = useCallback(() => {
     return (
@@ -260,26 +263,14 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             <div className="flex items-center flex-row gap-2 sm:gap-[15px] sm:justify-between mt-5">
               <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                 <div className="flex gap-[5px] items-center">
-                  <Image
-                    src="/img/icon/total-win.png"
-                    width={12}
-                    height={12}
-                    className="w-[12px] h-[12px]"
-                    alt=""
-                  />
+                  <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
                   <div className="text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
                 </div>
                 <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
               </div>
               <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                 <div className="flex gap-[5px] items-center">
-                  <Image
-                    src="/img/icon/total-bets.png"
-                    width={12}
-                    height={12}
-                    className="w-[12px] h-[12px]"
-                    alt=""
-                  />
+                  <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
                   <div className="text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
                 </div>
                 <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
@@ -353,9 +344,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             )}
           </div>
           <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
-            <div className="text-[16px] text-color-light-text-primary dark:text-white">
-              {t('profile:wagerContest')}
-            </div>
+            <div className="text-[16px] text-color-light-text-primary dark:text-white">{t('profile:wagerContest')}</div>
             <WagerContest userData={user} />
           </div>
           <div className="text-color-text-primary text-[14px] w-full text-center mt-[10px]">
@@ -399,6 +388,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               dispatch(changeIsShowInformation(true));
             }}
           />
+
           {returnBody()}
         </>
       </CommonModal>

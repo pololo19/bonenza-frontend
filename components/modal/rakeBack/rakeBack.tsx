@@ -40,6 +40,13 @@ export default function ModalRakeBack({
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const router = useRouter();
+
+  const { isLogin } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+    }),
+    shallowEqual,
+  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lockedAmount, setLockedAmount] = useState({
     balance: 0,
@@ -119,8 +126,10 @@ export default function ModalRakeBack({
   };
 
   useEffect(() => {
-    getClaimData();
-  }, []);
+    if (isLogin && show) {
+      getClaimData();
+    }
+  }, [isLogin, show]);
 
   return (
     <>

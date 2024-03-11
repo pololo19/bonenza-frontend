@@ -40,12 +40,13 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
     endTime: 0,
   });
 
-  const { viewInFiat, localFiat, userId, userName } = useSelector(
+  const { viewInFiat, localFiat, userId, userName, isLogin } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -219,8 +220,10 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
   }, [t, localFiat, exchangeRate]);
 
   useEffect(() => {
-    getWagerHistory();
-  }, []);
+    if (isLogin && show) {
+      getWagerHistory();
+    }
+  }, [isLogin, show]);
 
   return (
     <CommonModal
