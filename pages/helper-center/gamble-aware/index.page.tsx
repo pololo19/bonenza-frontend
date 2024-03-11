@@ -1,0 +1,45 @@
+import { ArrowRight3 } from 'iconsax-react';
+import Link from 'next/link';
+import { ReactElement } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
+import HelperLayout from '@/components/layouts/helper.layout';
+
+const AmlPage = () => {
+  const { t } = useTranslation('');
+  const referenceLinks = [
+    'http://www.cyberpatrol.com/',
+    'http://www.gamblock.com/',
+  ]
+  return (
+    <>
+      <div className="pl-[7px] pr-[5px] pb-[15px] text-[14px] pt-4 md:pb-0">
+        <div className="">
+          <div className="text-black dark:text-[#ffff] font-bold text-[16px] text-left mb-[10px]">{t('helper:gambleWare')}</div>
+          <div className="">
+            <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
+              <div>
+                {t('helper:gambleWareContent1')}
+              </div>
+              <div className="mt-4 mb-4">
+                {t('helper:gambleWareContent2')}
+              </div>
+              {referenceLinks.map((link) => (
+                <div key={link} className="text-color-primary flex gap-4 mb-1">
+                  <ArrowRight3 variant="Bold"/>
+                  <Link href={link}>{link}</Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+AmlPage.getLayout = function getLayout(page: ReactElement) {
+  return <HelperLayout>{page}</HelperLayout>;
+};
+
+export default AmlPage;
