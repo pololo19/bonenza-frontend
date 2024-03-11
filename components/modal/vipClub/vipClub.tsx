@@ -5,7 +5,7 @@ import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
 import { api_getVipProgress, api_vipLevelSystem } from '@/api/vip';
@@ -17,6 +17,8 @@ import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
+import { useSelector } from 'react-redux';
+import { AppState } from '@/base/redux/store';
 
 type ModalVipClubProps = {
   onClose: () => void;
@@ -46,6 +48,12 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
   const { t } = useTranslation('');
   const router = useRouter();
   const dispatch = useDispatch();
+  const { isLogin } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+    }),
+    shallowEqual,
+  );
   const [vipData, setVipData] = useState({
     xp: 0,
     level: 0,
@@ -165,8 +173,18 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
   }, [vipData]);
 
   useEffect(() => {
-    getVipData();
-  }, [show]);
+    if (isLogin && show) {
+      getVipData();
+    }
+  }, [isLogin, show]);
+
+  const getVipName = (name: string) => {
+    const vipAndLevel = name.split(' ');
+
+    const vip = vipAndLevel[0] ? vipAndLevel[0][0] : 'V';
+    const level = vipAndLevel[1] ?? 0;
+    return `${vip} ${level}`;
+  };
 
   return (
     <>
@@ -197,16 +215,23 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px]">
                   <div className="text-[20px] text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
                   <div className="flex gap-[30px] mt-5">
-                    <Image
-                      src={currentRank?.img || ''}
-                      width={69}
-                      height={69}
-                      className="w-auto h-[68px]"
-                      alt=""
-                      onError={(e) => {
-                        e.currentTarget.src = '/img/vip.png';
-                      }}
-                    />
+                    <div className="flex relative min-w-[90px]">
+                      <Image
+                        src={currentRank?.img || ''}
+                        width={240}
+                        height={279}
+                        className="w-[90px] h-fit"
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/vip.png';
+                        }}
+                      />
+                      <div className="absolute w-full h-full flex flex-col items-center justify-center">
+                        {/* <p className="text-[12px]">{selectedRank.name}</p> */}
+                        <p className="font-bold text-white">{getVipName(vipData.name)}</p>
+                      </div>
+                    </div>
+
                     <div className="w-full flex flex-col gap-[10px]">
                       <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div

@@ -2,7 +2,7 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
@@ -23,11 +23,14 @@ export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) 
   const { t } = useTranslation('');
   const router = useRouter();
 
-  const { viewInFiat, localFiat, referralCode } = useSelector((state: AppState) => ({
-    viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
-    localFiat: state.wallet.localFiat,
-    referralCode: state.auth.user.referralCode,
-  }));
+  const { viewInFiat, localFiat, referralCode } = useSelector(
+    (state: AppState) => ({
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      localFiat: state.wallet.localFiat,
+      referralCode: state.auth.user.referralCode,
+    }),
+    shallowEqual,
+  );
 
   return (
     <>

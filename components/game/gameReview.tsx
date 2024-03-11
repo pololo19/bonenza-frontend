@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { HambergerMenu, Happyemoji, Like1, Messages } from 'iconsax-react';
 import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import StarsRating from 'react-star-rate';
 import { toast } from 'react-toastify';
 
@@ -96,10 +96,13 @@ const GameReviewComponent = ({
   gameProvider?: GameProviderDetail;
 }) => {
   const dispatch = useAppDispatch();
-  const { isLogin, userAvatar } = useSelector((state: AppState) => ({
-    isLogin: state.auth.isLogin,
-    userAvatar: state.auth.user.avatar,
-  }));
+  const { isLogin, userAvatar } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+      userAvatar: state.auth.user.avatar,
+    }),
+    shallowEqual,
+  );
 
   const [page, setPage] = useState(1);
 

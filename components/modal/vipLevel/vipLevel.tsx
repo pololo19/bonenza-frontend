@@ -14,6 +14,8 @@ import RankingTableComponent from '@/components/table/rankingTable';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
+import { shallowEqual, useSelector } from 'react-redux';
+import { AppState } from '@/base/redux/store';
 
 type ModalVipLevelProps = {
   onClose: () => void;
@@ -42,6 +44,12 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
   const { t } = useTranslation('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rankList, setRankList] = useState<rankUpType[]>([]);
+  const { isLogin } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+    }),
+    shallowEqual,
+  );
   const [levelCurrent, setLevelCurrent] = useState<rankUpType>({
     name: '',
     startLevel: 0,
@@ -151,8 +159,10 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
   }, [t]);
 
   useEffect(() => {
-    getRankList();
-  }, []);
+    if (isLogin && show) {
+      getRankList();
+    }
+  }, [isLogin, show]);
 
   return (
     <>

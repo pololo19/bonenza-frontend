@@ -696,14 +696,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />
 
       <ModalReferAndEarn show={isShowReferAndEarn || false} onClose={() => dispatch(changeIsShowReferAndEarn(false))} />
-      
+
       <ModalUpdateProfile
         show={isShowUpdateInformation || false}
         onClose={() => dispatch(changeIsShowUpdateInformation(false))}
       />
 
       <ModalCropAvatar show={isShowCropAvatar || false} onClose={() => dispatch(changeIsShowCropAvatar(false))} />
-      
+
       <ModalUpdateAvatar show={isShowUpdateAvatar || false} onClose={() => dispatch(changeIsShowUpdateAvatar(false))} />
 
       <ModalMultiLanguage
@@ -773,14 +773,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           router.replace(ROUTER.Home);
         }}
       />
-      {isShowVerifyMailAndPhone && (
-        <ModalVerificationMailAndPhone
-          show={isShowVerifyMailAndPhone}
-          onClose={() => {
-            dispatch(changeIsShowVerifyMailAndPhone(false));
-          }}
-        />
-      )}
+      <ModalVerificationMailAndPhone
+        show={isShowVerifyMailAndPhone || false}
+        onClose={() => {
+          dispatch(changeIsShowVerifyMailAndPhone(false));
+        }}
+      />
       <ModalWagerContestHistory
         show={isShowWagerContestHistory || false}
         onClose={() => dispatch(changeIsShowWagerContestHistory(false))}

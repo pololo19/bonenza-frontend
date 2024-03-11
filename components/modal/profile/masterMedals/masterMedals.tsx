@@ -8,6 +8,8 @@ import { useTranslation } from '@/base/config/i18next';
 import { groupMedal } from '@/base/constants/common';
 import CommonModal from '../../commonModal/commonModal';
 import { ChevronLeftIcon } from '@heroicons/react/24/outline';
+import { shallowEqual, useSelector } from 'react-redux';
+import { AppState } from '@/base/redux/store';
 
 const groupPrize = [
   { img: '/img/flat-white.png', value: 0 },
@@ -32,6 +34,12 @@ interface MasterMedalsInterface {
 
 export default function MasterMedals({ isShow, onClose, goBackToProfile }: MasterMedalsInterface) {
   const { t } = useTranslation('');
+  const { isLogin } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+    }),
+    shallowEqual,
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [medalDatas, setMedalDatas] = useState<any>({
     fearlessOne: 0,
@@ -81,8 +89,10 @@ export default function MasterMedals({ isShow, onClose, goBackToProfile }: Maste
   };
 
   useEffect(() => {
-    getMedalDatas();
-  }, []);
+    if (isLogin && isShow) {
+      getMedalDatas();
+    }
+  }, [isLogin, isShow]);
 
   return (
     <CommonModal

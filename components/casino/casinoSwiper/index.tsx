@@ -25,7 +25,7 @@ const CasinoSwiper = <T,>({
   renderItem,
   onClickItem,
   maxCount = 7,
-  delay=1000,
+  delay = 1000,
 }: CasinoSwiperProps<T>): JSX.Element => {
   const width = useWidth();
 
@@ -92,7 +92,7 @@ const CasinoSwiper = <T,>({
                 delay: delay,
                 disableOnInteraction: false,
               }}
-              speed={1000}
+              speed={500}
               spaceBetween={width > 600 ? 15 : 0}
               className="sm:!h-auto !h-[120px]"
               direction={width > 600 ? 'horizontal' : 'vertical'}
