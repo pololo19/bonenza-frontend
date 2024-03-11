@@ -693,112 +693,86 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       </div>
 
       {/* Modal */}
-      {isShowInformation && (
-        <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />
-      )}
+      <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />
 
-      {isShowReferAndEarn && (
-        <ModalReferAndEarn show={isShowReferAndEarn} onClose={() => dispatch(changeIsShowReferAndEarn(false))} />
-      )}
-      {!!isShowUpdateInformation && (
-        <ModalUpdateProfile
-          show={isShowUpdateInformation || false}
-          onClose={() => dispatch(changeIsShowUpdateInformation(false))}
-        />
-      )}
+      <ModalReferAndEarn show={isShowReferAndEarn || false} onClose={() => dispatch(changeIsShowReferAndEarn(false))} />
+      
+      <ModalUpdateProfile
+        show={isShowUpdateInformation || false}
+        onClose={() => dispatch(changeIsShowUpdateInformation(false))}
+      />
 
-      {isShowCropAvatar && (
-        <ModalCropAvatar show={isShowCropAvatar} onClose={() => dispatch(changeIsShowCropAvatar(false))} />
-      )}
-      {isShowUpdateAvatar && (
-        <ModalUpdateAvatar show={isShowUpdateAvatar} onClose={() => dispatch(changeIsShowUpdateAvatar(false))} />
-      )}
+      <ModalCropAvatar show={isShowCropAvatar || false} onClose={() => dispatch(changeIsShowCropAvatar(false))} />
+      
+      <ModalUpdateAvatar show={isShowUpdateAvatar || false} onClose={() => dispatch(changeIsShowUpdateAvatar(false))} />
 
-      {isShowMultiLanguage && (
-        <ModalMultiLanguage
-          show={isShowMultiLanguage || false}
-          onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
-        />
-      )}
+      <ModalMultiLanguage
+        show={isShowMultiLanguage || false}
+        onClose={() => dispatch(changeIsShowMultiLanguageModal(false))}
+      />
 
-      {isShowAuthenticationModal && (
-        <ModalAuthentication
-          show={isShowAuthenticationModal || false}
-          onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
-        />
-      )}
+      <ModalAuthentication
+        show={isShowAuthenticationModal || false}
+        onClose={() => dispatch(changeIsShowAuthenticationModal(false))}
+      />
 
-      {isShowVipClubModal && (
-        <ModalVipClub
-          show={isShowVipClubModal || false}
-          onClose={() => {
-            dispatch(changeIsShowVipClubModal(false));
-          }}
-        />
-      )}
+      <ModalVipClub
+        show={isShowVipClubModal || false}
+        onClose={() => {
+          dispatch(changeIsShowVipClubModal(false));
+        }}
+      />
 
-      {!!isShowRakeBackModal && (
-        <ModalRakeBack
-          show={isShowRakeBackModal || false}
-          onClose={() => {
-            dispatch(changeIsShowRakeBack(false));
-          }}
-          setShowModalRakeBackDetail={() => dispatch(changeIsShowRakeBackDetail(true))}
-          setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
-        />
-      )}
+      <ModalRakeBack
+        show={isShowRakeBackModal || false}
+        onClose={() => {
+          dispatch(changeIsShowRakeBack(false));
+        }}
+        setShowModalRakeBackDetail={() => dispatch(changeIsShowRakeBackDetail(true))}
+        setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
+      />
 
-      {isShowRakeBackDetailModal && (
-        <ModalRakeBackDetail
-          show={isShowRakeBackDetailModal || false}
-          cryptoLocked={cryptoLocked}
-          onClose={() => {
-            dispatch(changeIsShowRakeBackDetail(false));
-          }}
-          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
-        />
-      )}
-      {isShowModalBonusHistory && (
-        <ModalBonusHistory
-          show={isShowModalBonusHistory || false}
-          cryptoLocked={cryptoLocked}
-          onClose={() => {
-            dispatch(changeIsShowBonusHistory(false));
-          }}
-          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
-        />
-      )}
+      <ModalRakeBackDetail
+        show={isShowRakeBackDetailModal || false}
+        cryptoLocked={cryptoLocked}
+        onClose={() => {
+          dispatch(changeIsShowRakeBackDetail(false));
+        }}
+        setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+      />
 
-      {isShowVipLevelModal && (
-        <ModalVipLevel
-          show={isShowVipLevelModal}
-          onClose={() => {
-            dispatch(changeIsShowVipLevelModal(false));
-            dispatch(changeIsShowVipClubModal(true));
-          }}
-        />
-      )}
-      {isShowDepositModal && (
-        <ModalDeposit show={isShowDepositModal || false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
-      )}
+      <ModalBonusHistory
+        show={isShowModalBonusHistory || false}
+        cryptoLocked={cryptoLocked}
+        onClose={() => {
+          dispatch(changeIsShowBonusHistory(false));
+        }}
+        setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+      />
 
-      {isShowCryptoOnlineModal && (
-        <ModalCryptoOnline
-          show={isShowCryptoOnlineModal}
-          onClose={() => {
-            dispatch(changeIsShowCryptoOnlineModal(false));
-          }}
-        />
-      )}
-      {isShowResetPassword && (
-        <ModalResetPassword
-          show={isShowResetPassword}
-          onClose={() => {
-            dispatch(changeIsShowResetPassword(false));
-            router.replace(ROUTER.Home);
-          }}
-        />
-      )}
+      <ModalVipLevel
+        show={isShowVipLevelModal || false}
+        onClose={() => {
+          dispatch(changeIsShowVipLevelModal(false));
+          dispatch(changeIsShowVipClubModal(true));
+        }}
+      />
+
+      <ModalDeposit show={isShowDepositModal || false} onClose={() => dispatch(changeIsShowDepositModal(false))} />
+
+      <ModalCryptoOnline
+        show={isShowCryptoOnlineModal || false}
+        onClose={() => {
+          dispatch(changeIsShowCryptoOnlineModal(false));
+        }}
+      />
+      <ModalResetPassword
+        show={isShowResetPassword || false}
+        onClose={() => {
+          dispatch(changeIsShowResetPassword(false));
+          router.replace(ROUTER.Home);
+        }}
+      />
       {isShowVerifyMailAndPhone && (
         <ModalVerificationMailAndPhone
           show={isShowVerifyMailAndPhone}
@@ -807,12 +781,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           }}
         />
       )}
-      {isShowWagerContestHistory && (
-        <ModalWagerContestHistory
-          show={isShowWagerContestHistory}
-          onClose={() => dispatch(changeIsShowWagerContestHistory(false))}
-        />
-      )}
+      <ModalWagerContestHistory
+        show={isShowWagerContestHistory || false}
+        onClose={() => dispatch(changeIsShowWagerContestHistory(false))}
+      />
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
     </>

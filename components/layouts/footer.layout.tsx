@@ -575,7 +575,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             </div>
           )}
           {/* footer 4 */}
-          <div className="flex flex-col gap-5 px-5 sm:px-10 xl:px-20 pb-[60px] sm:pb-4">
+          <div className="flex flex-col gap-5 pb-[60px] sm:pb-4">
             <Image
               alt=""
               src="/img/logo-light.png"

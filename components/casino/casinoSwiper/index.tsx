@@ -15,6 +15,7 @@ type CasinoSwiperProps<T> = {
   maxCount?: number;
   renderItem: (game: T) => ReactNode;
   onClickItem?: (game: T) => void;
+  delay?: number;
 };
 
 const CasinoSwiper = <T,>({
@@ -24,6 +25,7 @@ const CasinoSwiper = <T,>({
   renderItem,
   onClickItem,
   maxCount = 7,
+  delay=1000,
 }: CasinoSwiperProps<T>): JSX.Element => {
   const width = useWidth();
 
@@ -87,7 +89,7 @@ const CasinoSwiper = <T,>({
               slidesPerView={width > 600 ? 'auto' : 3}
               freeMode={true}
               autoplay={{
-                delay: 2000,
+                delay: delay,
                 disableOnInteraction: false,
               }}
               speed={1000}
