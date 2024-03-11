@@ -151,7 +151,7 @@ function RecentBigWinComponent() {
 
   const handleGetListBigWin = async () => {
     try {
-      const res = await api_getRecentBigWins();
+      const res = await api_getRecentBigWins(40);
       const tempBetLists: BetDetailType[] = res.data.map((item: any) => ({
         id: item?.id ?? '',
         game: item?.title ?? '',
