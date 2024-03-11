@@ -84,7 +84,7 @@ const SettingSession = () => {
 
   const handleChangePage = (action: string) => {
     let newPage: number;
-    newPage = action === 'Next' ? page + 1 : page - 1;
+    newPage = action === 'Next' ? page + 1 : action === 'Prev' ? page - 1 : +action;
     setPage(newPage);
     getListUserSessions(newPage);
   };

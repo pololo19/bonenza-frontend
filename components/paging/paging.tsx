@@ -34,8 +34,20 @@ const Paging: React.FC<IProps> = ({
 
   const { t } = useTranslation('');
 
+  const pages =[];
+  const pageCount = Math.ceil(totalItem / itemPerPage);
+  for(let index = 1; index <= pageCount; index++) {
+    if(index === 1 || index === pageCount)
+      pages.push(`${index}`);
+    else if(index <= currentPage && index >= currentPage - 2)
+      pages.push(`${index}`);
+    else if(index >= currentPage && index <= currentPage + 2)
+      pages.push(`${index}`);
+    else if (pages[pages.length - 1] !== '...')
+      pages.push('...');
+  }
   return (
-    <div className="flex items-center justify-end p-[10px] gap-6 select-none">
+    <div className="flex flex-col sm:flex-row items-center justify-end p-[10px] gap-6 select-none">
       {hiddenPerPage && (
         <Menu
           as="div"
@@ -89,10 +101,29 @@ const Paging: React.FC<IProps> = ({
       )}
       <div className="flex items-center gap-6">
         <p className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
-          {t('paging:total')}: {Math.ceil(totalItem / itemPerPage)}
+          {t('paging:total')}: {Math.ceil(totalItem / itemPerPage) || 1}
         </p>
-        <div className="dark:text-white text-black font-bold p-1 px-4 text-[12px]">{currentPage}</div>
-        <div className="flex">
+        <div className="flex gap-1 items-center">
+          {pages.map((pageNum, index) => (
+            <div
+              key={`page-${index}`}
+              className={cn(
+                "dark:text-white text-black text-[14px] font-light",
+                {
+                  "!font-bold": `${currentPage}` === pageNum,
+                  "cursor-pointer": pageNum != '...'
+                }
+              )}
+              onClick={() => {
+                if(pageNum !== '...')
+                  onPageChange?.(pageNum);
+              }}
+            >
+              {pageNum}
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-2">
           <button
             className={cn('p-2 dark:bg-color-menu-primary bg-color-light-bg-primary dark:text-white text-black', {
               'opacity-20 cursor-not-allowed': disablePrev,
