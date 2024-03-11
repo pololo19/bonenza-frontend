@@ -503,18 +503,18 @@ function IndexPage() {
                   src="/img/octopus.png"
                   width={20}
                   height={20}
-                  className="inset w-full object-cover hidden lg:block"
+                  className="inset w-full object-cover hidden lg:block rounded-large"
                   alt=""
                 />
                 <Image
                   src="/img/mobile-octopus.png"
                   width={20}
                   height={20}
-                  className="inset w-full object-cover block lg:hidden"
+                  className="inset w-full object-cover block lg:hidden rounded-large"
                   alt=""
                 />
                 <div className="absolute left-[8%] right-0 top-[10%] bottom-[10%] flex flex-col justify-between">
-                  <div className="text-xl min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
+                  <div className="text-sm min-[390px]:text-xl min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
                     <span className="font-bold">
                       {` `}
@@ -525,7 +525,7 @@ function IndexPage() {
                   </div>
                   <div
                     className={cn(
-                      'text-[16px] xl:text-title 2xl:text-m_title',
+                      'text-[12px] min-[390px]:text-[16px] xl:text-title 2xl:text-m_title',
                       'font-bold bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[200px]',
                       'hover:opacity-[0.9] cursor-pointer flex justify-center items-center',
                     )}
@@ -550,7 +550,7 @@ function IndexPage() {
                   }}
                   className="cursor-pointer"
                 >
-                  <Image src="/img/whale.png" width={20} height={20} className="w-full object-cover" alt="" />
+                  <Image src="/img/whale.png" width={20} height={20} className="w-full object-cover rounded-large" alt="" />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
