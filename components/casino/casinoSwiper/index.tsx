@@ -94,7 +94,6 @@ const CasinoSwiper = <T,>({
               }}
               speed={1000}
               spaceBetween={width > 600 ? 15 : 0}
-              loop={true}
               className="sm:!h-auto !h-[120px]"
               direction={width > 600 ? 'horizontal' : 'vertical'}
               modules={[Autoplay, A11y]}
