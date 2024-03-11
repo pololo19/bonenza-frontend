@@ -166,7 +166,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
 
   useEffect(() => {
     getVipData();
-  }, []);
+  }, [show]);
 
   return (
     <>

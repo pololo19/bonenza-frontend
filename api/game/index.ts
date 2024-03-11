@@ -127,8 +127,8 @@ export const api_getLatestBetForUser = async (gameId: string) => {
   return api.get(API_GAME_BET_HISTORY_FOR_USER, { params: { gameId } });
 };
 
-export const api_getRecentBigWins = async () => {
-  return api.get(API_GAME_RECENT_BIG_WINS);
+export const api_getRecentBigWins = async (count: number) => {
+  return api.get(API_GAME_RECENT_BIG_WINS, {params: {count: count}});
 };
 
 export const api_getTopRelatedGames = async () => {
