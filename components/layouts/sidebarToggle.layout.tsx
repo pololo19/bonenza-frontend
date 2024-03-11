@@ -112,7 +112,7 @@ export default function SidebarToggle() {
     () => [
       {
         title: String(t('sidebar:vipClub')),
-        href: '#',
+        href: '',
         icon: Diamonds,
         smallIcon: (
           <Diamonds
