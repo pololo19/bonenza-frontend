@@ -178,6 +178,14 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     }
   }, [isLogin, show]);
 
+  const getVipName = (name: string) => {
+    const vipAndLevel = name.split(' ');
+
+    const vip = vipAndLevel[0] ? vipAndLevel[0][0] : 'V';
+    const level = vipAndLevel[1] ?? 0;
+    return `${vip} ${level}`;
+  };
+
   return (
     <>
       <CommonModal
@@ -220,7 +228,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                       />
                       <div className="absolute w-full h-full flex flex-col items-center justify-center">
                         {/* <p className="text-[12px]">{selectedRank.name}</p> */}
-                        <p className="font-bold">{selectedRank.startLevelDes}</p>
+                        <p className="font-bold text-white">{getVipName(vipData.name)}</p>
                       </div>
                     </div>
 
