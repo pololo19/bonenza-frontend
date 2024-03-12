@@ -35,6 +35,7 @@ type WithdrawFormType = {
   withdrawAmount: string;
 };
 
+
 const WithdrawCryptoPage = () => {
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
@@ -145,14 +146,17 @@ const WithdrawCryptoPage = () => {
       .string()
       // .required(String(t('withdraw:withdrawAddressRequire')))
       .trim(),
-    withdrawAmount: yup.string(),
+    withdrawAmount: yup.number()
+      .required('Withdraw amount is required')
+      .typeError('Withdraw amount is required')
+      .min(+renderMinValue.min.toFixed(4), `Winthdraw amount should greater than ${renderMinValue.min.toFixed(4)}`)
+      .max(+renderMaxValue.toFixed(4), `Winthdraw amount should be less than or equal to ${renderMaxValue.toFixed(4)}`),
     // .required(String(t('withdraw:withdrawAmountRequire')))
     // .test('withdrawAmount', String(t('withdraw:withdrawAmountGreater', { max: minValue })), (_item, testContext) => {
     //   if (testContext?.parent.withdrawAmount > Number(activeCoin?.balance || 0)) return false;
     //   return true;
     // }),
   });
-
   const {
     handleSubmit,
     setValue,
@@ -162,6 +166,7 @@ const WithdrawCryptoPage = () => {
   } = useForm<WithdrawFormType>({
     resolver: yupResolver(schema),
     defaultValues: { withdrawAmount: '0' },
+    mode: 'onSubmit'
   });
 
   const getWithdrawInfo = useCallback(async () => {
@@ -188,21 +193,21 @@ const WithdrawCryptoPage = () => {
 
   const setAmountByPercent = useCallback(
     (percent: number) => {
-      let avaBalance = (renderBalanceValue * percent) / 100;
+      let avaBalance = (renderMaxValue * percent) / 100;
       if (avaBalance < renderMinValue.min) {
         avaBalance = renderMinValue.min;
       }
-      if (avaBalance > renderMaxValue) avaBalance = renderMaxValue;
       setValue('withdrawAmount', avaBalance.toFixed(4));
     },
     [renderBalanceValue, renderMinValue],
   );
 
   const handleBlur = useCallback(() => {
-    if (Number(watch('withdrawAmount')) > renderBalanceValue) {
-      setValue('withdrawAmount', renderBalanceValue.toFixed(4));
+    if (Number(watch('withdrawAmount')) > Math.min(renderMaxValue, renderBalanceValue)) {
+      setValue('withdrawAmount', Math.min(renderMaxValue, renderBalanceValue).toFixed(4));
+
     }
-  }, [renderBalanceValue]);
+  }, [renderMaxValue, renderBalanceValue]);
 
   const wrappErrors = (formWithdraw: WithdrawFormType) => {
     let messError = '';
@@ -433,7 +438,7 @@ const WithdrawCryptoPage = () => {
                   </div>
                 </div>
                 {errors.withdrawAmount?.message && (
-                  <span className="text-red-500 w-full"> {errors.withdrawAmount?.message}</span>
+                  <span className="text-red-500 w-full text-default"> {errors.withdrawAmount?.message}</span>
                 )}
               </div>
               <div className="dark:bg-color-input-primary bg-color-light-bg-primary rounded-default px-[12px] py-[6px] dark:text-color-text-primary text-color-light-text-primary mt-[22px] flex flex-col gap-[12px]">
