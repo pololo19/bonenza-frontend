@@ -63,7 +63,9 @@
     "verify": "Verify",
     "racing": "Racing",
     "top": "Top",
-    "updown": "Up & Down"
+    "updown": "Up & Down",
+    "logOutQuestion": "Are you sure you want to log out? Check our great promotions and bonuses before you leave!",
+    "cancel": "Cancel"
   },
   "affiliate": {
     "inviteFriendsToEarn": "INVITE FRIENDS TO EARN",

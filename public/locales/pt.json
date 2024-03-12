@@ -63,7 +63,9 @@
     "verify": "Verificar",
     "racing": "Corrida",
     "top": "Principal",
-    "updown": "Acima"
+    "updown": "Acima",
+    "logOutQuestion": "Tem certeza de que deseja sair? Confira nossas ótimas promoções e bônus antes de sair!",
+    "cancel": "Cancelar"
   },
   "affiliate": {
     "inviteFriendsToEarn": "CONVIDA AMIGOS PARA GANHAR",

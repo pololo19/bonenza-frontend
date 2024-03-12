@@ -63,7 +63,9 @@
     "verify": "Xác minh",
     "racing": "Cuộc đua",
     "top": "Đứng đầu",
-    "updown": "Hướng lên"
+    "updown": "Hướng lên",
+    "logOutQuestion": "Bạn có chắc chắn muốn đăng xuất không? Hãy xem các chương trình khuyến mãi và tiền thưởng tuyệt vời của chúng tôi trước khi rời đi!",
+    "cancel": "Hủy bỏ"
   },
   "affiliate": {
     "inviteFriendsToEarn": "MỜI BẠN BÈ ĐỂ KIẾM TIỀN",

@@ -63,7 +63,9 @@
     "verify": "Verificare",
     "racing": "Da corsa",
     "top": "Superiore",
-    "updown": "Su"
+    "updown": "Su",
+    "logOutQuestion": "Sei sicuro di voler uscire? Controlla le nostre fantastiche promozioni e bonus prima di partire!",
+    "cancel": "Annulla"
   },
   "affiliate": {
     "inviteFriendsToEarn": "INVITA GLI AMICI A GUADAGNARE",

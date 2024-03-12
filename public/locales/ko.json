@@ -63,7 +63,9 @@
     "verify": "확인하다",
     "racing": "경마",
     "top": "맨 위",
-    "updown": "위로"
+    "updown": "위로",
+    "logOutQuestion": "로그아웃하시겠습니까? 떠나기 전에 멋진 프로모션과 보너스를 확인하세요!",
+    "cancel": "취소"
   },
   "affiliate": {
     "inviteFriendsToEarn": "친구를 초대하여 수익을 얻으세요",
