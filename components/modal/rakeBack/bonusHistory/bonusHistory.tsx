@@ -1,8 +1,9 @@
-import { Dialog, DialogProps, TransitionRootProps } from '@headlessui/react';
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ColumnDef } from '@tanstack/react-table';
+import cn from 'classnames';
 import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ElementType, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_bonusUsdtHistory } from '@/api/bonus';
@@ -10,7 +11,6 @@ import { useTranslation } from '@/base/config/i18next';
 import {
   DATE_FORMAT_DEFAULT,
   TIME_SUBMIT_FORMAT_WITH_SECOND,
-  TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER,
 } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
@@ -29,7 +29,7 @@ type ModalBonusHistory = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShowModalRakeBack }: ModalBonusHistory) {
+export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack }: ModalBonusHistory) {
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
@@ -110,12 +110,26 @@ export default function ModalBonusHistory({ show, onClose, cryptoLocked, setShow
           <div className="text-center text-default font-normal text-color-text">{t('transaction:amount')}</div>
         ),
         cell: ({ row }) => (
-          <div className="font-bold text-[14px] flex justify-center gap-1 text-color-primary truncate text-center">
-            {`+ ${
-              viewInFiat
-                ? currencyFormat1(row.original.amountUsd * exchangeRate, 4, localFiat?.name || 'USD')
-                : currencyFormat1(row.original.amount, 4, '', false)
-            }`}
+          <div className=
+          {
+            cn
+            (
+              "font-bold text-[14px] flex justify-center gap-1 truncate text-center",
+              {
+                "text-color-primary": row.original.amountUsd >= 0,
+                "text-color-red": row.original.amountUsd < 0,
+              }
+            )
+          }
+          >
+            {row.original.amountUsd < 0
+            ? '-'
+            : ''}
+            {viewInFiat ? (
+              <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), 4, localFiat?.name || 'USD')}</>
+            ) : (
+              currencyFormat1(Math.abs(row.original?.amount), 4, '', false)
+            )}
             <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />
           </div>
         ),
