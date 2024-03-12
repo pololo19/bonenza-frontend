@@ -13,7 +13,7 @@ const LatestBetRace = () => {
 
   return (
     <div className="overflow-hidden rounded-[20px] border-solid border-[1px] border-color-table-header-text-primary">
-      <div className="flex gap-[144px] py-[44px] px-[64px]">
+      <div className="flex py-[30px] justify-around">
         <div
           role="button"
           onClick={() => setOpenTab(1)}
@@ -45,7 +45,7 @@ const LatestBetRace = () => {
           {t('homePage:wagerContest')}
         </div>
       </div>
-      <div className="bg-color-table-header-text-primary h-[1px] ml-[35px] mr-[35px]" />
+      <div className="bg-color-table-header-text-primary h-[1px] mx-[10px] md:mx-[45px]" />
       <div className="w-full h-full rounded-[5px] relative">
         <div className="md:px-[20px] sm:px-[10px] sm:py-[10px] px-[5px] py-[5px] z-[2] w-full">
           <div className="md:text-[13px] text-[12px] max-[430px]:text-[10px] text-[#939699]">
