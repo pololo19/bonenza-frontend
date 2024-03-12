@@ -38,3 +38,7 @@ export function convert2Url(str: string) {
   const urlString = str.toLowerCase().replace(/\s+/g, '-');
   return urlString;
 }
+
+export function convertNumber2String(value: number, floatLength: number) {
+  return (Math.floor(value * Math.pow(10, floatLength)) / Math.pow(10, floatLength)).toFixed(floatLength);
+}
