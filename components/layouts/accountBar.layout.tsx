@@ -487,15 +487,15 @@ const AccountPannel: React.FC = () => {
             </div>
           }
         >
-          <div className="p-5 flex flex-col justify-center gap-4">
+          <div className="p-5 pt-2 flex flex-col justify-center gap-4">
             <div className="text-default">
               {t('layout:logOutQuestion')}
             </div>
-            <div className="flex justify-center gap-5">
-              <button className="bg-gradient-btn-play py-3 w-[50%] rounded-large text-default" onClick={handleLogout}>
+            <div className="flex justify-between gap-5">
+              <button className="bg-color-btn-primary py-3 w-[50%] rounded-large text-default" onClick={handleLogout}>
                 {t('layout:logOut')}
               </button>
-              <button className="py-3 bg-color-btn-primary w-[50%] rounded-large text-default" onClick={() => setShowLogOutModal(false)}>
+              <button className="py-3 bg-gradient-btn-play w-[50%] rounded-large text-default" onClick={() => setShowLogOutModal(false)}>
                 {t('layout:cancel')}
               </button>
             </div>

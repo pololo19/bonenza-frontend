@@ -65,7 +65,7 @@ export default function MobileModal({
           >
             <div
               className={cn(
-                'rounded-t-large overflow-hidden z-[20] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[210px] sm:h-auto h-screen',
+                'rounded-t-large overflow-hidden z-[20] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px]',
                 panelClass,
               )}
               onClick={(e) => e.stopPropagation()}
