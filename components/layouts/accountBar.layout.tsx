@@ -16,7 +16,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -27,6 +27,7 @@ import { currencyFormat1 } from '@/base/libs/utils';
 import { logoutState } from '@/base/redux/reducers/auth.reducer';
 import {
   changeAuthenticationType,
+  changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
   changeIsShowMultiLanguageModal,
@@ -39,6 +40,7 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
+import MobileModal from '../modal/commonModal/mobileModal';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import VipProgressComponent from '../vipProgress/vipProgress';
 
@@ -101,6 +103,7 @@ const AccountPannel: React.FC = () => {
 
   const { setTheme, theme } = useTheme();
   const router = useRouter();
+  const [showLogOutModal, setShowLogOutModal] = useState<boolean>(false);
 
   useEffect(() => {
     const savedtheme = localStorage.getItem('theme') ?? 'dark';
@@ -298,10 +301,12 @@ const AccountPannel: React.FC = () => {
   );
 
   const handleLogout = () => {
+    setShowLogOutModal(false);
+    dispatch(changeIsShowAccountPannel(false));
     CookiesStorage.logout();
     googleLogout();
     dispatch(logoutState());
-    dispatch(logoutWallet());
+    dispatch(logoutWallet());    
     router.replace(ROUTER.Home);
   };
 
@@ -420,7 +425,7 @@ const AccountPannel: React.FC = () => {
                   title={item.title}
                   icon={item.icon}
                   href={item.href}
-                  classNames={item.classNames}
+                  classNames={item.classNames + ' !px-[8px]'}
                 />
               ))}
             </div>
@@ -463,12 +468,39 @@ const AccountPannel: React.FC = () => {
         </ul>
         {isLogin && (
           <div
-            className="dark:text-color-text-primary text-color-light-text-primary py-[15px] font-bold flex items-center justify-center gap-[5px]"
-            onClick={handleLogout}
+            className="dark:text-color-text-primary text-color-light-text-primary py-[15px] font-semibold flex items-center justify-center gap-[5px] text-default cursor-pointer"
+            onClick={() => setShowLogOutModal(true)}
           >
             {t('layout:logOut')}
           </div>
         )}
+        
+        <MobileModal
+          show={showLogOutModal}
+          onClose={() => setShowLogOutModal(!showLogOutModal)}
+          panelClass="rounded"
+          header={
+            <div className="relative p-[20px]">
+              <div className="flex items-center text-white gap-[10px]">
+                <div className="text-[14px] font-[500]">{t('layout:logOut')}</div>
+              </div>
+            </div>
+          }
+        >
+          <div className="p-5 pt-2 flex flex-col justify-center gap-4">
+            <div className="text-default">
+              {t('layout:logOutQuestion')}
+            </div>
+            <div className="flex justify-between gap-5">
+              <button className="bg-color-btn-primary py-3 w-[50%] rounded-large text-default" onClick={handleLogout}>
+                {t('layout:logOut')}
+              </button>
+              <button className="py-3 bg-gradient-btn-play w-[50%] rounded-large text-default" onClick={() => setShowLogOutModal(false)}>
+                {t('layout:cancel')}
+              </button>
+            </div>
+          </div>
+        </MobileModal>
       </div>
     </div>
   );

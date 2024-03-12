@@ -63,7 +63,9 @@
     "verify": "Sahkan",
     "racing": "Berlumba",
     "top": "Atas",
-    "updown": "Naik"
+    "updown": "Naik",
+    "logOutQuestion": "Adakah anda pasti mahu log keluar? Semak promosi dan bonus hebat kami sebelum anda pergi!",
+    "cancel": "Batal"
   },
   "affiliate": {
     "inviteFriendsToEarn": "JEMPUT KAWAN UNTUK MENJANA",

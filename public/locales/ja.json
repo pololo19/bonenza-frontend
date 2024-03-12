@@ -63,7 +63,9 @@
     "verify": "確認する",
     "racing": "レーシング",
     "top": "上",
-    "updown": "上"
+    "updown": "上",
+    "logOutQuestion": "ログアウトしてもよろしいですか?ログアウトする前に、素晴らしいプロモーションとボーナスをチェックしてください。",
+    "cancel": "キャンセル"
   },
   "affiliate": {
     "inviteFriendsToEarn": "友達を招待して獲得しよう",

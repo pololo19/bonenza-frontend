@@ -63,7 +63,9 @@
     "verify": "Memeriksa",
     "racing": "Balap",
     "top": "Atas",
-    "updown": "Ke atas"
+    "updown": "Ke atas",
+    "logOutQuestion": "Apakah Anda yakin ingin keluar? Periksa promosi dan bonus menarik kami sebelum Anda berangkat!",
+    "cancel": "Membatalkan"
   },
   "affiliate": {
     "inviteFriendsToEarn": "UNDANG TEMAN UNTUK MENGHASILKAN",

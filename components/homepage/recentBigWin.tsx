@@ -130,11 +130,12 @@ function RecentBigWinComponent() {
   });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
-  const { userId, localFiat, viewInFiat } = useSelector(
+  const { userId, localFiat, viewInFiat, isLogin } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -144,6 +145,8 @@ function RecentBigWinComponent() {
   }, [userId]);
 
   const getExchangeRateLocalFiat = (amount: number, currency: string) => {
+    if(!isLogin)
+      return currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD');
     return viewInFiat
       ? `${currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD')}`
       : `${currencyFormat1(amount, 4, '', false)} ${currency}`;

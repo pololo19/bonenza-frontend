@@ -63,7 +63,9 @@
     "verify": "Doğrulamak",
     "racing": "Yarışma",
     "top": "Tepe",
-    "updown": "Yukarı"
+    "updown": "Yukarı",
+    "logOutQuestion": "Çıkış yapmak istediğinizden emin misiniz? Ayrılmadan önce harika promosyonlarımıza ve bonuslarımıza göz atın!",
+    "cancel": "İptal etmek"
   },
   "affiliate": {
     "inviteFriendsToEarn": "ARKADAŞLARINIZI KAZANMAYA DAVET EDİN",

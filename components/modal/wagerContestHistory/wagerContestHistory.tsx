@@ -154,7 +154,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
               <Image
                 width={25}
                 height={25}
-                className="object-cover max-w-full rounded-full"
+                className="rounded-full blur-[1px] grayscale brightness-50"
                 src="/img/avatar-hidden.png"
                 alt=""
               />

@@ -63,7 +63,9 @@
     "verify": "Vérifier",
     "racing": "Courses",
     "top": "Haut",
-    "updown": "En haut"
+    "updown": "En haut",
+    "logOutQuestion": "Etes-vous sûr de vouloir vous déconnecter ? Consultez nos superbes promotions et bonus avant de partir !",
+    "cancel": "Annuler"
   },
   "affiliate": {
     "inviteFriendsToEarn": "INVITEZ DES AMIS À GAGNER",
