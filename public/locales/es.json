@@ -63,7 +63,9 @@
     "verify": "Verificar",
     "racing": "Carreras",
     "top": "Arriba",
-    "updown": "Arriba"
+    "updown": "Arriba",
+    "logOutQuestion": "¿Estás seguro de que deseas cerrar sesión? ¡Consulta nuestras excelentes promociones y bonificaciones antes de irte!",
+    "cancel": "Cancelar"
   },
   "affiliate": {
     "inviteFriendsToEarn": "INVITA A AMIGOS A GANAR",

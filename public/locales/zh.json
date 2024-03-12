@@ -63,7 +63,9 @@
     "verify": "核实",
     "racing": "赛车",
     "top": "顶部",
-    "updown": "向上"
+    "updown": "向上",
+    "logOutQuestion": "您确定要退出吗？在您离开之前查看我们的精彩促销和奖金！",
+    "cancel": "取消"
   },
   "affiliate": {
     "inviteFriendsToEarn": "邀请好友赚取",

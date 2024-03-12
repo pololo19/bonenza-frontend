@@ -63,7 +63,9 @@
     "verify": "Verifizieren",
     "racing": "Rennen",
     "top": "Spitze",
-    "updown": "Up & Down"
+    "updown": "Up & Down",
+    "logOutQuestion": "Sind Sie sicher, dass Sie sich abmelden möchten? Schauen Sie sich vor Ihrer Abreise unsere tollen Aktionen und Boni an!",
+    "cancel": "Stornieren"
   },
   "affiliate": {
     "inviteFriendsToEarn": "LADEN SIE FREUNDE EIN, UM ZU VERDIENEN",
