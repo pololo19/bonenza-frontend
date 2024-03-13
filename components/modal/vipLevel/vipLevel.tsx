@@ -118,13 +118,14 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
     const wagerColumnsDefault: ColumnDef<levelDataType>[] = [
       {
         accessorKey: 'level',
+        
         header: () => <div className="text-left pr-6 text-[14px] font-normal">{t('vipClub:level')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2 sm:px-2 p-[5px]">
             <Image height={18} width={16} src={`/img/${getLinkImage(row?.original?.rank)}.png`} alt="" />
-            <span className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] pl-2 min-w-[80px]">
               {row?.original?.name}
-            </span>
+            </div>
           </div>
         ),
       },
@@ -149,7 +150,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] dark:text-white text-[#000] truncate text-right sm:px-2 p-[5px]">
+          <div className="text-[14px] dark:text-white text-[#000] truncate text-right sm:px-2 p-[5px] pr-2">
             {row.original.levelUpBonus}
           </div>
         ),
