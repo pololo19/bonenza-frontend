@@ -96,9 +96,10 @@ const GameReviewComponent = ({
   gameProvider?: GameProviderDetail;
 }) => {
   const dispatch = useAppDispatch();
-  const { isLogin, userAvatar } = useSelector(
+  const { isLogin, userId, userAvatar } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
+      userId: state.auth.user.userId,
       userAvatar: state.auth.user.avatar,
     }),
     shallowEqual,
@@ -182,7 +183,7 @@ const GameReviewComponent = ({
     try {
       if (!gameDetail.id) return;
       setLoading({ ratingLoading: false, commentLoading: true });
-      const _comments = await api_reviewList('', gameDetail.id, page, 10, selectedSort);
+      const _comments = await api_reviewList('', gameDetail.id, page, 10, selectedSort, userId);
       const tempCommentDatas: CommentType[] = _comments?.data?.comments.map((item: any) => ({
         id: item?.id ?? '',
         userId: item?.userId ?? '',
@@ -209,7 +210,7 @@ const GameReviewComponent = ({
       setLoading({ ratingLoading: true, commentLoading: true });
       const [_rates, _comments] = await Promise.all([
         api_reviewRatingStatistics(gameDetail?.id),
-        api_reviewList('', gameDetail.id, page, 10, selectedSort),
+        api_reviewList('', gameDetail.id, page, 10, selectedSort, userId),
       ]);
 
       const tempCommentDatas: CommentType[] = _comments?.data?.comments.map((item: any) => ({
