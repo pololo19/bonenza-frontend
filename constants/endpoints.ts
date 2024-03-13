@@ -56,6 +56,7 @@ const API_WALLET_USER_BALANCE = '/wallet/get-balance';
 const API_WALLET_INFO = '/wallet/get-wallet-info';
 const API_WALLET_WITHDRAW = '/wallet/withdraw';
 const API_WALLET_SWAP_RATE = '/wallet/swap/prices';
+const API_WALLET_SWAP_FEE = '/wallet/swap/info';
 const API_WALLET_SWAP = '/wallet/swap';
 const API_WALLET_TRANSACTIONS = '/wallet/transaction';
 const API_WALLET_ROLLOVER = '/wallet/rollover';
@@ -240,6 +241,7 @@ export {
   API_WALLET_ROLLOVER,
   API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,
+  API_WALLET_SWAP_FEE,
   API_WALLET_SWAP_RATE,
   API_WALLET_TRANSACTIONS,
   API_WALLET_USER_BALANCE,

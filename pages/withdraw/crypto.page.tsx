@@ -13,7 +13,7 @@ import * as yup from 'yup';
 
 import { api_withdraw, api_withdrawInfo } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TOAST_ENUM, WITHDRAW_FEE } from '@/base/constants/common';
+import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
@@ -245,7 +245,7 @@ const WithdrawCryptoPage = () => {
         withdrawAmount: Number(formWithdraw.withdrawAmount),
       };
       const _res = await api_withdraw(formData);
-      const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
+      // const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
       const { status, message } = _res.data;
       if (status) {
         toast.success(

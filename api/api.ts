@@ -82,6 +82,7 @@ const wrapApiErrors = async (error: any, axiosInstance: AxiosInstance) => {
       return Promise.reject(error);
     }
     default:
+      console.log(error);
       return Promise.reject(error);
   }
 };

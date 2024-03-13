@@ -1,7 +1,7 @@
 import { Wallet } from '@rainbow-me/rainbowkit';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { api_getDepositTime, api_getUserBalance, api_getWalletInfo } from '@/api/wallet';
+import { api_getDepositTime, api_getUserBalance, api_getWalletInfo, api_swapFeeInfo } from '@/api/wallet';
 import { AppDispatch } from '@/base/redux/store';
 import { WalletState } from '@/base/types/reducer-states';
 import {
@@ -154,6 +154,7 @@ export const {
   updateCryptoPrice,
   updatedFiatPrice,
   setActiveTransactionStatus,
+  setSwapFee,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 
@@ -178,8 +179,9 @@ export const logoutWallet = () => async (dispath: AppDispatch) => {
 
 export const initWalletInfo = () => async (dispatch: AppDispatch) => {
   try {
-    const result = await api_getWalletInfo();
-    const { wallets, balances, networks, symbols, currency, fiatSymbols, depositTime, lockedUSDT } = result.data;
+    const [_res] = await Promise.all([api_getWalletInfo()]);
+    const { wallets, balances, networks, symbols, currency, fiatSymbols, depositTime, lockedUSDT } = _res.data;
+    // const swapFee = _resSwap.data?.fee_percentage || 0.015;
 
     const tempWallets: DepositAddressType[] =
       wallets?.map((item: any) => ({
@@ -254,6 +256,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
     dispatch(setCryptoCurrencies(tempCurrencies));
     dispatch(setDepositTime(Number(depositTime)));
     dispatch(setLockedAmount(tempLockedAmount));
+    dispatch(setSwapFee(0.015));
   } catch (error) {
     console.log(error);
     dispatch(setNetworks([]));
