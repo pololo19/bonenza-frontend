@@ -109,7 +109,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
       >
         <div className="container mx-auto px-4">
           <div
-            className={cn('grid 2xl:grid-cols-5 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4', {
+            className={cn('grid 2xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4', {
               'xl:grid-cols-3': showChatType,
               'xl:grid-cols-5': !showChatType,
             })}
@@ -329,7 +329,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:items-start items-center">
+            <div className="flex flex-col md:items-start items-center hidden">
               <div className="flex gap-[10px] items-center">
                 <div className="w-[2px] h-[12px] bg-white"></div>
                 <div className="text-sm text-black dark:text-white font-semibold">
@@ -615,7 +615,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             </div>
           )}
           {/* footer 4 */}
-          <div className={cn("flex flex-col gap-5 pb-[60px] sm:pb-4", {"mt-[40px]": isDetailPage})}>
+          <div className={cn('flex flex-col gap-5 pb-[60px] sm:pb-4', { 'mt-[40px]': isDetailPage })}>
             <Image
               alt=""
               src="/img/logo-light.png"
