@@ -893,10 +893,10 @@ export const BANNER_DATA = [
     img: '/img/banners/Aloha_King_Elvis.png',
     url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),
   },
-  {
-    img: '/img/banners/Blackjack_Salon_Prive.png',
-    url: ROUTER.GameDetail('ezugi:BlackjackSalonPrive'),
-  },
+  // {
+  //   img: '/img/banners/Blackjack_Salon_Prive.png',
+  //   url: ROUTER.GameDetail('ezugi:BlackjackSalonPrive'),
+  // },
   // {
   //   img: '/img/banners/Dice_Bonanza.jpg',
   //   url: ROUTER.GameDetail('softswiss:DiceBonanza'),
@@ -940,6 +940,10 @@ export const BANNER_DATA = [
   {
     img: '/img/banners/Plinko.png',
     url: ROUTER.GameDetail('softswiss:easterplinko'),
+  },
+  {
+    img: '/img/banners/Dice_Bonaza.png',
+    url: ROUTER.GameDetail('softswiss:dicebonanza'),
   },
   // {
   //   img: '/img/banners/Teen_Patti_Face_Off.jpg',
