@@ -128,7 +128,7 @@ export const api_getLatestBetForUser = async (gameId: string) => {
 };
 
 export const api_getRecentBigWins = async (count: number) => {
-  return api.get(API_GAME_RECENT_BIG_WINS, {params: {count: count}});
+  return api.get(API_GAME_RECENT_BIG_WINS, { params: { count: count } });
 };
 
 export const api_getTopRelatedGames = async () => {
@@ -198,8 +198,9 @@ export const api_reviewList = async (
   page: number,
   pageSize: number,
   sort: ReviewListSortType,
+  userId: string,
 ) => {
-  return api.get(API_GAME_REVIEW_LIST, { params: { commentId, page, pageSize, sort, gameId } });
+  return api.get(API_GAME_REVIEW_LIST, { params: { commentId, page, pageSize, sort, gameId, userId } });
 };
 
 export const api_reviewLike = async (commentId: string) => {
