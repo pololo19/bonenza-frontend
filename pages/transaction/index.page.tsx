@@ -22,6 +22,7 @@ import {
   TOAST_ENUM,
 } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useWidth } from '@/base/hooks/useWidth';
 import {
   convertStatus,
   copyClipBoard,
@@ -52,12 +53,13 @@ interface BillType {
   type: string;
 }
 
-const cryptoLen = 8;
+const cryptoLen = 4;
 const fiatLen = 4;
 
 const TransactionPage = () => {
   const { t, i18n } = useTranslation('');
   const exchangeRate = useExchange();
+  const width = useWidth();
 
   const { localFiat, viewInFiat, cryptoSymbols, userId, username, activeTransaction } = useSelector(
     (state: AppState) => ({
@@ -129,7 +131,7 @@ const TransactionPage = () => {
             />
           </div>
         ),
-        minSize: 120,
+        minSize: 20,
       },
       {
         accessorKey: 'time',
@@ -254,6 +256,131 @@ const TransactionPage = () => {
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
 
   const billColumns: ColumnDef<TransactionBillType>[] = useMemo(() => {
+    if(width > 1024) {
+      return [
+        {
+          accessorKey: 'actionType',
+          header: () => (
+            <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+              {String(t('transaction:type'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <>
+              <div className="dark:text-white text-black flex items-center gap-1 truncate min-h-[40px]">
+                {row.original?.type?.toUpperCase()}{' '}
+                {row.original?.type && row.original?.gameName && (
+                  <span className="text-[10px] text-gray-400 flex gap-[5px]">
+                    ({row.original?.gameName})
+                    {/* <Link href={ROUTER.GameDetail(convertToUrlCase(row.original.gameName || ''))}>
+                      <LinkIcon width={12} role="button" className="hover:text-amber-500" />
+                    </Link> */}
+                  </span>
+                )}
+              </div>
+              {row.original?.gameId && (
+                <div className="text-[10px] dark:text-gray-500 text-black text-left flex items-center gap-1">
+                  Game ID: {row.original?.gameId}
+                  <span role="button">
+                    <Copy
+                      size={12}
+                      className="hover:text-amber-500"
+                      onClick={() => copyClipBoard(String(row.original?.gameId))}
+                    />
+                  </span>
+                </div>
+              )}
+            </>
+          ),
+        },
+        {
+          accessorKey: 'amount',
+          header: () => (
+            <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+              {String(t('transaction:amount'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div
+              className={cn('flex items-center justify-center gap-1 truncate', {
+                'text-color-red':
+                  row.original?.type?.toLowerCase() == 'bet' ||
+                  row.original.type.toLowerCase() === 'withdraw' ||
+                  row.original.type.toLocaleLowerCase() === 'swap send',
+                'text-color-primary': !(
+                  row.original?.type?.toLowerCase() == 'bet' ||
+                  row.original.type.toLowerCase() === 'withdraw' ||
+                  row.original.type.toLocaleLowerCase() === 'swap send'
+                ),
+              })}
+            >
+              {row.original?.type?.toLowerCase() == 'bet' ||
+              row.original.type.toLowerCase() === 'withdraw' ||
+              row.original.type.toLocaleLowerCase() === 'swap send'
+                ? '-'
+                : ''}
+              {viewInFiat ? (
+                <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
+              ) : (
+                currencyFormat1(Math.abs(row.original?.amount), cryptoLen, '', false)
+              )}
+
+              <Image
+                height={20}
+                width={20}
+                src={`/img/fiats/${row.original.currency}.png`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+              />
+            </div>
+          ),
+        },
+        {
+          accessorKey: 'createdAt',
+          header: () => (
+            <div className="text-center dark:text-color-text-primary text-color-light-text-primary ">
+              {String(t('transaction:time'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div className="dark:text-color-text-primary text-color-light-text-primary">
+              {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
+          ),
+        },
+        {
+          accessorKey: 'balance',
+          header: () => (
+            <div className="text-right dark:text-color-text-primary text-color-light-text-primary ">
+              {String(t('transaction:balance'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div
+              className={`dark:text-white text-color-light-text-primary text-left flex items-center justify-end gap-1`}
+            >
+              <span className="flex-1 text-right">
+                {viewInFiat
+                  ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
+                  : currencyFormat1(row.original.balance, cryptoLen, '', false)}
+              </span>
+
+              <Image
+                height={20}
+                width={20}
+                src={`/img/fiats/${row.original?.currency}.png`}
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+                alt=""
+              />
+            </div>
+          ),
+        },
+      ];
+    }
     return [
       {
         accessorKey: 'actionType',
@@ -263,8 +390,8 @@ const TransactionPage = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <>
-            <div className="dark:text-white text-black flex items-center gap-1 truncate">
+          <div className="">
+            <div className="dark:text-white text-black flex items-center gap-1 truncate min-h-[40px]">
               {row.original?.type?.toUpperCase()}{' '}
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
@@ -276,7 +403,7 @@ const TransactionPage = () => {
               )}
             </div>
             {row.original?.gameId && (
-              <div className="text-[10px] dark:text-gray-500 text-black flex items-center gap-1 truncate">
+              <div className="text-[10px] dark:text-gray-500 text-black text-left flex items-center gap-1">
                 Game ID: {row.original?.gameId}
                 <span role="button">
                   <Copy
@@ -287,69 +414,8 @@ const TransactionPage = () => {
                 </span>
               </div>
             )}
-          </>
-        ),
-        minSize: 30,
-      },
-      {
-        accessorKey: 'amount',
-        header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
-            {String(t('transaction:amount'))}
           </div>
         ),
-        cell: ({ row }) => (
-          <div
-            className={cn('flex items-center justify-center gap-1 truncate', {
-              'text-color-red':
-                row.original?.type?.toLowerCase() == 'bet' ||
-                row.original.type.toLowerCase() === 'withdraw' ||
-                row.original.type.toLocaleLowerCase() === 'swap send',
-              'text-color-primary': !(
-                row.original?.type?.toLowerCase() == 'bet' ||
-                row.original.type.toLowerCase() === 'withdraw' ||
-                row.original.type.toLocaleLowerCase() === 'swap send'
-              ),
-            })}
-          >
-            {row.original?.type?.toLowerCase() == 'bet' ||
-            row.original.type.toLowerCase() === 'withdraw' ||
-            row.original.type.toLocaleLowerCase() === 'swap send'
-              ? '-'
-              : ''}
-            {viewInFiat ? (
-              <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
-            ) : (
-              currencyFormat1(Math.abs(row.original?.amount), cryptoLen, '', false)
-            )}
-
-            <Image
-              height={20}
-              width={20}
-              src={`/img/fiats/${row.original.currency}.png`}
-              alt=""
-              onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
-              }}
-            />
-          </div>
-        ),
-        minSize: 150,
-      },
-      {
-        accessorKey: 'createdAt',
-        header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary ">
-            {String(t('transaction:time'))}
-          </div>
-        ),
-        cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary">
-            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
-          </div>
-        ),
-        minSize: 150,
-        maxSize: 150,
       },
       {
         accessorKey: 'balance',
@@ -359,30 +425,65 @@ const TransactionPage = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <div
-            className={`dark:text-white text-color-light-text-primary text-left flex items-center justify-end gap-1`}
-          >
-            <span className="flex-1 text-right">
-              {viewInFiat
-                ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
-                : currencyFormat1(row.original.balance, cryptoLen, '', false)}
-            </span>
+          <div className="min-w-[100px]">
+            <div
+              className={cn('flex items-center justify-end gap-1 truncate font-bold', {
+                'text-color-red':
+                  row.original?.type?.toLowerCase() == 'bet' ||
+                  row.original.type.toLowerCase() === 'withdraw' ||
+                  row.original.type.toLocaleLowerCase() === 'swap send',
+                'text-color-primary': !(
+                  row.original?.type?.toLowerCase() == 'bet' ||
+                  row.original.type.toLowerCase() === 'withdraw' ||
+                  row.original.type.toLocaleLowerCase() === 'swap send'
+                ),
+              })}
+            >
+              {row.original?.type?.toLowerCase() == 'bet' ||
+              row.original.type.toLowerCase() === 'withdraw' ||
+              row.original.type.toLocaleLowerCase() === 'swap send'
+                ? '-'
+                : ''}
+              {viewInFiat ? (
+                <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}</>
+              ) : (
+                currencyFormat1(Math.abs(row.original?.amount), cryptoLen, '', false)
+              )}
 
-            <Image
-              height={20}
-              width={20}
-              src={`/img/fiats/${row.original?.currency}.png`}
-              onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
-              }}
-              alt=""
-            />
+              <Image
+                height={14}
+                width={14}
+                src={`/img/fiats/${row.original.currency}.png`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+              />
+            </div>
+            <div
+              className={`dark:text-white text-color-light-text-primary text-left flex items-center justify-end gap-1`}
+            >
+              <span className="flex-1 text-right text-[12px]">
+                {viewInFiat
+                  ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
+                  : currencyFormat1(row.original.balance, cryptoLen, '', false)}
+              </span>
+
+              <Image
+                height={14}
+                width={14}
+                src={`/img/fiats/${row.original?.currency}.png`}
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+                alt=""
+              />
+            </div>
           </div>
         ),
-        minSize: 200,
       },
     ];
-  }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
+  }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate, width]);
 
   const bonusColumns: ColumnDef<TransactionBonusType>[] = useMemo(() => {
     return [
@@ -767,10 +868,10 @@ const TransactionPage = () => {
         <title>Transactions History - Bonenza</title>
       </Head>
       <div className="w-full">
-        <div className="flex items-center flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
+        <div className="grid grid-cols-2 md:flex md:flex-wrap mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
+            className="relative flex py-[10px] px-[20px] w-[150px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -815,7 +916,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
+            className="relative flex py-[10px] px-[20px] w-[150px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -877,7 +978,7 @@ const TransactionPage = () => {
           </Menu>
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] w-[150px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -923,7 +1024,7 @@ const TransactionPage = () => {
           {t(optionFilter.type.type) === TRANSACTION_TYPE.Bill && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
+              className="relative flex py-[10px] px-[20px] w-[150px] dark:bg-color-select-bg-primary bg-white rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -972,7 +1073,7 @@ const TransactionPage = () => {
           {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
+              className="relative flex py-[10px] px-[20px] w-[150px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
