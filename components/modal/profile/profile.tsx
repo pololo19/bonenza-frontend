@@ -138,10 +138,10 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 role="button"
                 className="py-[6px] px-[10px] rounded-[10px] bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit flex items-center gap-[5px]"
               >
-                <div className="flex w-[14px] h-[14px]">
+                {/* <div className="flex w-[14px] h-[14px]">
                   <Image width={14} height={14} src="/img/heart.png" alt="" />
                 </div>
-                <div className="flex text-black dark:text-white">0</div>
+                <div className="flex text-black dark:text-white">0</div> */}
               </div>
               <div className="flex flex-col items-center gap-[10px] w-full">
                 <div className="h-[80px] w-[80px] rounded-full overflow-hidden">
@@ -158,7 +158,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
                 <div className="text-[14px] text-color-text-primary w-full flex justify-between items-center">
                   <div className="truncate max-w-[280px]">
-                    {t('profile:userID')}:{user?.userId}
+                    {t('profile:userID')}: {user?.userId}
                   </div>
                   <button
                     className="dark:hover:text-white hover:text-gray-500"
