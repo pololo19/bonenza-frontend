@@ -1534,7 +1534,7 @@
     "rulesDailyWageringContest": "নিয়ম-দৈনিক বাজি প্রতিযোগিতা",
     "rulesDailyWageringContest1": "প্রতিযোগিতার পুরষ্কার পুল ঘনিষ্ঠভাবে ব্যাঙ্করোলের উপর নির্ভর করে, যত বেশি খেলোয়াড় বাজি ধরবে এটি তত বড় হবে। ",
     "rulesDailyWageringContest2": "10 জন সবচেয়ে বাজি ধরা খেলোয়াড় পুরস্কারের পুল তৈরি করে। ",
-    "rulesDailyWageringContest3": "এই প্রতিযোগিতায় সমর্থন বাজি ধরা: USD, KRW, EUR, TRY, IDR, JPY, AED, MYR, CNY, HKD, ETH, BNB, MATIC, USDT, TRX, GOD",
+    "rulesDailyWageringContest3": "এই প্রতিযোগিতায় সমর্থন বাজি ধরা: ETH, BNB, MATIC, USDT, LTC, WBTC, USDC, DOGE, SHIB, XRP, DAI",
     "rulesDailyWageringContest4": "আপনি উপরের যেকোনো ক্রিপ্টোকারেন্সিতে বাজি ধরতে পারেন, এবং সেগুলিকে বর্তমান হারে USDT-তে স্যুইচ করা হবে।",
     "rulesDailyWageringContest5": "সমস্ত পুরস্কার USDT এ পাঠানো হবে।",
     "rulesDailyWageringContest6": "প্রতিযোগিতা শেষ হওয়ার সাথে সাথে নোটিশ পৃষ্ঠায় পুরস্কার পাঠানো হবে।",

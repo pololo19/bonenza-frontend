@@ -2,6 +2,7 @@ import { Disclosure, Transition } from '@headlessui/react';
 import { Add, Minus, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ReactElement, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
@@ -89,11 +90,12 @@ function AffiliatePage() {
       </Head>
       {!isLogin && (
         <>
-          <div className={cn(
-            "dark:bg-[#1C1E22] bg-[#FFFFFF] bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] pt-[50px] lg:pt-[25px] lg:h-[360px]",
-            "lg:dark:bg-[url('/img/page/banner-affiliate.png')]",
-            "lg:bg-[url('/img/page/banner-affiliate-light-mode.png')]",
-            "bg-[url('/img/page/banner-affiliate-back-mobile.png')]",
+          <div
+            className={cn(
+              'dark:bg-[#1C1E22] bg-[#FFFFFF] bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] pt-[50px] lg:pt-[25px] lg:h-[360px]',
+              "lg:dark:bg-[url('/img/page/banner-affiliate.png')]",
+              "lg:bg-[url('/img/page/banner-affiliate-light-mode.png')]",
+              "bg-[url('/img/page/banner-affiliate-back-mobile.png')]",
             )}
           >
             <div className="flex flex-col lg:w-1/2 w-full h-full justify-center items-center">
@@ -124,10 +126,11 @@ function AffiliatePage() {
               <h5 className="text-[16px] text-center dark:text-white text-[#141414] mt-3">
                 {t('affiliate:referralTermsConditions')}
               </h5>
-              <div className={cn(
-                "lg:hidden",
-                "bg-[url('/img/page/banner-affiliate-mobile.png')] bg-[length:100%_100%]",
-                "h-[300px] w-[450px] mt-10",
+              <div
+                className={cn(
+                  'lg:hidden',
+                  "bg-[url('/img/page/banner-affiliate-mobile.png')] bg-[length:100%_100%]",
+                  'h-[300px] w-[450px] mt-10',
                 )}
               />
             </div>
@@ -137,7 +140,9 @@ function AffiliatePage() {
               <div className="sm:w-[100%] md:w-[70%]">
                 <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
                   {t('affiliate:getYour')}
-                  <span className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}>
+                  <span
+                    className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}
+                  >
                     {' '}
                     {viewInFiat
                       ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')
@@ -153,7 +158,13 @@ function AffiliatePage() {
                   })}
                 </span>
                 <div className="md:hidden mt-5">
-                  <Image width={200} height={30} src="/img/banner-image-box1.png" className="w-[50%] h-[50%] m-auto" alt="" />
+                  <Image
+                    width={200}
+                    height={30}
+                    src="/img/banner-image-box1.png"
+                    className="w-[50%] h-[50%] m-auto"
+                    alt=""
+                  />
                 </div>
                 <div
                   role="button"
@@ -167,13 +178,24 @@ function AffiliatePage() {
             <div className="py-7 px-5 dark:bg-[#2D3237] bg-[#D2CDC9] md:bg-[url('/img/banner-image-box2.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:35%_auto] rounded">
               <div className="sm:w-[100%] md:w-[70%]">
                 <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
-                  {t('affiliate:getYour')}{' '}                  
-                  <span className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}> 25% </span>
+                  {t('affiliate:getYour')}{' '}
+                  <span
+                    className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}
+                  >
+                    {' '}
+                    25%{' '}
+                  </span>
                   <span className="font-bold">{t('affiliate:commissionRewards')}</span>
                 </div>
                 <span className="text-[16px] dark:text-[#939699] text-[#7C7A77]">{t('affiliate:youWillReceive')}</span>
                 <div className="md:hidden mt-5">
-                  <Image width={200} height={30} src="/img/banner-image-box2.png" className="w-[50%] h-[50%] m-auto" alt="" />
+                  <Image
+                    width={200}
+                    height={30}
+                    src="/img/banner-image-box2.png"
+                    className="w-[50%] h-[50%] m-auto"
+                    alt=""
+                  />
                 </div>
                 <div
                   role="button"
@@ -251,15 +273,18 @@ function AffiliatePage() {
               <div className="text-[16px] mb-[20px] dark:text-white text-[#141414]">
                 {t('affiliate:forMoreDetails')}
               </div>
-              <div className="flex justify-between max-w-[309px] h-[50px] rounded-[5px] dark:bg-color-panel-bg bg-[#F6F7FA] items-center p-[10px]">
-                <div className="text-[14px] text-gray-500">Business@bonenza</div>
+              <Link
+                className="flex justify-between max-w-[309px] h-[50px] rounded-[5px] dark:bg-color-panel-bg bg-[#F6F7FA] items-center p-[10px]"
+                href="mailto:business@bonenza.com"
+              >
+                <div className="text-[14px] text-gray-500">business@bonenza.com</div>
                 <div className="flex items-center gap-[10px]">
                   <div className="text-[14px] text-color-primary">{t('affiliate:sendNow')}</div>
                   <div>
                     <SmsTracking className="w-[24px] h-[24px] text-color-primary" />
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
           <div className="flex justify-center items-center">

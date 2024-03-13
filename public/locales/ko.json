@@ -1534,7 +1534,7 @@
     "rulesDailyWageringContest": "규칙 - 일일 베팅 대회",
     "rulesDailyWageringContest1": "콘테스트 상금 풀은 자금에 따라 크게 달라지며 더 많은 플레이어가 베팅할수록 더 커집니다. ",
     "rulesDailyWageringContest2": "가장 많은 베팅 플레이어 10명이 상금 풀을 나눕니다. ",
-    "rulesDailyWageringContest3": "본 대회는 USD, KRW, EUR, TRY, IDR, JPY, AED, MYR, CNY, HKD, ETH, BNB, MATIC, USDT, TRX, GOD 베팅을 지원합니다.",
+    "rulesDailyWageringContest3": "본 대회는 ETH, BNB, MATIC, USDT, LTC, WBTC, USDC, DOGE, SHIB, XRP, DAI 베팅을 지원합니다.",
     "rulesDailyWageringContest4": "위의 모든 암호화폐에 베팅할 수 있으며 모두 현재 환율로 USDT로 전환됩니다.",
     "rulesDailyWageringContest5": "모든 상품은 USDT로 발송됩니다.",
     "rulesDailyWageringContest6": "경품은 콘테스트가 종료되면 공지사항 페이지를 통해 발송됩니다.",

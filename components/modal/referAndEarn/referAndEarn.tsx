@@ -81,7 +81,7 @@ export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) 
           <div className="px-5 text-[14px] text-black dark:text-[#C2C2C2]">
             {t('referAndEarn:shareYourReferralLink')}
           </div>
-          <div className="bg-[#f5f6fa] dark:bg-[#12181F] text-black dark:text-white rounded-default px-5 py-5 h-[70px] flex justify-between items-center">
+          <div className="bg-[#f5f6fa] dark:bg-[#12181F] text-black dark:text-white rounded-default px-5 py-5 h-[70px] flex justify-between items-center cursor-pointer">
             <div className="max-sm:text-[14px]">{ROUTER.REFERRAL_CODE(referralCode)}</div>
             <div className="flex w-[74px] h-[38px] bg-color-primary rounded-default justify-center items-center">
               <div className="mr-[3px]">

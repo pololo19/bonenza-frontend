@@ -1534,7 +1534,7 @@
     "rulesDailyWageringContest": "规则-每日投注大赛",
     "rulesDailyWageringContest1": "比赛奖池与资金密切相关，玩家下注越多，奖金就越大。",
     "rulesDailyWageringContest2": "10 名下注最多的玩家瓜分奖池。 ",
-    "rulesDailyWageringContest3": "本次比赛支持投注币种：USD, KRW, EUR, TRY, IDR, JPY, AED, MYR, CNY, HKD, ETH, BNB, MATIC, USDT, TRX, GOD",
+    "rulesDailyWageringContest3": "本次比赛支持投注币种：ETH, BNB, MATIC, USDT, LTC, WBTC, USDC, DOGE, SHIB, XRP, DAI",
     "rulesDailyWageringContest4": "您可以使用上述任何加密货币进行下注，它们都将按当前汇率转换为 USDT。",
     "rulesDailyWageringContest5": "所有奖品将以 USDT 形式发送。",
     "rulesDailyWageringContest6": "竞赛结束时，奖品将在“通知”页面上发送。",

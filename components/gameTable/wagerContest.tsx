@@ -37,6 +37,7 @@ type ContesterType = {
 };
 
 type WagerContestType = {
+  startTime: number;
   currentTime: number;
   endTime: number;
   totalPrizePoolAmountUsd: number;
@@ -48,6 +49,7 @@ const WagerContestComponent = () => {
   const usdtPrice = useUSDTPrice();
   const dispatch = useDispatch();
   const [wagerContestData, setWagerContestData] = useState<WagerContestType>({
+    startTime: 0,
     currentTime: 0,
     endTime: 0,
     totalPrizePoolAmountUsd: 0,
@@ -121,6 +123,7 @@ const WagerContestComponent = () => {
         api_wagerContestHistory(),
       ]);
       const tempContestData: WagerContestType = {
+        startTime: Number(wagerContestList?.data.startTime * 1000 ?? 0),
         currentTime: Number(wagerContestList?.data.currentTime * 1000 ?? 0),
         endTime: Number(wagerContestList?.data.endTime * 1000 ?? 0),
         totalPrizePoolAmountUsd: Number(wagerContestList?.data.totalPrizePoolAmountUsd ?? 0),
@@ -154,6 +157,7 @@ const WagerContestComponent = () => {
       setWagerContestData(tempContestData);
     } catch (error) {
       setWagerContestData({
+        startTime: 0,
         currentTime: 0,
         endTime: 0,
         totalPrizePoolAmountUsd: 0,
@@ -582,7 +586,7 @@ const WagerContestComponent = () => {
         <div className="flex  gap-4 mt-8 mb-4 items-center">
           <p className="dark:text-[#fff] text-[#000]">{t('wagerContest:active')}</p>
           <p className="dark:text-color-text-primary text-color-light-text-primary">
-            {formatDate(new Date(wagerContestData.currentTime), 'LL/dd/yyyy')} ~{' '}
+            {formatDate(new Date(wagerContestData.startTime), 'LL/dd/yyyy')} ~{' '}
             {formatDate(new Date(wagerContestData.endTime), 'LL/dd/yyyy')}
           </p>
         </div>
