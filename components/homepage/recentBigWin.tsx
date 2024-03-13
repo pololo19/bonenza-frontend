@@ -145,8 +145,7 @@ function RecentBigWinComponent() {
   }, [userId]);
 
   const getExchangeRateLocalFiat = (amount: number, currency: string) => {
-    if(!isLogin)
-      return currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD');
+    if (!isLogin) return currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD');
     return viewInFiat
       ? `${currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD')}`
       : `${currencyFormat1(amount, 4, '', false)} ${currency}`;
@@ -169,6 +168,7 @@ function RecentBigWinComponent() {
 
         userId: item?.userId ?? '',
         userName: item?.userName ?? '',
+        userAvatar: item?.userAvatar ?? '',
       }));
       setListBigWinGame(tempBetLists);
     } catch (error) {
@@ -209,7 +209,7 @@ function RecentBigWinComponent() {
             gameIdenfiter: game.identifier,
             player: game.userName,
             playerId: game.userId,
-            playerAvatar: '',
+            playerAvatar: game.userAvatar,
             betAmount: game.amount,
             betAmountUsd: game.amountUsd,
             multiplier: game.multiplier,
