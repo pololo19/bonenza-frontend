@@ -140,7 +140,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex-1 rounded-[3px] dark:bg-transparent sm:dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black sm:p-5 md:px-5 md:pt-5 md:pb-5 md:p-5 mt-[20px] md:mt-0 relative w-full',
+                    'flex-1 rounded-default dark:bg-transparent sm:dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black sm:p-5 md:px-5 md:pt-5 md:pb-5 md:p-5 mt-[20px] md:mt-0 relative w-full',
                   )}
                 >
                   {children}

@@ -17,7 +17,6 @@ import Script from 'next/script';
 import { ThemeProvider, useTheme } from 'next-themes';
 import NextNProgress from 'nextjs-progressbar';
 import { ReactElement, ReactNode, useEffect } from 'react';
-import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { arbitrum, base, mainnet, optimism, polygon, zora } from 'wagmi/chains';
@@ -28,7 +27,7 @@ import ErrorProvider from '@/components/context/errorContext';
 import { wrapper } from '@/redux/store';
 
 import { useTranslation } from '../config/i18next';
-import { AUTH_KEY, CookieKey, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
+import { CookieKey, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
 import { CookiesStorage } from '../libs/storage/cookie';
 import resources from '../public/locales';
 
@@ -47,11 +46,9 @@ declare global {
 }
 
 function MyApp({ Component, ...rest }: AppPropsWithLayout) {
-  const { store, props } = wrapper.useWrappedStore(rest);
+  const { props } = wrapper.useWrappedStore(rest);
   const getLayout = Component.getLayout ?? ((page) => page);
   const { i18n } = useTranslation('');
-  const { theme } = useTheme();
-  const router = useRouter();
 
   const { chains, publicClient } = configureChains(
     [mainnet, polygon, optimism, arbitrum, base, zora],

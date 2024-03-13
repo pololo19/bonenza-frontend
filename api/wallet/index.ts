@@ -7,6 +7,7 @@ import {
   API_WALLET_ROLLOVER,
   API_WALLET_SET_FAVORITE,
   API_WALLET_SWAP,
+  API_WALLET_SWAP_FEE,
   API_WALLET_SWAP_RATE,
   API_WALLET_TRANSACTIONS,
   API_WALLET_USER_BALANCE,
@@ -77,4 +78,8 @@ export const api_postClaims = async (amount: number) => {
 
 export const api_withdrawInfo = async (symbolId: string) => {
   return api.get(API_WALLET_WITHDRAW_INFO, { params: { symbolId } });
+};
+
+export const api_swapFeeInfo = async () => {
+  return api.get(API_WALLET_SWAP_FEE);
 };

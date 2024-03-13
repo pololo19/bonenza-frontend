@@ -169,7 +169,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div
                     className={cn(
                       styles.cardMain,
-                      'flex-1  text-white dark:bg-color-modal-bg-secondary bg-white rounded p-[20px] min-h-fit',
+                      'flex-1  text-white dark:bg-color-modal-bg-secondary bg-white rounded-default p-[20px] min-h-fit',
                     )}
                   >
                     {children}
