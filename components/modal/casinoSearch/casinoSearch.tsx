@@ -194,11 +194,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] right-0 z-[5]  bottom-0 sshadow-bs-default dark:bg-black/70 bg-white/70',
+          'fixed top-[67px] right-0 z-[10]  bottom-0 sshadow-bs-default dark:bg-black/70 bg-white/70 w-full sm:w-auto',
           {
             'sm:left-[62px]': (!isToggleSidebar && !showChatType) || (showChatType && !isToggleSidebar),
-            'md:left-[260px]': isToggleSidebar && !showChatType,
-            'xl:left-[260px]': showChatType && isToggleSidebar,
+            'md:left-[246px]': isToggleSidebar && !showChatType,
+            'xl:left-[246px]': showChatType && isToggleSidebar,
           },
         )}
       >

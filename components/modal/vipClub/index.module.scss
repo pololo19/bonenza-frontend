@@ -1,6 +1,7 @@
 .rank {
   height: 20px;
   position: relative;
+  border: none;
 
   &::after {
     content: ' ';
