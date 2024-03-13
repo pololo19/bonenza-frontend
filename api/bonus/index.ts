@@ -4,8 +4,10 @@ import {
   API_AFFILIATE_COMMISSION_REWARDS,
   API_AFFILIATE_COMMISSION_WITHDRAW,
   API_AFFILIATE_FRIENDS,
+  API_AFFILIATE_REFERRAL_HISTORY,
   API_AFFILIATE_REFERRAL_REWARDS,
   API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
+  API_AFFILIATE_REFERRAL_RULE,
   API_BONUS_BONUS_STATISTIC,
   API_BONUS_CLAIM,
   API_BONUS_CLAIM_LIST,
@@ -91,4 +93,12 @@ export const api_bonusStatistics = async () => {
 
 export const api_bonusDetail = async (category: bonusCategoryType = 'all') => {
   return api.get(API_BONUS_DETAILS, { params: { category } });
+};
+
+export const api_referralRule = async () => {
+  return api.get(API_AFFILIATE_REFERRAL_RULE);
+};
+
+export const api_referralHistory = async (page: number, pageSize: number) => {
+  return api.get(API_AFFILIATE_REFERRAL_HISTORY, { params: { page, pageSize } });
 };

@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
-import { Clock, RulerPen } from 'iconsax-react';
+import { RulerPen, Timer1 } from 'iconsax-react';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -11,15 +11,16 @@ import * as yup from 'yup';
 
 import { api_affiliateReferralRewards, api_affiliateReferralRewardsWithdrw } from '@/api/bonus';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
 import AdminInputText from '@/components/input/admin/AdminInputText';
 import AdminLayout from '@/components/layouts/admin.layout';
+import ModalReferralRewardsRule from '@/components/modal/mycasino/reerralRewardsRule';
+import ModalReferralRewardsHistory from '@/components/modal/mycasino/referralRewardsHistory';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
-import { useExchange } from '@/base/hooks/useExchange';
-import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 
 type FilterType = {
   username?: string;
@@ -39,7 +40,8 @@ const cryptoDecimals = 4;
 
 function AdminRewardsPage() {
   const exchangeRate = useExchange();
-  const usdtPrice = useUSDTPrice();
+  const [isHistory, setIsHistory] = useState(false);
+  const [isRule, setIsRule] = useState(false);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
   const [tableData, setTableData] = useState<RewardType[]>([]);
   const { t } = useTranslation('');
@@ -137,7 +139,7 @@ function AdminRewardsPage() {
     return [
       {
         accessorKey: 'username',
-        header: () => <div className="text-left">Username</div>,
+        header: () => <div className="text-left">{t('mycasino:Username')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
             <div className="font-bold truncate">{row.original.userName}</div>
@@ -146,7 +148,7 @@ function AdminRewardsPage() {
       },
       {
         accessorKey: 'level',
-        header: () => <div className="text-left">VIP Level</div>,
+        header: () => <div className="text-left">{t('mycasino:vipLevel')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-[#6f6f6f] gap-[5px] truncate')}>
             <div className="font-bold truncate">{row.original.level}</div>
@@ -217,6 +219,17 @@ function AdminRewardsPage() {
               {t('mycasino:withdraw')}
             </button>
           </div>
+
+          <div className="flex items-center gap-[10px]">
+            <button className="flex items-center gap-[2px] font-bold text-default" onClick={() => setIsHistory(true)}>
+              <Timer1 />
+              {t('mycasino:history')}
+            </button>
+            <button className="flex items-center gap-[2px] font-bold text-default" onClick={() => setIsRule(true)}>
+              <RulerPen />
+              {t('mycasino:rule')}
+            </button>
+          </div>
         </div>
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
@@ -254,6 +267,8 @@ function AdminRewardsPage() {
           hiddenPerPage={true}
         />
       </div>
+      {isHistory && <ModalReferralRewardsHistory show={isHistory} onClose={() => setIsHistory(false)} />}
+      {isRule && <ModalReferralRewardsRule show={isRule} onClose={() => setIsRule(false)} />}
     </div>
   );
 }

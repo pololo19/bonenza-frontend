@@ -185,7 +185,10 @@
     "newlyAvailable": "नव उपलब्ध:",
     "receivedInTotal": "कुल प्राप्त हुआ।",
     "theFriends": "जो मित्र वर्तमान में सक्रिय हैं वे आपको अनलॉक कर देंगे।",
-    "rule": "नियम"
+    "rule": "नियम",
+    "abountReward": "यूएसडीटी पुरस्कारों के बारे में",
+    "aboutRewardDescription": "आप जिस भी मित्र को अपने MY CASINO में आमंत्रित करेंगे, उनका दांव बढ़ने पर आपको USDT इनाम मिलेगा।",
+    "earned": "{{symbol}} अर्जित"
   },
   "profile": {
     "userInformation": "यूजर जानकारी",

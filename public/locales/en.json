@@ -185,7 +185,10 @@
     "newlyAvailable": "Newly Available:",
     "receivedInTotal": "Received in Total.",
     "theFriends": "The friends who are currently active will unlock you.",
-    "rule": "Rule"
+    "rule": "Rule",
+    "abountReward": "About USDT Rewards",
+    "aboutRewardDescription": "Every friend you invite to your MY CASINO will get you USDT reward increasingly as their wagers accumulate.",
+    "earned": "{{symbol}} Earned"
   },
   "profile": {
     "userInformation": "User Information",

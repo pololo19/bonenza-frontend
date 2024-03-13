@@ -185,7 +185,10 @@
     "newlyAvailable": "새로 출시됨:",
     "receivedInTotal": "합계로 받았습니다.",
     "theFriends": "현재 활동 중인 친구가 귀하의 잠금을 해제합니다.",
-    "rule": "규칙"
+    "rule": "규칙",
+    "abountReward": "USDT 보상 정보",
+    "aboutRewardDescription": "MY CASINO에 초대한 모든 친구는 베팅 금액이 누적됨에 따라 USDT 보상을 점점 더 많이 받게 됩니다.",
+    "earned": "{{symbol}} 획득"
   },
   "profile": {
     "userInformation": "사용자 정보",

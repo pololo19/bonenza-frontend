@@ -185,7 +185,10 @@
     "newlyAvailable": "最新推出：",
     "receivedInTotal": "总共收到。",
     "theFriends": "当前活跃的好友将为您解锁。",
-    "rule": "规则"
+    "rule": "规则",
+    "abountReward": "关于USDT奖励",
+    "aboutRewardDescription": "您邀请的每一位朋友加入您的 MY CASINO 后，随着赌注的累积，您将获得越来越多的 USDT 奖励。",
+    "earned": "{{symbol}} 赢得"
   },
   "profile": {
     "userInformation": "用户信息",

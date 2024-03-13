@@ -122,6 +122,8 @@ const API_AFFILIATE_COMMISSION_WITHDRAW = '/affiliate/commission/withdraw';
 
 const API_AFFILIATE_REFERRAL_REWARDS = '/affiliate/referral/rewards';
 const API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW = '/affiliate/referral/withdraw';
+const API_AFFILIATE_REFERRAL_HISTORY = '/affiliate/referral/history';
+const API_AFFILIATE_REFERRAL_RULE = '/affiliate/referral/rule';
 
 /************************************ VIP **********************************/
 
@@ -149,8 +151,10 @@ export {
   API_AFFILIATE_COMMISSION_REWARDS,
   API_AFFILIATE_COMMISSION_WITHDRAW,
   API_AFFILIATE_FRIENDS,
+  API_AFFILIATE_REFERRAL_HISTORY,
   API_AFFILIATE_REFERRAL_REWARDS,
   API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
+  API_AFFILIATE_REFERRAL_RULE,
   API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GENERATE_QR_CODE,

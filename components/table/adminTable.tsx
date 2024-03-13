@@ -131,7 +131,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
             <tr className="">
               <td colSpan={columns.length} className="text-center ">
                 <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
-                  <Image src={'/img/no-data-light-mode.png'} alt="noData" width={150} height={150} />
+                  <Image src={'/img/empty-light.png'} alt="noData" width={150} height={150} />
                   {noDataText || t('table:noData')}
                 </div>
               </td>
