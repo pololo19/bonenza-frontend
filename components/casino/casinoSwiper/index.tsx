@@ -82,7 +82,7 @@ const CasinoSwiper = <T,>({
             <div className="flex items-center gap-[10px] justify-between mb-[15px]">
               <div className="flex items-center gap-[10px]">
                 {icon}
-                <div className="font-[600] dark:text-white text-black text-m_title">{title}</div>
+                <div className="font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">{title}</div>
               </div>
             </div>
             <Swiper
