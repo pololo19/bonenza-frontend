@@ -5,11 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { isMobile } from 'react-device-detect';
 
 import {
   api_getGameDetail,

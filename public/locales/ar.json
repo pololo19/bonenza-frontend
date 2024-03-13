@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "فشل تشغيل اللعبة"
     }
   },
+  "gameReview": {
+    "report": "الإبلاغ عن التعليق",
+    "reportReasonHeader": "الرجاء اختيار سبب الإبلاغ:",
+    "reportReason1": "المحتوى غير المناسب (البريد العشوائي، الإعلان، الروابط المرجعية، وما إلى ذلك)",
+    "reportReason2": "الشتائم والاستفزازات والشتائم",
+    "reportReason3": "التسول",
+    "reportReason4": "محاولة احتيال",
+    "confirm": "يتأكد",
+    "cancel": "يلغي"
+  },
   "errors": {
     "internalServer": "خطأ في الخادم الداخلي",
     "existPhone": "هذا الهاتف موجود بالفعل",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "عذرًا، هذه اللعبة غير متوفرة في منطقتك."
   },
   "success": {
-    "bonusClaimed": "تمت المطالبة بالمكافأة الخاصة بك"
+    "bonusClaimed": "تمت المطالبة بالمكافأة الخاصة بك",
+    "successfulllyReported": "تم استلام طلبك بنجاح. ",
+    "success": "نجاح"
   }
 }

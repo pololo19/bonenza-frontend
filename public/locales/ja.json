@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "ゲームの起動に失敗しました"
     }
   },
+  "gameReview": {
+    "report": "コメントを報告する",
+    "reportReasonHeader": "報告理由を選択してください:",
+    "reportReason1": "不適切なコンテンツ (スパム、広告、参照リンクなど)",
+    "reportReason2": "侮辱、挑発、罵倒",
+    "reportReason3": "物乞い",
+    "reportReason4": "詐欺の試み",
+    "confirm": "確認する",
+    "cancel": "キャンセル"
+  },
   "errors": {
     "internalServer": "内部サーバーエラー",
     "existPhone": "この電話はすでに存在します",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "申し訳ございませんが、このゲームはお住まいの地域ではご利用いただけません。"
   },
   "success": {
-    "bonusClaimed": "ボーナスが請求されました"
+    "bonusClaimed": "ボーナスが請求されました",
+    "successfulllyReported": "リクエストは正常に受信されました。",
+    "success": "成功"
   }
 }
