@@ -19,12 +19,20 @@
       vertical-align: middle;
       word-break: break-word;
 
-      &:first-child {
+      &:first-child { 
         padding-left: 1.625rem;
+        @media only screen and (max-width: 600px) {
+          padding-left: 10px;
+          padding-right: 0px;
+        }
       }
 
       &:last-child {
         padding-right: 1.625rem;
+        @media only screen and (max-width: 600px) {
+          padding-left: 0px;
+          padding-right: 10px;
+        }
       }
     }
 
