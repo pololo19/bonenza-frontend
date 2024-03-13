@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "গেম লঞ্চ ব্যর্থ হয়েছে"
     }
   },
+  "gameReview": {
+    "report": "মন্তব্য রিপোর্ট",
+    "reportReasonHeader": "অনুগ্রহ করে প্রতিবেদনের কারণ বেছে নিন:",
+    "reportReason1": "অনুপযুক্ত বিষয়বস্তু (স্প্যাম, বিজ্ঞাপন, রিফ্লিঙ্ক, ইত্যাদি)",
+    "reportReason2": "অপমান, উস্কানি, অভিশাপ",
+    "reportReason3": "ভিক্ষা করা",
+    "reportReason4": "কেলেঙ্কারির চেষ্টা",
+    "confirm": "নিশ্চিত করুন",
+    "cancel": "বাতিল করুন"
+  },
   "errors": {
     "internalServer": "অভ্যন্তরীণ সার্ভার ত্রুটি",
     "existPhone": "এই ফোনটি আগে থেকেই আছে",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "দুঃখিত, এই গেমটি আপনার অঞ্চলে উপলব্ধ নয়৷"
   },
   "success": {
-    "bonusClaimed": "আপনার বোনাস দাবি করা হয়"
+    "bonusClaimed": "আপনার বোনাস দাবি করা হয়",
+    "successfulllyReported": "আপনার অনুরোধ সফলভাবে গৃহীত হয়েছে. ",
+    "success": "সফলতা"
   }
 }

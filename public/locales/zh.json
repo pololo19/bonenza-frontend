@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "游戏启动失败"
     }
   },
+  "gameReview": {
+    "report": "举报评论",
+    "reportReasonHeader": "请选择举报原因：",
+    "reportReason1": "不当内容（垃圾邮件、广告、转发链接等）",
+    "reportReason2": "侮辱、挑衅、咒骂",
+    "reportReason3": "乞讨",
+    "reportReason4": "诈骗企图",
+    "confirm": "确认",
+    "cancel": "取消"
+  },
   "errors": {
     "internalServer": "内部服务器错误",
     "existPhone": "此手机已存在",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "抱歉，您所在的地区无法玩此游戏。"
   },
   "success": {
-    "bonusClaimed": "您的奖金已被领取"
+    "bonusClaimed": "您的奖金已被领取",
+    "successfulllyReported": "您的请求已成功收到。",
+    "success": "成功"
   }
 }
