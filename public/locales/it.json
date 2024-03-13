@@ -185,7 +185,10 @@
     "newlyAvailable": "Recentemente disponibile:",
     "receivedInTotal": "Ricevuto in totale.",
     "theFriends": "Gli amici attualmente attivi ti sbloccheranno.",
-    "rule": "Regola"
+    "rule": "Regola",
+    "abountReward": "Informazioni sui premi USDT",
+    "aboutRewardDescription": "Ogni amico che inviti al tuo MY CASINO riceverà una ricompensa in USDT crescente man mano che le sue scommesse si accumulano.",
+    "earned": "{{symbol}} Guadagnato"
   },
   "profile": {
     "userInformation": "informazioni utente",
@@ -762,7 +765,7 @@
     "emailUs": "Mandaci una email",
     "sendNow": "Spedisci ora",
     "sportsBettingInsights": "APPROFONDIMENTI SULLE SCOMMESSE SPORTIVE",
-    "bonenzaDescription1": "BONENZA è un cripto casinò basato sulla comunità che offre ai propri giocatori la migliore esperienza di casinò online possibile! ",
+    "bonenzaDescription1": "BONENZA è una piattaforma multi-gioco che offre ai giocatori esperienze di i-gaming e web3-game di alto livello. Attraverso la tecnologia blockchain, BONENZA si impegna a fornire giochi costantemente trasparenti e coinvolgenti, aspirando a diventare la destinazione di riferimento per i giocatori.",
     "reserved": "©2024 BONENZA TUTTI I DIRITTI RISERVATI",
     "business": "Attività commerciale:",
     "help": "Aiuto:",

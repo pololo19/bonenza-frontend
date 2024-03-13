@@ -185,7 +185,10 @@
     "newlyAvailable": "Newly Available:",
     "receivedInTotal": "Received in Total.",
     "theFriends": "The friends who are currently active will unlock you.",
-    "rule": "Rule"
+    "rule": "Rule",
+    "abountReward": "About USDT Rewards",
+    "aboutRewardDescription": "Every friend you invite to your MY CASINO will get you USDT reward increasingly as their wagers accumulate.",
+    "earned": "{{symbol}} Earned"
   },
   "profile": {
     "userInformation": "User Information",
@@ -762,7 +765,7 @@
     "emailUs": "Email us",
     "sendNow": "Send Now",
     "sportsBettingInsights": "SPORTS BETTING INSIGHTS",
-    "bonenzaDescription1": "BONENZA is a community-based crypto casino that offers their players the best online casino experience possible! At BONENZA, we are convinced that blockchain will change the online crypto gambling industry forever!",
+    "bonenzaDescription1": "BONENZA is a multi-game platform that offers players top-tier i-gaming and web3-game experiences. Through blockchain technology, BONENZA strives to provide consistently transparent and engaging games, aspiring to become the go-to destination for players.",
     "reserved": "©2024 BONENZA ALL RIGHTS RESERVED",
     "business": "Business:",
     "help": "Help:",

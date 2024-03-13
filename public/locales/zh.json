@@ -185,7 +185,10 @@
     "newlyAvailable": "最新推出：",
     "receivedInTotal": "总共收到。",
     "theFriends": "当前活跃的好友将为您解锁。",
-    "rule": "规则"
+    "rule": "规则",
+    "abountReward": "关于USDT奖励",
+    "aboutRewardDescription": "您邀请的每一位朋友加入您的 MY CASINO 后，随着赌注的累积，您将获得越来越多的 USDT 奖励。",
+    "earned": "{{symbol}} 赢得"
   },
   "profile": {
     "userInformation": "用户信息",
@@ -762,7 +765,7 @@
     "emailUs": "给我们发电子邮件",
     "sendNow": "现在发送",
     "sportsBettingInsights": "体育博彩见解",
-    "bonenzaDescription1": "BONENZA 是一家基于社区的加密货币赌场，为玩家提供最佳的在线赌场体验！",
+    "bonenzaDescription1": "BONENZA 是一个多游戏平台，为玩家提供顶级的网络游戏和网页游戏体验。通过区块链技术，BONENZA 致力于提供始终如一的透明和有吸引力的游戏，立志成为玩家的首选目的地。",
     "reserved": "©2024 博尼扎版权所有",
     "business": "商业：",
     "help": "帮助：",

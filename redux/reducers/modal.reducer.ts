@@ -34,6 +34,7 @@ export const initialCommonState: ModalState = {
   isShowVerifyMailAndPhone: false,
   verifyModeType: VerifyModeEnum.MAIL,
   isShowWagerContestHistory: false,
+  isShowLogOutConfirm: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -127,6 +128,9 @@ export const queryDataSlice = createSlice({
     changeIsShowWagerContestHistory: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowWagerContestHistory = action.payload;
     },
+    changeIsShowLogOutConfirm: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowLogOutConfirm = action.payload;
+    },
     setInitialModals: (state: ModalState) => {
       state.isShowAccountPannel = false;
       state.isShowInformation = false;
@@ -158,6 +162,7 @@ export const queryDataSlice = createSlice({
       state.isShowVerifyMailAndPhone = false;
       state.verifyModeType = VerifyModeEnum.MAIL;
       state.isShowWagerContestHistory = false;
+      state.isShowLogOutConfirm = false;
     },
   },
 });
@@ -192,6 +197,7 @@ export const {
   changeIsShowVerifyMailAndPhone,
   changeVerifyMode,
   changeIsShowWagerContestHistory,
+  changeIsShowLogOutConfirm,
   setInitialModals,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

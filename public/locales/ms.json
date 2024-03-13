@@ -185,7 +185,10 @@
     "newlyAvailable": "Baru Tersedia:",
     "receivedInTotal": "Diterima dalam Jumlah.",
     "theFriends": "Rakan yang sedang aktif akan membuka kunci anda.",
-    "rule": "peraturan"
+    "rule": "peraturan",
+    "abountReward": "Mengenai Ganjaran USDT",
+    "aboutRewardDescription": "Setiap rakan yang anda jemput ke KASINO SAYA anda akan mendapat ganjaran USDT yang semakin meningkat apabila taruhan mereka terkumpul.",
+    "earned": "{{symbol}} Diperolehi"
   },
   "profile": {
     "userInformation": "Maklumat Pengguna",
@@ -762,7 +765,7 @@
     "emailUs": "Email kami",
     "sendNow": "Hantar sekarang",
     "sportsBettingInsights": "WAWASAN PERTARuhan SUKAN",
-    "bonenzaDescription1": "BONENZA ialah kasino kripto berasaskan komuniti yang menawarkan pemain mereka pengalaman kasino dalam talian yang terbaik! ",
+    "bonenzaDescription1": "BONENZA ialah platform berbilang permainan yang menawarkan pengalaman i-permainan dan web3-permainan peringkat tinggi kepada pemain. Melalui teknologi blockchain, BONENZA berusaha untuk menyediakan permainan yang telus dan menarik secara konsisten, bercita-cita untuk menjadi destinasi pilihan untuk pemain.",
     "reserved": "©2024 BONENZA SEMUA HAK TERPELIHARA",
     "business": "perniagaan:",
     "help": "Bantuan:",

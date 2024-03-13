@@ -185,7 +185,10 @@
     "newlyAvailable": "Yeni Mevcut:",
     "receivedInTotal": "Toplamda Alındı.",
     "theFriends": "Şu anda aktif olan arkadaşlarınız kilidinizi açacaktır.",
-    "rule": "Kural"
+    "rule": "Kural",
+    "abountReward": "USDT Ödülleri Hakkında",
+    "aboutRewardDescription": "MY CASINO'nuza davet ettiğiniz her arkadaşınız, bahisleri biriktikçe size giderek daha fazla USDT ödülü kazandıracak.",
+    "earned": "{{symbol}} Kazanılan"
   },
   "profile": {
     "userInformation": "Kullanıcı bilgisi",
@@ -762,7 +765,7 @@
     "emailUs": "Bize e-posta gönderin",
     "sendNow": "Şimdi gönder",
     "sportsBettingInsights": "SPOR BAHİSLERİ ANALİZLERİ",
-    "bonenzaDescription1": "BONENZA, oyuncularına mümkün olan en iyi çevrimiçi casino deneyimini sunan, topluluk tabanlı bir kripto kumarhanesidir! ",
+    "bonenzaDescription1": "BONENZA, oyunculara üst düzey i-oyun ve web3-oyun deneyimleri sunan çok oyunlu bir platformdur. Blockchain teknolojisi aracılığıyla BONENZA, oyuncular için gidilecek yer olmayı amaçlayan, sürekli olarak şeffaf ve ilgi çekici oyunlar sunmaya çalışmaktadır.",
     "reserved": "©2024 BONENZA TÜM HAKLARI SAKLIDIR",
     "business": "İşletme:",
     "help": "Yardım:",

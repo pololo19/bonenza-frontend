@@ -58,6 +58,7 @@ export type ModalState = {
   isShowVerifyMailAndPhone?: boolean;
   verifyModeType?: VerifyModeEnum;
   isShowWagerContestHistory?: boolean;
+  isShowLogOutConfirm?: boolean;
 };
 
 export type LoadingState = {

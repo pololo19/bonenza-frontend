@@ -90,13 +90,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     },
     {
       icon: '/img/icon/XRP.png',
-      network: 'Ripple',
+      network: 'BSC',
       token: 'XRP',
     },
     {
       icon: '/img/icon/DAI.png',
-      network: 'Litecoin',
-      token: 'LTC',
+      network: 'BSC',
+      token: 'DAI',
     },
   ];
   return (
@@ -627,11 +627,11 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             <div className="flex flex-col gap-[10px] text-default font-light">
               <div className="flex gap-[5px]">
                 {String(t('footer:business'))}
-                <span className="text-color-text-mailto">{String(t('footer:businessMail'))}</span>
+                <Link className="text-color-text-mailto" href={`mailto:${t('footer:businessMail')}`}>{String(t('footer:businessMail'))}</Link>
               </div>
               <div className="flex gap-[5px]">
                 {String(t('footer:help'))}
-                <span className="text-color-text-mailto">{String(t('footer:helpMail'))}</span>
+                <Link className="text-color-text-mailto" href={`mailto:${t('footer:helpMail')}`}>{String(t('footer:helpMail'))}</Link>
               </div>
             </div>
           </div>
