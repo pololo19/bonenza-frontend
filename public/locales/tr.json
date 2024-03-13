@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "Oyun başlatılamadı"
     }
   },
+  "gameReview": {
+    "report": "Yorumu bildir",
+    "reportReasonHeader": "Lütfen raporlama nedenini seçin:",
+    "reportReason1": "Uygunsuz içerik (spam, reklam, yeniden bağlantılar vb.)",
+    "reportReason2": "Hakaret, provokasyon, küfür",
+    "reportReason3": "Dilenme",
+    "reportReason4": "Dolandırıcılık girişimi",
+    "confirm": "Onaylamak",
+    "cancel": "İptal etmek"
+  },
   "errors": {
     "internalServer": "İç Sunucu Hatası",
     "existPhone": "Bu Telefon zaten mevcut",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "Üzgünüz, bu oyun bölgenizde mevcut değil."
   },
   "success": {
-    "bonusClaimed": "Bonusunuz Alındı"
+    "bonusClaimed": "Bonusunuz Alındı",
+    "successfulllyReported": "Talebiniz başarıyla alındı. ",
+    "success": "Başarı"
   }
 }

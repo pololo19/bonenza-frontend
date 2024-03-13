@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import { ChevronDownIcon, StarIcon } from '@heroicons/react/24/solid';
+import { ChevronDownIcon, EllipsisVerticalIcon, StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import { HambergerMenu, Happyemoji, Like1, Messages } from 'iconsax-react';
 import Image from 'next/image';
@@ -7,12 +7,14 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import StarsRating from 'react-star-rate';
 import { toast } from 'react-toastify';
+import { Tooltip } from 'react-tooltip';
 
 import {
   api_reviewGetRating,
   api_reviewLike,
   api_reviewList,
   api_reviewRatingStatistics,
+  api_reviewReport,
   api_reviewSetRating,
   ReviewListSortType,
 } from '@/api/game';
@@ -31,6 +33,7 @@ import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base
 import Loader from '../common/preloader/loader';
 import CommentPostModal from '../modal/review/commentPost';
 import ReplyModal from '../modal/review/replyModal';
+import ReportModal from '../modal/review/reportModal';
 
 const sortByData = [
   { title: 'Newest First', value: 'newest' },
@@ -123,7 +126,7 @@ const GameReviewComponent = ({
 
   const [isShowComment, setIsShowComment] = useState(false);
   const [isShowReplyModal, setIsShowReplyModal] = useState(false);
-  const [isShowReply, setIsShowReply] = useState(false);
+  const [isShowReport, setIsShowReport] = useState(false);
   const [isShowMoreAboutGame, setIsShowMoreAboutGame] = useState<boolean>(false);
   const [commentId, setCommentId] = useState('');
   const [selectedComment, setSelectedComment] = useState<CommentType>({
@@ -295,6 +298,15 @@ const GameReviewComponent = ({
     };
     dispatch(setUserData(userData));
     dispatch(changeIsShowInformation(true));
+  };
+
+  const reportComment = async (reason: string) => {
+    try {
+      const _res = await api_reviewReport(commentId, reason);
+      toast.success(t('success:successfulllyReported'), { containerId: TOAST_ENUM.COMMON });
+    } catch (error) {
+      toast.error(t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+    }
   };
 
   useEffect(() => {
@@ -665,9 +677,28 @@ const GameReviewComponent = ({
                   <Messages size={18} className={cn('m-auto')} />
                   {comment.comments > 0 && <span className="ml-[10px]">{comment.comments}</span>}
                 </div>
-                {/* <div className="cursor-pointer">
-                  <i className="fi fi-rr-menu-dots-vertical"></i>
-                </div> */}
+                <div
+                  className="cursor-pointer"
+                  onClick={() => {
+                    setCommentId(comment.id);
+                    setIsShowReport(true);
+                  }}
+                >
+                  <EllipsisVerticalIcon
+                    width={18}
+                    height={18}
+                    className="border-none active:border-none"
+                    data-tooltip-id={`${index}-report-tooltip`}
+                  />
+                  <Tooltip
+                    id={`${index}-report-tooltip`}
+                    place="bottom"
+                    className="z-[30] border-none active:border-none"
+                    opacity={100}
+                  >
+                    {t('gameReview:report')}
+                  </Tooltip>
+                </div>
               </div>
             </div>
             <div className="flex flex-col text-xs dark:text-color-text-primary text-color-light-text-primary">
@@ -757,6 +788,9 @@ const GameReviewComponent = ({
           sourceComment={selectedComment}
           setSourceComment={setSelectedComment}
         />
+      )}
+      {isShowReport && (
+        <ReportModal show={isShowReport} onClose={() => setIsShowReport(false)} onReport={reportComment} />
       )}
     </div>
   );

@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "Der Spielstart ist fehlgeschlagen"
     }
   },
+  "gameReview": {
+    "report": "Melden Sie den Kommentar",
+    "reportReasonHeader": "Bitte wählen Sie den Meldegrund:",
+    "reportReason1": "Unangemessener Inhalt (Spam, Werbung, Reflinks usw.)",
+    "reportReason2": "Beleidigungen, Provokationen, Beschimpfungen",
+    "reportReason3": "Betteln",
+    "reportReason4": "Betrugsversuch",
+    "confirm": "Bestätigen",
+    "cancel": "Stornieren"
+  },
   "errors": {
     "internalServer": "interner Serverfehler",
     "existPhone": "Dieses Telefon existiert bereits",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "Leider ist dieses Spiel in Ihrer Region nicht verfügbar."
   },
   "success": {
-    "bonusClaimed": "Ihr Bonus wird beansprucht"
+    "bonusClaimed": "Ihr Bonus ist beansprucht",
+    "successfulllyReported": "Ihre Anfrage wurde erfolgreich empfangen. ",
+    "success": "Erfolg"
   }
 }

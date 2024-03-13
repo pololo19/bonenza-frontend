@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "Не вдалося запустити гру"
     }
   },
+  "gameReview": {
+    "report": "Повідомити про коментар",
+    "reportReasonHeader": "Виберіть причину повідомлення:",
+    "reportReason1": "Неприйнятний вміст (спам, реклама, посилання на посилання тощо)",
+    "reportReason2": "Образи, провокації, лайка",
+    "reportReason3": "Жебракування",
+    "reportReason4": "Спроба шахрайства",
+    "confirm": "Підтвердити",
+    "cancel": "Скасувати"
+  },
   "errors": {
     "internalServer": "Внутрішня помилка сервера",
     "existPhone": "Цей телефон вже існує",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "На жаль, ця гра недоступна у вашому регіоні."
   },
   "success": {
-    "bonusClaimed": "Ваш бонус використано"
+    "bonusClaimed": "Ваш бонус використано",
+    "successfulllyReported": "Ваш запит успішно отримано. ",
+    "success": "Успіх"
   }
 }

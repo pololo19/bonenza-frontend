@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "Falha ao iniciar o jogo"
     }
   },
+  "gameReview": {
+    "report": "Denunciar o comentário",
+    "reportReasonHeader": "Escolha o motivo da denúncia:",
+    "reportReason1": "Conteúdo impróprio (spam, anúncio, reflinks, etc.)",
+    "reportReason2": "Insultos, provocações, xingamentos",
+    "reportReason3": "Implorando",
+    "reportReason4": "Tentativa de golpe",
+    "confirm": "confirme",
+    "cancel": "Cancelar"
+  },
   "errors": {
     "internalServer": "Erro do Servidor Interno",
     "existPhone": "Este telefone já existe",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "Desculpe, este jogo não está disponível em sua região."
   },
   "success": {
-    "bonusClaimed": "Seu bônus foi reivindicado"
+    "bonusClaimed": "Seu bônus foi reivindicado",
+    "successfulllyReported": "Sua solicitação foi recebida com sucesso. ",
+    "success": "Sucesso"
   }
 }

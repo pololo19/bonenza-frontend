@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "게임 실행 실패"
     }
   },
+  "gameReview": {
+    "report": "댓글 신고",
+    "reportReasonHeader": "신고 사유를 선택해 주세요.",
+    "reportReason1": "부적절한 콘텐츠(스팸, 광고, 재링크 등)",
+    "reportReason2": "모욕, 도발, 욕설",
+    "reportReason3": "구걸",
+    "reportReason4": "사기 시도",
+    "confirm": "확인하다",
+    "cancel": "취소"
+  },
   "errors": {
     "internalServer": "인터넷 서버 오류",
     "existPhone": "이 전화는 이미 존재합니다.",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "죄송합니다. 해당 지역에서는 이 게임을 사용할 수 없습니다."
   },
   "success": {
-    "bonusClaimed": "귀하의 보너스가 청구되었습니다"
+    "bonusClaimed": "귀하의 보너스가 청구되었습니다",
+    "successfulllyReported": "귀하의 요청이 성공적으로 접수되었습니다. ",
+    "success": "성공"
   }
 }

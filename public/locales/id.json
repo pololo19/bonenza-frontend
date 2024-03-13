@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "Peluncuran game gagal"
     }
   },
+  "gameReview": {
+    "report": "Laporkan komentarnya",
+    "reportReasonHeader": "Silakan pilih alasan pelaporan:",
+    "reportReason1": "Konten tidak pantas (spam, iklan, reflink, dll.)",
+    "reportReason2": "Penghinaan, provokasi, kutukan",
+    "reportReason3": "Memohon",
+    "reportReason4": "Upaya penipuan",
+    "confirm": "Mengonfirmasi",
+    "cancel": "Membatalkan"
+  },
   "errors": {
     "internalServer": "Kesalahan server dari dalam",
     "existPhone": "Telepon ini sudah ada",
@@ -1907,6 +1917,8 @@
     "locationIsNotAllowed": "Maaf, game ini tidak tersedia di wilayah Anda."
   },
   "success": {
-    "bonusClaimed": "Bonus Anda Diklaim"
+    "bonusClaimed": "Bonus Anda Diklaim",
+    "successfulllyReported": "Permintaan Anda berhasil diterima. ",
+    "success": "Kesuksesan"
   }
 }
