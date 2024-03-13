@@ -151,8 +151,8 @@ export default function ModalAssetsPortfolio({
                     </div>
                   </Dialog.Title>
                   <div className="flex-1 flex-col flex gap-[10px] justify-between mx-[20px]">
-                    <div className="flex p-[5px] dark:bg-color-header-secondary">
-                      <div
+                    {/* <div className="flex p-[5px] dark:bg-color-header-secondary"> */}
+                    {/* <div
                         className={cn(
                           ' cursor-pointer px-2 font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow rounded-[5px]',
                           {
@@ -163,11 +163,11 @@ export default function ModalAssetsPortfolio({
                         )}
                       >
                         Currency
-                      </div>
-                      <div className="dark:bg-color-header-secondary bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
+                      </div> */}
+                    {/* <div className="dark:bg-color-header-secondary bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
                         mNFT
-                      </div>
-                    </div>
+                      </div> */}
+                    {/* </div> */}
                     {filterListCryptos?.map((coin: CurrencyType, index) => (
                       <div
                         key={index}
