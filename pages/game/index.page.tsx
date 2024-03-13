@@ -9,6 +9,7 @@ import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { isMobile } from 'react-device-detect';
 
 import {
   api_getGameDetail,
@@ -184,7 +185,7 @@ function GamePage() {
       });
     }
   };
-  const handleSignin = async() => {
+  const handleSignin = async () => {
     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
     dispatch(changeIsShowAuthenticationModal(true));
   };
@@ -301,8 +302,11 @@ function GamePage() {
           // The number of game parameters depends on 'strategy'.
         },
       };
-
-      window.sg.launch(gameLaunchOptions, success, error);
+      if (isMobile) {
+        window.open(gameUrl, '_blank');
+      } else {
+        window.sg.launch(gameLaunchOptions, success, error);
+      }
     } catch (error) {
       console.log('error', error);
       setSuccessfullyLaunched(false);
