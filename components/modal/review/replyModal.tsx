@@ -33,9 +33,10 @@ export default function ReplyModal({
   sourceComment: CommentType;
   setSourceComment: (comment: CommentType) => void;
 }) {
-  const { avatar } = useSelector(
+  const { avatar, userId } = useSelector(
     (state: AppState) => ({
       avatar: state.auth.user.avatar,
+      userId: state.auth.user.userId,
     }),
     shallowEqual,
   );
@@ -50,7 +51,7 @@ export default function ReplyModal({
   const handleGetList = useCallback(async () => {
     try {
       setIsLoading(true);
-      const _res = await api_reviewList(sourceComment.id, gameId, page, limit, 'newest');
+      const _res = await api_reviewList(sourceComment.id, gameId, page, limit, 'newest', userId);
       const tempCommentDatas: CommentType[] = _res?.data?.comments.map((item: any) => ({
         id: item?.id ?? '',
         userId: item?.userId ?? '',
