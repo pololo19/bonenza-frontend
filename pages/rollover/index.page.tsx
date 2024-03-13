@@ -257,7 +257,7 @@ const RolloverPage = () => {
         <title>Rollover Overview - Bonenza</title>
       </Head>
       <div className="w-full h-1/3 sm:min-h-[400px]">
-        <div className="flex items-center justify-around sm:justify-start mb-[40px] sm:gap-[20px] gap-[10px]">
+        <div className="flex items-center flex-wrap mb-[20px] sm:mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
             className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
@@ -282,7 +282,7 @@ const RolloverPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
                 <div className="py-1">
                   {LIST_FILTER_TYPE.map((item, index) => (
                     <Menu.Item key={index}>
@@ -330,7 +330,7 @@ const RolloverPage = () => {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
                   <div className="py-1">
                     {LIST_FILTER_EVENT_BONUS.map((item, index) => (
                       <Menu.Item key={index}>
@@ -376,7 +376,7 @@ const RolloverPage = () => {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
                 <div className="py-1">
                   {LIST_FILTER_STATUS.map((item, index) => (
                     <Menu.Item key={index}>
