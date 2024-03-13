@@ -189,7 +189,7 @@ function BonusLoggedPage() {
               className={cn(
                 "active:scale-105 scale-100 transition-all",
                 "hover:opacity-[0.9] bg-gradient-btn-play text-[14px] text-white font-medium rounded-r-large ",
-                "px-1 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
+                "px-4 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
               )}
             >
               {t('bonus:redeemBonusCode')}
