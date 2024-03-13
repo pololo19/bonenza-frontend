@@ -30,6 +30,7 @@ import {
   changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
+  changeIsShowLogOutConfirm,
   changeIsShowMultiLanguageModal,
   changeIsShowReferAndEarn,
   changeMultiLanguageTab,
@@ -103,7 +104,6 @@ const AccountPannel: React.FC = () => {
 
   const { setTheme, theme } = useTheme();
   const router = useRouter();
-  const [showLogOutModal, setShowLogOutModal] = useState<boolean>(false);
 
   useEffect(() => {
     const savedtheme = localStorage.getItem('theme') ?? 'dark';
@@ -300,16 +300,6 @@ const AccountPannel: React.FC = () => {
     [i18n.language],
   );
 
-  const handleLogout = () => {
-    setShowLogOutModal(false);
-    dispatch(changeIsShowAccountPannel(false));
-    CookiesStorage.logout();
-    googleLogout();
-    dispatch(logoutState());
-    dispatch(logoutWallet());    
-    router.replace(ROUTER.Home);
-  };
-
   return (
     <div
       className={cn(
@@ -469,38 +459,12 @@ const AccountPannel: React.FC = () => {
         {isLogin && (
           <div
             className="dark:text-color-text-primary text-color-light-text-primary py-[15px] font-semibold flex items-center justify-center gap-[5px] text-default cursor-pointer"
-            onClick={() => setShowLogOutModal(true)}
+            onClick={() => dispatch(changeIsShowLogOutConfirm(true))}
           >
             {t('layout:logOut')}
           </div>
         )}
         
-        <MobileModal
-          show={showLogOutModal}
-          onClose={() => setShowLogOutModal(!showLogOutModal)}
-          panelClass="rounded"
-          header={
-            <div className="relative p-[20px]">
-              <div className="flex items-center text-white gap-[10px]">
-                <div className="text-[14px] font-[500]">{t('layout:logOut')}</div>
-              </div>
-            </div>
-          }
-        >
-          <div className="p-5 pt-2 flex flex-col justify-center gap-4">
-            <div className="text-default">
-              {t('layout:logOutQuestion')}
-            </div>
-            <div className="flex justify-between gap-5">
-              <button className="bg-color-btn-primary py-3 w-[50%] rounded-large text-default" onClick={handleLogout}>
-                {t('layout:logOut')}
-              </button>
-              <button className="py-3 bg-gradient-btn-play w-[50%] rounded-large text-default" onClick={() => setShowLogOutModal(false)}>
-                {t('layout:cancel')}
-              </button>
-            </div>
-          </div>
-        </MobileModal>
       </div>
     </div>
   );

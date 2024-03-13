@@ -27,6 +27,7 @@ import {
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
   changeIsShowInformation,
+  changeIsShowLogOutConfirm,
   changeIsShowMenuPannel,
   changeIsShowMultiLanguageModal,
   changeIsShowRakeBack,
@@ -90,6 +91,9 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import MobileModal from '../modal/commonModal/mobileModal';
+import { googleLogout } from '@react-oauth/google';
+import ModalLogOutConfirm from '../modal/logOutConfirm/LogOutConfirm';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -162,6 +166,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowSidebar,
     isShowCasinoSearch,
     isShowVerifyMailAndPhone,
+    isShowLogOutConfirm,
     verifyModeType,
     isShowWagerContestHistory,
     cryptoArray,
@@ -195,6 +200,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowResetPassword: state.modal.isShowResetPassword,
       isShowCasinoSearch: state.modal.isShowCasinoSearch,
       isShowVerifyMailAndPhone: state.modal.isShowVerifyMailAndPhone,
+      isShowLogOutConfirm: state.modal.isShowLogOutConfirm,
       verifyModeType: state.modal.verifyModeType,
       isShowWagerContestHistory: state.modal.isShowWagerContestHistory,
 
@@ -783,6 +789,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowWagerContestHistory || false}
         onClose={() => dispatch(changeIsShowWagerContestHistory(false))}
       />
+      {isLogin && 
+        <ModalLogOutConfirm
+          show={isShowLogOutConfirm || false}
+          onClose={() => dispatch(changeIsShowLogOutConfirm(false))}
+        />
+      }
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
     </>

@@ -262,7 +262,8 @@ export default function SidebarToggle() {
                 activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
                 classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
               />
-
+              {/* Hiding Quest & Spin */}
+              {/* 
               <div className="flex items-center gap-[5px] mt-[10px]">
                 <IconOption
                   imageURL="/img/sidebar/quest.png"
@@ -286,7 +287,7 @@ export default function SidebarToggle() {
                   fontWeight={600}
                   classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:to-[#EA001C] rounded-[100px] px-[10px] !pr-[4px]"
                 />
-              </div>
+              </div> */}
               {panel_1_datas.map((item, index) => (
                 <IconOption
                   key={index}
