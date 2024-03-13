@@ -1,6 +1,7 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon, MagnifyingGlassIcon, CheckBadgeIcon } from '@heroicons/react/24/outline';
 import { ElementType, Fragment, useRef } from 'react';
+import cn from 'classnames';
 import Image from 'next/image';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -55,7 +56,10 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
                     <div className="group rounded-md" role="button" onClick={onClose}>
                       <XMarkIcon
                         width={15}
-                        className="text-[#9FA5AC] group-hover:text-black dark:group-hover:dark:text-white text-black w-[1.5rem] h-[1.5rem]"
+                        className={cn(
+                          'absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90 text-2xl w-[20px] text-bold',
+                          'dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black',
+                        )}
                       />
                     </div>
                   </Dialog.Title>
