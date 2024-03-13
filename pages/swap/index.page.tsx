@@ -69,7 +69,7 @@ const SwapPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-gradient-btn-play rounded-default py-[10px] px-[20px] min-w-[140px] hover:opacity-[0.9]"
+                  className="bg-gradient-btn-play rounded-large py-[10px] px-[20px] min-w-[140px] hover:opacity-[0.9]"
                   onClick={emitData}
                 >
                   {t('swap:swapNow')}

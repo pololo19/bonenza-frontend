@@ -260,7 +260,7 @@ const RolloverPage = () => {
         <div className="flex items-center justify-around sm:justify-start mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
@@ -306,7 +306,7 @@ const RolloverPage = () => {
           {optionFilter.type.id === 3 && (
             <Menu
               as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
+              className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -354,7 +354,7 @@ const RolloverPage = () => {
           )}
           <Menu
             as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-[5px]"
+            className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
           >
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">

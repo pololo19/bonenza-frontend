@@ -151,7 +151,7 @@ module.exports = {
         lg: '0.5rem',
         full: '9999px',
         large: '12px',
-        default: '3px',
+        default: '12px',
         'btn-default': '5px',
         20: '20px',
       },
