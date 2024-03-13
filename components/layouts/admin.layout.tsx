@@ -114,10 +114,10 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
           <div className="h-[60px] py-2 px-6 w-full bg-[#24262b]">
             <Link href={ROUTER.AdminFriends} className="flex items-center">
               <Image
-                width={165}
-                height={57}
-                className="max-w-[60px] max-h-[40px]"
-                src="/img/logo-mobile.png"
+                width={158}
+                height={31}
+                className="w-[158px] md:max-w-[none] md:max-h-[none] h-[31px]"
+                src="/img/logo.png"
                 alt="logo"
               />
             </Link>

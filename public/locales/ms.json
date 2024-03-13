@@ -185,7 +185,10 @@
     "newlyAvailable": "Baru Tersedia:",
     "receivedInTotal": "Diterima dalam Jumlah.",
     "theFriends": "Rakan yang sedang aktif akan membuka kunci anda.",
-    "rule": "peraturan"
+    "rule": "peraturan",
+    "abountReward": "Mengenai Ganjaran USDT",
+    "aboutRewardDescription": "Setiap rakan yang anda jemput ke KASINO SAYA anda akan mendapat ganjaran USDT yang semakin meningkat apabila taruhan mereka terkumpul.",
+    "earned": "{{symbol}} Diperolehi"
   },
   "profile": {
     "userInformation": "Maklumat Pengguna",

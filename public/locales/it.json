@@ -185,7 +185,10 @@
     "newlyAvailable": "Recentemente disponibile:",
     "receivedInTotal": "Ricevuto in totale.",
     "theFriends": "Gli amici attualmente attivi ti sbloccheranno.",
-    "rule": "Regola"
+    "rule": "Regola",
+    "abountReward": "Informazioni sui premi USDT",
+    "aboutRewardDescription": "Ogni amico che inviti al tuo MY CASINO riceverà una ricompensa in USDT crescente man mano che le sue scommesse si accumulano.",
+    "earned": "{{symbol}} Guadagnato"
   },
   "profile": {
     "userInformation": "informazioni utente",

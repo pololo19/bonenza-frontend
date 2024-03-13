@@ -185,7 +185,10 @@
     "newlyAvailable": "วางจำหน่ายใหม่:",
     "receivedInTotal": "ได้รับทั้งหมด.",
     "theFriends": "เพื่อนที่กำลังใช้งานอยู่จะปลดล็อคคุณ",
-    "rule": "กฎ"
+    "rule": "กฎ",
+    "abountReward": "เกี่ยวกับรางวัล USDT",
+    "aboutRewardDescription": "เพื่อนทุกคนที่คุณเชิญมาที่ MY CASINO ของคุณจะได้รับรางวัล USDT มากขึ้นเมื่อการเดิมพันของพวกเขาสะสม",
+    "earned": "{{symbol}} ได้รับ"
   },
   "profile": {
     "userInformation": "ข้อมูลผู้ใช้",

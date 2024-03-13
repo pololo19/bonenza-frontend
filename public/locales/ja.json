@@ -185,7 +185,10 @@
     "newlyAvailable": "新たに利用可能:",
     "receivedInTotal": "合計で受け取りました。",
     "theFriends": "現在アクティブな友達がロックを解除します。",
-    "rule": "ルール"
+    "rule": "ルール",
+    "abountReward": "USDTリワードについて",
+    "aboutRewardDescription": "MY CASINO に招待したすべての友達は、賭け金が累積するにつれて、USDT 報酬をさらに獲得していきます。",
+    "earned": "{{symbol}} 獲得した"
   },
   "profile": {
     "userInformation": "ユーザー情報",

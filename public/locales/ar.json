@@ -185,7 +185,10 @@
     "newlyAvailable": "متاح حديثا:",
     "receivedInTotal": "تلقى في المجموع.",
     "theFriends": "سيقوم الأصدقاء النشطون حاليًا بفتح قفلك.",
-    "rule": "قاعدة"
+    "rule": "قاعدة",
+    "abountReward": "حول مكافآت USDT",
+    "aboutRewardDescription": "كل صديق تدعوه إلى MY CASINO الخاص بك سيحصل على مكافأة USDT بشكل متزايد مع تراكم رهاناتهم.",
+    "earned": "{{symbol}} حصل"
   },
   "profile": {
     "userInformation": "معلومات المستخدم",

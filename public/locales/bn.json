@@ -185,7 +185,10 @@
     "newlyAvailable": "নতুনভাবে উপলব্ধ:",
     "receivedInTotal": "মোট প্রাপ্ত।",
     "theFriends": "বর্তমানে সক্রিয় থাকা বন্ধুরা আপনাকে আনলক করবে।",
-    "rule": "নিয়ম"
+    "rule": "নিয়ম",
+    "abountReward": "USDT পুরস্কার সম্পর্কে",
+    "aboutRewardDescription": "আপনার MY CASINO তে আপনি যে বন্ধুদের আমন্ত্রণ জানিয়েছেন তাদের বাজি জমা হওয়ার সাথে সাথে আপনি ক্রমবর্ধমান USDT পুরস্কার পাবেন।",
+    "earned": "{{symbol}} অর্জিত"
   },
   "profile": {
     "userInformation": "ব্যবহারকারীর তথ্য",

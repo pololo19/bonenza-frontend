@@ -185,7 +185,10 @@
     "newlyAvailable": "Mới có sẵn:",
     "receivedInTotal": "Tổng cộng đã nhận được.",
     "theFriends": "Những người bạn hiện đang hoạt động sẽ mở khóa cho bạn.",
-    "rule": "Luật lệ"
+    "rule": "Luật lệ",
+    "abountReward": "Giới thiệu về phần thưởng USDT",
+    "aboutRewardDescription": "Mỗi người bạn mà bạn mời vào CASINO CỦA TÔI sẽ nhận được phần thưởng USDT ngày càng tăng khi số tiền cược của họ tích lũy.",
+    "earned": "{{symbol}} kiếm được"
   },
   "profile": {
     "userInformation": "Thông tin người dùng",

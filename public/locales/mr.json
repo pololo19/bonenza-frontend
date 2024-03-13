@@ -185,7 +185,10 @@
     "newlyAvailable": "नवीन उपलब्ध:",
     "receivedInTotal": "एकूण मिळाले.",
     "theFriends": "सध्या सक्रिय असलेले मित्र तुम्हाला अनलॉक करतील.",
-    "rule": "नियम"
+    "rule": "नियम",
+    "abountReward": "USDT पुरस्कारांबद्दल",
+    "aboutRewardDescription": "तुम्ही तुमच्या MY CASINO मध्ये आमंत्रित केलेल्या प्रत्येक मित्राला तुम्हाला USDT बक्षीस मिळेल कारण त्यांचे पैसे जमा होतात.",
+    "earned": "{{symbol}} कमावले"
   },
   "profile": {
     "userInformation": "वापरकर्ता माहिती",

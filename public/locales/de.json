@@ -185,7 +185,10 @@
     "newlyAvailable": "Neu verfügbar:",
     "receivedInTotal": "Insgesamt erhalten.",
     "theFriends": "Die Freunde, die gerade aktiv sind, werden Sie freischalten.",
-    "rule": "Regel"
+    "rule": "Regel",
+    "abountReward": "Über USDT-Prämien",
+    "aboutRewardDescription": "Jeder Freund, den Sie zu Ihrem MEIN CASINO einladen, erhält eine zunehmende USDT-Belohnung, je höher seine Einsätze sind.",
+    "earned": "{{symbol}} Verdient"
   },
   "profile": {
     "userInformation": "Nutzerinformation",

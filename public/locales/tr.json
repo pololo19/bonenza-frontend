@@ -185,7 +185,10 @@
     "newlyAvailable": "Yeni Mevcut:",
     "receivedInTotal": "Toplamda Alındı.",
     "theFriends": "Şu anda aktif olan arkadaşlarınız kilidinizi açacaktır.",
-    "rule": "Kural"
+    "rule": "Kural",
+    "abountReward": "USDT Ödülleri Hakkında",
+    "aboutRewardDescription": "MY CASINO'nuza davet ettiğiniz her arkadaşınız, bahisleri biriktikçe size giderek daha fazla USDT ödülü kazandıracak.",
+    "earned": "{{symbol}} Kazanılan"
   },
   "profile": {
     "userInformation": "Kullanıcı bilgisi",
