@@ -113,6 +113,7 @@ function IndexPage() {
   const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
 
   const [listCasinoTabGame, setListCasinoTabGame] = useState<GameListType[]>([]);
+  const [feedbackText, setFeedbackText] = useState<string>('');
 
   const handleClickDeposit = () => {
     if (isLogin) {
@@ -550,7 +551,13 @@ function IndexPage() {
                   }}
                   className="cursor-pointer"
                 >
-                  <Image src="/img/whale.png" width={20} height={20} className="w-full object-cover rounded-large" alt="" />
+                  <Image
+                    src="/img/whale.png"
+                    width={20}
+                    height={20}
+                    className="w-full object-cover rounded-large"
+                    alt=""
+                  />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
@@ -618,6 +625,15 @@ function IndexPage() {
                       <div
                         className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
                         onClick={() => {
+                          if (feedbackText === '') {
+                            toast.error('Message content cannot be empty!', {
+                              containerId: TOAST_ENUM.COMMON,
+                              icon: true,
+                              autoClose: 3000,
+                              hideProgressBar: false,
+                            });
+                            return;
+                          }
                           toast.success(String(t('success:success')), { containerId: TOAST_ENUM.COMMON });
                         }}
                       >

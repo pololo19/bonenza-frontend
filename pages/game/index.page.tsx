@@ -1,6 +1,6 @@
 import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
-import { PlayCricle, Refresh, Send2 } from 'iconsax-react';
+import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -184,7 +184,10 @@ function GamePage() {
       });
     }
   };
-
+  const handleSignin = async() => {
+    dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+    dispatch(changeIsShowAuthenticationModal(true));
+  };
   const handlePlayRequest = async () => {
     try {
       if (!isSatisfied) return;
@@ -453,15 +456,15 @@ function GamePage() {
                       type="button"
                       disabled={!gameDetail.allowedLocation || isLoadingGame.status}
                       className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px]"
-                      onClick={() => handlePlayRequest()}
+                      onClick={() => handleSignin()}
                     >
                       {isLoadingGame.status && isLoadingGame.request === 'real' ? (
                         <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
                       ) : (
-                        <PlayCricle size={20} />
+                        <LoginCurve size={20} />
                       )}
 
-                      <div>{t('gameDetail:realPlayMobile')}</div>
+                      <div>{t('layout:signIn')}</div>
                     </button>
                   )}
 
