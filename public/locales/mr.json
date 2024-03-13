@@ -1898,6 +1898,17 @@
       "gameLaunchedFailed": "गेम लाँच अयशस्वी"
     }
   },
+
+  "gameReview": {
+    "report": "टिप्पणी नोंदवा",
+    "reportReasonHeader": "कृपया अहवाल देण्याचे कारण निवडा:",
+    "reportReason1": "अयोग्य सामग्री (स्पॅम, जाहिरात, रिफ्लिंक्स इ.)",
+    "reportReason2": "अपमान, चिथावणी, शाप",
+    "reportReason3": "भीक मागणे",
+    "reportReason4": "घोटाळ्याचा प्रयत्न",
+    "confirm": "पुष्टी",
+    "cancel": "रद्द करा"
+  },
   "errors": {
     "internalServer": "अंतर्गत सर्व्हर त्रुटी",
     "existPhone": "हा फोन आधीपासून अस्तित्वात आहे",
@@ -1907,6 +1918,8 @@
     "locationIsNotAllowed": "क्षमस्व, हा गेम तुमच्या प्रदेशात उपलब्ध नाही."
   },
   "success": {
-    "bonusClaimed": "तुमच्या बोनसचा दावा केला आहे"
+    "bonusClaimed": "तुमच्या बोनसचा दावा केला आहे",
+    "successfulllyReported": "तुमची विनंती यशस्वीरित्या प्राप्त झाली आहे. ",
+    "success": "यश"
   }
 }

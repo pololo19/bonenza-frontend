@@ -1898,6 +1898,16 @@
       "gameLaunchedFailed": "Game launch failed"
     }
   },
+  "gameReview": {
+    "report": "Report the comment",
+    "reportReasonHeader": "Please choose the reporting reason:",
+    "reportReason1": "Inappropriate content (spam, ad, reflinks, etc. )",
+    "reportReason2": "Insults, provocations, cursing",
+    "reportReason3": "Begging",
+    "reportReason4": "Scam attempt",
+    "confirm": "Confirm",
+    "cancel": "Cancel"
+  },
   "errors": {
     "internalServer": "Internal Server Error",
     "existPhone": "This Phone is already exists",
@@ -1908,6 +1918,7 @@
   },
   "success": {
     "bonusClaimed": "Your Bonus is Claimed",
+    "successfulllyReported": "Your Request is received successfully. We will review soon. Thank you.",
     "success": "Success"
   }
 }

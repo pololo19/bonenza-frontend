@@ -25,6 +25,7 @@ import {
   API_GAME_REVIEW_LIKE,
   API_GAME_REVIEW_LIST,
   API_GAME_REVIEW_RATING_STATISTICS,
+  API_GAME_REVIEW_REPORT,
   API_GAME_REVIEW_SET_RATING,
   API_GAME_SET_FAVORITE,
   API_GAME_SLOT,
@@ -205,6 +206,10 @@ export const api_reviewList = async (
 
 export const api_reviewLike = async (commentId: string) => {
   return api.post(API_GAME_REVIEW_LIKE, { commentId });
+};
+
+export const api_reviewReport = async (commentId: string, reason: string) => {
+  return api.post(API_GAME_REVIEW_REPORT, { commentId, reason });
 };
 
 export const api_highRollers = async () => {

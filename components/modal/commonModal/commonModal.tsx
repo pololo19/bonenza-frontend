@@ -31,27 +31,17 @@ export default function CommonModal({
   isStatic,
   transitionRootProps,
 }: CommonModalProps) {
-
   return (
     <>
-      <div
-        className="relative z-50"
-      >
-        <div 
-          className={
-            cn(
-              "fixed inset-0 bg-[#000000aa] cursor-pointer",
-              {
-                'scale-0 opacity-0': !show,
-                'scale-100 opacity-100': show,
-              }
-            )
-          }
+      <div className="relative z-50">
+        <div
+          className={cn('fixed inset-0 bg-[#000000aa] cursor-pointer', {
+            'scale-0 opacity-0': !show,
+            'scale-100 opacity-100': show,
+          })}
         />
-        <div className={cn(
-          "fixed inset-0 z-10",
-          "transition-all duration-200 ease-in",
-          {
+        <div
+          className={cn('fixed inset-0 z-10', 'transition-all duration-200 ease-in', {
             'translate-x-full sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !show,
             'translate-x-0 md:opacity-100 scale-100': show,
           })}
@@ -74,13 +64,14 @@ export default function CommonModal({
                 {header}
                 {isShowCloseButton && (
                   <div
-                    className={cn("absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90",
-                      "dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black"
+                    className={cn(
+                      'absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90',
+                      'dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black',
                     )}
                     role="button"
                     onClick={onClose}
                   >
-                    <XMarkIcon width={20} className="stroke-[3]"/>
+                    <XMarkIcon width={20} className="stroke-[3]" />
                   </div>
                 )}
               </div>
