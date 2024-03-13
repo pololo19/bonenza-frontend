@@ -58,6 +58,46 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
       network: 'Polygon',
       token: 'MATIC',
     },
+    {
+      icon: '/img/icon/LTC.png',
+      network: 'Litecoin',
+      token: 'LTC',
+    },
+    {
+      icon: '/img/icon/WBTC.png',
+      network: 'Ethereum',
+      token: 'WBTC',
+    },
+    {
+      icon: '/img/icon/USDT-logo.svg',
+      network: 'BSC',
+      token: 'USDT',
+    },
+    {
+      icon: '/img/icon/USDC.png',
+      network: 'BSC',
+      token: 'USDC',
+    },
+    {
+      icon: '/img/icon/DOGE.png',
+      network: 'Ethereum',
+      token: 'DOGE',
+    },
+    {
+      icon: '/img/icon/SHIB.png',
+      network: 'Ethereum',
+      token: 'SHIB',
+    },
+    {
+      icon: '/img/icon/XRP.png',
+      network: 'Ripple',
+      token: 'XRP',
+    },
+    {
+      icon: '/img/icon/DAI.png',
+      network: 'Litecoin',
+      token: 'LTC',
+    },
   ];
   return (
     <>
@@ -362,19 +402,19 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   {String(t('footer:acceptedNetworks'))}
                 </div>
               </div>
-              <div className="flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5 w-full">
-                {acceptedNetworks.map((network, index) => (
+              <div className="w-full flex-wrap flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5">
+                {acceptedNetworks.map((item, index) => (
                   <div className="max-w-[50px] max-h-[50px]" key={index}>
                     <Image
                       alt=""
-                      src={network.icon}
+                      src={item.icon}
                       width={50}
                       height={50}
                       className="max-w-[50px] max-h-[50px] cursor-pointer"
-                      data-tooltip-id={`accepted-${network.token}-tooltip`}
+                      data-tooltip-id={`accepted-currency-${index}-tooltip`}
                     />
                     <Tooltip
-                      id={`accepted-${network.token}-tooltip`}
+                      id={`accepted-currency-${index}-tooltip`}
                       place="bottom"
                       className="dark:bg-color-card-header-primary bg-white !rounded-large"
                       opacity={100}
@@ -384,20 +424,20 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       <div className="flex justify-center items-center w-[200px] gap-8 pt-3">
                         <Image
                           alt=""
-                          src={network.icon}
+                          src={item.icon}
                           width={50}
                           height={50}
                           className="max-w-[50px] max-h-[50px] cursor-pointer"
                         />
                         <div>
-                          <div>{network.network}</div>
-                          <div>{network.token}</div>
+                          <div>{item.network}</div>
+                          <div>{item.token}</div>
                         </div>
                       </div>
 
                       <button
                         type="button"
-                        className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold"
+                        className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-2 sm:p-[10px] p-[3px] text-default font-semibold"
                         onClick={() => {
                           if (isLogin) {
                             dispatch(changeIsShowDepositModal(true));
