@@ -40,7 +40,7 @@ export default function MobileModal({
         <div 
           className={
             cn(
-              "fixed inset-0 bg-[#000a] cursor-pointer",
+              "fixed inset-0 bg-[#000000aa] cursor-pointer",
               {
                 'scale-0 opacity-0': !show,
                 'scale-100 opacity-100': show,
@@ -52,37 +52,26 @@ export default function MobileModal({
           "fixed inset-0 z-10",
           "transition-all duration-200 ease-in",
           {
-            'translate-y-full': !show,
-            'translate-y-0': show,
+            'translate-x-full sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !show,
+            'translate-x-0 md:opacity-100 scale-100': show,
           })}
         >
           <div
             className={cn(
-              'flex flex-col justify-end min-h-full sm:items-center items-start sm:p-4 text-center p-0 z-[11]',
+              'flex flex-col min-h-full sm:items-center items-start justify-end sm:p-4 text-center p-0 z-[11]',
               position,
             )}
             onClick={onClose}
           >
             <div
               className={cn(
-                'rounded-t-large overflow-hidden z-[20] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px]',
+                'rounded-t-large z-[20] text-black dark:text-white flex flex-col bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px]',
                 panelClass,
               )}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative">
+              <div className="">
                 {header}
-                {isShowCloseButton && (
-                  <div
-                    className={cn("absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90",
-                      "dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black"
-                    )}
-                    role="button"
-                    onClick={onClose}
-                  >
-                    <XMarkIcon width={20} className="stroke-[3]"/>
-                  </div>
-                )}
               </div>
               {children}
               <ToastContainer
