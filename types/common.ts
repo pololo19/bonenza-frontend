@@ -464,6 +464,7 @@ export type BetDetailType = {
 
   userId: string;
   userName: string;
+  userAvatar: string;
 };
 
 export type TransactionBonusType = {
