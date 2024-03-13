@@ -1537,7 +1537,7 @@
     "rulesDailyWageringContest": "Rules-Daily Wagering Contest",
     "rulesDailyWageringContest1": "The contest prize pool closely depends on the bankroll, the more players bet the bigger it grows. Current prize pool will be showed on the Contest page.",
     "rulesDailyWageringContest2": "10 most wagering players carve up the prize pool. ",
-    "rulesDailyWageringContest3": "This Contest support wagering in : USD, KRW, EUR, TRY, IDR, JPY, AED, MYR, CNY, HKD, ETH, BNB, MATIC, USDT, TRX, GOD",
+    "rulesDailyWageringContest3": "This Contest support wagering in : ETH, BNB, MATIC, USDT, LTC, WBTC, USDC, DOGE, SHIB, XRP, DAI",
     "rulesDailyWageringContest4": "You can wager in any cryptocurrencies above, and they all will be switched to USDT at the current rate.",
     "rulesDailyWageringContest5": "All prizes will be sent in USDT.",
     "rulesDailyWageringContest6": "Prizes will be sent on Notice page as the Contest ends.",

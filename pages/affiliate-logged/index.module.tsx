@@ -563,10 +563,10 @@ function AffiliateLoggedPage() {
             </div>
             <div className="text-[16px] mb-[7px] dark:text-white text-[#141414]">{t('affiliate:forMoreDetails')}</div>
             <Link
-              className="w-full flex justify-between lg:w-[309px] h-[41px] rounded-[5px] dark:bg-color-panel-bg bg-color-light-bg-primary items-center"
+              className="w-full flex justify-between lg:w-[350px] h-[41px] rounded-[5px] dark:bg-color-panel-bg bg-color-light-bg-primary items-center"
               href="mailto:business@bonenza.com"
             >
-              <div className="text-[16px] text-gray-500 ml-[16px]">business@bonenza</div>
+              <div className="text-[16px] text-gray-500 ml-[16px]">business@bonenza.com</div>
               <div className="flex mr-[10px]">
                 <div className="text-[16px] font-bold text-color-primary mr-[10px]">{t('affiliate:sendNow')}</div>
                 <div>

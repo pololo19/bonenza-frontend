@@ -1537,7 +1537,7 @@
     "rulesDailyWageringContest": "Правила - Конкурс щоденних ставок",
     "rulesDailyWageringContest1": "Призовий фонд змагань тісно залежить від банкролу, чим більше гравців ставлять, тим більше він зростає. ",
     "rulesDailyWageringContest2": "10 гравців, які роблять найбільші ставки, ділять призовий фонд. ",
-    "rulesDailyWageringContest3": "Цей конкурс підтримує ставки в таких валютах: USD, KRW, EUR, TRY, IDR, JPY, AED, MYR, CNY, HKD, ETH, BNB, MATIC, USDT, TRX, GOD",
+    "rulesDailyWageringContest3": "Цей конкурс підтримує ставки в таких валютах: ETH, BNB, MATIC, USDT, LTC, WBTC, USDC, DOGE, SHIB, XRP, DAI",
     "rulesDailyWageringContest4": "Ви можете робити ставки в будь-якій криптовалюті вище, і всі вони будуть переведені на USDT за поточним курсом.",
     "rulesDailyWageringContest5": "Усі призи будуть надіслані USDT.",
     "rulesDailyWageringContest6": "Призи будуть надіслані на сторінці повідомлень після завершення Конкурсу.",
