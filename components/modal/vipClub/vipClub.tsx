@@ -193,14 +193,14 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
         onClose={onClose}
         panelClass="rounded sm:rounded-[35px] overflow-hidden"
         header={
-          <div className="relative text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
+          <div className="relative text-default md:text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
             {t('vipClub:vipClub')}
           </div>
         }
       >
         <>
-          <div className="flex flex-col gap-[30px] overflow-y-auto px-[20px] pb-[40px] bg-color-light-bg-primary dark:bg-color-modal-bg-primary">
-            <div className="dark:text-color-text-primary text-black text-default text-center px-5 py-2">
+          <div className="flex flex-col gap-[20px] overflow-y-auto px-[10px] sm:px-[20px] pb-[40px] bg-color-light-bg-primary dark:bg-color-modal-bg-primary">
+            <div className="dark:text-color-text-primary text-black text-m_default md:text-default text-center py-2">
               {t('vipClub:levelUpToGetExclusiveAccess')}{' '}
               <span
                 role="button"
@@ -212,8 +212,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
             </div>
             <div className="rounded-[25px] bg-[#12151A]">
               <div className="block lg:flex">
-                <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px]">
-                  <div className="text-[20px] text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
+                <div className="w-full lg:w-[50%] pt-[28px] px-5">
+                  <div className="text-default md:text-title text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
                   <div className="flex gap-[30px] mt-5">
                     <div className="flex relative min-w-[90px]">
                       <Image
@@ -232,7 +232,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                       </div>
                     </div>
 
-                    <div className="w-full flex flex-col gap-[10px]">
+                    <div className="w-full flex flex-col gap-[10px] justify-center">
                       <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div
                           className="absolute top-0 h-full left-0 bg-color-primary rounded-[25px]"
@@ -242,7 +242,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           <Image src="/img/flare.png" className="w-[22px] h-[61px]" width={6} height={16} alt="" />
                         </div>
                       </div>
-                      <div className="flex items-center gap-[10px]">
+                      <div className="flex justify-center items-center gap-[10px]">
                         <div className="text-[14px] text-white">{`${vipData.xp} / ${vipData.nextXp} XP`}</div>
                         <InfoCircle size={20} className="text-color-primary" data-tooltip-id={'your-vip-tooltip'} />
                         <Tooltip id={'your-vip-tooltip'} place="bottom" className="z-[10] !bg-white dark:!bg-black">
@@ -252,8 +252,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           </div>
                         </Tooltip>
                       </div>
-                      <div>
-                        <span className="font-bold text-[#50C627]">
+                      <div className="text-m_default sm:text-default md:text-[16px] text-center">
+                        <span className="text-[#50C627]">
                           {t('vipClub:gain')}
                           {' +'}
                           {vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)}
@@ -266,10 +266,10 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 </div>
                 <div className="hidden lg:block blur-[1px] w-[1px] h-[120px] mt-[30px] rounded-[481px] bg-gradient-to-b from-black/[5%] via-white to-black/[5%]" />
                 <div className="block lg:hidden blur-[1px] h-[1px] w-[84%] ml-[8%] mt-[28px] rounded-[481px] bg-gradient-to-r from-black/[5%] via-white to-black/[5%]" />
-                <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px] flex flex-col justify-between">
-                  <div className="text-m_title text-white font-[700]">{t('vipClub:vipHost')}</div>
-                  <Image src={'/img/img-vip-host.png'} width={231} height={40} alt="" className="w-full object-cover" />
-                  <div className="text-default font-bold">
+                <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px] flex flex-col justify-center gap-[10px]">
+                  <div className="text-default md:text-title text-white font-[700]">{t('vipClub:vipHost')}</div>
+                  <Image src={'/img/img-vip-host.png'} width={231} height={40} alt="" className="w-[80%] lg:w-full m-auto object-cover" />
+                  <div className="text-m_default sm:text-default font-bold text-center">
                     <span className="font-bold">{t('vipClub:unlockYourExclusiveVip')}</span>
                     <span className="uppercase text-[#FF9E4F] font-bold">
                       {t('vipClub:vipHost')}
@@ -283,10 +283,10 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   </div>
                 </div>
               </div>
-              <div className="dark:text-white text-black text-[14px] text-center mt-6">
+              <div className="dark:text-white text-black text-m_default sm:text-[14px] text-center mt-6 px-5">
                 {t('vipClub:discoverTheUltimateGamingExperience')}
               </div>
-              <div className="mt-[22px] blur-[1px] h-[1px] rounded-[481px] bg-gradient-to-r from-black/[5%] via-white to-black/[5%]" />
+              <div className="mt-[22px] m-auto w-[84%] blur-[1px] h-[1px] rounded-[481px] bg-gradient-to-r from-black/[5%] via-white to-black/[5%]" />
               <div className="p-4">
                 <div className={`flex justify-between gap-1 overflow-x-auto scrollbar`}>
                   {rankList.map((item, index) => (
