@@ -1,9 +1,12 @@
 import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon, MagnifyingGlassIcon, CheckBadgeIcon } from '@heroicons/react/24/outline';
-import { ElementType, Fragment, useRef } from 'react';
+import { ElementType, Fragment, useRef, useState } from 'react';
+import cn from 'classnames';
 import Image from 'next/image';
 
 import { useTranslation } from '@/base/config/i18next';
+import { toast } from 'react-toastify';
+import { TOAST_ENUM } from '@/base/constants/common';
 type ModalVerifyRepresentativeProp = {
   onClose: () => void;
   show: boolean;
@@ -12,7 +15,26 @@ type ModalVerifyRepresentativeProp = {
 
 export default function ModalVerifyRepresentative({ show, onClose }: ModalVerifyRepresentativeProp) {
   const cancelButtonRef = useRef(null);
+  const [representativeID, setRepresentativeID] = useState<string>('');
   const { t } = useTranslation('');
+
+  const checkRepresentative = () => {
+    if (representativeID === '') {
+      toast.error('Please inut representative ID correctly.', {
+        containerId: TOAST_ENUM.COMMON,
+        icon: true,
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+      return;
+    }
+    toast.error(`${representativeID} is NOT the official representative of BONENZA. Do not trust this account..`, {
+      containerId: TOAST_ENUM.COMMON,
+      icon: true,
+      autoClose: 3000,
+      hideProgressBar: false,
+    });
+  };
 
   return (
     <>
@@ -55,7 +77,10 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
                     <div className="group rounded-md" role="button" onClick={onClose}>
                       <XMarkIcon
                         width={15}
-                        className="text-[#9FA5AC] group-hover:text-black dark:group-hover:dark:text-white text-black w-[1.5rem] h-[1.5rem]"
+                        className={cn(
+                          'absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90 text-2xl w-[20px] text-bold',
+                          'dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black',
+                        )}
                       />
                     </div>
                   </Dialog.Title>
@@ -75,8 +100,14 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
                         type="text"
                         className="px-4 h-full dark:bg-[#25272b] bg-[#f5f6fa] flex-1 dark:text-white text-black outline-0 border-0"
                         placeholder="Please enter Telegram/Discord ID"
+                        onChange={(e) => setRepresentativeID(e.target.value)}
                       />
-                      <button className="h-[48px] rounded absoulte right-[4px] top-[4px] flex justify-center items-center w-[88px] hover:opacity-0.9 bg-[#f59e0b]">
+                      <button
+                        className="h-[48px] rounded absoulte right-[4px] top-[4px] flex justify-center items-center w-[88px] hover:opacity-0.9 bg-[#f59e0b]"
+                        onClick={() => {
+                          checkRepresentative();
+                        }}
+                      >
                         <MagnifyingGlassIcon width={20} height={20} className="dark:text-white text-black" />
                       </button>
                     </div>
