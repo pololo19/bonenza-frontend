@@ -42,7 +42,7 @@ export default function CommonModal({
         />
         <div
           className={cn('fixed inset-0 z-10', 'transition-all duration-200 ease-in', {
-            'translate-x-full sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !show,
+            'translate-x-[110%] sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !show,
             'translate-x-0 md:opacity-100 scale-100': show,
           })}
         >
@@ -55,7 +55,7 @@ export default function CommonModal({
           >
             <div
               className={cn(
-                'z-[100] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl l sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
+                'z-[100] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
                 panelClass,
               )}
               onClick={(e) => e.stopPropagation()}
