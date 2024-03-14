@@ -418,6 +418,15 @@ function IndexPage() {
                       <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
                         {String(t('layout:casino'))}
                       </div>
+                      <div className="flex items-center justify-center">
+                        <Link
+                          href={ROUTER.Casino}
+                          role="button"
+                          className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                        >
+                          {t('gameDetail:viewAll')}
+                        </Link>
+                      </div>
                     </div>
                     <TabGames ishome={true} />
                     <CasinoSS
