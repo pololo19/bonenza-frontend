@@ -1,20 +1,24 @@
+import { Popover, Transition } from '@headlessui/react';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { Like1, Messages } from 'iconsax-react';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
+import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_reviewLike, api_reviewList } from '@/api/game';
-import { API_AVATAR } from '@/base/constants/common';
+import { api_reviewLike, api_reviewList, api_reviewReport } from '@/api/game';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { getDuration } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import { CommentType } from '@/components/game/gameReview';
 import Paging from '@/components/paging/paging';
 
+import ReportModal from '../../modal/review/reportModal';
 import CommonModal from '../commonModal/commonModal';
 import CommentPostModal from './commentPost';
+import { toast } from 'react-toastify';
 
 export default function ReplyModal({
   show,
@@ -47,6 +51,23 @@ export default function ReplyModal({
   const [isLoading, setIsLoading] = useState(false);
   const [isShowComment, setIsShowComment] = useState(false);
   const [commentData, setCommentData] = useState<CommentType[]>([]);
+  const [isShowReport, setIsShowReport] = useState(false);
+  const [commentId, setCommentId] = useState('');
+
+  const reportComment = async (reason: string) => {
+    try {
+      const _res = await api_reviewReport(commentId, reason);
+
+      toast.success(t('success:successfulllyReported'), { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
+      const messageDescription = error.response?.data?.error ?? '';
+      toast.error(messageDescription || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setIsShowReport(false);
+    }
+  };
 
   const handleGetList = useCallback(async () => {
     try {
@@ -186,9 +207,43 @@ export default function ReplyModal({
                     <Messages size={18} className={cn('m-auto')} />
                     {sourceComment.comments > 0 && <span className="ml-[10px]">{sourceComment.comments}</span>}
                   </div>
-                  {/* <div className="cursor-pointer">
-                    <i className="fi fi-rr-menu-dots-vertical"></i>
-                  </div> */}
+                  <div className="cursor-pointer">
+                    <Popover className="mr-[10px] items-center flex relative w-auto rounded-[7px] text-center dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary">
+                      {({ open }) => (
+                        <>
+                          <Popover.Button>
+                            <div className="flex flex-col justify-center dark:text-white text-color-text-primary items-center relative ">
+                              <EllipsisVerticalIcon width={18} height={18} className="border-none active:border-none" />
+                            </div>
+                          </Popover.Button>
+                          <Transition
+                            show={open}
+                            as={Fragment}
+                            enter="transition ease-out duration-100"
+                            enterFrom="transform opacity-0 scale-95"
+                            enterTo="transform opacity-100 scale-100"
+                            leave="transition ease-in duration-75"
+                            leaveFrom="transform opacity-100 scale-100"
+                            leaveTo="transform opacity-0 scale-95"
+                          >
+                            <Popover.Panel
+                              static
+                              className="mr-0 right-0 absolute min-w-[150px] p-1 z-10 bg-black origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto top-[30px]"
+                            >
+                              <p
+                                onClick={() => {
+                                  setCommentId(sourceComment.id);
+                                  setIsShowReport(true);
+                                }}
+                              >
+                                {t('gameReview:report')}
+                              </p>
+                            </Popover.Panel>
+                          </Transition>
+                        </>
+                      )}
+                    </Popover>
+                  </div>
                 </div>
               </div>
             </div>
@@ -242,9 +297,47 @@ export default function ReplyModal({
                       <Messages size={18} className={cn('m-auto')} />
                       {comment.comments > 0 && <span className="ml-[10px]">{comment.comments}</span>}
                     </div>
-                    {/* <div className="cursor-pointer">
-                      <i className="fi fi-rr-menu-dots-vertical"></i>
-                    </div> */}
+                    <div className="cursor-pointer">
+                      <Popover className="mr-[10px] items-center flex relative w-auto rounded-[7px] text-center dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary">
+                        {({ open }) => (
+                          <>
+                            <Popover.Button>
+                              <div className="flex flex-col justify-center dark:text-white text-color-text-primary items-center relative ">
+                                <EllipsisVerticalIcon
+                                  width={18}
+                                  height={18}
+                                  className="border-none active:border-none"
+                                />
+                              </div>
+                            </Popover.Button>
+                            <Transition
+                              show={open}
+                              as={Fragment}
+                              enter="transition ease-out duration-100"
+                              enterFrom="transform opacity-0 scale-95"
+                              enterTo="transform opacity-100 scale-100"
+                              leave="transition ease-in duration-75"
+                              leaveFrom="transform opacity-100 scale-100"
+                              leaveTo="transform opacity-0 scale-95"
+                            >
+                              <Popover.Panel
+                                static
+                                className="mr-0 right-0 absolute min-w-[150px] p-1  z-10 bg-black origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto top-[30px]"
+                              >
+                                <p
+                                  onClick={() => {
+                                    setCommentId(comment.id);
+                                    setIsShowReport(true);
+                                  }}
+                                >
+                                  {t('gameReview:report')}
+                                </p>
+                              </Popover.Panel>
+                            </Transition>
+                          </>
+                        )}
+                      </Popover>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -272,6 +365,9 @@ export default function ReplyModal({
           onSubmit={handleUpdateComment}
           setCommentData={setCommentData}
         />
+      )}
+      {isShowReport && (
+        <ReportModal show={isShowReport} onClose={() => setIsShowReport(false)} onReport={reportComment} />
       )}
     </>
   );
