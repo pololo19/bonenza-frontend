@@ -77,7 +77,7 @@ const SignUpPhoneForm = (props: SignUpPhoneFormProps, ref: Ref<SignUpPhoneFormRe
         autoComplete="new-password"
         className="w-full"
       >
-        <div className="sm:mt-5 mt-3 flex flex-col items-start gap-[13px]">
+        <div className="sm:mt-5 mt-0 flex flex-col items-start gap-[5px] sm:gap-[13px]">
           <InputPhoneNumber
             control={control}
             onChangeCountryCallingCode={(value) => {
