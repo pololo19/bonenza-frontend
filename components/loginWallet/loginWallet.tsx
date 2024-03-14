@@ -136,8 +136,8 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
     <>
       {(isLoading || isConnecting) && <Loader />}
       <div className="w-full text-center text-black dark:text-white text-[14px] font-[600]">
-        <span className="">{t('authentication:orContinueWith')}</span>
-        <div className="flex flex-row items-center justify-center gap-[10px] mt-[15px]">
+        <span className="text-[12px] sm:text-default">{t('authentication:orContinueWith')}</span>
+        <div className="flex flex-row items-center justify-center gap-[10px] mt-[5px] sm:mt-[15px]">
           <div
             className="hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
             onClick={() => handleGoogleLogin()}

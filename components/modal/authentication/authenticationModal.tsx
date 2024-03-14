@@ -63,7 +63,7 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
       case AuthenticationModeEnum.SIGN_UP:
         return (
           <div>
-            <div className="font-bold text-[16px] text-color-light-text-primary dark:text-white">
+            <div className="font-bold text-[14px] sm:text-[16px] text-color-light-text-primary dark:text-white">
               {t('authentication:signUp')}
             </div>
             <SignUpTab onClose={onClose} />

@@ -117,7 +117,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
     <>
       {isLoading && <Loader />}
       <div className="sm:min-h-[275px]">
-        <div className="sm:mt-5 mt-3 flex flex-col items-start gap-[13px]">
+        <div className="sm:mt-5 mt-1 flex flex-col items-start gap-[5px] sm:gap-[13px]">
           <div className="flex w-full">
             <div
               className={cn(
@@ -129,7 +129,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
                 setCheckIsPhoneNumber(false);
               }}
             >
-              <div className="text-[16px] dark:text-white text-color-light-text-primary font-[700]">
+              <div className="text-[12px] sm:text-[16px] dark:text-white text-color-light-text-primary font-[700]">
                 {t('authentication:email')}
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
                 setCheckIsPhoneNumber(true);
               }}
             >
-              <div className="text-[16px] dark:text-white text-color-light-text-primary font-[700]">
+              <div className="text-[12px] sm:text-[16px] dark:text-white text-color-light-text-primary font-[700]">
                 {t('setting:phoneNumber')}
               </div>
             </div>
@@ -159,7 +159,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               type="checkbox"
               id="confirm18"
             />
-            <label htmlFor="confirm18" className="text-des !text-color-text-primary font-normal text-start">
+            <label htmlFor="confirm18" className="text-m_des sm:text-des !text-color-text-primary font-normal text-start">
               <Trans i18nKey="authentication:confirmAtLeast18YearsOld">
                 I agree to the
                 <Link className="text-color-primary font-bold" href="/helper-center/terms-of-service/" target="_blank">
@@ -179,7 +179,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               type="checkbox"
               id="vehicle1"
             />
-            <label htmlFor="vehicle1" className="text-des !text-color-text-primary font-normal text-start">
+            <label htmlFor="vehicle1" className="text-m_des text-des !text-color-text-primary font-normal text-start">
               {t('authentication:agreeToReceive')}
             </label>
           </div>
@@ -187,7 +187,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         <button
           type="submit"
           onClick={onSignUp}
-          className="bg-gradient-btn-play  w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] mt-5"
+          className="bg-gradient-btn-play  w-full rounded-large flex justify-between items-center py-[5px] pl-[40px] pr-[17px] mt-1"
         >
           <div />
           <div className="text-[14px] text-white">{t('authentication:continue')}</div>
@@ -196,7 +196,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
           </div>
         </button>
         <div className="flex">
-          <div role="button" className="text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
+          <div role="button" className="text-[12px] sm:text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
             <span className="text-color-text-primary">{t('authentication:alreadyHaveAccount')}&nbsp;&nbsp;</span>
             <span
               className="text-color-primary hover:text-color-secondary hover:underline"

@@ -75,7 +75,7 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
         autoComplete="new-password"
         className="w-full"
       >
-        <div className="sm:mt-5 mt-3 flex flex-col items-start gap-[13px]">
+        <div className="sm:mt-5 mt-0 flex flex-col items-start gap-[5px] sm:gap-[13px]">
           <InputEmailAuthentication
             control={control}
             name="email"
@@ -92,7 +92,7 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
           />
         </div>
         <div
-          className="flex items-center text-color-text-primary text-default gap-[4px] cursor-pointer mt-2"
+          className="flex items-center text-color-text-primary text-[12px] sm:text-default gap-[4px] cursor-pointer mt-2"
           onClick={() => {
             setCheckIsReferral(!isEnterReferral);
           }}
