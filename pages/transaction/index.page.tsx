@@ -256,7 +256,7 @@ const TransactionPage = () => {
           ),
           cell: ({ row }) => (
             <>
-              <div className="dark:text-white text-black flex items-center gap-1 truncate min-h-[40px]">
+              <div className="dark:text-white text-black flex items-center gap-1 truncate">
                 {row.original?.type?.toUpperCase()}{' '}
                 {row.original?.type && row.original?.gameName && (
                   <span className="text-[10px] text-gray-400 flex gap-[5px]">
@@ -382,7 +382,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="">
-            <div className="dark:text-white text-black flex items-center gap-1 truncate min-h-[40px]">
+            <div className="dark:text-white text-black flex items-center gap-1 truncate">
               {row.original?.type?.toUpperCase()}{' '}
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
@@ -392,6 +392,9 @@ const TransactionPage = () => {
                   </Link> */}
                 </span>
               )}
+            </div>
+            <div className="dark:text-white text-color-light-text-primary text-left">
+              {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
             {row.original?.gameId && (
               <div className="text-[10px] dark:text-gray-500 text-black text-left flex items-center gap-1">
