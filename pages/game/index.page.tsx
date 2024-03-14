@@ -185,8 +185,8 @@ function GamePage() {
       });
     }
   };
-  const handleSignin = async () => {
-    dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+  const handleSignUp = async () => {
+    dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
     dispatch(changeIsShowAuthenticationModal(true));
   };
   const handlePlayRequest = async () => {
@@ -460,7 +460,7 @@ function GamePage() {
                       type="button"
                       disabled={!gameDetail.allowedLocation || isLoadingGame.status}
                       className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px]"
-                      onClick={() => handleSignin()}
+                      onClick={() => handleSignUp()}
                     >
                       {isLoadingGame.status && isLoadingGame.request === 'real' ? (
                         <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
@@ -468,7 +468,7 @@ function GamePage() {
                         <LoginCurve size={20} />
                       )}
 
-                      <div>{t('layout:signIn')}</div>
+                      <div>{t('layout:signUp')}</div>
                     </button>
                   )}
 
