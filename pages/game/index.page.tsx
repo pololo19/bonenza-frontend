@@ -191,7 +191,10 @@ function GamePage() {
   };
   const handlePlayRequest = async () => {
     try {
-      if (!isSatisfied) return;
+      if (!isSatisfied) {
+        toast.error(t('withdraw:withdrawAmountWrong'), { containerId: TOAST_ENUM.COMMON });
+        return;
+      }
       setIsLoadingGame({
         request: 'real',
         status: true,
@@ -368,7 +371,10 @@ function GamePage() {
               <div
                 id="game_wrapper"
                 key={String(gameId)}
-                className={cn('h-full sm:dark:bg-black dark:bg-color-modal-bg-primary bg-white', styles.gameWrapper)}
+                className={cn(
+                  'h-full sm:dark:bg-black dark:bg-color-modal-bg-primary bg-white rounded-large',
+                  styles.gameWrapper,
+                )}
               />
               <div
                 className={cn(
@@ -734,7 +740,7 @@ function GamePage() {
                 </div>
               </div>
             </div>
-            <div className="p-[8px] dark:bg-[#17191B] bg-white items-center justify-between sm:hidden grid grid-cols-2 gap-[10px] border-t-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
+            {/* <div className="p-[8px] dark:bg-[#17191B] bg-white items-center justify-between sm:hidden grid grid-cols-2 gap-[10px] border-t-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
               <div className="flex justify-center border-r-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
                 <Tooltip
                   message="Fairness"
@@ -763,7 +769,7 @@ function GamePage() {
                   }
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
           {gameDetail.id && (
