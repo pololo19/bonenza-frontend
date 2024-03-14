@@ -472,7 +472,7 @@ const WithdrawCryptoPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 rounded-[3px] text-start">
+              <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 rounded-large text-start">
                 <h1 className="text-default">
                   <span className="text-color-primary me-1 inline">{t('withdraw:notice')}</span> {t('withdraw:note2')}{' '}
                 </h1>
