@@ -404,7 +404,8 @@
     "goToSports": "Ir a Deportes",
     "bonusHistory": "Historial de bonificación",
     "upTo": "Hasta",
-    "getBonusSuccess": "Obtén bonificación de éxito"
+    "getBonusSuccess": "Obtén bonificación de éxito",
+    "more": "Más"
   },
   "rakeBackDetail": {
     "viewContract": "Ver contrato",

@@ -132,7 +132,7 @@ const DepositCryptoComponent = () => {
           )}
 
           {wallets.findIndex((wallet) => wallet.networkId === activeNetwork.id) != -1 && (
-            <div className="w-full flex sm:flex-row flex-col items-center dark:text-white text-color-light-text-primary rounded-[3px] gap-[20px] py-[13px] px-[20px] dark:bg-color-canvas-bg-primary bg-color-light-bg-primary">
+            <div className="rounded-default w-full flex sm:flex-row flex-col items-center dark:text-white text-color-light-text-primary gap-[20px] py-[13px] px-[20px] dark:bg-color-canvas-bg-primary bg-color-light-bg-primary">
               <div className="rounded-[16px]">
                 <Canvas
                   text={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
@@ -152,9 +152,9 @@ const DepositCryptoComponent = () => {
                   <div className="text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                     {t('deposit:depositAddress')}
                   </div>
-                  <div className="flex-1 flex items-center justify-between gap-[20px] dark:bg-[#17181C] bg-[#E7EAF0] p-[10px]">
+                  <div className="flex-1 flex items-center justify-between gap-[20px] dark:bg-[#17181C] bg-[#E7EAF0] p-[10px] rounded-default">
                     <DepositAddressComponent
-                      className="text-[14px] text-start"
+                      className="rounded-default text-[14px] text-start"
                       address={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}
                     />
                     <div
@@ -174,7 +174,7 @@ const DepositCryptoComponent = () => {
             </div>
           )}
         </div>
-        <div className="mt-[20px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 rounded-[3px] text-start">
+        <div className="rounded-large mt-[20px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 text-start">
           <h1 className="text-[14px]">
             <span className="text-color-primary me-1 inline text-[16px]">{t('deposit:notice')}</span>{' '}
             {t('deposit:doNotDeposit', { crypto: String(activeCoin.name) })}

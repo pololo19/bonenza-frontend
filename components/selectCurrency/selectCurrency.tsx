@@ -121,168 +121,196 @@ const SelectCurrency = ({
             {t('withdraw:withdrawCurrency')}
           </div>
         )}
-        {!withDrawTab && (
-          <div className="w-full flex flex-wrap gap-1 overflow-x-auto">
-            {symbols.map((symbol, index) => (
-              <button
-                className={cn(
-                  'sm:min-w-[80px] pl-1 pr-3 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
-                  'hover:bg-color-primary', // Hover color
-                  {
-                    'border-2 border-color-primary': symbol.id === activeCoin.id, //Active Symbol
-                    'border-2 border-color-light-border-primary dark:border-color-border-primary':
-                      symbol.id !== activeCoin.id, //Not Active Symbol
-                  },
-                )}
-                key={index}
-                onClick={() => handleChangeCrypto(symbol)}
-              >
-                <Image
-                  width={24}
-                  height={24}
-                  src={symbol.logo}
-                  className="inline"
-                  alt=""
-                  onError={(e) => {
-                    e.currentTarget.src = '/img/fiat/USD.png';
-                  }}
-                />
-                <h1 className="text-default font-normal">{symbol.name}</h1>
-              </button>
-            ))}
-          </div>
-        )}
         <Menu
           as="div"
-          className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-default"
+          className="relative block w-full "
+          
         >
-          <Menu.Button className="flex-1">
-            <div className="flex items-center justify-between w-full py-[13px] px-[20px] " role="button">
-              <div className="flex-1 flex items-center justify-start gap-[10px]">
-                <Image
-                  width={30}
-                  height={30}
-                  src={activeCoin.logo}
-                  onError={(e) => {
-                    e.currentTarget.src = '/img/fiats/USDT.png';
-                  }}
-                  className="inline"
-                  alt=""
-                />
-                <div className="dark:text-white text-black flex-1 text-start text-default">
-                  {activeCoin.name}
-                  <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin.name}</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-start gap-[10px]">
-                <div className="flex items-center text-default dark:text-color-text-primary text-color-light-text-primary gap-[10px]">
-                  {t('deposit:balance')}{' '}
-                  <span className="text-default font-semibold dark:text-white text-color-light-text-primary">
-                    {viewInFiat
-                      ? currencyFormat1(
-                          getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
-                          fiatDecimals,
-                          localFiat?.name,
-                        )
-                      : currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
-                  </span>
-                </div>
-                <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />
-              </div>
-            </div>
-          </Menu.Button>
-
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute dark:text-white text-black dark:bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer shadow-bs-default">
-              <div className="py-[10px] px-[10px]">
-                <InputSearch
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  className="dark:text-white !bg-white dark:!bg-color-panel-bg-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
-                />
-              </div>
-              <div className="py-1 max-h-[250px] overflow-y-auto p-2">
-                {filterListCoin.map((symbol, index) => (
-                  <Menu.Item key={index}>
-                    {({ active }) => (
-                      <div
-                        className={cn(
-                          'flex items-center justify-start w-full dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary mb-2',
-                          {
-                            'border border-color-primary/50 border-solid rounded': symbol.id === activeCoin.id,
-                          },
-                        )}
-                        role="button"
-                        onClick={() => handleChangeCrypto(symbol)}
-                      >
-                        <div className="flex-1 flex items-center justify-start py-[10px] px-[10px] gap-[10px]">
+          {({ open }) => (
+            <>
+              {!withDrawTab && (
+                <div className="w-full flex flex-wrap gap-1 overflow-x-auto">
+                  {symbols.slice(0, 4).map((symbol, index) => (
+                    <button
+                      className={cn(
+                        'sm:min-w-[80px] pl-1 pr-3 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
+                        'hover:bg-color-primary', // Hover color
+                        {
+                          'border-2 border-color-primary': symbol.id === activeCoin.id, //Active Symbol
+                          'border-2 border-color-light-border-primary dark:border-color-border-primary':
+                            symbol.id !== activeCoin.id, //Not Active Symbol
+                        },
+                      )}
+                      key={index}
+                      onClick={() => handleChangeCrypto(symbol)}
+                    >
+                      <Image
+                        width={24}
+                        height={24}
+                        src={symbol.logo}
+                        className="inline"
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/fiat/USD.png';
+                        }}
+                      />
+                      <h1 className="text-default font-normal">{symbol.name}</h1>
+                    </button>
+                  ))}
+                  <Menu.Button>
+                    <button
+                      className={cn(
+                        'sm:min-w-[80px] pl-1 pr-3 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
+                        'hover:bg-color-primary border-2 border-color-light-border-primary dark:border-color-border-primary', 
+                      )}
+                    >
+                      <div className="flex pl-2">
+                        {symbols.slice(4, 7).map((symbol) => (
                           <Image
-                            width={30}
-                            height={30}
+                            width={24}
+                            height={24}
                             src={symbol.logo}
-                            onError={(e) => {
-                              e.currentTarget.src = '/img/icon/USDT-logo.svg';
-                            }}
-                            className="inline"
+                            className="-ml-2 w-6 h-6"
                             alt=""
+                            onError={(e) => {
+                              e.currentTarget.src = '/img/fiat/USD.png';
+                            }}
                           />
-                          <div className="flex-1 text-start text-default dark:text-white text-black font-semibold">
-                            {symbol.name}
-                          </div>
-                        </div>
-                        <div className="flex items-center justify-start gap-[10px] py-[10px]">
-                          <div className="flex flex-col">
-                            {viewInFiat && (
-                              <span className="text-default font-semibold dark:text-white text-black text-right">
-                                {currencyFormat1(
-                                  getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
-                                  fiatDecimals,
-                                  localFiat?.name || 'USD',
-                                )}
-                              </span>
+                        ))}
+                      </div>
+                      {t('deposit:more')}
+                    </button>
+                  </Menu.Button>
+                </div>
+              )}
+              <Menu.Button className="mt-[15px] w-full flex-1">
+                <div className="dark:bg-color-input-primary bg-color-light-input-primary rounded-default flex items-center justify-between w-full py-[13px] px-[20px] " role="button">
+                  <div className="flex-1 flex items-center justify-start gap-[10px]">
+                    <Image
+                      width={30}
+                      height={30}
+                      src={activeCoin.logo}
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/fiats/USDT.png';
+                      }}
+                      className="inline"
+                      alt=""
+                    />
+                    <div className="dark:text-white text-black flex-1 text-start text-default">
+                      {activeCoin.name}
+                      <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin.name}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-start gap-[10px]">
+                    <div className="flex items-center text-default dark:text-color-text-primary text-color-light-text-primary gap-[10px]">
+                      {t('deposit:balance')}{' '}
+                      <span className="text-default font-semibold dark:text-white text-color-light-text-primary">
+                        {viewInFiat
+                          ? currencyFormat1(
+                              getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
+                              fiatDecimals,
+                              localFiat?.name,
+                            )
+                          : currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
+                      </span>
+                    </div>
+                    <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />
+                  </div>
+                </div>
+              </Menu.Button>
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute dark:text-white text-black dark:bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 top-[110px] z-[10] cursor-pointer shadow-bs-default">
+                  <div className="py-[10px] px-[10px]">
+                    <InputSearch
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      className="dark:text-white !bg-white dark:!bg-color-panel-bg-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
+                    />
+                  </div>
+                  <div className="py-1 max-h-[250px] overflow-y-auto p-2">
+                    {filterListCoin.map((symbol, index) => (
+                      <Menu.Item key={index}>
+                        {({ active }) => (
+                          <div
+                            className={cn(
+                              'flex items-center justify-start w-full dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary mb-2',
+                              {
+                                'border border-color-primary/50 border-solid rounded': symbol.id === activeCoin.id,
+                              },
                             )}
-
-                            <span
-                              className={cn(' font-semibold text-right', {
-                                'text-[10px] text-gray-400 ': viewInFiat,
-                                'text-default dark:text-white text-black': !viewInFiat,
-                              })}
-                            >
-                              {currencyFormat1(getBalanceBySymbol(symbol), cryptoDecimals, '', false)}
-                            </span>
-                            {symbol.name.toLowerCase() === 'usdt' && (
-                              <div className="text-default dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                                <div className="mt-1 flex justify-end text-color-secondary">
-                                  <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
-                                    <Lock size={12} variant="Bold" />{' '}
+                            role="button"
+                            onClick={() => handleChangeCrypto(symbol)}
+                          >
+                            <div className="flex-1 flex items-center justify-start py-[10px] px-[10px] gap-[10px]">
+                              <Image
+                                width={30}
+                                height={30}
+                                src={symbol.logo}
+                                onError={(e) => {
+                                  e.currentTarget.src = '/img/icon/USDT-logo.svg';
+                                }}
+                                className="inline"
+                                alt=""
+                              />
+                              <div className="flex-1 text-start text-default dark:text-white text-black font-semibold">
+                                {symbol.name}
+                              </div>
+                            </div>
+                            <div className="flex items-center justify-start gap-[10px] py-[10px]">
+                              <div className="flex flex-col">
+                                {viewInFiat && (
+                                  <span className="text-default font-semibold dark:text-white text-black text-right">
                                     {currencyFormat1(
-                                      bonus * exchangeRate,
+                                      getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
                                       fiatDecimals,
-                                      String(localFiat?.name || 'USD'),
+                                      localFiat?.name || 'USD',
                                     )}
                                   </span>
-                                </div>
-                              </div>
-                            )}
-                          </div>
+                                )}
 
-                          <ChevronDownIcon width={15} className="opacity-0" />
-                        </div>
-                      </div>
-                    )}
-                  </Menu.Item>
-                ))}
-              </div>
-            </Menu.Items>
-          </Transition>
+                                <span
+                                  className={cn(' font-semibold text-right', {
+                                    'text-[10px] text-gray-400 ': viewInFiat,
+                                    'text-default dark:text-white text-black': !viewInFiat,
+                                  })}
+                                >
+                                  {currencyFormat1(getBalanceBySymbol(symbol), cryptoDecimals, '', false)}
+                                </span>
+                                {symbol.name.toLowerCase() === 'usdt' && (
+                                  <div className="text-default dark:text-white text-black truncate text-right w-full font-vietnam-bold">
+                                    <div className="mt-1 flex justify-end text-color-secondary">
+                                      <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
+                                        <Lock size={12} variant="Bold" />{' '}
+                                        {currencyFormat1(
+                                          bonus * exchangeRate,
+                                          fiatDecimals,
+                                          String(localFiat?.name || 'USD'),
+                                        )}
+                                      </span>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+
+                              <ChevronDownIcon width={15} className="opacity-0" />
+                            </div>
+                          </div>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </>
+          )}
         </Menu>
       </div>
       <div className="flex flex-col items-start w-full gap-4">

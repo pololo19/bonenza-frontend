@@ -404,7 +404,8 @@
     "goToSports": "Spora Git",
     "bonusHistory": "Bonus Geçmişi",
     "upTo": "kadar",
-    "getBonusSuccess": "Bonus başarısı elde edin"
+    "getBonusSuccess": "Bonus başarısı elde edin",
+    "more": "Daha"
   },
   "rakeBackDetail": {
     "viewContract": "Sözleşmeyi Görüntüle",

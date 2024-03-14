@@ -404,7 +404,8 @@
     "goToSports": "Go to Sports",
     "bonusHistory": "Bonus History",
     "upTo": "Up to",
-    "getBonusSuccess": "Get bonus success"
+    "getBonusSuccess": "Get bonus success",
+    "more": "More"
   },
   "rakeBackDetail": {
     "viewContract": "View Contract",
