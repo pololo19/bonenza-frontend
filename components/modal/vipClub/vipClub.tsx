@@ -191,7 +191,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded sm:rounded-[35px] overflow-hidden"
+        panelClass="rounded sm:rounded-large overflow-hidden"
         header={
           <div className="relative text-default md:text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
             {t('vipClub:vipClub')}
@@ -210,7 +210,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 {t('vipClub:viewLevelUpDetails')}
               </span>
             </div>
-            <div className="rounded-[25px] bg-[#12151A]">
+            <div className="rounded-large bg-[#12151A]">
               <div className="block lg:flex">
                 <div className="w-full lg:w-[50%] pt-[28px] px-5">
                   <div className="text-default md:text-title text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
