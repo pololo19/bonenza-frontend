@@ -302,7 +302,7 @@ export default function SignInTab({
               </div>
               <button
                 type="submit"
-                className="bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[5px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-default text-white">{t('authentication:continue')}</div>

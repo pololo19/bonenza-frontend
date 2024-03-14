@@ -1,4 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import cn from 'classnames';
 import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, Fragment, useCallback, useState } from 'react';
@@ -45,7 +46,7 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
                 <div className="">{t('authentication:googleSecurity2FA')}</div>
               </div>
             ) : (
-              <div className="font-bold text-[16px] text-color-light-text-primary dark:text-white">
+              <div className="font-semibold text-[14px] sm:text-[16px] text-color-light-text-primary dark:text-white">
                 {t('authentication:welcomeBack')}
               </div>
             )}
@@ -85,24 +86,34 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
     <>
       <CommonModal show={show} onClose={onClose} isShowCloseButton={forgotKey ? false : true}>
         <div className="flex sm:flex-row flex-col overflow-y-auto dark:bg-color-modal-bg-primary bg-color-light-modal-bg-primary sm:max-h-[650px] h-[100vh]">
-          <div className="sm:flex-1 relative">
+          <div className={cn(
+            "sm:flex-1 relative pt-[30px] flex flex-col justify-center",
+            "bg-[#1B1C20] sm:bg-[#000] sm:bg-gradient-to-b sm:from-[#000] sm:via-[#1F1F22] sm:to-[#000] sm:from-0% sm:via-50% sm:to-75%"
+          )}
+          >
             <Image
               width={401}
               height={600}
-              src="/img/img-login.jpg"
+              src="/img/auth/background.png"
               alt=""
-              className="sm:w-[400px] w-full sm:h-full sm:max-h-[none] max-h-[175px] object-cover"
+              className="sm:w-[400px] sm:brightness-75 object-cover"
             />
-            <div className="absolute inset-0 dark:bg-gradient-top-bottom bg-light-gradient-top-bottom" />
-            <div className="absolute sm:bottom-[50px] bottom-[10px] text-center w-full">
-              <p className="text-[18px] dark:text-white text-black font-bold">
-                {t('homePage:welcomeTo')} <span className="text-color-primary font-bold">BONENZA</span>
+            <div className="absolute sm:bottom-[50px] bottom-[10px] top-[30px] text-center w-full flex flex-col gap-[10px] sm:justify-between">
+              <p className="text-[15px] sm:text-[24px] text-color-primary font-semibold">
+                {t('homePage:welcomeTo')}
               </p>
-              <p className="text-[13px] dark:text-white text-black mt-[5px]">{t('homePage:startJourney')}</p>
+              <Image
+                width={401}
+                height={600}
+                src="/img/auth/logo.png"
+                alt=""
+                className="w-[100px] sm:w-[160px] md:w-[264px] object-cover m-auto"
+              />
+              <p className="px-5 text-[15px] sm:text-[28px] text-color-primary font-semibold">{t('homePage:startJourney')}</p>
             </div>
           </div>
           <div
-            className={`sm:py-[20px] pt-[20px] pb-[75px] sm:px-[30px] px-[20px] mx-auto flex-1 sm:overflow-y-auto w-full flex flex-col ${
+            className={`sm:py-[20px] pt-[10px] pb-[20px] sm:pb-[75px] sm:px-[30px] px-[10px] mx-auto flex-1 sm:overflow-y-auto w-full flex flex-col ${
               forgotKey ? 'justify-center' : 'justify-between'
             }`}
           >

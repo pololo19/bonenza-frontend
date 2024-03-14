@@ -73,7 +73,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'dark:bg-color-bg-primary bg-white rounded-default flex items-center p-[15px] gap-[8px] h-[53px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                'dark:bg-color-bg-primary bg-white rounded-default flex items-center py-[10px] px-[15px] gap-[8px] h-[46px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 customClass,
                 {
                   'dark-autofill': theme !== 'light',
