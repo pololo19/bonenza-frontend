@@ -139,7 +139,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         <span className="">{t('authentication:orContinueWith')}</span>
         <div className="flex flex-row items-center justify-center gap-[10px] mt-[15px]">
           <div
-            className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
+            className="hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
             onClick={() => handleGoogleLogin()}
           >
             <button className="px-2 py-2 w-full text-white">
@@ -147,14 +147,14 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
             </button>
           </div>
           <div
-            className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
+            className="hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
             onClick={handleTelegram}
           >
             <button className="px-2 py-2 w-full text-white">
               <Image height={30} width={30} src={'/img/telegram.svg'} alt="" className="inline w-[30px]" />
             </button>
           </div>
-          <div className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
+          <div className="hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
             <WalletButton.Custom wallet="metamask">
               {({ ready, connect }) => {
                 return (
@@ -165,7 +165,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
               }}
             </WalletButton.Custom>
           </div>
-          <div className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
+          <div className="hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
             <WalletButton.Custom wallet="walletConnect">
               {({ ready, connect }) => {
                 return (
