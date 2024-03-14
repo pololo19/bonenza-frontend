@@ -2,7 +2,7 @@ import 'swiper/css';
 import 'swiper/css/grid';
 
 import { Disclosure, Transition } from '@headlessui/react';
-import { ArrowRight, SmsTracking } from 'iconsax-react';
+import { ArrowRight, ArrowRight2, SmsTracking } from 'iconsax-react';
 import { Add, Minus } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -451,7 +451,7 @@ function AffiliateLoggedPage() {
                 <div className="text-[11px] text-[#C2C2C2] font-normal mr-[5px] text-right">
                   {t('affiliate:referralTermsConditions')}
                 </div>
-                <i className="fi fi-br-angle-right  mt-[4px] text-[10px] font-bold"></i>
+                <ArrowRight2 size={11} />
               </div>
             </div>
           </div>

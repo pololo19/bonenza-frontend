@@ -630,7 +630,6 @@ function IndexPage() {
                               containerId: TOAST_ENUM.COMMON,
                               icon: true,
                               autoClose: 3000,
-                              hideProgressBar: false,
                             });
                             return;
                           }

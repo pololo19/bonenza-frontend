@@ -149,7 +149,24 @@ export default function RewardDropdown() {
                             >
                               <div className="flex gap-[10px]">
                                 <div className="flex flex-col justify-center items-center">
-                                  <Image width={30} height={30} src="/img/reward.png" className="w-auth h-fit" alt="" />
+                                  {bonus.type !== 'wager_contest' && (
+                                    <Image
+                                      width={30}
+                                      height={30}
+                                      src="/img/reward.png"
+                                      className="w-auth h-fit"
+                                      alt=""
+                                    />
+                                  )}
+                                  {bonus.type === 'wager_contest' && (
+                                    <Image
+                                      width={30}
+                                      height={30}
+                                      src="/img/wager_contest_reward.png"
+                                      className="w-auth h-fit"
+                                      alt=""
+                                    />
+                                  )}
                                 </div>
 
                                 <div className="flex flex-col gap-[5px] justify-center">
@@ -177,7 +194,7 @@ export default function RewardDropdown() {
                               </div>
                               <div className="py-[2px] flex items-center">
                                 <button
-                                  className="bg-gradient-btn-play px-[20px] text-white rounded-[3px] font-bold disabled:cursor-not-allowed min-h-[40px]"
+                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default font-bold disabled:cursor-not-allowed min-h-[40px]"
                                   disabled={lockedAmount <= bonus.amount}
                                   onClick={() => handleClaim(bonus)}
                                 >
@@ -188,7 +205,7 @@ export default function RewardDropdown() {
                           ))}
                       </div>
                       <Link href={ROUTER.Bonus}>
-                        <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary justify-center">
+                        <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary rounded-large border-color-light-border-primary justify-center">
                           {t('bonus:bonusDashboard')}
                           <ArrowRight2 size={16} />
                         </div>

@@ -1,11 +1,12 @@
 import { Disclosure, Transition } from '@headlessui/react';
-import { Add, Minus, SmsTracking } from 'iconsax-react';
+import cn from 'classnames';
+import { Add, ArrowRight2, Minus, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import cn from 'classnames';
+
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
@@ -16,10 +17,10 @@ import CheckMarkIcon from '@/components/icons/CheckMarkIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
 import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
+import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
 
 import AffiliateLoggedPage from '../affiliate-logged/index.module';
 import styles from './index.module.scss';
-import classNames from 'classnames';
 
 function AffiliatePage() {
   const exchange = useExchange();
@@ -28,6 +29,7 @@ function AffiliatePage() {
 
   const [showDetailCommissionsRewards, setShowDetailCommissionsRewards] = useState(false);
   const [showReferralRewardRules, setShowReferralRewardRules] = useState(false);
+  const [showReferralTerm, setShowReferralTerm] = useState(false);
 
   const { isLogin, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -112,7 +114,7 @@ function AffiliatePage() {
               </h5>
               <div
                 role="button"
-                className="bg-btn-sign-in rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] max-w-[208px] px-[20px] py-[10px] font-bold text-white mb-[10px]"
+                className="bg-btn-sign-in rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] max-w-[208px] px-[20px] py-[10px] font-bold text-white mb-[10px]"
                 onClick={() => {
                   dispatch(changeIsShowAuthenticationModal(true));
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
@@ -123,9 +125,18 @@ function AffiliatePage() {
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
               </div>
-              <h5 className="text-[16px] text-center dark:text-white text-[#141414] mt-3">
-                {t('affiliate:referralTermsConditions')}
-              </h5>
+              <div
+                className="flex w-full justify-center items-center"
+                role="button"
+                onClick={() => {
+                  setShowReferralTerm(true);
+                }}
+              >
+                <div className="text-[16px] text-white font-normal mr-[5px] text-right">
+                  {t('affiliate:referralTermsConditions')}
+                </div>
+                <ArrowRight2 size={16} />
+              </div>
               <div
                 className={cn(
                   'lg:hidden',
@@ -168,7 +179,7 @@ function AffiliatePage() {
                 </div>
                 <div
                   role="button"
-                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowReferralRewardRules(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}
@@ -199,7 +210,7 @@ function AffiliatePage() {
                 </div>
                 <div
                   role="button"
-                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowDetailCommissionsRewards(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}
@@ -340,6 +351,7 @@ function AffiliatePage() {
       <CommissionReward show={showDetailCommissionsRewards} onClose={() => setShowDetailCommissionsRewards(false)} />
       <ReferralRewardRules show={showReferralRewardRules} onClose={() => setShowReferralRewardRules(false)} />
       {isLogin && <AffiliateLoggedPage />}
+      {showReferralTerm && <ModalReferralTerm show={showReferralTerm} onClose={() => setShowReferralTerm(false)} />}
     </>
   );
 }

@@ -2,6 +2,7 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ElementType } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalReferralTermProps = {
@@ -20,10 +21,8 @@ export default function ModalReferralTerm({ show, onClose }: ModalReferralTermPr
         onClose={onClose}
         panelClass="sm:rounded sm:max-w-[400px]"
         header={
-          <div className="relative p-[20px] pb-0 bg-[#f5f6fa] dark:bg-[#161D26]">
-            <div className="flex items-center text-black dark:text-white gap-[10px]">
-              {t('affiliate:referralTermsConditions')}
-            </div>
+          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+            {t('affiliate:referralTermsConditions')}
           </div>
         }
       >

@@ -88,7 +88,7 @@ export default function ModalReferralRewardsRule({ show, onClose }: ModalReferra
         onClose={onClose}
         panelClass="sm:!max-w-[530px]"
         header={
-          <div className="relative sm:px-[30px] px-[20px] text-center pt-[20px] text-title pb-[10px] bg-white text-black font-bold">
+          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
             {t('mycasino:abountReward')}
           </div>
         }
