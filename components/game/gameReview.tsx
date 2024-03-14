@@ -303,9 +303,15 @@ const GameReviewComponent = ({
   const reportComment = async (reason: string) => {
     try {
       const _res = await api_reviewReport(commentId, reason);
+
       toast.success(t('success:successfulllyReported'), { containerId: TOAST_ENUM.COMMON });
-    } catch (error) {
-      toast.error(t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
+      const messageDescription = error.response?.data?.error ?? '';
+      toast.error(messageDescription || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setIsShowReport(false);
     }
   };
 
