@@ -553,7 +553,7 @@ function IndexPage() {
                   <LatestBetRace />
                 </HomepageSession>
               </div>
-              <div className="relative w-full sm:block hidden">
+              <div className="relative w-full">
                 <div
                   onClick={() => {
                     if (isLogin) dispatch(changeIsShowVipClubModal(true));
@@ -564,7 +564,14 @@ function IndexPage() {
                     src="/img/whale.png"
                     width={20}
                     height={20}
-                    className="w-full object-cover rounded-large"
+                    className="hidden md:block w-full object-cover rounded-large"
+                    alt=""
+                  />
+                  <Image
+                    src="/img/mobile-whale.png"
+                    width={20}
+                    height={20}
+                    className="block md:hidden w-full object-cover rounded-large"
                     alt=""
                   />
                 </div>
