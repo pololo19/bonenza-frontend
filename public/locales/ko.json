@@ -404,7 +404,8 @@
     "goToSports": "스포츠로 이동",
     "bonusHistory": "보너스 내역",
     "upTo": "까지",
-    "getBonusSuccess": "보너스 성공을 얻으세요"
+    "getBonusSuccess": "보너스 성공을 얻으세요",
+    "more": "더"
   },
   "rakeBackDetail": {
     "viewContract": "계약 보기",

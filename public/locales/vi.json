@@ -404,7 +404,8 @@
     "goToSports": "Đi đến Thể thao",
     "bonusHistory": "Lịch sử tiền thưởng",
     "upTo": "Lên đến",
-    "getBonusSuccess": "Nhận tiền thưởng thành công"
+    "getBonusSuccess": "Nhận tiền thưởng thành công",
+    "more": "Hơn"
   },
   "rakeBackDetail": {
     "viewContract": "Xem hợp đồng",

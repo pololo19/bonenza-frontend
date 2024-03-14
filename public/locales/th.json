@@ -404,7 +404,8 @@
     "goToSports": "ไปที่กีฬา",
     "bonusHistory": "ประวัติโบนัส",
     "upTo": "จนถึง",
-    "getBonusSuccess": "รับโบนัสความสำเร็จ"
+    "getBonusSuccess": "รับโบนัสความสำเร็จ",
+    "more": "มากกว่า"
   },
   "rakeBackDetail": {
     "viewContract": "ดูสัญญา",

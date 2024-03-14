@@ -404,7 +404,8 @@
     "goToSports": "খেলাধুলায় যান",
     "bonusHistory": "বোনাস ইতিহাস",
     "upTo": "পর্যন্ত",
-    "getBonusSuccess": "বোনাস সাফল্য পান"
+    "getBonusSuccess": "বোনাস সাফল্য পান",
+    "more": "আরও"
   },
   "rakeBackDetail": {
     "viewContract": "চুক্তি দেখুন",

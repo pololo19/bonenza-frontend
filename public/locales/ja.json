@@ -404,7 +404,8 @@
     "goToSports": "スポーツに行く",
     "bonusHistory": "ボーナス履歴",
     "upTo": "まで",
-    "getBonusSuccess": "ボーナス成功を獲得する"
+    "getBonusSuccess": "ボーナス成功を獲得する",
+    "more": "もっと"
   },
   "rakeBackDetail": {
     "viewContract": "契約書を見る",
