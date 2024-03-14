@@ -74,7 +74,18 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     bonuses: [],
   });
   const [rankList, setRankList] = useState<rankDataType[]>([]);
-  const [currentRank, setCurrentRank] = useState<{ img: string; name: string }>();
+  const [currentRank, setCurrentRank] = useState<{ img: string; name: string}>();
+  const [currentVipLevel, setCurrentVipLevel] = useState<number>(0);
+  const dataMedal = [
+    { img: '/img/bronze-medal.png', name: 'Bronze' },
+    { img: '/img/silver-medal.png', name: 'Silver' },
+    { img: '/img/gold-medal.png', name: 'Gold' },
+    { img: '/img/platinum1-medal.png', name: 'Platinum I' },
+    { img: '/img/platinum2-medal.png', name: 'Platinum II' },
+    { img: '/img/diamond1-medal.png', name: 'Diamond I' },
+    { img: '/img/diamond2-medal.png', name: 'Diamond II' },
+    { img: '/img/diamond3-medal.png', name: 'Diamond III' },
+  ];
 
   const onOpenModalVipLevel = (level: number) => {
     CookiesStorage.setCookieData(CookieKey.level, String(level));
@@ -113,6 +124,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       });
       if (tempRankData.length > 0) {
         const userRank = tempRankData.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);
+        setCurrentVipLevel(currentLevel);
         if (userRank) {
           setSelectedRank(userRank ?? tempRankData[0]);
           setCurrentRank(dataMedal.find((item) => item.name === userRank?.name));
@@ -372,9 +384,12 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                   )}
                                   role="button"
                                 >
-                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center">
+                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      <Image src={'/img/lock.png'} width={23} height={27} alt="" />
+                                      {currentVipLevel >= selectedRank.startLevel
+                                        ? <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="" />
+                                        : <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      }
                                     </div>
                                     <div className="flex flex-col gap-[6px]">
                                       <div className="text-[14px] text-black dark:text-white font-bold ">
@@ -399,9 +414,12 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                   )}
                                   role="button"
                                 >
-                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center">
+                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      <Image src={'/img/lock.png'} width={23} height={27} alt="" />
+                                      {currentVipLevel >= selectedRank.startLevel
+                                        ? <Image src={'/img/vip/bonus_weekly_cashback.png'} className="min-w-[55px] min-h-[56px]" width={55} height={56} alt="" />
+                                        : <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      }
                                     </div>
                                     <div className="flex flex-col gap-[6px]">
                                       <div className="text-[14px] text-black dark:text-white font-bold ">
@@ -428,9 +446,12 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                   )}
                                   role="button"
                                 >
-                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center">
+                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      <Image src={'/img/lock.png'} width={23} height={27} alt="" />
+                                      {currentVipLevel >= selectedRank.startLevel
+                                        ? <Image src={'/img/vip/bonus_monthly_cashback.png'} width={50} height={51} alt="" />
+                                        : <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      }
                                     </div>
                                     <div className="flex flex-col gap-[6px]">
                                       <div className="text-[14px] text-black dark:text-white font-bold ">
