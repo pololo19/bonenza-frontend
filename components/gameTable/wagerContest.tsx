@@ -1,7 +1,7 @@
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
-import { ArrowRight2 } from 'iconsax-react';
+import { ArrowRight2, Ghost } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -272,13 +272,7 @@ const WagerContestComponent = () => {
             )}
           >
             {row.original?.playerId !== userId && !row.original?.playerName ? (
-              <Image
-                width={25}
-                height={25}
-                className="rounded-full blur-[1px] grayscale brightness-50"
-                src="/img/avatar-hidden.png"
-                alt=""
-              />
+              <Ghost width={25} height={25} variant="Bulk" className="w-6 h-6" />
             ) : (
               <Image
                 height={25}
@@ -448,13 +442,7 @@ const WagerContestComponent = () => {
                     alt=""
                   />
                   {wagerHistory.playerId !== userId && !wagerHistory.playerName ? (
-                    <Image
-                      width={46}
-                      height={59}
-                      className="rounded-full blur-[1px] grayscale brightness-50"
-                      src="/img/avatar-hidden.png"
-                      alt=""
-                    />
+                    <Ghost width={45} height={45} variant="Bulk" className="w-6 h-6 m-3" />
                   ) : (
                     <Image
                       width={46}
