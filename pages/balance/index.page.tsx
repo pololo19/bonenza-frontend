@@ -1,6 +1,6 @@
 import { Switch } from '@headlessui/react';
 import cn from 'classnames';
-import { Lock,SearchNormal } from 'iconsax-react';
+import { Lock, SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,7 +26,6 @@ const BalancePage = () => {
   const [hideBalance, setHideBalance] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [totalBonus, setTotalBonus] = useState<number>(0);
 
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();

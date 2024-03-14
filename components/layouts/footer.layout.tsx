@@ -19,9 +19,11 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import ModalBusinessContacts from '../modal/businessContacts/businessContacts';
 import ModalVerifyRepresentative from '../modal/verifyRepresentative/verifyRepresentative';
+import { useRouter } from 'next/router';
 
 export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const { t } = useTranslation('');
+  const router = useRouter();
   const [showModalContacts, setShowModalContacts] = useState<boolean>(false);
   const [showModalVerify, setShowModalVerify] = useState<boolean>(false);
   const dispatch = useDispatch();
@@ -434,9 +436,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                           <div>{item.token}</div>
                         </div>
                       </div>
-
-                      <button
-                        type="button"
+                      <Link
+                        href={`?coin=${item.token}`}
                         className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-2 sm:p-[10px] p-[3px] text-default font-semibold"
                         onClick={() => {
                           if (isLogin) {
@@ -448,7 +449,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                         }}
                       >
                         {t('layout:deposit')}
-                      </button>
+                      </Link>
+                      {/* <button type="button"></button> */}
                     </Tooltip>
                   </div>
                 ))}
@@ -627,11 +629,15 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             <div className="flex flex-col gap-[10px] text-default font-light">
               <div className="flex gap-[5px]">
                 {String(t('footer:business'))}
-                <Link className="text-color-text-mailto" href={`mailto:${t('footer:businessMail')}`}>{String(t('footer:businessMail'))}</Link>
+                <Link className="text-color-text-mailto" href={`mailto:${t('footer:businessMail')}`}>
+                  {String(t('footer:businessMail'))}
+                </Link>
               </div>
               <div className="flex gap-[5px]">
                 {String(t('footer:help'))}
-                <Link className="text-color-text-mailto" href={`mailto:${t('footer:helpMail')}`}>{String(t('footer:helpMail'))}</Link>
+                <Link className="text-color-text-mailto" href={`mailto:${t('footer:helpMail')}`}>
+                  {String(t('footer:helpMail'))}
+                </Link>
               </div>
             </div>
           </div>
