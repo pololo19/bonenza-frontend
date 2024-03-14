@@ -272,7 +272,13 @@ const WagerContestComponent = () => {
             )}
           >
             {row.original?.playerId !== userId && !row.original?.playerName ? (
-              <Ghost width={25} height={25} variant="Bulk" className="w-6 h-6" />
+              <Image
+                width={25}
+                height={25}
+                className="rounded-full grayscale brightness-50"
+                src="/img/avatar-hidden.png"
+                alt=""
+              />
             ) : (
               <Image
                 height={25}
@@ -287,7 +293,7 @@ const WagerContestComponent = () => {
             )}
             <div className="font-bold truncate">
               {row.original?.playerId !== userId && !row.original?.playerName
-                ? t('homePage:hidden')
+                ? <div className="flex gap-[3px] items-center"><Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" />{t('homePage:hidden')}</div>
                 : row.original.playerId === userId
                 ? userName
                 : row.original.playerName}
@@ -442,7 +448,13 @@ const WagerContestComponent = () => {
                     alt=""
                   />
                   {wagerHistory.playerId !== userId && !wagerHistory.playerName ? (
-                    <Ghost width={45} height={45} variant="Bulk" className="w-6 h-6 m-3" />
+                    <Image
+                      width={46}
+                      height={59}
+                      className="rounded-full grayscale brightness-50"
+                      src="/img/avatar-hidden.png"
+                      alt=""
+                    />
                   ) : (
                     <Image
                       width={46}
