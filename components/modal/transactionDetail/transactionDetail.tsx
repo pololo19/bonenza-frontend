@@ -12,7 +12,6 @@ import {
   copyClipBoard,
   currencyFormat1,
   formatDate,
-  getColorByStatus,
   transformUUID,
   transformWalletAddress,
 } from '@/base/libs/utils';
@@ -157,8 +156,13 @@ export default function ModalDetailTransaction({
                   <span className="dark:text-color-text-primary text-color-light-text-primary">
                     {String(t('transaction:withdrawalAddress'))}
                   </span>
-                  <span className="text-black dark:text-white">
+                  <span className="flex gap-2 items-center text-black dark:text-white">
                     {transformWalletAddress(transaction.withdrawalAddress)}
+                    <Simcard2
+                      role="button"
+                      onClick={() => copyClipBoard(String(transaction?.withdrawalAddress))}
+                      className="w-[16px] h-[16px]"
+                    />
                   </span>
                 </div>
               </>
