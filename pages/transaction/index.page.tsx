@@ -738,8 +738,8 @@ const TransactionPage = () => {
             const tempWithdrawData: TransactionType[] = data?.map((item: any) => ({
               amount: Number(item.amountWithFee || 0),
               amountUsd: Number(item.amountWithFeeUsd || 0),
-              fee: item.withdrawFee,
-              feeUsd: Number(item.amountWithFeeUsd || 0) - Number(item.amount || 0),
+              fee: Number(item.amountWithFee || 0) - Number(item.amount || 0),
+              feeUsd: Number(item.amountWithFeeUsd || 0) - Number(item.amountUsd || 0),
               id: item.id,
               orderId: item.id,
               status: getStatusByIdWidthdraw(item.status),
