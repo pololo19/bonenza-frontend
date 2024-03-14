@@ -127,8 +127,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 <div className="absolute flex flex-col items-center left-0 top-[40%] w-full h-full">
                   <p className="text-[10px] uppercase leading-[1]">{`* ${vipData.type} *`}</p>
                   <p className="text-[16px] font-semibold">
-                    {`${vipData.level}`.split(' ').at(0)?.charAt(0).toUpperCase()}
-                    {`${vipData.level}`.split(' ').at(1)}
+                    {`${vipData.level}`?.split(' ')?.at(0)?.charAt(0).toUpperCase()}
+                    {`${vipData.level}`?.split(' ')?.at(1)}
                   </p>
                 </div>
               </div>
@@ -157,7 +157,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 </div>
                 <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
                 <div className="text-[14px] text-color-text-primary w-full flex justify-between items-center">
-                  <div className="truncate max-w-[280px]">
+                  <div className="w-full">
                     {t('profile:userID')}: {user?.userId}
                   </div>
                   <button
@@ -360,7 +360,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded max-w-full sm:max-w-[464px] h-full max-h-full sm:!h-[720px] sm:max-h-[90vh] !m-0"
+        panelClass="rounded max-w-full sm:max-w-[540px] h-full max-h-full sm:!h-[720px] sm:max-h-[90vh] !m-0"
         header={returnHeader()}
       >
         <>

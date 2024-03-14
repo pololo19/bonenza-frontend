@@ -98,7 +98,7 @@ export default function MasterMedals({ isShow, onClose, goBackToProfile }: Maste
     <CommonModal
       show={isShow}
       onClose={onClose}
-      panelClass="rounded !max-w-[464px]"
+      panelClass="rounded max-w-full sm:max-w-[540px]"
       header={
         <div className="px-[12px] py-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
           <div
