@@ -404,7 +404,8 @@
     "goToSports": "前往体育",
     "bonusHistory": "奖金历史",
     "upTo": "取决于",
-    "getBonusSuccess": "成功获得奖金"
+    "getBonusSuccess": "成功获得奖金",
+    "more": "更多的"
   },
   "rakeBackDetail": {
     "viewContract": "查看合同",

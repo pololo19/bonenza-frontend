@@ -404,7 +404,8 @@
     "goToSports": "Aller au sport",
     "bonusHistory": "Historique des bonus",
     "upTo": "Jusqu'à",
-    "getBonusSuccess": "Obtenez un bonus de réussite"
+    "getBonusSuccess": "Obtenez un bonus de réussite",
+    "more": "Plus"
   },
   "rakeBackDetail": {
     "viewContract": "Voir le contrat",

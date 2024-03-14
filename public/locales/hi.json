@@ -404,7 +404,8 @@
     "goToSports": "स्पोर्ट्स पर जाएं",
     "bonusHistory": "बोनस इतिहास",
     "upTo": "तक",
-    "getBonusSuccess": "बोनस सफलता प्राप्त करें"
+    "getBonusSuccess": "बोनस सफलता प्राप्त करें",
+    "more": "अधिक"
   },
   "rakeBackDetail": {
     "viewContract": "अनुबंध देखें",

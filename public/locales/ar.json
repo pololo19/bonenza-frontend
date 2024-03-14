@@ -404,7 +404,8 @@
     "goToSports": "اذهب إلى الرياضة",
     "bonusHistory": "تاريخ المكافأة",
     "upTo": "يصل إلى",
-    "getBonusSuccess": "احصل على مكافأة النجاح"
+    "getBonusSuccess": "احصل على مكافأة النجاح",
+    "more": "أكثر"
   },
   "rakeBackDetail": {
     "viewContract": "عرض العقد",
