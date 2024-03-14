@@ -152,7 +152,7 @@ function CasinoPage() {
       <TabGames />
 
       {/* Game Options */}
-      <div className="flex flex-col gap-[30px]">
+      <div className="flex flex-col gap-[30px] sm:pt-0 pt-[10px]">
         <CasinoSS
           title={String(t('casino:bonenzaOriginals'))}
           data={listGames.games}

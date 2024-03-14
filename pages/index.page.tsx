@@ -418,6 +418,15 @@ function IndexPage() {
                       <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
                         {String(t('layout:casino'))}
                       </div>
+                      <div className="flex items-center justify-center">
+                        <Link
+                          href={ROUTER.Casino}
+                          role="button"
+                          className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                        >
+                          {t('gameDetail:viewAll')}
+                        </Link>
+                      </div>
                     </div>
                     <TabGames ishome={true} />
                     <CasinoSS
@@ -620,6 +629,8 @@ function IndexPage() {
                     <textarea
                       className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
                       placeholder={String(t('homePage:foundBug'))}
+                      value={feedbackText}
+                      onChange={(e) => setFeedbackText(e.target.value)}
                     />
                     <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
                       <div
