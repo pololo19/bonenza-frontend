@@ -43,7 +43,7 @@ export default function ModalDetailTransaction({
   }, [transaction]);
 
   const isFailed = useMemo(() => {
-    return transaction.status === 'failed';
+    return transaction.status === 'failed' || transaction.status === 'rejected';
   }, [transaction]);
 
   return (
