@@ -222,7 +222,6 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         >
                           <div>{t('sidebar:rollover')}</div>
                         </Link>
-                        <Timer1 className="w-[18px] h-[18px]" />
                       </div>
                     </div>
                     <div
