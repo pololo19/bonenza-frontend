@@ -223,7 +223,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         className="w-[90px] h-fit"
                         alt=""
                         onError={(e) => {
-                          e.currentTarget.src = '/img/bronze-medal.png';
+                          e.currentTarget.src = '/img/vip.png';
                         }}
                       />
                       <div className="absolute w-full h-full flex flex-col items-center justify-center">
@@ -299,7 +299,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                       onClick={() => setSelectedRank(item)}
                     >
                       <Image
-                        src={dataMedal.find((medal) => medal.name === item.name)?.img || '/img/bronze-medal.png'}
+                        src={dataMedal.find((medal) => medal.name === item.name)?.img || '/img/vip.png'}
                         width={50}
                         height={50}
                         alt=""
@@ -309,7 +309,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           'opacity-30': selectedRank.startLevel !== item.startLevel,
                         })}
                         onError={(e) => {
-                          e.currentTarget.src = '/img/bronze-medal.png';
+                          e.currentTarget.src = '/img/vip.png';
                         }}
                       />
                       {selectedRank.startLevel === item.startLevel && (
