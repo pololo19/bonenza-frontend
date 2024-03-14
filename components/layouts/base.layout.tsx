@@ -19,6 +19,7 @@ import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
+  changeAuthenticationType,
   changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
@@ -58,7 +59,7 @@ import {
   updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetTableDataType, FiatType } from '@/base/types/common';
+import { AuthenticationModeEnum, BetTableDataType, FiatType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
@@ -678,10 +679,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     },
                   )}
                   onClick={() => {
-                    dispatch(changeIsShowAccountPannel(false));
-                    dispatch(changeIsShowMenuPannel(false));
-                    dispatch(changeShowChatType(!showChatType));
-                    dispatch(changeShowFullChat(!showFullChat));
+                    if (isLogin) {
+                      dispatch(changeIsShowAccountPannel(false));
+                      dispatch(changeIsShowMenuPannel(false));
+                      dispatch(changeShowChatType(!showChatType));
+                      dispatch(changeShowFullChat(!showFullChat));
+                    } else {
+                      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                      dispatch(changeIsShowAuthenticationModal(true));
+                    }
                   }}
                 >
                   <div className="pt-2">
@@ -789,12 +795,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowWagerContestHistory || false}
         onClose={() => dispatch(changeIsShowWagerContestHistory(false))}
       />
-      {isLogin && 
+      {isLogin && (
         <ModalLogOutConfirm
           show={isShowLogOutConfirm || false}
           onClose={() => dispatch(changeIsShowLogOutConfirm(false))}
         />
-      }
+      )}
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
     </>
