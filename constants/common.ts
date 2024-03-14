@@ -1224,3 +1224,14 @@ export const groupMedal = [
   { img: '/img/medal-2.png', key: 'the_old_timer', text: 'The Old Timer', val: 'theOldTimer' },
   { img: '/img/medal-3.png', key: 'ethstop_1', text: 'Ethstop 1', val: 'ethStop1' },
 ];
+
+export const dataMedal = [
+  { img: '/img/bronze-medal.png', name: 'Bronze' },
+  { img: '/img/silver-medal.png', name: 'Silver' },
+  { img: '/img/gold-medal.png', name: 'Gold' },
+  { img: '/img/platinum1-medal.png', name: 'Platinum I' },
+  { img: '/img/platinum2-medal.png', name: 'Platinum II' },
+  { img: '/img/diamond1-medal.png', name: 'Diamond I' },
+  { img: '/img/diamond2-medal.png', name: 'Diamond II' },
+  { img: '/img/diamond3-medal.png', name: 'Diamond III' },
+];
