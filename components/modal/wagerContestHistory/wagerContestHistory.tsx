@@ -14,6 +14,7 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import RankingTableComponent from '@/components/table/rankingTable';
 
 import CommonModal from '../commonModal/commonModal';
+import { Ghost } from 'iconsax-react';
 
 type ModalWagerContestHistoryProps = {
   onClose: () => void;
@@ -154,7 +155,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
               <Image
                 width={25}
                 height={25}
-                className="rounded-full blur-[1px] grayscale brightness-50"
+                className="rounded-full grayscale brightness-50"
                 src="/img/avatar-hidden.png"
                 alt=""
               />
@@ -172,7 +173,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
             )}
             <div className="font-bold truncate">
               {row.original?.playerId !== userId && !row.original?.playerName
-                ? t('homePage:hidden')
+                ? <div className="flex gap-[3px] items-center"><Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" />{t('homePage:hidden')}</div>
                 : row.original.playerId === userId
                 ? userName
                 : row.original.playerName}
