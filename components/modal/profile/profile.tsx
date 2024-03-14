@@ -10,7 +10,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getProfile } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { API_AVATAR, groupMedal, ROUTER } from '@/base/constants/common';
+import { API_AVATAR, dataMedal, groupMedal, ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { convertUserInfo, copyClipBoard, currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowInformation, changeIsShowUpdateInformation } from '@/base/redux/reducers/modal.reducer';
@@ -62,7 +62,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   const [vipData, setVipData] = useState<any>({
     medal: `/img/vip.png`,
-    level: 'VIP 1',
+    level: 'VIP 0',
     type: 'VIP',
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -78,16 +78,26 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
       const tempFavoriteGame =
         res.data?.topThreeFavoriteGames?.map((item: any) => ({
-          id: item.id,
-          title: item.title,
-          identifier: item.identifier,
-          totalWageredAmountUsd: item.totalWageredAmountUsd,
+          id: item?.id || '',
+          title: item?.title || '',
+          identifier: item?.identifier || '',
+          totalWageredAmountUsd: Number(item.totalWageredAmountUsd || ''),
         })) ?? [];
+
+      let medalData = dataMedal.find((item) => item.name === res.data?.currentVipMedal);
+      let medal = medalData?.img;
+      const currentVipLevel = Number(res.data?.currentVipLevel || 0);
+      if (currentVipLevel === 0) {
+        medal = '/img/vip.png';
+      }
+      if (currentVipLevel === 1) {
+        medal = '/img/vip-1.png';
+      }
       setMedals(medals);
       setListGame(tempFavoriteGame);
       setVipData({
-        medal: res.data.currentVipMedal,
-        level: res.data.currentVipName ?? 'VIP 1',
+        medal: medal,
+        level: res.data?.currentVipName ?? 'VIP 1',
         type: 'VIP',
       });
       setUser({ ...convertUserInfo(res.data), betCount: totalBets, winCount: totalWins, totalWager: totalWagered });
@@ -118,7 +128,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   onError={(e) => {
                     e.currentTarget.src = `/img/vip.png`;
                   }}
-                  src={`/img/${vipData.medal}.png`}
+                  src={vipData.medal}
                   width={80}
                   height={69}
                   alt=""

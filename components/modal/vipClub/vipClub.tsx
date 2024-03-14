@@ -6,19 +6,19 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
 import { api_getVipProgress, api_vipLevelSystem } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey } from '@/base/constants/common';
+import { CookieKey, dataMedal } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { changeIsShowVipClubModal, changeIsShowVipLevelModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
-import { useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
 
 type ModalVipClubProps = {
   onClose: () => void;
@@ -124,11 +124,19 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       });
       if (tempRankData.length > 0) {
         const userRank = tempRankData.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);
-        // if (userRank) {
-        setSelectedRank(userRank ?? tempRankData[0]);
-        setCurrentRank(dataMedal.find((item) => item.name === userRank?.name));
         setCurrentVipLevel(currentLevel);
-        // }
+        if (userRank) {
+          setSelectedRank(userRank ?? tempRankData[0]);
+          setCurrentRank(dataMedal.find((item) => item.name === userRank?.name));
+        } else {
+          setSelectedRank({ name: '', startLevel: 0, startLevelDes: '', endLevel: 0, endLevelDes: '', bonuses: [] });
+          const currentLevel = Number(_resVipProgress.data?.currentVipLevel || 0);
+          if (currentLevel == 0) {
+            setCurrentRank({ img: '/img/vip.png', name: '' });
+          } else {
+            setCurrentRank({ img: '/img/vip-1.png', name: '' });
+          }
+        }
       }
 
       setRankList(tempRankData);
@@ -193,7 +201,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded sm:rounded-large overflow-hidden"
+        panelClass="rounded sm:rounded-large overflow-hidden !max-h-[90vh]"
         header={
           <div className="relative text-default md:text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
             {t('vipClub:vipClub')}
@@ -215,7 +223,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
             <div className="rounded-large bg-[#12151A]">
               <div className="block lg:flex">
                 <div className="w-full lg:w-[50%] pt-[28px] px-5">
-                  <div className="text-default md:text-title text-white font-semibold">{t('vipClub:yourVipProgress')}</div>
+                  <div className="text-default md:text-title text-white font-semibold">
+                    {t('vipClub:yourVipProgress')}
+                  </div>
                   <div className="flex gap-[30px] mt-5">
                     <div className="flex relative min-w-[90px]">
                       <Image
@@ -228,10 +238,12 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           e.currentTarget.src = '/img/vip.png';
                         }}
                       />
-                      <div className="absolute w-full h-full flex flex-col items-center justify-center">
-                        {/* <p className="text-[12px]">{selectedRank.name}</p> */}
-                        <p className="font-bold text-white">{getVipName(vipData.name)}</p>
-                      </div>
+                      {vipData.level > 0 && (
+                        <div className="absolute w-full h-full flex flex-col items-center justify-center">
+                          {/* <p className="text-[12px]">{selectedRank.name}</p> */}
+                          <p className="font-bold text-white">{getVipName(vipData.name)}</p>
+                        </div>
+                      )}
                     </div>
 
                     <div className="w-full flex flex-col gap-[10px] justify-center">
@@ -240,7 +252,10 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           className="absolute top-0 h-full left-0 bg-color-primary rounded-[25px]"
                           style={{ width: `${percent}%` }}
                         ></div>
-                        <div className="absolute -top-[26px] w-[22px] h-[61px] -translate-x-[11px]" style={{left: `${percent}%`}}>
+                        <div
+                          className="absolute -top-[26px] w-[22px] h-[61px] -translate-x-[11px]"
+                          style={{ left: `${percent}%` }}
+                        >
                           <Image src="/img/flare.png" className="w-[22px] h-[61px]" width={6} height={16} alt="" />
                         </div>
                       </div>
@@ -270,7 +285,13 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 <div className="block lg:hidden blur-[1px] h-[1px] w-[84%] ml-[8%] mt-[28px] rounded-[481px] bg-gradient-to-r from-black/[5%] via-white to-black/[5%]" />
                 <div className="w-full lg:w-[50%] pl-[28px] pt-[28px] pr-[28px] flex flex-col justify-center gap-[10px]">
                   <div className="text-default md:text-title text-white font-[700]">{t('vipClub:vipHost')}</div>
-                  <Image src={'/img/img-vip-host.png'} width={231} height={40} alt="" className="w-[80%] lg:w-full m-auto object-cover" />
+                  <Image
+                    src={'/img/img-vip-host.png'}
+                    width={231}
+                    height={40}
+                    alt=""
+                    className="w-[80%] lg:w-full m-auto object-cover"
+                  />
                   <div className="text-m_default sm:text-default font-bold text-center">
                     <span className="font-bold">{t('vipClub:unlockYourExclusiveVip')}</span>
                     <span className="uppercase text-[#FF9E4F] font-bold">
@@ -329,7 +350,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 </div>
                 <div className="py-4 px-[10px] min-h-[17.5rem]">
                   {isLoading && <Loader />}
-                  {!isLoading && (
+                  {!isLoading && selectedRank.startLevel > 0 && (
                     <>
                       <div className="flex gap-[10px] items-center">
                         <div className="text-[13px] h-[24px] dark:text-black text-white bg-contain bg-no-repeat text-center">
