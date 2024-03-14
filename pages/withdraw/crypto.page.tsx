@@ -273,8 +273,8 @@ const WithdrawCryptoPage = () => {
       'withdrawAmount',
       String(
         renderMinValue.min > renderBalanceValue
-          ? currencyFormat1(renderBalanceValue, 4, '', false)
-          : renderMinValue.min,
+          ? withdrawInfo.availableAmount > renderBalanceValue ? currencyFormat1(renderBalanceValue, 4, '', false) : currencyFormat1(withdrawInfo.availableAmount, 4, '', false)
+          : withdrawInfo.availableAmount > renderMinValue.min ? renderMinValue.min : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
       ),
     );
   }, [renderMinValue, renderBalanceValue]);
@@ -353,7 +353,7 @@ const WithdrawCryptoPage = () => {
                 </div>
                 <div
                   className={cn(
-                    'w-full pl-[18px] min-h-[51px] pr-[20px] py-[5px] text-[16px] rounded-[3px] dark:bg-color-input-primary bg-color-light-input-primary flex items-center justify-between gap-[10px] border-[1px] border-solid border-transparent focus-within:border-color-primary',
+                    'w-full pl-[18px] min-h-[51px] pr-[20px] py-[5px] text-[16px] rounded-large dark:bg-color-input-primary bg-color-light-input-primary flex items-center justify-between gap-[10px] border-[1px] border-solid border-transparent focus-within:border-color-primary',
                     {
                       'border-red-500 border border-solid': errors.withdrawAmount?.message,
                     },
