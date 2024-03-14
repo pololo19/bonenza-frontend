@@ -1,7 +1,7 @@
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
-import { ArrowRight2 } from 'iconsax-react';
+import { ArrowRight2, Ghost } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -37,6 +37,7 @@ type ContesterType = {
 };
 
 type WagerContestType = {
+  startTime: number;
   currentTime: number;
   endTime: number;
   totalPrizePoolAmountUsd: number;
@@ -48,6 +49,7 @@ const WagerContestComponent = () => {
   const usdtPrice = useUSDTPrice();
   const dispatch = useDispatch();
   const [wagerContestData, setWagerContestData] = useState<WagerContestType>({
+    startTime: 0,
     currentTime: 0,
     endTime: 0,
     totalPrizePoolAmountUsd: 0,
@@ -121,6 +123,7 @@ const WagerContestComponent = () => {
         api_wagerContestHistory(),
       ]);
       const tempContestData: WagerContestType = {
+        startTime: Number(wagerContestList?.data.startTime * 1000 ?? 0),
         currentTime: Number(wagerContestList?.data.currentTime * 1000 ?? 0),
         endTime: Number(wagerContestList?.data.endTime * 1000 ?? 0),
         totalPrizePoolAmountUsd: Number(wagerContestList?.data.totalPrizePoolAmountUsd ?? 0),
@@ -154,6 +157,7 @@ const WagerContestComponent = () => {
       setWagerContestData(tempContestData);
     } catch (error) {
       setWagerContestData({
+        startTime: 0,
         currentTime: 0,
         endTime: 0,
         totalPrizePoolAmountUsd: 0,
@@ -268,13 +272,7 @@ const WagerContestComponent = () => {
             )}
           >
             {row.original?.playerId !== userId && !row.original?.playerName ? (
-              <Image
-                width={25}
-                height={25}
-                className="rounded-full blur-[1px] grayscale brightness-50"
-                src="/img/avatar-hidden.png"
-                alt=""
-              />
+              <Ghost width={25} height={25} variant="Bulk" className="w-6 h-6" />
             ) : (
               <Image
                 height={25}
@@ -444,13 +442,7 @@ const WagerContestComponent = () => {
                     alt=""
                   />
                   {wagerHistory.playerId !== userId && !wagerHistory.playerName ? (
-                    <Image
-                      width={46}
-                      height={59}
-                      className="rounded-full blur-[1px] grayscale brightness-50"
-                      src="/img/avatar-hidden.png"
-                      alt=""
-                    />
+                    <Ghost width={45} height={45} variant="Bulk" className="w-6 h-6 m-3" />
                   ) : (
                     <Image
                       width={46}
@@ -582,7 +574,7 @@ const WagerContestComponent = () => {
         <div className="flex  gap-4 mt-8 mb-4 items-center">
           <p className="dark:text-[#fff] text-[#000]">{t('wagerContest:active')}</p>
           <p className="dark:text-color-text-primary text-color-light-text-primary">
-            {formatDate(new Date(wagerContestData.currentTime), 'LL/dd/yyyy')} ~{' '}
+            {formatDate(new Date(wagerContestData.startTime), 'LL/dd/yyyy')} ~{' '}
             {formatDate(new Date(wagerContestData.endTime), 'LL/dd/yyyy')}
           </p>
         </div>

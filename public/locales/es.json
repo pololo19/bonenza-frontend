@@ -1537,7 +1537,7 @@
     "rulesDailyWageringContest": "Reglas: concurso de apuestas diarias",
     "rulesDailyWageringContest1": "El premio acumulado del concurso depende estrechamente de los fondos: cuanto más apuestan los jugadores, mayor crece. ",
     "rulesDailyWageringContest2": "Los 10 jugadores más apostadores se reparten el premio acumulado. ",
-    "rulesDailyWageringContest3": "Este concurso admite apuestas en: USD, KRW, EUR, TRY, IDR, JPY, AED, MYR, CNY, HKD, ETH, BNB, MATIC, USDT, TRX, GOD",
+    "rulesDailyWageringContest3": "Este concurso admite apuestas en: ETH, BNB, MATIC, USDT, LTC, WBTC, USDC, DOGE, SHIB, XRP, DAI",
     "rulesDailyWageringContest4": "Puede apostar en cualquiera de las criptomonedas anteriores y todas se cambiarán a USDT al tipo de cambio actual.",
     "rulesDailyWageringContest5": "Todos los premios se enviarán en USDT.",
     "rulesDailyWageringContest6": "Los premios se enviarán en la página de Aviso cuando finalice el Concurso.",

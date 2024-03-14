@@ -1537,7 +1537,7 @@
     "rulesDailyWageringContest": "नियम-दैनिक दांव प्रतियोगिता",
     "rulesDailyWageringContest1": "प्रतियोगिता का पुरस्कार पूल काफी हद तक बैंकरोल पर निर्भर करता है, जितने अधिक खिलाड़ी दांव लगाते हैं वह उतना ही बड़ा होता जाता है। ",
     "rulesDailyWageringContest2": "10 सबसे अधिक दांव लगाने वाले खिलाड़ी पुरस्कार पूल बनाते हैं। ",
-    "rulesDailyWageringContest3": "यह प्रतियोगिता दांव लगाने में सहायता करती है: USD, KRW, EUR, TRY, IDR, JPY, AED, MYR, CNY, HKD, ETH, BNB, MATIC, USDT, TRX, GOD",
+    "rulesDailyWageringContest3": "यह प्रतियोगिता दांव लगाने में सहायता करती है: ETH, BNB, MATIC, USDT, LTC, WBTC, USDC, DOGE, SHIB, XRP, DAI",
     "rulesDailyWageringContest4": "आप उपरोक्त किसी भी क्रिप्टोकरेंसी पर दांव लगा सकते हैं, और उन सभी को मौजूदा दर पर यूएसडीटी में बदल दिया जाएगा।",
     "rulesDailyWageringContest5": "सभी पुरस्कार बीएनडी में भेजे जाएंगे।",
     "rulesDailyWageringContest6": "प्रतियोगिता समाप्त होते ही पुरस्कार सूचना पृष्ठ पर भेज दिए जाएंगे।",

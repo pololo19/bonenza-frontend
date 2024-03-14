@@ -1,9 +1,10 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ElementType } from 'react';
-import CommonModal from '../../commonModal/commonModal';
 import cn from 'classnames';
-import styles from './index.module.scss';
+import { ElementType } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import CommonModal from '../../commonModal/commonModal';
+import styles from './index.module.scss';
 
 type ModalReferralRewardRules = {
   onClose: () => void;
@@ -89,10 +90,8 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
       onClose={onClose}
       panelClass="rounded sm:max-w-[464px] h-[100%]"
       header={
-        <div className="relative sm:px-[30px] px-[20px] h-[60px] sm:py-[30px] py-[25px] bg-white dark:bg-[#17191b] max-sm:dark:bg-[#24262b]">
-          <div className="absolute left-0 top-0 h-[60px] w-full flex items-center pl-[24px]">
-            {t('affiliate:referralRewardRules')}
-          </div>
+        <div className="relative sm:px-[30px] px-[20px] text-center pt-[20px] text-title pb-[10px] bg-white text-black font-bold">
+          {t('affiliate:referralRewardRules')}
         </div>
       }
     >
@@ -125,7 +124,7 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
                 <thead className="text-xs text-[#94a9bf] bg-[#1e2024]">
                   <tr>
                     {titleColumn.map((item, index) => (
-                      <th 
+                      <th
                         scope="col"
                         key={index}
                         className={`px-3 py-3 ${index === 2 ? 'text-right' : index === 1 ? 'text-center' : ''}`}

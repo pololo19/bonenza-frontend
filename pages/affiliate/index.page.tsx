@@ -1,10 +1,12 @@
 import { Disclosure, Transition } from '@headlessui/react';
-import { Add, Minus, SmsTracking } from 'iconsax-react';
+import cn from 'classnames';
+import { Add, ArrowRight2, Minus, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ReactElement, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import cn from 'classnames';
+
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
@@ -15,10 +17,10 @@ import CheckMarkIcon from '@/components/icons/CheckMarkIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
 import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
+import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
 
 import AffiliateLoggedPage from '../affiliate-logged/index.module';
 import styles from './index.module.scss';
-import classNames from 'classnames';
 
 function AffiliatePage() {
   const exchange = useExchange();
@@ -27,6 +29,7 @@ function AffiliatePage() {
 
   const [showDetailCommissionsRewards, setShowDetailCommissionsRewards] = useState(false);
   const [showReferralRewardRules, setShowReferralRewardRules] = useState(false);
+  const [showReferralTerm, setShowReferralTerm] = useState(false);
 
   const { isLogin, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -89,11 +92,12 @@ function AffiliatePage() {
       </Head>
       {!isLogin && (
         <>
-          <div className={cn(
-            "dark:bg-[#1C1E22] bg-[#FFFFFF] bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] pt-[50px] lg:pt-[25px] lg:h-[360px]",
-            "lg:dark:bg-[url('/img/page/banner-affiliate.png')]",
-            "lg:bg-[url('/img/page/banner-affiliate-light-mode.png')]",
-            "bg-[url('/img/page/banner-affiliate-back-mobile.png')]",
+          <div
+            className={cn(
+              'dark:bg-[#1C1E22] bg-[#FFFFFF] bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] pt-[50px] lg:pt-[25px] lg:h-[360px]',
+              "lg:dark:bg-[url('/img/page/banner-affiliate.png')]",
+              "lg:bg-[url('/img/page/banner-affiliate-light-mode.png')]",
+              "bg-[url('/img/page/banner-affiliate-back-mobile.png')]",
             )}
           >
             <div className="flex flex-col lg:w-1/2 w-full h-full justify-center items-center">
@@ -110,7 +114,7 @@ function AffiliatePage() {
               </h5>
               <div
                 role="button"
-                className="bg-btn-sign-in rounded-[5px] bg-color-primary flex items-center justify-center gap-[7px] max-w-[208px] px-[20px] py-[10px] font-bold text-white mb-[10px]"
+                className="bg-btn-sign-in rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] max-w-[208px] px-[20px] py-[10px] font-bold text-white mb-[10px]"
                 onClick={() => {
                   dispatch(changeIsShowAuthenticationModal(true));
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
@@ -121,13 +125,23 @@ function AffiliatePage() {
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
               </div>
-              <h5 className="text-[16px] text-center dark:text-white text-[#141414] mt-3">
-                {t('affiliate:referralTermsConditions')}
-              </h5>
-              <div className={cn(
-                "lg:hidden",
-                "bg-[url('/img/page/banner-affiliate-mobile.png')] bg-[length:100%_100%]",
-                "h-[300px] w-[450px] mt-10",
+              <div
+                className="flex w-full justify-center items-center"
+                role="button"
+                onClick={() => {
+                  setShowReferralTerm(true);
+                }}
+              >
+                <div className="text-[16px] text-white font-normal mr-[5px] text-right">
+                  {t('affiliate:referralTermsConditions')}
+                </div>
+                <ArrowRight2 size={16} />
+              </div>
+              <div
+                className={cn(
+                  'lg:hidden',
+                  "bg-[url('/img/page/banner-affiliate-mobile.png')] bg-[length:100%_100%]",
+                  'h-[300px] w-[450px] mt-10',
                 )}
               />
             </div>
@@ -137,7 +151,9 @@ function AffiliatePage() {
               <div className="sm:w-[100%] md:w-[70%]">
                 <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
                   {t('affiliate:getYour')}
-                  <span className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}>
+                  <span
+                    className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}
+                  >
                     {' '}
                     {viewInFiat
                       ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')
@@ -153,11 +169,17 @@ function AffiliatePage() {
                   })}
                 </span>
                 <div className="md:hidden mt-5">
-                  <Image width={200} height={30} src="/img/banner-image-box1.png" className="w-[50%] h-[50%] m-auto" alt="" />
+                  <Image
+                    width={200}
+                    height={30}
+                    src="/img/banner-image-box1.png"
+                    className="w-[50%] h-[50%] m-auto"
+                    alt=""
+                  />
                 </div>
                 <div
                   role="button"
-                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowReferralRewardRules(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}
@@ -167,17 +189,28 @@ function AffiliatePage() {
             <div className="py-7 px-5 dark:bg-[#2D3237] bg-[#D2CDC9] md:bg-[url('/img/banner-image-box2.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:35%_auto] rounded">
               <div className="sm:w-[100%] md:w-[70%]">
                 <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
-                  {t('affiliate:getYour')}{' '}                  
-                  <span className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}> 25% </span>
+                  {t('affiliate:getYour')}{' '}
+                  <span
+                    className={`bg-gradient-to-b from-amber-500 to-amber-500 font-bold bg-clip-text text-transparent`}
+                  >
+                    {' '}
+                    25%{' '}
+                  </span>
                   <span className="font-bold">{t('affiliate:commissionRewards')}</span>
                 </div>
                 <span className="text-[16px] dark:text-[#939699] text-[#7C7A77]">{t('affiliate:youWillReceive')}</span>
                 <div className="md:hidden mt-5">
-                  <Image width={200} height={30} src="/img/banner-image-box2.png" className="w-[50%] h-[50%] m-auto" alt="" />
+                  <Image
+                    width={200}
+                    height={30}
+                    src="/img/banner-image-box2.png"
+                    className="w-[50%] h-[50%] m-auto"
+                    alt=""
+                  />
                 </div>
                 <div
                   role="button"
-                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold bg-color-primary rounded-[5px] py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowDetailCommissionsRewards(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}
@@ -251,15 +284,18 @@ function AffiliatePage() {
               <div className="text-[16px] mb-[20px] dark:text-white text-[#141414]">
                 {t('affiliate:forMoreDetails')}
               </div>
-              <div className="flex justify-between max-w-[309px] h-[50px] rounded-[5px] dark:bg-color-panel-bg bg-[#F6F7FA] items-center p-[10px]">
-                <div className="text-[14px] text-gray-500">Business@bonenza</div>
+              <Link
+                className="flex justify-between max-w-[309px] h-[50px] rounded-[5px] dark:bg-color-panel-bg bg-[#F6F7FA] items-center p-[10px]"
+                href="mailto:business@bonenza.com"
+              >
+                <div className="text-[14px] text-gray-500">business@bonenza.com</div>
                 <div className="flex items-center gap-[10px]">
                   <div className="text-[14px] text-color-primary">{t('affiliate:sendNow')}</div>
                   <div>
                     <SmsTracking className="w-[24px] h-[24px] text-color-primary" />
                   </div>
                 </div>
-              </div>
+              </Link>
             </div>
           </div>
           <div className="flex justify-center items-center">
@@ -315,6 +351,7 @@ function AffiliatePage() {
       <CommissionReward show={showDetailCommissionsRewards} onClose={() => setShowDetailCommissionsRewards(false)} />
       <ReferralRewardRules show={showReferralRewardRules} onClose={() => setShowReferralRewardRules(false)} />
       {isLogin && <AffiliateLoggedPage />}
+      {showReferralTerm && <ModalReferralTerm show={showReferralTerm} onClose={() => setShowReferralTerm(false)} />}
     </>
   );
 }
