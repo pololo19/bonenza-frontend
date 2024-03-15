@@ -219,12 +219,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 >
                   {String(t('footer:affiliate'))}
                 </Link>
-                <Link
+                {/* <Link
                   href={ROUTER.Promotion}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:promotions'))}
-                </Link>
+                </Link> */}
                 {/* <Link
                   href={ROUTER.Lottery}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
@@ -303,12 +303,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 >
                   {String(t('footer:app'))}
                 </Link> */}
-                <Link
+                {/* <Link
                   href={ROUTER.LiveSupport}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:liveSupport'))}
-                </Link>
+                </Link> */}
               </div>
             </div>
             <div className="flex flex-col md:items-start items-center">
