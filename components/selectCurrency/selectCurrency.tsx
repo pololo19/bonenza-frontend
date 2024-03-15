@@ -121,11 +121,7 @@ const SelectCurrency = ({
             {t('withdraw:withdrawCurrency')}
           </div>
         )}
-        <Menu
-          as="div"
-          className="relative block w-full "
-          
-        >
+        <Menu as="div" className="relative block w-full ">
           {({ open }) => (
             <>
               {!withDrawTab && (
@@ -157,34 +153,35 @@ const SelectCurrency = ({
                       <h1 className="text-default font-normal">{symbol.name}</h1>
                     </button>
                   ))}
-                  <Menu.Button>
-                    <button
-                      className={cn(
-                        'sm:min-w-[80px] pl-1 pr-3 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
-                        'hover:bg-color-primary border-2 border-color-light-border-primary dark:border-color-border-primary', 
-                      )}
-                    >
-                      <div className="flex pl-2">
-                        {symbols.slice(4, 7).map((symbol) => (
-                          <Image
-                            width={24}
-                            height={24}
-                            src={symbol.logo}
-                            className="-ml-2 w-6 h-6"
-                            alt=""
-                            onError={(e) => {
-                              e.currentTarget.src = '/img/fiat/USD.png';
-                            }}
-                          />
-                        ))}
-                      </div>
-                      {t('deposit:more')}
-                    </button>
+                  <Menu.Button
+                    className={cn(
+                      'sm:min-w-[80px] pl-1 pr-3 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
+                      'hover:bg-color-primary border-2 border-color-light-border-primary dark:border-color-border-primary',
+                    )}
+                  >
+                    <div className="flex pl-2">
+                      {symbols.slice(4, 7).map((symbol) => (
+                        <Image
+                          width={24}
+                          height={24}
+                          src={symbol.logo}
+                          className="-ml-2 w-6 h-6"
+                          alt=""
+                          onError={(e) => {
+                            e.currentTarget.src = '/img/fiat/USD.png';
+                          }}
+                        />
+                      ))}
+                    </div>
+                    {t('deposit:more')}
                   </Menu.Button>
                 </div>
               )}
               <Menu.Button className="mt-[15px] w-full flex-1">
-                <div className="dark:bg-color-input-primary bg-color-light-input-primary rounded-default flex items-center justify-between w-full py-[13px] px-[20px] " role="button">
+                <div
+                  className="dark:bg-color-input-primary bg-color-light-input-primary rounded-default flex items-center justify-between w-full py-[13px] px-[20px] "
+                  // role="button"
+                >
                   <div className="flex-1 flex items-center justify-start gap-[10px]">
                     <Image
                       width={30}
@@ -227,7 +224,7 @@ const SelectCurrency = ({
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:text-white text-black dark:bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 top-[110px] z-[10] cursor-pointer shadow-bs-default">
+                <Menu.Items className="absolute dark:text-white text-black rounded-default dark:bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 top-[110px] z-[10] cursor-pointer shadow-bs-default">
                   <div className="py-[10px] px-[10px]">
                     <InputSearch
                       value={searchInput}
@@ -241,9 +238,9 @@ const SelectCurrency = ({
                         {({ active }) => (
                           <div
                             className={cn(
-                              'flex items-center justify-start w-full dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary mb-2',
+                              'flex items-center justify-start w-full dark:hover:bg-color-hover-primary rounded-default hover:bg-color-light-hover-primary mb-2',
                               {
-                                'border border-color-primary/50 border-solid rounded': symbol.id === activeCoin.id,
+                                'border border-color-primary/50 border-solid': symbol.id === activeCoin.id,
                               },
                             )}
                             role="button"
@@ -341,7 +338,7 @@ const SelectCurrency = ({
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute dark:bg-color-input-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer shadow-bs-default">
+            <Menu.Items className="absolute rounded-default dark:bg-color-input-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer shadow-bs-default">
               <div className="py-1 max-h-[250px] overflow-y-auto p-2">
                 {availableNetworks.map((network, index) => (
                   <Menu.Item key={index}>
@@ -350,7 +347,7 @@ const SelectCurrency = ({
                         className={cn(
                           'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary mb-2 rounded-default',
                           {
-                            'border border-color-primary/50 border-solid rounded': network.id === activeNetwork.id,
+                            'border border-color-primary/50 border-solid': network.id === activeNetwork.id,
                           },
                         )}
                         role="button"

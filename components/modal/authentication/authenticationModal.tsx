@@ -86,22 +86,21 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
     <>
       <CommonModal show={show} onClose={onClose} isShowCloseButton={forgotKey ? false : true}>
         <div className="flex sm:flex-row flex-col overflow-y-auto dark:bg-color-modal-bg-primary bg-color-light-modal-bg-primary sm:max-h-[650px] h-[100vh]">
-          <div className={cn(
-            "sm:flex-1 relative pt-[30px] flex flex-col justify-center",
-            "bg-[#1B1C20] sm:bg-[#000] sm:bg-gradient-to-b sm:from-[#000] sm:via-[#1F1F22] sm:to-[#000] sm:from-0% sm:via-50% sm:to-75%"
-          )}
+          <div
+            className={cn(
+              'sm:flex-1 relative pt-[30px] flex flex-col justify-center',
+              'bg-[#1B1C20] sm:bg-[#000] sm:bg-gradient-to-b sm:from-[#000] sm:via-[#1F1F22] sm:to-[#000] sm:from-0% sm:via-50% sm:to-75%',
+            )}
           >
             <Image
               width={401}
               height={600}
               src="/img/auth/background.png"
               alt=""
-              className="sm:w-[400px] sm:brightness-75 object-cover"
+              className="sm:w-[400px] sm:brightness-75 object-cover w-full"
             />
             <div className="absolute sm:bottom-[50px] bottom-[10px] top-[30px] text-center w-full flex flex-col gap-[10px] sm:justify-between">
-              <p className="text-[15px] sm:text-[24px] text-color-primary font-semibold">
-                {t('homePage:welcomeTo')}
-              </p>
+              <p className="text-[15px] sm:text-[24px] text-color-primary font-semibold">{t('homePage:welcomeTo')}</p>
               <Image
                 width={401}
                 height={600}
@@ -109,7 +108,9 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
                 alt=""
                 className="w-[100px] sm:w-[160px] md:w-[264px] object-cover m-auto"
               />
-              <p className="px-5 text-[15px] sm:text-[28px] text-color-primary font-semibold">{t('homePage:startJourney')}</p>
+              <p className="px-5 text-[15px] sm:text-[28px] text-color-primary font-semibold">
+                {t('homePage:startJourney')}
+              </p>
             </div>
           </div>
           <div

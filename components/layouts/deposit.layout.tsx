@@ -297,6 +297,24 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         </div>
                       </Link>
 
+                      <Link
+                        href={ROUTER.Swap}
+                        className={cn(
+                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                          {
+                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
+                              router.route.includes(ROUTER.Swap),
+                          },
+                        )}
+                      >
+                        <div className="pt-2">
+                          <MoneyChange className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
+                        </div>
+                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
+                          {t('sidebar:swap')}
+                        </div>
+                      </Link>
+
                       {/* This features will be enabled soon */}
                       {/* <Link
                         href={ROUTER.BuyCrypto}
@@ -315,23 +333,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           {t('sidebar:buyCrypto')}
                         </div>
                       </Link>
-                      <Link
-                        href={ROUTER.Swap}
-                        className={cn(
-                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                          {
-                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.Swap),
-                          },
-                        )}
-                      >
-                        <div className="pt-2">
-                          <MoneyChange className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
-                        </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
-                          {t('sidebar:swap')}
-                        </div>
-                      </Link>
+                      
                       <Link
                         href={ROUTER.VaultPro}
                         className={cn(

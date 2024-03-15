@@ -1,3 +1,4 @@
+import { googleLogout } from '@react-oauth/google';
 import cn from 'classnames';
 import { EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
 import Link from 'next/link';
@@ -69,9 +70,11 @@ import HomeIconOutline from '../icons/HomeIconOutline';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
+import MobileModal from '../modal/commonModal/mobileModal';
 import ModalCropAvatar from '../modal/cropAvatar/cropAvatar';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDeposit from '../modal/depositModal/depositModal';
+import ModalLogOutConfirm from '../modal/logOutConfirm/LogOutConfirm';
 import ModalMultiLanguage from '../modal/multiLanguage/MultiLanguage';
 import ModalProfile from '../modal/profile/profile';
 import ModalBonusHistory from '../modal/rakeBack/bonusHistory/bonusHistory';
@@ -92,9 +95,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import MobileModal from '../modal/commonModal/mobileModal';
-import { googleLogout } from '@react-oauth/google';
-import ModalLogOutConfirm from '../modal/logOutConfirm/LogOutConfirm';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -131,6 +131,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const baseBodyRef = useRef<HTMLDivElement>(null);
   const { query } = router;
   const { gameId } = query;
+
+  const walletServiceConnectedRef = useRef(true);
+  const gameServiceConnectedRef = useRef(true);
 
   useEffect(() => {
     dispatch(changeIsShowMenuPannel(false));
@@ -371,12 +374,24 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             break;
         }
       });
+
+      walletSocket.on(`connect_error`, (data: any) => {
+        if (walletServiceConnectedRef.current) {
+          toast.error('Network connection is not stable. Please refresh.', {
+            containerId: TOAST_ENUM.COMMON,
+            autoClose: false,
+            position: 'top-center',
+          });
+          walletServiceConnectedRef.current = false;
+        }
+      });
     }
 
     return () => {
       if (walletSocket) {
         walletSocket.off(`${userId}:deposit`);
         walletSocket.off(`${userId}:withdraw`);
+        walletSocket.off(`connect_error`);
       }
     };
   }, [walletSocket, isLogin]);
@@ -433,6 +448,17 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
         dispatch(updatedFiatPrice(fiatDatas));
         dispatch(updateCryptoPrice(cryptoDatas));
+      });
+
+      gameSocket.on(`connect_error`, (data: any) => {
+        if (gameServiceConnectedRef.current) {
+          toast.error('Network connection is not stable. Please refresh.', {
+            containerId: TOAST_ENUM.COMMON,
+            autoClose: false,
+            position: 'top-center',
+          });
+          gameServiceConnectedRef.current = false;
+        }
       });
     }
 
