@@ -143,7 +143,7 @@ export default function ModalDetailBets({
                 <Image
                   height={44}
                   width={44}
-                  className="rounded-full blur-[1px] grayscale brightness-50"
+                  className="rounded-full grayscale brightness-50"
                   src="/img/avatar-hidden.png"
                   alt=""
                 />

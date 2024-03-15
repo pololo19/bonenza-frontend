@@ -93,11 +93,14 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
             )}
           </div>
         </div>
-        <div
-          data-tooltip-id={'CardBigWinData' + price}
-          className="cursor-pointer sm:w-full flex justify-center text-center sm:rounded-[5px] mr-1"
-        >
-          <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+        <div className="flex gap-[5px]">
+          <div
+            data-tooltip-id={'CardBigWinData' + price}
+            className="cursor-pointer sm:w-full flex justify-center text-center sm:rounded-[5px] mr-1"
+          >
+            <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+          </div>
+          <ArrowRight2 width={12} height={12} variant="Bulk" className="w-4 h-4 block sm:hidden"/>
         </div>
       </div>
       <Tooltip id={'CardBigWinData' + price} place="bottom" content={String(price)} />
@@ -222,18 +225,16 @@ function RecentBigWinComponent() {
           setIsShowDetailBet(true);
         }}
       />
-      {isShowDetailBet && (
-        <ModalDetailBets
-          show={isShowDetailBet}
-          betDetail={selBetDetail}
-          titleModal="Bet Slip"
-          onClose={() => {
-            setIsShowDetailBet(false);
-          }}
-          isPublicProfile={isPublicProfile}
-          betId={betIdDetail}
-        />
-      )}
+      <ModalDetailBets
+        show={isShowDetailBet}
+        betDetail={selBetDetail}
+        titleModal="Bet Slip"
+        onClose={() => {
+          setIsShowDetailBet(false);
+        }}
+        isPublicProfile={isPublicProfile}
+        betId={betIdDetail}
+      />
     </>
   );
 }
