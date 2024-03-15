@@ -104,7 +104,6 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                 {
                   '!border-color-primary text-black dark:text-white font-[700]':
                     multiLanguageTab === MultiLanguageTabEnum.FIAT,
-                  'sm:flex hidden': !isLogin,
                 },
               )}
               role="button"
@@ -145,7 +144,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
               </div>
               <div
                 className={cn('grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2', {
-                  'hidden sm:grid': !isLogin && multiLanguageTab === MultiLanguageTabEnum.FIAT,
+                  'grid': multiLanguageTab === MultiLanguageTabEnum.FIAT,
                   block: multiLanguageTab === MultiLanguageTabEnum.FIAT,
                   hidden: multiLanguageTab !== MultiLanguageTabEnum.FIAT,
                 })}
