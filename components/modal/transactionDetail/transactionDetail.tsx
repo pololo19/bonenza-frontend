@@ -161,7 +161,7 @@ export default function ModalDetailTransaction({
                     <Simcard2
                       role="button"
                       onClick={() => copyClipBoard(String(transaction?.withdrawalAddress))}
-                      className="w-[16px] h-[16px]"
+                      className="w-[16px] h-[16px] text-color-light-text-primary dark:text-color-text-primary"
                     />
                   </span>
                 </div>
