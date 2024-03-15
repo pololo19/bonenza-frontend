@@ -1,7 +1,7 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ChartBarIcon, ChevronRightIcon, ClipboardDocumentIcon, TrophyIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { ArrowLeft2, Edit2 } from 'iconsax-react';
+import { Edit2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
@@ -10,7 +10,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getProfile } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { API_AVATAR, dataMedal, groupMedal, ROUTER } from '@/base/constants/common';
+import { API_AVATAR, dataRibbon, groupMedal, ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { convertUserInfo, copyClipBoard, currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowInformation, changeIsShowUpdateInformation } from '@/base/redux/reducers/modal.reducer';
@@ -84,14 +84,14 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
           totalWageredAmountUsd: Number(item.totalWageredAmountUsd || ''),
         })) ?? [];
 
-      let medalData = dataMedal.find((item) => item.name === res.data?.currentVipMedal);
+      let medalData = dataRibbon.find((item) => item.name === res.data?.currentVipMedal);
       let medal = medalData?.img;
       const currentVipLevel = Number(res.data?.currentVipLevel || 0);
       if (currentVipLevel === 0) {
-        medal = '/img/vip.png';
+        medal = '/img/vip/vip-0-ribbon.png';
       }
       if (currentVipLevel === 1) {
-        medal = '/img/vip-1.png';
+        medal = '/img/vip/vip-1-ribbon.png';
       }
       setMedals(medals);
       setListGame(tempFavoriteGame);
@@ -122,7 +122,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             <div className="text-black dark:text-white md:text-[18px] text-[16px] px-[20px] font-bold">
               {t('profile:userInformation')}
             </div>
-            <div className="absolute top-0 right-[60px]">
+            <div className="absolute top-0 right-[50px]">
               <div className="relative">
                 <Image
                   onError={(e) => {
@@ -134,8 +134,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   alt=""
                   className=""
                 />
-                <div className="absolute flex flex-col items-center left-0 top-[40%] w-full h-full">
-                  <p className="text-[10px] uppercase leading-[1]">{`* ${vipData.type} *`}</p>
+                <div className="absolute flex flex-col items-center left-0 top-[80px] w-full h-full">
                   <p className="text-[16px] font-semibold">
                     {`${vipData.level}`?.split(' ')?.at(0)?.charAt(0).toUpperCase()}
                     {`${vipData.level}`?.split(' ')?.at(1)}

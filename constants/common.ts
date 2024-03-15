@@ -1235,3 +1235,15 @@ export const dataMedal = [
   { img: '/img/diamond2-medal.png', name: 'Diamond II' },
   { img: '/img/diamond3-medal.png', name: 'Diamond III' },
 ];
+
+export const dataRibbon = [
+  { img: '/img/vip/bronze-ribbon.png', name: 'Bronze' },
+  { img: '/img/vip/silver-ribbon.png', name: 'Silver' },
+  { img: '/img/vip/gold-ribbon.png', name: 'Gold' },
+  { img: '/img/vip/platinum-i-ribbon.png', name: 'Platinum I' },
+  { img: '/img/vip/platinum-ii-ribbon.png', name: 'Platinum II' },
+  { img: '/img/vip/diamond-i-ribbon.png', name: 'Diamond I' },
+  { img: '/img/vip/diamond-ii-ribbon.png', name: 'Diamond II' },
+  { img: '/img/vip/diamond-iii-ribbon.png', name: 'Diamond III' },
+];
+
