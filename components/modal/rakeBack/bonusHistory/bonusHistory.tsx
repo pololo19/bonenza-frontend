@@ -115,7 +115,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
               'text-color-red': row.original.amountUsd < 0,
             })}
           >
-            {row.original.amountUsd < 0 ? '-' : ''}
+            {row.original.amountUsd < 0 ? '-' : '+'}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), 4, localFiat?.name || 'USD')}</>
             ) : (
