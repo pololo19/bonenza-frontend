@@ -79,7 +79,7 @@ export const walletReducer = createSlice({
       state.localFiat = action.payload;
     },
     setActiveCurrency: (state: WalletState, action: PayloadAction<CurrencyType>) => {
-      state.activeCurrency = action.payload;
+      state.activeCurrency = { ...action.payload };
     },
     setDepositTime: (state: WalletState, action: PayloadAction<number>) => {
       state.depositTime = action.payload;

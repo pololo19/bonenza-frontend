@@ -36,7 +36,7 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
                 key={index}
                 href={href}
                 className={cn(
-                  'min-w-fit flex items-center px-[10px] py-[10px] bg-[#f0f1f5] dark:bg-[#1D1E22] gap-[10px] flex-shrink-0 rounded dark:text-white text-[#31373D] hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',
+                  'min-w-fit flex items-center px-[10px] py-[10px] bg-[#f0f1f5] dark:bg-[#1D1E22] gap-[10px] flex-shrink-0 rounded-default dark:text-white text-color-light-text-primary hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',
                   `${
                     (href === '/' ? router.route === href : router.route.includes(href))
                       ? 'dark:text-white dark:bg-[#2D3035] bg-[#F6F7FA] font-semibold'
