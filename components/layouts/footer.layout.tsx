@@ -72,7 +72,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     },
     {
       icon: '/img/icon/USDT-logo.svg',
-      network: 'BSC',
+      network: 'ETH',
       token: 'USDT',
     },
     {

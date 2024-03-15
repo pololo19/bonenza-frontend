@@ -1,21 +1,19 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { Disclosure, Transition } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
 import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useMemo, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_vipLevelSystem } from '@/api/vip';
+import { api_getVipProgress, api_vipLevelSystem } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
+import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import RankingTableComponent from '@/components/table/rankingTable';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
 
 type ModalVipLevelProps = {
   onClose: () => void;
@@ -62,8 +60,9 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
   const getRankList = async () => {
     try {
       setIsLoading(true);
+      const [_resVipProgress] = await Promise.all([api_getVipProgress(), api_vipLevelSystem()]);
       const _res = await api_vipLevelSystem();
-      const tempRankDatas = _res?.data.levelUpDetails.map((item: any) => ({
+      const tempRankDatas:rankUpType[] = _res?.data.levelUpDetails.map((item: any) => ({
         name: item.medalName ?? '',
         startLevel: Number(item.startLevelNum ?? 0),
         endLevel: Number(item.endLevelNum ?? 0),
@@ -77,9 +76,11 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           levelUpBonus: level.levelUpBonus,
         })),
       }));
+      const currentLevel = 55;//Number(_resVipProgress.data?.currentVipLevel || 0);
       setRankList(tempRankDatas);
       if (tempRankDatas.length > 0) {
-        setLevelCurrent(tempRankDatas[0]);
+        const userRank = tempRankDatas.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);
+        setLevelCurrent(userRank ?? tempRankDatas[0]);
       }
     } catch (error) {
       setRankList([]);
@@ -92,38 +93,27 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
     return rank?.split(' ')[0];
   };
 
-  const getColorBg = (rank: string) => {
-    let className = '';
-    switch (!!rank) {
-      case rank.includes('Bronze'):
-        className = 'bronze';
-        break;
-      case rank.includes('Silver'):
-        className = 'silver';
-        break;
-      case rank.includes('Gold'):
-        className = 'gold';
-        break;
-      case rank.includes('Platinum'):
-        className = 'platinum';
-        break;
-      default:
-        className = 'diamond';
-        break;
-    }
-    return className;
-  };
+  const dataMedal = [
+    { img: '/img/bronze-medal.png', name: 'Bronze' },
+    { img: '/img/silver-medal.png', name: 'Silver' },
+    { img: '/img/gold-medal.png', name: 'Gold' },
+    { img: '/img/platinum1-medal.png', name: 'Platinum I' },
+    { img: '/img/platinum2-medal.png', name: 'Platinum II' },
+    { img: '/img/diamond1-medal.png', name: 'Diamond I' },
+    { img: '/img/diamond2-medal.png', name: 'Diamond II' },
+    { img: '/img/diamond3-medal.png', name: 'Diamond III' },
+  ];
 
   const vipColumns = useMemo(() => {
     const wagerColumnsDefault: ColumnDef<levelDataType>[] = [
       {
         accessorKey: 'level',
         
-        header: () => <div className="text-left pr-6 text-[14px] font-normal">{t('vipClub:level')}</div>,
+        header: () => <div className="text-left pl-2 text-[12px] sm:text-[14px] font-normal">{t('vipClub:level')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2 sm:px-2 p-[5px]">
-            <Image height={18} width={16} src={`/img/${getLinkImage(row?.original?.rank)}.png`} alt="" />
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] pl-2 min-w-[80px]">
+            <Image height={18} width={16} src={dataMedal.find((item) => item.name === row?.original?.rank)?.img || "/img/bronze-medal.png"} alt="" />
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] pl-2 min-w-[80px]">
               {row?.original?.name}
             </div>
           </div>
@@ -132,12 +122,12 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       {
         accessorKey: 'xp',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary pl-6 text-[14px] font-normal">
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] font-normal">
             {t('vipClub:requiredXP')}
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] text-center dark:text-color-text-primary text-color-light-text-primary truncate sm:px-2 p-[5px]">
+          <div className="text-[12px] sm:text-[14px] text-center dark:text-color-text-primary text-color-light-text-primary truncate sm:px-2 p-[5px]">
             {row?.original?.xp}
           </div>
         ),
@@ -145,12 +135,12 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       {
         accessorKey: 'levelUpBonus',
         header: () => (
-          <div className="text-right dark:text-color-text-primary text-color-light-text-primary text-[14px] font-normal">
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] font-normal pr-2">
             {t('vipClub:levelUpBonus')} (USDT)
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] dark:text-white text-[#000] truncate text-right sm:px-2 p-[5px] pr-2">
+          <div className="text-[12px] sm:text-[14px] dark:text-white text-[#000] truncate text-right sm:px-2 p-[5px] pr-2">
             {row.original.levelUpBonus}
           </div>
         ),
@@ -187,46 +177,48 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       >
         <div className="flex max-sm:flex-1 flex-col gap-3 overflow-y-auto px-[20px] pt-[10px] pb-[30px] bg-white dark:bg-color-header-primary">
           {isLoading && <Loader />}
-          {rankList.map((item, index) => (
-            <div key={index}>
-              <Disclosure defaultOpen={item.name === levelCurrent.name}>
-                {({ open }) => (
-                  <div className="w-full dark:bg-color-card-bg-primary bg-color-light-bg-primary">
-                    <Disclosure.Button className="py-2 w-full flex h-[40px] justify-between">
-                      <div className="font-semibold text-[14px] flex gap-2 items-center">
-                        <div className={cn(styles[getColorBg(String(item.name))], styles.rank)}></div>
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold">{item.name}</span>
-                          <span className="font-semibold">{`${item.startLevelDes}-${item.endLevelDes}`}</span>
-                        </div>
-                      </div>
-                      <div className="pr-3">
-                        <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
-                      </div>
-                    </Disclosure.Button>
-                    <Transition
-                      enter="transition duration-100 ease-out"
-                      enterFrom="transform scale-95 opacity-0"
-                      enterTo="transform scale-100 opacity-100 w-full"
-                      leave="transition duration-75 ease-out"
-                      leaveFrom="transform scale-100 opacity-100 w-full"
-                      leaveTo="transform scale-95 opacity-0"
-                    >
-                      <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                        <div>
-                          <RankingTableComponent
-                            containerClassName="w-full dark:bg-color-card-bg-primary bg-white"
-                            data={item.levels}
-                            columns={vipColumns}
-                          />
-                        </div>
-                      </Disclosure.Panel>
-                    </Transition>
-                  </div>
+          <div className={`flex justify-center gap-1 overflow-x-auto scrollbar min-h-[100px]`}>
+            {rankList.map((item, index) => (
+              <div
+                className={cn(
+                  'relative flex flex-col justify-between items-center w-[87px] min-w-fit cursor-pointer border-none pb-[15px] px-[10px] bg-transparent',
+                  styles.rank_text,
                 )}
-              </Disclosure>
-            </div>
-          ))}
+                key={index}
+                onClick={() => setLevelCurrent(item)}
+              >
+                <Image
+                  src={dataMedal.find((medal) => medal.name === item.name)?.img || '/img/vip.png'}
+                  width={50}
+                  height={50}
+                  alt=""
+                  className={cn({
+                    'w-[35px] h-[35px] md:w-[50px] md:h-[50px]': true,
+                    'opacity-100': levelCurrent.startLevel === item.startLevel,
+                    'opacity-30': levelCurrent.startLevel !== item.startLevel,
+                  })}
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/vip.png';
+                  }}
+                />
+                {levelCurrent.startLevel === item.startLevel && (
+                  <Image
+                    src="/img/selected-medal.png"
+                    width={50}
+                    height={50}
+                    alt=""
+                    className="absolute left-0 right-0 -bottom-0 w-full h-full"
+                  />
+                )}
+                <div className="text-white text-[12px] font-semibold">{item.name}</div>
+              </div>
+            ))}
+          </div>
+          <RankingTableComponent
+            containerClassName="w-full pt-0"
+            data={levelCurrent.levels}
+            columns={vipColumns}
+          />
         </div>
       </CommonModal>
     </>
