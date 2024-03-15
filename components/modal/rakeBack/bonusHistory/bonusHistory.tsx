@@ -8,10 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_bonusUsdtHistory } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
-import {
-  DATE_FORMAT_DEFAULT,
-  TIME_SUBMIT_FORMAT_WITH_SECOND,
-} from '@/base/constants/common';
+import { DATE_FORMAT_DEFAULT, TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
@@ -86,7 +83,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
           <div className="text-left text-default text-color-text font-normal">{t('historyBonus:time')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-color-text truncate flex flex-col items-start justify-start gap-[5px] text-default">
+          <div className="text-color-text-primary truncate flex flex-col items-start justify-start gap-[5px] text-default">
             <span>{formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}</span>
             <span>{formatDate(new Date(row.original.time), DATE_FORMAT_DEFAULT)}</span>
           </div>
@@ -99,7 +96,9 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
           <div className="text-center text-default text-color-text font-normal">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-default dark:text-white text-[#000] truncate text-center">{row.original.type}</div>
+          <div className="text-default dark:text-color-text-primary text-[#000] truncate text-center">
+            {row.original.type}
+          </div>
         ),
         minSize: 50,
         maxSize: 80,
@@ -110,21 +109,13 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
           <div className="text-center text-default font-normal text-color-text">{t('transaction:amount')}</div>
         ),
         cell: ({ row }) => (
-          <div className=
-          {
-            cn
-            (
-              "font-bold text-[14px] flex justify-center gap-1 truncate text-center",
-              {
-                "text-color-primary": row.original.amountUsd >= 0,
-                "text-color-red": row.original.amountUsd < 0,
-              }
-            )
-          }
+          <div
+            className={cn('font-bold text-[14px] flex justify-center gap-1 truncate text-center', {
+              'text-color-primary': row.original.amountUsd >= 0,
+              'text-color-red': row.original.amountUsd < 0,
+            })}
           >
-            {row.original.amountUsd < 0
-            ? '-'
-            : ''}
+            {row.original.amountUsd < 0 ? '-' : ''}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), 4, localFiat?.name || 'USD')}</>
             ) : (
