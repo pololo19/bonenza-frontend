@@ -21,6 +21,10 @@ export type TokenState = {
 };
 
 export type AuthState = {
+  isLoading: {
+    isCurrency: boolean;
+    isLanguage: boolean;
+  };
   isLogin: boolean;
   user: UserDetail;
   verifyRequest: VerifyRequestType;

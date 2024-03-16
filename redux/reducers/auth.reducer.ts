@@ -45,6 +45,10 @@ const initialUser: UserDetail = {
 };
 
 const initialCommonState: AuthState = {
+  isLoading: {
+    isCurrency: false,
+    isLanguage: false,
+  },
   isLogin: false,
   user: initialUser,
   verifyRequest: '',
@@ -77,10 +81,13 @@ export const queryDataSlice = createSlice({
     updateViewInFiat: (state: AuthState, action: PayloadAction<boolean>) => {
       state.user.generalSetting.settingViewInFiat = action.payload;
     },
+    setIsLoading: (state: AuthState, action: PayloadAction<{ isCurrency: boolean; isLanguage: boolean }>) => {
+      state.isLoading = { ...action.payload };
+    },
   },
 });
 
-export const { saveUserInfo, logoutState, saveVerifyInfo, setIsForgetPassword, updateViewInFiat } =
+export const { saveUserInfo, logoutState, saveVerifyInfo, setIsForgetPassword, updateViewInFiat, setIsLoading } =
   queryDataSlice.actions;
 export default queryDataSlice.reducer;
 
@@ -90,6 +97,7 @@ export const updateSetting =
     try {
       const res = await api_updateSetting(setting);
       dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
+      dispatch(setIsLoading({ isCurrency: false, isLanguage: false }));
     } catch (error) {
       console.log(error, '------ update Setting ------');
     }

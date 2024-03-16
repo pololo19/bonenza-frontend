@@ -16,18 +16,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, LANGUAGE_DATA, ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { currencyFormat1 } from '@/base/libs/utils';
-import { logoutState } from '@/base/redux/reducers/auth.reducer';
+import { currencyFormat1, handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
-  changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
   changeIsShowInformation,
   changeIsShowLogOutConfirm,
@@ -36,12 +34,10 @@ import {
   changeMultiLanguageTab,
 } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
-import { logoutWallet } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
-import MobileModal from '../modal/commonModal/mobileModal';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import VipProgressComponent from '../vipProgress/vipProgress';
 
@@ -110,7 +106,7 @@ const AccountPannel: React.FC = () => {
     setTheme(savedtheme);
   }, []);
 
-  const { totalBalance, localFiat, isLogin, avatar, userName, userId, isShow, viewInFiat } = useSelector(
+  const { totalBalance, localFiat, isLogin, avatar, userName, userId, isShow, viewInFiat, isLoading } = useSelector(
     (state: AppState) => ({
       totalBalance: state.wallet.totalBalance,
       localFiat: state.wallet.localFiat,
@@ -120,6 +116,7 @@ const AccountPannel: React.FC = () => {
       userId: state.auth.user.userId,
       isShow: state.modal.isShowAccountPannel,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      isLoading: state.auth.isLoading,
     }),
     shallowEqual,
   );
@@ -174,7 +171,15 @@ const AccountPannel: React.FC = () => {
         href: '',
         icon: <Global />,
         isLink: false,
-        extra: <>{LANGUAGE_DATA.find((item) => item.key === i18n.language)?.language}</>,
+        extra: (
+          <>
+            {isLoading.isLanguage ? (
+              <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+            ) : (
+              LANGUAGE_DATA.find((item) => item.key === i18n.language)?.language
+            )}
+          </>
+        ),
         classNames: '',
         activeClassNames: '',
         onClick: () => {
@@ -187,7 +192,24 @@ const AccountPannel: React.FC = () => {
         href: '',
         icon: <DollarCircle />,
         isLink: false,
-        extra: <></>,
+        extra: (
+          <>
+            {localFiat && (
+              <div className="p-1 text-sm w-max">
+                {isLoading.isCurrency ? (
+                  <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+                ) : (
+                  <>
+                    <span>
+                      {handleLocaleSymbol(String(localFiat.name))}
+                      {localFiat.name}
+                    </span>
+                  </>
+                )}
+              </div>
+            )}
+          </>
+        ),
         classNames: '',
         activeClassNames: '',
         onClick: () => {
@@ -235,7 +257,7 @@ const AccountPannel: React.FC = () => {
       //   classNames: '',
       // },
     ],
-    [i18n.language, theme],
+    [i18n.language, theme, localFiat, isLoading],
   );
 
   const walletDatas: IconOptionProps[] = useMemo(
@@ -464,7 +486,6 @@ const AccountPannel: React.FC = () => {
             {t('layout:logOut')}
           </div>
         )}
-        
       </div>
     </div>
   );
