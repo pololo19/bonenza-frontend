@@ -26,6 +26,7 @@ import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
+import { isMobile } from 'react-device-detect';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -142,11 +143,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     if (cryptoSymbols.length > 0) {
       /** SET USDT as a default coin */
       const defaultSymbol = cryptoSymbols.find((item) => item.name.toLowerCase() === 'usdt');
-      if (defaultSymbol) {
+      if (defaultSymbol && !activeCurrency.id) {
         dispatch(setActiveCurrency(defaultSymbol));
       }
     }
-  }, [cryptoSymbols]);
+  }, [cryptoSymbols, activeCurrency]);
 
   return (
     <>
@@ -211,11 +212,19 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         >
           <Menu.Items
             className={cn(
-              'sm:absolute sm:mr-0 mr-[10px] fixed sm:-right-[123px] lg:right-0 sm:left-auto left-0 z-[50] mt-[57px] sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
+              'sm:absolute sm:mr-0 mr-[10px] fixed sm:-right-[123px] lg:right-0 sm:left-auto left-0 z-[50] sm:min-w-[470px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-0',
               wrapperClass,
+              {
+                'mt-[57px]': !(inGamePage && isMobile),
+                'mt-[280px]': inGamePage && isMobile,
+              },
             )}
           >
-            <div className="sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 rounded-default dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] dark:shadow-gray-900 shadow-gray-200 shadow">
+            <div
+              className={
+                'sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] dark:shadow-gray-900 shadow-gray-200 shadow'
+              }
+            >
               <div className="flex px-[20px] mt-[20px]">
                 <div className="grow">
                   <InputSearch

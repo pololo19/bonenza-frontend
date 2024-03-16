@@ -251,6 +251,7 @@ export default function SidebarToggle() {
           <div className="flex-1 w-full gap-[5px] flex flex-col">
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
               <IconOption
+                key={'bonus'}
                 imageURL="/img/sidebar/bonus.png"
                 imageClass="absolute left-[16px] -top-[18px] w-[69px] h-[61px]"
                 textClass="text-white ml-[64px] !text-[16px] !font-[500]"

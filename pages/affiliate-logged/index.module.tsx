@@ -315,7 +315,7 @@ function AffiliateLoggedPage() {
                 {!rewardActivitiesData?.length && (
                   <div className="flex flex-col items-center gap-[15px] text-[#53575C] text-[14px] py-4">
                     <Image
-                      src={theme === 'dark' ? '/img/no-data.png' : '/img/no-data-light-mode.png'}
+                      src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
                       alt="noData"
                       width={150}
                       height={150}
@@ -495,7 +495,7 @@ function AffiliateLoggedPage() {
               {!liveRewardData?.length && (
                 <div className="flex flex-col justify-center items-center gap-[15px] text-[#53575C] text-[14px] w-full">
                   <Image
-                    src={theme === 'dark' ? '/img/no-data.png' : '/img/no-data-light-mode.png'}
+                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
                     alt="noData"
                     width={50}
                     height={50}

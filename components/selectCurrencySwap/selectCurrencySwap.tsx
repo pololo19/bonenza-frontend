@@ -154,8 +154,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     const currentSymbolBalance = getBalanceBySymbolId(curVal.symbolTo);
     setValue('symbolFrom', curVal.symbolTo);
     setValue('symbolTo', curVal.symbolFrom);
-    setValue('amountFrom',  curVal.amountTo > currentSymbolBalance ? currentSymbolBalance : curVal.amountTo);
-
+    setValue('amountFrom', curVal.amountTo > currentSymbolBalance ? currentSymbolBalance : curVal.amountTo);
   };
 
   const handleApproximately = async (balance: string) => {
@@ -240,7 +239,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="flex flex-col gap-[5px] relative min-h-[45px]">
             <div
               className={cn(
-                'w-full pl-[18px] pr-[5px] h-full py-[5px] text-[16px] rounded-[3px] bg-color-light-input-primary dark:bg-color-input-primary flex items-center justify-between border border-solid border-transparent gap-[10px] focus-within:border-color-primary min-h-[45px]',
+                'w-full pl-[18px] pr-[5px] h-full py-[5px] text-[16px] rounded-default bg-color-light-input-primary dark:bg-color-input-primary flex items-center justify-between border border-solid border-transparent gap-[10px] focus-within:border-color-primary min-h-[45px]',
                 {
                   'border-red-50': errors.amountFrom?.message,
                 },
@@ -263,7 +262,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                   {t('deposit:max')}
                 </div>
                 <div
-                  className="flex items-center dark:bg-color-btn-primary rounded px-2 py-1 bg-white dark:text-white text-black justify-between gap-[10px] w-full min-w-[120px]"
+                  className="flex items-center dark:bg-color-btn-primary rounded-default px-2 py-1 bg-white dark:text-white text-black justify-between gap-[10px] w-full min-w-[120px]"
                   role="button"
                   onClick={() => setIsShowFromModal(true)}
                 >
@@ -288,15 +287,22 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
             </div>
             <div
-              className="z-[2] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-color-light-active-primary dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
+              className="sm:hidden block z-[2] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-color-light-active-primary dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
               role="button"
               onClick={handleChangeCoinSwap}
             >
-              <Repeat />
+              <Repeat size={14} />
+            </div>
+            <div
+              className="sm:block hidden z-[2] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rotate-90 dark:bg-color-btn-primary bg-color-light-active-primary dark:text-white text-black dark:border-0 rounded-[10px] p-[8px]"
+              role="button"
+              onClick={handleChangeCoinSwap}
+            >
+              <Repeat size={20} />
             </div>
             <div
               className={cn(
-                'w-full pl-[18px] pr-[5px] py-[5px] text-[16px] rounded-[3px] bg-color-light-input-primary dark:bg-color-input-primary flex items-center justify-between gap-[10px] border border-solid border-transparent focus-within:border-color-primary min-h-[45px]',
+                'w-full pl-[18px] pr-[5px] py-[5px] text-[16px] rounded-default bg-color-light-input-primary dark:bg-color-input-primary flex items-center justify-between gap-[10px] border border-solid border-transparent focus-within:border-color-primary min-h-[45px]',
                 {
                   'border-red-500': errors.amountFrom?.message,
                   'blur-[2px]': isLoadingApproximately,
@@ -315,7 +321,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               </div>
               <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-[16px] text-[12px]">
                 <div
-                  className="flex items-center dark:bg-color-btn-primary px-2 py-1 bg-white dark:text-white text-black justify-between gap-[10px] w-full rounded  min-w-[120px]"
+                  className="flex items-center dark:bg-color-btn-primary px-2 py-1 bg-white dark:text-white text-black justify-between gap-[10px] w-full rounded-default  min-w-[120px]"
                   role="button"
                   onClick={() => setIsShowToModal(true)}
                 >
@@ -348,7 +354,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           </div>
           <div
             className={cn(
-              'flex flex-col items-start gap-[15px] w-full px-[20px] py-[10px] dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary dark:bg-color-input-primary rounded-[3px] text-start',
+              'flex flex-col items-start gap-[15px] w-full px-[20px] py-[10px] dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary dark:bg-color-input-primary rounded-default text-start',
               {
                 'blur-[2px]': isLoadingApproximately,
               },
@@ -360,11 +366,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               {currencyFormat1(exchangeCoinRate, 8, '', false)} {getSymbolById(watch('symbolTo'))?.name}
             </div>
           </div>
-          <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-color-light-bg-primary dark:bg-color-input-primary rounded-t-[4px]">
+          <div className="flex items-center mt-[2px] justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-color-light-bg-primary dark:bg-color-input-primary rounded-t-default">
             <p className="text-color-text-primary">{t('swap:estimatedTime')}</p>
             <p className="dark:text-white text-color-light-text-primary">{t('swap:seconds')}</p>
           </div>
-          <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-color-light-bg-primary dark:bg-color-input-primary rounded-b-[4px]">
+          <div className="flex items-center justify-between text-[0.75rem] gap-[0.5rem] w-full px-[20px] py-[10px] bg-color-light-bg-primary dark:bg-color-input-primary rounded-b-default">
             <p className="text-color-text-primary">{t('swap:swapFee')}</p>
             <p className="dark:text-white text-color-light-text-primary">
               {(Number(swapFee) * Number(watch('amountFrom'))).toFixed(8)}{' '}

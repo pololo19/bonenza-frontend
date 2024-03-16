@@ -4,7 +4,7 @@ import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
@@ -38,7 +38,6 @@ import GameReviewComponent from '@/components/game/gameReview';
 import BaseLayout from '@/components/layouts/base.layout';
 import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
-import Tooltip from '@/components/tooltip';
 
 import styles from './index.module.scss';
 
@@ -104,12 +103,6 @@ function GamePage() {
     }),
     shallowEqual,
   );
-
-  const balance = useMemo(() => {
-    const tempBalances = [...balances];
-    const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
-    return selectedBalance?.amount ?? 0;
-  }, [balances, activeCurrency]);
 
   const isSatisfied = useMemo(() => {
     const tempBalances = [...balances];
@@ -368,6 +361,7 @@ function GamePage() {
           <div className="max-w-[1230px] m-auto">
             {/* Game play */}
             <FullScreen handle={gameScreen} className="sm:aspect-[2] aspect-[4/3] w-full mt-[20px] relative">
+              {/* for desktop, for load ifram data */}
               <div
                 id="game_wrapper"
                 key={String(gameId)}
@@ -376,6 +370,8 @@ function GamePage() {
                   styles.gameWrapper,
                 )}
               />
+
+              {/* for mobile version */}
               <div
                 className={cn(
                   'sm:hidden flex flex-col rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000 p-[15px] gap-[10px]',
@@ -495,10 +491,56 @@ function GamePage() {
                     <div>{t('gameDetail:freePlayMobile')}</div>
                   </button>
                 </div>
+
+                <div className="absolute top-[50px] w-full p-[15px] z-10 flex left-0">
+                  {!isSatisfied && isLogin && (
+                    <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] sm:hidden flex flex-col items-center z-1 rounded-large sm:max-w-[500px] w-full dark:bg-[#202226] bg-color-light-bg-primary">
+                      {gameDetail?.isExpiration ? (
+                        <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
+                          {t('gameDetail:gameExpiration')}
+                        </div>
+                      ) : (
+                        <>
+                          <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
+                            <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
+                              {t('gameDetail:insufficientBalanceIn')}
+                            </div>
+                            <div className="bg-[#17191B] rounded-default">
+                              <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
+                            </div>
+                          </div>
+                          <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
+                            <span className="!text-red-500">
+                              {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')},
+                            </span>
+                            {t('gameDetail:switchToAnotherAsset')}
+                          </div>
+
+                          <div className="flex items-center gap-[20px]">
+                            <button
+                              type="button"
+                              className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[8px] sm:text-default text-[12px] flex items-center gap-[10px]"
+                              onClick={() => {
+                                dispatch(changeIsShowDepositModal(true));
+                              }}
+                            >
+                              <PlayCricle size={20} />
+                              <div>{t('gameDetail:depositAndPlay')}</div>
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {!isSatisfied && <div className="absolute z-[5] bg-[black]/80 w-full h-full left-0 top-0"></div>}
               </div>
+
+              {/* for desktop version */}
               <div
                 className={cn(
-                  'sm:flex hidden items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
+                  'hidden sm:flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
                   {
                     // hidden: !isPlayRequested,
                     'opacity-0': successfullyLaunched,
@@ -511,13 +553,16 @@ function GamePage() {
                   src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
                   fill
                   alt=""
+                  className="sm:block hidden "
                   onError={(e) => {
                     e.currentTarget.src = '/img/game-background.png';
                   }}
                 />
+
                 <div className={cn('h-full bg-black/80 w-full absolute')} />
+
                 {isLogin && (
-                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
+                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] hidden sm:flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
                     {gameDetail?.isExpiration ? (
                       <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
                         {t('gameDetail:gameExpiration')}
@@ -535,9 +580,11 @@ function GamePage() {
                               {t('gameDetail:insufficientBalanceIn')}
                             </div>
                           )}
-                          <div className="bg-[#17191B] rounded-default">
-                            <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
-                          </div>
+                          {!isMobile && (
+                            <div className="bg-[#17191B] rounded-default">
+                              <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
+                            </div>
+                          )}
                         </div>
 
                         {isSatisfied && (
@@ -607,7 +654,7 @@ function GamePage() {
                   </div>
                 )}
                 {!isLogin && (
-                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
+                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] hidden sm:flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
                     {gameDetail?.isExpiration ? (
                       <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
                         {t('gameDetail:gameExpiration')}

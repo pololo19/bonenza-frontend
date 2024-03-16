@@ -76,7 +76,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           levelUpBonus: level.levelUpBonus,
         })),
       }));
-      const currentLevel = 55;//Number(_resVipProgress.data?.currentVipLevel || 0);
+      const currentLevel = Number(_resVipProgress.data?.currentVipLevel || 0);
       setRankList(tempRankDatas);
       if (tempRankDatas.length > 0) {
         const userRank = tempRankDatas.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);
