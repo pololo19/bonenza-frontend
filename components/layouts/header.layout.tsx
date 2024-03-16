@@ -3,6 +3,7 @@ import { Add, Global, MessageText1, MoneyRecive, SearchNormal } from 'iconsax-re
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -31,19 +32,28 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
-  const { isLogin, isToggleSidebar, showChatType, viewInFiat, isShowCasinoSearch, localFiat, isAccountPannel } =
-    useSelector(
-      (state: AppState) => ({
-        isLogin: state.auth.isLogin,
-        isToggleSidebar: state.modal.isToggleSidebar,
-        isShowCasinoSearch: state.modal.isShowCasinoSearch,
-        showChatType: state.modal.showChatType,
-        viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
-        localFiat: state.wallet.localFiat,
-        isAccountPannel: state.modal.isShowAccountPannel,
-      }),
-      shallowEqual,
-    );
+  const {
+    isLogin,
+    isToggleSidebar,
+    showChatType,
+    viewInFiat,
+    isShowCasinoSearch,
+    localFiat,
+    isAccountPannel,
+    isLoading,
+  } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+      isToggleSidebar: state.modal.isToggleSidebar,
+      isShowCasinoSearch: state.modal.isShowCasinoSearch,
+      showChatType: state.modal.showChatType,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      localFiat: state.wallet.localFiat,
+      isAccountPannel: state.modal.isShowAccountPannel,
+      isLoading: state.auth.isLoading,
+    }),
+    shallowEqual,
+  );
 
   return (
     <>
@@ -209,7 +219,11 @@ export default function Navbar() {
                 dispatch(changeIsShowMultiLanguageModal(true));
               }}
             >
-              <Global className="w-[20px] h-[20px]" />
+              {isLoading.isLanguage ? (
+                <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+              ) : (
+                <Global className="w-[20px] h-[20px]" />
+              )}
             </button>
             {viewInFiat && localFiat && <div className="w-px h-5 bg-slate-400 sm:block hidden"></div>}
             {viewInFiat && localFiat && (
@@ -222,7 +236,16 @@ export default function Navbar() {
                 }}
               >
                 <div className="p-1 text-sm w-max">
-                  {handleLocaleSymbol(String(localFiat.name))} <span>{localFiat.name}</span>
+                  {isLoading.isCurrency ? (
+                    <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+                  ) : (
+                    <>
+                      <span>
+                        {handleLocaleSymbol(String(localFiat.name))}
+                        {localFiat.name}
+                      </span>
+                    </>
+                  )}
                 </div>
               </button>
             )}

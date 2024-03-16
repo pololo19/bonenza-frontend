@@ -9,8 +9,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { updateSetting, updateViewInFiat } from '@/base/redux/reducers/auth.reducer';
-import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { setIsLoading, updateSetting, updateViewInFiat } from '@/base/redux/reducers/auth.reducer';
 import { changeMultiLanguageTab } from '@/base/redux/reducers/modal.reducer';
 import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -31,10 +30,9 @@ export enum MultiLanguageTabEnum {
 }
 
 export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
-  const [isLoading, _setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const { multiLanguageTab, isLogin, viewInFiat, fiatSymbols, localFiat, settings } = useSelector(
+  const { multiLanguageTab, isLogin, viewInFiat, fiatSymbols, localFiat, settings, isLoading } = useSelector(
     (state: AppState) => ({
       multiLanguageTab: state.modal.multiLanguageTab,
       fiatArray: state.common.fiatArray,
@@ -46,6 +44,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
 
       fiatSymbols: state.wallet.fiatSymbols,
       localFiat: state.wallet.localFiat,
+      isLoading: state.auth.isLoading,
     }),
     shallowEqual,
   );
@@ -57,6 +56,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
     i18n.changeLanguage(item.key);
     CookiesStorage.setCookieData(CookieKey.lang, item.key);
     if (isLogin) {
+      dispatch(setIsLoading({ ...isLoading, isLanguage: true }));
       dispatch(updateSetting({ ...settings, settingLanguage: item.key }));
     }
   };
@@ -69,6 +69,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
 
   const handleChangeLocaleFiat = (item: CurrencyType) => {
     if (isLogin) {
+      dispatch(setIsLoading({ ...isLoading, isCurrency: true }));
       dispatch(updateSetting({ ...settings, settingCurrency: item.id, settingViewInFiat: true }));
     } else {
       dispatch(updateViewInFiat(true));
@@ -114,7 +115,6 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
         }
       >
         <div className="overflow-y-auto dark:text-white text-black">
-          {isLoading && <Loader />}
           <div>
             <div className="p-5 py-5 border overflow-y-auto">
               <div
@@ -144,7 +144,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
               </div>
               <div
                 className={cn('grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2', {
-                  'grid': multiLanguageTab === MultiLanguageTabEnum.FIAT,
+                  grid: multiLanguageTab === MultiLanguageTabEnum.FIAT,
                   block: multiLanguageTab === MultiLanguageTabEnum.FIAT,
                   hidden: multiLanguageTab !== MultiLanguageTabEnum.FIAT,
                 })}
@@ -161,6 +161,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     )}
                     onClick={() => {
                       if (usdFiat) {
+                        dispatch(setIsLoading({ ...isLoading, isCurrency: true }));
                         dispatch(updateSetting({ ...settings, settingCurrency: usdFiat.id, settingViewInFiat: false }));
                       } else {
                         dispatch(updateSetting({ ...settings, settingViewInFiat: false }));
