@@ -121,7 +121,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           <div
             className={cn('grid 2xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4', {
               'xl:grid-cols-3': showChatType,
-              'xl:grid-cols-5': !showChatType,
+              'xl:grid-cols-4': !showChatType,
             })}
           >
             <div className="flex flex-col md:items-start items-center">
