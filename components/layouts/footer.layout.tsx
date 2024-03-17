@@ -62,41 +62,49 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     },
     {
       icon: '/img/icon/LTC.png',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'Litecoin',
       token: 'LTC',
     },
     {
       icon: '/img/icon/WBTC.png',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'Ethereum',
       token: 'WBTC',
     },
     {
       icon: '/img/icon/USDT-logo.svg',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'ETH',
       token: 'USDT',
     },
     {
       icon: '/img/icon/USDC.png',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'BSC',
       token: 'USDC',
     },
     {
       icon: '/img/icon/DOGE.png',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'Ethereum',
       token: 'DOGE',
     },
     {
       icon: '/img/icon/SHIB.png',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'Ethereum',
       token: 'SHIB',
     },
     {
       icon: '/img/icon/XRP.png',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'BSC',
       token: 'XRP',
     },
     {
       icon: '/img/icon/DAI.png',
+      networkIcon: 'img/fiats/BNB.png',
       network: 'BSC',
       token: 'DAI',
     },
@@ -407,14 +415,24 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               <div className="w-full flex-wrap flex justify-center items-center max-md:gap-[16px] gap-[20px] mt-5">
                 {acceptedNetworks.map((item, index) => (
                   <div className="max-w-[50px] max-h-[50px]" key={index}>
-                    <Image
-                      alt=""
-                      src={item.icon}
-                      width={50}
-                      height={50}
-                      className="max-w-[50px] max-h-[50px] cursor-pointer"
-                      data-tooltip-id={`accepted-currency-${index}-tooltip`}
-                    />
+                    <div className="relative">
+                      <Image
+                        alt=""
+                        src={item.icon}
+                        width={50}
+                        height={50}
+                        className="max-w-[50px] max-h-[50px] cursor-pointer"
+                        data-tooltip-id={`accepted-currency-${index}-tooltip`}
+                      />
+                      {item.networkIcon && 
+                      <Image
+                        alt=""
+                        src={item.networkIcon}
+                        width={50}
+                        height={50}
+                        className="rounded-full border-solid border-2 border-white absolute right-[0px] bottom-[0px] max-w-[20px] max-h-[20px]"
+                      />}
+                    </div>
                     <Tooltip
                       id={`accepted-currency-${index}-tooltip`}
                       place="bottom"
