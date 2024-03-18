@@ -553,7 +553,7 @@ function IndexPage() {
                   <LatestBetRace />
                 </HomepageSession>
               </div>
-              <div className="relative w-full">
+              <div className="relative w-full hidden sm:block">
                 <div
                   onClick={() => {
                     if (isLogin) dispatch(changeIsShowVipClubModal(true));
