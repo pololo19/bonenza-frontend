@@ -122,7 +122,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             <div className="text-black dark:text-white md:text-[18px] text-[16px] px-[20px] font-bold">
               {t('profile:userInformation')}
             </div>
-            <div className="absolute top-0 right-[50px]">
+            <div className="absolute top-0 right-[70px]">
               <div className="relative">
                 <Image
                   onError={(e) => {
