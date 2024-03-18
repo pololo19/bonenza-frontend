@@ -548,7 +548,259 @@ const TransactionPage = () => {
     ];
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate, width]);
 
+  const withdrawColumns: ColumnDef<TransactionType>[] = useMemo(() => {
+    if(width > 1024) {      
+      return [
+        {
+          accessorKey: 'transactionType',
+          header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:type'))}</div>,
+          cell: ({ row }) => (
+            <div className="dark:text-white text-black text-left truncate py-2">{t(optionFilter.type.name)}</div>
+          ),
+          minSize: 30,
+        },
+        {
+          accessorKey: 'amount',
+          header: () => (
+            <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:amount'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div
+              className={`${
+                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
+              } flex items-center justify-center gap-1`}
+            >
+              {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
+              {viewInFiat ? (
+                <>{currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}</>
+              ) : (
+                currencyFormat1(row.original.amount, cryptoLen, '', false)
+              )}
+
+              <Image
+                height={20}
+                width={20}
+                src={row.original.symbolLogo}
+                onError={(e) => {
+                  e.currentTarget.src = `/img/fiats/USDT.png`;
+                }}
+                alt=""
+              />
+            </div>
+          ),
+          minSize: 20,
+        },
+        {
+          accessorKey: 'time',
+          header: () => (
+            <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:timeTransfer'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="dark:text-white text-black">
+              {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
+          ),
+          maxSize: 30,
+        },
+        {
+          accessorKey: 'status',
+          header: () => (
+            <div className="text-right dark:text-[#64748b] text-black">{String(t('transaction:status'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="flex items-center justify-end gap-2">
+              <div
+                className={cn(`w-[8px] h-[8px] rounded-full`, {
+                  'bg-color-secondary':
+                    row.original.status === 'processing' ||
+                    row.original.status === 'pending' ||
+                    row.original.status === 'refunding',
+                  // row.original.status === 'ongoing',
+                  'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
+                  // row.original.status === 'not_started',
+                  'bg-color-primary':
+                    // row.original.status === 'done' ||
+                    // row.original.status === 'all' ||
+                    row.original.status === 'complete' || row.original.status === 'approved',
+                })}
+              />
+              <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
+              <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
+            </div>
+          ),
+          maxSize: 30,
+          minSize: 30,
+        },
+      ];
+    }
+    return [
+      {
+        accessorKey: 'amount',
+        header: () => (
+          <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:amount'))}</div>
+        ),
+        cell: ({ row }) => (
+          <div
+            className={`${
+              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
+            } flex items-center justify-start gap-1`}
+          >
+            {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
+            {viewInFiat ? (
+              <>{currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}</>
+            ) : (
+              currencyFormat1(row.original.amount, cryptoLen, '', false)
+            )}
+
+            <Image
+              height={20}
+              width={20}
+              src={row.original.symbolLogo}
+              onError={(e) => {
+                e.currentTarget.src = `/img/fiats/USDT.png`;
+              }}
+              alt=""
+            />
+          </div>
+        ),
+        minSize: 80,
+      },
+      {
+        accessorKey: 'time',
+        header: () => (
+          <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:timeTransfer'))}</div>
+        ),
+        cell: ({ row }) => (
+          <div className="dark:text-white text-black">
+            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+          </div>
+        ),
+        maxSize: 30,
+      },
+      {
+        accessorKey: 'status',
+        header: () => (
+          <div className="text-right dark:text-[#64748b] text-black">{String(t('transaction:status'))}</div>
+        ),
+        cell: ({ row }) => (
+          <div className="flex items-center justify-end gap-2">
+            <div
+              className={cn(`w-[8px] h-[8px] rounded-full`, {
+                'bg-color-secondary':
+                  row.original.status === 'processing' ||
+                  row.original.status === 'pending' ||
+                  row.original.status === 'refunding',
+                // row.original.status === 'ongoing',
+                'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
+                // row.original.status === 'not_started',
+                'bg-color-primary':
+                  // row.original.status === 'done' ||
+                  // row.original.status === 'all' ||
+                  row.original.status === 'complete' || row.original.status === 'approved',
+              })}
+            />
+            <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
+            <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
+          </div>
+        ),
+        maxSize: 30,
+        minSize: 30,
+      },
+    ];
+  }, [localFiat, viewInFiat, optionFilter.type, i18n, exchangeRate]);
+
   const bonusColumns: ColumnDef<TransactionBonusType>[] = useMemo(() => {
+    if(width > 1024) {
+      return [
+        {
+          accessorKey: 'actionType',
+          header: () => (
+            <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+              {String(t('transaction:type'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row.original.type}</div>
+          ),
+          minSize: 30,
+        },
+        {
+          accessorKey: 'amountClaimed',
+          header: () => (
+            <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+              {String(t('transaction:amount'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div
+              className={`${
+                row.original.amount < 0 ? 'text-red-500' : 'text-color-primary'
+              } flex items-center justify-center gap-1`}
+            >
+              <span>{row.original.amount < 0 ? '-' : ''}</span>
+              <span className="min-w-fit break-keep">
+                {viewInFiat
+                  ? currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, localFiat?.name)
+                  : currencyFormat1(row.original.amount, cryptoLen, '', false)}
+              </span>
+              <Image
+                height={20}
+                width={20}
+                src={`/img/fiats/${row.original.currency}.png`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+              />
+            </div>
+          ),
+          minSize: 120,
+        },
+        {
+          accessorKey: 'createdAt',
+          header: () => (
+            <div className="text-center dark:text-color-text-primary text-color-light-text-primary ">
+              {String(t('transaction:time'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div className="dark:text-color-text-primary text-color-light-text-primary">
+              {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
+          ),
+          minSize: 100,
+          maxSize: 100,
+        },
+        {
+          accessorKey: 'balance',
+          header: () => (
+            <div className="text-right dark:text-color-text-primary text-color-light-text-primary ">
+              {String(t('transaction:balance'))}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div
+              className={`dark:text-white text-color-light-text-primary text-left truncate flex items-center justify-end gap-1`}
+            >
+              {viewInFiat
+                ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
+                : currencyFormat1(row.original.balance, cryptoLen, '', false)}
+
+              <Image
+                height={20}
+                width={20}
+                src={`/img/fiats/${row.original.currency}.png`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+              />
+            </div>
+          ),
+          minSize: 120,
+        },
+      ];
+    }
     return [
       {
         accessorKey: 'actionType',
@@ -558,81 +810,62 @@ const TransactionPage = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row.original.type}</div>
+          <div>
+            <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row.original.type}</div>
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-left">
+              {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
+          </div>
         ),
         minSize: 30,
       },
       {
         accessorKey: 'amountClaimed',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
-            {String(t('transaction:amount'))}
-          </div>
-        ),
-        cell: ({ row }) => (
-          <div
-            className={`${
-              row.original.amount < 0 ? 'text-red-500' : 'text-color-primary'
-            } flex items-center justify-center gap-1`}
-          >
-            <span>{row.original.amount < 0 ? '-' : ''}</span>
-            <span className="min-w-fit break-keep">
-              {viewInFiat
-                ? currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, localFiat?.name)
-                : currencyFormat1(row.original.amount, cryptoLen, '', false)}
-            </span>
-            <Image
-              height={20}
-              width={20}
-              src={`/img/fiats/${row.original.currency}.png`}
-              alt=""
-              onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
-              }}
-            />
-          </div>
-        ),
-        minSize: 120,
-      },
-      {
-        accessorKey: 'createdAt',
-        header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary ">
-            {String(t('transaction:time'))}
-          </div>
-        ),
-        cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary">
-            {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
-          </div>
-        ),
-        minSize: 100,
-        maxSize: 100,
-      },
-      {
-        accessorKey: 'balance',
-        header: () => (
-          <div className="text-right dark:text-color-text-primary text-color-light-text-primary ">
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary">
             {String(t('transaction:balance'))}
           </div>
         ),
         cell: ({ row }) => (
-          <div
-            className={`dark:text-white text-color-light-text-primary text-left truncate flex items-center justify-end gap-1`}
-          >
-            {viewInFiat
-              ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
-              : currencyFormat1(row.original.balance, cryptoLen, '', false)}
+          <div className="flex flex-col gap-1">
+            <div
+              className={`${
+                row.original.amount < 0 ? 'text-red-500' : 'text-color-primary'
+              } flex items-center justify-end gap-1`}
+            >
+              <span>{row.original.amount < 0 ? '-' : ''}</span>
+              <span className="min-w-fit break-keep">
+                {viewInFiat
+                  ? currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, localFiat?.name)
+                  : currencyFormat1(row.original.amount, cryptoLen, '', false)}
+              </span>
+              <Image
+                height={20}
+                width={20}
+                src={`/img/fiats/${row.original.currency}.png`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+              />
+            </div>
+            <div
+              className={`dark:text-white text-color-light-text-primary text-left truncate flex items-center justify-end gap-1`}
+            >
+              {viewInFiat
+                ? currencyFormat1(row.original.balanceUsd * exchangeRate, fiatLen, localFiat?.name)
+                : currencyFormat1(row.original.balance, cryptoLen, '', false)}
 
-            <Image
-              height={20}
-              width={20}
-              src={`/img/fiats/${row.original.currency}.png`}
-              alt=""
-              onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
-              }}
-            />
+              <Image
+                height={20}
+                width={20}
+                src={`/img/fiats/${row.original.currency}.png`}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+              />
+            </div>
           </div>
         ),
         minSize: 120,
@@ -894,6 +1127,8 @@ const TransactionPage = () => {
         return swapColumns;
       case TRANSACTION_TYPE.Bill:
         return billColumns;
+      case TRANSACTION_TYPE.Withdraw:
+        return withdrawColumns;
       default:
         if (t(optionFilter.type.type) === TRANSACTION_TYPE.Bonus) {
           return bonusColumns;
