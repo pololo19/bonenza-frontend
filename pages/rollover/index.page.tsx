@@ -25,6 +25,7 @@ import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
+import { useWidth } from '@/base/hooks/useWidth';
 
 const LIST_FILTER_TYPE = [
   { name: 'transaction:allType', id: 1 },
@@ -58,6 +59,8 @@ const RolloverPage = () => {
   const [totalTable, setTotalTable] = useState<number>(0);
   const [dataTable, setDataTable] = useState<RolloverType[]>([]);
   const [isShowDetailTransaction, setIsShowDetailTransaction] = useState<boolean>(false);
+  const width = useWidth();
+
   const [transaction, setTransaction] = useState<RolloverType>({
     id: '',
     type: '',
@@ -95,16 +98,110 @@ const RolloverPage = () => {
   };
 
   const columns: ColumnDef<RolloverType>[] = useMemo(() => {
+    if(width > 1024) {
+      return [
+        {
+          accessorKey: 'type',
+          header: () => (
+            <div className="text-left dark:text-color-text-primary text-black">{String(t('transaction:type'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="dark:text-white text-black text-left truncate py-2">{row.original.type}</div>
+          ),
+          minSize: 20,
+        },
+        {
+          accessorKey: 'amount',
+          header: () => (
+            <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:amount'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div
+              className={`${
+                optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-primary'
+              } flex items-center justify-center gap-1`}
+            >
+              {optionFilter.type.name === 'Withdraw' ? '-' : ''}
+              {viewInFiat ? (
+                <>{currencyFormat1(Math.abs(row.original.amountUsd) * exchange, 2, localFiat?.name || 'USD')}</>
+              ) : (
+                currencyFormat1(Math.abs(row.original.amount), 4, '', false)
+              )}
+  
+              <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="" />
+            </div>
+          ),
+          minSize: 150,
+        },
+        {
+          accessorKey: 'time',
+          header: () => (
+            <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:time'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="dark:text-white text-black text-center flex sm:flex-row flex-col">
+              <div className="sm:hidden flex flex-col">
+                <span>{formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SECOND)}</span>
+                <span>{formatDate(new Date(row.original.createdAt), DATE_FORMAT_DEFAULT)}</span>
+              </div>
+              <div className="hidden sm:block">
+                {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+              </div>
+            </div>
+          ),
+          minSize: 100,
+        },
+        {
+          accessorKey: 'status',
+          header: () => (
+            <div className="text-right dark:text-color-text-primary text-black">{String(t('transaction:status'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="flex items-center justify-end gap-2 cursor-pointer">
+              <div
+                className={cn('w-[8px] h-[8px] rounded-full', {
+                  'bg-color-secondary':
+                    row.original.status.toString() === 'processing' ||
+                    row.original.status.toString() === 'pending' ||
+                    row.original.status.toString() === 'refunding' ||
+                    row.original.status.toString() === 'ongoing',
+                  'bg-color-red':
+                    row.original.status.toString() === 'rejected' ||
+                    row.original.status.toString() === 'failed' ||
+                    row.original.status.toString() === 'not_started',
+                  'bg-color-primary':
+                    row.original.status.toString() === 'done' ||
+                    row.original.status.toString() === 'all' ||
+                    row.original.status.toString() === 'complete' ||
+                    row.original.status.toString() === 'approved',
+                })}
+              ></div>
+              <div className="dark:text-white text-black break-keep	">
+                {replaceStatus(row.original.status)?.charAt(0).toUpperCase() +
+                  replaceStatus(row.original.status)?.slice(1)}
+              </div>
+              <ArrowRight2 className="h-[16px] w-[16px] dark:text-color-text-primary text-[#31373d]" />
+            </div>
+          ),
+          maxSize: 30,
+          minSize: 30,
+        },
+      ];
+    }
     return [
       {
         accessorKey: 'type',
         header: () => (
-          <div className="text-left dark:text-color-text-primary text-black">{String(t('transaction:type'))}</div>
+          <div className="text-left dark:text-color-text-primary text-black pl-2">{String(t('transaction:type'))}</div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black text-left truncate py-2">{row.original.type}</div>
+          <div className="min-w-[120px]">
+            <div className="dark:text-white text-black text-left truncate py-2">{row.original.type}</div>
+            <div className="dark:text-white text-black text-left">
+              {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
+          </div>
         ),
-        minSize: 20,
       },
       {
         accessorKey: 'amount',
@@ -127,30 +224,11 @@ const RolloverPage = () => {
             <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="" />
           </div>
         ),
-        minSize: 150,
-      },
-      {
-        accessorKey: 'time',
-        header: () => (
-          <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:time'))}</div>
-        ),
-        cell: ({ row }) => (
-          <div className="dark:text-white text-black text-center flex sm:flex-row flex-col">
-            <div className="sm:hidden flex flex-col">
-              <span>{formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SECOND)}</span>
-              <span>{formatDate(new Date(row.original.createdAt), DATE_FORMAT_DEFAULT)}</span>
-            </div>
-            <div className="hidden sm:block">
-              {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
-            </div>
-          </div>
-        ),
-        minSize: 100,
       },
       {
         accessorKey: 'status',
         header: () => (
-          <div className="text-right dark:text-color-text-primary text-black">{String(t('transaction:status'))}</div>
+          <div className="text-right dark:text-color-text-primary text-black pr-2">{String(t('transaction:status'))}</div>
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2 cursor-pointer">
@@ -179,11 +257,9 @@ const RolloverPage = () => {
             <ArrowRight2 className="h-[16px] w-[16px] dark:text-color-text-primary text-[#31373d]" />
           </div>
         ),
-        maxSize: 30,
-        minSize: 30,
       },
     ];
-  }, [localFiat, i18n.language, exchange, viewInFiat]);
+  }, [localFiat, i18n.language, exchange, viewInFiat, width]);
 
   const getRolloverOverview = useCallback(
     async (page: number) => {
