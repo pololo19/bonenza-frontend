@@ -60,6 +60,12 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
     }
   };
 
+  const { localFiat } = useSelector(
+    (state: AppState) => ({
+      localFiat: state.wallet.localFiat,
+    }),
+    shallowEqual,
+  );
   return (
     <>
       <div className="sm:max-w-[96px] h-full max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
@@ -96,9 +102,24 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
         <div className="flex gap-[5px]">
           <div
             data-tooltip-id={'CardBigWinData' + price}
-            className="cursor-pointer sm:w-full flex justify-center text-center sm:rounded-[5px] mr-1"
+            className="hidden sm:flex cursor-pointer sm:w-full  justify-center items-center text-center sm:rounded-[5px] mr-1"
           >
             <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+          </div>
+          <div
+            className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]"
+          >
+            <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+            <Image
+              src={localFiat?.logo || '/img/fiats/USD.png'}
+              width={12}
+              height={12}
+              alt="currency"
+              className="w-4 h-4"
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USD.png';
+              }}
+            />
           </div>
           <ArrowRight2 width={12} height={12} variant="Bulk" className="w-4 h-4 block sm:hidden"/>
         </div>
