@@ -167,20 +167,89 @@ const TransactionPage = () => {
   }, [localFiat, viewInFiat, optionFilter.type, i18n, exchangeRate]);
 
   const swapColumns: ColumnDef<TransactionSwapType>[] = useMemo(() => {
+    if(width > 1024) {
+      return [
+        {
+          accessorKey: 'swapFrom + swapTo',
+          header: () => <div className="text-left">{String(t('transaction:type'))}</div>,
+          cell: ({ row }) => (
+            <div className="text-white flex items-center gap-1 truncate">{t(optionFilter.type.name)}</div>
+          ),
+          minSize: 30,
+        },
+        {
+          accessorKey: 'swapFrom',
+          header: () => <div className="text-center">{String(t('transaction:swapFrom'))}</div>,
+          cell: ({ row }) => (
+            <div className="text-[#FF053B] flex items-center justify-center gap-1 truncate py-2">
+              <span>
+                -
+                {viewInFiat ? (
+                  <>
+                    {currencyFormat1(row.original?.swapFromUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}
+                  </>
+                ) : (
+                  currencyFormat1(row.original.swapFrom, cryptoLen, '', false)
+                )}
+              </span>
+              <Image
+                height={20}
+                width={20}
+                src={row.original?.swapFromLogo}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = `/img/fiats/USD.png`;
+                }}
+              />
+            </div>
+          ),
+          minSize: 120,
+        },
+        {
+          accessorKey: 'swapTo',
+          header: () => <div className="text-center">{String(t('transaction:swapTo'))}</div>,
+          cell: ({ row }) => (
+            <div className="text-color-primary flex items-center gap-1 justify-center truncate">
+              <span>
+                {viewInFiat ? (
+                  <>
+                    {currencyFormat1(row.original?.swapToUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}
+                  </>
+                ) : (
+                  currencyFormat1(row.original.swapTo, cryptoLen, '', false)
+                )}
+              </span>
+              <Image
+                height={20}
+                width={20}
+                src={row.original?.swapToLogo}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USD.png';
+                }}
+              />
+            </div>
+          ),
+          minSize: 120,
+        },
+        {
+          accessorKey: 'timeTransfer',
+          header: () => <div className="text-right">{String(t('transaction:time'))}</div>,
+          cell: ({ row }) => (
+            <div className="text-color-text-primary text-right">
+              {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
+          ),
+          minSize: 150,
+        },
+      ];
+    }
     return [
       {
-        accessorKey: 'swapFrom + swapTo',
-        header: () => <div className="text-left">{String(t('transaction:type'))}</div>,
-        cell: ({ row }) => (
-          <div className="text-white flex items-center gap-1 truncate">{t(optionFilter.type.name)}</div>
-        ),
-        minSize: 30,
-      },
-      {
         accessorKey: 'swapFrom',
-        header: () => <div className="text-center">{String(t('transaction:swapFrom'))}</div>,
+        header: () => <div className="text-left">{String(t('transaction:swapFrom'))}</div>,
         cell: ({ row }) => (
-          <div className="text-[#FF053B] flex items-center justify-center gap-1 truncate py-2">
+          <div className="text-[#FF053B] flex items-center justify-start gap-1 truncate py-2">
             <span>
               -
               {viewInFiat ? (
@@ -202,7 +271,6 @@ const TransactionPage = () => {
             />
           </div>
         ),
-        minSize: 120,
       },
       {
         accessorKey: 'swapTo',
@@ -229,17 +297,16 @@ const TransactionPage = () => {
             />
           </div>
         ),
-        minSize: 120,
       },
       {
         accessorKey: 'timeTransfer',
         header: () => <div className="text-right">{String(t('transaction:time'))}</div>,
         cell: ({ row }) => (
-          <div className="text-color-text-primary text-right">
+          <div className="text-color-text-primary text-right text-[11px]">
             {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
-        minSize: 150,
+        minSize: 130,
       },
     ];
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
