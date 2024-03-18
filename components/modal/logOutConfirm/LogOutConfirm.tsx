@@ -1,7 +1,8 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { googleLogout } from '@react-oauth/google';
 import { useRouter } from 'next/router';
-import { ElementType } from 'react';
+import { ElementType, useState } from 'react';
+import ReactLoading from 'react-loading';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
@@ -25,17 +26,21 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
-
-  const handleLogout = () => {
-    onClose();
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
+  const handleLogout = async () => {
     dispatch(changeIsShowAccountPannel(false));
     CookiesStorage.logout();
     googleLogout();
     dispatch(logoutState());
-    dispatch(logoutWallet());    
+    dispatch(logoutWallet());
+    onClose();
     router.replace(ROUTER.Home);
   };
-
+  const onClikLogOut = async () => {
+    setIsLoggingOut(true);
+    await handleLogout();
+    setIsLoggingOut(false);
+  }
   return (
     <>
       <MobileModal
@@ -55,8 +60,11 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
             {t('layout:logOutQuestion')}
           </div>
           <div className="flex justify-between gap-5">
-            <button className="bg-color-btn-primary py-3 w-[50%] rounded-large text-default" onClick={handleLogout}>
-              {t('layout:logOut')}
+            <button
+              className={`${isLoggingOut ? "py-0" : "py-3"} bg-color-btn-primary w-[50%] rounded-large text-default flex justify-center`}
+              onClick={onClikLogOut}
+            >
+              {isLoggingOut ? <ReactLoading type="bubbles" color="#50C627" delay={50} height={45} width={45}/> : <span>{t('layout:logOut')}</span>}
             </button>
             <button className="py-3 bg-gradient-btn-play w-[50%] rounded-large text-default" onClick={() => dispatch(changeIsShowLogOutConfirm(false))}>
               {t('layout:cancel')}

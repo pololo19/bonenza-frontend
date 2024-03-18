@@ -69,7 +69,7 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
             width={96}
             src={imgCard}
             alt=""
-            className="sm:w-full w-[36px] h-[auto] object-contain rounded-t-default"
+            className="sm:w-full w-[36px] h-[auto] object-contain sm:rounded-t-default"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(96, 96))}`}
           />
