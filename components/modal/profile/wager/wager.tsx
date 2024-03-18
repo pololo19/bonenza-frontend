@@ -43,9 +43,9 @@ export default function WagerContest({ userData }: WagerContestProps) {
     const wagerColumnsDefault: ColumnDef<WagerDetail>[] = [
       {
         accessorKey: 'date',
-        header: () => <div className="text-left text-[14px] font-normal">{t('profile:date')}</div>,
+        header: () => <div className="text-left text-[14px] font-normal pl-2">{t('profile:date')}</div>,
         cell: ({ row }) => (
-          <div className="font-medium text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate">
+          <div className="font-medium text-[12px] sm:text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate">
             {formatDate(new Date(row.original?.date || ''), 'L/dd/yyyy')} {t('profile:daily')}
           </div>
         ),
@@ -54,7 +54,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
         accessorKey: 'position',
         header: () => <div className="text-center text-[14px] font-normal">{t('profile:position')}</div>,
         cell: ({ row }) => (
-          <div className="font-medium text-[14px] dark:text-white text-[#000] truncate text-center">
+          <div className="font-medium text-[12px] sm:text-[14px] dark:text-white text-[#000] truncate text-center">
             {row.original.position}
             {row.original.position === 1
               ? 'st'
@@ -68,10 +68,10 @@ export default function WagerContest({ userData }: WagerContestProps) {
       },
       {
         accessorKey: 'prize',
-        header: () => <div className="text-right text-[14px] font-normal">{t('profile:prize')}</div>,
+        header: () => <div className="text-right text-[14px] font-normal pr-2">{t('profile:prize')}</div>,
         cell: ({ row }) => (
           <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px]">
-            <span className="dark:text-white text-black font-bold text-[13px]">
+            <span className="dark:text-white text-black font-bold text-[12px] sm:text-[14px]">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, fiatDecimals, localFiat?.name)
                 : currencyFormat1(row.original?.prize, cryptoDecimals, '', false)}

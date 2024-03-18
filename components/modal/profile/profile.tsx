@@ -132,9 +132,9 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   width={80}
                   height={69}
                   alt=""
-                  className=""
+                  className="w-[60px] h-[89px]"
                 />
-                <div className="absolute flex flex-col items-center left-0 top-[80px] w-full h-full">
+                <div className="absolute flex flex-col items-center left-0 top-[58px] w-full h-full">
                   <p className="text-[16px] font-semibold">
                     {`${vipData.level}`?.split(' ')?.at(0)?.charAt(0).toUpperCase()}
                     {`${vipData.level}`?.split(' ')?.at(1)}
@@ -273,14 +273,14 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                 <div className="flex gap-[5px] items-center">
                   <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
-                  <div className="text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
+                  <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
                 </div>
                 <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
               </div>
               <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                 <div className="flex gap-[5px] items-center">
                   <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
-                  <div className="text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
+                  <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
                 </div>
                 <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
               </div>
@@ -293,7 +293,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     className="w-[12px] h-[12px]"
                     alt=""
                   />
-                  <div className="text-[14px] text-color-text-primary">{t('profile:totalWagered')}</div>
+                  <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalWagered')}</div>
                 </div>
                 <div className="text-[14px] sm:text-[1rem] dark:text-white text-black truncate max-w-full px-1">
                   {viewInFiat ? (
