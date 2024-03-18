@@ -109,10 +109,10 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   useEffect(() => {
     const selectedUserId = userData.userId;
-    if (isLogin && show) {
+    if (show) {
       getUserProfile(selectedUserId);
     }
-  }, [userData, isLogin, show]);
+  }, [userData, show]);
 
   const returnHeader = useCallback(() => {
     return (
