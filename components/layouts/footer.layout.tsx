@@ -74,7 +74,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     },
     {
       icon: '/img/icon/USDT-logo.svg',
-      networkIcon: 'img/fiats/BNB.png',
+      networkIcon: 'img/fiats/black_eth.png',
       network: 'ETH',
       token: 'USDT',
     },
@@ -430,7 +430,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                         src={item.networkIcon}
                         width={50}
                         height={50}
-                        className="rounded-full border-solid border-2 border-white absolute right-[0px] bottom-[0px] max-w-[20px] max-h-[20px]"
+                        className="bg-white rounded-full border-solid border-2 border-white absolute right-[0px] bottom-[0px] max-w-[20px] max-h-[20px]"
                       />}
                     </div>
                     <Tooltip
