@@ -4,7 +4,7 @@ import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
@@ -87,7 +87,7 @@ function GamePage() {
 
   const { query, reload, route, pathname, asPath } = useRouter();
   const { gameId } = query;
-
+  const [isSatisfied, setIsSatisfied] = useState<boolean>(true);
   const dispatch = useDispatch();
 
   const { isLogin, localFiat, activeCurrency, balances, betHistory, language, viewInFiat } = useSelector(
@@ -103,13 +103,6 @@ function GamePage() {
     }),
     shallowEqual,
   );
-
-  const isSatisfied = useMemo(() => {
-    const tempBalances = [...balances];
-    const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
-    const balance = selectedBalance?.amount ?? 0;
-    return balance > 0;
-  }, [balances, activeCurrency]);
 
   const getGameDetail = async () => {
     try {
@@ -184,8 +177,14 @@ function GamePage() {
   };
   const handlePlayRequest = async () => {
     try {
-      if (!isSatisfied) {
-        toast.error(t('withdraw:withdrawAmountWrong'), { containerId: TOAST_ENUM.COMMON });
+      
+      const tempBalances = [...balances];
+      const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
+      const balance = selectedBalance?.amount ?? 0;
+      const isBalanceSatisfied = balance > 0;
+      setIsSatisfied(isBalanceSatisfied);
+
+      if (!isBalanceSatisfied) {
         return;
       }
       setIsLoadingGame({
