@@ -115,7 +115,7 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
           </div>
           <div
             className={`sm:py-[20px] pt-[10px] pb-[20px] sm:pb-[75px] sm:px-[30px] px-[10px] mx-auto flex-1 sm:overflow-y-auto w-full flex flex-col ${
-              forgotKey ? 'justify-center' : 'justify-between'
+              forgotKey ? 'justify-start' : 'justify-start'
             }`}
           >
             {returnForm()}
