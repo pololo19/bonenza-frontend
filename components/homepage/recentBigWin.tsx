@@ -53,7 +53,8 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
     shallowEqual,
   );
 
-  const openModalProfileUser = () => {
+  const openModalProfileUser = (event: any) => {
+    event.stopPropagation();
     dispatch(setUserData(userData));
     if (userData?.username) {
       dispatch(changeIsShowInformation(true));
