@@ -82,15 +82,91 @@ const TransactionPage = () => {
   const [columnType, setColumnType] = useState<TRANSACTION_TYPE>(TRANSACTION_TYPE.Deposit);
 
   const depositColumns: ColumnDef<TransactionType>[] = useMemo(() => {
+    if(width > 1024) {
+      return [
+        {
+          accessorKey: 'transactionType',
+          header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:type'))}</div>,
+          cell: ({ row }) => (
+            <div className="dark:text-white text-black text-left truncate py-2">{t(optionFilter.type.name)}</div>
+          ),
+          minSize: 30,
+        },
+        {
+          accessorKey: 'amount',
+          header: () => (
+            <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:amount'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div
+              className={`${
+                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
+              } flex items-center justify-center gap-1`}
+            >
+              {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
+              {viewInFiat ? (
+                <>{currencyFormat1(row.original.amountUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}</>
+              ) : (
+                currencyFormat1(row.original.amount, cryptoLen, '', false)
+              )}
+
+              <Image
+                height={20}
+                width={20}
+                src={row.original.symbolLogo}
+                onError={(e) => {
+                  e.currentTarget.src = `/img/fiats/USDT.png`;
+                }}
+                alt=""
+              />
+            </div>
+          ),
+          minSize: 20,
+        },
+        {
+          accessorKey: 'time',
+          header: () => (
+            <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:timeTransfer'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="dark:text-white text-black">
+              {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+            </div>
+          ),
+          maxSize: 30,
+        },
+        {
+          accessorKey: 'status',
+          header: () => (
+            <div className="text-right dark:text-[#64748b] text-black">{String(t('transaction:status'))}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="flex items-center justify-end gap-2">
+              <div
+                className={cn(`w-[8px] h-[8px] rounded-full`, {
+                  'bg-color-secondary':
+                    row.original.status === 'processing' ||
+                    row.original.status === 'pending' ||
+                    row.original.status === 'refunding',
+                  // row.original.status === 'ongoing',
+                  'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
+                  // row.original.status === 'not_started',
+                  'bg-color-primary':
+                    // row.original.status === 'done' ||
+                    // row.original.status === 'all' ||
+                    row.original.status === 'complete' || row.original.status === 'approved',
+                })}
+              />
+              <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
+              <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
+            </div>
+          ),
+          maxSize: 30,
+          minSize: 30,
+        },
+      ];
+    }
     return [
-      {
-        accessorKey: 'transactionType',
-        header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:type'))}</div>,
-        cell: ({ row }) => (
-          <div className="dark:text-white text-black text-left truncate py-2">{t(optionFilter.type.name)}</div>
-        ),
-        minSize: 30,
-      },
       {
         accessorKey: 'amount',
         header: () => (
