@@ -436,7 +436,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     <Tooltip
                       id={`accepted-currency-${index}-tooltip`}
                       place="bottom"
-                      className="dark:bg-color-card-header-primary bg-white !rounded-large"
+                      className="dark:bg-color-card-header-primary bg-white !rounded-large z-[10]"
                       opacity={100}
                       delayHide={0}
                       clickable
