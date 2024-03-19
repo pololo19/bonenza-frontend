@@ -144,6 +144,10 @@ const API_WAGER_CONTEST_LIST = '/contest/list';
 const API_WAGER_CONTEST_HISTORY = '/contest/history';
 const API_WAGER_CONTEST_POSITION = '/contest/position';
 
+/************************************ Chat **********************************/
+const API_CHAT_LATEST = '/chat/latest';
+const API_CHAT_ADD = '/chat/add';
+
 export {
   API_ADMIN_LOGIN,
   API_AFFILIATE,
@@ -182,6 +186,8 @@ export {
   API_BONUS_CLAIM_LIST,
   API_BONUS_DETAILS,
   API_BONUS_USDT_BONUS_HISTORY,
+  API_CHAT_ADD,
+  API_CHAT_LATEST,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,
