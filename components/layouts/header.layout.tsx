@@ -194,16 +194,18 @@ export default function Navbar() {
                 <ChatSignOutIcon className="w-[20px] h-[20px] text-color-text-primary" />
               </button>
             )}
-            <button
-              type="button"
-              className={`sm:block hidden relative rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
-              onClick={() => {
-                dispatch(changeShowChatType(!showChatType));
-              }}
-            >
-              <MessageText1 className="w-[20px] h-[20px] text-white" variant="Bold" />
-              <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]"></span>
-            </button>
+            {isLogin && (
+              <button
+                type="button"
+                className={`sm:block hidden relative rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+                onClick={() => {
+                  dispatch(changeShowChatType(!showChatType));
+                }}
+              >
+                <MessageText1 className="w-[20px] h-[20px] text-white" variant="Bold" />
+                <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]"></span>
+              </button>
+            )}
 
             {/* Bonus  */}
             {isLogin && <RewardDropdown />}
