@@ -405,7 +405,13 @@
     "bonusHistory": "奖金历史",
     "upTo": "取决于",
     "getBonusSuccess": "成功获得奖金",
-    "more": "更多的"
+    "more": "更多的",
+    "depositDetected": "检测到存款",
+    "depositDetectedDescription": "我们已检测到您的付款，正在等待网络验证付款",
+    "depositDetectedView": "在区块链上查看",
+    "depositCompleted": "存款完成",
+    "depositCompletedDescription": "付款已收到，可能需要一分钟时间才会显示在您的帐户中",
+    "depositCompletedView": "查看交易详情"
   },
   "rakeBackDetail": {
     "viewContract": "查看合同",

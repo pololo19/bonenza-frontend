@@ -405,7 +405,13 @@
     "bonusHistory": "Lịch sử tiền thưởng",
     "upTo": "Lên đến",
     "getBonusSuccess": "Nhận tiền thưởng thành công",
-    "more": "Hơn"
+    "more": "Hơn",
+    "depositDetected": "Đã phát hiện tiền gửi",
+    "depositDetectedDescription": "Chúng tôi đã phát hiện khoản thanh toán của bạn, đang chờ mạng xác minh khoản thanh toán",
+    "depositDetectedView": "Xem trên Blockchain",
+    "depositCompleted": "Gửi tiền đã hoàn tất",
+    "depositCompletedDescription": "Đã nhận được thanh toán, có thể mất một phút để thanh toán được hiển thị trong tài khoản của bạn",
+    "depositCompletedView": "Xem chi tiết giao dịch"
   },
   "rakeBackDetail": {
     "viewContract": "Xem hợp đồng",

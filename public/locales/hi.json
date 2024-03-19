@@ -405,7 +405,13 @@
     "bonusHistory": "बोनस इतिहास",
     "upTo": "तक",
     "getBonusSuccess": "बोनस सफलता प्राप्त करें",
-    "more": "अधिक"
+    "more": "अधिक",
+    "depositDetected": "जमा का पता चला",
+    "depositDetectedDescription": "हमने आपके भुगतान का पता लगा लिया है, हम नेटवर्क द्वारा भुगतान सत्यापित होने की प्रतीक्षा कर रहे हैं",
+    "depositDetectedView": "ब्लॉकचेन पर देखें",
+    "depositCompleted": "जमा पूर्ण",
+    "depositCompletedDescription": "भुगतान प्राप्त हो गया, इसे आपके खाते में प्रदर्शित होने में एक मिनट लग सकता है",
+    "depositCompletedView": "लेन-देन विवरण देखें"
   },
   "rakeBackDetail": {
     "viewContract": "अनुबंध देखें",

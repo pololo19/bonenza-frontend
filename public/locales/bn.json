@@ -405,7 +405,13 @@
     "bonusHistory": "বোনাস ইতিহাস",
     "upTo": "পর্যন্ত",
     "getBonusSuccess": "বোনাস সাফল্য পান",
-    "more": "আরও"
+    "more": "আরও",
+    "depositDetected": "আমানত সনাক্ত করা হয়েছে",
+    "depositDetectedDescription": "আমরা আপনার অর্থপ্রদান শনাক্ত করেছি, নেটওয়ার্ক দ্বারা অর্থপ্রদান যাচাইয়ের জন্য অপেক্ষা করছি৷",
+    "depositDetectedView": "ব্লকচেইনে দেখুন",
+    "depositCompleted": "জমা সম্পূর্ণ হয়েছে",
+    "depositCompletedDescription": "পেমেন্ট প্রাপ্ত হয়েছে, এটি আপনার অ্যাকাউন্টে দেখানো হতে এক মিনিট সময় লাগতে পারে",
+    "depositCompletedView": "লেনদেনের বিবরণ দেখুন"
   },
   "rakeBackDetail": {
     "viewContract": "চুক্তি দেখুন",

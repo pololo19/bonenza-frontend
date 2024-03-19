@@ -405,7 +405,13 @@
     "bonusHistory": "Histórico de bônus",
     "upTo": "Até",
     "getBonusSuccess": "Obtenha bônus de sucesso",
-    "more": "Mais"
+    "more": "Mais",
+    "depositDetected": "Depósito detectado",
+    "depositDetectedDescription": "Detectamos seu pagamento e aguardamos que o pagamento seja verificado pela rede",
+    "depositDetectedView": "Ver no Blockchain",
+    "depositCompleted": "Depósito concluído",
+    "depositCompletedDescription": "Pagamento recebido, pode levar um minuto para aparecer em sua conta",
+    "depositCompletedView": "Ver detalhes da transação"
   },
   "rakeBackDetail": {
     "viewContract": "Ver Contrato",
