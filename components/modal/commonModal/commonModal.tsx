@@ -48,14 +48,14 @@ export default function CommonModal({
         >
           <div
             className={cn(
-              'flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0 z-[100]',
+              'flex min-h-full sm:items-center items-start justify-center text-center z-[100]',
               position,
             )}
             onClick={onClose}
           >
             <div
               className={cn(
-                'rounded-large overflow-hidden z-[100] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl sm:my-8 w-full max-w-[799px] sm:max-h-[90vh] max-h-[100vh] sm:h-auto h-screen',
+                'sm:rounded-large overflow-hidden z-[100] text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl w-full max-w-[799px] max-h-[100vh] sm:h-auto h-screen',
                 panelClass,
               )}
               onClick={(e) => e.stopPropagation()}
