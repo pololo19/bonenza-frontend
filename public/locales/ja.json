@@ -405,7 +405,13 @@
     "bonusHistory": "ボーナス履歴",
     "upTo": "まで",
     "getBonusSuccess": "ボーナス成功を獲得する",
-    "more": "もっと"
+    "more": "もっと",
+    "depositDetected": "堆積物が検出されました",
+    "depositDetectedDescription": "あなたの支払いを検出しました。ネットワークによる支払いの確認を待っています。",
+    "depositDetectedView": "ブロックチェーンについて見る",
+    "depositCompleted": "入金完了",
+    "depositCompletedDescription": "支払いを受け取りました。アカ​​ウントに表示されるまでに 1 分ほどかかる場合があります",
+    "depositCompletedView": "取引詳細の表示"
   },
   "rakeBackDetail": {
     "viewContract": "契約書を見る",

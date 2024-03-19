@@ -405,7 +405,13 @@
     "bonusHistory": "Bonusverlauf",
     "upTo": "Bis zu",
     "getBonusSuccess": "Erhalten Sie Bonus-Erfolg",
-    "more": "Mehr"
+    "more": "Mehr",
+    "depositDetected": "Einzahlung erkannt",
+    "depositDetectedDescription": "Wir haben Ihre Zahlung erkannt und warten darauf, dass die Zahlung vom Netzwerk bestätigt wird",
+    "depositDetectedView": "Blick auf Blockchain",
+    "depositCompleted": "Einzahlung abgeschlossen",
+    "depositCompletedDescription": "Die Zahlung ist eingegangen. Es kann eine Minute dauern, bis sie auf Ihrem Konto angezeigt wird",
+    "depositCompletedView": "Transaktionsdetails anzeigen"
   },
   "rakeBackDetail": {
     "viewContract": "Vertrag ansehen",

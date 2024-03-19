@@ -405,7 +405,13 @@
     "bonusHistory": "Sejarah Bonus",
     "upTo": "Sehingga",
     "getBonusSuccess": "Dapatkan kejayaan bonus",
-    "more": "Lagi"
+    "more": "Lagi",
+    "depositDetected": "Deposit Dikesan",
+    "depositDetectedDescription": "Kami telah mengesan pembayaran anda, menunggu pembayaran disahkan oleh rangkaian",
+    "depositDetectedView": "Lihat di Blockchain",
+    "depositCompleted": "Deposit Selesai",
+    "depositCompletedDescription": "Pembayaran diterima, mungkin mengambil masa seminit untuk ditunjukkan dalam akaun anda",
+    "depositCompletedView": "Lihat Butiran Transaksi"
   },
   "rakeBackDetail": {
     "viewContract": "Lihat Kontrak",

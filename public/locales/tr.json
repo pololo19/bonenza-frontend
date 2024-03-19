@@ -405,7 +405,13 @@
     "bonusHistory": "Bonus Geçmişi",
     "upTo": "kadar",
     "getBonusSuccess": "Bonus başarısı elde edin",
-    "more": "Daha"
+    "more": "Daha",
+    "depositDetected": "Depozito Tespit Edildi",
+    "depositDetectedDescription": "Ödemenizi tespit ettik, ödemenin ağ tarafından doğrulanmasını bekliyoruz",
+    "depositDetectedView": "Blockchain'de görüntüle",
+    "depositCompleted": "Para Yatırma Tamamlandı",
+    "depositCompletedDescription": "Ödeme alındı, hesabınızda görünmesi bir dakika sürebilir",
+    "depositCompletedView": "İşlem Detaylarını Görüntüle"
   },
   "rakeBackDetail": {
     "viewContract": "Sözleşmeyi Görüntüle",

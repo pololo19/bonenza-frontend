@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ElementType, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
+import { useSelector } from 'react-redux';
 
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, LIST_FILTER_STATUS } from '@/base/constants/common';
 import {
@@ -15,6 +16,7 @@ import {
   transformUUID,
   transformWalletAddress,
 } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 import { TransactionType } from '@/base/types/common';
 import { TRANSACTION_TYPE } from '@/base/types/requestTypes';
 
@@ -38,13 +40,25 @@ export default function ModalDetailTransaction({
 }: ModalDetailTransactionProps) {
   const { t } = useTranslation('');
 
+  const { activeTransactionStatus } = useSelector(
+    (state: AppState) => ({
+      activeTransactionStatus: state.wallet.activeTransactionStatus,
+    }),
+  );
+  
+  const transactionStatus = useMemo(() => {
+    if(transaction.orderId === activeTransactionStatus.id && activeTransactionStatus.status === 1)
+      return "complete";
+    return transaction.status;
+  }, [activeTransactionStatus, transaction]);
+
   const isProcess = useMemo(() => {
-    return transaction.status === 'processing' || transaction.status === 'pending';
-  }, [transaction]);
+    return transactionStatus === 'processing' || transactionStatus === 'pending';
+  }, [transactionStatus]);
 
   const isFailed = useMemo(() => {
-    return transaction.status === 'failed' || transaction.status === 'rejected';
-  }, [transaction]);
+    return transactionStatus === 'failed' || transactionStatus === 'rejected';
+  }, [transactionStatus]);
 
   return (
     <>
@@ -90,25 +104,25 @@ export default function ModalDetailTransaction({
                 <div
                   className={cn(`w-[8px] h-[8px] rounded-full`, {
                     'bg-color-secondary':
-                      (transaction.status?.toString() || '') === 'processing' ||
-                      (transaction.status?.toString() || '') === 'pending' ||
-                      (transaction.status?.toString() || '') === 'refunding' ||
-                      (transaction.status?.toString() || '') === 'ongoing',
+                      (transactionStatus?.toString() || '') === 'processing' ||
+                      (transactionStatus?.toString() || '') === 'pending' ||
+                      (transactionStatus?.toString() || '') === 'refunding' ||
+                      (transactionStatus?.toString() || '') === 'ongoing',
                     'bg-color-red':
-                      (transaction.status?.toString() || '') === 'rejected' ||
-                      (transaction.status?.toString() || '') === 'failed' ||
-                      (transaction.status?.toString() || '') === 'not_started',
+                      (transactionStatus?.toString() || '') === 'rejected' ||
+                      (transactionStatus?.toString() || '') === 'failed' ||
+                      (transactionStatus?.toString() || '') === 'not_started',
                     'bg-color-primary':
-                      (transaction.status?.toString() || '') === 'done' ||
-                      (transaction.status?.toString() || '') === 'all' ||
-                      (transaction.status?.toString() || '') === 'complete' ||
-                      (transaction.status?.toString() || '') === 'approved',
+                      (transactionStatus?.toString() || '') === 'done' ||
+                      (transactionStatus?.toString() || '') === 'all' ||
+                      (transactionStatus?.toString() || '') === 'complete' ||
+                      (transactionStatus?.toString() || '') === 'approved',
                   })}
                 />
-                <div className="dark:text-white text-black">{convertStatus(transaction.status)}</div>
+                <div className="dark:text-white text-black">{convertStatus(transactionStatus)}</div>
               </div>
             </div>
-            {transaction.status === LIST_FILTER_STATUS[1].type && (
+            {transactionStatus === LIST_FILTER_STATUS[1].type && (
               <div className="flex items-center justify-between text-color-light-text-primary dark:text-color-text-primary">
                 <span className="">{String(t('transaction:txid'))}</span>
                 <div className="flex gap-2 items-center">
