@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { ElementType, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, LIST_FILTER_STATUS } from '@/base/constants/common';
 import {
@@ -43,7 +43,7 @@ export default function ModalDetailTransaction({
   const { activeTransactionStatus } = useSelector(
     (state: AppState) => ({
       activeTransactionStatus: state.wallet.activeTransactionStatus,
-    }),
+    }),shallowEqual
   );
   
   const transactionStatus = useMemo(() => {
