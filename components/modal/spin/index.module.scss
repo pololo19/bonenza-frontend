@@ -1,0 +1,15 @@
+.spin {
+
+    .spinImg {
+        position: relative;
+        z-index: 2;
+        display: block;
+        transition: transform cubic-bezier(.42,0,.03,1) .7s;
+    }
+
+    &:hover {
+        .spinImg {
+            transform: scale3d(1.1,1.1,1);
+        }
+    }
+}

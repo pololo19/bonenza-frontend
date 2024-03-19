@@ -36,6 +36,7 @@ import {
   changeIsShowRakeBackDetail,
   changeIsShowReferAndEarn,
   changeIsShowResetPassword,
+  changeIsShowSpin,
   changeIsShowUpdateAvatar,
   changeIsShowUpdateInformation,
   changeIsShowVerifyMailAndPhone,
@@ -95,6 +96,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalSpin from '../modal/spin/spin';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -180,6 +182,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     betHistory,
     fiatSymbols,
     cryptoSymbols,
+    isShowSpin,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -218,6 +221,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       gameSocket: state.socket.gameSocket,
       depositTime: state.wallet.depositTime,
       betHistory: state.game.betHistory,
+      isShowSpin: state.modal.isShowSpin,
     }),
     shallowEqual,
   );
@@ -829,6 +833,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       )}
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
+      <ModalSpin show={isShowSpin || false} onClose={() => dispatch(changeIsShowSpin(false))} />
     </>
   );
 };
