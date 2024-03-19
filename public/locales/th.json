@@ -405,7 +405,13 @@
     "bonusHistory": "ประวัติโบนัส",
     "upTo": "จนถึง",
     "getBonusSuccess": "รับโบนัสความสำเร็จ",
-    "more": "มากกว่า"
+    "more": "มากกว่า",
+    "depositDetected": "ตรวจพบเงินฝาก",
+    "depositDetectedDescription": "เราตรวจพบการชำระเงินของคุณ กำลังรอการชำระเงินที่จะได้รับการยืนยันจากเครือข่าย",
+    "depositDetectedView": "ดูบน Blockchain",
+    "depositCompleted": "การฝากเงินเสร็จสมบูรณ์",
+    "depositCompletedDescription": "ได้รับการชำระเงินแล้ว อาจใช้เวลาสักครู่จึงจะปรากฏในบัญชีของคุณ",
+    "depositCompletedView": "ดูรายละเอียดธุรกรรม"
   },
   "rakeBackDetail": {
     "viewContract": "ดูสัญญา",

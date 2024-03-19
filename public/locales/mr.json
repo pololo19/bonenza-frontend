@@ -405,7 +405,13 @@
     "bonusHistory": "बोनस इतिहास",
     "upTo": "इथपर्यंत",
     "getBonusSuccess": "बोनस यश मिळवा",
-    "more": "अधिक"
+    "more": "अधिक",
+    "depositDetected": "ठेव आढळली",
+    "depositDetectedDescription": "आम्हाला तुमचे पेमेंट आढळले आहे, नेटवर्कद्वारे पेमेंट सत्यापित होण्याची वाट पाहत आहोत",
+    "depositDetectedView": "ब्लॉकचेन वर पहा",
+    "depositCompleted": "ठेव पूर्ण",
+    "depositCompletedDescription": "पेमेंट प्राप्त झाले, ते तुमच्या खात्यात दर्शविण्यात एक मिनिट लागू शकतो",
+    "depositCompletedView": "व्यवहार तपशील पहा"
   },
   "rakeBackDetail": {
     "viewContract": "करार पहा",

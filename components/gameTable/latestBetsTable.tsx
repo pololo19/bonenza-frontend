@@ -120,7 +120,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'betId',
         header: String(t('gameTable:game')),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-[#31373d] sm:text-[16px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px] sm:w-auto w-[20vw]">
+          <div
+            className="dark:text-color-text-primary text-[#31373d] sm:text-[16px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px] sm:w-auto w-[20vw]"
+            onClick={() => openModalBetDetail(row)}
+          >
             <Image
               height={24}
               width={24}
@@ -183,7 +186,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         accessorKey: 'multiplier',
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary sm:text-[16px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]">
+          <div
+            className="dark:text-color-text-primary sm:text-[16px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]"
+            onClick={() => openModalBetDetail(row)}
+          >
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
@@ -193,7 +199,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: String(t('gameTable:profitAmount')),
         minSize: 60,
         cell: ({ row }) => (
-          <div className={cn('flex items-center sm:text-[16px] text-[12px] justify-end gap-[5px] sm:p-2 px-[5px]')}>
+          <div
+            className={cn('flex items-center sm:text-[16px] text-[12px] justify-end gap-[5px] sm:p-2 px-[5px]')}
+            onClick={() => openModalBetDetail(row)}
+          >
             <div
               className={cn('font-bold text-end truncate', {
                 'text-color-primary': row.original.profitAmount >= 0,

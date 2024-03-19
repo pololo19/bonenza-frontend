@@ -42,6 +42,11 @@ const initialState: WalletState = {
   activeTransactionStatus: {
     id: '',
     status: 0,
+    amount: 0,
+    amountUsd: 0,
+    symbol: 'USD',
+    hash: '0x',
+    time: new Date('19/03/2024'),
   }, // socket deposit address
 };
 
@@ -131,7 +136,7 @@ export const walletReducer = createSlice({
     setSwapFee: (state: WalletState, action: PayloadAction<number>) => {
       state.swapFee = action.payload;
     },
-    setActiveTransactionStatus: (state: WalletState, action: PayloadAction<{ id: string; status: number }>) => {
+    setActiveTransactionStatus: (state: WalletState, action: PayloadAction<{ id: string; status: number, amount: number, amountUsd: number, symbol: string, hash: string, time: Date }>) => {
       state.activeTransactionStatus = action.payload;
     },
   },

@@ -405,7 +405,13 @@
     "bonusHistory": "Historique des bonus",
     "upTo": "Jusqu'à",
     "getBonusSuccess": "Obtenez un bonus de réussite",
-    "more": "Plus"
+    "more": "Plus",
+    "depositDetected": "Dépôt détecté",
+    "depositDetectedDescription": "Nous avons détecté votre paiement, en attente que le paiement soit vérifié par le réseau",
+    "depositDetectedView": "Vue sur la Blockchain",
+    "depositCompleted": "Dépôt terminé",
+    "depositCompletedDescription": "Paiement reçu, l'affichage sur votre compte peut prendre une minute",
+    "depositCompletedView": "Afficher les détails de la transaction"
   },
   "rakeBackDetail": {
     "viewContract": "Voir le contrat",

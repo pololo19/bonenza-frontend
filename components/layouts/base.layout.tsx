@@ -28,6 +28,7 @@ import {
   changeIsShowCropAvatar,
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
+  changeIsShowDepositProgress,
   changeIsShowInformation,
   changeIsShowLogOutConfirm,
   changeIsShowMenuPannel,
@@ -75,6 +76,7 @@ import MobileModal from '../modal/commonModal/mobileModal';
 import ModalCropAvatar from '../modal/cropAvatar/cropAvatar';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDeposit from '../modal/depositModal/depositModal';
+import ModalDepositProgress from '../modal/depositModal/depositProgress';
 import ModalLogOutConfirm from '../modal/logOutConfirm/LogOutConfirm';
 import ModalMultiLanguage from '../modal/multiLanguage/MultiLanguage';
 import ModalProfile from '../modal/profile/profile';
@@ -83,6 +85,7 @@ import ModalRakeBack from '../modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '../modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ModalReferAndEarn from '../modal/referAndEarn/referAndEarn';
 import ModalResetPassword from '../modal/resetPassword/resetPassword';
+import ModalSpin from '../modal/spin/spin';
 import ModalUpdateAvatar from '../modal/updateAvatar/updateAvatar';
 import ModalUpdateProfile from '../modal/updateProfile/updateProfile';
 import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndPhone';
@@ -96,7 +99,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import ModalSpin from '../modal/spin/spin';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -175,6 +177,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowLogOutConfirm,
     verifyModeType,
     isShowWagerContestHistory,
+    isShowDepositProgress,
     cryptoArray,
     userId,
     walletSocket,
@@ -222,6 +225,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       depositTime: state.wallet.depositTime,
       betHistory: state.game.betHistory,
       isShowSpin: state.modal.isShowSpin,
+      isShowDepositProgress: state.modal.isShowDepositProgress,
     }),
     shallowEqual,
   );
@@ -325,15 +329,25 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         // const data = JSON.parse(item);
         const status = data?.status || '';
         const amount = data?.amount || 0;
+        const amountUsd = data?.amount_usd || 0;
         const symbol = data?.symbol || 'USDT';
-        const id = data?.transaction_id || '';
+        const hash = data?.hash || '0x';
+        const time = new Date();
+        const id = data?.transaction_id || '0';
+
         switch (status) {
           case 'Processing':
             toast.success(t('deposit:depositprogress'), { containerId: TOAST_ENUM.COMMON });
+            dispatch(changeIsShowDepositProgress(true));
             dispatch(
               setActiveTransactionStatus({
                 id,
                 status: 0,
+                amount,
+                amountUsd,
+                symbol,
+                hash,
+                time,
               }),
             );
             dispatch(getBalance());
@@ -342,10 +356,16 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             toast.success(`${t('deposit:depositComplete')} ${amount} ${symbol}`, {
               containerId: TOAST_ENUM.COMMON,
             });
+            dispatch(changeIsShowDepositProgress(true));
             dispatch(
               setActiveTransactionStatus({
                 id,
                 status: 1,
+                amount,
+                amountUsd,
+                symbol,
+                hash,
+                time,
               }),
             );
             dispatch(getBalance());
@@ -824,6 +844,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       <ModalWagerContestHistory
         show={isShowWagerContestHistory || false}
         onClose={() => dispatch(changeIsShowWagerContestHistory(false))}
+      />
+      <ModalDepositProgress
+        show={isShowDepositProgress || false}
+        onClose={() => dispatch(changeIsShowDepositProgress(false))}
       />
       {isLogin && (
         <ModalLogOutConfirm

@@ -64,6 +64,8 @@ export type ModalState = {
   isShowWagerContestHistory?: boolean;
   isShowLogOutConfirm?: boolean;
   isShowSpin?: boolean;
+  isShowDepositProgress?: boolean;
+  isShowDetailTransaction?: boolean;
 };
 
 export type LoadingState = {
@@ -107,6 +109,11 @@ export type WalletState = {
   activeTransactionStatus: {
     id: string;
     status: number; // 0 processing, 1 complete
+    amountUsd: number;
+    amount: number;
+    symbol: string;
+    hash: string;
+    time: Date;
   };
 };
 

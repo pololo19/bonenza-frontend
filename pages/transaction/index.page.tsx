@@ -1215,7 +1215,6 @@ const TransactionPage = () => {
 
   useEffect(() => {
     if (activeTransaction.id) {
-      console.log(activeTransaction);
 
       if (activeTransaction.status == 0) {
         getTransactions(1);

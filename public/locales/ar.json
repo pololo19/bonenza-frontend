@@ -405,7 +405,13 @@
     "bonusHistory": "تاريخ المكافأة",
     "upTo": "يصل إلى",
     "getBonusSuccess": "احصل على مكافأة النجاح",
-    "more": "أكثر"
+    "more": "أكثر",
+    "depositDetected": "تم الكشف عن الإيداع",
+    "depositDetectedDescription": "لقد اكتشفنا دفعتك، في انتظار التحقق من الدفع بواسطة الشبكة",
+    "depositDetectedView": "عرض على Blockchain",
+    "depositCompleted": "اكتمل الإيداع",
+    "depositCompletedDescription": "تم استلام الدفعة، قد يستغرق ظهورها في حسابك دقيقة",
+    "depositCompletedView": "عرض تفاصيل المعاملة"
   },
   "rakeBackDetail": {
     "viewContract": "عرض العقد",

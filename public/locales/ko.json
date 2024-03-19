@@ -405,7 +405,13 @@
     "bonusHistory": "보너스 내역",
     "upTo": "까지",
     "getBonusSuccess": "보너스 성공을 얻으세요",
-    "more": "더"
+    "more": "더",
+    "depositDetected": "입금 감지됨",
+    "depositDetectedDescription": "귀하의 결제가 감지되었습니다. 네트워크에서 결제가 확인되기를 기다리는 중입니다.",
+    "depositDetectedView": "블록체인에서 보기",
+    "depositCompleted": "입금완료",
+    "depositCompletedDescription": "결제가 완료되었습니다. 계정에 표시되는 데 몇 분 정도 걸릴 수 있습니다.",
+    "depositCompletedView": "거래 세부정보 보기"
   },
   "rakeBackDetail": {
     "viewContract": "계약 보기",

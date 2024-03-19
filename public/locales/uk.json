@@ -405,7 +405,13 @@
     "bonusHistory": "Історія бонусів",
     "upTo": "Аж до",
     "getBonusSuccess": "Отримайте бонусний успіх",
-    "more": "більше"
+    "more": "більше",
+    "depositDetected": "Депозит виявлено",
+    "depositDetectedDescription": "Ми виявили ваш платіж, очікуємо, поки платіж буде перевірено мережею",
+    "depositDetectedView": "Переглянути на Blockchain",
+    "depositCompleted": "Депозит завершено",
+    "depositCompletedDescription": "Платіж отримано, може знадобитися хвилина, перш ніж він відобразиться у вашому обліковому записі",
+    "depositCompletedView": "Переглянути деталі транзакції"
   },
   "rakeBackDetail": {
     "viewContract": "Переглянути договір",

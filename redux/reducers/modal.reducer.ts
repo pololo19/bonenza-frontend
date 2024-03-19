@@ -36,6 +36,7 @@ export const initialCommonState: ModalState = {
   isShowWagerContestHistory: false,
   isShowLogOutConfirm: false,
   isShowSpin: false,
+  isShowDepositProgress: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -135,6 +136,9 @@ export const queryDataSlice = createSlice({
     changeIsShowSpin: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowSpin = action.payload;
     },
+    changeIsShowDepositProgress: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowDepositProgress = action.payload;
+    },
     setInitialModals: (state: ModalState) => {
       state.isShowAccountPannel = false;
       state.isShowInformation = false;
@@ -167,6 +171,7 @@ export const queryDataSlice = createSlice({
       state.verifyModeType = VerifyModeEnum.MAIL;
       state.isShowWagerContestHistory = false;
       state.isShowLogOutConfirm = false;
+      state.isShowDepositProgress = false;
     },
   },
 });
@@ -202,7 +207,8 @@ export const {
   changeVerifyMode,
   changeIsShowWagerContestHistory,
   changeIsShowLogOutConfirm,
-  setInitialModals,
   changeIsShowSpin,
+  changeIsShowDepositProgress,
+  setInitialModals,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
