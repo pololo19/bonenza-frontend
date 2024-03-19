@@ -63,6 +63,7 @@ export type ModalState = {
   verifyModeType?: VerifyModeEnum;
   isShowWagerContestHistory?: boolean;
   isShowLogOutConfirm?: boolean;
+  isShowSpin?: boolean;
 };
 
 export type LoadingState = {
