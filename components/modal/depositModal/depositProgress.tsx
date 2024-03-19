@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { ExportSquare } from 'iconsax-react';
 import Link from 'next/link';
 import { ElementType, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowDepositProgress } from '@/base/redux/reducers/modal.reducer';
@@ -28,7 +28,7 @@ export default function ModalDepositProgress({ show, onClose }: ModalDepositProg
   const { activeTransactionStatus } = useSelector(
     (state: AppState) => ({
       activeTransactionStatus: state.wallet.activeTransactionStatus,
-    }),
+    }), shallowEqual
   );
   return (
     <>

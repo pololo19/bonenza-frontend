@@ -128,7 +128,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   }, [width]);
 
   const layout = document.getElementById('base-layout');
-  const wheelHandler = (event: any) => {  
+  const wheelHandler = (event: any) => {
     const currentPosition = layout?.scrollTop ?? 0;
     const scrollFactor = 2.5;
     layout?.scrollTo({ top: currentPosition + event.deltaY * scrollFactor });
@@ -194,11 +194,12 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] right-0 z-[10]  bottom-0 sshadow-bs-default dark:bg-black/70 bg-white/70 w-full sm:w-auto',
+          'fixed top-[67px] right-0 z-[10]  bottom-0 shadow-bs-default dark:bg-black/70 bg-white/70 w-full sm:w-auto',
           {
-            'sm:left-[62px]': (!isToggleSidebar && !showChatType) || (showChatType && !isToggleSidebar),
-            'md:left-[246px]': isToggleSidebar && !showChatType,
-            'xl:left-[246px]': showChatType && isToggleSidebar,
+            'left-[62px]': !isToggleSidebar,
+            'left-[244px]': isToggleSidebar,
+            'right-[330px]': showChatType,
+            'right-0': !showChatType,
           },
         )}
       >
@@ -299,7 +300,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <CasinoSS
                 title={String(t('casino:recommendedForYou'))}
                 data={listRecommendGame}
-                renderItem={(item) => <GameCard gameDetail={item}/>}
+                renderItem={(item) => <GameCard gameDetail={item} />}
               />
             </div>
           </div>

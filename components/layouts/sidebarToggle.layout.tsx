@@ -273,23 +273,23 @@ export default function SidebarToggle() {
                   imageClass="absolute -left-[5px] -top-[13px] w-[43px] h-[43px]"
                   textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[8px]"
                   title={String(t('sidebar:quest'))}
-                  href={'/#'}
+                  href={''}
                   icon={Gift}
                   isFontMedium
                   fontWeight={700}
-                  classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:to-[#6A00FF] rounded-[100px] px-[10px] !pr-[4px]"
+                  classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
                 />
                 <IconOption
                   imageURL="/img/sidebar/spin.png"
                   imageClass="absolute -left-[2px] -top-[10px] w-[47px] h-[32px]"
                   textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
                   title={String(t('sidebar:spin'))}
-                  href={'/#'}
+                  href={''}
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
                   onClick={() => dispatch(changeIsShowSpin(true))}
-                  classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:to-[#EA001C] rounded-[100px] px-[10px] !pr-[4px]"
+                  classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
                 />
               </div>
               {panel_1_datas.map((item, index) => (

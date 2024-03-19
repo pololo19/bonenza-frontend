@@ -444,7 +444,8 @@
     "chatRules4": "4. Hiçbir şekilde reklam/ticaret/satış/satın alma veya hizmet teklifinde bulunmayın.",
     "chatRules5": "4. URL kısaltıcıyı kullanmayın. ",
     "chatRules6": "6. Belirlenen dil sohbet odalarını buna göre kullanın.",
-    "chatNote": "Kurallarımızın tamamını forumumuzda bulabilirsiniz."
+    "chatNote": "Kurallarımızın tamamını forumumuzda bulabilirsiniz.",
+    "enterMessage": "Mesajınızı buraya girin"
   },
   "withdraw": {
     "crypto": "Kripto",
