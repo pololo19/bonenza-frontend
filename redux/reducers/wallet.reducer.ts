@@ -46,7 +46,7 @@ const initialState: WalletState = {
     amountUsd: 0,
     symbol: 'USD',
     hash: '0x',
-    time: new Date('19/03/2024'),
+    time: '19/03/2024',
   }, // socket deposit address
 };
 
