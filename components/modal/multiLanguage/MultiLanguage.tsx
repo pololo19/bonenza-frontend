@@ -160,11 +160,12 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       },
                     )}
                     onClick={() => {
-                      if (usdFiat) {
+                      if (isLogin) {
                         dispatch(setIsLoading({ ...isLoading, isCurrency: true }));
-                        dispatch(updateSetting({ ...settings, settingCurrency: usdFiat.id, settingViewInFiat: false }));
+                        dispatch(updateSetting({ ...settings, settingCurrency: usdFiat?.id || '', settingViewInFiat: false }));
                       } else {
-                        dispatch(updateSetting({ ...settings, settingViewInFiat: false }));
+                        dispatch(updateViewInFiat(false));
+                        dispatch(setLocalFiat(usdFiat));
                       }
 
                       onClose();
