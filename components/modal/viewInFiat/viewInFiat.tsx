@@ -95,6 +95,7 @@ export default function ViewInFiat({ show, onClose }: ViewInFiatProps) {
                 <div className="flex items-center gap-1">
                   {item.id === selectedFiat.id && (
                     <input
+                      readOnly
                       id={String(key)}
                       type="radio"
                       checked={true}

@@ -21,9 +21,13 @@ export * from './copyClipboard';
 export * from './pageTitle';
 export * from './validate';
 
+const customPredicate = (value: any, key: string) => {
+  return value !== undefined || value === 0;
+};
+
 export const stringifyParams = (data: any) => {
   const { params, option } = data;
-  const newParams = pickBy(params, identity);
+  const newParams = pickBy(params, customPredicate);
   return qs.stringify(newParams, {
     encode: false,
     skipNulls: true,

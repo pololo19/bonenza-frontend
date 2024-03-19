@@ -79,3 +79,9 @@ ul.react-paginate {
   min-height: 0;
   min-width: 0;
 }
+
+.editBox:empty:focus::before,
+.editBox:empty::before{
+  content: 'Enter Message here...';
+  color: #505D6A;
+}
