@@ -292,11 +292,16 @@ const WagerContestComponent = () => {
               />
             )}
             <div className="font-bold truncate">
-              {row.original?.playerId !== userId && !row.original?.playerName
-                ? <div className="flex gap-[3px] items-center"><Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" />{t('homePage:hidden')}</div>
-                : row.original.playerId === userId
-                ? userName
-                : row.original.playerName}
+              {row.original?.playerId !== userId && !row.original?.playerName ? (
+                <div className="flex gap-[3px] items-center">
+                  <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" />
+                  {t('homePage:hidden')}
+                </div>
+              ) : row.original.playerId === userId ? (
+                userName
+              ) : (
+                row.original.playerName
+              )}
             </div>
           </div>
         ),
@@ -345,7 +350,9 @@ const WagerContestComponent = () => {
   }, []);
 
   useEffect(() => {
-    getUserPosition();
+    if (isLogin) {
+      getUserPosition();
+    }
   }, [isLogin]);
 
   return (
