@@ -10,14 +10,13 @@ import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
-import { BetDetailType, BetTableDataType } from '@/base/types/common';
+import { BetDetailType } from '@/base/types/common';
 
 import CasinoSwiper from '../casino/casinoSwiper';
 import LiveStream from '../icons/LiveStream';
-import ModalDetailBets from '../modal/detailBets/detailBets';
 
 type CardBigWinProps = {
   price?: string | number;
@@ -135,25 +134,8 @@ function RecentBigWinComponent() {
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
 
+  const dispatch = useDispatch();
   const [listBigWinGame, setListBigWinGame] = useState<BetDetailType[]>([]);
-  const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
-  const [betIdDetail, setBetIdDetail] = useState<number>();
-  const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
-    game: '',
-    gameIdenfiter: '',
-    player: '',
-    playerId: '',
-    playerAvatar: '',
-    betAmount: 0,
-    betAmountUsd: 0,
-    multiplier: 0,
-    profitAmount: 0,
-    profitAmountUsd: 0,
-    currency: '',
-    betId: '',
-    time: new Date(),
-  });
-  const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
   const { userId, localFiat, viewInFiat, isLogin } = useSelector(
     (state: AppState) => ({
@@ -228,34 +210,28 @@ function RecentBigWinComponent() {
         icon={width < 600 ? <LiveStream className="text-color-primary " /> : undefined}
         renderItem={(item) => renderData(item)}
         onClickItem={(game) => {
-          setIsPublicProfile(!!game?.userName);
-          setSelBetDetail({
-            game: game.game,
-            gameIdenfiter: game.identifier,
-            player: game.userName,
-            playerId: game.userId,
-            playerAvatar: game.userAvatar,
-            betAmount: game.amount,
-            betAmountUsd: game.amountUsd,
-            multiplier: game.multiplier,
-            profitAmount: game.profit,
-            profitAmountUsd: game.profitUsd,
-            currency: game.currency,
-            betId: game.id,
-            time: new Date(),
-          });
-          setIsShowDetailBet(true);
+          dispatch(setDetailBets(
+            {
+              betDetail: {
+                game: game.game,
+                gameIdenfiter: game.identifier,
+                player: game.userName,
+                playerId: game.userId,
+                playerAvatar: game.userAvatar,
+                betAmount: game.amount,
+                betAmountUsd: game.amountUsd,
+                multiplier: game.multiplier,
+                profitAmount: game.profit,
+                profitAmountUsd: game.profitUsd,
+                currency: game.currency,
+                betId: game.id,
+                time: new Date(),
+              },
+              isPublicProfile: !!game?.userName,
+            }
+          ));
+          dispatch(changeIsShowDetailBets(true));
         }}
-      />
-      <ModalDetailBets
-        show={isShowDetailBet}
-        betDetail={selBetDetail}
-        titleModal="Bet Slip"
-        onClose={() => {
-          setIsShowDetailBet(false);
-        }}
-        isPublicProfile={isPublicProfile}
-        betId={betIdDetail}
       />
     </>
   );

@@ -9,7 +9,7 @@ import { api_highRollers } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
-import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, BetTableDetailType } from '@/base/types/common';
@@ -25,7 +25,6 @@ const HighRollerTableComponent = () => {
   const [hightRollerData, setHightRollerData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
-  const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
   const [betIdDetail, setBetIdDetail] = useState<number>();
   const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
     game: '',
@@ -111,7 +110,13 @@ const HighRollerTableComponent = () => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
     setSelBetDetail(row.original);
-    setIsShowDetailBet(true);
+    
+    dispatch(setDetailBets({
+      betDetail: row.original,
+      betId: Number(betId),
+      isPublicProfile: isPublicProfile,
+    }))
+    dispatch(changeIsShowDetailBets(true));
   };
 
   const hightRollerDataFilter = useMemo(() => {
@@ -158,7 +163,10 @@ const HighRollerTableComponent = () => {
             className={`${
               row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
             } font-bold truncate text-center  sm:p-2 p-[5px]`}
-            onClick={() => handleModalProfile(row)}
+            onClick={(event) => {
+              event.stopPropagation();
+              handleModalProfile(row);
+            }}
           >
             {row.original.playerId !== userId && !row.original.player ? (
               <div className="flex justify-center items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary">
@@ -290,23 +298,12 @@ const HighRollerTableComponent = () => {
               {!isShowMore ? (
                 <ArrowDown2 size={12} className="dark:text-white text-color-light-text-primary" />
               ) : (
-                <ArrowUp2 size={12} className="text-white text-color-light-text-primary" />
+                <ArrowUp2 size={12} className="dark:text-white text-color-light-text-primary" />
               )}
             </div>
           </div>
         )}
       </div>
-      {isShowDetailBet && (
-        <ModalDetailBets
-          betDetail={selBetDetail}
-          show={isShowDetailBet}
-          onClose={() => {
-            setIsShowDetailBet(false);
-          }}
-          betId={betIdDetail}
-          isPublicProfile={isPublicProfile}
-        />
-      )}
     </>
   );
 };
