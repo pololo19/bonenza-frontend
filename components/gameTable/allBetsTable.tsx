@@ -11,12 +11,11 @@ import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatDate, formatLengthNumber } from '@/base/libs/utils';
-import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
 
-import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
 const cryptoDecimals = 8;
@@ -41,24 +40,6 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
   const [betData, setbetData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
-  const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
-  const [betIdDetail, setBetIdDetail] = useState<number>();
-  const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
-    game: '',
-    gameIdenfiter: '',
-    player: '',
-    playerId: '',
-    betAmount: 0,
-    betAmountUsd: 0,
-    multiplier: 0,
-    profitAmount: 0,
-    profitAmountUsd: 0,
-    currency: '',
-    betId: '',
-    playerAvatar: '',
-    time: new Date(),
-  });
-  const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
 
   const innerWidth = useWidth();
   const exchangeRate = useExchange();
@@ -118,7 +99,6 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       username: row.original.player,
       userId: row.original.playerId,
     };
-    setIsShowDetailBet(false);
 
     dispatch(setUserData(userData));
     if (row.original.player) {
@@ -128,9 +108,12 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
   const handleClickRow = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
-    setBetIdDetail(Number(betId));
-    setSelBetDetail(row.original);
-    setIsShowDetailBet(true);
+    dispatch(setDetailBets({
+      betDetail: row.original,
+      betId: Number(betId),
+      isPublicProfile: row.original.player == '' ? false : true,
+    }));
+    dispatch(changeIsShowDetailBets(true));
   };
 
   const allBetColumns = useMemo(() => {
@@ -158,7 +141,10 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
             className={`${
               row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
             } font-bold truncate text-center  sm:p-2 p-[5px]`}
-            onClick={() => handleModalProfile(row)}
+            onClick={(event) => {
+              event.stopPropagation();
+              handleModalProfile(row);
+            }}
           >
             {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-color-text-primary text-[#31373d] flex justify-center items-center gap-[5px]">
@@ -330,17 +316,6 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           </div>
         )}
       </div>
-      {isShowDetailBet && (
-        <ModalDetailBets
-          show={isShowDetailBet}
-          betDetail={selBetDetail}
-          onClose={() => {
-            setIsShowDetailBet(false);
-          }}
-          betId={betIdDetail}
-          isPublicProfile={isPublicProfile}
-        />
-      )}
     </>
   );
 };
