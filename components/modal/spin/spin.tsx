@@ -7,6 +7,7 @@ import { useTranslation } from '@/base/config/i18next';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
+import ModalLuckySpinClaim from './luckySpinClaim';
 
 type ModalSpinProps = {
   onClose: () => void;
@@ -39,6 +40,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const { t } = useTranslation('');
   const [rotate, setRotate] = useState(0);
   const [isRotating, setIsRotating] = useState(false);
+  const [isLuckySpin, setIsLuckySpin] = useState(false);
 
   const timeOut = useRef<any>(null);
 
@@ -68,6 +70,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     timeOut.current = setTimeout(() => {
       setIsRotating(false);
       clearInterval(timer);
+      setIsLuckySpin(true);
     }, duration);
   }, []);
 
@@ -137,6 +140,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
           </div>
         </div>
       </CommonModal>
+
+      <ModalLuckySpinClaim show={isLuckySpin} onClose={() => setIsLuckySpin(false)} claim={1000} />
     </>
   );
 }
