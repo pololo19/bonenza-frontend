@@ -410,7 +410,7 @@ function IndexPage() {
                   />
                 ))}
               </div>
-              {(!isLogin || width > 600) && <RecentBigWinComponent />}
+              <RecentBigWinComponent />
               {!isLogin && (
                 <>
                   <div className="relative w-full sm:hidden block">
