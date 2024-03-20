@@ -444,7 +444,8 @@
     "chatRules4": "4. Không tham gia vào bất kỳ hình thức quảng cáo/mua bán/cung cấp dịch vụ nào.",
     "chatRules5": "4. Không sử dụng công cụ rút ngắn URL. ",
     "chatRules6": "6. Sử dụng phòng chat ngôn ngữ được chỉ định phù hợp.",
-    "chatNote": "Danh sách các quy tắc đầy đủ của chúng tôi có thể được tìm thấy trên diễn đàn của chúng tôi."
+    "chatNote": "Danh sách các quy tắc đầy đủ của chúng tôi có thể được tìm thấy trên diễn đàn của chúng tôi.",
+    "enterMessage": "Nhập tin nhắn vào đây"
   },
   "withdraw": {
     "crypto": "Tiền điện tử",

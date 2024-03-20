@@ -41,12 +41,6 @@ export default function ModalRakeBack({
   const { t } = useTranslation('');
   const router = useRouter();
 
-  const { isLogin } = useSelector(
-    (state: AppState) => ({
-      isLogin: state.auth.isLogin,
-    }),
-    shallowEqual,
-  );
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [lockedAmount, setLockedAmount] = useState({
     balance: 0,
@@ -59,10 +53,11 @@ export default function ModalRakeBack({
     minimumWagerAmountUsd: 0,
   });
 
-  const { viewInFiat, localFiat } = useSelector(
+  const { viewInFiat, localFiat, isLogin } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );

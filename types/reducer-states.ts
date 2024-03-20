@@ -119,7 +119,7 @@ export type WalletState = {
     amount: number;
     symbol: string;
     hash: string;
-    time: Date;
+    time: Date | string;
   };
 };
 

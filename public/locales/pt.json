@@ -444,7 +444,8 @@
     "chatRules4": "4. Não se envolva em nenhuma forma de publicidade/negociação/venda/compra ou oferta de serviços.",
     "chatRules5": "4. Não use encurtador de URL. ",
     "chatRules6": "6. Use as salas de bate-papo nos idiomas designados de acordo.",
-    "chatNote": "A lista de nossas regras completas pode ser encontrada em nosso fórum."
+    "chatNote": "A lista de nossas regras completas pode ser encontrada em nosso fórum.",
+    "enterMessage": "Digite a mensagem aqui"
   },
   "withdraw": {
     "crypto": "Criptografia",

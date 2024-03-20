@@ -60,10 +60,10 @@ export default function Navbar() {
       {/* Navbar */}
       <div
         className={cn('w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[70px]', {
-          'sm:ml-[62px] sm:max-w-[calc(100%-62px)]': !isToggleSidebar && !showChatType,
-          'md:ml-[244px] md:max-w-[calc(100%-244px)]': isToggleSidebar && !showChatType,
-          'xl:ml-[244px] xl:max-w-[calc(100%-594px)]': showChatType && isToggleSidebar,
-          'sm:ml-[62px] xl:max-w-[calc(100%-406px)]': showChatType && !isToggleSidebar,
+          'sm:ml-[62px] sm:max-w-[calc(100%_-_62px)]': !isToggleSidebar && !showChatType,
+          'md:ml-[244px] md:max-w-[calc(100%_-_244px)]': isToggleSidebar && !showChatType,
+          '2xl:ml-[244px] 2xl:max-w-[calc(100%_-_594px)]': showChatType && isToggleSidebar,
+          'sm:ml-[62px] sm:max-w-[calc(100%_-_62px)] 2xl:max-w-[calc(100%_-_412px)]': showChatType && !isToggleSidebar,
         })}
         onClick={() => {
           if (isShowCasinoSearch) dispatch(changeIsShowCasinoSearch(false));
@@ -71,11 +71,11 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'flex py-[10px] flex-1 h-full lg:justify-end xl:justify-between sm:max-md:justify-center md:justify-end justify-between w-full px-[12px] sm:px-1 md:px-[12px] xl:pl-[40px] xl:pr-[73px]',
-            {
-              // 'sm:pl-[62px]': !isToggleSidebar && !showChatType,
-              // 'md:pl-[205px]': isToggleSidebar && !showChatType,
-            },
+            'flex py-[10px] flex-1 h-full lg:justify-end 2xl:justify-between sm:max-md:justify-center md:justify-end justify-between w-full px-[12px] sm:px-1 md:px-[12px] xl:pl-[40px] xl:pr-[73px]',
+            // {
+            //   'sm:pl-[62px]': !isToggleSidebar && !showChatType,
+            //   'md:pl-[205px]': isToggleSidebar && !showChatType,
+            // },
           )}
         >
           <Link href={'/'} className="flex items-center sm:hidden">
@@ -87,7 +87,7 @@ export default function Navbar() {
               alt="logo"
             />
           </Link>
-          <div className={cn('gap-[8px] xl:flex hidden')}>
+          <div className={cn('gap-[8px] 2xl:flex hidden')}>
             {headerMenus
               .filter((item) => !item.isMobile)
               .map((menu, index) => {
@@ -187,6 +187,9 @@ export default function Navbar() {
               <button
                 type="button"
                 className={`sm:block hidden relative rounded-default dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+                onClick={() => {
+                  dispatch(changeShowChatType(!showChatType));
+                }}
               >
                 <ChatSignOutIcon className="w-[20px] h-[20px] text-color-text-primary" />
               </button>

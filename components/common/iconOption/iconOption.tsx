@@ -81,77 +81,79 @@ const IconOption = ({
   // }, [pathname]);
   return (
     <>
-      {!isDropDown && (href.length > 0 ?
-        <Link
-          className={cn(
-            'relative capitalize sm:text-default text-m_default ',
-            'hover:bg-gradient-to-r hover:bg-color-hover-default',
-            'dark:text-color-text-primary hover:text-[#000] dark:hover:text-white',
-            'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
-            'rounded-large hover:rounded-large',
-            router.route.includes(href) ? activeClassNames : classNames,
-          )}
-          href={href}
-          onClick={() => {
-            // disable hide menus
-            // setShowDropDownCasino(!showDropDownCasino);
-            onClick?.();
-          }}
-        >
-          {imageURL ? (
-            <Image src={imageURL} width={20} height={20} className={imageClass} alt="" />
-          ) : (
-            <IconElement
-              size={18}
-              className={cn('dark:text-white', {
-                'font-[700] dark:text-white text-black': router.route.includes(href),
-              })}
-            />
-          )}
-          <div
-            className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
-              'dark:text-white text-color-light-text-primary': router.route.includes(href),
-              'text-base': isFontMedium,
-            })}
+      {!isDropDown &&
+        (href.length > 0 ? (
+          <Link
+            className={cn(
+              'relative capitalize sm:text-default text-m_default ',
+              'hover:bg-gradient-to-r hover:bg-color-hover-default',
+              'dark:text-color-text-primary hover:text-[#000] dark:hover:text-white',
+              'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
+              'rounded-large hover:rounded-large',
+              router.route.includes(href) ? activeClassNames : classNames,
+            )}
+            href={href}
+            onClick={() => {
+              // disable hide menus
+              // setShowDropDownCasino(!showDropDownCasino);
+              onClick?.();
+            }}
           >
-            {title}
-          </div>
-        </Link>
-        : <div
-          className={cn(
-            'relative capitalize sm:text-default text-m_default cursor-pointer',
-            'hover:bg-gradient-to-r hover:bg-color-hover-default',
-            'dark:text-color-text-primary hover:text-[#000] dark:hover:text-white',
-            'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
-            'rounded-large hover:rounded-large',
-            router.route.includes(href) ? activeClassNames : classNames,
-          )}
-          onClick={() => {
-            // disable hide menus
-            // setShowDropDownCasino(!showDropDownCasino);
-            onClick?.();
-          }}
-        >
-          {imageURL ? (
-            <Image src={imageURL} width={20} height={20} className={imageClass} alt="" />
-          ) : (
-            <IconElement
-              size={18}
-              className={cn('dark:text-white', {
-                'font-[700] dark:text-white text-black': router.route.includes(href),
+            {imageURL ? (
+              <Image src={imageURL} width={20} height={20} className={imageClass} alt="" />
+            ) : (
+              <IconElement
+                size={18}
+                className={cn('dark:text-white', {
+                  'font-[700] dark:text-white text-black': router.route.includes(href),
+                })}
+              />
+            )}
+            <div
+              className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
+                'dark:text-white text-color-light-text-primary': router.route.includes(href),
+                'text-base': isFontMedium,
               })}
-            />
-          )}
+            >
+              {title}
+            </div>
+          </Link>
+        ) : (
           <div
-            className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
-              'dark:text-white text-color-light-text-primary': router.route.includes(href),
-              'text-base': isFontMedium,
-            })}
+            className={cn(
+              'relative capitalize sm:text-default text-m_default cursor-pointer',
+              'hover:bg-gradient-to-r hover:bg-color-hover-default',
+              'dark:text-color-text-primary hover:text-[#000] dark:hover:text-white',
+              'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
+              'rounded-large hover:rounded-large',
+              classNames,
+            )}
+            onClick={() => {
+              // disable hide menus
+              // setShowDropDownCasino(!showDropDownCasino);
+              onClick?.();
+            }}
           >
-            {title}
+            {imageURL ? (
+              <Image src={imageURL} width={20} height={20} className={imageClass} alt="" />
+            ) : (
+              <IconElement
+                size={18}
+                className={cn('dark:text-white', {
+                  'font-[700] dark:text-white text-black': router.route.includes(href),
+                })}
+              />
+            )}
+            <div
+              className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
+                'dark:text-white text-color-light-text-primary': router.route.includes(href),
+                'text-base': isFontMedium,
+              })}
+            >
+              {title}
+            </div>
           </div>
-        </div>
-      )}
+        ))}
       {isDropDown && (
         <div
           className={cn(

@@ -597,7 +597,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             {showChatType && (
               <div
                 className={cn(
-                  'xl:relative fixed right-0 h-[calc(100vh)] mt-[-67px] z-10 duration-500 drop-shadow-md transition-opacity',
+                  '2xl:relative fixed right-0 h-[calc(100vh)] mt-[-70px] z-10 duration-500 drop-shadow-md transition-opacity',
                   {
                     'opacity-100': showChatType,
                     'opacity-0': !showChatType,
@@ -727,20 +727,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   role="button"
                   className={cn(
                     'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                    {
-                      'dark:text-white text-black': router.route.includes(ROUTER.Sports),
-                    },
                   )}
                   onClick={() => {
-                    if (isLogin) {
-                      dispatch(changeIsShowAccountPannel(false));
-                      dispatch(changeIsShowMenuPannel(false));
-                      dispatch(changeShowChatType(!showChatType));
-                      dispatch(changeShowFullChat(!showFullChat));
-                    } else {
-                      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-                      dispatch(changeIsShowAuthenticationModal(true));
-                    }
+                    dispatch(changeIsShowAccountPannel(false));
+                    dispatch(changeIsShowMenuPannel(false));
+                    dispatch(changeShowChatType(!showChatType));
+                    dispatch(changeShowFullChat(!showFullChat));
                   }}
                 >
                   <div className="pt-2">

@@ -444,7 +444,8 @@
     "chatRules4": "4. Don't engage in any forms of advertising/ trading/ selling/ buying or offering services.",
     "chatRules5": "4. Don't use URL shortener. Always submit the original link.",
     "chatRules6": "6. Use the designated language chatrooms accordingly.",
-    "chatNote": "List of our full rules can be found on our forum."
+    "chatNote": "List of our full rules can be found on our forum.",
+    "enterMessage": "Enter Message here"
   },
   "withdraw": {
     "crypto": "Crypto",

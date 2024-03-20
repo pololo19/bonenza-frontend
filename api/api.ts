@@ -1,5 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { camelizeKeys, decamelizeKeys } from 'humps';
+import { camelizeKeys, decamelize, decamelizeKeys } from 'humps';
 import isNil from 'lodash.isnil';
 import Router from 'next/router';
 import { toast } from 'react-toastify';
@@ -27,13 +27,14 @@ const defaultAxiosConfig: AxiosRequestConfig = {
   baseURL: baseURL,
   timeout: 30000,
   paramsSerializer: {
-    serialize: (params: any) =>
-      stringifyParams({
+    serialize: (params: any) => {
+      return stringifyParams({
         params: decamelizeKeys({ ...params }),
         option: {
           encode: !isNil(params?.tags) || false,
         },
-      }),
+      });
+    },
   },
 };
 
@@ -103,10 +104,10 @@ api.interceptors.request.use((config) => {
   }
   config.headers['Content-Type'] = 'application/json';
   if (config.data) {
-    config.data = decamelizeKeys(config.data);
+    config.data = { ...decamelizeKeys(config.data) };
   }
   if (config.params) {
-    config.params = decamelizeKeys(config.params);
+    config.params = { ...decamelizeKeys(config.params) };
   }
   return config;
 });
