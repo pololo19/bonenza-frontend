@@ -202,7 +202,7 @@ const WagerContestComponent = () => {
       setUserData({
         userId: user.playerId || user.original.playerId || '',
         userName: user.playerName || user.original.playerName || '',
-        avatar: user.playerAvatar || user.original.playerAvatar || '',
+        avatar: user?.playerAvatar || user?.original?.playerAvatar || '',
       }),
     );
     dispatch(changeIsShowInformation(true));
