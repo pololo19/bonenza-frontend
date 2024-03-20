@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getLatestBetForUser } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
@@ -11,10 +11,10 @@ import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatDate, formatLengthNumber } from '@/base/libs/utils';
+import { changeIsShowDetailBets, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
 
-import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
 const cryptoDecimals = 8;
@@ -39,27 +39,11 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
   const [myBetData, setMyBetData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
-  const [isShowDetailBet, setIsShowDetailBet] = useState<boolean>(false);
-  const [betIdDetail, setBetIdDetail] = useState<number>();
-  const [selBetDetail, setSelBetDetail] = useState<BetTableDataType>({
-    game: '',
-    gameIdenfiter: '',
-    player: '',
-    playerId: '',
-    playerAvatar: '',
-    betAmount: 0,
-    betAmountUsd: 0,
-    multiplier: 0,
-    profitAmount: 0,
-    profitAmountUsd: 0,
-    currency: '',
-    betId: '',
-    time: new Date(),
-  });
 
   const { t } = useTranslation('');
   const innerWidth = useWidth();
   const exchangeRate = useExchange();
+  const dispatch = useDispatch();
 
   const { isLogin, userId, localFiat, gameSocket, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -103,9 +87,11 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
 
   const handleClickRow = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
-    setBetIdDetail(Number(betId));
-    setSelBetDetail(row.original);
-    setIsShowDetailBet(true);
+    dispatch(setDetailBets({
+      betDetail: row.original,
+      betId: Number(betId),
+    }))
+    dispatch(changeIsShowDetailBets(true));
   };
 
   const betHistoryFilter = useMemo(() => {
@@ -325,16 +311,6 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           </div>
         )}
       </div>
-      {isShowDetailBet && (
-        <ModalDetailBets
-          show={isShowDetailBet}
-          betDetail={selBetDetail}
-          onClose={() => {
-            setIsShowDetailBet(false);
-          }}
-          betId={betIdDetail}
-        />
-      )}
     </>
   );
 };
