@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthenticationModeEnum, VerifyModeEnum } from '@/base/types/common';
+import { AuthenticationModeEnum, BetTableDataType, VerifyModeEnum } from '@/base/types/common';
 import { ModalState } from '@/base/types/reducer-states';
 import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 
@@ -37,6 +37,26 @@ export const initialCommonState: ModalState = {
   isShowLogOutConfirm: false,
   isShowSpin: false,
   isShowDepositProgress: false,
+  detailBets: {
+    isPublicProfile: true,
+    titleModal: '',
+    betId: 0,
+    betDetail: {
+      game: '',
+      gameIdenfiter: "",
+      player: "",
+      playerId: "",
+      playerAvatar: "",
+      betAmount: 0,
+      betAmountUsd: 0,
+      multiplier: 0,
+      profitAmount: 0,
+      profitAmountUsd: 0,
+      currency: "",
+      betId: "",
+      time: new Date('19/03/2024'),
+    }
+  }
 };
 
 export const queryDataSlice = createSlice({
@@ -139,6 +159,9 @@ export const queryDataSlice = createSlice({
     changeIsShowDepositProgress: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowDepositProgress = action.payload;
     },
+    setDetailBets: (state: ModalState, action: PayloadAction<{betDetail: BetTableDataType, betId?: number, isPublicProfile?: boolean, titleModal?: String; }>) => {
+      state.detailBets = action.payload;
+    },
     setInitialModals: (state: ModalState) => {
       state.isShowAccountPannel = false;
       state.isShowInformation = false;
@@ -209,6 +232,7 @@ export const {
   changeIsShowLogOutConfirm,
   changeIsShowSpin,
   changeIsShowDepositProgress,
+  setDetailBets,
   setInitialModals,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

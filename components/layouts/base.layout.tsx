@@ -29,6 +29,7 @@ import {
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
   changeIsShowDepositProgress,
+  changeIsShowDetailBets,
   changeIsShowInformation,
   changeIsShowLogOutConfirm,
   changeIsShowMenuPannel,
@@ -72,11 +73,11 @@ import HomeIconOutline from '../icons/HomeIconOutline';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
-import MobileModal from '../modal/commonModal/mobileModal';
 import ModalCropAvatar from '../modal/cropAvatar/cropAvatar';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDeposit from '../modal/depositModal/depositModal';
 import ModalDepositProgress from '../modal/depositModal/depositProgress';
+import ModalDetailBets from '../modal/detailBets/detailBets';
 import ModalLogOutConfirm from '../modal/logOutConfirm/LogOutConfirm';
 import ModalMultiLanguage from '../modal/multiLanguage/MultiLanguage';
 import ModalProfile from '../modal/profile/profile';
@@ -175,6 +176,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowCasinoSearch,
     isShowVerifyMailAndPhone,
     isShowLogOutConfirm,
+    isShowDetailBets,
     verifyModeType,
     isShowWagerContestHistory,
     isShowDepositProgress,
@@ -226,6 +228,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       betHistory: state.game.betHistory,
       isShowSpin: state.modal.isShowSpin,
       isShowDepositProgress: state.modal.isShowDepositProgress,
+      isShowDetailBets: state.modal.isShowDetailBets,
     }),
     shallowEqual,
   );
@@ -855,6 +858,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           onClose={() => dispatch(changeIsShowLogOutConfirm(false))}
         />
       )}
+      <ModalDetailBets
+        show={isShowDetailBets || false}
+        onClose={() => dispatch(changeIsShowDetailBets(false))}
+      />
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
       <ModalSpin show={isShowSpin || false} onClose={() => dispatch(changeIsShowSpin(false))} />
