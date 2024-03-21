@@ -42,7 +42,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
         userAvatar: item?.userAvatar || '',
         userName: item?.userName || '',
       }));
-      setLatestSpins(tempLatestSpin);
+      setLatestSpins(tempLatestSpin.slice(0, 10));
     } catch (error) {
       setLatestSpins([]);
     } finally {
