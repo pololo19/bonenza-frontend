@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "महिना"
   },
   "bonus": {
+    "spinBonusTotal": "स्पिन बोनस एकूण",
+    "spinLevel": "फिरकी पातळी",
+    "spinClaim": "पुरस्कारांचा दावा करा",
+    "spinBonus": "स्पिन बोनस",
+    "spinNoSpin": "क्षमस्व, तुमच्याकडे कोणतीही फिरकी नाही",
+    "spinWrong": "काहीतरी चूक झाली.",
     "unlockEndlessBenefit": "अंतहीन फायदे अनलॉक करा",
     "joinNowAndEmbark": "आत्ताच सामील व्हा आणि नशीब आणि बक्षीसाच्या आनंददायी प्रवासाला सुरुवात करा!",
     "levelUpBonus": "स्तर वर बोनस",

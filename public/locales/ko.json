@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "월"
   },
   "bonus": {
+    "spinBonusTotal": "스핀 보너스 합계",
+    "spinLevel": "스핀 레벨",
+    "spinClaim": "보상 청구",
+    "spinBonus": "스핀 보너스",
+    "spinNoSpin": "죄송합니다. 스핀이 없습니다.",
+    "spinWrong": "문제가 발생했습니다.",
     "unlockEndlessBenefit": "끝없는 혜택을 누리세요",
     "joinNowAndEmbark": "지금 가입하고 행운과 보상이 가득한 신나는 여행을 떠나보세요!",
     "levelUpBonus": "레벨업 보너스",

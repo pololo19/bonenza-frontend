@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "月"
   },
   "bonus": {
+    "spinBonusTotal": "スピンボーナス合計",
+    "spinLevel": "スピンレベル",
+    "spinClaim": "報酬を受け取る",
+    "spinBonus": "スピンボーナス",
+    "spinNoSpin": "申し訳ありませんが、スピンはありません",
+    "spinWrong": "何か問題が発生しました。",
     "unlockEndlessBenefit": "無限のメリットをアンロック",
     "joinNowAndEmbark": "今すぐ参加して、幸運と報酬をもたらす爽快な旅に乗り出しましょう!",
     "levelUpBonus": "レベルアップボーナス",

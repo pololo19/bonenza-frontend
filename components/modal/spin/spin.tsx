@@ -1,13 +1,24 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { AxiosError } from 'axios';
 import cn from 'classnames';
+import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useCallback, useEffect, useRef, useState } from 'react';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
+import { api_getSpinData, api_postSpinTry } from '@/api/spin';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { changeAuthenticationType, changeIsShowAuthenticationModal, changeIsShowSpin } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
+import { AuthenticationModeEnum } from '@/base/types/common';
+import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
-import ModalLuckySpinClaim from './luckySpinClaim';
+import ModalLatestSpins from './latestSpin';
+import ModalSpinClaim from './luckySpinClaim';
 
 type ModalSpinProps = {
   onClose: () => void;
@@ -18,45 +29,120 @@ type ModalSpinProps = {
 // const speed = 2; // deg per millisecond
 const duration = 5000; // milli second
 
-const spinItems = [
-  { amount: 1, currency: 'USDT', zeroNum: 5 },
-  { amount: 3, currency: 'USDT', zeroNum: 5 },
-  { amount: 5, currency: 'USDT', zeroNum: 4 },
-  { amount: 10, currency: 'USDT', zeroNum: 4 },
-  { amount: 20, currency: 'USDT', zeroNum: 4 },
-  { amount: 50, currency: 'USDT', zeroNum: 4 },
-  { amount: 100, currency: 'USDT', zeroNum: 3 },
-  { amount: 200, currency: 'USDT', zeroNum: 3 },
-  { amount: 1000, currency: 'MATIC', zeroNum: 2 },
-  { amount: 2000, currency: 'MATIC', zeroNum: 2 },
-  { amount: 1, currency: 'BNB', zeroNum: 5 },
-  { amount: 1.5, currency: 'BNB', zeroNum: 5 },
-  { amount: 0.3, currency: 'ETH', zeroNum: 5 },
-  { amount: 0.6, currency: 'ETH', zeroNum: 5 },
-  { amount: 0.9, currency: 'ETH', zeroNum: 5 },
-  { amount: 1.2, currency: 'ETH', zeroNum: 5 },
-];
+interface SpinItem {
+  symbol: string;
+  symbolLogo: string;
+  amount: number;
+  amountUsd: number;
+  id: number;
+}
+
+type SpinDataType = {
+  userName: string;
+  userAvatar: string;
+  amount: number;
+  amountUsd: number;
+  symbol: string;
+  symbolLogo: string;
+  type: string;
+};
+
 export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const { t } = useTranslation('');
   const [rotate, setRotate] = useState(0);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const dispatch = useDispatch();
   const [isRotating, setIsRotating] = useState(false);
-  const [isLuckySpin, setIsLuckySpin] = useState(false);
+  const [isShowClaim, setIsShowClaim] = useState(false);
+  const [isShowLatestSpins, setisShowLatestSpins] = useState<boolean>(false);
+
+  const [spinTab, setSpinTab] = useState<'lucky' | 'super' | 'mega'>('lucky');
+  const spins: Array<'lucky' | 'super' | 'mega'> = ['lucky', 'super', 'mega'];
+
+  const [spinItems, setSpinItems] = useState<{lucky: SpinItem[], super: SpinItem[], mega: SpinItem[]}>({lucky: [], super: [], mega: []});
+  const [currentSpin, setCurrentSpin] = useState<SpinItem>();
+  const [spinBonusTotal, setSpinBonusTotal] = useState<number>(0);
+  const [latestSpin, setLatestSpin] = useState<SpinDataType>();
+  const {
+    isLogin,
+  } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+    }),
+    shallowEqual,
+  );
 
   const timeOut = useRef<any>(null);
+  
+  const getSpinData = async () => {
+    try {
+      const res = await api_getSpinData();
+      const tempLuckyData = res.data.data['lucky'].map((item: any) => ({
+        symbol: item.symbol || '',
+        symbolLogo: item.symbolLogo || '',
+        amount: item.amount || 0,
+        amountUsd: item.amountUsd || 0,
+        id: item.id || 0,
+      }));
+      const tempSuperData = res.data.data['super'].map((item: any) => ({
+        symbol: item.symbol || '',
+        symbolLogo: item.symbolLogo || '',
+        amount: item.amount || 0,
+        amountUsd: item.amountUsd || 0,
+        id: item.id || 0,
+      }));
+      const tempMegaData = res.data.data['mega'].map((item: any) => ({
+        symbol: item.symbol || '',
+        symbolLogo: item.symbolLogo || '',
+        amount: item.amount || 0,
+        amountUsd: item.amountUsd || 0,
+        id: item.id || 0,
+      }));
+      const tempLatestSpin:SpinDataType = {
+        amount: res.data.lastSpinner.amount || 0,
+        amountUsd: res.data.lastSpinner.amountUsd || 0,
+        symbol: res.data.lastSpinner.symbol || '',
+        symbolLogo: res.data.lastSpinner.symbolLogo || '',
+        type: res.data.lastSpinner.type || '',
+        userAvatar: res.data.lastSpinner.userAvatar || '',
+        userName: res.data.lastSpinner.userName || '',
+      }
+      setLatestSpin(tempLatestSpin);
+      setSpinBonusTotal(res.data.totalBonusUsd || 0);
+      setSpinItems({lucky: tempLuckyData, super: tempSuperData, mega: tempMegaData});
+    } catch (error) {
+      setSpinItems({lucky: [], super: [], mega: []});
+      setSpinBonusTotal(0);
+    } finally {
+    }
+  };
+  
+  useEffect(() => {
+    getSpinData();
+  }, [isShowClaim]);
 
-  const spinPlay = useCallback(() => {
+  const spinPlay = useCallback(async() => {
+    if(!isLogin) {
+      dispatch(changeIsShowSpin(false));
+      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+      dispatch(changeIsShowAuthenticationModal(true));
+      return;
+    }
     let dd = 0;
-    const random = Math.random();
-    if (random > 0.3) {
-      dd = 22.5;
+    try{
+      const res = await api_postSpinTry(spins.indexOf(spinTab));
+      const spinId = (res.data.spinId || 1) - 1;
+      setCurrentSpin(spinItems?.[spinTab]?.at(spinId));
+      dd = 22.5 * spinId;
+    } 
+    catch (error) {
+      const status = (error as AxiosError).response?.status || 0;
+      toast.error(
+        (status || 404) === 400 ? "Sorry, you don't have any spins now." : "Something went wrong.", 
+        { containerId: TOAST_ENUM.COMMON, icon: true, autoClose: 3000, hideProgressBar: false }
+      );
+      return;
     }
-    if (random > 0.6) {
-      dd = 0;
-    }
-    if (random > 0.9) {
-      dd = 45;
-    }
-    // const dd = Math.random() > 0.5 ? 22.5 : 45;
     const speed = ((360 * 14 - dd) / duration) * 2;
     const acceleration = speed / duration;
     const currentTime = new Date();
@@ -70,9 +156,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     timeOut.current = setTimeout(() => {
       setIsRotating(false);
       clearInterval(timer);
-      setIsLuckySpin(true);
+      setIsShowClaim(true);
     }, duration);
-  }, []);
+  }, [isLogin, spinTab, spinItems]);
 
   useEffect(() => {
     return () => {
@@ -86,62 +172,138 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
 
   return (
     <>
-      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
-        <div className="flex flex-col items-center justify-center overflow-y-auto relative">
-          <div className="spin-wrap flex flex-col items-center justify-center p-[25px] overflow-y-auto relative">
-            <div
-              className="flex items-center justify-center w-full relative origin-center"
-              style={{ transform: `rotate(${rotate}deg)` }}
-            >
-              <Image width={781} height={781} className="w-full" src={'/img/spin-wheel.png'} alt="" />
-              {spinItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="absolute flex gap-[5px] items-center top-[50%] left-[50%] text-[14px] leading-[20px] -mt-[8px] ml-[60px]"
-                  style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: '-60px center' }}
-                >
-                  <span className="font-bold">{item.amount.toFixed(item.zeroNum)}</span>
-                  <Image
-                    width={14}
-                    height={14}
-                    className="w-[16px] h-[16px]"
-                    src={`/img/fiats/${item.currency}.png`}
-                    alt=""
-                  />
-                </div>
+      <CommonModal
+        show={show}
+        onClose={onClose}
+        panelClass="sm:rounded max-w-full sm:max-w-[400px]"
+        header={
+          <div className="flex justify-between px-5 pt-8 pb-0 items-center">
+            <div className="flex gap-0">
+              {spins.map((spin) => (
+                <Image
+                  key={`${spin}-tab`}
+                  width={150}
+                  height={151}
+                  className={`hover:cursor-pointer w-[65px] h-[65px] ${spin !== spinTab ? 'grayscale brightness-75' : ''}`}
+                  src={`/img/spin/${spin}-spin.png`}
+                  alt="" 
+                  onClick={() => setSpinTab(spin)}
+                />
               ))}
             </div>
-            <div className="absolute w-[28%] z-[6] cursor-pointer">
+            <Image width={150} height={151} className="object-contain h-[90px]" src={`/img/spin/${spinTab}-level.png`} alt="" />
+          </div>
+        }
+      >
+        {isLoading 
+        ? <Loader />
+        : (
+          <div className="flex flex-col items-center justify-center overflow-y-auto relative">
+            <div className="spin-wrap flex flex-col items-center justify-center p-[25px] overflow-y-auto relative">
               <div
-                className={cn(styles.spin, 'relative overflow-hidden rounded-full', {
-                  'cursor-not-allowed': isRotating,
-                })}
-                onClick={spinPlay}
+                className="flex items-center justify-center w-full relative origin-center"
+                style={{ transform: `rotate(${rotate}deg)` }}
+              >
+                <Image width={781} height={781} className="w-full" src={'/img/spin/spin-wheel.png'} alt="" />
+                {spinItems?.[spinTab].map((item, index) => (
+                  <div
+                    key={index}
+                    className="absolute flex gap-[5px] justify-end items-center top-[50%] left-[50%] right-[25px] text-[14px] leading-[20px] -mt-[10px]"
+                    style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
+                >
+                    <span className="font-bold">{item.amount.toFixed(4)}</span>
+                    <Image
+                      width={14}
+                      height={14}
+                      className="w-[16px] h-[16px]"
+                      src={item.symbolLogo}
+                      alt=""
+                    />
+                  </div>
+                ))}
+              </div>
+              <div className="absolute w-[28%] z-[6] cursor-pointer">
+                <div
+                  className={cn(styles.spin, 'relative overflow-hidden rounded-full', {
+                    'cursor-not-allowed': isRotating,
+                  })}
+                  onClick={spinPlay}
+                >
+                  <Image
+                    width={230}
+                    height={233}
+                    className={cn('w-full h-auto object-cover')}
+                    alt=""
+                    src={`/img/spin/${spinTab}-spin-button.png`}
+                  />
+                </div>
+              </div>
+              <div
+                className="absolute top-[50%] left-[50%] -mt-[39px] ml-[44px] z-[5] w-[145px]"
+                style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
+              >
+                <Image width={353} height={193} src={'/img/spin/select-spin.png'} alt="" />
+            </div>
+            </div>
+
+            <div className="-mt-[90px] z-[2] mx-[10px] mb-[10px]">
+              <Image width={856} height={402} className="w-[80%] m-auto" alt="" src={`/img/spin/${spinTab}-spin-ribbon.png`} />
+            </div>
+            <div className="bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 py-7 mb-5 flex">
+              <div className="text-default flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222]">
+                <div className="font-bold uppercase">{t('bonus:spinBonusTotal')}</div>
+                <div className="font-bold text-color-primary">{`$ `}{spinBonusTotal}</div>
+              </div>
+              <div
+                className="text-default flex-1 flex justify-between gap-2 items-center pl-2 hover:cursor-pointer"
+                onClick={() => setisShowLatestSpins(true)}
               >
                 <Image
-                  width={230}
-                  height={233}
-                  className={cn('w-full h-auto object-cover')}
+                  height={25}
+                  width={25}
+                  src={String(process.env.API_AVATAR) + latestSpin?.userAvatar}
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
                   alt=""
-                  src="/img/lucky-spin-button.png"
+                  className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
                 />
+                <div className="w-full">
+                  <div>{latestSpin?.userName || ''}</div>
+                  <div className="flex gap-1">
+                    <div>{t('statistic:win')}{': '}</div>
+                    <div className="text-color-primary font-bold flex gap-1">
+                      {latestSpin?.amount || 0}
+                      <Image
+                        width={25}
+                        height={25}
+                        className="w-[20px]"
+                        src={latestSpin?.symbolLogo || '/img/fiats/USD.png'}
+                        alt=""
+                      />
+                    </div>
+                  </div>
+                  <div className="uppercase">{`${latestSpin?.type || ''} SPIN`}</div>
+                </div>
+                <ArrowRight2 />
               </div>
             </div>
-            <div
-              className="absolute top-[50%] left-[50%] -mt-[39px] ml-[44px] z-[5] w-[145px]"
-              style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
-            >
-              <Image width={353} height={193} src={'/img/select-spin.png'} alt="" />
-            </div>
           </div>
-
-          <div className="-mt-[90px] z-[2] mx-[10px] mb-[10px]">
-            <Image width={856} height={402} className="w-full" alt="" src={'/img/lucky-spin-ribbon.png'} />
-          </div>
-        </div>
+        )}
       </CommonModal>
 
-      <ModalLuckySpinClaim show={isLuckySpin} onClose={() => setIsLuckySpin(false)} claim={1000} />
+      <ModalSpinClaim
+        show={isShowClaim}
+        onClose={() => setIsShowClaim(false)}
+        amount={currentSpin?.amount || 0}
+        symbolLogo={currentSpin?.symbolLogo || ""}
+        symbol={currentSpin?.symbol || ""}
+        spinType={spinTab}
+      />
+      <ModalLatestSpins
+        show={isShowLatestSpins}
+        onClose={() => setisShowLatestSpins(false)}
+      />
     </>
   );
 }
