@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "Ay"
   },
   "bonus": {
+    "spinBonusTotal": "Çevirme Bonusu Toplamı",
+    "spinLevel": "Döndürme Seviyesi",
+    "spinClaim": "Ödül Talebi",
+    "spinBonus": "Döndürme Bonusu",
+    "spinNoSpin": "Üzgünüz, hiç çevirme hakkınız yok",
+    "spinWrong": "Bir şeyler yanlış gitti.",
     "unlockEndlessBenefit": "SONSUZ AVANTAJLARIN KİLİDİNİ AÇIN",
     "joinNowAndEmbark": "Şimdi katılın ve şans ve ödülle dolu heyecan verici bir yolculuğa çıkın!",
     "levelUpBonus": "Seviye Atlama Bonusu",

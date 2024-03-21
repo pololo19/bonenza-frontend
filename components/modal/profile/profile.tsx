@@ -224,7 +224,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
     return (
       <div className="flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] h-full dark:bg-color-header-primary bg-color-light-bg-primary scrollbar">
         <div className="flex flex-col gap-2">
-          <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
+          {/* Hiding medal on user profile */}
+          {/* <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
             <div className="flex items-center justify-between" onClick={() => setIsMedalDetail(true)}>
               <div className="flex gap-2 text-black dark:text-white text-[16px] items-center align-middle">
                 <TrophyIcon width={18} height={18} className="stroke-[2]" />
@@ -252,7 +253,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 />
               ))}
             </div>
-          </div>
+          </div> */}
           <div className="bg-white dark:bg-color-modal-bg-primary py-[12px] px-[14px] rounded-[5px]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 align-middle">

@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "Mes"
   },
   "bonus": {
+    "spinBonusTotal": "Total de bonificación por giro",
+    "spinLevel": "Nivel de giro",
+    "spinClaim": "Reclamar premios",
+    "spinBonus": "Bono de giro",
+    "spinNoSpin": "Lo siento, no tienes giros.",
+    "spinWrong": "Algo salió mal.",
     "unlockEndlessBenefit": "DESBLOQUEA BENEFICIOS SIN FIN",
     "joinNowAndEmbark": "¡Únase ahora y embárquese en un emocionante viaje de suerte y recompensa!",
     "levelUpBonus": "Bono por subir de nivel",

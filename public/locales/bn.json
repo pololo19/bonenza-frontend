@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "মাস"
   },
   "bonus": {
+    "spinBonusTotal": "স্পিন বোনাস মোট",
+    "spinLevel": "স্পিন লেভেল",
+    "spinClaim": "পুরস্কার দাবি করুন",
+    "spinBonus": "স্পিন বোনাস",
+    "spinNoSpin": "দুঃখিত, আপনার কোনো স্পিন নেই",
+    "spinWrong": "কিছু ভুল হয়েছে.",
     "unlockEndlessBenefit": "অফুরন্ত সুবিধাগুলি আনলক করুন",
     "joinNowAndEmbark": "এখনই যোগ দিন এবং ভাগ্য এবং পুরস্কারের একটি আনন্দদায়ক যাত্রা শুরু করুন!",
     "levelUpBonus": "লেভেল আপ বোনাস",

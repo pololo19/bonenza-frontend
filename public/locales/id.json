@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "Bulan"
   },
   "bonus": {
+    "spinBonusTotal": "Putaran Bonus Total",
+    "spinLevel": "Tingkat Putaran",
+    "spinClaim": "Klaim Hadiah",
+    "spinBonus": "Bonus Putaran",
+    "spinNoSpin": "Maaf, Anda tidak punya putaran apa pun",
+    "spinWrong": "Ada yang salah.",
     "unlockEndlessBenefit": "BUKA MANFAAT YANG TANPA AKHIR",
     "joinNowAndEmbark": "Bergabunglah sekarang dan mulailah perjalanan keberuntungan dan hadiah yang menggembirakan!",
     "levelUpBonus": "Bonus Naik Level",

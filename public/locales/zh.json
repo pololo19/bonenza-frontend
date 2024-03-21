@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "月"
   },
   "bonus": {
+    "spinBonusTotal": "旋转奖金总计",
+    "spinLevel": "旋转水平",
+    "spinClaim": "领取奖励",
+    "spinBonus": "旋转奖金",
+    "spinNoSpin": "抱歉，您没有任何旋转",
+    "spinWrong": "出了些问题。",
     "unlockEndlessBenefit": "释放无尽的好处",
     "joinNowAndEmbark": "立即加入，踏上令人兴奋的幸运与奖励之旅！",
     "levelUpBonus": "升级奖励",

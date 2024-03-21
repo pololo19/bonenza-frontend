@@ -275,7 +275,7 @@ const WagerContestComponent = () => {
               <Image
                 width={25}
                 height={25}
-                className="rounded-full grayscale brightness-50"
+                className="rounded-full grayscale brightness-50 sm:h-[25px] sm:w-[25px] w-[16px]"
                 src="/img/avatar-hidden.png"
                 alt=""
               />
@@ -294,8 +294,8 @@ const WagerContestComponent = () => {
             <div className="font-bold truncate">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
                 <div className="flex gap-[3px] items-center">
-                  <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4" />
-                  {t('homePage:hidden')}
+                  <Ghost width={12} height={12} variant="Bulk" className="hidden sm:block w-[20px] h-[20px]" />
+                  <span className="font-bold">{t('homePage:hidden')}</span>
                 </div>
               ) : row.original.playerId === userId ? (
                 userName
@@ -600,12 +600,7 @@ const WagerContestComponent = () => {
         <div
           className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-color-light-bg-primary mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
           onClick={() => {
-            if (isLogin) {
-              dispatch(changeIsShowWagerContestHistory(true));
-            } else {
-              dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-              dispatch(changeIsShowAuthenticationModal(true));
-            }
+            dispatch(changeIsShowWagerContestHistory(true));
           }}
         >
           {t('wagerContest:history')}

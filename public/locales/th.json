@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "เดือน"
   },
   "bonus": {
+    "spinBonusTotal": "สปินโบนัสรวม",
+    "spinLevel": "ระดับการหมุน",
+    "spinClaim": "รับรางวัล",
+    "spinBonus": "หมุนโบนัส",
+    "spinNoSpin": "ขออภัย คุณไม่มีการหมุนใดๆ",
+    "spinWrong": "บางอย่างผิดพลาด.",
     "unlockEndlessBenefit": "ปลดล็อคผลประโยชน์ที่ไม่มีที่สิ้นสุด",
     "joinNowAndEmbark": "เข้าร่วมตอนนี้และเริ่มต้นการเดินทางที่น่าตื่นเต้นของโชคและรางวัล!",
     "levelUpBonus": "โบนัสเลื่อนระดับ",
