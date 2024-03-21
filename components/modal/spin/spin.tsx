@@ -7,7 +7,7 @@ import { ElementType, useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { api_getSpinData, api_postSpinTry } from '@/api/spin';
+import { api_getSpinAvailableCount, api_getSpinData, api_postSpinTry } from '@/api/spin';
 import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
@@ -74,6 +74,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const [currentSpin, setCurrentSpin] = useState<SpinItem>();
   const [spinBonusTotal, setSpinBonusTotal] = useState<number>(0);
   const [latestSpin, setLatestSpin] = useState<SpinDataType>();
+  const [spinAvailableCount, setSpinAvailableCount] = useState<number>(0);
+
   const { isLogin, isShowSpinClaim } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -83,6 +85,16 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   );
 
   const timeOut = useRef<any>(null);
+
+  const getSpinAvailableCount = async () => {
+    try {
+      const res = await api_getSpinAvailableCount();
+      const tempAvailableCount = res.data?.availableSpinCount || 0;
+      setSpinAvailableCount(tempAvailableCount);
+    } catch (error) {
+      setSpinAvailableCount(0);
+    } 
+  };
 
   const getSpinData = async () => {
     try {
@@ -128,14 +140,20 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   };
 
   useEffect(() => {
+    if(isLogin) {
+      getSpinAvailableCount();
+    }
     getSpinData();
-  }, [isShowSpinClaim]);
+  }, [isShowSpinClaim, isLogin, isRotating]);
 
   const spinPlay = useCallback(async () => {
     if (!isLogin) {
       dispatch(changeIsShowSpin(false));
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       dispatch(changeIsShowAuthenticationModal(true));
+      return;
+    }
+    if(spinAvailableCount === 0 || isRotating) {
       return;
     }
     let dd = 0;
@@ -261,8 +279,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               </div>
               <div className="absolute w-[28%] z-[6] cursor-pointer">
                 <div
-                  className={cn(styles.spin, styles.spin_button, 'relative overflow-hidden rounded-full', {
-                    'cursor-not-allowed': isRotating,
+                  className={cn(styles.spin, `${spinAvailableCount > 0? styles.spin_button : ''}`, 'relative overflow-hidden rounded-full', {
+                    'cursor-not-allowed': isRotating || spinAvailableCount === 0,
                   })}
                   onClick={spinPlay}
                 >

@@ -1,4 +1,4 @@
-import { API_SPIN_DATA, API_SPIN_LATEST,APIN_SPIN_TRY } from "@/base/constants/endpoints";
+import { API_SPIN_DATA, API_SPIN_LATEST,APIN_SPIN_AVAILABLE,APIN_SPIN_TRY } from "@/base/constants/endpoints";
 
 import api from "../api";
 
@@ -8,6 +8,10 @@ export const api_getSpinData = async () => {
   
   export const api_getSpinLatest = async () => {
     return api.get(API_SPIN_LATEST);
+  };
+
+  export const api_getSpinAvailableCount = async () => {
+    return api.get(APIN_SPIN_AVAILABLE);
   };
   
   export const api_postSpinTry = async (spinType: number) => {
