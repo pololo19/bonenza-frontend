@@ -43,12 +43,12 @@ export default function ModalDetailTransaction({
   const { activeTransactionStatus } = useSelector(
     (state: AppState) => ({
       activeTransactionStatus: state.wallet.activeTransactionStatus,
-    }),shallowEqual
+    }),
+    shallowEqual,
   );
-  
+
   const transactionStatus = useMemo(() => {
-    if(transaction.orderId === activeTransactionStatus.id && activeTransactionStatus.status === 1)
-      return "complete";
+    if (transaction.orderId === activeTransactionStatus.id && activeTransactionStatus.status === 1) return 'complete';
     return transaction.status;
   }, [activeTransactionStatus, transaction]);
 

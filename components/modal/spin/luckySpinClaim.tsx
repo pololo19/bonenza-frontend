@@ -25,13 +25,22 @@ type ModalSpinClaimProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-export default function ModalSpinClaim({ amount, symbol, symbolLogo, spinType, bonusId, claimable, show, onClose }: ModalSpinClaimProps) {
+export default function ModalSpinClaim({
+  amount,
+  symbol,
+  symbolLogo,
+  spinType,
+  bonusId,
+  claimable,
+  show,
+  onClose,
+}: ModalSpinClaimProps) {
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
-  
-  const onClickClaim = async() => {
-    if(claimable) {
+
+  const onClickClaim = async () => {
+    if (claimable) {
       try {
         setIsClaiming(true);
         await api_bonusClaim(bonusId, spinType + '_spin');
@@ -41,7 +50,7 @@ export default function ModalSpinClaim({ amount, symbol, symbolLogo, spinType, b
 
         dispatch(getBalance());
         dispatch(setLockedAmount(tempLockedAmount));
-        toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON }); 
+        toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
       } catch (error: any) {
         toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
       } finally {
@@ -49,39 +58,28 @@ export default function ModalSpinClaim({ amount, symbol, symbolLogo, spinType, b
       }
     }
     onClose();
-  }
+  };
   return (
     <>
       <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
         <div className="flex flex-col items-center justify-center overflow-y-auto relative px-5 py-8">
-          <Image
-            width={400}
-            height={600}
-            src={`/img/spin/${spinType}-popup.png`}
-            alt=""
-            className="w-[80%] m-auto"
-          />
+          <Image width={400} height={600} src={`/img/spin/${spinType}-popup.png`} alt="" className="w-[80%] m-auto" />
           <div className="flex items-center text-3xl text-[#FFE600] font-bold mt-8">
             {`+ ${amount} ${symbol}`}
-            <Image
-              width={25}
-              height={25}
-              className="ml-2 w-[40px]"
-              src={symbolLogo}
-              alt=""
-            />
+            <Image width={25} height={25} className="ml-2 w-[40px]" src={symbolLogo} alt="" />
           </div>
-          {claimable && 
+          {claimable && (
             <div
               className="bg-gradient-btn-play w-full min-h-[50px] text-center mt-5 rounded-large hover:cursor-pointer flex justify-center items-center"
               onClick={onClickClaim}
             >
-              {isClaiming
-                ? <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-8 !h-8" />
-                : <div>{t(`bonus:spinClaim`)}</div>
-              }
+              {isClaiming ? (
+                <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-8 !h-8" />
+              ) : (
+                <div>{t(`bonus:spinClaim`)}</div>
+              )}
             </div>
-          }
+          )}
         </div>
       </CommonModal>
     </>
