@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "Month"
   },
   "bonus": {
+    "spinBonusTotal": "Spin Bonus Total",
+    "spinLevel": "Spin Level",
+    "spinClaim": "Claim Rewards",
+    "spinBonus": "Spin Bonus",
+    "spinNoSpin": "Sorry, you don't have any spins",
+    "spinWrong": "Something went wrong.",
     "unlockEndlessBenefit": "UNLOCK ENDLESS BENEFITS",
     "joinNowAndEmbark": "Join now and embark on an exhilarating journey of luck and reward!",
     "levelUpBonus": "Level Up Bonus",

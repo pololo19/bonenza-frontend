@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "شهر"
   },
   "bonus": {
+    "spinBonusTotal": "إجمالي مكافأة الدوران",
+    "spinLevel": "مستوى الدوران",
+    "spinClaim": "يحصل على مكافاءات",
+    "spinBonus": "مكافأة الدوران",
+    "spinNoSpin": "عذرًا، ليس لديك أي دورات",
+    "spinWrong": "هناك خطأ ما.",
     "unlockEndlessBenefit": "احصل على فوائد لا حصر لها",
     "joinNowAndEmbark": "انضم الآن وابدأ في رحلة مبهجة من الحظ والمكافأة!",
     "levelUpBonus": "مكافأة المستوى الأعلى",

@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "Mois"
   },
   "bonus": {
+    "spinBonusTotal": "Total du bonus de rotation",
+    "spinLevel": "Niveau de rotation",
+    "spinClaim": "Réclamez des récompenses",
+    "spinBonus": "Bonus de rotation",
+    "spinNoSpin": "Désolé, vous n'avez aucun tour",
+    "spinWrong": "Quelque chose s'est mal passé.",
     "unlockEndlessBenefit": "DÉBLOQUEZ DES AVANTAGES INFINIS",
     "joinNowAndEmbark": "Inscrivez-vous maintenant et embarquez pour un voyage exaltant de chance et de récompense !",
     "levelUpBonus": "Bonus de niveau supérieur",

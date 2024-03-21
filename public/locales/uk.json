@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "місяць"
   },
   "bonus": {
+    "spinBonusTotal": "Загальний бонус за обертання",
+    "spinLevel": "Рівень обертання",
+    "spinClaim": "Вимагайте винагороди",
+    "spinBonus": "Бонус обертання",
+    "spinNoSpin": "Вибачте, у вас немає обертів",
+    "spinWrong": "Щось пішло не так.",
     "unlockEndlessBenefit": "РОЗБЛОКУЙТЕ НЕСКІНЧЕННІ ПЕРЕВАГИ",
     "joinNowAndEmbark": "Приєднуйтеся зараз і вирушайте в захоплюючу подорож удачі та нагород!",
     "levelUpBonus": "Бонус підвищення рівня",

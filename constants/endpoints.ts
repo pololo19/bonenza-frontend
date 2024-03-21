@@ -144,6 +144,11 @@ const API_WAGER_CONTEST_LIST = '/contest/list';
 const API_WAGER_CONTEST_HISTORY = '/contest/history';
 const API_WAGER_CONTEST_POSITION = '/contest/position';
 
+/************************************ Spin **********************************/
+const API_SPIN_LATEST = '/spin/latest';
+const API_SPIN_DATA = '/spin/data';
+const APIN_SPIN_TRY = '/spin/try';
+
 /************************************ Chat **********************************/
 const API_CHAT_LATEST = '/chat/latest';
 const API_CHAT_ADD = '/chat/add';
@@ -224,6 +229,8 @@ export {
   API_GAME_TABLE_GAMES,
   API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
+  API_SPIN_DATA,
+  API_SPIN_LATEST,
   API_USER_MEDAL_STATISTICS,
   API_USER_PROFILE_BET_STATISTICS,
   API_USER_PROFILE_CONTEST_HISTORY,
@@ -259,5 +266,6 @@ export {
   API_WALLET_USER_BALANCE,
   API_WALLET_WITHDRAW,
   API_WALLET_WITHDRAW_INFO,
+  APIN_SPIN_TRY,
   URL_REFRESH_TOKEN,
 };

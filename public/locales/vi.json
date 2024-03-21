@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "Tháng"
   },
   "bonus": {
+    "spinBonusTotal": "Tổng tiền thưởng quay",
+    "spinLevel": "Mức độ quay",
+    "spinClaim": "Yêu cầu phần thưởng",
+    "spinBonus": "Tiền thưởng quay",
+    "spinNoSpin": "Rất tiếc, bạn không có vòng quay nào",
+    "spinWrong": "Đã xảy ra lỗi.",
     "unlockEndlessBenefit": "MỞ KHÓA LỢI ÍCH VÔ TẬN",
     "joinNowAndEmbark": "Hãy tham gia ngay bây giờ và bắt tay vào một cuộc hành trình thú vị đầy may mắn và phần thưởng!",
     "levelUpBonus": "Tiền thưởng tăng cấp",

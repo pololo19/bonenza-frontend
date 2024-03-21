@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "Monat"
   },
   "bonus": {
+    "spinBonusTotal": "Spin-Bonus-Gesamtsumme",
+    "spinLevel": "Schleuderstufe",
+    "spinClaim": "Belohnung entgegennehmen",
+    "spinBonus": "Spin-Bonus",
+    "spinNoSpin": "Tut mir leid, Sie haben keine Spins",
+    "spinWrong": "Etwas ist schief gelaufen.",
     "unlockEndlessBenefit": "SCHAFFEN SIE UNENDLICHE VORTEILE",
     "joinNowAndEmbark": "Machen Sie jetzt mit und begeben Sie sich auf eine aufregende Reise voller Glück und Belohnung!",
     "levelUpBonus": "Levelaufstiegsbonus",

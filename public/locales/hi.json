@@ -1100,6 +1100,12 @@
     "selfExclusionPeriodMonth": "महीना"
   },
   "bonus": {
+    "spinBonusTotal": "स्पिन बोनस कुल",
+    "spinLevel": "स्पिन स्तर",
+    "spinClaim": "स्वत्व प्रतिफल",
+    "spinBonus": "स्पिन बोनस",
+    "spinNoSpin": "क्षमा करें, आपके पास कोई स्पिन नहीं है",
+    "spinWrong": "कुछ गलत हो गया।",
     "unlockEndlessBenefit": "अनंत लाभ अनलॉक करें",
     "joinNowAndEmbark": "अभी शामिल हों और भाग्य और इनाम की एक रोमांचक यात्रा पर निकलें!",
     "levelUpBonus": "लेवल अप बोनस",
