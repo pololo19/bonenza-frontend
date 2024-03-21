@@ -49,7 +49,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
     getLatestSpin();
   }, [show]);
@@ -58,7 +58,9 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
     {
       accessorKey: 'username',
       header: () => (
-        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">{t('profile:username')}</div>
+        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          {t('profile:username')}
+        </div>
       ),
       minSize: 30,
       cell: ({ row }) => (
@@ -70,7 +72,9 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
     {
       accessorKey: 'spinLevel',
       header: () => (
-        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">{t('bonus:spinLevel')}</div>
+        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          {t('bonus:spinLevel')}
+        </div>
       ),
       minSize: 30,
       cell: ({ row }) => (
@@ -82,7 +86,9 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
     {
       accessorKey: 'prize',
       header: () => (
-        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">{t('profile:prize')}</div>
+        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          {t('profile:prize')}
+        </div>
       ),
       minSize: 30,
       cell: ({ row }) => (
@@ -105,11 +111,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
         show={show}
         onClose={onClose}
         panelClass="sm:rounded max-w-full sm:max-w-[400px]"
-        header={
-          <div className="text-center py-5">
-            {t('bonus:spinBonus')}
-          </div>
-        }
+        header={<div className="text-center py-5">{t('bonus:spinBonus')}</div>}
       >
         <div className="pb-5">
           <RankingTableComponent

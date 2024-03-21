@@ -1,9 +1,10 @@
 import { Popover, Transition } from '@headlessui/react';
-import { ArrowRight2, Gift, Lock } from 'iconsax-react';
+import { ArrowRight2, Gift } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -29,12 +30,14 @@ export default function RewardDropdown() {
   const exchangeRate = useExchange();
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { viewInFiat, localFiat, lockedAmount, isLogin } = useSelector(
+  const [claimingBonus, setClaimingBonus] = useState<string>('');
+  const { viewInFiat, localFiat, lockedAmount, isLogin, isShowSpinClaim } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       lockedAmount: state.wallet.lockedAmount,
       isLogin: state.auth.isLogin,
+      isShowSpinClaim: state.modal.isShowSpinClaim,
     }),
     shallowEqual,
   );
@@ -55,16 +58,15 @@ export default function RewardDropdown() {
       setBonuses([]);
     } finally {
     }
-    t;
   };
 
   const handleClaim = async (bonus: BonusType) => {
     try {
-      const _res = await api_bonusClaim(bonus.id, bonus.type);
-      const status = _res.data.status;
+      setClaimingBonus(bonus.id);
+      const bonusType = bonus.type.toLowerCase().replace(' ', '_');
+      await api_bonusClaim(bonus.id, bonusType);
 
       const _resBonus = await api_getClaims();
-
       const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
 
       const tempBonuses = [...bonuses];
@@ -83,7 +85,22 @@ export default function RewardDropdown() {
     if (isLogin) {
       getBonusList();
     }
-  }, [isLogin]);
+  }, [isLogin, isShowSpinClaim]);
+
+  const getBonusType = (type: string) => {
+    switch(type) {
+      case 'level_up':
+        return t('bonus:levelUpRewards');
+      case 'wager_contest':
+        return t('bonus:wagerContestRewards');
+      case 'weekly_cashback':
+        return t('bonus:weeklyCashBackRewards');
+      case 'monthly_cashback':
+        return t('bonus:monthlyCashBackRewards');
+      default:
+        return type;
+    }
+  };
 
   return (
     <>
@@ -153,7 +170,7 @@ export default function RewardDropdown() {
                                     <Image
                                       width={30}
                                       height={30}
-                                      src="/img/reward.png"
+                                      src="/img/spin_reward.png"
                                       className="w-auth h-fit"
                                       alt=""
                                     />
@@ -167,14 +184,38 @@ export default function RewardDropdown() {
                                       alt=""
                                     />
                                   )}
+                                  {bonus.type === 'weekly_cashback' && (
+                                    <Image
+                                      width={30}
+                                      height={30}
+                                      src="/img/weekly_cashback_reward.png"
+                                      className="w-auth h-fit"
+                                      alt=""
+                                    />
+                                  )}
+                                  {bonus.type === 'monthly_cashback' && (
+                                    <Image
+                                      width={30}
+                                      height={30}
+                                      src="/img/monthly_cashback_reward.png"
+                                      className="w-auth h-fit"
+                                      alt=""
+                                    />
+                                  )}
+                                  {bonus.type === 'level_up' && (
+                                    <Image
+                                      width={30}
+                                      height={30}
+                                      src="/img/levelup_reward.png"
+                                      className="w-auth h-fit"
+                                      alt=""
+                                    />
+                                  )}
                                 </div>
 
                                 <div className="flex flex-col gap-[5px] justify-center">
                                   <p className="text-[14px] dark:text-white text-color-light-text-primary">
-                                    {bonus.type === 'level_up' && t('bonus:levelUpRewards')}
-                                    {bonus.type === 'wager_contest' && t('bonus:wagerContestRewards')}
-                                    {bonus.type === 'weekly_cashback' && t('bonus:weeklyCashBackRewards')}
-                                    {bonus.type === 'monthly_cashback' && t('bonus:monthlyCashBackRewards')}
+                                    {getBonusType(bonus.type)}
                                   </p>
                                   <div className="flex text-[14px] text-color-text-primary gap-[5px] items-center">
                                     {!viewInFiat && (
@@ -194,11 +235,14 @@ export default function RewardDropdown() {
                               </div>
                               <div className="py-[2px] flex items-center">
                                 <button
-                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default font-bold disabled:cursor-not-allowed min-h-[40px]"
+                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default disabled:cursor-not-allowed min-h-[40px] min-w-[82px] flex justify-center items-center"
                                   disabled={lockedAmount <= bonus.amount}
                                   onClick={() => handleClaim(bonus)}
                                 >
-                                  {t('deposit:claim')}
+                                  {claimingBonus === bonus.id 
+                                    ? <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-6 !h-6" />
+                                    : <div>{t('deposit:claim')}</div>
+                                  }
                                 </button>
                               </div>
                             </div>
