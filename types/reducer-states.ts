@@ -53,6 +53,7 @@ export type ModalState = {
   isShowCryptoOnlineModal?: boolean;
   isShowResetPassword?: boolean;
   isShowDetailBets?: boolean;
+  isShowSpinClaim?: boolean;
   detailBets: {
     betDetail: BetTableDataType;
     betId?: number;

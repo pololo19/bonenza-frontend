@@ -37,6 +37,7 @@ export const initialCommonState: ModalState = {
   isShowLogOutConfirm: false,
   isShowSpin: false,
   isShowDepositProgress: false,
+  isShowSpinClaim: false,
   detailBets: {
     isPublicProfile: true,
     titleModal: '',
@@ -159,6 +160,9 @@ export const queryDataSlice = createSlice({
     changeIsShowDepositProgress: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowDepositProgress = action.payload;
     },
+    changeIsShowSpinClaim: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowSpinClaim = action.payload;
+    },
     setDetailBets: (state: ModalState, action: PayloadAction<{betDetail: BetTableDataType, betId?: number, isPublicProfile?: boolean, titleModal?: String; }>) => {
       state.detailBets = action.payload;
     },
@@ -232,6 +236,7 @@ export const {
   changeIsShowLogOutConfirm,
   changeIsShowSpin,
   changeIsShowDepositProgress,
+  changeIsShowSpinClaim,
   setDetailBets,
   setInitialModals,
 } = queryDataSlice.actions;

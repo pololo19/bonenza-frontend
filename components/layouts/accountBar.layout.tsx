@@ -31,6 +31,7 @@ import {
   changeIsShowLogOutConfirm,
   changeIsShowMultiLanguageModal,
   changeIsShowReferAndEarn,
+  changeIsShowSpin,
   changeMultiLanguageTab,
 } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
@@ -401,7 +402,7 @@ const AccountPannel: React.FC = () => {
           </div>
         )}
         {/*  *********************************** Hide quest & spin feld ************************************************  */}
-        {/* {isLogin && (
+        {isLogin && (
           <div className="flex items-center gap-[10px]">
             <IconOption
               title={String(t('sidebar:quest'))}
@@ -411,12 +412,13 @@ const AccountPannel: React.FC = () => {
             />
             <IconOption
               title={String(t('sidebar:spin'))}
-              href={ROUTER.Bonus}
+              href=""
+              onClick={() => dispatch(changeIsShowSpin(true))}
               icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
               classNames="!bg-color-primary gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
             />
           </div>
-        )} */}
+        )}
 
         {isLogin && (
           <div className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
