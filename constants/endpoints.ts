@@ -148,6 +148,7 @@ const API_WAGER_CONTEST_POSITION = '/contest/position';
 const API_SPIN_LATEST = '/spin/latest';
 const API_SPIN_DATA = '/spin/data';
 const APIN_SPIN_TRY = '/spin/try';
+const APIN_SPIN_AVAILABLE = '/spin/available-count';
 
 /************************************ Chat **********************************/
 const API_CHAT_LATEST = '/chat/latest';
@@ -266,6 +267,7 @@ export {
   API_WALLET_USER_BALANCE,
   API_WALLET_WITHDRAW,
   API_WALLET_WITHDRAW_INFO,
+  APIN_SPIN_AVAILABLE,
   APIN_SPIN_TRY,
   URL_REFRESH_TOKEN,
 };

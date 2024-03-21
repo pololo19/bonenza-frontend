@@ -7,7 +7,7 @@ import { ElementType, useCallback, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { api_getSpinData, api_postSpinTry } from '@/api/spin';
+import { api_getSpinAvailableCount, api_getSpinData, api_postSpinTry } from '@/api/spin';
 import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
@@ -74,6 +74,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const [currentSpin, setCurrentSpin] = useState<SpinItem>();
   const [spinBonusTotal, setSpinBonusTotal] = useState<number>(0);
   const [latestSpin, setLatestSpin] = useState<SpinDataType>();
+  const [spinAvailableCount, setSpinAvailableCount] = useState<number>(0);
+
   const { isLogin, isShowSpinClaim } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -83,6 +85,16 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   );
 
   const timeOut = useRef<any>(null);
+
+  const getSpinAvailableCount = async () => {
+    try {
+      const res = await api_getSpinAvailableCount();
+      const tempAvailableCount = res.data?.availableSpinCount || 0;
+      setSpinAvailableCount(tempAvailableCount);
+    } catch (error) {
+      setSpinAvailableCount(0);
+    }
+  };
 
   const getSpinData = async () => {
     try {
@@ -128,14 +140,20 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   };
 
   useEffect(() => {
+    if (isLogin) {
+      getSpinAvailableCount();
+    }
     getSpinData();
-  }, [isShowSpinClaim]);
+  }, [isShowSpinClaim, isLogin, isRotating]);
 
   const spinPlay = useCallback(async () => {
     if (!isLogin) {
       dispatch(changeIsShowSpin(false));
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       dispatch(changeIsShowAuthenticationModal(true));
+      return;
+    }
+    if (spinAvailableCount === 0 || isRotating) {
       return;
     }
     let dd = 0;
@@ -203,13 +221,13 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         panelClass="sm:rounded max-w-full sm:max-w-[400px]"
         header={
           <div className="flex justify-between px-5 pt-8 pb-0 items-center">
-            <div className="flex gap-0">
+            <div className="flex gap-0 relative">
               {spins.map((spin) => (
                 <Image
                   key={`${spin}-tab`}
                   width={150}
                   height={151}
-                  className={`hover:cursor-pointer w-[65px] h-[65px] ${
+                  className={`hover:cursor-pointer w-[65px] h-[65px] z-10 ${
                     spin !== spinTab ? 'grayscale brightness-75' : ''
                   }`}
                   src={`/img/spin/${spin}-spin.png`}
@@ -217,6 +235,13 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                   onClick={() => setSpinTab(spin)}
                 />
               ))}
+              <div
+                className={cn('rounded-large z-0 absolute w-[33%] h-[100%] transition-all bg-[#7777]', {
+                  'translate-x-[0%]': spinTab === 'lucky',
+                  'translate-x-[101%]': spinTab === 'super',
+                  'translate-x-[202%]': spinTab === 'mega',
+                })}
+              />
             </div>
             <Image
               width={150}
@@ -237,9 +262,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 {spins.map((spin) => (
                   <div
                     key={`${spin}-wheel-div`}
-                    className={cn('transition-all ease-in overflow-hidden absolute duration-500', {
-                      'max-h-0 max-w-0 left-[50%] right-[50%] top-[50%] bottom-[50%]': spin !== spinTab,
-                      'max-h-[500px] max-w-[500px] left-0 right-0 top-0 bottom-0 delay-200': spin === spinTab,
+                    className={cn('transition-all ease-in overflow-hidden absolute', {
+                      'max-h-0 max-w-0 left-[50%] right-[50%] top-[50%] bottom-[50%] duration-200': spin !== spinTab,
+                      'max-h-[500px] max-w-[500px] left-0 right-0 top-0 bottom-0 duration-500': spin === spinTab,
                     })}
                     style={{ transform: `rotate(${rotate}deg)` }}
                   >
@@ -261,9 +286,14 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               </div>
               <div className="absolute w-[28%] z-[6] cursor-pointer">
                 <div
-                  className={cn(styles.spin, styles.spin_button, 'relative overflow-hidden rounded-full', {
-                    'cursor-not-allowed': isRotating,
-                  })}
+                  className={cn(
+                    styles.spin,
+                    `${spinAvailableCount > 0 ? styles.spin_button : ''}`,
+                    'relative overflow-hidden rounded-full',
+                    {
+                      'cursor-not-allowed': isRotating || spinAvailableCount === 0,
+                    },
+                  )}
                   onClick={spinPlay}
                 >
                   <Image
