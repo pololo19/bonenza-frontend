@@ -8,9 +8,11 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_getSpinData, api_postSpinTry } from '@/api/spin';
+import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { changeAuthenticationType, changeIsShowAuthenticationModal, changeIsShowSpin } from '@/base/redux/reducers/modal.reducer';
+import { changeAuthenticationType, changeIsShowAuthenticationModal, changeIsShowSpin, changeIsShowSpinClaim } from '@/base/redux/reducers/modal.reducer';
+import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
@@ -34,7 +36,8 @@ interface SpinItem {
   symbolLogo: string;
   amount: number;
   amountUsd: number;
-  id: number;
+  id: string;
+  claimable?: boolean;
 }
 
 type SpinDataType = {
@@ -50,10 +53,9 @@ type SpinDataType = {
 export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const { t } = useTranslation('');
   const [rotate, setRotate] = useState(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const [isRotating, setIsRotating] = useState(false);
-  const [isShowClaim, setIsShowClaim] = useState(false);
   const [isShowLatestSpins, setisShowLatestSpins] = useState<boolean>(false);
 
   const [spinTab, setSpinTab] = useState<'lucky' | 'super' | 'mega'>('lucky');
@@ -65,9 +67,11 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const [latestSpin, setLatestSpin] = useState<SpinDataType>();
   const {
     isLogin,
+    isShowSpinClaim,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
+      isShowSpinClaim: state.modal.isShowSpinClaim,
     }),
     shallowEqual,
   );
@@ -119,7 +123,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   
   useEffect(() => {
     getSpinData();
-  }, [isShowClaim]);
+  }, [isShowSpinClaim]);
 
   const spinPlay = useCallback(async() => {
     if(!isLogin) {
@@ -132,13 +136,27 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     try{
       const res = await api_postSpinTry(spins.indexOf(spinTab));
       const spinId = (res.data.spinId || 1) - 1;
-      setCurrentSpin(spinItems?.[spinTab]?.at(spinId));
+      const claimable = res.data.availableClaim || false;
+      const id = res.data.bonusId || '';
+      const spin = spinItems?.[spinTab]?.at(spinId);
+      setCurrentSpin({
+        symbol: spin?.symbol || '',
+        symbolLogo: spin?.symbolLogo || '',
+        amount: spin?.amount || 0,
+        amountUsd: spin?.amountUsd || 0,
+        id: id,
+        claimable: claimable || false,
+      });
       dd = 22.5 * spinId;
+      const _resBonus = await api_getClaims();
+      const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+
+      dispatch(setLockedAmount(tempLockedAmount));
     } 
     catch (error) {
       const status = (error as AxiosError).response?.status || 0;
       toast.error(
-        (status || 404) === 400 ? "Sorry, you don't have any spins now." : "Something went wrong.", 
+        (status || 404) === 400 ? t('bonus:spinNoSpin') : t('bonus:spinWrong'), 
         { containerId: TOAST_ENUM.COMMON, icon: true, autoClose: 3000, hideProgressBar: false }
       );
       return;
@@ -156,7 +174,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     timeOut.current = setTimeout(() => {
       setIsRotating(false);
       clearInterval(timer);
-      setIsShowClaim(true);
+      dispatch(changeIsShowSpinClaim(true));
     }, duration);
   }, [isLogin, spinTab, spinItems]);
 
@@ -200,33 +218,57 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         : (
           <div className="flex flex-col items-center justify-center overflow-y-auto relative">
             <div className="spin-wrap flex flex-col items-center justify-center p-[25px] overflow-y-auto relative">
-              <div
-                className="flex items-center justify-center w-full relative origin-center"
-                style={{ transform: `rotate(${rotate}deg)` }}
-              >
-                <Image width={781} height={781} className="w-full" src={'/img/spin/spin-wheel.png'} alt="" />
-                {spinItems?.[spinTab].map((item, index) => (
+              <div className="relative min-w-[350px] min-h-[350px]">
+                {spins.map((spin) => (
                   <div
-                    key={index}
-                    className="absolute flex gap-[5px] justify-end items-center top-[50%] left-[50%] right-[25px] text-[14px] leading-[20px] -mt-[10px]"
-                    style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
-                >
-                    <span className="font-bold">{item.amount.toFixed(4)}</span>
-                    <Image
-                      width={14}
-                      height={14}
-                      className="w-[16px] h-[16px]"
-                      src={item.symbolLogo}
-                      alt=""
-                    />
+                    key={`${spin}-wheel-div`}
+                    className={
+                      cn
+                      (
+                        "transition-all ease-in overflow-hidden absolute",
+                        {
+                          "max-h-0 max-w-0 left-[50%] right-[50%] top-[50%] bottom-[50%]": spin !== spinTab,
+                          "max-h-[500px] max-w-[500px] left-0 right-0 top-0 bottom-0": spin === spinTab,
+                        }
+                      )
+                    }
+                    style={{ transform: `rotate(${rotate}deg)` }}
+                  >
+                    <div className="flex items-center justify-center w-full h-full relative origin-center">
+                      <Image width={781} height={781} className="w-full" src={'/img/spin/spin-wheel.png'} alt="" />
+                      {spinItems?.[spinTab].map((item, index) => (
+                        <div
+                          key={index}
+                          className="absolute flex gap-[5px] justify-end items-center top-[50%] left-[50%] right-[25px] text-[14px] leading-[20px] -mt-[10px]"
+                          style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
+                      >
+                          <span className="font-bold">{item.amount.toFixed(4)}</span>
+                          <Image
+                            width={14}
+                            height={14}
+                            className="w-[16px] h-[16px]"
+                            src={item.symbolLogo}
+                            alt=""
+                          />
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 ))}
               </div>
               <div className="absolute w-[28%] z-[6] cursor-pointer">
                 <div
-                  className={cn(styles.spin, 'relative overflow-hidden rounded-full', {
-                    'cursor-not-allowed': isRotating,
-                  })}
+                  className={
+                    cn
+                    (
+                      styles.spin,
+                      styles.spin_button,
+                      'relative overflow-hidden rounded-full',
+                      {
+                        'cursor-not-allowed': isRotating,
+                      }
+                    )
+                  }
                   onClick={spinPlay}
                 >
                   <Image
@@ -293,12 +335,14 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       </CommonModal>
 
       <ModalSpinClaim
-        show={isShowClaim}
-        onClose={() => setIsShowClaim(false)}
+        show={isShowSpinClaim || false}
+        onClose={() => dispatch(changeIsShowSpinClaim(false))}
         amount={currentSpin?.amount || 0}
         symbolLogo={currentSpin?.symbolLogo || ""}
         symbol={currentSpin?.symbol || ""}
         spinType={spinTab}
+        claimable={currentSpin?.claimable || false}
+        bonusId={currentSpin?.id || ''}
       />
       <ModalLatestSpins
         show={isShowLatestSpins}

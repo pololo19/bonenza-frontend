@@ -13,3 +13,30 @@
         }
     }
 }
+
+.spin_button {
+    @keyframes normalStatus {
+        0%, 100% {
+            transform: rotate(5deg);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+        }
+        50% {
+            transform: none;
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+        }
+    }
+    @keyframes bounce {
+        0%, 100% {
+            transform: translateY(-5%);
+            animation-timing-function: cubic-bezier(0.8,0,1,1);
+        }
+        50% {
+            transform: none;
+            animation-timing-function: cubic-bezier(0,0,0.2,1);
+        }
+    }
+    animation: normalStatus 1s infinite;
+    &:hover {
+        animation: bounce 1s infinite;
+    }
+}
