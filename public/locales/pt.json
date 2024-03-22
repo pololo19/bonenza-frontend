@@ -1451,7 +1451,8 @@
     "wager": "Aposta",
     "toReach": "Alcançar",
     "active": "Ativo",
-    "youAreTop": "Você é o melhor jogador!"
+    "youAreTop": "Você é o melhor jogador!",
+    "nextWagerComingSoon": "O próximo concurso de apostas está chegando!"
   },
   "provider": {
     "games": "Jogos",

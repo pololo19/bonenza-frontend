@@ -30,6 +30,7 @@ import {
   changeIsShowInformation,
   changeIsShowLogOutConfirm,
   changeIsShowMultiLanguageModal,
+  changeIsShowQuest,
   changeIsShowReferAndEarn,
   changeIsShowSpin,
   changeMultiLanguageTab,
@@ -406,7 +407,8 @@ const AccountPannel: React.FC = () => {
           <div className="flex items-center gap-[10px]">
             <IconOption
               title={String(t('sidebar:quest'))}
-              href={ROUTER.Bonus}
+              href=""
+              onClick={() => dispatch(changeIsShowQuest(true))}
               icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
               classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
             />

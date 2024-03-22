@@ -59,7 +59,7 @@ export type ModalState = {
     betId?: number;
     isPublicProfile?: boolean;
     titleModal?: String;
-  }
+  };
   isShowCasinoSearch?: boolean;
   isShowRakeBackModal?: boolean;
   isShowRakeBackDetailModal?: boolean;
@@ -73,6 +73,8 @@ export type ModalState = {
   isShowSpin?: boolean;
   isShowDepositProgress?: boolean;
   isShowDetailTransaction?: boolean;
+  isShowQuest?: boolean;
+  isShowChatRule?: boolean;
 };
 
 export type LoadingState = {

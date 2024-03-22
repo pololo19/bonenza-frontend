@@ -72,7 +72,7 @@ function BonusLoggedPage() {
         totalValue: '',
         nameButton: '',
         showDeposit: true,
-        tooltip: t('bonus:depositBonusRulesContent')
+        tooltip: t('bonus:depositBonusRulesContent'),
       },
     ],
     [i18n.language],
@@ -90,17 +90,14 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: 1000,
+        wagerValue: currencyFormat1(1000, 2),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
         lastWeekBonusValue: '-',
         showHour: false,
         showDescription: true,
-        tooltip: [
-          t('bonus:weeklyCashBackTooltip1'),
-          t('bonus:weeklyCashBackTooltip2'),
-        ],
+        tooltip: [t('bonus:weeklyCashBackTooltip1'), t('bonus:weeklyCashBackTooltip2')],
       },
       {
         backgroundDark: '/img/bg-weekly-cashback2.png',
@@ -111,18 +108,15 @@ function BonusLoggedPage() {
         currentTier: '',
         rechargeRate: '',
         readyToClaim: '',
-        lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: 1000,
+        lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
+        wagerValue: currencyFormat1(10000, 2),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
         lastWeekBonusValue: '-',
         showHour: false,
         showDescription: true,
-        tooltip: [
-          t('bonus:monthlyCashBackTooltip1'),
-          t('bonus:monthlyCashBackTooltip2'),
-        ],
+        tooltip: [t('bonus:monthlyCashBackTooltip1'), t('bonus:monthlyCashBackTooltip2')],
       },
     ],
     [i18n.language, viewInFiat, localFiat],
@@ -166,7 +160,12 @@ function BonusLoggedPage() {
     getBonusStatistics();
   }, []);
   const onRedeemClick = () => {
-    toast.error("The code doesn't exist", { containerId: TOAST_ENUM.COMMON, icon: true, autoClose: 3000, hideProgressBar: false });
+    toast.error("The code doesn't exist", {
+      containerId: TOAST_ENUM.COMMON,
+      icon: true,
+      autoClose: 3000,
+      hideProgressBar: false,
+    });
   };
 
   return (
