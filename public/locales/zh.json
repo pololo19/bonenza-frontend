@@ -1451,7 +1451,8 @@
     "wager": "赌注",
     "toReach": "达到",
     "active": "积极的",
-    "youAreTop": "你是顶级玩家！"
+    "youAreTop": "你是顶级玩家！",
+    "nextWagerComingSoon": "下一届投注大赛即将来临！"
   },
   "provider": {
     "games": "游戏",

@@ -1451,7 +1451,8 @@
     "wager": "दांव",
     "toReach": "तक पहुँचने",
     "active": "सक्रिय",
-    "youAreTop": "आप शीर्ष खिलाड़ी हैं!"
+    "youAreTop": "आप शीर्ष खिलाड़ी हैं!",
+    "nextWagerComingSoon": "अगली दांव प्रतियोगिता जल्द ही आ रही है!"
   },
   "provider": {
     "games": "खेल",

@@ -104,7 +104,7 @@ function AdminRewardsPage() {
           _res.data?.rewards?.map((item: any) => ({
             level: item.vipLevel,
             referralCode: referralCode,
-            registrationTime: new Date(item.registrationDate),
+            registrationTime: new Date(item.registeredAt),
             totalEarnedMe: item.earnedMe,
             userName: item.userName,
           })) || [];

@@ -1451,7 +1451,8 @@
     "wager": "賭け金",
     "toReach": "到達すること",
     "active": "アクティブ",
-    "youAreTop": "あなたはトッププレイヤーです！"
+    "youAreTop": "あなたはトッププレイヤーです！",
+    "nextWagerComingSoon": "次の賭けコンテストが間もなく開催されます!"
   },
   "provider": {
     "games": "ゲーム",
