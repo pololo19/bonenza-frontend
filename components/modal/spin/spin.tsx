@@ -8,6 +8,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_getSpinAvailableCount, api_getSpinData, api_postSpinTry } from '@/api/spin';
+import { api_getProfile } from '@/api/user';
 import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
@@ -74,12 +75,16 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const [currentSpin, setCurrentSpin] = useState<SpinItem>();
   const [spinBonusTotal, setSpinBonusTotal] = useState<number>(0);
   const [latestSpin, setLatestSpin] = useState<SpinDataType>();
+  const [spinAvailable, setSpinAvailable] = useState<boolean>(true);
+  const [currentVipLevel, setCurrentViplevel] = useState<number>(0);
   const [spinAvailableCount, setSpinAvailableCount] = useState<number>(0);
 
-  const { isLogin, isShowSpinClaim } = useSelector(
+  const { isLogin, isShowSpinClaim, user, isShowSpin } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       isShowSpinClaim: state.modal.isShowSpinClaim,
+      isShowSpin: state.modal.isShowSpin,
+      user: state.auth.user,
     }),
     shallowEqual,
   );
@@ -91,8 +96,15 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       const res = await api_getSpinAvailableCount();
       const tempAvailableCount = res.data?.availableSpinCount || 0;
       setSpinAvailableCount(tempAvailableCount);
+      
+      const profileResponse = await api_getProfile(user.userId || '');
+      const vipLevel = Number(profileResponse.data?.currentVipLevel || 0);
+      setCurrentViplevel(vipLevel);
+
+      checkSpinAvailable(vipLevel, spinTab, tempAvailableCount);
     } catch (error) {
-      setSpinAvailableCount(0);
+      setSpinAvailable(false);
+      setCurrentViplevel(0);
     }
   };
 
@@ -144,7 +156,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       getSpinAvailableCount();
     }
     getSpinData();
-  }, [isShowSpinClaim, isLogin, isRotating]);
+  }, [isShowSpinClaim, isShowSpin, isLogin]);
 
   const spinPlay = useCallback(async () => {
     if (!isLogin) {
@@ -153,7 +165,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       dispatch(changeIsShowAuthenticationModal(true));
       return;
     }
-    if (spinAvailableCount === 0 || isRotating) {
+    if (!spinAvailable || isRotating) {
       return;
     }
     let dd = 0;
@@ -213,6 +225,15 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     setRotate(0);
   }, [show]);
 
+  const onSpinTabChange = (spin: 'lucky' | 'super' | 'mega') => {
+    setSpinTab(spin);
+    checkSpinAvailable(currentVipLevel, spin, spinAvailableCount);
+  };
+
+  const checkSpinAvailable = (vipLevel: number, spin: 'lucky' | 'super' | 'mega', spinCount: number) => {
+    const minimumLevel = spin === 'super' ? 22 : (spin === 'mega' ? 70 : 0);
+    setSpinAvailable(vipLevel >= minimumLevel && spinCount > 0);
+  }
   return (
     <>
       <CommonModal
@@ -232,7 +253,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                   }`}
                   src={`/img/spin/${spin}-spin.png`}
                   alt=""
-                  onClick={() => setSpinTab(spin)}
+                  onClick={() => onSpinTabChange(spin)}
                 />
               ))}
               <div
@@ -288,10 +309,10 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 <div
                   className={cn(
                     styles.spin,
-                    `${spinAvailableCount > 0 ? styles.spin_button : ''}`,
+                    `${spinAvailable ? styles.spin_button : ''}`,
                     'relative overflow-hidden rounded-full',
                     {
-                      'cursor-not-allowed': isRotating || spinAvailableCount === 0,
+                      'cursor-not-allowed': isRotating || !spinAvailable,
                     },
                   )}
                   onClick={spinPlay}

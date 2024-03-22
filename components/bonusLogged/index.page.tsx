@@ -173,12 +173,12 @@ function BonusLoggedPage() {
       {isLoading && <Loader />}
       <div className="mb-[50px]">
         <div className="flex max-sm:flex-wrap items-center justify-between">
-          <div className="text-[24px] dark:text-white text-color-light-text-primary font-semibold my-[16px] md:my-0">
+          <div className="text-[16px] md:text-[24px] dark:text-white text-color-light-text-primary font-semibold my-[16px] md:my-0">
             {t('bonus:bonus')}
           </div>
           <div className="flex h-[48px] w-full justify-end">
             <input
-              className="focus:outline-none dark:bg-color-table-header-text-secondary/30 bg-white text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[200px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
+              className="focus:outline-none dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
               type="text"
             />
@@ -186,9 +186,9 @@ function BonusLoggedPage() {
               onClick={onRedeemClick}
               role="button"
               className={cn(
-                'active:scale-105 scale-100 transition-all',
-                'hover:opacity-[0.9] bg-gradient-btn-play text-[14px] text-white font-medium rounded-r-large ',
-                'px-4 min-w-fit w-auto sm:w-[165px] justify-center flex items-center',
+                "active:scale-105 scale-100 transition-all",
+                "hover:opacity-[0.9] bg-gradient-btn-play text-[12px] sm:text-[14px] text-white font-medium rounded-r-large ",
+                "px-2 sm:px-4 justify-center flex items-center"
               )}
             >
               {t('bonus:redeemBonusCode')}
@@ -260,9 +260,9 @@ function BonusLoggedPage() {
         </div>
         <div className="mt-5">
           <div className="flex items-center gap-[10px] mb-[16px]">
-            <div className="text-[20px] dark:text-white text-color-light-text-primary font-medium">
+            <div className="text-[16px] md:text-[20px] dark:text-white text-color-light-text-primary font-medium">
               {t('bonus:generalBonus')} & VIP{' '}
-              <span className="text-[20px] font-medium dark:text-white text-color-light-text-primary">
+              <span className="text-[16px] md:text-[20px] font-medium dark:text-white text-color-light-text-primary">
                 {t('bonus:Bonus')}
               </span>
             </div>
@@ -360,7 +360,7 @@ function BonusLoggedPage() {
           </div>
         </div>
         <div className="mt-5">
-          <div className="text-[20px] dark:text-white text-color-light-text-primary font-medium mb-[18px]">
+          <div className="text-[16px] md:text-[20px] dark:text-white text-color-light-text-primary font-medium mb-[18px]">
             {t('bonus:specialBonus')}
           </div>
           <div className="dark:bg-color-card-body-default bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">

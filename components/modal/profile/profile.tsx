@@ -126,7 +126,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               <div className="relative">
                 <Image
                   onError={(e) => {
-                    e.currentTarget.src = `/img/vip.png`;
+                    e.currentTarget.src = `/img/vip/vip-0-ribbon.png`;
                   }}
                   src={vipData.medal}
                   width={80}
