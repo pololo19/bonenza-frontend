@@ -167,6 +167,9 @@ export const queryDataSlice = createSlice({
     changeIsShowQuest: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowQuest = action.payload;
     },
+    changeIsShowChatRule: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowChatRule = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -252,5 +255,6 @@ export const {
   setDetailBets,
   setInitialModals,
   changeIsShowQuest,
+  changeIsShowChatRule,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

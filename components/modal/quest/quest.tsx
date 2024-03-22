@@ -64,7 +64,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
     <>
       <CommonModal
         show={show}
-        panelClass="sm:rounded max-w-full sm:max-w-[600px]"
+        panelClass="sm:rounded max-w-full sm:max-w-[600px] sm:!h-[80vh]"
         onClose={onClose}
         header={
           <>
@@ -76,14 +76,14 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           </>
         }
       >
-        <div className="flex flex-col px-5 py-4 items-center gap-[20px]">
+        <div className="flex flex-col px-5 pt-1 items-center gap-[10px]">
           <div className="flex dark:text-color-text-primary justify-start w-full">{format(new Date(), 'eeee')}</div>
           <div className="flex justify-between w-full">
             <div className="flex flex-col gap-[10px] text-white">
-              <span>{t('quest:accumulateRewards')}</span>
-              <div className="flex gap-[10px]">
+              <span className="text-default">{t('quest:accumulateRewards')}</span>
+              <div className="flex gap-[10px] items-center">
                 <Image width={50} height={50} className="w-[25px] h-[25px]" src={'/img/fiats/USDT.png'} alt="" />
-                <span>{`${0} USDT`}</span>
+                <span className="text-[20px] font-bold">{`${0} USDT`}</span>
               </div>
             </div>
           </div>
@@ -116,14 +116,14 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           <div className="flex flex-col w-full gap-[10px]">
             {selectedType === 'daily' && (
               <>
-                <div className="mt-[10px] gap-[10px] text-color-text-primary">{t('quest:expiredIn')}</div>
+                <div className="gap-[10px] text-color-text-primary">{t('quest:expiredIn')}</div>
                 {mockDatas.map((item) => (
                   <QuestItem
                     header={<div className="flex text-[16px] font-bold">{item.title}</div>}
                     description={item.description}
                     extra={
                       <div className="flex items-center">
-                        <button className="min-w-[100px] bg-gradient-btn-play h-fit py-[10px] rounded-default">
+                        <button className="min-w-[80px] bg-gradient-btn-play h-fit py-[8px] rounded-default">
                           {t('quest:go')}
                         </button>
                       </div>
@@ -136,7 +136,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
 
             {selectedType === 'weekly' && (
               <>
-                <div className="mt-[10px] gap-[10px] text-color-text-primary">{t('quest:expiredIn')}</div>
+                <div className="gap-[10px] text-color-text-primary">{t('quest:expiredIn')}</div>
                 {mockWeeklyDatas.map((item, index) => (
                   <QuestItem
                     key={index}
@@ -144,7 +144,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                     description={item.description}
                     extra={
                       <div className="flex items-center">
-                        <button className="min-w-[100px] bg-gradient-btn-play h-fit py-[10px] rounded-default">
+                        <button className="min-w-[80px] bg-gradient-btn-play h-fit py-[8px] rounded-default">
                           {t('quest:go')}
                         </button>
                       </div>
