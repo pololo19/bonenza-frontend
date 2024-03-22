@@ -25,6 +25,7 @@ import {
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
   changeIsShowCasinoSearch,
+  changeIsShowChatRule,
   changeIsShowCropAvatar,
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
@@ -74,6 +75,7 @@ import HomeIconOutline from '../icons/HomeIconOutline';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
+import ModalChatRules from '../modal/chatRules/chatRules';
 import ModalCropAvatar from '../modal/cropAvatar/cropAvatar';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDeposit from '../modal/depositModal/depositModal';
@@ -82,6 +84,7 @@ import ModalDetailBets from '../modal/detailBets/detailBets';
 import ModalLogOutConfirm from '../modal/logOutConfirm/LogOutConfirm';
 import ModalMultiLanguage from '../modal/multiLanguage/MultiLanguage';
 import ModalProfile from '../modal/profile/profile';
+import ModalQuest from '../modal/quest/quest';
 import ModalBonusHistory from '../modal/rakeBack/bonusHistory/bonusHistory';
 import ModalRakeBack from '../modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '../modal/rakeBack/rakeBackDetail/rakeBackDetail';
@@ -101,7 +104,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import ModalQuest from '../modal/quest/quest';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -191,6 +193,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     cryptoSymbols,
     isShowSpin,
     isShowQuest,
+    isShowChatRule,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -218,6 +221,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowLogOutConfirm: state.modal.isShowLogOutConfirm,
       verifyModeType: state.modal.verifyModeType,
       isShowWagerContestHistory: state.modal.isShowWagerContestHistory,
+      isShowChatRule: state.modal.isShowChatRule,
 
       isShowSidebar: state.modal.isShowMenuPannel,
       isShowAccount: state.modal.isShowAccountPannel,
@@ -859,6 +863,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
       <ModalSpin show={isShowSpin || false} onClose={() => dispatch(changeIsShowSpin(false))} />
       <ModalQuest show={isShowQuest || false} onClose={() => dispatch(changeIsShowQuest(false))} />
+      <ModalChatRules
+        show={isShowChatRule || false}
+        onClose={() => {
+          dispatch(changeIsShowChatRule(false));
+        }}
+      />
     </>
   );
 };
