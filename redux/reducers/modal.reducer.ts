@@ -12,7 +12,6 @@ export const initialCommonState: ModalState = {
   isShowForgotPassModal: false,
   isShowUpdateInformation: false,
   isShowUpdateAvatar: false,
-  isShowCropAvatar: false,
   isShowMultiLanguage: false,
   authenticationType: AuthenticationModeEnum.SIGN_IN,
   multiLanguageTab: MultiLanguageTabEnum.LANGUAGE,
@@ -82,9 +81,6 @@ export const queryDataSlice = createSlice({
     },
     changeIsShowUpdateAvatar: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowUpdateAvatar = action.payload;
-    },
-    changeIsShowCropAvatar: (state: ModalState, action: PayloadAction<boolean>) => {
-      state.isShowCropAvatar = action.payload;
     },
     changeIsShowMultiLanguageModal: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowMultiLanguage = action.payload;
@@ -190,7 +186,6 @@ export const queryDataSlice = createSlice({
       state.isShowForgotPassModal = false;
       state.isShowUpdateInformation = false;
       state.isShowUpdateAvatar = false;
-      state.isShowCropAvatar = false;
       state.isShowMultiLanguage = false;
       state.authenticationType = AuthenticationModeEnum.SIGN_IN;
       state.multiLanguageTab = MultiLanguageTabEnum.LANGUAGE;
@@ -227,7 +222,6 @@ export const {
   changeIsShowInformation,
   changeIsShowReferAndEarn,
   changeIsShowUpdateInformation,
-  changeIsShowCropAvatar,
   changeSelectedAvatar,
   changeIsShowMultiLanguageModal,
   changeShowChatType,

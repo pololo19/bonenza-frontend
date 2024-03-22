@@ -177,7 +177,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       >
         <div className="flex max-sm:flex-1 flex-col gap-3 overflow-y-auto px-[20px] pt-[10px] pb-[30px] bg-white dark:bg-color-header-primary">
           {isLoading && <Loader />}
-          <div className={`flex justify-center gap-1 overflow-x-auto scrollbar min-h-[100px]`}>
+          <div className={`w-full flex gap-1 overflow-x-auto scrollbar min-h-[100px]`}>
             {rankList.map((item, index) => (
               <div
                 className={cn(

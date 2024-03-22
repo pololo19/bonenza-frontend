@@ -38,7 +38,6 @@ export type ModalState = {
   isShowInformation?: boolean;
   isShowUpdateInformation?: boolean;
   isShowUpdateAvatar?: boolean;
-  isShowCropAvatar?: boolean;
   isShowMultiLanguage?: boolean;
   isShowAuthenticationModal?: boolean;
   isShowForgotPassModal?: boolean;
