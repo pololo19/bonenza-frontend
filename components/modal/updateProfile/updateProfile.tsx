@@ -50,7 +50,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
     }),
     shallowEqual,
   );
-
+  console.log(userName);
   const schema = yup.object().shape({
     username: yup
       .string()
@@ -61,11 +61,16 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    reset,
   } = useForm<UpdateProfileFormType>({
     resolver: yupResolver(schema),
-    defaultValues: { username: userName || '' },
+    defaultValues: { username: userName },
   });
+
+  useEffect(() => {
+    console.log(userName);
+    reset({username: userName});
+  }, [userName]);
 
   const goBackProfile = () => {
     dispatch(changeIsShowInformation(true));
@@ -107,7 +112,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
           <div className="relative p-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
             <div className="flex items-center text-black dark:text-white gap-[10px]">
               <ChevronLeftIcon width={20} role="button" onClick={() => goBackProfile()} />
-              <div className="text-[18px] font-[600]">{t('profile:updateInformation')}</div>
+              <div className="text-[18px] font-[600]">{t('profile:updateInformation')}123</div>
             </div>
           </div>
         }
