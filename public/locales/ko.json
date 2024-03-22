@@ -1451,7 +1451,8 @@
     "wager": "내기를 걸다",
     "toReach": "닿다",
     "active": "활동적인",
-    "youAreTop": "당신은 최고의 선수입니다!"
+    "youAreTop": "당신은 최고의 선수입니다!",
+    "nextWagerComingSoon": "다음 베팅 콘테스트가 곧 열립니다!"
   },
   "provider": {
     "games": "계략",

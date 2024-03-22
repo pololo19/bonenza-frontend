@@ -1451,7 +1451,8 @@
     "wager": "Wager",
     "toReach": "To reach",
     "active": "Active",
-    "youAreTop": "You're the top player!"
+    "youAreTop": "You're the top player!",
+    "nextWagerComingSoon": "The Next Wager Contest is coming soon!"
   },
   "provider": {
     "games": "Games",
@@ -1924,6 +1925,18 @@
     "reportReason4": "Scam attempt",
     "confirm": "Confirm",
     "cancel": "Cancel"
+  },
+  "quest": {
+    "questHub": "Quest HUB",
+    "accumulateRewards": "Accumulated rewards:",
+    "dailyQuest": "Daily Quests",
+    "weeklyQuest": "Weekly Quests",
+    "expiredIn": "Expires In",
+    "go": "Go",
+    "justWager": "Daily wager reaches $ {{amount}}",
+    "bigWin": "Win a win of 50x or more in any game with a bet over $ {{amount}}",
+    "slotMaster": "Single-day profit reaches $ ${{amount}}",
+    "weeklyWager": "Weekly wager reaches $ {{amount}}."
   },
   "errors": {
     "internalServer": "Internal Server Error",

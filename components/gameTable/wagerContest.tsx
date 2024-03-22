@@ -389,26 +389,35 @@ const WagerContestComponent = () => {
             {userId ? t('wagerContest:timeRemaining') : t('wagerContest:timeRemainingBeforeLogin')}
           </p>
           {userId ? (
-            <div className="flex gap-2">
-              <div
-                className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-              >
-                <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(hours)}</p>
-                <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
-              </div>
-              <div
-                className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-              >
-                <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(minutes)}</p>
-                <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
-              </div>
-              <div
-                className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-              >
-                <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(seconds)}</p>
-                <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
-              </div>
-            </div>
+            <>
+              {new Date(timeCoundown).getTime() - new Date().getTime() > 0 && (
+                <div className="flex gap-2">
+                  <div
+                    className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                  >
+                    <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(hours)}</p>
+                    <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
+                  </div>
+                  <div
+                    className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                  >
+                    <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(minutes)}</p>
+                    <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
+                  </div>
+                  <div
+                    className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                  >
+                    <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(seconds)}</p>
+                    <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
+                  </div>
+                </div>
+              )}
+              {new Date(timeCoundown).getTime() - new Date().getTime() < 0 && (
+                <div className="flex gap-2 text-color-primary font-bold text-[16px]">
+                  <p>{t('wagerContest:nextWagerComingSoon')}</p>
+                </div>
+              )}
+            </>
           ) : (
             <div
               className="bg-[#F61B4F] h-[48px] hover:opacity-90 cursor-pointer max-w-[280px] rounded-[4px] text-white font-bold text-[14px] w-full flex items-center justify-center"

@@ -34,6 +34,7 @@ import {
   changeIsShowLogOutConfirm,
   changeIsShowMenuPannel,
   changeIsShowMultiLanguageModal,
+  changeIsShowQuest,
   changeIsShowRakeBack,
   changeIsShowRakeBackDetail,
   changeIsShowReferAndEarn,
@@ -100,6 +101,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalQuest from '../modal/quest/quest';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -188,6 +190,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     fiatSymbols,
     cryptoSymbols,
     isShowSpin,
+    isShowQuest,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -227,6 +230,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       depositTime: state.wallet.depositTime,
       betHistory: state.game.betHistory,
       isShowSpin: state.modal.isShowSpin,
+      isShowQuest: state.modal.isShowQuest,
       isShowDepositProgress: state.modal.isShowDepositProgress,
       isShowDetailBets: state.modal.isShowDetailBets,
     }),
@@ -850,13 +854,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           onClose={() => dispatch(changeIsShowLogOutConfirm(false))}
         />
       )}
-      <ModalDetailBets
-        show={isShowDetailBets || false}
-        onClose={() => dispatch(changeIsShowDetailBets(false))}
-      />
+      <ModalDetailBets show={isShowDetailBets || false} onClose={() => dispatch(changeIsShowDetailBets(false))} />
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
       <ModalSpin show={isShowSpin || false} onClose={() => dispatch(changeIsShowSpin(false))} />
+      <ModalQuest show={isShowQuest || false} onClose={() => dispatch(changeIsShowQuest(false))} />
     </>
   );
 };

@@ -1451,7 +1451,8 @@
     "wager": "الرهان",
     "toReach": "للوصول",
     "active": "نشيط",
-    "youAreTop": "أنت أفضل لاعب!"
+    "youAreTop": "أنت أفضل لاعب!",
+    "nextWagerComingSoon": "مسابقة الرهان التالية ستأتي قريبًا!"
   },
   "provider": {
     "games": "ألعاب",
