@@ -268,7 +268,7 @@ function BonusLoggedPage() {
             </div>
           </div>
           <div className="grid grid-cols-4 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
-            <div className="rounded-[5px] relative dark:bg-color-card-body-default bg-white h-full">
+            <div className="rounded-[5px] relative dark:bg-color-card-body-default bg-white h-full min-h-[250px]">
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-[10px]">
