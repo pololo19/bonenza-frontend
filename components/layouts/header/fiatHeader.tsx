@@ -124,8 +124,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   };
 
   const listSuggestCoins = useMemo(() => {
-    let commonArray =
-      Array.isArray(cryptoSymbols) && Array.isArray(fiatSymbols) ? [...cryptoSymbols, ...fiatSymbols] : [];
+    let commonArray = Array.isArray(cryptoSymbols) && Array.isArray(fiatSymbols) ? [...cryptoSymbols] : [];
 
     return commonArray.filter((item: CurrencyType) =>
       item.name.toLowerCase().includes(searchFiatInput.toLowerCase().trim()),

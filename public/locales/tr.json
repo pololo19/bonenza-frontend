@@ -1451,7 +1451,8 @@
     "wager": "Bahis",
     "toReach": "Ulaşmak için",
     "active": "Aktif",
-    "youAreTop": "Sen en iyi oyuncusun!"
+    "youAreTop": "Sen en iyi oyuncusun!",
+    "nextWagerComingSoon": "Sonraki Bahis Yarışması çok yakında!"
   },
   "provider": {
     "games": "Oyunlar",

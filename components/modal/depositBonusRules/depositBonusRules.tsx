@@ -67,7 +67,7 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:!max-w-[530px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0"
+        panelClass="sm:!max-w-[530px] sm:h-[80vh] sm:min-h-[80vh] sm:my-0"
         header={
           <>
             <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
@@ -101,7 +101,6 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
                         ) : (
                           currencyFormat1(item.depositAmount, 2, 'USD')
                         )}
-
                       </p>
                     </div>
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">

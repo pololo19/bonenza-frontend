@@ -1451,7 +1451,8 @@
     "wager": "Pari",
     "toReach": "Atteindre",
     "active": "Actif",
-    "youAreTop": "Vous êtes le meilleur joueur !"
+    "youAreTop": "Vous êtes le meilleur joueur !",
+    "nextWagerComingSoon": "Le prochain concours de pari arrive bientôt !"
   },
   "provider": {
     "games": "Jeux",

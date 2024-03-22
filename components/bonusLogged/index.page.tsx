@@ -72,7 +72,7 @@ function BonusLoggedPage() {
         totalValue: '',
         nameButton: '',
         showDeposit: true,
-        tooltip: t('bonus:depositBonusRulesContent')
+        tooltip: t('bonus:depositBonusRulesContent'),
       },
     ],
     [i18n.language],
@@ -90,17 +90,14 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: 1000,
+        wagerValue: currencyFormat1(1000, 2),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
         lastWeekBonusValue: '-',
         showHour: false,
         showDescription: true,
-        tooltip: [
-          t('bonus:weeklyCashBackTooltip1'),
-          t('bonus:weeklyCashBackTooltip2'),
-        ],
+        tooltip: [t('bonus:weeklyCashBackTooltip1'), t('bonus:weeklyCashBackTooltip2')],
       },
       {
         backgroundDark: '/img/bg-weekly-cashback2.png',
@@ -112,17 +109,14 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: 1000,
+        wagerValue: currencyFormat1(10000, 2),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
         lastWeekBonusValue: '-',
         showHour: false,
         showDescription: true,
-        tooltip: [
-          t('bonus:monthlyCashBackTooltip1'),
-          t('bonus:monthlyCashBackTooltip2'),
-        ],
+        tooltip: [t('bonus:monthlyCashBackTooltip1'), t('bonus:monthlyCashBackTooltip2')],
       },
     ],
     [i18n.language, viewInFiat, localFiat],
@@ -166,7 +160,12 @@ function BonusLoggedPage() {
     getBonusStatistics();
   }, []);
   const onRedeemClick = () => {
-    toast.error("The code doesn't exist", { containerId: TOAST_ENUM.COMMON, icon: true, autoClose: 3000, hideProgressBar: false });
+    toast.error("The code doesn't exist", {
+      containerId: TOAST_ENUM.COMMON,
+      icon: true,
+      autoClose: 3000,
+      hideProgressBar: false,
+    });
   };
 
   return (
@@ -187,9 +186,9 @@ function BonusLoggedPage() {
               onClick={onRedeemClick}
               role="button"
               className={cn(
-                "active:scale-105 scale-100 transition-all",
-                "hover:opacity-[0.9] bg-gradient-btn-play text-[14px] text-white font-medium rounded-r-large ",
-                "px-4 min-w-fit w-auto sm:w-[165px] justify-center flex items-center"
+                'active:scale-105 scale-100 transition-all',
+                'hover:opacity-[0.9] bg-gradient-btn-play text-[14px] text-white font-medium rounded-r-large ',
+                'px-4 min-w-fit w-auto sm:w-[165px] justify-center flex items-center',
               )}
             >
               {t('bonus:redeemBonusCode')}

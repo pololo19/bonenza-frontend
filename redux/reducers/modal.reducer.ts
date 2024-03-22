@@ -44,20 +44,21 @@ export const initialCommonState: ModalState = {
     betId: 0,
     betDetail: {
       game: '',
-      gameIdenfiter: "",
-      player: "",
-      playerId: "",
-      playerAvatar: "",
+      gameIdenfiter: '',
+      player: '',
+      playerId: '',
+      playerAvatar: '',
       betAmount: 0,
       betAmountUsd: 0,
       multiplier: 0,
       profitAmount: 0,
       profitAmountUsd: 0,
-      currency: "",
-      betId: "",
+      currency: '',
+      betId: '',
       time: new Date('19/03/2024'),
-    }
-  }
+    },
+  },
+  isShowQuest: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -163,7 +164,18 @@ export const queryDataSlice = createSlice({
     changeIsShowSpinClaim: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowSpinClaim = action.payload;
     },
-    setDetailBets: (state: ModalState, action: PayloadAction<{betDetail: BetTableDataType, betId?: number, isPublicProfile?: boolean, titleModal?: String; }>) => {
+    changeIsShowQuest: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowQuest = action.payload;
+    },
+    setDetailBets: (
+      state: ModalState,
+      action: PayloadAction<{
+        betDetail: BetTableDataType;
+        betId?: number;
+        isPublicProfile?: boolean;
+        titleModal?: String;
+      }>,
+    ) => {
       state.detailBets = action.payload;
     },
     setInitialModals: (state: ModalState) => {
@@ -239,5 +251,6 @@ export const {
   changeIsShowSpinClaim,
   setDetailBets,
   setInitialModals,
+  changeIsShowQuest,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
