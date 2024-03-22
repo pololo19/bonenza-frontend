@@ -33,13 +33,15 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
     googleLogout();
     dispatch(logoutState());
     dispatch(logoutWallet());
-    onClose();
     router.replace(ROUTER.Home);
   };
   const onClikLogOut = async () => {
     setIsLoggingOut(true);
     await handleLogout();
-    setIsLoggingOut(false);
+    setTimeout(() => {
+      setIsLoggingOut(false);
+      onClose();
+    }, 300);
   }
   return (
     <>
