@@ -108,7 +108,7 @@ function BonusLoggedPage() {
         currentTier: '',
         rechargeRate: '',
         readyToClaim: '',
-        lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
+        lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
         wagerValue: currencyFormat1(10000, 2),
         tierValue: '',
         rechargeRateValue: '',
