@@ -10,6 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
+  changeIsShowChatRule,
   changeIsShowInformation,
   changeShowChatType,
   changeShowFullChat,
@@ -189,7 +190,7 @@ const ChattingComponent = () => {
               <button
                 className="bg-color-light-bg-primary dark:bg-color-input-primary text-black dark:text-[#ffffff] hover:bg-gray-400 hover:text-white dark:hover:bg-gray-800 rounded-[14px] p-[10px] flex items-center justify-center"
                 onClick={() => {
-                  setIsShowChatRules(true);
+                  dispatch(changeIsShowChatRule(true));
                 }}
               >
                 <InfoCircle className="" width={20} height={20} />
@@ -255,14 +256,6 @@ const ChattingComponent = () => {
           </div>
         </div>
       </div>
-      {isShowChatRules && (
-        <ModalChatRules
-          show={isShowChatRules}
-          onClose={() => {
-            setIsShowChatRules(false);
-          }}
-        />
-      )}
     </>
   );
 };
