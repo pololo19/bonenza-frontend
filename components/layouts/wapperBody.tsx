@@ -14,17 +14,8 @@ type WrapperBodyProps = {
 const WrapperBody: React.FC<WrapperBodyProps> = ({ children, wrapperClassName, contentClassName, id }) => {
   const { showChatType, isToggleSidebar } = useSelector(
     (state: AppState) => ({
-      isLogin: state.auth.isLogin,
-      isShowInformation: state.modal.isShowInformation,
-      isShowUpdateInformation: state.modal.isShowUpdateInformation,
-      isShowCropAvatar: state.modal.isShowCropAvatar,
-      isShowMultiLanguage: state.modal.isShowMultiLanguage,
-      isShowAuthenticationModal: state.modal.isShowAuthenticationModal,
-      isShowForgotPassModal: state.modal.isShowForgotPassModal,
       showChatType: state.modal.showChatType,
       isToggleSidebar: state.modal.isToggleSidebar,
-      showFullChat: state.modal.showFullChat,
-      isShowDepositModal: state.modal.isShowDepositModal,
     }),
     shallowEqual,
   );

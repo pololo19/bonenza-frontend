@@ -26,7 +26,6 @@ import {
   changeIsShowBonusHistory,
   changeIsShowCasinoSearch,
   changeIsShowChatRule,
-  changeIsShowCropAvatar,
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
   changeIsShowDepositProgress,
@@ -76,7 +75,6 @@ import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
 import ModalChatRules from '../modal/chatRules/chatRules';
-import ModalCropAvatar from '../modal/cropAvatar/cropAvatar';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDeposit from '../modal/depositModal/depositModal';
 import ModalDepositProgress from '../modal/depositModal/depositProgress';
@@ -160,7 +158,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowInformation,
     isShowReferAndEarn,
     isShowUpdateInformation,
-    isShowCropAvatar,
     isShowMultiLanguage,
     isShowAuthenticationModal,
     showChatType,
@@ -200,7 +197,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowInformation: state.modal.isShowInformation,
       isShowReferAndEarn: state.modal.isShowReferAndEarn,
       isShowUpdateInformation: state.modal.isShowUpdateInformation,
-      isShowCropAvatar: state.modal.isShowCropAvatar,
       isShowMultiLanguage: state.modal.isShowMultiLanguage,
       isShowAuthenticationModal: state.modal.isShowAuthenticationModal,
       isShowForgotPassModal: state.modal.isShowForgotPassModal,
@@ -410,23 +406,23 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         }
       });
 
-      walletSocket.on(`connect_error`, (data: any) => {
-        if (walletServiceConnectedRef.current) {
-          toast.error('Network connection is not stable. Please refresh.', {
-            containerId: TOAST_ENUM.COMMON,
-            autoClose: false,
-            position: 'top-center',
-          });
-          walletServiceConnectedRef.current = false;
-        }
-      });
+      // walletSocket.on(`connect_error`, (data: any) => {
+      //   if (walletServiceConnectedRef.current) {
+      //     toast.error('Network connection is not stable. Please refresh.', {
+      //       containerId: TOAST_ENUM.COMMON,
+      //       autoClose: false,
+      //       position: 'top-center',
+      //     });
+      //     walletServiceConnectedRef.current = false;
+      //   }
+      // });
     }
 
     return () => {
       if (walletSocket) {
         walletSocket.off(`${userId}:deposit`);
         walletSocket.off(`${userId}:withdraw`);
-        walletSocket.off(`connect_error`);
+        // walletSocket.off(`connect_error`);
       }
     };
   }, [walletSocket, isLogin]);
@@ -485,16 +481,16 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         dispatch(updateCryptoPrice(cryptoDatas));
       });
 
-      gameSocket.on(`connect_error`, (data: any) => {
-        if (gameServiceConnectedRef.current) {
-          toast.error('Network connection is not stable. Please refresh.', {
-            containerId: TOAST_ENUM.COMMON,
-            autoClose: false,
-            position: 'top-center',
-          });
-          gameServiceConnectedRef.current = false;
-        }
-      });
+      // gameSocket.on(`connect_error`, (data: any) => {
+      //   if (gameServiceConnectedRef.current) {
+      //     toast.error('Network connection is not stable. Please refresh.', {
+      //       containerId: TOAST_ENUM.COMMON,
+      //       autoClose: false,
+      //       position: 'top-center',
+      //     });
+      //     gameServiceConnectedRef.current = false;
+      //   }
+      // });
     }
 
     return () => {
@@ -766,8 +762,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowUpdateInformation || false}
         onClose={() => dispatch(changeIsShowUpdateInformation(false))}
       />
-
-      <ModalCropAvatar show={isShowCropAvatar || false} onClose={() => dispatch(changeIsShowCropAvatar(false))} />
 
       <ModalUpdateAvatar show={isShowUpdateAvatar || false} onClose={() => dispatch(changeIsShowUpdateAvatar(false))} />
 

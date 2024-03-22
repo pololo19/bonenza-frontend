@@ -104,7 +104,7 @@ const SettingEmail = () => {
       const message = error.response?.data?.message ?? '';
       const status = error.response?.data?.statusCode ?? '';
 
-      toast.error(t(`errors:${message}`), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(`${message}`), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
