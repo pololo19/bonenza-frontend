@@ -91,9 +91,9 @@ export default async function getCroppedImg(
   // As a blob
   return new Promise((resolve, reject) => {
     croppedCanvas.toBlob((file) => {
-      file.name = 'avatar.jpeg';
-      file.lastModified = new Date();
+      // file.name = 'avatar.png';
+      // file.lastModified = new Date();
       resolve(file);
-    }, 'image/jpeg');
+    }, 'image/png');
   });
 }

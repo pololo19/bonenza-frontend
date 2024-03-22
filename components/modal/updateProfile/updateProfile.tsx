@@ -136,14 +136,6 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
               >
                 {t('profile:editAvatar')}
               </label>
-              <input
-                className="hidden"
-                name="avatar"
-                id="avatar"
-                type="file"
-                accept="image/*"
-                onChange={(event) => setSelectedFile(event.target.files?.[0])}
-              ></input>
             </div>
             <form
               onSubmit={handleSubmit(handleUpdateProfile)}

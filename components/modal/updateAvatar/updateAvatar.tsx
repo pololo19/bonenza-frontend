@@ -23,7 +23,7 @@ import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
-import getCroppedImg from '../cropAvatar/cropImage';
+import getCroppedImg from './cropImage';
 
 type ModalUpdateAvatarProps = {
   onClose: () => void;
@@ -79,8 +79,8 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
   const onCropComplete = useCallback(
     async (croppedArea: Area, croppedAreaPixels: Area) => {
       const croppedImage = await getCroppedImg(selectedAvatar, croppedAreaPixels, 0);
-      const myFile = new File([croppedImage], croppedImage.name, {
-        type: croppedImage.type,
+      const myFile = new File([croppedImage], 'avatar.png', {
+        type: 'image/png',
       });
       setAvatarFile(myFile);
     },
