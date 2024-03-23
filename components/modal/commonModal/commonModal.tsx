@@ -64,14 +64,14 @@ export default function CommonModal({
                     height={600}
                     src={`/img/spin/Coins.gif`}
                     alt=""
-                    className="absolute w-full h-full"
+                    className={`absolute w-full h-full ${show ? 'scale-100' : 'scale-0'}`}
                   />
                   <Image
                     width={400}
                     height={600}
                     src={`/img/spin/congrat1.webp`}
                     alt=""
-                    className="absolute w-full h-full"
+                    className={`absolute w-full h-full ${show ? 'scale-100' : 'scale-0'}`}
                   />
                 </div>
               </div>
