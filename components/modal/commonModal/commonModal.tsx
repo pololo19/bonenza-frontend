@@ -57,7 +57,7 @@ export default function CommonModal({
             onClick={onClose}
           >
             {isCongrat && (
-              <div className="absolute w-[900px] h-[900px]">
+              <div className={`absolute w-[900px] h-[900px] ${show ? 'translate-x-0' : 'translate-x-full'}`}>
                 <div className="relative w-full h-full">
                   <Image
                     width={400}
