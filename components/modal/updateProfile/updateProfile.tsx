@@ -63,7 +63,6 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
   });
 
   useEffect(() => {
-    console.log(userName);
     reset({ username: userName });
   }, [userName]);
 
