@@ -408,7 +408,14 @@ const AccountPannel: React.FC = () => {
             <IconOption
               title={String(t('sidebar:quest'))}
               href=""
-              onClick={() => dispatch(changeIsShowQuest(true))}
+              onClick={() => {
+                if (isLogin) {
+                  dispatch(changeIsShowQuest(true));
+                } else {
+                  dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                  dispatch(changeIsShowAuthenticationModal(true));
+                }
+              }}
               icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
               classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
             />

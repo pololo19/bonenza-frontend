@@ -278,7 +278,14 @@ export default function SidebarToggle() {
                   icon={Gift}
                   isFontMedium
                   fontWeight={700}
-                  onClick={() => dispatch(changeIsShowQuest(true))}
+                  onClick={() => {
+                    if (!isLogin) {
+                      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                      dispatch(changeIsShowAuthenticationModal(true));
+                    } else {
+                      dispatch(changeIsShowQuest(true));
+                    }
+                  }}
                   classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
                 />
                 <IconOption
