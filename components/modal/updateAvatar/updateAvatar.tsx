@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { api_uploadAvatar } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { convertUserInfo } from '@/base/libs/utils';
+import { checkFiletypes, convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowInformation,
@@ -102,6 +102,10 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         setIsLoading(true);
         const formData = new FormData();
         formData.append('file', avatarFile);
+        if (getSizeOfFileByMega(avatarFile.size) > 0.5) {
+          toast.error(String(t('setting:fileSizeLimit')), { containerId: TOAST_ENUM.COMMON });
+          return;
+        }
         const _res = await api_uploadAvatar(formData);
         const localFiat: CurrencyType = {
           id: _res.data.settingFiatCurrency.id ?? '',
@@ -121,7 +125,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         dispatch(changeIsShowUpdateAvatar(false));
       }
     } catch (error) {
-      toast.error('Update username failed', { containerId: TOAST_ENUM.MODAL });
+      toast.error('Update avatar failed', { containerId: TOAST_ENUM.MODAL });
     } finally {
       setIsLoading(false);
     }
@@ -300,7 +304,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           </div>
           <button
             type="submit"
-            className="bg-gradient-btn-play w-full rounded-[3px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
+            className="bg-gradient-btn-play w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
             onClick={() => handleUpdateProfile()}
           >
             <div />

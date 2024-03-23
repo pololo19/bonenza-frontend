@@ -149,6 +149,8 @@ const API_SPIN_LATEST = '/spin/latest';
 const API_SPIN_DATA = '/spin/data';
 const APIN_SPIN_TRY = '/spin/try';
 const APIN_SPIN_AVAILABLE = '/spin/available-count';
+const API_QUEST_LIST = '/quest/list';
+const API_QUEST_HISTORY = '/quest/history';
 
 /************************************ Chat **********************************/
 const API_CHAT_LATEST = '/chat/latest';
@@ -230,6 +232,8 @@ export {
   API_GAME_TABLE_GAMES,
   API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
+  API_QUEST_HISTORY,
+  API_QUEST_LIST,
   API_SPIN_DATA,
   API_SPIN_LATEST,
   API_USER_MEDAL_STATISTICS,

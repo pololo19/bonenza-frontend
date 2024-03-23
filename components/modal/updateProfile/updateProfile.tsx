@@ -50,7 +50,6 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
     }),
     shallowEqual,
   );
-  console.log(userName);
   const schema = yup.object().shape({
     username: yup
       .string()
@@ -58,18 +57,14 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
       .trim(),
   });
 
-  const {
-    handleSubmit,
-    control,
-    reset,
-  } = useForm<UpdateProfileFormType>({
+  const { handleSubmit, control, reset } = useForm<UpdateProfileFormType>({
     resolver: yupResolver(schema),
     defaultValues: { username: userName },
   });
 
   useEffect(() => {
     console.log(userName);
-    reset({username: userName});
+    reset({ username: userName });
   }, [userName]);
 
   const goBackProfile = () => {
