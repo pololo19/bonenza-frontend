@@ -74,7 +74,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     bonuses: [],
   });
   const [rankList, setRankList] = useState<rankDataType[]>([]);
-  const [currentRank, setCurrentRank] = useState<{ img: string; name: string}>();
+  const [currentRank, setCurrentRank] = useState<{ img: string; name: string }>();
   const [currentVipLevel, setCurrentVipLevel] = useState<number>(0);
   const dataMedal = [
     { img: '/img/bronze-medal.png', name: 'Bronze' },
@@ -386,10 +386,11 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                 >
                                   <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      {currentVipLevel >= selectedRank.startLevel
-                                        ? <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="" />
-                                        : <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
-                                      }
+                                      {currentVipLevel >= selectedRank.startLevel ? (
+                                        <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="" />
+                                      ) : (
+                                        <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      )}
                                     </div>
                                     <div className="flex flex-col gap-[6px]">
                                       <div className="text-[14px] text-black dark:text-white font-bold ">
@@ -416,10 +417,17 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                 >
                                   <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      {currentVipLevel >= selectedRank.startLevel
-                                        ? <Image src={'/img/vip/bonus_weekly_cashback.png'} className="min-w-[55px] min-h-[56px]" width={55} height={56} alt="" />
-                                        : <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
-                                      }
+                                      {currentVipLevel >= selectedRank.startLevel ? (
+                                        <Image
+                                          src={'/img/vip/bonus_weekly_cashback.png'}
+                                          className="min-w-[55px] min-h-[56px]"
+                                          width={55}
+                                          height={56}
+                                          alt=""
+                                        />
+                                      ) : (
+                                        <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      )}
                                     </div>
                                     <div className="flex flex-col gap-[6px]">
                                       <div className="text-[14px] text-black dark:text-white font-bold ">
@@ -448,10 +456,16 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                 >
                                   <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      {currentVipLevel >= selectedRank.startLevel
-                                        ? <Image src={'/img/vip/bonus_monthly_cashback.png'} width={50} height={51} alt="" />
-                                        : <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
-                                      }
+                                      {currentVipLevel >= selectedRank.startLevel ? (
+                                        <Image
+                                          src={'/img/vip/bonus_monthly_cashback.png'}
+                                          width={50}
+                                          height={51}
+                                          alt=""
+                                        />
+                                      ) : (
+                                        <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      )}
                                     </div>
                                     <div className="flex flex-col gap-[6px]">
                                       <div className="text-[14px] text-black dark:text-white font-bold ">
