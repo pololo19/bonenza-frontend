@@ -36,7 +36,7 @@ export default function ModalSpinClaim({
   onClose,
 }: ModalSpinClaimProps) {
   const { t } = useTranslation('');
-  const [currentAmount, setCurrentAmount] = useState(0);
+  const [currentAmount, setCurrentAmount] = useState('0');
   const dispatch = useAppDispatch();
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
 
@@ -62,14 +62,18 @@ export default function ModalSpinClaim({
   };
 
   useEffect(() => {
-    const tempAmount = amount || 0;
-    new Array(6).fill(0).map((_, index) => {
+    setTimeout(() => {
+      setCurrentAmount('0');
+    }, 300);
+    new Array(20).fill(0).map((_, index) => {
       setTimeout(() => {
-        if (index === 5) setCurrentAmount(tempAmount);
-        else setCurrentAmount((tempAmount * index) / 5);
-      }, 100 * index);
+        setCurrentAmount(((amount * index) / 20).toFixed(3));
+      }, 300 + 40 * (index + 1));
     });
-  }, [show]);
+    setTimeout(() => {
+      setCurrentAmount(`${amount}`);
+    }, 300 + 40 * 21);
+  }, [show, amount]);
   return (
     <>
       <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]" isCongrat>
