@@ -6,10 +6,18 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_bonusStatistics } from '@/api/bonus';
+import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
+import {
+  changeIsShowQuest,
+  changeIsShowRakeBack,
+  changeIsShowSpin,
+  changeIsShowVipClubModal,
+} from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import BaseLayout from '@/components/layouts/base.layout';
@@ -17,7 +25,6 @@ import BaseLayout from '@/components/layouts/base.layout';
 import CardGeneralBonus from '../cards/cardGeneralBonus';
 import CardVipBonus from '../cards/cardVipBonus';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
-import { TOAST_ENUM } from '@/base/constants/common';
 
 function BonusLoggedPage() {
   const exchangeRate = useExchange();
@@ -26,6 +33,8 @@ function BonusLoggedPage() {
   const dispatch = useDispatch();
   const [openModalBonusDetails, setOpenModalBonusDetails] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const usdtPrice = useUSDTPrice();
+
   const [totalData, setTotalData] = useState({
     bonusClaimedUsd: 0,
     vipBonusUsd: 0,
@@ -50,6 +59,7 @@ function BonusLoggedPage() {
       },
     },
   });
+  const [lockedAmount, setLockedAmount] = useState<number>(0);
 
   const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -73,9 +83,59 @@ function BonusLoggedPage() {
         nameButton: '',
         showDeposit: true,
         tooltip: t('bonus:depositBonusRulesContent'),
+        action: () => {},
+      },
+      {
+        backgroundDark: '/img/bg-quest.png',
+        backgroundLight: '/img/bg-quest-light.png',
+        name: t('bonus:quest'),
+        description: t('bonus:questDescription'),
+        title: t('bonus:questTitle'),
+        total: t('bonus:questTotal'),
+        titleValue: '0/4',
+        totalValue: '0/1',
+        nameButton: t('bonus:questButton'),
+        showDeposit: false,
+        action: () => {
+          dispatch(changeIsShowQuest(true));
+        },
+      },
+      {
+        backgroundDark: '/img/bg-lucky-spin.png',
+        backgroundLight: '/img/bg-lucky-spin-light.png',
+        name: t('bonus:spin'),
+        description: t('bonus:spinDescription'),
+        title: t('bonus:spinTitle'),
+        total: t('bonus:spinTotal'),
+        titleValue: '1',
+        totalValue: '0',
+        nameButton: t('bonus:spinButton'),
+        showDeposit: false,
+        action: () => {
+          dispatch(changeIsShowSpin(true));
+        },
+      },
+      {
+        backgroundDark: '/img/bg-rakeback.png',
+        backgroundLight: '/img/bg-rakeback-light.png',
+        name: t('bonus:BNZRakeback'),
+        description: t('bonus:BNZDescription'),
+        title: t('bonus:BNZTitle'),
+        total: t('bonus:BNZTotal'),
+        titleValue: '5.00 USDT',
+        totalValue: `${
+          viewInFiat
+            ? currencyFormat1((lockedAmount / usdtPrice) * exchangeRate, 2, localFiat?.name)
+            : currencyFormat1(lockedAmount, 2, '', false)
+        } USDT`,
+        nameButton: t('bonus:unlockRakeBack'),
+        showDeposit: false,
+        action: () => {
+          dispatch(changeIsShowRakeBack(true));
+        },
       },
     ],
-    [i18n.language],
+    [i18n.language, lockedAmount],
   );
 
   const dataCardVipBonus = useMemo(
@@ -150,6 +210,9 @@ function BonusLoggedPage() {
           },
         },
       });
+      const claimRes = await api_getClaims();
+      const tempUnlockedAmount = Number(claimRes.data?.unlockedAmount ?? 0);
+      setLockedAmount(tempUnlockedAmount);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -186,9 +249,9 @@ function BonusLoggedPage() {
               onClick={onRedeemClick}
               role="button"
               className={cn(
-                "active:scale-105 scale-100 transition-all",
-                "hover:opacity-[0.9] bg-gradient-btn-play text-[12px] sm:text-[14px] text-white font-medium rounded-r-large ",
-                "px-2 sm:px-4 justify-center flex items-center"
+                'active:scale-105 scale-100 transition-all',
+                'hover:opacity-[0.9] bg-gradient-btn-play text-[12px] sm:text-[14px] text-white font-medium rounded-r-large ',
+                'px-2 sm:px-4 justify-center flex items-center',
               )}
             >
               {t('bonus:redeemBonusCode')}
@@ -333,7 +396,8 @@ function BonusLoggedPage() {
                 totalValue={item.totalValue}
                 nameButton={item.nameButton}
                 showDeposit={item.showDeposit}
-                tooltip={item.tooltip}
+                tooltip={item.tooltip || ''}
+                onClick={item.action}
               />
             ))}
             {dataCardVipBonus.map((item, index) => (

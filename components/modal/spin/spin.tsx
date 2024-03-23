@@ -96,7 +96,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       const res = await api_getSpinAvailableCount();
       const tempAvailableCount = res.data?.availableSpinCount || 0;
       setSpinAvailableCount(tempAvailableCount);
-      
+
       const profileResponse = await api_getProfile(user.userId || '');
       const vipLevel = Number(profileResponse.data?.currentVipLevel || 0);
       setCurrentViplevel(vipLevel);
@@ -231,9 +231,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   };
 
   const checkSpinAvailable = (vipLevel: number, spin: 'lucky' | 'super' | 'mega', spinCount: number) => {
-    const minimumLevel = spin === 'super' ? 22 : (spin === 'mega' ? 70 : 0);
+    const minimumLevel = spin === 'super' ? 22 : spin === 'mega' ? 70 : 0;
     setSpinAvailable(vipLevel >= minimumLevel && spinCount > 0);
-  }
+  };
   return (
     <>
       <CommonModal

@@ -1,6 +1,10 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
-import { ElementType, useState } from 'react';
+import { ElementType, useEffect, useState } from 'react';
+const AnimatedNumbers = dynamic(() => import('react-animated-numbers'), {
+  ssr: false,
+});
 import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
 import { toast } from 'react-toastify';
@@ -36,6 +40,7 @@ export default function ModalSpinClaim({
   onClose,
 }: ModalSpinClaimProps) {
   const { t } = useTranslation('');
+  const [start, setStart] = useState(0);
   const dispatch = useAppDispatch();
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
 
@@ -59,13 +64,23 @@ export default function ModalSpinClaim({
     }
     onClose();
   };
+
+  useEffect(() => {
+    if (show) {
+      setStart(5);
+    } else {
+      setStart(0);
+    }
+  }, [show]);
   return (
     <>
-      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
+      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]" isCongrat>
         <div className="flex flex-col items-center justify-center overflow-y-auto relative px-5 py-8">
           <Image width={400} height={600} src={`/img/spin/${spinType}-popup.png`} alt="" className="w-[80%] m-auto" />
           <div className="flex items-center text-3xl text-[#FFE600] font-bold mt-8">
-            {`+ ${amount} ${symbol}`}
+            <span className="mr-1">{`+ `}</span>
+            <span className="font-bold">{amount}</span>
+            <span className="ml-1">{`${symbol}`}</span>
             <Image width={25} height={25} className="ml-2 w-[40px]" src={symbolLogo} alt="" />
           </div>
           {claimable && (
