@@ -44,6 +44,11 @@ function BonusLoggedPage() {
   const [bonusData, setBonusData] = useState({
     general: {
       depositTime: 0,
+      dailyCompleteQuest: 0,
+      weeklyCompleteQuest: 0,
+      availableSpin: 0,
+      wagerAmountForDailySpin: 1600,
+      levelForSpin: 8,
     },
     vip: {
       levelUp: {
@@ -92,8 +97,8 @@ function BonusLoggedPage() {
         description: t('bonus:questDescription'),
         title: t('bonus:questTitle'),
         total: t('bonus:questTotal'),
-        titleValue: '0/4',
-        totalValue: '0/1',
+        titleValue: `${bonusData.general.dailyCompleteQuest}/4`,
+        totalValue: `${bonusData.general.weeklyCompleteQuest}/1`,
         nameButton: t('bonus:questButton'),
         showDeposit: false,
         action: () => {
@@ -104,11 +109,12 @@ function BonusLoggedPage() {
         backgroundDark: '/img/bg-lucky-spin.png',
         backgroundLight: '/img/bg-lucky-spin-light.png',
         name: t('bonus:spin'),
-        description: t('bonus:spinDescription'),
+        description: `${t('bonus:spinDescription')}`,
+        descriptionValue: `${bonusData.general.availableSpin}`,
         title: t('bonus:spinTitle'),
         total: t('bonus:spinTotal'),
-        titleValue: '1',
-        totalValue: '0',
+        titleValue: `${currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2)}`,
+        totalValue: `${t('bonus:spinTotalDescription')} VIP ${bonusData.general.levelForSpin}`,
         nameButton: t('bonus:spinButton'),
         showDeposit: false,
         action: () => {
@@ -137,7 +143,6 @@ function BonusLoggedPage() {
     ],
     [i18n.language, lockedAmount],
   );
-
   const dataCardVipBonus = useMemo(
     () => [
       {
@@ -194,7 +199,12 @@ function BonusLoggedPage() {
       });
       setBonusData({
         general: {
-          depositTime: Number(_res.data?.generalBonus?.depositTimes || 0),
+          depositTime: Number(_res.data?.generalBonus?.deposit?.depositTimes || 0),
+          availableSpin: Number(_res.data?.generalBonus?.spin?.availableCount || 0),
+          levelForSpin: Number(_res.data?.generalBonus?.spin?.reachVipLevel || 0),
+          wagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.requiredWagerAmountUsd || 0),
+          dailyCompleteQuest: Number(_res.data?.generalBonus?.quest?.dailyCompleteCount || 0),
+          weeklyCompleteQuest: Number(_res.data?.generalBonus?.quest?.weeklyCompleteCount || 0),
         },
         vip: {
           levelUp: {
@@ -331,7 +341,7 @@ function BonusLoggedPage() {
             </div>
           </div>
           <div className="grid grid-cols-4 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
-            <div className="rounded-[5px] relative dark:bg-color-card-body-default bg-white h-full min-h-[250px]">
+            <div className="rounded-[5px] relative dark:bg-[#1C1E22] bg-white h-full min-h-[250px]">
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-[10px]">
@@ -390,6 +400,7 @@ function BonusLoggedPage() {
                 background={theme === 'dark' ? item.backgroundDark : item.backgroundLight}
                 name={item.name}
                 description={item.description}
+                descriptionValue={item?.descriptionValue || ''}
                 title={item.title}
                 total={item.total}
                 titleValue={item.titleValue}

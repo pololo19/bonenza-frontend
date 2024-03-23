@@ -46,7 +46,7 @@ export default function CardVipBonus({
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="rounded-[5px] relative min-h-[250px] dark:bg-color-card-body-default bg-white">
+    <div className="rounded-[5px] relative min-h-[250px] dark:bg-[#1C1E22] bg-white">
       {/* <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" /> */}
       <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
         <div>
@@ -64,14 +64,17 @@ export default function CardVipBonus({
               alt=""
               data-tooltip-id={`${name}-bonus-tooltip`}
             />
-            <Tooltip id={`${name}-bonus-tooltip`} place="bottom" className="dark:bg-black/0 bg-white z-[30]" opacity={100}>
+            <Tooltip
+              id={`${name}-bonus-tooltip`}
+              place="bottom"
+              className="dark:bg-black/0 bg-white z-[30]"
+              opacity={100}
+            >
               <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">
                 {tooltip.map((item, index) => (
                   <div key={index} className="w-full flex gap-2">
                     <div className="min-w-[6px] h-[6px] mt-2 rounded-full bg-color-text-primary"></div>
-                    <div>
-                      {item}
-                    </div>
+                    <div>{item}</div>
                   </div>
                 ))}
               </div>

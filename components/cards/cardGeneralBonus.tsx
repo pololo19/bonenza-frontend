@@ -1,7 +1,7 @@
 import { ArrowRight, Clock } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { shallowEqual, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
@@ -16,9 +16,10 @@ type CardGeneralBonusProps = {
   background: string;
   name: string;
   description: string;
+  descriptionValue?: string;
   title: string;
   total: string;
-  titleValue: string;
+  titleValue: ReactNode;
   totalValue: string;
   nameButton: string;
   showDeposit: boolean;
@@ -30,6 +31,7 @@ export default function CardGeneralBonus({
   background,
   name,
   description,
+  descriptionValue,
   title,
   total,
   titleValue,
@@ -54,7 +56,7 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="rounded-[5px] relative dark:bg-color-card-body-default bg-white h-full min-h-[250px]">
+        <div className="rounded-[5px] relative dark:bg-[#1C1E22] bg-white h-full min-h-[250px]">
           <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" />
           <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
             <div className="flex items-center gap-[10px] p-0">
@@ -67,10 +69,15 @@ export default function CardGeneralBonus({
               />
             </div>
             <div>
-              <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] mt-[5px]">
-                {description}
+              <div className="flex justify-between w-[70%]">
+                <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                  {description}
+                </div>
+                <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                  {descriptionValue}
+                </div>
               </div>
-              <div className="mt-[10px] flex justify-between w-[60%]">
+              <div className="mt-[10px] flex justify-between w-[70%]">
                 <div>
                   <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">{title}</div>
                   <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">{total}</div>
@@ -112,7 +119,7 @@ export default function CardGeneralBonus({
         </div>
       )}
       {showDeposit && (
-        <div className="dark:bg-color-card-body-default bg-white rounded-[5px] py-5 px-[18px] h-full flex flex-col justify-between min-h-[250px]">
+        <div className="dark:bg-[#1C1E22] bg-white rounded-[5px] py-5 px-[18px] h-full flex flex-col justify-between min-h-[250px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[10px]">
               <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">{name}</div>
