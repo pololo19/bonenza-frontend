@@ -1934,10 +1934,14 @@
     "weeklyQuest": "Weekly Quests",
     "expiredIn": "Expires In",
     "go": "Go",
-    "justWager": "Daily wager reaches $ {{amount}}",
-    "bigWin": "Win a win of 50x or more in any game with a bet over $ {{amount}}",
-    "slotMaster": "Single-day profit reaches $ ${{amount}}",
-    "weeklyWager": "Weekly wager reaches $ {{amount}}."
+    "justWager": "Daily wager reaches {{amount}}",
+    "bigWin": "Win a win of {{multi}}x or more in any game with a bet over {{amount}}",
+    "slotMaster": "Single-day profit reaches {{amount}}",
+    "weeklyWager": "Weekly wager reaches {{amount}}.",
+    "unFinishedQuest": "Unfinished quests",
+    "unClaimedQuest": "UnClaimed",
+    "claimed": "Claimed",
+    "expired": "Expired"
   },
   "errors": {
     "internalServer": "Internal Server Error",
