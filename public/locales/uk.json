@@ -1940,5 +1940,21 @@
     "bonusClaimed": "Ваш бонус використано",
     "successfulllyReported": "Ваш запит успішно отримано. ",
     "success": "Успіх"
+  },
+  "quest": {
+    "questHub": "Quest HUB",
+    "accumulateRewards": "Накопичені нагороди:",
+    "dailyQuest": "Щоденні квести",
+    "weeklyQuest": "Щотижневі квести",
+    "expiredIn": "Термін дії закінчується",
+    "go": "Іди",
+    "justWager": "Щоденна ставка досягає {{amount}}",
+    "bigWin": "Виграти перемогу {{multi}}x або більше в будь-якій грі зі ставкою {{amount}}",
+    "slotMaster": "Одноденний прибуток досягає {{amount}}",
+    "weeklyWager": "Щотижневий обсяг ставок {{amount}}.",
+    "unFinishedQuest": "Незавершені квести",
+    "unClaimedQuest": "Незатребуваний",
+    "claimed": "Заявлено",
+    "expired": "Термін дії минув"
   }
 }

@@ -1940,5 +1940,21 @@
     "bonusClaimed": "您的奖金已被领取",
     "successfulllyReported": "您的请求已成功收到。",
     "success": "成功"
+  },
+  "quest": {
+    "questHub": "探索中心",
+    "accumulateRewards": "累计奖励：",
+    "dailyQuest": "每日任务",
+    "weeklyQuest": "每周任务",
+    "expiredIn": "过期日期在",
+    "go": "去",
+    "justWager": "每日投注额达到 {{amount}}",
+    "bigWin": "赢得一场胜利 {{multi}}在任何投注超过的游戏中 x 或更多 {{amount}}",
+    "slotMaster": "单日盈利达到 {{amount}}",
+    "weeklyWager": "每周投注额达到 {{amount}}。",
+    "unFinishedQuest": "未完成的任务",
+    "unClaimedQuest": "无人认领",
+    "claimed": "声称",
+    "expired": "已到期"
   }
 }
