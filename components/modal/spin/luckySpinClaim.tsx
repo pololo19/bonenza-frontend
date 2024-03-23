@@ -1,10 +1,6 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
-const AnimatedNumbers = dynamic(() => import('react-animated-numbers'), {
-  ssr: false,
-});
 import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
 import { toast } from 'react-toastify';
@@ -66,10 +62,11 @@ export default function ModalSpinClaim({
   };
 
   useEffect(() => {
+    const tempAmount = amount || 0;
     new Array(6).fill(0).map((_, index) => {
       setTimeout(() => {
-        if (index === 5) setCurrentAmount(amount);
-        else setCurrentAmount((amount * index) / 5);
+        if (index === 5) setCurrentAmount(tempAmount);
+        else setCurrentAmount((tempAmount * index) / 5);
       }, 100 * index);
     });
   }, [show]);
