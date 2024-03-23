@@ -341,6 +341,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         const hash = data?.hash || '0x';
         const time = new Date();
         const id = data?.transaction_id || '0';
+        const network = data?.network || '';
 
         switch (status) {
           case 'Processing':
@@ -355,6 +356,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 symbol,
                 hash,
                 time,
+                network,
               }),
             );
             dispatch(getBalance());
@@ -373,6 +375,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 symbol,
                 hash,
                 time,
+                network,
               }),
             );
             dispatch(getBalance());

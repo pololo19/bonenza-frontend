@@ -11,16 +11,12 @@ import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowChatRule,
-  changeIsShowInformation,
   changeShowChatType,
   changeShowFullChat,
 } from '@/base/redux/reducers/modal.reducer';
-import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
-import ModalChatRules from '@/components/modal/chatRules/chatRules';
 
-import Loader from '../common/preloader/loader';
 import { MessageBox } from './messageBox';
 
 type MessageType = {

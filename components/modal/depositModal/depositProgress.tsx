@@ -28,31 +28,43 @@ export default function ModalDepositProgress({ show, onClose }: ModalDepositProg
   const { activeTransactionStatus } = useSelector(
     (state: AppState) => ({
       activeTransactionStatus: state.wallet.activeTransactionStatus,
-    }), shallowEqual
+    }),
+    shallowEqual,
   );
+
+  const getChainUrl = (network: string, hash: string) => {
+    let url = '"';
+    switch (network.toLowerCase()) {
+      case 'eth':
+        url = `https://etherscan.com/tx/${hash}`;
+        break;
+      case 'bsc':
+        url = `https://bscscan.com/tx/${hash}`;
+        break;
+      case 'polygon':
+        url = `https://polygonscan.com/tx/${hash}`;
+        break;
+
+      default:
+        url = `https://etherscan.com/tx/${hash}`;
+        break;
+    }
+    return url;
+  };
   return (
     <>
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="max-w-[450px]"
-        header={
-          <div className="bg-color-bg-primary text-white py-5 px-4">
-            {t('layout:deposit')}
-          </div>
-        }
+        panelClass="sm:!max-w-[400px]"
+        header={<div className="bg-color-bg-primary text-white py-5 px-4">{t('layout:deposit')}</div>}
       >
         <div className="flex flex-col items-center p-1 sm:px-5 sm:py-10 gap-4 mt-5">
-          <div 
-            className={
-              cn(
-                "flex justify-center items-center w-[130px] h-[130px] rounded-full text-color-primary",
-                {
-                  "animate-spin border-solid border-t-2 border-t-color-primary": activeTransactionStatus.status === 0,
-                  "border-solid border-2 border-color-primary": activeTransactionStatus.status === 1,
-                }
-              )
-            }
+          <div
+            className={cn('flex justify-center items-center w-[130px] h-[130px] rounded-full text-color-primary', {
+              'animate-spin border-solid border-t-2 border-t-color-primary': activeTransactionStatus.status === 0,
+              'border-solid border-2 border-color-primary': activeTransactionStatus.status === 1,
+            })}
           >
             <CheckIcon width={110} className={activeTransactionStatus.status === 1 ? 'block' : 'hidden'} />
           </div>
@@ -63,27 +75,33 @@ export default function ModalDepositProgress({ show, onClose }: ModalDepositProg
             {activeTransactionStatus.status === 0 ? t('deposit:depositDetected') : t('deposit:depositCompleted')}
           </div>
           <div className="text-default text-color-text-primary text-center px-10">
-            {activeTransactionStatus.status === 0 ? t('deposit:depositDetectedDescription') : t('deposit:depositCompletedDescription')}
+            {activeTransactionStatus.status === 0
+              ? t('deposit:depositDetectedDescription')
+              : t('deposit:depositCompletedDescription')}
           </div>
           <div className="text-color-primary flex justify-center items-center">
-            {activeTransactionStatus.status === 0 ? 
-              (
-                <Link href="https://etherscan.io" className="mr-1">
-                  {t('deposit:depositDetectedView')}
-                </Link> 
-              ) : (
-                <div
-                  className="text-color-primary mr-1 hover:cursor-pointer hover:underline"
-                  onClick={() => {
-                    setIsShowDetailTransaction(true);
-                    dispatch(changeIsShowDepositProgress(false));
-                  }}
+            {activeTransactionStatus.status === 0 ? (
+              <>
+                <a
+                  target="_blank"
+                  href={getChainUrl(activeTransactionStatus.network, activeTransactionStatus.hash)}
+                  rel="noopener noreferrer"
                 >
-                  {t('deposit:depositCompletedView')}
-                </div>
-              )
-            }
-            <ExportSquare width={18} height={18} className="w-5 h-5"/>
+                  <div className={`mr-1`}>{t('deposit:depositDetectedView')}</div>
+                </a>
+              </>
+            ) : (
+              <div
+                className="text-color-primary mr-1 hover:cursor-pointer hover:underline"
+                onClick={() => {
+                  setIsShowDetailTransaction(true);
+                  dispatch(changeIsShowDepositProgress(false));
+                }}
+              >
+                {t('deposit:depositCompletedView')}
+              </div>
+            )}
+            <ExportSquare width={18} height={18} className="w-5 h-5" />
           </div>
         </div>
       </CommonModal>

@@ -67,7 +67,7 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
         >
           <div className="block relative w-[50px] h-fit cursor-pointer" onClick={() => handleModalProfile()}>
             <Image
-              className="w-[50px] h-[50px]"
+              className="w-[50px] h-[50px] rounded-full"
               width={50}
               height={50}
               alt=""

@@ -122,6 +122,7 @@ export type WalletState = {
     symbol: string;
     hash: string;
     time: Date | string;
+    network: string;
   };
 };
 

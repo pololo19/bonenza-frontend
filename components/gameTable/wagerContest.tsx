@@ -9,6 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { api_wagerContestHistory, api_wagerContestList, api_wagerContestPosition } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import Countdown from 'react-countdown';
 import { useCountdown } from '@/base/constants/useCountdown';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
@@ -91,7 +92,6 @@ const WagerContestComponent = () => {
   };
 
   const [timeCoundown, setTimeCount] = useState(formatDate(getNextDay(), 'LL/dd/yyyy'));
-  const [days, hours, minutes, seconds] = useCountdown(timeCoundown);
 
   const getRank = (rank: number) => {
     let rankReturn = '';
@@ -392,24 +392,31 @@ const WagerContestComponent = () => {
             <>
               {new Date(timeCoundown).getTime() - new Date().getTime() > 0 && (
                 <div className="flex gap-2">
-                  <div
-                    className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-                  >
-                    <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(hours)}</p>
-                    <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
-                  </div>
-                  <div
-                    className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-                  >
-                    <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(minutes)}</p>
-                    <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
-                  </div>
-                  <div
-                    className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-                  >
-                    <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(seconds)}</p>
-                    <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
-                  </div>
+                  <Countdown
+                    date={timeCoundown}
+                    renderer={({ days, hours, minutes, seconds, completed }) => (
+                      <>
+                        <div
+                          className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                        >
+                          <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(hours)}</p>
+                          <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
+                        </div>
+                        <div
+                          className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                        >
+                          <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(minutes)}</p>
+                          <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
+                        </div>
+                        <div
+                          className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                        >
+                          <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(seconds)}</p>
+                          <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
+                        </div>
+                      </>
+                    )}
+                  />
                 </div>
               )}
               {new Date(timeCoundown).getTime() - new Date().getTime() < 0 && (
