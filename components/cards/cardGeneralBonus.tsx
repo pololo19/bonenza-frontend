@@ -3,14 +3,14 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { useState } from 'react';
 import { shallowEqual, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowDepositModal } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
 
 import ModalDepositBonusRules from '../modal/depositBonusRules/depositBonusRules';
-import { useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
-import { Tooltip } from 'react-tooltip';
 
 type CardGeneralBonusProps = {
   background: string;
@@ -23,6 +23,7 @@ type CardGeneralBonusProps = {
   nameButton: string;
   showDeposit: boolean;
   tooltip: string;
+  onClick: () => void;
 };
 
 export default function CardGeneralBonus({
@@ -36,6 +37,7 @@ export default function CardGeneralBonus({
   nameButton,
   showDeposit,
   tooltip,
+  onClick,
 }: CardGeneralBonusProps) {
   const { theme, setTheme } = useTheme();
   const { t } = useTranslation('');
@@ -83,12 +85,15 @@ export default function CardGeneralBonus({
                 </div>
               </div>
             </div>
-            {(nameButton == t('bonus:questButton') || nameButton == t('bonus:spinButton')) && (
+            {(nameButton == t('bonus:questButton') ||
+              nameButton == t('bonus:spinButton') ||
+              nameButton == t('bonus:unlockRakeBack')) && (
               <div
                 role="button"
                 className={`dark:bg-color-btn-primary hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary bg-color-light-bg-primary rounded-[5px] w-full text-[14px] font-medium text-center py-[11px] ${
                   nameButton == t('bonus:questButton') ? 'text-color-secondary' : 'text-color-primary'
                 }`}
+                onClick={onClick}
               >
                 {nameButton}
               </div>
@@ -111,11 +116,20 @@ export default function CardGeneralBonus({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[10px]">
               <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">{name}</div>
-              <Image src={'/img/icon/icon-question.png'} width={16} height={16} alt="" data-tooltip-id={'deposit-bonus-tooltip'} />
-              <Tooltip id={'deposit-bonus-tooltip'} place="bottom" className="dark:bg-black/0 bg-white z-[30]" opacity={100}>
-                <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">
-                  {tooltip}
-                </div>
+              <Image
+                src={'/img/icon/icon-question.png'}
+                width={16}
+                height={16}
+                alt=""
+                data-tooltip-id={'deposit-bonus-tooltip'}
+              />
+              <Tooltip
+                id={'deposit-bonus-tooltip'}
+                place="bottom"
+                className="dark:bg-black/0 bg-white z-[30]"
+                opacity={100}
+              >
+                <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">{tooltip}</div>
               </Tooltip>
             </div>
             <div className="flex items-center gap-[7px]">

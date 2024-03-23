@@ -30,7 +30,7 @@ type QuestItemType = {
   amount: number;
   amountUsd: number;
   status: boolean;
-  statusAmountUsd: number;
+  statusAmount: number;
   goalAmount: number;
   goalMultiplier?: number;
 };
@@ -67,7 +67,7 @@ const QuestItem = ({
         <div className="flex items-center gap-[15px]">
           <div className="flex items-center h-[70px] w-[70px]">
             {isBigWin && <Image width={124} height={124} src={'/img/big-wins.png'} alt="" />}
-            {!isBigWin && <ProgressBar progress={percent} />}
+            {!isBigWin && <ProgressBar progress={percent > 100 ? 100 : Math.floor(percent)} />}
           </div>
           <div className="flex flex-col gap-[5px]">
             {header}
@@ -214,7 +214,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         amount: Number(item?.amount || 0),
         amountUsd: Number(item?.amountUsd || 0),
         status: item?.status,
-        statusAmountUsd: Number(item?.statusAmountUsd || 0),
+        statusAmount: Number(item?.statusAmount || 0),
         goalMultiplier: Number(item?.goalMultiplier || 0),
         goalAmount: Number(item?.goalAmount || 0),
       }));
@@ -227,7 +227,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         amount: Number(item?.amount || 0),
         amountUsd: Number(item?.amountUsd || 0),
         status: item?.status,
-        statusAmountUsd: Number(item?.statusAmountUsd || 0),
+        statusAmount: Number(item?.statusAmount || 0),
         goalMultiplier: Number(item?.goalMultiplier || 0),
         goalAmount: Number(item?.goalAmount || 0),
       }));
@@ -270,7 +270,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
           status: item?.status,
-          statusAmountUsd: Number(item?.statusAmountUsd || 0),
+          statusAmount: Number(item?.statusAmount || 0),
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
@@ -281,7 +281,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
           status: item?.status,
-          statusAmountUsd: Number(item?.statusAmountUsd || 0),
+          statusAmount: Number(item?.statusAmount || 0),
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
@@ -292,7 +292,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
           status: item?.status,
-          statusAmountUsd: Number(item?.statusAmountUsd || 0),
+          statusAmount: Number(item?.statusAmount || 0),
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
@@ -303,7 +303,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
           status: item?.status,
-          statusAmountUsd: Number(item?.statusAmountUsd || 0),
+          statusAmount: Number(item?.statusAmount || 0),
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
@@ -314,7 +314,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
           status: item?.status,
-          statusAmountUsd: Number(item?.statusAmountUsd || 0),
+          statusAmount: Number(item?.statusAmount || 0),
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
@@ -325,7 +325,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
           status: item?.status,
-          statusAmountUsd: Number(item?.statusAmountUsd || 0),
+          statusAmount: Number(item?.statusAmount || 0),
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
@@ -412,7 +412,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               }),
             )}
             extra={<></>}
-            percent={(item.statusAmountUsd / item.goalAmount) * 100}
+            percent={(item.statusAmount / item.goalAmount) * 100}
             isBigWin={item.category === 'bigWin'}
             earn={
               viewInFiat
@@ -436,7 +436,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
     <>
       <CommonModal
         show={show}
-        panelClass="sm:rounded max-w-full sm:max-w-[600px] sm:!h-[80vh]"
+        panelClass="max-w-full sm:max-w-[600px] sm:!h-[80vh]"
         onClose={onClose}
         header={
           <>
@@ -496,7 +496,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       <CommonModal
         show={isHistory}
         onClose={() => setIsHistory(false)}
-        panelClass="sm:rounded max-w-full sm:max-w-[600px] sm:!h-[80vh]"
+        panelClass="max-w-full sm:max-w-[600px] sm:!h-[80vh]"
         header={
           <div className="relative p-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
             <div className="flex items-center dark:text-white text-black gap-[10px] justify-between pr-[40px]">
@@ -515,7 +515,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       >
         <div className="flex flex-col px-5 py-5 items-center gap-[10px] overflow-y-auto">
           <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex text-white font-bold text-[18px] w-full">{t('quest:unClaimedQuest')}</div>
+            <div className="flex text-white text-[16px] w-full">{t('quest:unClaimedQuest')}</div>
 
             {prevQuest.unClaimed.daily.length === 0 && prevQuest.unClaimed.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
@@ -539,7 +539,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           </div>
 
           <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex text-white font-bold text-[18px] w-full">{t('quest:unFinishedQuest')}</div>
+            <div className="flex text-white text-[16px] w-full">{t('quest:unFinishedQuest')}</div>
 
             {prevQuest.unFinished.daily.length === 0 && prevQuest.unFinished.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
@@ -563,7 +563,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           </div>
 
           <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex text-white font-bold text-[18px] w-full">{t('quest:claimed')}</div>
+            <div className="flex text-white text-[16px] w-full">{t('quest:claimed')}</div>
 
             {prevQuest.claimed.daily.length === 0 && prevQuest.claimed.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
