@@ -1940,5 +1940,21 @@
     "bonusClaimed": "โบนัสของคุณถูกอ้างสิทธิ์แล้ว",
     "successfulllyReported": "ได้รับคำขอของคุณเรียบร้อยแล้ว ",
     "success": "ความสำเร็จ"
+  },
+  "quest": {
+    "questHub": "เควสฮับ",
+    "accumulateRewards": "รางวัลสะสม:",
+    "dailyQuest": "เควสรายวัน",
+    "weeklyQuest": "ภารกิจประจำสัปดาห์",
+    "expiredIn": "หมดอายุใน",
+    "go": "ไป",
+    "justWager": "เดิมพันรายวันถึงแล้ว {{amount}}",
+    "bigWin": "ชนะชัยชนะของ {{multi}}x หรือมากกว่าในเกมใดๆ ที่เดิมพันจบลง {{amount}}",
+    "slotMaster": "กำไรวันเดียวถึง {{amount}}",
+    "weeklyWager": "เดิมพันรายสัปดาห์ถึงแล้ว {{amount}}.",
+    "unFinishedQuest": "ภารกิจที่ยังไม่เสร็จ",
+    "unClaimedQuest": "ไม่มีการอ้างสิทธิ์",
+    "claimed": "อ้างสิทธิ์",
+    "expired": "หมดอายุแล้ว"
   }
 }

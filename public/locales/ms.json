@@ -1940,5 +1940,21 @@
     "bonusClaimed": "Bonus Anda Dituntut",
     "successfulllyReported": "Permintaan anda berjaya diterima. ",
     "success": "Kejayaan"
+  },
+  "quest": {
+    "questHub": "HUB Pencarian",
+    "accumulateRewards": "Ganjaran terkumpul:",
+    "dailyQuest": "Pencarian Harian",
+    "weeklyQuest": "Pencarian Mingguan",
+    "expiredIn": "Luput pada",
+    "go": "Pergi",
+    "justWager": "Pertaruhan harian mencapai {{amount}}",
+    "bigWin": "Menangi kemenangan {{multi}}x atau lebih dalam mana-mana permainan dengan pertaruhan tamat {{amount}}",
+    "slotMaster": "Keuntungan sehari mencecah {{amount}}",
+    "weeklyWager": "Pertaruhan mingguan mencapai {{amount}}.",
+    "unFinishedQuest": "Pencarian yang belum selesai",
+    "unClaimedQuest": "Tidak Dituntut",
+    "claimed": "Dituntut",
+    "expired": "Tamat tempoh"
   }
 }

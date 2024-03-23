@@ -1940,5 +1940,21 @@
     "bonusClaimed": "Su bono es reclamado",
     "successfulllyReported": "Su solicitud se recibe con éxito. ",
     "success": "Éxito"
+  },
+  "quest": {
+    "questHub": "CENTRO de misiones",
+    "accumulateRewards": "Recompensas acumuladas:",
+    "dailyQuest": "Misiones diarias",
+    "weeklyQuest": "Misiones semanales",
+    "expiredIn": "Expira en",
+    "go": "Ir",
+    "justWager": "La apuesta diaria alcanza {{amount}}",
+    "bigWin": "Gana una victoria de {{multi}}x o más en cualquier juego con una apuesta superior {{amount}}",
+    "slotMaster": "El beneficio de un solo día alcanza {{amount}}",
+    "weeklyWager": "La apuesta semanal alcanza {{amount}}.",
+    "unFinishedQuest": "Misiones sin terminar",
+    "unClaimedQuest": "No reclamado",
+    "claimed": "Reclamado",
+    "expired": "Venció"
   }
 }

@@ -1940,5 +1940,21 @@
     "bonusClaimed": "आपके बोनस का दावा किया गया है",
     "successfulllyReported": "आपका अनुरोध सफलतापूर्वक प्राप्त हो गया है. ",
     "success": "सफलता"
+  },
+  "quest": {
+    "questHub": "क्वेस्ट हब",
+    "accumulateRewards": "संचित पुरस्कार:",
+    "dailyQuest": "दैनिक प्रश्न",
+    "weeklyQuest": "साप्ताहिक प्रश्न",
+    "expiredIn": "में समाप्त होना",
+    "go": "जाना",
+    "justWager": "दिहाड़ी मजदूर पहुंचता है {{amount}}",
+    "bigWin": "की जीत जीतो {{multi}}किसी भी गेम में x या अधिक पर दांव लगाना {{amount}}",
+    "slotMaster": "एक दिन का लाभ पहुंचता है {{amount}}",
+    "weeklyWager": "साप्ताहिक दांव पहुंचता है {{amount}}.",
+    "unFinishedQuest": "अधूरी खोज",
+    "unClaimedQuest": "लावारिस",
+    "claimed": "दावा किया",
+    "expired": "खत्म हो चुका"
   }
 }

@@ -1918,7 +1918,6 @@
       "gameLaunchedFailed": "गेम लाँच अयशस्वी"
     }
   },
-
   "gameReview": {
     "report": "टिप्पणी नोंदवा",
     "reportReasonHeader": "कृपया अहवाल देण्याचे कारण निवडा:",
@@ -1941,5 +1940,21 @@
     "bonusClaimed": "तुमच्या बोनसचा दावा केला आहे",
     "successfulllyReported": "तुमची विनंती यशस्वीरित्या प्राप्त झाली आहे. ",
     "success": "यश"
+  },
+  "quest": {
+    "questHub": "क्वेस्ट हब",
+    "accumulateRewards": "संचित बक्षिसे:",
+    "dailyQuest": "दैनिक शोध",
+    "weeklyQuest": "साप्ताहिक शोध",
+    "expiredIn": "मध्ये कालबाह्य होते",
+    "go": "जा",
+    "justWager": "रोजंदारीवर पोचते {{amount}}",
+    "bigWin": "ची विजय मिळवा {{multi}}x किंवा कोणत्याही गेममध्ये बेट ओव्हरसह {{amount}}",
+    "slotMaster": "एक दिवसाचा नफा पोहोचतो {{amount}}",
+    "weeklyWager": "साप्ताहिक मजुरी पोहोचते {{amount}}.",
+    "unFinishedQuest": "अपूर्ण शोध",
+    "unClaimedQuest": "दावा न केलेला",
+    "claimed": "दावा केला",
+    "expired": "कालबाह्य"
   }
 }

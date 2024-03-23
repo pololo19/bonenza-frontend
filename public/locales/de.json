@@ -1940,5 +1940,21 @@
     "bonusClaimed": "Ihr Bonus ist beansprucht",
     "successfulllyReported": "Ihre Anfrage wurde erfolgreich empfangen. ",
     "success": "Erfolg"
+  },
+  "quest": {
+    "questHub": "Quest-HUB",
+    "accumulateRewards": "Kumulierte Belohnungen:",
+    "dailyQuest": "Tägliche Quests",
+    "weeklyQuest": "Wöchentliche Quests",
+    "expiredIn": "Läuft ab in",
+    "go": "Gehen",
+    "justWager": "Tägliche Wetteinsätze {{amount}}",
+    "bigWin": "Gewinnen Sie einen Sieg von {{multi}}x oder mehr in jedem Spiel mit einer Wette über {{amount}}",
+    "slotMaster": "Eintägige Gewinnreichweiten {{amount}}",
+    "weeklyWager": "Wöchentliche Wetteinsätze {{amount}}.",
+    "unFinishedQuest": "Unvollendete Quests",
+    "unClaimedQuest": "Nicht abgeholt",
+    "claimed": "Behauptet",
+    "expired": "Abgelaufen"
   }
 }
