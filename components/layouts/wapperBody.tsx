@@ -37,12 +37,7 @@ const WrapperBody: React.FC<WrapperBodyProps> = ({ children, wrapperClassName, c
           wrapperClassName,
         )}
       >
-        <div
-          className={classNames(
-            'flex w-full px-[12px] sm:px-1 md:px-[12px] xl:pl-[40px] xl:pr-[73px]',
-            contentClassName,
-          )}
-        >
+        <div className={classNames('flex w-full px-[12px] sm:px-1 md:px-[12px] xl:px-[40px]', contentClassName)}>
           <div className={classNames('flex-1 w-full text-white')}>{children}</div>
         </div>
       </div>
