@@ -1940,5 +1940,21 @@
     "bonusClaimed": "Votre bonus est réclamé",
     "successfulllyReported": "Votre demande est reçue avec succès. ",
     "success": "Succès"
+  },
+  "quest": {
+    "questHub": "Centre de quêtes",
+    "accumulateRewards": "Récompenses accumulées :",
+    "dailyQuest": "Quêtes quotidiennes",
+    "weeklyQuest": "Quêtes hebdomadaires",
+    "expiredIn": "Expire dans",
+    "go": "Aller",
+    "justWager": "La mise quotidienne atteint {{amount}}",
+    "bigWin": "Gagnez une victoire de {{multi}}x ou plus dans n'importe quel jeu avec une mise terminée {{amount}}",
+    "slotMaster": "Le bénéfice sur une seule journée atteint {{amount}}",
+    "weeklyWager": "La mise hebdomadaire atteint {{amount}}.",
+    "unFinishedQuest": "Quêtes inachevées",
+    "unClaimedQuest": "Non réclamés",
+    "claimed": "Revendiqué",
+    "expired": "Expiré"
   }
 }

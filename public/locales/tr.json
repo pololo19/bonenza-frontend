@@ -1940,5 +1940,21 @@
     "bonusClaimed": "Bonusunuz Alındı",
     "successfulllyReported": "Talebiniz başarıyla alındı. ",
     "success": "Başarı"
+  },
+  "quest": {
+    "questHub": "Görev MERKEZİ",
+    "accumulateRewards": "Birikmiş ödüller:",
+    "dailyQuest": "Günlük Görevler",
+    "weeklyQuest": "Haftalık Görevler",
+    "expiredIn": "İçinde sona eriyor",
+    "go": "Gitmek",
+    "justWager": "Günlük bahis miktarına ulaşıldı {{amount}}",
+    "bigWin": "Kazanmak {{multi}}bahisin bittiği herhangi bir oyunda x veya daha fazlası {{amount}}",
+    "slotMaster": "Tek günlük kâra ulaşıldı {{amount}}",
+    "weeklyWager": "Haftalık bahis miktarına ulaşıldı {{amount}}.",
+    "unFinishedQuest": "Bitmemiş görevler",
+    "unClaimedQuest": "Talep Edilmedi",
+    "claimed": "Hak talebinde bulunuldu",
+    "expired": "Günü geçmiş"
   }
 }

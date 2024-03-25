@@ -1,21 +1,27 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { format } from 'date-fns';
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
-import { ElementType, ReactNode, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import Countdown from 'react-countdown';
-
-import { currencyFormat1, formatDate } from '@/base/libs/utils';
-
-import ProgressBar from '@/base/components/common/circleProgress';
-import CommonModal from '../commonModal/commonModal';
-import { api_questHistory, api_questList } from '@/api/spin';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
-import { useExchange } from '@/base/hooks/useExchange';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
+import { ElementType, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import Countdown from 'react-countdown';
+import { useTranslation } from 'react-i18next';
+import ReactLoading from 'react-loading';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import { api_bonusClaim } from '@/api/bonus';
+import { api_questHistory, api_questList } from '@/api/spin';
+import ProgressBar from '@/base/components/common/circleProgress';
+import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
+import { AppState } from '@/base/redux/store';
+
+import CommonModal from '../commonModal/commonModal';
 
 type ModalQuest = {
   onClose: () => void;
@@ -26,6 +32,7 @@ type ModalQuest = {
 type CategoryType = 'bigWin' | 'slotsMaster' | 'justWagerOn' | 'weeklyWager';
 
 type QuestItemType = {
+  id: string;
   category: CategoryType;
   amount: number;
   amountUsd: number;
@@ -36,8 +43,11 @@ type QuestItemType = {
 };
 
 type QuestItemProps = {
+  bonusId: string;
+  category: string;
   header: ReactNode;
   description: string;
+  status: boolean;
   extra: ReactNode;
   earn: number | string;
   percent: number;
@@ -52,8 +62,11 @@ type QuestDataType = {
 };
 
 const QuestItem = ({
+  bonusId,
+  category,
   header,
   description,
+  status,
   extra,
   earn,
   percent,
@@ -61,12 +74,34 @@ const QuestItem = ({
   isExpired = false,
 }: QuestItemProps) => {
   const { t } = useTranslation();
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const [isClaiming, setIsClaiming] = useState<boolean>(false);
+
+  const onClickClaim = async () => {
+    try {
+      setIsClaiming(true);
+      const bonusType = 'quest';
+      await api_bonusClaim(bonusId, bonusType);
+
+      toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setIsClaiming(false);
+    }
+  };
   return (
     <>
-      <div className="flex p-[15px] justify-between bg-color-active-primary rounded-default w-full">
+      <div className="flex p-[15px] justify-between bg-color-active-primary rounded-default w-full items-center gap-2">
         <div className="flex items-center gap-[15px]">
           <div className="flex items-center h-[70px] w-[70px]">
-            {isBigWin && <Image width={124} height={124} src={'/img/big-wins.png'} alt="" />}
+            {isBigWin &&
+              (status ? (
+                <Image width={124} height={124} src={'/img/big-wins-done.png'} alt="" />
+              ) : (
+                <Image width={124} height={124} src={'/img/big-wins.png'} alt="" />
+              ))}
             {!isBigWin && <ProgressBar progress={percent > 100 ? 100 : Math.floor(percent)} />}
           </div>
           <div className="flex flex-col gap-[5px]">
@@ -78,6 +113,36 @@ const QuestItem = ({
             </div>
           </div>
         </div>
+        {!isExpired && !isBigWin && !status && (
+          <div
+            className={cn(
+              'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play',
+              'h-[42px] min-w-[64px] sm:min-w-[90px] flex justify-center items-center hover:cursor-pointer hover:opacity-90',
+            )}
+            onClick={() => {
+              dispatch(changeIsShowQuest(false));
+              if (category === 'justWagerOn') router.push(ROUTER.Casino);
+              else if (category === 'slotsMaster') router.push(ROUTER.Slots);
+            }}
+          >
+            {t('quest:go')}
+          </div>
+        )}
+        {!isExpired && status && (
+          <div
+            className={cn(
+              'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play',
+              'h-[42px] min-w-[64px] sm:min-w-[90px] flex justify-center items-center hover:cursor-pointer hover:opacity-90',
+            )}
+            onClick={onClickClaim}
+          >
+            {isClaiming ? (
+              <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-6 !h-6" />
+            ) : (
+              t('bonus:claim')
+            )}
+          </div>
+        )}
         {isExpired && <div className="flex items-center text-color-text-primary">{t('quest:expired')}</div>}
         {extra}
       </div>
@@ -210,6 +275,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       const dailyQuestStartTime = daily?.startTime * 1000;
       const dailyQuestEndTime = daily?.endTime * 1000;
       const tempDailyQuest: QuestItemType[] = daily?.quests?.map((item: any) => ({
+        id: item?.id || '',
         category: getCategoryType(item?.category || ''),
         amount: Number(item?.amount || 0),
         amountUsd: Number(item?.amountUsd || 0),
@@ -218,11 +284,11 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         goalMultiplier: Number(item?.goalMultiplier || 0),
         goalAmount: Number(item?.goalAmount || 0),
       }));
-
       // weekly Quest
       const weeklyQuestStartTime = weekly?.startTime * 1000;
       const weeklyQuestEndTime = weekly?.endTime * 1000;
       const tempWeeklyQuest: QuestItemType[] = weekly?.quests?.map((item: any) => ({
+        id: item?.id || '',
         category: getCategoryType(item?.category || ''),
         amount: Number(item?.amount || 0),
         amountUsd: Number(item?.amountUsd || 0),
@@ -402,6 +468,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       <>
         {data.map((item) => (
           <QuestItem
+            category={item.category}
             header={<div className="flex text-[16px] font-bold">{getTopicByCategory(item.category)}</div>}
             description={String(
               t(getContentByCategory(item.category), {
@@ -411,9 +478,11 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                 multi: item.goalMultiplier,
               }),
             )}
+            bonusId={item.id}
             extra={<></>}
             percent={(item.statusAmount / item.goalAmount) * 100}
             isBigWin={item.category === 'bigWin'}
+            status={item.status}
             earn={
               viewInFiat
                 ? currencyFormat1(item.amountUsd * exchangeRate, 2, localFiat?.name)
@@ -448,8 +517,10 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           </>
         }
       >
-        <div className="flex flex-col px-5 pt-1 items-center gap-[10px] overflow-y-auto">
-          <div className="flex dark:text-color-text-primary justify-start w-full">{format(new Date(), 'eeee')}</div>
+        <div className="flex flex-col px-5 pt-1 items-center gap-[10px] overflow-y-auto relative">
+          <div className="flex justify-start w-full pt-4 text-color-primary font-bold">
+            {format(new Date(), 'eeee')}
+          </div>
           <div className="flex justify-between w-full">
             <div className="flex flex-col gap-[10px] text-white w-full">
               <div className="flex justify-between w-full text-default">
@@ -468,7 +539,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               </div>
               <div className="flex gap-[10px] items-center">
                 <Image width={50} height={50} className="w-[25px] h-[25px]" src={'/img/fiats/USDT.png'} alt="" />
-                <span className="text-[20px] font-bold">{`${accumulated} USDT`}</span>
+                <span className="text-[20px] font-bold italic">{`${accumulated} USDT`}</span>
               </div>
             </div>
           </div>
@@ -479,11 +550,11 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               <div>{t('quest:expiredIn')}</div>
               <Countdown
                 date={selectedType === 'daily' ? dailyQuest.endTime : weeklyQuest.endTime}
-                renderer={({ days, hours, minutes, seconds, completed }) => (
+                renderer={({ days, hours, minutes, seconds }) => (
                   <div className="text-white">
                     {selectedType === 'daily'
-                      ? `${hours}: ${minutes}: ${seconds}`
-                      : `${days}: ${hours}: ${minutes}: ${seconds}`}
+                      ? formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')
+                      : `${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')}
                   </div>
                 )}
               />

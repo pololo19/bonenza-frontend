@@ -1940,5 +1940,21 @@
     "bonusClaimed": "Tiền thưởng của bạn đã được xác nhận",
     "successfulllyReported": "Yêu cầu của bạn đã được nhận thành công. ",
     "success": "Thành công"
+  },
+  "quest": {
+    "questHub": "Trung tâm nhiệm vụ",
+    "accumulateRewards": "Phần thưởng tích lũy:",
+    "dailyQuest": "Nhiệm vụ hàng ngày",
+    "weeklyQuest": "Nhiệm vụ hàng tuần",
+    "expiredIn": "Hết hạn vào",
+    "go": "Đi",
+    "justWager": "Số tiền đặt cược hàng ngày đạt {{amount}}",
+    "bigWin": "Giành chiến thắng {{multi}}x trở lên trong bất kỳ trò chơi nào có đặt cược trên {{amount}}",
+    "slotMaster": "Đạt lợi nhuận trong một ngày {{amount}}",
+    "weeklyWager": "Số tiền đặt cược hàng tuần đạt {{amount}}.",
+    "unFinishedQuest": "Nhiệm vụ còn dang dở",
+    "unClaimedQuest": "Chưa được xác nhận",
+    "claimed": "Đã xác nhận quyền sở hữu",
+    "expired": "Hết hạn"
   }
 }

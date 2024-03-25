@@ -1940,5 +1940,21 @@
     "bonusClaimed": "تمت المطالبة بالمكافأة الخاصة بك",
     "successfulllyReported": "تم استلام طلبك بنجاح. ",
     "success": "نجاح"
+  },
+  "quest": {
+    "questHub": "مركز المهمة",
+    "accumulateRewards": "المكافآت المتراكمة:",
+    "dailyQuest": "المهام اليومية",
+    "weeklyQuest": "المهام الأسبوعية",
+    "expiredIn": "ينتهي في",
+    "go": "يذهب",
+    "justWager": "يصل الرهان اليومي {{amount}}",
+    "bigWin": "الفوز بالفوز {{multi}}x أو أكثر في أي لعبة مع الرهان عليها {{amount}}",
+    "slotMaster": "يصل الربح في يوم واحد {{amount}}",
+    "weeklyWager": "يصل الرهان الأسبوعي {{amount}}.",
+    "unFinishedQuest": "المهام غير المكتملة",
+    "unClaimedQuest": "غير مُطالب به",
+    "claimed": "ادعى",
+    "expired": "منتهي الصلاحية"
   }
 }

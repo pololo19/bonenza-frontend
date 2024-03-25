@@ -21,6 +21,7 @@ type BonusType = {
   amount: number;
   amountUsd: number;
   type: string;
+  typeName: string;
   allow: boolean;
 };
 
@@ -51,6 +52,7 @@ export default function RewardDropdown() {
         amount: Number(item.amount || 0),
         amountUsd: Number(item.amountUsd || 0),
         type: item.type,
+        typeName: item?.typeName || '',
         allow: item.allowClaim,
       }));
       setBonuses(tempBonuses);
@@ -63,8 +65,7 @@ export default function RewardDropdown() {
   const handleClaim = async (bonus: BonusType) => {
     try {
       setClaimingBonus(bonus.id);
-      const bonusType = bonus.type.toLowerCase().replace(' ', '_');
-      await api_bonusClaim(bonus.id, bonusType);
+      await api_bonusClaim(bonus.id, bonus.type);
 
       const _resBonus = await api_getClaims();
       const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
@@ -88,7 +89,7 @@ export default function RewardDropdown() {
   }, [isLogin, isShowSpinClaim]);
 
   const getBonusType = (type: string) => {
-    switch(type) {
+    switch (type) {
       case 'level_up':
         return t('bonus:levelUpRewards');
       case 'wager_contest':
@@ -214,8 +215,8 @@ export default function RewardDropdown() {
                                 </div>
 
                                 <div className="flex flex-col gap-[5px] justify-center">
-                                  <p className="text-[14px] dark:text-white text-color-light-text-primary">
-                                    {getBonusType(bonus.type)}
+                                  <p className="text-[14px] dark:text-white text-color-light-text-primary text-left">
+                                    {getBonusType(bonus.typeName)}
                                   </p>
                                   <div className="flex text-[14px] text-color-text-primary gap-[5px] items-center">
                                     {!viewInFiat && (
@@ -239,10 +240,11 @@ export default function RewardDropdown() {
                                   disabled={lockedAmount <= bonus.amount}
                                   onClick={() => handleClaim(bonus)}
                                 >
-                                  {claimingBonus === bonus.id 
-                                    ? <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-6 !h-6" />
-                                    : <div>{t('deposit:claim')}</div>
-                                  }
+                                  {claimingBonus === bonus.id ? (
+                                    <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-6 !h-6" />
+                                  ) : (
+                                    <div>{t('deposit:claim')}</div>
+                                  )}
                                 </button>
                               </div>
                             </div>

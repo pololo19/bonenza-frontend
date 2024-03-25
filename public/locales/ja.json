@@ -1940,5 +1940,21 @@
     "bonusClaimed": "ボーナスが請求されました",
     "successfulllyReported": "リクエストは正常に受信されました。",
     "success": "成功"
+  },
+  "quest": {
+    "questHub": "クエストハブ",
+    "accumulateRewards": "累計報酬:",
+    "dailyQuest": "デイリークエスト",
+    "weeklyQuest": "ウィークリークエスト",
+    "expiredIn": "有効期限が切れる",
+    "go": "行く",
+    "justWager": "毎日の賭け金が到達する {{amount}}",
+    "bigWin": "勝利を収める {{multi}}ベットオーバーのあるゲームで x 以上 {{amount}}",
+    "slotMaster": "1 日の利益が達成される {{amount}}",
+    "weeklyWager": "毎週の賭け金が到達する {{amount}}。",
+    "unFinishedQuest": "未完了のクエスト",
+    "unClaimedQuest": "未請求",
+    "claimed": "主張した",
+    "expired": "期限切れ"
   }
 }
