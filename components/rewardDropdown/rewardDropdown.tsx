@@ -63,7 +63,7 @@ export default function RewardDropdown() {
   };
 
   const handleClaim = async (bonus: BonusType) => {
-    if (claimingBonus === null || claimingBonus === '') return;
+    if (claimingBonus === null || claimingBonus !== '') return;
     try {
       setClaimingBonus(bonus.id);
       await api_bonusClaim(bonus.id, bonus.type);
