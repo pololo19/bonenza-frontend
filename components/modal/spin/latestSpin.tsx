@@ -113,7 +113,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
         panelClass="sm:rounded max-w-full sm:max-w-[400px]"
         header={<div className="text-center py-5">{t('bonus:spinBonus')}</div>}
       >
-        <div className="pb-5">
+        <div className="pb-5 sm:min-h-[659px]">
           <RankingTableComponent
             containerClassName="w-full"
             isLoading={isLoading}
