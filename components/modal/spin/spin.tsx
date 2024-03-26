@@ -236,48 +236,42 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   };
   return (
     <>
-      <CommonModal
-        show={show}
-        onClose={onClose}
-        panelClass="sm:rounded max-w-full sm:max-w-[400px]"
-        header={
-          <div className="flex justify-between px-5 pt-8 pb-0 items-center">
-            <div className="flex gap-0 relative">
-              {spins.map((spin) => (
-                <Image
-                  key={`${spin}-tab`}
-                  width={150}
-                  height={151}
-                  className={`hover:cursor-pointer w-[65px] h-[65px] z-10 ${
-                    spin !== spinTab ? 'grayscale brightness-75' : ''
-                  }`}
-                  src={`/img/spin/${spin}-spin.png`}
-                  alt=""
-                  onClick={() => onSpinTabChange(spin)}
-                />
-              ))}
-              <div
-                className={cn('rounded-large z-0 absolute w-[33%] h-[100%] transition-all bg-[#7777]', {
-                  'translate-x-[0%]': spinTab === 'lucky',
-                  'translate-x-[101%]': spinTab === 'super',
-                  'translate-x-[202%]': spinTab === 'mega',
-                })}
-              />
-            </div>
-            <Image
-              width={150}
-              height={151}
-              className="object-contain h-[90px]"
-              src={`/img/spin/${spinTab}-level.png`}
-              alt=""
-            />
-          </div>
-        }
-      >
+      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
         {isLoading ? (
           <Loader />
         ) : (
-          <div className="flex flex-col items-center justify-center overflow-y-auto relative">
+          <div className="rounded-large flex flex-col items-center justify-center overflow-y-auto relative bg-[url('/img/spin/spin-background.png')] bg-cover">
+            <div className="flex justify-between px-5 pt-8 pb-0 items-center">
+              <div className="flex gap-0 relative">
+                {spins.map((spin) => (
+                  <Image
+                    key={`${spin}-tab`}
+                    width={150}
+                    height={151}
+                    className={`hover:cursor-pointer w-[65px] h-[65px] z-10 ${
+                      spin !== spinTab ? 'grayscale brightness-75' : ''
+                    }`}
+                    src={`/img/spin/${spin}-spin.png`}
+                    alt=""
+                    onClick={() => onSpinTabChange(spin)}
+                  />
+                ))}
+                <div
+                  className={cn('rounded-large z-0 absolute w-[33%] h-[100%] transition-all bg-[#7777]', {
+                    'translate-x-[0%]': spinTab === 'lucky',
+                    'translate-x-[101%]': spinTab === 'super',
+                    'translate-x-[202%]': spinTab === 'mega',
+                  })}
+                />
+              </div>
+              <Image
+                width={150}
+                height={151}
+                className="object-contain h-[90px]"
+                src={`/img/spin/${spinTab}-level.png`}
+                alt=""
+              />
+            </div>
             <div className="spin-wrap flex flex-col items-center justify-center p-[25px] overflow-y-auto relative">
               <div className="relative min-w-[350px] min-h-[350px]">
                 {spins.map((spin) => (
@@ -327,10 +321,10 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
               <div
-                className="absolute top-[50%] left-[50%] -mt-[39px] ml-[44px] z-[5] w-[145px]"
+                className="absolute top-[50%] left-[50%] -mt-[37px] ml-[43px] z-[5] w-[145px]"
                 style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
               >
-                <Image width={353} height={193} src={'/img/spin/select-spin.png'} alt="" />
+                <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
               </div>
             </div>
 
