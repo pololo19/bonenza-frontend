@@ -40,6 +40,7 @@ type QuestItemType = {
   statusAmount: number;
   goalAmount: number;
   goalMultiplier?: number;
+  claimStatus: boolean;
 };
 
 type QuestItemProps = {
@@ -53,6 +54,7 @@ type QuestItemProps = {
   percent: number;
   isBigWin?: boolean;
   isExpired?: boolean;
+  claimStatus: boolean;
 };
 
 type QuestDataType = {
@@ -72,6 +74,7 @@ const QuestItem = ({
   percent,
   isBigWin = false,
   isExpired = false,
+  claimStatus,
 }: QuestItemProps) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -79,6 +82,7 @@ const QuestItem = ({
   const [isClaiming, setIsClaiming] = useState<boolean>(false);
 
   const onClickClaim = async () => {
+    if (claimStatus) return;
     try {
       setIsClaiming(true);
       const bonusType = 'quest';
@@ -102,7 +106,7 @@ const QuestItem = ({
               ) : (
                 <Image width={124} height={124} src={'/img/big-wins.png'} alt="" />
               ))}
-            {!isBigWin && <ProgressBar progress={percent > 100 ? 100 : Math.floor(percent)} />}
+            {!isBigWin && <ProgressBar progress={status ? 100 : percent > 100 ? 100 : Math.floor(percent)} />}
           </div>
           <div className="flex flex-col gap-[5px]">
             {header}
@@ -132,12 +136,15 @@ const QuestItem = ({
           <div
             className={cn(
               'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play',
-              'h-[42px] min-w-[64px] sm:min-w-[90px] flex justify-center items-center hover:cursor-pointer hover:opacity-90',
+              'h-[42px] min-w-[64px] sm:min-w-[90px] flex justify-center items-center',
+              { 'hover:cursor-pointer hover:opacity-90': !claimStatus },
             )}
             onClick={onClickClaim}
           >
             {isClaiming ? (
               <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-6 !h-6" />
+            ) : claimStatus ? (
+              t('quest:claimed')
             ) : (
               t('bonus:claim')
             )}
@@ -270,7 +277,6 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
     try {
       const _res = await api_questList();
       const { accumulatedRewards, daily, weekly } = _res.data;
-
       // daily Quest
       const dailyQuestStartTime = daily?.startTime * 1000;
       const dailyQuestEndTime = daily?.endTime * 1000;
@@ -283,6 +289,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         statusAmount: Number(item?.statusAmount || 0),
         goalMultiplier: Number(item?.goalMultiplier || 0),
         goalAmount: Number(item?.goalAmount || 0),
+        claimStatus: true, //item?.claimStatus || false,
       }));
       // weekly Quest
       const weeklyQuestStartTime = weekly?.startTime * 1000;
@@ -296,6 +303,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         statusAmount: Number(item?.statusAmount || 0),
         goalMultiplier: Number(item?.goalMultiplier || 0),
         goalAmount: Number(item?.goalAmount || 0),
+        claimStatus: item?.allowClaim || false,
       }));
       setAccumulated(accumulatedRewards);
 
@@ -351,7 +359,6 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
-
       const tempUnFinishedDaily =
         unFinished?.daily?.map((item: any) => ({
           category: getCategoryType(item?.category || ''),
@@ -489,6 +496,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                 : currencyFormat1(item.amount, 2, '', false)
             }
             isExpired={type}
+            claimStatus={item.claimStatus}
           />
         ))}
       </>
@@ -604,7 +612,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                 <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
                 {returnBody(prevQuest.unClaimed.daily, true)}
                 <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
-                {returnBody(prevQuest.unClaimed.daily, true)}
+                {returnBody(prevQuest.unClaimed.weekly, true)}
               </>
             )}
           </div>
@@ -628,7 +636,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                 <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
                 {returnBody(prevQuest.unFinished.daily, true)}
                 <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
-                {returnBody(prevQuest.unFinished.daily, true)}
+                {returnBody(prevQuest.unFinished.weekly, true)}
               </>
             )}
           </div>
@@ -652,7 +660,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                 <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
                 {returnBody(prevQuest.claimed.daily, true)}
                 <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
-                {returnBody(prevQuest.claimed.daily, true)}
+                {returnBody(prevQuest.claimed.weekly, true)}
               </>
             )}
           </div>
