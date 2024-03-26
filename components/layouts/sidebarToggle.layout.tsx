@@ -266,7 +266,6 @@ export default function SidebarToggle() {
                 activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
                 classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
               />
-              {/* Hiding Quest & Spin */}
 
               <div className="flex items-center gap-[5px] mt-[10px]">
                 <IconOption
