@@ -114,7 +114,10 @@ export default function ModalRakeBack({
       const _res = await api_postClaims(unlockedData.amount);
       toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      toast.error(t('deposit:claimFailed'), { containerId: TOAST_ENUM.COMMON });
+      const message = error.response?.data?.message ?? '';
+      const status = error.response?.data?.statusCode ?? '';
+      const description = error.response?.data?.error ?? t('deposit:claimFailed');
+      toast.error(description, { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -204,7 +207,7 @@ export default function ModalRakeBack({
             <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
               <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
               {requiredWagerAmount > 0 && (
-                <p className="mt-[14px] mb-[28px]">
+                <p className="mt-[14px]">
                   {t('deposit:youStillNeed')}{' '}
                   {`${
                     viewInFiat
@@ -226,7 +229,7 @@ export default function ModalRakeBack({
                 </p>
               )}
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mt-[28px]">
                 <div
                   onClick={() => {
                     onClose();
