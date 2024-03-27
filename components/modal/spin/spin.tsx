@@ -35,7 +35,7 @@ type ModalSpinProps = {
   DialogProps<ElementType>;
 
 // const speed = 2; // deg per millisecond
-const duration = 7500; // milli second
+const duration = 11000; // milli second
 
 interface SpinItem {
   symbol: string;
@@ -158,7 +158,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     getSpinData();
   }, [isShowSpinClaim, isShowSpin, isLogin]);
 
-  const spinPlay = useCallback(async () => {
+  const spinPlay = async () => {
     if (!isLogin) {
       dispatch(changeIsShowSpin(false));
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
@@ -168,7 +168,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     if (!spinAvailable || isRotating) {
       return;
     }
-    let dd = 0;
+    let deltaAngle = 0;
     try {
       const res = await api_postSpinTry(spins.indexOf(spinTab));
       const spinId = (res.data.spinId || 1) - 1;
@@ -183,11 +183,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         id: id,
         claimable: claimable || false,
       });
-      dd = 22.5 * spinId;
-      const _resBonus = await api_getClaims();
-      const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
-
-      dispatch(setLockedAmount(tempLockedAmount));
+      deltaAngle = 22.5 * spinId;
     } catch (error) {
       const status = (error as AxiosError).response?.status || 0;
       toast.error((status || 404) === 400 ? t('bonus:spinNoSpin') : t('bonus:spinWrong'), {
@@ -198,25 +194,39 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       });
       return;
     }
-    const speed = ((360 * 14 - dd) / duration) * 2;
-    const acceleration = speed / duration;
+    const initRotate = rotate;
+    const deltaD = 360 * 8 - deltaAngle - (initRotate % 360);
+    const maxSpeed = deltaD / duration;
+    const acceleration = (maxSpeed / duration) * 2;
     const currentTime = new Date();
     setIsRotating(true);
     let timer = setInterval(() => {
       const time = new Date();
       const dT = time.getTime() - currentTime.getTime();
-      const updateRotate = speed * dT - (acceleration * dT * dT) / 2;
+
+      let updateRotate = 0;
+      if (dT < duration / 2) {
+        updateRotate = initRotate + (acceleration * dT * dT) / 2;
+      } else {
+        updateRotate = initRotate + maxSpeed * duration - (acceleration * (duration - dT) * (duration - dT)) / 2;
+      }
       setRotate(updateRotate);
-    }, 0);
-    timeOut.current = setTimeout(() => {
-      setIsRotating(false);
+    }, 60);
+    timeOut.current = setTimeout(async () => {
       clearInterval(timer);
+      // setRotate(deltaD);
+      setIsRotating(false);
+      const _resBonus = await api_getClaims();
+      const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+
+      dispatch(setLockedAmount(tempLockedAmount));
       dispatch(changeIsShowSpinClaim(true));
     }, duration);
-  }, [isLogin, spinTab, spinItems]);
+  };
 
   useEffect(() => {
     return () => {
+      setRotate(0);
       clearTimeout(timeOut.current);
     };
   }, []);
@@ -249,7 +259,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     width={150}
                     height={151}
                     className="hover:cursor-pointer w-[60px] h-[60px] z-10"
-                    src={spin === spinTab ? `/img/spin/${spin}-spin.png` : `/img/spin/disabled-spin.png`}
+                    src={spin === spinTab ? `/img/spin/${spin}-spin.png` : `/img/spin/disabled-${spin}-spin.png`}
                     alt=""
                     onClick={() => onSpinTabChange(spin)}
                   />
@@ -279,14 +289,16 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                       'max-h-0 max-w-0 left-[50%] right-[50%] top-[50%] bottom-[50%] duration-200': spin !== spinTab,
                       'max-h-[500px] max-w-[500px] left-0 right-0 top-0 bottom-0 duration-500': spin === spinTab,
                     })}
-                    style={{ transform: `rotate(${rotate}deg)` }}
                   >
-                    <div className="flex items-center justify-center w-full h-full relative origin-center">
+                    <div
+                      className="flex items-center justify-center w-full h-full relative origin-center"
+                      style={{ transform: `rotate(${rotate}deg)` }}
+                    >
                       <Image width={781} height={781} className="w-full" src={'/img/spin/spin-wheel.png'} alt="" />
                       {spinItems?.[spinTab].map((item, index) => (
                         <div
                           key={index}
-                          className="absolute flex gap-[5px] justify-end items-center top-[50%] left-[50%] right-[25px] text-[14px] leading-[20px] -mt-[10px]"
+                          className="absolute flex gap-[5px] justify-end items-center top-[50%] left-[50%] right-[33px] text-[14px] leading-[20px] -mt-[10px]"
                           style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
                         >
                           <span className="font-bold">{item.amount.toFixed(4)}</span>
@@ -297,7 +309,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                   </div>
                 ))}
               </div>
-              <div className="absolute w-[28%] z-[6] cursor-pointer">
+              <div className="absolute w-[27%] z-[6] cursor-pointer">
                 <div
                   className={cn(
                     styles.spin,
@@ -319,7 +331,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
               <div
-                className="absolute top-[50%] left-[50%] -mt-[37px] ml-[43px] z-[5] w-[145px]"
+                className="absolute top-[50%] left-[50%] -mt-[45px] ml-[35px] z-[5] w-[157px]"
                 style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
               >
                 <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
