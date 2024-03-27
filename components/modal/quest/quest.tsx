@@ -137,7 +137,7 @@ const QuestItem = ({
             className={cn(
               'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play',
               'h-[42px] min-w-[64px] sm:min-w-[90px] flex justify-center items-center',
-              { 'hover:cursor-pointer hover:opacity-90': !claimStatus },
+              { 'hover:cursor-pointer hover:opacity-90': !claimStatus, 'opacity-50': claimStatus },
             )}
             onClick={onClickClaim}
           >
