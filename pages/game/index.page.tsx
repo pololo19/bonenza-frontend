@@ -4,7 +4,7 @@ import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
@@ -177,14 +177,15 @@ function GamePage() {
   };
   const handlePlayRequest = async () => {
     try {
-      
       const tempBalances = [...balances];
       const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
       const balance = selectedBalance?.amount ?? 0;
       const isBalanceSatisfied = balance > 0;
+      setSuccessfullyLaunched(false);
       setIsSatisfied(isBalanceSatisfied);
 
       if (!isBalanceSatisfied) {
+        setIsSatisfied(false);
         return;
       }
       setIsLoadingGame({
@@ -328,10 +329,11 @@ function GamePage() {
   }, [gameDetail]);
 
   useEffect(() => {
-    if (localFiat && successfullyLaunched) {
+    setIsSatisfied(true);
+    if (localFiat && activeCurrency.id !== '') {
       handlePlayRequest();
     }
-  }, [localFiat]);
+  }, [localFiat, activeCurrency]);
 
   useEffect(() => {
     setSuccessfullyLaunched(false);
