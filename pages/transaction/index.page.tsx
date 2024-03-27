@@ -82,7 +82,7 @@ const TransactionPage = () => {
   const [columnType, setColumnType] = useState<TRANSACTION_TYPE>(TRANSACTION_TYPE.Deposit);
 
   const depositColumns: ColumnDef<TransactionType>[] = useMemo(() => {
-    if(width > 1024) {
+    if (width > 1024) {
       return [
         {
           accessorKey: 'transactionType',
@@ -243,7 +243,7 @@ const TransactionPage = () => {
   }, [localFiat, viewInFiat, optionFilter.type, i18n, exchangeRate]);
 
   const swapColumns: ColumnDef<TransactionSwapType>[] = useMemo(() => {
-    if(width > 1024) {
+    if (width > 1024) {
       return [
         {
           accessorKey: 'swapFrom + swapTo',
@@ -262,7 +262,11 @@ const TransactionPage = () => {
                 -
                 {viewInFiat ? (
                   <>
-                    {currencyFormat1(row.original?.swapFromUsd * exchangeRate, fiatLen, String(localFiat?.name || 'USD'))}
+                    {currencyFormat1(
+                      row.original?.swapFromUsd * exchangeRate,
+                      fiatLen,
+                      String(localFiat?.name || 'USD'),
+                    )}
                   </>
                 ) : (
                   currencyFormat1(row.original.swapFrom, cryptoLen, '', false)
@@ -625,7 +629,7 @@ const TransactionPage = () => {
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate, width]);
 
   const withdrawColumns: ColumnDef<TransactionType>[] = useMemo(() => {
-    if(width > 1024) {      
+    if (width > 1024) {
       return [
         {
           accessorKey: 'transactionType',
@@ -786,7 +790,7 @@ const TransactionPage = () => {
   }, [localFiat, viewInFiat, optionFilter.type, i18n, exchangeRate]);
 
   const bonusColumns: ColumnDef<TransactionBonusType>[] = useMemo(() => {
-    if(width > 1024) {
+    if (width > 1024) {
       return [
         {
           accessorKey: 'actionType',
@@ -1047,11 +1051,8 @@ const TransactionPage = () => {
       setTotalRows(0);
       try {
         setIsLoading(true);
-        const currentDate = new Date();
-        const endDateTimeStamp = Math.floor(currentDate.getTime() / 1000);
-        const startDate = new Date(currentDate);
-        startDate.setDate(currentDate.getDate() - optionFilter.dayPast.type);
-        const startDateTimeStamp = Math.floor(startDate.getTime() / 1000);
+        const endDateTimeStamp = Math.floor(Date.now() / 1000);
+        const startDateTimeStamp = Math.floor((Date.now() - 24 * 60 * 60 * 1000 * optionFilter.dayPast.type) / 1000);
         const res = await api_getTransactions({
           type: optionFilter.type.type,
           symbolId: optionFilter.currency,
@@ -1215,7 +1216,6 @@ const TransactionPage = () => {
 
   useEffect(() => {
     if (activeTransaction.id) {
-
       if (activeTransaction.status == 0) {
         getTransactions(1);
         return;
