@@ -203,33 +203,36 @@ export default function ModalRakeBack({
             <div className="text-[14px] font-bold text-center">{t('deposit:howClaim')}</div>
             <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
               <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
-              <p className="mt-[14px] mb-[28px]">
-                {t('deposit:youStillNeed')}{' '}
-                {`${
-                  viewInFiat
-                    ? currencyFormat1((requiredWagerAmount / usdtPrice) * exchangeRate, fiatLen, localFiat?.name)
-                    : currencyFormat1(requiredWagerAmount, cryptoLen, '', false)
-                } USDT`}{' '}
-                {t('deposit:unlockable')}{' '}
-                {`${
-                  viewInFiat
-                    ? currencyFormat1(unlockedData.minimumUnlockAmountUsd * exchangeRate, fiatLen, localFiat?.name)
-                    : currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)
-                } USDT `}
-                <span
-                  className="text-color-primary cursor-pointer hover:underline"
-                  onClick={() => handleShowModalDetail()}
-                >
-                  {t('deposit:viewDetails')}
-                </span>
-              </p>
+              {requiredWagerAmount > 0 && (
+                <p className="mt-[14px] mb-[28px]">
+                  {t('deposit:youStillNeed')}{' '}
+                  {`${
+                    viewInFiat
+                      ? currencyFormat1((requiredWagerAmount / usdtPrice) * exchangeRate, fiatLen, localFiat?.name)
+                      : currencyFormat1(requiredWagerAmount, cryptoLen, '', false)
+                  } USDT`}{' '}
+                  {t('deposit:unlockable')}{' '}
+                  {`${
+                    viewInFiat
+                      ? currencyFormat1(unlockedData.minimumUnlockAmountUsd * exchangeRate, fiatLen, localFiat?.name)
+                      : currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)
+                  } USDT `}
+                  <span
+                    className="text-color-primary cursor-pointer hover:underline"
+                    onClick={() => handleShowModalDetail()}
+                  >
+                    {t('deposit:viewDetails')}
+                  </span>
+                </p>
+              )}
+
               <div className="flex flex-wrap gap-2">
                 <div
                   onClick={() => {
                     onClose();
                     router.push('/casino');
                   }}
-                  className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-purple px-[16px] justify-center text-white font-bold text-[14px]"
+                  className="h-[38px] rounded-default cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-purple px-[16px] justify-center text-white font-bold text-[14px]"
                 >
                   {t('deposit:goToCasino')}
                 </div>

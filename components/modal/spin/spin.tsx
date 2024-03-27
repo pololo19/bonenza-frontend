@@ -35,7 +35,7 @@ type ModalSpinProps = {
   DialogProps<ElementType>;
 
 // const speed = 2; // deg per millisecond
-const duration = 5000; // milli second
+const duration = 7500; // milli second
 
 interface SpinItem {
   symbol: string;

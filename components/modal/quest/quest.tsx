@@ -235,7 +235,7 @@ const initQuestData: QuestDataType = {
 
 export default function ModalQuest({ show, onClose }: ModalQuest) {
   const exchangeRate = useExchange();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isHistory, setIsHistory] = useState(false);
 
   const { theme } = useTheme();
@@ -440,68 +440,41 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
     }
   };
 
-  const returnSelect = useMemo(
-    () => (
-      <div className="relative grid grid-cols-2 w-full">
-        <div
-          className={cn(
-            'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px]',
-            { 'bg-gradient-to-t from-color-primary/20 border-color-primary': selectedType === 'daily' },
-            { 'dark:border-[#272C33] border-[#ccc]': selectedType !== 'daily' },
-          )}
-          onClick={() => setSelectedType('daily')}
-          role="button"
-        >
-          {t('quest:dailyQuest')}
-        </div>
-        <div
-          className={cn(
-            'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px]',
-            { 'bg-gradient-to-t from-color-primary/20 border-color-primary': selectedType === 'weekly' },
-            { 'dark:border-[#272C33] border-[#ccc]': selectedType !== 'weekly' },
-          )}
-          onClick={() => setSelectedType('weekly')}
-          role="button"
-        >
-          {t('quest:weeklyQuest')}
-        </div>
-      </div>
-    ),
-    [selectedType],
+  const returnBody = useCallback(
+    (data: QuestItemType[], type: boolean = false) => {
+      return (
+        <>
+          {data.map((item) => (
+            <QuestItem
+              category={item.category}
+              header={<div className="flex text-[16px] font-bold">{getTopicByCategory(item.category)}</div>}
+              description={String(
+                t(getContentByCategory(item.category), {
+                  amount: viewInFiat
+                    ? currencyFormat1(item.goalAmount, 2, localFiat?.name)
+                    : currencyFormat1(item.goalAmount * exchangeRate, 2, localFiat?.name),
+                  multi: item.goalMultiplier,
+                }),
+              )}
+              bonusId={item.id}
+              extra={<></>}
+              percent={(item.statusAmount / item.goalAmount) * 100}
+              isBigWin={item.category === 'bigWin'}
+              status={item.status}
+              earn={
+                viewInFiat
+                  ? currencyFormat1(item.amountUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(item.amount, 2, '', false)
+              }
+              isExpired={type}
+              claimStatus={item.claimStatus}
+            />
+          ))}
+        </>
+      );
+    },
+    [i18n.language],
   );
-
-  const returnBody = useCallback((data: QuestItemType[], type: boolean = false) => {
-    return (
-      <>
-        {data.map((item) => (
-          <QuestItem
-            category={item.category}
-            header={<div className="flex text-[16px] font-bold">{getTopicByCategory(item.category)}</div>}
-            description={String(
-              t(getContentByCategory(item.category), {
-                amount: viewInFiat
-                  ? currencyFormat1(item.goalAmount, 2, localFiat?.name)
-                  : currencyFormat1(item.goalAmount * exchangeRate, 2, localFiat?.name),
-                multi: item.goalMultiplier,
-              }),
-            )}
-            bonusId={item.id}
-            extra={<></>}
-            percent={(item.statusAmount / item.goalAmount) * 100}
-            isBigWin={item.category === 'bigWin'}
-            status={item.status}
-            earn={
-              viewInFiat
-                ? currencyFormat1(item.amountUsd * exchangeRate, 2, localFiat?.name)
-                : currencyFormat1(item.amount, 2, '', false)
-            }
-            isExpired={type}
-            claimStatus={item.claimStatus}
-          />
-        ))}
-      </>
-    );
-  }, []);
 
   useEffect(() => {
     if (isLogin && show) {
@@ -551,7 +524,30 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               </div>
             </div>
           </div>
-          {returnSelect}
+          <div className="relative grid grid-cols-2 w-full">
+            <div
+              className={cn(
+                'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px]',
+                { 'bg-gradient-to-t from-color-primary/20 border-color-primary': selectedType === 'daily' },
+                { 'dark:border-[#272C33] border-[#ccc]': selectedType !== 'daily' },
+              )}
+              onClick={() => setSelectedType('daily')}
+              role="button"
+            >
+              {t('quest:dailyQuest')}
+            </div>
+            <div
+              className={cn(
+                'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px]',
+                { 'bg-gradient-to-t from-color-primary/20 border-color-primary': selectedType === 'weekly' },
+                { 'dark:border-[#272C33] border-[#ccc]': selectedType !== 'weekly' },
+              )}
+              onClick={() => setSelectedType('weekly')}
+              role="button"
+            >
+              {t('quest:weeklyQuest')}
+            </div>
+          </div>
 
           <div className="flex flex-col w-full gap-[10px]">
             <div className="flex items-center gap-[10px] text-color-text-primary">
