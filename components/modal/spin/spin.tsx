@@ -241,17 +241,15 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
           <Loader />
         ) : (
           <div className="rounded-large flex flex-col items-center justify-center overflow-y-auto relative bg-[url('/img/spin/spin-background.png')] bg-cover">
-            <div className="flex justify-between px-5 pt-8 pb-0 items-center">
+            <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
                   <Image
                     key={`${spin}-tab`}
                     width={150}
                     height={151}
-                    className={`hover:cursor-pointer w-[65px] h-[65px] z-10 ${
-                      spin !== spinTab ? 'grayscale brightness-75' : ''
-                    }`}
-                    src={`/img/spin/${spin}-spin.png`}
+                    className="hover:cursor-pointer w-[60px] h-[60px] z-10"
+                    src={spin === spinTab ? `/img/spin/${spin}-spin.png` : `/img/spin/disabled-spin.png`}
                     alt=""
                     onClick={() => onSpinTabChange(spin)}
                   />
@@ -260,7 +258,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                   className={cn('rounded-large z-0 absolute w-[33%] h-[100%] transition-all bg-[#7777]', {
                     'translate-x-[0%]': spinTab === 'lucky',
                     'translate-x-[101%]': spinTab === 'super',
-                    'translate-x-[202%]': spinTab === 'mega',
+                    'translate-x-[204%]': spinTab === 'mega',
                   })}
                 />
               </div>
