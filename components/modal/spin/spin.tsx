@@ -35,7 +35,7 @@ type ModalSpinProps = {
   DialogProps<ElementType>;
 
 // const speed = 2; // deg per millisecond
-const duration = 7500; // milli second
+const duration = 11000; // milli second
 
 interface SpinItem {
   symbol: string;
@@ -195,7 +195,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       return;
     }
     const initRotate = rotate;
-    const deltaD = 360 * 14 - deltaAngle - (initRotate % 360);
+    const deltaD = 360 * 8 - deltaAngle - (initRotate % 360);
     const maxSpeed = deltaD / duration;
     const acceleration = (maxSpeed / duration) * 2;
     const currentTime = new Date();
@@ -331,7 +331,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
               <div
-                className="absolute top-[50%] left-[50%] -mt-[40px] ml-[43px] z-[5] w-[145px]"
+                className="absolute top-[50%] left-[50%] -mt-[45px] ml-[35px] z-[5] w-[157px]"
                 style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
               >
                 <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
