@@ -110,7 +110,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
   return (
     <>
       <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
-        <div className="rounded-large sm:min-h-[723px] sm:max-h-[723px]  overflow-hidden bg-[url('/img/spin/spin-background.png')] bg-cover relative">
+        <div className="rounded-large max-h-[723px] overflow-hidden overflow-y-scroll bg-[url('/img/spin/spin-background.png')] bg-cover relative">
           <div
             className={cn(
               'absolute top-[20px] left-[20px]',
@@ -121,14 +121,10 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
           >
             <ArrowLeft2 width={16} className="stroke-[3]" />
           </div>
-          <Image
-            width={230}
-            height={233}
-            className="w-[60%] h-auto object-cover m-auto py-4"
-            alt=""
-            src="/img/spin/spin-winners.png"
-          />
-          <div className="mx-4 mb-4 h-[598px] bg-black rounded-large overflow-hidden overflow-y-scroll">
+          <div className="w-[60%] object-cover m-auto py-4">
+            <Image width={230} height={233} alt="" src="/img/spin/spin-winners.png" />
+          </div>
+          <div className="bg-black mx-4 mb-4 rounded-large overflow-hidden max-h-[598px]">
             <RankingTableComponent
               containerClassName="w-full"
               isLoading={isLoading}
