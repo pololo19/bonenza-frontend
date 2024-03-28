@@ -66,10 +66,11 @@ function BonusLoggedPage() {
   });
   const [lockedAmount, setLockedAmount] = useState<number>(0);
 
-  const { localFiat, viewInFiat } = useSelector(
+  const { localFiat, viewInFiat, isLogin } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
@@ -230,8 +231,10 @@ function BonusLoggedPage() {
   };
 
   useEffect(() => {
-    getBonusStatistics();
-  }, []);
+    if (isLogin) {
+      getBonusStatistics();
+    }
+  }, [isLogin]);
   const onRedeemClick = () => {
     toast.error("The code doesn't exist", {
       containerId: TOAST_ENUM.COMMON,

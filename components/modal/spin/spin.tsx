@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, useCallback, useEffect, useRef, useState } from 'react';
+import { ElementType, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -93,6 +93,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
 
   const getSpinAvailableCount = async () => {
     try {
+      if (!user.userId) return;
       const res = await api_getSpinAvailableCount();
       const tempAvailableCount = res.data?.availableSpinCount || 0;
       setSpinAvailableCount(tempAvailableCount);
