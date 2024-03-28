@@ -34,6 +34,7 @@ export type RankingTableComponentPropsType = {
   headerVarian?: 'danger';
   renderRowClass?: (context: Row<ObjectLiteral>) => string;
   onRowClick?: (row: Row<any>) => void;
+  isHeadInvisible?: boolean;
 };
 
 const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
@@ -47,6 +48,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
   headerVarian,
   renderRowClass,
   onRowClick,
+  isHeadInvisible = false,
 }) => {
   const { t } = useTranslation(['errorCommon', 'notices']);
   const dispatch = useDispatch();
@@ -84,25 +86,26 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
         <thead className={cn(styles.tableHeader)}>
           {getHeaderGroups()?.map((headerGroup) => (
             <tr key={headerGroup.id} className="relative z-0">
-              {headerGroup.headers.map((header, index) => {
-                return (
-                  <th
-                    key={header.id}
-                    className={cn(
-                      headerVarian ? styles[headerVarian] : '',
-                      { '!text-right': index === headerGroup.headers.length - 1 },
-                      'bg-color-bg-primary whitespace-nowrap dark:text-color-text-secondary text-color-light-text-primary font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left !px-[5px]',
-                    )}
-                    {...{
-                      style: {
-                        width: `${100 / headerGroup.headers.length}%`,
-                      },
-                    }}
-                  >
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  </th>
-                );
-              })}
+              {!isHeadInvisible &&
+                headerGroup.headers.map((header, index) => {
+                  return (
+                    <th
+                      key={header.id}
+                      className={cn(
+                        headerVarian ? styles[headerVarian] : '',
+                        { '!text-right': index === headerGroup.headers.length - 1 },
+                        'bg-color-bg-primary whitespace-nowrap dark:text-color-text-secondary text-color-light-text-primary font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left !px-[5px]',
+                      )}
+                      {...{
+                        style: {
+                          width: `${100 / headerGroup.headers.length}%`,
+                        },
+                      }}
+                    >
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    </th>
+                  );
+                })}
             </tr>
           ))}
         </thead>
