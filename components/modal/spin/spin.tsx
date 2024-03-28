@@ -311,14 +311,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               </div>
               <div className="absolute w-[27%] z-[6] cursor-pointer">
                 <div
-                  className={cn(
-                    styles.spin,
-                    `${spinAvailable ? styles.spin_button : ''}`,
-                    'relative overflow-hidden rounded-full',
-                    {
-                      'cursor-not-allowed': isRotating || !spinAvailable,
-                    },
-                  )}
+                  className={cn(styles.spin, styles.spin_button, 'relative overflow-hidden rounded-full', {
+                    'cursor-not-allowed': isRotating || !spinAvailable,
+                  })}
                   onClick={spinPlay}
                 >
                   <Image

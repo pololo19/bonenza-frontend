@@ -1,5 +1,7 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ColumnDef } from '@tanstack/react-table';
+import cn from 'classnames';
+import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -97,7 +99,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
           <Image
             width={25}
             height={25}
-            className="w-[20px] h-[20px]"
+            className="ml-2 w-[20px] h-[20px]"
             src={row.original?.symbolLogo || '/img/fiats/USD.png'}
             alt=""
           />
@@ -107,19 +109,34 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
   ];
   return (
     <>
-      <CommonModal
-        show={show}
-        onClose={onClose}
-        panelClass="sm:rounded max-w-full sm:max-w-[400px]"
-        header={<div className="text-center py-5">{t('bonus:spinBonus')}</div>}
-      >
-        <div className="pb-5 sm:min-h-[659px] sm:max-h-[659px] overflow-y-scroll overflow-hidden">
-          <RankingTableComponent
-            containerClassName="w-full"
-            isLoading={isLoading}
-            data={latestSpins}
-            columns={spinColumns}
+      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
+        <div className="rounded-large sm:min-h-[723px] sm:max-h-[723px]  overflow-hidden bg-[url('/img/spin/spin-background.png')] bg-cover relative">
+          <div
+            className={cn(
+              'absolute top-[20px] left-[20px]',
+              'dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black',
+            )}
+            role="button"
+            onClick={onClose}
+          >
+            <ArrowLeft2 width={16} className="stroke-[3]" />
+          </div>
+          <Image
+            width={230}
+            height={233}
+            className="w-[60%] h-auto object-cover m-auto py-4"
+            alt=""
+            src="/img/spin/spin-winners.png"
           />
+          <div className="mx-4 mb-4 h-[598px] bg-black rounded-large overflow-hidden overflow-y-scroll">
+            <RankingTableComponent
+              containerClassName="w-full"
+              isLoading={isLoading}
+              data={latestSpins}
+              columns={spinColumns}
+              isHeadInvisible
+            />
+          </div>
         </div>
       </CommonModal>
     </>
