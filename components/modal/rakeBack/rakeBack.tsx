@@ -1,10 +1,9 @@
-import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowRight2, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { ElementType, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 

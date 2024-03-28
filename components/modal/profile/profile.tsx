@@ -1,6 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ChartBarIcon, ChevronRightIcon, ClipboardDocumentIcon, TrophyIcon } from '@heroicons/react/24/outline';
-import cn from 'classnames';
+import { ChartBarIcon, ChevronRightIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import { Edit2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -10,7 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getProfile } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { API_AVATAR, dataRibbon, groupMedal, ROUTER } from '@/base/constants/common';
+import { API_AVATAR, dataRibbon, ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { convertUserInfo, copyClipBoard, currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowInformation, changeIsShowUpdateInformation } from '@/base/redux/reducers/modal.reducer';
@@ -109,7 +108,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   useEffect(() => {
     const selectedUserId = userData.userId;
-    if (show) {
+    if (show && selectedUserId) {
       getUserProfile(selectedUserId);
     }
   }, [userData, show]);
