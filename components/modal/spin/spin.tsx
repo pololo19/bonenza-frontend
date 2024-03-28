@@ -3,7 +3,7 @@ import { AxiosError } from 'axios';
 import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, useCallback, useEffect, useRef, useState } from 'react';
+import { ElementType, useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -93,6 +93,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
 
   const getSpinAvailableCount = async () => {
     try {
+      if (!user.userId) return;
       const res = await api_getSpinAvailableCount();
       const tempAvailableCount = res.data?.availableSpinCount || 0;
       setSpinAvailableCount(tempAvailableCount);
@@ -280,18 +281,19 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 alt=""
               />
             </div>
-            <div className="spin-wrap flex flex-col items-center justify-center p-[25px] overflow-y-auto relative">
-              <div className="relative min-w-[350px] min-h-[350px]">
-                {spins.map((spin) => (
-                  <div
-                    key={`${spin}-wheel-div`}
-                    className={cn('transition-all ease-in overflow-hidden absolute', {
-                      'max-h-0 max-w-0 left-[50%] right-[50%] top-[50%] bottom-[50%] duration-200': spin !== spinTab,
-                      'max-h-[500px] max-w-[500px] left-0 right-0 top-0 bottom-0 duration-500': spin === spinTab,
-                    })}
-                  >
+
+            <div className="relative min-w-[350px] min-h-[430px] py-5">
+              {spins.map((spin) => (
+                <div
+                  key={`${spin}-wheel-div`}
+                  className={cn('transition-all ease-in absolute', {
+                    'max-h-0 max-w-0 left-[50%] right-[50%] top-[50%] bottom-[50%] duration-200': spin !== spinTab,
+                    'max-h-[500px] max-w-[500px] left-0 right-0 top-0 bottom-0 duration-500': spin === spinTab,
+                  })}
+                >
+                  <div className="flex flex-col items-center justify-center relative">
                     <div
-                      className="flex items-center justify-center w-full h-full relative origin-center"
+                      className="flex items-center justify-center w-full h-full relative origin-center overflow-hidden"
                       style={{ transform: `rotate(${rotate}deg)` }}
                     >
                       <Image width={781} height={781} className="w-full" src={'/img/spin/spin-wheel.png'} alt="" />
@@ -306,41 +308,45 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                         </div>
                       ))}
                     </div>
+                    <div className="absolute w-[28%] top-[30%] z-[6] cursor-pointer">
+                      <div
+                        className={cn(
+                          styles.spin,
+                          `${spinAvailable ? styles.spin_button : ''}`,
+                          'relative overflow-hidden rounded-full',
+                          {
+                            'cursor-not-allowed': isRotating || !spinAvailable,
+                          },
+                        )}
+                        onClick={spinPlay}
+                      >
+                        <Image
+                          width={230}
+                          height={233}
+                          className={cn('w-full h-auto object-cover')}
+                          alt=""
+                          src={`/img/spin/${spinTab}-spin-button.png`}
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="absolute top-[31%] left-[60%] -right-[5%] z-[5]"
+                      style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
+                    >
+                      <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
+                    </div>
+                    <div className="-mt-[60px] z-[2] mx-[10px] mb-[10px]">
+                      <Image
+                        width={856}
+                        height={402}
+                        className="w-[80%] m-auto"
+                        alt=""
+                        src={`/img/spin/${spinTab}-spin-ribbon.png`}
+                      />
+                    </div>
                   </div>
-                ))}
-              </div>
-              <div className="absolute w-[27%] z-[6] cursor-pointer">
-                <div
-                  className={cn(styles.spin, styles.spin_button, 'relative overflow-hidden rounded-full', {
-                    'cursor-not-allowed': isRotating || !spinAvailable,
-                  })}
-                  onClick={spinPlay}
-                >
-                  <Image
-                    width={230}
-                    height={233}
-                    className={cn('w-full h-auto object-cover')}
-                    alt=""
-                    src={`/img/spin/${spinTab}-spin-button.png`}
-                  />
                 </div>
-              </div>
-              <div
-                className="absolute top-[50%] left-[50%] -mt-[45px] ml-[35px] z-[5] w-[157px]"
-                style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
-              >
-                <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
-              </div>
-            </div>
-
-            <div className="-mt-[90px] z-[2] mx-[10px] mb-[10px]">
-              <Image
-                width={856}
-                height={402}
-                className="w-[80%] m-auto"
-                alt=""
-                src={`/img/spin/${spinTab}-spin-ribbon.png`}
-              />
+              ))}
             </div>
             <div className="bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 py-7 mb-5 flex">
               <div className="text-default flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222]">

@@ -106,6 +106,21 @@ export default function RewardDropdown() {
     }
   };
 
+  const getBonusIcon = (type: string) => {
+    switch (type) {
+      case 'wager_contest':
+        return '/img/wager_contest_reward.png';
+      case 'weekly_cashback':
+        return '/img/weekly_cashback_reward.png';
+      case 'monthly_cashback':
+        return '/img/monthly_cashback_reward.png';
+      case 'level_up':
+        return '/img/levelup_reward.png';
+      default:
+        return '/img/spin_reward.png';
+    }
+  };
+
   return (
     <>
       <>
@@ -170,51 +185,13 @@ export default function RewardDropdown() {
                             >
                               <div className="flex gap-[10px]">
                                 <div className="flex flex-col justify-center items-center">
-                                  {bonus.type !== 'wager_contest' && (
-                                    <Image
-                                      width={30}
-                                      height={30}
-                                      src="/img/spin_reward.png"
-                                      className="w-auth h-fit"
-                                      alt=""
-                                    />
-                                  )}
-                                  {bonus.type === 'wager_contest' && (
-                                    <Image
-                                      width={30}
-                                      height={30}
-                                      src="/img/wager_contest_reward.png"
-                                      className="w-auth h-fit"
-                                      alt=""
-                                    />
-                                  )}
-                                  {bonus.type === 'weekly_cashback' && (
-                                    <Image
-                                      width={30}
-                                      height={30}
-                                      src="/img/weekly_cashback_reward.png"
-                                      className="w-auth h-fit"
-                                      alt=""
-                                    />
-                                  )}
-                                  {bonus.type === 'monthly_cashback' && (
-                                    <Image
-                                      width={30}
-                                      height={30}
-                                      src="/img/monthly_cashback_reward.png"
-                                      className="w-auth h-fit"
-                                      alt=""
-                                    />
-                                  )}
-                                  {bonus.type === 'level_up' && (
-                                    <Image
-                                      width={30}
-                                      height={30}
-                                      src="/img/levelup_reward.png"
-                                      className="w-auth h-fit"
-                                      alt=""
-                                    />
-                                  )}
+                                  <Image
+                                    width={30}
+                                    height={30}
+                                    src={getBonusIcon(bonus.type)}
+                                    className="w-auth h-fit"
+                                    alt=""
+                                  />
                                 </div>
 
                                 <div className="flex flex-col gap-[5px] justify-center">
