@@ -247,11 +247,14 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   };
   return (
     <>
-      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <div className="rounded-large flex flex-col items-center justify-center overflow-y-auto relative bg-[url('/img/spin/spin-background.png')] bg-cover">
+      <CommonModal
+        show={show}
+        onClose={onClose}
+        panelClass="sm:rounded max-w-full sm:max-w-[400px]"
+        isScrollableInRotate
+      >
+        <div className=" overflow-y-scroll ">
+          <div className="rounded-large flex flex-col items-center justify-center relative bg-[url('/img/spin/spin-background.png')] bg-cover">
             <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
@@ -394,7 +397,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               </div>
             </div>
           </div>
-        )}
+        </div>
       </CommonModal>
 
       <ModalSpinClaim

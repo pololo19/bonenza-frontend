@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import { ElementType, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
+import { ElementType, ReactNode, useCallback, useEffect, useState } from 'react';
 import Countdown from 'react-countdown';
 import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
@@ -58,6 +58,7 @@ type QuestItemProps = {
 };
 
 type QuestDataType = {
+  currentTime: string | number;
   startTime: string | number;
   endTime: string | number;
   data: QuestItemType[];
@@ -228,6 +229,7 @@ const getContentByCategory = (category: CategoryType) => {
 };
 
 const initQuestData: QuestDataType = {
+  currentTime: formatDate(formatDate(new Date(), 'LL/dd/yyyy')),
   startTime: formatDate(formatDate(new Date(), 'LL/dd/yyyy')),
   endTime: formatDate(getNextDay(), 'LL/dd/yyyy'),
   data: [],
@@ -280,6 +282,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       // daily Quest
       const dailyQuestStartTime = daily?.startTime * 1000;
       const dailyQuestEndTime = daily?.endTime * 1000;
+      const dailyQuestCurrentTime = daily?.currentTime * 1000;
       const tempDailyQuest: QuestItemType[] = daily?.quests?.map((item: any) => ({
         id: item?.id || '',
         category: getCategoryType(item?.category || ''),
@@ -294,6 +297,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       // weekly Quest
       const weeklyQuestStartTime = weekly?.startTime * 1000;
       const weeklyQuestEndTime = weekly?.endTime * 1000;
+      const weeklyQuestCurrentTime = daily?.currentTime * 1000;
       const tempWeeklyQuest: QuestItemType[] = weekly?.quests?.map((item: any) => ({
         id: item?.id || '',
         category: getCategoryType(item?.category || ''),
@@ -308,11 +312,13 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       setAccumulated(accumulatedRewards);
 
       setDailyQuest({
+        currentTime: dailyQuestCurrentTime,
         startTime: dailyQuestStartTime,
         endTime: dailyQuestEndTime,
         data: tempDailyQuest,
       });
       setWeeklyQuest({
+        currentTime: weeklyQuestCurrentTime,
         startTime: weeklyQuestStartTime,
         endTime: weeklyQuestEndTime,
         data: tempWeeklyQuest,
@@ -322,11 +328,13 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       setAccumulated(0);
 
       setDailyQuest({
+        currentTime: new Date().getTime(),
         startTime: new Date().getTime(),
         endTime: new Date().getTime(),
         data: [],
       });
       setWeeklyQuest({
+        currentTime: new Date().getTime(),
         startTime: new Date().getTime(),
         endTime: new Date().getTime(),
         data: [],
@@ -553,7 +561,11 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
             <div className="flex items-center gap-[10px] text-color-text-primary">
               <div>{t('quest:expiredIn')}</div>
               <Countdown
-                date={selectedType === 'daily' ? dailyQuest.endTime : weeklyQuest.endTime}
+                date={
+                  selectedType === 'daily'
+                    ? new Date(dailyQuest.endTime).toLocaleString()
+                    : new Date(weeklyQuest.endTime).toLocaleString()
+                }
                 renderer={({ days, hours, minutes, seconds }) => (
                   <div className="text-white">
                     {selectedType === 'daily'
