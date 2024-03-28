@@ -42,7 +42,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
         userAvatar: item?.userAvatar || '',
         userName: item?.userName || '',
       }));
-      setLatestSpins(tempLatestSpin.slice(0, 10));
+      setLatestSpins(tempLatestSpin.slice(0, 20));
     } catch (error) {
       setLatestSpins([]);
     } finally {
@@ -113,7 +113,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
         panelClass="sm:rounded max-w-full sm:max-w-[400px]"
         header={<div className="text-center py-5">{t('bonus:spinBonus')}</div>}
       >
-        <div className="pb-5 sm:min-h-[659px]">
+        <div className="pb-5 sm:min-h-[659px] sm:max-h-[659px] overflow-y-scroll overflow-hidden">
           <RankingTableComponent
             containerClassName="w-full"
             isLoading={isLoading}
