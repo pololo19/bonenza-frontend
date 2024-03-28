@@ -17,6 +17,7 @@ type CommonModalProps = {
   position?: string;
   isStatic?: boolean;
   isCongrat?: boolean;
+  isScrollableInRotate?: boolean;
   dialogProps?: DialogProps<ElementType>;
   transitionRootProps?: DialogProps<ElementType>;
 } & TransitionRootProps<ElementType>;
@@ -29,6 +30,7 @@ export default function CommonModal({
   panelClass,
   position,
   isShowCloseButton = true,
+  isScrollableInRotate,
   dialogProps,
   isStatic,
   transitionRootProps,
