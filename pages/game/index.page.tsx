@@ -4,7 +4,7 @@ import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useState } from 'react';
+import React, { ReactElement, useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
@@ -20,7 +20,6 @@ import {
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { useWidth } from '@/base/hooks/useWidth';
 import { formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
@@ -47,7 +46,6 @@ type LaunchUrlTye = {
 };
 
 function GamePage() {
-  const width = useWidth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
@@ -315,6 +313,7 @@ function GamePage() {
   };
 
   useEffect(() => {
+    setSuccessfullyLaunched(false);
     if (gameId) {
       getGameDetail();
     } else {
@@ -323,21 +322,14 @@ function GamePage() {
   }, [gameId, language]);
 
   useEffect(() => {
+    setIsSatisfied(true);
     if (gameDetail.identifier) {
       getGameReactInfo();
     }
-  }, [gameDetail]);
-
-  useEffect(() => {
-    setIsSatisfied(true);
-    if (localFiat && activeCurrency.id !== '') {
+    if (localFiat && activeCurrency.id !== '' && gameDetail.id && successfullyLaunched) {
       handlePlayRequest();
     }
-  }, [localFiat, activeCurrency]);
-
-  useEffect(() => {
-    setSuccessfullyLaunched(false);
-  }, [gameId]);
+  }, [localFiat, activeCurrency, gameDetail]);
 
   return (
     <>
