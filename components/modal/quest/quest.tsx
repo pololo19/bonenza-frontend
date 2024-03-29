@@ -1,3 +1,5 @@
+'use client';
+
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
@@ -15,6 +17,7 @@ import { toast } from 'react-toastify';
 import { api_bonusClaim } from '@/api/bonus';
 import { api_questHistory, api_questList } from '@/api/spin';
 import ProgressBar from '@/base/components/common/circleProgress';
+import CsrWrapper from '@/base/components/CsrWrapper';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
@@ -560,20 +563,22 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           <div className="flex flex-col w-full gap-[10px]">
             <div className="flex items-center gap-[10px] text-color-text-primary">
               <div>{t('quest:expiredIn')}</div>
-              <Countdown
-                date={
-                  selectedType === 'daily'
-                    ? new Date(dailyQuest.endTime).toLocaleString()
-                    : new Date(weeklyQuest.endTime).toLocaleString()
-                }
-                renderer={({ days, hours, minutes, seconds }) => (
-                  <div className="text-white">
-                    {selectedType === 'daily'
-                      ? formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')
-                      : `${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')}
-                  </div>
-                )}
-              />
+              <CsrWrapper>
+                <Countdown
+                  date={
+                    selectedType === 'daily'
+                      ? new Date(dailyQuest.endTime).toLocaleString()
+                      : new Date(weeklyQuest.endTime).toLocaleString()
+                  }
+                  renderer={({ days, hours, minutes, seconds }) => (
+                    <div className="text-white">
+                      {selectedType === 'daily'
+                        ? formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')
+                        : `${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')}
+                    </div>
+                  )}
+                />
+              </CsrWrapper>
             </div>
             {returnBody(selectedType === 'daily' ? dailyQuest.data : weeklyQuest.data)}
           </div>
