@@ -47,8 +47,9 @@ export default function CommonModal({
         />
         <div
           className={cn('fixed inset-0 z-10', 'transition-all duration-200 ease-in', {
-            'translate-x-[110%] sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !show,
+            'translate-x-[110%] sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !show && !isCongrat,
             'translate-x-0 md:opacity-100 scale-100': show,
+            'scale-0': !show && isCongrat,
           })}
         >
           <div
@@ -59,7 +60,11 @@ export default function CommonModal({
             onClick={onClose}
           >
             {isCongrat && (
-              <div className={`absolute w-[900px] h-[900px] ${show ? 'translate-x-0' : 'translate-x-full'}`}>
+              <div
+                className={`absolute w-[600px] aspect-square sm:w-[900px] sm:h-[900px] ${
+                  show ? 'translate-x-0' : 'translate-x-full'
+                }`}
+              >
                 <div className="relative w-full h-full">
                   <Image
                     width={400}

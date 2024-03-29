@@ -406,6 +406,9 @@ const AccountPannel: React.FC = () => {
         {isLogin && (
           <div className="flex items-center gap-[10px]">
             <IconOption
+              imageURL="/img/sidebar/quest.png"
+              imageClass="w-[30px] h-[30px]"
+              textClass="text-white !text-[15px] font-semibold"
               title={String(t('sidebar:quest'))}
               href=""
               onClick={() => {
@@ -417,14 +420,18 @@ const AccountPannel: React.FC = () => {
                 }
               }}
               icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
-              classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
+              classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
+
+              // classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
             />
             <IconOption
+              imageClass="w-[30px] h-[30px]"
+              textClass="text-white !text-[15px] font-semibold"
               title={String(t('sidebar:spin'))}
               href=""
               onClick={() => dispatch(changeIsShowSpin(true))}
               icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
-              classNames="!bg-color-primary gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
+              classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
             />
           </div>
         )}
