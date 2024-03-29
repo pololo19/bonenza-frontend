@@ -504,7 +504,8 @@ export type CategoryType =
   | 'blackjack'
   | 'new_releases'
   | 'feature_Buy_In'
-  | 'hot_games';
+  | 'hot_games'
+  | 'racing';
 
 export type BonusTransactionType = {
   amount: number;
