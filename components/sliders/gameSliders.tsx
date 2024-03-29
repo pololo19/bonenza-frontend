@@ -19,8 +19,8 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
     <div className={cn('block', className)}>
       <Swiper
         spaceBetween={10}
-        slidesPerView={2}
-        slidesPerGroup={2}
+        slidesPerView={1}
+        slidesPerGroup={1}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -39,6 +39,14 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
             slidesPerGroup: 1,
           },
           870: {
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+          },
+          1400: {
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+          },
+          1600: {
             slidesPerView: 5,
             slidesPerGroup: 5,
           },

@@ -312,7 +312,7 @@ function IndexPage() {
                   <Image
                     width={0}
                     height={0}
-                    className="absolute right-[0px] bg-cover bg-right overflow-hidden min-h-[384px]"
+                    className="absolute right-[0px] bg-cover bg-right overflow-hidden min-h-[384px] object-cover"
                     src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-11.png'}
                     alt=""
                   />
@@ -539,7 +539,7 @@ function IndexPage() {
                   alt=""
                 />
                 <div className="absolute left-[8%] right-0 top-[10%] bottom-[10%] flex flex-col justify-between">
-                  <div className="text-sm min-[390px]:text-xl min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
+                  <div className="text-sm min-[390px]:text-lg min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
                     <span className="font-bold">
                       {` `}
