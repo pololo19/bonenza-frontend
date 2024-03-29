@@ -91,7 +91,7 @@ function IndexPage() {
         title: t('homePage:introduceCardTitle4'),
         description: t('homePage:introduceCardDes4'),
         textButton: t('homePage:introduceCardButton4'),
-        action: 'bitup',
+        action: 'racing',
         href: ROUTER.Tagname('Racing'),
       },
       {
