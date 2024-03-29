@@ -13,6 +13,7 @@ import ReleaseIcon from '@/components/icons/ReleaseIcon';
 import SlotIcon from '@/components/icons/SlotIcon';
 
 import { ROUTER } from './common';
+import RacingBoldIcon from '@/components/icons/RacingBoldIcon';
 
 export const headerMenus: OptionSidebarDataType[] = [
   {
@@ -45,6 +46,22 @@ export const headerMenus: OptionSidebarDataType[] = [
     // ),
     image: 'slots.png',
     icon: SlotIcon,
+    isMobile: false,
+  },
+  {
+    title: 'Racing',
+    href: ROUTER.Racing,
+    // icon: (
+    //   <Image
+    //     width={18}
+    //     height={18}
+    //     className="text-color-primary w-[18px] h-[18px]"
+    //     src="/icon/updownIcon.png"
+    //     alt="logo"
+    //   />
+    // ),
+    image: 'racing.png',
+    icon: RacingBoldIcon,
     isMobile: false,
   },
   // {

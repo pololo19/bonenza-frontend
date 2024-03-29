@@ -39,8 +39,8 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
             slidesPerGroup: 1,
           },
           870: {
-            slidesPerView: 3,
-            slidesPerGroup: 3,
+            slidesPerView: 5,
+            slidesPerGroup: 5,
           },
         }}
       >

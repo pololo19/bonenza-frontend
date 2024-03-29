@@ -1251,4 +1251,3 @@ export const dataRibbon = [
   { img: '/img/vip/diamond-ii-ribbon.png', name: 'Diamond II' },
   { img: '/img/vip/diamond-iii-ribbon.png', name: 'Diamond III' },
 ];
-

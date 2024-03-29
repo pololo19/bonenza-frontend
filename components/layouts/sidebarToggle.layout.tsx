@@ -289,7 +289,7 @@ export default function SidebarToggle() {
                 />
                 <IconOption
                   imageURL="/img/sidebar/spin.png"
-                  imageClass="absolute -left-[2px] -top-[10px] w-[47px] h-[32px]"
+                  imageClass="absolute -left-[5px] -top-[13px] w-[41px] h-[41px]"
                   textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
                   title={String(t('sidebar:spin'))}
                   href={''}

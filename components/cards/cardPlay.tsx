@@ -35,32 +35,23 @@ export default function CardPlay({
           router.push(href);
         }
       }}
-      className={cn(
-        styles.cardBox,
-        'relative overflow-hidden rounded-large cursor-pointer',
-      )}
+      className={cn(styles.cardBox, 'relative overflow-hidden rounded-large cursor-pointer')}
     >
       <Image
         height={25}
         width={25}
-        className={
-          cn
-          (
-            styles.cardImage,
-            'w-full h-full object-cover'
-          )
-        }
+        className={cn(styles.cardImage, 'w-full h-full object-cover')}
         src={imgBackGround}
         alt=""
       />
       <div
         className={cn(
           styles.cardContent,
-          'flex flex-col gap-[20px] pt-5 px-[20px] pb-5 items-center',
+          'flex flex-col gap-[20px] pt-4 px-4 pb-4 items-center',
           'dark:!backdrop-blur-[15px] dark:bg-black/[30%]',
         )}
       >
-        <div className="dark:text-white text-color-text-secondary text-[14px] md:text-[16px] min-[1600px]:text-[20px] font-light text-left">
+        <div className="dark:text-white text-color-text-secondary text-[12px] md:text-[12px] min-[1600px]:text-[14px] font-light text-left">
           {description}
         </div>
         {!isClick && (
@@ -69,7 +60,7 @@ export default function CardPlay({
             type="button"
             className={cn(
               styles[action],
-              'w-[100%] rounded-large font-medium text-[20px] text-white py-[12px] text-center'
+              'w-[100%] rounded-large font-medium text-[16px] text-white py-[8px] text-center',
             )}
           >
             {textButton}
@@ -80,7 +71,7 @@ export default function CardPlay({
             role="button"
             className={cn(
               styles[action],
-              'w-[100%] rounded-large font-medium text-[20px] text-white py-[12px] text-center'
+              'w-[100%] rounded-large font-medium text-[16px] text-white py-[8px] text-center',
             )}
             onClick={() => window.open(href)}
           >

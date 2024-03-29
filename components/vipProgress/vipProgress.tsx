@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-
+import cn from 'classnames';
 import { api_getVipProgress } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
@@ -67,7 +67,12 @@ const VipProgressComponent = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:dark:bg-color-card-bg-default/[40%] sm:bg-white sm:min-w-[400px] rounded-large overflow-hidden">
+      <div
+        className={cn(
+          'flex flex-col relative sm:py-[16px] sm:px-[25px] bg-transparent sm:min-w-[400px] rounded-large overflow-hidden',
+          'sm:bg-gradient-to-r sm:from-[#FF003D33] sm:to-[#0DFDE433]',
+        )}
+      >
         <div className="dark:text-white text-black font-[600] sm:text-[20px] text-default">
           {t('homePage:yourVipProgress')}
         </div>
