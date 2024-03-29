@@ -88,6 +88,14 @@ function IndexPage() {
         href: 'https://bitup.game/trade',
       },
       {
+        imgBackGround: '/img/page/racing.png',
+        title: t('homePage:introduceCardTitle4'),
+        description: t('homePage:introduceCardDes4'),
+        textButton: t('homePage:introduceCardButton4'),
+        action: 'bitup',
+        href: ROUTER.Racing,
+      },
+      {
         imgBackGround: '/img/page/slots.png',
         title: t('homePage:introduceCardTitle3'),
         description: t('homePage:introduceCardDes3'),
@@ -292,8 +300,8 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full mt-[20px] sm:mt-0 min-h-[450px] lg:block hidden">
-              <div className="rounded-[50px] overflow-hidden absolute right-0 h-full w-full">
+            <div className="relative h-auto w-full mt-[20px] sm:mt-0 min-h-[384px] lg:block hidden">
+              <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
                 <Slider
                   slidesToShow={1}
                   className={cn('h-full slide-header sm:mx-[auto] mx-[-12px]')}
@@ -304,15 +312,22 @@ function IndexPage() {
                   <Image
                     width={0}
                     height={0}
-                    className="absolute right-[0px] bg-cover bg-right overflow-hidden min-h-[450px] min-w-[1566px] rounded-[50px]"
-                    src={theme === 'dark' ? '/img/homepage-bg-12.png' : '/img/homepage-bg-11.png'}
+                    className="absolute right-[0px] bg-cover bg-right overflow-hidden min-h-[384px]"
+                    src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-11.png'}
                     alt=""
                   />
                 </Slider>
               </div>
-
-              <div className="absolute left-0 right-0 top-0 bottom-0 bg-gradient-to-r from-[10%] via-[40%] from-color-bg-primary via-white/0 to-white/0" />
-              <div className="relative z-[2] w-full min-h-[450px] gap-[20px] pl-10 pt-20 flex flex-col justify-center">
+              <div className="relative z-[2] w-full min-h-[384px] ml-[15px] flex flex-col justify-center">
+                <div className="h-[90px]">
+                  <Image
+                    src="/img/page/grand_jackpot.png"
+                    width={20}
+                    height={20}
+                    className="w-[754px] h-[90px] hidden"
+                    alt=""
+                  />
+                </div>
                 {!isLogin && (
                   <div className=" sm:text-start text-center font-semibold sm:block hidden">
                     <div>
@@ -394,9 +409,9 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:mt-[62px]">
+            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:-mt-[0px]">
               <GameBannerSlider className="w-full" />
-              <div className="md:grid md:grid-cols-2 min-[900px]:grid-cols-3 grid-cols-1 gap-[20px] w-full hidden">
+              <div className="-mt-[20px] md:grid md:grid-cols-2 min-[900px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
