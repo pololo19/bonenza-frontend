@@ -17,6 +17,7 @@ import {
   API_GAME_NEW_RELEASE,
   API_GAME_PICK_GAMES,
   API_GAME_PROVIDER,
+  API_GAME_RACING,
   API_GAME_RECENT_BIG_WINS,
   API_GAME_RECENT_GAMES,
   API_GAME_REVIEW_ADD,
@@ -87,6 +88,8 @@ export const api_getCasinoWithKey = async (key: string, params: CasinoRequest) =
       return api.get(API_GAME_TABLE_GAMES, { params });
     case 'top-picks':
       return api.get(API_GAME_PICK_GAMES, { params });
+    case 'racing':
+      return api.get(API_GAME_RACING, { params });
     default:
       return api.get(API_GAME_SLOT, { params });
   }

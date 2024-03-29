@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
@@ -19,7 +20,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import ModalBusinessContacts from '../modal/businessContacts/businessContacts';
 import ModalVerifyRepresentative from '../modal/verifyRepresentative/verifyRepresentative';
-import { useRouter } from 'next/router';
 
 export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const { t } = useTranslation('');
@@ -141,6 +141,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:slots'))}
+                </Link>
+                <Link
+                  href={ROUTER.Tagname('Racing')}
+                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                >
+                  {String(t('layout:racing'))}
                 </Link>
                 <Link
                   href={ROUTER.Tagname('Live Casino')}
@@ -424,14 +430,15 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                         className="max-w-[50px] max-h-[50px] cursor-pointer"
                         data-tooltip-id={`accepted-currency-${index}-tooltip`}
                       />
-                      {item.networkIcon && 
-                      <Image
-                        alt=""
-                        src={item.networkIcon}
-                        width={50}
-                        height={50}
-                        className="bg-white rounded-full border-solid border-2 border-white absolute right-[0px] bottom-[0px] max-w-[20px] max-h-[20px]"
-                      />}
+                      {item.networkIcon && (
+                        <Image
+                          alt=""
+                          src={item.networkIcon}
+                          width={50}
+                          height={50}
+                          className="bg-white rounded-full border-solid border-2 border-white absolute right-[0px] bottom-[0px] max-w-[20px] max-h-[20px]"
+                        />
+                      )}
                     </div>
                     <Tooltip
                       id={`accepted-currency-${index}-tooltip`}

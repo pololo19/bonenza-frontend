@@ -8,12 +8,12 @@ import FavoriteIcon from '@/components/icons/FavoriteIcon';
 import HomeIcon from '@/components/icons/HomeIcon';
 import HotGameIcon from '@/components/icons/HotGameIcon';
 import LiveCasinoIcon from '@/components/icons/LiveCasinoIcon';
+import RacingBoldIcon from '@/components/icons/RacingBoldIcon';
 import RecentIcon from '@/components/icons/RecentIcon';
 import ReleaseIcon from '@/components/icons/ReleaseIcon';
 import SlotIcon from '@/components/icons/SlotIcon';
 
 import { ROUTER } from './common';
-import RacingBoldIcon from '@/components/icons/RacingBoldIcon';
 
 export const headerMenus: OptionSidebarDataType[] = [
   {
@@ -50,7 +50,7 @@ export const headerMenus: OptionSidebarDataType[] = [
   },
   {
     title: 'Racing',
-    href: ROUTER.Racing,
+    href: ROUTER.Tagname('Racing'),
     // icon: (
     //   <Image
     //     width={18}
@@ -114,6 +114,7 @@ export const casinoGames: OptionSidebarDataType[] = [
   //   icon: <OriginalIcon size={18} />,
   // },
   { title: 'casino:slot', href: ROUTER.Tagname('slots'), icon: SlotIcon },
+  { title: 'layout:racing', href: ROUTER.Tagname('Racing'), icon: RacingBoldIcon },
   { title: 'casino:liveCasino', href: ROUTER.Tagname('Live Casino'), icon: LiveCasinoIcon },
   { title: 'casino:hotGame', href: ROUTER.Tagname('Hot Games'), icon: HotGameIcon },
   { title: 'casino:newReleases', href: ROUTER.Tagname('New Releases'), icon: ReleaseIcon },

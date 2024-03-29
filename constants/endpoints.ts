@@ -75,6 +75,7 @@ const API_GAME_RECENT_GAMES = '/game/get-recent-games';
 const API_GAME_PROVIDER = '/game/get-providers';
 
 const API_GAME_SLOT = '/game/get-slots';
+const API_GAME_RACING = '/game/get-racing';
 const API_GAME_LIVE_CASINO = '/game/get-live-casino';
 const API_GAME_HOT_GAMES = '/game/get-hot-games';
 const API_GAME_NEW_RELEASE = '/game/get-new-releases';
@@ -215,6 +216,7 @@ export {
   API_GAME_PICK_GAMES,
   API_GAME_PLAY,
   API_GAME_PROVIDER,
+  API_GAME_RACING,
   API_GAME_RECENT_BIG_WINS,
   API_GAME_RECENT_GAMES,
   API_GAME_REVIEW_ADD,
