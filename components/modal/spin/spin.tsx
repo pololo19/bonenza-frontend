@@ -21,7 +21,6 @@ import {
 import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
-import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
@@ -221,6 +220,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
 
       dispatch(setLockedAmount(tempLockedAmount));
+
+      onClose();
       dispatch(changeIsShowSpinClaim(true));
     }, duration);
   };
@@ -250,7 +251,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:rounded max-w-full sm:max-w-[400px]"
+        panelClass="sm:rounded max-w-full sm:max-w-[400px] px-[10px] !h-auto !bg-transparent"
+        position="flex-col justify-center items-center"
         isScrollableInRotate
       >
         <div className=" overflow-y-scroll ">

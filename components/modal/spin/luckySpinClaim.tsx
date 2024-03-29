@@ -76,18 +76,24 @@ export default function ModalSpinClaim({
   }, [show, amount]);
   return (
     <>
-      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]" isCongrat>
+      <CommonModal
+        show={show}
+        onClose={onClose}
+        panelClass="rounded-default sm:!max-w-[400px] !max-w-[300px] !mx-[10px] !h-auto"
+        position="flex-col justify-center items-center"
+        isCongrat
+      >
         <div className="flex flex-col items-center justify-center overflow-y-auto relative px-5 py-8">
           <Image width={400} height={600} src={`/img/spin/${spinType}-popup.png`} alt="" className="w-[80%] m-auto" />
-          <div className="flex items-center text-3xl text-[#FFE600] font-bold mt-8">
+          <div className="flex items-center text-2xl sm:text-3xl text-[#FFE600] font-bold mt-8">
             <span className="mr-1">{`+ `}</span>
             <span className="font-bold">{currentAmount}</span>
             <span className="ml-1">{`${symbol}`}</span>
-            <Image width={25} height={25} className="ml-2 w-[40px]" src={symbolLogo} alt="" />
+            <Image width={25} height={25} className="ml-2 w-[30px] sm:w-[40px]" src={symbolLogo} alt="" />
           </div>
           {claimable && (
             <div
-              className="bg-gradient-btn-play w-full min-h-[50px] text-center mt-5 rounded-large hover:cursor-pointer flex justify-center items-center"
+              className="bg-gradient-btn-play w-full min-h-[40px] sm:min-h-[50px] text-default text-center mt-5 rounded-large hover:cursor-pointer flex justify-center items-center"
               onClick={onClickClaim}
             >
               {isClaiming ? (
