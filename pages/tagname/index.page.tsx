@@ -66,8 +66,7 @@ function CasinoTagnamePage() {
 
   const getGameList = async (pageNumber: number, providers: string[], sort: SortType) => {
     // const query = key === 'slots' || key === 'Live Casino' ? { sort: selectedSortBy.orderValue } : {};
-    const query = key === 'slots' || key === 'Live Casino' ? { sort } : {};
-
+    const query = key === 'slots' || key === 'Live Casino' || key === 'Racing' ? { sort } : {};
     let tempGameListData: GameListType[] = [];
     let params: any = {
       pageSize,
@@ -81,6 +80,7 @@ function CasinoTagnamePage() {
         ...query,
         providers: JSON.stringify(providers),
       };
+      console.log(convert2Url(String(key)), params);
       const res = await api_getCasinoWithKey(convert2Url(String(key)), params);
 
       const totalCount = res?.data?.totalCount ?? 0;
@@ -132,6 +132,9 @@ function CasinoTagnamePage() {
           break;
         case 'table-games':
           category = 'table_games';
+          break;
+        case 'racing':
+          category = 'racing';
           break;
         default:
           category = 'all';
