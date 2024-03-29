@@ -35,7 +35,7 @@ type ModalSpinProps = {
   DialogProps<ElementType>;
 
 // const speed = 2; // deg per millisecond
-const duration = 11000; // milli second
+const duration = 7500; // milli second
 
 interface SpinItem {
   symbol: string;
@@ -196,7 +196,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       return;
     }
     const initRotate = rotate;
-    const deltaD = 360 * 8 - deltaAngle - (initRotate % 360);
+    const deltaD = 360 * 20 - deltaAngle - (initRotate % 360);
     const maxSpeed = deltaD / duration;
     const acceleration = (maxSpeed / duration) * 2;
     const currentTime = new Date();
@@ -212,7 +212,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         updateRotate = initRotate + maxSpeed * duration - (acceleration * (duration - dT) * (duration - dT)) / 2;
       }
       setRotate(updateRotate);
-    }, 60);
+    }, 1);
     timeOut.current = setTimeout(async () => {
       clearInterval(timer);
       // setRotate(deltaD);
