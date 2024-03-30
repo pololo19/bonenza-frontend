@@ -27,7 +27,7 @@ import ErrorProvider from '@/components/context/errorContext';
 import { wrapper } from '@/redux/store';
 
 import { useTranslation } from '../config/i18next';
-import { CookieKey, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
+import { AUTH_KEY, CookieKey, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
 import { CookiesStorage } from '../libs/storage/cookie';
 import resources from '../public/locales';
 
@@ -46,6 +46,7 @@ declare global {
 }
 
 function MyApp({ Component, ...rest }: AppPropsWithLayout) {
+  const router = useRouter();
   const { props } = wrapper.useWrappedStore(rest);
   const getLayout = Component.getLayout ?? ((page) => page);
   const { i18n } = useTranslation('');
@@ -76,14 +77,15 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
     }
   };
 
-  // const handleAuthenticationWeb = () => {
-  //   const auth = CookiesStorage.getCookieData(CookieKey.auth);
-  //   if (!auth || auth !== AUTH_KEY) {
-  //     router.push('/auth');
-  //   }
-  // };
+  const handleAuthenticationWeb = () => {
+    const auth = CookiesStorage.getCookieData(CookieKey.auth);
+    if (!auth || auth !== AUTH_KEY) {
+      router.push('/auth');
+    }
+  };
 
   useEffect(() => {
+    handleAuthenticationWeb();
     handleLang();
   }, []);
 
