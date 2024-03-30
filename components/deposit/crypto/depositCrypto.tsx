@@ -92,7 +92,7 @@ const DepositCryptoComponent = () => {
         </div>
 
         <div className="flex flex-col items-start w-full gap-2 mt-[20px]">
-          {currentDepositTime < 3 && (
+          {currentDepositTime <= 3 && (
             <div className="flex items-center gap-[5px]">
               <div
                 className="text-start text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary"
