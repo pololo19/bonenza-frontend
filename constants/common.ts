@@ -38,7 +38,7 @@ export const CookieKey = {
   level: 'level',
 };
 
-export const AUTH_KEY = 'BONENZA@2023';
+export const AUTH_KEY = 'BONENZA@2024';
 
 export const ROUTER = {
   Home: '/',
