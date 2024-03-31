@@ -2,7 +2,7 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ExportSquare } from 'iconsax-react';
-import Link from 'next/link';
+import Image from 'next/image';
 import { ElementType, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
@@ -59,7 +59,7 @@ export default function ModalDepositProgress({ show, onClose }: ModalDepositProg
         panelClass="sm:!max-w-[400px]"
         header={<div className="bg-color-bg-primary text-white py-5 px-4">{t('layout:deposit')}</div>}
       >
-        <div className="flex flex-col items-center p-1 sm:px-5 sm:py-10 gap-4 mt-5">
+        <div className="flex flex-col items-center p-1 sm:px-5 sm:py-10 gap-4 mt-5 relative">
           <div
             className={cn('flex justify-center items-center w-[130px] h-[130px] rounded-full text-color-primary', {
               'animate-spin border-solid border-t-2 border-t-color-primary': activeTransactionStatus.status === 0,
@@ -68,7 +68,16 @@ export default function ModalDepositProgress({ show, onClose }: ModalDepositProg
           >
             <CheckIcon width={110} className={activeTransactionStatus.status === 1 ? 'block' : 'hidden'} />
           </div>
-          <div className="text-2xl text-white mt-20 font-bold">
+          <Image
+            src={`/img/fiats/${activeTransactionStatus.symbol}.png`}
+            width={70}
+            height={70}
+            className={`absolute top-[34px] left-[50%] sm:top-[70px] -translate-x-[35px] ${
+              activeTransactionStatus.status === 0 ? 'block' : 'hidden'
+            }`}
+            alt="symbol"
+          />
+          <div className="text-2xl text-white mt-20 font-bold text-center flex justify-center items-center">
             {activeTransactionStatus.amount} {activeTransactionStatus.symbol}
           </div>
           <div className="text-xl text-white">
