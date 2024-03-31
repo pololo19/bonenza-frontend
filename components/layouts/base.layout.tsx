@@ -389,10 +389,23 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
       walletSocket.on(`${userId}:withdraw`, (data: any) => {
         const status = data?.status || '';
+        console.log(data);
         switch (status) {
           case 'Processing':
             setTimeout(() => {
               toast.success(`Withdrawal is in progress`, { containerId: TOAST_ENUM.COMMON });
+              dispatch(
+                setActiveTransactionStatus({
+                  id: data?.id || '',
+                  status: 0,
+                  amount: data?.amount || 0,
+                  amountUsd: data?.amount || 0,
+                  symbol: data?.symbol || '',
+                  hash: '',
+                  time: new Date(),
+                  network: '',
+                }),
+              );
               dispatch(getBalance());
             }, 2000);
 
@@ -400,6 +413,18 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           case 'Complete':
             setTimeout(() => {
               toast.success(`Withdrawal Successful`, { containerId: TOAST_ENUM.COMMON });
+              dispatch(
+                setActiveTransactionStatus({
+                  id: data?.id || '',
+                  status: 1,
+                  amount: data?.amount || 0,
+                  amountUsd: data?.amount || 0,
+                  symbol: data?.symbol || '',
+                  hash: '',
+                  time: new Date(),
+                  network: '',
+                }),
+              );
               dispatch(getBalance());
             }, 2500);
             break;
