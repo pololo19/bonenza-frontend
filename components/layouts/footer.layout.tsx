@@ -42,7 +42,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const acceptedNetworks = [
     {
       icon: '/img/icon/eth-icon.png',
-      network: 'Ethereum',
+      network: 'ETH',
       token: 'ETH',
     },
     // {
@@ -63,13 +63,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/LTC.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Litecoin',
+      network: 'BSC',
       token: 'LTC',
     },
     {
       icon: '/img/icon/WBTC.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'WBTC',
     },
     {
@@ -87,13 +87,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/DOGE.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'DOGE',
     },
     {
       icon: '/img/icon/SHIB.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'SHIB',
     },
     {
@@ -464,8 +464,9 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       <Link
                         href={`?coin=${item.token}`}
                         className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-2 sm:p-[10px] p-[3px] text-default font-semibold"
-                        onClick={() => {
+                        onClick={(event: any) => {
                           if (isLogin) {
+                            event.preventDefault();
                             dispatch(changeIsShowDepositModal(true));
                           } else {
                             dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
