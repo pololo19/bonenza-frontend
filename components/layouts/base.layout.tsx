@@ -389,7 +389,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
       walletSocket.on(`${userId}:withdraw`, (data: any) => {
         const status = data?.status || '';
-        console.log(data);
         switch (status) {
           case 'Processing':
             setTimeout(() => {
@@ -521,9 +520,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             time: msgData?.time ?? '',
             text: msgData?.text ?? '',
           };
-          console.log(tempIncomingMesssage, '---524');
           if (showChatTypeRef.current) {
-            console.log('----526');
             CookiesStorage.setCookieData('last_message', msgData.id);
             dispatch(setIsNewMessage(false));
           } else {
