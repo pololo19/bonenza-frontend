@@ -32,10 +32,10 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
       name: 'Terms Of Service',
       href: fixRouter(ROUTER.HelperTermsOfService),
     },
-    {
-      name: 'Terms Of Sports',
-      href: fixRouter(ROUTER.HelperTermsOfSports),
-    },
+    // {
+    //   name: 'Terms Of Sports',
+    //   href: fixRouter(ROUTER.HelperTermsOfSports),
+    // },
     {
       name: 'Deposit Bonus Terms',
       href: fixRouter(ROUTER.HelperDepositBonusTerms),
@@ -76,10 +76,10 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
       name: 'Protecting Minors',
       href: fixRouter(ROUTER.HelperProtectingMinors),
     },
-    {
-      name: 'Providers',
-      href: fixRouter(ROUTER.HelperProviders),
-    },
+    // {
+    //   name: 'Providers',
+    //   href: fixRouter(ROUTER.HelperProviders),
+    // },
     {
       name: 'AML',
       href: fixRouter(ROUTER.HelperAML),

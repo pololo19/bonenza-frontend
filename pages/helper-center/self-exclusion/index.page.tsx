@@ -7,7 +7,7 @@ import { useTranslation } from '@/base/config/i18next';
 import HelperLayout from '@/components/layouts/helper.layout';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 
-const AmlPage = () => {
+const SelfExclusion = () => {
   const { t } = useTranslation('');
   const periods = [
     {
@@ -37,23 +37,24 @@ const AmlPage = () => {
   return (
     <>
       <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px]">
-        <div className="text-black dark:text-[#ffff] font-bold text-[16px] text-left mb-[10px]">{t('helper:selfExclusion')}</div>
+        <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px]">
+          {t('helper:selfExclusion')}
+        </div>
         <div className="border-solid border-b-[1px] border-b-[#333] pb-2">
           <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
-            <div>
-              {t('helper:selfExclusionContent1')}
-            </div>
-            <div className="mt-4">
-              {t('helper:selfExclusionContent2')}
-            </div>
+            <div>{t('helper:selfExclusionContent1')}</div>
+            <div className="mt-4">{t('helper:selfExclusionContent2')}</div>
             <div className="mt-8 flex items-center gap-4">
-              <span>{t('helper:selfExclusionContent3')}</span> 
+              <span>{t('helper:selfExclusionContent3')}</span>
               <Menu
                 as="div"
                 className="relative h-[38px] flex items-center justify-between text-[14px] min-w-[120px] px-2 dark:bg-color-menu-primary bg-color-light-bg-primary rounded-large"
               >
                 <Menu.Button className="flex-1 ">
-                  <div className="flex items-center justify-between w-full gap-2 dark:text-white text-black" role="button">
+                  <div
+                    className="flex items-center justify-between w-full gap-2 dark:text-white text-black"
+                    role="button"
+                  >
                     {periods.find((item) => item.value === selectedPeriod)?.description}
                     <ArrowDown2 className="h-[16px] w-[16px]" />
                   </div>
@@ -99,11 +100,16 @@ const AmlPage = () => {
               onClick={() => setAcknowledge(!acknowledge)}
             />
             <span>{t('helper:selfExclusionAcknowledge1')}</span>
-            <span className="text-color-primary px-1 hover:cursor-pointer" onClick={() => setShowRules(true)}>{t('helper:selfExclusionAcknowledge')}</span>
+            <span className="text-color-primary px-1 hover:cursor-pointer" onClick={() => setShowRules(true)}>
+              {t('helper:selfExclusionAcknowledge')}
+            </span>
             <span>{t('helper:selfExclusionAcknowledge2')}</span>
           </div>
           <div className="flex justify-start mt-4">
-            <button className="bg-gradient-btn-play p-[10px] rounded-large min-w-[200px] disabled:opacity-40 hover:opacity-90" disabled={!acknowledge}>
+            <button
+              className="bg-gradient-btn-play p-[10px] rounded-large min-w-[200px] disabled:opacity-40 hover:opacity-90"
+              disabled={!acknowledge}
+            >
               {t('helper:selfExclusionRequest')}
             </button>
           </div>
@@ -121,27 +127,13 @@ const AmlPage = () => {
           }
         >
           <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left py-8 px-6">
-            <div className="">
-              {t('helper:selfExclusionRules1')}
-            </div>
-            <div className="pt-3">
-              {t('helper:selfExclusionRules2')}
-            </div>
-            <div className="pt-3">
-              {t('helper:selfExclusionRules3')}
-            </div>
-            <div className="pt-3">
-              {t('helper:selfExclusionRules4')}
-            </div>
-            <div className="pt-3">
-              {t('helper:selfExclusionRules5')}
-            </div>
-            <div className="pt-3">
-              {t('helper:selfExclusionRules6')}
-            </div>
-            <div className="pt-3">
-              {t('helper:selfExclusionRules7')}
-            </div>
+            <div className="">{t('helper:selfExclusionRules1')}</div>
+            <div className="pt-3">{t('helper:selfExclusionRules2')}</div>
+            <div className="pt-3">{t('helper:selfExclusionRules3')}</div>
+            <div className="pt-3">{t('helper:selfExclusionRules4')}</div>
+            <div className="pt-3">{t('helper:selfExclusionRules5')}</div>
+            <div className="pt-3">{t('helper:selfExclusionRules6')}</div>
+            <div className="pt-3">{t('helper:selfExclusionRules7')}</div>
             <div className="pl-3">
               <li className="pt-2">{t('helper:selfExclusionAgree1')}</li>
               <li className="pt-2">{t('helper:selfExclusionAgree2')}</li>
@@ -155,8 +147,8 @@ const AmlPage = () => {
   );
 };
 
-AmlPage.getLayout = function getLayout(page: ReactElement) {
+SelfExclusion.getLayout = function getLayout(page: ReactElement) {
   return <HelperLayout>{page}</HelperLayout>;
 };
 
-export default AmlPage;
+export default SelfExclusion;
