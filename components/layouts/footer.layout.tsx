@@ -42,7 +42,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const acceptedNetworks = [
     {
       icon: '/img/icon/eth-icon.png',
-      network: 'Ethereum',
+      network: 'ETH',
       token: 'ETH',
     },
     // {
@@ -63,13 +63,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/LTC.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Litecoin',
+      network: 'BSC',
       token: 'LTC',
     },
     {
       icon: '/img/icon/WBTC.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'WBTC',
     },
     {
@@ -87,13 +87,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/DOGE.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'DOGE',
     },
     {
       icon: '/img/icon/SHIB.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'SHIB',
     },
     {
