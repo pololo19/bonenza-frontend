@@ -1032,8 +1032,9 @@ export const SETTING_BANNER: Settings = {
 export const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'] };
 export const socketWalletConfig = {
   transports: ['websocket'],
-  // reconnectionDelay: 10000,
-  // reconnectionAttempts: 50,
+  reconnectionDelay: 10000,
+  retries: 10,
+  reconnectionAttempts: 50,
   // reconnection: false,
 };
 
