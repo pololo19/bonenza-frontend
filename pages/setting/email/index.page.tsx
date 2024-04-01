@@ -15,6 +15,7 @@ import { api_sendMailToUser, api_sendSMSToUser } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
+import { isPhone } from '@/base/libs/utils';
 import { saveVerifyInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowVerifyMailAndPhone, changeVerifyMode } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -94,6 +95,10 @@ const SettingEmail = () => {
       }
       if (type === VerifyModeEnum.PHONE) {
         const phoneNumber = `+${countryCallingCode?.countryCallingCode}${phoneInput}`;
+        if (!isPhone(phoneNumber)) {
+          toast.error(t('authentication:phoneWrong'), { containerId: TOAST_ENUM.COMMON });
+          return;
+        }
         await api_sendSMSToUser(phoneNumber, '');
         dispatch(saveVerifyInfo({ verifyRequest: phoneNumber, isPhoneVerifyRequested: true }));
       }

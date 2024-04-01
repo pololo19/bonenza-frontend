@@ -9,6 +9,7 @@ import { api_signupWithEmail, api_signupWithPhone } from '@/api/auth';
 import { Trans, useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
+import { isPhone } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { saveVerifyInfo, setIsForgetPassword } from '@/base/redux/reducers/auth.reducer';
 import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
@@ -64,6 +65,10 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
     try {
       setIsLoading(true);
       const phoneNumber = `+${String(countryCallingCode?.countryCallingCode) + data.phone}`;
+      if (!isPhone(phoneNumber)) {
+        toast.error(t('authentication:phoneWrong'), { containerId: TOAST_ENUM.COMMON });
+        return;
+      }
       const formData = {
         ...data,
         phone: phoneNumber,
@@ -159,7 +164,10 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
               type="checkbox"
               id="confirm18"
             />
-            <label htmlFor="confirm18" className="text-m_des sm:text-des !text-color-text-primary font-normal text-start">
+            <label
+              htmlFor="confirm18"
+              className="text-m_des sm:text-des !text-color-text-primary font-normal text-start"
+            >
               <Trans i18nKey="authentication:confirmAtLeast18YearsOld">
                 I agree to the
                 <Link className="text-color-primary font-bold" href="/helper-center/terms-of-service/" target="_blank">
@@ -196,7 +204,10 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
           </div>
         </button>
         <div className="flex">
-          <div role="button" className="text-[12px] sm:text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
+          <div
+            role="button"
+            className="text-[12px] sm:text-[14px] w-full dark:text-white sm:mt-[19px] mt-[10px] text-center"
+          >
             <span className="text-color-text-primary">{t('authentication:alreadyHaveAccount')}&nbsp;&nbsp;</span>
             <span
               className="text-color-primary hover:text-color-secondary hover:underline"
