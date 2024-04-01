@@ -308,7 +308,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                           className="absolute flex gap-[5px] justify-end items-center top-[50%] left-[50%] right-[33px] text-[14px] leading-[20px] -mt-[10px]"
                           style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
                         >
-                          <span className="font-bold">{item.amount.toFixed(4)}</span>
+                          <span className="font-bold text-[13px]">{item.amount.toFixed(4).slice(0, 9)}</span>
                           <Image width={14} height={14} className="w-[16px] h-[16px]" src={item.symbolLogo} alt="" />
                         </div>
                       ))}
@@ -362,7 +362,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
               <div
-                className="text-default flex-1 flex justify-between gap-2 items-center pl-2 hover:cursor-pointer"
+                className="text-default flex-1 flex justify-between gap-1 items-center pl-2 hover:cursor-pointer"
                 onClick={() => setisShowLatestSpins(true)}
               >
                 <Image
@@ -395,7 +395,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                   </div>
                   <div className="uppercase">{`${latestSpin?.type || ''} SPIN`}</div>
                 </div>
-                <ArrowRight2 />
+                <ArrowRight2 className="-mr-2" />
               </div>
             </div>
           </div>
