@@ -7,6 +7,8 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_getChatHistory, api_sendChat } from '@/api/chat';
 import { useTranslation } from '@/base/config/i18next';
+import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { setIsNewMessage } from '@/base/redux/reducers/common.reducer';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -15,18 +17,9 @@ import {
   changeShowFullChat,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { AuthenticationModeEnum } from '@/base/types/common';
+import { AuthenticationModeEnum, MessageType } from '@/base/types/common';
 
 import { MessageBox } from './messageBox';
-
-type MessageType = {
-  userId: string;
-  userName: string;
-  userAvatar: string;
-  level: string;
-  time: string;
-  text: string;
-};
 
 const ChattingComponent = () => {
   const dispatch = useAppDispatch();
@@ -37,13 +30,13 @@ const ChattingComponent = () => {
   const [isShowChatRules, setIsShowChatRules] = useState(false);
   const [isFirstLoading, setIsFirstLoading] = useState(false);
 
-  const { showChatType, showFullChat, gameSocket, isLogin } = useSelector(
+  const { showChatType, showFullChat, isLogin, lastMessage } = useSelector(
     (state: AppState) => ({
       showChatType: state.modal.showChatType,
       showFullChat: state.modal.showFullChat,
       isLogin: state.auth.isLogin,
       userInfo: state.auth.user,
-      gameSocket: state.socket.gameSocket,
+      lastMessage: state.common.lastMessage,
     }),
     shallowEqual,
   );
@@ -57,6 +50,7 @@ const ChattingComponent = () => {
       const _res = await api_getChatHistory(messages.length, 20);
       const tempMessages: MessageType[] =
         _res.data?.map((item: any) => ({
+          id: item.id ?? '',
           userId: item.userId ?? '',
           userName: item.userName ?? '',
           userAvatar: item.userAvatar ?? '',
@@ -64,8 +58,12 @@ const ChattingComponent = () => {
           time: item.time ?? '',
           text: item.text ?? '',
         })) || [];
-      // const lastMessage = tempMessages[0]
-      // CookiesStorage.setCookieData('lasat_message',)
+      if (tempMessages.length > 0) {
+        const lastMessage = tempMessages[0];
+        CookiesStorage.setCookieData('last_message', lastMessage.id);
+        dispatch(setIsNewMessage(false));
+      }
+
       setMessages([...messages, ...tempMessages]);
     } catch (error) {
       console.log(error);
@@ -130,34 +128,13 @@ const ChattingComponent = () => {
   useEffect(() => {
     setIsFirstLoading(true);
     getMessages();
-  }, []);
+  }, [showChatType]);
 
   useEffect(() => {
-    if (gameSocket) {
-      gameSocket.on('chat', (data: any) => {
-        try {
-          const msgData = JSON.parse(data);
-          const tempIncomingMesssage: MessageType = {
-            userId: msgData?.user_id ?? '',
-            userName: msgData?.user_Name ?? '',
-            userAvatar: msgData?.user_avatar ?? '',
-            level: msgData?.user_vip_level ?? '',
-            time: msgData?.time ?? '',
-            text: msgData?.text ?? '',
-          };
-          setInComingMessage([tempIncomingMesssage]);
-        } catch (error) {
-          console.log(error, 'chat error');
-          setInComingMessage([]);
-        }
-      });
+    if (lastMessage?.id) {
+      setInComingMessage([{ ...lastMessage }]);
     }
-    return () => {
-      if (gameSocket) {
-        gameSocket?.off('chat');
-      }
-    };
-  }, [gameSocket]);
+  }, [lastMessage]);
 
   useEffect(() => {
     if (inComingMessage.length > 0) {

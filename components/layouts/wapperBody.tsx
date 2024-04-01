@@ -27,11 +27,11 @@ const WrapperBody: React.FC<WrapperBodyProps> = ({ children, wrapperClassName, c
         className={classNames(
           'm-auto max-w-full w-full max-[640px]:ml-0 max-[640px]:max-w-full ',
           {
-            'min-[1936px]:max-w-[1675px]': showChatType && !isToggleSidebar,
+            'min-[1936px]:max-w-[1430px]': showChatType && !isToggleSidebar,
             'max-[1280px]:max-w-[calc(100%-62px)] max-[1280px]:m-[unset] max-[1279px]:ml-[62px] max-[768px]:ml-[62px]':
               isToggleSidebar,
             '2xl:max-w-full xl:max-w-full': showChatType,
-            'min-[1786px]:max-w-[1675px] 2xl:max-w-full': !showChatType && isToggleSidebar,
+            'min-[1786px]:max-w-[1430px] 2xl:max-w-full': !showChatType && isToggleSidebar,
             'max-[1598px]:max-w-[1430px] md:max-w-full': !showChatType && !isToggleSidebar,
           },
           wrapperClassName,
@@ -39,7 +39,7 @@ const WrapperBody: React.FC<WrapperBodyProps> = ({ children, wrapperClassName, c
       >
         <div
           className={classNames(
-            'flex w-full px-[12px] md:px-2 xl:px-5 min-w-[1600px]:px-0 min-[1600px]:max-w-[1340px] m-auto',
+            'flex max-w-[1430px] md:w-full xl:px-0 min-[1280px]:px-[40px] sm:w-[80%] m-auto md:px-[40px] sm:px-0 px-[12px]',
             contentClassName,
           )}
         >

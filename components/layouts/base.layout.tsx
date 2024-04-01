@@ -17,6 +17,7 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import { setIsNewMessage, setLastMessage } from '@/base/redux/reducers/common.reducer';
 import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAccountPannel,
@@ -62,7 +63,7 @@ import {
   updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetTableDataType, FiatType } from '@/base/types/common';
+import { BetTableDataType, FiatType, MessageType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
@@ -134,6 +135,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
   const baseBodyRef = useRef<HTMLDivElement>(null);
+  const showChatTypeRef = useRef<boolean>(false);
   const { query } = router;
   const { gameId } = query;
 
@@ -507,6 +509,32 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         dispatch(updateCryptoPrice(cryptoDatas));
       });
 
+      gameSocket.on('chat', (data: any) => {
+        try {
+          const msgData = JSON.parse(data);
+          const tempIncomingMesssage: MessageType = {
+            id: msgData?.id ?? '',
+            userId: msgData?.user_id ?? '',
+            userName: msgData?.user_name ?? '',
+            userAvatar: msgData?.user_avatar ?? '',
+            level: msgData?.user_vip_level ?? '',
+            time: msgData?.time ?? '',
+            text: msgData?.text ?? '',
+          };
+          console.log(tempIncomingMesssage, '---524');
+          if (showChatTypeRef.current) {
+            console.log('----526');
+            CookiesStorage.setCookieData('last_message', msgData.id);
+            dispatch(setIsNewMessage(false));
+          } else {
+            dispatch(setIsNewMessage(true));
+          }
+          dispatch(setLastMessage({ ...tempIncomingMesssage }));
+        } catch (error) {
+          console.log(error, 'chat error');
+        }
+      });
+
       // gameSocket.on(`connect_error`, (data: any) => {
       //   if (gameServiceConnectedRef.current) {
       //     toast.error('Network connection is not stable. Please refresh.', {
@@ -526,9 +554,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         if (isLogin) {
           gameSocket.off(`${userId}:balance`);
         }
+        gameSocket.off('chat');
       }
     };
   }, [gameSocket, gameId, isLogin, fiatSymbols, cryptoSymbols]);
+
+  useEffect(() => {
+    showChatTypeRef.current = showChatType;
+  }, [showChatType]);
 
   useEffect(() => {
     if (router.query['forgot-pass-token']) {

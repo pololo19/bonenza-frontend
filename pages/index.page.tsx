@@ -9,6 +9,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 import { toast } from 'react-toastify';
 
+import { api_getChatHistory } from '@/api/chat';
 import {
   api_getCasinoWithKey,
   api_getFavoriteGames,
@@ -46,8 +47,10 @@ import { useTranslation } from '../config/i18next';
 import { ROUTER, TOAST_ENUM } from '../constants/common';
 import { useExchange } from '../hooks/useExchange';
 import { useWidth } from '../hooks/useWidth';
+import { CookiesStorage } from '../libs/storage/cookie';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
+import { setIsNewMessage } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
 
 function IndexPage() {
@@ -144,8 +147,12 @@ function IndexPage() {
   const initDataLoad = async () => {
     try {
       setIsLoading(true);
-      const [topRatedGames, recommendedGames] = await Promise.all([api_getTopRelatedGames(), api_getPickGames(1, 20)]);
-      const tempListTopRatedGames: GameListType[] = topRatedGames.data.map((item: any) => ({
+      const [_resTopRatedGames, _resRecommendedGames, _resChat] = await Promise.all([
+        api_getTopRelatedGames(),
+        api_getPickGames(1, 20),
+        api_getChatHistory(0, 1),
+      ]);
+      const tempListTopRatedGames: GameListType[] = _resTopRatedGames.data.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: '',
@@ -156,7 +163,7 @@ function IndexPage() {
         releasedAt: new Date(),
       }));
 
-      const tempListRecommandedGames: GameListType[] = recommendedGames.data.games.map((item: any) => ({
+      const tempListRecommandedGames: GameListType[] = _resRecommendedGames.data.games.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -166,6 +173,13 @@ function IndexPage() {
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? new Date(),
       }));
+
+      if (_resChat.data?.length > 0) {
+        const tempLastMessageId = _resChat.data?.length > 0 ? _resChat.data[0].id : '';
+        const localLastMessageId = CookiesStorage.getCookieData('last_message');
+        dispatch(setIsNewMessage(tempLastMessageId !== localLastMessageId));
+      }
+
       setListTopRated(tempListTopRatedGames);
       setListRecommendedGame(tempListRecommandedGames);
     } catch (error) {
