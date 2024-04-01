@@ -1,4 +1,3 @@
-import { googleLogout } from '@react-oauth/google';
 import cn from 'classnames';
 import { EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
 import Link from 'next/link';
@@ -20,7 +19,6 @@ import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
-  changeAuthenticationType,
   changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
   changeIsShowBonusHistory,
@@ -64,7 +62,7 @@ import {
   updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { AuthenticationModeEnum, BetTableDataType, FiatType } from '@/base/types/common';
+import { BetTableDataType, FiatType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 

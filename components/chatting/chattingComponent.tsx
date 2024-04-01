@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { CloseCircle, InfoCircle } from 'iconsax-react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import ReactLoading from 'react-loading';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_getChatHistory, api_sendChat } from '@/api/chat';
 import { useTranslation } from '@/base/config/i18next';
@@ -64,6 +64,8 @@ const ChattingComponent = () => {
           time: item.time ?? '',
           text: item.text ?? '',
         })) || [];
+      // const lastMessage = tempMessages[0]
+      // CookiesStorage.setCookieData('lasat_message',)
       setMessages([...messages, ...tempMessages]);
     } catch (error) {
       console.log(error);
@@ -151,7 +153,9 @@ const ChattingComponent = () => {
       });
     }
     return () => {
-      gameSocket.off('chat');
+      if (gameSocket) {
+        gameSocket?.off('chat');
+      }
     };
   }, [gameSocket]);
 
