@@ -85,7 +85,7 @@ export default function CommonModal({
             )}
             <div
               className={cn(
-                'sm:rounded-large z-50 text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl w-full max-w-[799px] max-h-[100vh] sm:h-auto h-screen',
+                'overflow-hidden sm:rounded-large z-50 text-black dark:text-white flex flex-col relative bg-white dark:bg-color-modal-bg-primary text-left shadow-xl w-full max-w-[799px] max-h-[100vh] sm:h-auto h-screen',
                 panelClass,
               )}
               onClick={(e) => e.stopPropagation()}
