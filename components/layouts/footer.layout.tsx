@@ -42,7 +42,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   const acceptedNetworks = [
     {
       icon: '/img/icon/eth-icon.png',
-      network: 'ETH',
+      network: 'Ethereum',
       token: 'ETH',
     },
     // {
@@ -75,7 +75,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/USDT-logo.svg',
       networkIcon: 'img/fiats/black_eth.png',
-      network: 'ETH',
+      network: 'Ethereum',
       token: 'USDT',
     },
     {
