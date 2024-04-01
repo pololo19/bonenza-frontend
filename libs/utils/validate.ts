@@ -1,6 +1,6 @@
-import { compareAsc, differenceInSeconds, format, isValid } from 'date-fns';
-import { USER_ROLE_DEFAULT } from '@/base/constants/auth';
+import { isValid } from 'date-fns';
 
+import { USER_ROLE_DEFAULT } from '@/base/constants/auth';
 import { DATE_DASH_DELIMITER_REGEX, DATE_ISO_FORMAT, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 
 export const isDecimalNumber = (num: number | string) => {
@@ -8,16 +8,15 @@ export const isDecimalNumber = (num: number | string) => {
   return !!Math.abs(Number(num)).toString().split('.')[1];
 };
 
-export const isEmail = (email: string) => {
-  return String(email)
-    .toLowerCase()
-    .match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    );
+export const isEmail = (email: string = '') => {
+  const re =
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
 };
 
 export const isPhone = (phone: string) => {
-  return String(phone).match(/^[0-9]{10,11}$/);
+  const pattern = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+  return pattern.test(phone);
 };
 
 export function isIsoFormat(str: string) {

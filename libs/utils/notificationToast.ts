@@ -42,7 +42,10 @@ export default function getErrorMessage(path: string, func: string, status: numb
           message = 'authentication:invalid2FA';
         } else if (error === 'account') {
           message = 'authentication:passwordNotSet';
+        } else {
+          message = data === 'phone' ? 'authentication:loginPhoneFailed' : 'authentication:loginEmailFailed';
         }
+
         break;
       case 404:
         message = 'authentication:userNotRegistered';
