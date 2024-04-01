@@ -3,9 +3,9 @@ import Image from 'next/image';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { API_AVATAR } from '@/base/constants/common';
-import { AppState, useAppDispatch } from '@/base/redux/store';
-import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 
 interface MessageBoxProps {
   userId: string;

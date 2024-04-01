@@ -6,6 +6,7 @@ import {
   DepositAddress,
   FiatType,
   GameListType,
+  MessageType,
   UserDetail,
   VerifyModeEnum,
 } from './common';
@@ -91,6 +92,8 @@ export type CommonState = {
   showFullNameCurrency?: boolean;
   usdtNetwork?: string;
   casinoTab?: boolean;
+  lastMessage?: MessageType;
+  isNewMessage?: boolean;
 };
 
 export type UserDataState = {
