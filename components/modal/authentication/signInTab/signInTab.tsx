@@ -9,7 +9,7 @@ import { api_get2FAStatus, api_login, api_sendVerifyQRCode } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
-import { convertUserInfo } from '@/base/libs/utils';
+import { convertUserInfo, isEmail, isPhone } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
@@ -62,10 +62,12 @@ export default function SignInTab({
   const schema = yup.object().shape({
     email: yup
       .string()
+      // .email()
       .required(String(t('authentication:email&phoneRequired')))
       .trim(),
     password: yup
       .string()
+      // .matches(isPhoneReg)
       .required(String(t('authentication:passwordRequired')))
       .trim(),
   });
@@ -115,6 +117,15 @@ export default function SignInTab({
     } else {
       try {
         setIsLoading(true);
+        const phone = `+${String(countryCallingCode?.countryCallingCode) + formLogin.email}`;
+        if (isPhoneNumber && !isPhone(phone)) {
+          toast.error(t('authentication:phoneWrong'), { containerId: TOAST_ENUM.COMMON });
+          return;
+        }
+        if (!isPhoneNumber && !isEmail(formLogin.email)) {
+          toast.error(t('authentication:emailWrong'), { containerId: TOAST_ENUM.COMMON });
+          return;
+        }
 
         const request = {
           email: !isPhoneNumber ? formLogin.email : '',
