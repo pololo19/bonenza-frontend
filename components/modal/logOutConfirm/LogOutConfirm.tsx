@@ -20,29 +20,25 @@ type ModalFiatProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-
 export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
   const router = useRouter();
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
   const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
-  const handleLogout = async () => {
-    dispatch(changeIsShowAccountPannel(false));
-    CookiesStorage.logout();
-    googleLogout();
-    dispatch(logoutState());
-    dispatch(logoutWallet());
-    router.replace(ROUTER.Home);
-  };
+
   const onClikLogOut = async () => {
     setIsLoggingOut(true);
-    await handleLogout();
     setTimeout(() => {
       setIsLoggingOut(false);
+      CookiesStorage.logout();
+      googleLogout();
+      dispatch(logoutState());
+      dispatch(logoutWallet());
+      dispatch(changeIsShowAccountPannel(false));
       onClose();
-    }, 300);
-  }
+    }, 500);
+  };
   return (
     <>
       <MobileModal
@@ -58,17 +54,24 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
         }
       >
         <div className="p-5 pt-2 flex flex-col justify-center gap-4">
-          <div className="text-default">
-            {t('layout:logOutQuestion')}
-          </div>
+          <div className="text-default">{t('layout:logOutQuestion')}</div>
           <div className="flex justify-between gap-5">
             <button
-              className={`${isLoggingOut ? "py-0" : "py-3"} bg-color-btn-primary w-[50%] rounded-large text-default flex justify-center`}
+              className={`${
+                isLoggingOut ? 'py-0' : 'py-3'
+              } bg-color-btn-primary w-[50%] rounded-large text-default flex justify-center`}
               onClick={onClikLogOut}
             >
-              {isLoggingOut ? <ReactLoading type="bubbles" color="#50C627" delay={50} height={45} width={45}/> : <span>{t('layout:logOut')}</span>}
+              {isLoggingOut ? (
+                <ReactLoading type="bubbles" color="#50C627" delay={50} height={45} width={45} />
+              ) : (
+                <span>{t('layout:logOut')}</span>
+              )}
             </button>
-            <button className="py-3 bg-gradient-btn-play w-[50%] rounded-large text-default" onClick={() => dispatch(changeIsShowLogOutConfirm(false))}>
+            <button
+              className="py-3 bg-gradient-btn-play w-[50%] rounded-large text-default"
+              onClick={() => dispatch(changeIsShowLogOutConfirm(false))}
+            >
               {t('layout:cancel')}
             </button>
           </div>
