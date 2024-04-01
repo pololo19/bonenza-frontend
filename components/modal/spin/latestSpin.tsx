@@ -124,7 +124,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
           <div className="w-[60%] object-cover m-auto py-4">
             <Image width={230} height={233} alt="" src="/img/spin/spin-winners.png" />
           </div>
-          <div className="bg-black mx-4 mb-4 rounded-large overflow-hidden max-h-[598px]">
+          <div className="bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll max-h-[598px]">
             <RankingTableComponent
               containerClassName="w-full"
               isLoading={isLoading}
