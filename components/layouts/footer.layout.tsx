@@ -63,19 +63,19 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/LTC.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Litecoin',
+      network: 'BSC',
       token: 'LTC',
     },
     {
       icon: '/img/icon/WBTC.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'WBTC',
     },
     {
       icon: '/img/icon/USDT-logo.svg',
       networkIcon: 'img/fiats/black_eth.png',
-      network: 'ETH',
+      network: 'Ethereum',
       token: 'USDT',
     },
     {
@@ -87,13 +87,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/DOGE.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'DOGE',
     },
     {
       icon: '/img/icon/SHIB.png',
       networkIcon: 'img/fiats/BNB.png',
-      network: 'Ethereum',
+      network: 'BSC',
       token: 'SHIB',
     },
     {

@@ -41,6 +41,7 @@ export default function Navbar() {
     localFiat,
     isAccountPannel,
     isLoading,
+    isNewMessage,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -51,6 +52,7 @@ export default function Navbar() {
       localFiat: state.wallet.localFiat,
       isAccountPannel: state.modal.isShowAccountPannel,
       isLoading: state.auth.isLoading,
+      isNewMessage: state.common.isNewMessage,
     }),
     shallowEqual,
   );
@@ -61,7 +63,7 @@ export default function Navbar() {
       <div
         className={cn('w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[70px]', {
           'sm:ml-[62px] sm:max-w-[calc(100%_-_62px)]': !isToggleSidebar && !showChatType,
-          'md:ml-[244px] md:max-w-[calc(100%_-_244px)]': isToggleSidebar && !showChatType,
+          'md:ml-[260px] md:max-w-[calc(100%_-_260px)]': isToggleSidebar && !showChatType,
           '2xl:ml-[244px] 2xl:max-w-[calc(100%_-_594px)]': showChatType && isToggleSidebar,
           'sm:ml-[62px] sm:max-w-[calc(100%_-_62px)] 2xl:max-w-[calc(100%_-_412px)]': showChatType && !isToggleSidebar,
         })}
@@ -71,7 +73,7 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'flex py-[10px] flex-1 h-full lg:justify-end 2xl:justify-between sm:max-md:justify-center md:justify-end justify-between w-full px-[12px] sm:px-1 md:px-[12px] xl:pl-[40px] xl:pr-[73px]',
+            'flex py-[10px] flex-1 h-full lg:justify-end 2xl:justify-between sm:max-md:justify-center md:justify-end justify-between m-auto w-full sm:px-[40px] px-[12px] sm:max-w-[1430px]',
             // {
             //   'sm:pl-[62px]': !isToggleSidebar && !showChatType,
             //   'md:pl-[205px]': isToggleSidebar && !showChatType,
@@ -203,7 +205,9 @@ export default function Navbar() {
                 }}
               >
                 <MessageText1 className="w-[20px] h-[20px] text-white" variant="Bold" />
-                <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]"></span>
+                {isNewMessage && (
+                  <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]" />
+                )}
               </button>
             )}
 

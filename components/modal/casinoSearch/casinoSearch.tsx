@@ -21,7 +21,6 @@ import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
 
 import styles from './index.module.scss';
-import CasinoSwiper from '@/components/casino/casinoSwiper';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;

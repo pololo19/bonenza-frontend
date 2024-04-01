@@ -513,3 +513,13 @@ export type BonusTransactionType = {
   type: string;
   time: string;
 };
+
+export type MessageType = {
+  id: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  level: string;
+  time: string;
+  text: string;
+};
