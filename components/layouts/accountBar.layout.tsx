@@ -430,7 +430,7 @@ const AccountPannel: React.FC = () => {
               title={String(t('sidebar:spin'))}
               href=""
               onClick={() => dispatch(changeIsShowSpin(true))}
-              icon={() => <Image height={30} width={30} src={'img/spin.png'} alt=""></Image>}
+              icon={() => <Image height={30} width={30} src={'img/sidebar/spin.png'} alt=""></Image>}
               classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
             />
           </div>
