@@ -255,7 +255,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         isScrollableInRotate
       >
         <div className=" overflow-y-scroll ">
-          <div className="rounded-large flex flex-col items-center justify-center relative bg-[url('/img/spin/spin-background.png')] bg-cover">
+          <div
+            className={`rounded-large flex flex-col items-center justify-center relative bg-cover ${styles[spinTab]}`}
+          >
             <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
@@ -287,70 +289,79 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
             </div>
 
             <div className="relative min-w-[350px] min-h-[430px] py-5">
-              {spins.map((spin) => (
-                <div
-                  key={`${spin}-wheel-div`}
-                  className={cn('transition-all ease-in absolute', {
-                    'max-h-0 max-w-0 left-[50%] right-[50%] top-[50%] bottom-[50%] duration-200': spin !== spinTab,
-                    'max-h-[500px] max-w-[500px] left-0 right-0 top-0 bottom-0 duration-500': spin === spinTab,
-                  })}
-                >
-                  <div className="flex flex-col items-center justify-center relative">
+              <div>
+                <div className="flex flex-col items-center justify-center relative">
+                  <div>
+                    <Image
+                      width={781}
+                      height={781}
+                      src={`/img/spin/${spinTab}-ring.png`}
+                      alt=""
+                      className={`absolute p-1 ${styles['ring-rotation']}`}
+                    />
                     <div
-                      className="flex items-center justify-center w-full h-full relative origin-center overflow-hidden"
+                      className="w-[full] h-full relative origin-center overflow-hidden"
                       style={{ transform: `rotate(${rotate}deg)` }}
                     >
-                      <Image width={781} height={781} className="w-full" src={'/img/spin/spin-wheel.png'} alt="" />
+                      <Image
+                        width={781}
+                        height={781}
+                        src={'/img/spin/spin-wheel.png'}
+                        alt=""
+                        className="p-9 w-full h-full"
+                      />
                       {spinItems?.[spinTab].map((item, index) => (
                         <div
                           key={index}
-                          className="absolute flex gap-[5px] justify-end items-center top-[50%] left-[50%] right-[33px] text-[14px] leading-[20px] -mt-[10px]"
+                          className="absolute flex gap-[2px] justify-end items-center top-[50%] left-[50%] right-[40px] text-[14px] leading-[20px] -mt-[10px]"
                           style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
                         >
-                          <span className="font-bold text-[13px]">{item.amount.toFixed(4).slice(0, 9)}</span>
+                          <span className="font-bold text-[12px]">
+                            {item.amount.toFixed(4).slice(0, 9).padEnd(9, '0')}
+                          </span>
                           <Image width={14} height={14} className="w-[16px] h-[16px]" src={item.symbolLogo} alt="" />
                         </div>
                       ))}
                     </div>
-                    <div className="absolute w-[28%] top-[30%] z-[6] cursor-pointer">
-                      <div
-                        className={cn(
-                          styles.spin,
-                          `${spinAvailable ? styles.spin_button : ''}`,
-                          'relative overflow-hidden rounded-full',
-                          {
-                            'cursor-not-allowed': isRotating || !spinAvailable,
-                          },
-                        )}
-                        onClick={spinPlay}
-                      >
-                        <Image
-                          width={230}
-                          height={233}
-                          className={cn('w-full h-auto object-cover')}
-                          alt=""
-                          src={`/img/spin/${spinTab}-spin-button.png`}
-                        />
-                      </div>
-                    </div>
+                  </div>
+                  <div className="absolute w-[30%] top-[34.5%] z-[6] cursor-pointer">
                     <div
-                      className="absolute top-[31%] left-[60%] -right-[5%] z-[5]"
-                      style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
+                      className={cn(
+                        styles.spin,
+                        `${spinAvailable ? styles.spin_button : ''}`,
+                        'relative overflow-hidden rounded-full',
+                        {
+                          'cursor-not-allowed': isRotating || !spinAvailable,
+                        },
+                      )}
+                      onClick={spinPlay}
                     >
-                      <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
-                    </div>
-                    <div className="-mt-[60px] z-[2] mx-[10px] mb-[10px]">
                       <Image
-                        width={856}
-                        height={402}
-                        className="w-[80%] m-auto"
+                        width={230}
+                        height={233}
+                        className={cn('w-full h-auto object-cover')}
                         alt=""
-                        src={`/img/spin/${spinTab}-spin-ribbon.png`}
+                        src={`/img/spin/${spinTab}-spin-button.png`}
                       />
                     </div>
                   </div>
+                  <div
+                    className="absolute top-[40.8%] left-[62%] right-[2%] z-[5]"
+                    style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
+                  >
+                    <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
+                  </div>
                 </div>
-              ))}
+              </div>
+            </div>
+            <div className="-mt-[56px] z-[2] mx-[10px]">
+              <Image
+                width={856}
+                height={402}
+                className="w-[80%] m-auto"
+                alt=""
+                src={`/img/spin/${spinTab}-spin-ribbon.png`}
+              />
             </div>
             <div className="bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 py-7 mb-5 flex">
               <div className="text-default flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222]">
@@ -361,7 +372,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
               <div
-                className="text-default flex-1 flex justify-between gap-1 items-center pl-2 hover:cursor-pointer"
+                className="text-default flex-1 flex justify-between gap-2 items-center pl-2 hover:cursor-pointer"
                 onClick={() => setisShowLatestSpins(true)}
               >
                 <Image
@@ -377,10 +388,6 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 <div className="w-full">
                   <div>{latestSpin?.userName || ''}</div>
                   <div className="flex gap-1">
-                    <div>
-                      {t('statistic:win')}
-                      {': '}
-                    </div>
                     <div className="text-color-primary font-bold flex gap-1">
                       {latestSpin?.amount || 0}
                       <Image
@@ -394,7 +401,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                   </div>
                   <div className="uppercase">{`${latestSpin?.type || ''} SPIN`}</div>
                 </div>
-                <ArrowRight2 className="-mr-2" />
+                <ArrowRight2 className="-mr-3" />
               </div>
             </div>
           </div>
