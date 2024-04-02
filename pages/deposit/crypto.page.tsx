@@ -1,11 +1,8 @@
-import cn from 'classnames';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
 import DepositCryptoComponent from '@/components/deposit/crypto/depositCrypto';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';

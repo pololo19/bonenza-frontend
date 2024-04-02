@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
-import { Coin } from 'iconsax-react';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
@@ -10,6 +9,7 @@ import * as yup from 'yup';
 
 import { api_affiliateFriends } from '@/api/bonus';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
@@ -18,7 +18,6 @@ import AdminSelectBox from '@/components/input/admin/AdminSelectBox';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
-import { useExchange } from '@/base/hooks/useExchange';
 
 type FilterType = {
   username?: string;

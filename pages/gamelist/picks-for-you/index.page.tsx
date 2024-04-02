@@ -1,6 +1,5 @@
 import Head from 'next/head';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';

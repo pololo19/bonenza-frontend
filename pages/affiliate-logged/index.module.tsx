@@ -2,8 +2,7 @@ import 'swiper/css';
 import 'swiper/css/grid';
 
 import { Disclosure, Transition } from '@headlessui/react';
-import { ArrowRight, ArrowRight2, SmsTracking } from 'iconsax-react';
-import { Add, Minus } from 'iconsax-react';
+import { Add, ArrowRight, ArrowRight2, Minus, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
