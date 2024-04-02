@@ -233,8 +233,6 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
     if (gameSocket) {
       gameSocket.on(`bets`, (item: any) => {
         const data = JSON.parse(item);
-        console.log(data, '----3234');
-        console.log(gameDetail, userId, '---237');
         const gameId = data.game_id;
         if (gameId !== gameDetail?.id || data.player_id !== userId) {
           return;

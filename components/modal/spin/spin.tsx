@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -250,12 +251,14 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:rounded max-w-full sm:max-w-[400px] px-[10px] !h-auto !bg-transparent"
+        panelClass={cn('sm:rounded max-w-full sm:max-w-[400px] sm:!h-auto !bg-transparent', {
+          'sm:py-[10px]': isMobile,
+        })}
         position="flex-col justify-center items-center"
         isScrollableInRotate
       >
         <div className=" overflow-y-scroll ">
-          <div className="rounded-large flex flex-col items-center justify-center relative bg-[url('/img/spin/spin-background.png')] bg-cover">
+          <div className="sm:rounded-large flex flex-col items-center justify-center relative bg-[url('/img/spin/spin-background.png')] bg-cover">
             <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
@@ -297,7 +300,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 >
                   <div className="flex flex-col items-center justify-center relative">
                     <div
-                      className="flex items-center justify-center w-full h-full relative origin-center overflow-hidden"
+                      className="flex items-center justify-center w-[full] h-full relative origin-center overflow-hidden"
                       style={{ transform: `rotate(${rotate}deg)` }}
                     >
                       <Image width={781} height={781} className="w-full" src={'/img/spin/spin-wheel.png'} alt="" />

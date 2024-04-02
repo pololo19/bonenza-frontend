@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
 
 import { api_getSpinLatest } from '@/api/spin';
@@ -109,8 +110,13 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
   ];
   return (
     <>
-      <CommonModal show={show} onClose={onClose} panelClass="sm:rounded max-w-full sm:max-w-[400px]">
-        <div className="rounded-large max-h-[723px] overflow-hidden overflow-y-scroll bg-[url('/img/spin/spin-background.png')] bg-cover relative">
+      <CommonModal
+        show={show}
+        onClose={onClose}
+        panelClass="sm:rounded max-w-full sm:!h-auto sm:max-w-[400px] !bg-transparent"
+        position="flex-col justify-center items-center"
+      >
+        <div className="sm:rounded-large overflow-hidden bg-[url('/img/spin/spin-background.png')] bg-cover relative">
           <div
             className={cn(
               'absolute top-[20px] left-[20px]',
@@ -124,7 +130,12 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
           <div className="w-[60%] object-cover m-auto py-4">
             <Image width={230} height={233} alt="" src="/img/spin/spin-winners.png" />
           </div>
-          <div className="bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll max-h-[598px]">
+          <div
+            className={cn('bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll ', {
+              'max-h-[598px]': !isMobile,
+              'max-h-[calc(100vh_-_116px)] sm:max-h-[calc(100vh_-_142px)]': isMobile,
+            })}
+          >
             <RankingTableComponent
               containerClassName="w-full"
               isLoading={isLoading}
