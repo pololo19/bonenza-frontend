@@ -309,7 +309,10 @@
     "onlyVIPClub": "Hanya di kelab VIP",
     "requireSign": "Sila Daftar atau Log masuk dahulu",
     "updown": "Up&Down",
-    "updownDescription": "Pastikan kemenangan dalam pertandingan dengan menyampaikan carta Bitcoin masa nyata."
+    "updownDescription": "Pastikan kemenangan dalam pertandingan dengan menyampaikan carta Bitcoin masa nyata.",
+    "jackpotGrand": "HEBAT",
+    "jackpotMajor": "MAJOR",
+    "jackpotMinor": "KECIL"
   },
   "sidebar": {
     "bonus": "Bonus",

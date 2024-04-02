@@ -309,7 +309,10 @@
     "onlyVIPClub": "فقط في نادي VIP",
     "requireSign": "من فضلك قم بالتسجيل أو تسجيل الدخول أولا",
     "updown": "UP & DOWN",
-    "updownDescription": "حقق النصر في المنافسة من خلال تقديم مخطط Bitcoin في الوقت الفعلي."
+    "updownDescription": "حقق النصر في المنافسة من خلال تقديم مخطط Bitcoin في الوقت الفعلي.",
+    "jackpotGrand": "كبير",
+    "jackpotMajor": "رئيسي",
+    "jackpotMinor": "صغير"
   },
   "sidebar": {
     "bonus": "علاوة",

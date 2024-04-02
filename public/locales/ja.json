@@ -309,7 +309,10 @@
     "onlyVIPClub": "VIPクラブのみ",
     "requireSign": "まずサインアップまたはログインしてください",
     "updown": "UP & DOWN",
-    "updownDescription": "リアルタイムのビットコインチャートを配信することで、競争で確実に勝利を収めましょう。"
+    "updownDescription": "リアルタイムのビットコインチャートを配信することで、競争で確実に勝利を収めましょう。",
+    "jackpotGrand": "グランド",
+    "jackpotMajor": "選考科目",
+    "jackpotMinor": "マイナー"
   },
   "sidebar": {
     "bonus": "ボーナス",

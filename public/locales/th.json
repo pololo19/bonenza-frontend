@@ -309,7 +309,10 @@
     "onlyVIPClub": "เฉพาะในคลับวีไอพีเท่านั้น",
     "requireSign": "กรุณาสมัครหรือเข้าสู่ระบบก่อน",
     "updown": "UP & DOWN",
-    "updownDescription": "รักษาชัยชนะในการแข่งขันด้วยการนำเสนอแผนภูมิ Bitcoin แบบเรียลไทม์"
+    "updownDescription": "รักษาชัยชนะในการแข่งขันด้วยการนำเสนอแผนภูมิ Bitcoin แบบเรียลไทม์",
+    "jackpotGrand": "แกรนด์",
+    "jackpotMajor": "วิชาเอก",
+    "jackpotMinor": "ส่วนน้อย"
   },
   "sidebar": {
     "bonus": "โบนัส",

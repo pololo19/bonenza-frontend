@@ -309,7 +309,10 @@
     "onlyVIPClub": "Chỉ có trong câu lạc bộ VIP",
     "requireSign": "Hãy đăng ký hoặc đăng nhập đầu tiên",
     "updown": "UP & DOWN",
-    "updownDescription": "Đảm bảo chiến thắng trong cuộc thi bằng cách cung cấp biểu đồ Bitcoin theo thời gian thực."
+    "updownDescription": "Đảm bảo chiến thắng trong cuộc thi bằng cách cung cấp biểu đồ Bitcoin theo thời gian thực.",
+    "jackpotGrand": "LỚN",
+    "jackpotMajor": "LỚN LAO",
+    "jackpotMinor": "NGƯỜI VỊ THÀNH NIÊN"
   },
   "sidebar": {
     "bonus": "Thưởng",

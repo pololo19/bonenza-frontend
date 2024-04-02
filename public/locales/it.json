@@ -309,7 +309,10 @@
     "onlyVIPClub": "Solo nel club VIP",
     "requireSign": "Per favore registrati o accedi prima",
     "updown": "UP & DOWN",
-    "updownDescription": "Assicurati la vittoria nella competizione fornendo un grafico Bitcoin in tempo reale."
+    "updownDescription": "Assicurati la vittoria nella competizione fornendo un grafico Bitcoin in tempo reale.",
+    "jackpotGrand": "AGUNG",
+    "jackpotMajor": "BESAR",
+    "jackpotMinor": "MINOR"
   },
   "sidebar": {
     "bonus": "Bonus",
