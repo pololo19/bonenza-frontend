@@ -56,19 +56,19 @@ const CasinoSS = <T,>({
 
   const handleNumberSlide = (width: number) => {
     if (width > 1890) {
-      setSlide(8);
+      setSlide(7);
     } else if (width > 1335) {
       setSlide(handleSlideToShow(7));
     } else if (width > 1200) {
       setSlide(handleSlideToShow(6));
     } else if (width > 1163) {
-      setSlide(5);
+      setSlide(6);
     } else if (width > 991) {
       setSlide(5);
     } else if (width > 860) {
       setSlide(4);
     } else if (width > 693) {
-      setSlide(4);
+      setSlide(3);
     } else {
       setSlide(3);
     }
@@ -118,7 +118,9 @@ const CasinoSS = <T,>({
           <div className="flex items-center gap-[10px] justify-between">
             <div className="flex items-center gap-[10px]">
               {icon}
-              <div className="font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">{title}</div>
+              <div className="font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">
+                {title}
+              </div>
             </div>
             {isShowArrow && (
               <div className="flex gap-[5px] justify-end text-white">
