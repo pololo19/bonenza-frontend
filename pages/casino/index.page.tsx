@@ -11,7 +11,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameListType, GameProviderDetail, GameThemeDetail } from '@/base/types/common';
+import { GameListType, GameProviderDetail } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';

@@ -4,12 +4,11 @@ import Head from 'next/head';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import api from '@/api/api';
 import { api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameDetail, GameListType } from '@/base/types/common';
+import { GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';

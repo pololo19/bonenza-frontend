@@ -19,13 +19,13 @@ import {
 import { api_getClaims } from '@/api/wallet';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
-import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 
 type FilterType = {
   username?: string;

@@ -1,5 +1,3 @@
-import { ParseResult } from 'papaparse';
-
 import { KYC_ENUM } from '../constants/common';
 import { TRANSACTION_TYPE } from './requestTypes';
 import { CurrencySymbolType } from './wallet';
@@ -90,11 +88,6 @@ export type ReferralCodeDetail = {
   totalMemberRegister?: number;
   totalCommissionRewards?: string;
   userId: number;
-};
-
-export type CSVReaderResult = {
-  error: EnumCSVValidateResult | undefined;
-  result: ParseResult<ObjectLiteral> | undefined;
 };
 
 export type UploadAreaRef = {
