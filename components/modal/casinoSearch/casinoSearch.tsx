@@ -15,7 +15,7 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { setRecommandGames } from '@/base/redux/reducers/game.reducer';
 import { AppState } from '@/base/redux/store';
 import { GameListType } from '@/base/types/common';
-import CasinoSS from '@/components/casino/casinoSS';
+import CasinoSwiper from '@/components/casino/casinoSwiper';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
@@ -195,9 +195,9 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         className={cn(
           'fixed top-[67px] right-0 z-[10]  bottom-0 shadow-bs-default dark:bg-black/70 bg-white/70 w-full sm:w-auto',
           {
-            'left-[62px]': !isToggleSidebar,
-            'left-[244px]': isToggleSidebar,
-            'right-[330px]': showChatType,
+            'sm:left-[62px] left-0': !isToggleSidebar,
+            'sm:left-[244px] left-0': isToggleSidebar,
+            'sm:right-[330px] right-0': showChatType,
             'right-0': !showChatType,
           },
         )}
@@ -296,11 +296,19 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             {searchResult}
 
             <div className="sm:block hidden">
-              <CasinoSS
-                title={String(t('casino:recommendedForYou'))}
+              <CasinoSwiper
+                title={''}
+                delay={4000}
+                speed={2000}
+                isRecent={false}
                 data={listRecommendGame}
                 renderItem={(item) => <GameCard gameDetail={item} />}
               />
+              {/* <CasinoSS
+                title={String(t('casino:recommendedForYou'))}
+                data={listRecommendGame}
+                renderItem={(item) => <GameCard gameDetail={item} />}
+              /> */}
             </div>
           </div>
         </div>
