@@ -257,9 +257,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         position="flex-col justify-center items-center"
         isScrollableInRotate
       >
-        <div className="overflow-y-scroll h-full">
+        <div className="overflow-y-scroll">
           <div
-            className={`sm:rounded-large h-full flex flex-col items-center justify-center relative bg-cover ${styles[spinTab]}`}
+            className={`sm:rounded-large flex flex-col items-center justify-center relative bg-cover ${styles[spinTab]}`}
           >
             <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
@@ -357,7 +357,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
             </div>
-            <div className="-mt-[56px] z-[2] mx-[10px]">
+            <div className="-mt-[50px] z-[2] mx-[10px]">
               <Image
                 width={856}
                 height={402}
