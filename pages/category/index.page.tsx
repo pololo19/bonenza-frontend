@@ -1,9 +1,6 @@
-import cn from 'classnames';
-import { SearchNormal } from 'iconsax-react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';

@@ -1,8 +1,9 @@
-import { useTranslation } from '@/base/config/i18next';
-import HelperLayout from '@/components/layouts/helper.layout';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
 import { ReactElement } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
+import HelperLayout from '@/components/layouts/helper.layout';
 
 const AmlPage = () => {
   const { t } = useTranslation('');
