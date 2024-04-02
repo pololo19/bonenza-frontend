@@ -52,6 +52,7 @@ import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
 import { setIsNewMessage } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
+import styles from './index.module.scss';
 
 function IndexPage() {
   const width = useWidth();
@@ -332,15 +333,29 @@ function IndexPage() {
                   />
                 </Slider>
               </div>
-              <div className="relative z-[2] w-full min-h-[384px] ml-[15px] flex flex-col justify-center">
-                <div className="h-[90px]">
+              <div className="relative z-[2] w-full min-h-[384px] ml-[15px] flex flex-col justify-start">
+                <div className="h-[134px] w-[646px] relative">
                   <Image
                     src="/img/page/grand_jackpot.png"
                     width={20}
                     height={20}
-                    className="w-[754px] h-[90px] hidden"
+                    className="absolute top-0 left-0 w-[646px] h-[120px]"
                     alt=""
                   />
+                  <div className="absolute top-12 left-12 right-6 bottom-10 flex">
+                    <div className="text-m_default w-1/3 pl-2">
+                      <div className="text-[#0DFDE4] font-extrabold">{t('homePage:jackpotGrand')}</div>
+                      <div className={styles.goldText}>$ {`500, 000.00`}</div>
+                    </div>
+                    <div className="text-m_default w-1/3 pl-2">
+                      <div className="text-[#0DFDE4] font-extrabold">{t('homePage:jackpotMajor')}</div>
+                      <div className={styles.goldText}>$ {`100, 000.00`}</div>
+                    </div>
+                    <div className="text-m_default w-1/3 pl-2">
+                      <div className="text-[#0DFDE4] font-extrabold">{t('homePage:jackpotMinor')}</div>
+                      <div className={styles.goldText}>$ {`50, 000.00`}</div>
+                    </div>
+                  </div>
                 </div>
                 {!isLogin && (
                   <div className=" sm:text-start text-center font-semibold sm:block hidden">
@@ -387,7 +402,7 @@ function IndexPage() {
                     )}
                   </div>
                 )}
-                <div className="sm:flex hidden sm:flex-row flex-col items-center justify-start gap-[15px] sm:mt-[20px] mt-[10px]">
+                <div className="sm:flex hidden sm:flex-row flex-col items-center justify-start gap-[15px] mt-2">
                   {!isLogin && (
                     <div className="flex flex-col sm:flex-row items-center gap-[10px]">
                       <button

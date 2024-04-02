@@ -309,7 +309,10 @@
     "onlyVIPClub": "Sadece VIP kulübünde",
     "requireSign": "Lütfen önce kayıt olun veya giriş yapın",
     "updown": "YUKARI",
-    "updownDescription": "Gerçek zamanlı bir Bitcoin grafiği sunarak rekabette zaferi garantileyin."
+    "updownDescription": "Gerçek zamanlı bir Bitcoin grafiği sunarak rekabette zaferi garantileyin.",
+    "jackpotGrand": "BÜYÜK",
+    "jackpotMajor": "ANA",
+    "jackpotMinor": "KÜÇÜK"
   },
   "sidebar": {
     "bonus": "Bonus",

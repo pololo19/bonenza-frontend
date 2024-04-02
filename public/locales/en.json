@@ -309,7 +309,10 @@
     "onlyVIPClub": "Only in the VIP club",
     "requireSign": "Please Sign up or Log in first",
     "updown": "UP & DOWN",
-    "updownDescription": "Secure victory in the competition by delivering a real-time Bitcoin chart."
+    "updownDescription": "Secure victory in the competition by delivering a real-time Bitcoin chart.",
+    "jackpotGrand": "GRAND",
+    "jackpotMajor": "MAJOR",
+    "jackpotMinor": "MINOR"
   },
   "sidebar": {
     "bonus": "Bonus",

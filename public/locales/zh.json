@@ -309,7 +309,10 @@
     "onlyVIPClub": "仅限VIP俱乐部",
     "requireSign": "请先注册或登录",
     "updown": "UP & DOWN",
-    "updownDescription": "通过提供实时比特币图表来确保在竞争中获胜。"
+    "updownDescription": "通过提供实时比特币图表来确保在竞争中获胜。",
+    "jackpotGrand": "盛大",
+    "jackpotMajor": "主要的",
+    "jackpotMinor": "次要的"
   },
   "sidebar": {
     "bonus": "奖金",
