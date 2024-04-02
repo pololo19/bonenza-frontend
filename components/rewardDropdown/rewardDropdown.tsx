@@ -23,6 +23,8 @@ type BonusType = {
   type: string;
   typeName: string;
   allow: boolean;
+  symbolName: string;
+  symbolLogo: string;
 };
 
 const fiatDecimals = 8;
@@ -54,6 +56,8 @@ export default function RewardDropdown() {
         type: item.type,
         typeName: item?.typeName || '',
         allow: item.allowClaim,
+        symbolName: item.symbolName || '',
+        symbolLogo: item.symbolLogo || '',
       }));
       setBonuses(tempBonuses);
     } catch (error) {
@@ -203,9 +207,12 @@ export default function RewardDropdown() {
                                       <Image
                                         width={12}
                                         height={12}
-                                        src="/img/fiats/USDT.png"
-                                        className="w-[12px] h-[12px]"
+                                        src={bonus.symbolLogo}
+                                        className="w-[20px] h-[20px]"
                                         alt=""
+                                        onError={(e) => {
+                                          e.currentTarget.src = '/img/fiats/USDT.png';
+                                        }}
                                       />
                                     )}
                                     {viewInFiat
