@@ -4,10 +4,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
+import { api_getSpinAvailableCount } from '@/api/spin';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { casinoCategories, casinoGames } from '@/base/constants/config-menus';
@@ -30,16 +31,31 @@ export default function SidebarToggle() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [showDropDownCasino, setShowDropDownCasino] = useState(false);
+  const [spinCount, setSpinCount] = useState<number>(0);
 
-  const { isToggleSidebar, isShowVipClubModal, isLogin, isShowSpin } = useSelector(
+  const { isToggleSidebar, isShowVipClubModal, isLogin, user, isShowSpin } = useSelector(
     (state: AppState) => ({
       isToggleSidebar: state.modal.isToggleSidebar,
       isShowVipClubModal: state.modal.isShowVipClubModal,
       isLogin: state.auth.isLogin,
       isShowSpin: state.modal.isShowSpin,
+      user: state.auth.user,
     }),
     shallowEqual,
   );
+
+  const getSpinAvailableCount = async () => {
+    if (!user.userId) return;
+
+    const res = await api_getSpinAvailableCount();
+    const tempAvailableCount = res.data?.availableSpinCount || 0;
+    setSpinCount(tempAvailableCount);
+  };
+  useEffect(() => {
+    if (isLogin) {
+      getSpinAvailableCount();
+    }
+  }, [isLogin, isShowSpin]);
 
   const panel_1_datas = useMemo(
     () => [
@@ -289,6 +305,7 @@ export default function SidebarToggle() {
                 />
                 <IconOption
                   imageURL="/img/sidebar/spin.png"
+                  count={spinCount}
                   imageClass="absolute -left-[5px] -top-[13px] w-[41px] h-[41px]"
                   textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
                   title={String(t('sidebar:spin'))}

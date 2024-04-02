@@ -58,7 +58,6 @@ type SpinDataType = {
 export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const { t } = useTranslation('');
   const [rotate, setRotate] = useState(0);
-  const [isLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
   const [isRotating, setIsRotating] = useState(false);
   const [isShowLatestSpins, setisShowLatestSpins] = useState<boolean>(false);

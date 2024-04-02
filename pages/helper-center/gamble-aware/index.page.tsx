@@ -13,7 +13,7 @@ const AmlPage = () => {
       <div className="pl-[7px] pr-[5px] pb-[15px] text-[14px] pt-4 md:pb-0">
         <div className="">
           <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px]">
-            {t('helper:gambleWare')}
+            {t('helper:gambleWare')} & {t('helper:protectingMinors')}
           </div>
           <div className="">
             <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">

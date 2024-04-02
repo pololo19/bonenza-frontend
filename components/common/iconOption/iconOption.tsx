@@ -38,6 +38,7 @@ export type IconOptionProps = {
   imageURL?: string;
   imageClass?: string;
   textClass?: string;
+  count?: number;
   href: string;
   classNames?: string;
   activeClassNames?: string;
@@ -61,6 +62,7 @@ const IconOption = ({
   isFontMedium = false,
   data,
   imageURL,
+  count = 0,
   imageClass,
   textClass,
   isDisabled = false,
@@ -143,6 +145,11 @@ const IconOption = ({
                   'font-[700] dark:text-white text-black': router.route.includes(href),
                 })}
               />
+            )}
+            {count > 0 && (
+              <div className="bg-[#25AD00] text-white font-extrabold w-6 h-6 text-m_default p-1 flex items-center justify-center text-center absolute -right-2 -top-2 rounded-full">
+                {count}
+              </div>
             )}
             <div
               className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
