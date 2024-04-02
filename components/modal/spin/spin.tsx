@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -250,12 +251,14 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:rounded max-w-full sm:max-w-[400px] px-[10px] !h-auto !bg-transparent"
+        panelClass={cn('sm:rounded max-w-full sm:max-w-[400px] sm:!h-auto !bg-transparent', {
+          'sm:py-[10px] sm:!max-h-[calc(100vh_-_20px)]': isMobile,
+        })}
         position="flex-col justify-center items-center"
         isScrollableInRotate
       >
-        <div className=" overflow-y-scroll ">
-          <div className="rounded-large flex flex-col items-center justify-center relative bg-[url('/img/spin/spin-background.png')] bg-cover">
+        <div className=" overflow-y-scroll h-full">
+          <div className="sm:rounded-large h-full flex flex-col items-center relative bg-[url('/img/spin/spin-background.png')] bg-cover">
             <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
@@ -286,7 +289,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               />
             </div>
 
-            <div className="relative min-w-[350px] min-h-[430px] py-5">
+            <div className="relative px-5 min-w-[350px] min-h-[430px] py-5">
               {spins.map((spin) => (
                 <div
                   key={`${spin}-wheel-div`}

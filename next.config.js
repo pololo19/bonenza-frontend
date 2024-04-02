@@ -42,7 +42,6 @@ module.exports = () => {
       });
     }
     const originalEntry = cfg.entry;
-    console.log(isServer);
     // eslint-disable-next-line no-param-reassign
     cfg.entry = async () => {
       const entries = await originalEntry();
