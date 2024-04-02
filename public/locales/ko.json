@@ -309,7 +309,10 @@
     "onlyVIPClub": "VIP 클럽에서만",
     "requireSign": "먼저 회원가입 또는 로그인을 해주세요",
     "updown": "UP & DOWN",
-    "updownDescription": "실시간 비트코인 ​​차트를 제공하여 경쟁에서 승리를 확보하세요."
+    "updownDescription": "실시간 비트코인 ​​차트를 제공하여 경쟁에서 승리를 확보하세요.",
+    "jackpotGrand": "멋진",
+    "jackpotMajor": "주요한",
+    "jackpotMinor": "미성년자"
   },
   "sidebar": {
     "bonus": "보너스",

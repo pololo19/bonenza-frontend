@@ -309,7 +309,10 @@
     "onlyVIPClub": "Nur im VIP-Club",
     "requireSign": "Bitte registrieren Sie sich zuerst oder melden Sie sich an",
     "updown": "UP & DOWN",
-    "updownDescription": "Sichern Sie sich den Sieg im Wettbewerb durch die Bereitstellung eines Echtzeit-Bitcoin-Charts."
+    "updownDescription": "Sichern Sie sich den Sieg im Wettbewerb durch die Bereitstellung eines Echtzeit-Bitcoin-Charts.",
+    "jackpotGrand": "GROSSARTIG",
+    "jackpotMajor": "WESENTLICH",
+    "jackpotMinor": "UNERHEBLICH"
   },
   "sidebar": {
     "bonus": "Bonus",

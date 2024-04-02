@@ -309,7 +309,10 @@
     "onlyVIPClub": "Hanya di klub VIP",
     "requireSign": "Silakan Daftar atau Masuk terlebih dahulu",
     "updown": "UP & DOWN",
-    "updownDescription": "Amankan kemenangan dalam kompetisi dengan memberikan grafik Bitcoin real-time."
+    "updownDescription": "Amankan kemenangan dalam kompetisi dengan memberikan grafik Bitcoin real-time.",
+    "jackpotGrand": "AGUNG",
+    "jackpotMajor": "BESAR",
+    "jackpotMinor": "MINOR"
   },
   "sidebar": {
     "bonus": "Bonusnya",

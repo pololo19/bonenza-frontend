@@ -309,7 +309,10 @@
     "onlyVIPClub": "फक्त व्हीआयपी क्लबमध्ये",
     "requireSign": "कृपया साइन अप करा किंवा प्रथम लॉग इन करा",
     "updown": "UP & DOWN",
-    "updownDescription": "रिअल-टाइम बिटकॉइन चार्ट वितरीत करून स्पर्धेत विजय मिळवा."
+    "updownDescription": "रिअल-टाइम बिटकॉइन चार्ट वितरीत करून स्पर्धेत विजय मिळवा.",
+    "jackpotGrand": "भव्य",
+    "jackpotMajor": "प्रमुख",
+    "jackpotMinor": "अल्पवयीन"
   },
   "sidebar": {
     "bonus": "बोनस",

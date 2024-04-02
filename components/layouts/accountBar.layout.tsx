@@ -16,10 +16,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
 
+import { api_getSpinAvailableCount } from '@/api/spin';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, LANGUAGE_DATA, ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -101,14 +102,26 @@ const AccountPannel: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { setTheme, theme } = useTheme();
-  const router = useRouter();
+  const [spinCount, setSpinCount] = useState<number>(0);
 
   useEffect(() => {
     const savedtheme = localStorage.getItem('theme') ?? 'dark';
     setTheme(savedtheme);
   }, []);
 
-  const { totalBalance, localFiat, isLogin, avatar, userName, userId, isShow, viewInFiat, isLoading } = useSelector(
+  const {
+    totalBalance,
+    localFiat,
+    isLogin,
+    avatar,
+    userName,
+    userId,
+    isShow,
+    viewInFiat,
+    isLoading,
+    user,
+    isShowSpin,
+  } = useSelector(
     (state: AppState) => ({
       totalBalance: state.wallet.totalBalance,
       localFiat: state.wallet.localFiat,
@@ -119,9 +132,24 @@ const AccountPannel: React.FC = () => {
       isShow: state.modal.isShowAccountPannel,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       isLoading: state.auth.isLoading,
+      isShowSpin: state.modal.isShowSpin,
+      user: state.auth.user,
     }),
     shallowEqual,
   );
+
+  const getSpinAvailableCount = async () => {
+    if (!user.userId) return;
+
+    const res = await api_getSpinAvailableCount();
+    const tempAvailableCount = res.data?.availableSpinCount || 0;
+    setSpinCount(tempAvailableCount);
+  };
+  useEffect(() => {
+    if (isLogin) {
+      getSpinAvailableCount();
+    }
+  }, [isLogin, isShowSpin]);
 
   const initDatas: ListItemProps[] = useMemo(
     () => [
@@ -428,6 +456,7 @@ const AccountPannel: React.FC = () => {
               imageClass="w-[30px] h-[30px]"
               textClass="text-white !text-[15px] font-semibold"
               title={String(t('sidebar:spin'))}
+              count={spinCount}
               href=""
               onClick={() => dispatch(changeIsShowSpin(true))}
               icon={() => <Image height={30} width={30} src={'img/sidebar/spin.png'} alt=""></Image>}
