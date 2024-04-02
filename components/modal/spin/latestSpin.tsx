@@ -116,7 +116,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
         panelClass="sm:rounded max-w-full sm:!h-auto sm:max-w-[400px] !bg-transparent"
         position="flex-col justify-center items-center"
       >
-        <div className="sm:rounded-large h-full overflow-hidden bg-[url('/img/spin/spin-background.png')] bg-cover relative">
+        <div className="sm:rounded-large h-full overflow-hidden bg-[url('/img/spin/lucky-bg.png')] bg-cover relative">
           <div
             className={cn(
               'absolute top-[20px] left-[20px]',
@@ -132,8 +132,8 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
           </div>
           <div
             className={cn('bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll ', {
-              'max-h-[598px]': !isMobile,
-              'max-h-[calc(100vh_-_126px)] sm:max-h-[calc(100vh_-_142px)]': isMobile,
+              'max-h-[639px]': !isMobile,
+              'max-h-[calc(100vh_-_142px)] sm:max-h-[calc(100vh_-_142px)]': isMobile,
             })}
           >
             <RankingTableComponent

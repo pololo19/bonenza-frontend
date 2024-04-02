@@ -42,3 +42,39 @@
         animation: bounce 1s infinite;
     }
 }
+
+.lucky {
+    background-image: url('/img/spin/lucky-bg.png');
+}
+
+.super {
+    background-image: url('/img/spin/super-bg.png');
+}
+
+.mega {
+    background-image: url('/img/spin/mega-bg.png');
+}
+
+.lucky-ring {
+    background-image: url('/img/spin/lucky-ring.png');
+    background-size: contain;
+}
+
+.super-ring {
+    background-image: url('/img/spin/super-ring.png');
+    background-size: contain;
+}
+
+.mega-ring {
+    background-image: url('/img/spin/mega-ring.png');
+    background-size: contain;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+.ring-rotation {
+    animation: spin 20s linear infinite;
+}
