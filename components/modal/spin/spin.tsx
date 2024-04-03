@@ -291,7 +291,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               />
             </div>
 
-            <div className="relative min-w-[350px] min-h-[430px] py-5">
+            <div className="relative min-w-[350px] min-h-[430px] p-3">
               <div>
                 <div className="flex flex-col items-center justify-center relative">
                   <div>
@@ -357,7 +357,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
             </div>
-            <div className="-mt-[50px] z-[2] mx-[10px]">
+            <div className="-mt-[70px] z-[2] mx-[10px]">
               <Image
                 width={856}
                 height={402}
