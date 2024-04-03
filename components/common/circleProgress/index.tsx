@@ -1,25 +1,46 @@
-export default function ({ progress }: { progress: number }) {
+import styles from './index.module.scss';
+
+export default function ({
+  goalAmount,
+  currentAmount,
+  status,
+}: {
+  goalAmount: number;
+  currentAmount: number;
+  status: boolean;
+}) {
+  const percentage = Math.floor((currentAmount / goalAmount) * 100);
+  const progress = status || percentage > 100 ? 100 : percentage;
   return (
-    <svg width="100%" height="100%" viewBox="0 0 64 64">
-      <circle stroke-width="7" r="28.5" cx="32" cy="32" fill="transparent" stroke="#46434C" />
-      <circle stroke-width="0" r="20" cx="32" cy="32" fill="#46434C" />
-      <circle
-        stroke-width="7"
-        r="28.5"
-        cx="32"
-        cy="32"
-        fill="transparent"
-        stroke="#50C627"
-        strokeDasharray="180"
-        strokeDashoffset={1.8 * (100 - progress)}
-        style={{
-          transform: 'rotate(-90deg)',
-          transformOrigin: 'center center',
-        }}
-      />
-      <text fill="#ffffff" x="32" y="37" text-anchor="middle" style={{ fontSize: 12 }}>
+    <div className={`w-full h-full relative overflow-hidden ${styles.progressBox}`}>
+      <svg width="100%" height="100%" viewBox="0 0 64 64">
+        <circle stroke-width="7" r="28.5" cx="32" cy="32" fill="transparent" stroke="#46434C" />
+        <circle stroke-width="0" r="20" cx="32" cy="32" fill="#46434C" />
+        <circle
+          stroke-width="7"
+          r="28.5"
+          cx="32"
+          cy="32"
+          fill="transparent"
+          stroke="#50C627"
+          strokeDasharray="180"
+          strokeDashoffset={1.8 * (100 - progress)}
+          style={{
+            transform: 'rotate(-90deg)',
+            transformOrigin: 'center center',
+          }}
+        />
+      </svg>
+      <div
+        className={`text-m_default absolute top-0 left-0 right-0 bottom-0 rounded-full flex justify-center items-center ${styles.progressDetail}`}
+      >
+        $ {currentAmount}
+      </div>
+      <div
+        className={`text-m_default absolute top-0 left-0 right-0 bottom-0 rounded-full flex justify-center items-center ${styles.progressContent}`}
+      >
         {progress}/100
-      </text>
-    </svg>
+      </div>
+    </div>
   );
 }
