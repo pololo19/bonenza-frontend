@@ -60,7 +60,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
   const [isMedalsDetail, setIsMedalDetail] = useState<boolean>(false);
 
   const [vipData, setVipData] = useState<any>({
-    medal: `/img/vip.png`,
+    medal: `/img/vip/vip-0-ribbon.png`,
     level: 'VIP 0',
     type: 'VIP',
   });
@@ -86,6 +86,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       let medalData = dataRibbon.find((item) => item.name === res.data?.currentVipMedal);
       let medal = medalData?.img;
       const currentVipLevel = Number(res.data?.currentVipLevel || 0);
+      console.log(res, currentVipLevel);
       if (currentVipLevel === 0) {
         medal = '/img/vip/vip-0-ribbon.png';
       }
