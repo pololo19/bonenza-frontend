@@ -132,7 +132,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
           </div>
           <div
             className={cn('bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll ', {
-              'max-h-[639px]': !isMobile,
+              'max-h-[613px]': !isMobile,
               'max-h-[calc(100vh_-_142px)] sm:max-h-[calc(100vh_-_142px)]': isMobile,
             })}
           >
