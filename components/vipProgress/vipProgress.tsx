@@ -1,14 +1,16 @@
+import cn from 'classnames';
 import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import cn from 'classnames';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+
 import { api_getVipProgress } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
+
+import styles from './index.module.scss';
 
 const VipProgressComponent = () => {
   const dispatch = useDispatch();
@@ -82,7 +84,9 @@ const VipProgressComponent = () => {
         <div className="text-[12px] dark:text-gray-400 text-color-light-text-primary mt-[10px] pb-[10px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
           <div>{percent}%</div>
           <div className="w-full rounded-[5px] h-[10px] sm:h-[13px] dark:bg-color-progress-primary bg-color-light-bg-primary my-[5px]">
-            <div className="h-full bg-color-primary rounded-[5px]" style={{ width: `${percent}%` }}></div>
+            <div className="h-full relative" style={{ width: `${percent}%` }}>
+              <div className={cn(`h-full rounded-[5px] w-full`, styles['slideProgress'])} />
+            </div>
           </div>
           <div className="flex justify-between">
             <div className="dark:text-color-text-primary text-color-light-text-primary">{currentLevel.name}</div>
