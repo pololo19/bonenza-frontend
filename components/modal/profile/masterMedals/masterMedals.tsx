@@ -137,10 +137,12 @@ export default function MasterMedals({ isShow, onClose, goBackToProfile }: Maste
             <p
               key={index}
               dangerouslySetInnerHTML={{
-                __html: t('profile:achieve', {
-                  medals: item.medals,
-                  achieve: item.achieve,
-                }),
+                __html: String(
+                  t('profile:achieve', {
+                    medals: item.medals,
+                    achieve: item.achieve,
+                  }),
+                ),
               }}
             ></p>
           ))}
