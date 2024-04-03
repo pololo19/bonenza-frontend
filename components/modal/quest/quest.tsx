@@ -58,6 +58,8 @@ type QuestItemProps = {
   isBigWin?: boolean;
   isExpired?: boolean;
   claimStatus: boolean;
+  currentAmount: number;
+  goalAmount: number;
 };
 
 type QuestDataType = {
@@ -79,6 +81,8 @@ const QuestItem = ({
   isBigWin = false,
   isExpired = false,
   claimStatus,
+  currentAmount,
+  goalAmount,
 }: QuestItemProps) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -110,7 +114,7 @@ const QuestItem = ({
               ) : (
                 <Image width={124} height={124} src={'/img/big-wins.png'} alt="" />
               ))}
-            {!isBigWin && <ProgressBar progress={status ? 100 : percent > 100 ? 100 : Math.floor(percent)} />}
+            {!isBigWin && <ProgressBar goalAmount={goalAmount} currentAmount={currentAmount} status={status} />}
           </div>
           <div className="flex flex-col gap-[5px]">
             {header}
@@ -469,6 +473,8 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               )}
               bonusId={item.id}
               extra={<></>}
+              goalAmount={item.goalAmount}
+              currentAmount={item.statusAmount}
               percent={(item.statusAmount / item.goalAmount) * 100}
               isBigWin={item.category === 'bigWin'}
               status={item.status}
