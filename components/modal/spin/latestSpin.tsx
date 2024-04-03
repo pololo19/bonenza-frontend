@@ -95,12 +95,12 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
       ),
       minSize: 30,
       cell: ({ row }) => (
-        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px] font-bold truncate flex gap-1 items-center justify-end">
+        <div className="dark:text-color-text-primary text-color-light-text-primary sm:pr-2 pr-[5px] text-[10px] sm:text-m_default font-bold truncate flex gap-1 items-center justify-end">
           {row.original?.amount || ''}
           <Image
             width={25}
             height={25}
-            className="ml-2 w-[20px] h-[20px]"
+            className="ml-2 w-[16px] h-[16px]"
             src={row.original?.symbolLogo || '/img/fiats/USD.png'}
             alt=""
           />
@@ -131,10 +131,10 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
             <Image width={230} height={233} alt="" src="/img/spin/spin-winners.png" />
           </div>
           <div
-            className={cn('bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll ', {
-              'max-h-[613px]': !isMobile,
-              'max-h-[calc(100vh_-_142px)] sm:max-h-[calc(100vh_-_142px)]': isMobile,
-            })}
+            className={cn(
+              'bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll ',
+              'max-h-[calc(100vh-122px)] sm:max-h-[calc(100vh-122px)]',
+            )}
           >
             <RankingTableComponent
               containerClassName="w-full"

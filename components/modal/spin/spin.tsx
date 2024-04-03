@@ -257,9 +257,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         position="flex-col justify-center items-center"
         isScrollableInRotate
       >
-        <div className="overflow-y-scroll">
+        <div className="overflow-y-scroll h-full">
           <div
-            className={`sm:rounded-large flex flex-col items-center justify-center relative bg-cover ${styles[spinTab]}`}
+            className={`sm:rounded-large h-full flex flex-col items-center justify-between relative bg-cover ${styles[spinTab]}`}
           >
             <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
@@ -327,7 +327,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                       ))}
                     </div>
                   </div>
-                  <div className="absolute w-[30%] top-[34.5%] z-[6] cursor-pointer">
+                  <div className="absolute w-[30%] top-[28.7%] z-[6] cursor-pointer">
                     <div
                       className={cn(
                         styles.spin,
@@ -349,22 +349,22 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     </div>
                   </div>
                   <div
-                    className="absolute top-[40.8%] left-[62%] right-[2%] z-[5]"
+                    className="absolute top-[34.1%] left-[62%] right-[2%] z-[5]"
                     style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
                   >
                     <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
                   </div>
+                  <div className="-mt-[27px] z-[2] mx-[10px]">
+                    <Image
+                      width={856}
+                      height={402}
+                      className="w-[80%] m-auto"
+                      alt=""
+                      src={`/img/spin/${spinTab}-spin-ribbon.png`}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="-mt-[70px] z-[2] mx-[10px]">
-              <Image
-                width={856}
-                height={402}
-                className="w-[80%] m-auto"
-                alt=""
-                src={`/img/spin/${spinTab}-spin-ribbon.png`}
-              />
             </div>
             <div className="bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 py-7 mb-5 flex">
               <div className="text-default flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222]">
