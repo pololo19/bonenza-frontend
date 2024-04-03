@@ -56,10 +56,7 @@ function BonusPage() {
                   {t('bonus:joinNowAndEmbark')}
                 </div>
                 <div className="flex sm:hidden justify-center my-[10px] w-full">
-                  <div
-                    role="button"
-                    className="rounded-large bg-gradient-btn-play py-[10px] px-5 font-bold text-white"
-                  >
+                  <div role="button" className="rounded-large bg-gradient-btn-play py-[10px] px-5 font-bold text-white">
                     {t('bonus:joinNow')}
                   </div>
                 </div>
@@ -199,7 +196,7 @@ function BonusPage() {
               <div className="text-center mb-[40px]">
                 <div
                   className="font-semibold dark:text-white text-color-light-text-primary text-lg"
-                  dangerouslySetInnerHTML={{ __html: t('bonus:getALotOfFreePerks') }}
+                  dangerouslySetInnerHTML={{ __html: String(t('bonus:getALotOfFreePerks')) }}
                 ></div>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-[25px]">
@@ -303,7 +300,7 @@ function BonusPage() {
               <div className="text-center mb-[40px]">
                 <div
                   className="font-semibold dark:text-white text-color-light-text-primary text-lg"
-                  dangerouslySetInnerHTML={{ __html: t('bonus:weHaveMoreBenefit') }}
+                  dangerouslySetInnerHTML={{ __html: String(t('bonus:weHaveMoreBenefit')) }}
                 ></div>
               </div>
               <div className="flex justify-between gap-5 xl:gap-0 flex-col items-center sm:flex-row sm:items-baseline">

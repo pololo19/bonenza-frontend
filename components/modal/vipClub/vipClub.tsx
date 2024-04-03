@@ -436,9 +436,11 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                       <div
                                         className="text-color-text-primary text-[11px]"
                                         dangerouslySetInnerHTML={{
-                                          __html: t('vipClub:weeklyCashbackContent', {
-                                            weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
-                                          }),
+                                          __html: String(
+                                            t('vipClub:weeklyCashbackContent', {
+                                              weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
+                                            }),
+                                          ),
                                         }}
                                       ></div>
                                     </div>
@@ -474,9 +476,11 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                       <div
                                         className="text-color-text-primary text-[11px]"
                                         dangerouslySetInnerHTML={{
-                                          __html: t('vipClub:monthlyCashbackContent', {
-                                            monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
-                                          }),
+                                          __html: String(
+                                            t('vipClub:monthlyCashbackContent', {
+                                              monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
+                                            }),
+                                          ),
                                         }}
                                       ></div>
                                     </div>

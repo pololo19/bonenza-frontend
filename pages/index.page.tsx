@@ -657,11 +657,11 @@ function IndexPage() {
                     </div>
                     <div
                       className="text-color-text-secondary text-default mt-5 text-justify"
-                      dangerouslySetInnerHTML={{ __html: t('homePage:casinosOnlineHaveNot') }}
+                      dangerouslySetInnerHTML={{ __html: String(t('homePage:casinosOnlineHaveNot')) }}
                     ></div>
                     <div
                       className="text-color-text-secondary text-default mt-5 text-justify"
-                      dangerouslySetInnerHTML={{ __html: t('homePage:playersAreAlways') }}
+                      dangerouslySetInnerHTML={{ __html: String(t('homePage:playersAreAlways')) }}
                     ></div>
                     <div
                       className="mt-5 cursor-pointer flex items-center gap-[10px] text-color-primary"

@@ -97,12 +97,14 @@ const DepositCryptoComponent = () => {
               <div
                 className="text-start text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary"
                 dangerouslySetInnerHTML={{
-                  __html: t('deposit:getExtra', {
-                    percent: depositDetail.rankReturn,
-                    value: `${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${
-                      activeCoin.name
-                    }`,
-                  }),
+                  __html: String(
+                    t('deposit:getExtra', {
+                      percent: depositDetail.rankReturn,
+                      value: `${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${
+                        activeCoin.name
+                      }`,
+                    }),
+                  ),
                 }}
               ></div>
               <InfoCircle

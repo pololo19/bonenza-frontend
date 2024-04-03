@@ -74,7 +74,7 @@ const HelperPrivacyPage = () => {
               </div>
               <div
                 className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left"
-                dangerouslySetInnerHTML={{ __html: t('privacy:cookiePolicy4') }}
+                dangerouslySetInnerHTML={{ __html: String(t('privacy:cookiePolicy4')) }}
               ></div>
             </div>
             <div className="mb-[24px]">
@@ -91,7 +91,7 @@ const HelperPrivacyPage = () => {
               </div>
               <div
                 className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left mb-[11px]"
-                dangerouslySetInnerHTML={{ __html: t('privacy:cookiePolicy5') }}
+                dangerouslySetInnerHTML={{ __html: String(t('privacy:cookiePolicy5')) }}
               ></div>
               {listCookiePolicy.map((item, index) => {
                 return (
@@ -118,7 +118,7 @@ const HelperPrivacyPage = () => {
               </div>
               <div
                 className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left"
-                dangerouslySetInnerHTML={{ __html: t('privacy:personalDataProtection1') }}
+                dangerouslySetInnerHTML={{ __html: String(t('privacy:personalDataProtection1')) }}
               ></div>
             </div>
             <div className="mb-[24px]">
@@ -191,7 +191,8 @@ const HelperPrivacyPage = () => {
           </div>
           <div className="">
             <div className="text-black dark:text-[#C2C2C2] text-[14px] font-normal text-left pb-[12px]">
-              {'- '}{t('privacy:personalData')}
+              {'- '}
+              {t('privacy:personalData')}
             </div>
             <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px] pl-2">
               {t('privacy:personalData1')}
@@ -210,7 +211,8 @@ const HelperPrivacyPage = () => {
           </div>
           <div className="">
             <div className="text-black dark:text-[#C2C2C2] text-[14px] font-normal text-left pb-[10px]">
-              {'- '}{t('privacy:usageData')}
+              {'- '}
+              {t('privacy:usageData')}
             </div>
             <div className="pl-2">
               <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px]">
@@ -218,7 +220,7 @@ const HelperPrivacyPage = () => {
               </div>
               <div
                 className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px]"
-                dangerouslySetInnerHTML={{ __html: t('privacy:usageData2') }}
+                dangerouslySetInnerHTML={{ __html: String(t('privacy:usageData2')) }}
               ></div>
               <div className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px]">
                 {t('privacy:usageData3')}
@@ -256,11 +258,11 @@ const HelperPrivacyPage = () => {
           <div className="">
             <div
               className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px]"
-              dangerouslySetInnerHTML={{ __html: t('privacy:information2') }}
+              dangerouslySetInnerHTML={{ __html: String(t('privacy:information2')) }}
             ></div>
             <div
               className="text-[#31373d] dark:text-color-text-primary text-[14px] font-normal text-left pb-[12px]"
-              dangerouslySetInnerHTML={{ __html: t('privacy:information3') }}
+              dangerouslySetInnerHTML={{ __html: String(t('privacy:information3')) }}
             ></div>
           </div>
         </div>

@@ -162,7 +162,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <div
                 className="font-[600] dark:text-white text-black sm:text-[18px] text-[16px]"
                 dangerouslySetInnerHTML={{
-                  __html: t('casino:searchNum', { length: listSearchGame.length }),
+                  __html: String(t('casino:searchNum', { length: listSearchGame.length })),
                 }}
               />
             </div>
