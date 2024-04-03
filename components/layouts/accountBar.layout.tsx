@@ -1,4 +1,3 @@
-import { googleLogout } from '@react-oauth/google';
 import cn from 'classnames';
 import {
   ArrowRight2,
@@ -255,7 +254,7 @@ const AccountPannel: React.FC = () => {
       //   isArrow: false,
       //   extra: (
       //     <>
-      //       <ul className="flex justify-center md:w-fit rounded-[3px] md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary bg-color-light-bg-primary">
+      //       <ul className="flex justify-center md:w-fit rounded-default md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary bg-color-light-bg-primary">
       //         <div
       //           role="button"
       //           className={cn('p-[8px]', {
@@ -364,7 +363,7 @@ const AccountPannel: React.FC = () => {
     >
       <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
         {isLogin && (
-          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-[3px]">
+          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-default">
             <div
               className="flex items-center flex-1 gap-[14px] border-b-[1px] pb-[15px] border-solid dark:border-color-border-primary border-color-light-border-primary mb-[15px]"
               onClick={() => {
@@ -390,11 +389,11 @@ const AccountPannel: React.FC = () => {
               </div>
               <ArrowRight2 className={`w-[15px] h-[15px] dark:text-color-text-primary text-black`} />
             </div>
-            <VipProgressComponent />
+            {isShow && <VipProgressComponent />}
           </div>
         )}
         {!isLogin && (
-          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-[3px]">
+          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-default">
             <div className="flex items-center flex-1 gap-[14px]">
               <div className="block w-[55px] h-[55px] rounded-full">
                 <Image height={40} width={40} src="/img/avatar-1.png" alt="" className="w-full h-full" />
@@ -466,7 +465,7 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <div className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
+          <div className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-default">
             <div className="flex justify-between border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
               <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] ">
                 {t('balance:totalBalance')}
@@ -477,7 +476,7 @@ const AccountPannel: React.FC = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-4 dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
+            <div className="grid grid-cols-4 dark:bg-color-panel-bg-primary bg-white rounded-default">
               {walletDatas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -492,7 +491,7 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
+          <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-default">
             {initDatas.map((data, index) => (
               <ListItem
                 key={index}
@@ -509,7 +508,7 @@ const AccountPannel: React.FC = () => {
           </ul>
         )}
 
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-[3px]">
+        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-default">
           {settingDatas.map((item, index) => (
             <ListItem
               key={index}
