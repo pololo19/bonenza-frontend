@@ -86,19 +86,19 @@ const Term = () => {
           <div className=" text-[28px] font-bold flex justify-center">{t('termOfUse:termsOfUse')}</div>
           <div
             className="pt-[20px]  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:termsOfUse1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:termsOfUse1')) }}
           ></div>
           <div className="  text-[16px] pb-[10px] ">{t('termOfUse:termsOfUse2')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:termsOfUse3') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:termsOfUse3')) }}
           ></div>
           <div className="  text-[16px] pb-[10px] ">{t('termOfUse:termsOfUse4')}</div>
           <div className="  text-[16px] pb-[10px] ">{t('termOfUse:termsOfUse5')}</div>
           <div className="text-[20px] pb-[10px] pt-[40px] font-semibold ">{t('termOfUse:intellectualProperty')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:intellectualProperty1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:intellectualProperty1')) }}
           ></div>
           <div className="  text-[16px] pb-[10px] ">{t('termOfUse:intellectualProperty2')}</div>
           <div className="  text-[16px] pb-[10px] ">{t('termOfUse:intellectualProperty3')}</div>
@@ -162,7 +162,7 @@ const Term = () => {
           <div className="text-[20px] pb-[10px] pt-[40px] font-semibold ">{t('termOfUse:submission')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:submission1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:submission1')) }}
           ></div>
 
           {/* seven */}
@@ -170,7 +170,7 @@ const Term = () => {
           <div className="text-[20px] pb-[10px] pt-[40px] font-semibold ">{t('termOfUse:thirdParty')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:thirdParty1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:thirdParty1')) }}
           ></div>
 
           {/* eight */}
@@ -195,12 +195,12 @@ const Term = () => {
           <div className="  text-[16px] pb-[10px] ">{t('termOfUse:informalNegotiations')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:informalNegotiations1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:informalNegotiations1')) }}
           ></div>
           <div className="  text-[16px] pb-[10px] ">{t('termOfUse:bindingArbitration')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:bindingArbitration1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:bindingArbitration1')) }}
           ></div>
           {listArbitrationInformal.map((item, index) => {
             return (
@@ -215,7 +215,7 @@ const Term = () => {
           <div className="text-[20px] pb-[10px] pt-[40px] font-semibold ">{t('termOfUse:disclaimers')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:disclaimers1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:disclaimers1')) }}
           ></div>
           {listDisclaimers.map((item, index) => {
             return (
@@ -252,7 +252,7 @@ const Term = () => {
           <div className="text-[20px] pb-[10px] pt-[40px] font-semibold ">{t('termOfUse:indemnification')}</div>
           <div
             className="  text-[16px] pb-[10px] "
-            dangerouslySetInnerHTML={{ __html: t('termOfUse:indemnification1') }}
+            dangerouslySetInnerHTML={{ __html: String(t('termOfUse:indemnification1')) }}
           ></div>
 
           {/* sixteen */}

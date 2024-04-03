@@ -41,6 +41,7 @@ import ModalShareGame from '@/components/modal/shareGame/shareGame';
 import styles from './index.module.scss';
 
 type LaunchUrlTye = {
+  gameLauncherUrl: string;
   gameUrl: string;
   strategy: string;
 };
@@ -157,10 +158,11 @@ function GamePage() {
       };
       const res = await api_startGameDemo(requestData);
       const lanuchGameOption: LaunchUrlTye = {
+        gameLauncherUrl: res.data.gameLauncherUrl,
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
       };
-      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.strategy);
+      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.gameLauncherUrl, lanuchGameOption.strategy);
     } catch (error) {
     } finally {
       setIsLoadingGame({
@@ -201,10 +203,11 @@ function GamePage() {
       };
       const res = await api_startGameSession(requestData);
       const lanuchGameOption: LaunchUrlTye = {
+        gameLauncherUrl: res.data.gameLauncherUrl,
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
       };
-      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.strategy);
+      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.gameLauncherUrl, lanuchGameOption.strategy);
     } catch (error) {
       toast.error(t('notification:errors:gameLaunchedFailed'), { containerId: TOAST_ENUM.COMMON });
       setIsLoadingGame({
@@ -265,7 +268,7 @@ function GamePage() {
     }
   };
 
-  const launchGame = async (gameUrl: string, strategy: string) => {
+  const launchGame = async (gameUrl: string, launcherUrl: string, strategy: string) => {
     try {
       // Define the game launch options
       // setIsLoading(true);
@@ -288,7 +291,7 @@ function GamePage() {
           // Pass them directly here without any manual modifications, as this could disrupt the game launching process.
 
           // Required
-          game_launcher_url: asPath, // URL to GameLauncher HTML page
+          game_launcher_url: launcherUrl, // URL to GameLauncher HTML page
 
           // Game parameters. Required.
           game_url: gameUrl,
@@ -296,6 +299,7 @@ function GamePage() {
           // The number of game parameters depends on 'strategy'.
         },
       };
+      console.log(gameLaunchOptions, 'game_launcher_url:', asPath);
       if (isMobile) {
         window.open(gameUrl, '_blank');
       } else {
@@ -542,6 +546,7 @@ function GamePage() {
                   },
                 )}
               >
+                {/* <LazyLoad width="100%" height="100%"> */}
                 <Image
                   src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
                   fill
@@ -551,6 +556,7 @@ function GamePage() {
                     e.currentTarget.src = '/img/game-background.png';
                   }}
                 />
+                {/* </LazyLoad> */}
 
                 <div className={cn('h-full bg-black/80 w-full absolute')} />
 

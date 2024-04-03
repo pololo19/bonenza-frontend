@@ -1,8 +1,6 @@
 'use client';
 
 import '@/styles/main/main.scss';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
 import 'react-phone-number-input/style.css';
 import 'react-tooltip/dist/react-tooltip.css';
 import '@rainbow-me/rainbowkit/styles.css';
@@ -14,13 +12,12 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ThemeProvider, useTheme } from 'next-themes';
+import { ThemeProvider } from 'next-themes';
 import NextNProgress from 'nextjs-progressbar';
 import { ReactElement, ReactNode, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { arbitrum, base, mainnet, optimism, polygon, zora } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
 import ErrorProvider from '@/components/context/errorContext';
@@ -118,13 +115,13 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="url" content="https://www.bonenza.com" />
 
               <meta property="twitter:image" content="https://bonenza.com/img/logo.png" />
-              {/* <script src="https://cdn.launcher.a8r.games/connector.js" defer></script> */}
+              <script src="https://cdn.launcher.a8r.games/connector.js" defer></script>
               {/* <script src="https://casino.int.a8r.games/public/sg.js"></script> */}
               <noscript>Your browser does not support JavaScript!</noscript>
             </Head>
             {/* <Script src="https://js.stripe.com/v3/"></Script>
             <Script src="https://js.stripe.com/v3/"></Script> */}
-            <Script async src="/game.js"></Script>
+            {/* <Script async src="/game.js"></Script> */}
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
             <NextNProgress />

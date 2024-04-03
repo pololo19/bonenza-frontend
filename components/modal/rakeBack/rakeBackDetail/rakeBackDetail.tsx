@@ -112,7 +112,7 @@ export default function ModalRakeBackDetail({
                       <div className="text-white">
                         {t('rakeBackDetail:howClaim', { currency: cryptoLocked?.currency })}
                       </div>
-                      <p dangerouslySetInnerHTML={{ __html: t('rakeBackDetail:howToClaim1') }}></p>{' '}
+                      <p dangerouslySetInnerHTML={{ __html: String(t('rakeBackDetail:howToClaim1')) }}></p>{' '}
                       <p>{t('rakeBackDetail:howToClaim2', { currency: cryptoLocked?.currency })}</p>{' '}
                       <p>{t('rakeBackDetail:howToClaim3', { currency: cryptoLocked?.currency })}</p>
                     </div>
@@ -136,7 +136,7 @@ export default function ModalRakeBackDetail({
                     <div className="flex flex-col gap-3">
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: t('rakeBackDetail:canBeExchange1', { currency: cryptoLocked?.currency }),
+                          __html: String(t('rakeBackDetail:canBeExchange1', { currency: cryptoLocked?.currency })),
                         }}
                       ></span>
                       <p className="text-white mb-4">
@@ -144,7 +144,7 @@ export default function ModalRakeBackDetail({
                       </p>
                       <p
                         dangerouslySetInnerHTML={{
-                          __html: t('rakeBackDetail:whatSpecialAbout1', { currency: cryptoLocked?.currency }),
+                          __html: String(t('rakeBackDetail:whatSpecialAbout1', { currency: cryptoLocked?.currency })),
                         }}
                       ></p>
                     </div>
