@@ -35,7 +35,7 @@ type ModalSpinProps = {
   DialogProps<ElementType>;
 
 // const speed = 2; // deg per millisecond
-const duration = 8000; // milli second
+const duration = 7500; // milli second
 
 interface SpinItem {
   symbol: string;
@@ -62,7 +62,6 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const dispatch = useDispatch();
   const [isRotating, setIsRotating] = useState(false);
   const [isShowLatestSpins, setisShowLatestSpins] = useState<boolean>(false);
-  const spinSound = new Audio('/img/spin/spin.mp3');
 
   const [spinTab, setSpinTab] = useState<'lucky' | 'super' | 'mega'>('lucky');
   const spins: Array<'lucky' | 'super' | 'mega'> = ['lucky', 'super', 'mega'];
@@ -195,7 +194,6 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       });
       return;
     }
-    spinSound.play();
     const initRotate = rotate;
     const deltaD = 360 * 20 - deltaAngle - (initRotate % 360);
     const maxSpeed = deltaD / duration;
@@ -237,7 +235,6 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
 
   useEffect(() => {
     setRotate(0);
-    spinSound.load();
   }, [show]);
 
   const onSpinTabChange = (spin: 'lucky' | 'super' | 'mega') => {
