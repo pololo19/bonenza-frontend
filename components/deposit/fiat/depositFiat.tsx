@@ -4,14 +4,10 @@ import { useEffect, useState } from 'react';
 import CurrencyInput from 'react-currency-input-field';
 import { Controller, useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat } from '@/base/libs/utils';
-import getStripe from '@/base/libs/utils/get-stripejs';
 import { AppState } from '@/base/redux/store';
 import { FiatType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
@@ -54,22 +50,22 @@ const DepositFiatComponent = () => {
   });
 
   const handleStripePayment = async (data: DepositFiatForm) => {
-    try {
-      setIsLoading(true);
-      const response = await api.post(`stripe/checkout-session`, {
-        amount: data.amount,
-        currency: data.currency?.currency?.toLocaleLowerCase(),
-        userId: userId,
-      });
-      const stripe = await getStripe();
-      await stripe!.redirectToCheckout({
-        sessionId: response.data.id,
-      });
-    } catch (error) {
-      toast.error('Deposit Failed', { containerId: TOAST_ENUM.COMMON });
-    } finally {
-      setIsLoading(false);
-    }
+    // try {
+    //   setIsLoading(true);
+    //   const response = await api.post(`stripe/checkout-session`, {
+    //     amount: data.amount,
+    //     currency: data.currency?.currency?.toLocaleLowerCase(),
+    //     userId: userId,
+    //   });
+    //   const stripe = await getStripe();
+    //   await stripe!.redirectToCheckout({
+    //     sessionId: response.data.id,
+    //   });
+    // } catch (error) {
+    //   toast.error('Deposit Failed', { containerId: TOAST_ENUM.COMMON });
+    // } finally {
+    //   setIsLoading(false);
+    // }
   };
 
   const handleBlurFiat = () => {
@@ -77,12 +73,12 @@ const DepositFiatComponent = () => {
     const minValue = Number(watch('currency.minDepositAmount') ?? 0);
     const maxValue = Number(watch('currency.maxDepositAmount') ?? 0);
     const value = Math.max(minValue, Math.min(maxValue, Number(number ?? 0)));
-    setValue('amount', value);
+    // setValue('amount', value);
     trigger('amount');
   };
 
   useEffect(() => {
-    setValue('amount', Number(watch('currency')?.minDepositAmount ?? 0));
+    // setValue('amount', Number(watch('currency')?.minDepositAmount ?? 0));
     trigger('amount');
   }, [watch('currency')]);
 

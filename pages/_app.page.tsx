@@ -119,8 +119,6 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               {/* <script src="https://casino.int.a8r.games/public/sg.js"></script> */}
               <noscript>Your browser does not support JavaScript!</noscript>
             </Head>
-            {/* <Script src="https://js.stripe.com/v3/"></Script>
-            <Script src="https://js.stripe.com/v3/"></Script> */}
             {/* <Script async src="/game.js"></Script> */}
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
