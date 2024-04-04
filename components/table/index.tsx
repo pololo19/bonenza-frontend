@@ -11,12 +11,13 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { useEffect } from 'react';
+import ReactLoading from 'react-loading';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ObjectLiteral } from '@/base/types/common';
 
+import CsrWrapper from '../CsrWrapper';
 import styles from './index.module.scss';
-import ReactLoading from 'react-loading';
 
 export type TableComponentPropsType = {
   columns: ColumnDef<any>[];
@@ -132,12 +133,15 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
             <tr className="">
               <td colSpan={columns.length} className="text-center ">
                 <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
-                  <Image
-                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                    alt="noData"
-                    width={150}
-                    height={150}
-                  />
+                  <CsrWrapper>
+                    <Image
+                      src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                      alt="noData"
+                      width={150}
+                      height={150}
+                    />
+                  </CsrWrapper>
+
                   {noDataText || t('table:noData')}
                 </div>
               </td>

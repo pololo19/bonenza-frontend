@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Command, Diamonds, Element3, Headphone, Judge, Medal, SearchNormal, SecurityCard } from 'iconsax-react';
+import { Command, Diamonds, SearchNormal } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
@@ -19,6 +19,7 @@ import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
+import CsrWrapper from '../CsrWrapper';
 
 const SidebarMobileLayout: React.FC = () => {
   const { t, i18n } = useTranslation('');
@@ -123,26 +124,28 @@ const SidebarMobileLayout: React.FC = () => {
             {t('layout:games')}
           </span>
           {casinoGames.map((game, index) => (
-            <IconOption
-              key={index}
-              title={String(t(game.title))}
-              href={game.href}
-              icon={game.icon}
-              classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
-            />
+            <CsrWrapper key={index}>
+              <IconOption
+                title={String(t(game.title))}
+                href={game.href}
+                icon={game.icon}
+                classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+              />
+            </CsrWrapper>
           ))}
         </ul>
 
         <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-hover-primary bg-white rounded-[3px]">
           {initDatas.map((item, index) => (
-            <IconOption
-              key={index}
-              title={item.title}
-              href={item.href}
-              icon={item.icon}
-              onClick={item.onClick}
-              classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
-            />
+            <CsrWrapper key={index}>
+              <IconOption
+                title={item.title}
+                href={item.href}
+                icon={item.icon}
+                onClick={item.onClick}
+                classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+              />
+            </CsrWrapper>
           ))}
         </ul>
         {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px] dark:bg-color-hover-primary bg-white rounded-[3px]">

@@ -80,7 +80,6 @@ function CasinoTagnamePage() {
         ...query,
         providers: JSON.stringify(providers),
       };
-      console.log(convert2Url(String(key)), params);
       const res = await api_getCasinoWithKey(convert2Url(String(key)), params);
 
       const totalCount = res?.data?.totalCount ?? 0;

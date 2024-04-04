@@ -160,8 +160,9 @@ const SelectCurrency = ({
                     )}
                   >
                     <div className="flex pl-2">
-                      {symbols.slice(4, 7).map((symbol) => (
+                      {symbols.slice(4, 7).map((symbol, index) => (
                         <Image
+                          key={index}
                           width={24}
                           height={24}
                           src={symbol.logo}
