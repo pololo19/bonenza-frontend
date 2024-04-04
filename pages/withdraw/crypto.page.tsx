@@ -2,8 +2,6 @@ import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
@@ -13,10 +11,9 @@ import * as yup from 'yup';
 
 import { api_withdraw, api_withdrawInfo } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { WithdrawRequest } from '@/base/types/requestTypes';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
@@ -176,10 +173,10 @@ const WithdrawCryptoPage = () => {
       }
       const _res = await api_withdrawInfo(activeCoin.id);
       setWithdrawInfo({
-        availableAmountUsd: Number(_res.data.availableWithdrawalAmountUsd || 0),
-        availableAmount: Number(_res.data.availableWithdrawalAmount || 0),
-        lockedAmount: Number(_res.data.lockedWithdrawalAmount || 0),
-        lockedAmountUsd: Number(_res.data.lockedWithdrawalAmountUsd || 0),
+        availableAmountUsd: Number(_res.data?.availableWithdrawalAmountUsd || 0),
+        availableAmount: Number(_res.data?.availableWithdrawalAmount || 0),
+        lockedAmount: Number(_res.data?.lockedFundsAmount || 0),
+        lockedAmountUsd: Number(_res.data?.lockedFundsAmountUsd || 0),
       });
     } catch (error) {
       setWithdrawInfo({
@@ -273,15 +270,19 @@ const WithdrawCryptoPage = () => {
       'withdrawAmount',
       String(
         renderMinValue.min > renderBalanceValue
-          ? withdrawInfo.availableAmount > renderBalanceValue ? currencyFormat1(renderBalanceValue, 4, '', false) : currencyFormat1(withdrawInfo.availableAmount, 4, '', false)
-          : withdrawInfo.availableAmount > renderMinValue.min ? renderMinValue.min : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
+          ? withdrawInfo.availableAmount > renderBalanceValue
+            ? currencyFormat1(renderBalanceValue, 4, '', false)
+            : currencyFormat1(withdrawInfo.availableAmount, 4, '', false)
+          : withdrawInfo.availableAmount > renderMinValue.min
+          ? renderMinValue.min
+          : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
       ),
     );
   }, [renderMinValue, renderBalanceValue]);
 
   useEffect(() => {
     getWithdrawInfo();
-  }, [activeCoin]);
+  }, [getWithdrawInfo]);
 
   return (
     <>
