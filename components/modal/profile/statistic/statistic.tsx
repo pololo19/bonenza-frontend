@@ -12,6 +12,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
+import CsrWrapper from '@/components/CsrWrapper';
 import Paging from '@/components/paging/paging';
 import RankingTableComponent from '@/components/table/rankingTable';
 
@@ -298,13 +299,16 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
           )}
           {!isLoading && statisticTransaction.length === 0 && (
             <div className="flex justify-center relative py-6">
-              <Image
-                src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                width={200}
-                height={200}
-                className="w-[200px] h-[200px]"
-                alt=""
-              />
+              <CsrWrapper>
+                <Image
+                  src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                  width={200}
+                  height={200}
+                  className="w-[200px] h-[200px]"
+                  alt=""
+                />
+              </CsrWrapper>
+
               <p className="absolute dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] bottom-[24px] text-center">
                 {t('table:noData')}
               </p>

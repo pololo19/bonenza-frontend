@@ -20,12 +20,12 @@ import ProgressBar from '@/base/components/common/circleProgress';
 import CsrWrapper from '@/base/components/CsrWrapper';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
-import { useHeight } from '@/base/hooks/useHeight';
 
 type ModalQuest = {
   onClose: () => void;
@@ -621,12 +621,15 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
 
             {prevQuest.unClaimed.daily.length === 0 && prevQuest.unClaimed.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
-                <Image
-                  src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                  alt="noData"
-                  width={150}
-                  height={150}
-                />
+                <CsrWrapper>
+                  <Image
+                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                    alt="noData"
+                    width={150}
+                    height={150}
+                  />
+                </CsrWrapper>
+
                 {t('table:noData')}
               </div>
             )}
@@ -645,12 +648,15 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
 
             {prevQuest.unFinished.daily.length === 0 && prevQuest.unFinished.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
-                <Image
-                  src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                  alt="noData"
-                  width={150}
-                  height={150}
-                />
+                <CsrWrapper>
+                  <Image
+                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                    alt="noData"
+                    width={150}
+                    height={150}
+                  />
+                </CsrWrapper>
+
                 {t('table:noData')}
               </div>
             )}
@@ -669,12 +675,15 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
 
             {prevQuest.claimed.daily.length === 0 && prevQuest.claimed.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
-                <Image
-                  src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                  alt="noData"
-                  width={150}
-                  height={150}
-                />
+                <CsrWrapper>
+                  <Image
+                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                    alt="noData"
+                    width={150}
+                    height={150}
+                  />
+                </CsrWrapper>
+
                 {t('table:noData')}
               </div>
             )}
