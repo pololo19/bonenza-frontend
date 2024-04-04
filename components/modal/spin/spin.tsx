@@ -62,6 +62,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const dispatch = useDispatch();
   const [isRotating, setIsRotating] = useState(false);
   const [isShowLatestSpins, setisShowLatestSpins] = useState<boolean>(false);
+  const [audio, setAudio] = useState<HTMLAudioElement>();
 
   const [spinTab, setSpinTab] = useState<'lucky' | 'super' | 'mega'>('lucky');
   const spins: Array<'lucky' | 'super' | 'mega'> = ['lucky', 'super', 'mega'];
@@ -194,6 +195,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       });
       return;
     }
+    audio?.play();
     const initRotate = rotate;
     const deltaD = 360 * 20 - deltaAngle - (initRotate % 360);
     const maxSpeed = deltaD / duration;
@@ -234,6 +236,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   }, []);
 
   useEffect(() => {
+    setAudio(new Audio('/audio/spin.mp3'));
     setRotate(0);
   }, [show]);
 

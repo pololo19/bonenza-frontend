@@ -147,7 +147,7 @@ const SelectCurrency = ({
                         className="inline"
                         alt=""
                         onError={(e) => {
-                          e.currentTarget.src = '/img/fiat/USD.png';
+                          e.currentTarget.src = '/img/fiat/USDT.png';
                         }}
                       />
                       <h1 className="text-default font-normal">{symbol.name}</h1>
@@ -160,15 +160,16 @@ const SelectCurrency = ({
                     )}
                   >
                     <div className="flex pl-2">
-                      {symbols.slice(4, 7).map((symbol) => (
+                      {symbols.slice(4, 7).map((symbol, index) => (
                         <Image
+                          key={index}
                           width={24}
                           height={24}
                           src={symbol.logo}
                           className="-ml-2 w-6 h-6"
                           alt=""
                           onError={(e) => {
-                            e.currentTarget.src = '/img/fiat/USD.png';
+                            e.currentTarget.src = '/img/fiat/USDT.png';
                           }}
                         />
                       ))}
