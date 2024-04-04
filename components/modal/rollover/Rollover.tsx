@@ -1,5 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ElementType, useRef } from 'react';
+import { ElementType } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
 import RolloverPageAuth from '@/base/pages/rollover/index.page';
@@ -18,7 +18,7 @@ export default function ModalRollover({ show, onClose }: RolloverProps) {
     <CommonModal
       show={show}
       onClose={onClose}
-      panelClass="sm:w-[90%] max-w-[900px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0"
+      panelClass="sm:w-[90%] max-w-[900px] sm:!h-[90vh] sm:min-h-[90vh] sm:my-0"
       header={
         <>
           <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
@@ -29,7 +29,7 @@ export default function ModalRollover({ show, onClose }: RolloverProps) {
         </>
       }
     >
-      <div className="overflow-y-auto sm:p-5 sm:pt-6 px-3 pb-[80px]">
+      <div className="overflow-y-auto sm:p-5 sm:pt-6 px-3 pb-[80px] max-h-full">
         <RolloverPageAuth />
       </div>
     </CommonModal>

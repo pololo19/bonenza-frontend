@@ -3,7 +3,6 @@ import { Command, Diamonds, Gift, HambergerMenu, Headphone, Notepad2, SecurityCa
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
@@ -80,50 +79,6 @@ export default function SidebarToggle() {
         isDropDown: true,
         data: [...casinoCategories, ...casinoGames],
       },
-      // {
-      //   title: String(t('sidebar:sports')),
-      //   href: ROUTER.Sports,
-      //   icon: TrendUp,
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <TrendUp
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Sports),
-      //       })}
-      //     />
-      //   ),
-      // },
-      // {
-      //   title: String(t('sidebar:lottery')),
-      //   href: ROUTER.History,
-      //   icon: Ticket,
-
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Ticket
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Lottery),
-      //       })}
-      //     />
-      //   ),
-      // },
-      // {
-      //   title: String(t('sidebar:bingo')),
-      //   href: ROUTER.Bingo,
-      //   icon: Award,
-
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Award
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Bingo),
-      //       })}
-      //     />
-      //   ),
-      // },
     ],
     [i18n.language, router.route, showDropDownCasino],
   );
@@ -151,21 +106,6 @@ export default function SidebarToggle() {
           }
         },
       },
-      // {
-      //   title: String(t('sidebar:exclusive')),
-      //   href: ROUTER.Exclusive,
-      //   icon: Medal,
-
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Medal
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Exclusive),
-      //       })}
-      //     />
-      //   ),
-      // },
       {
         title: String(t('sidebar:affiliate')),
         href: ROUTER.Affiliate,
@@ -179,21 +119,6 @@ export default function SidebarToggle() {
           />
         ),
       },
-      // {
-      //   title: String(t('sidebar:provablyFair')),
-      //   href: ROUTER.ProvablyFair,
-      //   icon: Judge,
-
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Judge
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.ProvablyFair),
-      //       })}
-      //     />
-      //   ),
-      // },
     ],
     [isShowVipClubModal, i18n.language, router.route, isLogin],
   );
@@ -421,7 +346,7 @@ export default function SidebarToggle() {
             <HambergerMenu size={18} className={cn('m-auto')} />
           </button>
         </div>
-        <div className="flex-1 flex flex-col h-full pt-2 gap-[5px]">
+        <div className="flex-1 flex flex-col h-full pt-2 gap-[5px] overflow-y-auto">
           <Link
             key={`bonus`}
             href={ROUTER.Bonus}
@@ -440,41 +365,46 @@ export default function SidebarToggle() {
           </Link>
           <Tooltip id={'bonus-tooltip'} place="right" positionStrategy="fixed" key={`bonus_tooltip`}>
             <div>
-              <p className="text-white">Bonus</p>
+              <p className="text-white">{t('sidebar:bonus')}</p>
             </div>
           </Tooltip>
-          {/* <Link
-            href={ROUTER.Bonus}
-            key={`quest`}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
+
+          <div
             data-tooltip-id={'quest-tooltip'}
+            role="button"
+            onClick={() => {
+              if (!isLogin) {
+                dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                dispatch(changeIsShowAuthenticationModal(true));
+              } else {
+                dispatch(changeIsShowQuest(true));
+              }
+            }}
+            className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
           >
             <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
-          </Link>
-          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="fixed" key={`quest_tooltip`}>
+          </div>
+          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute" key={`quest_tooltip`}>
             <div>
-              <p className="text-white">Quest</p>
+              <p className="text-white">{t('sidebar:quest')}</p>
             </div>
           </Tooltip>
-          <Link
-            href={ROUTER.Bonus}
-            key={`spin`}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
+
+          <div
             data-tooltip-id={'spin-tooltip'}
+            role="button"
+            onClick={() => {
+              dispatch(changeIsShowSpin(true));
+            }}
+            className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
           >
             <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
-          </Link>
-          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="fixed" key={`spin_tooltip`}>
+          </div>
+          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute" key={`spin_tooltip`}>
             <div>
-              <p className="text-white">Spin</p>
+              <p className="text-white">{t('sidebar:spin')}</p>
             </div>
-          </Tooltip> */}
+          </Tooltip>
 
           {panel_1_datas.map((item, index) => (
             <>
@@ -527,18 +457,32 @@ export default function SidebarToggle() {
           })}
           {panel_2_datas.map((item, index) => (
             <>
-              <Link
-                key={index}
-                href={item.href}
-                type="button"
-                className={cn(
-                  'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-                )}
-                onClick={item?.onClick && item?.onClick}
-                data-tooltip-id={`${item.title}-tooltip`}
-              >
-                {item.smallIcon}
-              </Link>
+              {item.href === '' && (
+                <div
+                  role="button"
+                  className={cn(
+                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                  )}
+                  onClick={item?.onClick && item?.onClick}
+                  data-tooltip-id={`${item.title}-tooltip`}
+                >
+                  {item.smallIcon}
+                </div>
+              )}
+              {item.href && (
+                <Link
+                  key={index}
+                  href={item.href}
+                  type="button"
+                  className={cn(
+                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                  )}
+                  onClick={item?.onClick && item?.onClick}
+                  data-tooltip-id={`${item.title}-tooltip`}
+                >
+                  {item.smallIcon}
+                </Link>
+              )}
               <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={`tip_${index}`}>
                 <div>
                   <p className="text-white">{item.title}</p>
