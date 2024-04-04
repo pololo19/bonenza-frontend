@@ -25,6 +25,7 @@ import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
+import { useHeight } from '@/base/hooks/useHeight';
 
 type ModalQuest = {
   onClose: () => void;
@@ -245,6 +246,7 @@ const initQuestData: QuestDataType = {
 export default function ModalQuest({ show, onClose }: ModalQuest) {
   const exchangeRate = useExchange();
   const { t, i18n } = useTranslation();
+  const height = useHeight();
   const [isHistory, setIsHistory] = useState(false);
 
   const { theme } = useTheme();
@@ -503,7 +505,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
     <>
       <CommonModal
         show={show}
-        panelClass="max-w-full sm:max-w-[600px] sm:!h-[80vh]"
+        panelClass={`max-w-full sm:max-w-[600px] sm:!h-[${height < 768 ? 90 : 80}vh]`}
         onClose={onClose}
         header={
           <>
@@ -516,15 +518,21 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         }
       >
         <div className="flex flex-col px-5 pt-1 items-center gap-[10px] overflow-y-auto relative">
-          <div className="flex justify-start w-full pt-4 text-color-primary font-bold">
+          <div className="flex justify-start w-full pt-4 text-color-primary font-bold text-default">
             {format(new Date(), 'eeee')}
           </div>
           <div className="flex justify-between w-full">
             <div className="flex flex-col gap-[10px] text-white w-full">
               <div className="flex justify-between w-full text-default">
-                <span>{t('quest:accumulateRewards')}</span>
+                <div>
+                  <span>{t('quest:accumulateRewards')}</span>
+                  <div className="flex gap-[10px] items-center">
+                    <Image width={50} height={50} className="w-[25px] h-[25px]" src={'/img/fiats/USDT.png'} alt="" />
+                    <span className="text-[20px] font-bold italic">{`${accumulated} USDT`}</span>
+                  </div>
+                </div>
                 <div
-                  className="flex items-center bg-color-bg-primary px-[15px] py-[5px] rounded-default gap-[5px]"
+                  className="flex items-center bg-color-bg-primary px-[15px] py-[5px] rounded-default gap-[5px] max-h-[35px]"
                   role="button"
                   onClick={() => {
                     getQuestHistory();
@@ -535,16 +543,12 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                   <ChevronRightIcon width={16} role="button" />
                 </div>
               </div>
-              <div className="flex gap-[10px] items-center">
-                <Image width={50} height={50} className="w-[25px] h-[25px]" src={'/img/fiats/USDT.png'} alt="" />
-                <span className="text-[20px] font-bold italic">{`${accumulated} USDT`}</span>
-              </div>
             </div>
           </div>
-          <div className="relative grid grid-cols-2 w-full">
+          <div className="relative grid grid-cols-2 w-full max-h-[45px]">
             <div
               className={cn(
-                'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px]',
+                'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px] text-default',
                 { 'bg-gradient-to-t from-color-primary/20 border-color-primary': selectedType === 'daily' },
                 { 'dark:border-[#272C33] border-[#ccc]': selectedType !== 'daily' },
               )}
@@ -555,7 +559,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
             </div>
             <div
               className={cn(
-                'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px]',
+                'flex-1 flex items-center hover:opacity-[0.9] justify-center border-b-2 border-solid pb-[10px] text-default',
                 { 'bg-gradient-to-t from-color-primary/20 border-color-primary': selectedType === 'weekly' },
                 { 'dark:border-[#272C33] border-[#ccc]': selectedType !== 'weekly' },
               )}
