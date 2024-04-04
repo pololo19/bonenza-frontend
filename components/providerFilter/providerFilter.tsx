@@ -35,7 +35,7 @@ const ProviderFilter = ({ listProvider, selectedProvider, selectProvider, viewCo
   useEffect(() => {
     if (searchInput) {
       let tempProviders = [...listProvider];
-      tempProviders = tempProviders.filter((item) => item.name.includes(searchInput));
+      tempProviders = tempProviders.filter((item) => item.name.toLowerCase().includes(searchInput.toLowerCase()));
       setProviders(tempProviders);
     } else {
       setProviders(listProvider);

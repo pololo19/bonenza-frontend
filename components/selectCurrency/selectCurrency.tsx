@@ -147,7 +147,7 @@ const SelectCurrency = ({
                         className="inline"
                         alt=""
                         onError={(e) => {
-                          e.currentTarget.src = '/img/fiat/USD.png';
+                          e.currentTarget.src = '/img/fiat/USDT.png';
                         }}
                       />
                       <h1 className="text-default font-normal">{symbol.name}</h1>
@@ -169,7 +169,7 @@ const SelectCurrency = ({
                           className="-ml-2 w-6 h-6"
                           alt=""
                           onError={(e) => {
-                            e.currentTarget.src = '/img/fiat/USD.png';
+                            e.currentTarget.src = '/img/fiat/USDT.png';
                           }}
                         />
                       ))}
