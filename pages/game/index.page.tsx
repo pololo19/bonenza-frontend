@@ -44,6 +44,8 @@ type LaunchUrlTye = {
   gameLauncherUrl: string;
   gameUrl: string;
   strategy: string;
+  lobbyUrl: string;
+  tokenId: string;
 };
 
 function GamePage() {
@@ -161,8 +163,16 @@ function GamePage() {
         gameLauncherUrl: res.data.gameLauncherUrl,
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
+        lobbyUrl: res.data.lobbyUrl,
+        tokenId: res.data.tokenId,
       };
-      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.gameLauncherUrl, lanuchGameOption.strategy);
+      await launchGame(
+        lanuchGameOption.gameUrl,
+        lanuchGameOption.gameLauncherUrl,
+        lanuchGameOption.strategy,
+        lanuchGameOption.lobbyUrl,
+        lanuchGameOption.tokenId,
+      );
     } catch (error) {
     } finally {
       setIsLoadingGame({
@@ -206,8 +216,16 @@ function GamePage() {
         gameLauncherUrl: res.data.gameLauncherUrl,
         gameUrl: res.data.gameUrl,
         strategy: res.data.strategy,
+        lobbyUrl: res.data.lobbyUrl,
+        tokenId: res.data.tokenId,
       };
-      await launchGame(lanuchGameOption.gameUrl, lanuchGameOption.gameLauncherUrl, lanuchGameOption.strategy);
+      await launchGame(
+        lanuchGameOption.gameUrl,
+        lanuchGameOption.gameLauncherUrl,
+        lanuchGameOption.strategy,
+        lanuchGameOption.lobbyUrl,
+        lanuchGameOption.tokenId,
+      );
     } catch (error) {
       toast.error(t('notification:errors:gameLaunchedFailed'), { containerId: TOAST_ENUM.COMMON });
       setIsLoadingGame({
@@ -268,7 +286,13 @@ function GamePage() {
     }
   };
 
-  const launchGame = async (gameUrl: string, launcherUrl: string, strategy: string) => {
+  const launchGame = async (
+    gameUrl: string,
+    launcherUrl: string,
+    strategy: string,
+    lobbyUrl: string,
+    tokenId: string,
+  ) => {
     try {
       // Define the game launch options
       // setIsLoading(true);
@@ -296,10 +320,11 @@ function GamePage() {
           // Game parameters. Required.
           game_url: gameUrl,
           strategy: strategy,
+          lobby_url: lobbyUrl,
+          token_id: tokenId,
           // The number of game parameters depends on 'strategy'.
         },
       };
-      console.log(gameLaunchOptions, 'game_launcher_url:', asPath);
       if (isMobile) {
         window.open(gameUrl, '_blank');
       } else {
