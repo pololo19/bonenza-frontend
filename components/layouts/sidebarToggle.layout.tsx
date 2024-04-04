@@ -455,10 +455,7 @@ export default function SidebarToggle() {
             </div>
           </Tooltip>
 
-          <div
-            key={'quest-small'}
-            data-tooltip-id={'quest-tooltip'}
-          >
+          <div key={'quest-small'} data-tooltip-id={'quest-tooltip'}>
             <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
           </div>
           <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute" key={`quest_tooltip-small`}>
@@ -467,17 +464,14 @@ export default function SidebarToggle() {
             </div>
           </Tooltip>
 
-          <div
-            id="spin-small"
-            data-tooltip-id={'spin-tooltip'}
-          >
+          <div id="spin-small" data-tooltip-id={'spin-tooltip'}>
             <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
           </div>
           <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute" key={`spin_tooltip-small`}>
             <div>
               <p className="text-white">Spin</p>
             </div>
-          </Tooltip> */}
+          </Tooltip>
 
           {panel_1_datas.map((item, index) => (
             <div className="w-full" key={`${index}-${item.title}`}>
