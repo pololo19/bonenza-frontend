@@ -24,6 +24,7 @@ import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption from '../common/iconOption/iconOption';
+import CsrWrapper from '../CsrWrapper';
 
 export default function SidebarToggle() {
   const { t, i18n } = useTranslation('');
@@ -88,6 +89,7 @@ export default function SidebarToggle() {
       {
         title: String(t('sidebar:vipClub')),
         href: '',
+        key: 'vipClub',
         icon: Diamonds,
         smallIcon: (
           <Diamonds
@@ -109,6 +111,7 @@ export default function SidebarToggle() {
       {
         title: String(t('sidebar:affiliate')),
         href: ROUTER.Affiliate,
+        key: 'affiliate',
         icon: Command,
         smallIcon: (
           <Command
@@ -194,86 +197,94 @@ export default function SidebarToggle() {
         <div className=" flex-1 md:w-full flex flex-col h-full pt-[12px] pb-[80px] px-[12px] overflow-auto">
           <div className="flex-1 w-full gap-[5px] flex flex-col">
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
-              <IconOption
-                key={'bonus'}
-                imageURL="/img/sidebar/bonus.png"
-                imageClass="absolute left-[16px] -top-[18px] w-[69px] h-[61px]"
-                textClass="text-white ml-[64px] !text-[16px] !font-[500]"
-                title={String(t('sidebar:bonus'))}
-                href={ROUTER.Bonus}
-                icon={Gift}
-                isFontMedium
-                fontWeight={600}
-                activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
-                classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
-              />
+              <CsrWrapper key={'bonus'}>
+                <IconOption
+                  imageURL="/img/sidebar/bonus.png"
+                  imageClass="absolute left-[16px] -top-[18px] w-[69px] h-[61px]"
+                  textClass="text-white ml-[64px] !text-[16px] !font-[500]"
+                  title={String(t('sidebar:bonus'))}
+                  href={ROUTER.Bonus}
+                  icon={Gift}
+                  isFontMedium
+                  fontWeight={600}
+                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
+                  classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
+                />
+              </CsrWrapper>
 
               <div className="flex items-center gap-[5px] mt-[10px]">
-                <IconOption
-                  imageURL="/img/sidebar/quest.png"
-                  imageClass="absolute -left-[5px] -top-[13px] w-[43px] h-[43px]"
-                  textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[8px]"
-                  title={String(t('sidebar:quest'))}
-                  href={''}
-                  icon={Gift}
-                  isFontMedium
-                  fontWeight={700}
-                  onClick={() => {
-                    if (!isLogin) {
-                      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-                      dispatch(changeIsShowAuthenticationModal(true));
-                    } else {
-                      dispatch(changeIsShowQuest(true));
-                    }
-                  }}
-                  classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
-                />
-                <IconOption
-                  imageURL="/img/sidebar/spin.png"
-                  count={spinCount}
-                  imageClass="absolute -left-[5px] -top-[13px] w-[41px] h-[41px]"
-                  textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
-                  title={String(t('sidebar:spin'))}
-                  href={''}
-                  icon={Gift}
-                  isFontMedium
-                  fontWeight={600}
-                  onClick={() => dispatch(changeIsShowSpin(true))}
-                  classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
-                />
+                <CsrWrapper key="quest">
+                  <IconOption
+                    imageURL="/img/sidebar/quest.png"
+                    imageClass="absolute -left-[5px] -top-[13px] w-[43px] h-[43px]"
+                    textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[8px]"
+                    title={String(t('sidebar:quest'))}
+                    href={''}
+                    icon={Gift}
+                    isFontMedium
+                    fontWeight={700}
+                    onClick={() => {
+                      if (!isLogin) {
+                        dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                        dispatch(changeIsShowAuthenticationModal(true));
+                      } else {
+                        dispatch(changeIsShowQuest(true));
+                      }
+                    }}
+                    classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
+                  />
+                </CsrWrapper>
+                <CsrWrapper key="spin">
+                  <IconOption
+                    imageURL="/img/sidebar/spin.png"
+                    count={spinCount}
+                    imageClass="absolute -left-[5px] -top-[13px] w-[41px] h-[41px]"
+                    textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
+                    title={String(t('sidebar:spin'))}
+                    href={''}
+                    icon={Gift}
+                    isFontMedium
+                    fontWeight={600}
+                    onClick={() => dispatch(changeIsShowSpin(true))}
+                    classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
+                  />
+                </CsrWrapper>
               </div>
               {panel_1_datas.map((item, index) => (
-                <IconOption
-                  key={index}
-                  title={item.title}
-                  href={item.href}
-                  icon={item.icon}
-                  classNames={
-                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
-                  }
-                  onClick={item.onClick}
-                  isShowDropDown={item.isShowDropDown}
-                  isDropDown={item.isDropDown}
-                  isFontMedium
-                  fontWeight={600}
-                  data={item.data}
-                />
+                <CsrWrapper key={index}>
+                  <IconOption
+                    title={item.title}
+                    href={item.href}
+                    icon={item.icon}
+                    classNames={
+                      'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                    }
+                    onClick={item.onClick}
+                    isShowDropDown={item.isShowDropDown}
+                    isDropDown={item.isDropDown}
+                    isFontMedium
+                    fontWeight={600}
+                    data={item.data}
+                  />
+                </CsrWrapper>
               ))}
             </ul>
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
               {panel_2_datas.map((item, index) => (
-                <IconOption
-                  key={index}
-                  title={item.title}
-                  href={item.href}
-                  icon={item.icon}
-                  classNames={
-                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000]'
-                  }
-                  isFontMedium
-                  fontWeight={600}
-                  onClick={item.onClick}
-                />
+                <CsrWrapper key={index}>
+                  <IconOption
+                    key={index}
+                    title={item.title}
+                    href={item.href}
+                    icon={item.icon}
+                    classNames={
+                      'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000]'
+                    }
+                    isFontMedium
+                    fontWeight={600}
+                    onClick={item.onClick}
+                  />
+                </CsrWrapper>
               ))}
             </ul>
             {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
@@ -348,7 +359,7 @@ export default function SidebarToggle() {
         </div>
         <div className="flex-1 flex flex-col h-full pt-2 gap-[5px] overflow-y-auto">
           <Link
-            key={`bonus`}
+            key={`bonus-small`}
             href={ROUTER.Bonus}
             type="button"
             className={cn(
@@ -363,13 +374,14 @@ export default function SidebarToggle() {
               })}
             />
           </Link>
-          <Tooltip id={'bonus-tooltip'} place="right" positionStrategy="fixed" key={`bonus_tooltip`}>
+          <Tooltip id={'bonus-tooltip'} place="right" positionStrategy="fixed" key={`bonus_tooltip-small`}>
             <div>
               <p className="text-white">{t('sidebar:bonus')}</p>
             </div>
           </Tooltip>
 
           <div
+            key={'quest-small'}
             data-tooltip-id={'quest-tooltip'}
             role="button"
             onClick={() => {
@@ -384,13 +396,14 @@ export default function SidebarToggle() {
           >
             <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
           </div>
-          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute" key={`quest_tooltip`}>
+          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute" key={`quest_tooltip-small`}>
             <div>
               <p className="text-white">{t('sidebar:quest')}</p>
             </div>
           </Tooltip>
 
           <div
+            id="spin-small"
             data-tooltip-id={'spin-tooltip'}
             role="button"
             onClick={() => {
@@ -400,16 +413,15 @@ export default function SidebarToggle() {
           >
             <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
           </div>
-          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute" key={`spin_tooltip`}>
+          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute" key={`spin_tooltip-small`}>
             <div>
               <p className="text-white">{t('sidebar:spin')}</p>
             </div>
           </Tooltip>
 
           {panel_1_datas.map((item, index) => (
-            <>
+            <div className="w-full" key={`${index}-${item.title}`}>
               <Link
-                key={index}
                 href={item.href}
                 type="button"
                 className={cn(
@@ -420,19 +432,18 @@ export default function SidebarToggle() {
               >
                 {item.smallIcon}
               </Link>
-              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={`tip_${index}`}>
+              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
                 <div>
                   <p className="text-white">{item.title}</p>
                 </div>
               </Tooltip>
-            </>
+            </div>
           ))}
           {[...casinoCategories, ...casinoGames].map((item, index) => {
             const IconElement = item.icon;
             return (
-              <>
+              <div className="w-full" key={`${index}-${item.title}`}>
                 <Link
-                  key={index}
                   href={item.href}
                   type="button"
                   className={cn(
@@ -447,16 +458,16 @@ export default function SidebarToggle() {
                     })}
                   />
                 </Link>
-                <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={`tip_${index}`}>
+                <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
                   <div>
                     <p className="text-white">{String(t(item.title))}</p>
                   </div>
                 </Tooltip>
-              </>
+              </div>
             );
           })}
           {panel_2_datas.map((item, index) => (
-            <>
+            <div className="w-full" key={`${index}-${item.title}`}>
               {item.href === '' && (
                 <div
                   role="button"
@@ -471,7 +482,6 @@ export default function SidebarToggle() {
               )}
               {item.href && (
                 <Link
-                  key={index}
                   href={item.href}
                   type="button"
                   className={cn(
@@ -483,12 +493,12 @@ export default function SidebarToggle() {
                   {item.smallIcon}
                 </Link>
               )}
-              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed" key={`tip_${index}`}>
+              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
                 <div>
                   <p className="text-white">{item.title}</p>
                 </div>
               </Tooltip>
-            </>
+            </div>
           ))}
         </div>
       </div>

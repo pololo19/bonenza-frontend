@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { ObjectLiteral } from '@/base/types/common';
 
+import CsrWrapper from '../CsrWrapper';
 import styles from './rankingTable.module.scss';
 
 export type RankingTableComponentPropsType = {
@@ -139,12 +140,15 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
             <tr className="">
               <td colSpan={columns.length} className="text-center ">
                 <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
-                  <Image
-                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                    alt="noData"
-                    width={150}
-                    height={150}
-                  />
+                  <CsrWrapper>
+                    <Image
+                      src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                      alt="noData"
+                      width={150}
+                      height={150}
+                    />
+                  </CsrWrapper>
+
                   {noDataText || t('table:noData')}
                 </div>
               </td>
