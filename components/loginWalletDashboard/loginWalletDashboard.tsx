@@ -131,9 +131,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
     <>
       {isLoading && <Loader />}
       <div className="text-center text-white text-[14px] font-[600]">
-        <div className="flex flex-row items-center justify-center gap-[10px]">
+        <div className="flex flex-row items-center justify-center sm:gap-[10px] gap-[5px]">
           <div
-            className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
+            className="bg-white dark:bg-color-header-secondary hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-full"
             onClick={() => handleGoogleLogin()}
           >
             <button className="px-2 py-2 w-full text-white">
@@ -141,14 +141,14 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
             </button>
           </div>
           <div
-            className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]"
+            className="bg-white dark:bg-color-header-secondary hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-full"
             onClick={handleTelegram}
           >
             <button className="px-2 py-2 w-full text-white">
               <Image height={30} width={30} src={'/img/telegram.svg'} alt="" className="inline w-[30px]" />
             </button>
           </div>
-          <div className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
+          <div className="bg-white dark:bg-color-header-secondary hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-full">
             <WalletButton.Custom wallet="metamask">
               {({ ready, connect }) => {
                 return (
@@ -159,7 +159,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
               }}
             </WalletButton.Custom>
           </div>
-          <div className="bg-white dark:bg-[#12181F] hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
+          <div className="bg-white dark:bg-color-header-secondary hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-full">
             <WalletButton.Custom wallet="walletConnect">
               {({ ready, connect }) => {
                 return (

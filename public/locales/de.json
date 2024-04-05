@@ -1404,7 +1404,8 @@
     "allBonuses": "Alle Boni",
     "bonusDashboard": "Bonus-Dashboard",
     "onlyTheLatest": "Nachfolgend werden nur die letzten 60-Tage-Transaktionen angezeigt.",
-    "bonusReady": "Bonusbereit"
+    "bonusReady": "Bonusbereit",
+    "activate": "aktivieren Sie"
   },
   "promotion": {
     "promotion": "Förderung",

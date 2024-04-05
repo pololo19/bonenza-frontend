@@ -598,7 +598,7 @@ const TransactionPage = () => {
                 src={`/img/fiats/${row.original.currency}.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
             </div>
@@ -616,7 +616,7 @@ const TransactionPage = () => {
                 width={14}
                 src={`/img/fiats/${row.original?.currency}.png`}
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
                 alt=""
               />
@@ -1139,7 +1139,7 @@ const TransactionPage = () => {
               type: item.type ?? '',
               amount: Number(item.amount || 0),
               amountUsd: Number(item.amountUsd || 0),
-              currency: item.fromSymbol ?? 'USDT',
+              currency: item.currencyName ?? 'USDT',
               currencyType: item.currencyType ?? 'crypto',
               time: item.time,
               balance: Number(item.walletBalance || 0),

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { ElementType, Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_bonusDetail, bonusCategoryType } from '@/api/bonus';
+import { api_bonusDetailCategories, api_bonusDetailTransactions, bonusCategoryType } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -40,7 +40,6 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
   });
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
-  const [totalTable, setTotalTable] = useState<number>(0);
   const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
@@ -99,12 +98,15 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
     },
   ];
 
-  const getListTypeBonus = useCallback(async () => {
+  const initLoad = async () => {
     try {
-      setIsLoadingTable(true);
-      const _res = await api_bonusDetail(typeFilter as bonusCategoryType);
+      setIsLoading(true);
+      const [_resCategories, _resTransaction] = await Promise.all([
+        api_bonusDetailCategories(),
+        api_bonusDetailTransactions(),
+      ]);
       const tempListTransactionData: BonusTransactionType[] =
-        _res.data?.categories?.transactions.map((item: any) => ({
+        _resTransaction.data?.map((item: any) => ({
           amount: Number(item.amount || 0),
           amountUsd: Number(item.amountUsd || 0),
           type: item.bonusType || item.type,
@@ -113,12 +115,12 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
           symbolLogo: item.symbolLogo,
         })) ?? [];
       setbonusCategoriesValue({
-        luckySpinUsd: Number(_res.data?.categories.totalLuckySpinBonusAmountUsd),
-        questUsd: Number(_res.data?.categories.totalQuestBonusAmountUsd),
-        weeklyCashbackUsd: Number(_res.data?.categories?.weeklyCashbackAmountUsd || 0),
-        monthlyCashbackUsd: Number(_res.data?.categories?.monthlyCashbackAmountUsd || 0),
-        depositBonusUsd: Number(_res.data?.categories?.totalDepositBonusAmountUsd || 0),
-        levelUpBonusUsd: Number(_res.data?.categories?.totalVipLevelUpBonusAmountUsd || 0),
+        luckySpinUsd: Number(_resCategories.data?.totalLuckySpinBonusAmountUsd),
+        questUsd: Number(_resCategories.data?.totalQuestBonusAmountUsd),
+        weeklyCashbackUsd: Number(_resCategories.data?.weeklyCashbackAmountUsd || 0),
+        monthlyCashbackUsd: Number(_resCategories.data?.monthlyCashbackAmountUsd || 0),
+        depositBonusUsd: Number(_resCategories.data?.totalDepositBonusAmountUsd || 0),
+        levelUpBonusUsd: Number(_resCategories.data?.totalVipLevelUpBonusAmountUsd || 0),
       });
       setListTransactions(tempListTransactionData);
     } catch (error) {
@@ -130,13 +132,35 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         depositBonusUsd: 0,
         levelUpBonusUsd: 0,
       });
+      setListTransactions([]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getListTypeBonus = useCallback(async () => {
+    try {
+      setIsLoadingTable(true);
+      const _res = await api_bonusDetailTransactions(typeFilter as bonusCategoryType);
+      const tempListTransactionData: BonusTransactionType[] =
+        _res.data?.map((item: any) => ({
+          amount: Number(item.amount || 0),
+          amountUsd: Number(item.amountUsd || 0),
+          type: item.bonusType || item.type,
+          time: item.time,
+          symbol: item.symbolName,
+          symbolLogo: item.symbolLogo,
+        })) ?? [];
+      setListTransactions(tempListTransactionData);
+    } catch (error) {
+      setListTransactions([]);
     } finally {
       setIsLoadingTable(false);
     }
   }, [typeFilter]);
 
   useEffect(() => {
-    getListTypeBonus();
+    initLoad();
   }, []);
 
   useEffect(() => {

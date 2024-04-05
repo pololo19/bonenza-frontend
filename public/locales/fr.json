@@ -1404,7 +1404,8 @@
     "allBonuses": "Tous les bonus",
     "bonusDashboard": "Tableau de bord bonus",
     "onlyTheLatest": "Seules les transactions des 60 derniers jours seront affichées ci-dessous.",
-    "bonusReady": "Bonus prêt"
+    "bonusReady": "Bonus prêt",
+    "activate": "Activer"
   },
   "promotion": {
     "promotion": "Promotion",

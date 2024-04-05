@@ -1404,7 +1404,8 @@
     "allBonuses": "جميع المكافآت",
     "bonusDashboard": "لوحة معلومات المكافأة",
     "onlyTheLatest": "سيتم عرض المعاملات الأخيرة خلال 60 يومًا فقط أدناه.",
-    "bonusReady": "مكافأة جاهزة"
+    "bonusReady": "مكافأة جاهزة",
+    "activate": "تفعيل"
   },
   "promotion": {
     "promotion": "ترقية",

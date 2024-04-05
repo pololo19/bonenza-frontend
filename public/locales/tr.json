@@ -1404,7 +1404,8 @@
     "allBonuses": "Tüm bonuslar",
     "bonusDashboard": "Bonus Kontrol Paneli",
     "onlyTheLatest": "Aşağıda yalnızca en son 60 günlük işlemler görüntülenecektir.",
-    "bonusReady": "Bonusa Hazır"
+    "bonusReady": "Bonusa Hazır",
+    "activate": "Etkinleştir"
   },
   "promotion": {
     "promotion": "Terfi",

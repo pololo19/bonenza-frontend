@@ -1404,7 +1404,8 @@
     "allBonuses": "Todos los bonos",
     "bonusDashboard": "Panel de bonificación",
     "onlyTheLatest": "A continuación solo se mostrarán las transacciones de los últimos 60 días.",
-    "bonusReady": "Bono listo"
+    "bonusReady": "Bono listo",
+    "activate": "Activar"
   },
   "promotion": {
     "promotion": "Promoción",
