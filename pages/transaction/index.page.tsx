@@ -1,11 +1,10 @@
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon, LinkIcon } from '@heroicons/react/24/outline';
+import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import cn from 'classnames';
 import { ArrowRight2, Copy } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Fragment, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
@@ -1140,7 +1139,7 @@ const TransactionPage = () => {
               type: item.type ?? '',
               amount: Number(item.amount || 0),
               amountUsd: Number(item.amountUsd || 0),
-              currency: item.currency ?? 'USDT',
+              currency: item.fromSymbol ?? 'USDT',
               currencyType: item.currencyType ?? 'crypto',
               time: item.time,
               balance: Number(item.walletBalance || 0),
