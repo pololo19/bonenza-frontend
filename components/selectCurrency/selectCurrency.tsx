@@ -5,6 +5,7 @@ import { Lock } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import LazyLoad from 'react-lazy-load';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -142,16 +143,19 @@ const SelectCurrency = ({
                       key={index}
                       onClick={() => handleChangeCrypto(symbol)}
                     >
-                      <Image
-                        width={24}
-                        height={24}
-                        src={symbol.logo}
-                        className="inline"
-                        alt=""
-                        onError={(e) => {
-                          e.currentTarget.src = '/img/fiat/USDT.png';
-                        }}
-                      />
+                      <LazyLoad height={24}>
+                        <Image
+                          width={24}
+                          height={24}
+                          src={symbol.logo}
+                          className="inline"
+                          alt=""
+                          onError={(e) => {
+                            e.currentTarget.src = '/img/fiat/USDT.png';
+                          }}
+                        />
+                      </LazyLoad>
+
                       <h1 className="text-default font-normal">{symbol.name}</h1>
                     </button>
                   ))}
@@ -186,16 +190,19 @@ const SelectCurrency = ({
                   // role="button"
                 >
                   <div className="flex-1 flex items-center justify-start gap-[10px]">
-                    <Image
-                      width={30}
-                      height={30}
-                      src={activeCoin.logo}
-                      onError={(e) => {
-                        e.currentTarget.src = '/img/fiats/USDT.png';
-                      }}
-                      className="inline"
-                      alt=""
-                    />
+                    <LazyLoad height={30}>
+                      <Image
+                        width={30}
+                        height={30}
+                        src={activeCoin.logo}
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/fiats/USDT.png';
+                        }}
+                        className="inline"
+                        alt=""
+                      />
+                    </LazyLoad>
+
                     <div className="dark:text-white text-black flex-1 text-start text-default">
                       {activeCoin.name}
                       <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin.name}</span>

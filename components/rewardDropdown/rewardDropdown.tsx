@@ -1,4 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
+import cn from 'classnames';
 import { ArrowRight2, Gift } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -79,6 +80,8 @@ export default function RewardDropdown() {
       const pos = tempBonuses.findIndex((item) => item.id === bonus.id);
       tempBonuses.splice(pos, 1);
       setBonuses(tempBonuses);
+
+      // update balance
       dispatch(getBalance());
       dispatch(setLockedAmount(tempLockedAmount));
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
@@ -128,16 +131,22 @@ export default function RewardDropdown() {
   return (
     <>
       <>
-        {bonuses.filter((item) => item.allow).length > 0 && (
-          <Popover className="h-full mr-[10px] relative w-auto rounded-[7px] text-center aspect-square dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary">
+        {bonuses.length > 0 && (
+          <Popover className="h-full mr-[10px] relative w-auto rounded-default text-center aspect-square dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary">
             {({ open }) => (
               <>
                 <Popover.Button className="h-full">
-                  <div className="flex flex-col h-full justify-center dark:text-white text-color-text-primary items-center relative ">
+                  <div
+                    className={cn(
+                      'flex flex-col h-full justify-center  items-center relative dark:text-white text-color-text-primary',
+                    )}
+                  >
                     <Gift variant="Bold" className="w-[28px] h-[28px] sm:w-[20px] sm:h-[20px]" />
-                    <div className="absolute text-white bg-color-primary rounded-full top-0 -right-[calc(50%)] px-[6px] text-[10px]">
-                      {bonuses.filter((item) => item.allow).length}
-                    </div>
+                    {bonuses.length > 0 && (
+                      <div className="absolute text-white bg-color-primary rounded-full top-0 -right-[calc(50%)] px-[6px] text-[10px]">
+                        {bonuses.length}
+                      </div>
+                    )}
                   </div>
                 </Popover.Button>
                 <Transition.Child
@@ -165,7 +174,7 @@ export default function RewardDropdown() {
                     static
                     className="mr-0 right-0 sm:absolute fixed sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[57px]"
                   >
-                    <div className="px-[20px] flex flex-col gap-[10px] relative rounded-md py-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
+                    <div className="px-[20px] flex flex-col gap-[10px] rounded-default relative rounded-md py-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
                       <div className="flex justify-between">
                         <div className="dark:text-white text-left text-color-light-text-primary text-[14px]">
                           {t('bonus:bonusReady')}
@@ -180,51 +189,56 @@ export default function RewardDropdown() {
                         </div> */}
                       </div>
                       <div className="max-h-[calc(100vh-300px)] overflow-auto flex flex-col gap-[10px]">
-                        {bonuses
-                          .filter((item) => item.allow)
-                          .map((bonus, index) => (
-                            <div
-                              className="flex w-full justify-between gap-[40px] rounded-[3px] p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary"
-                              key={index}
-                            >
-                              <div className="flex gap-[10px]">
-                                <div className="flex flex-col justify-center items-center">
-                                  <Image
-                                    width={30}
-                                    height={30}
-                                    src={getBonusIcon(bonus.type)}
-                                    className="w-auth h-fit"
-                                    alt=""
-                                  />
-                                </div>
+                        {bonuses.map((bonus, index) => (
+                          <div
+                            className="flex w-full justify-between gap-[40px] rounded-default p-[10px] dark:bg-color-menu-primary bg-color-light-bg-primary"
+                            key={index}
+                          >
+                            <div className="flex gap-[10px]">
+                              <div className="flex flex-col justify-center items-center">
+                                <Image
+                                  width={30}
+                                  height={30}
+                                  src={getBonusIcon(bonus.type)}
+                                  className="w-auth h-fit"
+                                  alt=""
+                                />
+                              </div>
 
-                                <div className="flex flex-col gap-[5px] justify-center">
-                                  <p className="text-[14px] dark:text-white text-color-light-text-primary text-left">
-                                    {getBonusType(bonus.typeName)}
-                                  </p>
-                                  <div className="flex text-[14px] text-color-text-primary gap-[5px] items-center">
-                                    {!viewInFiat && (
-                                      <Image
-                                        width={12}
-                                        height={12}
-                                        src={bonus.symbolLogo}
-                                        className="w-[20px] h-[20px]"
-                                        alt=""
-                                        onError={(e) => {
-                                          e.currentTarget.src = '/img/fiats/USDT.png';
-                                        }}
-                                      />
-                                    )}
-                                    {viewInFiat
-                                      ? currencyFormat1(bonus.amountUsd * exchangeRate, fiatDecimals, localFiat?.name)
-                                      : currencyFormat1(bonus.amount, fiatDecimals, '', false)}
-                                  </div>
+                              <div className="flex flex-col gap-[5px] justify-center">
+                                <p className="text-[14px] dark:text-white text-color-light-text-primary text-left">
+                                  {getBonusType(bonus.typeName)}
+                                </p>
+                                <div className="flex text-[14px] text-color-text-primary gap-[5px] items-center">
+                                  <Image
+                                    width={12}
+                                    height={12}
+                                    src={bonus.symbolLogo}
+                                    className="w-[20px] h-[20px]"
+                                    alt=""
+                                    onError={(e) => {
+                                      e.currentTarget.src = '/img/fiats/USDT.png';
+                                    }}
+                                  />
+                                  {viewInFiat
+                                    ? currencyFormat1(bonus.amountUsd * exchangeRate, fiatDecimals, localFiat?.name)
+                                    : currencyFormat1(bonus.amount, fiatDecimals, '', false)}
                                 </div>
                               </div>
-                              <div className="py-[2px] flex items-center">
+                            </div>
+                            <div className="py-[2px] flex items-center">
+                              {lockedAmount < bonus.amount && (
+                                <Link
+                                  role="button"
+                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default min-h-[40px] min-w-[82px] flex justify-center items-center text-default"
+                                  href={'/deposit/crypto'}
+                                >
+                                  <div>{t('bonus:activate')}</div>
+                                </Link>
+                              )}
+                              {lockedAmount >= bonus.amount && (
                                 <button
-                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default disabled:cursor-not-allowed min-h-[40px] min-w-[82px] flex justify-center items-center"
-                                  disabled={lockedAmount <= bonus.amount}
+                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default min-h-[40px] min-w-[82px] flex justify-center items-center text-default"
                                   onClick={() => handleClaim(bonus)}
                                 >
                                   {claimingBonus === bonus.id ? (
@@ -233,9 +247,10 @@ export default function RewardDropdown() {
                                     <div>{t('deposit:claim')}</div>
                                   )}
                                 </button>
-                              </div>
+                              )}
                             </div>
-                          ))}
+                          </div>
+                        ))}
                       </div>
                       <Link href={ROUTER.Bonus}>
                         <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary rounded-large border-color-light-border-primary justify-center">
@@ -250,9 +265,10 @@ export default function RewardDropdown() {
             )}
           </Popover>
         )}
-        {bonuses.filter((item) => item.allow).length == 0 && (
+
+        {bonuses.length == 0 && (
           <Link
-            className="sm:hidden block dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
+            className="block dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
             href={ROUTER.Bonus}
           >
             <Gift width={18} height={18} variant="Bold" />

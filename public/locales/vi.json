@@ -1404,7 +1404,8 @@
     "allBonuses": "Tất cả tiền thưởng",
     "bonusDashboard": "Bảng điều khiển tiền thưởng",
     "onlyTheLatest": "Chỉ những giao dịch 60 ngày gần nhất mới được hiển thị bên dưới.",
-    "bonusReady": "Tiền thưởng sẵn sàng"
+    "bonusReady": "Tiền thưởng sẵn sàng",
+    "activate": "Kích hoạt"
   },
   "promotion": {
     "promotion": "Khuyến mãi",

@@ -1404,7 +1404,8 @@
     "allBonuses": "すべてのボーナス",
     "bonusDashboard": "ボーナスダッシュボード",
     "onlyTheLatest": "最新の 60 日間の取引のみが下に表示されます。",
-    "bonusReady": "ボーナス準備完了"
+    "bonusReady": "ボーナス準備完了",
+    "activate": "活性化"
   },
   "promotion": {
     "promotion": "プロモーション",

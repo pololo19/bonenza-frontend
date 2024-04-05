@@ -1404,7 +1404,8 @@
     "allBonuses": "所有奖金",
     "bonusDashboard": "奖金仪表板",
     "onlyTheLatest": "下面仅显示最近 60 天的交易。",
-    "bonusReady": "奖金准备就绪"
+    "bonusReady": "奖金准备就绪",
+    "activate": "启用"
   },
   "promotion": {
     "promotion": "晋升",

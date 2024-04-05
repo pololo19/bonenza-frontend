@@ -20,6 +20,7 @@ import LiveStream from '../icons/LiveStream';
 
 type CardBigWinProps = {
   price?: string | number;
+  currency: string;
   imgCard: string;
   userData?: { userId: string; username: string };
 };
@@ -41,7 +42,7 @@ const convertImage = (w: number, h: number) => `
 const toBase64 = (str: string) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
-export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
+export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinProps) {
   const dispatch = useDispatch();
   const { t } = useTranslation('');
   const { userId, userName } = useSelector(
@@ -106,22 +107,20 @@ export function CardBigWin({ price, imgCard, userData }: CardBigWinProps) {
           >
             <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
           </div>
-          <div
-            className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]"
-          >
+          <div className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]">
             <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
             <Image
-              src={localFiat?.logo || '/img/fiats/USD.png'}
+              src={`/img/fiats/${currency.toUpperCase()}.png`}
               width={12}
               height={12}
               alt="currency"
               className="w-4 h-4"
               onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
+                e.currentTarget.src = '/img/fiats/USDT.png';
               }}
             />
           </div>
-          <ArrowRight2 width={12} height={12} variant="Bulk" className="w-4 h-4 block sm:hidden"/>
+          <ArrowRight2 width={12} height={12} variant="Bulk" className="w-4 h-4 block sm:hidden" />
         </div>
       </div>
       <Tooltip id={'CardBigWinData' + price} place="bottom" content={String(price)} />
@@ -193,6 +192,7 @@ function RecentBigWinComponent() {
       return (
         <CardBigWin
           userData={userData}
+          currency={item.currency}
           price={`${getExchangeRateLocalFiat(viewInFiat ? item.profitUsd : item.profit, item.currency)}`}
           imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
         />
@@ -210,8 +210,8 @@ function RecentBigWinComponent() {
         icon={width < 600 ? <LiveStream className="text-color-primary " /> : undefined}
         renderItem={(item) => renderData(item)}
         onClickItem={(game) => {
-          dispatch(setDetailBets(
-            {
+          dispatch(
+            setDetailBets({
               betDetail: {
                 game: game.game,
                 gameIdenfiter: game.identifier,
@@ -228,8 +228,8 @@ function RecentBigWinComponent() {
                 time: new Date(),
               },
               isPublicProfile: !!game?.userName,
-            }
-          ));
+            }),
+          );
           dispatch(changeIsShowDetailBets(true));
         }}
       />

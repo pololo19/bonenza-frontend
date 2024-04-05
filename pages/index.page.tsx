@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 import { toast } from 'react-toastify';
@@ -46,16 +47,13 @@ import VipProgressComponent from '@/components/vipProgress/vipProgress';
 import { useTranslation } from '../config/i18next';
 import { ROUTER, TOAST_ENUM } from '../constants/common';
 import { useExchange } from '../hooks/useExchange';
-import { useWidth } from '../hooks/useWidth';
 import { CookiesStorage } from '../libs/storage/cookie';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
 import { setIsNewMessage } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
-import styles from './index.module.scss';
 
 function IndexPage() {
-  const width = useWidth();
   const exchangeRate = useExchange();
   const { t, i18n } = useTranslation('');
   const { theme } = useTheme();
@@ -229,12 +227,13 @@ function IndexPage() {
   const loadDataAfterLoginMobile = async () => {
     try {
       setIsLoading(true);
-      const [picksforYou, recentGames, favoriteGames] = await Promise.all([
+      const [_resPicksforYou, _resRecentGames, _resFavoriteGames, _resCheckDeposit] = await Promise.all([
         api_getPickGames(1, 40),
         api_getRecentGames(1, 3),
         api_getFavoriteGames(1, 3),
+        api_checkDeposit(),
       ]);
-      const tempPicksForYou: GameListType[] = picksforYou?.data?.games?.map((item: any) => ({
+      const tempPicksForYou: GameListType[] = _resPicksforYou?.data?.games?.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -244,7 +243,7 @@ function IndexPage() {
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
-      const tempRecentGames: GameListType[] = recentGames?.data?.games?.map((item: any) => ({
+      const tempRecentGames: GameListType[] = _resRecentGames?.data?.games?.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -254,7 +253,7 @@ function IndexPage() {
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
-      const tempfavoriteGames: GameListType[] = favoriteGames.data.games.map((item: any) => ({
+      const tempfavoriteGames: GameListType[] = _resFavoriteGames.data.games.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -264,6 +263,12 @@ function IndexPage() {
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
+      const tempCheckDeposit = _resCheckDeposit.data;
+      if (tempCheckDeposit > 0) {
+        setCheckDeposit(true);
+      } else {
+        setCheckDeposit(false);
+      }
       setListPicksForGame(tempPicksForYou);
       setListRecentGame(tempRecentGames);
       setListFavoriteGames(tempfavoriteGames);
@@ -301,13 +306,13 @@ function IndexPage() {
   }, [key]);
 
   useEffect(() => {
-    if (isLogin && width <= 600) {
+    if (isLogin && isMobile) {
       loadDataAfterLoginMobile();
     }
-    if (isLogin && width > 600) {
+    if (isLogin && !isMobile) {
       loadDataAfterLogin();
     }
-  }, [width, isLogin, user]);
+  }, [isMobile, isLogin, user]);
 
   return (
     <>
@@ -315,7 +320,7 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full mt-[20px] sm:mt-0 min-h-[384px] lg:block hidden">
+            <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:mt-0 sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
               <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
                 <Slider
                   slidesToShow={1}
@@ -327,14 +332,14 @@ function IndexPage() {
                   <Image
                     width={0}
                     height={0}
-                    className="absolute right-[0px] bg-cover bg-right overflow-hidden min-h-[384px] object-cover"
+                    className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
                     src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-11.png'}
                     alt=""
                   />
                 </Slider>
               </div>
-              <div className="relative z-[2] w-full min-h-[384px] ml-[15px] flex flex-col justify-start">
-                <div className="h-[134px] w-[646px] relative">
+              <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-[15px] flex flex-col justify-center">
+                {/* <div className="h-[134px] w-[646px] relative">
                   <Image
                     src="/img/page/grand_jackpot.png"
                     width={20}
@@ -356,14 +361,14 @@ function IndexPage() {
                       <div className={styles.goldText}>$ {`50, 000.00`}</div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {!isLogin && (
-                  <div className=" sm:text-start text-center font-semibold sm:block hidden">
+                  <div className="text-start font-semibold">
                     <div>
-                      <span className="dark:text-white text-black text-[20px] font-bold">
+                      <span className="dark:text-white text-black sm:text-[20px] text-[14px] font-bold">
                         {String(t('homePage:signUpUpper'))} &{' '}
                       </span>
-                      <span className="text-color-primary font-bold text-[20px]">
+                      <span className="text-color-primary font-bold sm:text-[20px] text-[14px]">
                         {String(t('homePage:getReward'))}
                       </span>
                     </div>
@@ -376,25 +381,25 @@ function IndexPage() {
                   </div>
                 )}
                 {isLogin && (
-                  <div className="sm:text-start text-center hidden sm:block">
+                  <div className="text-start">
                     {!checkNewUser(user.createdAt) || checkDeposit ? (
-                      <div className="dark:text-white text-black text-[24px] font-semibold">
+                      <div className="dark:text-white text-black text-[14px] sm:text-[24px] font-semibold">
                         {String(t('homePage:welcomeBack'))}
                         {String(', ')} {userName}
                       </div>
                     ) : (
-                      <div className="sm:text-start text-center hidden sm:block">
+                      <div className="text-start">
                         {`${String(t('homePage:hello'))} ${userName}! ${String(t('homePage:welcomeAboard'))}`}
                       </div>
                     )}
 
                     {!checkDeposit && (
                       <div>
-                        <div className="sm:text-[24px] text-[20px] dark:text-white font-bold text-black mt-[6px]">
+                        <div className="sm:text-[24px] text-[16px] dark:text-white font-bold text-black mt-[6px]">
                           {String(t('homePage:firstDepositBonus'))}
                         </div>
                         <div
-                          className={`bg-gradient-text bg-clip-text text-transparent sm:text-[48px] text-[32px] font-bold`}
+                          className={`bg-gradient-text bg-clip-text text-transparent sm:text-[48px] text-[24px] font-bold`}
                         >
                           +180% <span className="font-bold">{String(t('homePage:reward'))}</span>
                         </div>
@@ -402,12 +407,12 @@ function IndexPage() {
                     )}
                   </div>
                 )}
-                <div className="sm:flex hidden sm:flex-row flex-col items-center justify-start gap-[15px] mt-2">
+                <div className="flex items-center justify-start gap-[15px] mt-2">
                   {!isLogin && (
-                    <div className="flex flex-col sm:flex-row items-center gap-[10px]">
+                    <div className="flex items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-5 py-[9px] sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
@@ -415,7 +420,7 @@ function IndexPage() {
                       >
                         {t('homePage:signUpNow')}
                       </button>
-                      <div className="text-[16px] dark:text-white text-black">{t('homePage:or')}</div>
+                      <div className="sm:text-[16px] text-[12px] dark:text-white text-black">{t('homePage:or')}</div>
                     </div>
                   )}
                   {isLogin && (
@@ -423,7 +428,7 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-[23px] py-[14px] lg:text-[16px] text-[12px]"
+                            className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-[9px] px-5 sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}

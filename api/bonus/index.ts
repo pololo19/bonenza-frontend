@@ -12,6 +12,8 @@ import {
   API_BONUS_CLAIM,
   API_BONUS_CLAIM_LIST,
   API_BONUS_DETAILS,
+  API_BONUS_DETAILS_CATEGORIES,
+  API_BONUS_DETAILS_TRANSACTIONS,
   API_BONUS_USDT_BONUS_HISTORY,
 } from '@/base/constants/endpoints';
 
@@ -101,4 +103,12 @@ export const api_referralRule = async () => {
 
 export const api_referralHistory = async (page: number, pageSize: number) => {
   return api.get(API_AFFILIATE_REFERRAL_HISTORY, { params: { page, pageSize } });
+};
+
+export const api_bonusDetailCategories = async () => {
+  return api.get(API_BONUS_DETAILS_CATEGORIES);
+};
+
+export const api_bonusDetailTransactions = async (category: bonusCategoryType = 'all') => {
+  return api.get(API_BONUS_DETAILS_TRANSACTIONS, { params: { category } });
 };

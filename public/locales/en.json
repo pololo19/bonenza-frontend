@@ -1405,7 +1405,8 @@
     "allBonuses": "All bonuses",
     "bonusDashboard": "Bonus Dashboard",
     "onlyTheLatest": "Only the latest 60 days transactions will be displayed below.",
-    "bonusReady": "Bonus Ready"
+    "bonusReady": "Bonus Ready",
+    "activate": "Activate"
   },
   "promotion": {
     "promotion": "Promotion",
