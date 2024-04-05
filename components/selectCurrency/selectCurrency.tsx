@@ -9,6 +9,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
@@ -33,17 +34,18 @@ const SelectCurrency = ({
   onChangeNetwork,
   withDrawTab,
 }: SelectCurrencyProps) => {
+  const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const { query } = useRouter();
 
-  const { symbols, balances, networks, localFiat, bonus, viewInFiat } = useSelector(
+  const { symbols, balances, networks, localFiat, lockedAmount, viewInFiat } = useSelector(
     (state: AppState) => ({
       symbols: state.wallet.symbols,
       balances: state.wallet.balances,
       networks: state.wallet.networks,
       localFiat: state.wallet.localFiat,
-      bonus: state.wallet.bonusBalance,
+      lockedAmount: state.wallet.lockedAmount,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
@@ -225,7 +227,15 @@ const SelectCurrency = ({
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:text-white text-black rounded-default dark:bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 top-[110px] z-[10] cursor-pointer shadow-bs-default">
+                <Menu.Items
+                  className={cn(
+                    'absolute dark:text-white text-black rounded-default dark:bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 z-[10] cursor-pointer shadow-bs-default',
+                    {
+                      'top-[110px]': !withDrawTab,
+                      'top-[80px]': withDrawTab,
+                    },
+                  )}
+                >
                   <div className="py-[10px] px-[10px]">
                     <InputSearch
                       value={searchInput}
@@ -287,11 +297,13 @@ const SelectCurrency = ({
                                     <div className="mt-1 flex justify-end text-color-secondary">
                                       <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                         <Lock size={12} variant="Bold" />{' '}
-                                        {currencyFormat1(
-                                          bonus * exchangeRate,
-                                          fiatDecimals,
-                                          String(localFiat?.name || 'USD'),
-                                        )}
+                                        {viewInFiat
+                                          ? currencyFormat1(
+                                              (lockedAmount / usdtPrice) * exchangeRate,
+                                              fiatDecimals,
+                                              localFiat?.name,
+                                            )
+                                          : currencyFormat1(lockedAmount, 2, '', false)}
                                       </span>
                                     </div>
                                   </div>
