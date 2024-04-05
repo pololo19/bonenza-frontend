@@ -228,7 +228,7 @@ export default function RewardDropdown() {
                               {!bonus.allow && (
                                 <div
                                   role="button"
-                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default min-h-[40px] min-w-[82px] flex justify-center items-center text-default"
+                                  className="bg-[#f36d36] px-[10px] text-white rounded-[8px] min-h-[35px] min-w-[75px] flex justify-center items-center text-default"
                                   onClick={() => dispatch(changeIsShowDepositRule(true))}
                                 >
                                   <div>{t('bonus:activate')}</div>
@@ -236,7 +236,7 @@ export default function RewardDropdown() {
                               )}
                               {bonus.allow && (
                                 <button
-                                  className="bg-gradient-btn-play px-[20px] text-white rounded-default min-h-[40px] min-w-[82px] flex justify-center items-center text-default"
+                                  className="bg-gradient-btn-play px-[10px] text-white rounded-[8px] min-h-[35px] min-w-[75px] flex justify-center items-center text-default"
                                   onClick={() => handleClaim(bonus)}
                                 >
                                   {claimingBonus === bonus.id ? (
