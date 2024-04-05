@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Bonus Kontrol Paneli",
     "onlyTheLatest": "Aşağıda yalnızca en son 60 günlük işlemler görüntülenecektir.",
     "bonusReady": "Bonusa Hazır",
-    "activate": "Etkinleştir"
+    "activate": "Etkinleştir",
+    "luckySpinToolTip1": "Belirli bir bahis miktarına ulaştığınızda her gün 1 bedava dönüş alacaksınız.",
+    "luckySpinTooltip2": "VIP seviyesi 8'den başlayarak, her seviye atladığınızda bir bedava dönüş alacaksınız ve kazanabileceğiniz dönüş sayısında herhangi bir sınırlama yoktur.",
+    "questToolTip": "Görevleri tamamlamaya ve daha fazla ödül kazanmaya devam edin.",
+    "rakebackTooltip1": "Kilitli USDT, para yatırma bonusu ve şanslı çevirme gibi belirli bonuslarla elde edilir.",
+    "rakebackTooltip2": "USDT'nin kilidini açmak çok kolay! "
   },
   "promotion": {
     "promotion": "Terfi",

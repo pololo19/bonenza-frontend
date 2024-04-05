@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Pannello bonus",
     "onlyTheLatest": "Di seguito verranno visualizzate solo le transazioni degli ultimi 60 giorni.",
     "bonusReady": "Bonus pronto",
-    "activate": "Attivare"
+    "activate": "Attivare",
+    "luckySpinToolTip1": "Riceverai 1 giro gratuito ogni giorno una volta raggiunto un importo di scommessa specifico.",
+    "luckySpinTooltip2": "A partire dal livello VIP 8, riceverai un giro gratuito ogni volta che sali di livello e non c'è limite al numero di giri che puoi guadagnare.",
+    "questToolTip": "Continua a completare le missioni e a guadagnare più premi.",
+    "rakebackTooltip1": "L'USDT bloccato si ottiene tramite determinati bonus, come bonus di deposito e giri fortunati.",
+    "rakebackTooltip2": "Sbloccare USDT è facile! "
   },
   "promotion": {
     "promotion": "Promozione",

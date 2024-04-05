@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Painel de bônus",
     "onlyTheLatest": "Apenas as transações dos últimos 60 dias serão exibidas abaixo.",
     "bonusReady": "Bônus pronto",
-    "activate": "Ativar"
+    "activate": "Ativar",
+    "luckySpinToolTip1": "Você receberá 1 rodada grátis todos os dias assim que atingir um valor de aposta específico.",
+    "luckySpinTooltip2": "A partir do nível VIP 8, você receberá uma rodada grátis cada vez que subir de nível e não há limite para o número de rodadas que você pode ganhar.",
+    "questToolTip": "Continue completando missões e ganhando mais recompensas.",
+    "rakebackTooltip1": "O USDT bloqueado é obtido através de certos bônus, como bônus de depósito e giro da sorte.",
+    "rakebackTooltip2": "Desbloquear o USDT é fácil! "
   },
   "promotion": {
     "promotion": "Promoção",

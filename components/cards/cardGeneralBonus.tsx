@@ -1,7 +1,7 @@
 import { ArrowRight, Clock } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import { shallowEqual, useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
@@ -21,7 +21,7 @@ type CardGeneralBonusProps = {
   totalValue: string;
   nameButton: string;
   showDeposit: boolean;
-  tooltip: string;
+  tooltip: string[];
   onClick: () => void;
 };
 
@@ -42,7 +42,6 @@ export default function CardGeneralBonus({
   const { theme, setTheme } = useTheme();
   const { t } = useTranslation('');
   const dispatch = useDispatch();
-  const [openModalDepositRule, setOpenModalDepositRule] = useState<boolean>(false);
 
   const { currentDepositTime } = useSelector(
     (state: AppState) => ({
@@ -64,7 +63,27 @@ export default function CardGeneralBonus({
                 width={16}
                 height={16}
                 alt=""
+                data-tooltip-id={`${title}-bonus-tooltip`}
               />
+              {tooltip.length > 0 && (
+                <Tooltip
+                  id={`${title}-bonus-tooltip`}
+                  place="bottom"
+                  className="dark:bg-black/0 bg-white z-[30]"
+                  opacity={100}
+                >
+                  <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large shadow-bs-default">
+                    {tooltip.length > 1 &&
+                      tooltip.map((item, index) => (
+                        <div key={index} className="w-full flex gap-2">
+                          <div className="min-w-[6px] h-[6px] mt-2 rounded-full bg-color-text-primary"></div>
+                          <div>{item}</div>
+                        </div>
+                      ))}
+                    {tooltip.length === 1 && tooltip[0]}
+                  </div>
+                </Tooltip>
+              )}
             </div>
             <div>
               <div className="flex justify-between w-[70%]">
@@ -134,7 +153,16 @@ export default function CardGeneralBonus({
                 className="dark:bg-black/0 bg-white z-[30]"
                 opacity={100}
               >
-                <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">{tooltip}</div>
+                <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">
+                  {tooltip.length > 1 &&
+                    tooltip.map((item, index) => (
+                      <div key={index} className="w-full flex gap-2">
+                        <div className="min-w-[6px] h-[6px] mt-2 rounded-full bg-color-text-primary"></div>
+                        <div>{item}</div>
+                      </div>
+                    ))}
+                  {tooltip.length === 1 && tooltip[0]}
+                </div>
               </Tooltip>
             </div>
             <div className="flex items-center gap-[7px]">

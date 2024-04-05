@@ -1405,7 +1405,12 @@
     "bonusDashboard": "لوحة معلومات المكافأة",
     "onlyTheLatest": "سيتم عرض المعاملات الأخيرة خلال 60 يومًا فقط أدناه.",
     "bonusReady": "مكافأة جاهزة",
-    "activate": "تفعيل"
+    "activate": "تفعيل",
+    "luckySpinToolTip1": "Sie erhalten jeden Tag 1 Freispiel, sobald Sie einen bestimmten Einsatzbetrag erreicht haben.",
+    "luckySpinTooltip2": "Ab VIP-Level 8 erhalten Sie bei jedem Levelaufstieg einen Gratisdreh und die Anzahl der Spins, die Sie verdienen können, ist unbegrenzt.",
+    "questToolTip": "Schließe weiterhin Quests ab und verdiene weitere Belohnungen.",
+    "rakebackTooltip1": "Gesperrtes USDT wird durch bestimmte Boni wie Einzahlungsbonus und Lucky Spin erhalten.",
+    "rakebackTooltip2": "USDT freizuschalten ist einfach! "
   },
   "promotion": {
     "promotion": "ترقية",
