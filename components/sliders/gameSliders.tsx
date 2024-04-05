@@ -28,9 +28,6 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
         speed={width > 600 ? 1500 : 500}
         loop={true}
         direction={'horizontal'}
-        pagination={{
-          clickable: true,
-        }}
         modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
         className="sm:!pb-[30px] !pb-0 banner-slider"
         breakpoints={{
