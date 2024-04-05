@@ -1,4 +1,4 @@
-import { ArrowRight, Clock } from 'iconsax-react';
+import { ArchiveTick, ArrowRight, Clock } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { ReactNode } from 'react';
@@ -176,21 +176,37 @@ export default function CardGeneralBonus({
             </div>
           </div>
           <div className="mt-[14px] flex flex-col gap-[5px] text-[14px]">
-            <div className="flex justify-between">
+            <div className="flex justify-between text-color-primary">
               <div className="text-color-text-primary">1st Bonus</div>
-              <div className="text-color-text-primary py-[2px] px-[10px]">180%</div>
+              {currentDepositTime < 1 ? (
+                <div className="text-color-text-primary py-[2px] px-[10px]">180%</div>
+              ) : (
+                <ArchiveTick />
+              )}
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between text-color-primary">
               <div className="text-color-text-primary">2nd Bonus</div>
-              <div className="text-color-text-primary py-[2px] px-[10px]">240%</div>
+              {currentDepositTime < 2 ? (
+                <div className="text-color-text-primary py-[2px] px-[10px]">240%</div>
+              ) : (
+                <ArchiveTick />
+              )}
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between text-color-primary">
               <div className="text-color-text-primary">3rd Bonus</div>
-              <div className="text-color-text-primary py-[2px] px-[10px]">300%</div>
+              {currentDepositTime < 3 ? (
+                <div className="text-color-text-primary py-[2px] px-[10px]">300%</div>
+              ) : (
+                <ArchiveTick />
+              )}
             </div>
-            <div className="flex justify-between">
+            <div className="flex justify-between text-color-primary">
               <div className="text-color-text-primary">4th Bonus</div>
-              <div className="text-color-text-primary py-[2px] px-[10px]">360%</div>
+              {currentDepositTime < 4 ? (
+                <div className="text-color-text-primary py-[2px] px-[10px]">360%</div>
+              ) : (
+                <ArchiveTick />
+              )}
             </div>
           </div>
           <div
