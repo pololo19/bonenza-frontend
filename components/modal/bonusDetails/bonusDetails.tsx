@@ -31,6 +31,8 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [bonusCategoriesValue, setbonusCategoriesValue] = useState({
+    luckySpinUsd: 0,
+    questUsd: 0,
     weeklyCashbackUsd: 0,
     monthlyCashbackUsd: 0,
     depositBonusUsd: 0,
@@ -48,26 +50,6 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
   );
 
   const bonusCategories = [
-    // {
-    //   title: 'Quest',
-    //   img: '/img/modal/quests.png',
-    //   value: '0.00',
-    // },
-    // {
-    //   title: 'Lucky Spin',
-    //   img: '/img/modal/spin.png',
-    //   value: '0.00',
-    // },
-    // {
-    //   title: 'Roll Competition',
-    //   img: '/img/modal/roll.png',
-    //   value: '0.00',
-    // },
-    // {
-    //   title: 'Recharge',
-    //   img: '/img/modal/recharge.png',
-    //   value: '0.00',
-    // },
     {
       title: t('bonus:allBonuses'),
       category: 'all',
@@ -86,15 +68,22 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
       img: '/img/modal/monthly.png',
       show: true,
     },
-    // {
-    //   title: 'Sports Weekly Bonus',
-    //   img: '/img/modal/sports.png',
-    //   value: '0.00',
-    // },
     {
       title: t('bonus:levelUpBonus'),
       category: 'level_up',
       img: '/img/modal/levelup.png',
+      show: true,
+    },
+    {
+      title: 'Quest',
+      category: 'quest',
+      img: '/img/modal/quests.png',
+      show: true,
+    },
+    {
+      title: 'Lucky Spin',
+      category: 'lucky_spin',
+      img: '/img/modal/spin.png',
       show: true,
     },
     // {
@@ -118,10 +107,14 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         _res.data?.categories?.transactions.map((item: any) => ({
           amount: Number(item.amount || 0),
           amountUsd: Number(item.amountUsd || 0),
-          type: item.bonusType,
+          type: item.bonusType || item.type,
           time: item.time,
+          symbol: item.symbolName,
+          symbolLogo: item.symbolLogo,
         })) ?? [];
       setbonusCategoriesValue({
+        luckySpinUsd: Number(_res.data?.categories.totalLuckySpinBonusAmountUsd),
+        questUsd: Number(_res.data?.categories.totalQuestBonusAmountUsd),
         weeklyCashbackUsd: Number(_res.data?.categories?.weeklyCashbackAmountUsd || 0),
         monthlyCashbackUsd: Number(_res.data?.categories?.monthlyCashbackAmountUsd || 0),
         depositBonusUsd: Number(_res.data?.categories?.totalDepositBonusAmountUsd || 0),
@@ -130,6 +123,8 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
       setListTransactions(tempListTransactionData);
     } catch (error) {
       setbonusCategoriesValue({
+        luckySpinUsd: 0,
+        questUsd: 0,
         weeklyCashbackUsd: 0,
         monthlyCashbackUsd: 0,
         depositBonusUsd: 0,
@@ -146,7 +141,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
 
   useEffect(() => {
     getListTypeBonus();
-  }, [limit, typeFilter]);
+  }, [getListTypeBonus]);
 
   const columns = useMemo(() => {
     const columnsDefault: ColumnDef<BonusTransactionType>[] = [
@@ -172,7 +167,15 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         ),
         cell: ({ row }) => (
           <div className="font-bold text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
-            {!viewInFiat && <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />}
+            <Image
+              height={20}
+              width={20}
+              src={`/img/fiats/${row.original.symbol}.png`}
+              onError={(e) => {
+                e.currentTarget.src = `/img/fiats/USDT.png`;
+              }}
+              alt=""
+            />
             {viewInFiat
               ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name)
               : currencyFormat1(row.original.amount, 4, '', false)}
@@ -212,14 +215,14 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded"
+        panelClass="rounded sm:!h-[90vh] sm:min-h-[90vh]"
         header={
           <div className="relative px-[18px] h-[60px] flex items-center dark:bg-color-header-primary bg-color-light-bg-primary">
             {t('bonus:bonusDetail')}
           </div>
         }
       >
-        <div className="flex flex-col dark:text-color-text-primary text-[#3137d] overflow-y-auto px-[20px] p-5 bg-color-light-bg-primary dark:bg-[#24262B]">
+        <div className="flex flex-col relative h-full dark:text-color-text-primary text-[#3137d] overflow-y-auto px-[20px] p-5 bg-color-light-bg-primary dark:bg-[#24262B]">
           {isLoading && <Loader />}
           <div className="">
             <div className="dark:text-white text-black text-[16px] mb-3">{t('bonus:bonusCategories')}</div>
@@ -251,6 +254,14 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
                         (viewInFiat
                           ? currencyFormat1(bonusCategoriesValue.depositBonusUsd * exchangeRate, 2, localFiat?.name)
                           : currencyFormat1(bonusCategoriesValue.depositBonusUsd, 2))}
+                      {item.category === 'lucky_spin' &&
+                        (viewInFiat
+                          ? currencyFormat1(bonusCategoriesValue.luckySpinUsd * exchangeRate, 2, localFiat?.name)
+                          : currencyFormat1(bonusCategoriesValue.luckySpinUsd, 2))}
+                      {item.category === 'quest' &&
+                        (viewInFiat
+                          ? currencyFormat1(bonusCategoriesValue.questUsd * exchangeRate, 2, localFiat?.name)
+                          : currencyFormat1(bonusCategoriesValue.questUsd, 2))}
                     </div>
                   </div>
                 ))}
