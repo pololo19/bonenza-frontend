@@ -88,7 +88,7 @@ function BonusLoggedPage() {
         totalValue: '',
         nameButton: '',
         showDeposit: true,
-        tooltip: t('bonus:depositBonusRulesContent'),
+        tooltip: [t('bonus:depositBonusRulesContent')],
         action: () => {},
       },
       {
@@ -102,6 +102,7 @@ function BonusLoggedPage() {
         totalValue: `${bonusData.general.weeklyCompleteQuest}/1`,
         nameButton: t('bonus:questButton'),
         showDeposit: false,
+        tooltip: [t('bonus:questToolTip')],
         action: () => {
           dispatch(changeIsShowQuest(true));
         },
@@ -118,6 +119,7 @@ function BonusLoggedPage() {
         totalValue: `${t('bonus:spinTotalDescription')} VIP ${bonusData.general.levelForSpin}`,
         nameButton: t('bonus:spinButton'),
         showDeposit: false,
+        tooltip: [t('bonus:luckySpinToolTip1'), t('bonus:luckySpinToolTip2')],
         action: () => {
           dispatch(changeIsShowSpin(true));
         },
@@ -140,6 +142,7 @@ function BonusLoggedPage() {
         action: () => {
           dispatch(changeIsShowRakeBack(true));
         },
+        tooltip: [t('bonus:rakebackTooltip1'), t('bonus:rakebackTooltip2')],
       },
     ],
     [i18n.language, lockedAmount],
@@ -410,7 +413,7 @@ function BonusLoggedPage() {
                 totalValue={item.totalValue}
                 nameButton={item.nameButton}
                 showDeposit={item.showDeposit}
-                tooltip={item.tooltip || ''}
+                tooltip={item.tooltip || []}
                 onClick={item.action}
               />
             ))}

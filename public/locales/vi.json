@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Bảng điều khiển tiền thưởng",
     "onlyTheLatest": "Chỉ những giao dịch 60 ngày gần nhất mới được hiển thị bên dưới.",
     "bonusReady": "Tiền thưởng sẵn sàng",
-    "activate": "Kích hoạt"
+    "activate": "Kích hoạt",
+    "luckySpinToolTip1": "Bạn sẽ nhận được 1 vòng quay miễn phí mỗi ngày khi bạn đạt được số tiền đặt cược cụ thể.",
+    "luckySpinTooltip2": "Bắt đầu từ cấp VIP 8, bạn sẽ nhận được một vòng quay miễn phí mỗi khi lên cấp và không có giới hạn về số vòng quay bạn có thể kiếm được.",
+    "questToolTip": "Tiếp tục hoàn thành Nhiệm vụ và kiếm thêm phần thưởng.",
+    "rakebackTooltip1": "USDT bị khóa có thể nhận được thông qua một số phần thưởng nhất định, chẳng hạn như phần thưởng tiền gửi và vòng quay may mắn.",
+    "rakebackTooltip2": "Mở khóa USDT thật dễ dàng! "
   },
   "promotion": {
     "promotion": "Khuyến mãi",

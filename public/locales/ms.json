@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Papan Pemuka Bonus",
     "onlyTheLatest": "Hanya transaksi 60 hari terkini akan dipaparkan di bawah.",
     "bonusReady": "Bonus Sedia",
-    "activate": "Aktifkan"
+    "activate": "Aktifkan",
+    "luckySpinToolTip1": "Anda akan menerima 1 putaran percuma setiap hari sebaik sahaja anda mencapai jumlah pertaruhan tertentu.",
+    "luckySpinTooltip2": "Bermula dari tahap VIP 8, anda akan menerima satu putaran percuma setiap kali anda naik tahap, dan tiada had kepada bilangan putaran yang anda boleh perolehi.",
+    "questToolTip": "Teruskan menyelesaikan Pencarian dan peroleh lebih banyak ganjaran.",
+    "rakebackTooltip1": "USDT berkunci diperoleh melalui bonus tertentu, seperti bonus deposit dan putaran bertuah.",
+    "rakebackTooltip2": "Membuka kunci USDT adalah mudah! "
   },
   "promotion": {
     "promotion": "kenaikan pangkat",

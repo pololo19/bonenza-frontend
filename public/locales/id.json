@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Dasbor Bonus",
     "onlyTheLatest": "Hanya transaksi 60 hari terakhir yang akan ditampilkan di bawah.",
     "bonusReady": "Bonusnya Siap",
-    "activate": "Mengaktifkan"
+    "activate": "Mengaktifkan",
+    "luckySpinToolTip1": "Anda akan menerima 1 putaran gratis setiap hari setelah Anda mencapai jumlah taruhan tertentu.",
+    "luckySpinTooltip2": "Mulai dari VIP level 8, Anda akan menerima satu putaran gratis setiap kali Anda naik level, dan tidak ada batasan jumlah putaran yang dapat Anda peroleh.",
+    "questToolTip": "Terus selesaikan Misi dan dapatkan lebih banyak hadiah.",
+    "rakebackTooltip1": "USDT yang terkunci diperoleh melalui bonus tertentu, seperti bonus deposit dan lucky spin.",
+    "rakebackTooltip2": "Membuka kunci USDT itu mudah! "
   },
   "promotion": {
     "promotion": "Promosi",
