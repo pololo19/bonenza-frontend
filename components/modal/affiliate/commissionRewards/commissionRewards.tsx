@@ -1,8 +1,10 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { ElementType } from 'react';
-import CommonModal from '../../commonModal/commonModal';
-import { useTranslation } from '@/base/config/i18next';
 import cn from 'classnames';
+import { ElementType } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
+
+import CommonModal from '../../commonModal/commonModal';
 import styles from './index.module.scss';
 type ModalCommissionReward = {
   onClose: () => void;
@@ -36,7 +38,7 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
     <CommonModal
       show={show}
       onClose={onClose}
-      panelClass="rounded sm:max-w-[464px] h-[100%]"
+      panelClass="rounded sm:max-w-[464px] sm:!h-[90vh]"
       header={
         <div className="relative sm:px-[30px] px-[20px] sm:py-[30px] py-[25px] bg-white dark:bg-[#17191b]">
           <div className="absolute left-0 top-0 h-[60px] w-full flex items-center pl-[24px]">

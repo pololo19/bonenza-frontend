@@ -88,9 +88,9 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
     <CommonModal
       show={show}
       onClose={onClose}
-      panelClass="rounded sm:max-w-[464px] h-[100%]"
+      panelClass="rounded sm:max-w-[464px] sm:!h-[90vh]"
       header={
-        <div className="relative sm:px-[30px] px-[20px] text-center pt-[20px] text-title pb-[10px] bg-white text-black font-bold">
+        <div className="relative sm:px-[30px] px-[20px] text-center pt-[20px] text-title pb-[10px] font-bold">
           {t('affiliate:referralRewardRules')}
         </div>
       }

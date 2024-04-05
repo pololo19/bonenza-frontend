@@ -62,7 +62,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       setIsLoading(true);
       const [_resVipProgress] = await Promise.all([api_getVipProgress(), api_vipLevelSystem()]);
       const _res = await api_vipLevelSystem();
-      const tempRankDatas:rankUpType[] = _res?.data.levelUpDetails.map((item: any) => ({
+      const tempRankDatas: rankUpType[] = _res?.data.levelUpDetails.map((item: any) => ({
         name: item.medalName ?? '',
         startLevel: Number(item.startLevelNum ?? 0),
         endLevel: Number(item.endLevelNum ?? 0),
@@ -108,11 +108,16 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
     const wagerColumnsDefault: ColumnDef<levelDataType>[] = [
       {
         accessorKey: 'level',
-        
+
         header: () => <div className="text-left pl-2 text-[12px] sm:text-[14px] font-normal">{t('vipClub:level')}</div>,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2 sm:px-2 p-[5px]">
-            <Image height={18} width={16} src={dataMedal.find((item) => item.name === row?.original?.rank)?.img || "/img/bronze-medal.png"} alt="" />
+            <Image
+              height={18}
+              width={16}
+              src={dataMedal.find((item) => item.name === row?.original?.rank)?.img || '/img/bronze-medal.png'}
+              alt=""
+            />
             <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] pl-2 min-w-[80px]">
               {row?.original?.name}
             </div>
@@ -164,11 +169,11 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
         header={
           <div className="relative px-[20px] py-[18px] bg-white dark:bg-color-header-primary">
             <div>
-              <div className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer">
-                <ArrowLeft2
-                  className="w-[16px] dark:text-color-text-primary text-color-light-text-primary stroke-4"
-                  onClick={onClose}
-                />
+              <div
+                className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer"
+                onClick={onClose}
+              >
+                <ArrowLeft2 className="w-[16px] dark:text-color-text-primary text-color-light-text-primary stroke-4" />
                 <div className="text-[16px]">{t('vipClub:VIPLevelSystem')}</div>
               </div>
             </div>
@@ -214,11 +219,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
               </div>
             ))}
           </div>
-          <RankingTableComponent
-            containerClassName="w-full pt-0"
-            data={levelCurrent.levels}
-            columns={vipColumns}
-          />
+          <RankingTableComponent containerClassName="w-full pt-0" data={levelCurrent.levels} columns={vipColumns} />
         </div>
       </CommonModal>
     </>
