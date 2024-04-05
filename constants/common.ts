@@ -882,40 +882,40 @@ export const BANNER_DATA = [
     url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),
   },
   {
-    img: '/img/banners/Blackjack_Salon_Prive.png',
-    url: ROUTER.GameDetail('ezugi:BlackjackSalonPrive'),
-  },
-  {
-    img: "/img/banners/Dolphin's_Wealth.png",
-    url: ROUTER.GameDetail('1spin4win:DolphinsWealth'),
-  },
-  {
-    img: '/img/banners/Multihand_Blackjack.png',
-    url: ROUTER.GameDetail('ezugi:BlackjackDaSorte'),
-  },
-  {
-    img: '/img/banners/Speed_Fortune_Baccarat.png',
-    url: ROUTER.GameDetail('ezugi:SpeedFortuneBaccarat'),
+    img: '/img/banners/Dice_Bonaza.png',
+    url: ROUTER.GameDetail('softswiss:dicebonanza'),
   },
   {
     img: '/img/banners/Plinko.png',
     url: ROUTER.GameDetail('softswiss:easterplinko'),
   },
   {
-    img: '/img/banners/Dice_Bonaza.png',
-    url: ROUTER.GameDetail('softswiss:dicebonanza'),
-  },
-  {
-    img: '/img/banners/Aloha_King_Elvis.png',
-    url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),
-  },
-  {
-    img: '/img/banners/Blackjack_Salon_Prive.png',
-    url: ROUTER.GameDetail('ezugi:BlackjackSalonPrive'),
-  },
-  {
     img: "/img/banners/Dolphin's_Wealth.png",
     url: ROUTER.GameDetail('1spin4win:DolphinsWealth'),
+  },
+  {
+    img: '/img/banners/Black_Jack_Gold.png',
+    url: ROUTER.GameDetail('ezugi:blackjackgold1'),
+  },
+  {
+    img: '/img/banners/Cricket_War.png',
+    url: ROUTER.GameDetail('ezugi:cricketwar'),
+  },
+  {
+    img: '/img/banners/Keno.png',
+    url: ROUTER.GameDetail('infin:fastkeno'),
+  },
+  {
+    img: '/img/banners/Dealer_Roulette.png',
+    url: ROUTER.GameDetail('ezugi:ezdealerroulette'),
+  },
+  {
+    img: '/img/banners/Speed_Fortune_Baccarat.png',
+    url: ROUTER.GameDetail('ezugi:speedfortunebaccarat'),
+  },
+  {
+    img: '/img/banners/Wheel_Bet.png',
+    url: ROUTER.GameDetail('infin:wheelbet'),
   },
 ];
 
