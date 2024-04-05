@@ -22,12 +22,14 @@ import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer
 import {
   changeIsShowAccountPannel,
   changeIsShowAuthenticationModal,
+  changeIsShowBonusDetail,
   changeIsShowBonusHistory,
   changeIsShowCasinoSearch,
   changeIsShowChatRule,
   changeIsShowCryptoOnlineModal,
   changeIsShowDepositModal,
   changeIsShowDepositProgress,
+  changeIsShowDepositRule,
   changeIsShowDetailBets,
   changeIsShowInformation,
   changeIsShowLogOutConfirm,
@@ -72,9 +74,11 @@ import Loader from '../common/preloader/loader';
 import HomeIconOutline from '../icons/HomeIconOutline';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
+import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
 import ModalChatRules from '../modal/chatRules/chatRules';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
+import ModalDepositBonusRules from '../modal/depositBonusRules/depositBonusRules';
 import ModalDeposit from '../modal/depositModal/depositModal';
 import ModalDepositProgress from '../modal/depositModal/depositProgress';
 import ModalDetailBets from '../modal/detailBets/detailBets';
@@ -191,6 +195,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowSpin,
     isShowQuest,
     isShowChatRule,
+    isShowBonusDetail,
+    isShowDepositRule,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -233,6 +239,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowQuest: state.modal.isShowQuest,
       isShowDepositProgress: state.modal.isShowDepositProgress,
       isShowDetailBets: state.modal.isShowDetailBets,
+      isShowBonusDetail: state.modal.isShowBonusDetail,
+      isShowDepositRule: state.modal.isShowDepositRule,
     }),
     shallowEqual,
   );
@@ -918,6 +926,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         onClose={() => {
           dispatch(changeIsShowChatRule(false));
         }}
+      />
+      <ModalBonusDetail show={isShowBonusDetail || false} onClose={() => dispatch(changeIsShowBonusDetail(false))} />
+      <ModalDepositBonusRules
+        show={isShowDepositRule || false}
+        onClose={() => dispatch(changeIsShowDepositRule(false))}
       />
     </>
   );

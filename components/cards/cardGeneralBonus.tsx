@@ -7,10 +7,8 @@ import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
-import { changeIsShowDepositModal } from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowDepositModal, changeIsShowDepositRule } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-
-import ModalDepositBonusRules from '../modal/depositBonusRules/depositBonusRules';
 
 type CardGeneralBonusProps = {
   background: string;
@@ -142,7 +140,7 @@ export default function CardGeneralBonus({
             <div className="flex items-center gap-[7px]">
               <div
                 className="text-color-primary text-[14px] hover:underline cursor-pointer"
-                onClick={() => setOpenModalDepositRule(true)}
+                onClick={() => dispatch(changeIsShowDepositRule(true))}
               >
                 {t('bonus:viewDetails')}
               </div>
@@ -178,9 +176,6 @@ export default function CardGeneralBonus({
             {currentDepositTime > 2 && t('promotion:depositNow')}
           </div>
         </div>
-      )}
-      {openModalDepositRule && (
-        <ModalDepositBonusRules show={openModalDepositRule} onClose={() => setOpenModalDepositRule(false)} />
       )}
     </div>
   );
