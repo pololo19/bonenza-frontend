@@ -311,7 +311,7 @@ export default function SidebarToggle() {
                 <CsrWrapper key="spin">
                   <IconOption
                     imageURL="/img/sidebar/spin.png"
-                    count={spinCount}
+                    count={isLogin ? spinCount : 0}
                     imageClass="absolute -left-[5px] -top-[13px] w-[41px] h-[41px]"
                     textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
                     title={String(t('sidebar:spin'))}

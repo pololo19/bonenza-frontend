@@ -455,7 +455,7 @@ const AccountPannel: React.FC = () => {
               imageClass="w-[30px] h-[30px]"
               textClass="text-white !text-[15px] font-semibold"
               title={String(t('sidebar:spin'))}
-              count={spinCount}
+              count={isLogin ? spinCount : 0}
               href=""
               onClick={() => dispatch(changeIsShowSpin(true))}
               icon={() => <Image height={30} width={30} src={'img/sidebar/spin.png'} alt=""></Image>}
