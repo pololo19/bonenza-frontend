@@ -460,6 +460,7 @@ export default function SidebarToggle() {
               key={'quest-small'}
               className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
               data-tooltip-id={'quest-tooltip'}
+              onClick={() => dispatch(changeIsShowQuest(true))}
             >
               <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
             </div>
@@ -475,6 +476,7 @@ export default function SidebarToggle() {
               id="spin-small"
               className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
               data-tooltip-id={'spin-tooltip'}
+              onClick={() => dispatch(changeIsShowSpin(true))}
             >
               <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
             </div>

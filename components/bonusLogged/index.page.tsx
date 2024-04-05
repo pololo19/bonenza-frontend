@@ -13,6 +13,7 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
 import {
+  changeIsShowBonusDetail,
   changeIsShowQuest,
   changeIsShowRakeBack,
   changeIsShowSpin,
@@ -24,7 +25,6 @@ import BaseLayout from '@/components/layouts/base.layout';
 
 import CardGeneralBonus from '../cards/cardGeneralBonus';
 import CardVipBonus from '../cards/cardVipBonus';
-import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 
 function BonusLoggedPage() {
   const exchangeRate = useExchange();
@@ -326,7 +326,7 @@ function BonusLoggedPage() {
             </div>
             {/* Claim & Details Button */}
             <div
-              onClick={() => setOpenModalBonusDetails(true)}
+              onClick={() => dispatch(changeIsShowBonusDetail(true))}
               role="button"
               className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-large dark:text-color-text-primary text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
             >
@@ -452,9 +452,6 @@ function BonusLoggedPage() {
           </div>
         </div>
       </div>
-      {openModalBonusDetails && (
-        <ModalBonusDetail show={openModalBonusDetails} onClose={() => setOpenModalBonusDetails(false)} />
-      )}
     </>
   );
 }

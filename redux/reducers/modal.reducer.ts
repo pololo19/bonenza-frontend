@@ -37,6 +37,7 @@ export const initialCommonState: ModalState = {
   isShowSpin: false,
   isShowDepositProgress: false,
   isShowSpinClaim: false,
+  isShowBonusDetail: false,
   detailBets: {
     isPublicProfile: true,
     titleModal: '',
@@ -58,6 +59,7 @@ export const initialCommonState: ModalState = {
     },
   },
   isShowQuest: false,
+  isShowDepositRule: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -166,6 +168,9 @@ export const queryDataSlice = createSlice({
     changeIsShowChatRule: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowChatRule = action.payload;
     },
+    changeIsShowBonusDetail: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowBonusDetail = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -210,6 +215,9 @@ export const queryDataSlice = createSlice({
       state.isShowLogOutConfirm = false;
       state.isShowDepositProgress = false;
     },
+    changeIsShowDepositRule: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowDepositRule = action.payload;
+    },
   },
 });
 
@@ -250,5 +258,7 @@ export const {
   setInitialModals,
   changeIsShowQuest,
   changeIsShowChatRule,
+  changeIsShowBonusDetail,
+  changeIsShowDepositRule,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
