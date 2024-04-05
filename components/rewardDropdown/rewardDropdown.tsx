@@ -14,6 +14,7 @@ import { api_getClaims } from '@/api/wallet';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
+import { changeIsShowDepositRule } from '@/base/redux/reducers/modal.reducer';
 import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
@@ -225,13 +226,13 @@ export default function RewardDropdown() {
                             </div>
                             <div className="py-[2px] flex items-center">
                               {!bonus.allow && (
-                                <Link
+                                <div
                                   role="button"
                                   className="bg-gradient-btn-play px-[20px] text-white rounded-default min-h-[40px] min-w-[82px] flex justify-center items-center text-default"
-                                  href={'/deposit/crypto'}
+                                  onClick={() => dispatch(changeIsShowDepositRule(true))}
                                 >
                                   <div>{t('bonus:activate')}</div>
-                                </Link>
+                                </div>
                               )}
                               {bonus.allow && (
                                 <button

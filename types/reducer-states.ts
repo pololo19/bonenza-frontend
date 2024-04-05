@@ -75,6 +75,8 @@ export type ModalState = {
   isShowDetailTransaction?: boolean;
   isShowQuest?: boolean;
   isShowChatRule?: boolean;
+  isShowBonusDetail?: boolean;
+  isShowDepositRule?: boolean;
 };
 
 export type LoadingState = {
