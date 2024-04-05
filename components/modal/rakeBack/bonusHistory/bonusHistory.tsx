@@ -61,10 +61,12 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
       setIsLoadingTable(true);
       const _res = await api_bonusUsdtHistory(page, limit);
       const tempListTransactionData: BonusTransactionType[] = _res.data.bonuses?.map((item: any) => ({
-        amount: item.amount,
-        amountUsd: item.amountUsd,
-        type: item.type,
+        amount: Number(item?.amount || 0),
+        amountUsd: Number(item?.amountUsd || 0),
+        type: item?.type ?? '',
         time: item.date,
+        symbol: item?.symbol ?? 'USDT',
+        symbolLogo: item?.symbolLogo ?? '',
       }));
       const totalCounts = Number(_res.data?.totalCount || 0);
       setListTransactions(tempListTransactionData);
@@ -121,7 +123,15 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
             ) : (
               currencyFormat1(Math.abs(row.original?.amount), 4, '', false)
             )}
-            <Image height={20} width={20} src={`/img/fiats/USDT.png`} alt="" />
+            <Image
+              height={20}
+              width={20}
+              src={`/img/fiats/${row.original.symbol}.png`}
+              onError={(e) => {
+                e.currentTarget.src = `/img/fiats/USDT.png`;
+              }}
+              alt=""
+            />
           </div>
         ),
       },
@@ -144,7 +154,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
       <CommonModal
         show={show}
         onClose={handleCloseModal}
-        panelClass="sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] sm:my-0"
+        panelClass="sm:max-w-[464px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0"
         header={
           <div
             className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px]"
@@ -155,7 +165,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
           </div>
         }
       >
-        <div className="dark:bg-color-modal-bg-primary bg-white p-3 pb-0">
+        <div className="relative dark:bg-color-modal-bg-primary bg-white p-3 h-full">
           <TableComponent
             isLoading={isLoadingTable}
             handleClickRow={() => {}}

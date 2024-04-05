@@ -55,7 +55,7 @@ function GameCard(props: GameCardProps) {
         })}
       >
         <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-default">
-          <LazyLoad className="min-h-[100px]">
+          <LazyLoad className="min-h-[120px]">
             <Image
               height={160}
               width={160}

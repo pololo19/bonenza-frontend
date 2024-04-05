@@ -3,7 +3,6 @@ import { Command, Diamonds, Gift, HambergerMenu, Headphone, Notepad2, SecurityCa
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useTheme } from 'next-themes';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
@@ -432,7 +431,7 @@ export default function SidebarToggle() {
             <HambergerMenu size={18} className={cn('m-auto')} />
           </button>
         </div>
-        <div className="flex-1 flex flex-col h-full pt-2 gap-[5px]">
+        <div className="flex-1 flex flex-col h-full pt-2 gap-[5px] overflow-y-auto">
           <Link
             key={`bonus-small`}
             href={ROUTER.Bonus}
@@ -455,23 +454,36 @@ export default function SidebarToggle() {
             </div>
           </Tooltip>
 
-          <div key={'quest-small'} data-tooltip-id={'quest-tooltip'}>
-            <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
-          </div>
-          <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute" key={`quest_tooltip-small`}>
-            <div>
-              <p className="text-white">Quest</p>
+          <div className="w-full" key="quest-small">
+            <div
+              role="button"
+              key={'quest-small'}
+              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
+              data-tooltip-id={'quest-tooltip'}
+            >
+              <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
             </div>
-          </Tooltip>
-
-          <div id="spin-small" data-tooltip-id={'spin-tooltip'}>
-            <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
+            <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute">
+              <div>
+                <p className="text-white">Quest</p>
+              </div>
+            </Tooltip>
           </div>
-          <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute" key={`spin_tooltip-small`}>
-            <div>
-              <p className="text-white">Spin</p>
+          <div className="w-full" key="spin-small">
+            <div
+              role="button"
+              id="spin-small"
+              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
+              data-tooltip-id={'spin-tooltip'}
+            >
+              <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
             </div>
-          </Tooltip>
+            <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute">
+              <div>
+                <p className="text-white">Spin</p>
+              </div>
+            </Tooltip>
+          </div>
 
           {panel_1_datas.map((item, index) => (
             <div className="w-full" key={`${index}-${item.title}`}>
