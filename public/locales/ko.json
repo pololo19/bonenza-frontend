@@ -1404,7 +1404,8 @@
     "allBonuses": "모든 보너스",
     "bonusDashboard": "보너스 대시보드",
     "onlyTheLatest": "아래에는 최근 60일간의 거래만 표시됩니다.",
-    "bonusReady": "보너스 준비"
+    "bonusReady": "보너스 준비",
+    "activate": "활성화"
   },
   "promotion": {
     "promotion": "홍보",

@@ -136,6 +136,8 @@ const API_VIP_LEVEL_SYSTEM = '/vip/vip-level-system';
 
 const API_BONUS_BONUS_STATISTIC = '/bonus/statistics';
 const API_BONUS_DETAILS = '/bonus/details';
+const API_BONUS_DETAILS_CATEGORIES = '/bonus/details/categories';
+const API_BONUS_DETAILS_TRANSACTIONS = '/bonus/details/transactions';
 const API_BONUS_USDT_BONUS_HISTORY = '/bonus/usdt-history';
 const API_BONUS_CLAIM_LIST = '/bonus/claim/list';
 const API_BONUS_CLAIM = '/bonus/claim';
@@ -194,6 +196,8 @@ export {
   API_BONUS_CLAIM,
   API_BONUS_CLAIM_LIST,
   API_BONUS_DETAILS,
+  API_BONUS_DETAILS_CATEGORIES,
+  API_BONUS_DETAILS_TRANSACTIONS,
   API_BONUS_USDT_BONUS_HISTORY,
   API_CHAT_ADD,
   API_CHAT_LATEST,

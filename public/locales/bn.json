@@ -1404,7 +1404,8 @@
     "allBonuses": "সব বোনাস",
     "bonusDashboard": "বোনাস ড্যাশবোর্ড",
     "onlyTheLatest": "শুধুমাত্র সর্বশেষ 60 দিনের লেনদেন নীচে প্রদর্শিত হবে।",
-    "bonusReady": "বোনাস রেডি"
+    "bonusReady": "বোনাস রেডি",
+    "activate": "সক্রিয় করুন"
   },
   "promotion": {
     "promotion": "পদোন্নতি",

@@ -1404,7 +1404,8 @@
     "allBonuses": "โบนัสทั้งหมด",
     "bonusDashboard": "แดชบอร์ดโบนัส",
     "onlyTheLatest": "เฉพาะธุรกรรม 60 วันล่าสุดเท่านั้นที่จะแสดงด้านล่าง",
-    "bonusReady": "โบนัสพร้อม"
+    "bonusReady": "โบนัสพร้อม",
+    "activate": "เปิดใช้งาน"
   },
   "promotion": {
     "promotion": "การส่งเสริม",
