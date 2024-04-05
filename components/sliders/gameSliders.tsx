@@ -35,8 +35,8 @@ const GameBannerSlider = ({ className }: { className?: string }) => {
         className="sm:!pb-[30px] !pb-0 banner-slider"
         breakpoints={{
           350: {
-            slidesPerView: 1,
-            slidesPerGroup: 1,
+            slidesPerView: 2,
+            slidesPerGroup: 2,
           },
           870: {
             slidesPerView: 3,
