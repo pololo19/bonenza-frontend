@@ -505,6 +505,8 @@ export type BonusTransactionType = {
   amountUsd: number;
   type: string;
   time: string;
+  symbol: string;
+  symbolLogo: string;
 };
 
 export type MessageType = {

@@ -2,6 +2,7 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ElementType } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalCryptoOnlineProps = {
