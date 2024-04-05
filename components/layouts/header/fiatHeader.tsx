@@ -1,32 +1,30 @@
 import { Menu, Switch, Transition } from '@headlessui/react';
 import cn from 'classnames';
-import { AddSquare, ArrowDown2, Lock } from 'iconsax-react';
+import { AddSquare, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { isMobile } from 'react-device-detect';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { updateSetting } from '@/base/redux/reducers/auth.reducer';
-import { changeActiveFiat, changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { changeActiveFiat } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
-import { setActiveCurrency, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
+import { setActiveCurrency } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { FiatType } from '@/base/types/common';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import InputSearch from '@/components/input/typing/InputSearch';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
-import ModalBonusHistory from '@/components/modal/rakeBack/bonusHistory/bonusHistory';
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
-import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
-import { isMobile } from 'react-device-detect';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
