@@ -236,7 +236,7 @@ export default function Navbar() {
             {viewInFiat && localFiat && (
               <button
                 type="button"
-                className="sm:block hidden rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary dark:hover:text-white hover:text-black dark:text-color-text-primary text-color-light-text-primary p-[10px]"
+                className="sm:block hidden rounded-default dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary dark:hover:text-white hover:text-black dark:text-color-text-primary text-color-light-text-primary p-[10px]"
                 onClick={() => {
                   dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
                   dispatch(changeIsShowMultiLanguageModal(true));

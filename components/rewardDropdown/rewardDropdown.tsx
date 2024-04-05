@@ -35,7 +35,7 @@ export default function RewardDropdown() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [claimingBonus, setClaimingBonus] = useState<string>('');
-  const { viewInFiat, localFiat, lockedAmount, isLogin, isShowSpinClaim } = useSelector(
+  const { viewInFiat, localFiat, isLogin, isShowSpinClaim } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
@@ -76,10 +76,7 @@ export default function RewardDropdown() {
       const _resBonus = await api_getClaims();
       const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
 
-      const tempBonuses = [...bonuses];
-      const pos = tempBonuses.findIndex((item) => item.id === bonus.id);
-      tempBonuses.splice(pos, 1);
-      setBonuses(tempBonuses);
+      await getBonusList();
 
       // update balance
       dispatch(getBalance());
@@ -227,7 +224,7 @@ export default function RewardDropdown() {
                               </div>
                             </div>
                             <div className="py-[2px] flex items-center">
-                              {lockedAmount < bonus.amount && (
+                              {!bonus.allow && (
                                 <Link
                                   role="button"
                                   className="bg-gradient-btn-play px-[20px] text-white rounded-default min-h-[40px] min-w-[82px] flex justify-center items-center text-default"
@@ -236,7 +233,7 @@ export default function RewardDropdown() {
                                   <div>{t('bonus:activate')}</div>
                                 </Link>
                               )}
-                              {lockedAmount >= bonus.amount && (
+                              {bonus.allow && (
                                 <button
                                   className="bg-gradient-btn-play px-[20px] text-white rounded-default min-h-[40px] min-w-[82px] flex justify-center items-center text-default"
                                   onClick={() => handleClaim(bonus)}
