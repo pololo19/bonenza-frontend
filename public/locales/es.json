@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Panel de bonificación",
     "onlyTheLatest": "A continuación solo se mostrarán las transacciones de los últimos 60 días.",
     "bonusReady": "Bono listo",
-    "activate": "Activar"
+    "activate": "Activar",
+    "luckySpinToolTip1": "Recibirás 1 giro gratis todos los días una vez que alcances un monto de apuesta específico.",
+    "luckySpinTooltip2": "A partir del nivel VIP 8, recibirás un giro gratis cada vez que subas de nivel y no hay límite en la cantidad de giros que puedes ganar.",
+    "questToolTip": "Sigue completando misiones y ganando más recompensas.",
+    "rakebackTooltip1": "El USDT bloqueado se obtiene a través de ciertos bonos, como el bono de depósito y el giro de la suerte.",
+    "rakebackTooltip2": "¡Desbloquear USDT es fácil! "
   },
   "promotion": {
     "promotion": "Promoción",

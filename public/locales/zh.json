@@ -1405,7 +1405,12 @@
     "bonusDashboard": "奖金仪表板",
     "onlyTheLatest": "下面仅显示最近 60 天的交易。",
     "bonusReady": "奖金准备就绪",
-    "activate": "启用"
+    "activate": "启用",
+    "luckySpinToolTip1": "一旦达到特定投注金额，您每天将获得 1 次免费旋转。",
+    "luckySpinTooltip2": "从 VIP 8 级开始，每次升级您将获得一次免费旋转，并且您可以获得的旋转次数没有限制。",
+    "questToolTip": "继续完成任务并获得更多奖励。",
+    "rakebackTooltip1": "锁定USDT是通过某些奖金获得的，例如存款奖金和幸运旋转。",
+    "rakebackTooltip2": "解锁USDT很简单！"
   },
   "promotion": {
     "promotion": "晋升",

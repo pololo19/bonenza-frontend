@@ -1405,7 +1405,12 @@
     "bonusDashboard": "Tableau de bord bonus",
     "onlyTheLatest": "Seules les transactions des 60 derniers jours seront affichées ci-dessous.",
     "bonusReady": "Bonus prêt",
-    "activate": "Activer"
+    "activate": "Activer",
+    "luckySpinToolTip1": "Vous recevrez 1 tour gratuit chaque jour une fois que vous aurez atteint un montant de mise spécifique.",
+    "luckySpinTooltip2": "À partir du niveau VIP 8, vous recevrez un tour gratuit à chaque fois que vous passerez au niveau supérieur, et il n'y a pas de limite au nombre de tours que vous pouvez gagner.",
+    "questToolTip": "Continuez à terminer des quêtes et gagnez plus de récompenses.",
+    "rakebackTooltip1": "L'USDT verrouillé est obtenu grâce à certains bonus, tels que le bonus de dépôt et le tour chanceux.",
+    "rakebackTooltip2": "Débloquer l’USDT est facile ! "
   },
   "promotion": {
     "promotion": "Promotion",

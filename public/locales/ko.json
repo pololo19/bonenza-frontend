@@ -1405,7 +1405,12 @@
     "bonusDashboard": "보너스 대시보드",
     "onlyTheLatest": "아래에는 최근 60일간의 거래만 표시됩니다.",
     "bonusReady": "보너스 준비",
-    "activate": "활성화"
+    "activate": "활성화",
+    "luckySpinToolTip1": "특정 베팅 금액에 도달하면 매일 1회의 무료 스핀을 받게 됩니다.",
+    "luckySpinTooltip2": "VIP 레벨 8부터 레벨이 오를 때마다 무료 스핀을 1회 받게 되며 획득할 수 있는 스핀 수에는 제한이 없습니다.",
+    "questToolTip": "계속해서 퀘스트를 완료하고 더 많은 보상을 획득하세요.",
+    "rakebackTooltip1": "잠긴 USDT는 입금 보너스 및 럭키 스핀과 같은 특정 보너스를 통해 획득됩니다.",
+    "rakebackTooltip2": "USDT 잠금 해제는 쉽습니다! "
   },
   "promotion": {
     "promotion": "홍보",
