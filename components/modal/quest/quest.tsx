@@ -583,8 +583,8 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                   renderer={({ days, hours, minutes, seconds }) => (
                     <div className="text-white">
                       {selectedType === 'daily'
-                        ? formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')
-                        : `${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'hh : mm : ss')}
+                        ? formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH : mm : ss')
+                        : `${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH : mm : ss')}
                     </div>
                   )}
                 />
