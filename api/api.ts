@@ -70,7 +70,7 @@ const wrapApiErrors = async (error: any, axiosInstance: AxiosInstance) => {
     case 401:
       CookiesStorage.logout();
       Router.push(ROUTER.Home);
-      toast.error("You're logged out. Please sign in again. Thanks.", { containerId: TOAST_ENUM.COMMON });
+      // toast.error("You're logged out. Please sign in again. Thanks.", { containerId: TOAST_ENUM.COMMON });
 
       store.dispatch(setInitialModals());
       store.dispatch(logoutState());
