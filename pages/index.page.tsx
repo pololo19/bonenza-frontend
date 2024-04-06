@@ -7,7 +7,6 @@ import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import Slider from 'react-slick';
 import { toast } from 'react-toastify';
 
 import { api_getChatHistory } from '@/api/chat';
@@ -322,21 +321,21 @@ function IndexPage() {
           <div className="flex-1 w-full">
             <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:mt-0 sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
               <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
-                <Slider
+                {/* <Slider
                   slidesToShow={1}
                   className={cn('h-full slide-header sm:mx-[auto] mx-[-12px]')}
                   arrows={false}
                   autoplay={false}
                   autoplaySpeed={3000}
-                >
-                  <Image
-                    width={0}
-                    height={0}
-                    className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
-                    src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-11.png'}
-                    alt=""
-                  />
-                </Slider>
+                > */}
+                <Image
+                  width={1339}
+                  height={384}
+                  className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
+                  src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-11.png'}
+                  alt=""
+                />
+                {/* </Slider> */}
               </div>
               <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-[15px] flex flex-col justify-center">
                 {/* <div className="h-[134px] w-[646px] relative">
