@@ -108,11 +108,13 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
   const handleClickRow = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
-    dispatch(setDetailBets({
-      betDetail: row.original,
-      betId: Number(betId),
-      isPublicProfile: row.original.player == '' ? false : true,
-    }));
+    dispatch(
+      setDetailBets({
+        betDetail: row.original,
+        betId: Number(betId),
+        isPublicProfile: row.original.player == '' ? false : true,
+      }),
+    );
     dispatch(changeIsShowDetailBets(true));
   };
 
@@ -298,19 +300,19 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         {!!betHistoryFilter.length && (
           <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
             <div
-              className="flex items-center dark:bg-[#25262B] bg-[#f6f7fa] py-[9px] px-[10px] rounded-[5px]"
+              className="flex items-center py-[9px] px-[10px] rounded-[5px]"
               role="button"
               onClick={() => {
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-[10px] dark:text-[#FFFFFF] text-color-light-text-primary font-bold mr-[6px]">
+              <div className="text-default dark:text-[#FFFFFF] text-[#000] font-normal mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (
-                <ArrowDown2 size={12} className="dark:text-[#FFFFFF] text-color-light-text-primary" />
+                <ArrowDown2 size={12} className="dark:text-[#FFFFFF] text-[#000]" />
               ) : (
-                <ArrowUp2 size={12} className="dark:text-[#FFFFFF] text-color-light-text-primary" />
+                <ArrowUp2 size={12} className="dark:text-[#FFFFFF] text-[#000]" />
               )}
             </div>
           </div>
