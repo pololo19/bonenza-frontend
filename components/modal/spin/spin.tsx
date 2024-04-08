@@ -260,10 +260,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         position="flex-col justify-center items-center"
         isScrollableInRotate
       >
-        <div className="overflow-y-scroll h-full">
-          <div
-            className={`sm:rounded-large h-full flex flex-col items-center justify-between relative bg-cover ${styles[spinTab]}`}
-          >
+        <div className={`max-w-full sm:w-[400px] overflow-hidden overflow-y-scroll h-full bg-cover ${styles[spinTab]}`}>
+          <div className={`sm:rounded-large h-full flex flex-col items-center justify-between relative mb-5`}>
             <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
@@ -352,7 +350,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     </div>
                   </div>
                   <div
-                    className="absolute top-[34.1%] left-[62%] right-[2%] z-[5]"
+                    className="absolute top-[33.8%] left-[62%] right-[2%] z-[5]"
                     style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
                   >
                     <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
