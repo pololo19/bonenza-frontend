@@ -13,6 +13,7 @@ import { api_getProfile } from '@/api/user';
 import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { useHeight } from '@/base/hooks/useHeight';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -63,6 +64,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const [isRotating, setIsRotating] = useState(false);
   const [isShowLatestSpins, setisShowLatestSpins] = useState<boolean>(false);
   const [audio, setAudio] = useState<HTMLAudioElement>();
+  const height = useHeight();
 
   const [spinTab, setSpinTab] = useState<'lucky' | 'super' | 'mega'>('lucky');
   const spins: Array<'lucky' | 'super' | 'mega'> = ['lucky', 'super', 'mega'];
@@ -262,7 +264,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       >
         <div className={`max-w-full sm:w-[400px] overflow-hidden overflow-y-scroll h-full bg-cover ${styles[spinTab]}`}>
           <div className={`sm:rounded-large h-full flex flex-col items-center justify-between relative mb-5`}>
-            <div className="flex justify-between px-5 w-full pt-8 pb-0 items-center">
+            <div className={`pt-${height > 660 ? 10 : 2} flex justify-between px-5 w-full pb-0 items-center`}>
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
                   <Image
@@ -286,7 +288,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               <Image
                 width={150}
                 height={151}
-                className="object-contain h-[90px]"
+                className="object-contain h-[70px]"
                 src={`/img/spin/${spinTab}-level.png`}
                 alt=""
               />
@@ -367,8 +369,12 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 </div>
               </div>
             </div>
-            <div className="bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 py-7 mb-5 flex">
-              <div className="text-default flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222]">
+            <div
+              className={`mb-${
+                height > 660 ? 5 : 3
+              } bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 h-full min-h-[95px] max-h-[100px] flex`}
+            >
+              <div className="flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222] text-m_default sm:text-default">
                 <div className="font-bold uppercase">{t('bonus:spinBonusTotal')}</div>
                 <div className="font-bold text-color-primary">
                   {`$ `}
@@ -387,9 +393,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
                   alt=""
-                  className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
+                  className="object-cover rounded-full h-[25px] w-[25px]"
                 />
-                <div className="w-full">
+                <div className="w-full text-m_default sm:text-default">
                   <div>{latestSpin?.userName || ''}</div>
                   <div className="flex gap-1">
                     <div className="text-color-primary font-bold flex gap-1">

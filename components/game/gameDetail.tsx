@@ -4,10 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { GameDetail, GameListType, GameProviderDetail } from '@/base/types/common';
+import { GameListType, GameProviderDetail } from '@/base/types/common';
 
 import CasinoSS from '../casino/casinoSS';
 import GameCard from '../gameCard/gameCard';
@@ -136,7 +135,7 @@ const GameDetailComponent = ({
               <Image
                 height={0}
                 width={0}
-                src={`https://cdn.softswiss.net/logos/providers_small/color/${gameDetail?.provider}.svg`}
+                src={`https://cdn.softswiss.net/logos/providers/color/${gameDetail?.provider}.svg`}
                 alt=""
                 className="object-cover max-h-[50px] w-auto rounded-[5px]"
               />
