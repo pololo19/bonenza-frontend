@@ -114,7 +114,7 @@ export const ROUTER = {
   Theme: (themeId: string) => `/theme?key=${themeId}`,
   Category: (categoryId: string) => `/category/?key=${categoryId}`,
   Tagname: (tagname: string) => `/tagname/?key=${tagname}`,
-  ProviderLogo: (providerId: string) => `https://cdn.softswiss.net/logos/providers_small/color/${providerId}.svg`,
+  ProviderLogo: (providerId: string) => `https://cdn.softswiss.net/logos/providers/color/${providerId}.svg`,
   AdminRewards: '/admin/mycasino/rewards/',
   AdminReferral: '/admin/mycasino/referral/',
   AdminFriends: '/admin/mycasino/friends/',
