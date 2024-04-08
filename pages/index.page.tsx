@@ -700,7 +700,12 @@ function IndexPage() {
                             });
                             return;
                           }
-                          toast.success(String(t('success:success')), { containerId: TOAST_ENUM.COMMON });
+                          setFeedbackText('');
+                          toast.success(String(t('success:success')), {
+                            containerId: TOAST_ENUM.COMMON,
+                            icon: true,
+                            autoClose: 3000,
+                          });
                         }}
                       >
                         {String(t('homePage:leaveAMessage'))}
