@@ -301,7 +301,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         statusAmount: Number(item?.statusAmount || 0),
         goalMultiplier: Number(item?.goalMultiplier || 0),
         goalAmount: Number(item?.goalAmount || 0),
-        claimStatus: true, //item?.claimStatus || false,
+        claimStatus: item?.claimStatus || false,
       }));
       // weekly Quest
       const weeklyQuestStartTime = weekly?.startTime * 1000;
@@ -316,7 +316,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         statusAmount: Number(item?.statusAmount || 0),
         goalMultiplier: Number(item?.goalMultiplier || 0),
         goalAmount: Number(item?.goalAmount || 0),
-        claimStatus: item?.allowClaim || false,
+        claimStatus: item?.claimStatus || false,
       }));
       setAccumulated(accumulatedRewards);
 
@@ -355,8 +355,9 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
     try {
       const _res = await api_questHistory();
       const { startTime, endTime, unClaimed, unFinished, claimed } = _res.data;
-      const tempUnClaimedDaily =
+      const tempUnClaimedDaily: QuestItemType[] =
         unClaimed?.daily?.map((item: any) => ({
+          id: '',
           category: getCategoryType(item?.category || ''),
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
@@ -364,10 +365,13 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           statusAmount: Number(item?.statusAmount || 0),
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
+          claimStatus: false,
         })) || [];
 
-      const tempUnClaimedWeekly =
+      const tempUnClaimedWeekly: QuestItemType[] =
         unClaimed?.weekly?.map((item: any) => ({
+          id: '',
+          claimStatus: false,
           category: getCategoryType(item?.category || ''),
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
@@ -376,8 +380,10 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           goalMultiplier: Number(item?.goalMultiplier || 0),
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
-      const tempUnFinishedDaily =
+      const tempUnFinishedDaily: QuestItemType[] =
         unFinished?.daily?.map((item: any) => ({
+          id: '',
+          claimStatus: false,
           category: getCategoryType(item?.category || ''),
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
@@ -387,8 +393,10 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
 
-      const tempUnFinishedWeekly =
+      const tempUnFinishedWeekly: QuestItemType[] =
         unFinished?.weekly?.map((item: any) => ({
+          id: '',
+          claimStatus: false,
           category: getCategoryType(item?.category || ''),
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
@@ -398,8 +406,10 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
 
-      const tempClaimedDaily =
+      const tempClaimedDaily: QuestItemType[] =
         claimed?.daily?.map((item: any) => ({
+          id: '',
+          claimStatus: false,
           category: getCategoryType(item?.category || ''),
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
@@ -409,8 +419,10 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           goalAmount: Number(item?.goalAmount || 0),
         })) || [];
 
-      const tempClaimedWeekly =
+      const tempClaimedWeekly: QuestItemType[] =
         claimed?.weekly?.map((item: any) => ({
+          id: '',
+          claimStatus: false,
           category: getCategoryType(item?.category || ''),
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),

@@ -12,9 +12,8 @@ import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
-import { BetTableDataType, BetTableDetailType } from '@/base/types/common';
+import { BetTableDataType } from '@/base/types/common';
 
-import ModalDetailBets from '../modal/detailBets/detailBets';
 import RankingTableComponent from '../table/rankingTable';
 
 const cryptoDecimals = 8;
@@ -110,12 +109,14 @@ const HighRollerTableComponent = () => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
     setBetIdDetail(Number(betId));
     setSelBetDetail(row.original);
-    
-    dispatch(setDetailBets({
-      betDetail: row.original,
-      betId: Number(betId),
-      isPublicProfile: isPublicProfile,
-    }))
+
+    dispatch(
+      setDetailBets({
+        betDetail: row.original,
+        betId: Number(betId),
+        isPublicProfile: isPublicProfile,
+      }),
+    );
     dispatch(changeIsShowDetailBets(true));
   };
 
@@ -286,19 +287,19 @@ const HighRollerTableComponent = () => {
         {!!hightRollerDataFilter.length && (
           <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
             <div
-              className="flex items-center dark:bg-[#25262B] bg-[#f6f7fa] py-[9px] px-[10px] rounded-[5px]"
+              className="flex items-center py-[9px] px-[10px] rounded-[5px]"
               role="button"
               onClick={() => {
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-[10px] dark:text-[#FFFFFF] text-color-light-text-primary font-bold mr-[6px]">
+              <div className="text-default dark:text-[#FFFFFF] text-[#000] font-normal mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (
-                <ArrowDown2 size={12} className="dark:text-white text-color-light-text-primary" />
+                <ArrowDown2 size={12} className="dark:text-[#FFFFFF] text-[#000]" />
               ) : (
-                <ArrowUp2 size={12} className="dark:text-white text-color-light-text-primary" />
+                <ArrowUp2 size={12} className="dark:text-[#FFFFFF] text-[#000]" />
               )}
             </div>
           </div>
