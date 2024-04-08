@@ -4,7 +4,6 @@ import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import LazyLoad from 'react-lazy-load';
 import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
@@ -55,17 +54,17 @@ function GameCard(props: GameCardProps) {
         })}
       >
         <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-default">
-          <LazyLoad className="min-h-[120px]">
-            <Image
-              height={160}
-              width={160}
-              src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
-              alt=""
-              className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-large"
-              placeholder="blur"
-              blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
-            />
-          </LazyLoad>
+          {/* <LazyLoad className="min-h-[120px]"> */}
+          <Image
+            height={160}
+            width={160}
+            src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
+            alt=""
+            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-large"
+            placeholder="blur"
+            blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
+          />
+          {/* </LazyLoad> */}
         </Link>
         <div className="flex flex-col gap-5 py-2">
           <div className="flex justify-center items-center gap-[5px]">

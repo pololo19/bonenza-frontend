@@ -40,9 +40,10 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
   });
   const [typeFilter, setTypeFilter] = useState<string>('all');
   const [listTransactions, setListTransactions] = useState<BonusTransactionType[]>([]);
-  const { localFiat, viewInFiat } = useSelector(
+  const { localFiat, viewInFiat, isLogin } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
+      isLogin: state.auth.isLogin,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
@@ -160,12 +161,16 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
   }, [typeFilter]);
 
   useEffect(() => {
-    initLoad();
-  }, []);
+    if (show && isLogin) {
+      initLoad();
+    }
+  }, [show, isLogin]);
 
   useEffect(() => {
-    getListTypeBonus();
-  }, [getListTypeBonus]);
+    if (show && isLogin) {
+      getListTypeBonus();
+    }
+  }, [getListTypeBonus, show, isLogin]);
 
   const columns = useMemo(() => {
     const columnsDefault: ColumnDef<BonusTransactionType>[] = [
