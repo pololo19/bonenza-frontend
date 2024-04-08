@@ -31,7 +31,6 @@ function BonusLoggedPage() {
   const { t, i18n } = useTranslation('');
   const { theme } = useTheme();
   const dispatch = useDispatch();
-  const [openModalBonusDetails, setOpenModalBonusDetails] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const usdtPrice = useUSDTPrice();
 
