@@ -65,7 +65,7 @@ function ProvidersPage() {
                 <Image
                   height={0}
                   width={0}
-                  src={`https://cdn.softswiss.net/logos/providers_small/color/${provider.identifier}.svg`}
+                  src={`https://cdn.softswiss.net/logos/providers/color/${provider.identifier}.svg`}
                   alt=""
                   onError={(e) => {
                     e.currentTarget.src = `/img/providers/softswiss.png`;
