@@ -77,6 +77,7 @@ export type ModalState = {
   isShowChatRule?: boolean;
   isShowBonusDetail?: boolean;
   isShowDepositRule?: boolean;
+  isShowSelfExclusion?: boolean;
 };
 
 export type LoadingState = {

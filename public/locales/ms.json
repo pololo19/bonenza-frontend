@@ -603,6 +603,17 @@
     "NFT": "NFT",
     "depositYourFirstNFT": "Deposit NFT Pertama Anda"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "Anda Ada * Hari Lagi",
+    "selfExclusion": "Pengecualian Diri",
+    "exclusionExclude": "Kecualikan",
+    "exclusionPeriod": "Tempoh pengecualian hingga tamat",
+    "exclusionHello": "Hello",
+    "exclusionNotify1": "anda mempunyai * sendiri dan anda tidak boleh Log masuk, anda perlu menunggu untuk anda",
+    "exclusionNotify2": "Jika anda ingin mengalih keluar tempoh Pengecualian anda",
+    "exclusionNotify3": "sila email kami di",
+    "exclusionGoBack": "Pergi balik"
+  },
   "authentication": {
     "checked": "Sila bersetuju dengan perjanjian pengguna kami",
     "emailRequired": "E-mel diperlukan",

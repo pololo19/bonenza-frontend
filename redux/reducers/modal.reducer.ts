@@ -60,6 +60,7 @@ export const initialCommonState: ModalState = {
   },
   isShowQuest: false,
   isShowDepositRule: false,
+  isShowSelfExclusion: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -171,6 +172,9 @@ export const queryDataSlice = createSlice({
     changeIsShowBonusDetail: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowBonusDetail = action.payload;
     },
+    changeIsShowSelfExclusion: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowSelfExclusion = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -260,5 +264,6 @@ export const {
   changeIsShowChatRule,
   changeIsShowBonusDetail,
   changeIsShowDepositRule,
+  changeIsShowSelfExclusion,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

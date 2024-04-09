@@ -603,6 +603,17 @@
     "NFT": "NFTs",
     "depositYourFirstNFT": "قم بإيداع أول NFT الخاص بك"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "لديك * أيام متبقية",
+    "selfExclusion": "الإقصاء الذاتي",
+    "exclusionExclude": "استبعاد",
+    "exclusionPeriod": "انتهاء فترة الاستبعاد",
+    "exclusionHello": "مرحبًا",
+    "exclusionNotify1": "لقد كان لديك * بنفسك ولا يمكنك تسجيل الدخول، سيتعين عليك الانتظار",
+    "exclusionNotify2": "إذا كنت تريد إزالة فترة الاستبعاد الخاصة بك",
+    "exclusionNotify3": "يرجى مراسلتنا عبر البريد الإلكتروني على",
+    "exclusionGoBack": "عُد"
+  },
   "authentication": {
     "checked": "يرجى الموافقة على اتفاقية المستخدم الخاصة بنا",
     "emailRequired": "البريد الالكتروني مطلوب",
