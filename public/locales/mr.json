@@ -603,6 +603,17 @@
     "NFT": "NFTs",
     "depositYourFirstNFT": "तुमचा पहिला NFT जमा करा"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "तुमच्याकडे * दिवस शिल्लक आहेत",
+    "selfExclusion": "सेल्फ एक्सक्लुजन",
+    "exclusionExclude": "वगळा",
+    "exclusionPeriod": "वगळण्याचा कालावधी संपेल",
+    "exclusionHello": "नमस्कार",
+    "exclusionNotify1": "तुमच्याकडे स्वतः * होते आणि तुम्ही लॉग इन करू शकत नाही, तुम्हाला तुमची प्रतीक्षा करावी लागेल",
+    "exclusionNotify2": "तुम्हाला तुमचा बहिष्कार कालावधी काढायचा असल्यास",
+    "exclusionNotify3": "कृपया आम्हाला येथे ईमेल करा",
+    "exclusionGoBack": "परत जा"
+  },
   "authentication": {
     "checked": "कृपया आमच्या वापरकर्ता करारास संमती द्या",
     "emailRequired": "ईमेल आवश्यक आहे",

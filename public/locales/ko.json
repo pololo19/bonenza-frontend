@@ -603,6 +603,17 @@
     "NFT": "NFT",
     "depositYourFirstNFT": "첫 번째 NFT 입금"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "*일 남았습니다",
+    "selfExclusion": "자기 배제",
+    "exclusionExclude": "들어오지 못하게 하다",
+    "exclusionPeriod": "제외 기간 종료",
+    "exclusionHello": "안녕하세요",
+    "exclusionNotify1": "당신은 * 자신을 가지고 있고 로그인할 수 없습니다.",
+    "exclusionNotify2": "제외 기간을 삭제하려는 경우",
+    "exclusionNotify3": "다음 주소로 이메일을 보내주세요.",
+    "exclusionGoBack": "돌아가기"
+  },
   "authentication": {
     "checked": "사용자 계약에 동의해 주세요.",
     "emailRequired": "이메일은 필수입니다",

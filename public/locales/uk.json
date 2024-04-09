@@ -603,6 +603,17 @@
     "NFT": "NFT",
     "depositYourFirstNFT": "Внесіть свій перший NFT"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "У вас залишилося * днів",
+    "selfExclusion": "Самовиключення",
+    "exclusionExclude": "Виключити",
+    "exclusionPeriod": "Період виключення закінчується",
+    "exclusionHello": "Привіт",
+    "exclusionNotify1": "у вас був * і ви не можете увійти, вам доведеться дочекатися свого",
+    "exclusionNotify2": "Якщо ви хочете видалити період виключення",
+    "exclusionNotify3": "напишіть нам на адресу",
+    "exclusionGoBack": "Повертайся"
+  },
   "authentication": {
     "checked": "Будь ласка, погодьтеся з нашою угодою користувача",
     "emailRequired": "Необхідно вказати адресу електронної пошти",

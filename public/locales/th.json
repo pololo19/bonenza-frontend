@@ -603,6 +603,17 @@
     "NFT": "NFT",
     "depositYourFirstNFT": "ฝากเงิน NFT แรกของคุณ"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "คุณเหลือ * วันเหลือ",
+    "selfExclusion": "การยกเว้นตนเอง",
+    "exclusionExclude": "ไม่รวม",
+    "exclusionPeriod": "ระยะเวลาการยกเว้นจะสิ้นสุด",
+    "exclusionHello": "สวัสดี",
+    "exclusionNotify1": "คุณมี * ตัวเองและคุณไม่สามารถเข้าสู่ระบบได้ คุณจะต้องรอของคุณ",
+    "exclusionNotify2": "หากคุณต้องการลบระยะเวลาการยกเว้นของคุณ",
+    "exclusionNotify3": "กรุณาส่งอีเมลถึงเราที่",
+    "exclusionGoBack": "กลับไป"
+  },
   "authentication": {
     "checked": "โปรดยินยอมตามข้อตกลงผู้ใช้ของเรา",
     "emailRequired": "จำเป็นต้องระบุอีเมล",

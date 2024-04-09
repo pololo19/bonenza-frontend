@@ -603,6 +603,17 @@
     "NFT": "এনএফটি",
     "depositYourFirstNFT": "আপনার প্রথম NFT জমা করুন"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "আপনার কাছে * দিন বাকি আছে",
+    "selfExclusion": "সেলফ এক্সক্লুশন",
+    "exclusionExclude": "বাদ দিন",
+    "exclusionPeriod": "বর্জনের সময়কাল শেষ হবে",
+    "exclusionHello": "হ্যালো",
+    "exclusionNotify1": "আপনার নিজের * ছিল এবং আপনি লগইন করতে পারবেন না, আপনাকে আপনার জন্য অপেক্ষা করতে হবে",
+    "exclusionNotify2": "আপনি আপনার বর্জন সময়কাল সরাতে চান",
+    "exclusionNotify3": "আমাদের ইমেইল করুন",
+    "exclusionGoBack": "ফিরে যাও"
+  },
   "authentication": {
     "checked": "আমাদের ব্যবহারকারী চুক্তিতে সম্মতি দিন",
     "emailRequired": "ইমেল প্রয়োজন",

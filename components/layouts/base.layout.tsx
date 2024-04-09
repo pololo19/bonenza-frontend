@@ -40,6 +40,7 @@ import {
   changeIsShowRakeBackDetail,
   changeIsShowReferAndEarn,
   changeIsShowResetPassword,
+  changeIsShowSelfExclusion,
   changeIsShowSpin,
   changeIsShowUpdateAvatar,
   changeIsShowUpdateInformation,
@@ -105,6 +106,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalSelfExclusion from '../modal/selfExclusion/selfExclusion';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -197,6 +199,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowChatRule,
     isShowBonusDetail,
     isShowDepositRule,
+    isShowSelfExclusion,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -241,6 +244,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowDetailBets: state.modal.isShowDetailBets,
       isShowBonusDetail: state.modal.isShowBonusDetail,
       isShowDepositRule: state.modal.isShowDepositRule,
+      isShowSelfExclusion: state.modal.isShowSelfExclusion,
     }),
     shallowEqual,
   );
@@ -931,6 +935,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       <ModalDepositBonusRules
         show={isShowDepositRule || false}
         onClose={() => dispatch(changeIsShowDepositRule(false))}
+      />
+      <ModalSelfExclusion
+        show={isShowSelfExclusion || false}
+        onClose={() => dispatch(changeIsShowSelfExclusion(false))}
       />
     </>
   );

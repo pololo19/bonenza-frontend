@@ -603,6 +603,17 @@
     "NFT": "NFTs",
     "depositYourFirstNFT": "Zahlen Sie Ihren ersten NFT ein"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "Sie haben noch * Tage Zeit",
+    "selfExclusion": "Selbstausschluss",
+    "exclusionExclude": "Ausschließen",
+    "exclusionPeriod": "Ausschlussfrist endet",
+    "exclusionHello": "Hallo",
+    "exclusionNotify1": "Sie hatten * sich selbst und können sich nicht anmelden, Sie müssen auf Ihre warten",
+    "exclusionNotify2": "Wenn Sie Ihren Ausschlusszeitraum entfernen möchten",
+    "exclusionNotify3": "Bitte senden Sie uns eine E-Mail an",
+    "exclusionGoBack": "Geh zurück"
+  },
   "authentication": {
     "checked": "Bitte stimmen Sie unserer Nutzungsvereinbarung zu",
     "emailRequired": "E-Mail ist erforderlich",
