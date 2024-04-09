@@ -264,7 +264,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       >
         <div className={`max-w-full sm:w-[400px] overflow-hidden overflow-y-scroll h-full bg-cover ${styles[spinTab]}`}>
           <div className={`sm:rounded-large h-full flex flex-col items-center justify-between relative mb-5`}>
-            <div className={`pt-${height > 660 ? 10 : 2} flex justify-between px-5 w-full pb-0 items-center`}>
+            <div className={`${height > 660 ? 'pt-9' : 'pt-2'} flex justify-between px-5 w-full pb-0 items-center`}>
               <div className="flex gap-0 relative">
                 {spins.map((spin) => (
                   <Image
