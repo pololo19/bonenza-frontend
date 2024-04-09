@@ -603,6 +603,17 @@
     "NFT": "NFT",
     "depositYourFirstNFT": "最初の NFT を入金する"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "残り * 日あります",
+    "selfExclusion": "自己排除",
+    "exclusionExclude": "除外する",
+    "exclusionPeriod": "除外期間終了まで",
+    "exclusionHello": "こんにちは",
+    "exclusionNotify1": "あなたは * を持っていましたが、ログインできません。",
+    "exclusionNotify2": "除外期間を解除したい場合",
+    "exclusionNotify3": "までメールをお送りください",
+    "exclusionGoBack": "戻る"
+  },
   "authentication": {
     "checked": "利用規約に同意してください",
     "emailRequired": "メールアドレスは必須です",

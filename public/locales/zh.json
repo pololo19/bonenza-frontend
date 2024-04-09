@@ -603,6 +603,17 @@
     "NFT": "NFT",
     "depositYourFirstNFT": "存入您的第一个 NFT"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "您还剩 * 天",
+    "selfExclusion": "自我排除",
+    "exclusionExclude": "排除",
+    "exclusionPeriod": "排除期结束",
+    "exclusionHello": "你好",
+    "exclusionNotify1": "您自己有*，但无法登录，您将不得不等待您的",
+    "exclusionNotify2": "如果您想删除排除期",
+    "exclusionNotify3": "请给我们发电子邮件至",
+    "exclusionGoBack": "回去"
+  },
   "authentication": {
     "checked": "请同意我们的用户协议",
     "emailRequired": "电子邮件为必填项",

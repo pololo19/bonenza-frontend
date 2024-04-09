@@ -603,6 +603,17 @@
     "NFT": "NFT",
     "depositYourFirstNFT": "Gửi NFT đầu tiên của bạn"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "Bạn còn * Ngày",
+    "selfExclusion": "Tự loại trừ",
+    "exclusionExclude": "Loại trừ",
+    "exclusionPeriod": "Thời gian loại trừ đến hết",
+    "exclusionHello": "Xin chào",
+    "exclusionNotify1": "bạn đã có * chính mình và bạn không thể Đăng nhập, bạn sẽ phải đợi",
+    "exclusionNotify2": "Nếu bạn muốn xóa thời gian Loại trừ của mình",
+    "exclusionNotify3": "vui lòng gửi email cho chúng tôi tại",
+    "exclusionGoBack": "Quay lại"
+  },
   "authentication": {
     "checked": "Vui lòng đồng ý với thỏa thuận người dùng của chúng tôi",
     "emailRequired": "Email thì cần thiết",

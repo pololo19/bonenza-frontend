@@ -603,6 +603,17 @@
     "NFT": "NFT'ler",
     "depositYourFirstNFT": "İlk NFT'nizi Yatırın"
   },
+  "exclusion": {
+    "exclusionDaysLeft": "* Gününüz kaldı",
+    "selfExclusion": "Kendini dışlama",
+    "exclusionExclude": "Hariç tutmak",
+    "exclusionPeriod": "Hariç tutma süresi sona eriyor",
+    "exclusionHello": "Merhaba",
+    "exclusionNotify1": "kendinize * sahiptiniz ve Giriş yapamıyorsunuz, beklemeniz gerekecek",
+    "exclusionNotify2": "Hariç tutma sürenizi kaldırmak istiyorsanız",
+    "exclusionNotify3": "lütfen bize e-posta gönderin",
+    "exclusionGoBack": "Geri gitmek"
+  },
   "authentication": {
     "checked": "Lütfen kullanıcı sözleşmemizi kabul edin",
     "emailRequired": "Email gereklidir",

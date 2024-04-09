@@ -2,10 +2,11 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
-import { ElementType, Fragment, useCallback, useState } from 'react';
+import { ElementType, useCallback, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
+import { useHeight } from '@/base/hooks/useHeight';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import LoginWallet from '@/components/loginWallet/loginWallet';
@@ -15,7 +16,6 @@ import ModalForgotPassword from '../forgotPassword/forgotPassword';
 import SignInTab from './signInTab/signInTab';
 import SignUpTab from './signUpTab/signUpTab';
 import VerificationTab from './verificationTab/verificationTab';
-import { useHeight } from '@/base/hooks/useHeight';
 
 type ModalAuthenticationProps = {
   onClose: () => void;
@@ -110,15 +110,19 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
                 alt=""
                 className="w-[100px] sm:w-[160px] md:w-[264px] object-cover m-auto"
               />
-              <p className={`${height < 640 ? "hidden" : ""} px-5 text-[15px] sm:text-[28px] text-color-primary font-semibold`}>
+              <p
+                className={`${
+                  height < 640 ? 'hidden' : ''
+                } px-5 text-[15px] sm:text-[28px] text-color-primary font-semibold`}
+              >
                 {t('homePage:startJourney')}
               </p>
             </div>
           </div>
           <div
-            className={`sm:py-[20px] pt-[10px] pb-[20px] sm:pb-[75px] sm:px-[30px] px-[10px] mx-auto flex-1 ${height < 640 ? 'overflow-hidden' : 'overflow-y-auto'} w-full flex flex-col ${
-              forgotKey ? 'justify-start' : 'justify-start'
-            }`}
+            className={`sm:py-[20px] pt-[10px] pb-[20px] sm:pb-[75px] sm:px-[30px] px-[10px] mx-auto flex-1 ${
+              height < 640 ? 'overflow-hidden' : 'overflow-y-auto'
+            } w-full flex flex-col ${forgotKey ? 'justify-start' : 'justify-start'}`}
           >
             {returnForm()}
             {!isLoginTwoFactor && authenticationType != AuthenticationModeEnum.VERIFY && (
