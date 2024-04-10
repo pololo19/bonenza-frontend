@@ -612,7 +612,9 @@
     "exclusionNotify1": "あなたは * を持っていましたが、ログインできません。",
     "exclusionNotify2": "除外期間を解除したい場合",
     "exclusionNotify3": "までメールをお送りください",
-    "exclusionGoBack": "戻る"
+    "exclusionGoBack": "戻る",
+    "permanentlyDisabled": "あなたのアカウントは永久に無効になっています。",
+    "disabledPeriod": "あなたのアカウントは次の期限まで無効になります {{date}}"
   },
   "authentication": {
     "checked": "利用規約に同意してください",
@@ -2121,7 +2123,8 @@
     "existMail": "このメールはすでに存在します",
     "verifyPhone": "この電話は認証されていません",
     "verifyMail": "このメールは検証されていません",
-    "locationIsNotAllowed": "申し訳ございませんが、このゲームはお住まいの地域ではご利用いただけません。"
+    "locationIsNotAllowed": "申し訳ございませんが、このゲームはお住まいの地域ではご利用いただけません。",
+    "selfExclusive": "あなたのアカウントは無効になりました"
   },
   "success": {
     "bonusClaimed": "ボーナスが請求されました",

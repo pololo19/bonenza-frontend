@@ -612,7 +612,9 @@
     "exclusionNotify1": "Anda memiliki * diri Anda sendiri dan Anda tidak dapat Masuk, Anda harus menunggu",
     "exclusionNotify2": "Jika Anda ingin menghapus periode Pengecualian Anda",
     "exclusionNotify3": "silakan email kami di",
-    "exclusionGoBack": "Kembali"
+    "exclusionGoBack": "Kembali",
+    "permanentlyDisabled": "Akun Anda dinonaktifkan secara permanen.",
+    "disabledPeriod": "Akun Anda dinonaktifkan sampai {{date}}"
   },
   "authentication": {
     "checked": "Harap setujui perjanjian pengguna kami",
@@ -2121,7 +2123,8 @@
     "existMail": "Email ini sudah ada",
     "verifyPhone": "Telepon ini belum diverifikasi",
     "verifyMail": "Email ini belum diverifikasi",
-    "locationIsNotAllowed": "Maaf, game ini tidak tersedia di wilayah Anda."
+    "locationIsNotAllowed": "Maaf, game ini tidak tersedia di wilayah Anda.",
+    "selfExclusive": "Akun Anda dinonaktifkan"
   },
   "success": {
     "bonusClaimed": "Bonus Anda Diklaim",
