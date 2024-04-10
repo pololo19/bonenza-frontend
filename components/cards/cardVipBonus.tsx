@@ -47,7 +47,7 @@ export default function CardVipBonus({
 
   return (
     <div className="rounded-[5px] relative min-h-[250px] dark:bg-[#1C1E22] bg-white">
-      {/* <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" /> */}
+      <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" />
       <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-[10px]">
