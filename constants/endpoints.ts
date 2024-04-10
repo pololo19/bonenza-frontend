@@ -28,6 +28,8 @@ const API_AUTH_SET_LOGIN = '/auth/get-set-login';
 const API_AUTH_SET_LOGIN_PASSWORD = '/auth/set-login-password';
 const API_AUTH_CHANGE_PASSWORD = '/auth/change-password';
 const API_AUTH_GET_2FA_STATUS = '/auth/get-two-factor-auth-status';
+const API_AUTH_REQUEST_SELF_EXCULSIVE = '/auth/request-self-exclusion';
+const API_AUTH_SET_SELF_EXCULSIVE = '/auth/set-self-exclusion';
 
 /************************************ User Profile **********************************/
 const API_USER_PROFILE_GET_PROFILE = `/user-profile/get-user-profile`;
@@ -179,6 +181,7 @@ export {
   API_AUTH_LOGIN_WITH_GOOGLE_TOP,
   API_AUTH_LOGIN_WITH_TELEGRAM,
   API_AUTH_LOGIN_WITH_WALLET,
+  API_AUTH_REQUEST_SELF_EXCULSIVE,
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
@@ -186,6 +189,7 @@ export {
   API_AUTH_SEND_USER_PHONE,
   API_AUTH_SET_LOGIN,
   API_AUTH_SET_LOGIN_PASSWORD,
+  API_AUTH_SET_SELF_EXCULSIVE,
   API_AUTH_SIGNUP_WITH_EMAIL,
   API_AUTH_SIGNUP_WITH_PHONE,
   API_AUTH_VALIDATE_TOKEN,

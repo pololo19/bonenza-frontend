@@ -2,8 +2,11 @@ import { Menu } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2 } from 'iconsax-react';
 import { ReactElement, useState } from 'react';
+import { toast } from 'react-toastify';
 
+import { api_requestSelfExclusion } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
 import HelperLayout from '@/components/layouts/helper.layout';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 
@@ -34,6 +37,21 @@ const SelfExclusion = () => {
   const [selectedPeriod, setSelectedPeriod] = useState<number>(1);
   const [acknowledge, setAcknowledge] = useState<boolean>(false);
   const [showRules, setShowRules] = useState<boolean>(false);
+
+  const handleRequest = async () => {
+    try {
+      const utcTime = Date.now();
+      const disabledDate = new Date(utcTime);
+      disabledDate.setMonth(disabledDate.getMonth() + selectedPeriod);
+      const unixTime = selectedPeriod === -1 ? -1 : Math.floor(disabledDate.getTime() / 1000);
+      const _res = await api_requestSelfExclusion(unixTime);
+      toast.success('Confirmation Email is sent to your mail Box. Please check your mail box. Thank you.', {
+        containerId: TOAST_ENUM.COMMON,
+      });
+    } catch (error) {
+      toast.error("You can't set self-exclusion", { containerId: TOAST_ENUM.COMMON });
+    }
+  };
   return (
     <>
       <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px]">
@@ -109,6 +127,7 @@ const SelfExclusion = () => {
             <button
               className="bg-gradient-btn-play p-[10px] rounded-large min-w-[200px] disabled:opacity-40 hover:opacity-90"
               disabled={!acknowledge}
+              onClick={() => handleRequest()}
             >
               {t('helper:selfExclusionRequest')}
             </button>

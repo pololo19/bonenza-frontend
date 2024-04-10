@@ -62,6 +62,10 @@ export default function getErrorMessage(path: string, func: string, status: numb
           message = 'errors:verifyMail';
         }
 
+        if (error == 'self-exclusive') {
+          message = 'errors:selfExclusive';
+        }
+
         break;
 
       default:

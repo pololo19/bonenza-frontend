@@ -1,8 +1,6 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import cn from 'classnames';
 import Image from 'next/image';
 import { ElementType } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useHeight } from '@/base/hooks/useHeight';
@@ -68,7 +66,7 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
                 <span className="font-extralight text-color-light-notice-primary">help@bonenza.com</span>
               </div>
             </div>
-            <div className="text-center rounded-default py-3 bg-color-light-notice-primary">
+            <div className="text-center rounded-default py-3 bg-gradient-btn-play" role="button" onClick={onClose}>
               {t('exclusion:exclusionGoBack')}
             </div>
           </div>
