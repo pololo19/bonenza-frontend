@@ -612,7 +612,9 @@
     "exclusionNotify1": "आपके पास *स्वयं था और आप लॉग इन नहीं कर सकते, आपको अपने लिए इंतजार करना होगा",
     "exclusionNotify2": "यदि आप अपनी बहिष्करण अवधि हटाना चाहते हैं",
     "exclusionNotify3": "कृपया हमें यहां ईमेल करें",
-    "exclusionGoBack": "वापस जाओ"
+    "exclusionGoBack": "वापस जाओ",
+    "permanentlyDisabled": "आपका खाता स्थायी रूप से अक्षम कर दिया गया है.",
+    "disabledPeriod": "आपका खाता तब तक अक्षम है {{date}}"
   },
   "authentication": {
     "checked": "कृपया हमारे उपयोगकर्ता अनुबंध पर सहमति दें",
@@ -2121,7 +2123,8 @@
     "existMail": "यह ईमेल पहले से मौजूद है",
     "verifyPhone": "यह फ़ोन सत्यापित नहीं है",
     "verifyMail": "यह ईमेल सत्यापित नहीं है",
-    "locationIsNotAllowed": "क्षमा करें, यह गेम आपके क्षेत्र में उपलब्ध नहीं है।"
+    "locationIsNotAllowed": "क्षमा करें, यह गेम आपके क्षेत्र में उपलब्ध नहीं है।",
+    "selfExclusive": "आपका खाता अक्षम है"
   },
   "success": {
     "bonusClaimed": "आपके बोनस का दावा किया गया है",

@@ -612,7 +612,9 @@
     "exclusionNotify1": "您自己有*，但无法登录，您将不得不等待您的",
     "exclusionNotify2": "如果您想删除排除期",
     "exclusionNotify3": "请给我们发电子邮件至",
-    "exclusionGoBack": "回去"
+    "exclusionGoBack": "回去",
+    "permanentlyDisabled": "您的帐户已被永久禁用。",
+    "disabledPeriod": "您的帐户将被禁用，直到 {{date}}"
   },
   "authentication": {
     "checked": "请同意我们的用户协议",
@@ -2121,7 +2123,8 @@
     "existMail": "该邮箱已存在",
     "verifyPhone": "此电话未验证",
     "verifyMail": "该电子邮件未经过验证",
-    "locationIsNotAllowed": "抱歉，您所在的地区无法玩此游戏。"
+    "locationIsNotAllowed": "抱歉，您所在的地区无法玩此游戏。",
+    "selfExclusive": "您的帐户已被禁用"
   },
   "success": {
     "bonusClaimed": "您的奖金已被领取",

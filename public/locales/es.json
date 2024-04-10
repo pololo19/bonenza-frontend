@@ -612,7 +612,9 @@
     "exclusionNotify1": "te tenías * a ti mismo y no puedes iniciar sesión, tendrás que esperar tu",
     "exclusionNotify2": "Si desea eliminar su período de exclusión",
     "exclusionNotify3": "por favor envíenos un correo electrónico a",
-    "exclusionGoBack": "Regresa"
+    "exclusionGoBack": "Regresa",
+    "permanentlyDisabled": "Su cuenta está deshabilitada permanentemente.",
+    "disabledPeriod": "Su cuenta está deshabilitada hasta {{date}}"
   },
   "authentication": {
     "checked": "Por favor acepte nuestro acuerdo de usuario",
@@ -2121,7 +2123,8 @@
     "existMail": "Este correo electrónico ya existe",
     "verifyPhone": "Este teléfono no está verificado",
     "verifyMail": "Este correo electrónico no está verificado",
-    "locationIsNotAllowed": "Lo sentimos, este juego no está disponible en tu región."
+    "locationIsNotAllowed": "Lo sentimos, este juego no está disponible en tu región.",
+    "selfExclusive": "Tu cuenta está desactivada"
   },
   "success": {
     "bonusClaimed": "Su bono es reclamado",

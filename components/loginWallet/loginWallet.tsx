@@ -12,6 +12,7 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import { changeIsShowSelfExclusion } from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
@@ -42,8 +43,10 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      if (error?.response?.data?.msg === 'Email was taken') {
+      if (error?.response?.data?.message === 'Email was taken') {
         toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
+      } else if (error?.response?.data?.message === 'self-exclusive') {
+        dispatch(changeIsShowSelfExclusion(true));
       } else {
         toast.error(String(t('authentication:loginGoogleFailed')), { containerId: TOAST_ENUM.MODAL });
       }
@@ -70,8 +73,12 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         onClose();
         toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
       });
-    } catch (error) {
-      toast.error(String(t('authentication:loginTelegramFailed')), { containerId: TOAST_ENUM.MODAL });
+    } catch (error: any) {
+      if (error?.response?.data?.message === 'self-exclusive') {
+        dispatch(changeIsShowSelfExclusion(true));
+      } else {
+        toast.error(String(t('authentication:loginTelegramFailed')), { containerId: TOAST_ENUM.MODAL });
+      }
     } finally {
       setIsLoading(false);
     }
@@ -89,8 +96,10 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      if (error?.response?.data?.msg === 'Email was taken') {
+      if (error?.response?.data?.message === 'Email was taken') {
         toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
+      } else if (error?.response?.data?.message === 'self-exclusive') {
+        dispatch(changeIsShowSelfExclusion(true));
       } else {
         toast.error(String(t('authentication:loginWalletFailed')), { containerId: TOAST_ENUM.MODAL });
       }
