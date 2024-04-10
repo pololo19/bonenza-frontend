@@ -7,6 +7,7 @@ import {
   API_AUTH_LOGIN_WITH_GOOGLE_TOP,
   API_AUTH_LOGIN_WITH_TELEGRAM,
   API_AUTH_LOGIN_WITH_WALLET,
+  API_AUTH_REQUEST_SELF_EXCULSIVE,
   API_AUTH_RESET_PASSWORD,
   API_AUTH_SEND_MAIL,
   API_AUTH_SEND_SMS,
@@ -14,6 +15,7 @@ import {
   API_AUTH_SEND_USER_PHONE,
   API_AUTH_SET_LOGIN,
   API_AUTH_SET_LOGIN_PASSWORD,
+  API_AUTH_SET_SELF_EXCULSIVE,
   API_AUTH_SIGNUP_WITH_EMAIL,
   API_AUTH_SIGNUP_WITH_PHONE,
   API_AUTH_VALIDATE_TOKEN,
@@ -120,4 +122,12 @@ export const api_changePassword = (
 
 export const api_get2FAStatus = (email: string) => {
   return api.get(API_AUTH_GET_2FA_STATUS, { params: { email } });
+};
+
+export const api_requestSelfExclusion = async (disabledTo: number) => {
+  return api.post(API_AUTH_REQUEST_SELF_EXCULSIVE, { disabledTo });
+};
+
+export const api_setSelfExclusion = async (token: string, disabledTo: number) => {
+  return api.post(API_AUTH_SET_SELF_EXCULSIVE, { token, disabledTo });
 };

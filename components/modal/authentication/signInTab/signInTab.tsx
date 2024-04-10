@@ -11,7 +11,11 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo, isEmail, isPhone } from '@/base/libs/utils';
 import getErrorMessage from '@/base/libs/utils/notificationToast';
-import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import {
+  changeAuthenticationType,
+  changeIsShowAuthenticationModal,
+  changeIsShowSelfExclusion,
+} from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
@@ -168,7 +172,7 @@ export default function SignInTab({
         toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
 
         // user is not allowed
-        if (status == 406) {
+        if (status === 406 && message !== 'self-exclusive') {
           const phone = isPhoneNumber ? `+${String(countryCallingCode?.countryCallingCode) + formLogin.email}` : '';
           dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
           dispatch(setIsForgetPassword(false));
@@ -178,6 +182,9 @@ export default function SignInTab({
               isPhoneVerifyRequested: !!isPhoneNumber,
             }),
           );
+        }
+        if (status === 406 && message === 'self-exclusive') {
+          dispatch(changeIsShowSelfExclusion(true));
         }
       } finally {
         setIsLoading(false);
@@ -234,7 +241,7 @@ export default function SignInTab({
             <div
               onClick={sendQrCodeToEmail}
               role="button"
-              className="bg-color-secondary grow hover:opacity-[0.9] text-center rounded-large text-white text-default px-[30px] py-[10px] m-auto"
+              className="bg-gradient-btn-play grow hover:opacity-[0.9] text-center rounded-large text-white text-default px-[30px] py-[10px] m-auto"
             >
               {t('setting:confirm')}
             </div>
@@ -247,7 +254,7 @@ export default function SignInTab({
               <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">
                 <div className="relative w-full">
                   <InputText
-                    customClass="px-[10px] py-[10px] my-[10px] dark:bg-[#12181f] bg-color-light-bg-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
+                    customClass="px-[10px] py-[10px] my-[10px] rounded-default w-full bg-white dark:bg-color-bg-primary !text-default placeholder:text-default placeholder:text-[#777777]"
                     name="codeOtp"
                     onChange={(e) => setCodeOtp(e.target.value)}
                     value={codeOtp}
@@ -256,7 +263,7 @@ export default function SignInTab({
                   />
                   <div
                     onClick={paste}
-                    className="absolute cursor-pointer right-[10px] h-[41px] top-[11px] flex items-center dark:bg-[#12181f] bg-color-light-bg-primary"
+                    className="absolute cursor-pointer right-[10px] h-[41px] top-[11px] flex items-center"
                   >
                     <span className="dark:text-white text-black text-default ml-[6px]">
                       {t('authentication:paste')}
@@ -274,7 +281,7 @@ export default function SignInTab({
                 type="submit"
                 className={`${
                   codeOtp.length < 6 && 'opacity-70 pointer-events-none'
-                } bg-color-primary w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
+                } bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
                 <div className="text-default text-white">{t('authentication:submit')}</div>
