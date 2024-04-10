@@ -612,7 +612,9 @@
     "exclusionNotify1": "kendinize * sahiptiniz ve Giriş yapamıyorsunuz, beklemeniz gerekecek",
     "exclusionNotify2": "Hariç tutma sürenizi kaldırmak istiyorsanız",
     "exclusionNotify3": "lütfen bize e-posta gönderin",
-    "exclusionGoBack": "Geri gitmek"
+    "exclusionGoBack": "Geri gitmek",
+    "permanentlyDisabled": "Hesabınız kalıcı olarak devre dışı bırakıldı.",
+    "disabledPeriod": "Hesabınız şu tarihe kadar devre dışı bırakıldı: {{date}}"
   },
   "authentication": {
     "checked": "Lütfen kullanıcı sözleşmemizi kabul edin",
@@ -2121,7 +2123,8 @@
     "existMail": "Bu E-posta zaten mevcut",
     "verifyPhone": "Bu Telefon doğrulanmadı",
     "verifyMail": "Bu E-posta doğrulanmadı",
-    "locationIsNotAllowed": "Üzgünüz, bu oyun bölgenizde mevcut değil."
+    "locationIsNotAllowed": "Üzgünüz, bu oyun bölgenizde mevcut değil.",
+    "selfExclusive": "Hesabınız devre dışı bırakıldı"
   },
   "success": {
     "bonusClaimed": "Bonusunuz Alındı",

@@ -612,7 +612,9 @@
     "exclusionNotify1": "لقد كان لديك * بنفسك ولا يمكنك تسجيل الدخول، سيتعين عليك الانتظار",
     "exclusionNotify2": "إذا كنت تريد إزالة فترة الاستبعاد الخاصة بك",
     "exclusionNotify3": "يرجى مراسلتنا عبر البريد الإلكتروني على",
-    "exclusionGoBack": "عُد"
+    "exclusionGoBack": "عُد",
+    "permanentlyDisabled": "تم تعطيل حسابك بشكل دائم.",
+  "disabledPeriod": "حسابك معطل حتى {{date}}"
   },
   "authentication": {
     "checked": "يرجى الموافقة على اتفاقية المستخدم الخاصة بنا",
@@ -2121,7 +2123,8 @@
     "existMail": "هذا البريد الإلكتروني موجود بالفعل",
     "verifyPhone": "لم يتم التحقق من هذا الهاتف",
     "verifyMail": "لم يتم التحقق من هذا البريد الإلكتروني",
-    "locationIsNotAllowed": "عذرًا، هذه اللعبة غير متوفرة في منطقتك."
+    "locationIsNotAllowed": "عذرًا، هذه اللعبة غير متوفرة في منطقتك.",
+    "selfExclusive": "حسابك مغلق"
   },
   "success": {
     "bonusClaimed": "تمت المطالبة بالمكافأة الخاصة بك",

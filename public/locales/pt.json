@@ -612,7 +612,9 @@
     "exclusionNotify1": "você mesmo teve * e não consegue fazer login, terá que esperar pelo seu",
     "exclusionNotify2": "Se você deseja remover seu período de exclusão",
     "exclusionNotify3": "por favor envie-nos um e-mail para",
-    "exclusionGoBack": "Volte"
+    "exclusionGoBack": "Volte",
+    "permanentlyDisabled": "Sua conta está desativada permanentemente.",
+    "disabledPeriod": "Sua conta fica desativada até {{date}}"
   },
   "authentication": {
     "checked": "Por favor, concorde com nosso contrato de usuário",
@@ -2121,7 +2123,8 @@
     "existMail": "Este e-mail já existe",
     "verifyPhone": "Este telefone não foi verificado",
     "verifyMail": "Este e-mail não foi verificado",
-    "locationIsNotAllowed": "Desculpe, este jogo não está disponível em sua região."
+    "locationIsNotAllowed": "Desculpe, este jogo não está disponível em sua região.",
+    "selfExclusive": "Sua conta está desativada"
   },
   "success": {
     "bonusClaimed": "Seu bônus foi reivindicado",

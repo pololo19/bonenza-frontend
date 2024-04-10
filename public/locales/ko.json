@@ -612,7 +612,9 @@
     "exclusionNotify1": "당신은 * 자신을 가지고 있고 로그인할 수 없습니다.",
     "exclusionNotify2": "제외 기간을 삭제하려는 경우",
     "exclusionNotify3": "다음 주소로 이메일을 보내주세요.",
-    "exclusionGoBack": "돌아가기"
+    "exclusionGoBack": "돌아가기",
+    "permanentlyDisabled": "귀하의 계정은 영구적으로 비활성화되었습니다.",
+    "disabledPeriod": "귀하의 계정은 다음 날짜까지 비활성화됩니다. {{date}}"
   },
   "authentication": {
     "checked": "사용자 계약에 동의해 주세요.",
@@ -2121,7 +2123,8 @@
     "existMail": "이 이메일은 이미 존재합니다.",
     "verifyPhone": "이 전화는 확인되지 않았습니다.",
     "verifyMail": "이 이메일은 확인되지 않았습니다.",
-    "locationIsNotAllowed": "죄송합니다. 해당 지역에서는 이 게임을 사용할 수 없습니다."
+    "locationIsNotAllowed": "죄송합니다. 해당 지역에서는 이 게임을 사용할 수 없습니다.",
+    "selfExclusive": "귀하의 계정이 비활성화되었습니다"
   },
   "success": {
     "bonusClaimed": "귀하의 보너스가 청구되었습니다",
