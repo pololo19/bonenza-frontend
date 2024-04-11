@@ -138,7 +138,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     time: new Date(),
   });
   const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
   const baseBodyRef = useRef<HTMLDivElement>(null);
   const showChatTypeRef = useRef<boolean>(false);
