@@ -4,10 +4,11 @@ import cn from 'classnames';
 import { ArrowLeft2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
 import { useTranslation } from 'react-i18next';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_getSpinLatest } from '@/api/spin';
+import { AppState } from '@/base/redux/store';
 import RankingTableComponent from '@/components/table/rankingTable';
 
 import CommonModal from '../commonModal/commonModal';
@@ -32,6 +33,12 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
   const { t } = useTranslation('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [latestSpins, setLatestSpins] = useState<SpinDataType[]>([]);
+  const { isLogin } = useSelector(
+    (state: AppState) => ({
+      isLogin: state.auth.isLogin,
+    }),
+    shallowEqual,
+  );
   const getLatestSpin = async () => {
     try {
       setIsLoading(true);
@@ -54,8 +61,10 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
   };
 
   useEffect(() => {
-    getLatestSpin();
-  }, [show]);
+    if (show && isLogin) {
+      getLatestSpin();
+    }
+  }, [show, isLogin]);
 
   const spinColumns: ColumnDef<SpinDataType>[] = [
     {

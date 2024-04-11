@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Fragment, useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_reviewLike, api_reviewList, api_reviewReport } from '@/api/game';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
@@ -18,7 +19,6 @@ import Paging from '@/components/paging/paging';
 import ReportModal from '../../modal/review/reportModal';
 import CommonModal from '../commonModal/commonModal';
 import CommentPostModal from './commentPost';
-import { toast } from 'react-toastify';
 
 export default function ReplyModal({
   show,
@@ -170,16 +170,19 @@ export default function ReplyModal({
               <div className="flex justify-between items-center">
                 <div className="">
                   <div className="flex items-center gap-2">
-                    <Image
-                      src={String(API_AVATAR) + sourceComment.userAvatar}
-                      alt=""
-                      width={36}
-                      height={36}
-                      className="w-7 h-7 rounded-full"
-                      onError={(err) => {
-                        err.currentTarget.src = '/img/avatar-1.png';
-                      }}
-                    />
+                    {sourceComment.userAvatar && (
+                      <Image
+                        src={String(API_AVATAR) + sourceComment.userAvatar}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="w-7 h-7 rounded-full"
+                        onError={(err) => {
+                          err.currentTarget.src = '/img/avatar-1.png';
+                        }}
+                      />
+                    )}
+
                     <span
                       className="text-[14px] hover:underline cursor-pointer"
                       // onClick={() => openModalUserProfile(sourceComment.userId, sourceComment.userAvatar, sourceComment.userName)}

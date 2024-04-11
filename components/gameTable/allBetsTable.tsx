@@ -209,16 +209,18 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
                   )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
-            <Image
-              className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
-              height={15}
-              width={15}
-              src={`/img/fiats/${row.original.currency}.png`}
-              onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USDT.png';
-              }}
-              alt=""
-            />
+            {row.original.currency && (
+              <Image
+                className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
+                height={15}
+                width={15}
+                src={`/img/fiats/${row.original.currency}.png`}
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USDT.png';
+                }}
+                alt=""
+              />
+            )}
           </div>
         ),
       },

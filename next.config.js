@@ -24,6 +24,7 @@ module.exports = () => {
     SOCKET_GAME_URL: process.env.SOCKET_GAME_URL,
     project: process.env.NAME,
     projectId: process.env.WALLET_CONNECT_PROJECT,
+    AUTHKEY: process.env.AUTH,
   };
 
   const webpack = (cfg, { isServer }) => {
