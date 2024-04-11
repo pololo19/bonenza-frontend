@@ -7,7 +7,6 @@ import { Fragment, useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import StarsRating from 'react-star-rate';
 import { toast } from 'react-toastify';
-import { Tooltip } from 'react-tooltip';
 
 import {
   api_reviewGetRating,
@@ -516,16 +515,18 @@ const GameReviewComponent = ({
               <div className="flex pr-2">
                 {ratingData.avatars.map((item, key) => (
                   <div key={key}>
-                    <Image
-                      src={String(API_AVATAR) + item}
-                      alt=""
-                      width={36}
-                      height={36}
-                      className="w-4 h-4"
-                      onError={(e) => {
-                        e.currentTarget.src = '/img/avatar-1.png';
-                      }}
-                    />
+                    {item && (
+                      <Image
+                        src={String(API_AVATAR) + item}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="w-4 h-4"
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/avatar-1.png';
+                        }}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
@@ -595,16 +596,19 @@ const GameReviewComponent = ({
           </Popover>
         </div>
         <div className="flex gap-[13px] h-11 items-center relative mt-[9px]">
-          <Image
-            src={String(API_AVATAR) + userAvatar}
-            alt=""
-            width={36}
-            height={36}
-            className="w-9 h-9 rounded-full"
-            onError={(e) => {
-              e.currentTarget.src = '/img/avatar-1.png';
-            }}
-          />
+          {userAvatar && (
+            <Image
+              src={String(API_AVATAR) + userAvatar}
+              alt=""
+              width={36}
+              height={36}
+              className="w-9 h-9 rounded-full"
+              onError={(e) => {
+                e.currentTarget.src = '/img/avatar-1.png';
+              }}
+            />
+          )}
+
           <div
             className="w-full cursor-pointer h-full items-start flex flex-col dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary text-sm border-none px-7 focus:outline-none justify-center"
             role="text"
@@ -629,16 +633,19 @@ const GameReviewComponent = ({
             <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
               <div className="ml-[17px]">
                 <div className="flex items-center gap-2">
-                  <Image
-                    src={String(API_AVATAR) + comment.userAvatar}
-                    alt=""
-                    width={36}
-                    height={36}
-                    className="w-7 h-7 rounded-full"
-                    onError={(err) => {
-                      err.currentTarget.src = '/img/avatar-1.png';
-                    }}
-                  />
+                  {comment.userAvatar && (
+                    <Image
+                      src={String(API_AVATAR) + comment.userAvatar}
+                      alt=""
+                      width={36}
+                      height={36}
+                      className="w-7 h-7 rounded-full"
+                      onError={(err) => {
+                        err.currentTarget.src = '/img/avatar-1.png';
+                      }}
+                    />
+                  )}
+
                   <span
                     className="text-[14px] hover:underline cursor-pointer"
                     onClick={() => openModalUserProfile(comment.userId, comment.userAvatar, comment.userName)}
@@ -732,16 +739,19 @@ const GameReviewComponent = ({
                 <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
                   <div className="ml-[17px]">
                     <div className="flex items-center gap-2">
-                      <Image
-                        src={String(API_AVATAR) + item.userAvatar}
-                        alt=""
-                        width={36}
-                        height={36}
-                        className="w-7 h-7 rounded-full"
-                        onError={(err) => {
-                          err.currentTarget.src = '/img/avatar-1.png';
-                        }}
-                      />
+                      {item.userAvatar && (
+                        <Image
+                          src={String(API_AVATAR) + item.userAvatar}
+                          alt=""
+                          width={36}
+                          height={36}
+                          className="w-7 h-7 rounded-full"
+                          onError={(err) => {
+                            err.currentTarget.src = '/img/avatar-1.png';
+                          }}
+                        />
+                      )}
+
                       <span
                         className="text-[14px] hover:underline cursor-pointer"
                         onClick={() => openModalUserProfile(item.userId, item.userAvatar, item.userName)}

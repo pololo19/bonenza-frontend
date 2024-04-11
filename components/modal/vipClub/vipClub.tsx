@@ -1,5 +1,4 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { CheckIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
@@ -11,7 +10,7 @@ import { Tooltip } from 'react-tooltip';
 
 import { api_getVipProgress, api_vipLevelSystem } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, dataMedal } from '@/base/constants/common';
+import { CookieKey } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { changeIsShowVipClubModal, changeIsShowVipLevelModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -228,16 +227,19 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   </div>
                   <div className="flex gap-[30px] mt-5">
                     <div className="flex relative min-w-[90px]">
-                      <Image
-                        src={currentRank?.img || ''}
-                        width={240}
-                        height={279}
-                        className="w-[90px] h-fit"
-                        alt=""
-                        onError={(e) => {
-                          e.currentTarget.src = '/img/vip.png';
-                        }}
-                      />
+                      {currentRank?.img && (
+                        <Image
+                          src={currentRank?.img || ''}
+                          width={240}
+                          height={279}
+                          className="w-[90px] h-fit"
+                          alt=""
+                          onError={(e) => {
+                            e.currentTarget.src = '/img/vip.png';
+                          }}
+                        />
+                      )}
+
                       {vipData.level > 0 && (
                         <div className="absolute w-full h-full flex flex-col items-center justify-center">
                           {/* <p className="text-[12px]">{selectedRank.name}</p> */}

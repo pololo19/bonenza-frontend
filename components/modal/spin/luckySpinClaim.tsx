@@ -89,7 +89,9 @@ export default function ModalSpinClaim({
             <span className="mr-1">{`+ `}</span>
             <span className="font-bold">{currentAmount}</span>
             <span className="ml-1">{`${symbol}`}</span>
-            <Image width={25} height={25} className="ml-2 w-[30px] sm:w-[40px]" src={symbolLogo} alt="" />
+            {symbolLogo && (
+              <Image width={25} height={25} className="ml-2 w-[30px] sm:w-[40px]" src={symbolLogo} alt="" />
+            )}
           </div>
           {claimable && (
             <div

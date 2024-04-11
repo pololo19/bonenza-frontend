@@ -29,6 +29,7 @@ import { AuthenticationModeEnum, GameListType } from '@/base/types/common';
 import CardPlay from '@/components/cards/cardPlay';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
+import CsrWrapper from '@/components/CsrWrapper';
 import GameCard from '@/components/gameCard/gameCard';
 import withAuth from '@/components/hoc/withAuth';
 import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
@@ -323,21 +324,15 @@ function IndexPage() {
             <div className="flex-1 w-full">
               <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:mt-0 sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
                 <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
-                  {/* <Slider
-                  slidesToShow={1}
-                  className={cn('h-full slide-header sm:mx-[auto] mx-[-12px]')}
-                  arrows={false}
-                  autoplay={false}
-                  autoplaySpeed={3000}
-                > */}
-                  <Image
-                    width={1339}
-                    height={384}
-                    className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
-                    src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-13.png'}
-                    alt=""
-                  />
-                  {/* </Slider> */}
+                  <CsrWrapper>
+                    <Image
+                      width={1339}
+                      height={384}
+                      className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
+                      src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-13.png'}
+                      alt=""
+                    />
+                  </CsrWrapper>
                 </div>
                 <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-[15px] flex flex-col justify-center">
                   {/* <div className="h-[134px] w-[646px] relative">

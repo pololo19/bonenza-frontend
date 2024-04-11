@@ -255,13 +255,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       const res = await api_getInitData();
       const tempFiatSymbols: CurrencyType[] =
         res.data?.fiatSymbols?.map((item: any) => ({
-          id: item.id,
-          name: item.symbol,
-          alias: item.name,
-          logo: `/img/fiats/${item.symbol}.png`,
-          iso_currency: item.iso_currency,
-          iso_decimals: item.iso_decimals,
-          availableNetworks: item.availableNetworks,
+          id: item?.id ?? '',
+          name: item?.symbol ?? 'USDT',
+          alias: item?.name ?? '',
+          logo: `/img/fiats/${item?.symbol ?? 'USDT'}.png`,
+          iso_currency: item?.iso_currency ?? '',
+          iso_decimals: item?.iso_decimals ?? 0,
+          availableNetworks: item?.availableNetworks || [],
           price: Number(item.price),
         })) || [];
       dispatch(setFiatSymbols(tempFiatSymbols));
@@ -927,7 +927,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           onClose={() => dispatch(changeIsShowLogOutConfirm(false))}
         />
       )}
-      <ModalDetailBets show={isShowDetailBets || false} onClose={() => dispatch(changeIsShowDetailBets(false))} />
+      {isShowDetailBets && (
+        <ModalDetailBets show={isShowDetailBets || false} onClose={() => dispatch(changeIsShowDetailBets(false))} />
+      )}
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
       <ModalSpin show={isShowSpin || false} onClose={() => dispatch(changeIsShowSpin(false))} />
