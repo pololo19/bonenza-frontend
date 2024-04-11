@@ -9,8 +9,8 @@ import { toast } from 'react-toastify';
 
 import { api_uploadAvatar } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
-import { checkFiletypes, convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
+import { convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowInformation,
@@ -313,10 +313,10 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
               <NextImage height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
             </div>
           </button>
-          {!isErrorAvatar && (
+          {!isErrorAvatar && avatar && (
             <NextImage
               role="button"
-              src={String(process.env.API_AVATAR) + avatar}
+              src={String(API_AVATAR) + avatar}
               alt="avatar"
               height={50}
               width={50}

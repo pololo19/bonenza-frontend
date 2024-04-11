@@ -112,13 +112,13 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
         </thead>
         <tbody className={cn({ 'relative py-10': isLoading }, 'md:!text-[14px] sm:!text-[12px] !text-[10px]')}>
           {isLoading && (
-            <div
-              className={cn('flex justify-center', {
-                'absolute left-0 right-0 top-0 bottom-0': isLoading,
-              })}
-            >
-              <ReactLoading type="bubbles" color="#50C627" delay={50} />
-            </div>
+            <tr>
+              <td colSpan={columns.length}>
+                <div className="flex items-center justify-center">
+                  <ReactLoading type="bubbles" color="#50C627" delay={50} />
+                </div>
+              </td>
+            </tr>
           )}
           {!!data?.length &&
             getRowModel().rows.map((row) => (
@@ -138,7 +138,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
 
           {!data?.length && !isLoading && (
             <tr className="">
-              <td colSpan={columns.length} className="text-center ">
+              <td colSpan={columns.length} className="text-center">
                 <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
                   <CsrWrapper>
                     <Image

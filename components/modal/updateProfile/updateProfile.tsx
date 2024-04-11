@@ -116,15 +116,17 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
           <div className="flex flex-col items-center gap-[10px] w-full">
             <div className="relative flex flex-col items-center gap-[10px] w-full">
               <div className="h-[150px] w-[150px] rounded-full overflow-hidden">
-                <Image
-                  height={150}
-                  width={150}
-                  src={String(process.env.API_AVATAR) + avatar}
-                  alt=""
-                  onError={(e) => {
-                    e.currentTarget.src = '/img/avatar-1.png';
-                  }}
-                />
+                {avatar && (
+                  <Image
+                    height={150}
+                    width={150}
+                    src={String(process.env.API_AVATAR) + avatar}
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/avatar-1.png';
+                    }}
+                  />
+                )}
               </div>
               <label
                 className="rounded-[5px] text-[14px] font-[400] text-black dark:text-white px-[10px] py-[5px] cursor-pointer dark:bg-[#2e333a99] bg-[#eceef4] dark:hover:bg-gray-600 hover:bg-gray-200 relative top-[-30px]"

@@ -108,13 +108,13 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
         </thead>
         <tbody className={cn('sm:text-[14px] text-[12px]', { 'relative py-10': isLoading })}>
           {isLoading && (
-            <div
-              className={cn('flex justify-center', {
-                'absolute left-0 right-0 top-0 bottom-0': isLoading,
-              })}
-            >
-              <ReactLoading type="bubbles" color="#50C627" delay={50} />
-            </div>
+            <tr>
+              <td colSpan={columns.length}>
+                <div className="flex items-center justify-center">
+                  <ReactLoading type="bubbles" color="#50C627" delay={50} />
+                </div>
+              </td>
+            </tr>
           )}
           {!!data?.length &&
             getRowModel().rows.map((row) => (
