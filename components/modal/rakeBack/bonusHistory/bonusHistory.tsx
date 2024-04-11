@@ -113,11 +113,11 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
         cell: ({ row }) => (
           <div
             className={cn('font-bold text-[14px] flex justify-center gap-1 truncate text-center', {
-              'text-color-primary': row.original.amountUsd >= 0,
-              'text-color-red': row.original.amountUsd < 0,
+              'text-color-primary': row.original.amount >= 0,
+              'text-color-red': row.original.amount < 0,
             })}
           >
-            {row.original.amountUsd < 0 ? '-' : '+'}
+            {row.original.amount < 0 ? '-' : '+'}
             {viewInFiat ? (
               <>{currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), 4, localFiat?.name || 'USD')}</>
             ) : (
@@ -126,7 +126,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
             <Image
               height={20}
               width={20}
-              src={`/img/fiats/${row.original.symbol}.png`}
+              src={row.original.symbolLogo}
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
