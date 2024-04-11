@@ -66,16 +66,19 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
           })}
         >
           <div className="block relative w-[50px] h-fit cursor-pointer" onClick={() => handleModalProfile()}>
-            <Image
-              className="w-[50px] h-[50px] rounded-full"
-              width={50}
-              height={50}
-              alt=""
-              src={String(API_AVATAR) + userAvatar}
-              onError={(e) => {
-                e.currentTarget.src = '/img/avatar-1.png';
-              }}
-            />
+            {userAvatar && (
+              <Image
+                className="w-[50px] h-[50px] rounded-full"
+                width={50}
+                height={50}
+                alt=""
+                src={String(API_AVATAR) + userAvatar}
+                onError={(e) => {
+                  e.currentTarget.src = '/img/avatar-1.png';
+                }}
+              />
+            )}
+
             <div className="flex items-center justify-center w-full absolute bottom-0 ">
               <span
                 className={'text-white rounded text-[12px] flex justify-center w-fit px-[10px]'}

@@ -242,15 +242,17 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
           </Menu>
           <div className="flex items-center gap-[6px]">
             <div className="h-[35px] w-[35px] rounded-full overflow-hidden">
-              <Image
-                height={35}
-                width={35}
-                src={String(process.env.API_AVATAR) + (userData?.avatar || avatar)}
-                alt=""
-                onError={(e) => {
-                  e.currentTarget.src = '/img/avatar-1.png';
-                }}
-              />
+              {(userData?.avatar || avatar) && (
+                <Image
+                  height={35}
+                  width={35}
+                  src={String(process.env.API_AVATAR) + (userData?.avatar || avatar)}
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                />
+              )}
             </div>
             <div className="text-black dark:text-white max-w-[85px] sm:max-w-[100px] truncate text-[12px] sm:text-[14px] font-[700]">
               {userData?.userName || userName}

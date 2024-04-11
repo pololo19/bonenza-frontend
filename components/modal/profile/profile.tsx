@@ -154,15 +154,17 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
               <div className="flex flex-col items-center gap-[10px] w-full">
                 <div className="h-[80px] w-[80px] rounded-full overflow-hidden">
-                  <Image
-                    height={80}
-                    width={80}
-                    src={String(API_AVATAR) + user?.avatar}
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/avatar-1.png';
-                    }}
-                  />
+                  {user?.avatar && (
+                    <Image
+                      height={80}
+                      width={80}
+                      src={String(API_AVATAR) + user?.avatar}
+                      alt=""
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/avatar-1.png';
+                      }}
+                    />
+                  )}
                 </div>
                 <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
                 <div className="text-[14px] text-color-text-primary w-full flex justify-between items-center">

@@ -63,7 +63,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         multiplier: Number(item.multiplier || 0),
         profitAmount: Number(item.profitAmount || 0),
         profitAmountUsd: Number(item.profitAmountUsd || 0),
-        currency: item.currency ?? 'USD',
+        currency: item.currency ?? 'USDT',
         betId: item.id ?? '',
         time: item.time ?? new Date(),
       }));
@@ -88,11 +88,13 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
 
   const openModalBetDetail = (row: Row<BetTableDataType>) => {
     const betId = row?.getVisibleCells?.()[0].row.original.betId;
-    dispatch(setDetailBets({
-      betDetail: row.original,
-      betId: Number(betId),
-      isPublicProfile: row.original.player == '' ? false : true,
-    }));
+    dispatch(
+      setDetailBets({
+        betDetail: row.original,
+        betId: Number(betId),
+        isPublicProfile: row.original.player == '' ? false : true,
+      }),
+    );
     dispatch(changeIsShowDetailBets(true));
   };
 
@@ -151,16 +153,18 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             {viewInFiat
               ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
               : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
-            <Image
-              className="w-[18px] h-[18px]"
-              height={25}
-              width={32}
-              src={`/img/fiats/${row.original.currency}.png`}
-              onError={(e) => {
-                e.currentTarget.src = '/img/fiats/coin.png';
-              }}
-              alt=""
-            />
+            {row.original.currency && (
+              <Image
+                className="w-[18px] h-[18px]"
+                height={25}
+                width={32}
+                src={`/img/fiats/${row.original.currency}.png`}
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USDT.png';
+                }}
+                alt=""
+              />
+            )}
           </div>
         ),
       },
@@ -200,16 +204,18 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
                   )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
-            <Image
-              className="h-[18px] w-[18px]"
-              height={15}
-              width={15}
-              src={`/img/fiats/${row.original.currency}.png`}
-              onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USDT.png';
-              }}
-              alt=""
-            />
+            {row.original.currency && (
+              <Image
+                className="h-[18px] w-[18px]"
+                height={15}
+                width={15}
+                src={`/img/fiats/${row.original.currency}.png`}
+                onError={(e) => {
+                  e.currentTarget.src = '/img/fiats/USDT.png';
+                }}
+                alt=""
+              />
+            )}
           </div>
         ),
       },

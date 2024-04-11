@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const createImage = (url) =>
   new Promise((resolve, reject) => {
     const image = new Image();
