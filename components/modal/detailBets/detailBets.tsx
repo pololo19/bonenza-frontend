@@ -26,12 +26,9 @@ type ModalDetailBetsProps = {
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
 
-export default function ModalDetailBets({
-  show,
-  onClose,
-}: ModalDetailBetsProps) {
+export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  
+
   const { detailsBet } = useSelector(
     (state: AppState) => ({
       detailsBet: state.modal.detailBets,
@@ -106,7 +103,9 @@ export default function ModalDetailBets({
                         : `${currencyFormat1(Math.abs(detailsBet.betDetail.profitAmount), 8, '', false)} `}
                     </div>
                     <div className="text-[22px] text-black dark:text-white">
-                      {viewInFiat ? handleLocaleSymbol(String(detailsBet.betDetail.currency)) : detailsBet.betDetail.currency}
+                      {viewInFiat
+                        ? handleLocaleSymbol(String(detailsBet.betDetail.currency))
+                        : detailsBet.betDetail.currency}
                     </div>
                   </div>
                 </div>
@@ -124,7 +123,11 @@ export default function ModalDetailBets({
 
                   <div className="text-[12px] dark:text-white text-black">
                     {viewInFiat
-                      ? `${currencyFormat1(detailsBet.betDetail.betAmountUsd * exchangeRate, 8, localFiat?.name || 'USD')}`
+                      ? `${currencyFormat1(
+                          detailsBet.betDetail.betAmountUsd * exchangeRate,
+                          8,
+                          localFiat?.name || 'USD',
+                        )}`
                       : `${currencyFormat1(detailsBet.betDetail.betAmount, 8, '', false)} `}
                   </div>
                 </div>
@@ -165,7 +168,8 @@ export default function ModalDetailBets({
                       'hover:underline cursor-pointer dark:text-white text-black': !(
                         detailsBet.betDetail.playerId !== userId && !detailsBet.isPublicProfile
                       ),
-                      'point-event-none text-color-text-primary': detailsBet.betDetail.playerId !== userId && !detailsBet.isPublicProfile,
+                      'point-event-none text-color-text-primary':
+                        detailsBet.betDetail.playerId !== userId && !detailsBet.isPublicProfile,
                     })}
                     onClick={() => {
                       if (detailsBet.betDetail.playerId !== userId && !detailsBet.isPublicProfile) return;
@@ -191,7 +195,9 @@ export default function ModalDetailBets({
                   <div className="text-[12px] min-w-[40px]">{t('gameTable:betId')}:</div>
                   <div className="flex gap-[5px] items-center">
                     <ShieldTick variant="Bold" className="w-[16px] h-[16px] text-color-primary" />
-                    <div className="text-[11px] dark:text-white text-black text-right">{detailsBet.betDetail.betId}</div>
+                    <div className="text-[11px] dark:text-white text-black text-right">
+                      {detailsBet.betDetail.betId}
+                    </div>
                     <Simcard2
                       role="button"
                       variant="Bold"
@@ -211,7 +217,7 @@ export default function ModalDetailBets({
                   alt=""
                   className="object-cover max-h-auto rounded-[5px]"
                   onError={(e) => {
-                    e.currentTarget.src = '/img/recommended-game-3.png';
+                    // e.currentTarget.src = '/img/recommended-game-3.png';
                   }}
                 />
                 <div>
