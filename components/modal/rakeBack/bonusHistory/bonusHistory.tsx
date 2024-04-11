@@ -137,7 +137,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
       },
     ];
     return columnsDefault;
-  }, [t, localFiat, exchangeRate]);
+  }, [t, localFiat, exchangeRate, viewInFiat]);
 
   const handleCloseModal = () => {
     onClose();
