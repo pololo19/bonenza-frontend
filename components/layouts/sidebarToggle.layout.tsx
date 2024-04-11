@@ -462,7 +462,7 @@ export default function SidebarToggle() {
               data-tooltip-id={'quest-tooltip'}
               onClick={() => dispatch(changeIsShowQuest(true))}
             >
-              <Image className="m-auto" height={30} width={30} src={'img/quest.png'} alt=""></Image>
+              <Image className="m-auto" height={30} width={30} src={'img/sidebar/quest.png'} alt=""></Image>
             </div>
             <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute">
               <div>
@@ -478,7 +478,7 @@ export default function SidebarToggle() {
               data-tooltip-id={'spin-tooltip'}
               onClick={() => dispatch(changeIsShowSpin(true))}
             >
-              <Image className="m-auto" height={30} width={30} src={'img/spin.png'} alt=""></Image>
+              <Image className="m-auto" height={30} width={30} src={'img/sidebar/spin.png'} alt=""></Image>
             </div>
             <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute">
               <div>
