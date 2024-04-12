@@ -100,18 +100,16 @@ export default function ProfileDropdown() {
           >
             <Popover.Button ref={buttonRef}>
               <div className="relative rounded-full overflow-hidden dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary aspect-square">
-                {user.avatar && (
-                  <Image
-                    height={40}
-                    width={40}
-                    src={String(API_AVATAR) + user.avatar}
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/avatar-1.png';
-                    }}
-                    className="sm:h-[40px] sm:w-[40px] h-[30px] w-[30px]"
-                  />
-                )}
+                <Image
+                  height={40}
+                  width={40}
+                  src={String(API_AVATAR) + user.avatar}
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                  className="sm:h-[40px] sm:w-[40px] h-[30px] w-[30px]"
+                />
               </div>
             </Popover.Button>
             <Transition.Child
