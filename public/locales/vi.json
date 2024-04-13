@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "Bắt đầu từ cấp VIP 8, bạn sẽ nhận được một vòng quay miễn phí mỗi khi lên cấp và không có giới hạn về số vòng quay bạn có thể kiếm được.",
     "questToolTip": "Tiếp tục hoàn thành Nhiệm vụ và kiếm thêm phần thưởng.",
     "rakebackTooltip1": "USDT bị khóa có thể nhận được thông qua một số phần thưởng nhất định, chẳng hạn như phần thưởng tiền gửi và vòng quay may mắn.",
-    "rakebackTooltip2": "Mở khóa USDT thật dễ dàng! "
+    "rakebackTooltip2": "Mở khóa USDT thật dễ dàng! Về cơ bản nó giống như rakeback. Nó sẽ được mở khóa tương ứng bằng cách đặt cược.",
+    "redeemLimit": "Bạn đã đạt đến giới hạn gửi yêu cầu hàng ngày. Hãy quay lại vào ngày mai để có nhiều tương tác hơn!",
+    "redeemNoCode": "Mã này không tồn tại."
   },
   "promotion": {
     "promotion": "Khuyến mãi",

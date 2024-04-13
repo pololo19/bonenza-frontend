@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "VIP seviyesi 8'den başlayarak, her seviye atladığınızda bir bedava dönüş alacaksınız ve kazanabileceğiniz dönüş sayısında herhangi bir sınırlama yoktur.",
     "questToolTip": "Görevleri tamamlamaya ve daha fazla ödül kazanmaya devam edin.",
     "rakebackTooltip1": "Kilitli USDT, para yatırma bonusu ve şanslı çevirme gibi belirli bonuslarla elde edilir.",
-    "rakebackTooltip2": "USDT'nin kilidini açmak çok kolay! "
+    "rakebackTooltip2": "USDT'nin kilidini açmak kolaydır! Temel olarak komisyon iadesiyle aynıdır. Bahis yapılarak orantılı olarak kilidi açılacaktır.",
+    "redeemLimit": "Günlük istek gönderme sınırınıza ulaştınız. Daha fazla etkileşim için yarın tekrar gelin!",
+    "redeemNoCode": "Kod mevcut değil."
   },
   "promotion": {
     "promotion": "Terfi",

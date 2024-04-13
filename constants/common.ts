@@ -36,6 +36,8 @@ export const CookieKey = {
   usdtNetwork: 'usdtNetwork',
   session: 'session',
   level: 'level',
+  redeem: 'redeem',
+  redeemDate: 'redeemDate',
 };
 
 export const AUTH_KEY = process.env.AUTHKEY;

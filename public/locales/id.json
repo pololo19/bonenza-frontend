@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "Mulai dari VIP level 8, Anda akan menerima satu putaran gratis setiap kali Anda naik level, dan tidak ada batasan jumlah putaran yang dapat Anda peroleh.",
     "questToolTip": "Terus selesaikan Misi dan dapatkan lebih banyak hadiah.",
     "rakebackTooltip1": "USDT yang terkunci diperoleh melalui bonus tertentu, seperti bonus deposit dan lucky spin.",
-    "rakebackTooltip2": "Membuka kunci USDT itu mudah! "
+    "rakebackTooltip2": "Membuka kunci USDT itu mudah! Pada dasarnya sama dengan rakeback. Ini akan dibuka secara proporsional dengan bertaruh.",
+    "redeemLimit": "Anda telah mencapai batas harian untuk mengirim permintaan. Kembalilah besok untuk interaksi lebih lanjut!",
+    "redeemNoCode": "Kodenya tidak ada."
   },
   "promotion": {
     "promotion": "Promosi",

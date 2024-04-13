@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "VIP 레벨 8부터 레벨이 오를 때마다 무료 스핀을 1회 받게 되며 획득할 수 있는 스핀 수에는 제한이 없습니다.",
     "questToolTip": "계속해서 퀘스트를 완료하고 더 많은 보상을 획득하세요.",
     "rakebackTooltip1": "잠긴 USDT는 입금 보너스 및 럭키 스핀과 같은 특정 보너스를 통해 획득됩니다.",
-    "rakebackTooltip2": "USDT 잠금 해제는 쉽습니다! "
+    "rakebackTooltip2": "USDT 잠금 해제는 쉽습니다! 기본적으로 rakeback과 동일합니다. 베팅을 통해 비례적으로 잠금 해제됩니다.",
+    "redeemLimit": "일일 요청 전송 한도에 도달했습니다. 더 많은 상호작용을 위해 내일 다시 오세요!",
+    "redeemNoCode": "코드가 존재하지 않습니다."
   },
   "promotion": {
     "promotion": "홍보",

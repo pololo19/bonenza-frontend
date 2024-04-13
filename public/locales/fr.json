@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "À partir du niveau VIP 8, vous recevrez un tour gratuit à chaque fois que vous passerez au niveau supérieur, et il n'y a pas de limite au nombre de tours que vous pouvez gagner.",
     "questToolTip": "Continuez à terminer des quêtes et gagnez plus de récompenses.",
     "rakebackTooltip1": "L'USDT verrouillé est obtenu grâce à certains bonus, tels que le bonus de dépôt et le tour chanceux.",
-    "rakebackTooltip2": "Débloquer l’USDT est facile ! "
+    "rakebackTooltip2": "Débloquer l’USDT est simple ! C’est essentiellement la même chose que le rakeback. Il sera débloqué proportionnellement en misant.",
+    "redeemLimit": "Vous avez atteint votre limite quotidienne d'envoi de demandes. Revenez demain pour plus d'interactions !",
+    "redeemNoCode": "Le code n'existe pas."
   },
   "promotion": {
     "promotion": "Promotion",
