@@ -4,6 +4,7 @@ import { ArrowRight2, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { ElementType, useEffect, useMemo, useState } from 'react';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
@@ -14,7 +15,6 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 
@@ -40,7 +40,7 @@ export default function ModalRakeBack({
   const { t } = useTranslation('');
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isClaiming, setIsClaiming] = useState<boolean>(false);
   const [lockedAmount, setLockedAmount] = useState({
     balance: 0,
     balanceUsd: 0,
@@ -79,7 +79,6 @@ export default function ModalRakeBack({
 
   const getClaimData = async () => {
     try {
-      setIsLoading(true);
       const _res = await api_getClaims();
       const tempUnlockedAmount = Number(_res.data?.unlockedAmount ?? 0);
       const tempUnlockMinimumAmount = Number(_res.data?.minimumUnlockAmount ?? 0);
@@ -103,22 +102,20 @@ export default function ModalRakeBack({
         balanceUsd: 0,
       });
     } finally {
-      setIsLoading(false);
     }
   };
 
   const handleCliam = async () => {
+    if (isClaiming) return;
     try {
-      setIsLoading(true);
-      const _res = await api_postClaims(unlockedData.amount);
+      setIsClaiming(true);
+      await api_postClaims(unlockedData.amount);
       toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
-      const status = error.response?.data?.statusCode ?? '';
       const description = error.response?.data?.error ?? t('deposit:claimFailed');
       toast.error(description, { containerId: TOAST_ENUM.COMMON });
     } finally {
-      setIsLoading(false);
+      setIsClaiming(false);
     }
   };
 
@@ -126,7 +123,7 @@ export default function ModalRakeBack({
     if (isLogin && show) {
       getClaimData();
     }
-  }, [isLogin, show]);
+  }, [isLogin, show, isClaiming]);
 
   return (
     <>
@@ -141,7 +138,6 @@ export default function ModalRakeBack({
         }
       >
         <>
-          {isLoading && <Loader />}
           <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
             <div className="bg-[url('/img/rakeBackBg.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
               <div className="flex flex-col items-center justify-center h-full gap-[10px]">
@@ -168,7 +164,11 @@ export default function ModalRakeBack({
                     )}
                     onClick={handleCliam}
                   >
-                    {t('deposit:claim')}
+                    {isClaiming ? (
+                      <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-7 !h-7" />
+                    ) : (
+                      t('deposit:claim')
+                    )}
                   </div>
                   <div className="text-[12px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-color-light-text-primary">
                     <p>{t('deposit:mintoclaim')}:</p> &nbsp;

@@ -1424,7 +1424,9 @@
     "luckySpinToolTip2": "Starting from VIP level 8, you will receive one free spin each time you level up, and there is no limit to the number of spins you can earn.",
     "questToolTip": "Keep completing Quests and earning more rewards.",
     "rakebackTooltip1": "Locked USDT is obtained through certain bonuses, such as deposit bonus and lucky spin.",
-    "rakebackTooltip2": "Unlocking USDT is easy! It’s essentially the same as rakeback & will be unlocked proportionally by wagering."
+    "rakebackTooltip2": "Unlocking USDT is easy! It’s essentially the same as rakeback & will be unlocked proportionally by wagering.",
+    "redeemLimit": "You've reached your daily limit for sending requests. Come back tomorrow for more interactions!"
+
   },
   "promotion": {
     "promotion": "Promotion",

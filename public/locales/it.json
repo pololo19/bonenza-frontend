@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "A partire dal livello VIP 8, riceverai un giro gratuito ogni volta che sali di livello e non c'è limite al numero di giri che puoi guadagnare.",
     "questToolTip": "Continua a completare le missioni e a guadagnare più premi.",
     "rakebackTooltip1": "L'USDT bloccato si ottiene tramite determinati bonus, come bonus di deposito e giri fortunati.",
-    "rakebackTooltip2": "Sbloccare USDT è facile! "
+    "rakebackTooltip2": "Sbloccare USDT è facile! È essenzialmente la stessa cosa che rakeback.it verrà sbloccato proporzionalmente scommettendo.",
+    "redeemLimit": "Hai raggiunto il limite giornaliero per l'invio di richieste. Torna domani per ulteriori interazioni!",
+    "redeemNoCode": "Il codice non esiste."
   },
   "promotion": {
     "promotion": "Promozione",

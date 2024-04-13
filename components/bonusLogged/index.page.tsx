@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { api_bonusStatistics } from '@/api/bonus';
 import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { CookieKey, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
@@ -240,18 +240,40 @@ function BonusLoggedPage() {
     }
   }, [isLogin, isShowSpinClaim]);
   const onRedeemClick = () => {
-    toast.error("The code doesn't exist", {
-      toastId: 'redeemCodeEmpty',
-      containerId: TOAST_ENUM.COMMON,
-      icon: true,
-      autoClose: 3000,
-      hideProgressBar: false,
-    });
+    const redeemDate = localStorage.getItem(CookieKey.redeemDate) || '';
+    if (redeemDate) {
+      const difference = new Date().getTime() - new Date(redeemDate).getTime();
+      if (difference / 1000 / 60 / 60 >= 24) {
+        localStorage.setItem(CookieKey.redeemDate, new Date().toString());
+        localStorage.setItem(CookieKey.redeem, '0');
+      }
+    } else {
+      localStorage.setItem(CookieKey.redeemDate, new Date().toString());
+    }
+    const redeemAttempt = Number(localStorage.getItem(CookieKey.redeem) || '0');
+    localStorage.setItem(CookieKey.redeem, `${redeemAttempt + 1}`);
+
+    if (redeemAttempt > 5) {
+      toast.error(t('bonus:redeemLimit'), {
+        toastId: 'redeemLimit',
+        containerId: TOAST_ENUM.COMMON,
+        icon: true,
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+    } else {
+      toast.error(t('bonus:redeemNoCode'), {
+        toastId: 'redeemCodeEmpty',
+        containerId: TOAST_ENUM.COMMON,
+        icon: true,
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+    }
   };
 
   return (
     <>
-      {isLoading && <Loader />}
       <div className="mb-[50px]">
         <div className="flex max-sm:flex-wrap items-center justify-between">
           <div className="text-[16px] md:text-[24px] dark:text-white text-color-light-text-primary font-semibold my-[16px] md:my-0">
@@ -278,7 +300,7 @@ function BonusLoggedPage() {
         </div>
         <div
           className={cn(
-            'dark:bg-color-card-body-default bg-white rounded-[5px] max-[923px]', // Color & Border-radius
+            'dark:bg-color-card-body-default bg-white rounded-default max-[923px]', // Color & Border-radius
             'w-full gap-4 flex flex-col lg:flex-row lg:justify-between', // Layout
             'mt-[24px] px-[16px] py-[20px]', // Margin & Padding
           )}
@@ -333,7 +355,7 @@ function BonusLoggedPage() {
             <div
               onClick={() => dispatch(changeIsShowBonusDetail(true))}
               role="button"
-              className="hover:opacity-[0.9] dark:bg-color-active-primary bg-color-light-bg-primary rounded-large dark:text-color-text-primary text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
+              className="hover:opacity-[0.9] dark:bg-color-btn-green bg-color-light-bg-primary rounded-large dark:text-white text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
             >
               {t('bonus:details')}
             </div>
