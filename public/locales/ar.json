@@ -1419,11 +1419,13 @@
     "onlyTheLatest": "سيتم عرض المعاملات الأخيرة خلال 60 يومًا فقط أدناه.",
     "bonusReady": "مكافأة جاهزة",
     "activate": "تفعيل",
-    "luckySpinToolTip1": "Sie erhalten jeden Tag 1 Freispiel, sobald Sie einen bestimmten Einsatzbetrag erreicht haben.",
-    "luckySpinToolTip2": "Ab VIP-Level 8 erhalten Sie bei jedem Levelaufstieg einen Gratisdreh und die Anzahl der Spins, die Sie verdienen können, ist unbegrenzt.",
-    "questToolTip": "Schließe weiterhin Quests ab und verdiene weitere Belohnungen.",
-    "rakebackTooltip1": "Gesperrtes USDT wird durch bestimmte Boni wie Einzahlungsbonus und Lucky Spin erhalten.",
-    "rakebackTooltip2": "USDT freizuschalten ist einfach! "
+    "luckySpinToolTip1": "سوف تحصل على دورة مجانية واحدة كل يوم بمجرد وصولك إلى مبلغ رهان محدد.",
+    "luckySpinToolTip2": "بدءًا من مستوى VIP 8، ستحصل على دورة مجانية واحدة في كل مرة تصل فيها إلى المستوى الأعلى، وليس هناك حد لعدد اللفات التي يمكنك ربحها.",
+    "questToolTip": "استمر في إكمال المهام وكسب المزيد من المكافآت.",
+    "rakebackTooltip1": "يتم الحصول على USDT المقفل من خلال مكافآت معينة، مثل مكافأة الإيداع وتدوير الحظ.",
+    "rakebackTooltip2": "يعد فتح USDT أمرًا سهلاً! إنه في الأساس نفس Rakeback. سيتم فتحه بشكل متناسب عن طريق الرهان.",
+    "redeemLimit": "لقد وصلت إلى الحد اليومي لإرسال الطلبات. عد غدًا لمزيد من التفاعلات!",
+    "redeemNoCode": "الرمز غير موجود."
   },
   "promotion": {
     "promotion": "ترقية",

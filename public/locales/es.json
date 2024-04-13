@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "A partir del nivel VIP 8, recibirás un giro gratis cada vez que subas de nivel y no hay límite en la cantidad de giros que puedes ganar.",
     "questToolTip": "Sigue completando misiones y ganando más recompensas.",
     "rakebackTooltip1": "El USDT bloqueado se obtiene a través de ciertos bonos, como el bono de depósito y el giro de la suerte.",
-    "rakebackTooltip2": "¡Desbloquear USDT es fácil! "
+    "rakebackTooltip2": "¡Desbloquear USDT es fácil! Es esencialmente lo mismo que el rakeback. Se desbloqueará proporcionalmente al apostar.",
+    "redeemLimit": "Has alcanzado tu límite diario para enviar solicitudes. ¡Vuelve mañana para ver más interacciones!",
+    "redeemNoCode": "El código no existe."
   },
   "promotion": {
     "promotion": "Promoción",

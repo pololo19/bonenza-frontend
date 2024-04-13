@@ -1423,7 +1423,9 @@
     "luckySpinToolTip2": "从 VIP 8 级开始，每次升级您将获得一次免费旋转，并且您可以获得的旋转次数没有限制。",
     "questToolTip": "继续完成任务并获得更多奖励。",
     "rakebackTooltip1": "锁定USDT是通过某些奖金获得的，例如存款奖金和幸运旋转。",
-    "rakebackTooltip2": "解锁USDT很简单！"
+    "rakebackTooltip2": "解锁USDT很简单！本质上和返佣是一样的，通过下注按比例解锁。",
+    "redeemLimit": "您已达到每日发送请求的限制。请明天回来进行更多互动！",
+    "redeemNoCode": "该代码不存在。"
   },
   "promotion": {
     "promotion": "晋升",
