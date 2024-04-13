@@ -685,9 +685,11 @@ function IndexPage() {
                         onClick={() => {
                           if (feedbackText === '') {
                             toast.error('Message content cannot be empty!', {
+                              toastId: 'feedbackEmptyMessage',
                               containerId: TOAST_ENUM.COMMON,
                               icon: true,
                               autoClose: 3000,
+                              hideProgressBar: false,
                             });
                             return;
                           }
