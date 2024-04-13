@@ -14,10 +14,10 @@ export default function ({
   return (
     <div className={`w-full h-full relative overflow-hidden ${styles.progressBox}`}>
       <svg width="100%" height="100%" viewBox="0 0 64 64">
-        <circle stroke-width="7" r="28.5" cx="32" cy="32" fill="transparent" stroke="#46434C" />
-        <circle stroke-width="0" r="20" cx="32" cy="32" fill="#46434C" />
+        <circle stroke-width="2" r="30" cx="32" cy="32" fill="transparent" stroke="#46434C" />
+        <circle stroke-width="0" r="2" cx="32" cy="32" fill="#46434C" />
         <circle
-          stroke-width="7"
+          stroke-width="2"
           r="28.5"
           cx="32"
           cy="32"
