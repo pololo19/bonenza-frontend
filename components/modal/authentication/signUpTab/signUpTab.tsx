@@ -10,7 +10,7 @@ import { Trans, useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { isPhone } from '@/base/libs/utils';
-import getErrorMessage from '@/base/libs/utils/notificationToast';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { saveVerifyInfo, setIsForgetPassword } from '@/base/redux/reducers/auth.reducer';
 import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
 import { AuthenticationModeEnum, SignUpEmailFormRef, SignUpPhoneFormRef } from '@/base/types/common';
@@ -52,10 +52,10 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         setIsLoading(false);
       }
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
+      const errType = error.response?.data?.message ?? '';
       const status = error.response?.data?.statusCode ?? '';
-      const errData = getErrorMessage('auth', 'signUpEmail', status, message, '');
-      toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -85,10 +85,11 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         setIsLoading(false);
       }
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
-      const status = error.response?.data?.statusCode ?? '';
-      const errData = getErrorMessage('auth', 'signUpPhone', status, message, '');
-      toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
+      const errType = error.response?.data?.message ?? '';
+      // const status = error.response?.data?.statusCode ?? '';
+      // const errData = getErrorMessage('auth', 'signUpPhone', status, message, '');
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +97,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
 
   const onSignUp = async () => {
     if (!isConfirm) {
-      toast.error(String(t('authentication:pleaseAgree')), { containerId: TOAST_ENUM.MODAL });
+      toast.error(String(t('authentication:pleaseAgree')), { containerId: TOAST_ENUM.COMMON });
       return;
     }
     if (isPhoneNumber) await emitPhoneData();

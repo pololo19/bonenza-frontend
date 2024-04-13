@@ -6,6 +6,7 @@ import { DepositAddress, FiatType, MessageType } from '@/base/types/common';
 import { CommonState } from '@/base/types/reducer-states';
 
 const initialCommonState: CommonState = {
+  isLoading: true,
   fiatArray: FIAT_DATA,
   cryptoArray: [],
   depositCryptoArray: CRYPTO_DATA,
@@ -62,6 +63,9 @@ export const queryDataSlice = createSlice({
     setIsNewMessage: (state: CommonState, action: PayloadAction<boolean>) => {
       state.isNewMessage = action.payload;
     },
+    changeIsLoading: (state: CommonState, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
   },
 });
 
@@ -76,5 +80,6 @@ export const {
   setCasinoTab,
   setLastMessage,
   setIsNewMessage,
+  changeIsLoading,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo, isEmail, isPhone } from '@/base/libs/utils';
-import getErrorMessage from '@/base/libs/utils/notificationToast';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -166,13 +166,15 @@ export default function SignInTab({
 
         setCodeOtp('');
         setOtpValue('codeOtp', '');
-        const message = error.response?.data?.message ?? '';
+        const errType = error.response?.data?.message ?? '';
         const status = error.response?.data?.statusCode ?? '';
-        const errData = getErrorMessage('auth', 'signIn', status, message, isPhoneNumber ? 'phone' : 'email');
-        toast.error(String(t(errData.message, errData.data)), { containerId: TOAST_ENUM.MODAL });
+        // const errData = getErrorMessage('auth', 'signIn', status, message, isPhoneNumber ? 'phone' : 'email');
+
+        const errMessage = getErrorMesssage1(errType);
+        toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.MODAL });
 
         // user is not allowed
-        if (status === 406 && message !== 'self-exclusive') {
+        if (status === 401 && errType === 'isNotAllowedUser') {
           const phone = isPhoneNumber ? `+${String(countryCallingCode?.countryCallingCode) + formLogin.email}` : '';
           dispatch(changeAuthenticationType(AuthenticationModeEnum.VERIFY));
           dispatch(setIsForgetPassword(false));
@@ -183,7 +185,7 @@ export default function SignInTab({
             }),
           );
         }
-        if (status === 406 && message === 'self-exclusive') {
+        if (status === 401 && errType === 'disabledAccount') {
           dispatch(changeIsShowSelfExclusion(true));
         }
       } finally {

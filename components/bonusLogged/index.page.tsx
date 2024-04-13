@@ -356,6 +356,7 @@ function BonusLoggedPage() {
               onClick={() => dispatch(changeIsShowBonusDetail(true))}
               role="button"
               className="hover:opacity-[0.9] dark:bg-color-btn-green bg-color-light-bg-primary rounded-large dark:text-white text-black text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
+              className="hover:opacity-[0.9] dark:bg-gradient-btn-play bg-color-light-bg-primary rounded-large text-white text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
             >
               {t('bonus:details')}
             </div>

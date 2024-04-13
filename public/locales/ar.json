@@ -614,7 +614,7 @@
     "exclusionNotify3": "يرجى مراسلتنا عبر البريد الإلكتروني على",
     "exclusionGoBack": "عُد",
     "permanentlyDisabled": "تم تعطيل حسابك بشكل دائم.",
-  "disabledPeriod": "حسابك معطل حتى {{date}}"
+    "disabledPeriod": "حسابك معطل حتى {{date}}"
   },
   "authentication": {
     "checked": "يرجى الموافقة على اتفاقية المستخدم الخاصة بنا",
@@ -2120,13 +2120,34 @@
     "cancel": "يلغي"
   },
   "errors": {
-    "internalServer": "خطأ في الخادم الداخلي",
-    "existPhone": "هذا الهاتف موجود بالفعل",
-    "existMail": "هذا البريد الإلكتروني موجود بالفعل",
-    "verifyPhone": "لم يتم التحقق من هذا الهاتف",
-    "verifyMail": "لم يتم التحقق من هذا البريد الإلكتروني",
+    "internalServer": "عفوًا، حدث خطأ ما، يُرجى إعادة المحاولة لاحقًا.",
+    "existPhone": "هذا الهاتف موجود بالفعل.",
+    "existMail": "هذا البريد الإلكتروني موجود بالفعل.",
+    "verifyPhone": "لم يتم التحقق من هذا الهاتف.",
+    "verifyMail": "لم يتم التحقق من هذا البريد الإلكتروني.",
     "locationIsNotAllowed": "عذرًا، هذه اللعبة غير متوفرة في منطقتك.",
-    "selfExclusive": "حسابك مغلق"
+    "selfExclusive": "حسابك مغلق.",
+    "notExistMail": "هذا البريد الإلكتروني غير موجود.",
+    "notExistPhone": "هذا الهاتف غير موجود.",
+    "notExistMailOrPhone": "البريد الإلكتروني أو الهاتف غير موجود.",
+    "notMatchConfirmationPassword": "تأكيد كلمة المرور غير متطابقة.",
+    "disabledAccount": "حسابك مغلق.",
+    "notValidToken": "الرمز غير صالح",
+    "expiredToken": "انتهت صلاحية الرمز المميز.",
+    "requiredMail": "يرجى التحقق من بريدك الإلكتروني لتفعيل هذه الميزة.",
+    "validReferral": "رمز الإحالة غير صالح.",
+    "notMatchedCredential": "البريد الإلكتروني أو كلمة السر خاطئة!",
+    "notExistPassword": "لم يتم تعيين كلمة المرور.",
+    "notMatched2FA": "المصادقة الثنائية غير صالحة.",
+    "notMatchedCurrentPassword": "كلمة المرور الحالية غير متطابقة.",
+    "sendGridError": "عفوًا! حدث خطأ ما أثناء إرسال البريد الإلكتروني.",
+    "twiloError": "عفوًا، حدث خطأ ما أثناء إرسال الرسالة القصيرة.",
+    "notMatchedVerificationCode": "رمز التحقق غير متطابق.",
+    "expiredVerficationCode": "انتهت صلاحية رمز التحقق.",
+    "notValidTgInfo": "معلومات Telegram الخاصة بك غير صالحة.",
+    "notValidSelfExlusionTime": "وقت الاستثناء غير صالح.",
+    "badRequest": "بيانات طلبك غير صالحة.",
+    "notAllowedAction": "تصرفك غير مسموح به."
   },
   "success": {
     "bonusClaimed": "تمت المطالبة بالمكافأة الخاصة بك",

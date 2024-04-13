@@ -11,6 +11,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowSelfExclusion } from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
@@ -96,13 +97,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       onClose();
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      if (error?.response?.data?.message === 'Email was taken') {
-        toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
-      } else if (error?.response?.data?.message === 'self-exclusive') {
-        dispatch(changeIsShowSelfExclusion(true));
-      } else {
-        toast.error(String(t('authentication:loginWalletFailed')), { containerId: TOAST_ENUM.MODAL });
-      }
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       disconnect();
     } finally {
       setIsLoading(false);
