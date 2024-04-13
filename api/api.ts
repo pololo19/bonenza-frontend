@@ -1,11 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { camelizeKeys, decamelize, decamelizeKeys } from 'humps';
+import { camelizeKeys, decamelizeKeys } from 'humps';
 import isNil from 'lodash.isnil';
 import Router from 'next/router';
-import { toast } from 'react-toastify';
 
-import i18n from '@/config/i18next';
-import { CookieKey, ROUTER, TOAST_ENUM } from '@/constants/common';
+import { CookieKey, ROUTER } from '@/constants/common';
 import { URL_REFRESH_TOKEN } from '@/constants/endpoints';
 import { CookiesStorage } from '@/libs/storage/cookie';
 import { stringifyParams } from '@/libs/utils';
@@ -68,16 +66,18 @@ const wrapApiErrors = async (error: any, axiosInstance: AxiosInstance) => {
   }
   switch (status) {
     case 401:
-      CookiesStorage.logout();
-      Router.push(ROUTER.Home);
       // toast.error("You're logged out. Please sign in again. Thanks.", { containerId: TOAST_ENUM.COMMON });
 
       store.dispatch(setInitialModals());
       store.dispatch(logoutState());
       store.dispatch(logoutWallet());
+
+      Router.push(ROUTER.Home);
+      CookiesStorage.logout();
       store.dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       store.dispatch(changeIsShowAuthenticationModal(true));
-      throw new Error('Unauthorized');
+      // throw new Error('Unauthorized');
+      return Promise.reject(error);
     case 403: {
       Router.push(ROUTER.PageNotAllowed);
       return Promise.reject(error);

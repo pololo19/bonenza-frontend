@@ -8,7 +8,7 @@ import qs from 'qs';
 import { Path, UseFormGetValues } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT, KYC_ENUM } from '@/base/constants/common';
+import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT } from '@/base/constants/common';
 import { DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 import { ErrorResponse } from '@/base/types/api';
 import { DepositAddress, NetworkType, ObjectLiteral, RolloverStatus } from '@/base/types/common';
@@ -396,7 +396,7 @@ export function currencyFormat1(number: number, zeroNum: number, currency: strin
   try {
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
-    if (number === 0) {
+    if (!number && number === 0) {
       res = new Array(2).fill('0').join('');
       res = `${symbol} 0.` + res;
       return res;

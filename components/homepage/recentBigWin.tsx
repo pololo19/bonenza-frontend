@@ -2,13 +2,13 @@ import cn from 'classnames';
 import { ArrowRight2, Ghost } from 'iconsax-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
 import { api_getRecentBigWins } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
-import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
@@ -129,7 +129,6 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
 }
 
 function RecentBigWinComponent() {
-  const width = useWidth();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
 
@@ -207,7 +206,7 @@ function RecentBigWinComponent() {
         title={String(t('homePage:recentBigWins'))}
         delay={600}
         data={listBigWinGame}
-        icon={width < 600 ? <LiveStream className="text-color-primary " /> : undefined}
+        icon={isMobile ? <LiveStream className="text-color-primary " /> : undefined}
         renderItem={(item) => renderData(item)}
         onClickItem={(game) => {
           dispatch(
