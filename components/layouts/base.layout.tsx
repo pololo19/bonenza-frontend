@@ -17,7 +17,7 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { setIsNewMessage, setLastMessage } from '@/base/redux/reducers/common.reducer';
+import { changeIsLoading, setIsNewMessage, setLastMessage } from '@/base/redux/reducers/common.reducer';
 import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAccountPannel,
@@ -138,7 +138,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     time: new Date(),
   });
   const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
   const baseBodyRef = useRef<HTMLDivElement>(null);
   const showChatTypeRef = useRef<boolean>(false);
@@ -200,6 +199,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowBonusDetail,
     isShowDepositRule,
     isShowSelfExclusion,
+    isLoading,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -228,6 +228,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowWagerContestHistory: state.modal.isShowWagerContestHistory,
       isShowChatRule: state.modal.isShowChatRule,
 
+      isLoading: state.common.isLoading,
       isShowSidebar: state.modal.isShowMenuPannel,
       isShowAccount: state.modal.isShowAccountPannel,
       userId: state.auth.user.userId,
@@ -251,7 +252,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   const loadInitData = async () => {
     try {
-      setIsLoading(true);
+      // setIsLoading(true);
       const res = await api_getInitData();
       const tempFiatSymbols: CurrencyType[] =
         res.data?.fiatSymbols?.map((item: any) => ({
@@ -268,7 +269,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     } catch (error) {
       dispatch(setFiatSymbols([]));
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
@@ -287,7 +288,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const connectAccount = async () => {
     try {
       const accessToken = CookiesStorage.getAccessToken();
-      setIsLoading(true);
+      dispatch(changeIsLoading(true));
       if (accessToken) {
         const res = await api_validateToken(accessToken);
         if (!walletSocket?.connected) {
@@ -314,10 +315,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         await loadInitData();
       }
     } catch (error) {
-      wrappedError();
+      // wrappedError();
       await loadInitData();
     } finally {
-      setIsLoading(false);
+      dispatch(changeIsLoading(false));
     }
   };
 
@@ -607,226 +608,223 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   return (
     <>
-      {isLoading ? (
-        <Loader isHomePage />
-      ) : (
-        <div className="min-h-screen h-full w-full overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
-          {isToggleSidebar && (
+      {isLoading && <Loader isHomePage />}
+      <div className="min-h-screen h-full w-full overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
+        {isToggleSidebar && (
+          <div
+            className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0  dark:bg-black/60 z-[20]"
+            onClick={() => dispatch(changeToggleSidebar(!isToggleSidebar))}
+          ></div>
+        )}
+        <div className="md:pt-0 h-full w-full relative">
+          <HeaderStats />
+          <div className="flex h-full w-full max-h-[calc(100vh-70px)] mt-[70px] sm:flex-row flex-col">
             <div
-              className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0  dark:bg-black/60 z-[20]"
-              onClick={() => dispatch(changeToggleSidebar(!isToggleSidebar))}
-            ></div>
-          )}
-          <div className="md:pt-0 h-full w-full relative">
-            <HeaderStats />
-            <div className="flex h-full w-full max-h-[calc(100vh-70px)] mt-[70px] sm:flex-row flex-col">
+              className={cn(
+                'z-[50] dark:bg-color-bg-primary bg-[#fff] sm:block hidden h-[calc(100vh)] mt-[-70px] border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',
+                {
+                  'xl:relative fixed': isToggleSidebar,
+                },
+              )}
+            >
+              <SidebarToggle />
+            </div>
+            <div
+              className={cn(
+                'w-full overflow-y-auto flex-1 bg-color-light-bg-primary dark:bg-color-bg-primary flex flex-col relative',
+              )}
+              ref={baseBodyRef}
+              id="base-layout"
+            >
+              <SubMobileMenu datas={headerMenus} isShow={isShowMobileSubMenu} />
+
+              <WrapperBody
+                id="wrapperBody"
+                contentClassName={cn(contentClass)}
+                wrapperClassName={cn({
+                  hidden: isShowSidebar || isShowAccount,
+                  block: !isShowSidebar && !isShowAccount,
+                  'pointer-events-none': isShowCasinoSearch,
+                })}
+              >
+                {children}
+              </WrapperBody>
+              <WrapperBody
+                id="wrapperfooter"
+                wrapperClassName="min-[1786px]:max-w-full"
+                contentClassName={cn('sm:block', {
+                  hidden: isShowSidebar || isShowAccount,
+                  block: !isShowSidebar && !isShowAccount,
+                  'pointer-events-none': isShowCasinoSearch,
+                })}
+              >
+                <Footer isDetailPage={isDetailPage} />
+              </WrapperBody>
+              {isShowCasinoSearch && (
+                <ModalCasinoSearch
+                  show={isShowCasinoSearch}
+                  onClose={() => {
+                    dispatch(changeIsShowCasinoSearch(false));
+                  }}
+                />
+              )}
+              <ScrollToTop />
+            </div>
+
+            {showChatType && (
               <div
                 className={cn(
-                  'z-[50] dark:bg-color-bg-primary bg-[#fff] sm:block hidden h-[calc(100vh)] mt-[-70px] border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',
+                  '2xl:relative fixed right-0 h-[calc(100vh)] mt-[-70px] z-10 duration-500 drop-shadow-md transition-opacity',
                   {
-                    'xl:relative fixed': isToggleSidebar,
+                    'opacity-100': showChatType,
+                    'opacity-0': !showChatType,
+                    'w-full': showFullChat,
                   },
                 )}
               >
-                <SidebarToggle />
+                <ChattingComponent />
               </div>
-              <div
-                className={cn(
-                  'w-full overflow-y-auto flex-1 bg-color-light-bg-primary dark:bg-color-bg-primary flex flex-col relative',
-                )}
-                ref={baseBodyRef}
-                id="base-layout"
-              >
-                <SubMobileMenu datas={headerMenus} isShow={isShowMobileSubMenu} />
+            )}
 
-                <WrapperBody
-                  id="wrapperBody"
-                  contentClassName={cn(contentClass)}
-                  wrapperClassName={cn({
-                    hidden: isShowSidebar || isShowAccount,
-                    block: !isShowSidebar && !isShowAccount,
-                    'pointer-events-none': isShowCasinoSearch,
-                  })}
-                >
-                  {children}
-                </WrapperBody>
-                <WrapperBody
-                  id="wrapperfooter"
-                  wrapperClassName="min-[1786px]:max-w-full"
-                  contentClassName={cn('sm:block', {
-                    hidden: isShowSidebar || isShowAccount,
-                    block: !isShowSidebar && !isShowAccount,
-                    'pointer-events-none': isShowCasinoSearch,
-                  })}
-                >
-                  <Footer isDetailPage={isDetailPage} />
-                </WrapperBody>
-                {isShowCasinoSearch && (
-                  <ModalCasinoSearch
-                    show={isShowCasinoSearch}
-                    onClose={() => {
-                      dispatch(changeIsShowCasinoSearch(false));
-                    }}
-                  />
-                )}
-                <ScrollToTop />
-              </div>
-
-              {showChatType && (
+            {/*Start footer navigator */}
+            <SidebarMobileLayout />
+            <AccountPannel />
+            <div
+              className={cn(
+                'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-[#f5f6fa] shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0',
+                {
+                  hidden: showChatType,
+                },
+              )}
+            >
+              <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
                 <div
+                  role="button"
+                  onClick={() => {
+                    dispatch(changeIsShowMenuPannel(!isShowSidebar));
+                    if (!isShowSidebar) {
+                      setIsShowMobileSubMenu(true);
+                      dispatch(changeIsShowAccountPannel(false));
+                    }
+                    if (isShowSidebar) {
+                      if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
+                        setIsShowMobileSubMenu(true);
+                      } else {
+                        setIsShowMobileSubMenu(false);
+                      }
+                    }
+                  }}
                   className={cn(
-                    '2xl:relative fixed right-0 h-[calc(100vh)] mt-[-70px] z-10 duration-500 drop-shadow-md transition-opacity',
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                     {
-                      'opacity-100': showChatType,
-                      'opacity-0': !showChatType,
-                      'w-full': showFullChat,
+                      'text-color-text-primary': !isShowSidebar,
+                      'dark:!text-white !text-color-light-text-primary': isShowSidebar,
                     },
                   )}
                 >
-                  <ChattingComponent />
-                </div>
-              )}
-
-              {/*Start footer navigator */}
-              <SidebarMobileLayout />
-              <AccountPannel />
-              <div
-                className={cn(
-                  'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-[#f5f6fa] shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0',
-                  {
-                    hidden: showChatType,
-                  },
-                )}
-              >
-                <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
-                  <div
-                    role="button"
-                    onClick={() => {
-                      dispatch(changeIsShowMenuPannel(!isShowSidebar));
-                      if (!isShowSidebar) {
-                        setIsShowMobileSubMenu(true);
-                        dispatch(changeIsShowAccountPannel(false));
-                      }
-                      if (isShowSidebar) {
-                        if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
-                          setIsShowMobileSubMenu(true);
-                        } else {
-                          setIsShowMobileSubMenu(false);
-                        }
-                      }
-                    }}
-                    className={cn(
-                      'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                      {
-                        'text-color-text-primary': !isShowSidebar,
-                        'dark:!text-white !text-color-light-text-primary': isShowSidebar,
-                      },
-                    )}
-                  >
-                    <div className="pt-2">
-                      <HambergerMenu size={22} />
-                    </div>
-                    <div className="pb-2  text-center truncate w-full">{t('sidebar:menu')}</div>
+                  <div className="pt-2">
+                    <HambergerMenu size={22} />
                   </div>
-                  <Link
-                    href={ROUTER.Home}
-                    className={cn(
-                      'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                      {
-                        'text-color-text-primary': !router.route.includes(ROUTER.Home),
-                        'dark:!text-white !text-black': router.route.includes(ROUTER.Home),
-                      },
-                    )}
-                    onClick={() => {
-                      dispatch(changeIsShowAccountPannel(false));
-                      dispatch(changeIsShowMenuPannel(false));
-                    }}
-                  >
-                    <div className="pt-2">
-                      <HomeIconOutline className="w-[21px] h-[21px]" size={22} />
-                    </div>
-                    <div className="pb-2 text-center truncate w-full">{t('layout:home')}</div>
-                  </Link>
-                  <Link
-                    href={ROUTER.DepositCrypto}
-                    className={cn(
-                      'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded relative',
-                      {
-                        'text-color-text-primary': !router.route.includes(ROUTER.DepositCrypto),
-                        'dark:!text-white !text-black': router.route.includes(ROUTER.DepositCrypto),
-                      },
-                    )}
-                    onClick={() => {
-                      dispatch(changeIsShowAccountPannel(false));
-                      dispatch(changeIsShowMenuPannel(false));
-                    }}
-                  >
-                    <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-color-card-bg-primary bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
-                      <div className="m-auto h-[38px] w-[38px] dark:bg-color-hover-primary rounded-full bg-color-light-hover-primary text-white flex items-center justify-center">
-                        <EmptyWallet className="dark:text-white text-color-text-primary" variant="Bold" size={22} />
-                      </div>
-                    </div>
-                    <div className="pt-2 opacity-0">
+                  <div className="pb-2  text-center truncate w-full">{t('sidebar:menu')}</div>
+                </div>
+                <Link
+                  href={ROUTER.Home}
+                  className={cn(
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                    {
+                      'text-color-text-primary': !router.route.includes(ROUTER.Home),
+                      'dark:!text-white !text-black': router.route.includes(ROUTER.Home),
+                    },
+                  )}
+                  onClick={() => {
+                    dispatch(changeIsShowAccountPannel(false));
+                    dispatch(changeIsShowMenuPannel(false));
+                  }}
+                >
+                  <div className="pt-2">
+                    <HomeIconOutline className="w-[21px] h-[21px]" size={22} />
+                  </div>
+                  <div className="pb-2 text-center truncate w-full">{t('layout:home')}</div>
+                </Link>
+                <Link
+                  href={ROUTER.DepositCrypto}
+                  className={cn(
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded relative',
+                    {
+                      'text-color-text-primary': !router.route.includes(ROUTER.DepositCrypto),
+                      'dark:!text-white !text-black': router.route.includes(ROUTER.DepositCrypto),
+                    },
+                  )}
+                  onClick={() => {
+                    dispatch(changeIsShowAccountPannel(false));
+                    dispatch(changeIsShowMenuPannel(false));
+                  }}
+                >
+                  <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-color-card-bg-primary bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
+                    <div className="m-auto h-[38px] w-[38px] dark:bg-color-hover-primary rounded-full bg-color-light-hover-primary text-white flex items-center justify-center">
                       <EmptyWallet className="dark:text-white text-color-text-primary" variant="Bold" size={22} />
                     </div>
-                    <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
-                      {t('sidebar:wallet')}
-                    </div>
-                  </Link>
-                  <div
-                    role="button"
-                    onClick={() => {
-                      dispatch(changeIsShowAccountPannel(!isShowAccount));
-                      if (!isShowAccount) {
-                        dispatch(changeIsShowMenuPannel(false));
-                        setIsShowMobileSubMenu(false);
-                      } else {
-                        if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
-                          setIsShowMobileSubMenu(true);
-                        } else {
-                          setIsShowMobileSubMenu(false);
-                        }
-                      }
-                    }}
-                    className={cn(
-                      'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded ',
-                      {
-                        'dark:!text-white !text-black': isShowAccount,
-                        'text-color-text-primary': !isShowAccount,
-                      },
-                    )}
-                  >
-                    <div className="pt-2">
-                      <User size={22} />
-                    </div>
-                    <div className="pb-2 text-center truncate w-full">{t('sidebar:account')}</div>
                   </div>
-                  <div
-                    role="button"
-                    className={cn(
-                      'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                    )}
-                    onClick={() => {
-                      dispatch(changeIsShowAccountPannel(false));
+                  <div className="pt-2 opacity-0">
+                    <EmptyWallet className="dark:text-white text-color-text-primary" variant="Bold" size={22} />
+                  </div>
+                  <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
+                    {t('sidebar:wallet')}
+                  </div>
+                </Link>
+                <div
+                  role="button"
+                  onClick={() => {
+                    dispatch(changeIsShowAccountPannel(!isShowAccount));
+                    if (!isShowAccount) {
                       dispatch(changeIsShowMenuPannel(false));
-                      dispatch(changeShowChatType(!showChatType));
-                      dispatch(changeShowFullChat(!showFullChat));
-                    }}
-                  >
-                    <div className="pt-2">
-                      <Message className="dark:text-color-text-primary text-color-text-primary" size={22} />
-                    </div>
-                    <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
-                      {t('sidebar:chat')}
-                    </div>
+                      setIsShowMobileSubMenu(false);
+                    } else {
+                      if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
+                        setIsShowMobileSubMenu(true);
+                      } else {
+                        setIsShowMobileSubMenu(false);
+                      }
+                    }
+                  }}
+                  className={cn(
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded ',
+                    {
+                      'dark:!text-white !text-black': isShowAccount,
+                      'text-color-text-primary': !isShowAccount,
+                    },
+                  )}
+                >
+                  <div className="pt-2">
+                    <User size={22} />
+                  </div>
+                  <div className="pb-2 text-center truncate w-full">{t('sidebar:account')}</div>
+                </div>
+                <div
+                  role="button"
+                  className={cn(
+                    'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
+                  )}
+                  onClick={() => {
+                    dispatch(changeIsShowAccountPannel(false));
+                    dispatch(changeIsShowMenuPannel(false));
+                    dispatch(changeShowChatType(!showChatType));
+                    dispatch(changeShowFullChat(!showFullChat));
+                  }}
+                >
+                  <div className="pt-2">
+                    <Message className="dark:text-color-text-primary text-color-text-primary" size={22} />
+                  </div>
+                  <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
+                    {t('sidebar:chat')}
                   </div>
                 </div>
               </div>
-              {/* End footer navigator */}
             </div>
+            {/* End footer navigator */}
           </div>
         </div>
-      )}
+      </div>
 
       {/* Modal */}
       <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />

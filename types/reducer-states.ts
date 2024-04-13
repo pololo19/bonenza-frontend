@@ -85,6 +85,7 @@ export type LoadingState = {
 };
 
 export type CommonState = {
+  isLoading?: boolean;
   fiatArray?: FiatType[];
   cryptoArray?: FiatType[];
   depositCryptoArray: DepositAddress[];

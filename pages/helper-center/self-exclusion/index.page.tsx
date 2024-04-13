@@ -7,11 +7,13 @@ import { toast } from 'react-toastify';
 import { api_requestSelfExclusion } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import HelperLayout from '@/components/layouts/helper.layout';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 
 const SelfExclusion = () => {
   const { t } = useTranslation('');
+  const [isLoading, setIsLoading] = useState(false);
   const periods = [
     {
       description: `1 ${t('helper:selfExclusionPeriodMonth')}`,
@@ -40,6 +42,7 @@ const SelfExclusion = () => {
 
   const handleRequest = async () => {
     try {
+      setIsLoading(true);
       const utcTime = Date.now();
       const disabledDate = new Date(utcTime);
       disabledDate.setMonth(disabledDate.getMonth() + selectedPeriod);
@@ -48,8 +51,20 @@ const SelfExclusion = () => {
       toast.success('Confirmation Email is sent to your mail Box. Please check your mail box. Thank you.', {
         containerId: TOAST_ENUM.COMMON,
       });
-    } catch (error) {
-      toast.error("You can't set self-exclusion", { containerId: TOAST_ENUM.COMMON });
+      setIsLoading(false);
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      // const status = error.response?.data?.statusCode ?? '';
+      // const description = error.response?.data?.error ?? "You can't set self-exclusion.";
+      // if (message === 'email') {
+      //   toast.error(description, { containerId: TOAST_ENUM.COMMON });
+      // } else {
+      //   toast.error("You can't set self-exclusion.", { containerId: TOAST_ENUM.COMMON });
+      // }
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setIsLoading(false);
     }
   };
   return (

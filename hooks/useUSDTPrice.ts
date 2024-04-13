@@ -6,5 +6,5 @@ export const useUSDTPrice = () => {
   const cryptoPrices = useSelector((state: AppState) => state.wallet.symbols, shallowEqual);
   const usdt = cryptoPrices.find((item) => item.name.toLowerCase() === 'usdt');
   if (!usdt) return 1;
-  return usdt.price;
+  return usdt.price === 0 ? 1 : usdt.price;
 };
