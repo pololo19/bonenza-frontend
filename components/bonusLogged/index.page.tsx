@@ -65,11 +65,12 @@ function BonusLoggedPage() {
   });
   const [lockedAmount, setLockedAmount] = useState<number>(0);
 
-  const { localFiat, viewInFiat, isLogin } = useSelector(
+  const { localFiat, viewInFiat, isLogin, isShowSpinClaim } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       isLogin: state.auth.isLogin,
+      isShowSpinClaim: state.modal.isShowSpinClaim,
     }),
     shallowEqual,
   );
@@ -144,7 +145,7 @@ function BonusLoggedPage() {
         tooltip: [t('bonus:rakebackTooltip1'), t('bonus:rakebackTooltip2')],
       },
     ],
-    [i18n.language, lockedAmount],
+    [i18n.language, lockedAmount, bonusData],
   );
   const dataCardVipBonus = useMemo(
     () => [
@@ -192,15 +193,15 @@ function BonusLoggedPage() {
 
   const getBonusStatistics = async () => {
     try {
-      setIsLoading(true);
       const _res = await api_bonusStatistics();
-      setTotalData({
+      const tempTotalData = {
         bonusClaimedUsd: Number(_res.data?.totalBonusClaimedUsd || 0),
         vipBonusUsd: Number(_res.data?.totalVipBonusUsd || 0),
         specialBonusUsd: Number(_res.data?.totalSpecialBonusUsd || 0),
         generalBonusUsd: Number(_res.data?.totalGeneralBonusUsd || 0),
-      });
-      setBonusData({
+      };
+      setTotalData(tempTotalData);
+      const tempBonusData = {
         general: {
           depositTime: Number(_res.data?.generalBonus?.deposit?.depositTimes || 0),
           availableSpin: Number(_res.data?.generalBonus?.spin?.availableCount || 0),
@@ -222,7 +223,8 @@ function BonusLoggedPage() {
             bonus: Number(_res.data?.vipBonus?.monthlyCashBack?.bonusUsd || 0),
           },
         },
-      });
+      };
+      setBonusData(tempBonusData);
       const claimRes = await api_getClaims();
       const tempUnlockedAmount = Number(claimRes.data?.unlockedAmount ?? 0);
       setLockedAmount(tempUnlockedAmount);
@@ -236,9 +238,10 @@ function BonusLoggedPage() {
     if (isLogin) {
       getBonusStatistics();
     }
-  }, [isLogin]);
+  }, [isLogin, isShowSpinClaim]);
   const onRedeemClick = () => {
     toast.error("The code doesn't exist", {
+      toastId: 'redeemCodeEmpty',
       containerId: TOAST_ENUM.COMMON,
       icon: true,
       autoClose: 3000,
