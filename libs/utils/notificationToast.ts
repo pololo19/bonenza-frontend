@@ -110,3 +110,94 @@ export default function getErrorMessage(path: string, func: string, status: numb
   }
   return { message, data: externalData };
 }
+
+export function getErrorMesssage1(errorType: string) {
+  let message = '';
+  switch (errorType) {
+    case 'isNotExistUser':
+      message = 'authentication:userNotAllow';
+      break;
+    case 'isNotExistMail':
+      message = 'errors:notExistMail';
+      break;
+    case 'isNotExistPhone':
+      message = 'errors:notExistPhone';
+      break;
+    case 'isNotExistMailOrPhone':
+      message = 'errors:notExistMailOrPhone';
+      break;
+    case 'isNotMatchConfirmationPassword':
+      message = 'errors:notMatchConfirmationPassword';
+      break;
+    case 'disabledAccount':
+      message = 'errors:disabledAccount';
+      break;
+    case 'isNotValidToken':
+      message = 'errors:notValidToken';
+      break;
+    case 'isExpiredToken':
+      message = 'errors:expiredToken';
+      break;
+    case 'isRequiredMail':
+      message = 'errors:requiredMail';
+      break;
+    case 'isExistMail':
+      message = 'errors:existMail';
+      break;
+    case 'isExistPhone':
+      message = 'errors:existPhone';
+      break;
+    case 'isValidReferral':
+      message = 'errors:validReferral';
+      break;
+    case 'isNotPhoneVerified':
+      message = 'errors:verifyPhone';
+      break;
+    case 'isNotMailVerified':
+      message = 'errors:verifyMail';
+      break;
+    case 'isNotMatchededCredential':
+      message = 'errors:notMatchedCredential';
+      break;
+    case 'isNotExistPassword':
+      message = 'errors:notExistPassword';
+      break;
+    case 'isNotMatched2FA':
+      message = 'errors:notMatched2FA';
+      break;
+    case 'isNotMatchedCurrentPassword':
+      message = 'errors:notMatchedCurrentPassword';
+      break;
+    case 'sendGridError':
+      message = 'errors:sendGridError';
+      break;
+    case 'twiloError':
+      message = 'errors:twiloError';
+      break;
+    case 'isNotMatchedVerificationCode':
+      message = 'errors:notMatchedVerificationCode';
+      break;
+    case 'isExpiredVerificationCode':
+      message = 'errors:expiredVerficationCode';
+      break;
+    case 'isNotValidTgInfo':
+      message = 'errors:notValidTgInfo';
+      break;
+    case 'isNotValidSelfExlusionTime':
+      message = 'errors:notValidSelfExlusionTime';
+      break;
+    case 'internalServerError':
+      message = 'errors:internalServer';
+      break;
+    case 'badRequest':
+      message = 'errors:badRequest';
+      break;
+    case 'isNotAllowedAction':
+      message = 'errors:notAllowedAction';
+
+    default:
+      message = 'errors:internalServer';
+      break;
+  }
+  return message;
+}

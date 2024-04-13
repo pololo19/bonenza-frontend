@@ -614,7 +614,7 @@
     "exclusionNotify3": "per favore inviaci un'e-mail a",
     "exclusionGoBack": "Torna indietro",
     "permanentlyDisabled": "Il tuo account è disabilitato permanentemente.",
-  "disabledPeriod": "Il tuo account è disabilitato fino al {{date}}"
+    "disabledPeriod": "Il tuo account è disabilitato fino al {{date}}"
   },
   "authentication": {
     "checked": "Si prega di acconsentire al nostro accordo con l'utente",
@@ -2118,13 +2118,34 @@
     "cancel": "Annulla"
   },
   "errors": {
-    "internalServer": "Errore interno del server",
-    "existPhone": "Questo telefono esiste già",
-    "existMail": "Questa email esiste già",
-    "verifyPhone": "Questo telefono non è verificato",
-    "verifyMail": "Questa email non è verificata",
+    "internalServer": "Spiacenti! Qualcosa è andato storto. Riprova più tardi.",
+    "existPhone": "Questo telefono esiste già.",
+    "existMail": "Questa email esiste già.",
+    "verifyPhone": "Questo telefono non è verificato.",
+    "verifyMail": "Questa email non è verificata.",
     "locationIsNotAllowed": "Siamo spiacenti, questo gioco non è disponibile nella tua regione.",
-    "selfExclusive": "Il tuo account è disabilitato"
+    "selfExclusive": "Il tuo account è disabilitato.",
+    "notExistMail": "Questa email non esiste.",
+    "notExistPhone": "Questo telefono non esiste.",
+    "notExistMailOrPhone": "L'e-mail o il telefono non esistono.",
+    "notMatchConfirmationPassword": "La password di conferma non corrisponde.",
+    "disabledAccount": "Il tuo account è disabilitato.",
+    "notValidToken": "Il token non è valido",
+    "expiredToken": "Il token è scaduto.",
+    "requiredMail": "Verifica la tua email per attivare questa funzione.",
+    "validReferral": "Il codice di riferimento non è valido.",
+    "notMatchedCredential": "E-mail o password non validi!",
+    "notExistPassword": "La password non è impostata.",
+    "notMatched2FA": "Autenticazione a due fattori non valida.",
+    "notMatchedCurrentPassword": "La password corrente non corrisponde.",
+    "sendGridError": "Spiacenti! Qualcosa è andato storto durante l'invio dell'e-mail.",
+    "twiloError": "Spiacenti! Qualcosa è andato storto durante l'invio dell'SMS.",
+    "notMatchedVerificationCode": "Il codice di verifica non corrisponde.",
+    "expiredVerficationCode": "Il codice di verifica è scaduto.",
+    "notValidTgInfo": "Le tue informazioni su Telegram non sono valide.",
+    "notValidSelfExlusionTime": "Il tempo di esclusione non è valido.",
+    "badRequest": "I dati della tua richiesta non sono validi.",
+    "notAllowedAction": "La tua azione non è consentita."
   },
   "success": {
     "bonusClaimed": "Il tuo bonus è stato richiesto",

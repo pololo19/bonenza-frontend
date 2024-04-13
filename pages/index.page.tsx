@@ -28,7 +28,6 @@ import {
 import { AuthenticationModeEnum, GameListType } from '@/base/types/common';
 import CardPlay from '@/components/cards/cardPlay';
 import CasinoSS from '@/components/casino/casinoSS';
-import Loader from '@/components/common/preloader/loader';
 import CsrWrapper from '@/components/CsrWrapper';
 import GameCard from '@/components/gameCard/gameCard';
 import withAuth from '@/components/hoc/withAuth';
@@ -50,7 +49,7 @@ import { useExchange } from '../hooks/useExchange';
 import { CookiesStorage } from '../libs/storage/cookie';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
-import { setIsNewMessage } from '../redux/reducers/common.reducer';
+import { changeIsLoading, setIsNewMessage } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
 
 function IndexPage() {
@@ -60,12 +59,13 @@ function IndexPage() {
   const { query } = useRouter();
   const { key } = query;
 
-  const { isLogin, userName, localFiat, user } = useSelector(
+  const { isLogin, userName, localFiat, user, isLoading } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       userName: state.auth.user.userName,
       localFiat: state.wallet.localFiat,
       user: state.auth.user,
+      isLoading: state.common.isLoading,
     }),
     shallowEqual,
   );
@@ -111,8 +111,6 @@ function IndexPage() {
 
   const dispatch = useDispatch();
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const [checkDeposit, setCheckDeposit] = useState(false);
   const [listRecommendedGame, setListRecommendedGame] = useState<GameListType[]>([]);
   const [listTopRated, setListTopRated] = useState<GameListType[]>([]);
@@ -145,7 +143,7 @@ function IndexPage() {
 
   const initDataLoad = async () => {
     try {
-      setIsLoading(true);
+      dispatch(changeIsLoading(true));
       const [_resTopRatedGames, _resRecommendedGames, _resChat] = await Promise.all([
         api_getTopRelatedGames(),
         api_getPickGames(1, 20),
@@ -185,7 +183,7 @@ function IndexPage() {
       setListTopRated([]);
       setListRecommendedGame([]);
     } finally {
-      setIsLoading(false);
+      dispatch(changeIsLoading(false));
     }
   };
 
@@ -197,7 +195,7 @@ function IndexPage() {
       page: 1,
     };
     try {
-      setIsLoading(true);
+      // dispatch(changeIsLoading(true));
       params = {
         ...params,
         ...query,
@@ -220,13 +218,13 @@ function IndexPage() {
     } catch (error) {
       setListCasinoTabGame([]);
     } finally {
-      setIsLoading(false);
+      // dispatch(changeIsLoading(false));
     }
   };
 
   const loadDataAfterLoginMobile = async () => {
     try {
-      setIsLoading(true);
+      dispatch(changeIsLoading(true));
       const [_resPicksforYou, _resRecentGames, _resFavoriteGames, _resCheckDeposit] = await Promise.all([
         api_getPickGames(1, 40),
         api_getRecentGames(1, 3),
@@ -277,13 +275,13 @@ function IndexPage() {
       setListRecentGame([]);
       setListFavoriteGames([]);
     } finally {
-      setIsLoading(false);
+      dispatch(changeIsLoading(false));
     }
   };
 
   const loadDataAfterLogin = async () => {
     try {
-      setIsLoading(true);
+      dispatch(changeIsLoading(true));
       const result = await api_checkDeposit();
       if (result.data > 0) {
         setCheckDeposit(true);
@@ -293,7 +291,7 @@ function IndexPage() {
     } catch (error) {
       setCheckDeposit(false);
     } finally {
-      setIsLoading(false);
+      dispatch(changeIsLoading(false));
     }
   };
 
@@ -316,26 +314,23 @@ function IndexPage() {
 
   return (
     <>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className="w-full">
-          <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
-            <div className="flex-1 w-full">
-              <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:mt-0 sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
-                <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
-                  <CsrWrapper>
-                    <Image
-                      width={1339}
-                      height={384}
-                      className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
-                      src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-13.png'}
-                      alt=""
-                    />
-                  </CsrWrapper>
-                </div>
-                <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-[15px] flex flex-col justify-center">
-                  {/* <div className="h-[134px] w-[646px] relative">
+      <div className="w-full">
+        <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
+          <div className="flex-1 w-full">
+            <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:mt-0 sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
+              <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
+                <CsrWrapper>
+                  <Image
+                    width={1339}
+                    height={384}
+                    className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
+                    src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-13.png'}
+                    alt=""
+                  />
+                </CsrWrapper>
+              </div>
+              <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-[15px] flex flex-col justify-center">
+                {/* <div className="h-[134px] w-[646px] relative">
                   <Image
                     src="/img/page/grand_jackpot.png"
                     width={20}
@@ -358,367 +353,363 @@ function IndexPage() {
                     </div>
                   </div>
                 </div> */}
-                  {!isLogin && (
-                    <div className="text-start font-semibold">
+                {!isLogin && (
+                  <div className="text-start font-semibold">
+                    <div>
+                      <span className="dark:text-white text-black sm:text-[20px] text-[14px] font-bold">
+                        {String(t('homePage:signUpUpper'))} &{' '}
+                      </span>
+                      <span className="text-color-primary font-bold sm:text-[20px] text-[14px]">
+                        {String(t('homePage:getReward'))}
+                      </span>
+                    </div>
+                    <div className={'lg:text-[56px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
+                      <span className="dark:text-white text-black font-bold">{String(t('homePage:upTo'))} </span>
+                      <span className={`bg-gradient-text bg-clip-text text-transparent font-bold`}>
+                        {currencyFormat1(20000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                {isLogin && (
+                  <div className="text-start">
+                    {!checkNewUser(user.createdAt) || checkDeposit ? (
+                      <div className="dark:text-white text-black text-[14px] sm:text-[24px] font-semibold">
+                        {String(t('homePage:welcomeBack'))}
+                        {String(', ')} {userName}
+                      </div>
+                    ) : (
+                      <div className="text-start">
+                        {`${String(t('homePage:hello'))} ${userName}! ${String(t('homePage:welcomeAboard'))}`}
+                      </div>
+                    )}
+
+                    {!checkDeposit && (
                       <div>
-                        <span className="dark:text-white text-black sm:text-[20px] text-[14px] font-bold">
-                          {String(t('homePage:signUpUpper'))} &{' '}
-                        </span>
-                        <span className="text-color-primary font-bold sm:text-[20px] text-[14px]">
-                          {String(t('homePage:getReward'))}
-                        </span>
+                        <div className="sm:text-[24px] text-[16px] dark:text-white font-bold text-black mt-[6px]">
+                          {String(t('homePage:firstDepositBonus'))}
+                        </div>
+                        <div
+                          className={`bg-gradient-text bg-clip-text text-transparent sm:text-[48px] text-[24px] font-bold`}
+                        >
+                          +180% <span className="font-bold">{String(t('homePage:reward'))}</span>
+                        </div>
                       </div>
-                      <div className={'lg:text-[56px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
-                        <span className="dark:text-white text-black font-bold">{String(t('homePage:upTo'))} </span>
-                        <span className={`bg-gradient-text bg-clip-text text-transparent font-bold`}>
-                          {currencyFormat1(20000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
-                        </span>
-                      </div>
+                    )}
+                  </div>
+                )}
+                <div className="flex items-center justify-start gap-[15px] mt-2">
+                  {!isLogin && (
+                    <div className="flex items-center gap-[10px]">
+                      <button
+                        type="button"
+                        className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-5 py-[9px] sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
+                        onClick={() => {
+                          dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
+                          dispatch(changeIsShowAuthenticationModal(true));
+                        }}
+                      >
+                        {t('homePage:signUpNow')}
+                      </button>
+                      <div className="sm:text-[16px] text-[12px] dark:text-white text-black">{t('homePage:or')}</div>
                     </div>
                   )}
                   {isLogin && (
-                    <div className="text-start">
-                      {!checkNewUser(user.createdAt) || checkDeposit ? (
-                        <div className="dark:text-white text-black text-[14px] sm:text-[24px] font-semibold">
-                          {String(t('homePage:welcomeBack'))}
-                          {String(', ')} {userName}
-                        </div>
-                      ) : (
-                        <div className="text-start">
-                          {`${String(t('homePage:hello'))} ${userName}! ${String(t('homePage:welcomeAboard'))}`}
-                        </div>
-                      )}
-
+                    <div>
                       {!checkDeposit && (
-                        <div>
-                          <div className="sm:text-[24px] text-[16px] dark:text-white font-bold text-black mt-[6px]">
-                            {String(t('homePage:firstDepositBonus'))}
-                          </div>
-                          <div
-                            className={`bg-gradient-text bg-clip-text text-transparent sm:text-[48px] text-[24px] font-bold`}
+                        <div className="flex gap-[10px]">
+                          <button
+                            className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-[9px] px-5 sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
+                            onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
-                            +180% <span className="font-bold">{String(t('homePage:reward'))}</span>
-                          </div>
+                            {String(t('homePage:depositAndPlay'))}
+                          </button>
                         </div>
                       )}
+                      {checkDeposit && <VipProgressComponent />}
                     </div>
                   )}
-                  <div className="flex items-center justify-start gap-[15px] mt-2">
-                    {!isLogin && (
-                      <div className="flex items-center gap-[10px]">
-                        <button
-                          type="button"
-                          className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-5 py-[9px] sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
-                          onClick={() => {
-                            dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
-                            dispatch(changeIsShowAuthenticationModal(true));
-                          }}
-                        >
-                          {t('homePage:signUpNow')}
-                        </button>
-                        <div className="sm:text-[16px] text-[12px] dark:text-white text-black">{t('homePage:or')}</div>
+                  {!isLogin && <LoginWalletDashboard onClose={() => {}} />}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:-mt-[0px]">
+              <GameBannerSlider className="w-full" />
+              <div className="-mt-[20px] md:grid md:grid-cols-2 min-[900px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
+                {cardPlayData.map((item, index) => (
+                  <CardPlay
+                    key={index}
+                    imgBackGround={item.imgBackGround}
+                    title={item.title}
+                    description={item.description}
+                    textButton={item.textButton}
+                    href={item.href}
+                    isClick={item.isClick}
+                    action={item.action}
+                  />
+                ))}
+              </div>
+              <RecentBigWinComponent />
+              {!isLogin && (
+                <>
+                  <div className="relative w-full sm:hidden block">
+                    <div className="flex justify-between items-center gap-[10px]">
+                      <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
+                        {String(t('layout:casino'))}
                       </div>
-                    )}
-                    {isLogin && (
-                      <div>
-                        {!checkDeposit && (
-                          <div className="flex gap-[10px]">
-                            <button
-                              className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-[9px] px-5 sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
-                              onClick={() => dispatch(changeIsShowDepositModal(true))}
-                            >
-                              {String(t('homePage:depositAndPlay'))}
-                            </button>
+                      <div className="flex items-center justify-center">
+                        <Link
+                          href={ROUTER.Casino}
+                          role="button"
+                          className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                        >
+                          {t('gameDetail:viewAll')}
+                        </Link>
+                      </div>
+                    </div>
+                    <TabGames ishome={true} />
+                    <CasinoSS
+                      data={listCasinoTabGame}
+                      renderItem={(item) => <GameCard gameDetail={item} />}
+                      isShowArrow={false}
+                    />
+                  </div>
+                </>
+              )}
+              {isLogin && (
+                <>
+                  <div className="relative w-full sm:hidden block">
+                    <div className="flex justify-between items-center gap-[10px]">
+                      {/* <CasinoBoldIcon className="w-[18px] h-[18px]" /> */}
+                      <div className="font-[600] dark:text-white text-[#000] text-m_title">
+                        {String(t('layout:casino'))}
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <Link
+                          href={selectedCasino === 'recent' ? ROUTER.Recent : ROUTER.Favorite}
+                          role="button"
+                          className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                        >
+                          {t('gameDetail:viewAll')}
+                        </Link>
+                      </div>
+                    </div>
+                    <div className="flex gap-[10px] dark:text-color-text-primary text-color-light-text-primary text-default mt-[10px]">
+                      <span
+                        className={cn({ 'dark:text-white text-black': selectedCasino === 'recent' })}
+                        onClick={() => setSelectedCasino('recent')}
+                      >
+                        {String(t('casino:recent'))}
+                      </span>
+                      <span
+                        className={cn({ 'dark:text-white text-black': selectedCasino === 'favorite' })}
+                        onClick={() => setSelectedCasino('favorite')}
+                      >
+                        {String(t('casino:favorite'))}
+                      </span>
+                    </div>
+
+                    {selectedCasino === 'recent' && (
+                      <>
+                        {!!listRecentGames.length ? (
+                          <div className="game-grid-parent mt-[20px]">
+                            {listRecentGames.map((game, index) => (
+                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
+                                <GameCard gameDetail={game} />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="py-[10px] w-full">
+                            <NoDataComponent />
                           </div>
                         )}
-                        {checkDeposit && <VipProgressComponent />}
-                      </div>
+                      </>
                     )}
-                    {!isLogin && <LoginWalletDashboard onClose={() => {}} />}
+                    {selectedCasino === 'favorite' && (
+                      <>
+                        {!!listFavoriteGames.length ? (
+                          <div className="game-grid-parent mt-[20px]">
+                            {listFavoriteGames.map((game, index) => (
+                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
+                                <GameCard gameDetail={game} />
+                              </div>
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="py-[10px] w-full">
+                            <NoDataComponent />
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
+              <TopRateGameComponent listRecommendedGame={listTopRated} />
+              <div className="relative w-full">
+                <Image
+                  src="/img/octopus.png"
+                  width={20}
+                  height={20}
+                  className="inset w-full object-cover hidden lg:block rounded-large"
+                  alt=""
+                />
+                <Image
+                  src="/img/mobile-octopus.png"
+                  width={20}
+                  height={20}
+                  className="inset w-full object-cover block lg:hidden rounded-large"
+                  alt=""
+                />
+                <div className="absolute left-[8%] right-0 top-[10%] bottom-[10%] flex flex-col justify-between">
+                  <div className="text-sm min-[390px]:text-lg min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
+                    <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
+                    <span className="font-bold">
+                      {` `}
+                      {t('homePage:getStarted')}
+                      {` `}300%{` `}
+                    </span>
+                    <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
+                  </div>
+                  <div
+                    className={cn(
+                      'text-[12px] min-[390px]:text-[16px] xl:text-title 2xl:text-m_title',
+                      'font-bold bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[200px]',
+                      'hover:opacity-[0.9] cursor-pointer flex justify-center items-center',
+                    )}
+                    onClick={() => {
+                      handleClickDeposit();
+                    }}
+                  >
+                    <span className="font-bold">{t('layout:deposit')}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:-mt-[0px]">
-                <GameBannerSlider className="w-full" />
-                <div className="-mt-[20px] md:grid md:grid-cols-2 min-[900px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
-                  {cardPlayData.map((item, index) => (
-                    <CardPlay
-                      key={index}
-                      imgBackGround={item.imgBackGround}
-                      title={item.title}
-                      description={item.description}
-                      textButton={item.textButton}
-                      href={item.href}
-                      isClick={item.isClick}
-                      action={item.action}
-                    />
-                  ))}
+              <div className="relative w-full sm:block hidden">
+                <HomepageSession showIcon={false} isHome={true}>
+                  <LatestBetRace />
+                </HomepageSession>
+              </div>
+              <div className="relative w-full hidden sm:block">
+                <div
+                  onClick={() => {
+                    if (isLogin) dispatch(changeIsShowVipClubModal(true));
+                  }}
+                  className="cursor-pointer"
+                >
+                  <Image
+                    src="/img/whale.png"
+                    width={20}
+                    height={20}
+                    className="hidden md:block w-full object-cover rounded-large"
+                    alt=""
+                  />
+                  <Image
+                    src="/img/mobile-whale.png"
+                    width={20}
+                    height={20}
+                    className="block md:hidden w-full object-cover rounded-large"
+                    alt=""
+                  />
                 </div>
-                <RecentBigWinComponent />
-                {!isLogin && (
-                  <>
-                    <div className="relative w-full sm:hidden block">
-                      <div className="flex justify-between items-center gap-[10px]">
-                        <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
-                          {String(t('layout:casino'))}
-                        </div>
-                        <div className="flex items-center justify-center">
-                          <Link
-                            href={ROUTER.Casino}
-                            role="button"
-                            className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
-                          >
-                            {t('gameDetail:viewAll')}
-                          </Link>
-                        </div>
-                      </div>
-                      <TabGames ishome={true} />
-                      <CasinoSS
-                        data={listCasinoTabGame}
-                        renderItem={(item) => <GameCard gameDetail={item} />}
-                        isShowArrow={false}
-                      />
+              </div>
+              <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
+              {isLogin && (
+                <div className="relative w-full sm:hidden block">
+                  <div className="flex items-center gap-[10px]">
+                    <div className="font-[600] dark:text-white text-[#000] text-m_title">
+                      {String(t('casino:pickForYou'))}
                     </div>
-                  </>
-                )}
-                {isLogin && (
-                  <>
-                    <div className="relative w-full sm:hidden block">
-                      <div className="flex justify-between items-center gap-[10px]">
-                        {/* <CasinoBoldIcon className="w-[18px] h-[18px]" /> */}
-                        <div className="font-[600] dark:text-white text-[#000] text-m_title">
-                          {String(t('layout:casino'))}
+                  </div>
+                  <div className="game-grid-parent mt-[20px]">
+                    {listPicksForGame.map((game, index) => {
+                      return (
+                        <div key={index} className="max-w-[237px]">
+                          <GameCard gameDetail={game} />
                         </div>
-                        <div className="flex items-center justify-center">
-                          <Link
-                            href={selectedCasino === 'recent' ? ROUTER.Recent : ROUTER.Favorite}
-                            role="button"
-                            className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
-                          >
-                            {t('gameDetail:viewAll')}
-                          </Link>
-                        </div>
-                      </div>
-                      <div className="flex gap-[10px] dark:text-color-text-primary text-color-light-text-primary text-default mt-[10px]">
-                        <span
-                          className={cn({ 'dark:text-white text-black': selectedCasino === 'recent' })}
-                          onClick={() => setSelectedCasino('recent')}
-                        >
-                          {String(t('casino:recent'))}
-                        </span>
-                        <span
-                          className={cn({ 'dark:text-white text-black': selectedCasino === 'favorite' })}
-                          onClick={() => setSelectedCasino('favorite')}
-                        >
-                          {String(t('casino:favorite'))}
-                        </span>
-                      </div>
+                      );
+                    })}
+                  </div>
+                  <div className="flex items-center justify-center">
+                    <Link
+                      href={ROUTER.PicksForYou}
+                      role="button"
+                      className="mt-5 dark:bg-[#2D3035] bg-white rounded-[5px] font-bold text-default dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
+                    >
+                      {t('gameDetail:viewAll')}
+                    </Link>
+                  </div>
+                </div>
+              )}
 
-                      {selectedCasino === 'recent' && (
-                        <>
-                          {!!listRecentGames.length ? (
-                            <div className="game-grid-parent mt-[20px]">
-                              {listRecentGames.map((game, index) => (
-                                <div key={index} className="min-w-[100px] sm:min-w-[237px]">
-                                  <GameCard gameDetail={game} />
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="py-[10px] w-full">
-                              <NoDataComponent />
-                            </div>
-                          )}
-                        </>
-                      )}
-                      {selectedCasino === 'favorite' && (
-                        <>
-                          {!!listFavoriteGames.length ? (
-                            <div className="game-grid-parent mt-[20px]">
-                              {listFavoriteGames.map((game, index) => (
-                                <div key={index} className="min-w-[100px] sm:min-w-[237px]">
-                                  <GameCard gameDetail={game} />
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <div className="py-[10px] w-full">
-                              <NoDataComponent />
-                            </div>
-                          )}
-                        </>
-                      )}
-                    </div>
-                  </>
-                )}
-                <TopRateGameComponent listRecommendedGame={listTopRated} />
-                <div className="relative w-full">
-                  <Image
-                    src="/img/octopus.png"
-                    width={20}
-                    height={20}
-                    className="inset w-full object-cover hidden lg:block rounded-large"
-                    alt=""
-                  />
-                  <Image
-                    src="/img/mobile-octopus.png"
-                    width={20}
-                    height={20}
-                    className="inset w-full object-cover block lg:hidden rounded-large"
-                    alt=""
-                  />
-                  <div className="absolute left-[8%] right-0 top-[10%] bottom-[10%] flex flex-col justify-between">
-                    <div className="text-sm min-[390px]:text-lg min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
-                      <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
-                      <span className="font-bold">
-                        {` `}
-                        {t('homePage:getStarted')}
-                        {` `}300%{` `}
-                      </span>
-                      <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
+              <div className="">
+                <div className="sm:py-[35px] py-[20px] lg:flex gap-[60px] rounded-[15px]">
+                  <div className="lg:w-[50%]">
+                    <div className="text-black dark:text-white text-default font-semibold ">
+                      {String(t('homePage:cryptoOnlineCasino'))}
                     </div>
                     <div
-                      className={cn(
-                        'text-[12px] min-[390px]:text-[16px] xl:text-title 2xl:text-m_title',
-                        'font-bold bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[200px]',
-                        'hover:opacity-[0.9] cursor-pointer flex justify-center items-center',
-                      )}
+                      className="text-color-text-secondary text-default mt-5 text-justify"
+                      dangerouslySetInnerHTML={{ __html: String(t('homePage:casinosOnlineHaveNot')) }}
+                    ></div>
+                    <div
+                      className="text-color-text-secondary text-default mt-5 text-justify"
+                      dangerouslySetInnerHTML={{ __html: String(t('homePage:playersAreAlways')) }}
+                    ></div>
+                    <div
+                      className="mt-5 cursor-pointer flex items-center gap-[10px] text-color-primary"
                       onClick={() => {
-                        handleClickDeposit();
+                        dispatch(changeIsShowCryptoOnlineModal(true));
                       }}
                     >
-                      <span className="font-bold">{t('layout:deposit')}</span>
+                      <div className="text-default">{String(t('homePage:showMore'))}</div>
+                      <ArrowRight size={16} />
                     </div>
                   </div>
-                </div>
-
-                <div className="relative w-full sm:block hidden">
-                  <HomepageSession showIcon={false} isHome={true}>
-                    <LatestBetRace />
-                  </HomepageSession>
-                </div>
-                <div className="relative w-full hidden sm:block">
-                  <div
-                    onClick={() => {
-                      if (isLogin) dispatch(changeIsShowVipClubModal(true));
-                    }}
-                    className="cursor-pointer"
-                  >
-                    <Image
-                      src="/img/whale.png"
-                      width={20}
-                      height={20}
-                      className="hidden md:block w-full object-cover rounded-large"
-                      alt=""
+                  <div className="mt-[42px] lg:mt-0 lg:w-[50%] text-default">
+                    <div className="text-black dark:text-white text-center lg:text-left text-default font-semibold mb-5">
+                      {String(t('homePage:helpUsImproveYourExperience'))}
+                    </div>
+                    <textarea
+                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
+                      placeholder={String(t('homePage:foundBug'))}
+                      value={feedbackText}
+                      onChange={(e) => setFeedbackText(e.target.value)}
                     />
-                    <Image
-                      src="/img/mobile-whale.png"
-                      width={20}
-                      height={20}
-                      className="block md:hidden w-full object-cover rounded-large"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
-                {isLogin && (
-                  <div className="relative w-full sm:hidden block">
-                    <div className="flex items-center gap-[10px]">
-                      <div className="font-[600] dark:text-white text-[#000] text-m_title">
-                        {String(t('casino:pickForYou'))}
-                      </div>
-                    </div>
-                    <div className="game-grid-parent mt-[20px]">
-                      {listPicksForGame.map((game, index) => {
-                        return (
-                          <div key={index} className="max-w-[237px]">
-                            <GameCard gameDetail={game} />
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div className="flex items-center justify-center">
-                      <Link
-                        href={ROUTER.PicksForYou}
-                        role="button"
-                        className="mt-5 dark:bg-[#2D3035] bg-white rounded-[5px] font-bold text-default dark:text-white text-[#000] px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
-                      >
-                        {t('gameDetail:viewAll')}
-                      </Link>
-                    </div>
-                  </div>
-                )}
-
-                <div className="">
-                  <div className="sm:py-[35px] py-[20px] lg:flex gap-[60px] rounded-[15px]">
-                    <div className="lg:w-[50%]">
-                      <div className="text-black dark:text-white text-default font-semibold ">
-                        {String(t('homePage:cryptoOnlineCasino'))}
-                      </div>
+                    <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
                       <div
-                        className="text-color-text-secondary text-default mt-5 text-justify"
-                        dangerouslySetInnerHTML={{ __html: String(t('homePage:casinosOnlineHaveNot')) }}
-                      ></div>
-                      <div
-                        className="text-color-text-secondary text-default mt-5 text-justify"
-                        dangerouslySetInnerHTML={{ __html: String(t('homePage:playersAreAlways')) }}
-                      ></div>
-                      <div
-                        className="mt-5 cursor-pointer flex items-center gap-[10px] text-color-primary"
+                        className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
                         onClick={() => {
-                          dispatch(changeIsShowCryptoOnlineModal(true));
-                        }}
-                      >
-                        <div className="text-default">{String(t('homePage:showMore'))}</div>
-                        <ArrowRight size={16} />
-                      </div>
-                    </div>
-                    <div className="mt-[42px] lg:mt-0 lg:w-[50%] text-default">
-                      <div className="text-black dark:text-white text-center lg:text-left text-default font-semibold mb-5">
-                        {String(t('homePage:helpUsImproveYourExperience'))}
-                      </div>
-                      <textarea
-                        className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
-                        placeholder={String(t('homePage:foundBug'))}
-                        value={feedbackText}
-                        onChange={(e) => setFeedbackText(e.target.value)}
-                      />
-                      <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
-                        <div
-                          className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
-                          onClick={() => {
-                            if (feedbackText === '') {
-                              toast.error('Message content cannot be empty!', {
-                                containerId: TOAST_ENUM.COMMON,
-                                icon: true,
-                                autoClose: 3000,
-                              });
-                              return;
-                            }
-                            setFeedbackText('');
-                            toast.success(String(t('success:success')), {
+                          if (feedbackText === '') {
+                            toast.error('Message content cannot be empty!', {
                               containerId: TOAST_ENUM.COMMON,
                               icon: true,
                               autoClose: 3000,
                             });
-                          }}
-                        >
-                          {String(t('homePage:leaveAMessage'))}
-                        </div>
-                        <div className="text-color-text-secondary text-default">{String(t('footer:nowGetReward'))}</div>
+                            return;
+                          }
+                          setFeedbackText('');
+                          toast.success(String(t('success:success')), {
+                            containerId: TOAST_ENUM.COMMON,
+                            icon: true,
+                            autoClose: 3000,
+                          });
+                        }}
+                      >
+                        {String(t('homePage:leaveAMessage'))}
                       </div>
-                      <div className="mt-5 text-center lg:text-left">
-                        <span className="text-default text-color-text-secondary mr-[10px]">
-                          {String(t('homePage:orEmail'))}
-                        </span>
-                        <a
-                          href="mailto:feedback@bonenza.com"
-                          className="text-default text-color-primary cursor-pointer"
-                        >
-                          feedback@bonenza.com
-                        </a>
-                      </div>
+                      <div className="text-color-text-secondary text-default">{String(t('footer:nowGetReward'))}</div>
+                    </div>
+                    <div className="mt-5 text-center lg:text-left">
+                      <span className="text-default text-color-text-secondary mr-[10px]">
+                        {String(t('homePage:orEmail'))}
+                      </span>
+                      <a href="mailto:feedback@bonenza.com" className="text-default text-color-primary cursor-pointer">
+                        feedback@bonenza.com
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -726,7 +717,7 @@ function IndexPage() {
             </div>
           </div>
         </div>
-      )}
+      </div>
     </>
   );
 }

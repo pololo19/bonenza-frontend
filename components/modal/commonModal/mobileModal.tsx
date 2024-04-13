@@ -1,7 +1,7 @@
-import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
-import { ElementType, Fragment, useRef, useState } from 'react';
+import { ElementType } from 'react';
 import { ToastContainer } from 'react-toastify';
 
 import { TOAST_ENUM } from '@/base/constants/common';
@@ -31,27 +31,17 @@ export default function MobileModal({
   isStatic,
   transitionRootProps,
 }: CommonModalProps) {
-
   return (
     <>
-      <div
-        className="block sm:hidden relative z-50"
-      >
-        <div 
-          className={
-            cn(
-              "fixed inset-0 bg-[#000000aa] cursor-pointer",
-              {
-                'scale-0 opacity-0': !show,
-                'scale-100 opacity-100': show,
-              }
-            )
-          }
+      <div className="block sm:hidden relative z-50">
+        <div
+          className={cn('fixed inset-0 bg-[#000000aa] cursor-pointer', {
+            'scale-0 opacity-0': !show,
+            'scale-100 opacity-100': show,
+          })}
         />
-        <div className={cn(
-          "fixed inset-0 z-10",
-          "transition-all duration-200 ease-in",
-          {
+        <div
+          className={cn('fixed inset-0 z-10', 'transition-all duration-200 ease-in', {
             'translate-y-full': !show,
             'translate-y-0': show,
           })}
@@ -74,13 +64,14 @@ export default function MobileModal({
                 {header}
                 {isShowCloseButton && (
                   <div
-                    className={cn("absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90",
-                      "dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black"
+                    className={cn(
+                      'absolute top-[20px] right-[20px] rounded-md z-[10] transition-all duration-300 rotate-0 hover:rotate-90',
+                      'dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black',
                     )}
                     role="button"
                     onClick={onClose}
                   >
-                    <XMarkIcon width={20} className="stroke-[3]"/>
+                    <XMarkIcon width={20} className="stroke-[3]" />
                   </div>
                 )}
               </div>
@@ -95,6 +86,7 @@ export default function MobileModal({
                 hideProgressBar={true}
                 icon={() => null}
                 closeButton={() => null}
+                limit={5}
                 toastClassName={'min-h-[40px]'}
                 bodyClassName={'!p-0 text-gray-200'}
                 draggableDirection={'x'}

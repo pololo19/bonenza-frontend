@@ -1,22 +1,19 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { ElementType, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import { api_resetPassword } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { convertUserInfo } from '@/base/libs/utils';
-import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
-import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
-import { useAppDispatch } from '@/base/redux/store';
+import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { ResetPasswordRequest } from '@/base/types/requestTypes';
-import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import { InputPassAuthentication } from '@/components/input/typing';
 
@@ -30,8 +27,14 @@ type ModalResetPasswordProps = {
 
 export default function ModalResetPassword({ show, onClose }: ModalResetPasswordProps) {
   const { t } = useTranslation('');
-  const { query } = useRouter();
   const dispatch = useAppDispatch();
+
+  const { localFiat } = useSelector(
+    (state: AppState) => ({
+      localFiat: state.wallet.localFiat,
+    }),
+    shallowEqual,
+  );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -60,27 +63,27 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
       setIsLoading(true);
 
       const res = await api_resetPassword(formReset);
-      const localFiat: CurrencyType = {
-        id: res.data.settingFiatCurrency.id ?? '',
-        name: res.data.settingFiatCurrency.symbol ?? '',
-        alias: res.data.settingFiatCurrency.name ?? '',
-        logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
-        iso_currency: res.data.settingFiatCurrency.iso_currency,
-        iso_decimals: res.data.settingFiatCurrency.iso_decimals,
-        availableNetworks: [],
-        price: Number(res.data.settingFiatCurrency.price),
-        type: 'fiat',
-        favorite: res.data.settingFiatCurrency.favorite,
-      };
-      dispatch(
-        saveUserInfo({
-          ...convertUserInfo(res.data),
-        }),
-      );
+      // const localFiat: CurrencyType = {
+      //   id: res.data.settingFiatCurrency.id ?? '',
+      //   name: res.data.settingFiatCurrency.symbol ?? '',
+      //   alias: res.data.settingFiatCurrency.name ?? '',
+      //   logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
+      //   iso_currency: res.data.settingFiatCurrency.iso_currency,
+      //   iso_decimals: res.data.settingFiatCurrency.iso_decimals,
+      //   availableNetworks: [],
+      //   price: Number(res.data.settingFiatCurrency.price),
+      //   type: 'fiat',
+      //   favorite: res.data.settingFiatCurrency.favorite,
+      // };
+      // dispatch(
+      //   saveUserInfo({
+      //     ...convertUserInfo(res.data),
+      //   }),
+      // );
 
       dispatch(initWalletInfo());
 
-      dispatch(setLocalFiat(localFiat));
+      // dispatch(setLocalFiat(localFiat));
 
       dispatch(changeIsShowResetPassword(false));
       toast.success(t('authentication:resetPasswordSuccessfully'), { containerId: TOAST_ENUM.COMMON });
@@ -98,7 +101,7 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
         onClose={onClose}
         panelClass="sm:max-w-[464px]"
         header={
-          <div className="relative sm:px-[30px] px-[20px] pt-[25px] pb-[10px] bg-[#161D26]">
+          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
             <div className="text-[16px] text-white font-[600]">{t('authentication:resetAccountPassword')}</div>
           </div>
         }
@@ -130,7 +133,7 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
               </div>
               <button
                 type="submit"
-                className="bg-color-primary w-full rounded-[5px] text-center py-[10px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-play w-full rounded-default text-center py-[10px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-[14px] text-white">{t('authentication:confirm')}</div>
