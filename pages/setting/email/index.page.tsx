@@ -16,6 +16,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { isPhone } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { saveVerifyInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowVerifyMailAndPhone, changeVerifyMode } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -90,7 +91,7 @@ const SettingEmail = () => {
     try {
       setIsLoading(true);
       if (type === VerifyModeEnum.MAIL) {
-        await api_sendMailToUser(email, '');
+        await api_sendMailToUser(emailInput, '');
         dispatch(saveVerifyInfo({ verifyRequest: emailInput, isPhoneVerifyRequested: false }));
       }
       if (type === VerifyModeEnum.PHONE) {
@@ -106,10 +107,10 @@ const SettingEmail = () => {
       dispatch(changeIsShowVerifyMailAndPhone(true));
       toast.success(t('authentication:verificationSentSuccess'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
+      const errType = error.response?.data?.message ?? '';
       const status = error.response?.data?.statusCode ?? '';
-
-      toast.error(t(`${message}`), { containerId: TOAST_ENUM.COMMON });
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -153,7 +154,7 @@ const SettingEmail = () => {
               <div
                 onClick={() => sendVerifyCode(VerifyModeEnum.MAIL)}
                 role="button"
-                className="bg-gradient-btn-play hover:opacity-[0.9] rounded-[5px] text-white text-default px-[30px] py-[10px] m-auto"
+                className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
               >
                 {t('setting:verify')}
               </div>
@@ -257,7 +258,7 @@ const SettingEmail = () => {
               <div
                 onClick={() => sendVerifyCode(VerifyModeEnum.PHONE)}
                 role="button"
-                className="w-fit bg-gradient-btn-play hover:opacity-[0.9] rounded-[5px] text-white text-default px-[30px] py-[10px] m-auto"
+                className="w-fit bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
               >
                 {t('setting:confirm')}
               </div>

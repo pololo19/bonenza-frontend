@@ -1,8 +1,7 @@
-import axios from 'axios';
 import cn from 'classnames';
 import { Clock, Edit } from 'iconsax-react';
 import Image from 'next/image';
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { ReactElement, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -13,7 +12,6 @@ import withAuth from '@/components/hoc/withAuth';
 import FaceIdIcon from '@/components/icons/FaceIdIcon';
 import GovernmentCardIcon from '@/components/icons/GovernmentCardIcon';
 import SettingLayout from '@/components/layouts/setting.layout';
-import CommonModal from '@/components/modal/commonModal/commonModal';
 import ModalVerificationUploadCard from '@/components/modal/verification/verificationUpload';
 
 const SettingVerify = () => {
@@ -32,7 +30,7 @@ const SettingVerify = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const iframeRef = useRef();
 
-  const { email, userId, isKyc } = useSelector(
+  const { isKyc } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
       email: state.auth.user.email,
@@ -77,7 +75,7 @@ const SettingVerify = () => {
                 </div>
                 <button
                   className={cn(
-                    'bg-color-primary w-full p-2 rounded-default dark:text-white text-black text-[14px] mt-2',
+                    'bg-gradient-btn-play w-full p-2 rounded-default dark:text-white text-black text-[14px] mt-2',
                   )}
                   onClick={() => setShowVerificationModal(true)}
                 >
