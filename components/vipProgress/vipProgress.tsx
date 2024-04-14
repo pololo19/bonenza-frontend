@@ -68,7 +68,6 @@ const VipProgressComponent = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
       <div
         className={cn(
           'flex flex-col relative py-[8px] px-[10px] sm:py-[16px] sm:px-[25px] bg-transparent sm:min-w-[400px] rounded-large overflow-hidden sm:gap-[10px] gap-[5px]',

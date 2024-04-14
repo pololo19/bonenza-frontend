@@ -144,7 +144,7 @@ function IndexPage() {
 
   const initDataLoad = async () => {
     try {
-      dispatch(changeIsLoading(true));
+      // dispatch(changeIsLoading(true));
       const [_resTopRatedGames, _resRecommendedGames, _resChat] = await Promise.all([
         api_getTopRelatedGames(),
         api_getPickGames(1, 20),
@@ -184,7 +184,7 @@ function IndexPage() {
       setListTopRated([]);
       setListRecommendedGame([]);
     } finally {
-      dispatch(changeIsLoading(false));
+      // dispatch(changeIsLoading(false));
     }
   };
 
@@ -225,7 +225,7 @@ function IndexPage() {
 
   const loadDataAfterLoginMobile = async () => {
     try {
-      dispatch(changeIsLoading(true));
+      // dispatch(changeIsLoading(true));
       const [_resPicksforYou, _resRecentGames, _resFavoriteGames, _resCheckDeposit] = await Promise.all([
         api_getPickGames(1, 40),
         api_getRecentGames(1, 40),
@@ -276,13 +276,13 @@ function IndexPage() {
       setListRecentGame([]);
       setListFavoriteGames([]);
     } finally {
-      dispatch(changeIsLoading(false));
+      // dispatch(changeIsLoading(false));
     }
   };
 
   const loadDataAfterLogin = async () => {
     try {
-      dispatch(changeIsLoading(true));
+      // dispatch(changeIsLoading(true));
       const result = await api_checkDeposit();
       if (result.data > 0) {
         setCheckDeposit(true);
@@ -292,7 +292,7 @@ function IndexPage() {
     } catch (error) {
       setCheckDeposit(false);
     } finally {
-      dispatch(changeIsLoading(false));
+      // dispatch(changeIsLoading(false));
     }
   };
 
@@ -318,7 +318,7 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:mt-0 sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
+            <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
               <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
                 <CsrWrapper>
                   <Image
