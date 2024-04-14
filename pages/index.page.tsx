@@ -31,6 +31,8 @@ import CasinoSS from '@/components/casino/casinoSS';
 import CsrWrapper from '@/components/CsrWrapper';
 import GameCard from '@/components/gameCard/gameCard';
 import withAuth from '@/components/hoc/withAuth';
+import CasinoFavoriteComponent from '@/components/homepage/casinoFavorite';
+import CasinoRecentComponent from '@/components/homepage/casinoRecent';
 import HomepageSession from '@/components/homepage/homepageSession/homepageSession';
 import LatestBetRace from '@/components/homepage/latestBetRace';
 import RecentBigWinComponent from '@/components/homepage/recentBigWin';
@@ -59,7 +61,7 @@ function IndexPage() {
   const { query } = useRouter();
   const { key } = query;
 
-  const { isLogin, userName, localFiat, user, isLoading } = useSelector(
+  const { isLogin, userName, localFiat, user } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       userName: state.auth.user.userName,
@@ -116,7 +118,6 @@ function IndexPage() {
   const [listTopRated, setListTopRated] = useState<GameListType[]>([]);
   const [listPicksForGame, setListPicksForGame] = useState<GameListType[]>([]);
 
-  const [selectedCasino, setSelectedCasino] = useState<string>('recent');
   const [listRecentGames, setListRecentGame] = useState<GameListType[]>([]);
   const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
 
@@ -227,8 +228,8 @@ function IndexPage() {
       dispatch(changeIsLoading(true));
       const [_resPicksforYou, _resRecentGames, _resFavoriteGames, _resCheckDeposit] = await Promise.all([
         api_getPickGames(1, 40),
-        api_getRecentGames(1, 3),
-        api_getFavoriteGames(1, 3),
+        api_getRecentGames(1, 40),
+        api_getFavoriteGames(1, 40),
         api_checkDeposit(),
       ]);
       const tempPicksForYou: GameListType[] = _resPicksforYou?.data?.games?.map((item: any) => ({
@@ -478,74 +479,27 @@ function IndexPage() {
                 </>
               )}
               {isLogin && (
-                <>
-                  <div className="relative w-full sm:hidden block">
-                    <div className="flex justify-between items-center gap-[10px]">
-                      {/* <CasinoBoldIcon className="w-[18px] h-[18px]" /> */}
-                      <div className="font-[600] dark:text-white text-[#000] text-m_title">
-                        {String(t('layout:casino'))}
+                <div className="relative w-full sm:hidden block">
+                  <div className="font-[600] dark:text-white text-[#000] text-m_title mb-4">
+                    {String(t('layout:casino'))}
+                  </div>
+                  <div className="flex flex-col gap-5">
+                    {!!listRecentGames.length ? (
+                      <CasinoRecentComponent listRecentGames={listRecentGames} />
+                    ) : (
+                      <div className="py-[10px] w-full">
+                        <NoDataComponent />
                       </div>
-                      <div className="flex items-center justify-center">
-                        <Link
-                          href={selectedCasino === 'recent' ? ROUTER.Recent : ROUTER.Favorite}
-                          role="button"
-                          className="rounded-[5px] font-bold text-m_default text-color-primary px-[10px] py-[8px] hover:bg-[#6b7180] hover:text-white"
-                        >
-                          {t('gameDetail:viewAll')}
-                        </Link>
-                      </div>
-                    </div>
-                    <div className="flex gap-[10px] dark:text-color-text-primary text-color-light-text-primary text-default mt-[10px]">
-                      <span
-                        className={cn({ 'dark:text-white text-black': selectedCasino === 'recent' })}
-                        onClick={() => setSelectedCasino('recent')}
-                      >
-                        {String(t('casino:recent'))}
-                      </span>
-                      <span
-                        className={cn({ 'dark:text-white text-black': selectedCasino === 'favorite' })}
-                        onClick={() => setSelectedCasino('favorite')}
-                      >
-                        {String(t('casino:favorite'))}
-                      </span>
-                    </div>
-
-                    {selectedCasino === 'recent' && (
-                      <>
-                        {!!listRecentGames.length ? (
-                          <div className="game-grid-parent mt-[20px]">
-                            {listRecentGames.map((game, index) => (
-                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
-                                <GameCard gameDetail={game} />
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="py-[10px] w-full">
-                            <NoDataComponent />
-                          </div>
-                        )}
-                      </>
                     )}
-                    {selectedCasino === 'favorite' && (
-                      <>
-                        {!!listFavoriteGames.length ? (
-                          <div className="game-grid-parent mt-[20px]">
-                            {listFavoriteGames.map((game, index) => (
-                              <div key={index} className="min-w-[100px] sm:min-w-[237px]">
-                                <GameCard gameDetail={game} />
-                              </div>
-                            ))}
-                          </div>
-                        ) : (
-                          <div className="py-[10px] w-full">
-                            <NoDataComponent />
-                          </div>
-                        )}
-                      </>
+                    {!!listFavoriteGames.length ? (
+                      <CasinoFavoriteComponent listFavoriteGames={listFavoriteGames} />
+                    ) : (
+                      <div className="py-[10px] w-full">
+                        <NoDataComponent />
+                      </div>
                     )}
                   </div>
-                </>
+                </div>
               )}
               <TopRateGameComponent listRecommendedGame={listTopRated} />
               <div className="relative w-full">
@@ -620,7 +574,7 @@ function IndexPage() {
               {isLogin && (
                 <div className="relative w-full sm:hidden block">
                   <div className="flex items-center gap-[10px]">
-                    <div className="font-[600] dark:text-white text-[#000] text-m_title">
+                    <div className="font-[600] dark:text-white text-[#000] text-default sm:text-m_title">
                       {String(t('casino:pickForYou'))}
                     </div>
                   </div>
