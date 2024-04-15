@@ -306,7 +306,7 @@ const SelectCurrency = ({
                                         <Lock size={12} variant="Bold" />{' '}
                                         {viewInFiat
                                           ? currencyFormat1(
-                                              (lockedAmount / usdtPrice) * exchangeRate,
+                                              lockedAmount * usdtPrice * exchangeRate,
                                               fiatDecimals,
                                               localFiat?.name,
                                             )
