@@ -703,6 +703,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                   <div
                     role="button"
                     onClick={() => {
+                      if (!isShowSidebar) dispatch(changeIsShowCasinoSearch(false));
                       dispatch(changeIsShowMenuPannel(!isShowSidebar));
                       if (!isShowSidebar) {
                         setIsShowMobileSubMenu(true);
