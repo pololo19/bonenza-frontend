@@ -14,14 +14,14 @@ function Loader({ isHomePage = false }: { isHomePage?: boolean }) {
         <div className="relative w-[100px] h-[100px] flex justify-center items-center">
           <Image
             width={165}
-            height={57}
+            height={165}
             className="absolute object-cover w-[150px]"
             src="/img/loading.gif"
             alt="logo"
           />
           <Image
-            width={165}
-            height={57}
+            width={32}
+            height={47}
             className="absolute object-cover w-[32px]"
             src="/img/logo-mobile.png"
             alt="logo"

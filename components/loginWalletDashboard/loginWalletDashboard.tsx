@@ -135,7 +135,6 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   }, [isConnected]);
   return (
     <>
-      {isLoading && <Loader />}
       <div className="text-center text-white text-[14px] font-[600]">
         <div className="flex flex-row items-center justify-center sm:gap-[10px] gap-[5px]">
           <div
