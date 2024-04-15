@@ -16,12 +16,22 @@ import {
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { Fragment } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
+import {
+  changeIsShowBonusHistory,
+  changeIsShowRakeBack,
+  changeIsShowRakeBackDetail,
+} from '@/base/redux/reducers/modal.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 
 import CommonSession from '../common/baseSession/baseSession';
 import IconOption from '../common/iconOption/iconOption';
+import ModalBonusHistory from '../modal/rakeBack/bonusHistory/bonusHistory';
+import ModalRakeBack from '../modal/rakeBack/rakeBack';
+import ModalRakeBackDetail from '../modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import BaseLayout from './base.layout';
 import styles from './deposit.module.scss';
 
@@ -31,6 +41,7 @@ type DepositLayoutProps = {
 };
 
 const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
+  const dispatch = useAppDispatch();
   const LIST_SIDEBAR_DEPOSIT = [
     {
       icon: EmptyWallet,
@@ -71,6 +82,15 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
     //   isdisabled: true,
     // },
   ];
+
+  const { isShowRakeBackModal, isShowModalBonusHistory, isShowRakeBackDetailModal } = useSelector(
+    (state: AppState) => ({
+      isShowRakeBackModal: state.modal.isShowRakeBackModal,
+      isShowModalBonusHistory: state.modal.isShowModalBonusHistory,
+      isShowRakeBackDetailModal: state.modal.isShowRakeBackDetailModal,
+    }),
+    shallowEqual,
+  );
 
   const router = useRouter();
   const { t } = useTranslation('');
@@ -358,6 +378,30 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
             </div>
           </div>
         </Transition>
+        <ModalRakeBack
+          show={isShowRakeBackModal || false}
+          onClose={() => {
+            dispatch(changeIsShowRakeBack(false));
+          }}
+          setShowModalRakeBackDetail={() => dispatch(changeIsShowRakeBackDetail(true))}
+          setShowModalBonusHistory={() => dispatch(changeIsShowBonusHistory(true))}
+        />
+
+        <ModalRakeBackDetail
+          show={isShowRakeBackDetailModal || false}
+          onClose={() => {
+            dispatch(changeIsShowRakeBackDetail(false));
+          }}
+          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+        />
+
+        <ModalBonusHistory
+          show={isShowModalBonusHistory || false}
+          onClose={() => {
+            dispatch(changeIsShowBonusHistory(false));
+          }}
+          setShowModalRakeBack={() => dispatch(changeIsShowRakeBack(true))}
+        />
       </div>
     </>
   );

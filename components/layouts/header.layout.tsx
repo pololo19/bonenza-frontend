@@ -64,7 +64,7 @@ export default function Navbar() {
       <div
         className={cn('w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[70px]', {
           'sm:ml-[62px] sm:max-w-[calc(100%_-_62px)]': !isToggleSidebar && !showChatType,
-          'md:ml-[260px] md:max-w-[calc(100%_-_260px)]': isToggleSidebar && !showChatType,
+          'md:ml-[244px] md:max-w-[calc(100%_-_244px)]': isToggleSidebar && !showChatType,
           '2xl:ml-[244px] 2xl:max-w-[calc(100%_-_594px)]': showChatType && isToggleSidebar,
           'sm:ml-[62px] sm:max-w-[calc(100%_-_62px)] 2xl:max-w-[calc(100%_-_412px)]': showChatType && !isToggleSidebar,
         })}

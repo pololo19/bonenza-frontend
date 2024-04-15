@@ -138,7 +138,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     time: new Date(),
   });
   const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
-  const [cryptoLocked, setCryptoLocked] = useState<FiatType>({});
   const baseBodyRef = useRef<HTMLDivElement>(null);
   const showChatTypeRef = useRef<boolean>(false);
   const { query } = router;
@@ -585,10 +584,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   }, [router]);
 
   useEffect(() => {
-    cryptoArray && setCryptoLocked(cryptoArray[0]);
-  }, [cryptoArray]);
-
-  useEffect(() => {
     if (newBetData.betId) {
       let preBetDatas = [...betHistory];
       if (preBetDatas.findIndex((item) => item.betId === newBetData.betId) !== -1) {
@@ -870,7 +865,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
       <ModalRakeBackDetail
         show={isShowRakeBackDetailModal || false}
-        cryptoLocked={cryptoLocked}
         onClose={() => {
           dispatch(changeIsShowRakeBackDetail(false));
         }}
@@ -879,7 +873,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
       <ModalBonusHistory
         show={isShowModalBonusHistory || false}
-        cryptoLocked={cryptoLocked}
         onClose={() => {
           dispatch(changeIsShowBonusHistory(false));
         }}

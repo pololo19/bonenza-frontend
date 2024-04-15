@@ -110,6 +110,8 @@ export default function ModalRakeBack({
     try {
       setIsClaiming(true);
       await api_postClaims(unlockedData.amount);
+
+      await api_getClaims();
       toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const description = error.response?.data?.error ?? t('deposit:claimFailed');
