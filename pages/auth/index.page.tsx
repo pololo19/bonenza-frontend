@@ -8,6 +8,7 @@ import { AUTH_KEY, CookieKey } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import InputText from '@/components/input/typing/InputText';
 import styles from '@/styles/dashboard/index.module.scss';
+import { api_checkAuthKey } from '@/api/auth';
 
 type AuthForm = {
   authKey: string;
@@ -25,11 +26,17 @@ function AuthPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: AuthForm) => {
-    if (data.authKey === AUTH_KEY) {
-      CookiesStorage.setCookieData(CookieKey.auth, AUTH_KEY);
-      router.push('/');
-    } else {
+  const onSubmit = async (data: AuthForm) => {
+    try {
+      const res = await api_checkAuthKey(data.authKey);
+      if (!res.data?.success) {
+        setError('authKey', { message: 'Error key' });
+      } else {
+        const authToken = res.data?.token || '';
+        CookiesStorage.setCookieData(CookieKey.auth, authToken);
+        router.push('/');
+      }
+    } catch (error) {
       setError('authKey', { message: 'Error key' });
     }
   };

@@ -1,6 +1,8 @@
 const URL_REFRESH_TOKEN = '/refresh';
 
 /************************************ Verify **********************************/
+const API_AUTH_FE = (key: string) => `/auth/auth-key/${key}`;
+const API_AUTH_VALIDATE_AUTH_TOKEN = (token: string) => `/auth/validate-auth-key/${token}`;
 const API_AUTH_SEND_MAIL = '/auth/send-mail';
 const API_AUTH_SEND_SMS = '/auth/send-sms';
 const API_AUTH_VERIFY_CODE = '/auth/verify-code';
@@ -173,6 +175,7 @@ export {
   API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
   API_AFFILIATE_REFERRAL_RULE,
   API_AUTH_CHANGE_PASSWORD,
+  API_AUTH_FE,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GENERATE_QR_CODE,
   API_AUTH_GET_2FA_STATUS,
@@ -192,6 +195,7 @@ export {
   API_AUTH_SET_SELF_EXCULSIVE,
   API_AUTH_SIGNUP_WITH_EMAIL,
   API_AUTH_SIGNUP_WITH_PHONE,
+  API_AUTH_VALIDATE_AUTH_TOKEN,
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
