@@ -243,6 +243,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   }, [show]);
 
   const onSpinTabChange = (spin: 'lucky' | 'super' | 'mega') => {
+    if (isRotating === true) return;
     setSpinTab(spin);
     checkSpinAvailable(currentVipLevel, spin, spinAvailableCount);
   };
@@ -271,7 +272,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     key={`${spin}-tab`}
                     width={150}
                     height={151}
-                    className="hover:cursor-pointer w-[60px] h-[60px] z-10"
+                    className={`w-[60px] h-[60px] z-10 ${isRotating ? 'cursor-not-allowed' : 'cursor-pointer '}`}
                     src={spin === spinTab ? `/img/spin/${spin}-spin.png` : `/img/spin/disabled-${spin}-spin.png`}
                     alt=""
                     onClick={() => onSpinTabChange(spin)}
