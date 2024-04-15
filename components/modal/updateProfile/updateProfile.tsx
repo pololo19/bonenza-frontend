@@ -10,7 +10,7 @@ import * as yup from 'yup';
 
 import { api_editUserName } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo } from '@/base/libs/utils';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
@@ -116,17 +116,15 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
           <div className="flex flex-col items-center gap-[10px] w-full">
             <div className="relative flex flex-col items-center gap-[10px] w-full">
               <div className="h-[150px] w-[150px] rounded-full overflow-hidden">
-                {avatar && (
-                  <Image
-                    height={150}
-                    width={150}
-                    src={String(process.env.API_AVATAR) + avatar}
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/avatar-1.png';
-                    }}
-                  />
-                )}
+                <Image
+                  height={150}
+                  width={150}
+                  src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                />
               </div>
               <label
                 className="rounded-[5px] text-[14px] font-[400] text-black dark:text-white px-[10px] py-[5px] cursor-pointer dark:bg-[#2e333a99] bg-[#eceef4] dark:hover:bg-gray-600 hover:bg-gray-200 relative top-[-30px]"

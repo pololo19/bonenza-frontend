@@ -469,7 +469,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         // walletSocket.off(`connect_error`);
       }
     };
-  }, [walletSocket, isLogin]);
+  }, [walletSocket, isLogin, userId]);
 
   useEffect(() => {
     if (gameSocket) {
@@ -571,7 +571,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         gameSocket.off('chat');
       }
     };
-  }, [gameSocket, gameId, isLogin, fiatSymbols, cryptoSymbols]);
+  }, [gameSocket, isLogin, userId]);
 
   useEffect(() => {
     showChatTypeRef.current = showChatType;

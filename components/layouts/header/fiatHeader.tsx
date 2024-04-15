@@ -25,6 +25,7 @@ import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
+import CsrWrapper from '@/components/CsrWrapper';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -161,10 +162,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
               <Image
                 height={20}
                 width={20}
-                src={activeCurrency.logo}
+                src={activeCurrency.logo ? activeCurrency.logo : '/img/fiats/USDT.png'}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
               {viewInFiat && (
@@ -284,10 +285,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <Image
                             height={30}
                             width={30}
-                            src={crypto.logo}
+                            src={crypto.logo ? crypto.logo : '/img/fiats/USDT.png'}
                             alt=""
                             onError={(e) => {
-                              e.currentTarget.src = '/img/fiats/USD.png';
+                              e.currentTarget.src = '/img/fiats/USDT.png';
                             }}
                           />
                           <div>
@@ -357,10 +358,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <Image
                             height={30}
                             width={30}
-                            src={fiat.logo}
+                            src={fiat.logo ? fiat.logo : '/img/fiats/USDT.png'}
                             alt=""
                             onError={(e) => {
-                              e.currentTarget.src = '/img/fiats/USD.png';
+                              e.currentTarget.src = '/img/fiats/USDT.png';
                             }}
                           />
                           <div className="w-full">
@@ -404,10 +405,10 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                             <Image
                               height={30}
                               width={30}
-                              src={coin.logo}
+                              src={coin.logo ? coin.logo : '/img/fiats/USDT.png'}
                               alt=""
                               onError={(e) => {
-                                e.currentTarget.src = '/img/fiats/USD.png';
+                                e.currentTarget.src = '/img/fiats/USDT.png';
                               }}
                             />
                             <div className="w-full">
@@ -437,7 +438,18 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 {filterListFiat?.length === 0 && filterListCrypto?.length === 0 && listSuggestCoins?.length === 0 && (
                   <>
                     <div className="relative flex items-center justify-center  my-[32px]">
-                      <Image
+                      <CsrWrapper>
+                        <Image
+                          src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                          width={200}
+                          height={200}
+                          alt=""
+                          onError={(e) => {
+                            e.currentTarget.src = '/img/empty-dark.png';
+                          }}
+                        />
+                      </CsrWrapper>
+                      {/* <Image
                         src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
                         width={200}
                         height={200}
@@ -445,7 +457,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USD.png';
                         }}
-                      />
+                      /> */}
                       <p className="absolute dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-default bottom-0 text-center">
                         {t('table:noData')}
                       </p>

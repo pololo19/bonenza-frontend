@@ -170,18 +170,16 @@ export default function ReplyModal({
               <div className="flex justify-between items-center">
                 <div className="">
                   <div className="flex items-center gap-2">
-                    {sourceComment.userAvatar && (
-                      <Image
-                        src={String(API_AVATAR) + sourceComment.userAvatar}
-                        alt=""
-                        width={36}
-                        height={36}
-                        className="w-7 h-7 rounded-full"
-                        onError={(err) => {
-                          err.currentTarget.src = '/img/avatar-1.png';
-                        }}
-                      />
-                    )}
+                    <Image
+                      src={sourceComment.userAvatar ? `${API_AVATAR}${sourceComment.userAvatar}` : '/img/avatar-1.png'}
+                      alt=""
+                      width={36}
+                      height={36}
+                      className="w-7 h-7 rounded-full"
+                      onError={(err) => {
+                        err.currentTarget.src = '/img/avatar-1.png';
+                      }}
+                    />
 
                     <span
                       className="text-[14px] hover:underline cursor-pointer"
@@ -259,7 +257,7 @@ export default function ReplyModal({
                   <div className="ml-[17px]">
                     <div className="flex items-center gap-2">
                       <Image
-                        src={String(API_AVATAR) + comment.userAvatar}
+                        src={comment.userAvatar ? `${API_AVATAR}${comment.userAvatar}` : '/img/avatar-1.png'}
                         alt=""
                         width={36}
                         height={36}

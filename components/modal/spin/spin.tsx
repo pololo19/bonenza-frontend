@@ -12,7 +12,7 @@ import { api_getSpinAvailableCount, api_getSpinData, api_postSpinTry } from '@/a
 import { api_getProfile } from '@/api/user';
 import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { useHeight } from '@/base/hooks/useHeight';
 import {
   changeAuthenticationType,
@@ -388,7 +388,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 <Image
                   height={25}
                   width={25}
-                  src={String(process.env.API_AVATAR) + latestSpin?.userAvatar}
+                  src={latestSpin?.userAvatar ? `${API_AVATAR}${latestSpin?.userAvatar}` : '/img/avatar-1.png'}
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}

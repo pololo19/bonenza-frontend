@@ -269,7 +269,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                   <Image
                     width={24}
                     height={24}
-                    src={getSymbolById(watch('symbolFrom'))?.logo || ''}
+                    src={getSymbolById(watch('symbolFrom'))?.logo || '/img/icon/USDT-logo.svg'}
                     onError={(e) => {
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
                     }}
@@ -328,7 +328,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                   <Image
                     width={24}
                     height={24}
-                    src={getSymbolById(watch('symbolTo'))?.logo || ''}
+                    src={getSymbolById(watch('symbolTo'))?.logo || '/img/icon/USDT-logo.svg'}
                     onError={(e) => {
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
                     }}

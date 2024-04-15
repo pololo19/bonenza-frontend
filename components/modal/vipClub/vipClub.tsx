@@ -227,18 +227,16 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   </div>
                   <div className="flex gap-[30px] mt-5">
                     <div className="flex relative min-w-[90px]">
-                      {currentRank?.img && (
-                        <Image
-                          src={currentRank?.img || ''}
-                          width={240}
-                          height={279}
-                          className="w-[90px] h-fit"
-                          alt=""
-                          onError={(e) => {
-                            e.currentTarget.src = '/img/vip.png';
-                          }}
-                        />
-                      )}
+                      <Image
+                        src={currentRank?.img || '/img/vip.png'}
+                        width={240}
+                        height={279}
+                        className="w-[90px] h-fit"
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/vip.png';
+                        }}
+                      />
 
                       {vipData.level > 0 && (
                         <div className="absolute w-full h-full flex flex-col items-center justify-center">

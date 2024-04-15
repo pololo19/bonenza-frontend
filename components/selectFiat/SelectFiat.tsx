@@ -70,10 +70,10 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
             <Image
               height={25}
               width={25}
-              src={activeFiat.logo}
+              src={activeFiat.logo || '/image/fiats/USDT.png'}
               alt=""
               onError={(error) => {
-                error.currentTarget.src = '/image/fiats/USD.png';
+                error.currentTarget.src = '/image/fiats/USDT.png';
               }}
             />
             <div className="font-normal dark:text-white text-black text-default">{activeFiat.name}</div>

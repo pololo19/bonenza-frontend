@@ -33,6 +33,7 @@ import {
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { logoutWallet } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
+
 export default function ProfileDropdown() {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -103,7 +104,7 @@ export default function ProfileDropdown() {
                 <Image
                   height={40}
                   width={40}
-                  src={String(API_AVATAR) + user.avatar}
+                  src={user.avatar ? `${API_AVATAR}${user.avatar}` : '/img/avatar-1.png'}
                   alt=""
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';

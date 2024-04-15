@@ -162,7 +162,9 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     onClick={() => {
                       if (isLogin) {
                         dispatch(setIsLoading({ ...isLoading, isCurrency: true }));
-                        dispatch(updateSetting({ ...settings, settingCurrency: usdFiat?.id || '', settingViewInFiat: false }));
+                        dispatch(
+                          updateSetting({ ...settings, settingCurrency: usdFiat?.id || '', settingViewInFiat: false }),
+                        );
                       } else {
                         dispatch(updateViewInFiat(false));
                         dispatch(setLocalFiat(usdFiat));
@@ -200,7 +202,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       <Image
                         height={30}
                         width={30}
-                        src={item.logo}
+                        src={item.logo ? item.logo : '/img/fiats/USD.png'}
                         alt=""
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USD.png';

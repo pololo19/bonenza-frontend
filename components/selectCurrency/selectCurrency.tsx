@@ -147,7 +147,7 @@ const SelectCurrency = ({
                         <Image
                           width={24}
                           height={24}
-                          src={symbol.logo}
+                          src={symbol.logo ? symbol.logo : '/img/fiat/USDT.png'}
                           className="inline"
                           alt=""
                           onError={(e) => {
@@ -171,7 +171,7 @@ const SelectCurrency = ({
                           key={index}
                           width={24}
                           height={24}
-                          src={symbol.logo}
+                          src={symbol.logo ? symbol.logo : '/img/fiat/USDT.png'}
                           className="-ml-2 w-6 h-6"
                           alt=""
                           onError={(e) => {
@@ -194,7 +194,7 @@ const SelectCurrency = ({
                       <Image
                         width={30}
                         height={30}
-                        src={activeCoin.logo}
+                        src={activeCoin.logo ? activeCoin.logo : '/img/fiat/USDT.png'}
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USDT.png';
                         }}
@@ -268,7 +268,7 @@ const SelectCurrency = ({
                               <Image
                                 width={30}
                                 height={30}
-                                src={symbol.logo}
+                                src={symbol.logo ? symbol.logo : '/img/icon/USDT-logo.svg'}
                                 onError={(e) => {
                                   e.currentTarget.src = '/img/icon/USDT-logo.svg';
                                 }}

@@ -156,11 +156,11 @@ export default function ModalAssetsPortfolio({
                 <Image
                   width={30}
                   height={30}
-                  src={coin.logo}
+                  src={coin.logo ? coin.logo : '/img/fiats/USDT.png'}
                   className="inline"
                   alt=""
                   onError={(e) => {
-                    e.currentTarget.src = '/img/fiats/USD.png';
+                    e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
                 />
                 <div className="flex-1 text-start text-[14px]">

@@ -140,9 +140,9 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                 <Image
                   height={15}
                   width={15}
-                  src={`/img/fiats/${row.original.currency}.png`}
+                  src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
                   onError={(e) => {
-                    e.currentTarget.src = '/img/fiats/USD.png';
+                    e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
                   alt=""
                 />
@@ -205,7 +205,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
               className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"
               height={15}
               width={15}
-              src={`/img/fiats/${row.original.currency}.png`}
+              src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USD.png'}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
               }}
@@ -259,6 +259,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
 
     return () => {
       if (gameSocket) {
+        console.log('------- my bet table -------');
         gameSocket.off(`bets`);
       }
     };

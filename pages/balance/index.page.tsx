@@ -187,10 +187,10 @@ const BalancePage = () => {
                     <Image
                       height={30}
                       width={30}
-                      src={item.logo}
+                      src={item.logo || '/img/fiats/USDT.png'}
                       alt=""
                       onError={(e) => {
-                        e.currentTarget.src = '/img/fiats/USD.png';
+                        e.currentTarget.src = '/img/fiats/USDT.png';
                       }}
                     />
                     <div className="flex-1 text-start text-default font-bold dark:text-white text-black">
