@@ -190,10 +190,7 @@ const WithdrawCryptoPage = () => {
 
   const setAmountByPercent = useCallback(
     (percent: number) => {
-      let avaBalance = (renderMaxValue * percent) / 100;
-      if (avaBalance < renderMinValue.min) {
-        avaBalance = renderMinValue.min;
-      }
+      const avaBalance = Math.min((renderMaxValue * percent) / 100, renderMinValue.min);
       setValue('withdrawAmount', avaBalance.toFixed(4));
     },
     [renderBalanceValue, renderMinValue],

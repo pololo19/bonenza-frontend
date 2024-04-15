@@ -157,11 +157,11 @@ function AdminRewardsPage() {
               {`${
                 viewInFiat
                   ? currencyFormat1(
-                      (row.original.commissionRewardsAvailable / usdtPrice) * exchangeRate,
+                      row.original.commissionRewardsAvailable * usdtPrice * exchangeRate,
                       decimals,
                       localFiat?.name,
                     )
-                  : currencyFormat1(row.original.commissionRewardsAvailable / usdtPrice, decimals)
+                  : currencyFormat1(row.original.commissionRewardsAvailable * usdtPrice, decimals)
               }`}
               <Image
                 height={20}

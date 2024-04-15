@@ -134,7 +134,7 @@ function BonusLoggedPage() {
         titleValue: '5.00 USDT',
         totalValue: `${
           viewInFiat
-            ? currencyFormat1((lockedAmount / usdtPrice) * exchangeRate, 2, localFiat?.name)
+            ? currencyFormat1(lockedAmount * usdtPrice * exchangeRate, 2, localFiat?.name)
             : currencyFormat1(lockedAmount, 2, '', false)
         } USDT`,
         nameButton: t('bonus:unlockRakeBack'),

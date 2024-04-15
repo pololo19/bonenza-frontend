@@ -321,7 +321,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                                     <Lock size={12} variant="Bold" />{' '}
                                     {viewInFiat
                                       ? currencyFormat1(
-                                          (lockedAmount / usdtPrice) * exchangeRate,
+                                          lockedAmount * usdtPrice * exchangeRate,
                                           fiatDecimals,
                                           localFiat?.name,
                                         )

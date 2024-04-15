@@ -10,6 +10,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -22,6 +23,7 @@ const fiatDecimals = 2;
 const cryptoDecimals = 4;
 
 const BalancePage = () => {
+  const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
   const [hideBalance, setHideBalance] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
@@ -101,31 +103,31 @@ const BalancePage = () => {
         <title>Balance - Bonenza</title>
       </Head>
       <div className="flex items-center justify-between dark:bg-color-modal-bg-secondary bg-white">
-        <div className="flex items-center justify-start gap-[15px]">
+        <div className="flex items-center justify-start gap-[15px] w-full">
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
-          <div className="flex items-center justify-start md:gap-[40px] gap-[15px]">
-            <div className="md:pr-[40px] pr-[15px] border-solid border-r-[2px] border-color-border-secondary">
+          <div className="flex sm:flex-row flex-col items-center justify-start md:gap-[40px] gap-[15px] flex-1">
+            <div className="flex flex-col md:pr-[40px] pr-[15px] sm:border-solid sm:border-r-[2px] sm:border-color-border-secondary w-full sm:w-auto">
               <div className="text-start sm:text-default text-[12px] dark:text-gray-300 text-color-light-text-primary font-[700]">
                 {t('balance:totalBalance')}
               </div>
-              <div className="text-start text-color-secondary sm:text-[16px] text-default font-bold break-keep">
+              <div className="truncate text-start text-color-secondary sm:text-[16px] text-default font-bold break-keep">
                 {currencyFormat1(totalUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
               </div>
             </div>
-            <div className="flex sm:gap-[40px] gap-[15px]">
-              <div>
+            <div className="sm:flex grid grid-cols-2 sm:gap-[40px] gap-[15px] w-full">
+              <div className="flex flex-col">
                 <div className="text-start sm:text-default text-[12px] dark:text-gray-400 text-color-light-text-primary font-[700]">
                   {t('balance:realBalance')}
                 </div>
-                <div className="text-start dark:text-white text-black sm:text-[16px] text-default font-bold break-keep">
+                <div className="truncate text-start dark:text-white text-black sm:text-[16px] text-default font-bold break-keep">
                   {currencyFormat1(realUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
                 </div>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <div className="text-start sm:text-default text-[12px] dark:text-gray-400 text-color-light-text-primary font-[700]">
                   {t('balance:bonusMoney')}
                 </div>
-                <div className="text-start dark:text-white text-black sm:text-[16px] text-default font-bold break-keep">
+                <div className="truncate text-start dark:text-white text-black sm:text-[16px] text-default font-bold break-keep">
                   {currencyFormat1(bonusUsdBalance, fiatDecimals, localFiat?.name)}
                 </div>
               </div>
@@ -155,20 +157,22 @@ const BalancePage = () => {
               />
             </Switch>
           </div>
-          <div className="relative">
-            <input
-              className={cn(
-                'sm:pl-[50px] pl-[40px] dark:text-white text-color-light-text-primary sm:text-default text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
-              )}
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder="Search"
-            />
-            <SearchNormal
-              width={24}
-              height={24}
-              className="absolute top-1/2 dark:text-color-text-primary text-color-light-text-primary sm:left-[30px] left-[20px] transform -translate-x-1/2 -translate-y-1/2 sm:!text-default !text-[12px]"
-            />
+          <div className="flex flex-1 justify-end">
+            <div className="relative">
+              <input
+                className={cn(
+                  'sm:pl-[50px] pl-[40px] w-full max-w-[250px] dark:text-white text-color-light-text-primary sm:text-default text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                )}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder="Search"
+              />
+              <SearchNormal
+                width={24}
+                height={24}
+                className="absolute top-1/2 dark:text-color-text-primary text-color-light-text-primary sm:left-[30px] left-[20px] transform -translate-x-1/2 -translate-y-1/2 sm:!text-default !text-[12px]"
+              />
+            </div>
           </div>
         </div>
 
@@ -209,10 +213,20 @@ const BalancePage = () => {
                         {item.name.toLowerCase() === 'usdt' && (
                           <div className="mt-1 flex justify-end text-color-secondary">
                             <div
+                              role="button"
                               className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2 text-[10px]"
-                              onClick={() => dispatch(changeIsShowRakeBack(true))}
+                              onClick={() => {
+                                dispatch(changeIsShowRakeBack(true));
+                              }}
                             >
-                              <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
+                              <Lock size={12} variant="Bold" />{' '}
+                              {viewInFiat
+                                ? currencyFormat1(
+                                    lockedAmount * usdtPrice * exchangeRate,
+                                    fiatDecimals,
+                                    localFiat?.name,
+                                  )
+                                : currencyFormat1(lockedAmount, 2, '', false)}
                             </div>
                           </div>
                         )}
@@ -228,7 +242,14 @@ const BalancePage = () => {
                               className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2 text-[10px]"
                               onClick={() => dispatch(changeIsShowRakeBack(true))}
                             >
-                              <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
+                              <Lock size={12} variant="Bold" />{' '}
+                              {viewInFiat
+                                ? currencyFormat1(
+                                    lockedAmount * usdtPrice * exchangeRate,
+                                    cryptoDecimals,
+                                    localFiat?.name,
+                                  )
+                                : currencyFormat1(lockedAmount, 2, '', false)}
                             </div>
                           </div>
                         )}

@@ -14,7 +14,6 @@ import { FiatType } from '@/base/types/common';
 import CommonModal from '../../commonModal/commonModal';
 
 type ModalRakeBackDetailProps = {
-  cryptoLocked?: FiatType;
   onClose: () => void;
   show: boolean;
   setShowModalRakeBack: () => void;
@@ -24,12 +23,7 @@ type ModalRakeBackDetailProps = {
 const fiatDecimals = 4;
 const cryptoDecimals = 8;
 
-export default function ModalRakeBackDetail({
-  show,
-  onClose,
-  cryptoLocked,
-  setShowModalRakeBack,
-}: ModalRakeBackDetailProps) {
+export default function ModalRakeBackDetail({ show, onClose, setShowModalRakeBack }: ModalRakeBackDetailProps) {
   const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
@@ -46,7 +40,7 @@ export default function ModalRakeBackDetail({
   const getWagerAmount = (): string => {
     return `${
       viewInFiat
-        ? currencyFormat1(((lockedAmount / usdtPrice) * exchangeRate) / (0.01 * 0.2), fiatDecimals, localFiat?.name)
+        ? currencyFormat1((lockedAmount * usdtPrice * exchangeRate) / (0.01 * 0.2), fiatDecimals, localFiat?.name)
         : currencyFormat1(lockedAmount / (0.01 * 0.2), cryptoDecimals, '', false)
     } USDT`;
   };
@@ -90,17 +84,15 @@ export default function ModalRakeBackDetail({
                 <>
                   <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-color-bg-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none">
                     <span className="text-white text-[14px] flex items-center gap-1 font-medium">
-                      {t('rakeBackDetail:howUnlockClaim', { currency: cryptoLocked?.currency })}
+                      {t('rakeBackDetail:howUnlockClaim', { currency: 'USDT' })}
                     </span>
                     <ChevronUpIcon className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-[#939699]`} />
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-secondary bg-color-light-bg-primary">
-                    <div className="text-white mb-4">
-                      {t('rakeBackDetail:howUnlock', { currency: cryptoLocked?.currency })}
-                    </div>
+                    <div className="text-white mb-4">{t('rakeBackDetail:howUnlock', { currency: 'USDT' })}</div>
                     <div className="flex flex-col gap-3">
-                      <p>{t('rakeBackDetail:howToUnlock1', { currency: cryptoLocked?.currency })}</p>
-                      <p>{t('rakeBackDetail:howToUnlock2', { currency: cryptoLocked?.currency })}</p>
+                      <p>{t('rakeBackDetail:howToUnlock1', { currency: 'USDT' })}</p>
+                      <p>{t('rakeBackDetail:howToUnlock2', { currency: 'USDT' })}</p>
                       <p className="bg-[#213620] pl-2 font-extrabold h-7 flex items-center text-white">
                         {t('rakeBackDetail:howToUnlock3')}
                       </p>
@@ -109,12 +101,10 @@ export default function ModalRakeBackDetail({
                         currency: 'USDT',
                         wagerAmount: getWagerAmount(),
                       })}
-                      <div className="text-white">
-                        {t('rakeBackDetail:howClaim', { currency: cryptoLocked?.currency })}
-                      </div>
+                      <div className="text-white">{t('rakeBackDetail:howClaim', { currency: 'USDT' })}</div>
                       <p dangerouslySetInnerHTML={{ __html: String(t('rakeBackDetail:howToClaim1')) }}></p>{' '}
-                      <p>{t('rakeBackDetail:howToClaim2', { currency: cryptoLocked?.currency })}</p>{' '}
-                      <p>{t('rakeBackDetail:howToClaim3', { currency: cryptoLocked?.currency })}</p>
+                      <p>{t('rakeBackDetail:howToClaim2', { currency: 'USDT' })}</p>{' '}
+                      <p>{t('rakeBackDetail:howToClaim3', { currency: 'USDT' })}</p>
                     </div>
                   </Disclosure.Panel>
                 </>
@@ -125,26 +115,22 @@ export default function ModalRakeBackDetail({
                 <>
                   <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-color-bg-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75">
                     <span className="text-white text-[14px] flex items-center gap-1 font-medium">
-                      {t('rakeBackDetail:aboutCurrency', { currency: cryptoLocked?.currency })}
+                      {t('rakeBackDetail:aboutCurrency', { currency: 'USDT' })}
                     </span>
                     <ChevronUpIcon className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-[#939699]`} />
                   </Disclosure.Button>
                   <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-secondary bg-color-light-bg-primary">
-                    <div className="text-white mb-4">
-                      {t('rakeBackDetail:canBeExchange', { currency: cryptoLocked?.currency })}
-                    </div>
+                    <div className="text-white mb-4">{t('rakeBackDetail:canBeExchange', { currency: 'USDT' })}</div>
                     <div className="flex flex-col gap-3">
                       <span
                         dangerouslySetInnerHTML={{
-                          __html: String(t('rakeBackDetail:canBeExchange1', { currency: cryptoLocked?.currency })),
+                          __html: String(t('rakeBackDetail:canBeExchange1', { currency: 'USDT' })),
                         }}
                       ></span>
-                      <p className="text-white mb-4">
-                        {t('rakeBackDetail:whatSpecialAbout', { currency: cryptoLocked?.currency })}
-                      </p>
+                      <p className="text-white mb-4">{t('rakeBackDetail:whatSpecialAbout', { currency: 'USDT' })}</p>
                       <p
                         dangerouslySetInnerHTML={{
-                          __html: String(t('rakeBackDetail:whatSpecialAbout1', { currency: cryptoLocked?.currency })),
+                          __html: String(t('rakeBackDetail:whatSpecialAbout1', { currency: 'USDT' })),
                         }}
                       ></p>
                     </div>
