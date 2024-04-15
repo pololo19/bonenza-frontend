@@ -380,7 +380,7 @@ function GamePage() {
               </Link>
             </div>
           </div>
-          <div className="max-w-[1230px] m-auto">
+          <div className="w-full m-auto">
             {/* Game play */}
             <FullScreen handle={gameScreen} className="sm:aspect-[2] aspect-[4/3] w-full mt-[20px] relative">
               {/* for desktop, for load ifram data */}
@@ -853,7 +853,7 @@ function GamePage() {
 
           {gameDetail.id && (
             <div>
-              <ul className="flex justify-center dark:bg-color-bg-secondary bg-white w-fit mt-[10px] md:text-[13px] text-[11px] font-semibold mb-[20px] md:mb-[25px] max-w-full">
+              <ul className="sm:flex grid grid-cols-3 justify-center dark:bg-color-bg-secondary bg-white w-full sm:w-fit mt-[10px] md:text-[13px] text-[11px] font-semibold mb-[20px] md:mb-[25px] max-w-full">
                 <div
                   role="button"
                   onClick={() => setTab(1)}
