@@ -1,5 +1,6 @@
 import {
   API_AUTH_CHANGE_PASSWORD,
+  API_AUTH_FE,
   API_AUTH_FORGOT_PASSWORD,
   API_AUTH_GET_2FA_STATUS,
   API_AUTH_LOGIN,
@@ -18,6 +19,7 @@ import {
   API_AUTH_SET_SELF_EXCULSIVE,
   API_AUTH_SIGNUP_WITH_EMAIL,
   API_AUTH_SIGNUP_WITH_PHONE,
+  API_AUTH_VALIDATE_AUTH_TOKEN,
   API_AUTH_VALIDATE_TOKEN,
   API_AUTH_VERIFY_CODE,
   API_AUTH_VERIFY_QR_CODE,
@@ -34,6 +36,14 @@ import {
 } from '@/base/types/requestTypes';
 
 import api from '../api';
+
+export const api_checkAuthKey = (key: string) => {
+  return api.get(API_AUTH_FE(key));
+};
+
+export const api_validateAuthToken = (token: string) => {
+  return api.get(API_AUTH_VALIDATE_AUTH_TOKEN(token));
+};
 
 export const api_login = (data: LoginRequest) => {
   return api.post(API_AUTH_LOGIN, data);

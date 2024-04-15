@@ -20,6 +20,7 @@ import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { arbitrum, base, mainnet, optimism, polygon, zora } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
+import { api_validateAuthToken } from '@/api/auth';
 import ErrorProvider from '@/components/context/errorContext';
 import { wrapper } from '@/redux/store';
 
@@ -74,9 +75,18 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
     }
   };
 
-  const handleAuthenticationWeb = () => {
-    const auth = CookiesStorage.getCookieData(CookieKey.auth);
-    if (!auth || auth !== AUTH_KEY) {
+  const handleAuthenticationWeb = async () => {
+    const auth = CookiesStorage.getCookieData(CookieKey.auth) || '';
+    try {
+      if (!auth) {
+        router.push('/auth');
+        return;
+      }
+      const _res = await api_validateAuthToken(auth);
+      if (!_res.data) {
+        router.push('/auth');
+      }
+    } catch (error) {
       router.push('/auth');
     }
   };
