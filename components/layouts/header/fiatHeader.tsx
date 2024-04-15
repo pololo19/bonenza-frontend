@@ -4,9 +4,10 @@ import { AddSquare, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { shallowEqual, useSelector } from 'react-redux';
+import ReactLoading from 'react-loading';
 
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey } from '@/base/constants/common';
@@ -20,12 +21,13 @@ import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
 import { setActiveCurrency } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
+import CsrWrapper from '@/components/CsrWrapper';
 import InputSearch from '@/components/input/typing/InputSearch';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ModalRakeBack from '@/components/modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '@/components/modal/rakeBack/rakeBackDetail/rakeBackDetail';
 import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
-import CsrWrapper from '@/components/CsrWrapper';
+import Loader from '@/components/common/preloader/loader';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -44,19 +46,19 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const { theme } = useTheme();
 
   const {
+    isWalletLoading,
     viewInFiat,
     showFullNameCurrency,
     cryptoSymbols,
     cryptoBalances,
     fiatSymbols,
     localFiat,
-    bonus,
     settings,
     activeCurrency,
     lockedAmount,
   } = useSelector(
     (state: AppState) => ({
-      localeFiat: state.common.localeFiat,
+      isWalletLoading: state.wallet.isWalletLoading,
       // fiatArray: state.common.fiatArray,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       settings: state.auth.user.generalSetting,
@@ -80,10 +82,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
 
   const [showFavoriteCoins, setShowFavoriteCoins] = useState<boolean>(false);
-  const [showModalRakeBack, setShowModalRakeBack] = useState<boolean>(false);
-
-  const [showModalRakeBackDetail, setShowModalRakeBackDetail] = useState<boolean>(false);
-  const [showModalBonusHistory, setShowModalBonusHistory] = useState<boolean>(false);
 
   const filterListFiat = useMemo(() => {
     const arraySearch = fiatSymbols.filter(
@@ -106,7 +104,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       const avaSymbols = cryptoBalances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
       arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
     }
-    return arraySearch;
+    return arraySearch.sort(
+      (a, b) =>
+        (cryptoBalances.find((item) => item.symbolId === b.id)?.amount || 0) * b.price -
+        (cryptoBalances.find((item) => item.symbolId === a.id)?.amount || 0) * a.price,
+    );
   }, [searchFiatInput, cryptoSymbols, cryptoBalances, showSmallFiat]);
 
   const usdFiat = useMemo(() => {
@@ -151,6 +153,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     <>
       <Menu as="div" className="relative w-auto text-left rounded flex dark:text-white h-full text-[#000]">
         <Menu.Button>
+          {!activeCurrency.id && (
+            <div className="flex items-center h-full">
+              <ReactLoading type="bubbles" color="#50C627" />
+            </div>
+          )}
           {activeCurrency.id && (
             <div
               role="button"
@@ -537,26 +544,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
           onClose={() => {
             setShowFavoriteCoins(false);
           }}
-        />
-      )}
-      {showModalRakeBack && (
-        <ModalRakeBack
-          show={showModalRakeBack}
-          onClose={() => {
-            setShowModalRakeBack(false);
-          }}
-          setShowModalRakeBackDetail={() => setShowModalRakeBackDetail(true)}
-          setShowModalBonusHistory={() => setShowModalBonusHistory(true)}
-        />
-      )}
-
-      {showModalRakeBackDetail && (
-        <ModalRakeBackDetail
-          show={showModalRakeBackDetail}
-          onClose={() => {
-            setShowModalRakeBackDetail(false);
-          }}
-          setShowModalRakeBack={() => setShowModalRakeBack(true)}
         />
       )}
     </>

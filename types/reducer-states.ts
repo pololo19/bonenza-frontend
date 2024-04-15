@@ -107,6 +107,7 @@ export type UserDataState = {
 };
 
 export type WalletState = {
+  isWalletLoading: boolean;
   localFiat: CurrencyType | null;
   activeCurrency: CurrencyType;
   totalBalance: number;

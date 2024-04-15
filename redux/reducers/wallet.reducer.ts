@@ -13,6 +13,7 @@ import {
 } from '@/base/types/wallet';
 
 const initialState: WalletState = {
+  isWalletLoading: true,
   localFiat: null,
   totalBalance: 0,
   realBalance: 0,
@@ -151,6 +152,9 @@ export const walletReducer = createSlice({
     ) => {
       state.activeTransactionStatus = action.payload;
     },
+    setIsWalletLoading: (state: WalletState, action: PayloadAction<boolean>) => {
+      state.isWalletLoading = action.payload;
+    },
   },
 });
 
@@ -172,6 +176,7 @@ export const {
   updatedFiatPrice,
   setActiveTransactionStatus,
   setSwapFee,
+  setIsWalletLoading,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 
@@ -196,6 +201,7 @@ export const logoutWallet = () => async (dispath: AppDispatch) => {
 
 export const initWalletInfo = () => async (dispatch: AppDispatch) => {
   try {
+    dispatch(setIsWalletLoading(true));
     const [_res, _resSwap] = await Promise.all([api_getWalletInfo(), api_swapFeeInfo()]);
     const { wallets, balances, networks, symbols, currency, fiatSymbols, depositTime, lockedUSDT } = _res.data;
 
@@ -275,6 +281,8 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
 
     const swapFee = _resSwap.data?.feePercentage || 0.015;
     dispatch(setSwapFee(swapFee));
+
+    dispatch(setIsWalletLoading(false));
   } catch (error) {
     console.log(error);
     dispatch(setNetworks([]));
@@ -285,6 +293,8 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
     dispatch(setCryptoCurrencies([]));
     dispatch(setDepositTime(0));
     dispatch(setLockedAmount(0));
+  } finally {
+    dispatch(setIsWalletLoading(false));
   }
 };
 

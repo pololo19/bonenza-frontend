@@ -56,10 +56,16 @@ const SelectCurrency = ({
   const [searchInput, setSearchInput] = useState<string>('');
 
   const filterListCoin = useMemo(() => {
-    return symbols.filter((item) => {
-      return String(item.name).toLowerCase().includes(searchInput.toLowerCase());
-    });
-  }, [symbols, searchInput]);
+    return symbols
+      .filter((item) => {
+        return String(item.name).toLowerCase().includes(searchInput.toLowerCase());
+      })
+      .sort(
+        (a, b) =>
+          (balances.find((item) => item.symbolId === b.id)?.amount || 0) * b.price -
+          (balances.find((item) => item.symbolId === a.id)?.amount || 0) * a.price,
+      );
+  }, [symbols, searchInput, balances]);
 
   useEffect(() => {
     if (networks.length > 0) {
