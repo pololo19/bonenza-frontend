@@ -13,6 +13,7 @@ import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowCasinoSearch,
+  changeIsShowMenuPannel,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -88,7 +89,10 @@ const SidebarMobileLayout: React.FC = () => {
         <div className="relative">
           <div
             className="relative h-[40px] dark:bg-color-panel-bg-primary bg-white rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
-            onClick={() => dispatch(changeIsShowCasinoSearch(true))}
+            onClick={() => {
+              dispatch(changeIsShowMenuPannel(!isShowSidebar));
+              dispatch(changeIsShowCasinoSearch(true));
+            }}
             role="button"
           >
             <SearchNormal width={24} height={24} className="text-gray-500" />
