@@ -408,7 +408,11 @@ function GamePage() {
                 <div className="grid grid-cols-2 w-full h-fit gap-[10px]">
                   <div className="flex relative aspect-square">
                     <Image
-                      src={`https://cdn.softswiss.net/i/s4/${gameDetail.identifier.replace(':', '/')}.png`}
+                      src={
+                        gameDetail.identifier
+                          ? `https://cdn.softswiss.net/i/s4/${gameDetail.identifier.replace(':', '/')}.png`
+                          : '/img/game-background.png'
+                      }
                       fill
                       alt=""
                       className="rounded-default"
@@ -573,7 +577,11 @@ function GamePage() {
               >
                 {/* <LazyLoad width="100%" height="100%"> */}
                 <Image
-                  src={`https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`}
+                  src={
+                    gameDetail.identifier
+                      ? `https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`
+                      : '/img/game-background.png'
+                  }
                   fill
                   alt=""
                   className="sm:block hidden "

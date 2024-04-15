@@ -316,7 +316,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           {!isErrorAvatar && avatar && (
             <NextImage
               role="button"
-              src={String(API_AVATAR) + avatar}
+              src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
               alt="avatar"
               height={50}
               width={50}

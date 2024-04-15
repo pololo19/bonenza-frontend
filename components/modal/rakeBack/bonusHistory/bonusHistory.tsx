@@ -126,7 +126,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
             <Image
               height={20}
               width={20}
-              src={row.original.symbolLogo}
+              src={row.original.symbolLogo ? row.original.symbolLogo : `/img/fiats/USDT.png`}
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}

@@ -8,7 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '@/base/constants/common';
+import { API_AVATAR, ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
 import { convertToUrlCase } from '@/base/libs/utils/convert';
@@ -154,7 +154,11 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                   height={44}
                   className="rounded-full"
                   width={44}
-                  src={String(process.env.API_AVATAR) + detailsBet.betDetail?.playerAvatar}
+                  src={
+                    detailsBet.betDetail.playerAvatar
+                      ? `${API_AVATAR}${detailsBet.betDetail.playerAvatar}`
+                      : '/img/avatar-1.png'
+                  }
                   alt=""
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
@@ -217,7 +221,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                   alt=""
                   className="object-cover max-h-auto rounded-[5px]"
                   onError={(e) => {
-                    // e.currentTarget.src = '/img/recommended-game-3.png';
+                    e.currentTarget.src = '/img/recommended-game-3.png';
                   }}
                 />
                 <div>

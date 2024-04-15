@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import EmojiPicker, { Emoji, EmojiClickData, EmojiStyle, Theme } from 'emoji-picker-react';
+import EmojiPicker, { EmojiStyle, Theme } from 'emoji-picker-react';
 import { Happyemoji } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
@@ -7,12 +7,11 @@ import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { api_reviewAdd, api_reviewComment } from '@/api/game';
+import { api_reviewAdd } from '@/api/game';
 import { API_AVATAR } from '@/base/constants/common';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import { CommentType } from '@/components/game/gameReview';
-import Textarea from '@/components/input/typing/Textarea';
 
 import CommonModal from '../commonModal/commonModal';
 
@@ -90,7 +89,7 @@ export default function CommentPostModal({
             <Image
               height={45}
               width={45}
-              src={String(API_AVATAR) + avatar}
+              src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
               alt=""
               className="w-[50px] h-[50px] rounded-full"
               onError={(e) => {

@@ -112,10 +112,10 @@ export default function ViewInFiat({ show, onClose }: ViewInFiatProps) {
                 <Image
                   height={16}
                   width={16}
-                  src={item.logo}
+                  src={item.logo ? item.logo : '/img/fiats/USDT.png'}
                   alt=""
                   onError={(e) => {
-                    e.currentTarget.src = '/img/fiats/USD.png';
+                    e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
                 />
               </div>

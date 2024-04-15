@@ -86,7 +86,6 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       let medalData = dataRibbon.find((item) => item.name === res.data?.currentVipMedal);
       let medal = medalData?.img;
       const currentVipLevel = Number(res.data?.currentVipLevel || 0);
-      console.log(res, currentVipLevel);
       if (currentVipLevel === 0) {
         medal = '/img/vip/vip-0-ribbon.png';
       }
@@ -128,7 +127,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   onError={(e) => {
                     e.currentTarget.src = `/img/vip/vip-0-ribbon.png`;
                   }}
-                  src={vipData.medal}
+                  src={vipData.medal ? vipData.medal : `/img/vip/vip-0-ribbon.png`}
                   width={80}
                   height={69}
                   alt=""
@@ -154,17 +153,15 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
               <div className="flex flex-col items-center gap-[10px] w-full">
                 <div className="h-[80px] w-[80px] rounded-full overflow-hidden">
-                  {user?.avatar && (
-                    <Image
-                      height={80}
-                      width={80}
-                      src={String(API_AVATAR) + user?.avatar}
-                      alt=""
-                      onError={(e) => {
-                        e.currentTarget.src = '/img/avatar-1.png';
-                      }}
-                    />
-                  )}
+                  <Image
+                    height={80}
+                    width={80}
+                    src={user?.avatar ? `${API_AVATAR}${user?.avatar}` : '/img/avatar-1.png'}
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/avatar-1.png';
+                    }}
+                  />
                 </div>
                 <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
                 <div className="text-[14px] text-color-text-primary w-full flex justify-between items-center">

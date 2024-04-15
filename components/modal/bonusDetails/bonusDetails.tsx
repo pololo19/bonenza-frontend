@@ -199,7 +199,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
             <Image
               height={20}
               width={20}
-              src={`/img/fiats/${row.original.symbol}.png`}
+              src={row.original.symbol ? `/img/fiats/${row.original.symbol}.png` : `/img/fiats/USDT.png`}
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
