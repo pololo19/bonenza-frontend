@@ -58,11 +58,11 @@ function VipPage() {
     { img: '/img/bronze-medal.png', name: 'Bronze' },
     { img: '/img/silver-medal.png', name: 'Silver' },
     { img: '/img/gold-medal.png', name: 'Gold' },
-    { img: '/img/platinum-medal.png', name: 'Platinum I' },
-    { img: '/img/platinum-medal.png', name: 'Platinum II' },
-    { img: '/img/diamond-medal.png', name: 'Diamond I' },
-    { img: '/img/diamond-medal.png', name: 'Diamond II' },
-    { img: '/img/diamond-medal.png', name: 'Diamond III' },
+    { img: '/img/platinum1-medal.png', name: 'Platinum I' },
+    { img: '/img/platinum2-medal.png', name: 'Platinum II' },
+    { img: '/img/diamond1-medal.png', name: 'Diamond I' },
+    { img: '/img/diamond2-medal.png', name: 'Diamond II' },
+    { img: '/img/diamond3-medal.png', name: 'Diamond III' },
   ];
 
   const dataReward = [
@@ -167,7 +167,7 @@ function VipPage() {
               </button>
               <button
                 onClick={onOpenModalVipClub}
-                className="py-[10px] px-[20px] border border-solid border-[#fff] hover:bg-[#ffffff59] rounded-[5px] text-[14px] sm:text-[12px] ld:text-[14px] font-bold"
+                className="py-[10px] px-[20px] border border-solid border-[#fff] hover:bg-[#ffffff59] rounded-default text-[14px] sm:text-[12px] ld:text-[14px] font-bold"
               >
                 {t('vipClub:viewBenefits')}
               </button>

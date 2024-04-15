@@ -200,7 +200,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded sm:rounded-large overflow-hidden !max-h-[90vh]"
+        panelClass="rounded sm:rounded-large overflow-hidden sm:!max-h-[90vh]"
         header={
           <div className="relative text-default md:text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
             {t('vipClub:vipClub')}
