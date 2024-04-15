@@ -112,7 +112,7 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={row.original.symbolLogo}
+                src={row.original.symbolLogo || `/img/fiats/USDT.png`}
                 onError={(e) => {
                   e.currentTarget.src = `/img/fiats/USDT.png`;
                 }}
@@ -187,7 +187,7 @@ const TransactionPage = () => {
             <Image
               height={20}
               width={20}
-              src={row.original.symbolLogo}
+              src={row.original.symbolLogo || `/img/fiats/USDT.png`}
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
@@ -274,10 +274,10 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={row.original?.swapFromLogo}
+                src={row.original?.swapFromLogo || `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = `/img/fiats/USD.png`;
+                  e.currentTarget.src = `/img/fiats/USDT.png`;
                 }}
               />
             </div>
@@ -301,10 +301,10 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={row.original?.swapToLogo}
+                src={row.original?.swapToLogo || `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
             </div>
@@ -342,10 +342,10 @@ const TransactionPage = () => {
             <Image
               height={20}
               width={20}
-              src={row.original?.swapFromLogo}
+              src={row.original?.swapFromLogo || `/img/fiats/USDT.png`}
               alt=""
               onError={(e) => {
-                e.currentTarget.src = `/img/fiats/USD.png`;
+                e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
             />
           </div>
@@ -368,10 +368,10 @@ const TransactionPage = () => {
             <Image
               height={20}
               width={20}
-              src={row.original?.swapToLogo}
+              src={row.original?.swapToLogo || `/img/fiats/USDT.png`}
               alt=""
               onError={(e) => {
-                e.currentTarget.src = '/img/fiats/USD.png';
+                e.currentTarget.src = '/img/fiats/USDT.png';
               }}
             />
           </div>
@@ -465,10 +465,10 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={`/img/fiats/${row.original.currency}.png`}
+                src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
             </div>
@@ -507,9 +507,9 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={`/img/fiats/${row.original?.currency}.png`}
+                src={row.original?.currency ? `/img/fiats/${row.original?.currency}.png` : `/img/fiats/USDT.png`}
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
                 alt=""
               />
@@ -595,7 +595,7 @@ const TransactionPage = () => {
               <Image
                 height={14}
                 width={14}
-                src={`/img/fiats/${row.original.currency}.png`}
+                src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
@@ -614,7 +614,7 @@ const TransactionPage = () => {
               <Image
                 height={14}
                 width={14}
-                src={`/img/fiats/${row.original?.currency}.png`}
+                src={row.original?.currency ? `/img/fiats/${row.original?.currency}.png` : `/img/fiats/USDT.png`}
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
@@ -659,7 +659,7 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={row.original.symbolLogo}
+                src={row.original.symbolLogo || `/img/fiats/USDT.png`}
                 onError={(e) => {
                   e.currentTarget.src = `/img/fiats/USDT.png`;
                 }}
@@ -734,7 +734,7 @@ const TransactionPage = () => {
             <Image
               height={20}
               width={20}
-              src={row.original.symbolLogo}
+              src={row.original.symbolLogo || `/img/fiats/USDT.png`}
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
@@ -825,10 +825,10 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={`/img/fiats/${row.original.currency}.png`}
+                src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
             </div>
@@ -868,10 +868,10 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={`/img/fiats/${row.original.currency}.png`}
+                src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
             </div>
@@ -921,10 +921,10 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={`/img/fiats/${row.original.currency}.png`}
+                src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
             </div>
@@ -938,10 +938,10 @@ const TransactionPage = () => {
               <Image
                 height={20}
                 width={20}
-                src={`/img/fiats/${row.original.currency}.png`}
+                src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
                 alt=""
                 onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USD.png';
+                  e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
             </div>

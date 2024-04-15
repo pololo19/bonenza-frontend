@@ -517,7 +517,7 @@ const GameReviewComponent = ({
                   <div key={key}>
                     {item && (
                       <Image
-                        src={String(API_AVATAR) + item}
+                        src={item ? `${API_AVATAR}${item}` : '/img/avatar-1.png'}
                         alt=""
                         width={36}
                         height={36}
@@ -596,18 +596,16 @@ const GameReviewComponent = ({
           </Popover>
         </div>
         <div className="flex gap-[13px] h-11 items-center relative mt-[9px]">
-          {userAvatar && (
-            <Image
-              src={String(API_AVATAR) + userAvatar}
-              alt=""
-              width={36}
-              height={36}
-              className="w-9 h-9 rounded-full"
-              onError={(e) => {
-                e.currentTarget.src = '/img/avatar-1.png';
-              }}
-            />
-          )}
+          <Image
+            src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
+            alt=""
+            width={36}
+            height={36}
+            className="w-9 h-9 rounded-full"
+            onError={(e) => {
+              e.currentTarget.src = '/img/avatar-1.png';
+            }}
+          />
 
           <div
             className="w-full cursor-pointer h-full items-start flex flex-col dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary text-sm border-none px-7 focus:outline-none justify-center"
@@ -633,18 +631,16 @@ const GameReviewComponent = ({
             <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
               <div className="ml-[17px]">
                 <div className="flex items-center gap-2">
-                  {comment.userAvatar && (
-                    <Image
-                      src={String(API_AVATAR) + comment.userAvatar}
-                      alt=""
-                      width={36}
-                      height={36}
-                      className="w-7 h-7 rounded-full"
-                      onError={(err) => {
-                        err.currentTarget.src = '/img/avatar-1.png';
-                      }}
-                    />
-                  )}
+                  <Image
+                    src={comment.userAvatar ? `${API_AVATAR}${comment.userAvatar}` : '/img/avatar-1.png'}
+                    alt=""
+                    width={36}
+                    height={36}
+                    className="w-7 h-7 rounded-full"
+                    onError={(err) => {
+                      err.currentTarget.src = '/img/avatar-1.png';
+                    }}
+                  />
 
                   <span
                     className="text-[14px] hover:underline cursor-pointer"
@@ -739,18 +735,16 @@ const GameReviewComponent = ({
                 <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
                   <div className="ml-[17px]">
                     <div className="flex items-center gap-2">
-                      {item.userAvatar && (
-                        <Image
-                          src={String(API_AVATAR) + item.userAvatar}
-                          alt=""
-                          width={36}
-                          height={36}
-                          className="w-7 h-7 rounded-full"
-                          onError={(err) => {
-                            err.currentTarget.src = '/img/avatar-1.png';
-                          }}
-                        />
-                      )}
+                      <Image
+                        src={item.userAvatar ? `${API_AVATAR}${item.userAvatar}` : '/img/avatar-1.png'}
+                        alt=""
+                        width={36}
+                        height={36}
+                        className="w-7 h-7 rounded-full"
+                        onError={(err) => {
+                          err.currentTarget.src = '/img/avatar-1.png';
+                        }}
+                      />
 
                       <span
                         className="text-[14px] hover:underline cursor-pointer"

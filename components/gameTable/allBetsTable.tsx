@@ -209,18 +209,16 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
                   )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
-            {row.original.currency && (
-              <Image
-                className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
-                height={15}
-                width={15}
-                src={`/img/fiats/${row.original.currency}.png`}
-                onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USDT.png';
-                }}
-                alt=""
-              />
-            )}
+            <Image
+              className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
+              height={15}
+              width={15}
+              src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USDT.png';
+              }}
+              alt=""
+            />
           </div>
         ),
       },
@@ -266,6 +264,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
     return () => {
       if (gameSocket) {
+        console.log('----- all bets table -----');
         gameSocket.off(`bets`);
       }
     };

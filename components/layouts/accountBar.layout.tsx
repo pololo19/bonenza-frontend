@@ -372,18 +372,16 @@ const AccountPannel: React.FC = () => {
               }}
             >
               <div className="block w-[55px] h-[55px] rounded-full">
-                {avatar && (
-                  <Image
-                    height={40}
-                    width={40}
-                    src={String(API_AVATAR) + avatar}
-                    alt=""
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/avatar-1.png';
-                    }}
-                    className="w-full h-full rounded-full"
-                  />
-                )}
+                <Image
+                  height={40}
+                  width={40}
+                  src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
+                  alt=""
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                  className="w-full h-full rounded-full"
+                />
               </div>
               <div className="flex flex-col h-full justify-between flex-1">
                 <p className="text-[15px] dark:text-white text-black">{userName}</p>

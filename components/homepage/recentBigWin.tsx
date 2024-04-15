@@ -110,7 +110,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
           <div className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]">
             <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
             <Image
-              src={`/img/fiats/${currency.toUpperCase()}.png`}
+              src={currency ? `/img/fiats/${currency.toUpperCase()}.png` : '/img/fiats/USDT.png'}
               width={12}
               height={12}
               alt="currency"

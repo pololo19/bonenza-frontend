@@ -153,18 +153,16 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             {viewInFiat
               ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
               : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
-            {row.original.currency && (
-              <Image
-                className="w-[18px] h-[18px]"
-                height={25}
-                width={32}
-                src={`/img/fiats/${row.original.currency}.png`}
-                onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USDT.png';
-                }}
-                alt=""
-              />
-            )}
+            <Image
+              className="w-[18px] h-[18px]"
+              height={25}
+              width={32}
+              src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USDT.png';
+              }}
+              alt=""
+            />
           </div>
         ),
       },
@@ -204,18 +202,16 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
                   )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
-            {row.original.currency && (
-              <Image
-                className="h-[18px] w-[18px]"
-                height={15}
-                width={15}
-                src={`/img/fiats/${row.original.currency}.png`}
-                onError={(e) => {
-                  e.currentTarget.src = '/img/fiats/USDT.png';
-                }}
-                alt=""
-              />
-            )}
+            <Image
+              className="h-[18px] w-[18px]"
+              height={15}
+              width={15}
+              src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USDT.png';
+              }}
+              alt=""
+            />
           </div>
         ),
       },

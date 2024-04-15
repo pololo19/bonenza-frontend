@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_wagerContestHistory } from '@/api/game';
+import { API_AVATAR } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { changeIsShowInformation, changeIsShowWagerContestHistory } from '@/base/redux/reducers/modal.reducer';
@@ -163,7 +164,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
               <Image
                 height={25}
                 width={25}
-                src={String(process.env.API_AVATAR) + row.original?.playerAvatar}
+                src={row.original?.playerAvatar ? `${API_AVATAR}${row.original?.playerAvatar}` : '/img/avatar-1.png'}
                 onError={(e) => {
                   e.currentTarget.src = '/img/avatar-1.png';
                 }}
@@ -172,11 +173,16 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
               />
             )}
             <div className="font-bold truncate">
-              {row.original?.playerId !== userId && !row.original?.playerName
-                ? <div className="flex gap-[3px] items-center"><Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 hidden sm:block " />{t('homePage:hidden')}</div>
-                : row.original.playerId === userId
-                ? userName
-                : row.original.playerName}
+              {row.original?.playerId !== userId && !row.original?.playerName ? (
+                <div className="flex gap-[3px] items-center">
+                  <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 hidden sm:block " />
+                  {t('homePage:hidden')}
+                </div>
+              ) : row.original.playerId === userId ? (
+                userName
+              ) : (
+                row.original.playerName
+              )}
             </div>
           </div>
         ),

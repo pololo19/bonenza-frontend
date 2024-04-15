@@ -8,7 +8,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_wagerContestHistory, api_wagerContestList, api_wagerContestPosition } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { API_AVATAR, DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import Countdown from 'react-countdown';
 import { useCountdown } from '@/base/constants/useCountdown';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -283,7 +283,7 @@ const WagerContestComponent = () => {
               <Image
                 height={25}
                 width={25}
-                src={String(process.env.API_AVATAR) + row.original?.playerAvatar}
+                src={row.original.playerAvatar ? `${API_AVATAR}${row.original.playerAvatar}` : '/img/avatar-1.png'}
                 onError={(e) => {
                   e.currentTarget.src = '/img/avatar-1.png';
                 }}
@@ -483,7 +483,9 @@ const WagerContestComponent = () => {
                       width={46}
                       height={59}
                       className="object-cover rounded-full"
-                      src={String(process.env.API_AVATAR) + wagerHistory.playerAvatar}
+                      src={
+                        wagerHistory.playerAvatar ? `${API_AVATAR}${wagerHistory.playerAvatar}` : '/img/avatar-1.png'
+                      }
                       alt=""
                       onError={(e) => {
                         e.currentTarget.src = '/img/avatar-1.png';
@@ -548,7 +550,7 @@ const WagerContestComponent = () => {
               width={28}
               height={28}
               className="object-cover h-[1.75rem] w-[1.75rem] rounded-full"
-              src={String(process.env.API_AVATAR) + avatar}
+              src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
               alt=""
               onError={(e) => {
                 e.currentTarget.src = '/img/avatar-1.png';

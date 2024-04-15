@@ -211,7 +211,7 @@ export default function RewardDropdown() {
                                   <Image
                                     width={12}
                                     height={12}
-                                    src={bonus.symbolLogo}
+                                    src={bonus.symbolLogo ? bonus.symbolLogo : '/img/fiats/USDT.png'}
                                     className="w-[20px] h-[20px]"
                                     alt=""
                                     onError={(e) => {

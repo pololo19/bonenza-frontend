@@ -18,6 +18,7 @@ import RankingTableComponent from '@/components/table/rankingTable';
 
 import { GameDetail, UserDetail } from '../../../../types/common';
 import CommonModal from '../../commonModal/commonModal';
+import { API_AVATAR } from '@/base/constants/common';
 
 type ModalStatisticProps = {
   userData?: UserDetail;
@@ -69,7 +70,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
             <Image
               height={20}
               width={20}
-              src={row.original.currencyLogo}
+              src={row.original.currencyLogo ? row.original.currencyLogo : '/img/fiats/USDT.png'}
               alt=""
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
@@ -242,17 +243,15 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
           </Menu>
           <div className="flex items-center gap-[6px]">
             <div className="h-[35px] w-[35px] rounded-full overflow-hidden">
-              {(userData?.avatar || avatar) && (
-                <Image
-                  height={35}
-                  width={35}
-                  src={String(process.env.API_AVATAR) + (userData?.avatar || avatar)}
-                  alt=""
-                  onError={(e) => {
-                    e.currentTarget.src = '/img/avatar-1.png';
-                  }}
-                />
-              )}
+              <Image
+                height={35}
+                width={35}
+                src={userData?.avatar || avatar ? `${API_AVATAR}${userData?.avatar || avatar}` : '/img/avatar-1.png'}
+                alt=""
+                onError={(e) => {
+                  e.currentTarget.src = '/img/avatar-1.png';
+                }}
+              />
             </div>
             <div className="text-black dark:text-white max-w-[85px] sm:max-w-[100px] truncate text-[12px] sm:text-[14px] font-[700]">
               {userData?.userName || userName}

@@ -201,9 +201,9 @@ const HighRollerTableComponent = () => {
                 <Image
                   height={15}
                   width={15}
-                  src={`/img/fiats/${row.original.currency}.png`}
+                  src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
                   onError={(e) => {
-                    e.currentTarget.src = '/img/fiats/USD.png';
+                    e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
                   alt=""
                 />
@@ -253,7 +253,7 @@ const HighRollerTableComponent = () => {
               className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
               height={15}
               width={15}
-              src={`/img/fiats/${row.original.currency}.png`}
+              src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
