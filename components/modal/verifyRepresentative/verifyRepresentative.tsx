@@ -22,6 +22,7 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
   const checkRepresentative = () => {
     if (representativeID === '') {
       toast.error('Please inut representative ID correctly.', {
+        toastId: 'emptyRepresentativeID',
         containerId: TOAST_ENUM.COMMON,
         icon: true,
         autoClose: 3000,
@@ -30,6 +31,7 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
       return;
     }
     toast.error(`${representativeID} is NOT the official representative of BONENZA. Do not trust this account..`, {
+      toastId: 'incorrectRepresentativeID',
       containerId: TOAST_ENUM.COMMON,
       icon: true,
       autoClose: 3000,
