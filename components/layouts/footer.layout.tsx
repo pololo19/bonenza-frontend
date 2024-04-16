@@ -178,12 +178,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 >
                   {String(t('footer:blackJack'))}
                 </Link>
-                <Link
+                {/* <Link
                   href={ROUTER.Tagname('Megaways')}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('casino:megaways'))}
-                </Link>
+                </Link> */}
               </div>
             </div>
             {/* Hiding Sports */}
