@@ -53,19 +53,19 @@ const DepositCryptoComponent = () => {
     } else {
       switch (nextDeposit) {
         case 1:
-          rankReturn = '1st';
+          rankReturn = '180%';
           depositData = DEPOSIT_BONUS[0];
           break;
         case 2:
-          rankReturn = '2nd';
+          rankReturn = '240%';
           depositData = DEPOSIT_BONUS[1];
           break;
         case 3:
-          rankReturn = '3rd';
+          rankReturn = '300%';
           depositData = DEPOSIT_BONUS[2];
           break;
         case 4:
-          rankReturn = '4th';
+          rankReturn = '360%';
           depositData = DEPOSIT_BONUS[3];
           break;
       }
@@ -95,14 +95,15 @@ const DepositCryptoComponent = () => {
           {currentDepositTime <= 3 && (
             <div className="flex items-center gap-[5px]">
               <div
-                className="text-start text-[14px] dark:text-[#C2C2C2] text-color-light-text-primary"
+                className="text-start text-m_default sm:text-default dark:text-[#C2C2C2] text-color-light-text-primary"
                 dangerouslySetInnerHTML={{
                   __html: String(
                     t('deposit:getExtra', {
                       percent: depositDetail.rankReturn,
-                      value: `${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${
-                        activeCoin.name
-                      }`,
+                      value: `${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false).padEnd(
+                        10,
+                        '0',
+                      )} ${activeCoin.name}`,
                     }),
                   ),
                 }}
