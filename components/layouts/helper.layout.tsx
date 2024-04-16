@@ -137,7 +137,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                   )}
                 >
                   <Menu as="div" className="relative w-auto text-left sm:mb-5 rounded-[7px] flex text-white md:hidden">
-                    <Menu.Button>
+                    <Menu.Button className='w-full'>
                       <div
                         role="button"
                         className="flex items-center gap-2 py-2 px-2 w-full rounded bg-[#2B2E35] min-w-[200px]"
