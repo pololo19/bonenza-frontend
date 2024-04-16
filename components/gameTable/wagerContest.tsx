@@ -448,8 +448,8 @@ const WagerContestComponent = () => {
           <div
             className={`dark:bg-color-card-body-primary bg-color-light-bg-primary h-full w-full ${styles.boxCenter} px-3`}
           >
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-2 mb-[14px] w-full pl-[66px]">
+            <div className="flex flex-col items-center w-full">
+              <div className="flex items-center gap-2 mb-[14px] w-full justify-center">
                 <Image
                   width={16}
                   height={13}
@@ -461,7 +461,7 @@ const WagerContestComponent = () => {
                   {t('wagerContest:lastChampion')}
                 </span>
               </div>
-              <div className="flex gap-4 items-center">
+              <div className="flex justify-evenly items-center w-full">
                 <div className="relative border-solid border-2 rounded-full border-color-secondary">
                   <Image
                     width={16}
@@ -495,7 +495,7 @@ const WagerContestComponent = () => {
                 </div>
                 <div className="">
                   <p
-                    className={cn('dark:text-white text-[#000]', {
+                    className={cn('dark:text-white text-[#000] text-m_default sm:text-default', {
                       'pointer-events-none': wagerHistory.playerId !== userId && !wagerHistory.playerName,
                       'hover:underline cursor-pointer': !(wagerHistory.playerId !== userId && !wagerHistory.playerName),
                     })}
@@ -507,7 +507,7 @@ const WagerContestComponent = () => {
                       ? userName
                       : wagerHistory.playerName}
                   </p>
-                  <div className="text-[12px] leading-[18px] text-color-text-primary mt-3 flex gap-[3px] flex-col md:flex-row">
+                  <div className="text-[12px] leading-[18px] text-color-text-primary mt-3 gap-[3px] flex">
                     <span>{t('wagerContest:profit')}</span>
                     <div className="flex items-center gap-[3px] ml-2">
                       <Image

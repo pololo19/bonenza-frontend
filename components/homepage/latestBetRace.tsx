@@ -13,7 +13,7 @@ const LatestBetRace = () => {
 
   return (
     <div className="overflow-hidden rounded-[20px] border-solid border-[1px] border-color-table-header-text-primary">
-      <div className="text-m_default sm:text-default md:text-title flex py-[30px] justify-around">
+      <div className="text-m_default md:text-default lg:text-[16px] flex py-[30px] justify-around">
         <div
           role="button"
           onClick={() => setOpenTab(1)}

@@ -51,7 +51,7 @@ export default function CardPlay({
           'dark:!backdrop-blur-[15px] dark:bg-black/[30%]',
         )}
       >
-        <div className="dark:text-white text-color-text-secondary text-[12px] md:text-[12px] min-[1600px]:text-[14px] font-light text-left">
+        <div className="dark:text-white text-color-text-secondary text-[12px] min-[1300px]:text-[14px] font-light text-left">
           {description}
         </div>
         {!isClick && (

@@ -8,6 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { A11y, Autoplay, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
+import { useWidth } from '@/base/hooks/useWidth';
 import { AppState } from '@/base/redux/store';
 
 type CasinoSwiperProps<T> = {
@@ -59,6 +60,7 @@ const CasinoSwiper = <T,>({
   isRecent = true,
   speed = 500,
 }: CasinoSwiperProps<T>): JSX.Element => {
+  const width = useWidth();
   const [slide, setSlide] = useState<number>(maxCount);
 
   const { showChatType, isToggleSidebar } = useSelector(
@@ -118,16 +120,16 @@ const CasinoSwiper = <T,>({
               </div>
             </div>
             <Swiper
-              slidesPerView={!isMobile ? (isRecent ? 'auto' : slide) : 3}
+              slidesPerView={width >= 640 ? (isRecent ? 'auto' : slide) : 3}
               freeMode={true}
               autoplay={{
                 delay: delay,
                 disableOnInteraction: false,
               }}
               speed={speed}
-              spaceBetween={!isMobile ? 10 : 0}
+              spaceBetween={width >= 640 ? 10 : 0}
               className="sm:!h-auto !h-[120px]"
-              direction={!isMobile ? 'horizontal' : 'vertical'}
+              direction={width >= 640 ? 'horizontal' : 'vertical'}
               modules={[Autoplay, A11y, Navigation]}
             >
               {!isRecent && (
