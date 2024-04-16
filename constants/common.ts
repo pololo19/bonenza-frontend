@@ -1172,7 +1172,7 @@ export const LIST_FILTER_DATE = [
   { name: 'transaction:past90Days', type: 90 },
 ];
 export const LIST_FILTER_STATUS = [
-  { name: 'transaction:allAssets', type: '', flag: true },
+  { name: 'transaction:allStatus', type: '', flag: true },
   { name: 'transaction:complete', type: 'complete', flag: true },
   { name: 'transaction:processing', type: 'processing', flag: true },
   { name: 'transaction:pending', type: 'pending', flag: false },
