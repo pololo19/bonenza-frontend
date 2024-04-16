@@ -30,6 +30,9 @@ export function CardTopRated({ title, provider, identifier }: CardTopRatedProps)
           width={180}
           src={`https://cdn.softswiss.net/i/s4/${provider}/${identifier}.png`}
           alt=""
+          onError={(err) => {
+            err.currentTarget.src = '/img/recommended-game-3.png';
+          }}
           className="w-full object-cover max-h-[160px] rounded-[5px]"
         />
       </div>
