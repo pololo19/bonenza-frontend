@@ -94,7 +94,9 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'betId',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">#</div>
+          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+            #
+          </div>
         ),
         minSize: 10,
         cell: ({ row }) => (
@@ -127,7 +129,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
               />
             )}
             {row.index !== 0 && row.index !== 1 && row.index !== 2 && (
-              <div className="dark:text-color-text-primary text-color-light-text-primary font-bold truncate">
+              <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary font-bold truncate">
                 {row.index + 1}th
               </div>
             )}
@@ -137,7 +139,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'player',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
             {t('gameTable:player')}
           </div>
         ),
@@ -146,7 +148,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
           <div
             onClick={() => handleModalUserProfile(row)}
             className={cn(
-              'dark:text-white text-color-light-text-primary flex items-center justify-start gap-[10px] truncate sm:px-2 px-[5px]',
+              'text-m_default sm:text-default dark:text-white text-color-light-text-primary flex items-center justify-start gap-[10px] truncate sm:px-2 px-[5px]',
               {
                 'pointer-events-none cursor-text': row.original?.playerId !== userId && !row.original?.playerName,
               },
@@ -172,9 +174,9 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
-            <div className="font-bold truncate text-default">
+            <div className="font-bold truncate text-m_default sm:text-default ">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
-                <div className="flex gap-[3px] items-center">
+                <div className="font-bold flex gap-[3px] items-center">
                   <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 hidden sm:block " />
                   {t('homePage:hidden')}
                 </div>
@@ -190,13 +192,13 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'betAmount',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
             {t('gameTable:wagered')}
           </div>
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="text-color-primary truncate sm:px-2 px-[5px] font-bold text-default">
+          <div className="text-m_default sm:text-default text-color-primary truncate sm:px-2 px-[5px] font-bold">
             {viewInFiat
               ? currencyFormat1(row.original.wageredUsd * exchangeRate, 8, localFiat?.name)
               : currencyFormat1(row.original.wageredUsd, 8)}
@@ -206,13 +208,13 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'payout',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
             {t('gameTable:prize')}
           </div>
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-default">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-m_default sm:text-default ">
             <span className="text-color-primary font-bold">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, 4, localFiat?.name)
@@ -239,7 +241,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       panelClass="rounded"
       header={
         <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
-          <div className="flex justify-between text-[16px] dark:text-white text-black gap-[10px]">
+          <div className="flex justify-between text-default sm:text-[16px] dark:text-white text-black gap-[10px]">
             <p>{t('wagerContest:history')}</p>
             <p className="dark:text-color-text-primary text-color-light-text-primary">
               {formatDate(new Date(wagerData.currentTime), 'LL/dd/yyyy')} ~{' '}
