@@ -60,6 +60,9 @@ function GameCard(props: GameCardProps) {
             width={160}
             src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
             alt=""
+            onError={(err) => {
+              err.currentTarget.src = '/img/recommended-game-3.png';
+            }}
             className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-large"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}

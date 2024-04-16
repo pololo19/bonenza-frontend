@@ -45,7 +45,7 @@ const RateStarComponent = ({
   total = 5,
   fillColor = true,
   value = 0,
-  onClick = () => {},
+  onClick = () => { },
 }: {
   rate: number;
   total?: number;
@@ -339,6 +339,9 @@ const GameReviewComponent = ({
             width={90}
             src={`https://cdn.softswiss.net/i/s4/${gameDetail?.identifier.replace(':', '/')}.png`}
             alt=""
+            onError={(err) => {
+              err.currentTarget.src = '/img/recommended-game-3.png';
+            }}
             className="max-w-[90px] object-cover max-h-auto rounded-[5px]"
           />
           <div>
