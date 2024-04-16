@@ -83,7 +83,11 @@ const BalancePage = () => {
       arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
     }
 
-    return arraySearch;
+    return arraySearch.sort(
+      (a, b) =>
+        (cryptoBalances.find((item) => item.symbolId === b.id)?.amount || 0) * b.price -
+        (cryptoBalances.find((item) => item.symbolId === a.id)?.amount || 0) * a.price,
+    );
   }, [searchValue, cryptoSymbols, hideBalance, cryptoBalances]);
 
   const renderBalance = (symbol: CurrencyType) => {
