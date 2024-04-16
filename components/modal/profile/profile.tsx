@@ -320,6 +320,9 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                           width={60}
                           src={`https://cdn.softswiss.net/i/s4/${(item.identifier || '').replace(':', '/')}.png`}
                           alt=""
+                          onError={(err) => {
+                            err.currentTarget.src = '/img/recommended-game-3.png';
+                          }}
                           className="object-cover max-h-auto rounded-[5px]"
                         />
                         <div className="text-[14px] text-color-text-primary">{item.title}</div>

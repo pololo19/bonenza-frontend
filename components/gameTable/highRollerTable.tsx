@@ -146,6 +146,9 @@ const HighRollerTableComponent = () => {
               width={25}
               src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
               alt=""
+              onError={(err) => {
+                err.currentTarget.src = '/img/recommended-game-3.png';
+              }}
               className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
             />
             <div className="font-bold truncate">{row.original.game}</div>
@@ -161,9 +164,8 @@ const HighRollerTableComponent = () => {
         ),
         cell: ({ row }) => (
           <div
-            className={`${
-              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center  sm:p-2 p-[5px]`}
+            className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
+              } font-bold truncate text-center  sm:p-2 p-[5px]`}
             onClick={(event) => {
               event.stopPropagation();
               handleModalProfile(row);
@@ -243,10 +245,10 @@ const HighRollerTableComponent = () => {
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                    Math.abs(row.original.profitAmountUsd * exchangeRate),
-                    fiatDecimals,
-                    localFiat?.name || 'USD',
-                  )}`
+                  Math.abs(row.original.profitAmountUsd * exchangeRate),
+                  fiatDecimals,
+                  localFiat?.name || 'USD',
+                )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image

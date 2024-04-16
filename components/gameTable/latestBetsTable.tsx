@@ -113,6 +113,9 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               width={24}
               src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
               alt=""
+              onError={(err) => {
+                err.currentTarget.src = '/img/recommended-game-3.png';
+              }}
               className="object-cover max-h-auto rounded-[5px]"
             />
             <span className="px-2">{row.original.game}</span>
@@ -124,9 +127,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:player')}</div>,
         cell: ({ row }) => (
           <div
-            className={`${
-              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center sm:text-[16px] text-[12px] sm:p-2 p-[5px]`}
+            className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
+              } font-bold truncate text-center sm:text-[16px] text-[12px] sm:p-2 p-[5px]`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
@@ -196,10 +198,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                    Math.abs(row.original.profitAmountUsd * exchangeRate),
-                    fiatDecimals,
-                    localFiat?.name || 'USD',
-                  )}`
+                  Math.abs(row.original.profitAmountUsd * exchangeRate),
+                  fiatDecimals,
+                  localFiat?.name || 'USD',
+                )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
