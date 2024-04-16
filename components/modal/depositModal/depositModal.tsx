@@ -35,7 +35,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
         header={
           <>
             <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
-              <div className="text-black dark:text-white md:text-[18px] text-[16px] sm:mb-0 mb-[10px] font-bold">
+              <div className="text-black dark:text-white md:text-[18px] text-[16px] font-bold">
                 {t('layout:deposit')}
               </div>
               {/* Hiding Crypto & Fiat & Buy Crypto */}
@@ -85,7 +85,7 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
           </>
         }
       >
-        <div className="overflow-y-auto sm:p-5 sm:pt-6 px-3 pb-[80px]">
+        <div className="overflow-y-auto pt-5 px-3 pb-[80px] sm:p-5">
           {depositTab === DepositTabEnum.CRYPTO && <DepositCryptoComponent />}
           {depositTab === DepositTabEnum.FIAT && <DepositFiatComponent />}
           {depositTab === DepositTabEnum.BUY_CRYPTO && <BuyCryptoComponent />}
