@@ -916,15 +916,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowDepositProgress || false}
         onClose={() => dispatch(changeIsShowDepositProgress(false))}
       />
-      {isLogin && (
-        <ModalLogOutConfirm
-          show={isShowLogOutConfirm || false}
-          onClose={() => dispatch(changeIsShowLogOutConfirm(false))}
-        />
-      )}
-      {isShowDetailBets && (
-        <ModalDetailBets show={isShowDetailBets || false} onClose={() => dispatch(changeIsShowDetailBets(false))} />
-      )}
+      <ModalLogOutConfirm
+        show={isShowLogOutConfirm || false}
+        onClose={() => dispatch(changeIsShowLogOutConfirm(false))}
+      />
+      <ModalDetailBets show={isShowDetailBets || false} onClose={() => dispatch(changeIsShowDetailBets(false))} />
       {/* Google One Tap */}
       {!isLogin && <LoginGoogleOneTap key={String(isLogin)} />}
       <ModalSpin show={isShowSpin || false} onClose={() => dispatch(changeIsShowSpin(false))} />

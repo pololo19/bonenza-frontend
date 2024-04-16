@@ -14,7 +14,8 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { AppState } from '@/base/redux/store';
+import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
 
@@ -35,6 +36,7 @@ export default function ModalRakeBack({
   setShowModalRakeBackDetail,
   setShowModalBonusHistory,
 }: ModalRakeBackProps) {
+  const dispatch = useAppDispatch();
   const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
@@ -113,6 +115,7 @@ export default function ModalRakeBack({
 
       await api_getClaims();
       toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
+      dispatch(getBalance());
     } catch (error: any) {
       const description = error.response?.data?.error ?? t('deposit:claimFailed');
       toast.error(description, { containerId: TOAST_ENUM.COMMON });
