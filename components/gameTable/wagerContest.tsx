@@ -246,7 +246,7 @@ const WagerContestComponent = () => {
               />
             )}
             {row.index !== 0 && row.index !== 1 && row.index !== 2 && (
-              <div className="dark:text-color-text-primary text-color-light-text-primary font-bold truncate">
+              <div className="dark:text-color-text-primary text-color-light-text-primary font-bold truncate text-default">
                 {row.index + 1}th
               </div>
             )}
@@ -291,7 +291,7 @@ const WagerContestComponent = () => {
                 className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
-            <div className="font-bold truncate">
+            <div className="font-bold truncate text-default">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
                 <div className="flex gap-[3px] items-center">
                   <Ghost width={12} height={12} variant="Bulk" className="hidden sm:block w-[20px] h-[20px]" />
@@ -315,7 +315,7 @@ const WagerContestComponent = () => {
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="text-color-primary truncate sm:px-2 px-[5px] font-bold">
+          <div className="text-color-primary truncate sm:px-2 px-[5px] font-bold text-default">
             {viewInFiat
               ? currencyFormat1(row.original.wageredAmountUsd * exchangeRate, 8, localFiat?.name)
               : currencyFormat1(row.original.wageredAmountUsd, 8)}
@@ -331,7 +331,7 @@ const WagerContestComponent = () => {
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-default">
             <span className="text-color-primary font-bold">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeAmountUsd * exchangeRate, 4, localFiat?.name)

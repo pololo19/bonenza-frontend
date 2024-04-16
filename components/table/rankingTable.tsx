@@ -97,11 +97,11 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
                         { '!text-right': index === headerGroup.headers.length - 1 },
                         'bg-color-bg-primary whitespace-nowrap dark:text-color-text-secondary text-color-light-text-primary font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left !px-[5px]',
                       )}
-                      {...{
-                        style: {
-                          width: `${100 / headerGroup.headers.length}%`,
-                        },
-                      }}
+                      // {...{
+                      //   style: {
+                      //     width: `${100 / headerGroup.headers.length}%`,
+                      //   },
+                      // }}
                     >
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </th>
