@@ -39,7 +39,7 @@ const WrapperBody: React.FC<WrapperBodyProps> = ({ children, wrapperClassName, c
       >
         <div
           className={classNames(
-            'flex max-w-[1380px] md:w-full px-0 min-[390px]:px-2 sm:px-4 min-[1500px]:px-0 m-auto',
+            'flex max-w-[1380px] md:w-full px-0 min-[340px]:px-2 sm:px-4 min-[1500px]:px-0 m-auto',
             contentClassName,
           )}
         >

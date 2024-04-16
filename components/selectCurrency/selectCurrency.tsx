@@ -16,6 +16,7 @@ import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 
 import InputSearch from '../input/typing/InputSearch';
+import { useWidth } from '@/base/hooks/useWidth';
 
 type SelectCurrencyProps = {
   activeCoin: CurrencyType;
@@ -39,6 +40,7 @@ const SelectCurrency = ({
   const exchangeRate = useExchange();
   const { t } = useTranslation('');
   const { query } = useRouter();
+  const width = useWidth();
 
   const { symbols, balances, networks, localFiat, lockedAmount, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -134,11 +136,11 @@ const SelectCurrency = ({
           {({ open }) => (
             <>
               {!withDrawTab && (
-                <div className="w-full flex flex-wrap gap-1 overflow-x-auto">
-                  {symbols.slice(0, 4).map((symbol, index) => (
+                <div className="w-full flex overflow-hidden gap-1 overflow-x-auto">
+                  {symbols.slice(0, width >= 510 ? 4 : 3).map((symbol, index) => (
                     <button
                       className={cn(
-                        'sm:min-w-[80px] pl-1 pr-3 py-1 dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
+                        'sm:min-w-[80px] pl-1 pr-3 pt-[2px] pb-[6px] dark:text-white text-color-light-text-primary rounded-full flex items-center gap-2 capitalize',
                         'hover:bg-color-primary', // Hover color
                         {
                           'border-2 border-color-primary': symbol.id === activeCoin.id, //Active Symbol
@@ -162,7 +164,7 @@ const SelectCurrency = ({
                         />
                       </LazyLoad>
 
-                      <h1 className="text-default font-normal">{symbol.name}</h1>
+                      <h1 className="text-default font-normal pt-[3px]">{symbol.name}</h1>
                     </button>
                   ))}
                   <Menu.Button
@@ -172,7 +174,7 @@ const SelectCurrency = ({
                     )}
                   >
                     <div className="flex pl-2">
-                      {symbols.slice(4, 7).map((symbol, index) => (
+                      {symbols.slice(width >= 510 ? 4 : 3, width >= 510 ? 7 : 6).map((symbol, index) => (
                         <Image
                           key={index}
                           width={24}
