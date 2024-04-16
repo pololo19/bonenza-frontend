@@ -139,7 +139,15 @@
     "unlockRules": "解锁规则"
   },
   "referralTerms": {
-    "supported": "该网站由 BONENZA.COM 预测平台支持。"
+    "supported": "该网站由 BONENZA 支持。平台游戏包括真人娱乐场、老虎机和赛车。",
+    "description1": "通过填写 BONENZA 联盟计划（“联盟计划”）申请并点击注册表中的“我同意条款和条件（“条款”）”，您（以下简称“联盟会员”）特此同意遵守所有",
+    "description2": "《佣金规则》的佣金结构也是本协议的组成部分。",
+    "description3": "BONENZA 保留随时自行决定修改、更改、删​​除或扩展本协议任何条款的权利，而无需根据本协议中规定的条款提前通知联营商。",
+    "agreement1": "参加联盟计划。",
+    "agreement2": "使用 BONENZA 附属网站。",
+    "agreement3": "条件是接受 BONENZA 的任何附属佣金即确认您不可撤销地接受本协议及其任何修改。",
+    "description4": "因此，您有义务持续遵守本协议的条款以及 BONENZA 网站的一般条款和条件和隐私政策，以及不时提出的任何其他规则和/或指南",
+    "description5": "公司与关联公司之间的协议自关联公司申请获得批准之日起生效。"
   },
   "referAndEarn": {
     "referAFriend": "介绍个朋友",

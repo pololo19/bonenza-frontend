@@ -139,7 +139,15 @@
     "unlockRules": "Desbloquear reglas"
   },
   "referralTerms": {
-    "supported": "El sitio web está respaldado por la plataforma de predicción BONENZA.COM. "
+    "supported": "El sitio web es compatible con BONENZA. Los juegos de plataforma incluyen Live Casino, Slots y Racing.",
+    "description1": "Al completar la solicitud del Programa de Afiliados de BONENZA (el \"Programa de Afiliados\") y hacer clic en \"Acepto los Términos y Condiciones (los \"Términos\")\" dentro del formulario de registro, usted (en adelante, el \"Afiliado\") acepta cumplir con todos ",
+    "description2": "La estructura de la comisión, las \"normas de la comisión\", también forma parte integrante de este acuerdo.",
+    "description3": "BONENZA se reserva el derecho de modificar, alterar, eliminar o ampliar cualquier disposición de este acuerdo, en cualquier momento y a su exclusivo criterio, sin previo aviso al Afiliado sujeto a los Términos establecidos en este acuerdo. ",
+    "agreement1": "Participa en el Programa de Afiliados.",
+    "agreement2": "Uso del sitio web afiliado a BONENZA.",
+    "agreement3": "La condición de que la aceptación de cualquier comisión de afiliado de BONENZA confirma su aceptación irrevocable de este Acuerdo y cualquier modificación del mismo.",
+    "description4": "Por lo tanto usted estará obligado a cumplir continuamente con los Términos de este Acuerdo así como con los Términos y Condiciones Generales y la Política de Privacidad del sitio web BONENZA, así como con cualquier otra norma y/o directriz que se presente de vez en cuando. ",
+    "description5": "Un Acuerdo entre la Compañía y el Afiliado entra en vigor en la fecha en que se aprueba la solicitud de afiliado."
   },
   "referAndEarn": {
     "referAFriend": "Recomendar un amigo",
