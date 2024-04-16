@@ -27,6 +27,10 @@ module.exports = () => {
     AUTHKEY: process.env.AUTH,
   };
 
+  const compiler = {
+    removeConsole: process.env.NODE_ENV === 'production',
+  };
+
   const webpack = (cfg, { isServer }) => {
     if (!isServer) {
       cfg.module.rules.push({
@@ -77,5 +81,6 @@ module.exports = () => {
       unoptimized: true,
     },
     optimizeFonts: false,
+    compiler,
   };
 };
