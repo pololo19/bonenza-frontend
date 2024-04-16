@@ -76,7 +76,7 @@ const AmlPage = () => {
                 leaveFrom="transform scale-100 opacity-100 w-full"
                 leaveTo="transform scale-95 opacity-0"
               >
-                <Disclosure.Panel className={'flex flex-col gap-[10px] w-full text-[10px] pb-2'}>
+                <Disclosure.Panel className={'flex flex-col gap-[10px] w-full text-default pb-2'}>
                   <div className="">
                     <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[12px]">
                       <p>
