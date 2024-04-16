@@ -437,7 +437,7 @@ function IndexPage() {
 
             <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:-mt-[0px]">
               <GameBannerSlider className="w-full" />
-              <div className="-mt-[20px] md:grid md:grid-cols-2 min-[900px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
+              <div className="-mt-[20px] md:grid md:grid-cols-2 min-[1200px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -529,8 +529,8 @@ function IndexPage() {
                   </div>
                   <div
                     className={cn(
-                      'text-[12px] min-[390px]:text-[16px] xl:text-title 2xl:text-m_title',
-                      'font-bold bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[200px]',
+                      'text-[12px] min-[390px]:text-[16px] xl:text-title 2xl:text-[24px]',
+                      'font-light bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[250px]',
                       'hover:opacity-[0.9] cursor-pointer flex justify-center items-center',
                     )}
                     onClick={() => {
