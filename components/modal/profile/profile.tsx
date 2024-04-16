@@ -165,7 +165,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 </div>
                 <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
                 <div className="text-[14px] text-color-text-primary w-full flex justify-between items-center">
-                  <div className="w-full">
+                  <div className="w-full text-center">
                     {t('profile:userID')}: {user?.userId}
                   </div>
                   <button
