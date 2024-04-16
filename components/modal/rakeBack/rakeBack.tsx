@@ -152,11 +152,7 @@ export default function ModalRakeBack({
                 </div>
                 <div className="w-[236px] rounded-[5px] h-[36px] text-color-primary dark:bg-color-bg-primary bg-color-light-modal-bg-primary flex items-center justify-center gap-2">
                   <Image height={18} width={18} src="/img/fiats/USDT.png" alt="" />
-                  <p className="text-[16px] font-bold">
-                    {viewInFiat
-                      ? currencyFormat1((unlockedData.amount / usdtPrice) * exchangeRate, fiatLen, localFiat?.name)
-                      : currencyFormat1(unlockedData.amount, 2, '', false)}
-                  </p>
+                  <p className="text-[16px] font-bold">{currencyFormat1(unlockedData.amount, 2, '', false)}</p>
                 </div>
                 <div>
                   <div
@@ -178,10 +174,7 @@ export default function ModalRakeBack({
                   <div className="text-[12px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-color-light-text-primary">
                     <p>{t('deposit:mintoclaim')}:</p> &nbsp;
                     <p className="text-white">
-                      {viewInFiat
-                        ? currencyFormat1(unlockedData.minimumUnlockAmountUsd * exchangeRate, fiatLen, localFiat?.name)
-                        : currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)}{' '}
-                      USDT
+                      {currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)} USDT
                     </p>
                   </div>
                 </div>
@@ -212,18 +205,9 @@ export default function ModalRakeBack({
               <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
               {requiredWagerAmount > 0 && (
                 <p className="mt-[14px]">
-                  {t('deposit:youStillNeed')}{' '}
-                  {`${
-                    viewInFiat
-                      ? currencyFormat1((requiredWagerAmount / usdtPrice) * exchangeRate, fiatLen, localFiat?.name)
-                      : currencyFormat1(requiredWagerAmount, cryptoLen, '', false)
-                  } USDT`}{' '}
+                  {t('deposit:youStillNeed')} {`${currencyFormat1(requiredWagerAmount, cryptoLen, '', false)} USDT`}{' '}
                   {t('deposit:unlockable')}{' '}
-                  {`${
-                    viewInFiat
-                      ? currencyFormat1(unlockedData.minimumUnlockAmountUsd * exchangeRate, fiatLen, localFiat?.name)
-                      : currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)
-                  } USDT `}
+                  {`${currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)} USDT `}
                   <span
                     className="text-color-primary cursor-pointer hover:underline"
                     onClick={() => handleShowModalDetail()}
