@@ -198,7 +198,7 @@ const BalancePage = () => {
                       }}
                     />
                     <div className="flex-1 text-start text-default font-bold dark:text-white text-black">
-                      {item.name} <span className="ml-[5px] text-[10px] text-gray-400">{item.alias}</span>
+                      {item.name}
                     </div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-color-primary font-normal">
