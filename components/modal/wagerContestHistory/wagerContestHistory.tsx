@@ -96,7 +96,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
         header: () => (
           <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">#</div>
         ),
-        minSize: 30,
+        minSize: 10,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start gap-[5px] truncate sm:px-2 px-[5px]')}>
             {row.index === 0 && (
@@ -172,7 +172,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
-            <div className="font-bold truncate">
+            <div className="font-bold truncate text-default">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
                 <div className="flex gap-[3px] items-center">
                   <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 hidden sm:block " />
@@ -196,7 +196,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="text-color-primary truncate sm:px-2 px-[5px] font-bold">
+          <div className="text-color-primary truncate sm:px-2 px-[5px] font-bold text-default">
             {viewInFiat
               ? currencyFormat1(row.original.wageredUsd * exchangeRate, 8, localFiat?.name)
               : currencyFormat1(row.original.wageredUsd, 8)}
@@ -212,7 +212,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-default">
             <span className="text-color-primary font-bold">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, 4, localFiat?.name)
