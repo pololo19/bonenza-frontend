@@ -356,7 +356,7 @@ function AffiliateLoggedPage() {
               </Link>
             </div>
           </div>
-          <div className="flex flex-col w-full items-center lg:max-w-[450px] dark:bg-color-card-bg-secondary bg-white rounded-[10px] justify-between">
+          <div className="flex flex-col w-full items-center lg:max-w-[450px] dark:bg-color-card-bg-secondary bg-white rounded-[10px] justify-start gap-4">
             <div className="flex flex-col">
               <div className="justify-between w-full bg-color-panel-bg rounded-[10px]  mb-[18px] ">
                 <div className="flex w-full relative">
@@ -562,7 +562,7 @@ function AffiliateLoggedPage() {
 
             <div className="w-full pb-[17px]">
               <div
-                className="flex w-full  lg:mt-[82px] mt-[14px] items-center justify-center lg:justify-end px-[14px]"
+                className="flex w-full mt-3 items-center justify-center px-[14px]"
                 role="button"
                 onClick={() => {
                   setShowReferralTerm(true);
