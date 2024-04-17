@@ -171,7 +171,7 @@ export default function SignInTab({
         // const errData = getErrorMessage('auth', 'signIn', status, message, isPhoneNumber ? 'phone' : 'email');
 
         const errMessage = getErrorMesssage1(errType);
-        toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.MODAL });
+        toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
 
         // user is not allowed
         if (status === 401 && errType === 'isNotAllowedUser') {
@@ -200,10 +200,11 @@ export default function SignInTab({
     setIsLoading(true);
     try {
       const res = await api_sendVerifyQRCode(formData.email);
-      toast.success(res?.data?.msg, { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('setting:verificationEmail'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const errType = error?.response?.message;
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
       setCodeOtp('');
       setOtpValue('codeOtp', '');
     } finally {

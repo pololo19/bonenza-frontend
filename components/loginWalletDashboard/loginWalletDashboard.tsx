@@ -42,12 +42,13 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       await onSuccessfullyLogined(_Res);
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      if (error?.response?.data?.message === 'Email was taken') {
-        toast.error(String(t('authentication:emailTaken')), { containerId: TOAST_ENUM.MODAL });
-      } else if (error?.response?.data?.message === 'self-exclusive') {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+
+      const status = error.response?.data?.statusCode ?? '';
+      if (status === 401 && errType === 'disabledAccount') {
         dispatch(changeIsShowSelfExclusion(true));
-      } else {
-        toast.error(String(t('authentication:loginGoogleFailed')), { containerId: TOAST_ENUM.MODAL });
       }
     } finally {
       setIsLoading(false);
@@ -72,10 +73,13 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
         toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
       });
     } catch (error: any) {
-      if (error?.response?.data?.message === 'self-exclusive') {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+
+      const status = error.response?.data?.statusCode ?? '';
+      if (status === 401 && errType === 'disabledAccount') {
         dispatch(changeIsShowSelfExclusion(true));
-      } else {
-        toast.error(String(t('authentication:loginTelegramFailed')), { containerId: TOAST_ENUM.MODAL });
       }
     } finally {
       setIsLoading(false);
@@ -96,6 +100,11 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+
+      const status = error.response?.data?.statusCode ?? '';
+      if (status === 401 && errType === 'disabledAccount') {
+        dispatch(changeIsShowSelfExclusion(true));
+      }
       disconnect();
     } finally {
       setIsLoading(false);

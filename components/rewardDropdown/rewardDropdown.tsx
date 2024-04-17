@@ -17,6 +17,7 @@ import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowDepositRule } from '@/base/redux/reducers/modal.reducer';
 import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type BonusType = {
   id: string;
