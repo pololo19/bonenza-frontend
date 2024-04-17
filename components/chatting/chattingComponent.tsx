@@ -211,23 +211,23 @@ const ChattingComponent = () => {
                 <ReactLoading type="bubbles" color="#50C627" delay={50} />
               </div>
             )}
-            <div className="flex py-[10px] w-full bg-color-bg-primary px-[7px] gap-[10px] absolute bottom-0">
+          </div>
+          <div className="flex py-[10px] w-full bg-color-bg-primary px-[7px] gap-[10px] fixed bottom-0">
+            <div
+              contentEditable={true}
+              style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
+              onKeyDown={(e) => handleSubmit(e)}
+              className={
+                'flex w-full max-h-[200px] py-[12px] leading-[20px] px-[10px] overflow-y-auto border-none outline-none lign-baseline editBox dark:bg-[#0A0A0A] rounded-default cursor-text text-[14px] dark:text-white'
+              }
+              ref={chatRef}
+            />
+            <div className="flex flex-col flex-1 justify-end">
               <div
-                contentEditable={true}
-                style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
-                onKeyDown={(e) => handleSubmit(e)}
-                className={
-                  'flex w-full max-h-[200px] py-[12px] leading-[20px] px-[10px] overflow-y-auto border-none outline-none lign-baseline editBox dark:bg-[#0A0A0A] rounded-default cursor-text text-[14px] dark:text-white'
-                }
-                ref={chatRef}
-              />
-              <div className="flex flex-col flex-1 justify-end">
-                <div
-                  className="flex flex-col h-fit justify-end p-[10px] rounded-default bg-gradient-btn-play cursor-pointer"
-                  onClick={sendMessage}
-                >
-                  <PaperAirplaneIcon className="w-[25px] h-[25px] text-white" />
-                </div>
+                className="flex flex-col h-fit justify-end p-[10px] rounded-default bg-gradient-btn-play cursor-pointer"
+                onClick={sendMessage}
+              >
+                <PaperAirplaneIcon className="w-[25px] h-[25px] text-white" />
               </div>
             </div>
           </div>
