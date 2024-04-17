@@ -139,7 +139,15 @@
     "unlockRules": "Unlock Rules"
   },
   "referralTerms": {
-    "supported": "The website is supported by the BONENZA.COM prediction platform. Platform games include Crash, Classic Dice and so on."
+    "supported": "The website is supported by BONENZA. Platform games include Live Casino, Slots and Racing.",
+    "description1": "By completing the BONENZA Affiliate Program (the \"Affiliate Program\") application and clicking \"I agree to the Terms and Conditions (the “Terms”)” within the registration form, you (hereinafter the \"Affiliate\") hereby agree to abide by all the terms and conditions set out in this agreement.",
+    "description2": "The commission structure of the \"commission rules\" is also an integral part of this agreement.",
+    "description3": "BONENZA reserves the right to amend, alter, delete or extend any provisions of this agreement, at any time and at its sole discretion, without giving any advance notice to the Affiliate subject to the Terms set out in this agreement. You hereby agree to:",
+    "agreement1": "Participate in the Affiliate Program.",
+    "agreement2": "Use of the BONENZA affiliate website.",
+    "agreement3": "The condition that the acceptance of any affiliate commissions from BONENZA confirms your irrevocable acceptance of this Agreement and any modifications thereto.",
+    "description4": "Therefore you shall be obliged to continuously comply with the Terms of this Agreement as well as to comply with the General Terms and Conditions and Privacy Policy of the website BONENZA, as well as with any other rules and/or guidelines brought forward from time to time.",
+    "description5": "An Agreement between the Company and the Affiliate comes into effect on the date the affiliate application is approved."
   },
   "referAndEarn": {
     "referAFriend": "Refer a friend",

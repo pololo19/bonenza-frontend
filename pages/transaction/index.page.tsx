@@ -385,7 +385,7 @@ const TransactionPage = () => {
             {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
-        minSize: 130,
+        minSize: 70,
       },
     ];
   }, [localFiat, viewInFiat, optionFilter, i18n, exchangeRate]);
@@ -523,7 +523,7 @@ const TransactionPage = () => {
         accessorKey: 'actionType',
         header: () => (
           <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
-            {String(t('transaction:type'))}
+            {String(t('transaction:type'))}/{String(t('transaction:time'))}
           </div>
         ),
         cell: ({ row }) => (
@@ -561,7 +561,7 @@ const TransactionPage = () => {
         accessorKey: 'balance',
         header: () => (
           <div className="text-right dark:text-color-text-primary text-color-light-text-primary ">
-            {String(t('transaction:balance'))}
+            {String(t('transaction:amount'))}/{String(t('transaction:balance'))}
           </div>
         ),
         cell: ({ row }) => (
@@ -636,7 +636,6 @@ const TransactionPage = () => {
           cell: ({ row }) => (
             <div className="dark:text-white text-black text-left truncate py-2">{t(optionFilter.type.name)}</div>
           ),
-          minSize: 30,
         },
         {
           accessorKey: 'amount',
@@ -645,7 +644,7 @@ const TransactionPage = () => {
           ),
           cell: ({ row }) => (
             <div
-              className={`${
+              className={`min-w-[100px] ${
                 t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
               } flex items-center justify-center gap-1`}
             >
@@ -667,7 +666,6 @@ const TransactionPage = () => {
               />
             </div>
           ),
-          minSize: 20,
         },
         {
           accessorKey: 'time',
@@ -675,11 +673,10 @@ const TransactionPage = () => {
             <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:timeTransfer'))}</div>
           ),
           cell: ({ row }) => (
-            <div className="dark:text-white text-black">
+            <div className="min-w-[130px] dark:text-white text-black">
               {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
           ),
-          maxSize: 30,
         },
         {
           accessorKey: 'status',
@@ -707,20 +704,16 @@ const TransactionPage = () => {
               <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
             </div>
           ),
-          maxSize: 30,
-          minSize: 30,
         },
       ];
     }
     return [
       {
         accessorKey: 'amount',
-        header: () => (
-          <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:amount'))}</div>
-        ),
+        header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:amount'))}</div>,
         cell: ({ row }) => (
           <div
-            className={`${
+            className={`min-w-[100px] ${
               t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
             } flex items-center justify-start gap-1`}
           >
@@ -738,6 +731,7 @@ const TransactionPage = () => {
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
+              className="w-4 h-4"
               alt=""
             />
           </div>
@@ -779,7 +773,6 @@ const TransactionPage = () => {
               })}
             />
             <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
-            <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
           </div>
         ),
         maxSize: 30,
@@ -1029,7 +1022,7 @@ const TransactionPage = () => {
         statusId = 0;
         break;
       case 'failed':
-        statusId = 3;
+        statusId = 5;
         break;
       case 'rejected':
         statusId = 4;

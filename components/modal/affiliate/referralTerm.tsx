@@ -19,16 +19,32 @@ export default function ModalReferralTerm({ show, onClose }: ModalReferralTermPr
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:rounded sm:max-w-[400px]"
+        panelClass="sm:rounded sm:max-w-[450px]"
         header={
           <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
             {t('affiliate:referralTermsConditions')}
           </div>
         }
       >
-        <div className="p-[15px] overflow-y-auto text-[14px] font-[300] text-[#98a7b5]">
+        <div className="px-[15px] py-6 overflow-y-auto text-[14px] font-[300] text-[#98a7b5]">
           <pre className="whitespace-pre-line">
-            <p>{t('referralTerms:supported')}</p>
+            <span>{t('referralTerms:supported')}</span>
+          </pre>
+          <pre className="whitespace-pre-line mt-5">
+            <span>{t('referralTerms:description1')}</span>
+            <span>{t('referralTerms:description2')}</span>
+            <span>{t('referralTerms:description3')}</span>
+          </pre>
+          <pre className="whitespace-pre-line mt-2">
+            <ul className="list-decimal pl-6">
+              <li>{t('referralTerms:agreement1')}</li>
+              <li>{t('referralTerms:agreement2')}</li>
+              <li>{t('referralTerms:agreement3')}</li>
+            </ul>
+          </pre>
+          <pre className="whitespace-pre-line mt-5">
+            <span>{t('referralTerms:description4')}</span>
+            <span>{t('referralTerms:description5')}</span>
           </pre>
         </div>
       </CommonModal>

@@ -139,7 +139,15 @@
     "unlockRules": "Kuralların Kilidini Aç"
   },
   "referralTerms": {
-    "supported": "Web sitesi BONENZA.COM tahmin platformu tarafından desteklenmektedir. "
+    "supported": "Web sitesi BONENZA tarafından desteklenmektedir. Platform oyunları arasında Canlı Casino, Slotlar ve Yarış bulunmaktadır.",
+    "description1": "BONENZA Ortaklık Programı (\"Ortaklık Programı\") başvurusunu doldurarak ve kayıt formundaki \"Şartlar ve Koşulları kabul ediyorum (\"Şartlar\")\" seçeneğine tıklayarak, siz (bundan sonra \"Ortaklık\") tüm kurallara uymayı kabul edersiniz. ",
+    "description2": "\"Komisyon kurallarının\" komisyon yapısı da bu anlaşmanın ayrılmaz bir parçasıdır.",
+    "description3": "BONENZA, bu sözleşmenin herhangi bir hükümünü, tamamen kendi takdirine bağlı olarak, bu sözleşmede belirtilen Koşullara tabi olarak Ortağa önceden bildirimde bulunmaksızın, herhangi bir zamanda tadil etme, tadil etme, silme veya genişletme hakkını saklı tutar. ",
+    "agreement1": "Ortaklık Programına katılın.",
+    "agreement2": "BONENZA bağlı kuruluş web sitesinin kullanımı.",
+    "agreement3": "BONENZA'dan herhangi bir ortaklık komisyonunun kabul edilmesinin, bu Sözleşmeyi ve burada yapılan değişiklikleri geri alınamaz şekilde kabul ettiğinizi teyit etmesi koşulu.",
+    "description4": "Bu nedenle, bu Sözleşmenin Şartlarına sürekli olarak uymanın yanı sıra, BONENZA web sitesinin Genel Şartlar ve Koşullar ile Gizlilik Politikasına ve ayrıca zaman zaman öne sürülen diğer kurallara ve/veya yönergelere uymakla yükümlü olacaksınız. ",
+    "description5": "Şirket ile Ortak arasındaki Sözleşme, ortaklık başvurusunun onaylandığı tarihte yürürlüğe girer."
   },
   "referAndEarn": {
     "referAFriend": "Bir arkadaşınıza tavsiye edin",
