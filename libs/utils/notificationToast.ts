@@ -195,6 +195,10 @@ export function getErrorMesssage1(errorType: string) {
       break;
     case 'isNotAllowedAction':
       message = 'errors:notAllowedAction';
+      break;
+    case 'isNotMatchOTPError':
+      message = 'errors:notMatchOTP';
+      break;
 
     default:
       message = 'errors:internalServer';

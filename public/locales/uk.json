@@ -622,7 +622,8 @@
     "exclusionNotify3": "напишіть нам на адресу",
     "exclusionGoBack": "Повертайся",
     "permanentlyDisabled": "Ваш обліковий запис вимкнено назавжди.",
-    "disabledPeriod": "Ваш обліковий запис вимкнено до {{date}}"
+    "disabledPeriod": "Ваш обліковий запис вимкнено до {{date}}",
+    "exclusionDaysLeftPermanent": "Hesabınız kalıcı olarak devre dışı bırakıldı."
   },
   "authentication": {
     "checked": "Будь ласка, погодьтеся з нашою угодою користувача",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "Ваша інформація в Telegram недійсна.",
     "notValidSelfExlusionTime": "Час виключення недійсний.",
     "badRequest": "Дані вашого запиту недійсні.",
-    "notAllowedAction": "Ваша дія не дозволена."
+    "notAllowedAction": "Ваша дія не дозволена.",
+    "notMatchOTP": "Код підтвердження неправильний"
   },
   "success": {
     "bonusClaimed": "Ваш бонус використано",

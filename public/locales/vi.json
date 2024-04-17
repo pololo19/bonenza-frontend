@@ -622,7 +622,8 @@
     "exclusionNotify3": "vui lòng gửi email cho chúng tôi tại",
     "exclusionGoBack": "Quay lại",
     "permanentlyDisabled": "Tài khoản của bạn bị vô hiệu hóa vĩnh viễn.",
-    "disabledPeriod": "Tài khoản của bạn bị vô hiệu hóa cho đến khi {{date}}"
+    "disabledPeriod": "Tài khoản của bạn bị vô hiệu hóa cho đến khi {{date}}",
+    "exclusionDaysLeftPermanent": "Tài khoản của bạn đã bị vô hiệu hóa vĩnh viễn."
   },
   "authentication": {
     "checked": "Vui lòng đồng ý với thỏa thuận người dùng của chúng tôi",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "Thông tin Telegram của bạn không hợp lệ.",
     "notValidSelfExlusionTime": "Thời gian loại trừ không hợp lệ.",
     "badRequest": "Yêu cầu của bạn Dữ liệu không hợp lệ.",
-    "notAllowedAction": "Hành động của bạn không được phép."
+    "notAllowedAction": "Hành động của bạn không được phép.",
+    "notMatchOTP": "Mã xác minh không chính xác"
   },
   "success": {
     "bonusClaimed": "Tiền thưởng của bạn đã được xác nhận",

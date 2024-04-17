@@ -622,7 +622,8 @@
     "exclusionNotify3": "다음 주소로 이메일을 보내주세요.",
     "exclusionGoBack": "돌아가기",
     "permanentlyDisabled": "귀하의 계정은 영구적으로 비활성화되었습니다.",
-    "disabledPeriod": "귀하의 계정은 다음 날짜까지 비활성화됩니다. {{date}}"
+    "disabledPeriod": "귀하의 계정은 다음 날짜까지 비활성화됩니다. {{date}}",
+    "exclusionDaysLeftPermanent": "귀하의 계정은 영구적으로 비활성화되었습니다."
   },
   "authentication": {
     "checked": "사용자 계약에 동의해 주세요.",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "귀하의 텔레그램 정보가 유효하지 않습니다.",
     "notValidSelfExlusionTime": "제외 시간이 유효하지 않습니다.",
     "badRequest": "귀하의 요청 데이터가 유효하지 않습니다.",
-    "notAllowedAction": "귀하의 행동은 허용되지 않습니다."
+    "notAllowedAction": "귀하의 행동은 허용되지 않습니다.",
+    "notMatchOTP": "인증코드가 올바르지 않습니다."
   },
   "success": {
     "bonusClaimed": "귀하의 보너스가 청구되었습니다",
