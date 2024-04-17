@@ -351,6 +351,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
           <div className="mt-2 mb-3 text-[14px]">{t('bonus:onlyTheLatest')}</div>
           <div className="dark:bg-[#2D3035] bg-white p-3 pb-0">
             <TableComponent
+              isExpanding={false}
               isLoading={isLoadingTable}
               handleClickRow={() => {}}
               data={listTransactions}

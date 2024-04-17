@@ -75,7 +75,7 @@ const SettingSession = () => {
     try {
       setIsLoading(true);
       const res = await api_deleteSession(sessionId);
-      getListUserSessions();
+      getListUserSessions(limit, page);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -92,16 +92,16 @@ const SettingSession = () => {
   const handleChangeItemPerPage = (itemPerPage: number) => {
     setLimit(itemPerPage);
     setPage(1);
-    getListUserSessions();
+    getListUserSessions(itemPerPage, 1);
   };
 
   const getListUserSessions = useCallback(
-    async (sessionPage: number = page) => {
+    async (itemPerPage: number, sessionPage: number = page) => {
       try {
         setIsLoading(true);
         setDataTable([]);
         setTotalRows(0);
-        const _res = await api_getSessions(sessionPage, limit);
+        const _res = await api_getSessions(sessionPage, itemPerPage);
         const tempSessions: SessionType[] = _res.data?.sessions?.map((item: any) => ({
           lastUsedAt: new Date(item.lastUsedAt),
           ipAddress: item.ipAddress ?? '',
@@ -114,7 +114,6 @@ const SettingSession = () => {
         setTotalRows(Number(_res.data?.totalCount || 0));
         setDataTable(tempSessions);
       } catch (error) {
-        console.log(error, '---117');
         setDataTable([]);
       } finally {
         setIsLoading(false);
@@ -124,7 +123,7 @@ const SettingSession = () => {
   );
 
   useEffect(() => {
-    getListUserSessions();
+    getListUserSessions(limit, page);
   }, []);
 
   return (
