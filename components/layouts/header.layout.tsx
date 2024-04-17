@@ -15,7 +15,6 @@ import {
   changeIsShowCasinoSearch,
   changeIsShowDepositModal,
   changeIsShowMultiLanguageModal,
-  changeIsShowSelfExclusion,
   changeMultiLanguageTab,
   changeShowChatType,
 } from '@/base/redux/reducers/modal.reducer';
@@ -143,7 +142,6 @@ export default function Navbar() {
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
-                    // dispatch(changeIsShowSelfExclusion(true));
                   }}
                 >
                   {t('layout:signIn')}

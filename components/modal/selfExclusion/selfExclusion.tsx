@@ -1,9 +1,11 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
 import { ElementType } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useHeight } from '@/base/hooks/useHeight';
+import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
 
@@ -15,6 +17,13 @@ type ModalAuthenticationProps = {
 
 export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticationProps) {
   const { t } = useTranslation('');
+
+  const { disabledPeriod } = useSelector(
+    (state: AppState) => ({
+      disabledPeriod: state.common.disabledPeriod,
+    }),
+    shallowEqual,
+  );
   const height = useHeight();
 
   const headerText1 = t('exclusion:exclusionDaysLeft').split('*')?.at(0) || '';
@@ -35,7 +44,7 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
             <div className="absolute top-[10%] bottom-[50%] text-center w-full flex flex-col justify-center">
               <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText1}</p>
               <p className="text-[48px] sm:text-[64px] text-color-light-notice-primary font-semibold leading-none">
-                {365}
+                {Math.floor(((disabledPeriod || Date.now() / 1000) - Date.now() / 1000) / 24 / 60 / 60)}
               </p>
               <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText2}</p>
             </div>

@@ -13,11 +13,11 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { changeIsShowSelfExclusion } from '@/base/redux/reducers/modal.reducer';
+import { changeDisabledPeriod } from '@/base/redux/reducers/common.reducer';
+import { changeIsShowAuthenticationModal, changeIsShowSelfExclusion } from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
-import Loader from '@/components/common/preloader/loader';
 
 declare let window: any;
 
@@ -47,8 +47,11 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
 
       const status = error.response?.data?.statusCode ?? '';
-      if (status === 401 && errType === 'disabledAccount') {
+      if (status === 401 && errType.includes('disabledAccount') === true) {
+        const period = errType.split('_')[1];
+        dispatch(changeIsShowAuthenticationModal(false));
         dispatch(changeIsShowSelfExclusion(true));
+        dispatch(changeDisabledPeriod(Number(period)));
       }
     } finally {
       setIsLoading(false);
@@ -78,8 +81,11 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
 
       const status = error.response?.data?.statusCode ?? '';
-      if (status === 401 && errType === 'disabledAccount') {
+      if (status === 401 && errType.includes('disabledAccount') === true) {
+        const period = errType.split('_')[1];
+        dispatch(changeIsShowAuthenticationModal(false));
         dispatch(changeIsShowSelfExclusion(true));
+        dispatch(changeDisabledPeriod(Number(period)));
       }
     } finally {
       setIsLoading(false);
@@ -102,8 +108,11 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
 
       const status = error.response?.data?.statusCode ?? '';
-      if (status === 401 && errType === 'disabledAccount') {
+      if (status === 401 && errType.includes('disabledAccount') === true) {
+        const period = errType.split('_')[1];
+        dispatch(changeIsShowAuthenticationModal(false));
         dispatch(changeIsShowSelfExclusion(true));
+        dispatch(changeDisabledPeriod(Number(period)));
       }
       disconnect();
     } finally {

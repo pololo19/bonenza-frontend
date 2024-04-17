@@ -113,7 +113,8 @@ export default function getErrorMessage(path: string, func: string, status: numb
 
 export function getErrorMesssage1(errorType: string) {
   let message = '';
-  switch (errorType) {
+  const err = errorType.split('_');
+  switch (err[0]) {
     case 'isNotExistUser':
       message = 'authentication:userNotAllow';
       break;
