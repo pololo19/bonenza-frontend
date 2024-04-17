@@ -590,8 +590,8 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                 <Countdown
                   date={
                     selectedType === 'daily'
-                      ? new Date(dailyQuest.endTime).toLocaleString()
-                      : new Date(weeklyQuest.endTime).toLocaleString()
+                      ? new Date(Number(dailyQuest.endTime))
+                      : new Date(Number(weeklyQuest.endTime))
                   }
                   renderer={({ days, hours, minutes, seconds }) => (
                     <div className="text-white">
