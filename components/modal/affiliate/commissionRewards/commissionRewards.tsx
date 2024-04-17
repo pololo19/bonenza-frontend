@@ -24,13 +24,7 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
     {
       rate: '15%',
       wager: 'Of 1% wager',
-      game: 'The Original Games',
-      className: 'cardCasino',
-    },
-    {
-      rate: '25%',
-      wager: 'Of 1% wager',
-      game: 'The Original Games',
+      game: 'The Slot Games',
       className: 'cardSport',
     },
   ];
