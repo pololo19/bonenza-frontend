@@ -16,7 +16,7 @@ const Support = () => {
       <span className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
         <span>{t('helper:supportContent1')} </span>
         <span className="text-color-primary">
-          <Link href="https://bonenza.com">{t('helper:supportContent2')}</Link>
+          <Link href="https://t.me/skyearth008">{t('helper:supportContent2')}</Link>
         </span>
         <span> {t('helper:supportContent3')}</span>
       </span>
