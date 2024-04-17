@@ -139,7 +139,15 @@
     "unlockRules": "Regeln freischalten"
   },
   "referralTerms": {
-    "supported": "Die Website wird von der Vorhersageplattform BONENZA.COM unterstützt. "
+    "supported": "Die Website wird von BONENZA unterstützt. Zu den Plattformspielen gehören Live-Casino, Spielautomaten und Rennen.",
+    "description1": "Indem Sie den Antrag für das BONENZA-Partnerprogramm (das „Partnerprogramm“) ausfüllen und im Registrierungsformular auf „Ich stimme den Allgemeinen Geschäftsbedingungen (die „Bedingungen“)“ klicken, erklären Sie (im Folgenden der „Partner“) hiermit Ihr Einverständnis mit allen Bedingungen ",
+    "description2": "Auch die Provisionsstruktur der „Provisionsregeln“ ist Bestandteil dieser Vereinbarung.",
+    "description3": "BONENZA behält sich das Recht vor, Bestimmungen dieser Vereinbarung jederzeit und nach eigenem Ermessen zu ergänzen, zu ändern, zu löschen oder zu erweitern, ohne den Partner vorbehaltlich der in dieser Vereinbarung dargelegten Bedingungen vorher zu benachrichtigen. ",
+    "agreement1": "Nehmen Sie am Partnerprogramm teil.",
+    "agreement2": "Nutzung der BONENZA-Affiliate-Website.",
+    "agreement3": "Die Bedingung, dass die Annahme von Affiliate-Provisionen von BONENZA Ihre unwiderrufliche Annahme dieser Vereinbarung und aller Änderungen daran bestätigt.",
+    "description4": "Daher sind Sie verpflichtet, die Bedingungen dieser Vereinbarung sowie die Allgemeinen Geschäftsbedingungen und Datenschutzrichtlinien der Website BONENZA sowie alle anderen Regeln und/oder Richtlinien, die von Zeit zu Zeit veröffentlicht werden, kontinuierlich einzuhalten ",
+    "description5": "Eine Vereinbarung zwischen dem Unternehmen und dem Partner tritt an dem Tag in Kraft, an dem der Partnerantrag genehmigt wird."
   },
   "referAndEarn": {
     "referAFriend": "Empfehlen Sie einen Freund",

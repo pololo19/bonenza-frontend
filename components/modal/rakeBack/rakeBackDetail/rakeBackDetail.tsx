@@ -66,7 +66,7 @@ export default function ModalRakeBackDetail({ show, onClose, setShowModalRakeBac
         }
       >
         <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] overflow-auto">
-          <div className="bg-[url('/img/reBackDetail.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
+          {/* <div className="bg-[url('/img/reBackDetail.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
             <div className="flex flex-col items-start justify-center h-full gap-[10px] pl-8">
               <div className="w-[190px] rounded-[5px] h-[36px] text-color-primary bg-color-primary-1/20 flex items-center justify-center gap-2">
                 <p className="text-[16px] font-bold">1 USDT ($) = 1 USD ($)</p>
@@ -77,7 +77,7 @@ export default function ModalRakeBackDetail({ show, onClose, setShowModalRakeBac
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="mt-2 mb-5 px-2 gap-2 flex flex-col items-center justify-between">
             <Disclosure defaultOpen>
               {({ open }) => (

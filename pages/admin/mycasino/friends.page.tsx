@@ -211,28 +211,38 @@ function AdminFriendsManagementPage() {
       </div>
       <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
         <form onSubmit={handleSubmit(onSubmit)} className="min-h-[120px] flex flex-wrap items-center gap-[20px]">
-          <div className="flex flex-col items-start gap-1">
+          <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
             <label htmlFor="username">{t('mycasino:Username')}</label>
-            <AdminInputText control={control} name="username" placeholder="Please input" customClass="min-w-[350px]" />
+            <AdminInputText
+              control={control}
+              name="username"
+              placeholder="Please input"
+              customClass="sm:min-w-[350px] w-full"
+            />
           </div>
-          <div className="flex flex-col items-start gap-1">
+          <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
             <label htmlFor="userId">{t('mycasino:UserId')}</label>
-            <AdminInputText control={control} name="userId" placeholder="Please input" customClass="min-w-[350px]" />
+            <AdminInputText
+              control={control}
+              name="userId"
+              placeholder="Please input"
+              customClass="sm:min-w-[350px] w-full"
+            />
           </div>
-          <div className="flex flex-col items-start gap-1">
+          <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
             <label htmlFor="registrationDate">{t('mycasino:registrationDate')}</label>
-            <AdminInputDateRange control={control} name="registrationDate" customClass="min-w-[350px]" />
+            <AdminInputDateRange control={control} name="registrationDate" customClass="sm:min-w-[350px] w-full" />
           </div>
-          <div className="flex flex-col items-start gap-1">
+          <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
             <label htmlFor="wagerDateRange">{t('mycasino:wagerDateRange')}</label>
-            <AdminInputDateRange control={control} name="wagerDateRange" customClass="min-w-[350px]" />
+            <AdminInputDateRange control={control} name="wagerDateRange" customClass="sm:min-w-[350px] w-full" />
           </div>
-          <div className="flex flex-col items-start gap-1">
+          <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
             <label htmlFor="code">{t('mycasino:code')}</label>
             <AdminSelectBox
               control={control}
               name="code"
-              customClass="min-w-[350px]"
+              customClass="sm:min-w-[350px] w-full"
               options={[
                 {
                   value: 'all',
