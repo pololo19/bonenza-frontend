@@ -45,7 +45,7 @@ const RateStarComponent = ({
   total = 5,
   fillColor = true,
   value = 0,
-  onClick = () => { },
+  onClick = () => {},
 }: {
   rate: number;
   total?: number;
@@ -329,6 +329,8 @@ const GameReviewComponent = ({
   }, [selectedSort]);
 
   const { t } = useTranslation('');
+
+  console.log(ratingData, '-----334');
 
   return (
     <div className="relative">
