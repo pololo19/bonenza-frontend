@@ -622,7 +622,8 @@
     "exclusionNotify3": "por favor envie-nos um e-mail para",
     "exclusionGoBack": "Volte",
     "permanentlyDisabled": "Sua conta está desativada permanentemente.",
-    "disabledPeriod": "Sua conta fica desativada até {{date}}"
+    "disabledPeriod": "Sua conta fica desativada até {{date}}",
+    "exclusionDaysLeftPermanent": "Sua conta foi desativada permanentemente."
   },
   "authentication": {
     "checked": "Por favor, concorde com nosso contrato de usuário",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "Suas informações do Telegram não são válidas.",
     "notValidSelfExlusionTime": "O tempo de exclusão não é válido.",
     "badRequest": "Os dados da sua solicitação não são válidos.",
-    "notAllowedAction": "Sua ação não é permitida."
+    "notAllowedAction": "Sua ação não é permitida.",
+    "notMatchOTP": "O código de verificação está incorreto"
   },
   "success": {
     "bonusClaimed": "Seu bônus foi reivindicado",

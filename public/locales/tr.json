@@ -622,7 +622,8 @@
     "exclusionNotify3": "lütfen bize e-posta gönderin",
     "exclusionGoBack": "Geri gitmek",
     "permanentlyDisabled": "Hesabınız kalıcı olarak devre dışı bırakıldı.",
-    "disabledPeriod": "Hesabınız şu tarihe kadar devre dışı bırakıldı: {{date}}"
+    "disabledPeriod": "Hesabınız şu tarihe kadar devre dışı bırakıldı: {{date}}",
+    "exclusionDaysLeftPermanent": "Hesabınız kalıcı olarak devre dışı bırakıldı."
   },
   "authentication": {
     "checked": "Lütfen kullanıcı sözleşmemizi kabul edin",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "Telegram bilgileriniz geçerli değil.",
     "notValidSelfExlusionTime": "Hariç Tutma Süresi geçerli değil.",
     "badRequest": "Talebiniz Veriler geçerli değil.",
-    "notAllowedAction": "İşleminize izin verilmiyor."
+    "notAllowedAction": "İşleminize izin verilmiyor.",
+    "notMatchOTP": "Doğrulama kodu yanlış"
   },
   "success": {
     "bonusClaimed": "Bonusunuz Alındı",

@@ -622,7 +622,8 @@
     "exclusionNotify3": "请给我们发电子邮件至",
     "exclusionGoBack": "回去",
     "permanentlyDisabled": "您的帐户已被永久禁用。",
-    "disabledPeriod": "您的帐户将被禁用，直到 {{date}}"
+    "disabledPeriod": "您的帐户将被禁用，直到 {{date}}",
+    "exclusionDaysLeftPermanent": "您的帐户已被永久禁用。"
   },
   "authentication": {
     "checked": "请同意我们的用户协议",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "您的 Telegram 信息无效。",
     "notValidSelfExlusionTime": "排除时间无效。",
     "badRequest": "您的请求数据无效。",
-    "notAllowedAction": "你的行为是不被允许的。"
+    "notAllowedAction": "你的行为是不被允许的。",
+    "notMatchOTP": "验证码不正确"
   },
   "success": {
     "bonusClaimed": "您的奖金已被领取",

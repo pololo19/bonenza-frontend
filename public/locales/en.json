@@ -622,7 +622,8 @@
     "exclusionNotify3": "please email us at",
     "exclusionGoBack": "Go Back",
     "permanentlyDisabled": "Your account is disabled permanently.",
-    "disabledPeriod": "Your account is disabled untill {{date}}"
+    "disabledPeriod": "Your account is disabled untill {{date}}",
+    "exclusionDaysLeftPermanent": "Your account has been permanently disabled."
   },
   "authentication": {
     "checked": "Please consent to our user agreement",
@@ -1434,7 +1435,6 @@
     "rakebackTooltip1": "Locked USDT is obtained through certain bonuses, such as deposit bonus and lucky spin.",
     "rakebackTooltip2": "Unlocking USDT is easy! It’s essentially the same as rakeback & will be unlocked proportionally by wagering.",
     "redeemLimit": "You've reached your daily limit for sending requests. Come back tomorrow for more interactions!"
-
   },
   "promotion": {
     "promotion": "Promotion",
@@ -2172,7 +2172,8 @@
     "notValidTgInfo": "Your Telegram info is not valid.",
     "notValidSelfExlusionTime": "Exlusion Time is not valid.",
     "badRequest": "Your request Data is not valid.",
-    "notAllowedAction": "Your action is not allowed."
+    "notAllowedAction": "Your action is not allowed.",
+    "notMatchOTP": "Verification code is incorrect"
   },
   "success": {
     "bonusClaimed": "Your Bonus is Claimed",

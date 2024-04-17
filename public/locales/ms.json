@@ -622,7 +622,8 @@
     "exclusionNotify3": "sila email kami di",
     "exclusionGoBack": "Pergi balik",
     "permanentlyDisabled": "Akaun anda dilumpuhkan secara kekal.",
-    "disabledPeriod": "Akaun anda dilumpuhkan sehingga {{date}}"
+    "disabledPeriod": "Akaun anda dilumpuhkan sehingga {{date}}",
+    "exclusionDaysLeftPermanent": "Akaun anda telah dilumpuhkan secara kekal."
   },
   "authentication": {
     "checked": "Sila bersetuju dengan perjanjian pengguna kami",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "Maklumat Telegram anda tidak sah.",
     "notValidSelfExlusionTime": "Masa Pengecualian tidak sah.",
     "badRequest": "Data permintaan anda tidak sah.",
-    "notAllowedAction": "Tindakan anda tidak dibenarkan."
+    "notAllowedAction": "Tindakan anda tidak dibenarkan.",
+    "notMatchOTP": "Kod pengesahan tidak betul"
   },
   "success": {
     "bonusClaimed": "Bonus Anda Dituntut",

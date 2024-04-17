@@ -622,7 +622,8 @@
     "exclusionNotify3": "আমাদের ইমেইল করুন",
     "exclusionGoBack": "ফিরে যাও",
     "permanentlyDisabled": "আপনার অ্যাকাউন্ট স্থায়ীভাবে নিষ্ক্রিয় করা হয়েছে.",
-    "disabledPeriod": "আপনার অ্যাকাউন্ট অক্ষম করা হয় পর্যন্ত {{date}}"
+    "disabledPeriod": "আপনার অ্যাকাউন্ট অক্ষম করা হয় পর্যন্ত {{date}}",
+    "exclusionDaysLeftPermanent": "আপনার অ্যাকাউন্ট স্থায়ীভাবে নিষ্ক্রিয় করা হয়েছে."
   },
   "authentication": {
     "checked": "আমাদের ব্যবহারকারী চুক্তিতে সম্মতি দিন",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "আপনার টেলিগ্রাম তথ্য বৈধ নয়.",
     "notValidSelfExlusionTime": "বর্জন সময় বৈধ নয়.",
     "badRequest": "আপনার অনুরোধ ডেটা বৈধ নয়.",
-    "notAllowedAction": "আপনার কর্ম অনুমোদিত নয়."
+    "notAllowedAction": "আপনার কর্ম অনুমোদিত নয়.",
+    "notMatchOTP": "যাচাইকরণ কোড ভুল"
   },
   "success": {
     "bonusClaimed": "আপনার বোনাস দাবি করা হয়",
