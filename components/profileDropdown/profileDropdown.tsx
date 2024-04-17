@@ -93,7 +93,7 @@ export default function ProfileDropdown() {
   return (
     <>
       <Popover className="relative w-auto text-left rounded-[7px] sm:flex hidden">
-        {({ open }) => (
+        {({ open, close }) => (
           <div
             // onMouseEnter={() => onHover(open, 'onMouseEnter')}
             // onMouseLeave={() => onHover(open, 'onMouseLeave')}
@@ -143,6 +143,7 @@ export default function ProfileDropdown() {
                   <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-700 dark:shadow ">
                     <div>
                       <Link
+                        onClick={close}
                         href={ROUTER.Balance}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
@@ -155,6 +156,7 @@ export default function ProfileDropdown() {
                     </div>
                     <div>
                       <Link
+                        onClick={close}
                         href={ROUTER.DepositCrypto}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
@@ -167,6 +169,7 @@ export default function ProfileDropdown() {
                     </div>
                     <div>
                       <Link
+                        onClick={close}
                         href={ROUTER.WithdrawCrypto}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
@@ -179,6 +182,7 @@ export default function ProfileDropdown() {
                     </div>
                     <div>
                       <Link
+                        onClick={close}
                         href={ROUTER.Transaction}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
@@ -191,6 +195,7 @@ export default function ProfileDropdown() {
                     </div>
                     <div>
                       <Link
+                        onClick={close}
                         href={ROUTER.Rollover}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
@@ -204,6 +209,7 @@ export default function ProfileDropdown() {
                     <div>
                       <div
                         onClick={() => {
+                          close();
                           dispatch(changeIsShowVipClubModal(true));
                         }}
                         className={cn(
@@ -217,6 +223,7 @@ export default function ProfileDropdown() {
                     </div>
                     <div>
                       <Link
+                        onClick={close}
                         href={ROUTER.Affiliate}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
@@ -229,7 +236,10 @@ export default function ProfileDropdown() {
                     </div>
                     <div>
                       <span
-                        onClick={() => dispatch(changeIsShowReferAndEarn(true))}
+                        onClick={() => {
+                          close();
+                          dispatch(changeIsShowReferAndEarn(true));
+                        }}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
@@ -242,6 +252,7 @@ export default function ProfileDropdown() {
                     <div>
                       <span
                         onClick={() => {
+                          close();
                           dispatch(setUserData({ userId: user.userId, userName: user.userName, avatar: user.avatar }));
                           dispatch(changeIsShowInformation(true));
                         }}
@@ -256,6 +267,7 @@ export default function ProfileDropdown() {
                     </div>
                     <div>
                       <Link
+                        onClick={close}
                         href={ROUTER.SettingGeneral}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
@@ -269,7 +281,10 @@ export default function ProfileDropdown() {
                     <div className="h-[1px] w-full dark:bg-gray-700 bg-[#67707b4d]"></div>
                     <div>
                       <span
-                        onClick={() => handleLogout()}
+                        onClick={() => {
+                          close();
+                          handleLogout();
+                        }}
                         className={cn(
                           'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
