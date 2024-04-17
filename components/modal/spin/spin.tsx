@@ -191,9 +191,6 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       const status = (error as AxiosError).response?.status || 0;
       toast.error((status || 404) === 400 ? t('bonus:spinNoSpin') : t('bonus:spinWrong'), {
         containerId: TOAST_ENUM.COMMON,
-        icon: true,
-        autoClose: 3000,
-        hideProgressBar: false,
       });
       return;
     }

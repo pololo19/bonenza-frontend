@@ -12,6 +12,7 @@ import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reduce
 import { useAppDispatch } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalSpinClaimProps = {
   onClose: () => void;
