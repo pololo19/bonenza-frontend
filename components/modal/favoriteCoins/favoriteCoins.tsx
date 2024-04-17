@@ -235,7 +235,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                       <div className="flex-1 dark:text-white text-black text-start text-default">{coin.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
-                      <span>{coin.alias}</span>
+                      {/* <span>{coin.alias}</span> */}
                       <Switch
                         id={`coin_${index}`}
                         checked={coin.favorite}

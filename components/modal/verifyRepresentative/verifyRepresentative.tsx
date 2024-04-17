@@ -21,7 +21,7 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
 
   const checkRepresentative = () => {
     if (representativeID === '') {
-      toast.error('Please inut representative ID correctly.', {
+      toast.error('Please input representative ID correctly.', {
         containerId: TOAST_ENUM.COMMON,
         icon: true,
         autoClose: 3000,
