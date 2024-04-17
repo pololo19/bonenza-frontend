@@ -10,6 +10,7 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalEnterCodeSecurityProps = {
   onClose: () => void;
@@ -34,8 +35,9 @@ export default function ModalEnterCodeSecurity({ show, onClose, value, onChange,
       });
       toast.success(res?.data?.msg, { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
       onClose();

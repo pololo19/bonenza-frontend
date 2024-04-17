@@ -16,6 +16,7 @@ import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ForgotPasswordFormType = {
   email: string;
@@ -46,9 +47,12 @@ export default function ModalForgotPassword() {
       mes = t('authentication:emailWrong');
     }
 
-    if (isPhoneNumber && !isPhone(email)) {
-      error = true;
-      mes = t('authentication:phoneWrong');
+    if (isPhoneNumber) {
+      const phone = `+${String(countryCallingCode?.countryCallingCode)}${email}`;
+      if (!isPhone(phone)) {
+        error = true;
+        mes = t('authentication:phoneWrong');
+      }
     }
 
     if (error) {
@@ -94,8 +98,10 @@ export default function ModalForgotPassword() {
       } else {
         toast.success(t('authentication:sendSMSSuccessfully'), { containerId: TOAST_ENUM.MODAL });
       }
-    } catch (error) {
-      toast.error(t('authentication:resetPasswordFailed'), { containerId: TOAST_ENUM.MODAL });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }

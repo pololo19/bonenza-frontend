@@ -18,6 +18,7 @@ import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalRakeBackProps = {
   onClose: () => void;
