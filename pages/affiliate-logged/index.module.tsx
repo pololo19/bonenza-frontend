@@ -679,8 +679,8 @@ function AffiliateLoggedPage() {
             </div>
             <div>
               <div className="flex mb-[12px] gap-[10px]">
-                <CheckMarkIcon className="w-[14px] h-[14px] text-color-primary" />
-                <div className="w-ful text-m_default sm:text-default text-color-text-primary font-normal md:w-[593px]">
+                <CheckMarkIcon className="w-[16px] h-[14px] text-color-primary" />
+                <div className="w-full text-m_default sm:text-default text-color-text-primary font-normal md:w-[593px]">
                   {t('affiliate:ifYouCanInvite')}
                 </div>
               </div>
@@ -720,7 +720,7 @@ function AffiliateLoggedPage() {
                 {({ open }) => (
                   <div className="w-full">
                     <Disclosure.Button className="mb-[20px] w-full flex justify-between">
-                      <div className="text-left font-normal text-m_default sm:text-default dark:text-white text-black">
+                      <div className="text-left font-normal text-m_default sm:text-default dark:text-white text-black w-full">
                         {item.title}
                       </div>
                       <div
@@ -730,7 +730,7 @@ function AffiliateLoggedPage() {
                             : 'dark:bg-[#ffffff33] bg-[#f5f6fa] dark:text-[#98A7B5] text-[#31373d]'
                         } w-[30px] h-[30px] rounded-full flex items-center justify-center`}
                       >
-                        {open ? <Minus size="24" /> : <Add size="24" />}
+                        {open ? <Minus size="30" /> : <Add size="30" />}
                       </div>
                     </Disclosure.Button>
                     <Transition
