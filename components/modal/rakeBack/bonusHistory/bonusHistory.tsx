@@ -165,12 +165,13 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
           </div>
         }
       >
-        <div className="relative dark:bg-color-modal-bg-primary bg-white p-3 h-full">
+        <div className="relative dark:bg-color-modal-bg-primary bg-white p-3 h-full overflow-hidden overflow-y-scroll">
           <TableComponent
             isLoading={isLoadingTable}
             handleClickRow={() => {}}
             data={listTransactions}
             columns={columns}
+            isExpanding={false}
           />
           <Paging
             onPageChange={handleChangePage}
