@@ -77,8 +77,8 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
         }
       >
         <div className="overflow-y-auto sm:p-5 p-3 pb-[80px]">
-          <div className="pt-[20px]">
-            <div className="mt-2 text-[14px]">{t('bonus:depositBonusRulesContent')}</div>
+          <div className="">
+            <div className="text-[14px]">{t('bonus:depositBonusRulesContent')}</div>
             <div className="text-color-text-primary grid grid-cols-2 gap-4 text-[14px] font-bold mb-2 mt-5">
               {depositBonus.map((item) => (
                 <div key={item.id} className="bg-[#2D3035] rounded-[10px] relative">

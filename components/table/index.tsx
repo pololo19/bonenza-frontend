@@ -23,6 +23,7 @@ export type TableComponentPropsType = {
   columns: ColumnDef<any>[];
   data: ObjectLiteral[];
   isLoading?: boolean;
+  isExpanding?: boolean;
   selectRows?: {
     rowSelectionIndex: RowSelectionState;
     setRowSelectionIndex: OnChangeFn<RowSelectionState>;
@@ -40,6 +41,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
   columns,
   data,
   isLoading,
+  isExpanding = true,
   selectRows,
   containerClassName,
   tableClassName,
@@ -72,7 +74,14 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
   }, [selectRows?.rowSelectionIndex]);
 
   return (
-    <div className={cn('table-responsive shadow-lg relative max-h-[600px]', containerClassName, styles.tableWrapper)}>
+    <div
+      className={cn(
+        'table-responsive shadow-lg relative',
+        isExpanding ? '' : ' max-h-[600px]',
+        containerClassName,
+        styles.tableWrapper,
+      )}
+    >
       <table
         className={cn(
           `mb-0 min-h-[150px] w-full h-full `,
