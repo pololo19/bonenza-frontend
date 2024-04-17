@@ -86,6 +86,7 @@ export type LoadingState = {
 
 export type CommonState = {
   isLoading?: boolean;
+  disabledPeriod?: number;
   fiatArray?: FiatType[];
   cryptoArray?: FiatType[];
   depositCryptoArray: DepositAddress[];
