@@ -42,11 +42,21 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
               className="object-cover h-[301px] sm:h-full"
             />
             <div className="absolute top-[10%] bottom-[50%] text-center w-full flex flex-col justify-center">
-              <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText1}</p>
-              <p className="text-[48px] sm:text-[64px] text-color-light-notice-primary font-semibold leading-none">
-                {Math.floor(((disabledPeriod || Date.now() / 1000) - Date.now() / 1000) / 24 / 60 / 60)}
-              </p>
-              <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText2}</p>
+              {disabledPeriod !== -1 && (
+                <>
+                  <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText1}</p>
+                  <p className="text-[48px] sm:text-[64px] text-color-light-notice-primary font-semibold leading-none">
+                    {Math.floor(((disabledPeriod || Date.now() / 1000) - Date.now() / 1000) / 24 / 60 / 60)}
+                  </p>
+                  <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText2}</p>
+                </>
+              )}
+
+              {disabledPeriod === -1 && (
+                <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">
+                  {t('exclusion:exclusionDaysLeftPermanent')}
+                </p>
+              )}
             </div>
           </div>
           <div

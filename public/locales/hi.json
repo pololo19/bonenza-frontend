@@ -622,7 +622,8 @@
     "exclusionNotify3": "कृपया हमें यहां ईमेल करें",
     "exclusionGoBack": "वापस जाओ",
     "permanentlyDisabled": "आपका खाता स्थायी रूप से अक्षम कर दिया गया है.",
-    "disabledPeriod": "आपका खाता तब तक अक्षम है {{date}}"
+    "disabledPeriod": "आपका खाता तब तक अक्षम है {{date}}",
+    "exclusionDaysLeftPermanent": "आपका खाता स्थायी रूप से अक्षम कर दिया गया है।"
   },
   "authentication": {
     "checked": "कृपया हमारे उपयोगकर्ता अनुबंध पर सहमति दें",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "आपकी टेलीग्राम जानकारी मान्य नहीं है.",
     "notValidSelfExlusionTime": "बहिष्करण समय मान्य नहीं है.",
     "badRequest": "आपका अनुरोध डेटा मान्य नहीं है.",
-    "notAllowedAction": "आपकी कार्रवाई की अनुमति नहीं है."
+    "notAllowedAction": "आपकी कार्रवाई की अनुमति नहीं है.",
+    "notMatchOTP": "सत्यापन कोड ग़लत है"
   },
   "success": {
     "bonusClaimed": "आपके बोनस का दावा किया गया है",

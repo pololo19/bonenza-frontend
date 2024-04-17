@@ -622,7 +622,8 @@
     "exclusionNotify3": "Bitte senden Sie uns eine E-Mail an",
     "exclusionGoBack": "Geh zurück",
     "permanentlyDisabled": "Ihr Konto ist dauerhaft deaktiviert.",
-    "disabledPeriod": "Ihr Konto ist bis dahin deaktiviert {{date}}"
+    "disabledPeriod": "Ihr Konto ist bis dahin deaktiviert {{date}}",
+    "exclusionDaysLeftPermanent": "Ihr Konto wurde dauerhaft gesperrt."
   },
   "authentication": {
     "checked": "Bitte stimmen Sie unserer Nutzungsvereinbarung zu",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "Ihre Telegram-Informationen sind ungültig.",
     "notValidSelfExlusionTime": "Die Ausschlusszeit ist ungültig.",
     "badRequest": "Ihre Anfragedaten sind ungültig.",
-    "notAllowedAction": "Ihre Aktion ist nicht zulässig."
+    "notAllowedAction": "Ihre Aktion ist nicht zulässig.",
+    "notMatchOTP": "Der Bestätigungscode ist falsch"
   },
   "success": {
     "bonusClaimed": "Ihr Bonus ist beansprucht",

@@ -19,6 +19,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, copyClipBoard } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { logoutWallet } from '@/base/redux/reducers/wallet.reducer';
@@ -153,8 +154,9 @@ const SettingSecurity = () => {
       setOtp('');
       setPasswordLogin('');
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }

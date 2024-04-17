@@ -622,7 +622,8 @@
     "exclusionNotify3": "กรุณาส่งอีเมลถึงเราที่",
     "exclusionGoBack": "กลับไป",
     "permanentlyDisabled": "บัญชีของคุณถูกปิดการใช้งานอย่างถาวร",
-    "disabledPeriod": "บัญชีของคุณถูกปิดการใช้งานจนถึง {{date}}"
+    "disabledPeriod": "บัญชีของคุณถูกปิดการใช้งานจนถึง {{date}}",
+    "exclusionDaysLeftPermanent": "บัญชีของคุณถูกปิดการใช้งานอย่างถาวร"
   },
   "authentication": {
     "checked": "โปรดยินยอมตามข้อตกลงผู้ใช้ของเรา",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "ข้อมูลโทรเลขของคุณไม่ถูกต้อง",
     "notValidSelfExlusionTime": "เวลายกเว้นไม่ถูกต้อง",
     "badRequest": "ข้อมูลคำขอของคุณไม่ถูกต้อง",
-    "notAllowedAction": "ไม่อนุญาตให้คุณดำเนินการใดๆ"
+    "notAllowedAction": "ไม่อนุญาตให้คุณดำเนินการใดๆ",
+    "notMatchOTP": "รหัสยืนยันไม่ถูกต้อง"
   },
   "success": {
     "bonusClaimed": "โบนัสของคุณถูกอ้างสิทธิ์แล้ว",

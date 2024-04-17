@@ -622,7 +622,8 @@
     "exclusionNotify3": "silakan email kami di",
     "exclusionGoBack": "Kembali",
     "permanentlyDisabled": "Akun Anda dinonaktifkan secara permanen.",
-    "disabledPeriod": "Akun Anda dinonaktifkan sampai {{date}}"
+    "disabledPeriod": "Akun Anda dinonaktifkan sampai {{date}}",
+    "exclusionDaysLeftPermanent": "Akun Anda telah dinonaktifkan secara permanen."
   },
   "authentication": {
     "checked": "Harap setujui perjanjian pengguna kami",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "Info Telegram Anda tidak valid.",
     "notValidSelfExlusionTime": "Waktu Pengecualian tidak valid.",
     "badRequest": "Data permintaan Anda tidak valid.",
-    "notAllowedAction": "Tindakan Anda tidak diperbolehkan."
+    "notAllowedAction": "Tindakan Anda tidak diperbolehkan.",
+    "notMatchOTP": "Kode verifikasi salah"
   },
   "success": {
     "bonusClaimed": "Bonus Anda Diklaim",

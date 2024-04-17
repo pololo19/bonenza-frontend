@@ -622,7 +622,8 @@
     "exclusionNotify3": "يرجى مراسلتنا عبر البريد الإلكتروني على",
     "exclusionGoBack": "عُد",
     "permanentlyDisabled": "تم تعطيل حسابك بشكل دائم.",
-    "disabledPeriod": "حسابك معطل حتى {{date}}"
+    "disabledPeriod": "حسابك معطل حتى {{date}}",
+    "exclusionDaysLeftPermanent": "حسابك قد تم تعطيله بشكل دائم."
   },
   "authentication": {
     "checked": "يرجى الموافقة على اتفاقية المستخدم الخاصة بنا",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "معلومات Telegram الخاصة بك غير صالحة.",
     "notValidSelfExlusionTime": "وقت الاستثناء غير صالح.",
     "badRequest": "بيانات طلبك غير صالحة.",
-    "notAllowedAction": "تصرفك غير مسموح به."
+    "notAllowedAction": "تصرفك غير مسموح به.",
+    "notMatchOTP": "رمز التحقق غير صحيح"
   },
   "success": {
     "bonusClaimed": "تمت المطالبة بالمكافأة الخاصة بك",

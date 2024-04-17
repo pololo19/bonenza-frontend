@@ -622,7 +622,8 @@
     "exclusionNotify3": "までメールをお送りください",
     "exclusionGoBack": "戻る",
     "permanentlyDisabled": "あなたのアカウントは永久に無効になっています。",
-    "disabledPeriod": "あなたのアカウントは次の期限まで無効になります {{date}}"
+    "disabledPeriod": "あなたのアカウントは次の期限まで無効になります {{date}}",
+    "exclusionDaysLeftPermanent": "あなたのアカウントは永久に無効になりました。"
   },
   "authentication": {
     "checked": "利用規約に同意してください",
@@ -2155,7 +2156,8 @@
     "notValidTgInfo": "あなたのテレグラム情報は有効ではありません。",
     "notValidSelfExlusionTime": "除外時間が無効です。",
     "badRequest": "リクエストのデータが無効です。",
-    "notAllowedAction": "あなたの行動は許可されていません。"
+    "notAllowedAction": "あなたの行動は許可されていません。",
+    "notMatchOTP": "認証コードが間違っています"
   },
   "success": {
     "bonusClaimed": "ボーナスが請求されました",
