@@ -110,30 +110,12 @@ const BalancePage = () => {
         <div className="flex items-center justify-start gap-[15px] w-full">
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
           <div className="flex sm:flex-row flex-col items-center justify-start md:gap-[40px] gap-[15px] flex-1">
-            <div className="flex flex-col md:pr-[40px] pr-[15px] sm:border-solid sm:border-r-[2px] sm:border-color-border-secondary w-full sm:w-auto">
-              <div className="text-start sm:text-default text-[12px] dark:text-gray-300 text-color-light-text-primary font-[700]">
+            <div className="flex w-full">
+              <div className="pr-2 text-start sm:text-default text-[12px] dark:text-gray-300 text-color-light-text-primary font-[700] border-solid border-r-[2px] border-color-border-secondary">
                 {t('balance:totalBalance')}
               </div>
-              <div className="truncate text-start text-color-secondary sm:text-[16px] text-default font-bold break-keep">
-                {currencyFormat1(totalUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
-              </div>
-            </div>
-            <div className="sm:flex grid grid-cols-2 sm:gap-[40px] gap-[15px] w-full">
-              <div className="flex flex-col">
-                <div className="text-start sm:text-default text-[12px] dark:text-gray-400 text-color-light-text-primary font-[700]">
-                  {t('balance:realBalance')}
-                </div>
-                <div className="truncate text-start dark:text-white text-black sm:text-[16px] text-default font-bold break-keep">
-                  {currencyFormat1(realUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
-                </div>
-              </div>
-              <div className="flex flex-col">
-                <div className="text-start sm:text-default text-[12px] dark:text-gray-400 text-color-light-text-primary font-[700]">
-                  {t('balance:bonusMoney')}
-                </div>
-                <div className="truncate text-start dark:text-white text-black sm:text-[16px] text-default font-bold break-keep">
-                  {currencyFormat1(bonusUsdBalance, fiatDecimals, localFiat?.name)}
-                </div>
+              <div className="pl-2 truncate text-start text-color-secondary sm:text-[16px] text-default font-bold break-keep">
+                {currencyFormat1(realUsdBalance * exchangeRate, fiatDecimals, localFiat?.name)}
               </div>
             </div>
           </div>

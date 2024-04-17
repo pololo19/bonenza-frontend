@@ -109,7 +109,7 @@ const AccountPannel: React.FC = () => {
   }, []);
 
   const {
-    totalBalance,
+    realUsdBalance,
     localFiat,
     isLogin,
     avatar,
@@ -122,7 +122,7 @@ const AccountPannel: React.FC = () => {
     isShowSpin,
   } = useSelector(
     (state: AppState) => ({
-      totalBalance: state.wallet.totalBalance,
+      realUsdBalance: state.wallet.realBalance,
       localFiat: state.wallet.localFiat,
       isLogin: state.auth.isLogin,
       avatar: state.auth.user.avatar,
@@ -471,8 +471,8 @@ const AccountPannel: React.FC = () => {
                 {t('balance:totalBalance')}
               </span>
               <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] ">
-                {viewInFiat && currencyFormat1(totalBalance * exchange, 2, localFiat?.name || 'USD')}
-                {!viewInFiat && currencyFormat1(totalBalance, 2)}
+                {viewInFiat && currencyFormat1(realUsdBalance * exchange, 2, localFiat?.name || 'USD')}
+                {!viewInFiat && currencyFormat1(realUsdBalance, 2)}
               </span>
             </div>
 
