@@ -197,13 +197,14 @@ export const api_reviewAdd = async (gameId: string, commentId: string = '', text
 };
 
 export const api_reviewList = async (
-  commentId: string,
+  commentId: string = '',
   gameId: string,
   page: number,
   pageSize: number,
   sort: ReviewListSortType,
   userId: string,
 ) => {
+  if (!commentId) return api.get(API_GAME_REVIEW_LIST, { params: { page, pageSize, sort, gameId, userId } });
   return api.get(API_GAME_REVIEW_LIST, { params: { commentId, page, pageSize, sort, gameId, userId } });
 };
 
