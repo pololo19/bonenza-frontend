@@ -98,7 +98,7 @@ function BonusLoggedPage() {
         description: t('bonus:questDescription'),
         title: t('bonus:questTitle'),
         total: t('bonus:questTotal'),
-        titleValue: `${bonusData.general.dailyCompleteQuest}/4`,
+        titleValue: `${bonusData.general.dailyCompleteQuest}/3`,
         totalValue: `${bonusData.general.weeklyCompleteQuest}/1`,
         nameButton: t('bonus:questButton'),
         showDeposit: false,
@@ -132,11 +132,7 @@ function BonusLoggedPage() {
         title: t('bonus:BNZTitle'),
         total: t('bonus:BNZTotal'),
         titleValue: '5.00 USDT',
-        totalValue: `${
-          viewInFiat
-            ? currencyFormat1(lockedAmount * usdtPrice * exchangeRate, 2, localFiat?.name)
-            : currencyFormat1(lockedAmount, 2, '', false)
-        } USDT`,
+        totalValue: `${currencyFormat1(lockedAmount, 2, '', false)} USDT`,
         nameButton: t('bonus:unlockRakeBack'),
         showDeposit: false,
         action: () => {
@@ -145,7 +141,7 @@ function BonusLoggedPage() {
         tooltip: [t('bonus:rakebackTooltip1'), t('bonus:rakebackTooltip2')],
       },
     ],
-    [i18n.language, lockedAmount, bonusData],
+    [i18n.language, lockedAmount, bonusData, viewInFiat, localFiat],
   );
   const dataCardVipBonus = useMemo(
     () => [
