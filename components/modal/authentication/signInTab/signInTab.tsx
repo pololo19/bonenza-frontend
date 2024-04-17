@@ -11,6 +11,7 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo, isEmail, isPhone } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { changeDisabledPeriod } from '@/base/redux/reducers/common.reducer';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -185,8 +186,11 @@ export default function SignInTab({
             }),
           );
         }
-        if (status === 401 && errType === 'disabledAccount') {
+        if (status === 401 && errType.includes('disabledAccount') === true) {
+          const period = errType.split('_')[1];
+          dispatch(changeIsShowAuthenticationModal(false));
           dispatch(changeIsShowSelfExclusion(true));
+          dispatch(changeDisabledPeriod(Number(period)));
         }
       } finally {
         setIsLoading(false);

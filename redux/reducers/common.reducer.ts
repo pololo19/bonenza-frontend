@@ -7,6 +7,7 @@ import { CommonState } from '@/base/types/reducer-states';
 
 const initialCommonState: CommonState = {
   isLoading: true,
+  disabledPeriod: 0,
   fiatArray: FIAT_DATA,
   cryptoArray: [],
   depositCryptoArray: CRYPTO_DATA,
@@ -66,6 +67,9 @@ export const queryDataSlice = createSlice({
     changeIsLoading: (state: CommonState, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;
     },
+    changeDisabledPeriod: (state: CommonState, action: PayloadAction<number>) => {
+      state.disabledPeriod = action.payload;
+    },
   },
 });
 
@@ -81,5 +85,6 @@ export const {
   setLastMessage,
   setIsNewMessage,
   changeIsLoading,
+  changeDisabledPeriod,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
