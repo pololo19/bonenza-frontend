@@ -62,9 +62,9 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
             <CommonSession icon={Setting} title="Setting">
               <Menu
                 as="div"
-                className="relative w-auto text-left rounded-[7px] flex dark:text-white text-black md:hidden"
+                className="relative w-full text-left rounded-[7px] flex dark:text-white text-black md:hidden"
               >
-                <Menu.Button>
+                <Menu.Button className="w-full">
                   <div
                     role="button"
                     className="flex items-center gap-2 py-2 px-6 w-full rounded dark:bg-color-modal-bg-secondary bg-[#fff]  min-w-[200px]"
