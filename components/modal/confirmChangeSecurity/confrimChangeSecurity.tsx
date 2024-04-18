@@ -7,10 +7,10 @@ import { OtpInput } from 'reactjs-otp-input';
 import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalEnterCodeSecurityProps = {
   onClose: () => void;
@@ -95,7 +95,7 @@ export default function ModalEnterCodeSecurity({ show, onClose, value, onChange,
                 onChange={(otp) => onChange(otp, 'codeOtp')}
                 numInputs={6}
                 inputStyle={
-                  'dark:bg-[#222328] bg-[#f5f6fa] dark:text-white text-black !w-[48px] h-[48px] rounded-[5px] focus:outline-none'
+                  'bg-color-input-primary dark:text-white text-black !w-[48px] h-[48px] rounded-[5px] focus:outline-none'
                 }
                 containerStyle={'gap-[4px]'}
               />
