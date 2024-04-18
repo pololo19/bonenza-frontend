@@ -79,7 +79,7 @@ const SettingSecurity = () => {
     resolver: yupResolver(schema),
   });
 
-  const { control: LoginPasswordControl } = useForm<LoginPassword>({
+  const { control: LoginPasswordControl, reset: resetLoginPassword } = useForm<LoginPassword>({
     resolver: yupResolver(loginPasswordControl),
   });
 
@@ -166,6 +166,7 @@ const SettingSecurity = () => {
     } else {
       confirmQrCode();
     }
+    resetLoginPassword();
   };
 
   const disableTwoFactor = async () => {
@@ -425,7 +426,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:!bg-color-input-primary bg-color-light-input-primary dark:!text-white !text-black !w-[32px] !h-[32px] !rounded-default focus:!outline-none'
+                              'bg-color-input-primary border border-1 border-color-text-primary focus:border-color-primary dark:!text-white !text-black !w-[42px] !h-[42px] !rounded-default focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -451,7 +452,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'dark:bg-color-input-primary bg-color-light-input-primary dark:text-white text-black !w-[32px] h-[32px] rounded-default focus:outline-none'
+                              'bg-color-input-primary border border-1 border-color-text-primary focus:border-color-primary dark:!text-white !text-black !w-[42px] !h-[42px] !rounded-default focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />

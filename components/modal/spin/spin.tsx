@@ -80,6 +80,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const [spinAvailable, setSpinAvailable] = useState<boolean>(true);
   const [currentVipLevel, setCurrentViplevel] = useState<number>(0);
   const [spinAvailableCount, setSpinAvailableCount] = useState<number>(0);
+  const [isSpinning, setIsSpinning] = useState<boolean>(false);
 
   const { isLogin, isShowSpinClaim, user, isShowSpin } = useSelector(
     (state: AppState) => ({
@@ -162,6 +163,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   }, [isShowSpinClaim, isShowSpin, isLogin]);
 
   const spinPlay = async () => {
+    if (isSpinning) return;
     if (!isLogin) {
       dispatch(changeIsShowSpin(false));
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
@@ -171,6 +173,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     if (!spinAvailable || isRotating) {
       return;
     }
+    setIsSpinning(true);
     let deltaAngle = 0;
     try {
       const res = await api_postSpinTry(spins.indexOf(spinTab));
@@ -192,6 +195,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       toast.error((status || 404) === 400 ? t('bonus:spinNoSpin') : t('bonus:spinWrong'), {
         containerId: TOAST_ENUM.COMMON,
       });
+      setIsSpinning(false);
       return;
     }
     audio?.play();
@@ -215,6 +219,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
     }, 1);
     timeOut.current = setTimeout(async () => {
       clearInterval(timer);
+      setIsSpinning(false);
       // setRotate(deltaD);
       setIsRotating(false);
       const _resBonus = await api_getClaims();

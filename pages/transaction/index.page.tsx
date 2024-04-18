@@ -969,7 +969,6 @@ const TransactionPage = () => {
       case 2:
         status = 'failed';
         break;
-
       default:
         status = 'processing';
         break;
@@ -990,13 +989,13 @@ const TransactionPage = () => {
         status = 'complete';
         break;
       case 3:
-        status = 'failed';
+        status = 'pending';
         break;
       case 4:
         status = 'approved';
         break;
       case 5:
-        status = 'rejected';
+        status = 'pending';
         break;
 
       default:
@@ -1019,7 +1018,7 @@ const TransactionPage = () => {
         statusId = 2;
         break;
       case 'pending':
-        statusId = 0;
+        statusId = 5;
         break;
       case 'failed':
         statusId = 5;
