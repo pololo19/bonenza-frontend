@@ -141,7 +141,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
                   className="z-index-toast !text-[12px]"
                   position="bottom-left"
                   theme={'dark'}
-                  hideProgressBar={true}
+                  hideProgressBar={false}
                   icon={() => null}
                   closeButton={() => null}
                   toastClassName={'min-h-[40px]'}

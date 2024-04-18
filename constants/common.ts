@@ -1175,8 +1175,8 @@ export const LIST_FILTER_STATUS = [
   { name: 'transaction:allStatus', type: '', flag: true },
   { name: 'transaction:complete', type: 'complete', flag: true },
   { name: 'transaction:processing', type: 'processing', flag: true },
-  { name: 'transaction:pending', type: 'pending', flag: false },
-  { name: 'transaction:failed', type: 'failed', flag: true },
+  { name: 'transaction:pending', type: 'pending', flag: true },
+  { name: 'transaction:failed', type: 'failed', flag: false },
   { name: 'transaction:canceled', type: 'rejected', flag: false },
 ];
 
