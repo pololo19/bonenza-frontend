@@ -428,7 +428,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'bg-color-input-primary border border-1 border-color-text-primary focus:border-color-primary dark:!text-white !text-black !w-[42px] !h-[42px] !rounded-default focus:!outline-none'
+                              'bg-color-input-primary border border-1 border-color-border-primary focus:border-color-primary dark:!text-white !text-black !w-[48px] !h-[48px] !rounded-default focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
@@ -454,7 +454,7 @@ const SettingSecurity = () => {
                             onChange={handleChange}
                             numInputs={6}
                             inputStyle={
-                              'bg-color-input-primary border border-1 border-color-text-primary focus:border-color-primary dark:!text-white !text-black !w-[42px] !h-[42px] !rounded-default focus:!outline-none'
+                              'bg-color-input-primary border border-1 border-color-border-primary focus:border-color-primary dark:!text-white !text-black !w-[48px] !h-[48px] !rounded-default focus:!outline-none'
                             }
                             containerStyle={'gap-[4px]'}
                           />
