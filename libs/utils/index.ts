@@ -479,7 +479,7 @@ export const convertStatus = (status: TransactionStatus) => {
       newStatus = 'processing';
       break;
     case 'pending':
-      newStatus = 'processing';
+      newStatus = 'pending';
       break;
     case 'refunding':
       newStatus = 'processing';

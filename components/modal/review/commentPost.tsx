@@ -134,14 +134,17 @@ export default function CommentPostModal({
                   >
                     <Popover.Panel
                       static
-                      className="sm:absolute sm:mr-0 mr-[10px] fixed -top-[300px] h-auto z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none w-full"
+                      className="absolute sm:mr-0 mr-[10px] fixed sm:-top-[250px] top-0 h-auto z-[110] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none w-full"
                     >
-                      <div className="sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white shadow-gray-700 dark:shadow w-full">
+                      <div className="sm:relative fixed left-0 rounded-md dark:bg-color-menu-primary bg-white shadow-gray-700 dark:shadow w-full">
                         <EmojiPicker
                           emojiStyle={EmojiStyle.NATIVE}
                           theme={theme == 'light' ? Theme.LIGHT : Theme.DARK}
                           width={'100%'}
-                          height={300}
+                          height={250}
+                          style={{ fontSize: 14 }}
+                          previewConfig={{ showPreview: false }}
+                          searchDisabled
                           onEmojiClick={(emojiData) => setReview((cur) => `${cur}${emojiData.emoji}`)}
                         />
                       </div>

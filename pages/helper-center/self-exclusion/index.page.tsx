@@ -2,6 +2,7 @@ import { Menu } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2 } from 'iconsax-react';
 import { ReactElement, useState } from 'react';
+import ReactLoading from 'react-loading';
 import { toast } from 'react-toastify';
 
 import { api_requestSelfExclusion } from '@/api/auth';
@@ -41,6 +42,7 @@ const SelfExclusion = () => {
   const [showRules, setShowRules] = useState<boolean>(false);
 
   const handleRequest = async () => {
+    if (isLoading) return;
     try {
       setIsLoading(true);
       const utcTime = Date.now();
@@ -50,6 +52,8 @@ const SelfExclusion = () => {
       const _res = await api_requestSelfExclusion(unixTime);
       toast.success('Confirmation Email is sent to your mail Box. Please check your mail box. Thank you.', {
         containerId: TOAST_ENUM.COMMON,
+        toastId: 'selfExclusionSucceed',
+        icon: true,
       });
       setIsLoading(false);
     } catch (error: any) {
@@ -140,11 +144,15 @@ const SelfExclusion = () => {
           </div>
           <div className="flex justify-start mt-4">
             <button
-              className="bg-gradient-btn-play p-[10px] rounded-large min-w-[200px] disabled:opacity-40 hover:opacity-90"
+              className="flex justify-center bg-gradient-btn-play p-[10px] rounded-large min-w-[200px] disabled:opacity-40 hover:opacity-90"
               disabled={!acknowledge}
               onClick={() => handleRequest()}
             >
-              {t('helper:selfExclusionRequest')}
+              {isLoading ? (
+                <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-5 !h-5" />
+              ) : (
+                t('helper:selfExclusionRequest')
+              )}
             </button>
           </div>
         </div>
