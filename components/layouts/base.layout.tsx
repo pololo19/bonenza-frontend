@@ -66,7 +66,7 @@ import {
   updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetTableDataType, FiatType, MessageType } from '@/base/types/common';
+import { BetTableDataType, MessageType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
@@ -606,10 +606,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isLoading ? (
         <Loader isHomePage />
       ) : (
-        <div className="min-h-screen h-full w-full overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
+        <div className="min-h-screen h-full w-full overflow-hidden font-dayOne">
           {isToggleSidebar && (
             <div
-              className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0  dark:bg-black/60 z-[20]"
+              className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0 z-[20]"
               onClick={() => dispatch(changeToggleSidebar(!isToggleSidebar))}
             ></div>
           )}
