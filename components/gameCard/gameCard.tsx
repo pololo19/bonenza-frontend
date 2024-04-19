@@ -48,7 +48,7 @@ function GameCard(props: GameCardProps) {
       onClick={() => dispatch(changeIsShowCasinoSearch(false))}
     >
       <div
-        className={classNames('bg-[#31373D77] sm:block rounded-large overflow-hidden p-2', {
+        className={classNames('sm:block rounded-large overflow-hidden p-2', {
           flex: listView,
           block: !listView,
         })}
@@ -63,13 +63,13 @@ function GameCard(props: GameCardProps) {
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
             }}
-            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-large"
+            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-[30px]"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
           />
           {/* </LazyLoad> */}
         </Link>
-        <div className="flex flex-col gap-5 py-2">
+        <div className="flex flex-col gap-5 py-[10px] mb-[10px]">
           <div className="flex justify-center items-center gap-[5px]">
             <div className="dark:text-white text-black font-light text-default sm:text-[16px] truncate">
               {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
@@ -91,8 +91,8 @@ function GameCard(props: GameCardProps) {
         place="bottom"
         // content={String(gameDetail?.description)}
       >
-        <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3">
-          <span className="font-bold dark:text-gray-300 text-gray-700">RPT:</span>
+        <div className="flex items-center justify-between p-2 px-3 bg-gray-200 rounded dark:bg-color-bg-primary">
+          <span className="font-bold text-gray-700 dark:text-gray-300">RPT:</span>
           <span
             className={cn('font-bold', {
               'text-[#0C0]': gameDetail.payout > 90,
@@ -102,9 +102,9 @@ function GameCard(props: GameCardProps) {
             {gameDetail.payout ?? 0}%
           </span>
         </div>
-        <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
-          <span className="font-bold dark:text-gray-300 text-gray-700">Recent biggest win:</span>
-          <span className="font-bold dark:text-gray-300 text-gray-700">{`${
+        <div className="flex items-center justify-between p-2 px-3 mt-3 bg-gray-200 rounded dark:bg-color-bg-primary">
+          <span className="font-bold text-gray-700 dark:text-gray-300">Recent biggest win:</span>
+          <span className="font-bold text-gray-700 dark:text-gray-300">{`${
             gameDetail?.multiplier.toFixed(2) || '0'
           } x`}</span>
         </div>

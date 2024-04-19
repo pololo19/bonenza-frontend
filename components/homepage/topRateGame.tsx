@@ -37,12 +37,12 @@ export function CardTopRated({ title, provider, identifier }: CardTopRatedProps)
         />
       </div>
       <div className="p-[10px]">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="text-white font-medium text-[12px]">{title}</div>
           <InfoCircle size={16} className="text-[#8E8E90]" />
         </div>
         <div className="flex justify-center items-center rounded-[5px] bg-[#F61B4F] hover:opacity-[0.9] max-w-fit px-2 cursor-pointer py-[10px] gap-[10px] mt-[10px]">
-          <div className="text-white font-bold text-[12px]">{String(t('homePage:playNow'))}</div>
+          <div className="text-white text-[12px] font-[700]">{String(t('homePage:playNow'))}</div>
         </div>
       </div>
     </div>

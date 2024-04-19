@@ -8,7 +8,8 @@
 }
 
 .slideProgress {
-  @apply bg-color-primary;
+  // @apply bg-color-primary;
+  background-color: #73FF00;
   position: relative;
   animation-name: slide;
   animation-duration: 2s;
