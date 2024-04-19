@@ -318,19 +318,19 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full mt-[15px] sm:mt-0 sm:min-h-[454px] min-h-[170px] block sm:hidden lg:block z-50 bg-color-bg-primary">
+            <div className="relative h-auto w-full mt-[15px] sm:mt-0 sm:min-h-[410px] min-h-[170px] block sm:hidden lg:block z-50 bg-color-bg-primary">
               <div className="absolute right-0 w-full h-full overflow-hidden rounded-large">
                 <CsrWrapper>
                   <Image
                     width={1439}
-                    height={460}
-                    className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[454px] min-h-[170px] object-cover"
+                    height={410}
+                    className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:max-h-[384px] min-h-[170px] object-cover"
                     src={theme === 'dark' ? '/img/homepage-bg-14.png' : '/img/homepage-bg-14.png'}
                     alt=""
                   />
                 </CsrWrapper>
               </div>
-              <div className="relative z-[2] w-full sm:min-h-[454px] min-h-[170px] pl-[5px] sm:pl-0 flex flex-col justify-center">
+              <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-0 flex flex-col justify-center">
                 {/* <div className="h-[134px] w-[646px] relative">
                   <Image
                     src="/img/page/grand_jackpot.png"
