@@ -69,14 +69,14 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
   );
   return (
     <>
-      <div className="sm:max-w-[96px] h-full max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
-        <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[6px]">
+      <div className="sm:max-w-game-card h-full max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[20px] items-center justify-between pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
+        <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[12px]">
           <Image
             height={96}
             width={96}
             src={imgCard}
             alt=""
-            className="sm:w-full w-[36px] h-[auto] object-contain sm:rounded-t-default"
+            className="sm:w-full w-[36px] h-[auto] object-contain sm:rounded-[30px]"
             placeholder="blur"
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
@@ -85,7 +85,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
           />
           <div
             onClick={openModalProfileUser}
-            className={cn('font-light text-[13px] sm:text-[13px] hover:underline min-h-[18px] text-center', {
+            className={cn('font-light text-[13px] sm:text-[20px] hover:underline min-h-[18px] text-center', {
               'dark:text-color-text-primary text-color-light-text-primary pointer-events-none cursor-text':
                 userData?.userId !== userId && !userData?.username,
               'dark:text-white text-black': !(userData?.userId !== userId && !userData?.username),
@@ -103,15 +103,15 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
             )}
           </div>
         </div>
-        <div className="flex gap-[5px]">
+        <div className="flex gap-[5px] bg-[#5D00E1]/25 w-full rounded-default py-[12px]">
           <div
             data-tooltip-id={'CardBigWinData' + price}
             className="hidden sm:flex cursor-pointer sm:w-full  justify-center items-center text-center sm:rounded-[5px] mr-1"
           >
-            <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+            <div className="text-[#FF9E4F] font-semibold text-[12px] sm:text-[20px] truncate">{price}</div>
           </div>
           <div className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]">
-            <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+            <div className="text-[#FF9E4F] font-semibold text-[12px] sm:text-[20px] truncate">{price}</div>
             <Image
               src={currency ? `/img/fiats/${currency.toUpperCase()}.png` : '/img/fiats/USDT.png'}
               width={12}
@@ -123,7 +123,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
               }}
             />
           </div>
-          <ArrowRight2 width={12} height={12} variant="Bulk" className="w-4 h-4 block sm:hidden" />
+          <ArrowRight2 width={12} height={12} variant="Bulk" className="block w-4 h-4 sm:hidden" />
         </div>
       </div>
       <Tooltip id={'CardBigWinData' + price} place="bottom" content={String(price)} />
@@ -209,6 +209,7 @@ function RecentBigWinComponent() {
         title={String(t('homePage:recentBigWins'))}
         delay={600}
         data={listBigWinGame}
+        isRecent={false}
         icon={isMobile ? <LiveStream className="text-color-primary " /> : undefined}
         renderItem={(item) => renderData(item)}
         onClickItem={(game) => {

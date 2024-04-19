@@ -167,13 +167,13 @@ export default function Navbar() {
                 className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold hover:opacity-90"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
-                <div className="sm:block hidden">
+                <div className="hidden sm:block">
                   <MoneyRecive />
                 </div>
-                <div className="sm:hidden block">
+                <div className="block sm:hidden">
                   <Add />
                 </div>
-                <span className="sm:block hidden">{t('layout:deposit')}</span>
+                <span className="hidden sm:block">{t('layout:deposit')}</span>
               </button>
             )}
             {/* {isLogin && (
@@ -232,7 +232,7 @@ export default function Navbar() {
                 <Global className="w-[20px] h-[20px]" />
               )}
             </button>
-            {viewInFiat && localFiat && <div className="w-px h-5 bg-slate-400 sm:block hidden"></div>}
+            {viewInFiat && localFiat && <div className="hidden w-px h-5 bg-slate-400 sm:block"></div>}
             {viewInFiat && localFiat && (
               <button
                 type="button"
