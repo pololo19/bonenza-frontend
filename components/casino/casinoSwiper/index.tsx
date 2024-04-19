@@ -143,7 +143,7 @@ const CasinoSwiper = <T,>({
                   <SwiperSlide
                     key={key}
                     className={cn(`w-full !mb-0 !p-[0px] sm:!p-0 max-w-full `, {
-                      'sm:max-w-[96px]': isRecent,
+                      'sm:max-w-[84px]': isRecent,
                       'sm:max-w-game-card': !isRecent,
                     })}
                     onClick={() => onClickItem?.(game)}
