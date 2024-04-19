@@ -1,14 +1,5 @@
 import cn from 'classnames';
-import {
-  ArrowSwapVertical,
-  Command,
-  Diamonds,
-  Gift,
-  HambergerMenu,
-  Headphone,
-  Notepad2,
-  SecurityCard,
-} from 'iconsax-react';
+import { Command, Diamonds, Gift, HambergerMenu, Headphone, Notepad2, SecurityCard } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -34,7 +25,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption from '../common/iconOption/iconOption';
 import CsrWrapper from '../CsrWrapper';
-import RacingBoldIcon from '../icons/RacingBoldIcon';
 
 export default function SidebarToggle() {
   const { t, i18n } = useTranslation('');
@@ -90,7 +80,6 @@ export default function SidebarToggle() {
         isDropDown: true,
         data: [...casinoCategories, ...casinoGames],
       },
-
       // {
       //   title: String(t('sidebar:sports')),
       //   href: ROUTER.Sports,
@@ -141,36 +130,6 @@ export default function SidebarToggle() {
 
   const panel_2_datas = useMemo(
     () => [
-      {
-        title: String(t('layout:racing')),
-        href: ROUTER.Tagname('Racing'),
-        icon: RacingBoldIcon,
-        smallIcon: (
-          <RacingBoldIcon
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
-            })}
-          />
-        ),
-        isShowDropDown: false,
-        isDropDown: false,
-      },
-      {
-        title: String(t('layout:updown')),
-        href: ROUTER.Tagname('Racing'),
-        icon: ArrowSwapVertical,
-        smallIcon: (
-          <ArrowSwapVertical
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
-            })}
-          />
-        ),
-        isShowDropDown: false,
-        isDropDown: false,
-      },
       {
         title: String(t('sidebar:vipClub')),
         href: '',
@@ -299,7 +258,7 @@ export default function SidebarToggle() {
           >
             <HambergerMenu size={18} className={cn('m-auto')} />
           </button>
-          <Link href={'/'} className="items-center hidden sm:flex">
+          <Link href={'/'} className="hidden sm:flex items-center">
             <Image
               width={158}
               height={31}
@@ -322,8 +281,8 @@ export default function SidebarToggle() {
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
-                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-to-t !from-emerald-800 !to-cyan-400 hover:opacity-90 rounded-[100px] px-[10px]"
-                  classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-to-t !from-emerald-800 !to-cyan-400 hover:opacity-90  rounded-[100px] px-[10px]"
+                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
+                  classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
                 />
               </CsrWrapper>
 
@@ -346,7 +305,7 @@ export default function SidebarToggle() {
                         dispatch(changeIsShowQuest(true));
                       }
                     }}
-                    classNames="h-[40px] bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
+                    classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
                   />
                 </CsrWrapper>
                 <CsrWrapper key="spin">
@@ -361,7 +320,7 @@ export default function SidebarToggle() {
                     isFontMedium
                     fontWeight={600}
                     onClick={() => dispatch(changeIsShowSpin(true))}
-                    classNames="h-[40px] bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
+                    classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
                   />
                 </CsrWrapper>
               </div>

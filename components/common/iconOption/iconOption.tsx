@@ -3,7 +3,7 @@ import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ElementType, useEffect, useState } from 'react';
+import React, { ElementType, ReactNode, useEffect, useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
@@ -74,13 +74,13 @@ const IconOption = ({
   const { pathname } = router;
   const IconElement = icon;
   const [showDropDownCasino, setShowDropDownCasino] = useState(
-    casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)),
-    // true,
+    // casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)),
+    true,
   );
 
-  useEffect(() => {
-    setShowDropDownCasino(casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)));
-  }, [pathname]);
+  // useEffect(() => {
+  //   setShowDropDownCasino(casinoPaths.some((path) => pathname !== '/' && path.includes(pathname)));
+  // }, [pathname]);
   return (
     <>
       {!isDropDown &&
@@ -97,7 +97,7 @@ const IconOption = ({
             href={href}
             onClick={() => {
               // disable hide menus
-              setShowDropDownCasino(!showDropDownCasino);
+              // setShowDropDownCasino(!showDropDownCasino);
               onClick?.();
             }}
           >
@@ -132,7 +132,7 @@ const IconOption = ({
             )}
             onClick={() => {
               // disable hide menus
-              setShowDropDownCasino(!showDropDownCasino);
+              // setShowDropDownCasino(!showDropDownCasino);
               onClick?.();
             }}
           >
@@ -183,7 +183,7 @@ const IconOption = ({
             )}
             onClick={() => {
               // disable hide menus
-              setShowDropDownCasino(!showDropDownCasino);
+              // setShowDropDownCasino(!showDropDownCasino);
               onClick?.();
             }}
           >
@@ -202,9 +202,9 @@ const IconOption = ({
             >
               {title}
             </div>
-            <ArrowRight2
+            {/* <ArrowRight2
               className={`w-3 h-3 mr-1 transition-all duration-150 ${showDropDownCasino ? 'rotate-90' : 'rotate-0'}`}
-            />
+            /> */}
           </div>
           <div
             className={cn('transition-all overflow-hidden duration-[200] flex flex-col gap-[10px] mt-10px', {
