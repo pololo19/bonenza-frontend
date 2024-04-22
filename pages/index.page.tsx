@@ -318,7 +318,7 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full mt-[15px] sm:mt-0 sm:min-h-[410px] min-h-[170px] block sm:hidden lg:block z-50 bg-color-bg-primary">
+            <div className="relative h-auto w-full mt-[15px] sm:mt-0 sm:min-h-[410px] min-h-[170px] block sm:hidden lg:block bg-color-bg-primary">
               <div className="absolute right-0 w-full h-full overflow-hidden rounded-large">
                 <CsrWrapper>
                   <Image
