@@ -26,7 +26,6 @@ import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalQuest = {
   onClose: () => void;
@@ -481,8 +480,8 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               description={String(
                 t(getContentByCategory(item.category), {
                   amount: viewInFiat
-                    ? currencyFormat1(item.goalAmount, 2, localFiat?.name)
-                    : currencyFormat1(item.goalAmount * exchangeRate, 2, localFiat?.name),
+                    ? currencyFormat1(item.goalAmount * exchangeRate, 2, localFiat?.name)
+                    : currencyFormat1(item.goalAmount, 2, localFiat?.name),
                   multi: item.goalMultiplier,
                 }),
               )}
@@ -505,7 +504,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         </>
       );
     },
-    [i18n.language],
+    [i18n.language, localFiat, exchangeRate],
   );
 
   useEffect(() => {
@@ -531,7 +530,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         }
       >
         <div className="flex flex-col px-5 pt-1 items-center gap-[10px] overflow-y-auto relative">
-          <div className="flex justify-start w-full pt-4 text-color-primary font-bold text-default">
+          <div className="flex justify-start w-full pt-4 font-bold text-color-primary text-default">
             {format(new Date(), 'eeee')}
           </div>
           <div className="flex justify-between w-full">
