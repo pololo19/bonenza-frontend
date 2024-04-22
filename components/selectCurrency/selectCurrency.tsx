@@ -11,12 +11,12 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
+import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 
 import InputSearch from '../input/typing/InputSearch';
-import { useWidth } from '@/base/hooks/useWidth';
 
 type SelectCurrencyProps = {
   activeCoin: CurrencyType;
@@ -59,9 +59,7 @@ const SelectCurrency = ({
 
   const filterListCoin = useMemo(() => {
     return symbols
-      .filter((item) => {
-        return String(item.name).toLowerCase().includes(searchInput.toLowerCase());
-      })
+      .filter((item) => String(item.name).toLowerCase().includes(searchInput.toLowerCase()) && item.favorite)
       .sort(
         (a, b) =>
           (balances.find((item) => item.symbolId === b.id)?.amount || 0) * b.price -
@@ -136,7 +134,7 @@ const SelectCurrency = ({
           {({ open }) => (
             <>
               {!withDrawTab && (
-                <div className="w-full flex overflow-hidden gap-1 overflow-x-auto">
+                <div className="flex w-full gap-1 overflow-hidden overflow-x-auto">
                   {symbols.slice(0, width >= 510 ? 4 : 3).map((symbol, index) => (
                     <button
                       className={cn(
@@ -180,7 +178,7 @@ const SelectCurrency = ({
                           width={24}
                           height={24}
                           src={symbol.logo ? symbol.logo : '/img/fiats/USDT.png'}
-                          className="-ml-2 w-6 h-6"
+                          className="w-6 h-6 -ml-2"
                           alt=""
                           onError={(e) => {
                             e.currentTarget.src = '/img/fiats/USDT.png';
@@ -211,7 +209,7 @@ const SelectCurrency = ({
                       />
                     </LazyLoad>
 
-                    <div className="dark:text-white text-black flex-1 text-start text-default">
+                    <div className="flex-1 text-black dark:text-white text-start text-default">
                       {activeCoin.name}
                       <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin.name}</span>
                     </div>
@@ -219,7 +217,7 @@ const SelectCurrency = ({
                   <div className="flex items-center justify-start gap-[10px]">
                     <div className="flex items-center text-default dark:text-color-text-primary text-color-light-text-primary gap-[10px]">
                       {t('deposit:balance')}{' '}
-                      <span className="text-default font-semibold dark:text-white text-color-light-text-primary">
+                      <span className="font-semibold text-default dark:text-white text-color-light-text-primary">
                         {viewInFiat
                           ? currencyFormat1(
                               getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
@@ -283,14 +281,14 @@ const SelectCurrency = ({
                                 className="inline"
                                 alt=""
                               />
-                              <div className="flex-1 text-start text-default dark:text-white text-black font-semibold">
+                              <div className="flex-1 font-semibold text-black text-start text-default dark:text-white">
                                 {symbol.name}
                               </div>
                             </div>
                             <div className="flex items-center justify-start gap-[10px] py-[10px]">
                               <div className="flex flex-col">
                                 {viewInFiat && (
-                                  <span className="text-default font-semibold dark:text-white text-black text-right">
+                                  <span className="font-semibold text-right text-black text-default dark:text-white">
                                     {currencyFormat1(
                                       getBalanceBySymbol(symbol) * symbol.price * exchangeRate,
                                       fiatDecimals,
@@ -308,8 +306,8 @@ const SelectCurrency = ({
                                   {currencyFormat1(getBalanceBySymbol(symbol), cryptoDecimals, '', false)}
                                 </span>
                                 {symbol.name.toLowerCase() === 'usdt' && (
-                                  <div className="text-default dark:text-white text-black truncate text-right w-full font-vietnam-bold">
-                                    <div className="mt-1 flex justify-end text-color-secondary">
+                                  <div className="w-full text-right text-black truncate text-default dark:text-white font-vietnam-bold">
+                                    <div className="flex justify-end mt-1 text-color-secondary">
                                       <span className="w-fit flex items-center text-[10px] text-right justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2">
                                         <Lock size={12} variant="Bold" />{' '}
                                         {viewInFiat
@@ -349,7 +347,7 @@ const SelectCurrency = ({
           <Menu.Button className="flex-1 py-[15px] px-[20px]">
             <div className="flex items-center justify-between w-full" role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
-                <div className="flex-1 text-start dark:text-white text-black text-default">{activeNetwork.name}</div>
+                <div className="flex-1 text-black text-start dark:text-white text-default">{activeNetwork.name}</div>
               </div>
               <div className="flex items-center justify-start gap-[10px]">
                 <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />
@@ -383,7 +381,7 @@ const SelectCurrency = ({
                       >
                         <div className="flex-1 flex items-center justify-start gap-[10px]">
                           {network && (
-                            <div className="flex-1 dark:text-white text-color-light-text-primary text-start text-default font-semibold">
+                            <div className="flex-1 font-semibold dark:text-white text-color-light-text-primary text-start text-default">
                               {network.name}
                             </div>
                           )}
