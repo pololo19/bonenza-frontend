@@ -26,7 +26,6 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import AdminLayout from '@/components/layouts/admin.layout';
 import Paging from '@/components/paging/paging';
 import AdminTableComponent from '@/components/table/adminTable';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type FilterType = {
   username?: string;
@@ -154,7 +153,7 @@ function AdminRewardsPage() {
         header: () => <div className="text-center text-[12px]">{t('mycasino:commissionRewards')}</div>,
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-center text-[#6f6f6f] gap-[5px] truncate')}>
-            <div className="font-bold truncate flex gap-1">
+            <div className="flex gap-1 font-bold truncate">
               {`${
                 viewInFiat
                   ? currencyFormat1(
@@ -216,7 +215,7 @@ function AdminRewardsPage() {
   return (
     <div className="bg-white rounded border border-solid border-gray-200 p-4 flex flex-col xl:grid xl:grid-cols-2 gap-[40px]">
       <div className="flex flex-col items-center justify-start gap-[5px] mt-[15px]">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col items-start justify-between w-full sm:items-center sm:flex-row">
           <span className="font-[600] text-[16px]">{t('mycasino:totalCommissionRewards')}</span>&nbsp;&nbsp;
           <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right truncate">
             {viewInFiat
@@ -228,7 +227,7 @@ function AdminRewardsPage() {
               : currencyFormat1(totalCommissionRewardsData.totalCommissionRewardsReceivedAmountUsd, decimals)}
           </span>
         </div>
-        <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col items-start justify-between w-full sm:items-center sm:flex-row">
           <span className="font-[600] text-[16px]">{t('mycasino:totalCommission')}</span>&nbsp;&nbsp;
           <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
             {viewInFiat
@@ -241,7 +240,7 @@ function AdminRewardsPage() {
           </span>
         </div>
 
-        <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col items-start justify-between w-full sm:items-center sm:flex-row">
           <span className="font-[600] text-[16px]">{t('mycasino:commissionRewards')}</span>&nbsp;&nbsp;
           <span className="text-[32px] xl:text-[20px] 2xl:text-[32px] text-amber-400 font-[700] text-right">
             {viewInFiat
@@ -255,11 +254,11 @@ function AdminRewardsPage() {
         </div>
         <div className="flex items-center justify-end w-full">
           <button
-            className="bg-gradient-btn-play px-6 py-3 rounded-default text-white flex items-center"
+            className="flex items-center px-6 py-3 text-white bg-gradient-btn-play rounded-default"
             onClick={handleWithdraw}
           >
             {isLoading && (
-              <div className="w-fit px-1 flex items-center justify-center">
+              <div className="flex items-center justify-center px-1 w-fit">
                 <ReactLoading type={'spin'} width={20} height={20} />
               </div>
             )}

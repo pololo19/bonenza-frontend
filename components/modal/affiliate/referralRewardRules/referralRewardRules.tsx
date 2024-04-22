@@ -119,7 +119,7 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
             <div className="w-28 h-[2px] bg-gradient-to-r from-white via-transparent to-transparent transform -scale-x-1"></div>
           </div>
           <div className="w-full bg-[#17181b]">
-            <div className="relative overflow-x-auto">
+            <div className="relative w-full overflow-x-auto">
               <table className="w-full text-base text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-[#94a9bf] bg-[#1e2024]">
                   <tr>
@@ -144,11 +144,16 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
                           : 'border-b bg-gray-50 dark:bg-[#1e2024]'
                       }`}
                     >
-                      <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                      <th
+                        scope="row"
+                        className="px-2 py-2 font-medium text-gray-900 sm:px-6 sm:py-4 whitespace-nowrap dark:text-white"
+                      >
                         {item.friendLevel}
                       </th>
-                      <td className="px-6 py-4 min-w-[180px] text-center">{item.totalWager}</td>
-                      <td className="px-6 py-4 font-bold text-[#ffbf39] flex justify-between">
+                      <td className="sm:px-6 sm:py-4 px-2 py-2 sm:min-w-[180px] min-w-[120px] text-center">
+                        {item.totalWager}
+                      </td>
+                      <td className="sm:px-6 sm:py-4 px-2 py-2 font-bold text-[#ffbf39] flex justify-between">
                         <span className="w-5 h-5 bg-[#ffbf39] text-[#17191b] rounded-full flex items-center justify-center">
                           $
                         </span>
