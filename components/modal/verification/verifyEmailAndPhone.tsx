@@ -54,9 +54,9 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
       }
       toast.success(t('authentication:verificationSentSuccess'), { containerId: TOAST_ENUM.MODAL });
     } catch (error: any) {
-      const errType = error?.response?.message ?? '';
+      const errType = error?.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.success(t(errMessage), { containerId: TOAST_ENUM.MODAL });
+      toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -136,7 +136,7 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
               </div>
             </div>
 
-            <div className="w-full relative">
+            <div className="relative w-full">
               <button className="w-full rounded-default bg-gradient-btn-play py-[10px]" onClick={confirmCode}>
                 {t('setting:verify')}
               </button>

@@ -118,8 +118,9 @@ const SettingSecurity = () => {
       setIsSetLogin(true);
       setPassword('');
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const errType = error?.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -132,8 +133,9 @@ const SettingSecurity = () => {
       setQrCode(res.data.qrCodeUrl);
       setSecret(res.data.secretKey);
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const errType = error?.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -186,8 +188,9 @@ const SettingSecurity = () => {
       setOtp('');
       setPasswordLogin('');
     } catch (error: any) {
-      const messError = error?.response?.data?.message;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const errType = error?.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -218,8 +221,9 @@ const SettingSecurity = () => {
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
       dispatch(changeIsShowAuthenticationModal(true));
     } catch (error: any) {
-      const messError = error?.response?.data?.msg;
-      toast.error(messError, { containerId: TOAST_ENUM.COMMON });
+      const errType = error?.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       handleChangePassword('', 'codeOtp');
       if (tfa) setOpenModalCode(true);
     } finally {
@@ -243,8 +247,8 @@ const SettingSecurity = () => {
             <Disclosure defaultOpen={true}>
               {({ open }) => (
                 <div className="w-full">
-                  <Disclosure.Button className="py-2 w-full flex justify-between sm:pointer-events-none pointer-events-auto">
-                    <div className="font-semibold text-default mb-2">{t('setting:changePassword')}</div>
+                  <Disclosure.Button className="flex justify-between w-full py-2 pointer-events-auto sm:pointer-events-none">
+                    <div className="mb-2 font-semibold text-default">{t('setting:changePassword')}</div>
                     <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 sm:hidden block`} />
                   </Disclosure.Button>
                   <Transition
@@ -318,7 +322,7 @@ const SettingSecurity = () => {
             <Disclosure defaultOpen={true}>
               {({ open }) => (
                 <div className="w-full">
-                  <Disclosure.Button className="py-2 w-full flex justify-between sm:pointer-events-none pointer-events-auto">
+                  <Disclosure.Button className="flex justify-between w-full py-2 pointer-events-auto sm:pointer-events-none">
                     <div className="font-semibold text-default">{t('setting:setLoginPassword')}</div>
                     <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 sm:hidden block`} />
                   </Disclosure.Button>
@@ -362,7 +366,7 @@ const SettingSecurity = () => {
           <Disclosure defaultOpen={true}>
             {({ open }) => (
               <div className="w-full">
-                <Disclosure.Button className="py-2 w-full flex justify-between sm:pointer-events-none pointer-events-auto">
+                <Disclosure.Button className="flex justify-between w-full py-2 pointer-events-auto sm:pointer-events-none">
                   <div className="font-semibold text-default">{t('setting:twoFactorAuthentication')}</div>
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 sm:hidden block`} />
                 </Disclosure.Button>

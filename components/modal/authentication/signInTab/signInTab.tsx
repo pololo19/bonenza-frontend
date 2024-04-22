@@ -206,7 +206,7 @@ export default function SignInTab({
       const res = await api_sendVerifyQRCode(formData.email);
       toast.success(t('setting:verificationEmail'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const errType = error?.response?.message;
+      const errType = error?.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
       setCodeOtp('');
@@ -279,7 +279,7 @@ export default function SignInTab({
                 </div>
                 <div
                   onClick={() => setForgotKey(true)}
-                  className="text-right cursor-pointer w-full mb-4 text-default dark:text-white text-black hover:underline"
+                  className="w-full mb-4 text-right text-black cursor-pointer text-default dark:text-white hover:underline"
                 >
                   {t('authentication:lostSecutiry2FAKey')}
                 </div>
@@ -291,7 +291,7 @@ export default function SignInTab({
                 } bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
-                <div className="text-default text-white">{t('authentication:submit')}</div>
+                <div className="text-white text-default">{t('authentication:submit')}</div>
                 <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
@@ -330,7 +330,7 @@ export default function SignInTab({
                 className="bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[5px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
-                <div className="text-default text-white">{t('authentication:continue')}</div>
+                <div className="text-white text-default">{t('authentication:continue')}</div>
                 <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
                   <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
                 </div>
@@ -339,7 +339,7 @@ export default function SignInTab({
                 <div role="button" className="text-default w-full dark:text-white sm:mt-[19px] mt-[10px] text-center">
                   <span className="text-color-text-primary">{t('authentication:newtoBonenza')}&nbsp;&nbsp;</span>
                   <span
-                    className="text-color-primary font-bold hover:text-color-secondary hover:underline"
+                    className="font-bold text-color-primary hover:text-color-secondary hover:underline"
                     onClick={() => {
                       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     }}
