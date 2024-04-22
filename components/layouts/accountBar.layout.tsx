@@ -354,7 +354,7 @@ const AccountPannel: React.FC = () => {
   return (
     <div
       className={cn(
-        'fixed w-screen max-h-[calc(100vh_-_70px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[85px] bottom-[60px] dark:bg-color-bg-primary bg-color-light-bg-primary shadow sm:hidden',
+        'fixed w-screen max-h-[calc(100vh_-_70px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[70px] bottom-[60px] dark:bg-color-bg-primary bg-color-light-bg-primary shadow sm:hidden',
         {
           'translate-y-full': !isShow,
           'translate-y-0': isShow,
@@ -383,7 +383,7 @@ const AccountPannel: React.FC = () => {
                   className="w-full h-full rounded-full"
                 />
               </div>
-              <div className="flex flex-col h-full justify-between flex-1">
+              <div className="flex flex-col justify-between flex-1 h-full">
                 <p className="text-[15px] dark:text-white text-black">{userName}</p>
                 <p className="text-[12px] dark:text-color-text-primary text-black">{`User ID: ${userId}`}</p>
               </div>
@@ -398,7 +398,7 @@ const AccountPannel: React.FC = () => {
               <div className="block w-[55px] h-[55px] rounded-full">
                 <Image height={40} width={40} src="/img/avatar-1.png" alt="" className="w-full h-full" />
               </div>
-              <div className="flex flex-col h-full justify-between flex-1">
+              <div className="flex flex-col justify-between flex-1 h-full">
                 <p className="text-[15px] dark:text-white text-black font-bold">{`${t(
                   'homePage:welcomeTo',
                 )} BONENZA`}</p>
@@ -465,7 +465,7 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <div className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-default">
+          <div className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-panel-bg-primary rounded-default">
             <div className="flex justify-between border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
               <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] ">
                 {t('balance:totalBalance')}
@@ -476,7 +476,7 @@ const AccountPannel: React.FC = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-4 dark:bg-color-panel-bg-primary bg-white rounded-default">
+            <div className="grid grid-cols-4 bg-white dark:bg-color-panel-bg-primary rounded-default">
               {walletDatas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -491,7 +491,7 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-default">
+          <ul className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-panel-bg-primary rounded-default">
             {initDatas.map((data, index) => (
               <ListItem
                 key={index}
@@ -508,7 +508,7 @@ const AccountPannel: React.FC = () => {
           </ul>
         )}
 
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center dark:bg-color-panel-bg-primary bg-white rounded-default">
+        <ul className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-panel-bg-primary rounded-default">
           {settingDatas.map((item, index) => (
             <ListItem
               key={index}
