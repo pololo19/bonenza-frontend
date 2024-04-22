@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "BND/FIAT RAKEBACK ची संभाव्यता वाढवा",
     "earnLocked": "बोनसद्वारे लॉक केलेले BND/Fiat मिळवा आणि तुमच्या पसंतीच्या मार्गाने बेरीज करून त्याची क्षमता सहजतेने अनलॉक करा. ",
     "howToUnlock": "Rakeback कसे अनलॉक करावे?",
-    "getALotOfFreePerks": "भरपूर मिळवा <span class='text-color-red font-bold'>फुकट</span> भत्ता देणाऱ्या",
+    "getALotOfFreePerks": "भरपूर मिळवा <span class='font-bold text-color-red'>फुकट</span> भत्ता देणाऱ्या",
     "everyDayAndWeek": "रोज",
     "questHub": "क्वेस्ट हब",
     "conquerDaily": "तुमची कमाई जमवताना आणि स्नोबॉल करताना दैनंदिन आणि साप्ताहिक शोधांवर विजय मिळवा!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "पुनरावलोकन वेळ: काही मिनिटे",
     "verificationVerified": "मूलभूत पडताळणी सत्यापित",
     "verificationPending": "मूलभूत पडताळणी प्रलंबित",
-    "verifyCodeHeader": "आम्ही वर पडताळणी कोड पाठवला आहे {{code}}, कृपया खालील 6-अंकी कोड प्रविष्ट करा:"
+    "verifyCodeHeader": "आम्ही वर पडताळणी कोड पाठवला आहे {{code}}, कृपया खालील 6-अंकी कोड प्रविष्ट करा:",
+    "remove": "काढा"
   },
   "wagerContest": {
     "history": "इतिहास",

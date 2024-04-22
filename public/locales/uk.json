@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "МАКСИМІЗУЙТЕ ПОТЕНЦІАЛ РЕЙКБЕКУ BND/FIAT",
     "earnLocked": "Заробляйте заблокований BND/Fiat за допомогою бонусів і легко розкривайте його потенціал, роблячи ставки в обраний спосіб. ",
     "howToUnlock": "Як розблокувати рейкбек?",
-    "getALotOfFreePerks": "ОТРИМАЙТЕ БАГАТО <span class='text-color-red font-bold'>БЕЗКОШТОВНО</span> ПЕРКС",
+    "getALotOfFreePerks": "ОТРИМАЙТЕ БАГАТО <span class='font-bold text-color-red'>БЕЗКОШТОВНО</span> ПЕРКС",
     "everyDayAndWeek": "Кожен день",
     "questHub": "QUEST HUB",
     "conquerDaily": "Перемагайте щоденні та щотижневі квести, накопичуючи та сніжний ком ваші прибутки!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "Час перегляду: кілька хвилин",
     "verificationVerified": "Основна перевірка Перевірено",
     "verificationPending": "Очікується базова перевірка",
-    "verifyCodeHeader": "Ми надіслали код підтвердження на адресу {{code}}, будь ласка, введіть 6-значний код нижче:"
+    "verifyCodeHeader": "Ми надіслали код підтвердження на адресу {{code}}, будь ласка, введіть 6-значний код нижче:",
+    "remove": "видалити"
   },
   "wagerContest": {
     "history": "історія",

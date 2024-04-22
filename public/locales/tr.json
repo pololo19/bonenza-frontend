@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "BND/FIAT RAKEBACK'İN POTANSİYELİNİ EN ÜST DÜZEYE ÇIKARIN",
     "earnLocked": "Bonuslar aracılığıyla kilitli BND/Fiat kazanın ve tercih ettiğiniz şekilde bahis oynayarak potansiyelini zahmetsizce ortaya çıkarın. ",
     "howToUnlock": "Rakeback'in kilidi nasıl açılır?",
-    "getALotOfFreePerks": "ÇOK FAZLA ALIN <span class='text-color-red font-bold'>ÖZGÜR</span> AVANTAJLAR",
+    "getALotOfFreePerks": "ÇOK FAZLA ALIN <span class='font-bold text-color-red'>ÖZGÜR</span> AVANTAJLAR",
     "everyDayAndWeek": "Her gün",
     "questHub": "GÖREV MERKEZİ",
     "conquerDaily": "Kazançlarınızı toplayıp çığ gibi büyütürken günlük ve haftalık görevleri fethedin!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "İnceleme süresi: Birkaç dakika",
     "verificationVerified": "Temel Doğrulama Doğrulandı",
     "verificationPending": "Temel Doğrulama Bekleniyor",
-    "verifyCodeHeader": "Şuraya bir doğrulama kodu gönderdik: {{code}}, lütfen aşağıya 6 haneli kodu girin:"
+    "verifyCodeHeader": "Şuraya bir doğrulama kodu gönderdik: {{code}}, lütfen aşağıya 6 haneli kodu girin:",
+    "remove": "Kaldırmak"
   },
   "wagerContest": {
     "history": "Tarih",

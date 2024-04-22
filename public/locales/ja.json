@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "BND/法定通貨のレークバックの可能性を最大化する",
     "earnLocked": "ボーナスを通じてロックされた BND/法定通貨を獲得し、お好みの方法で賭けることでその可能性を簡単に解き放ちます。",
     "howToUnlock": "レイクバックのロックを解除するにはどうすればよいですか?",
-    "getALotOfFreePerks": "たくさん手に入れましょう <span class='text-color-red font-bold'>無料</span> 特典",
+    "getALotOfFreePerks": "たくさん手に入れましょう <span class='font-bold text-color-red'>無料</span> 特典",
     "everyDayAndWeek": "毎日",
     "questHub": "クエストハブ",
     "conquerDaily": "雪だるま式に収入を積み上げながら、毎日および毎週のクエストを制覇しましょう!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "レビュー時間: 数分",
     "verificationVerified": "基本的な検証が検証されました",
     "verificationPending": "基本検証保留中",
-    "verifyCodeHeader": "確認コードを送信しました {{code}}、以下の 6 桁のコードを入力してください。"
+    "verifyCodeHeader": "確認コードを送信しました {{code}}、以下の 6 桁のコードを入力してください。",
+    "remove": "取り除く"
   },
   "wagerContest": {
     "history": "歴史",

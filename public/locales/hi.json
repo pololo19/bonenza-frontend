@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "बीएनडी/फिएट रेकबैक की क्षमता को अधिकतम करें",
     "earnLocked": "बोनस के माध्यम से लॉक्ड बीएनडी/फिएट अर्जित करें और अपने पसंदीदा तरीके से दांव लगाकर आसानी से इसकी क्षमता को अनलॉक करें। ",
     "howToUnlock": "रेकबैक को कैसे अनलॉक करें?",
-    "getALotOfFreePerks": "का बहुत सा प्राप्त करें <span class='text-color-red font-bold'>मुक्त</span> भत्तों",
+    "getALotOfFreePerks": "का बहुत सा प्राप्त करें <span class='font-bold text-color-red'>मुक्त</span> भत्तों",
     "everyDayAndWeek": "रोज रोज",
     "questHub": "क्वेस्ट हब",
     "conquerDaily": "अपनी कमाई एकत्रित और बढ़ाते हुए दैनिक और साप्ताहिक खोजों पर विजय प्राप्त करें!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "समीक्षा का समय: कुछ मिनट",
     "verificationVerified": "मूल सत्यापन सत्यापित",
     "verificationPending": "बुनियादी सत्यापन लंबित",
-    "verifyCodeHeader": "हमने एक सत्यापन कोड भेज दिया है {{code}}, कृपया नीचे 6-अंकीय कोड दर्ज करें:"
+    "verifyCodeHeader": "हमने एक सत्यापन कोड भेज दिया है {{code}}, कृपया नीचे 6-अंकीय कोड दर्ज करें:",
+    "remove": "निकालना"
   },
   "wagerContest": {
     "history": "इतिहास",

@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "تعظيم إمكانات BND/FIAT RAKEBACK",
     "earnLocked": "اربح BND/Fiat المقفل من خلال المكافآت وأطلق العنان لإمكانياته بسهولة من خلال المراهنة بالطريقة المفضلة لديك. ",
     "howToUnlock": "كيفية فتح Rakeback؟",
-    "getALotOfFreePerks": "الحصول على الكثير من <span class='text-color-red font-bold'>حر</span> بدلات",
+    "getALotOfFreePerks": "الحصول على الكثير من <span class='font-bold text-color-red'>حر</span> بدلات",
     "everyDayAndWeek": "كل يوم",
     "questHub": "مركز الأسئلة",
     "conquerDaily": "تغلب على المهام اليومية والأسبوعية أثناء جمع أرباحك وزيادة حجمها!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "وقت المراجعة: بضع دقائق",
     "verificationVerified": "تم التحقق من التحقق الأساسي",
     "verificationPending": "التحقق الأساسي معلق",
-    "verifyCodeHeader": "لقد أرسلنا رمز التحقق إلى {{code}}يرجى إدخال الرمز المكون من 6 أرقام أدناه:"
+    "verifyCodeHeader": "لقد أرسلنا رمز التحقق إلى {{code}}يرجى إدخال الرمز المكون من 6 أرقام أدناه:",
+    "remove": "يزيل"
   },
   "wagerContest": {
     "history": "تاريخ",
