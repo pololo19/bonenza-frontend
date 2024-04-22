@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "TỐI ĐA HÓA TIỀM NĂNG RAKEBACK BND/FIAT",
     "earnLocked": "Kiếm BND/Fiat bị khóa thông qua tiền thưởng và dễ dàng khai thác tiềm năng của nó bằng cách đặt cược theo cách ưa thích của bạn. ",
     "howToUnlock": "Làm cách nào để mở khóa Rakeback?",
-    "getALotOfFreePerks": "NHẬN ĐƯỢC RẤT NHIỀU <span class='text-color-red font-bold'>MIỄN PHÍ</span> ĐẶC QUYỀN",
+    "getALotOfFreePerks": "NHẬN ĐƯỢC RẤT NHIỀU <span class='font-bold text-color-red'>MIỄN PHÍ</span> ĐẶC QUYỀN",
     "everyDayAndWeek": "Hằng ngày",
     "questHub": "TRUNG TÂM NHIỆM VỤ",
     "conquerDaily": "Chinh phục các nhiệm vụ hàng ngày và hàng tuần trong khi tích lũy và ném tuyết vào thu nhập của bạn!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "Thời gian xem xét: Vài phút",
     "verificationVerified": "Xác minh cơ bản Đã xác minh",
     "verificationPending": "Đang chờ xác minh cơ bản",
-    "verifyCodeHeader": "Chúng tôi đã gửi mã xác minh tới {{code}}, vui lòng nhập mã gồm 6 chữ số bên dưới:"
+    "verifyCodeHeader": "Chúng tôi đã gửi mã xác minh tới {{code}}, vui lòng nhập mã gồm 6 chữ số bên dưới:",
+    "remove": "Di dời"
   },
   "wagerContest": {
     "history": "Lịch sử",

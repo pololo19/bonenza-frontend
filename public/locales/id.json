@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "MAKSIMALKAN POTENSI RAKEBACK BND/FIAT",
     "earnLocked": "Hasilkan BND/Fiat yang terkunci melalui bonus dan buka potensinya dengan mudah dengan bertaruh sesuai keinginan Anda. ",
     "howToUnlock": "Bagaimana cara membuka kunci Rakeback?",
-    "getALotOfFreePerks": "DAPATKAN BANYAK <span class='text-color-red font-bold'>BEBAS</span> KEUNTUNGAN",
+    "getALotOfFreePerks": "DAPATKAN BANYAK <span class='font-bold text-color-red'>BEBAS</span> KEUNTUNGAN",
     "everyDayAndWeek": "Setiap hari",
     "questHub": "PUSAT PENCARIAN",
     "conquerDaily": "Taklukkan misi harian dan mingguan sambil mengumpulkan dan meningkatkan penghasilan Anda!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "Waktu peninjauan: Beberapa menit",
     "verificationVerified": "Verifikasi Dasar Diverifikasi",
     "verificationPending": "Verifikasi Dasar Tertunda",
-    "verifyCodeHeader": "Kami telah mengirimkan kode verifikasi ke {{code}}, silakan masukkan kode 6 digit di bawah ini:"
+    "verifyCodeHeader": "Kami telah mengirimkan kode verifikasi ke {{code}}, silakan masukkan kode 6 digit di bawah ini:",
+    "remove": "Menghapus"
   },
   "wagerContest": {
     "history": "Sejarah",

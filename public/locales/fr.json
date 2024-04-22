@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "MAXIMISEZ LE POTENTIEL DU RAKEBACK BND/FIAT",
     "earnLocked": "Gagnez du BND/Fiat verrouillé grâce à des bonus et débloquez sans effort son potentiel en pariant de la manière que vous préférez. ",
     "howToUnlock": "Comment débloquer le Rakeback ?",
-    "getALotOfFreePerks": "OBTENIR BEAUCOUP DE <span class='text-color-red font-bold'>GRATUIT</span> AVANTAGES",
+    "getALotOfFreePerks": "OBTENIR BEAUCOUP DE <span class='font-bold text-color-red'>GRATUIT</span> AVANTAGES",
     "everyDayAndWeek": "Tous les jours",
     "questHub": "PÔLE DE QUÊTES",
     "conquerDaily": "Réalisez des quêtes quotidiennes et hebdomadaires tout en accumulant et en faisant boule de neige vos gains !",
@@ -1634,7 +1634,8 @@
     "reviewTime": "Temps de révision : quelques minutes",
     "verificationVerified": "Vérification de base Vérifiée",
     "verificationPending": "Vérification de base en attente",
-    "verifyCodeHeader": "Nous avons envoyé un code de vérification à {{code}}, veuillez saisir le code à 6 chiffres ci-dessous :"
+    "verifyCodeHeader": "Nous avons envoyé un code de vérification à {{code}}, veuillez saisir le code à 6 chiffres ci-dessous :",
+    "remove": "Retirer"
   },
   "wagerContest": {
     "history": "Histoire",

@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "MAXIMIZA EL POTENCIAL DE BND/FIAT RAKEBACK",
     "earnLocked": "Gana BND/Fiat bloqueados a través de bonos y desbloquea sin esfuerzo su potencial apostando de la manera que prefieras. ",
     "howToUnlock": "¿Cómo desbloquear Rakeback?",
-    "getALotOfFreePerks": "CONSEGUIR UN MONTÓN DE <span class='text-color-red font-bold'>GRATIS</span> BENEFICIOS",
+    "getALotOfFreePerks": "CONSEGUIR UN MONTÓN DE <span class='font-bold text-color-red'>GRATIS</span> BENEFICIOS",
     "everyDayAndWeek": "Cada día",
     "questHub": "CENTRO DE MISIONES",
     "conquerDaily": "¡Conquista misiones diarias y semanales mientras acumulas y aumentas tus ganancias!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "Tiempo de revisión: unos minutos",
     "verificationVerified": "Verificación básica verificada",
     "verificationPending": "Verificación básica pendiente",
-    "verifyCodeHeader": "Hemos enviado un código de verificación a {{code}}, ingrese el código de 6 dígitos a continuación:"
+    "verifyCodeHeader": "Hemos enviado un código de verificación a {{code}}, ingrese el código de 6 dígitos a continuación:",
+    "remove": "Eliminar"
   },
   "wagerContest": {
     "history": "Historia",

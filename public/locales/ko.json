@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "BND/FIAT 레이크백의 잠재력을 극대화하세요",
     "earnLocked": "보너스를 통해 잠긴 BND/피아트를 획득하고 선호하는 방식으로 베팅하여 잠재력을 쉽게 잠금해제하세요. ",
     "howToUnlock": "Rakeback을 잠금 해제하는 방법은 무엇입니까?",
-    "getALotOfFreePerks": "많이 얻으세요 <span class='text-color-red font-bold'>무료</span> 특전",
+    "getALotOfFreePerks": "많이 얻으세요 <span class='font-bold text-color-red'>무료</span> 특전",
     "everyDayAndWeek": "매일",
     "questHub": "퀘스트 허브",
     "conquerDaily": "수입을 모으고 눈덩이처럼 불어나면서 일일 및 주간 퀘스트를 정복하세요!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "검토 시간: 몇 분",
     "verificationVerified": "기본 검증이 완료되었습니다",
     "verificationPending": "기본 확인 대기 중",
-    "verifyCodeHeader": "다음 주소로 인증 코드가 전송되었습니다. {{code}}, 아래 6자리 코드를 입력하세요."
+    "verifyCodeHeader": "다음 주소로 인증 코드가 전송되었습니다. {{code}}, 아래 6자리 코드를 입력하세요.",
+    "remove": "제거하다"
   },
   "wagerContest": {
     "history": "역사",

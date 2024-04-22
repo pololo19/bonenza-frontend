@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "MAXIMIEREN SIE DAS POTENZIAL VON BND/FIAT RAKEBACK",
     "earnLocked": "Verdienen Sie gesicherte BND/Fiat durch Boni und schöpfen Sie mühelos sein Potenzial frei, indem Sie auf die von Ihnen bevorzugte Art und Weise wetten. ",
     "howToUnlock": "Wie schalte ich Rakeback frei?",
-    "getALotOfFreePerks": "BEKOMME VIEL VON <span class='text-color-red font-bold'>FREI</span> VORTEILE",
+    "getALotOfFreePerks": "BEKOMME VIEL VON <span class='font-bold text-color-red'>FREI</span> VORTEILE",
     "everyDayAndWeek": "Täglich",
     "questHub": "QUEST-HUB",
     "conquerDaily": "Erledige tägliche und wöchentliche Quests und sammle gleichzeitig deine Einnahmen!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "Überprüfungszeit: Wenige Minuten",
     "verificationVerified": "Grundlegende Verifizierung bestätigt",
     "verificationPending": "Grundlegende Verifizierung steht aus",
-    "verifyCodeHeader": "Wir haben einen Bestätigungscode an gesendet {{code}}Bitte geben Sie den folgenden 6-stelligen Code ein:"
+    "verifyCodeHeader": "Wir haben einen Bestätigungscode an gesendet {{code}}Bitte geben Sie den folgenden 6-stelligen Code ein:",
+    "remove": "Entfernen"
   },
   "wagerContest": {
     "history": "Geschichte",

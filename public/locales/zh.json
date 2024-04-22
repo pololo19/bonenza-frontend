@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "最大限度地发挥 BND/FIAT 回扣的潜力",
     "earnLocked": "通过奖金赚取锁定的 BND/法定货币，并通过以您喜欢的方式下注轻松释放其潜力。",
     "howToUnlock": "如何解锁返佣？",
-    "getALotOfFreePerks": "获得很多 <span class='text-color-red font-bold'>自由的</span> 津贴",
+    "getALotOfFreePerks": "获得很多 <span class='font-bold text-color-red'>自由的</span> 津贴",
     "everyDayAndWeek": "每天",
     "questHub": "任务中心",
     "conquerDaily": "征服每日和每周的任务，同时积累并滚雪球般地增加你的收入！",
@@ -1634,7 +1634,8 @@
     "reviewTime": "审核时间：几分钟",
     "verificationVerified": "基本验证已验证",
     "verificationPending": "基本验证待定",
-    "verifyCodeHeader": "我们已将验证码发送至 {{code}}，请输入以下6位数字代码："
+    "verifyCodeHeader": "我们已将验证码发送至 {{code}}，请输入以下6位数字代码：",
+    "remove": "消除"
   },
   "wagerContest": {
     "history": "历史",

@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "เพิ่มศักยภาพของ BND/FIAT RAKEBACK ให้สูงสุด",
     "earnLocked": "รับ BND/Fiat ที่ล็อคไว้ผ่านโบนัส และปลดล็อคศักยภาพของมันได้อย่างง่ายดายโดยการเดิมพันด้วยวิธีที่คุณต้องการ ",
     "howToUnlock": "จะปลดล็อค Rakeback ได้อย่างไร?",
-    "getALotOfFreePerks": "รับมากมาย <span class='text-color-red font-bold'>ฟรี</span> สิทธิพิเศษ",
+    "getALotOfFreePerks": "รับมากมาย <span class='font-bold text-color-red'>ฟรี</span> สิทธิพิเศษ",
     "everyDayAndWeek": "ทุกวัน",
     "questHub": "เควสต์ฮับ",
     "conquerDaily": "พิชิตภารกิจรายวันและรายสัปดาห์พร้อมสะสมและเพิ่มรายได้ของคุณ!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "เวลาทบทวน: ไม่กี่นาที",
     "verificationVerified": "ยืนยันการตรวจสอบขั้นพื้นฐานแล้ว",
     "verificationPending": "การยืนยันขั้นพื้นฐานรอดำเนินการ",
-    "verifyCodeHeader": "เราได้ส่งรหัสยืนยันไปที่ {{code}}กรุณากรอกรหัส 6 หลักด้านล่าง:"
+    "verifyCodeHeader": "เราได้ส่งรหัสยืนยันไปที่ {{code}}กรุณากรอกรหัส 6 หลักด้านล่าง:",
+    "remove": "ลบ"
   },
   "wagerContest": {
     "history": "ประวัติศาสตร์",

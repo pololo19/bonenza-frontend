@@ -84,7 +84,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
     >
       <table
         className={cn(
-          `mb-0 min-h-[150px] w-full h-full `,
+          `mb-0 min-h-[150px] w-full h-full table`,
           tableClassName,
           styles.table,
           theme === 'light' && styles.tableLight,
