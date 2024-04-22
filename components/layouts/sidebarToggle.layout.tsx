@@ -34,7 +34,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption from '../common/iconOption/iconOption';
 import CsrWrapper from '../CsrWrapper';
-import RacingBoldIcon from '../icons/RacingBoldIcon';
 
 export default function SidebarToggle() {
   const { t, i18n } = useTranslation('');
@@ -141,24 +140,24 @@ export default function SidebarToggle() {
 
   const panel_2_datas = useMemo(
     () => [
-      {
-        title: String(t('layout:racing')),
-        href: ROUTER.Tagname('Racing'),
-        icon: RacingBoldIcon,
-        smallIcon: (
-          <RacingBoldIcon
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
-            })}
-          />
-        ),
-        isShowDropDown: false,
-        isDropDown: false,
-      },
+      // {
+      //   title: String(t('layout:racing')),
+      //   href: ROUTER.Tagname('Racing'),
+      //   icon: RacingBoldIcon,
+      //   smallIcon: (
+      //     <RacingBoldIcon
+      //       size={22}
+      //       className={cn('m-auto', {
+      //         'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
+      //       })}
+      //     />
+      //   ),
+      //   isShowDropDown: false,
+      //   isDropDown: false,
+      // },
       {
         title: String(t('layout:updown')),
-        href: ROUTER.Tagname('Racing'),
+        href: 'https://bitup.game/trade',
         icon: ArrowSwapVertical,
         smallIcon: (
           <ArrowSwapVertical
