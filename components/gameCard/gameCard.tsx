@@ -48,7 +48,7 @@ function GameCard(props: GameCardProps) {
       onClick={() => dispatch(changeIsShowCasinoSearch(false))}
     >
       <div
-        className={classNames('sm:block rounded-large overflow-hidden p-2', {
+        className={classNames('bg-[#31373D77] sm:block rounded-large overflow-hidden p-2', {
           flex: listView,
           block: !listView,
         })}
@@ -63,13 +63,13 @@ function GameCard(props: GameCardProps) {
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
             }}
-            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-[30px]"
+            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-default"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
           />
           {/* </LazyLoad> */}
         </Link>
-        <div className="flex flex-col gap-5 py-[10px] mb-[10px]">
+        <div className="flex flex-col gap-5 py-2">
           <div className="flex justify-center items-center gap-[5px]">
             <div className="dark:text-white text-black font-light text-default sm:text-[16px] truncate">
               {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
