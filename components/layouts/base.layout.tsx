@@ -606,14 +606,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isLoading ? (
         <Loader isHomePage />
       ) : (
-        <div className="min-h-screen h-full w-full overflow-hidden font-dayOne">
+        <div className="w-full h-full min-h-screen overflow-hidden font-dayOne">
           {isToggleSidebar && (
             <div
               className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0 z-[20]"
               onClick={() => dispatch(changeToggleSidebar(!isToggleSidebar))}
             ></div>
           )}
-          <div className="md:pt-0 h-full w-full relative">
+          <div className="relative w-full h-full md:pt-0">
             <HeaderStats />
             <div className="flex h-full w-full max-h-[calc(100vh-70px)] mt-[70px] sm:flex-row flex-col">
               <div
@@ -671,10 +671,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               {showChatType && (
                 <div
                   className={cn(
-                    '2xl:relative fixed right-0 h-[calc(100vh)] mt-[-70px] z-10 duration-500 drop-shadow-md transition-opacity',
+                    '2xl:relative fixed inset-0 right-0 h-screen mt-0 z-10 duration-500 drop-shadow-md',
+                    'transition-all duration-200 ease-in',
                     {
-                      'opacity-100': showChatType,
-                      'opacity-0': !showChatType,
+                      'translate-x-0 md:opacity-100 scale-100': showChatType,
+                      'translate-x-[110%] sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !showChatType,
                       'w-full': showFullChat,
                     },
                   )}
@@ -723,7 +724,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     <div className="pt-2">
                       <HambergerMenu size={22} />
                     </div>
-                    <div className="pb-2  text-center truncate w-full">{t('sidebar:menu')}</div>
+                    <div className="w-full pb-2 text-center truncate">{t('sidebar:menu')}</div>
                   </div>
                   <Link
                     href={ROUTER.Home}
@@ -742,7 +743,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     <div className="pt-2">
                       <HomeIconOutline className="w-[21px] h-[21px]" size={22} />
                     </div>
-                    <div className="pb-2 text-center truncate w-full">{t('layout:home')}</div>
+                    <div className="w-full pb-2 text-center truncate">{t('layout:home')}</div>
                   </Link>
                   <Link
                     href={ROUTER.DepositCrypto}
@@ -766,7 +767,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     <div className="pt-2 opacity-0">
                       <EmptyWallet className="dark:text-white text-color-text-primary" variant="Bold" size={22} />
                     </div>
-                    <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
+                    <div className="w-full pb-2 text-center truncate dark:text-color-text-primary text-color-text-primary">
                       {t('sidebar:wallet')}
                     </div>
                   </Link>
@@ -796,7 +797,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     <div className="pt-2">
                       <User size={22} />
                     </div>
-                    <div className="pb-2 text-center truncate w-full">{t('sidebar:account')}</div>
+                    <div className="w-full pb-2 text-center truncate">{t('sidebar:account')}</div>
                   </div>
                   <div
                     role="button"
@@ -813,7 +814,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     <div className="pt-2">
                       <Message className="dark:text-color-text-primary text-color-text-primary" size={22} />
                     </div>
-                    <div className="pb-2 dark:text-color-text-primary text-color-text-primary text-center truncate w-full">
+                    <div className="w-full pb-2 text-center truncate dark:text-color-text-primary text-color-text-primary">
                       {t('sidebar:chat')}
                     </div>
                   </div>
