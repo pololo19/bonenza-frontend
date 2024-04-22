@@ -35,7 +35,7 @@ module.exports = {
         active: 'rgba(246, 27, 79, 0.2)',
         'gradient-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
         // 'gradient-btn-play': 'linear-gradient(180deg, #58AF10 10%, #1D803A 90%)',
-        'gradient-btn-play': 'linear-gradient(29deg, #793E0D 12.79%, #FF9E4F 84.65%)',
+        'gradient-btn-play': 'linear-gradient(29deg, #005063 12.79%, #00BAE6 84.65%)',
         'gradient-btn-secondary': 'conic-gradient(from 0deg at 49.82% 50%, #F39717 0deg, #D47F00 360deg)',
         'gradient-btn-purple': 'conic-gradient(from 1turn,rgba(136,83,252,1),rgba(110,52,226,1))',
         'quest-gradient-btn':
@@ -88,7 +88,7 @@ module.exports = {
         'color-light-text-primary': '#31373D',
         'color-text-secondary': '#939699',
         'color-text-mailto': '#00BAE6',
-        'color-primary': '#50C627',
+        'color-primary': '#00BAE6',
         'color-primary-1': '#46a41f',
         'color-secondary': '#F4C416',
         'color-table-header-bg-primary': '#1D1E22',
