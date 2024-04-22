@@ -106,7 +106,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
           <div className="relative p-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
             <div className="flex items-center text-black dark:text-white gap-[10px]">
               <ChevronLeftIcon width={20} role="button" onClick={() => goBackProfile()} />
-              <div className="text-[18px] font-[600]">{t('profile:updateInformation')}123</div>
+              <div className="text-[18px] font-[600]">{t('profile:updateInformation')}</div>
             </div>
           </div>
         }
