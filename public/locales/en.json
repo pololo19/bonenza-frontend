@@ -1319,7 +1319,7 @@
     "maximizeThePotential": "MAXIMIZE THE POTENTIAL OF BND/FIAT RAKEBACK",
     "earnLocked": "Earn locked BND/Fiat through bonuses and effortlessly unlock its potential by wagering in your preferred way. Claim it directly to your balance!",
     "howToUnlock": "How to unlock Rakeback?",
-    "getALotOfFreePerks": "GET A LOT OF <span class='text-color-red font-bold'>FREE</span> PERKS",
+    "getALotOfFreePerks": "GET A LOT OF <span class='font-bold text-color-red'>FREE</span> PERKS",
     "everyDayAndWeek": "Every Day & Week",
     "questHub": "QUEST HUB",
     "conquerDaily": "Conquer daily and weekly quests while amassing and snowballing your earnings!",
@@ -1634,7 +1634,8 @@
     "reviewTime": "Review time: Few mins",
     "verificationVerified": "Basic Verification Verified",
     "verificationPending": "Basic Verification Pending",
-    "verifyCodeHeader": "We’ve sent a verification code to {{code}}, please enter the 6-digit code below:"
+    "verifyCodeHeader": "We’ve sent a verification code to {{code}}, please enter the 6-digit code below:",
+    "remove": "Remove"
   },
   "wagerContest": {
     "history": "History",

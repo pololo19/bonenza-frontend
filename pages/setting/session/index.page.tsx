@@ -4,7 +4,6 @@ import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { api_deleteSession, api_getSessions } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { differenceDateInSeconds } from '@/base/libs/utils';
 import { SessionType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
@@ -25,19 +24,19 @@ const SettingSession = () => {
       {
         accessorKey: 'browser',
         header: String(t('setting:browser')),
-        cell: ({ row }) => <div className="dark:text-white text-black">{row.original.browser}</div>,
+        cell: ({ row }) => <div className="text-black dark:text-white">{row.original.browser}</div>,
         minSize: 100,
       },
       {
         accessorKey: 'location',
         header: String(t('setting:location')),
         minSize: 30,
-        cell: ({ row }) => <div className="dark:text-color-text-primary text-black">{row.original.location}</div>,
+        cell: ({ row }) => <div className="text-black dark:text-color-text-primary">{row.original.location}</div>,
       },
       {
         accessorKey: 'ip',
         header: String(t('setting:IPAddress')),
-        cell: ({ row }) => <div className="dark:text-white text-black">{row.original.ipAddress}</div>,
+        cell: ({ row }) => <div className="text-black dark:text-white">{row.original.ipAddress}</div>,
         maxSize: 80,
       },
       {
@@ -54,7 +53,7 @@ const SettingSession = () => {
             {row.original.active && (
               <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
             )}
-            <div className="text-center font-bold">{row.original.active ? 'Online' : 'Offline'}</div>
+            <div className="font-bold text-center">{row.original.active ? 'Online' : 'Offline'}</div>
           </div>
         ),
       },
@@ -64,7 +63,7 @@ const SettingSession = () => {
         maxSize: 80,
         cell: ({ row }) => (
           <div className="text-color-primary" role="button" onClick={() => handleRemoveUserSession(row.original.id)}>
-            Remove Device
+            {t('setting:remove')}
           </div>
         ),
       },
