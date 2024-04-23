@@ -492,7 +492,9 @@
     "feeTooltip": "VIP38'de kilidi açın. ",
     "totalWithdrawAmount": "Toplam para çekme tutarı:",
     "available": "Mevcut",
-    "lockedFunds": "Kilitli fonlar"
+    "lockedFunds": "Kilitli fonlar",
+    "withdrawProgress": "Para çekme işlemi devam ediyor",
+    "withdrawComplete": "Para Çekme Başarılı"
   },
   "balance": {
     "cryptoCurrency": "Kripto para",
@@ -2130,40 +2132,83 @@
     "cancel": "İptal etmek"
   },
   "errors": {
-    "internalServer": "Hata! Bir şeyler ters gitti. Lütfen daha sonra tekrar deneyin.",
-    "existPhone": "Bu Telefon zaten mevcut.",
-    "existMail": "Bu E-posta zaten mevcut.",
-    "verifyPhone": "Bu Telefon doğrulanmadı.",
-    "verifyMail": "Bu E-posta doğrulanmadı.",
-    "locationIsNotAllowed": "Üzgünüz, bu oyun bölgenizde mevcut değil.",
-    "selfExclusive": "Hesabınız devre dışı bırakıldı.",
-    "notExistMail": "Bu E-posta Mevcut Değil.",
-    "notExistPhone": "Bu Telefon Mevcut Değil.",
-    "notExistMailOrPhone": "E-posta veya Telefon mevcut değil.",
-    "notMatchConfirmationPassword": "Onay Şifresi eşleşmiyor.",
-    "disabledAccount": "Hesabınız devre dışı bırakıldı.",
-    "notValidToken": "Jeton geçerli değil",
-    "expiredToken": "Token'ın süresi doldu.",
-    "requiredMail": "Bu özelliği etkinleştirmek için lütfen e-posta adresinizi doğrulayın.",
-    "validReferral": "Yönlendirme kodu geçerli değil.",
-    "notMatchedCredential": "Geçersiz e-posta veya şifre!",
-    "notExistPassword": "Şifre ayarlanmadı.",
-    "notMatched2FA": "Geçersiz iki faktörlü kimlik doğrulama.",
-    "notMatchedCurrentPassword": "Mevcut Şifre eşleşmiyor.",
-    "sendGridError": "Hata! E-posta gönderilirken bir şeyler ters gitti.",
-    "twiloError": "Hata! SMS gönderilirken bir şeyler ters gitti.",
-    "notMatchedVerificationCode": "Doğrulama Kodu eşleşmiyor.",
-    "expiredVerficationCode": "Doğrulama Kodunun süresi doldu.",
-    "notValidTgInfo": "Telegram bilgileriniz geçerli değil.",
-    "notValidSelfExlusionTime": "Hariç Tutma Süresi geçerli değil.",
     "badRequest": "Talebiniz Veriler geçerli değil.",
     "notAllowedAction": "İşleminize izin verilmiyor.",
-    "notMatchOTP": "Doğrulama kodu yanlış"
+    "internalServer": "Hata! ",
+    "auth": {
+      "existPhone": "Bu Telefon zaten mevcut.",
+      "existMail": "Bu E-posta zaten mevcut.",
+      "verifyPhone": "Bu Telefon doğrulanmadı.",
+      "verifyMail": "Bu E-posta doğrulanmadı.",
+      "locationIsNotAllowed": "Üzgünüz, bu oyun bölgenizde mevcut değil.",
+      "selfExclusive": "Hesabınız devre dışı bırakıldı.",
+      "notExistMail": "Bu E-posta Mevcut Değil.",
+      "notExistPhone": "Bu Telefon Mevcut Değil.",
+      "notExistMailOrPhone": "E-posta veya Telefon mevcut değil.",
+      "notMatchConfirmationPassword": "Onay Şifresi eşleşmiyor.",
+      "disabledAccount": "Hesabınız devre dışı bırakıldı.",
+      "notValidToken": "Jeton geçerli değil",
+      "expiredToken": "Token'ın süresi doldu.",
+      "requiredMail": "Bu özelliği etkinleştirmek için lütfen e-posta adresinizi doğrulayın.",
+      "validReferral": "Yönlendirme kodu geçerli değil.",
+      "notMatchedCredential": "Geçersiz e-posta veya şifre!",
+      "notExistPassword": "Şifre ayarlanmadı.",
+      "notMatched2FA": "Geçersiz iki faktörlü kimlik doğrulama.",
+      "notMatchedCurrentPassword": "Üzgünüz,Geçersiz Eski şifre.Lütfen tekrar deneyin.",
+      "sendGridError": "Hata! ",
+      "twiloError": "Hata! ",
+      "notMatchedVerificationCode": "Doğrulama Kodu eşleşmiyor.",
+      "expiredVerficationCode": "Doğrulama Kodunun süresi doldu.",
+      "notValidTgInfo": "Telegram bilgileriniz geçerli değil.",
+      "notValidSelfExlusionTime": "Hariç Tutma Süresi geçerli değil.",
+      "notMatchOTP": "Doğrulama kodu yanlış"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "Mevcut komisyon ödülü yok.",
+      "emptyAvailableReferralRewards": "Mevcut yönlendirme ödülü yok."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Bonus havuzunuz yeterli değil, lütfen para yatırarak tahsil ediniz.",
+      "existLevelUpBonus": "Bonus mevcut değil",
+      "claimBonus": "Bonus zaten talep edildi.",
+      "existBonusType": "Bonus türü mevcut değil.",
+      "finishedQuestToClaim": "Hak talebinde bulunmak için görevin tamamlanması gerekir.",
+      "emptyAvailableSpin": "Kullanılabilir spininiz yok.",
+      "VIP22ForSuperSpin": "VIP'niz en az 22 olmalıdır.",
+      "VIP70ForMegaSpin": "VIP'niz en az 70 olmalıdır."
+    },
+    "game": {
+      "existGame": "Oyun mevcut değil.",
+      "canDetectLocation": "Konum tespit edilemiyor.",
+      "existCurrency": "Para birimi mevcut değil.",
+      "existCurrencyType": "Para birimi türü mevcut değil.",
+      "matchedWithSign": "İstek işareti eşleşmiyor.",
+      "existGameRating": "Bu oyuna zaten puan verdiniz.",
+      "existGameReport": "Bu oyunu zaten bildirmiştiniz."
+    },
+    "page": {
+      "exceedTotalPageNumber": "Geçerli sayfa toplam sayfa sayısını aşıyor."
+    },
+    "swap": {
+      "existSourceCrypto": "Kaynak kripto para birimi mevcut değil.",
+      "existDestinationCrypto": "Hedef kripto para birimi mevcut değil.",
+      "isEnoughBalanceForSwap": "Bakiye takas için düşük."
+    }
   },
   "success": {
     "bonusClaimed": "Bonusunuz Alındı",
     "successfulllyReported": "Talebiniz başarıyla alındı. ",
-    "success": "Başarı"
+    "success": "Başarı",
+    "pasted": "Yapıştırıldı",
+    "copied": "Kopyalandı",
+    "rating": "Başarıyla Derecelendirme",
+    "sentEmailSuccessfully": "Onay E-postası posta kutunuza gönderilir. ",
+    "confirmedWithdraw": "Tebrikler!Çekilmeniz {{amount}} {{token}} devam ediyorsa, büyük veya şüpheli para çekme miktarları denetlenecek ve manuel olarak işleme alınacaktır. Her zaman olduğu gibi sabrınız için teşekkür ederiz!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Lütfen temsilci kimliğini doğru şekilde girin.",
+    "incorrectRepresentativeID": "{{representativeID}} BONENZA'nın resmi temsilcisi DEĞİLDİR. ",
+    "emptyMessageContent": "Mesaj içeriği boş olamaz!"
   },
   "quest": {
     "questHub": "Görev MERKEZİ",

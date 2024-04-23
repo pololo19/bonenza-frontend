@@ -218,7 +218,7 @@ export default function SignInTab({
   };
 
   const paste = () => {
-    toast.success('Pasted', { containerId: TOAST_ENUM.COMMON });
+    toast.success(t('success:pasted'), { containerId: TOAST_ENUM.COMMON });
     navigator.clipboard.readText().then((text) => {
       setCodeOtp(text);
       setOtpValue('codeOtp', text);

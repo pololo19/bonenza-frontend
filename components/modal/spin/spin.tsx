@@ -1,5 +1,4 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { AxiosError } from 'axios';
 import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -15,6 +14,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1 } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -192,11 +192,10 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         claimable: claimable || false,
       });
       deltaAngle = 22.5 * spinId;
-    } catch (error) {
-      const status = (error as AxiosError).response?.status || 0;
-      toast.error((status || 404) === 400 ? t('bonus:spinNoSpin') : t('bonus:spinWrong'), {
-        containerId: TOAST_ENUM.COMMON,
-      });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setIsSpinning(false);
       return;
     }

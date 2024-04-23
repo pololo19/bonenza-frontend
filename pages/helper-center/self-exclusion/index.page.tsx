@@ -50,7 +50,7 @@ const SelfExclusion = () => {
       disabledDate.setMonth(disabledDate.getMonth() + selectedPeriod);
       const unixTime = selectedPeriod === -1 ? -1 : Math.floor(disabledDate.getTime() / 1000);
       const _res = await api_requestSelfExclusion(unixTime);
-      toast.success('Confirmation Email is sent to your mail Box. Please check your mail box. Thank you.', {
+      toast.success(t('success:sentEmailSuccessfully'), {
         containerId: TOAST_ENUM.COMMON,
         toastId: 'selfExclusionSucceed',
         icon: true,
@@ -81,7 +81,7 @@ const SelfExclusion = () => {
           <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
             <div>{t('helper:selfExclusionContent1')}</div>
             <div className="mt-4">{t('helper:selfExclusionContent2')}</div>
-            <div className="mt-8 flex items-center gap-4">
+            <div className="flex items-center gap-4 mt-8">
               <span>{t('helper:selfExclusionContent3')}</span>
               <Menu
                 as="div"
@@ -89,7 +89,7 @@ const SelfExclusion = () => {
               >
                 <Menu.Button className="flex-1 ">
                   <div
-                    className="flex items-center justify-between w-full gap-2 dark:text-white text-black"
+                    className="flex items-center justify-between w-full gap-2 text-black dark:text-white"
                     role="button"
                   >
                     {periods.find((item) => item.value === selectedPeriod)?.description}
@@ -112,7 +112,7 @@ const SelfExclusion = () => {
                             onClick={() => setSelectedPeriod(item.value)}
                           >
                             <div className="flex-1 flex items-center justify-between gap-[10px] sm:text-[14px] text-[12px]">
-                              <div className="flex-1 text-start dark:text-white text-black">{item.description}</div>
+                              <div className="flex-1 text-black text-start dark:text-white">{item.description}</div>
                               {item.value === selectedPeriod && (
                                 <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
                               )}
@@ -137,7 +137,7 @@ const SelfExclusion = () => {
               onClick={() => setAcknowledge(!acknowledge)}
             />
             <span>{t('helper:selfExclusionAcknowledge1')}</span>
-            <span className="text-color-primary px-1 hover:cursor-pointer" onClick={() => setShowRules(true)}>
+            <span className="px-1 text-color-primary hover:cursor-pointer" onClick={() => setShowRules(true)}>
               {t('helper:selfExclusionAcknowledge')}
             </span>
             <span>{t('helper:selfExclusionAcknowledge2')}</span>

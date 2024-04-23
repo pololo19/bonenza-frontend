@@ -11,6 +11,7 @@ import { api_uploadAvatar } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowInformation,
@@ -124,8 +125,10 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         dispatch(changeIsShowInformation(true));
         dispatch(changeIsShowUpdateAvatar(false));
       }
-    } catch (error) {
-      toast.error('Update avatar failed', { containerId: TOAST_ENUM.MODAL });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -168,7 +171,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
                 rotation={rotation}
                 onRotationChange={setRotation}
               />
-              <label htmlFor="avatar" className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+              <label htmlFor="avatar" className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
                 <Camera role="button" size={30} />
               </label>
               <input
@@ -194,7 +197,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
               >
                 <Minus width={18} height={18} />
               </button>
-              <div className="relative flex-1 flex items-center">
+              <div className="relative flex items-center flex-1">
                 <input
                   id="medium-range"
                   type="range"
@@ -206,7 +209,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
                   onChange={(e) => {
                     setZoom(Number(e.target.value));
                   }}
-                  className="w-full h-1 rounded-lg appearance-none cursor-pointer bg-gray-500 accent-amber-600 m-auto"
+                  className="w-full h-1 m-auto bg-gray-500 rounded-lg appearance-none cursor-pointer accent-amber-600"
                 ></input>
               </div>
               <button

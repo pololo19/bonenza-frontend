@@ -4,11 +4,14 @@ import { ArrowDown2, ArrowUp2, Ghost } from 'iconsax-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_highRollers } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
@@ -87,7 +90,10 @@ const HighRollerTableComponent = () => {
         time: item.time ?? new Date(),
       }));
       setHightRollerData(tempHighRollers);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setHightRollerData([]);
     } finally {
       setIsLoadingTable(false);
@@ -164,8 +170,9 @@ const HighRollerTableComponent = () => {
         ),
         cell: ({ row }) => (
           <div
-            className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-              } font-bold truncate text-center  sm:p-2 p-[5px]`}
+            className={`${
+              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
+            } font-bold truncate text-center  sm:p-2 p-[5px]`}
             onClick={(event) => {
               event.stopPropagation();
               handleModalProfile(row);
@@ -177,7 +184,7 @@ const HighRollerTableComponent = () => {
                 {t('homePage:hidden')}
               </div>
             ) : (
-              <div className="dark:text-white text-black">
+              <div className="text-black dark:text-white">
                 {row.original.playerId === userId ? userName : row.original.player}
               </div>
             )}
@@ -222,7 +229,7 @@ const HighRollerTableComponent = () => {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate font-bold text-center">
+          <div className="font-bold text-center truncate dark:text-color-text-primary text-color-light-text-primary">
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
@@ -245,10 +252,10 @@ const HighRollerTableComponent = () => {
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                  Math.abs(row.original.profitAmountUsd * exchangeRate),
-                  fiatDecimals,
-                  localFiat?.name || 'USD',
-                )}`
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    fiatDecimals,
+                    localFiat?.name || 'USD',
+                  )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image

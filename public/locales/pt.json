@@ -492,7 +492,9 @@
     "feeTooltip": "Desbloqueie no VIP38. ",
     "totalWithdrawAmount": "Valor total da retirada:",
     "available": "Disponível",
-    "lockedFunds": "Fundos bloqueados"
+    "lockedFunds": "Fundos bloqueados",
+    "withdrawProgress": "A retirada está em andamento",
+    "withdrawComplete": "Retirada bem-sucedida"
   },
   "balance": {
     "cryptoCurrency": "Moeda criptográfica",
@@ -2130,40 +2132,83 @@
     "cancel": "Cancelar"
   },
   "errors": {
-    "internalServer": "Ops! Algo deu errado. Tente novamente mais tarde.",
-    "existPhone": "Este telefone já existe.",
-    "existMail": "Este e-mail já existe.",
-    "verifyPhone": "Este telefone não foi verificado.",
-    "verifyMail": "Este e-mail não foi verificado.",
-    "locationIsNotAllowed": "Desculpe, este jogo não está disponível em sua região.",
-    "selfExclusive": "Sua conta está desativada.",
-    "notExistMail": "Este e-mail não existe.",
-    "notExistPhone": "Este telefone não existe.",
-    "notExistMailOrPhone": "E-mail ou telefone não existe.",
-    "notMatchConfirmationPassword": "A senha de confirmação não corresponde.",
-    "disabledAccount": "Sua conta está desativada.",
-    "notValidToken": "O token não é válido",
-    "expiredToken": "O token expirou.",
-    "requiredMail": "Verifique seu e-mail para ativar este recurso.",
-    "validReferral": "O código de referência não é válido.",
-    "notMatchedCredential": "E-mail ou senha inválidos!",
-    "notExistPassword": "A senha não está definida.",
-    "notMatched2FA": "Autenticação de dois fatores inválida.",
-    "notMatchedCurrentPassword": "A senha atual não corresponde.",
-    "sendGridError": "Ops! Algo deu errado ao enviar o e-mail.",
-    "twiloError": "Ops! Algo deu errado ao enviar o SMS.",
-    "notMatchedVerificationCode": "O código de verificação não corresponde.",
-    "expiredVerficationCode": "O código de verificação expirou.",
-    "notValidTgInfo": "Suas informações do Telegram não são válidas.",
-    "notValidSelfExlusionTime": "O tempo de exclusão não é válido.",
     "badRequest": "Os dados da sua solicitação não são válidos.",
     "notAllowedAction": "Sua ação não é permitida.",
-    "notMatchOTP": "O código de verificação está incorreto"
+    "internalServer": "Ops! ",
+    "auth": {
+      "existPhone": "Este telefone já existe.",
+      "existMail": "Este e-mail já existe.",
+      "verifyPhone": "Este telefone não foi verificado.",
+      "verifyMail": "Este e-mail não foi verificado.",
+      "locationIsNotAllowed": "Desculpe, este jogo não está disponível em sua região.",
+      "selfExclusive": "Sua conta está desativada.",
+      "notExistMail": "Este e-mail não existe.",
+      "notExistPhone": "Este telefone não existe.",
+      "notExistMailOrPhone": "E-mail ou telefone não existe.",
+      "notMatchConfirmationPassword": "A senha de confirmação não corresponde.",
+      "disabledAccount": "Sua conta está desativada.",
+      "notValidToken": "O token não é válido",
+      "expiredToken": "O token expirou.",
+      "requiredMail": "Verifique seu e-mail para ativar este recurso.",
+      "validReferral": "O código de referência não é válido.",
+      "notMatchedCredential": "E-mail ou senha inválidos!",
+      "notExistPassword": "A senha não está definida.",
+      "notMatched2FA": "Autenticação de dois fatores inválida.",
+      "notMatchedCurrentPassword": "Desculpe, senha antiga inválida. Tente novamente.",
+      "sendGridError": "Ops! ",
+      "twiloError": "Ops! ",
+      "notMatchedVerificationCode": "O código de verificação não corresponde.",
+      "expiredVerficationCode": "O código de verificação expirou.",
+      "notValidTgInfo": "Suas informações do Telegram não são válidas.",
+      "notValidSelfExlusionTime": "O tempo de exclusão não é válido.",
+      "notMatchOTP": "O código de verificação está incorreto"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "Nenhuma recompensa de comissão disponível.",
+      "emptyAvailableReferralRewards": "Nenhuma recompensa de indicação disponível."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Seu conjunto de bônus não é suficiente, cobre por depósito.",
+      "existLevelUpBonus": "O bônus não existe",
+      "claimBonus": "O bônus já foi reivindicado.",
+      "existBonusType": "O tipo de bônus não existe.",
+      "finishedQuestToClaim": "A missão deve ser concluída para ser reivindicada.",
+      "emptyAvailableSpin": "Você não tem giro disponível.",
+      "VIP22ForSuperSpin": "Seu VIP deve ter pelo menos 22 anos.",
+      "VIP70ForMegaSpin": "Seu VIP deve ter pelo menos 70 anos."
+    },
+    "game": {
+      "existGame": "O jogo não existe.",
+      "canDetectLocation": "A localização não pode ser detectada.",
+      "existCurrency": "A moeda não existe.",
+      "existCurrencyType": "O tipo de moeda não existe.",
+      "matchedWithSign": "O sinal de solicitação não corresponde.",
+      "existGameRating": "Você já deu classificação a este jogo.",
+      "existGameReport": "Você já denunciou este jogo."
+    },
+    "page": {
+      "exceedTotalPageNumber": "A página atual excede o número total de páginas."
+    },
+    "swap": {
+      "existSourceCrypto": "A criptomoeda de origem não existe.",
+      "existDestinationCrypto": "A criptomoeda de destino não existe.",
+      "isEnoughBalanceForSwap": "O saldo é baixo para trocar."
+    }
   },
   "success": {
     "bonusClaimed": "Seu bônus foi reivindicado",
     "successfulllyReported": "Sua solicitação foi recebida com sucesso. ",
-    "success": "Sucesso"
+    "success": "Sucesso",
+    "pasted": "Colado",
+    "copied": "Copiado",
+    "rating": "Avaliação com sucesso",
+    "sentEmailSuccessfully": "O e-mail de confirmação é enviado para sua caixa de correio. ",
+    "confirmedWithdraw": "Parabéns! Sua retirada de {{amount}} {{token}} estiver em andamento, qualquer saque grande ou suspeito será auditado e processado manualmente. Como sempre, agradecemos sua paciência!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Insira o ID do representante corretamente.",
+    "incorrectRepresentativeID": "{{representativeID}} NÃO é o representante oficial da BONENZA. ",
+    "emptyMessageContent": "O conteúdo da mensagem não pode ficar vazio!"
   },
   "quest": {
     "questHub": "CENTRO de missões",

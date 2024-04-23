@@ -492,7 +492,9 @@
     "feeTooltip": "VIP38でロック解除します。 ",
     "totalWithdrawAmount": "出金総額:",
     "available": "利用可能",
-    "lockedFunds": "ロックされた資金"
+    "lockedFunds": "ロックされた資金",
+    "withdrawProgress": "引き出しが進行中です",
+    "withdrawComplete": "出金成功"
   },
   "balance": {
     "cryptoCurrency": "暗号通貨",
@@ -2130,40 +2132,83 @@
     "cancel": "キャンセル"
   },
   "errors": {
-    "internalServer": "問題が発生しました。後でもう一度試してください。",
-    "existPhone": "この電話はすでに存在します。",
-    "existMail": "このメールはすでに存在します。",
-    "verifyPhone": "この電話は認証されていません。",
-    "verifyMail": "このメールは検証されていません。",
-    "locationIsNotAllowed": "申し訳ございませんが、このゲームはお住まいの地域ではご利用いただけません。",
-    "selfExclusive": "あなたのアカウントは無効になりました。",
-    "notExistMail": "このメールは存在しません。",
-    "notExistPhone": "この電話は存在しません。",
-    "notExistMailOrPhone": "電子メールまたは電話が存在しません。",
-    "notMatchConfirmationPassword": "確認用のパスワードが一致しません。",
-    "disabledAccount": "あなたのアカウントは無効になりました。",
-    "notValidToken": "トークンが無効です",
-    "expiredToken": "トークンの有効期限が切れています。",
-    "requiredMail": "この機能を有効にするには、電子メールを確認してください。",
-    "validReferral": "紹介コードが無効です。",
-    "notMatchedCredential": "無効なメールアドレスまたはパスワード！",
-    "notExistPassword": "パスワードが設定されていません。",
-    "notMatched2FA": "無効な 2 要素認証です。",
-    "notMatchedCurrentPassword": "現在のパスワードが一致しません。",
-    "sendGridError": "メールの送信中に問題が発生しました。",
-    "twiloError": "SMS の送信中に問題が発生しました。",
-    "notMatchedVerificationCode": "検証コードが一致しません。",
-    "expiredVerficationCode": "認証コードの有効期限が切れています。",
-    "notValidTgInfo": "あなたのテレグラム情報は有効ではありません。",
-    "notValidSelfExlusionTime": "除外時間が無効です。",
     "badRequest": "リクエストのデータが無効です。",
     "notAllowedAction": "あなたの行動は許可されていません。",
-    "notMatchOTP": "認証コードが間違っています"
+    "internalServer": "おっとっと！",
+    "auth": {
+      "existPhone": "この電話はすでに存在します。",
+      "existMail": "このメールはすでに存在します。",
+      "verifyPhone": "この電話は認証されていません。",
+      "verifyMail": "このメールは検証されていません。",
+      "locationIsNotAllowed": "申し訳ございませんが、このゲームはお住まいの地域ではご利用いただけません。",
+      "selfExclusive": "あなたのアカウントは無効になりました。",
+      "notExistMail": "このメールは存在しません。",
+      "notExistPhone": "この電話は存在しません。",
+      "notExistMailOrPhone": "電子メールまたは電話が存在しません。",
+      "notMatchConfirmationPassword": "確認用のパスワードが一致しません。",
+      "disabledAccount": "あなたのアカウントは無効になりました。",
+      "notValidToken": "トークンが無効です",
+      "expiredToken": "トークンの有効期限が切れています。",
+      "requiredMail": "この機能を有効にするには、電子メールを確認してください。",
+      "validReferral": "紹介コードが無効です。",
+      "notMatchedCredential": "無効なメールアドレスまたはパスワード！",
+      "notExistPassword": "パスワードが設定されていません。",
+      "notMatched2FA": "無効な 2 要素認証です。",
+      "notMatchedCurrentPassword": "申し訳ありませんが、古いパスワードが無効です。もう一度お試しください。",
+      "sendGridError": "おっとっと！",
+      "twiloError": "おっとっと！ ",
+      "notMatchedVerificationCode": "検証コードが一致しません。",
+      "expiredVerficationCode": "認証コードの有効期限が切れています。",
+      "notValidTgInfo": "あなたのテレグラム情報は有効ではありません。",
+      "notValidSelfExlusionTime": "除外時間が無効です。",
+      "notMatchOTP": "認証コードが間違っています"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "利用可能なコミッション報酬はありません。",
+      "emptyAvailableReferralRewards": "利用可能な紹介報酬はありません。"
+    },
+    "bonus": {
+      "notEnoughBonusPool": "ボーナスプールが十分ではありません。デポジットでチャージしてください。",
+      "existLevelUpBonus": "ボーナスは存在しない",
+      "claimBonus": "ボーナスはすでに請求されています。",
+      "existBonusType": "ボーナスタイプは存在しません。",
+      "finishedQuestToClaim": "取得するにはクエストを完了する必要があります。",
+      "emptyAvailableSpin": "利用可能なスピンがありません。",
+      "VIP22ForSuperSpin": "VIP は 22 歳以上である必要があります。",
+      "VIP70ForMegaSpin": "VIP は 70 歳以上である必要があります。"
+    },
+    "game": {
+      "existGame": "ゲームは存在しません。",
+      "canDetectLocation": "位置が検出できません。",
+      "existCurrency": "通貨は存在しません。",
+      "existCurrencyType": "通貨タイプが存在しません。",
+      "matchedWithSign": "リクエストの符号が一致しません。",
+      "existGameRating": "あなたはすでにこのゲームに評価を付けています。",
+      "existGameReport": "このゲームはすでに報告済みです。"
+    },
+    "page": {
+      "exceedTotalPageNumber": "現在のページが総ページ数を超えています。"
+    },
+    "swap": {
+      "existSourceCrypto": "ソース暗号通貨は存在しません。",
+      "existDestinationCrypto": "宛先の暗号通貨が存在しません。",
+      "isEnoughBalanceForSwap": "交換するには残高が少ないです。"
+    }
   },
   "success": {
     "bonusClaimed": "ボーナスが請求されました",
     "successfulllyReported": "リクエストは正常に受信されました。",
-    "success": "成功"
+    "success": "成功",
+    "pasted": "貼り付けた",
+    "copied": "コピーされました",
+    "rating": "正常に評価されました",
+    "sentEmailSuccessfully": "確認メールがメールボックスに送信されます。",
+    "confirmedWithdraw": "おめでとうございます!退会されました {{amount}} {{token}} が進行中であるため、多額または疑わしい出金金額は監査され、手動で処理されます。いつものように、ご辛抱いただきありがとうございます。"
+  },
+  "warning": {
+    "emptyRepresentativeID": "代表者IDを正しく入力してください。",
+    "incorrectRepresentativeID": "{{representativeID}} はBONENZAの公式代表者ではありません。",
+    "emptyMessageContent": "メッセージの内容を空にすることはできません。"
   },
   "quest": {
     "questHub": "クエストハブ",

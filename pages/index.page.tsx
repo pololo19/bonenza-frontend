@@ -638,20 +638,15 @@ function IndexPage() {
                         className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
                         onClick={() => {
                           if (feedbackText === '') {
-                            toast.error('Message content cannot be empty!', {
+                            toast.error(t('warning:emptyMessageContent'), {
                               toastId: 'feedbackEmptyMessage',
                               containerId: TOAST_ENUM.COMMON,
-                              icon: true,
-                              autoClose: 3000,
-                              hideProgressBar: false,
                             });
                             return;
                           }
                           setFeedbackText('');
                           toast.success(String(t('success:success')), {
                             containerId: TOAST_ENUM.COMMON,
-                            icon: true,
-                            autoClose: 3000,
                           });
                         }}
                       >

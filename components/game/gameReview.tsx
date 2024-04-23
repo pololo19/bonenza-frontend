@@ -20,6 +20,7 @@ import {
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, getDuration } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -97,6 +98,7 @@ const GameReviewComponent = ({
   gameDetail: GameListType;
   gameProvider?: GameProviderDetail;
 }) => {
+  const { t } = useTranslation('');
   const dispatch = useAppDispatch();
   const { isLogin, userId, userAvatar } = useSelector(
     (state: AppState) => ({
@@ -170,12 +172,11 @@ const GameReviewComponent = ({
         ],
       });
       setUserRating(_userRating);
-      toast.error('Rating Successfully', { containerId: TOAST_ENUM.COMMON });
+      toast.success('Rating Successfully', { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
-      const status = error.response?.data?.statusCode ?? '';
-      const description = error.response?.data?.error ?? 'Rating Failed';
-      toast.error(description, { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setLoading((load) => ({ ...load, ratingLoading: false }));
     }
@@ -199,7 +200,10 @@ const GameReviewComponent = ({
         child: [],
       }));
       setCommentData(tempCommentDatas);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setCommentData([]);
     } finally {
       setLoading({ ratingLoading: false, commentLoading: false });
@@ -241,7 +245,10 @@ const GameReviewComponent = ({
       });
 
       setCommentData(tempCommentDatas);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setRatingData({
         totalCount: 0,
         averageRating: 0,
@@ -260,7 +267,10 @@ const GameReviewComponent = ({
       setLoading((load) => ({ ...load, ratingLoading: true }));
       const _rating = await api_reviewGetRating(gameDetail.id);
       setUserRating(Number(_rating.data || 0));
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setUserRating(0);
     } finally {
       setLoading((load) => ({ ...load, ratingLoading: false }));
@@ -283,7 +293,10 @@ const GameReviewComponent = ({
         return item;
       });
       setCommentData(tempCommentDatas);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setLoading((load) => ({ ...load, ratingLoading: false }));
     }
@@ -305,10 +318,9 @@ const GameReviewComponent = ({
 
       toast.success(t('success:successfulllyReported'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
-      const status = error.response?.data?.statusCode ?? '';
-      const messageDescription = error.response?.data?.error ?? '';
-      toast.error(messageDescription || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsShowReport(false);
     }
@@ -328,10 +340,6 @@ const GameReviewComponent = ({
     getCommentList();
   }, [selectedSort]);
 
-  const { t } = useTranslation('');
-
-  console.log(ratingData, '-----334');
-
   return (
     <div className="relative">
       <div className="dark:bg-color-bg-secondary bg-white w-full p-6 rounded-md text-[11px] text-color-text-primary font-normal mb-7">
@@ -349,7 +357,7 @@ const GameReviewComponent = ({
           <div>
             <h2 className="text-[22px] font-semibold dark:text-white text-black mb-3">{gameDetail?.title}</h2>
             <p className="text-[16px]">
-              {t('gameDetail:by')} <span className="dark:text-white text-black">{gameDetail?.provider}</span>
+              {t('gameDetail:by')} <span className="text-black dark:text-white">{gameDetail?.provider}</span>
             </p>
             {gameDetail?.releasedAt && (
               <p className="mt-2 dark:text-color-text-primary text-color-light-text-primary text-[16px]">
@@ -374,7 +382,7 @@ const GameReviewComponent = ({
               <span className="dark:text-color-text-primary  text-color-light-text-primary text-[18px]">
                 {t('gameDetail:gameInfo')}
               </span>
-              <div className="grid sm:grid-cols-1 md:grid-cols-2 pt-4 gap-1">
+              <div className="grid gap-1 pt-4 sm:grid-cols-1 md:grid-cols-2">
                 <div className="w-full bg-color-panel-bg-primary p-3 text-[14px] flex justify-between rounded">
                   <span>{t('gameDetail:rtp')}</span>
                   <span className="text-color-primary">{gameDetail.payout}</span>
@@ -394,7 +402,7 @@ const GameReviewComponent = ({
               </div>
             </div>
           </div>
-          <div className="grid sm:grid-cols-1 lg:grid-cols-2 mt-8 mb-4 gap-12 lg:gap-4">
+          <div className="grid gap-12 mt-8 mb-4 sm:grid-cols-1 lg:grid-cols-2 lg:gap-4">
             <div className="lg:border-solid lg:border-r-[1px] lg:border-r-color-light-text-primary pr-8">
               <div className="dark:text-color-text-primary  text-color-light-text-primary text-[18px]">
                 {t('gameDetail:aboutThisGame')}
@@ -406,7 +414,7 @@ const GameReviewComponent = ({
                 {t('gameDetail:featuresTags')}
               </div>
               <div className="pt-4 text-[14px] text-color-text-primary flex flex-wrap gap-2">
-                <div className="bg-color-panel-bg-primary p-2 rounded">
+                <div className="p-2 rounded bg-color-panel-bg-primary">
                   {`${gameDetail.provider} ${t('gameDetail:originals')}`}
                 </div>
               </div>
@@ -463,8 +471,8 @@ const GameReviewComponent = ({
       </div>
       <div className="mb-10 dark:text-color-text-primary text-[#000]">
         {loading.ratingLoading && <Loader />}
-        <h2 className="text-lg font-semibold mb-1 dark:text-white text-black">{t('gameDetail:ratings')} </h2>
-        <div className="dark:bg-color-bg-secondary bg-white w-full">
+        <h2 className="mb-1 text-lg font-semibold text-black dark:text-white">{t('gameDetail:ratings')} </h2>
+        <div className="w-full bg-white dark:bg-color-bg-secondary">
           <div className="flex sm:p-4 p-2 md:gap-[30px] gap-[30px]">
             <div className="flex md:flex-row flex-col gap-[10px]">
               <span className="text-4xl dark:text-color-primary text-[#f59e0b] font-normal">
@@ -496,7 +504,7 @@ const GameReviewComponent = ({
                   </div>
                   <div className="w-full h-[5px] bg-color-progress-secondary rounded">
                     <div
-                      className="h-full bg-color-primary rounded"
+                      className="h-full rounded bg-color-primary"
                       style={{ width: `${(ratingData.counts[4 - index] / (ratingData.totalCount || 1)) * 100}%` }}
                     ></div>
                   </div>
@@ -506,7 +514,7 @@ const GameReviewComponent = ({
           </div>
           <div className="w-full h-[1px] dark:bg-color-border-primary bg-color-light-border-primary"></div>
           <div className="flex justify-between px-4 text-[14px]">
-            <div className="w-full flex flex-col md:flex-row md:justify-between justify-center pr-5 items-center">
+            <div className="flex flex-col items-center justify-center w-full pr-5 md:flex-row md:justify-between">
               <span>{t('gameDetail:rateThisGame')}</span>
               <StarsRating
                 allowHalf={false}
@@ -516,7 +524,7 @@ const GameReviewComponent = ({
               />
             </div>
             <div className="w-[1px] md:h-12 h-[86px] dark:bg-color-border-primary bg-color-light-border-primary"></div>
-            <div className="w-full flex flex-col md:flex-row items-center pl-4 justify-center md:justify-start">
+            <div className="flex flex-col items-center justify-center w-full pl-4 md:flex-row md:justify-start">
               <div className="flex pr-2">
                 {ratingData.avatars.map((item, key) => (
                   <div key={key}>
@@ -544,7 +552,7 @@ const GameReviewComponent = ({
       </div>
       <div className="mb-[50px]">
         {loading.commentLoading && <Loader />}
-        <div className="flex justify-between text-lg font-semibold items-center">
+        <div className="flex items-center justify-between text-lg font-semibold">
           <h2 className="text-black dark:text-white">{t('gameDetail:comments')}</h2>
           <Popover>
             {({ open }) => (
@@ -575,7 +583,7 @@ const GameReviewComponent = ({
                 >
                   <Popover.Panel
                     static
-                    className="absolute mr-0 left-auto right-0 z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="absolute right-0 left-auto z-10 mr-0 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none"
                   >
                     <div className="py-1 gap-[3px] px-[10px] flex flex-col relative rounded-md dark:bg-color-menu-primary bg-white w-auto shadow-gray-700 dark:shadow">
                       {sortByData.map((item, index) => (
@@ -606,14 +614,14 @@ const GameReviewComponent = ({
             alt=""
             width={36}
             height={36}
-            className="w-9 h-9 rounded-full"
+            className="rounded-full w-9 h-9"
             onError={(e) => {
               e.currentTarget.src = '/img/avatar-1.png';
             }}
           />
 
           <div
-            className="w-full cursor-pointer h-full items-start flex flex-col dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary text-sm border-none px-7 focus:outline-none justify-center"
+            className="flex flex-col items-start justify-center w-full h-full text-sm border-none cursor-pointer dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary px-7 focus:outline-none"
             role="text"
             onClick={() => {
               if (!isLogin) {
@@ -641,7 +649,7 @@ const GameReviewComponent = ({
                     alt=""
                     width={36}
                     height={36}
-                    className="w-7 h-7 rounded-full"
+                    className="rounded-full w-7 h-7"
                     onError={(err) => {
                       err.currentTarget.src = '/img/avatar-1.png';
                     }}
@@ -671,7 +679,7 @@ const GameReviewComponent = ({
                   </p>
                 )}
               </div>
-              <div className="-mt-8 flex gap-6 mr-3 text-sm">
+              <div className="flex gap-6 mr-3 -mt-8 text-sm">
                 <div
                   className={cn('flex gap-[5px] items-center justify-center cursor-pointer', {
                     'text-color-primary': comment.like,
@@ -696,7 +704,7 @@ const GameReviewComponent = ({
                     {({ open }) => (
                       <>
                         <Popover.Button>
-                          <div className="flex flex-col justify-center dark:text-white text-color-text-primary items-center relative ">
+                          <div className="relative flex flex-col items-center justify-center dark:text-white text-color-text-primary ">
                             <EllipsisVerticalIcon
                               width={18}
                               height={18}
@@ -745,7 +753,7 @@ const GameReviewComponent = ({
                         alt=""
                         width={36}
                         height={36}
-                        className="w-7 h-7 rounded-full"
+                        className="rounded-full w-7 h-7"
                         onError={(err) => {
                           err.currentTarget.src = '/img/avatar-1.png';
                         }}
@@ -773,7 +781,7 @@ const GameReviewComponent = ({
                       </p>
                     )}
                   </div>
-                  <div className="-mt-8 flex gap-6 mr-3 text-sm">
+                  <div className="flex gap-6 mr-3 -mt-8 text-sm">
                     <div
                       className={cn('flex gap-[5px] items-center justify-center cursor-pointer', {
                         'text-color-primary': item.like,

@@ -12,6 +12,7 @@ import { api_editUserName } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowInformation,
@@ -81,8 +82,10 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
         }),
       );
       goBackProfile();
-    } catch (error) {
-      toast.error(t('profile:updateUsernameFailed'), { containerId: TOAST_ENUM.MODAL });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
