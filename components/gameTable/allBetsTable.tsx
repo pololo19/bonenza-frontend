@@ -4,13 +4,15 @@ import { ArrowDown2, ArrowUp2, Ghost } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_getLatestBetsForGame } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatDate, formatLengthNumber } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
@@ -87,7 +89,10 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
         time: item.time ?? new Date(),
       }));
       setbetData(tempBetData);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setbetData([]);
     } finally {
       setIsLoadingTable(false);
@@ -154,7 +159,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
                 {t('homePage:hidden')}
               </div>
             ) : (
-              <div className="dark:text-white text-black">
+              <div className="text-black dark:text-white">
                 {row.original.playerId === userId ? userName : row.original.player}
               </div>
             )}
@@ -264,7 +269,6 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
 
     return () => {
       if (gameSocket) {
-        console.log('----- all bets table -----');
         gameSocket.off(`bets`);
       }
     };

@@ -1,9 +1,12 @@
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { api_deleteSession, api_getSessions } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { SessionType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
@@ -75,7 +78,10 @@ const SettingSession = () => {
       setIsLoading(true);
       const res = await api_deleteSession(sessionId);
       getListUserSessions(limit, page);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }

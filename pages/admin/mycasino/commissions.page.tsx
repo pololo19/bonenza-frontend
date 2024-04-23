@@ -21,6 +21,7 @@ import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constant
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import AdminLayout from '@/components/layouts/admin.layout';
@@ -134,13 +135,11 @@ function AdminRewardsPage() {
       await getCommissionData();
 
       dispatch(setLockedAmount(tempLockedAmount));
-      toast.success(`Your withdraw is successful`, { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('withdraw:withdrawComplete'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      console.log(error);
-      const message = error.response?.data?.message ?? '';
-      const status = error.response?.data?.statusCode ?? '';
-      const description = error.response?.data?.error ?? '';
-      toast.error(description, { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }

@@ -21,6 +21,7 @@ import {
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -133,11 +134,14 @@ function GamePage() {
       };
 
       if (!_res.data?.allowLocation) {
-        toast.error(t('errors:locationIsNotAllowed'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('errors:game:canDetectLocation'), { containerId: TOAST_ENUM.COMMON });
       }
 
       setGameDetail(tempGameDetailData);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setIsNotFoundGame(true);
     } finally {
       setIsLoading(false);
@@ -173,7 +177,10 @@ function GamePage() {
         lanuchGameOption.lobbyUrl,
         lanuchGameOption.tokenId,
       );
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoadingGame({
         request: 'demo',
@@ -226,8 +233,10 @@ function GamePage() {
         lanuchGameOption.lobbyUrl,
         lanuchGameOption.tokenId,
       );
-    } catch (error) {
-      toast.error(t('notification:errors:gameLaunchedFailed'), { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setIsLoadingGame({
         request: 'real',
         status: false,
@@ -249,7 +258,10 @@ function GamePage() {
         ...reactionData,
         isFavorite: favorite,
       });
-    } catch {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setReactionData({
         isFavorite: false,
         isLike: false,
@@ -275,8 +287,10 @@ function GamePage() {
       const state = res.data?.state;
       setGameDetail({ ...gameDetail, favorites: count });
       setReactionData({ ...reactionData, isFavorite: state });
-    } catch (error) {
-      toast.error('Reaction Failed', { containerId: TOAST_ENUM.COMMON });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       if (reaction === 'like') {
         setIsLoadingLike(false);
@@ -365,7 +379,7 @@ function GamePage() {
       {isLoading && <Loader />}
       {!isNotFoundGame && (
         <div className="py-[24px]">
-          <div className="sm:flex hidden w-full justify-between items-center">
+          <div className="items-center justify-between hidden w-full sm:flex">
             <Breadcrumbs
               data={[{ title: 'Casino', href: ROUTER.Casino }]}
               endpoint={{ title: String(gameDetail.title), href: ROUTER.GameDetail(String(gameId)) }}
@@ -406,7 +420,7 @@ function GamePage() {
                 )}
               >
                 <div className="grid grid-cols-2 w-full h-fit gap-[10px]">
-                  <div className="flex relative aspect-square">
+                  <div className="relative flex aspect-square">
                     <Image
                       src={
                         gameDetail.identifier
@@ -423,8 +437,8 @@ function GamePage() {
                   </div>
                   <div className="flex flex-col aspect-square px-[10px] justify-between">
                     <div className="flex flex-col gap-[10px]">
-                      <div className="dark:text-white text-black text-default font-bold">{gameDetail.title}</div>
-                      <div className="dark:text-white text-black text-des">
+                      <div className="font-bold text-black dark:text-white text-default">{gameDetail.title}</div>
+                      <div className="text-black dark:text-white text-des">
                         <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
                         <Link
                           className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
@@ -433,7 +447,7 @@ function GamePage() {
                           {gameDetail.providerName}
                         </Link>
                       </div>
-                      <div className="dark:text-color-text-secondary text-black text-des">
+                      <div className="text-black dark:text-color-text-secondary text-des">
                         {`${formatDate(new Date(gameDetail.releasedAt), 'yyyy.MM.dd')}`}
                       </div>
                     </div>
@@ -459,7 +473,7 @@ function GamePage() {
                       )}
                       <div
                         role="button"
-                        className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
+                        className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
                         onClick={() => setOpenShareGame(true)}
                       >
                         <Send2 size={20} variant="Bold" />
@@ -595,7 +609,7 @@ function GamePage() {
                   }
                   fill
                   alt=""
-                  className="sm:block hidden "
+                  className="hidden sm:block "
                   onError={(e) => {
                     e.currentTarget.src = '/img/game-background.png';
                   }}
@@ -783,7 +797,7 @@ function GamePage() {
                 {/* Hiding Share game button */}
                 {/* <div
                   role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
+                  className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
                   onClick={() => setOpenShareGame(true)}
                 >
                   <Send2 size={20} variant="Bold" /> 
@@ -796,7 +810,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
+                      className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
                     >
                       <Image alt="" src={'/img/fairness.png'} width={18} height={18} />
                     </div>
@@ -807,7 +821,7 @@ function GamePage() {
                   children={
                     <div
                       role="button"
-                      className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
+                      className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
                     >
                       <Image alt="" src={'/img/hierarchy.png'} width={18} height={18} />
                     </div>
@@ -816,13 +830,13 @@ function GamePage() {
 
                 <div
                   role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
+                  className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
                 >
                   <Image alt="" src={'/img/monitor.png'} width={18} height={18} />
                 </div> */}
                 <div
                   role="button"
-                  className="dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2"
+                  className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
                   onClick={() => {
                     gameScreen.enter();
                   }}

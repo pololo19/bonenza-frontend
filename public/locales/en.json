@@ -492,7 +492,9 @@
     "feeTooltip": "Unlock at VIP38. No-fee withdrawal once per day",
     "totalWithdrawAmount": "Total withdrawal amount:",
     "available": "Available",
-    "lockedFunds": "Locked funds"
+    "lockedFunds": "Locked funds",
+    "withdrawProgress": "Withdrawal is in progress",
+    "withdrawComplete": "Withdrawal Successful"
   },
   "balance": {
     "cryptoCurrency": "Crypto Currency",
@@ -2146,39 +2148,82 @@
     "expired": "Expired"
   },
   "errors": {
-    "internalServer": "Oops! Something went wrong, Please try again later.",
-    "existPhone": "This Phone is already exists.",
-    "existMail": "This Email is already exists.",
-    "verifyPhone": "This Phone is not verified.",
-    "verifyMail": "This Email is not verified.",
-    "locationIsNotAllowed": "Sorry, this game is not available in your region.",
-    "selfExclusive": "Your account is disabled.",
-    "notExistMail": "This Email is not Exist.",
-    "notExistPhone": "This Phone is not Exist.",
-    "notExistMailOrPhone": "Email or Phone is not exist.",
-    "notMatchConfirmationPassword": "Confirmation Password is not match.",
-    "disabledAccount": "Your account is disabled.",
-    "notValidToken": "Token isn't valid",
-    "expiredToken": "Token is expired.",
-    "requiredMail": "Please verify your email to activate this feature.",
-    "validReferral": "The referral code isn't valid.",
-    "notMatchedCredential": "Invalid Email or Password!",
-    "notExistPassword": "Password isn't set.",
-    "notMatched2FA": "Invalid two factor authenticate.",
-    "notMatchedCurrentPassword": "Current Password is not matched.",
-    "sendGridError": "Oops! Something went wrong while sending the email.",
-    "twiloError": "Oops! Something went wrong while sending the SMS.",
-    "notMatchedVerificationCode": "Verification Code is not matched.",
-    "expiredVerficationCode": "Verification Code is expired.",
-    "notValidTgInfo": "Your Telegram info is not valid.",
-    "notValidSelfExlusionTime": "Exlusion Time is not valid.",
     "badRequest": "Your request Data is not valid.",
     "notAllowedAction": "Your action is not allowed.",
-    "notMatchOTP": "Verification code is incorrect"
+    "internalServer": "Oops! Something went wrong, Please try again later.",
+    "auth": {
+      "existPhone": "This Phone is already exists.",
+      "existMail": "This Email is already exists.",
+      "verifyPhone": "This Phone is not verified.",
+      "verifyMail": "This Email is not verified.",
+      "locationIsNotAllowed": "Sorry, this game is not available in your region.",
+      "selfExclusive": "Your account is disabled.",
+      "notExistMail": "This Email is not Exist.",
+      "notExistPhone": "This Phone is not Exist.",
+      "notExistMailOrPhone": "Email or Phone is not exist.",
+      "notMatchConfirmationPassword": "Confirmation Password is not match.",
+      "disabledAccount": "Your account is disabled.",
+      "notValidToken": "Token isn't valid",
+      "expiredToken": "Token is expired.",
+      "requiredMail": "Please verify your email to activate this feature.",
+      "validReferral": "The referral code isn't valid.",
+      "notMatchedCredential": "Invalid Email or Password!",
+      "notExistPassword": "Password isn't set.",
+      "notMatched2FA": "Invalid two factor authenticate.",
+      "notMatchedCurrentPassword": "Sorry, Invalid Old password. Please try again.",
+      "sendGridError": "Oops! Something went wrong while sending the email.",
+      "twiloError": "Oops! Something went wrong while sending the SMS.",
+      "notMatchedVerificationCode": "Verification Code is not matched.",
+      "expiredVerficationCode": "Verification Code is expired.",
+      "notValidTgInfo": "Your Telegram info is not valid.",
+      "notValidSelfExlusionTime": "Exlusion Time is not valid.",
+      "notMatchOTP": "Verification code is incorrect"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "No available commission rewards.",
+      "emptyAvailableReferralRewards": "No available referral rewards."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Your bonus pool is not enough, please charge by deposit.",
+      "existLevelUpBonus": "The bonus does not exist",
+      "claimBonus": "The bonus is already claimed.",
+      "existBonusType": "The bonus type does not exist.",
+      "finishedQuestToClaim": "The quest must be finished to claim.",
+      "emptyAvailableSpin": "You have no available spin.",
+      "VIP22ForSuperSpin": "Your VIP must be at least 22.",
+      "VIP70ForMegaSpin": "Your VIP must be at least 70."
+    },
+    "game": {
+      "existGame": "The game does not exist.",
+      "canDetectLocation": "The location can't be detected.",
+      "existCurrency": "The currency does not exist.",
+      "existCurrencyType": "The currency type does not exist.",
+      "matchedWithSign": "The request sign does not match.",
+      "existGameRating": "You already gave rating to this game.",
+      "existGameReport": "You already reported this game."
+    },
+    "page": {
+      "exceedTotalPageNumber": "The current page exceeds the total number of pages."
+    },
+    "swap": {
+      "existSourceCrypto": "The source cryptocurrency does not exist.",
+      "existDestinationCrypto": "The destination cryptocurrency does not exist.",
+      "isEnoughBalanceForSwap": "The balance is low to swap."
+    }
   },
   "success": {
     "bonusClaimed": "Your Bonus is Claimed",
     "successfulllyReported": "Your Request is received successfully. We will review soon. Thank you.",
-    "success": "Success"
+    "success": "Success",
+    "pasted": "Pasted",
+    "copied": "Copied",
+    "rating": "Rating Successfully",
+    "sentEmailSuccessfully": "Confirmation Email is sent to your mail Box. Please check your mail box. Thank you.",
+    "confirmedWithdraw": "Congratulations! Your withdrawal of {{amount}} {{token}} is in progress, any large or suspicious withdrawal amount will be audited and manually processed. As always we appreciate your patience!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Please input representative ID correctly.",
+    "incorrectRepresentativeID": "{{representativeID}} is NOT the official representative of BONENZA. Do not trust this account..",
+    "emptyMessageContent": "Message content cannot be empty!"
   }
 }

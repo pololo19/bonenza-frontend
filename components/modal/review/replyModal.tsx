@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { api_reviewLike, api_reviewList, api_reviewReport } from '@/api/game';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { getDuration } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import { CommentType } from '@/components/game/gameReview';
@@ -19,7 +20,6 @@ import Paging from '@/components/paging/paging';
 import ReportModal from '../../modal/review/reportModal';
 import CommonModal from '../commonModal/commonModal';
 import CommentPostModal from './commentPost';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 export default function ReplyModal({
   show,
@@ -61,10 +61,9 @@ export default function ReplyModal({
 
       toast.success(t('success:successfulllyReported'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
-      const status = error.response?.data?.statusCode ?? '';
-      const messageDescription = error.response?.data?.error ?? '';
-      toast.error(messageDescription || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsShowReport(false);
     }
@@ -125,7 +124,10 @@ export default function ReplyModal({
         });
         setCommentData(tempCommentDatas);
       }
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -167,8 +169,8 @@ export default function ReplyModal({
       <CommonModal show={show} onClose={onClose} panelClass="sm:!max-w-[530px] sm:my-0 ">
         <div className="flex flex-col p-[20px] mt-[40px] ">
           <div className="flex gap-[10px]">
-            <div className="text-xs dark:text-color-text-primary text-color-light-text-primary w-full">
-              <div className="flex justify-between items-center">
+            <div className="w-full text-xs dark:text-color-text-primary text-color-light-text-primary">
+              <div className="flex items-center justify-between">
                 <div className="">
                   <div className="flex items-center gap-2">
                     <Image
@@ -176,7 +178,7 @@ export default function ReplyModal({
                       alt=""
                       width={36}
                       height={36}
-                      className="w-7 h-7 rounded-full"
+                      className="rounded-full w-7 h-7"
                       onError={(err) => {
                         err.currentTarget.src = '/img/avatar-1.png';
                       }}
@@ -192,7 +194,7 @@ export default function ReplyModal({
                   </div>
                   <p className="mt-[13px] ml-[23px] dark:text-white text-black">{sourceComment.text}</p>
                 </div>
-                <div className="-mt-8 flex gap-6 mr-3 text-sm">
+                <div className="flex gap-6 mr-3 -mt-8 text-sm">
                   <div
                     className="flex gap-[5px] items-center justify-center cursor-pointer"
                     onClick={() => handleLikeComment(sourceComment.id)}
@@ -214,7 +216,7 @@ export default function ReplyModal({
                       {({ open }) => (
                         <>
                           <Popover.Button>
-                            <div className="flex flex-col justify-center dark:text-white text-color-text-primary items-center relative ">
+                            <div className="relative flex flex-col items-center justify-center dark:text-white text-color-text-primary ">
                               <EllipsisVerticalIcon width={18} height={18} className="border-none active:border-none" />
                             </div>
                           </Popover.Button>
@@ -262,7 +264,7 @@ export default function ReplyModal({
                         alt=""
                         width={36}
                         height={36}
-                        className="w-7 h-7 rounded-full"
+                        className="rounded-full w-7 h-7"
                         onError={(err) => {
                           err.currentTarget.src = '/img/avatar-1.png';
                         }}
@@ -282,7 +284,7 @@ export default function ReplyModal({
                       </p>
                     )}
                   </div>
-                  <div className="-mt-8 flex gap-6 mr-3 text-sm">
+                  <div className="flex gap-6 mr-3 -mt-8 text-sm">
                     <div
                       className="flex gap-[5px] items-center justify-center cursor-pointer"
                       onClick={() => handleLikeComment(comment.id)}
@@ -304,7 +306,7 @@ export default function ReplyModal({
                         {({ open }) => (
                           <>
                             <Popover.Button>
-                              <div className="flex flex-col justify-center dark:text-white text-color-text-primary items-center relative ">
+                              <div className="relative flex flex-col items-center justify-center dark:text-white text-color-text-primary ">
                                 <EllipsisVerticalIcon
                                   width={18}
                                   height={18}

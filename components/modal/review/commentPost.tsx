@@ -6,9 +6,11 @@ import { useTheme } from 'next-themes';
 import { Fragment, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_reviewAdd } from '@/api/game';
-import { API_AVATAR } from '@/base/constants/common';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import { CommentType } from '@/components/game/gameReview';
@@ -74,7 +76,10 @@ export default function CommentPostModal({
         setCommentData([newComment, ...comments]);
       }
       if (onSubmit) onSubmit();
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       onClose();
       setIsLoading(false);
@@ -136,7 +141,7 @@ export default function CommentPostModal({
                       static
                       className="absolute sm:mr-0 mr-[10px] fixed sm:-top-[250px] top-0 h-auto z-[110] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none w-full"
                     >
-                      <div className="sm:relative fixed left-0 rounded-md dark:bg-color-menu-primary bg-white shadow-gray-700 dark:shadow w-full">
+                      <div className="fixed left-0 w-full bg-white rounded-md sm:relative dark:bg-color-menu-primary shadow-gray-700 dark:shadow">
                         <EmojiPicker
                           emojiStyle={EmojiStyle.NATIVE}
                           theme={theme == 'light' ? Theme.LIGHT : Theme.DARK}

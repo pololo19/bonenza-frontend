@@ -13,6 +13,7 @@ import { api_affiliateReferralRewards, api_affiliateReferralRewardsWithdrw } fro
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { AppState } from '@/base/redux/store';
 import AdminInputDateRange from '@/components/input/admin/AdminInputDateRange';
 import AdminInputText from '@/components/input/admin/AdminInputText';
@@ -126,12 +127,11 @@ function AdminRewardsPage() {
   const handleWithdraw = async () => {
     try {
       const _res = await api_affiliateReferralRewardsWithdrw();
-      toast.success('Successfully Withdrawed', { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('withdraw:withdrawComplete'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      const message = error.response?.data?.message ?? '';
-      const status = error.response?.data?.statusCode ?? '';
-      const description = error.response?.data?.error ?? '';
-      toast.error(description, { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     }
   };
 
@@ -184,7 +184,7 @@ function AdminRewardsPage() {
 
   return (
     <div>
-      <div className="bg-white rounded border border-solid border-gray-200 p-4">
+      <div className="p-4 bg-white border border-gray-200 border-solid rounded">
         <div className="min-h-[75px] lg:flex-row flex-col flex lg:items-center items-start justify-between gap-[20px]">
           <div className="flex lg:flex-row flex-col lg:items-end items-start gap-[20px] flex-1">
             <div>
@@ -215,7 +215,7 @@ function AdminRewardsPage() {
                 </div>
               </div>
             </div>
-            <button className="bg-gradient-btn-play px-6 py-3 rounded-default text-white" onClick={handleWithdraw}>
+            <button className="px-6 py-3 text-white bg-gradient-btn-play rounded-default" onClick={handleWithdraw}>
               {t('mycasino:withdraw')}
             </button>
           </div>
@@ -232,7 +232,7 @@ function AdminRewardsPage() {
           </div>
         </div>
       </div>
-      <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
+      <div className="p-4 mt-4 bg-white border border-gray-200 border-solid rounded">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap items-center gap-[20px]">
           <div className="flex flex-col items-start gap-1">
             <label htmlFor="username">{t('mycasino:Username')}</label>
@@ -245,13 +245,13 @@ function AdminRewardsPage() {
           </div>
           <div className="flex flex-col items-start gap-1">
             <label className="opacity-0">1</label>
-            <button className="bg-gradient-btn-play px-6 py-1 rounded-default text-white" type="submit">
+            <button className="px-6 py-1 text-white bg-gradient-btn-play rounded-default" type="submit">
               {t('mycasino:search')}
             </button>
           </div>
         </form>
       </div>
-      <div className="bg-white rounded border border-solid border-gray-200 p-4 mt-4">
+      <div className="p-4 mt-4 bg-white border border-gray-200 border-solid rounded">
         <AdminTableComponent
           containerClassName="w-full"
           isLoading={isLoadingTable}

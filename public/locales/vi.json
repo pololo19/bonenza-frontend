@@ -492,7 +492,9 @@
     "feeTooltip": "Mở khóa tại VIP38. ",
     "totalWithdrawAmount": "Tổng số tiền rút:",
     "available": "Có sẵn",
-    "lockedFunds": "Tiền bị khóa"
+    "lockedFunds": "Tiền bị khóa",
+    "withdrawProgress": "Quá trình rút tiền đang được tiến hành",
+    "withdrawComplete": "Rút tiền thành công"
   },
   "balance": {
     "cryptoCurrency": "Tiền điện tử",
@@ -2130,40 +2132,83 @@
     "cancel": "Hủy bỏ"
   },
   "errors": {
-    "internalServer": "Rất tiếc! Đã xảy ra lỗi. Vui lòng thử lại sau.",
-    "existPhone": "Điện thoại này đã tồn tại.",
-    "existMail": "Email này đã tồn tại.",
-    "verifyPhone": "Điện thoại này chưa được xác minh.",
-    "verifyMail": "Email này chưa được xác minh.",
-    "locationIsNotAllowed": "Rất tiếc, trò chơi này không có sẵn ở khu vực của bạn.",
-    "selfExclusive": "Tài khoản của bạn bị vô hiệu hóa.",
-    "notExistMail": "Email này không tồn tại.",
-    "notExistPhone": "Điện thoại này không tồn tại.",
-    "notExistMailOrPhone": "Email hoặc Điện thoại không tồn tại.",
-    "notMatchConfirmationPassword": "Mật khẩu xác nhận không khớp.",
-    "disabledAccount": "Tài khoản của bạn bị vô hiệu hóa.",
-    "notValidToken": "Mã thông báo không hợp lệ",
-    "expiredToken": "Mã thông báo đã hết hạn.",
-    "requiredMail": "Vui lòng xác minh email của bạn để kích hoạt tính năng này.",
-    "validReferral": "Mã giới thiệu không hợp lệ.",
-    "notMatchedCredential": "Email hoặc mật khẩu không hợp lệ!",
-    "notExistPassword": "Mật khẩu chưa được đặt.",
-    "notMatched2FA": "Xác thực hai yếu tố không hợp lệ.",
-    "notMatchedCurrentPassword": "Mật khẩu hiện tại không khớp.",
-    "sendGridError": "Rất tiếc! Đã xảy ra lỗi khi gửi email.",
-    "twiloError": "Rất tiếc! Đã xảy ra lỗi khi gửi SMS.",
-    "notMatchedVerificationCode": "Mã xác minh không khớp.",
-    "expiredVerficationCode": "Mã xác minh đã hết hạn.",
-    "notValidTgInfo": "Thông tin Telegram của bạn không hợp lệ.",
-    "notValidSelfExlusionTime": "Thời gian loại trừ không hợp lệ.",
     "badRequest": "Yêu cầu của bạn Dữ liệu không hợp lệ.",
     "notAllowedAction": "Hành động của bạn không được phép.",
-    "notMatchOTP": "Mã xác minh không chính xác"
+    "internalServer": "Ối! ",
+    "auth": {
+      "existPhone": "Điện thoại này đã tồn tại.",
+      "existMail": "Email này đã tồn tại.",
+      "verifyPhone": "Điện thoại này chưa được xác minh.",
+      "verifyMail": "Email này chưa được xác minh.",
+      "locationIsNotAllowed": "Rất tiếc, trò chơi này không có sẵn ở khu vực của bạn.",
+      "selfExclusive": "Tài khoản của bạn bị vô hiệu hóa.",
+      "notExistMail": "Email này không tồn tại.",
+      "notExistPhone": "Điện thoại này không tồn tại.",
+      "notExistMailOrPhone": "Email hoặc Điện thoại không tồn tại.",
+      "notMatchConfirmationPassword": "Mật khẩu xác nhận không khớp.",
+      "disabledAccount": "Tài khoản của bạn bị vô hiệu hóa.",
+      "notValidToken": "Mã thông báo không hợp lệ",
+      "expiredToken": "Mã thông báo đã hết hạn.",
+      "requiredMail": "Vui lòng xác minh email của bạn để kích hoạt tính năng này.",
+      "validReferral": "Mã giới thiệu không hợp lệ.",
+      "notMatchedCredential": "Email hoặc mật khẩu không hợp lệ!",
+      "notExistPassword": "Mật khẩu chưa được đặt.",
+      "notMatched2FA": "Xác thực hai yếu tố không hợp lệ.",
+      "notMatchedCurrentPassword": "Xin lỗi,Mật khẩu cũ không hợp lệ. Vui lòng thử lại.",
+      "sendGridError": "Ối! ",
+      "twiloError": "Ối! ",
+      "notMatchedVerificationCode": "Mã xác minh không khớp.",
+      "expiredVerficationCode": "Mã xác minh đã hết hạn.",
+      "notValidTgInfo": "Thông tin Telegram của bạn không hợp lệ.",
+      "notValidSelfExlusionTime": "Thời gian loại trừ không hợp lệ.",
+      "notMatchOTP": "Mã xác minh không chính xác"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "Không có phần thưởng hoa hồng có sẵn.",
+      "emptyAvailableReferralRewards": "Không có phần thưởng giới thiệu có sẵn."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Nhóm tiền thưởng của bạn không đủ, vui lòng tính phí bằng cách gửi tiền.",
+      "existLevelUpBonus": "Tiền thưởng không tồn tại",
+      "claimBonus": "Tiền thưởng đã được yêu cầu.",
+      "existBonusType": "Loại tiền thưởng không tồn tại.",
+      "finishedQuestToClaim": "Nhiệm vụ phải được hoàn thành để yêu cầu.",
+      "emptyAvailableSpin": "Bạn không có sẵn vòng quay.",
+      "VIP22ForSuperSpin": "VIP của bạn phải ít nhất là 22.",
+      "VIP70ForMegaSpin": "VIP của bạn phải ít nhất là 70."
+    },
+    "game": {
+      "existGame": "Trò chơi không tồn tại.",
+      "canDetectLocation": "Không thể phát hiện được vị trí.",
+      "existCurrency": "Tiền tệ không tồn tại.",
+      "existCurrencyType": "Loại tiền tệ không tồn tại.",
+      "matchedWithSign": "Dấu hiệu yêu cầu không khớp.",
+      "existGameRating": "Bạn đã xếp hạng cho trò chơi này.",
+      "existGameReport": "Bạn đã báo cáo trò chơi này."
+    },
+    "page": {
+      "exceedTotalPageNumber": "Trang hiện tại vượt quá tổng số trang."
+    },
+    "swap": {
+      "existSourceCrypto": "Tiền điện tử nguồn không tồn tại.",
+      "existDestinationCrypto": "Tiền điện tử đích không tồn tại.",
+      "isEnoughBalanceForSwap": "Số dư thấp để trao đổi."
+    }
   },
   "success": {
     "bonusClaimed": "Tiền thưởng của bạn đã được xác nhận",
     "successfulllyReported": "Yêu cầu của bạn đã được nhận thành công. ",
-    "success": "Thành công"
+    "success": "Thành công",
+    "pasted": "Đã dán",
+    "copied": "Đã sao chép",
+    "rating": "Đánh giá thành công",
+    "sentEmailSuccessfully": "Email xác nhận được gửi tới Hộp thư của bạn. ",
+    "confirmedWithdraw": "Xin chúc mừng! Bạn đã rút tiền {{amount}} {{token}} đang được tiến hành, mọi số tiền rút lớn hoặc đáng ngờ sẽ được kiểm tra và xử lý thủ công. Chúng tôi luôn đánh giá cao sự kiên nhẫn của bạn!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Vui lòng nhập chính xác ID đại diện.",
+    "incorrectRepresentativeID": "{{representativeID}} KHÔNG phải là đại diện chính thức của BONENZA. ",
+    "emptyMessageContent": "Nội dung tin nhắn không được để trống!"
   },
   "quest": {
     "questHub": "Trung tâm nhiệm vụ",

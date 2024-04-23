@@ -492,7 +492,9 @@
     "feeTooltip": "VIP38 এ আনলক করুন। ",
     "totalWithdrawAmount": "মোট উত্তোলনের পরিমাণ:",
     "available": "পাওয়া যায়",
-    "lockedFunds": "লক করা তহবিল"
+    "lockedFunds": "লক করা তহবিল",
+    "withdrawProgress": "প্রত্যাহার চলছে",
+    "withdrawComplete": "প্রত্যাহার সফল"
   },
   "balance": {
     "cryptoCurrency": "ক্রিপ্টো কারেন্সি",
@@ -2130,40 +2132,83 @@
     "cancel": "বাতিল করুন"
   },
   "errors": {
-    "internalServer": "ওহো!কিছু ভুল হয়েছে, অনুগ্রহ করে পরে আবার চেষ্টা করুন।",
-    "existPhone": "এই ফোনটি আগে থেকেই আছে।",
-    "existMail": "এই ইমেলটি ইতিমধ্যেই বিদ্যমান।",
-    "verifyPhone": "এই ফোন যাচাই করা হয় না.",
-    "verifyMail": "এই ইমেল যাচাই করা হয় না.",
-    "locationIsNotAllowed": "দুঃখিত, এই গেমটি আপনার অঞ্চলে উপলব্ধ নয়৷",
-    "selfExclusive": "আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে.",
-    "notExistMail": "এই ইমেল বিদ্যমান নেই.",
-    "notExistPhone": "এই ফোনটি বিদ্যমান নেই।",
-    "notExistMailOrPhone": "ইমেল বা ফোন বিদ্যমান নেই.",
-    "notMatchConfirmationPassword": "নিশ্চিতকরণ পাসওয়ার্ড মেলে না।",
-    "disabledAccount": "আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে.",
-    "notValidToken": "টোকেন বৈধ নয়",
-    "expiredToken": "টোকেনের মেয়াদ শেষ।",
-    "requiredMail": "এই বৈশিষ্ট্য সক্রিয় করতে আপনার ইমেল যাচাই করুন.",
-    "validReferral": "রেফারেল কোড বৈধ নয়।",
-    "notMatchedCredential": "অবৈধ ইমেল বা পাসওয়ার্ড!",
-    "notExistPassword": "পাসওয়ার্ড সেট করা নেই।",
-    "notMatched2FA": "অবৈধ দুই ফ্যাক্টর প্রমাণীকরণ.",
-    "notMatchedCurrentPassword": "বর্তমান পাসওয়ার্ড মেলেনি।",
-    "sendGridError": "ওহো!ইমেল পাঠানোর সময় কিছু ভুল হয়েছে৷",
-    "twiloError": "ওহো!এসএমএস পাঠানোর সময় কিছু ভুল হয়েছে৷",
-    "notMatchedVerificationCode": "যাচাইকরণ কোড মেলে না।",
-    "expiredVerficationCode": "যাচাইকরণ কোডের মেয়াদ শেষ।",
-    "notValidTgInfo": "আপনার টেলিগ্রাম তথ্য বৈধ নয়.",
-    "notValidSelfExlusionTime": "বর্জন সময় বৈধ নয়.",
     "badRequest": "আপনার অনুরোধ ডেটা বৈধ নয়.",
     "notAllowedAction": "আপনার কর্ম অনুমোদিত নয়.",
-    "notMatchOTP": "যাচাইকরণ কোড ভুল"
+    "internalServer": "উফ! ",
+    "auth": {
+      "existPhone": "এই ফোনটি আগে থেকেই আছে।",
+      "existMail": "এই ইমেলটি ইতিমধ্যেই বিদ্যমান।",
+      "verifyPhone": "এই ফোন যাচাই করা হয় না.",
+      "verifyMail": "এই ইমেল যাচাই করা হয় না.",
+      "locationIsNotAllowed": "দুঃখিত, এই গেমটি আপনার অঞ্চলে উপলব্ধ নয়৷",
+      "selfExclusive": "আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে.",
+      "notExistMail": "এই ইমেল বিদ্যমান নেই.",
+      "notExistPhone": "এই ফোনটি বিদ্যমান নেই।",
+      "notExistMailOrPhone": "ইমেল বা ফোন বিদ্যমান নেই.",
+      "notMatchConfirmationPassword": "নিশ্চিতকরণ পাসওয়ার্ড মেলে না।",
+      "disabledAccount": "আপনার অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে.",
+      "notValidToken": "টোকেন বৈধ নয়",
+      "expiredToken": "টোকেনের মেয়াদ শেষ।",
+      "requiredMail": "এই বৈশিষ্ট্য সক্রিয় করতে আপনার ইমেল যাচাই করুন.",
+      "validReferral": "রেফারেল কোড বৈধ নয়।",
+      "notMatchedCredential": "অবৈধ ইমেল বা পাসওয়ার্ড!",
+      "notExistPassword": "পাসওয়ার্ড সেট করা নেই।",
+      "notMatched2FA": "অবৈধ দুই ফ্যাক্টর প্রমাণীকরণ.",
+      "notMatchedCurrentPassword": "দুঃখিত, অবৈধ পুরানো পাসওয়ার্ড। অনুগ্রহ করে আবার চেষ্টা করুন।",
+      "sendGridError": "উফ! ",
+      "twiloError": "উফ! ",
+      "notMatchedVerificationCode": "যাচাইকরণ কোড মেলে না।",
+      "expiredVerficationCode": "যাচাইকরণ কোডের মেয়াদ শেষ।",
+      "notValidTgInfo": "আপনার টেলিগ্রাম তথ্য বৈধ নয়.",
+      "notValidSelfExlusionTime": "বর্জন সময় বৈধ নয়.",
+      "notMatchOTP": "যাচাইকরণ কোড ভুল"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "কোন উপলব্ধ কমিশন পুরস্কার.",
+      "emptyAvailableReferralRewards": "কোন রেফারেল পুরষ্কার উপলব্ধ নেই।"
+    },
+    "bonus": {
+      "notEnoughBonusPool": "আপনার বোনাস পুল যথেষ্ট নয়, অনুগ্রহ করে ডিপোজিট করে চার্জ করুন।",
+      "existLevelUpBonus": "বোনাস বিদ্যমান নেই",
+      "claimBonus": "বোনাস ইতিমধ্যে দাবি করা হয়েছে.",
+      "existBonusType": "বোনাস প্রকার বিদ্যমান নেই.",
+      "finishedQuestToClaim": "দাবি করার জন্য অনুসন্ধান শেষ করতে হবে।",
+      "emptyAvailableSpin": "আপনার কাছে কোন উপলব্ধ স্পিন নেই।",
+      "VIP22ForSuperSpin": "আপনার ভিআইপি কমপক্ষে 22 হতে হবে।",
+      "VIP70ForMegaSpin": "আপনার ভিআইপি কমপক্ষে 70 হতে হবে।"
+    },
+    "game": {
+      "existGame": "খেলার অস্তিত্ব নেই।",
+      "canDetectLocation": "অবস্থান সনাক্ত করা যাবে না.",
+      "existCurrency": "মুদ্রার অস্তিত্ব নেই।",
+      "existCurrencyType": "মুদ্রার ধরন বিদ্যমান নেই।",
+      "matchedWithSign": "অনুরোধ চিহ্ন মেলে না.",
+      "existGameRating": "আপনি ইতিমধ্যে এই গেম রেটিং দিয়েছেন.",
+      "existGameReport": "আপনি ইতিমধ্যে এই গেমটি রিপোর্ট করেছেন।"
+    },
+    "page": {
+      "exceedTotalPageNumber": "বর্তমান পৃষ্ঠাটি মোট পৃষ্ঠার সংখ্যা ছাড়িয়ে গেছে।"
+    },
+    "swap": {
+      "existSourceCrypto": "উৎস ক্রিপ্টোকারেন্সি বিদ্যমান নেই।",
+      "existDestinationCrypto": "গন্তব্য ক্রিপ্টোকারেন্সি বিদ্যমান নেই।",
+      "isEnoughBalanceForSwap": "অদলবদল করার জন্য ব্যালেন্স কম।"
+    }
   },
   "success": {
     "bonusClaimed": "আপনার বোনাস দাবি করা হয়",
     "successfulllyReported": "আপনার অনুরোধ সফলভাবে গৃহীত হয়েছে. ",
-    "success": "সফলতা"
+    "success": "সফলতা",
+    "pasted": "আটকানো হয়েছে",
+    "copied": "কপি করা হয়েছে",
+    "rating": "রেটিং সফলভাবে",
+    "sentEmailSuccessfully": "নিশ্চিতকরণ ইমেল আপনার মেইল ​​বক্সে পাঠানো হয়. ",
+    "confirmedWithdraw": "অভিনন্দন! আপনার প্রত্যাহার {{amount}} {{token}} প্রগতিতে আছে, কোনো বড় বা সন্দেহজনক প্রত্যাহারের পরিমাণ অডিট করা হবে এবং ম্যানুয়ালি প্রক্রিয়া করা হবে। বরাবরের মতো আমরা আপনার ধৈর্যের প্রশংসা করি!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "সঠিকভাবে প্রতিনিধি আইডি ইনপুট করুন.",
+    "incorrectRepresentativeID": "{{representativeID}} BONENZA-এর সরকারী প্রতিনিধি নয়। ",
+    "emptyMessageContent": "বার্তা বিষয়বস্তু খালি হতে পারে না!"
   },
   "quest": {
     "questHub": "Quest-HUB",

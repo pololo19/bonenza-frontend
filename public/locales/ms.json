@@ -492,7 +492,9 @@
     "feeTooltip": "Buka kunci di VIP38. ",
     "totalWithdrawAmount": "Jumlah amaun pengeluaran:",
     "available": "Tersedia",
-    "lockedFunds": "Dana terkunci"
+    "lockedFunds": "Dana terkunci",
+    "withdrawProgress": "Pengeluaran sedang dijalankan",
+    "withdrawComplete": "Pengeluaran Berjaya"
   },
   "balance": {
     "cryptoCurrency": "Mata Wang Kripto",
@@ -2130,40 +2132,83 @@
     "cancel": "Batal"
   },
   "errors": {
-    "internalServer": "Op!Sesuatu telah berlaku, Sila cuba sebentar lagi.",
-    "existPhone": "Telefon ini sudah wujud.",
-    "existMail": "E-mel ini telah pun wujud.",
-    "verifyPhone": "Telefon ini tidak disahkan.",
-    "verifyMail": "E-mel ini tidak disahkan.",
-    "locationIsNotAllowed": "Maaf, permainan ini tidak tersedia di wilayah anda.",
-    "selfExclusive": "Akaun anda dilumpuhkan.",
-    "notExistMail": "E-mel ini tidak wujud.",
-    "notExistPhone": "Telefon ini tidak wujud.",
-    "notExistMailOrPhone": "E-mel atau Telefon tidak wujud.",
-    "notMatchConfirmationPassword": "Kata Laluan Pengesahan tidak sepadan.",
-    "disabledAccount": "Akaun anda dilumpuhkan.",
-    "notValidToken": "Token tidak sah",
-    "expiredToken": "Token telah tamat tempoh.",
-    "requiredMail": "Sila sahkan e-mel anda untuk mengaktifkan ciri ini.",
-    "validReferral": "Kod rujukan tidak sah.",
-    "notMatchedCredential": "Email atau kata laluan tidak sah!",
-    "notExistPassword": "Kata laluan tidak ditetapkan.",
-    "notMatched2FA": "Pengesahan dua faktor tidak sah.",
-    "notMatchedCurrentPassword": "Kata Laluan Semasa tidak dipadankan.",
-    "sendGridError": "Oops!Sesuatu telah berlaku semasa menghantar e-mel.",
-    "twiloError": "Op!Sesuatu telah berlaku semasa menghantar SMS.",
-    "notMatchedVerificationCode": "Kod Pengesahan tidak dipadankan.",
-    "expiredVerficationCode": "Kod Pengesahan telah tamat tempoh.",
-    "notValidTgInfo": "Maklumat Telegram anda tidak sah.",
-    "notValidSelfExlusionTime": "Masa Pengecualian tidak sah.",
     "badRequest": "Data permintaan anda tidak sah.",
     "notAllowedAction": "Tindakan anda tidak dibenarkan.",
-    "notMatchOTP": "Kod pengesahan tidak betul"
+    "internalServer": "Aduh! ",
+    "auth": {
+      "existPhone": "Telefon ini sudah wujud.",
+      "existMail": "E-mel ini telah pun wujud.",
+      "verifyPhone": "Telefon ini tidak disahkan.",
+      "verifyMail": "E-mel ini tidak disahkan.",
+      "locationIsNotAllowed": "Maaf, permainan ini tidak tersedia di wilayah anda.",
+      "selfExclusive": "Akaun anda dilumpuhkan.",
+      "notExistMail": "E-mel ini tidak wujud.",
+      "notExistPhone": "Telefon ini tidak wujud.",
+      "notExistMailOrPhone": "E-mel atau Telefon tidak wujud.",
+      "notMatchConfirmationPassword": "Kata Laluan Pengesahan tidak sepadan.",
+      "disabledAccount": "Akaun anda dilumpuhkan.",
+      "notValidToken": "Token tidak sah",
+      "expiredToken": "Token telah tamat tempoh.",
+      "requiredMail": "Sila sahkan e-mel anda untuk mengaktifkan ciri ini.",
+      "validReferral": "Kod rujukan tidak sah.",
+      "notMatchedCredential": "Email atau kata laluan tidak sah!",
+      "notExistPassword": "Kata laluan tidak ditetapkan.",
+      "notMatched2FA": "Pengesahan dua faktor tidak sah.",
+      "notMatchedCurrentPassword": "Maaf, kata laluan Lama tidak sah. Sila cuba lagi.",
+      "sendGridError": "Aduh! ",
+      "twiloError": "Aduh! ",
+      "notMatchedVerificationCode": "Kod Pengesahan tidak dipadankan.",
+      "expiredVerficationCode": "Kod Pengesahan telah tamat tempoh.",
+      "notValidTgInfo": "Maklumat Telegram anda tidak sah.",
+      "notValidSelfExlusionTime": "Masa Pengecualian tidak sah.",
+      "notMatchOTP": "Kod pengesahan tidak betul"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "Tiada ganjaran komisen tersedia.",
+      "emptyAvailableReferralRewards": "Tiada ganjaran rujukan tersedia."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Kolam bonus anda tidak mencukupi, sila caj melalui deposit.",
+      "existLevelUpBonus": "Bonus tidak wujud",
+      "claimBonus": "Bonus sudah dituntut.",
+      "existBonusType": "Jenis bonus tidak wujud.",
+      "finishedQuestToClaim": "Pencarian mesti selesai untuk menuntut.",
+      "emptyAvailableSpin": "Anda tiada putaran tersedia.",
+      "VIP22ForSuperSpin": "VIP anda mestilah sekurang-kurangnya 22 tahun.",
+      "VIP70ForMegaSpin": "VIP anda mestilah sekurang-kurangnya 70 tahun."
+    },
+    "game": {
+      "existGame": "Permainan itu tidak wujud.",
+      "canDetectLocation": "Lokasi tidak dapat dikesan.",
+      "existCurrency": "Mata wang itu tidak wujud.",
+      "existCurrencyType": "Jenis mata wang tidak wujud.",
+      "matchedWithSign": "Tanda permintaan tidak sepadan.",
+      "existGameRating": "Anda sudah memberikan rating kepada permainan ini.",
+      "existGameReport": "Anda sudah melaporkan permainan ini."
+    },
+    "page": {
+      "exceedTotalPageNumber": "Halaman semasa melebihi jumlah halaman."
+    },
+    "swap": {
+      "existSourceCrypto": "Sumber mata wang kripto tidak wujud.",
+      "existDestinationCrypto": "Mata wang kripto destinasi tidak wujud.",
+      "isEnoughBalanceForSwap": "Baki adalah rendah untuk ditukar."
+    }
   },
   "success": {
     "bonusClaimed": "Bonus Anda Dituntut",
     "successfulllyReported": "Permintaan anda berjaya diterima. ",
-    "success": "Kejayaan"
+    "success": "Kejayaan",
+    "pasted": "Ditampal",
+    "copied": "disalin",
+    "rating": "Penilaian Berjaya",
+    "sentEmailSuccessfully": "E-mel Pengesahan dihantar ke Peti mel anda. ",
+    "confirmedWithdraw": "Tahniah! Penarikan diri anda {{amount}} {{token}} sedang berjalan, sebarang jumlah pengeluaran yang besar atau mencurigakan akan diaudit dan diproses secara manual. Seperti biasa kami menghargai kesabaran anda!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Sila masukkan ID wakil dengan betul.",
+    "incorrectRepresentativeID": "{{representativeID}} BUKAN wakil rasmi BONENZA. ",
+    "emptyMessageContent": "Kandungan mesej tidak boleh kosong!"
   },
   "quest": {
     "questHub": "HUB Pencarian",

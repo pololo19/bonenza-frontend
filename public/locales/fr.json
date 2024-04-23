@@ -492,7 +492,9 @@
     "feeTooltip": "Débloquez sur VIP38. ",
     "totalWithdrawAmount": "Montant total du retrait :",
     "available": "Disponible",
-    "lockedFunds": "Fonds bloqués"
+    "lockedFunds": "Fonds bloqués",
+    "withdrawProgress": "Le retrait est en cours",
+    "withdrawComplete": "Retrait réussi"
   },
   "balance": {
     "cryptoCurrency": "Crypto-monnaie",
@@ -2130,40 +2132,83 @@
     "cancel": "Annuler"
   },
   "errors": {
-    "internalServer": "Oups ! Une erreur s'est produite. Veuillez réessayer plus tard.",
-    "existPhone": "Ce téléphone existe déjà.",
-    "existMail": "Cet e-mail existe déjà.",
-    "verifyPhone": "Ce téléphone n'est pas vérifié.",
-    "verifyMail": "Cet e-mail n'est pas vérifié.",
-    "locationIsNotAllowed": "Désolé, ce jeu n'est pas disponible dans votre région.",
-    "selfExclusive": "Ton compte est désactivé.",
-    "notExistMail": "Cet e-mail n'existe pas.",
-    "notExistPhone": "Ce téléphone n'existe pas.",
-    "notExistMailOrPhone": "L'e-mail ou le téléphone n'existe pas.",
-    "notMatchConfirmationPassword": "Le mot de passe de confirmation ne correspond pas.",
-    "disabledAccount": "Ton compte est désactivé.",
-    "notValidToken": "Le jeton n'est pas valide",
-    "expiredToken": "Le jeton est expiré.",
-    "requiredMail": "Veuillez vérifier votre adresse e-mail pour activer cette fonctionnalité.",
-    "validReferral": "Le code de parrainage n'est pas valide.",
-    "notMatchedCredential": "Email ou mot de passe invalide!",
-    "notExistPassword": "Le mot de passe n'est pas défini.",
-    "notMatched2FA": "Authentification à deux facteurs non valide.",
-    "notMatchedCurrentPassword": "Le mot de passe actuel ne correspond pas.",
-    "sendGridError": "Oups ! Une erreur s'est produite lors de l'envoi de l'e-mail.",
-    "twiloError": "Oups ! Une erreur s'est produite lors de l'envoi du SMS.",
-    "notMatchedVerificationCode": "Le code de vérification ne correspond pas.",
-    "expiredVerficationCode": "Le code de vérification est expiré.",
-    "notValidTgInfo": "Vos informations Telegram ne sont pas valides.",
-    "notValidSelfExlusionTime": "L’heure d’exclusion n’est pas valide.",
     "badRequest": "Les données de votre demande ne sont pas valides.",
     "notAllowedAction": "Votre action n'est pas autorisée.",
-    "notMatchOTP": "Le code de vérification est incorrect"
+    "internalServer": "Oops! ",
+    "auth": {
+      "existPhone": "Ce téléphone existe déjà.",
+      "existMail": "Cet e-mail existe déjà.",
+      "verifyPhone": "Ce téléphone n'est pas vérifié.",
+      "verifyMail": "Cet e-mail n'est pas vérifié.",
+      "locationIsNotAllowed": "Désolé, ce jeu n'est pas disponible dans votre région.",
+      "selfExclusive": "Ton compte est désactivé.",
+      "notExistMail": "Cet e-mail n'existe pas.",
+      "notExistPhone": "Ce téléphone n'existe pas.",
+      "notExistMailOrPhone": "L'e-mail ou le téléphone n'existe pas.",
+      "notMatchConfirmationPassword": "Le mot de passe de confirmation ne correspond pas.",
+      "disabledAccount": "Ton compte est désactivé.",
+      "notValidToken": "Le jeton n'est pas valide",
+      "expiredToken": "Le jeton est expiré.",
+      "requiredMail": "Veuillez vérifier votre adresse e-mail pour activer cette fonctionnalité.",
+      "validReferral": "Le code de parrainage n'est pas valide.",
+      "notMatchedCredential": "Email ou mot de passe invalide!",
+      "notExistPassword": "Le mot de passe n'est pas défini.",
+      "notMatched2FA": "Authentification à deux facteurs non valide.",
+      "notMatchedCurrentPassword": "Désolé, ancien mot de passe invalide. Veuillez réessayer.",
+      "sendGridError": "Oops! ",
+      "twiloError": "Oops! ",
+      "notMatchedVerificationCode": "Le code de vérification ne correspond pas.",
+      "expiredVerficationCode": "Le code de vérification est expiré.",
+      "notValidTgInfo": "Vos informations Telegram ne sont pas valides.",
+      "notValidSelfExlusionTime": "L’heure d’exclusion n’est pas valide.",
+      "notMatchOTP": "Le code de vérification est incorrect"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "Aucune récompense de commission disponible.",
+      "emptyAvailableReferralRewards": "Aucune récompense de parrainage disponible."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Votre pool de bonus n'est pas suffisant, veuillez facturer par dépôt.",
+      "existLevelUpBonus": "Le bonus n'existe pas",
+      "claimBonus": "Le bonus est déjà réclamé.",
+      "existBonusType": "Le type de bonus n'existe pas.",
+      "finishedQuestToClaim": "La quête doit être terminée pour pouvoir la réclamer.",
+      "emptyAvailableSpin": "Vous n'avez aucun tour disponible.",
+      "VIP22ForSuperSpin": "Votre VIP doit avoir au moins 22 ans.",
+      "VIP70ForMegaSpin": "Votre VIP doit avoir au moins 70 ans."
+    },
+    "game": {
+      "existGame": "Le jeu n'existe pas.",
+      "canDetectLocation": "L'emplacement ne peut pas être détecté.",
+      "existCurrency": "La monnaie n'existe pas.",
+      "existCurrencyType": "Le type de devise n'existe pas.",
+      "matchedWithSign": "Le signe de la demande ne correspond pas.",
+      "existGameRating": "Vous avez déjà donné une note à ce jeu.",
+      "existGameReport": "Vous avez déjà signalé ce jeu."
+    },
+    "page": {
+      "exceedTotalPageNumber": "La page actuelle dépasse le nombre total de pages."
+    },
+    "swap": {
+      "existSourceCrypto": "La cryptomonnaie source n’existe pas.",
+      "existDestinationCrypto": "La cryptomonnaie de destination n’existe pas.",
+      "isEnoughBalanceForSwap": "Le solde est faible à échanger."
+    }
   },
   "success": {
     "bonusClaimed": "Votre bonus est réclamé",
     "successfulllyReported": "Votre demande est reçue avec succès. ",
-    "success": "Succès"
+    "success": "Succès",
+    "pasted": "Collé",
+    "copied": "Copié",
+    "rating": "Noter avec succès",
+    "sentEmailSuccessfully": "L'e-mail de confirmation est envoyé dans votre boîte aux lettres. ",
+    "confirmedWithdraw": "Félicitations ! Votre retrait de {{amount}} {{token}} est en cours, tout montant de retrait important ou suspect sera audité et traité manuellement. Comme toujours, nous apprécions votre patience !"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Veuillez saisir correctement l'ID du représentant.",
+    "incorrectRepresentativeID": "{{representativeID}} n'est PAS le représentant officiel de BONENZA. ",
+    "emptyMessageContent": "Le contenu du message ne peut pas être vide !"
   },
   "quest": {
     "questHub": "Centre de quêtes",

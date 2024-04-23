@@ -492,7 +492,9 @@
     "feeTooltip": "ปลดล็อคได้ที่ VIP38 ",
     "totalWithdrawAmount": "จำนวนถอนทั้งหมด:",
     "available": "มีอยู่",
-    "lockedFunds": "กองทุนที่ถูกล็อค"
+    "lockedFunds": "กองทุนที่ถูกล็อค",
+    "withdrawProgress": "กำลังดำเนินการถอนเงิน",
+    "withdrawComplete": "การถอนเงินสำเร็จ"
   },
   "balance": {
     "cryptoCurrency": "สกุลเงินดิจิตอล",
@@ -2130,40 +2132,83 @@
     "cancel": "ยกเลิก"
   },
   "errors": {
-    "internalServer": "อ๊ะ! มีบางอย่างผิดพลาด โปรดลองอีกครั้งในภายหลัง",
-    "existPhone": "โทรศัพท์นี้มีอยู่แล้ว",
-    "existMail": "อีเมลนี้มีอยู่แล้ว",
-    "verifyPhone": "โทรศัพท์เครื่องนี้ไม่ได้รับการยืนยัน",
-    "verifyMail": "อีเมลนี้ไม่ได้รับการยืนยัน",
-    "locationIsNotAllowed": "ขออภัย เกมนี้ไม่มีให้บริการในภูมิภาคของคุณ",
-    "selfExclusive": "บัญชีของคุณถูกปิดใช้งาน",
-    "notExistMail": "อีเมลนี้ไม่มีอยู่",
-    "notExistPhone": "ไม่มีโทรศัพท์เครื่องนี้อยู่",
-    "notExistMailOrPhone": "ไม่มีอีเมลหรือโทรศัพท์",
-    "notMatchConfirmationPassword": "รหัสผ่านยืนยันไม่ตรงกัน",
-    "disabledAccount": "บัญชีของคุณถูกปิดใช้งาน",
-    "notValidToken": "โทเค็นไม่ถูกต้อง",
-    "expiredToken": "โทเค็นหมดอายุแล้ว",
-    "requiredMail": "โปรดยืนยันอีเมลของคุณเพื่อเปิดใช้งานคุณสมบัตินี้",
-    "validReferral": "รหัสอ้างอิงไม่ถูกต้อง",
-    "notMatchedCredential": "อีเมลหรือรหัสผ่านไม่ถูกต้อง!",
-    "notExistPassword": "ยังไม่ได้ตั้งรหัสผ่าน",
-    "notMatched2FA": "การตรวจสอบสิทธิ์แบบสองปัจจัยไม่ถูกต้อง",
-    "notMatchedCurrentPassword": "รหัสผ่านปัจจุบันไม่ตรงกัน",
-    "sendGridError": "อ๊ะ!เกิดข้อผิดพลาดขณะส่งอีเมล",
-    "twiloError": "อ๊ะ!เกิดข้อผิดพลาดขณะส่ง SMS",
-    "notMatchedVerificationCode": "รหัสยืนยันไม่ตรงกัน",
-    "expiredVerficationCode": "รหัสยืนยันหมดอายุแล้ว",
-    "notValidTgInfo": "ข้อมูลโทรเลขของคุณไม่ถูกต้อง",
-    "notValidSelfExlusionTime": "เวลายกเว้นไม่ถูกต้อง",
     "badRequest": "ข้อมูลคำขอของคุณไม่ถูกต้อง",
     "notAllowedAction": "ไม่อนุญาตให้คุณดำเนินการใดๆ",
-    "notMatchOTP": "รหัสยืนยันไม่ถูกต้อง"
+    "internalServer": "อ๊ะ! ",
+    "auth": {
+      "existPhone": "โทรศัพท์นี้มีอยู่แล้ว",
+      "existMail": "อีเมลนี้มีอยู่แล้ว",
+      "verifyPhone": "โทรศัพท์เครื่องนี้ไม่ได้รับการยืนยัน",
+      "verifyMail": "อีเมลนี้ไม่ได้รับการยืนยัน",
+      "locationIsNotAllowed": "ขออภัย เกมนี้ไม่มีให้บริการในภูมิภาคของคุณ",
+      "selfExclusive": "บัญชีของคุณถูกปิดใช้งาน",
+      "notExistMail": "อีเมลนี้ไม่มีอยู่",
+      "notExistPhone": "ไม่มีโทรศัพท์เครื่องนี้อยู่",
+      "notExistMailOrPhone": "ไม่มีอีเมลหรือโทรศัพท์",
+      "notMatchConfirmationPassword": "รหัสผ่านยืนยันไม่ตรงกัน",
+      "disabledAccount": "บัญชีของคุณถูกปิดใช้งาน",
+      "notValidToken": "โทเค็นไม่ถูกต้อง",
+      "expiredToken": "โทเค็นหมดอายุแล้ว",
+      "requiredMail": "โปรดยืนยันอีเมลของคุณเพื่อเปิดใช้งานคุณสมบัตินี้",
+      "validReferral": "รหัสอ้างอิงไม่ถูกต้อง",
+      "notMatchedCredential": "อีเมลหรือรหัสผ่านไม่ถูกต้อง!",
+      "notExistPassword": "ยังไม่ได้ตั้งรหัสผ่าน",
+      "notMatched2FA": "การตรวจสอบสิทธิ์แบบสองปัจจัยไม่ถูกต้อง",
+      "notMatchedCurrentPassword": "ขออภัย รหัสผ่านเก่าไม่ถูกต้อง โปรดลองอีกครั้ง",
+      "sendGridError": "อ๊ะ! ",
+      "twiloError": "อ๊ะ! ",
+      "notMatchedVerificationCode": "รหัสยืนยันไม่ตรงกัน",
+      "expiredVerficationCode": "รหัสยืนยันหมดอายุแล้ว",
+      "notValidTgInfo": "ข้อมูลโทรเลขของคุณไม่ถูกต้อง",
+      "notValidSelfExlusionTime": "เวลายกเว้นไม่ถูกต้อง",
+      "notMatchOTP": "รหัสยืนยันไม่ถูกต้อง"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "ไม่มีรางวัลคอมมิชชั่นที่ใช้ได้",
+      "emptyAvailableReferralRewards": "ไม่มีรางวัลการอ้างอิงที่ใช้ได้"
+    },
+    "bonus": {
+      "notEnoughBonusPool": "โบนัสพูลของคุณไม่เพียงพอ โปรดเรียกเก็บเงินโดยการฝากเงิน",
+      "existLevelUpBonus": "โบนัสไม่มีอยู่",
+      "claimBonus": "โบนัสได้ถูกอ้างสิทธิ์แล้ว",
+      "existBonusType": "ไม่มีประเภทโบนัสนี้",
+      "finishedQuestToClaim": "ภารกิจจะต้องเสร็จสิ้นจึงจะรับสิทธิ์ได้",
+      "emptyAvailableSpin": "คุณไม่มีการหมุนที่ใช้ได้",
+      "VIP22ForSuperSpin": "VIP ของคุณต้องมีอายุอย่างน้อย 22 ปี",
+      "VIP70ForMegaSpin": "VIP ของคุณต้องมีอย่างน้อย 70"
+    },
+    "game": {
+      "existGame": "เกมดังกล่าวไม่มีอยู่",
+      "canDetectLocation": "ไม่สามารถตรวจพบตำแหน่งได้",
+      "existCurrency": "ไม่มีสกุลเงินนี้",
+      "existCurrencyType": "ไม่มีประเภทสกุลเงิน",
+      "matchedWithSign": "ป้ายคำขอไม่ตรงกัน",
+      "existGameRating": "คุณให้คะแนนเกมนี้แล้ว",
+      "existGameReport": "คุณได้รายงานเกมนี้แล้ว"
+    },
+    "page": {
+      "exceedTotalPageNumber": "หน้าปัจจุบันเกินจำนวนหน้าทั้งหมด"
+    },
+    "swap": {
+      "existSourceCrypto": "ไม่มีสกุลเงินดิจิทัลต้นทาง",
+      "existDestinationCrypto": "ไม่มีสกุลเงินดิจิทัลปลายทาง",
+      "isEnoughBalanceForSwap": "ยอดคงเหลือน้อยให้แลก"
+    }
   },
   "success": {
     "bonusClaimed": "โบนัสของคุณถูกอ้างสิทธิ์แล้ว",
     "successfulllyReported": "ได้รับคำขอของคุณเรียบร้อยแล้ว ",
-    "success": "ความสำเร็จ"
+    "success": "ความสำเร็จ",
+    "pasted": "วางแล้ว",
+    "copied": "คัดลอกแล้ว",
+    "rating": "การให้คะแนนสำเร็จ",
+    "sentEmailSuccessfully": "อีเมลยืนยันจะถูกส่งไปยังกล่องจดหมายของคุณ ",
+    "confirmedWithdraw": "ขอแสดงความยินดี!การถอนตัวของคุณ {{amount}} {{token}} อยู่ระหว่างดำเนินการ จำนวนเงินถอนจำนวนมากหรือน่าสงสัยจะถูกตรวจสอบและดำเนินการด้วยตนเอง และเช่นเคย ขอขอบคุณที่กรุณาอดทนรอ!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "กรุณากรอกรหัสตัวแทนให้ถูกต้อง",
+    "incorrectRepresentativeID": "{{representativeID}} ไม่ใช่ตัวแทนอย่างเป็นทางการของ BONENZA ",
+    "emptyMessageContent": "เนื้อหาข้อความต้องไม่ว่างเปล่า!"
   },
   "quest": {
     "questHub": "เควสฮับ",

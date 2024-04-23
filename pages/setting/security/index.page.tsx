@@ -145,7 +145,7 @@ const SettingSecurity = () => {
     setIsLoading(true);
     try {
       const res = await api_confirmQRCode(otp, passwordLogin);
-      toast.success('success', { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('success:success'), { containerId: TOAST_ENUM.COMMON });
 
       dispatch(
         saveUserInfo({
@@ -177,7 +177,7 @@ const SettingSecurity = () => {
     setIsLoading(true);
     try {
       const res = await api_disable2FA(otp, passwordLogin);
-      toast.success('success', { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('success:success'), { containerId: TOAST_ENUM.COMMON });
 
       dispatch(
         saveUserInfo({
