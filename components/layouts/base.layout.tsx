@@ -606,7 +606,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isLoading ? (
         <Loader isHomePage />
       ) : (
-        <div className="w-full h-full min-h-screen overflow-hidden font-dayOne">
+        <div className="w-full h-full min-h-screen overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
           {isToggleSidebar && (
             <div
               className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0 z-[20]"
