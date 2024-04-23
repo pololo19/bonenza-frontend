@@ -671,10 +671,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               {showChatType && (
                 <div
                   className={cn(
-                    '2xl:relative fixed right-0 h-[calc(100vh)] mt-[-70px] z-10 duration-500 drop-shadow-md transition-opacity',
+                    '2xl:relative fixed inset-0 right-0 h-screen mt-0 sm:-mt-[70px] z-10 duration-500 drop-shadow-md',
+                    'transition-all duration-200 ease-in',
                     {
-                      'opacity-100': showChatType,
-                      'opacity-0': !showChatType,
+                      'translate-x-0 md:opacity-100 scale-100': showChatType,
+                      'translate-x-[110%] sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !showChatType,
                       'w-full': showFullChat,
                     },
                   )}
