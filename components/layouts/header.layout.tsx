@@ -227,7 +227,7 @@ export default function Navbar() {
               }}
             >
               {isLoading.isLanguage ? (
-                <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+                <ReactLoading width={20} height={20} type="spin" color="#00AAE6" />
               ) : (
                 <Global className="w-[20px] h-[20px]" />
               )}
@@ -244,7 +244,7 @@ export default function Navbar() {
               >
                 <div className="p-1 text-sm w-max">
                   {isLoading.isCurrency ? (
-                    <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+                    <ReactLoading width={20} height={20} type="spin" color="#00AAE6" />
                   ) : (
                     <>
                       <span>

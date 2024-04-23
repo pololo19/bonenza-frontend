@@ -198,7 +198,7 @@ const ChattingComponent = () => {
                 'flex justify-center items-center w-full h-[calc(100vh_-_70px)] dark:bg-color-bg-primary/50 bg-color-light-bg-primary absolute top-[70px]',
               )}
             >
-              <ReactLoading type="bubbles" color="#50C627" delay={50} />
+              <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
             </div>
           )}
         </div>

@@ -41,7 +41,7 @@ function SelfExclusive() {
     <>
       <div className="bg-color-bg-primary">
         <div className="h-screen flex flex-col items-center gap-[45px] w-full bg-center bg-cover justify-center items-center">
-          {loading && <ReactLoading type="bubbles" color="#50C627" />}
+          {loading && <ReactLoading type="bubbles" color="#00AAE6" />}
           {!loading && isSuccess && (
             <p className="text-white text-[32px]">
               {Number(query.disabledTo) === -1
