@@ -386,7 +386,15 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               </div>
               <div
                 className="flex items-center justify-between flex-1 gap-2 pl-2 text-default hover:cursor-pointer"
-                onClick={() => setisShowLatestSpins(true)}
+                onClick={() => {
+                  if (isLogin) {
+                    setisShowLatestSpins(true);
+                  } else {
+                    onClose();
+                    dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
+                    dispatch(changeIsShowAuthenticationModal(true));
+                  }
+                }}
               >
                 <Image
                   height={25}
