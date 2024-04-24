@@ -5,17 +5,20 @@ import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
-import { AppState } from '@/base/redux/store';
+import { changeIsShowMultiLanguageModal, changeMultiLanguageTab } from '@/base/redux/reducers/modal.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
 
 import InputSearch from '../input/typing/InputSearch';
 import CommonModal from '../modal/commonModal/commonModal';
+import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 
 type SelectFiatProps = {
   onChangeMoonpayFiat?: (value: CurrencyType) => void;
 };
 
 const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
   const { fiatSymbols, defaultCurrencyId } = useSelector(
@@ -62,8 +65,11 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
     <>
       <div
         role="button"
-        className="flex items-center gap-2 dark:bg-gray-700/50 bg-color-light-bg-primary py-2 px-2 dark:border border-0 border-solid border-color-border-primary rounded"
-        onClick={() => setIsShowFiatModal(true)}
+        className="flex items-center gap-2 px-2 py-2 border-0 border-solid rounded dark:bg-gray-700/50 bg-color-light-bg-primary dark:border border-color-border-primary"
+        onClick={() => {
+          dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
+          dispatch(changeIsShowMultiLanguageModal(true));
+        }}
       >
         {activeFiat ? (
           <div className="flex items-center gap-3">
@@ -76,12 +82,12 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
                 error.currentTarget.src = '/image/fiats/USDT.png';
               }}
             />
-            <div className="font-normal dark:text-white text-black text-default">{activeFiat.name}</div>
+            <div className="font-normal text-black dark:text-white text-default">{activeFiat.name}</div>
           </div>
         ) : (
           <Global />
         )}
-        <ArrowDown2 className="dark:text-white text-black" />
+        <ArrowDown2 className="text-black dark:text-white" />
       </div>
 
       <CommonModal
@@ -103,7 +109,7 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
               onChange={(e) => setSearchInput(e.target.value)}
             />
           </div>
-          <div className="p-5 py-5 border overflow-y-auto">
+          <div className="p-5 py-5 overflow-y-auto border">
             <div className={`grid grid-cols-1 gap-2`}>
               {filterListFiat?.map((item, key) => (
                 <button
