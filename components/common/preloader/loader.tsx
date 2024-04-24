@@ -28,7 +28,7 @@ function Loader({ isHomePage = false }: { isHomePage?: boolean }) {
           />
         </div>
       ) : (
-        <ReactLoading type="bubbles" color="#50C627" />
+        <ReactLoading type="bubbles" color="#00AAE6" />
       )}
     </div>
   );

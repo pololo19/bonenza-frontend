@@ -109,7 +109,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
             <tr>
               <td colSpan={columns.length}>
                 <div className="flex items-center justify-center">
-                  <ReactLoading type="bubbles" color="#50C627" delay={50} />
+                  <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
                 </div>
               </td>
             </tr>

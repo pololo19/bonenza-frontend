@@ -33,7 +33,7 @@ export default function ({
           cx="32"
           cy="32"
           fill="transparent"
-          stroke="#50C627"
+          stroke="#00AAE6"
           strokeDasharray="180"
           strokeDashoffset={1.8 * (100 - progress)}
           style={{

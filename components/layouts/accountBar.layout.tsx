@@ -203,7 +203,7 @@ const AccountPannel: React.FC = () => {
         extra: (
           <>
             {isLoading.isLanguage ? (
-              <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+              <ReactLoading width={20} height={20} type="spin" color="#00AAE6" />
             ) : (
               LANGUAGE_DATA.find((item) => item.key === i18n.language)?.language
             )}
@@ -226,7 +226,7 @@ const AccountPannel: React.FC = () => {
             {localFiat && (
               <div className="p-1 text-sm w-max">
                 {isLoading.isCurrency ? (
-                  <ReactLoading width={20} height={20} type="spin" color="#50C627" />
+                  <ReactLoading width={20} height={20} type="spin" color="#00AAE6" />
                 ) : (
                   <>
                     <span>

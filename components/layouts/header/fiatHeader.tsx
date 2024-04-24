@@ -153,7 +153,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         <Menu.Button>
           {!activeCurrency.id && (
             <div className="flex items-center h-full">
-              <ReactLoading type="bubbles" color="#50C627" />
+              <ReactLoading type="bubbles" color="#00AAE6" />
             </div>
           )}
           {activeCurrency.id && (

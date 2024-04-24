@@ -63,7 +63,7 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
               onClick={onClikLogOut}
             >
               {isLoggingOut ? (
-                <ReactLoading type="bubbles" color="#50C627" delay={50} height={45} width={45} />
+                <ReactLoading type="bubbles" color="#00AAE6" delay={50} height={45} width={45} />
               ) : (
                 <span>{t('layout:logOut')}</span>
               )}

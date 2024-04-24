@@ -270,7 +270,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         </Tooltip>
                       </div>
                       <div className="text-m_default sm:text-default md:text-[16px] text-center">
-                        <span className="text-[#50C627]">
+                        <span className="text-[#00AAE6]">
                           {t('vipClub:gain')}
                           {' +'}
                           {vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)}
