@@ -371,7 +371,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMin && (
                       <div
                         role="button"
-                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setValue('withdrawAmount', String(renderMinValue.min))}
                       >
                         {t('deposit:min')}
@@ -380,7 +380,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isQuater && (
                       <div
                         role="button"
-                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(25)}
                       >
                         25%
@@ -389,7 +389,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isHalf && (
                       <div
                         role="button"
-                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(50)}
                       >
                         50%
@@ -398,7 +398,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMax && (
                       <div
                         role="button"
-                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(100)}
                       >
                         {t('deposit:max')}

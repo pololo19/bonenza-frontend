@@ -118,8 +118,8 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                             icon={item.icon}
                             key={index}
                             fontWeight={600}
-                            classNames="dark:hover:!text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
-                            activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
+                            classNames="dark:hover:!text-white dark:hover:!bg-color-menu-hover text-color-light-text-primary rounded !bg-transparent pr-[15px]"
+                            activeClassNames="dark:!bg-color-menu-hover !bg-[#eaecf3] dark:!text-white !text-black"
                           />
                         ))}
                         <div className="h-[1px] mx-[10px] dark:bg-color-modal-bg-secondary bg-white" />
@@ -128,16 +128,16 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           href={ROUTER.Transaction}
                           icon={Repeat}
                           fontWeight={600}
-                          classNames="dark:hover:text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
+                          classNames="dark:hover:text-white dark:hover:!bg-color-menu-hover text-color-light-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-menu-hover !bg-[#eaecf3] dark:!text-white !text-black"
                         />
                         <IconOption
                           title={String(t('sidebar:rolloverOverview'))}
                           href={ROUTER.Rollover}
                           icon={Chart}
                           fontWeight={600}
-                          classNames="dark:hover:text-white dark:hover:!bg-color-hover-default text-color-light-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-default !bg-[#eaecf3] dark:!text-white !text-black"
+                          classNames="dark:hover:text-white dark:hover:!bg-color-menu-hover text-color-light-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-menu-hover !bg-[#eaecf3] dark:!text-white !text-black"
                         />
                       </ul>
                       <ul className="lg:hidden flex flex-col justify-center gap-3 rounded-xl">

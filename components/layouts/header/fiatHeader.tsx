@@ -225,7 +225,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
           >
             <div
               className={
-                'sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] dark:shadow-gray-900 shadow-gray-200 shadow'
+                'rounded-default sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 dark:bg-color-menu-secondary bg-white sm:w-auto w-[100vw] dark:shadow-gray-900 shadow-gray-200 shadow'
               }
             >
               <div className="flex px-[20px] mt-[20px]">
@@ -236,7 +236,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     onClose={() => {
                       setSearchFiatInput('');
                     }}
-                    className="dark:text-white !bg-color-light-bg-primary dark:!bg-color-panel-bg-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
+                    className="dark:text-white !bg-color-light-bg-primary dark:!bg-color-menu-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
                     onChange={(e) => setSearchFiatInput(e.target.value)}
                   />
                 </div>

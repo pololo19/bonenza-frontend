@@ -124,7 +124,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                           icon={() => null}
                           key={index}
                           fontWeight={600}
-                          classNames="dark:hover:!text-white hover:dark:!bg-color-hover-default hover:!bg-color-light-bg-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          classNames="dark:hover:!text-white hover:dark:!bg-color-modal-bg-primary hover:!bg-color-light-bg-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
                           activeClassNames="dark:!bg-color-active-default !bg-color-light-bg-primary dark:!text-white text-black"
                         />
                       ))}
@@ -137,7 +137,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                   )}
                 >
                   <Menu as="div" className="relative w-auto text-left sm:mb-5 rounded-[7px] flex text-white md:hidden">
-                    <Menu.Button className='w-full'>
+                    <Menu.Button className="w-full">
                       <div
                         role="button"
                         className="flex items-center gap-2 py-2 px-2 w-full rounded bg-[#2B2E35] min-w-[200px]"
