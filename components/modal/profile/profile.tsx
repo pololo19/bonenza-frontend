@@ -341,7 +341,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             )}
             {!listGame.length && (
-              <div className="flex justify-center relative">
+              <div className="relative flex justify-center">
                 <Image
                   src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
                   width={90}
@@ -355,8 +355,10 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             )}
           </div>
-          <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
-            <div className="text-[16px] text-color-light-text-primary dark:text-white">{t('profile:wagerContest')}</div>
+          <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] py-5">
+            <div className="text-[16px] text-color-light-text-primary dark:text-white px-5">
+              {t('profile:wagerContest')}
+            </div>
             <WagerContest userData={user} />
           </div>
           <div className="text-color-text-primary text-[14px] w-full text-center mt-[10px]">

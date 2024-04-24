@@ -45,7 +45,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
         accessorKey: 'date',
         header: () => <div className="text-left text-[14px] font-normal pl-2">{t('profile:date')}</div>,
         cell: ({ row }) => (
-          <div className="font-medium text-[12px] sm:text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate">
+          <div className="font-medium text-[12px] sm:text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate pl-2">
             {formatDate(new Date(row.original?.date || ''), 'L/dd/yyyy')} {t('profile:daily')}
           </div>
         ),
@@ -70,7 +70,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
         accessorKey: 'prize',
         header: () => <div className="text-right text-[14px] font-normal pr-2">{t('profile:prize')}</div>,
         cell: ({ row }) => (
-          <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px]">
+          <div className="text-[#98A7B5] truncate flex items-center justify-end gap-[5px] pr-2">
             <span className="dark:text-white text-black font-bold text-[12px] sm:text-[14px]">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, fiatDecimals, localFiat?.name)
