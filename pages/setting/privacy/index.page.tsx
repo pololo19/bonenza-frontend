@@ -1,13 +1,12 @@
 import { Switch } from '@headlessui/react';
 import cn from 'classnames';
-import { ReactElement, useState } from 'react';
+import { ReactElement } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { UserSettingPrivacyType } from '@/base/types/common';
-import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
 
@@ -30,7 +29,7 @@ const PrivacyPage = () => {
 
   return (
     <div className={`${styles.cardContent}`}>
-      <div className="w-full h-1/3 p-2 sm:p-0 md:mt-0 text-white">
+      <div className="w-full p-2 text-white h-1/3 sm:p-0 md:mt-0">
         <div className="flex justify-between items-center border-b border-solid sm:gap-[40px] dark:border-color-border-primary border-color-light-border-primary pb-[8px]">
           <label className="text-left cursor-pointer" htmlFor="hideGamingData">
             <div className="dark:text-color-text-primary text-color-light-text-primary text-default">
@@ -79,9 +78,9 @@ const PrivacyPage = () => {
             />
           </Switch>
         </div>
-        <div className="flex justify-between border-b border-solid gap-[40px] dark:border-color-border-primary border-color-light-border-primary py-[8px]">
+        {/* <div className="flex justify-between border-b border-solid gap-[40px] dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <label
-            className="dark:text-color-text-primary text-color-light-text-primary text-default cursor-pointer"
+            className="cursor-pointer dark:text-color-text-primary text-color-light-text-primary text-default"
             htmlFor="refuseTip"
           >
             {t('setting:refuseTipFromStrangers')}
@@ -103,7 +102,7 @@ const PrivacyPage = () => {
               } inline-block h-[20px] w-[20px] transform rounded-full transition`}
             />
           </Switch>
-        </div>
+        </div> */}
       </div>
     </div>
   );
