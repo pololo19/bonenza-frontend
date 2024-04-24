@@ -461,7 +461,7 @@ const WagerContestComponent = () => {
                   {t('wagerContest:lastChampion')}
                 </span>
               </div>
-              <div className="flex justify-evenly items-center w-full">
+              <div className="flex justify-center gap-5 items-center w-full">
                 <div className="relative border-solid border-2 rounded-full border-color-secondary">
                   <Image
                     width={16}
