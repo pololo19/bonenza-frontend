@@ -69,7 +69,7 @@ const VipProgressComponent = () => {
     <>
       <div
         className={cn(
-          'flex flex-col relative py-[8px] px-[10px] pl-0 sm:py-[16px] sm:px-[25px] sm:min-w-[400px] rounded-large overflow-hidden sm:gap-[10px] gap-[5px]',
+          'flex flex-col relative py-[8px] px-[10px] sm:py-[16px] sm:px-[25px] sm:min-w-[400px] rounded-large overflow-hidden sm:gap-[10px] gap-[5px]',
           'bg-gradient-to-b from-[#008499] to-[#002D79]',
         )}
       >
