@@ -144,7 +144,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             <div className="flex-1 flex gap-[10px] justify-between mt-[35px]">
               <div
                 role="button"
-                className="py-[6px] px-[10px] rounded-[10px] bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit flex items-center gap-[5px]"
+                className="py-[6px] px-[10px] rounded-default bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit flex items-center gap-[5px]"
               >
                 {/* <div className="flex w-[14px] h-[14px]">
                   <Image width={14} height={14} src="/img/heart.png" alt="" />
@@ -178,7 +178,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
               {user?.userId === userId ? (
                 <div
-                  className="sm:px-[15px] sm:py-[10px] text-black dark:text-white dark:hover:text-white p-2 rounded-[10px] bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit text-[14px] "
+                  className="sm:px-[15px] sm:py-[10px] text-black dark:text-white dark:hover:text-white p-2 rounded-default bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit text-[14px] "
                   onClick={() => {
                     dispatch(changeIsShowUpdateInformation(true));
                     dispatch(changeIsShowInformation(false));
@@ -270,21 +270,21 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             </div>
             <div className="flex items-center flex-row gap-2 sm:gap-[15px] sm:justify-between mt-5">
-              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                 <div className="flex gap-[5px] items-center">
                   <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
                   <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
                 </div>
                 <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
               </div>
-              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                 <div className="flex gap-[5px] items-center">
                   <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
                   <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
                 </div>
                 <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
               </div>
-              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                 <div className="flex gap-[5px] items-center">
                   <Image
                     src="/img/icon/total-wagered.png"
@@ -305,7 +305,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             </div>
           </div>
-          <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] px-5 py-5">
+          <div className="px-5 py-5 bg-white dark:bg-color-modal-bg-primary rounded-default">
             <div className="text-[16px] text-color-light-text-primary dark:text-white">
               {t('profile:top3FavoriteGames')}
             </div>
