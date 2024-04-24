@@ -516,8 +516,14 @@ function GamePage() {
 
                   <button
                     type="button"
-                    className="truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] py-[15px] text-default flex items-center gap-[10px] justify-center"
-                    disabled={!gameDetail.allowedDemo || isLoadingGame.status}
+                    className={cn(
+                      'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] py-[15px] text-default items-center gap-[10px] justify-center',
+                      {
+                        flex: gameDetail.allowedDemo,
+                        hidden: !gameDetail.allowedDemo,
+                      },
+                    )}
+                    disabled={isLoadingGame.status}
                     onClick={() => {
                       handleFreeplay();
                     }}
@@ -569,8 +575,14 @@ function GamePage() {
                             </button>
                             <button
                               type="button"
-                              className="truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] sm:px-5 px-[8px] sm:text-default text-[12px] flex items-center gap-[10px]"
-                              disabled={!gameDetail.allowedDemo || isLoadingGame.status}
+                              className={cn(
+                                'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] sm:px-5 px-[8px] sm:text-default text-[12px] items-center gap-[10px]',
+                                {
+                                  flex: gameDetail.allowedDemo,
+                                  hidden: !gameDetail.allowedDemo,
+                                },
+                              )}
+                              disabled={isLoadingGame.status}
                               onClick={() => {
                                 handleFreeplay();
                               }}
@@ -691,8 +703,14 @@ function GamePage() {
                           )}
                           <button
                             type="button"
-                            className="truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
-                            disabled={!gameDetail.allowedDemo || isLoadingGame.status}
+                            className={cn(
+                              'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] items-center gap-[10px]',
+                              {
+                                flex: gameDetail.allowedDemo,
+                                hidden: !gameDetail.allowedDemo,
+                              },
+                            )}
+                            disabled={isLoadingGame.status}
                             onClick={() => {
                               handleFreeplay();
                             }}
@@ -737,8 +755,14 @@ function GamePage() {
                           </button>
                           <button
                             type="button"
-                            className="truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
-                            disabled={!gameDetail.allowedDemo || isLoadingGame.status}
+                            className={cn(
+                              'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] items-center gap-[10px]',
+                              {
+                                flex: gameDetail.allowedDemo,
+                                hidden: !gameDetail.allowedDemo,
+                              },
+                            )}
+                            disabled={isLoadingGame.status}
                             onClick={() => {
                               handleFreeplay();
                             }}
