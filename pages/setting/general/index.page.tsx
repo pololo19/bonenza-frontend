@@ -1,9 +1,9 @@
-import { Menu, Switch, Transition } from '@headlessui/react';
+import { Switch } from '@headlessui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
-import { ArrowDown2, Moon, Sun1 } from 'iconsax-react';
+import { ArrowDown2 } from 'iconsax-react';
 import { useTheme } from 'next-themes';
-import React, { Fragment, ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import * as yup from 'yup';
@@ -12,7 +12,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, LANGUAGE_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { updateSetting } from '@/base/redux/reducers/auth.reducer';
-import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
+import { changeIsShowMultiLanguageModal, changeMultiLanguageTab } from '@/base/redux/reducers/modal.reducer';
 import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { FiatType, UserSettingGeneralType } from '@/base/types/common';
@@ -20,6 +20,7 @@ import { CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
+import { MultiLanguageTabEnum } from '@/components/modal/multiLanguage/MultiLanguage';
 import SelectFiat from '@/components/selectFiat/SelectFiat';
 
 import styles from '../../balance/index.module.scss';
@@ -98,7 +99,7 @@ const GeneralPage = () => {
       <div className="w-full h-1/3 px-[12px] py-[24px] sm:p-0 md:mt-0 dark:text-white text-black">
         <div className="flex justify-between border-b border-solid dark:border-color-border-primary border-color-light-border-primary pb-[8px]">
           <div
-            className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start"
+            className="flex-1 dark:text-color-text-primary text-color-light-text-primary text-default text-start"
             role="button"
           >
             {t('setting:showFullNameOfCurrencyInCryptoList')}
@@ -121,7 +122,7 @@ const GeneralPage = () => {
         </div>
         <div className="flex justify-between border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <div
-            className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start"
+            className="flex-1 dark:text-color-text-primary text-color-light-text-primary text-default text-start"
             role="button"
           >
             {t('setting:receiveMarketingPromotions')}
@@ -144,7 +145,7 @@ const GeneralPage = () => {
         </div>
         <div className="flex justify-between items-center border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
           <div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start">
+            <div className="flex-1 dark:text-color-text-primary text-color-light-text-primary text-default text-start">
               {t('setting:currencySetting')}
             </div>
             <div className="mt-[10px]">
@@ -171,9 +172,9 @@ const GeneralPage = () => {
           </Switch>
         </div>
         {/* Hiding dark & light mode button */}
-        { /*
+        {/*
         <div className="border-b border-solid dark:border-color-border-primary border-color-light-border-primary py-[8px]">
-          <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start">
+          <div className="flex-1 dark:text-color-text-primary text-color-light-text-primary text-default text-start">
             {t('setting:displayMode')}
           </div>
           <div className="mt-[10px] dark:bg-[#2D3035] bg-color-light-bg-primary rounded-default flex p-[3px] max-w-[70px]">
@@ -206,72 +207,21 @@ const GeneralPage = () => {
           <div className="dark:text-color-text-primary text-color-light-text-primary text-default flex-1 text-start mb-[10px]">
             {t('setting:language')}
           </div>
-          <Menu as="div" className="relative w-auto text-left rounded-default flex text-white">
-            <Menu.Button>
-              <div
-                role="button"
-                className="flex items-center justify-between dark:bg-[#282931] bg-color-light-bg-primary gap-2 py-2 px-2 rounded-default w-[146px]"
-              >
-                <div className="dark:text-white text-black text-default font-semibold">
-                  {LANGUAGE_DATA.find((item) => item.key == settings.settingLanguage)?.language}
-                </div>
-                <div className="dark:text-white text-black truncate text-right min-w-[15px]">
-                  <ArrowDown2 className="dark:text-white textx-black" size={15} />
-                </div>
-              </div>
-            </Menu.Button>
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0"
-              enterTo="opacity-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100"
-              leaveTo="opacity-0"
-            >
-              <div className="relative sm:hidden block inset-0 bg-black/80 transition-opacity z-[-1]" />
-            </Transition.Child>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute z-10 mt-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none w-[146px]">
-                <div className="py-1 sm:relative rounded-default dark:bg-[#25262B] bg-color-light-bg-primary shadow-gray-700 shadow w-full">
-                  <div className="py-1 h-[250px] overflow-y-auto p-2">
-                    {LANGUAGE_DATA.map((item, key) => {
-                      return (
-                        <Menu.Item key={key}>
-                          {({ active }) => (
-                            <div
-                              className={cn(
-                                active
-                                  ? 'dark:bg-[#212b36] dark:text-white bg-color-light-bg-primary text-black'
-                                  : 'dark:text-gray-400 text-color-light-text-primary',
-                                'px-2 py-2 text-sm cursor-pointer flex rounded-md items-center gap-[10px]',
-                              )}
-                              onClick={() => {
-                                handleUpdateSetting({ ...settings, settingLanguage: item.key });
-                                handleChangeLang(item);
-                                // setLanguageName(item.language);
-                              }}
-                            >
-                              {item.language}
-                            </div>
-                          )}
-                        </Menu.Item>
-                      );
-                    })}
-                  </div>
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+          <div
+            role="button"
+            className="flex items-center justify-between dark:bg-[#282931] bg-color-light-bg-primary gap-2 py-2 px-2 rounded-default w-[146px]"
+            onClick={() => {
+              dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
+              dispatch(changeIsShowMultiLanguageModal(true));
+            }}
+          >
+            <div className="font-semibold text-black dark:text-white text-default">
+              {LANGUAGE_DATA.find((item) => item.key == settings.settingLanguage)?.language}
+            </div>
+            <div className="dark:text-white text-black truncate text-right min-w-[15px]">
+              <ArrowDown2 className="dark:text-white textx-black" size={15} />
+            </div>
+          </div>
         </div>
       </div>
     </div>
