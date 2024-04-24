@@ -267,7 +267,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         isScrollableInRotate
       >
         <div className={`max-w-full sm:w-[400px] overflow-hidden overflow-y-scroll h-full bg-cover ${styles[spinTab]}`}>
-          <div className={`sm:rounded-large h-full flex flex-col items-center justify-between relative mb-5`}>
+          <div
+            className={`sm:rounded-large h-full flex flex-col items-center sm:justify-between relative mb-5 justify-start`}
+          >
             <div className={`${height > 660 ? 'pt-9' : 'pt-2'} flex justify-between px-5 w-full pb-0 items-center`}>
               <div className="relative flex gap-0">
                 {spins.map((spin) => (
@@ -298,7 +300,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               />
             </div>
 
-            <div className="relative min-w-[350px] min-h-[430px] p-3">
+            <div className="relative  sm:min-w-[350px] sm:min-h-[430px] px-[30px] sm:p-3">
               <div>
                 <div className="relative flex flex-col items-center justify-center">
                   <div>
