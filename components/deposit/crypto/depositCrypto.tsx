@@ -155,7 +155,7 @@ const DepositCryptoComponent = () => {
                   <div className="text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                     {t('deposit:depositAddress')}
                   </div>
-                  <div className="flex-1 flex items-center justify-between gap-[20px] dark:bg-[#17181C] bg-[#E7EAF0] p-[10px] rounded-default">
+                  <div className="flex-1 flex items-center justify-between gap-[20px] dark:bg-[#FFF2] bg-[#E7EAF0] p-[10px] rounded-default">
                     <DepositAddressComponent
                       className="rounded-default text-[14px] text-start"
                       address={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}

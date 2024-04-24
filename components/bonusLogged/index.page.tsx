@@ -296,7 +296,7 @@ function BonusLoggedPage() {
         </div>
         <div
           className={cn(
-            'dark:bg-color-card-body-default bg-white rounded-default max-[923px]', // Color & Border-radius
+            'dark:bg-color-card-bg-secondary bg-white rounded-default max-[923px]', // Color & Border-radius
             'w-full gap-4 flex flex-col lg:flex-row lg:justify-between', // Layout
             'mt-[24px] px-[16px] py-[20px]', // Margin & Padding
           )}
@@ -367,7 +367,7 @@ function BonusLoggedPage() {
             </div>
           </div>
           <div className="grid grid-cols-4 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
-            <div className="rounded-[5px] relative dark:bg-[#1C1E22] bg-white h-full min-h-[250px]">
+            <div className="rounded-[5px] relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-[10px]">
@@ -414,7 +414,7 @@ function BonusLoggedPage() {
                 <div
                   role="button"
                   onClick={() => dispatch(changeIsShowVipClubModal(true))}
-                  className="dark:bg-[#2D3035] bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
+                  className="dark:bg-color-btn-primary bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
                 >
                   <div className="text-color-primary font-medium text-[14px]">{t('bonus:viewVIPClub')}</div>
                 </div>
@@ -464,7 +464,7 @@ function BonusLoggedPage() {
           <div className="text-[16px] md:text-[20px] dark:text-white text-color-light-text-primary font-medium mb-[18px]">
             {t('bonus:specialBonus')}
           </div>
-          <div className="dark:bg-color-card-body-default bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">
+          <div className="dark:bg-color-card-bg-secondary bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">
             <Image
               src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
               width={90}

@@ -209,7 +209,7 @@ const GeneralPage = () => {
           </div>
           <div
             role="button"
-            className="flex items-center justify-between dark:bg-[#282931] bg-color-light-bg-primary gap-2 py-2 px-2 rounded-default w-[146px]"
+            className="flex items-center justify-between dark:bg-color-menu-primary bg-color-light-bg-primary gap-2 py-2 px-2 rounded-default w-[146px]"
             onClick={() => {
               dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
               dispatch(changeIsShowMultiLanguageModal(true));

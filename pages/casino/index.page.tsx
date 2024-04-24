@@ -189,7 +189,7 @@ function CasinoPage() {
             <Link
               href={ROUTER.Provider(String(item.name))}
               role="button"
-              className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-white dark:bg-color-card-bg-default hover:opacity-70 gap-[10px] flex-shrink-0 rounded-large flex items-center justify-center"
+              className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-white dark:bg-color-card-bg-secondary hover:opacity-70 gap-[10px] flex-shrink-0 rounded-large flex items-center justify-center"
             >
               <Image
                 height={0}
@@ -228,7 +228,7 @@ function CasinoPage() {
             <Link
               href={ROUTER.Theme(String(item))}
               role="button"
-              className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-default text-default min-w-fit p-[10px] bg-white dark:bg-color-card-bg-default hover:opacity-70
+              className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-default text-default min-w-fit p-[10px] bg-white dark:bg-color-card-bg-secondary hover:opacity-70
                  gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
             >
               {snakeCaseToString(item)}

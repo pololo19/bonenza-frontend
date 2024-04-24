@@ -242,7 +242,7 @@ const SelectCurrency = ({
               >
                 <Menu.Items
                   className={cn(
-                    'absolute dark:text-white text-black rounded-default dark:bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 z-[10] cursor-pointer shadow-bs-default',
+                    'absolute dark:text-white text-black rounded-default dark:!bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 z-[10] cursor-pointer shadow-bs-default',
                     {
                       'top-[110px]': !withDrawTab,
                       'top-[80px]': withDrawTab,
@@ -253,7 +253,7 @@ const SelectCurrency = ({
                     <InputSearch
                       value={searchInput}
                       onChange={(e) => setSearchInput(e.target.value)}
-                      className="dark:text-white !bg-white dark:!bg-color-panel-bg-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
+                      className="dark:text-white !bg-white dark:!bg-color-input-hover-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
                     />
                   </div>
                   <div className="py-1 max-h-[250px] overflow-y-auto p-2">
@@ -262,7 +262,7 @@ const SelectCurrency = ({
                         {({ active }) => (
                           <div
                             className={cn(
-                              'flex items-center justify-start w-full dark:hover:bg-color-hover-primary rounded-default hover:bg-color-light-hover-primary mb-2',
+                              'flex items-center justify-start w-full dark:hover:bg-color-input-hover-primary rounded-default hover:bg-color-light-hover-primary mb-2',
                               {
                                 'border border-color-primary/50 border-solid': symbol.id === activeCoin.id,
                               },
@@ -371,7 +371,7 @@ const SelectCurrency = ({
                     {({ active }) => (
                       <div
                         className={cn(
-                          'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-hover-primary hover:bg-color-light-hover-primary mb-2 rounded-default',
+                          'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-input-hover-primary hover:bg-color-light-hover-primary mb-2 rounded-default',
                           {
                             'border border-color-primary/50 border-solid': network.id === activeNetwork.id,
                           },

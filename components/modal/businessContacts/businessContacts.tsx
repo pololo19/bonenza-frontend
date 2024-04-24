@@ -31,7 +31,7 @@ export default function ModalBusinessContacts({ show, onClose }: ModalBusinessCo
         <div className="overflow-y-auto pt-6 px-3 pb-[80px]">
           <div>{t('footer:emailUs')}</div>
           <div
-            className={`h-[52px] px-3 cursor-pointer dark:bg-[#25272b] hover:bg-white bg-color-light-bg-primary flex justify-between items-center mt-3 relative`}
+            className={`rounded-default overflow-hidden h-[52px] px-3 cursor-pointer dark:bg-color-card-bg-primary hover:bg-white bg-color-light-bg-primary flex justify-between items-center mt-3 relative`}
           >
             <div className="dark:text-white text-black">business@bonenza.com</div>
             <div className="flex items-center gap-2 text-color-primary">
