@@ -492,7 +492,9 @@
     "feeTooltip": "Bei VIP38 freischalten. ",
     "totalWithdrawAmount": "Gesamtauszahlungsbetrag:",
     "available": "Verfügbar",
-    "lockedFunds": "Gesperrte Gelder"
+    "lockedFunds": "Gesperrte Gelder",
+    "withdrawProgress": "Die Auszahlung ist im Gange",
+    "withdrawComplete": "Auszahlung erfolgreich"
   },
   "balance": {
     "cryptoCurrency": "Kryptowährung",
@@ -1319,7 +1321,7 @@
     "maximizeThePotential": "MAXIMIEREN SIE DAS POTENZIAL VON BND/FIAT RAKEBACK",
     "earnLocked": "Verdienen Sie gesicherte BND/Fiat durch Boni und schöpfen Sie mühelos sein Potenzial frei, indem Sie auf die von Ihnen bevorzugte Art und Weise wetten. ",
     "howToUnlock": "Wie schalte ich Rakeback frei?",
-    "getALotOfFreePerks": "BEKOMME VIEL VON <span class='text-color-red font-bold'>FREI</span> VORTEILE",
+    "getALotOfFreePerks": "BEKOMME VIEL VON <span class='font-bold text-color-red'>FREI</span> VORTEILE",
     "everyDayAndWeek": "Täglich",
     "questHub": "QUEST-HUB",
     "conquerDaily": "Erledige tägliche und wöchentliche Quests und sammle gleichzeitig deine Einnahmen!",
@@ -1634,7 +1636,8 @@
     "reviewTime": "Überprüfungszeit: Wenige Minuten",
     "verificationVerified": "Grundlegende Verifizierung bestätigt",
     "verificationPending": "Grundlegende Verifizierung steht aus",
-    "verifyCodeHeader": "Wir haben einen Bestätigungscode an gesendet {{code}}Bitte geben Sie den folgenden 6-stelligen Code ein:"
+    "verifyCodeHeader": "Wir haben einen Bestätigungscode an gesendet {{code}}Bitte geben Sie den folgenden 6-stelligen Code ein:",
+    "remove": "Entfernen"
   },
   "wagerContest": {
     "history": "Geschichte",
@@ -2129,40 +2132,83 @@
     "cancel": "Stornieren"
   },
   "errors": {
-    "internalServer": "Hoppla! Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später noch einmal.",
-    "existPhone": "Dieses Telefon existiert bereits.",
-    "existMail": "Diese E-Mail existiert bereits.",
-    "verifyPhone": "Dieses Telefon ist nicht verifiziert.",
-    "verifyMail": "Diese E-Mail ist nicht verifiziert.",
-    "locationIsNotAllowed": "Leider ist dieses Spiel in Ihrer Region nicht verfügbar.",
-    "selfExclusive": "Dein Account ist deaktiviert.",
-    "notExistMail": "Diese E-Mail existiert nicht.",
-    "notExistPhone": "Dieses Telefon existiert nicht.",
-    "notExistMailOrPhone": "E-Mail oder Telefon sind nicht vorhanden.",
-    "notMatchConfirmationPassword": "Das Bestätigungskennwort stimmt nicht überein.",
-    "disabledAccount": "Dein Account ist deaktiviert.",
-    "notValidToken": "Token ist ungültig",
-    "expiredToken": "Token ist abgelaufen.",
-    "requiredMail": "Bitte bestätigen Sie Ihre E-Mail-Adresse, um diese Funktion zu aktivieren.",
-    "validReferral": "Der Empfehlungscode ist ungültig.",
-    "notMatchedCredential": "Ungültige E-Mail oder Passwort!",
-    "notExistPassword": "Das Passwort ist nicht festgelegt.",
-    "notMatched2FA": "Ungültige Zwei-Faktor-Authentifizierung.",
-    "notMatchedCurrentPassword": "Das aktuelle Passwort stimmt nicht überein.",
-    "sendGridError": "Hoppla! Beim Senden der E-Mail ist ein Fehler aufgetreten.",
-    "twiloError": "Hoppla! Beim Senden der SMS ist ein Fehler aufgetreten.",
-    "notMatchedVerificationCode": "Der Bestätigungscode stimmt nicht überein.",
-    "expiredVerficationCode": "Der Bestätigungscode ist abgelaufen.",
-    "notValidTgInfo": "Ihre Telegram-Informationen sind ungültig.",
-    "notValidSelfExlusionTime": "Die Ausschlusszeit ist ungültig.",
-    "badRequest": "Ihre Anfragedaten sind ungültig.",
-    "notAllowedAction": "Ihre Aktion ist nicht zulässig.",
-    "notMatchOTP": "Der Bestätigungscode ist falsch"
+    "badRequest": "Los datos de tu solicitud no son válidos.",
+    "notAllowedAction": "Tu acción no está permitida.",
+    "internalServer": "¡Ups! ",
+    "auth": {
+      "existPhone": "Este teléfono ya existe.",
+      "existMail": "Este correo electrónico ya existe.",
+      "verifyPhone": "Este teléfono no está verificado.",
+      "verifyMail": "Este correo electrónico no está verificado.",
+      "locationIsNotAllowed": "Lo sentimos, este juego no está disponible en tu región.",
+      "selfExclusive": "Tu cuenta está desactivada.",
+      "notExistMail": "Este correo electrónico no existe.",
+      "notExistPhone": "Este teléfono no existe.",
+      "notExistMailOrPhone": "El correo electrónico o el teléfono no existen.",
+      "notMatchConfirmationPassword": "La contraseña de confirmación no coincide.",
+      "disabledAccount": "Tu cuenta está desactivada.",
+      "notValidToken": "El token no es válido",
+      "expiredToken": "El token ha caducado.",
+      "requiredMail": "Verifique su correo electrónico para activar esta función.",
+      "validReferral": "El código de referencia no es válido.",
+      "notMatchedCredential": "Correo electrónico o contraseña no válidos!",
+      "notExistPassword": "La contraseña no está establecida.",
+      "notMatched2FA": "Autenticación de dos factores no válida.",
+      "notMatchedCurrentPassword": "Entschuldigung, das alte Passwort ist ungültig. Bitte versuchen Sie es erneut.",
+      "sendGridError": "¡Ups! ",
+      "twiloError": "¡Ups! ",
+      "notMatchedVerificationCode": "El código de verificación no coincide.",
+      "expiredVerficationCode": "El código de verificación ha caducado.",
+      "notValidTgInfo": "Tu información de Telegram no es válida.",
+      "notValidSelfExlusionTime": "El tiempo de exclusión no es válido.",
+      "notMatchOTP": "El código de verificación es incorrecto."
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "No hay recompensas de comisiones disponibles.",
+      "emptyAvailableReferralRewards": "No hay recompensas de referencia disponibles."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Su fondo de bonificación no es suficiente, cargue mediante depósito.",
+      "existLevelUpBonus": "El bono no existe",
+      "claimBonus": "El bono ya está reclamado.",
+      "existBonusType": "El tipo de bonificación no existe.",
+      "finishedQuestToClaim": "La misión debe estar terminada para reclamar.",
+      "emptyAvailableSpin": "No tienes giro disponible.",
+      "VIP22ForSuperSpin": "Tu VIP debe tener al menos 22 años.",
+      "VIP70ForMegaSpin": "Tu VIP debe tener al menos 70."
+    },
+    "game": {
+      "existGame": "El juego no existe.",
+      "canDetectLocation": "No se puede detectar la ubicación.",
+      "existCurrency": "La moneda no existe.",
+      "existCurrencyType": "El tipo de moneda no existe.",
+      "matchedWithSign": "El signo de solicitud no coincide.",
+      "existGameRating": "Ya le diste calificación a este juego.",
+      "existGameReport": "Ya reportaste este juego."
+    },
+    "page": {
+      "exceedTotalPageNumber": "La página actual excede el número total de páginas."
+    },
+    "swap": {
+      "existSourceCrypto": "La criptomoneda de origen no existe.",
+      "existDestinationCrypto": "La criptomoneda de destino no existe.",
+      "isEnoughBalanceForSwap": "El saldo es bajo para canjear."
+    }
   },
   "success": {
     "bonusClaimed": "Ihr Bonus ist beansprucht",
     "successfulllyReported": "Ihre Anfrage wurde erfolgreich empfangen. ",
-    "success": "Erfolg"
+    "success": "Erfolg",
+    "pasted": "Eingefügt",
+    "copied": "Kopiert",
+    "rating": "Bewertung erfolgreich",
+    "sentEmailSuccessfully": "Eine Bestätigungs-E-Mail wird an Ihre Mailbox gesendet. ",
+    "confirmedWithdraw": "Herzlichen Glückwunsch! Ihr Widerruf von {{amount}} {{token}} Da die Auszahlung noch nicht abgeschlossen ist, wird jeder große oder verdächtige Auszahlungsbetrag geprüft und manuell bearbeitet. Wie immer danken wir Ihnen für Ihre Geduld!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Bitte geben Sie die Vertreter-ID korrekt ein.",
+    "incorrectRepresentativeID": "{{representativeID}} ist NICHT der offizielle Vertreter von BONENZA. ",
+    "emptyMessageContent": "Der Nachrichteninhalt darf nicht leer sein!"
   },
   "quest": {
     "questHub": "Quest-HUB",

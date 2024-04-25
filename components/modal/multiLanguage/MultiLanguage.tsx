@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { Star1 } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { ElementType, useMemo, useState } from 'react';
+import { ElementType, useMemo } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -14,7 +14,6 @@ import { changeMultiLanguageTab } from '@/base/redux/reducers/modal.reducer';
 import { setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
-import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
 
@@ -114,9 +113,9 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
           </div>
         }
       >
-        <div className="overflow-y-auto dark:text-white text-black">
+        <div className="overflow-y-auto text-black dark:text-white">
           <div>
-            <div className="p-5 py-5 border overflow-y-auto">
+            <div className="p-5 py-5 overflow-y-auto border">
               <div
                 className={`grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2 ${
                   multiLanguageTab === MultiLanguageTabEnum.LANGUAGE ? 'block' : 'hidden'
@@ -128,7 +127,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     className={cn(
                       'sm:py-[15px] py-[10px] rounded-default text-left ps-5 dark:hover:text-white text-default ',
                       {
-                        'bg-color-primary text-white': item.key === i18n.language,
+                        'bg-gradient-btn-play text-white': item.key === i18n.language,
                         'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600 dark:text-white text-black':
                           item.key !== i18n.language,
                       },
@@ -155,7 +154,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     className={cn(
                       'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
                       {
-                        'bg-color-primary': !viewInFiat,
+                        'bg-gradient-btn-play': !viewInFiat,
                         'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': viewInFiat,
                       },
                     )}
@@ -173,7 +172,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       onClose();
                     }}
                   >
-                    <div className="flex gap-3 items-center w-full">
+                    <div className="flex items-center w-full gap-3">
                       <div className="w-[30px] h-[30px] rounded-full bg-gray-300 flex items-center justify-center">
                         <Star1 size={15} className="text-gray-700" />
                       </div>
@@ -181,7 +180,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     </div>
                   </div>
                 </>
-                <div className="md:col-span-3 sm:col-span-2 col-span-1"></div>
+                <div className="col-span-1 md:col-span-3 sm:col-span-2"></div>
                 {fiatSymbols.map((item: CurrencyType, key: number) => (
                   <div
                     key={key}
@@ -189,7 +188,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                     className={cn(
                       'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
                       {
-                        'bg-color-primary text-white': viewInFiat && item.id === localFiat?.id,
+                        'bg-gradient-btn-play text-white': viewInFiat && item.id === localFiat?.id,
                         'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': item.id !== localFiat?.id,
                       },
                     )}
@@ -198,7 +197,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       onClose();
                     }}
                   >
-                    <div className="flex gap-3 items-center w-full">
+                    <div className="flex items-center w-full gap-3">
                       <Image
                         height={30}
                         width={30}

@@ -63,7 +63,7 @@ function GameCard(props: GameCardProps) {
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
             }}
-            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-large"
+            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-default"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
           />

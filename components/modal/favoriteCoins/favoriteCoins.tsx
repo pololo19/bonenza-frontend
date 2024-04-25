@@ -6,9 +6,12 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { ElementType, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_setCurrencyFavorite } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
+import { TOAST_ENUM } from '@/base/constants/common';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { setFiatSymbols, setSymbols } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
@@ -87,8 +90,10 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
         return item;
       });
       dispatch(coin.type === 'crypto' ? setSymbols([...tempCurrency]) : setFiatSymbols([...tempCurrency]));
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -142,7 +147,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               }}
               onChange={(e) => setSearchInput(e.target.value)}
             />
-            <div className="group rounded-md" role="button" onClick={onClose}>
+            <div className="rounded-md group" role="button" onClick={onClose}>
               <XMarkIcon width={15} className="text-color-text-primary group-hover:text-white w-[1.5rem] h-[1.5rem]" />
             </div>
           </div>
@@ -200,7 +205,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
             </div>
           </div>
           <div className="text-color-text-primary block relative h-[calc(90vh_-_170px)]">
-            <div className="flex justify-between items-center px-5">
+            <div className="flex items-center justify-between px-5">
               {t('deposit:myFavoriteCoins')}
               {isReverse ? (
                 <ArrowUp
@@ -232,7 +237,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
-                      <div className="flex-1 dark:text-white text-black text-start text-default">{coin.name}</div>
+                      <div className="flex-1 text-black dark:text-white text-start text-default">{coin.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
                       {/* <span>{coin.alias}</span> */}
@@ -263,7 +268,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={fiat.logo} className="inline" alt="" />
-                      <div className="flex-1 dark:text-white text-black text-start text-default">{fiat.name}</div>
+                      <div className="flex-1 text-black dark:text-white text-start text-default">{fiat.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
                       <span>{fiat.alias}</span>
@@ -293,7 +298,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
                       <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
-                      <div className="flex-1 text-start dark:text-white text-black text-default">{coin.name}</div>
+                      <div className="flex-1 text-black text-start dark:text-white text-default">{coin.name}</div>
                     </div>
                     <div className="flex items-center">
                       <span>{coin.alias}</span>
@@ -308,7 +313,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                     height={200}
                     alt=""
                   />
-                  <p className="absolute text-14 bottom-0 text-center">{t('deposit:noCoin')}</p>
+                  <p className="absolute bottom-0 text-center text-14">{t('deposit:noCoin')}</p>
                 </div>
               )}
             </div>

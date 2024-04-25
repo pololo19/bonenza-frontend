@@ -7,9 +7,8 @@ type BreadcrumbsProps = {
 };
 
 export const Breadcrumbs = ({ data, endpoint }: BreadcrumbsProps) => {
-
   return (
-    <div className="flex items-center gap-[10px] py-[5px] px-[10px] dark:bg-[#2D3035] bg-white rounded-[5px] w-fit">
+    <div className="flex items-center gap-[10px] py-[5px] px-[10px] dark:bg-color-card-header-primary bg-white rounded-[5px] w-fit">
       {data.map((item, index) => {
         return (
           <div key={index} className="flex items-center gap-[10px]">

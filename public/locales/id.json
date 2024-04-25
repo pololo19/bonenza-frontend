@@ -492,7 +492,9 @@
     "feeTooltip": "Buka kunci di VIP38. ",
     "totalWithdrawAmount": "Jumlah total penarikan:",
     "available": "Tersedia",
-    "lockedFunds": "Dana terkunci"
+    "lockedFunds": "Dana terkunci",
+    "withdrawProgress": "Penarikan sedang berlangsung",
+    "withdrawComplete": "Penarikan Berhasil"
   },
   "balance": {
     "cryptoCurrency": "Mata Uang Kripto",
@@ -1319,7 +1321,7 @@
     "maximizeThePotential": "MAKSIMALKAN POTENSI RAKEBACK BND/FIAT",
     "earnLocked": "Hasilkan BND/Fiat yang terkunci melalui bonus dan buka potensinya dengan mudah dengan bertaruh sesuai keinginan Anda. ",
     "howToUnlock": "Bagaimana cara membuka kunci Rakeback?",
-    "getALotOfFreePerks": "DAPATKAN BANYAK <span class='text-color-red font-bold'>BEBAS</span> KEUNTUNGAN",
+    "getALotOfFreePerks": "DAPATKAN BANYAK <span class='font-bold text-color-red'>BEBAS</span> KEUNTUNGAN",
     "everyDayAndWeek": "Setiap hari",
     "questHub": "PUSAT PENCARIAN",
     "conquerDaily": "Taklukkan misi harian dan mingguan sambil mengumpulkan dan meningkatkan penghasilan Anda!",
@@ -1634,7 +1636,8 @@
     "reviewTime": "Waktu peninjauan: Beberapa menit",
     "verificationVerified": "Verifikasi Dasar Diverifikasi",
     "verificationPending": "Verifikasi Dasar Tertunda",
-    "verifyCodeHeader": "Kami telah mengirimkan kode verifikasi ke {{code}}, silakan masukkan kode 6 digit di bawah ini:"
+    "verifyCodeHeader": "Kami telah mengirimkan kode verifikasi ke {{code}}, silakan masukkan kode 6 digit di bawah ini:",
+    "remove": "Menghapus"
   },
   "wagerContest": {
     "history": "Sejarah",
@@ -2129,40 +2132,83 @@
     "cancel": "Membatalkan"
   },
   "errors": {
-    "internalServer": "Ups! Ada yang tidak beres, Coba lagi nanti.",
-    "existPhone": "Telepon ini sudah ada.",
-    "existMail": "Email ini sudah ada.",
-    "verifyPhone": "Telepon ini belum diverifikasi.",
-    "verifyMail": "Email ini belum diverifikasi.",
-    "locationIsNotAllowed": "Maaf, game ini tidak tersedia di wilayah Anda.",
-    "selfExclusive": "Akun Anda dinonaktifkan.",
-    "notExistMail": "Email ini tidak ada.",
-    "notExistPhone": "Ponsel ini Tidak Ada.",
-    "notExistMailOrPhone": "Email atau Telepon tidak ada.",
-    "notMatchConfirmationPassword": "Kata Sandi Konfirmasi tidak cocok.",
-    "disabledAccount": "Akun Anda dinonaktifkan.",
-    "notValidToken": "Token tidak valid",
-    "expiredToken": "Token sudah habis masa berlakunya.",
-    "requiredMail": "Harap verifikasi email Anda untuk mengaktifkan fitur ini.",
-    "validReferral": "Kode referral tidak valid.",
-    "notMatchedCredential": "Email atau Kata Sandi Tidak Valid!",
-    "notExistPassword": "Kata sandi belum disetel.",
-    "notMatched2FA": "Otentikasi dua faktor tidak valid.",
-    "notMatchedCurrentPassword": "Kata Sandi Saat Ini tidak cocok.",
-    "sendGridError": "Ups! Ada yang tidak beres saat mengirim email.",
-    "twiloError": "Ups! Ada yang tidak beres saat mengirim SMS.",
-    "notMatchedVerificationCode": "Kode Verifikasi tidak cocok.",
-    "expiredVerficationCode": "Kode Verifikasi sudah habis masa berlakunya.",
-    "notValidTgInfo": "Info Telegram Anda tidak valid.",
-    "notValidSelfExlusionTime": "Waktu Pengecualian tidak valid.",
     "badRequest": "Data permintaan Anda tidak valid.",
     "notAllowedAction": "Tindakan Anda tidak diperbolehkan.",
-    "notMatchOTP": "Kode verifikasi salah"
+    "internalServer": "Ups! ",
+    "auth": {
+      "existPhone": "Telepon ini sudah ada.",
+      "existMail": "Email ini sudah ada.",
+      "verifyPhone": "Telepon ini belum diverifikasi.",
+      "verifyMail": "Email ini belum diverifikasi.",
+      "locationIsNotAllowed": "Maaf, game ini tidak tersedia di wilayah Anda.",
+      "selfExclusive": "Akun Anda dinonaktifkan.",
+      "notExistMail": "Email ini tidak ada.",
+      "notExistPhone": "Ponsel ini Tidak Ada.",
+      "notExistMailOrPhone": "Email atau Telepon tidak ada.",
+      "notMatchConfirmationPassword": "Kata Sandi Konfirmasi tidak cocok.",
+      "disabledAccount": "Akun Anda dinonaktifkan.",
+      "notValidToken": "Token tidak valid",
+      "expiredToken": "Token sudah habis masa berlakunya.",
+      "requiredMail": "Harap verifikasi email Anda untuk mengaktifkan fitur ini.",
+      "validReferral": "Kode referral tidak valid.",
+      "notMatchedCredential": "Email atau Kata Sandi Tidak Valid!",
+      "notExistPassword": "Kata sandi belum disetel.",
+      "notMatched2FA": "Otentikasi dua faktor tidak valid.",
+      "notMatchedCurrentPassword": "Maaf, kata sandi lama tidak valid. Silakan coba lagi.",
+      "sendGridError": "Ups! ",
+      "twiloError": "Ups! ",
+      "notMatchedVerificationCode": "Kode Verifikasi tidak cocok.",
+      "expiredVerficationCode": "Kode Verifikasi sudah habis masa berlakunya.",
+      "notValidTgInfo": "Info Telegram Anda tidak valid.",
+      "notValidSelfExlusionTime": "Waktu Pengecualian tidak valid.",
+      "notMatchOTP": "Kode verifikasi salah"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "Tidak ada imbalan komisi yang tersedia.",
+      "emptyAvailableReferralRewards": "Tidak ada hadiah referensi yang tersedia."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Kumpulan bonus Anda tidak cukup, silakan isi dengan deposit.",
+      "existLevelUpBonus": "Bonusnya tidak ada",
+      "claimBonus": "Bonus sudah diklaim.",
+      "existBonusType": "Jenis bonus tidak ada.",
+      "finishedQuestToClaim": "Pencarian harus diselesaikan untuk mengklaim.",
+      "emptyAvailableSpin": "Anda tidak memiliki putaran yang tersedia.",
+      "VIP22ForSuperSpin": "VIP Anda harus berusia minimal 22 tahun.",
+      "VIP70ForMegaSpin": "VIP Anda harus minimal 70."
+    },
+    "game": {
+      "existGame": "Permainan itu tidak ada.",
+      "canDetectLocation": "Lokasinya tidak dapat dideteksi.",
+      "existCurrency": "Mata uangnya tidak ada.",
+      "existCurrencyType": "Jenis mata uang tidak ada.",
+      "matchedWithSign": "Tanda permintaan tidak cocok.",
+      "existGameRating": "Anda sudah memberi rating pada game ini.",
+      "existGameReport": "Anda sudah melaporkan permainan ini."
+    },
+    "page": {
+      "exceedTotalPageNumber": "Halaman saat ini melebihi jumlah total halaman."
+    },
+    "swap": {
+      "existSourceCrypto": "Sumber cryptocurrency tidak ada.",
+      "existDestinationCrypto": "Cryptocurrency tujuan tidak ada.",
+      "isEnoughBalanceForSwap": "Saldonya rendah untuk ditukar."
+    }
   },
   "success": {
     "bonusClaimed": "Bonus Anda Diklaim",
     "successfulllyReported": "Permintaan Anda berhasil diterima. ",
-    "success": "Kesuksesan"
+    "success": "Kesuksesan",
+    "pasted": "Ditempel",
+    "copied": "Disalin",
+    "rating": "Peringkat Berhasil",
+    "sentEmailSuccessfully": "Email Konfirmasi dikirim ke Kotak surat Anda. ",
+    "confirmedWithdraw": "Selamat! Penarikan Anda {{amount}} {{token}} sedang berlangsung, jumlah penarikan yang besar atau mencurigakan akan diaudit dan diproses secara manual. Seperti biasa, kami menghargai kesabaran Anda!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Silakan masukkan ID perwakilan dengan benar.",
+    "incorrectRepresentativeID": "{{representativeID}} BUKAN perwakilan resmi BONESZA. ",
+    "emptyMessageContent": "Isi pesan tidak boleh kosong!"
   },
   "quest": {
     "questHub": "PUSAT Pencarian",

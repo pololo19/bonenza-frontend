@@ -492,7 +492,9 @@
     "feeTooltip": "فتح في VIP38. ",
     "totalWithdrawAmount": "إجمالي مبلغ السحب:",
     "available": "متاح",
-    "lockedFunds": "الأموال المقفلة"
+    "lockedFunds": "الأموال المقفلة",
+    "withdrawProgress": "السحب قيد التقدم",
+    "withdrawComplete": "تم السحب بنجاح"
   },
   "balance": {
     "cryptoCurrency": "عملة مشفرة",
@@ -1319,7 +1321,7 @@
     "maximizeThePotential": "تعظيم إمكانات BND/FIAT RAKEBACK",
     "earnLocked": "اربح BND/Fiat المقفل من خلال المكافآت وأطلق العنان لإمكانياته بسهولة من خلال المراهنة بالطريقة المفضلة لديك. ",
     "howToUnlock": "كيفية فتح Rakeback؟",
-    "getALotOfFreePerks": "الحصول على الكثير من <span class='text-color-red font-bold'>حر</span> بدلات",
+    "getALotOfFreePerks": "الحصول على الكثير من <span class='font-bold text-color-red'>حر</span> بدلات",
     "everyDayAndWeek": "كل يوم",
     "questHub": "مركز الأسئلة",
     "conquerDaily": "تغلب على المهام اليومية والأسبوعية أثناء جمع أرباحك وزيادة حجمها!",
@@ -1634,7 +1636,8 @@
     "reviewTime": "وقت المراجعة: بضع دقائق",
     "verificationVerified": "تم التحقق من التحقق الأساسي",
     "verificationPending": "التحقق الأساسي معلق",
-    "verifyCodeHeader": "لقد أرسلنا رمز التحقق إلى {{code}}يرجى إدخال الرمز المكون من 6 أرقام أدناه:"
+    "verifyCodeHeader": "لقد أرسلنا رمز التحقق إلى {{code}}يرجى إدخال الرمز المكون من 6 أرقام أدناه:",
+    "remove": "يزيل"
   },
   "wagerContest": {
     "history": "تاريخ",
@@ -2129,40 +2132,83 @@
     "cancel": "يلغي"
   },
   "errors": {
-    "internalServer": "عفوًا، حدث خطأ ما، يُرجى إعادة المحاولة لاحقًا.",
-    "existPhone": "هذا الهاتف موجود بالفعل.",
-    "existMail": "هذا البريد الإلكتروني موجود بالفعل.",
-    "verifyPhone": "لم يتم التحقق من هذا الهاتف.",
-    "verifyMail": "لم يتم التحقق من هذا البريد الإلكتروني.",
-    "locationIsNotAllowed": "عذرًا، هذه اللعبة غير متوفرة في منطقتك.",
-    "selfExclusive": "حسابك مغلق.",
-    "notExistMail": "هذا البريد الإلكتروني غير موجود.",
-    "notExistPhone": "هذا الهاتف غير موجود.",
-    "notExistMailOrPhone": "البريد الإلكتروني أو الهاتف غير موجود.",
-    "notMatchConfirmationPassword": "تأكيد كلمة المرور غير متطابقة.",
-    "disabledAccount": "حسابك مغلق.",
-    "notValidToken": "الرمز غير صالح",
-    "expiredToken": "انتهت صلاحية الرمز المميز.",
-    "requiredMail": "يرجى التحقق من بريدك الإلكتروني لتفعيل هذه الميزة.",
-    "validReferral": "رمز الإحالة غير صالح.",
-    "notMatchedCredential": "البريد الإلكتروني أو كلمة السر خاطئة!",
-    "notExistPassword": "لم يتم تعيين كلمة المرور.",
-    "notMatched2FA": "المصادقة الثنائية غير صالحة.",
-    "notMatchedCurrentPassword": "كلمة المرور الحالية غير متطابقة.",
-    "sendGridError": "عفوًا! حدث خطأ ما أثناء إرسال البريد الإلكتروني.",
-    "twiloError": "عفوًا، حدث خطأ ما أثناء إرسال الرسالة القصيرة.",
-    "notMatchedVerificationCode": "رمز التحقق غير متطابق.",
-    "expiredVerficationCode": "انتهت صلاحية رمز التحقق.",
-    "notValidTgInfo": "معلومات Telegram الخاصة بك غير صالحة.",
-    "notValidSelfExlusionTime": "وقت الاستثناء غير صالح.",
     "badRequest": "بيانات طلبك غير صالحة.",
     "notAllowedAction": "تصرفك غير مسموح به.",
-    "notMatchOTP": "رمز التحقق غير صحيح"
+    "internalServer": "أُووبس! ",
+    "auth": {
+      "existPhone": "هذا الهاتف موجود بالفعل.",
+      "existMail": "هذا البريد الإلكتروني موجود بالفعل.",
+      "verifyPhone": "لم يتم التحقق من هذا الهاتف.",
+      "verifyMail": "لم يتم التحقق من هذا البريد الإلكتروني.",
+      "locationIsNotAllowed": "عذرًا، هذه اللعبة غير متوفرة في منطقتك.",
+      "selfExclusive": "حسابك مغلق.",
+      "notExistMail": "هذا البريد الإلكتروني غير موجود.",
+      "notExistPhone": "هذا الهاتف غير موجود.",
+      "notExistMailOrPhone": "البريد الإلكتروني أو الهاتف غير موجود.",
+      "notMatchConfirmationPassword": "تأكيد كلمة المرور غير متطابقة.",
+      "disabledAccount": "حسابك مغلق.",
+      "notValidToken": "الرمز غير صالح",
+      "expiredToken": "انتهت صلاحية الرمز المميز.",
+      "requiredMail": "يرجى التحقق من بريدك الإلكتروني لتفعيل هذه الميزة.",
+      "validReferral": "رمز الإحالة غير صالح.",
+      "notMatchedCredential": "البريد الإلكتروني أو كلمة السر خاطئة!",
+      "notExistPassword": "لم يتم تعيين كلمة المرور.",
+      "notMatched2FA": "المصادقة الثنائية غير صالحة.",
+      "notMatchedCurrentPassword": "عذرا، كلمة المرور القديمة غير صالحة. يرجى المحاولة مرة أخرى.",
+      "sendGridError": "أُووبس! ",
+      "twiloError": "أُووبس! ",
+      "notMatchedVerificationCode": "رمز التحقق غير متطابق.",
+      "expiredVerficationCode": "رمز التحقق منتهي الصلاحية.",
+      "notValidTgInfo": "معلومات Telegram الخاصة بك غير صالحة.",
+      "notValidSelfExlusionTime": "وقت الاستثناء غير صالح.",
+      "notMatchOTP": "رمز التحقق غير صحيح"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "لا توجد مكافآت العمولة المتاحة.",
+      "emptyAvailableReferralRewards": "لا توجد مكافآت الإحالة المتاحة."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "مجموع المكافآت الخاص بك ليس كافيًا، يرجى تحصيل الرسوم عن طريق الإيداع.",
+      "existLevelUpBonus": "المكافأة غير موجودة",
+      "claimBonus": "تمت المطالبة بالمكافأة بالفعل.",
+      "existBonusType": "نوع المكافأة غير موجود.",
+      "finishedQuestToClaim": "يجب الانتهاء من السعي للمطالبة.",
+      "emptyAvailableSpin": "ليس لديك تدور المتاحة.",
+      "VIP22ForSuperSpin": "يجب أن يكون عمر VIP الخاص بك 22 عامًا على الأقل.",
+      "VIP70ForMegaSpin": "يجب أن يكون عمر VIP الخاص بك 70 عامًا على الأقل."
+    },
+    "game": {
+      "existGame": "اللعبة غير موجودة.",
+      "canDetectLocation": "لا يمكن الكشف عن الموقع.",
+      "existCurrency": "العملة غير موجودة.",
+      "existCurrencyType": "نوع العملة غير موجود.",
+      "matchedWithSign": "علامة الطلب غير متطابقة.",
+      "existGameRating": "لقد قمت بالفعل بتقييم هذه اللعبة.",
+      "existGameReport": "لقد أبلغت بالفعل عن هذه اللعبة."
+    },
+    "page": {
+      "exceedTotalPageNumber": "الصفحة الحالية تتجاوز العدد الإجمالي للصفحات."
+    },
+    "swap": {
+      "existSourceCrypto": "العملة المشفرة المصدر غير موجودة.",
+      "existDestinationCrypto": "العملة المشفرة الوجهة غير موجودة.",
+      "isEnoughBalanceForSwap": "الرصيد منخفض للتبديل."
+    }
   },
   "success": {
     "bonusClaimed": "تمت المطالبة بالمكافأة الخاصة بك",
     "successfulllyReported": "تم استلام طلبك بنجاح. ",
-    "success": "نجاح"
+    "success": "نجاح",
+    "pasted": "تم لصقه",
+    "copied": "نسخ",
+    "rating": "تم التقييم بنجاح",
+    "sentEmailSuccessfully": "يتم إرسال رسالة تأكيد بالبريد الإلكتروني إلى صندوق البريد الخاص بك. ",
+    "confirmedWithdraw": "تهانينا! انسحابك من {{amount}} {{token}} قيد التقدم، سيتم تدقيق أي مبلغ سحب كبير أو مشبوه ومعالجته يدويًا. كما هو الحال دائمًا، نحن نقدر سعة صدرك!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "الرجاء إدخال معرف الممثل بشكل صحيح.",
+    "incorrectRepresentativeID": "{{representativeID}} ليس الممثل الرسمي لبونينزا. ",
+    "emptyMessageContent": "لا يمكن أن يكون محتوى الرسالة فارغًا!"
   },
   "quest": {
     "questHub": "مركز المهمة",

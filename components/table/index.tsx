@@ -84,7 +84,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
     >
       <table
         className={cn(
-          `mb-0 min-h-[150px] w-full h-full `,
+          `mb-0 min-h-[150px] w-full h-full table`,
           tableClassName,
           styles.table,
           theme === 'light' && styles.tableLight,
@@ -99,7 +99,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
                     key={header.id}
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
-                      'whitespace-nowrap bg-color-table-header-bg-primary dark:text-color-text-primary text-color-light-text-primary font-semibold !text-[14px] border-none text-center',
+                      'whitespace-nowrap bg-color-table-header-bg-primary dark:text-white text-color-light-text-primary font-semibold !text-[14px] border-none text-center',
                     )}
                     {...{
                       style: {
@@ -120,7 +120,7 @@ const TableComponent: React.FC<TableComponentPropsType> = ({
             <tr>
               <td colSpan={columns.length}>
                 <div className="flex items-center justify-center">
-                  <ReactLoading type="bubbles" color="#50C627" delay={50} />
+                  <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
                 </div>
               </td>
             </tr>

@@ -8,11 +8,11 @@ import { toast } from 'react-toastify';
 import { api_bonusClaim } from '@/api/bonus';
 import { api_getClaims } from '@/api/wallet';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalSpinClaimProps = {
   onClose: () => void;
@@ -54,7 +54,9 @@ export default function ModalSpinClaim({
         dispatch(setLockedAmount(tempLockedAmount));
         toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
       } catch (error: any) {
-        toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+        const errType = error.response?.data?.message ?? '';
+        const errMessage = getErrorMesssage1(errType);
+        toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       } finally {
         setIsClaiming(false);
       }
@@ -84,7 +86,7 @@ export default function ModalSpinClaim({
         position="flex-col justify-center items-center"
         isCongrat
       >
-        <div className="flex flex-col items-center justify-center overflow-y-auto relative px-5 py-8">
+        <div className="relative flex flex-col items-center justify-center px-5 py-8 overflow-y-auto">
           <Image width={400} height={600} src={`/img/spin/${spinType}-popup.png`} alt="" className="w-[80%] m-auto" />
           <div className="flex items-center text-2xl sm:text-3xl text-[#FFE600] font-bold mt-8">
             <span className="mr-1">{`+ `}</span>

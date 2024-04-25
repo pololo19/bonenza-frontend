@@ -115,77 +115,78 @@ export function getErrorMesssage1(errorType: string) {
   let message = '';
   const err = errorType?.split('_');
   switch (err[0]) {
+    // user & auth
     case 'isNotExistUser':
       message = 'authentication:userNotAllow';
       break;
     case 'isNotExistMail':
-      message = 'errors:notExistMail';
+      message = 'errors:auth:notExistMail';
       break;
     case 'isNotExistPhone':
-      message = 'errors:notExistPhone';
+      message = 'errors:auth:notExistPhone';
       break;
     case 'isNotExistMailOrPhone':
-      message = 'errors:notExistMailOrPhone';
+      message = 'errors:auth:notExistMailOrPhone';
       break;
     case 'isNotMatchConfirmationPassword':
-      message = 'errors:notMatchConfirmationPassword';
+      message = 'errors:auth:notMatchConfirmationPassword';
       break;
     case 'disabledAccount':
-      message = 'errors:disabledAccount';
+      message = 'errors:auth:disabledAccount';
       break;
     case 'isNotValidToken':
-      message = 'errors:notValidToken';
+      message = 'errors:auth:notValidToken';
       break;
     case 'isExpiredToken':
-      message = 'errors:expiredToken';
+      message = 'errors:auth:expiredToken';
       break;
     case 'isRequiredMail':
-      message = 'errors:requiredMail';
+      message = 'errors:auth:requiredMail';
       break;
     case 'isExistMail':
-      message = 'errors:existMail';
+      message = 'errors:auth:existMail';
       break;
     case 'isExistPhone':
-      message = 'errors:existPhone';
+      message = 'errors:auth:existPhone';
       break;
     case 'isValidReferral':
-      message = 'errors:validReferral';
+      message = 'errors:auth:validReferral';
       break;
     case 'isNotPhoneVerified':
-      message = 'errors:verifyPhone';
+      message = 'errors:auth:verifyPhone';
       break;
     case 'isNotMailVerified':
-      message = 'errors:verifyMail';
+      message = 'errors:auth:verifyMail';
       break;
     case 'isNotMatchededCredential':
-      message = 'errors:notMatchedCredential';
+      message = 'errors:auth:notMatchedCredential';
       break;
     case 'isNotExistPassword':
-      message = 'errors:notExistPassword';
+      message = 'errors:auth:notExistPassword';
       break;
     case 'isNotMatched2FA':
-      message = 'errors:notMatched2FA';
+      message = 'errors:auth:notMatched2FA';
       break;
     case 'isNotMatchedCurrentPassword':
-      message = 'errors:notMatchedCurrentPassword';
+      message = 'errors:auth:notMatchedCurrentPassword';
       break;
     case 'sendGridError':
-      message = 'errors:sendGridError';
+      message = 'errors:auth:sendGridError';
       break;
     case 'twiloError':
-      message = 'errors:twiloError';
+      message = 'errors:auth:twiloError';
       break;
     case 'isNotMatchedVerificationCode':
-      message = 'errors:notMatchedVerificationCode';
+      message = 'errors:auth:notMatchedVerificationCode';
       break;
     case 'isExpiredVerificationCode':
-      message = 'errors:expiredVerficationCode';
+      message = 'errors:auth:expiredVerficationCode';
       break;
     case 'isNotValidTgInfo':
-      message = 'errors:notValidTgInfo';
+      message = 'errors:auth:notValidTgInfo';
       break;
     case 'isNotValidSelfExlusionTime':
-      message = 'errors:notValidSelfExlusionTime';
+      message = 'errors:auth:notValidSelfExlusionTime';
       break;
     case 'internalServerError':
       message = 'errors:internalServer';
@@ -197,7 +198,81 @@ export function getErrorMesssage1(errorType: string) {
       message = 'errors:notAllowedAction';
       break;
     case 'isNotMatchOTPError':
-      message = 'errors:notMatchOTP';
+      message = 'errors:auth:notMatchOTP';
+      break;
+
+    // affiliate
+    case 'isEmptyAvailableCommissionRewards':
+      message = 'errors:affiliate:emptyAvailableCommissionRewards';
+      break;
+    case 'isEmptyAvailableReferralRewards':
+      message = 'errors:affiliate:emptyAvailableReferralRewards';
+      break;
+    case 'isNotEnoughBonusPool':
+      message = 'errors:bonus:notEnoughBonusPool';
+      break;
+    case 'isExistLevelUpBonus':
+      message = 'errros:bonus:existLevelUpBonus';
+      break;
+    case 'isClaimBonus':
+      message = 'errors:bonus:claimBonus';
+      break;
+    case 'isExistBonusType':
+      message = 'errors:bonus:existBonusType';
+      break;
+    case 'isFinishedQuestToClaim':
+      message = 'errors:bonus:finishedQuestToClaim';
+      break;
+    case 'isEmptyAvailableSpin':
+      message = 'errors:bonus:emptyAvailableSpin';
+      break;
+    case 'isVIP22ForSuperSpin':
+      message = 'errors:bonus:VIP22ForSuperSpin';
+      break;
+    case 'isVIP70ForMegaSpin':
+      message = 'errors:bonus:VIP70ForMegaSpin';
+      break;
+
+    // game
+    case 'isExistGame':
+      message = 'errors:game:existGame';
+      break;
+    case 'canDetectLocation':
+      message = 'errors:game:canDetectLocation';
+      break;
+    case 'canDetectLocation':
+      message = 'errors:game:canDetectLocation';
+      break;
+    case 'isExistCurrency':
+      message = 'errors:game:existCurrency';
+      break;
+    case 'isExistCurrencyType':
+      message = 'errors:game:existCurrencyType';
+      break;
+    case 'isMatchedWithSign':
+      message = 'errors:game:matchedWithSign';
+      break;
+    case 'isExistGameRating':
+      message = 'errors:game:existGameRating';
+      break;
+    case 'isExistGameReport':
+      message = 'errors:game:existGameReport';
+      break;
+
+    // page
+    case 'exceedTotalPageNumber':
+      message = 'errors:page:exceedTotalPageNumber';
+      break;
+
+    // swap
+    case 'isExistSourceCrypto':
+      message = 'errors:swap:existSourceCrypto';
+      break;
+    case 'isExistDestinationCrypto':
+      message = 'errors:swap:existDestinationCrypto';
+      break;
+    case 'isEnoughBalanceForSwap':
+      message = 'errors:swap:enoughBalanceForSwap';
       break;
 
     default:

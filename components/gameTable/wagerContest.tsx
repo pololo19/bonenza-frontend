@@ -397,19 +397,19 @@ const WagerContestComponent = () => {
                     renderer={({ days, hours, minutes, seconds, completed }) => (
                       <>
                         <div
-                          className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                          className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
                         >
                           <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(hours)}</p>
                           <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
                         </div>
                         <div
-                          className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                          className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
                         >
                           <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(minutes)}</p>
                           <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
                         </div>
                         <div
-                          className={`dark:bg-[#191B1E] dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                          className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
                         >
                           <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(seconds)}</p>
                           <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
@@ -461,7 +461,7 @@ const WagerContestComponent = () => {
                   {t('wagerContest:lastChampion')}
                 </span>
               </div>
-              <div className="flex justify-evenly items-center w-full">
+              <div className="flex justify-center gap-5 items-center w-full">
                 <div className="relative border-solid border-2 rounded-full border-color-secondary">
                   <Image
                     width={16}

@@ -14,11 +14,11 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalRakeBackProps = {
   onClose: () => void;
@@ -118,8 +118,9 @@ export default function ModalRakeBack({
       toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
       dispatch(getBalance());
     } catch (error: any) {
-      const description = error.response?.data?.error ?? t('deposit:claimFailed');
-      toast.error(description, { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsClaiming(false);
     }
@@ -147,7 +148,7 @@ export default function ModalRakeBack({
           <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
             <div className="bg-[url('/img/rakeBackBg.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
               <div className="flex flex-col items-center justify-center h-full gap-[10px]">
-                <div className="flex justify-center flex-col items-center">
+                <div className="flex flex-col items-center justify-center">
                   <Image height={54} width={42} src="/img/coin-rakeBack.png" alt="" />
                   <p className="text-default mt-[2px] text-white font-bold">{t('deposit:unlocked')} USDT</p>
                 </div>
@@ -182,7 +183,7 @@ export default function ModalRakeBack({
               </div>
             </div>
             <div className="h-[48px] mt-2 mb-5 px-6 py-[6px] dark:bg-[#24272B] bg-[#f5f6fa] rounded-[5px] flex items-center justify-between">
-              <div className="dark:text-color-text-primary text-color-light-text-primary flex items-center gap-1 font-bold">
+              <div className="flex items-center gap-1 font-bold dark:text-color-text-primary text-color-light-text-primary">
                 <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
               </div>
               <div
@@ -191,7 +192,7 @@ export default function ModalRakeBack({
                   'items-center justify-center': !viewInFiat,
                 })}
               >
-                <div className="dark:text-white text-black font-bold">
+                <div className="font-bold text-black dark:text-white">
                   {`${currencyFormat1(lockedAmount.balance, cryptoLen, '', false)} USDT`}
                 </div>
                 {viewInFiat && (
@@ -203,14 +204,14 @@ export default function ModalRakeBack({
             </div>
             <div className="text-[14px] font-bold text-center">{t('deposit:howClaim')}</div>
             <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
-              <p className="dark:text-white text-black">{t('deposit:unlockAmount')}</p>
+              <p className="text-black dark:text-white">{t('deposit:unlockAmount')}</p>
               {requiredWagerAmount > 0 && (
                 <p className="mt-[14px]">
                   {t('deposit:youStillNeed')} {`${currencyFormat1(requiredWagerAmount, cryptoLen, '', false)} USDT`}{' '}
                   {t('deposit:unlockable')}{' '}
                   {`${currencyFormat1(unlockedData.minimumUnlockAmount, cryptoLen, '', false)} USDT `}
                   <span
-                    className="text-color-primary cursor-pointer hover:underline"
+                    className="cursor-pointer text-color-primary hover:underline"
                     onClick={() => handleShowModalDetail()}
                   >
                     {t('deposit:viewDetails')}

@@ -255,7 +255,7 @@ function AffiliatePage() {
               </div> */}
             </div>
           </div>
-          <div className="dark:bg-color-input-primary bg-white rounded-[5px] flex lg:flex-row flex-col items-center justify-center mb-[60px] p-[20px]">
+          <div className="dark:bg-color-card-bg-secondary bg-white rounded-[5px] flex lg:flex-row flex-col items-center justify-center mb-[60px] p-[20px]">
             <div className="mr-[24px]">
               <Image width={210} height={198} alt="" src="/img/loudspeaker.png" />
             </div>

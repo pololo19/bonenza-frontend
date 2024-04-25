@@ -14,6 +14,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { WithdrawRequest } from '@/base/types/requestTypes';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
@@ -245,21 +246,18 @@ const WithdrawCryptoPage = () => {
       // const totalWithdrawAmount = Number(watch('withdrawAmount')) * (1 - Number(WITHDRAW_FEE));
       const { status, message } = _res.data;
       if (status) {
-        toast.success(
-          `Congratulations! Your withdrawal of ${formWithdraw.withdrawAmount} ${activeCoin.name} is in progress, any large or suspicious withdrawal amount will be audited and manually processed. As always we appreciate your patience!`,
-          { containerId: TOAST_ENUM.COMMON },
-        );
+        toast.success(t('success:confirmedWithdraw', { amount: formWithdraw.withdrawAmount, token: activeCoin.name }), {
+          containerId: TOAST_ENUM.COMMON,
+        });
         setValue('withdrawAddress', '');
       } else {
         toast.success(message, { containerId: TOAST_ENUM.COMMON });
       }
       // router.push(ROUTER.Transaction);
-    } catch (error) {
-      if (Number(formWithdraw.withdrawAmount) < Number(renderMinValue.min || 0)) {
-        toast.error(t('withdraw:withdrawFailMess'), { containerId: TOAST_ENUM.COMMON });
-      } else {
-        toast.error('Withdraw Failed', { containerId: TOAST_ENUM.COMMON });
-      }
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -373,7 +371,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMin && (
                       <div
                         role="button"
-                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setValue('withdrawAmount', String(renderMinValue.min))}
                       >
                         {t('deposit:min')}
@@ -382,7 +380,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isQuater && (
                       <div
                         role="button"
-                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(25)}
                       >
                         25%
@@ -391,7 +389,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isHalf && (
                       <div
                         role="button"
-                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(50)}
                       >
                         50%
@@ -400,7 +398,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMax && (
                       <div
                         role="button"
-                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#272C33] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(100)}
                       >
                         {t('deposit:max')}
@@ -409,11 +407,11 @@ const WithdrawCryptoPage = () => {
                   </div>
                 </div>
                 <div className="flex justify-between mt-2 text-default">
-                  <div className="flex gap-1 flex-wrap">
+                  <div className="flex flex-wrap gap-1">
                     <span className="dark:text-color-text-primary text-color-light-text-primary">
                       {t('withdraw:available')}:
                     </span>
-                    <span className="dark:text-white text-black flex">
+                    <span className="flex text-black dark:text-white">
                       {viewInFiat
                         ? currencyFormat1(
                             withdrawInfo.availableAmountUsd * exchangeRate,
@@ -423,14 +421,14 @@ const WithdrawCryptoPage = () => {
                         : `${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)}`}
                     </span>
                   </div>
-                  <div className="flex gap-1 flex-wrap justify-end">
+                  <div className="flex flex-wrap justify-end gap-1">
                     <span
-                      className="dark:text-color-text-primary text-color-light-text-primary underline cursor-pointer"
+                      className="underline cursor-pointer dark:text-color-text-primary text-color-light-text-primary"
                       onClick={() => setOpenRollover(true)}
                     >
                       {t('withdraw:lockedFunds')}:
                     </span>
-                    <span className="dark:text-white text-black flex">
+                    <span className="flex text-black dark:text-white">
                       {viewInFiat
                         ? `${currencyFormat1(withdrawInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
                         : `${currencyFormat1(withdrawInfo.lockedAmount, 4, '', false)}`}
@@ -438,13 +436,13 @@ const WithdrawCryptoPage = () => {
                   </div>
                 </div>
                 {errors.withdrawAmount?.message && (
-                  <span className="text-red-500 w-full text-default"> {errors.withdrawAmount?.message}</span>
+                  <span className="w-full text-red-500 text-default"> {errors.withdrawAmount?.message}</span>
                 )}
               </div>
               <div className="dark:bg-color-input-primary bg-color-light-bg-primary rounded-default px-[12px] py-[6px] dark:text-color-text-primary text-color-light-text-primary mt-[22px] flex flex-col gap-[12px]">
                 <div className="flex items-center justify-between">
                   <div className="text-default">{t('withdraw:totalWithdrawAmount')}</div>
-                  <div className="dark:text-color-primary text-color-light-text-primary font-semibold">
+                  <div className="font-semibold dark:text-color-primary text-color-light-text-primary">
                     {currencyFormat1(Number(watch('withdrawAmount')), 4, '', false)} {activeCoin.name}
                   </div>
                 </div>
@@ -475,7 +473,7 @@ const WithdrawCryptoPage = () => {
               </div>
               <div className="mt-[12px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 rounded-large text-start">
                 <h1 className="text-default">
-                  <span className="text-color-primary me-1 inline">{t('withdraw:notice')}</span> {t('withdraw:note2')}{' '}
+                  <span className="inline text-color-primary me-1">{t('withdraw:notice')}</span> {t('withdraw:note2')}{' '}
                 </h1>
               </div>
 

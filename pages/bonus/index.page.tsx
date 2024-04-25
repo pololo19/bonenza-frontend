@@ -333,7 +333,7 @@ function BonusPage() {
                 </div>
               </div>
             </div>
-            <div className="dark:bg-color-panel-1-bg bg-white flex flex-col mt-[60px] items-center py-[50px] px-5 mb-[60px] sm:mb-5">
+            <div className="dark:bg-color-card-bg-secondary bg-white flex flex-col mt-[60px] items-center py-[50px] px-5 mb-[60px] sm:mb-5">
               <div className="dark:text-white text-color-light-text-primary text-[14px] sm:text-[24px] font-bold text-center">
                 {t('bonus:weAreProud')}
               </div>

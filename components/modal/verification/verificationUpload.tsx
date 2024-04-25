@@ -4,8 +4,7 @@ import { Folder2 } from 'iconsax-react';
 import Image from 'next/image';
 import { ElementType, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { shallowEqual, useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
@@ -13,8 +12,8 @@ import { api_uploadIdCards } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { checkFiletypes, convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
@@ -66,8 +65,10 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
         }),
       );
       onClose();
-    } catch (error) {
-      toast.error(String(t('setting:verificationFailed')), { containerId: TOAST_ENUM.MODAL });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
@@ -114,7 +115,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                             height={193.5}
                             src={handleImageUrl(watch('frontCard'))}
                             alt="front"
-                            className="rounded-default h-full w-full object-cover"
+                            className="object-cover w-full h-full rounded-default"
                           />
                         </div>
                       )}
@@ -157,7 +158,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                           height={193.5}
                           src={'/img/back-card.png'}
                           alt="front"
-                          className="h-auto w-full"
+                          className="w-full h-auto"
                         />
                       )}
                       {Boolean(watch('backCard')) && (
@@ -167,7 +168,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
                             height={193.5}
                             src={handleImageUrl(watch('backCard'))}
                             alt="front"
-                            className="rounded-default h-full w-full object-cover"
+                            className="object-cover w-full h-full rounded-default"
                           />
                         </div>
                       )}

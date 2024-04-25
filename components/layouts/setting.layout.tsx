@@ -93,7 +93,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                             className={cn('flex items-center justify-start p-[10px] w-full rounded text-[14px]', {
                               'border-[0.5px] border-solid border-color-primary font-semibold dark:text-white text-black':
                                 router.route.includes(item.href),
-                              'dark:hover:bg-gray-500 dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-color-light-text-primary':
+                              'dark:hover:!bg-color-menu-hover dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-color-light-text-primary':
                                 !router.route.includes(item.href),
                             })}
                             role="button"
@@ -131,8 +131,8 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                           icon={() => null}
                           key={index}
                           fontWeight={600}
-                          classNames="dark:hover:!text-white dark:hover:!bg-color-hover-default hover:!bg-color-light-hover-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-active-default !bg-color-light-bg-primary dark:text-white text-black"
+                          classNames="dark:hover:!text-white dark:hover:!bg-color-menu-hover hover:!bg-color-light-hover-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          activeClassNames="dark:!bg-color-menu-hover !bg-color-light-bg-primary dark:text-white text-black"
                         />
                       ))}
                     </ul>

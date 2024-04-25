@@ -38,7 +38,7 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
   };
 
   const getColorOfLevel = (level: number) => {
-    let bg = '#50C627';
+    let bg = '#00AAE6';
     if (level > 1) {
       bg = '#77493E';
     }

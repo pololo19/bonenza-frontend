@@ -492,7 +492,9 @@
     "feeTooltip": "VIP38解锁。",
     "totalWithdrawAmount": "提款总额：",
     "available": "可用的",
-    "lockedFunds": "锁定资金"
+    "lockedFunds": "锁定资金",
+    "withdrawProgress": "提款正在进行中",
+    "withdrawComplete": "提现成功"
   },
   "balance": {
     "cryptoCurrency": "加密货币",
@@ -1319,7 +1321,7 @@
     "maximizeThePotential": "最大限度地发挥 BND/FIAT 回扣的潜力",
     "earnLocked": "通过奖金赚取锁定的 BND/法定货币，并通过以您喜欢的方式下注轻松释放其潜力。",
     "howToUnlock": "如何解锁返佣？",
-    "getALotOfFreePerks": "获得很多 <span class='text-color-red font-bold'>自由的</span> 津贴",
+    "getALotOfFreePerks": "获得很多 <span class='font-bold text-color-red'>自由的</span> 津贴",
     "everyDayAndWeek": "每天",
     "questHub": "任务中心",
     "conquerDaily": "征服每日和每周的任务，同时积累并滚雪球般地增加你的收入！",
@@ -1634,7 +1636,8 @@
     "reviewTime": "审核时间：几分钟",
     "verificationVerified": "基本验证已验证",
     "verificationPending": "基本验证待定",
-    "verifyCodeHeader": "我们已将验证码发送至 {{code}}，请输入以下6位数字代码："
+    "verifyCodeHeader": "我们已将验证码发送至 {{code}}，请输入以下6位数字代码：",
+    "remove": "消除"
   },
   "wagerContest": {
     "history": "历史",
@@ -2129,40 +2132,83 @@
     "cancel": "取消"
   },
   "errors": {
-    "internalServer": "糟糕！出了点问题，请稍后重试。",
-    "existPhone": "此电话已存在。",
-    "existMail": "该电子邮件已存在。",
-    "verifyPhone": "此电话未经过验证。",
-    "verifyMail": "该电子邮件未经验证。",
-    "locationIsNotAllowed": "抱歉，您所在的地区无法玩此游戏。",
-    "selfExclusive": "您的帐户已被禁用。",
-    "notExistMail": "该电子邮件不存在。",
-    "notExistPhone": "此电话不存在。",
-    "notExistMailOrPhone": "电子邮件或电话不存在。",
-    "notMatchConfirmationPassword": "确认密码不匹配。",
-    "disabledAccount": "您的帐户已被禁用。",
-    "notValidToken": "令牌无效",
-    "expiredToken": "令牌已过期。",
-    "requiredMail": "请验证您的电子邮件以激活此功能。",
-    "validReferral": "推荐代码无效。",
-    "notMatchedCredential": "无效的电子邮件或密码！",
-    "notExistPassword": "密码未设置。",
-    "notMatched2FA": "二因素身份验证无效。",
-    "notMatchedCurrentPassword": "当前密码不匹配。",
-    "sendGridError": "糟糕！发送电子邮件时出了点问题。",
-    "twiloError": "糟糕！发送短信时出现问题。",
-    "notMatchedVerificationCode": "验证码不匹配。",
-    "expiredVerficationCode": "验证码已过期。",
-    "notValidTgInfo": "您的 Telegram 信息无效。",
-    "notValidSelfExlusionTime": "排除时间无效。",
     "badRequest": "您的请求数据无效。",
     "notAllowedAction": "你的行为是不被允许的。",
-    "notMatchOTP": "验证码不正确"
+    "internalServer": "哎呀！",
+    "auth": {
+      "existPhone": "此电话已存在。",
+      "existMail": "该电子邮件已存在。",
+      "verifyPhone": "此电话未经过验证。",
+      "verifyMail": "该电子邮件未经验证。",
+      "locationIsNotAllowed": "抱歉，您所在的地区无法玩此游戏。",
+      "selfExclusive": "您的帐户已被禁用。",
+      "notExistMail": "该电子邮件不存在。",
+      "notExistPhone": "此电话不存在。",
+      "notExistMailOrPhone": "电子邮件或电话不存在。",
+      "notMatchConfirmationPassword": "确认密码不匹配。",
+      "disabledAccount": "您的帐户已被禁用。",
+      "notValidToken": "令牌无效",
+      "expiredToken": "令牌已过期。",
+      "requiredMail": "请验证您的电子邮件以激活此功能。",
+      "validReferral": "推荐代码无效。",
+      "notMatchedCredential": "无效的电子邮件或密码！",
+      "notExistPassword": "密码未设置。",
+      "notMatched2FA": "二因素身份验证无效。",
+      "notMatchedCurrentPassword": "抱歉，旧密码无效。请重试。",
+      "sendGridError": "哎呀！",
+      "twiloError": "哎呀！",
+      "notMatchedVerificationCode": "验证码不匹配。",
+      "expiredVerficationCode": "验证码已过期。",
+      "notValidTgInfo": "您的 Telegram 信息无效。",
+      "notValidSelfExlusionTime": "排除时间无效。",
+      "notMatchOTP": "验证码不正确"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "没有可用的佣金奖励。",
+      "emptyAvailableReferralRewards": "没有可用的推荐奖励。"
+    },
+    "bonus": {
+      "notEnoughBonusPool": "您的奖金池不足，请通过存款充值。",
+      "existLevelUpBonus": "奖金不存在",
+      "claimBonus": "奖金已经领取。",
+      "existBonusType": "奖金类型不存在。",
+      "finishedQuestToClaim": "必须完成任务才能领取。",
+      "emptyAvailableSpin": "您没有可用的旋转。",
+      "VIP22ForSuperSpin": "您的 VIP 年龄必须至少为 22 岁。",
+      "VIP70ForMegaSpin": "您的 VIP 必须至少为 70 岁。"
+    },
+    "game": {
+      "existGame": "该游戏不存在。",
+      "canDetectLocation": "无法检测到该位置。",
+      "existCurrency": "该货币不存在。",
+      "existCurrencyType": "货币类型不存在。",
+      "matchedWithSign": "请求标志不匹配。",
+      "existGameRating": "您已经对这款游戏进行了评分。",
+      "existGameReport": "您已经举报了这款游戏。"
+    },
+    "page": {
+      "exceedTotalPageNumber": "当前页数超出总页数。"
+    },
+    "swap": {
+      "existSourceCrypto": "源加密货币不存在。",
+      "existDestinationCrypto": "目标加密货币不存在。",
+      "isEnoughBalanceForSwap": "余额不足，无法兑换。"
+    }
   },
   "success": {
     "bonusClaimed": "您的奖金已被领取",
     "successfulllyReported": "您的请求已成功收到。",
-    "success": "成功"
+    "success": "成功",
+    "pasted": "粘贴的",
+    "copied": "已复制",
+    "rating": "评级成功",
+    "sentEmailSuccessfully": "确认电子邮件将发送到您的邮箱。",
+    "confirmedWithdraw": "恭喜您！您的提现 {{amount}} {{token}} 正在进行中，任何大额或可疑的提款金额都将受到审核和手动处理。一如既往，我们感谢您的耐心等待！"
+  },
+  "warning": {
+    "emptyRepresentativeID": "请正确输入代表ID。",
+    "incorrectRepresentativeID": "{{representativeID}} 不是 BONENZA 的官方代表。",
+    "emptyMessageContent": "留言内容不能为空！"
   },
   "quest": {
     "questHub": "探索中心",

@@ -492,7 +492,9 @@
     "feeTooltip": "Розблокувати в VIP38. ",
     "totalWithdrawAmount": "Загальна сума зняття:",
     "available": "в наявності",
-    "lockedFunds": "Заблоковані кошти"
+    "lockedFunds": "Заблоковані кошти",
+    "withdrawProgress": "Виведення коштів триває",
+    "withdrawComplete": "Виведення успішно"
   },
   "balance": {
     "cryptoCurrency": "Криптовалюта",
@@ -1319,7 +1321,7 @@
     "maximizeThePotential": "МАКСИМІЗУЙТЕ ПОТЕНЦІАЛ РЕЙКБЕКУ BND/FIAT",
     "earnLocked": "Заробляйте заблокований BND/Fiat за допомогою бонусів і легко розкривайте його потенціал, роблячи ставки в обраний спосіб. ",
     "howToUnlock": "Як розблокувати рейкбек?",
-    "getALotOfFreePerks": "ОТРИМАЙТЕ БАГАТО <span class='text-color-red font-bold'>БЕЗКОШТОВНО</span> ПЕРКС",
+    "getALotOfFreePerks": "ОТРИМАЙТЕ БАГАТО <span class='font-bold text-color-red'>БЕЗКОШТОВНО</span> ПЕРКС",
     "everyDayAndWeek": "Кожен день",
     "questHub": "QUEST HUB",
     "conquerDaily": "Перемагайте щоденні та щотижневі квести, накопичуючи та сніжний ком ваші прибутки!",
@@ -1634,7 +1636,8 @@
     "reviewTime": "Час перегляду: кілька хвилин",
     "verificationVerified": "Основна перевірка Перевірено",
     "verificationPending": "Очікується базова перевірка",
-    "verifyCodeHeader": "Ми надіслали код підтвердження на адресу {{code}}, будь ласка, введіть 6-значний код нижче:"
+    "verifyCodeHeader": "Ми надіслали код підтвердження на адресу {{code}}, будь ласка, введіть 6-значний код нижче:",
+    "remove": "видалити"
   },
   "wagerContest": {
     "history": "історія",
@@ -2129,40 +2132,83 @@
     "cancel": "Скасувати"
   },
   "errors": {
-    "internalServer": "На жаль, сталася помилка. Повторіть спробу пізніше.",
-    "existPhone": "Цей телефон вже існує.",
-    "existMail": "Ця електронна адреса вже існує.",
-    "verifyPhone": "Цей номер телефону не перевірено.",
-    "verifyMail": "Ця електронна адреса не підтверджена.",
-    "locationIsNotAllowed": "На жаль, ця гра недоступна у вашому регіоні.",
-    "selfExclusive": "Ваш обліковий запис вимкнено.",
-    "notExistMail": "Цей електронний лист не існує.",
-    "notExistPhone": "Цей телефон не існує.",
-    "notExistMailOrPhone": "Електронної пошти або телефону немає.",
-    "notMatchConfirmationPassword": "Пароль підтвердження не збігається.",
-    "disabledAccount": "Ваш обліковий запис вимкнено.",
-    "notValidToken": "Токен недійсний",
-    "expiredToken": "Термін дії маркера минув.",
-    "requiredMail": "Підтвердьте свою електронну адресу, щоб активувати цю функцію.",
-    "validReferral": "Реферальний код недійсний.",
-    "notMatchedCredential": "Невірна адреса електронної пошти або пароль!",
-    "notExistPassword": "Пароль не встановлено.",
-    "notMatched2FA": "Недійсна двофакторна автентифікація.",
-    "notMatchedCurrentPassword": "Поточний пароль не збігається.",
-    "sendGridError": "На жаль, під час надсилання листа сталася помилка.",
-    "twiloError": "На жаль, під час надсилання SMS сталася помилка.",
-    "notMatchedVerificationCode": "Код перевірки не збігається.",
-    "expiredVerficationCode": "Термін дії коду перевірки минув.",
-    "notValidTgInfo": "Ваша інформація в Telegram недійсна.",
-    "notValidSelfExlusionTime": "Час виключення недійсний.",
     "badRequest": "Дані вашого запиту недійсні.",
     "notAllowedAction": "Ваша дія не дозволена.",
-    "notMatchOTP": "Код підтвердження неправильний"
+    "internalServer": "Ой! ",
+    "auth": {
+      "existPhone": "Цей телефон вже існує.",
+      "existMail": "Ця електронна адреса вже існує.",
+      "verifyPhone": "Цей номер телефону не перевірено.",
+      "verifyMail": "Ця електронна адреса не підтверджена.",
+      "locationIsNotAllowed": "На жаль, ця гра недоступна у вашому регіоні.",
+      "selfExclusive": "Ваш обліковий запис вимкнено.",
+      "notExistMail": "Цей електронний лист не існує.",
+      "notExistPhone": "Цей телефон не існує.",
+      "notExistMailOrPhone": "Електронної пошти або телефону немає.",
+      "notMatchConfirmationPassword": "Пароль підтвердження не збігається.",
+      "disabledAccount": "Ваш обліковий запис вимкнено.",
+      "notValidToken": "Токен недійсний",
+      "expiredToken": "Термін дії маркера минув.",
+      "requiredMail": "Підтвердьте свою електронну адресу, щоб активувати цю функцію.",
+      "validReferral": "Реферальний код недійсний.",
+      "notMatchedCredential": "Невірна адреса електронної пошти або пароль!",
+      "notExistPassword": "Пароль не встановлено.",
+      "notMatched2FA": "Недійсна двофакторна автентифікація.",
+      "notMatchedCurrentPassword": "Вибачте, недійсний старий пароль. Спробуйте ще раз.",
+      "sendGridError": "Ой! ",
+      "twiloError": "Ой! ",
+      "notMatchedVerificationCode": "Код перевірки не збігається.",
+      "expiredVerficationCode": "Термін дії коду перевірки минув.",
+      "notValidTgInfo": "Ваша інформація в Telegram недійсна.",
+      "notValidSelfExlusionTime": "Час виключення недійсний.",
+      "notMatchOTP": "Код підтвердження неправильний"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "Немає доступних комісійних винагород.",
+      "emptyAvailableReferralRewards": "Немає доступних винагород за рекомендацію."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "Вашого бонусного фонду недостатньо, будь ласка, стягніть депозит.",
+      "existLevelUpBonus": "Бонус не існує",
+      "claimBonus": "Бонус уже використано.",
+      "existBonusType": "Тип бонусу не існує.",
+      "finishedQuestToClaim": "Квест потрібно завершити, щоб отримати.",
+      "emptyAvailableSpin": "У вас немає доступного обертання.",
+      "VIP22ForSuperSpin": "Вашому VIP має бути не менше 22 років.",
+      "VIP70ForMegaSpin": "Ваш VIP має бути не менше 70."
+    },
+    "game": {
+      "existGame": "Гра не існує.",
+      "canDetectLocation": "Не вдається визначити місцезнаходження.",
+      "existCurrency": "Валюта не існує.",
+      "existCurrencyType": "Тип валюти не існує.",
+      "matchedWithSign": "Знак запиту не збігається.",
+      "existGameRating": "Ви вже дали оцінку цій грі.",
+      "existGameReport": "Ви вже повідомляли про цю гру."
+    },
+    "page": {
+      "exceedTotalPageNumber": "Поточна сторінка перевищує загальну кількість сторінок."
+    },
+    "swap": {
+      "existSourceCrypto": "Вихідної криптовалюти не існує.",
+      "existDestinationCrypto": "Криптовалюта призначення не існує.",
+      "isEnoughBalanceForSwap": "Залишок невеликий для обміну."
+    }
   },
   "success": {
     "bonusClaimed": "Ваш бонус використано",
     "successfulllyReported": "Ваш запит успішно отримано. ",
-    "success": "Успіх"
+    "success": "Успіх",
+    "pasted": "Вставив",
+    "copied": "Скопійовано",
+    "rating": "Оцінка успішно",
+    "sentEmailSuccessfully": "Лист із підтвердженням буде надіслано на вашу поштову скриньку. ",
+    "confirmedWithdraw": "Вітаємо!Ваше відкликання {{amount}} {{token}} триває, будь-яка велика або підозріла сума виведення буде перевірена та оброблена вручну. Як завжди, ми цінуємо ваше терпіння!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "Введіть ідентифікатор представника правильно.",
+    "incorrectRepresentativeID": "{{representativeID}} НЕ є офіційним представником BONENZA. ",
+    "emptyMessageContent": "Вміст повідомлення не може бути порожнім!"
   },
   "quest": {
     "questHub": "Quest HUB",

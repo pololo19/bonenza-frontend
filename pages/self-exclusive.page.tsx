@@ -2,10 +2,13 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
+import { toast } from 'react-toastify';
 
 import { api_setSelfExclusion } from '@/api/auth';
 
+import { TOAST_ENUM } from '../constants/common';
 import { formatDate } from '../libs/utils';
+import { getErrorMesssage1 } from '../libs/utils/notificationToast';
 
 function SelfExclusive() {
   const { t } = useTranslation();
@@ -19,7 +22,10 @@ function SelfExclusive() {
       const _res = await api_setSelfExclusion(token, disabledTo);
       setIsSuccess(true);
       setLoading(false);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setIsSuccess(false);
       setLoading(false);
     }
@@ -35,7 +41,7 @@ function SelfExclusive() {
     <>
       <div className="bg-color-bg-primary">
         <div className="h-screen flex flex-col items-center gap-[45px] w-full bg-center bg-cover justify-center items-center">
-          {loading && <ReactLoading type="bubbles" color="#50C627" />}
+          {loading && <ReactLoading type="bubbles" color="#00AAE6" />}
           {!loading && isSuccess && (
             <p className="text-white text-[32px]">
               {Number(query.disabledTo) === -1

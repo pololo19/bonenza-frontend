@@ -130,6 +130,36 @@ export default function SidebarToggle() {
 
   const panel_2_datas = useMemo(
     () => [
+      // {
+      //   title: String(t('layout:racing')),
+      //   href: ROUTER.Tagname('Racing'),
+      //   icon: RacingBoldIcon,
+      //   smallIcon: (
+      //     <RacingBoldIcon
+      //       size={22}
+      //       className={cn('m-auto', {
+      //         'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
+      //       })}
+      //     />
+      //   ),
+      //   isShowDropDown: false,
+      //   isDropDown: false,
+      // },
+      {
+        title: String(t('layout:updown')),
+        href: 'https://bitup.game/trade',
+        icon: ArrowSwapVertical,
+        smallIcon: (
+          <ArrowSwapVertical
+            size={22}
+            className={cn('m-auto', {
+              'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
+            })}
+          />
+        ),
+        isShowDropDown: false,
+        isDropDown: false,
+      },
       {
         title: String(t('sidebar:vipClub')),
         href: '',
@@ -268,7 +298,7 @@ export default function SidebarToggle() {
             />
           </Link>
         </div>
-        <div className=" flex-1 md:w-full flex flex-col h-full pt-[12px] pb-[80px] px-[12px] overflow-auto">
+        <div className=" flex-1 md:w-full flex flex-col h-full pt-[20px] pb-[80px] px-[12px] overflow-auto">
           <div className="flex-1 w-full gap-[5px] flex flex-col">
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
               <CsrWrapper key={'bonus'}>

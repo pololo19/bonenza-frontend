@@ -1,3 +1,8 @@
+import { shallowEqual, useSelector } from 'react-redux';
+
+import { currencyFormat1 } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+
 import styles from './index.module.scss';
 
 export default function ({
@@ -9,6 +14,12 @@ export default function ({
   currentAmount: number;
   status: boolean;
 }) {
+  const { localFiat } = useSelector(
+    (state: AppState) => ({
+      localFiat: state.wallet.localFiat,
+    }),
+    shallowEqual,
+  );
   const percentage = Math.floor((currentAmount / goalAmount) * 100);
   const progress = status || percentage > 100 ? 100 : percentage;
   return (
@@ -22,7 +33,7 @@ export default function ({
           cx="32"
           cy="32"
           fill="transparent"
-          stroke="#50C627"
+          stroke="#00AAE6"
           strokeDasharray="180"
           strokeDashoffset={1.8 * (100 - progress)}
           style={{
@@ -34,7 +45,7 @@ export default function ({
       <div
         className={`text-m_default absolute top-0 left-0 right-0 bottom-0 rounded-full flex justify-center items-center ${styles.progressDetail}`}
       >
-        $ {currentAmount}
+        {currencyFormat1(currentAmount, 2, localFiat?.name)}
       </div>
       <div
         className={`text-m_default absolute top-0 left-0 right-0 bottom-0 rounded-full flex justify-center items-center ${styles.progressContent}`}

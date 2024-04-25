@@ -1,5 +1,4 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { AxiosError } from 'axios';
 import cn from 'classnames';
 import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -14,6 +13,8 @@ import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { useHeight } from '@/base/hooks/useHeight';
+import { currencyFormat1 } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -82,12 +83,13 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   const [spinAvailableCount, setSpinAvailableCount] = useState<number>(0);
   const [isSpinning, setIsSpinning] = useState<boolean>(false);
 
-  const { isLogin, isShowSpinClaim, user, isShowSpin } = useSelector(
+  const { isLogin, isShowSpinClaim, user, isShowSpin, localFiat } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       isShowSpinClaim: state.modal.isShowSpinClaim,
       isShowSpin: state.modal.isShowSpin,
       user: state.auth.user,
+      localFiat: state.wallet.localFiat,
     }),
     shallowEqual,
   );
@@ -190,11 +192,10 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         claimable: claimable || false,
       });
       deltaAngle = 22.5 * spinId;
-    } catch (error) {
-      const status = (error as AxiosError).response?.status || 0;
-      toast.error((status || 404) === 400 ? t('bonus:spinNoSpin') : t('bonus:spinWrong'), {
-        containerId: TOAST_ENUM.COMMON,
-      });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setIsSpinning(false);
       return;
     }
@@ -266,9 +267,11 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         isScrollableInRotate
       >
         <div className={`max-w-full sm:w-[400px] overflow-hidden overflow-y-scroll h-full bg-cover ${styles[spinTab]}`}>
-          <div className={`sm:rounded-large h-full flex flex-col items-center justify-between relative mb-5`}>
+          <div
+            className={`sm:rounded-large h-full flex flex-col items-center sm:justify-between relative mb-5 justify-start`}
+          >
             <div className={`${height > 660 ? 'pt-9' : 'pt-2'} flex justify-between px-5 w-full pb-0 items-center`}>
-              <div className="flex gap-0 relative">
+              <div className="relative flex gap-0">
                 {spins.map((spin) => (
                   <Image
                     key={`${spin}-tab`}
@@ -297,9 +300,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               />
             </div>
 
-            <div className="relative min-w-[350px] min-h-[430px] p-3">
+            <div className="relative  sm:min-w-[350px] sm:min-h-[430px] px-[30px] sm:p-3">
               <div>
-                <div className="flex flex-col items-center justify-center relative">
+                <div className="relative flex flex-col items-center justify-center">
                   <div>
                     <Image
                       width={781}
@@ -317,7 +320,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                         height={781}
                         src={'/img/spin/spin-wheel.png'}
                         alt=""
-                        className="p-9 w-full h-full"
+                        className="w-full h-full p-9"
                       />
                       {spinItems?.[spinTab].map((item, index) => (
                         <div
@@ -325,9 +328,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                           className="absolute flex gap-[2px] justify-end items-center top-[50%] left-[50%] right-[40px] text-[14px] leading-[20px] -mt-[10px]"
                           style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
                         >
-                          <span className="font-bold text-[12px]">
-                            {item.amount.toFixed(4).slice(0, 9).padEnd(9, '0')}
-                          </span>
+                          <span className="font-bold text-[12px]">{currencyFormat1(item.amount, 9, '', false)}</span>
                           <Image width={14} height={14} className="w-[16px] h-[16px]" src={item.symbolLogo} alt="" />
                         </div>
                       ))}
@@ -380,13 +381,22 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               <div className="flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222] text-m_default sm:text-default">
                 <div className="font-bold uppercase">{t('bonus:spinBonusTotal')}</div>
                 <div className="font-bold text-color-primary">
-                  {`$ `}
-                  {spinBonusTotal}
+                  {/* {`$ `}
+                  {spinBonusTotal} */}
+                  {currencyFormat1(spinBonusTotal, 4, localFiat?.name)}
                 </div>
               </div>
               <div
-                className="text-default flex-1 flex justify-between gap-2 items-center pl-2 hover:cursor-pointer"
-                onClick={() => setisShowLatestSpins(true)}
+                className="flex items-center justify-between flex-1 gap-2 pl-2 text-default hover:cursor-pointer"
+                onClick={() => {
+                  if (isLogin) {
+                    setisShowLatestSpins(true);
+                  } else {
+                    onClose();
+                    dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
+                    dispatch(changeIsShowAuthenticationModal(true));
+                  }
+                }}
               >
                 <Image
                   height={25}
@@ -401,7 +411,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 <div className="w-full text-m_default sm:text-default">
                   <div>{latestSpin?.userName || ''}</div>
                   <div className="flex gap-1">
-                    <div className="text-color-primary font-bold flex gap-1">
+                    <div className="flex gap-1 font-bold text-color-primary">
                       {latestSpin?.amount || 0}
                       <Image
                         width={25}

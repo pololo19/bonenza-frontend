@@ -100,7 +100,7 @@ export default function ProfileDropdown() {
             className="flex flex-col"
           >
             <Popover.Button ref={buttonRef}>
-              <div className="relative rounded-full overflow-hidden dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary aspect-square">
+              <div className="relative rounded-full overflow-hidden dark:hover:bg-color-menu-secondary hover:bg-color-light-bg-primary aspect-square">
                 <Image
                   height={40}
                   width={40}
@@ -140,13 +140,13 @@ export default function ProfileDropdown() {
               >
                 <>
                   <div className="h-14 sm:w-[40px] flex-1 w-0 absolute right-0 top-[-20px]"></div>
-                  <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-primary bg-white sm:w-auto w-[100vw] shadow-gray-700 dark:shadow ">
+                  <div className="py-1 sm:relative fixed rounded-md dark:bg-color-menu-secondary bg-white sm:w-auto w-[100vw] shadow-gray-700 dark:shadow ">
                     <div>
                       <Link
                         onClick={close}
                         href={ROUTER.Balance}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -159,7 +159,7 @@ export default function ProfileDropdown() {
                         onClick={close}
                         href={ROUTER.DepositCrypto}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -172,7 +172,7 @@ export default function ProfileDropdown() {
                         onClick={close}
                         href={ROUTER.WithdrawCrypto}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -185,7 +185,7 @@ export default function ProfileDropdown() {
                         onClick={close}
                         href={ROUTER.Transaction}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -198,7 +198,7 @@ export default function ProfileDropdown() {
                         onClick={close}
                         href={ROUTER.Rollover}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -213,7 +213,7 @@ export default function ProfileDropdown() {
                           dispatch(changeIsShowVipClubModal(true));
                         }}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -226,7 +226,7 @@ export default function ProfileDropdown() {
                         onClick={close}
                         href={ROUTER.Affiliate}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -241,7 +241,7 @@ export default function ProfileDropdown() {
                           dispatch(changeIsShowReferAndEarn(true));
                         }}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -257,7 +257,7 @@ export default function ProfileDropdown() {
                           dispatch(changeIsShowInformation(true));
                         }}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -270,7 +270,7 @@ export default function ProfileDropdown() {
                         onClick={close}
                         href={ROUTER.SettingGeneral}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >
@@ -286,7 +286,7 @@ export default function ProfileDropdown() {
                           handleLogout();
                         }}
                         className={cn(
-                          'dark:hover:bg-color-hover-primary dark:hover:text-white dark:text-gray-400 text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
+                          'dark:hover:bg-color-menu-primary dark:hover:text-white dark:text-white text-color-light-text-primary hover:text-color-light-text-primary hover:bg-color-light-bg-primary',
                           'px-4 py-2 text-sm cursor-pointer flex items-center gap-[10px] dark:hover:text-white',
                         )}
                       >

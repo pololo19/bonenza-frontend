@@ -4,13 +4,15 @@ import { ArrowDown2, ArrowUp2 } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import { api_getLatestBetForUser } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SECOND, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatDate, formatLengthNumber } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { changeIsShowDetailBets, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetTableDataType, GameListType } from '@/base/types/common';
@@ -78,7 +80,10 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         time: item.time ?? new Date(),
       }));
       setMyBetData(tempBetDatas);
-    } catch (error) {
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setMyBetData([]);
     } finally {
       setIsLoadingTable(false);
@@ -128,7 +133,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           <>
             {row.original.betAmount !== null && (
               <div className="flex items-center justify-center gap-[5px] truncate">
-                <div className="font-bold dark:text-white text-black truncate">
+                <div className="font-bold text-black truncate dark:text-white">
                   {viewInFiat
                     ? `${currencyFormat1(
                         row.original.betAmountUsd * exchangeRate,
@@ -159,7 +164,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate text-center">
+          <div className="text-center truncate dark:text-color-text-primary text-color-light-text-primary">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}
           </div>
         ),
@@ -172,7 +177,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary font-bold truncate text-center">
+          <div className="font-bold text-center truncate dark:text-color-text-primary text-color-light-text-primary">
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),

@@ -14,10 +14,10 @@ import { api_getClaims } from '@/api/wallet';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { changeIsShowDepositRule } from '@/base/redux/reducers/modal.reducer';
 import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type BonusType = {
   id: string;
@@ -85,7 +85,9 @@ export default function RewardDropdown() {
       dispatch(setLockedAmount(tempLockedAmount));
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setClaimingBonus('');
     }
@@ -180,7 +182,7 @@ export default function RewardDropdown() {
                         </div>
                         {/* <div className="text-color-secondary text-left  text-[14px]">
                           <div
-                            className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2"
+                            className="flex items-center justify-end gap-2 px-1 rounded w-fit dark:bg-white/20 bg-black/10"
                             onClick={() => dispatch(changeIsShowRakeBack(true))}
                           >
                             <Lock size={12} variant="Bold" /> {currencyFormat1(lockedAmount, 2, '', false)}
@@ -194,7 +196,7 @@ export default function RewardDropdown() {
                             key={index}
                           >
                             <div className="flex gap-[10px]">
-                              <div className="flex flex-col justify-center items-center">
+                              <div className="flex flex-col items-center justify-center">
                                 <Image
                                   width={30}
                                   height={30}

@@ -69,7 +69,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
   );
   return (
     <>
-      <div className="sm:max-w-[96px] h-full max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
+      <div className="sm:max-w-[84px] h-full max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
         <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[6px]">
           <Image
             height={96}
@@ -85,7 +85,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
           />
           <div
             onClick={openModalProfileUser}
-            className={cn('font-light text-[13px] sm:text-[13px] hover:underline min-h-[18px] text-center', {
+            className={cn('font-light text-[13px] sm:text-[11px] hover:underline min-h-[18px] text-center', {
               'dark:text-color-text-primary text-color-light-text-primary pointer-events-none cursor-text':
                 userData?.userId !== userId && !userData?.username,
               'dark:text-white text-black': !(userData?.userId !== userId && !userData?.username),
@@ -97,9 +97,9 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
                 {String(t('homePage:hidden'))}
               </span>
             ) : userData.userId === userId ? (
-              <div className="w-[96px] truncate px-1 text-left sm:text-center">{userName}</div>
+              <div className="w-[84px] truncate px-1 text-left sm:text-center">{userName}</div>
             ) : (
-              <div className="w-[96px] truncate px-1 text-left sm:text-center">{userData?.username}</div>
+              <div className="w-[84px] truncate px-1 text-left sm:text-center">{userData?.username}</div>
             )}
           </div>
         </div>
@@ -108,10 +108,10 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
             data-tooltip-id={'CardBigWinData' + price}
             className="hidden sm:flex cursor-pointer sm:w-full  justify-center items-center text-center sm:rounded-[5px] mr-1"
           >
-            <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+            <div className="text-[#FF9E4F] font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
           </div>
           <div className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]">
-            <div className="text-color-primary font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
+            <div className="text-[#FF9E4F] font-semibold text-[12px] sm:text-[10px] truncate">{price}</div>
             <Image
               src={currency ? `/img/fiats/${currency.toUpperCase()}.png` : '/img/fiats/USDT.png'}
               width={12}

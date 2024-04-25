@@ -318,8 +318,8 @@ function IndexPage() {
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
-            <div className="relative h-auto w-full mt-[15px] sm:mt-[20px] sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block">
-              <div className="rounded-large overflow-hidden absolute right-0 h-full w-full">
+            <div className="relative h-auto w-full mt-[15px] sm:mt-0 sm:min-h-[384px] min-h-[170px] block sm:hidden lg:block bg-color-bg-primary">
+              <div className="absolute right-0 w-full h-full overflow-hidden rounded-large">
                 <CsrWrapper>
                   <Image
                     width={1339}
@@ -330,7 +330,7 @@ function IndexPage() {
                   />
                 </CsrWrapper>
               </div>
-              <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-[15px] flex flex-col justify-center">
+              <div className="relative z-[2] w-full sm:min-h-[384px] min-h-[170px] pl-[5px] sm:pl-0 flex flex-col justify-center">
                 {/* <div className="h-[134px] w-[646px] relative">
                   <Image
                     src="/img/page/grand_jackpot.png"
@@ -517,7 +517,7 @@ function IndexPage() {
                   className="inset w-full object-cover block lg:hidden rounded-large"
                   alt=""
                 />
-                <div className="absolute left-[8%] right-0 top-[10%] bottom-[10%] flex flex-col justify-between">
+                <div className="absolute left-[8%] right-0 top-[30%] bottom-[10%] flex flex-col justify-between">
                   <div className="text-sm min-[390px]:text-lg min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl min-[1750px]:text-5xl w-[55%] text-left dark:text-white text-color-light-text-primary">
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
                     <span className="font-bold">
@@ -628,7 +628,7 @@ function IndexPage() {
                       {String(t('homePage:helpUsImproveYourExperience'))}
                     </div>
                     <textarea
-                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-[#161D26] h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
+                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-color-card-body-primary h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
                       placeholder={String(t('homePage:foundBug'))}
                       value={feedbackText}
                       onChange={(e) => setFeedbackText(e.target.value)}
@@ -638,20 +638,15 @@ function IndexPage() {
                         className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
                         onClick={() => {
                           if (feedbackText === '') {
-                            toast.error('Message content cannot be empty!', {
+                            toast.error(t('warning:emptyMessageContent'), {
                               toastId: 'feedbackEmptyMessage',
                               containerId: TOAST_ENUM.COMMON,
-                              icon: true,
-                              autoClose: 3000,
-                              hideProgressBar: false,
                             });
                             return;
                           }
                           setFeedbackText('');
                           toast.success(String(t('success:success')), {
                             containerId: TOAST_ENUM.COMMON,
-                            icon: true,
-                            autoClose: 3000,
                           });
                         }}
                       >

@@ -1,12 +1,12 @@
-import { Dialog, DialogProps, Transition, TransitionRootProps } from '@headlessui/react';
-import { XMarkIcon, MagnifyingGlassIcon, CheckBadgeIcon } from '@heroicons/react/24/outline';
-import { ElementType, Fragment, useRef, useState } from 'react';
-import cn from 'classnames';
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { CheckBadgeIcon, MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
+import { ElementType, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { useTranslation } from '@/base/config/i18next';
-import { toast } from 'react-toastify';
 import { TOAST_ENUM } from '@/base/constants/common';
+
 import CommonModal from '../commonModal/commonModal';
 type ModalVerifyRepresentativeProp = {
   onClose: () => void;
@@ -21,21 +21,14 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
 
   const checkRepresentative = () => {
     if (representativeID === '') {
-      toast.error('Please input representative ID correctly.', {
+      toast.error(t('warning:emptyRepresentativeID'), {
         toastId: 'emptyRepresentativeID',
         containerId: TOAST_ENUM.COMMON,
-        icon: true,
-        autoClose: 3000,
-        hideProgressBar: false,
       });
       return;
     }
-    toast.error(`${representativeID} is NOT the official representative of BONENZA. Do not trust this account..`, {
+    toast.error(t('warning:incorrectRepresentativeID', { representativeID: representativeID }), {
       toastId: 'incorrectRepresentativeID',
-      containerId: TOAST_ENUM.COMMON,
-      icon: true,
-      autoClose: 3000,
-      hideProgressBar: false,
     });
   };
 
@@ -58,24 +51,24 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
           <div className="uppercase text-[18px] sm:text-[22px] font-bold flex justify-center mb-3">
             <span>Bonenza </span> &nbsp; {t('footer:agentsAuthenticator')}
           </div>
-          <div className="text-center mx-4">{t('footer:preventFraud')}</div>
+          <div className="mx-4 text-center">{t('footer:preventFraud')}</div>
           <div className="text-center mt-[50px]">{t('footer:pleaseType')}</div>
           <div
-            className={`h-[56px] rounded relative dark:bg-[#25272b] bg-[#f5f6fa] flex justify-between items-center mt-5 relative`}
+            className={`h-[56px] rounded-default overflow-hidden relative dark:bg-color-card-body-secondary bg-[#f5f6fa] flex justify-between items-center mt-5`}
           >
             <input
               type="text"
-              className="px-4 h-full dark:bg-[#25272b] bg-[#f5f6fa] flex-1 dark:text-white text-black outline-0 border-0"
+              className="px-4 h-full dark:bg-color-card-body-secondary bg-[#f5f6fa] flex-1 dark:text-white text-black outline-0 border-0"
               placeholder="Please enter Telegram/Discord ID"
               onChange={(e) => setRepresentativeID(e.target.value)}
             />
             <button
-              className="h-[48px] rounded-large absoulte right-[4px] top-[4px] flex justify-center items-center w-[88px] hover:opacity-0.9 bg-color-primary"
+              className="h-full absoulte right-[4px] top-[4px] flex justify-center items-center w-[88px] hover:opacity-0.9 bg-color-primary"
               onClick={() => {
                 checkRepresentative();
               }}
             >
-              <MagnifyingGlassIcon width={20} height={20} className="dark:text-white text-black" />
+              <MagnifyingGlassIcon width={20} height={20} className="text-black dark:text-white" />
             </button>
           </div>
         </div>

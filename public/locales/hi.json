@@ -492,7 +492,9 @@
     "feeTooltip": "VIP38 पर अनलॉक करें। ",
     "totalWithdrawAmount": "कुल निकासी राशि:",
     "available": "उपलब्ध",
-    "lockedFunds": "बंद धन"
+    "lockedFunds": "बंद धन",
+    "withdrawProgress": "निकासी की प्रक्रिया चल रही है",
+    "withdrawComplete": "निकासी सफल"
   },
   "balance": {
     "cryptoCurrency": "क्रिप्टो करेंसी",
@@ -1319,7 +1321,7 @@
     "maximizeThePotential": "बीएनडी/फिएट रेकबैक की क्षमता को अधिकतम करें",
     "earnLocked": "बोनस के माध्यम से लॉक्ड बीएनडी/फिएट अर्जित करें और अपने पसंदीदा तरीके से दांव लगाकर आसानी से इसकी क्षमता को अनलॉक करें। ",
     "howToUnlock": "रेकबैक को कैसे अनलॉक करें?",
-    "getALotOfFreePerks": "का बहुत सा प्राप्त करें <span class='text-color-red font-bold'>मुक्त</span> भत्तों",
+    "getALotOfFreePerks": "का बहुत सा प्राप्त करें <span class='font-bold text-color-red'>मुक्त</span> भत्तों",
     "everyDayAndWeek": "रोज रोज",
     "questHub": "क्वेस्ट हब",
     "conquerDaily": "अपनी कमाई एकत्रित और बढ़ाते हुए दैनिक और साप्ताहिक खोजों पर विजय प्राप्त करें!",
@@ -1634,7 +1636,8 @@
     "reviewTime": "समीक्षा का समय: कुछ मिनट",
     "verificationVerified": "मूल सत्यापन सत्यापित",
     "verificationPending": "बुनियादी सत्यापन लंबित",
-    "verifyCodeHeader": "हमने एक सत्यापन कोड भेज दिया है {{code}}, कृपया नीचे 6-अंकीय कोड दर्ज करें:"
+    "verifyCodeHeader": "हमने एक सत्यापन कोड भेज दिया है {{code}}, कृपया नीचे 6-अंकीय कोड दर्ज करें:",
+    "remove": "निकालना"
   },
   "wagerContest": {
     "history": "इतिहास",
@@ -2129,40 +2132,83 @@
     "cancel": "रद्द करना"
   },
   "errors": {
-    "internalServer": "उफ़! कुछ ग़लत हो गया, कृपया बाद में पुनः प्रयास करें।",
-    "existPhone": "यह फ़ोन पहले से ही मौजूद है.",
-    "existMail": "यह ईमेल पहले से मौजूद है.",
-    "verifyPhone": "यह फ़ोन सत्यापित नहीं है.",
-    "verifyMail": "यह ईमेल सत्यापित नहीं है.",
-    "locationIsNotAllowed": "क्षमा करें, यह गेम आपके क्षेत्र में उपलब्ध नहीं है।",
-    "selfExclusive": "आपका खाता अक्षम है।",
-    "notExistMail": "यह ईमेल मौजूद नहीं है.",
-    "notExistPhone": "यह फ़ोन अस्तित्व में नहीं है.",
-    "notExistMailOrPhone": "ईमेल या फ़ोन मौजूद नहीं है.",
-    "notMatchConfirmationPassword": "पुष्टिकरण पासवर्ड मेल नहीं खाता.",
-    "disabledAccount": "आपका खाता अक्षम है।",
-    "notValidToken": "टोकन मान्य नहीं है",
-    "expiredToken": "टोकन समाप्त हो गया है.",
-    "requiredMail": "कृपया इस सुविधा को सक्रिय करने के लिए अपना ईमेल सत्यापित करें।",
-    "validReferral": "रेफरल कोड मान्य नहीं है.",
-    "notMatchedCredential": "अमान्य ईमेल या पासवर्ड!",
-    "notExistPassword": "पासवर्ड सेट नहीं है.",
-    "notMatched2FA": "अमान्य दो कारक प्रमाणित करें.",
-    "notMatchedCurrentPassword": "वर्तमान पासवर्ड मेल नहीं खाता.",
-    "sendGridError": "उफ़! ईमेल भेजते समय कुछ ग़लत हो गया।",
-    "twiloError": "उफ़! एसएमएस भेजते समय कुछ ग़लत हो गया।",
-    "notMatchedVerificationCode": "सत्यापन कोड मेल नहीं खाता.",
-    "expiredVerficationCode": "सत्यापन कोड समाप्त हो गया है.",
-    "notValidTgInfo": "आपकी टेलीग्राम जानकारी मान्य नहीं है.",
-    "notValidSelfExlusionTime": "बहिष्करण समय मान्य नहीं है.",
     "badRequest": "आपका अनुरोध डेटा मान्य नहीं है.",
     "notAllowedAction": "आपकी कार्रवाई की अनुमति नहीं है.",
-    "notMatchOTP": "सत्यापन कोड ग़लत है"
+    "internalServer": "उफ़! ",
+    "auth": {
+      "existPhone": "यह फ़ोन पहले से ही मौजूद है.",
+      "existMail": "यह ईमेल पहले से मौजूद है.",
+      "verifyPhone": "यह फ़ोन सत्यापित नहीं है.",
+      "verifyMail": "यह ईमेल सत्यापित नहीं है.",
+      "locationIsNotAllowed": "क्षमा करें, यह गेम आपके क्षेत्र में उपलब्ध नहीं है।",
+      "selfExclusive": "आपका खाता अक्षम है।",
+      "notExistMail": "यह ईमेल मौजूद नहीं है.",
+      "notExistPhone": "यह फ़ोन अस्तित्व में नहीं है.",
+      "notExistMailOrPhone": "ईमेल या फ़ोन मौजूद नहीं है.",
+      "notMatchConfirmationPassword": "पुष्टिकरण पासवर्ड मेल नहीं खाता.",
+      "disabledAccount": "आपका खाता अक्षम है।",
+      "notValidToken": "टोकन मान्य नहीं है",
+      "expiredToken": "टोकन समाप्त हो गया है.",
+      "requiredMail": "कृपया इस सुविधा को सक्रिय करने के लिए अपना ईमेल सत्यापित करें।",
+      "validReferral": "रेफरल कोड मान्य नहीं है.",
+      "notMatchedCredential": "अमान्य ईमेल या पासवर्ड!",
+      "notExistPassword": "पासवर्ड सेट नहीं है.",
+      "notMatched2FA": "अमान्य दो कारक प्रमाणित करते हैं.",
+      "notMatchedCurrentPassword": "क्षमा करें, पुराना पासवर्ड अमान्य है। कृपया पुनः प्रयास करें।",
+      "sendGridError": "उफ़! ",
+      "twiloError": "उफ़! ",
+      "notMatchedVerificationCode": "सत्यापन कोड मेल नहीं खाता.",
+      "expiredVerficationCode": "सत्यापन कोड समाप्त हो गया है.",
+      "notValidTgInfo": "आपकी टेलीग्राम जानकारी मान्य नहीं है.",
+      "notValidSelfExlusionTime": "बहिष्करण समय मान्य नहीं है.",
+      "notMatchOTP": "सत्यापन कोड ग़लत है"
+    },
+    "affiliate": {
+      "emptyAvailableCommissionRewards": "कोई उपलब्ध कमीशन पुरस्कार नहीं.",
+      "emptyAvailableReferralRewards": "कोई रेफरल पुरस्कार उपलब्ध नहीं."
+    },
+    "bonus": {
+      "notEnoughBonusPool": "आपका बोनस पूल पर्याप्त नहीं है, कृपया जमा करके शुल्क लें।",
+      "existLevelUpBonus": "बोनस मौजूद नहीं है",
+      "claimBonus": "बोनस का दावा पहले ही किया जा चुका है.",
+      "existBonusType": "बोनस प्रकार मौजूद नहीं है.",
+      "finishedQuestToClaim": "दावा करने के लिए खोज समाप्त होनी चाहिए।",
+      "emptyAvailableSpin": "आपके पास कोई स्पिन उपलब्ध नहीं है.",
+      "VIP22ForSuperSpin": "आपका वीआईपी कम से कम 22 होना चाहिए।",
+      "VIP70ForMegaSpin": "आपका VIP कम से कम 70 होना चाहिए."
+    },
+    "game": {
+      "existGame": "खेल मौजूद नहीं है.",
+      "canDetectLocation": "स्थान का पता नहीं चल पा रहा है.",
+      "existCurrency": "मुद्रा मौजूद नहीं है.",
+      "existCurrencyType": "मुद्रा प्रकार मौजूद नहीं है.",
+      "matchedWithSign": "अनुरोध चिह्न मेल नहीं खाता.",
+      "existGameRating": "आपने पहले ही इस गेम को रेटिंग दे दी है.",
+      "existGameReport": "आपने पहले ही इस गेम की रिपोर्ट कर दी है."
+    },
+    "page": {
+      "exceedTotalPageNumber": "वर्तमान पृष्ठ पृष्ठों की कुल संख्या से अधिक है."
+    },
+    "swap": {
+      "existSourceCrypto": "स्रोत क्रिप्टोकरेंसी मौजूद नहीं है.",
+      "existDestinationCrypto": "गंतव्य क्रिप्टोकरेंसी मौजूद नहीं है.",
+      "isEnoughBalanceForSwap": "स्वैप करने के लिए शेष राशि कम है."
+    }
   },
   "success": {
     "bonusClaimed": "आपके बोनस का दावा किया गया है",
     "successfulllyReported": "आपका अनुरोध सफलतापूर्वक प्राप्त हो गया है. ",
-    "success": "सफलता"
+    "success": "सफलता",
+    "pasted": "चिपकाया गया",
+    "copied": "कॉपी किया गया",
+    "rating": "रेटिंग सफलतापूर्वक",
+    "sentEmailSuccessfully": "पुष्टिकरण ईमेल आपके मेल बॉक्स पर भेजा जाता है। ",
+    "confirmedWithdraw": "बधाई हो! आपकी वापसी {{amount}} {{token}} प्रगति पर है, किसी भी बड़ी या संदिग्ध निकासी राशि का ऑडिट किया जाएगा और मैन्युअल रूप से संसाधित किया जाएगा। हमेशा की तरह हम आपके धैर्य की सराहना करते हैं!"
+  },
+  "warning": {
+    "emptyRepresentativeID": "कृपया प्रतिनिधि आईडी सही ढंग से दर्ज करें।",
+    "incorrectRepresentativeID": "{{representativeID}} बोन्ज़ा का आधिकारिक प्रतिनिधि नहीं है। ",
+    "emptyMessageContent": "संदेश सामग्री खाली नहीं हो सकती!"
   },
   "quest": {
     "questHub": "क्वेस्ट हब",

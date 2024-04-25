@@ -22,11 +22,11 @@ import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 type ModalQuest = {
   onClose: () => void;
@@ -100,7 +100,9 @@ const QuestItem = ({
 
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
-      toast.error(error.response.data.error || t('errors:internalServer'), { containerId: TOAST_ENUM.COMMON });
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsClaiming(false);
     }
@@ -481,8 +483,8 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               description={String(
                 t(getContentByCategory(item.category), {
                   amount: viewInFiat
-                    ? currencyFormat1(item.goalAmount, 2, localFiat?.name)
-                    : currencyFormat1(item.goalAmount * exchangeRate, 2, localFiat?.name),
+                    ? currencyFormat1(item.goalAmount * exchangeRate, 2, localFiat?.name)
+                    : currencyFormat1(item.goalAmount, 2, localFiat?.name),
                   multi: item.goalMultiplier,
                 }),
               )}
@@ -505,7 +507,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         </>
       );
     },
-    [i18n.language],
+    [i18n.language, localFiat, exchangeRate],
   );
 
   useEffect(() => {
@@ -531,7 +533,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
         }
       >
         <div className="flex flex-col px-5 pt-1 items-center gap-[10px] overflow-y-auto relative">
-          <div className="flex justify-start w-full pt-4 text-color-primary font-bold text-default">
+          <div className="flex justify-start w-full pt-4 font-bold text-color-primary text-default">
             {format(new Date(), 'eeee')}
           </div>
           <div className="flex justify-between w-full">
