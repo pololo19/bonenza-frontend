@@ -53,7 +53,7 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="rounded-[5px] relative dark:bg-[#1C1E22] bg-white h-full min-h-[250px]">
+        <div className="rounded-[5px] relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
           <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" />
           <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
             <div className="flex items-center gap-[10px] p-0">
@@ -136,7 +136,7 @@ export default function CardGeneralBonus({
         </div>
       )}
       {showDeposit && (
-        <div className="dark:bg-[#1C1E22] bg-white rounded-[5px] py-5 px-[18px] h-full flex flex-col justify-between min-h-[250px]">
+        <div className="dark:bg-color-card-bg-primary bg-white rounded-[5px] py-5 px-[18px] h-full flex flex-col justify-between min-h-[250px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[10px]">
               <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">{name}</div>

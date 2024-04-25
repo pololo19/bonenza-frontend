@@ -88,7 +88,7 @@ const IconOption = ({
           <Link
             className={cn(
               'relative capitalize sm:text-default text-m_default ',
-              'hover:bg-gradient-to-r hover:bg-color-hover-default',
+              'hover:bg-color-menu-hover',
               'dark:text-color-text-primary hover:text-[#000] dark:hover:text-white',
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
               'rounded-large hover:rounded-large',
@@ -113,7 +113,7 @@ const IconOption = ({
             )}
             <div
               className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
-                'dark:text-white text-color-light-text-primary': router.route.includes(href),
+                'dark:text-color-primary text-color-light-text-primary': router.route.includes(href),
                 'text-base': isFontMedium,
               })}
             >
@@ -124,7 +124,7 @@ const IconOption = ({
           <div
             className={cn(
               'relative capitalize sm:text-default text-m_default cursor-pointer',
-              'hover:bg-gradient-to-r hover:bg-color-hover-default',
+              'hover:bg-color-menu-hover',
               'dark:text-color-text-primary hover:text-[#000] dark:hover:text-white',
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
               'rounded-large hover:rounded-large',
@@ -153,7 +153,7 @@ const IconOption = ({
             )}
             <div
               className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
-                'dark:text-white text-color-light-text-primary': router.route.includes(href),
+                'dark:text-color-text-primary text-color-light-text-primary': router.route.includes(href),
                 'text-base': isFontMedium,
               })}
             >
@@ -164,7 +164,7 @@ const IconOption = ({
       {isDropDown && (
         <div
           className={cn(
-            'capitalize block dark:bg-color-bg-primary dark:text-color-text-primary text-default cursor-pointer transition-[height] ease-in-out duration-300',
+            'capitalize block dark:bg-transparent dark:text-color-text-primary text-default cursor-pointer transition-[height] ease-in-out duration-300',
             classNames,
             `font-[${fontWeight}]`,
             {
@@ -176,7 +176,7 @@ const IconOption = ({
             className={cn(
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] px-[10px] py-[8px]',
               'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 rounded-large',
-              'hover:bg-gradient-to-r hover:bg-color-hover-default',
+              'hover:bg-color-menu-hover',
               {
                 'dark:bg-color-hover-default/60': showDropDownCasino,
               },
@@ -196,7 +196,7 @@ const IconOption = ({
             />
             <div
               className={cn('flex-1 text-start', `font-[${fontWeight}]`, {
-                'dark:text-white text-color-light-text-primary': showDropDownCasino,
+                'dark:text-color-text-primary text-color-light-text-primary': showDropDownCasino,
                 'text-base': isFontMedium,
               })}
             >
@@ -224,10 +224,10 @@ const IconOption = ({
                     href={item.href}
                     className={cn(
                       'flex items-center gap-[16px] py-[8px]',
-                      'pl-9 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800 rounded-large',
-                      'hover:bg-gradient-to-r hover:bg-color-hover-default',
+                      'pl-9 dark:hover:!text-white dark:text-color-text-primary text-gray-800 hover:!text-gray-800 rounded-large',
+                      'hover:bg-color-menu-hover',
                       {
-                        'dark:bg-color-hover-default': router.asPath
+                        'dark:bg-color-menu-hover !text-color-primary': router.asPath
                           .toLowerCase()
                           .replace('%20', ' ')
                           .includes(item.href.toLowerCase()),

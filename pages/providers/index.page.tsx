@@ -60,7 +60,7 @@ function ProvidersPage() {
               <Link
                 href={ROUTER.Provider(String(provider.name))}
                 role="button"
-                className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-[#31343a] hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
+                className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-color-card-bg-primary hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
               >
                 <Image
                   height={80}

@@ -219,7 +219,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                 {t('vipClub:viewLevelUpDetails')}
               </span>
             </div>
-            <div className="rounded-large bg-[#12151A]">
+            <div className="rounded-large bg-color-card-header-primary">
               <div className="block lg:flex">
                 <div className="w-full lg:w-[50%] pt-[28px] px-5">
                   <div className="text-default md:text-title text-white font-semibold">
@@ -358,7 +358,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                             className={cn(
                               styles[getColorBg(String(selectedRank.name))],
                               styles.rank,
-                              'flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-[#12151A] after:!border-r-color-light-bg-primary',
+                              'flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-color-card-header-primary after:!border-r-color-light-bg-primary',
                               {
                                 'text-black': (selectedRank.name.split(' ').at(0) || '').toLowerCase() === 'silver',
                               },
@@ -384,7 +384,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                   )}
                                   role="button"
                                 >
-                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
+                                  <div className="bg-color-card-header-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
                                       {currentVipLevel >= selectedRank.startLevel ? (
                                         <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="" />
@@ -415,7 +415,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                   )}
                                   role="button"
                                 >
-                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
+                                  <div className="bg-color-card-header-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
                                       {currentVipLevel >= selectedRank.startLevel ? (
                                         <Image
@@ -456,7 +456,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                   )}
                                   role="button"
                                 >
-                                  <div className="bg-[#12151A] w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
+                                  <div className="bg-color-card-header-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                     <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
                                       {currentVipLevel >= selectedRank.startLevel ? (
                                         <Image

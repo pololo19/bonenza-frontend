@@ -102,7 +102,7 @@ export default function Navbar() {
                       'rounded-large px-[12px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                       `${
                         router.route.includes(menu.href)
-                          ? 'dark:text-white dark:bg-[#2D3035] bg-color-light-bg-primary font-semibold'
+                          ? 'dark:text-white dark:bg-color-input-hover-primary/60 bg-color-light-bg-primary font-semibold'
                           : ''
                       }`,
                     )}

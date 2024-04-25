@@ -54,16 +54,16 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
           <div className="mx-4 text-center">{t('footer:preventFraud')}</div>
           <div className="text-center mt-[50px]">{t('footer:pleaseType')}</div>
           <div
-            className={`h-[56px] rounded relative dark:bg-[#25272b] bg-[#f5f6fa] flex justify-between items-center mt-5 relative`}
+            className={`h-[56px] rounded-default overflow-hidden relative dark:bg-color-card-body-secondary bg-[#f5f6fa] flex justify-between items-center mt-5`}
           >
             <input
               type="text"
-              className="px-4 h-full dark:bg-[#25272b] bg-[#f5f6fa] flex-1 dark:text-white text-black outline-0 border-0"
+              className="px-4 h-full dark:bg-color-card-body-secondary bg-[#f5f6fa] flex-1 dark:text-white text-black outline-0 border-0"
               placeholder="Please enter Telegram/Discord ID"
               onChange={(e) => setRepresentativeID(e.target.value)}
             />
             <button
-              className="h-[48px] rounded-large absoulte right-[4px] top-[4px] flex justify-center items-center w-[88px] hover:opacity-0.9 bg-color-primary"
+              className="h-full absoulte right-[4px] top-[4px] flex justify-center items-center w-[88px] hover:opacity-0.9 bg-color-primary"
               onClick={() => {
                 checkRepresentative();
               }}

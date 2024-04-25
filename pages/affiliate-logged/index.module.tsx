@@ -356,7 +356,7 @@ function AffiliateLoggedPage() {
               </Link>
             </div>
           </div>
-          <div className="flex flex-col w-full items-center lg:max-w-[450px] dark:bg-color-card-bg-secondary bg-white rounded-[10px] justify-start gap-4">
+          <div className="flex flex-col w-full items-center lg:max-w-[450px] dark:bg-color-card-bg-secondary bg-white rounded-default overflow-hidden justify-start gap-4">
             <div className="flex flex-col">
               <div className="justify-between w-full bg-color-panel-bg rounded-[10px]  mb-[18px] ">
                 <div className="flex w-full relative">
@@ -387,17 +387,17 @@ function AffiliateLoggedPage() {
                 </div>
               </div>
 
-              <div className="w-full mt-0 sm:mt-[24px] px-[16px]">
-                <div className="w-full  rounded-[5px] mr-[15px] mb-[17px]">
+              <div className="w-full mt-0 sm:mt-[24px] px-[16px] ">
+                <div className="w-full  mr-[15px] mb-[17px]">
                   <div className="text-m_default sm:text-default font-normal text-black dark:text-[#C2C2C2] mb-[3px]">
                     {t('affiliate:referralCode')}
                   </div>
-                  <div className="flex">
-                    <div className="dark:bg-color-card-input-primary bg-color-light-bg-primary py-[10px] text-[#43484E] w-full pl-[17px] rounded-l-[5px] dark:text-[#FFFFFF] text-m_default sm:text-default font-normal ">
+                  <div className="flex rounded-default overflow-hidden">
+                    <div className="dark:bg-color-input-primary bg-color-light-bg-primary py-[10px] text-[#43484E] w-full pl-[17px] rounded-l-[5px] dark:text-[#FFFFFF] text-m_default sm:text-default font-normal ">
                       {referralCode}
                     </div>
                     <div
-                      className="bg-color-card-button-primary p-2 sm:p-[12px] rounded-[2px]"
+                      className="bg-color-input-hover-primary p-2 sm:p-[12px]"
                       role="button"
                       onClick={() => copyClipBoard(String(referralCode))}
                     >
@@ -409,12 +409,12 @@ function AffiliateLoggedPage() {
                   <div className="text-m_default sm:text-default font-normal text-black dark:text-[#C2C2C2] mb-[3px]">
                     {t('affiliate:referralLink')}
                   </div>
-                  <div className="flex">
-                    <div className="dark:bg-color-card-input-primary bg-color-light-bg-primary py-[10px] w-full pl-[17px] rounded-l-[5px] text-gray-500 dark:text-[#FFFFF] text-m_default sm:text-default font-normal ">
+                  <div className="flex rounded-default overflow-hidden">
+                    <div className="dark:bg-color-input-primary bg-color-light-bg-primary py-[10px] w-full pl-[17px] rounded-l-[5px] text-gray-500 dark:text-[#FFFFF] text-m_default sm:text-default font-normal ">
                       {ROUTER.REFERRAL_CODE(String(referralCode))}
                     </div>
                     <div
-                      className="bg-color-card-button-primary p-2 sm:p-[12px] rounded-[2px]"
+                      className="bg-color-input-hover-primary p-2 sm:p-[12px] rounded-[2px]"
                       role="button"
                       onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(String(referralCode)))}
                     >
@@ -430,7 +430,7 @@ function AffiliateLoggedPage() {
                     {t('affiliate:createAnotherCode')}
                   </div>
                 </div> */}
-                <div className="dark:bg-color-card-button-primary bg-[#EAECF3] text-center py-[10px] sm:py-5 rounded-[5px] w-full flex flex-col justify-center items-center">
+                <div className="dark:bg-color-card-body-secondary bg-[#EAECF3] text-center py-[10px] sm:py-5 rounded-default w-full flex flex-col justify-center items-center">
                   <div className="ml-[10px] mr-[10px] text-[14px] md:text-[16px] text-[#43484E] dark:text-[#FFFFFF] font-normal">
                     {t('affiliate:shareViaSocialMedia')}
                   </div>
@@ -585,7 +585,7 @@ function AffiliateLoggedPage() {
               {t('affiliate:liveRewards')}
             </div>
           </div>
-          <div className="flex w-full lg:flex-row flex-col gap-[30px] py-[20px] justify-start items-center rounded-[15px] bg-white dark:bg-color-card-bg-secondary mb-[40px] ">
+          <div className="flex w-full lg:flex-row flex-col gap-[30px] py-[20px] justify-start items-center rounded-default bg-white dark:bg-color-card-bg-secondary mb-[40px] ">
             <div className="w-[80%] items-center border-b-[1px] dark:border-[#2b3139] border-[#EAECF3] border-r-1 lg:w-1/2 flex-col flex lg:flex-row  border-solid lg:border-b-[0px] lg:border-r-[1px]">
               <div className="mr-[41px] ml-[12px]">
                 <Image height={70} width={77} src="/img/Rewards.png" className="min-w-[77px]" alt="" />
@@ -646,7 +646,7 @@ function AffiliateLoggedPage() {
           </div>
         </div>
 
-        <div className="w-full pl-[14px] dark:bg-[#1D1E22] bg-white rounded-[5px] flex lg:flex-row flex-col items-center justify-center mb-[60px] lg:pl-[52px] py-[35px] pr-[14px]">
+        <div className="w-full pl-[14px] dark:bg-color-card-bg-secondary bg-white rounded-default flex lg:flex-row flex-col items-center justify-center mb-[60px] lg:pl-[52px] py-[35px] pr-[14px]">
           <div className="mr-[0px] lg:mr-[54px] ">
             <div className="inline-block flex-col items-center lg:flex-row gap-[5px] lg:hidden">
               <div className="text-center mr-[3px] text-[16px] lg:text-m_title dark:text-white text-[#141414]">
