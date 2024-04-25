@@ -344,7 +344,7 @@ export default function SidebarToggle() {
                         dispatch(changeIsShowQuest(true));
                       }
                     }}
-                    classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
+                    classNames="h-[40px] bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 px-[10px] pr-[4px]"
                   />
                 </CsrWrapper>
                 <CsrWrapper key="spin">
@@ -359,7 +359,7 @@ export default function SidebarToggle() {
                     isFontMedium
                     fontWeight={600}
                     onClick={() => dispatch(changeIsShowSpin(true))}
-                    classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
+                    classNames="h-[40px] bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 px-[10px] pr-[4px]"
                   />
                 </CsrWrapper>
               </div>
