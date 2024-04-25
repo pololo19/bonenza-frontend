@@ -53,7 +53,7 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="rounded-[5px] relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
+        <div className="rounded-default overflow-hidden relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
           <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover" />
           <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
             <div className="flex items-center gap-[10px] p-0">
@@ -125,7 +125,7 @@ export default function CardGeneralBonus({
             {name == t('bonus:rollCompetition') && (
               <div
                 role="button"
-                className={`dark:bg-color-btn-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary rounded-[5px] w-full text-[12px] font-bold text-center py-[11px] flex items-center justify-center gap-[10px]`}
+                className={`dark:bg-color-btn-primary bg-color-light-bg-primary hover:dark:opacity-80 hover:bg-color-light-hover-primary rounded-[5px] w-full text-[12px] font-bold text-center py-[11px] flex items-center justify-center gap-[10px]`}
               >
                 <Clock size={16} className="text-color-text-primary" />
                 <div className="text-color-text-primary text-[12px]">{t('bonus:readyIn')}</div>
@@ -136,7 +136,7 @@ export default function CardGeneralBonus({
         </div>
       )}
       {showDeposit && (
-        <div className="dark:bg-color-card-bg-primary bg-white rounded-[5px] py-5 px-[18px] h-full flex flex-col justify-between min-h-[250px]">
+        <div className="dark:bg-color-card-bg-primary bg-white rounded-default py-5 px-[18px] h-full flex flex-col justify-between min-h-[250px]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[10px]">
               <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">{name}</div>
@@ -212,7 +212,7 @@ export default function CardGeneralBonus({
           <div
             role="button"
             onClick={() => dispatch(changeIsShowDepositModal(true))}
-            className="w-full dark:bg-color-btn-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary text-color-primary rounded-[5px] text-[14px] font-medium text-center py-[11px] mt-[10px]"
+            className="w-full dark:bg-color-btn-primary bg-color-light-bg-primary hover:dark:opacity-80 hover:bg-color-light-hover-primary text-color-primary rounded-[5px] text-[14px] font-medium text-center py-[11px] mt-[10px]"
           >
             {currentDepositTime == 0 && t('bonus:firstDesposit')}
             {currentDepositTime == 1 && t('promotion:secondDeposit')}

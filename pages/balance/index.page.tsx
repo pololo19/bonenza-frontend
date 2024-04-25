@@ -191,7 +191,7 @@ const BalancePage = () => {
                     {viewInFiat ? (
                       <div className="text-end">
                         <div className="dark:text-white text-black font-[600] truncate md:text-default text-[12px]">
-                          {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
+                          {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}{' '}
                         </div>
                         <div className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
                           {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}

@@ -367,7 +367,7 @@ function BonusLoggedPage() {
             </div>
           </div>
           <div className="grid grid-cols-4 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
-            <div className="rounded-[5px] relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
+            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-[10px]">
@@ -414,7 +414,7 @@ function BonusLoggedPage() {
                 <div
                   role="button"
                   onClick={() => dispatch(changeIsShowVipClubModal(true))}
-                  className="dark:bg-color-btn-primary bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
+                  className="dark:bg-color-btn-primary hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
                 >
                   <div className="text-color-primary font-medium text-[14px]">{t('bonus:viewVIPClub')}</div>
                 </div>
