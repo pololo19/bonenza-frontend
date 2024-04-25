@@ -125,7 +125,7 @@ const IconOption = ({
             className={cn(
               'relative capitalize sm:text-default text-m_default cursor-pointer',
               'hover:bg-color-menu-hover',
-              'dark:text-color-text-primary hover:text-[#000] dark:hover:text-white',
+              'dark:text-color-text-primary hover:text-[#000] dark:hover:!text-white',
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[8px]',
               'rounded-large hover:rounded-large',
               classNames,
@@ -152,7 +152,7 @@ const IconOption = ({
               </div>
             )}
             <div
-              className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
+              className={cn(`flex-1 text-start font-[${fontWeight}] dark:hover:text-white`, textClass, {
                 'dark:text-color-text-primary text-color-light-text-primary': router.route.includes(href),
                 'text-base': isFontMedium,
               })}
@@ -195,7 +195,7 @@ const IconOption = ({
               })}
             />
             <div
-              className={cn('flex-1 text-start', `font-[${fontWeight}]`, {
+              className={cn('flex-1 text-start dark:hover:text-white', `font-[${fontWeight}]`, {
                 'dark:text-color-text-primary text-color-light-text-primary': showDropDownCasino,
                 'text-base': isFontMedium,
               })}
