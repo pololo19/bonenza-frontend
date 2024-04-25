@@ -384,11 +384,11 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             isShow={isStatistic}
             onClose={() => {
               setIsStatistic(false);
-              dispatch(changeIsShowInformation(false));
+              // dispatch(changeIsShowInformation(false));
             }}
             goBackToProfile={() => {
               setIsStatistic(false);
-              dispatch(changeIsShowInformation(true));
+              // dispatch(changeIsShowInformation(true));
             }}
           />
           <MasterMedals

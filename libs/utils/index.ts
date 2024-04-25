@@ -394,7 +394,7 @@ export function formatCompactNumber(number: number, setting: any) {
 }
 export function currencyFormat1(value: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
   try {
-    const number = Math.floor(value * Math.pow(10, zeroNum)) / Math.pow(10, zeroNum);
+    const number = Math.floor((value * 10 * Math.pow(10.0, zeroNum)) / 10) / Math.pow(10, zeroNum);
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
     if (!number && number === 0) {
