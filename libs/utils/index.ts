@@ -392,8 +392,9 @@ export function formatCompactNumber(number: number, setting: any) {
     return 0;
   }
 }
-export function currencyFormat1(number: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
+export function currencyFormat1(value: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
   try {
+    const number = Math.floor(value * Math.pow(10, zeroNum)) / Math.pow(10, zeroNum);
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
     if (!number && number === 0) {

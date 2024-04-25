@@ -80,7 +80,7 @@ module.exports = {
         'color-bg-primary': '#01042C ',
         'color-light-bg-primary': '#F6F7FA',
         'color-bg-secondary': '#151518',
-        'color-btn-primary': '#3C4E80',
+        'color-btn-primary': '#005F75',
         'color-btn-secondary': '#141518',
         'color-btn-green': '#1E8E00',
         'color-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
