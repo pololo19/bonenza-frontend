@@ -325,7 +325,7 @@ function IndexPage() {
                     width={1339}
                     height={384}
                     className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
-                    src={theme === 'dark' ? '/img/homepage-bg-13.png' : '/img/homepage-bg-13.png'}
+                    src={theme === 'dark' ? '/img/homepage-bg-14.png' : '/img/homepage-bg-14.png'}
                     alt=""
                   />
                 </CsrWrapper>
