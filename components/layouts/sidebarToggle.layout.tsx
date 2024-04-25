@@ -320,8 +320,8 @@ export default function SidebarToggle() {
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
-                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
-                  classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
+                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-t from-[#005B52] to-[#0DFDE4] hover:opacity-90 rounded-[100px] px-[10px]"
+                  classNames="!h-[45px] !py-[10px] bg-gradient-to-t from-[#005B52] to-[#0DFDE4] hover:opacity-90  rounded-[100px] px-[10px]"
                 />
               </CsrWrapper>
 
