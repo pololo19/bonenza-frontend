@@ -1,5 +1,14 @@
 import cn from 'classnames';
-import { Command, Diamonds, Gift, HambergerMenu, Headphone, Notepad2, SecurityCard } from 'iconsax-react';
+import {
+  ArrowSwapVertical,
+  Command,
+  Diamonds,
+  Gift,
+  HambergerMenu,
+  Headphone,
+  Notepad2,
+  SecurityCard,
+} from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
