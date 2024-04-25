@@ -487,16 +487,26 @@ function IndexPage() {
                     {!!listRecentGames.length ? (
                       <CasinoRecentComponent listRecentGames={listRecentGames} />
                     ) : (
-                      <div className="py-[10px] w-full">
-                        <NoDataComponent />
-                      </div>
+                      <>
+                        <div className="font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">
+                          {t('casino:favorite')}
+                        </div>
+                        <div className="py-[10px] w-full">
+                          <NoDataComponent />
+                        </div>
+                      </>
                     )}
                     {!!listFavoriteGames.length ? (
                       <CasinoFavoriteComponent listFavoriteGames={listFavoriteGames} />
                     ) : (
-                      <div className="py-[10px] w-full">
-                        <NoDataComponent />
-                      </div>
+                      <>
+                        <div className="font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">
+                          {t('casino:favorite')}
+                        </div>
+                        <div className="py-[10px] w-full">
+                          <NoDataComponent />
+                        </div>
+                      </>
                     )}
                   </div>
                 </div>
