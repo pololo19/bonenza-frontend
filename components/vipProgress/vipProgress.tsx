@@ -8,6 +8,7 @@ import { api_getVipProgress } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
+import Loader from '@/components/common/preloader/loader';
 
 import styles from './index.module.scss';
 
@@ -79,15 +80,15 @@ const VipProgressComponent = () => {
         <div className="sm:top-[15px] top-[8px] absolute sm:right-[25px] right-[10px] dark:text-white text-black">
           <ArrowRight className="cursor-pointer" onClick={() => dispatch(changeIsShowVipClubModal(true))} />
         </div>
-        <div className="text-[12px] dark:text-white text-color-light-text-primary sm:pb-[10px] pb-[5px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
+        <div className="text-[12px] dark:text-gray-400 text-color-light-text-primary sm:pb-[10px] pb-[5px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
           <div>{percent}%</div>
-          <div className="w-full rounded-[5px] h-[10px] sm:h-[10px] dark:bg-color-progress-primary bg-color-light-bg-primary my-[5px]">
-            <div className="relative h-full" style={{ width: `${percent}%` }}>
+          <div className="w-full rounded-[5px] h-[10px] sm:h-[13px] dark:bg-color-progress-primary bg-color-light-bg-primary my-[5px]">
+            <div className="h-full relative" style={{ width: `${percent}%` }}>
               <div className={cn(`h-full rounded-[5px] w-full`, styles['slideProgress'])} />
             </div>
           </div>
           <div className="flex justify-between sm:text-default text-[12px]">
-            <div className="dark:text-white text-color-light-text-primary">{currentLevel.name}</div>
+            <div className="dark:text-color-text-primary text-color-light-text-primary">{currentLevel.name}</div>
             <div className="text-amber-400">{currentLevel.nextName}</div>
           </div>
         </div>
@@ -95,10 +96,10 @@ const VipProgressComponent = () => {
           <div className="sm:p-[4px] p-[2px] border border-solid rounded-full dark:border-color-border-primary border-color-light-border-primary">
             <Image width={30} height={30} src="/img/reward.png" className="w-[20px] h-[20px]" alt="" />
           </div>
-          <div className="flex items-center dark:text-white text-color-light-text-primary text-default">
+          <div className="dark:text-white text-color-light-text-primary text-default flex items-center">
             {t('bonus:nextLevelBonus')}
           </div>
-          <div className="flex items-center font-bold dark:text-color-secondary text-color-light-text-primary text-default">
+          <div className="dark:text-color-secondary text-color-light-text-primary text-default flex items-center font-bold">
             {`${currentLevel.nextLevelBonus?.toFixed(2)} USDT`}
           </div>
         </div>

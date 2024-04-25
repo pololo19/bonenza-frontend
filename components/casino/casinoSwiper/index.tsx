@@ -3,6 +3,7 @@ import 'swiper/css';
 import cn from 'classnames';
 import { ArrowLeft2, ArrowRight2 } from 'iconsax-react';
 import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { shallowEqual, useSelector } from 'react-redux';
 import { A11y, Autoplay, Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
@@ -108,7 +109,7 @@ const CasinoSwiper = <T,>({
   return (
     <>
       {!!data.length && (
-        <div className="relative w-full">
+        <div className="w-full relative">
           <div className="w-full">
             <div className="flex items-center gap-[10px] justify-between mb-[15px]">
               <div className="flex items-center gap-[10px]">

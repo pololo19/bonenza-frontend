@@ -97,7 +97,7 @@ const IconOption = ({
             href={href}
             onClick={() => {
               // disable hide menus
-              setShowDropDownCasino(!showDropDownCasino);
+              // setShowDropDownCasino(!showDropDownCasino);
               onClick?.();
             }}
           >
@@ -132,7 +132,7 @@ const IconOption = ({
             )}
             onClick={() => {
               // disable hide menus
-              setShowDropDownCasino(!showDropDownCasino);
+              // setShowDropDownCasino(!showDropDownCasino);
               onClick?.();
             }}
           >
@@ -183,7 +183,7 @@ const IconOption = ({
             )}
             onClick={() => {
               // disable hide menus
-              setShowDropDownCasino(!showDropDownCasino);
+              // setShowDropDownCasino(!showDropDownCasino);
               onClick?.();
             }}
           >
@@ -202,9 +202,9 @@ const IconOption = ({
             >
               {title}
             </div>
-            <ArrowRight2
+            {/* <ArrowRight2
               className={`w-3 h-3 mr-1 transition-all duration-150 ${showDropDownCasino ? 'rotate-90' : 'rotate-0'}`}
-            />
+            /> */}
           </div>
           <div
             className={cn('transition-all overflow-hidden duration-[200] flex flex-col gap-[10px] mt-10px', {

@@ -91,8 +91,8 @@ function GameCard(props: GameCardProps) {
         place="bottom"
         // content={String(gameDetail?.description)}
       >
-        <div className="flex items-center justify-between p-2 px-3 bg-gray-200 rounded dark:bg-color-bg-primary">
-          <span className="font-bold text-gray-700 dark:text-gray-300">RPT:</span>
+        <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3">
+          <span className="font-bold dark:text-gray-300 text-gray-700">RPT:</span>
           <span
             className={cn('font-bold', {
               'text-[#0C0]': gameDetail.payout > 90,
@@ -102,9 +102,9 @@ function GameCard(props: GameCardProps) {
             {gameDetail.payout ?? 0}%
           </span>
         </div>
-        <div className="flex items-center justify-between p-2 px-3 mt-3 bg-gray-200 rounded dark:bg-color-bg-primary">
-          <span className="font-bold text-gray-700 dark:text-gray-300">Recent biggest win:</span>
-          <span className="font-bold text-gray-700 dark:text-gray-300">{`${
+        <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
+          <span className="font-bold dark:text-gray-300 text-gray-700">Recent biggest win:</span>
+          <span className="font-bold dark:text-gray-300 text-gray-700">{`${
             gameDetail?.multiplier.toFixed(2) || '0'
           } x`}</span>
         </div>

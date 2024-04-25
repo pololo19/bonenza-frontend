@@ -89,7 +89,6 @@ export default function SidebarToggle() {
         isDropDown: true,
         data: [...casinoCategories, ...casinoGames],
       },
-
       // {
       //   title: String(t('sidebar:sports')),
       //   href: ROUTER.Sports,
@@ -298,7 +297,7 @@ export default function SidebarToggle() {
           >
             <HambergerMenu size={18} className={cn('m-auto')} />
           </button>
-          <Link href={'/'} className="items-center hidden sm:flex">
+          <Link href={'/'} className="hidden sm:flex items-center">
             <Image
               width={158}
               height={31}
@@ -321,8 +320,8 @@ export default function SidebarToggle() {
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
-                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-to-t !from-emerald-800 !to-cyan-400 hover:opacity-90 rounded-[100px] px-[10px]"
-                  classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-to-t !from-emerald-800 !to-cyan-400 hover:opacity-90  rounded-[100px] px-[10px]"
+                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90 rounded-[100px] px-[10px]"
+                  classNames="!h-[45px] !py-[10px] bg-gradient-to-r !bg-gradient-btn-play hover:opacity-90  rounded-[100px] px-[10px]"
                 />
               </CsrWrapper>
 
