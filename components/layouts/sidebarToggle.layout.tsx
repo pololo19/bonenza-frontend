@@ -314,13 +314,13 @@ export default function SidebarToggle() {
                 <IconOption
                   imageURL="/img/sidebar/bonus.png"
                   imageClass="absolute left-[16px] -top-[18px] w-[69px] h-[61px]"
-                  textClass="text-white ml-[64px] !text-[16px] !font-[500]"
+                  textClass="!text-white ml-[64px] !text-[16px] !font-[500]"
                   title={String(t('sidebar:bonus'))}
                   href={ROUTER.Bonus}
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
-                  activeClassNames="!h-[45px] !py-[10px] bg-gradient-to-t from-[#005B52] to-[#0DFDE4] hover:opacity-90 rounded-[100px] px-[10px]"
+                  activeClassNames="!h-[45px] !py-[10px] !text-white bg-gradient-to-t from-[#005B52] to-[#0DFDE4] hover:opacity-90 rounded-[100px] px-[10px]"
                   classNames="!h-[45px] !py-[10px] bg-gradient-to-t from-[#005B52] to-[#0DFDE4] hover:opacity-90  rounded-[100px] px-[10px]"
                 />
               </CsrWrapper>
