@@ -106,7 +106,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico" />
               <base href="/"></base>
               <meta charSet="utf-8" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
               <meta name="google-site-verification" content="8Pg6SQ4ANq-BBmT7jN0wRovBqUpW0JNxU5kuiVO4aLc" />
 
               <title>Bonenza</title>
