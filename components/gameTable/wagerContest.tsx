@@ -372,7 +372,7 @@ const WagerContestComponent = () => {
               <span className="text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                 {t('wagerContest:contestPrizePool')}
               </span>
-              <div className="rounder-[5px] dark:bg-[#2D3035] bg-white text-[14px] md:text-[20px] font-black h-[37px] px-2 flex items-center justify-center">
+              <div className="rounded-[5px] dark:bg-color-input-primary bg-white text-[14px] md:text-[20px] font-black h-[37px] px-2 flex items-center justify-center">
                 <p className="text-color-secondary font-bold">
                   {viewInFiat
                     ? currencyFormat1(wagerContestData.totalPrizePoolAmountUsd * exchangeRate, 4, localFiat?.name)

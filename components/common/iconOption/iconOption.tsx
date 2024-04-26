@@ -147,7 +147,7 @@ const IconOption = ({
               />
             )}
             {count > 0 && (
-              <div className="bg-[#25AD00] text-white font-extrabold w-6 h-6 text-m_default p-1 flex items-center justify-center text-center absolute -right-2 -top-2 rounded-full">
+              <div className="bg-color-primary text-white font-extrabold w-6 h-6 text-m_default p-1 flex items-center justify-center text-center absolute -right-2 -top-2 rounded-full">
                 {count}
               </div>
             )}
