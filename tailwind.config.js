@@ -60,6 +60,7 @@ module.exports = {
         'color-card-bg-primary': '#12324F',
         'color-card-bg-secondary': '#0B2B48',
         'color-card-header-primary': '#1C3452',
+        'color-card-header-active': '#3C5482',
         'color-card-body-default': '#17181B',
         'color-card-body-primary': '#0C2442',
         'color-card-body-secondary': '#073450',
