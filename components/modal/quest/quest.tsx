@@ -496,9 +496,10 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
               isBigWin={item.category === 'bigWin'}
               status={item.status}
               earn={
-                viewInFiat
-                  ? currencyFormat1(item.amountUsd * exchangeRate, 2, localFiat?.name)
-                  : currencyFormat1(item.amount, 2, '', false)
+                item.amount
+                // viewInFiat
+                //   ? currencyFormat1(item.amountUsd * exchangeRate, 2, localFiat?.name)
+                //   : currencyFormat1(item.amount, 2, '', false)
               }
               isExpired={type}
               claimStatus={item.claimStatus}
