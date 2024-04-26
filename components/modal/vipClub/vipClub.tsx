@@ -241,7 +241,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                       {vipData.level > 0 && (
                         <div className="absolute w-full h-full flex flex-col items-center justify-center">
                           {/* <p className="text-[12px]">{selectedRank.name}</p> */}
-                          <p className="font-bold text-white">{getVipName(vipData.name)}</p>
+                          <p className="font-bold text-[14px] mt-[-10px] text-white">{getVipName(vipData.name)}</p>
                         </div>
                       )}
                     </div>
