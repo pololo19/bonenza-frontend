@@ -53,19 +53,19 @@ const DepositCryptoComponent = () => {
     } else {
       switch (nextDeposit) {
         case 1:
-          rankReturn = '180%';
+          rankReturn = '1st';
           depositData = DEPOSIT_BONUS[0];
           break;
         case 2:
-          rankReturn = '240%';
+          rankReturn = '2nd';
           depositData = DEPOSIT_BONUS[1];
           break;
         case 3:
-          rankReturn = '300%';
+          rankReturn = '3rd';
           depositData = DEPOSIT_BONUS[2];
           break;
         case 4:
-          rankReturn = '360%';
+          rankReturn = '4th';
           depositData = DEPOSIT_BONUS[3];
           break;
       }
