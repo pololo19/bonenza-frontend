@@ -56,7 +56,7 @@ module.exports = {
         'color-modal-bg-primary': '#0C2442',
         'color-light-modal-bg-primary': '#F6F7FA',
         'color-modal-bg-secondary': '#070B43',
-        'color-card-bg-default': '#31343a',
+        'color-card-bg-default': '#12324F',
         'color-card-bg-primary': '#12324F',
         'color-card-bg-secondary': '#0B2B48',
         'color-card-header-primary': '#1C3452',

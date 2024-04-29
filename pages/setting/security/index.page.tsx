@@ -30,6 +30,7 @@ import withAuth from '@/components/hoc/withAuth';
 import InputPassword from '@/components/input/typing/InputPassword';
 import SettingLayout from '@/components/layouts/setting.layout';
 import ModalEnterCodeSecurity from '@/components/modal/confirmChangeSecurity/confrimChangeSecurity';
+import Link from 'next/link';
 
 type ForgotPasswordForm = {
   oldPassword: string;
@@ -405,6 +406,30 @@ const SettingSecurity = () => {
                         </div>
                         <div className="flex justify-center">
                           <Image height={100} width={100} src={qrCode} alt="" />
+                        </div>
+                        <div className="flex justify-center gap-4 sm:gap-8 align-middle items-center">
+                          <Link
+                            target="_blank"
+                            className="flex gap-1 items-center bg-color-card-header-active rounded-[7px] pl-2 pr-5 py-[6px] w-[170px]"
+                            href="https://apps.apple.com/app/google-authenticator/id388497605"
+                          >
+                            <Image height={48} width={48} src="/img/app_store.png" alt="app_store" />
+                            <p className="text-white">App Store</p>
+                          </Link>
+                          <Link
+                            target="_blank"
+                            className="flex gap-1 items-center bg-color-card-header-active rounded-[7px] pl-2 pr-5 py-[6px] w-[170px]"
+                            href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2"
+                          >
+                            <Image
+                              height={40}
+                              width={40}
+                              src="/img/google_play.png"
+                              className="w-12 h-12"
+                              alt="google_play"
+                            />
+                            <p className="text-white">Google Play</p>
+                          </Link>
                         </div>
                         <div className="flex flex-col items-start gap-[10px]">
                           <label className="dark:text-color-text-primary text-color-light-text-primary text-des">
