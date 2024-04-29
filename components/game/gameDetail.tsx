@@ -52,15 +52,15 @@ const GameDetailComponent = ({
       <div className="mb-[10px] dark:text-white text-[#000] sm:text-[16px] text-[14px]">
         {t('homePage:latestBetRace')}
       </div>
-      <div className="w-full h-full rounded-[5px] dark:bg-[#1D1E22] bg-white relative">
+      <div className="w-full h-full rounded-[5px] dark:bg-color-header-primary bg-white relative">
         <div className="grid grid-cols-4 justify-center w-full rounded-full md:text-[13px] text-[11px] font-semibold p-[8px]  md:pt-[16px] md:pl-[30px]">
           <div
             role="button"
             onClick={() => setOpenTab(1)}
             className={cn(
-              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] bg-color-light-bg-primary text-[#31373D] hover:text-[#000] text-center',
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-color-card-header-primary dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] bg-color-light-bg-primary text-[#31373D] hover:text-[#000] text-center',
               {
-                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                'dark:text-white dark:!bg-color-card-header-active !bg-color-light-active-primary text-black font-semibold':
                   openTab === 1,
               },
             )}
@@ -71,9 +71,9 @@ const GameDetailComponent = ({
             role="button"
             onClick={() => setOpenTab(2)}
             className={cn(
-              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-color-card-header-primary dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
               {
-                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                'dark:text-white dark:!bg-color-card-header-active !bg-color-light-active-primary text-black font-semibold':
                   openTab === 2,
               },
             )}
@@ -84,9 +84,9 @@ const GameDetailComponent = ({
             role="button"
             onClick={() => setOpenTab(3)}
             className={cn(
-              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-color-card-header-primary dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
               {
-                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                'dark:text-white dark:!bg-color-card-header-active !bg-color-light-active-primary text-black font-semibold':
                   openTab === 3,
               },
             )}
@@ -97,9 +97,9 @@ const GameDetailComponent = ({
             role="button"
             onClick={() => setOpenTab(4)}
             className={cn(
-              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-gray-600 dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
+              'inline-block md:text-[14px] sm:text-[12px] text-[10px] md:px-6 sm:px-4 px-2 py-3 dark:hover:bg-color-card-header-primary dark:hover:text-white bg-transparent dark:text-[rgba(255,255,255,0.5)] text-[#31373D] hover:text-[#000] text-center',
               {
-                'dark:text-white dark:!bg-color-select-bg-primary !bg-color-light-active-primary text-black font-semibold':
+                'dark:text-white dark:!bg-color-card-header-active !bg-color-light-active-primary text-black font-semibold':
                   openTab === 4,
               },
             )}
@@ -130,7 +130,7 @@ const GameDetailComponent = ({
           {t('gameDetail:aboutTheProvider')}
         </div>
         <div>
-          <div className="dark:bg-[#2C2F36] bg-white p-[15px] rounded-[5px] mt-[10px] mb-[30px]">
+          <div className="dark:bg-color-card-bg-default bg-white p-[15px] rounded-[5px] mt-[10px] mb-[30px]">
             <div className="mb-[15px] ml-[15px]">
               <Image
                 height={0}
