@@ -258,7 +258,7 @@ const AccountPannel: React.FC = () => {
       //         <div
       //           role="button"
       //           className={cn('p-[8px]', {
-      //             'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme !== 'light',
+      //             'dark:bg-color-card-header-primary bg-color-light-active-primary': theme !== 'light',
       //             'bg-transparent': theme === 'light',
       //           })}
       //           onClick={() => {
@@ -363,7 +363,7 @@ const AccountPannel: React.FC = () => {
     >
       <div className="flex flex-col gap-[10px] px-[12px] pb-[20px]">
         {isLogin && (
-          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-default">
+          <div className="relative px-[10px] py-[14px] dark:bg-color-card-header-primary bg-white rounded-default">
             <div
               className="flex items-center flex-1 gap-[14px] border-b-[1px] pb-[15px] border-solid dark:border-color-border-primary border-color-light-border-primary mb-[15px]"
               onClick={() => {
@@ -389,11 +389,12 @@ const AccountPannel: React.FC = () => {
               </div>
               <ArrowRight2 className={`w-[15px] h-[15px] dark:text-color-text-primary text-black`} />
             </div>
-            {isShow && <VipProgressComponent />}
+            {/* Hiding VipProgress */}
+            {/* {isShow && <VipProgressComponent />} */}
           </div>
         )}
         {!isLogin && (
-          <div className="relative px-[10px] py-[14px] dark:bg-color-panel-bg-secondary bg-white rounded-default">
+          <div className="relative px-[10px] py-[14px] dark:bg-color-card-header-primary bg-white rounded-default">
             <div className="flex items-center flex-1 gap-[14px]">
               <div className="block w-[55px] h-[55px] rounded-full">
                 <Image height={40} width={40} src="/img/avatar-1.png" alt="" className="w-full h-full" />
@@ -465,7 +466,7 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <div className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-panel-bg-primary rounded-default">
+          <div className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-card-header-primary rounded-default">
             <div className="flex justify-between border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
               <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] ">
                 {t('balance:totalBalance')}
@@ -476,7 +477,7 @@ const AccountPannel: React.FC = () => {
               </span>
             </div>
 
-            <div className="grid grid-cols-4 bg-white dark:bg-color-panel-bg-primary rounded-default">
+            <div className="grid grid-cols-4 bg-white dark:bg-color-card-header-primary rounded-default">
               {walletDatas.map((item, index) => (
                 <IconOption
                   key={index}
@@ -491,7 +492,7 @@ const AccountPannel: React.FC = () => {
         )}
 
         {isLogin && (
-          <ul className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-panel-bg-primary rounded-default">
+          <ul className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-card-header-primary rounded-default">
             {initDatas.map((data, index) => (
               <ListItem
                 key={index}
@@ -508,7 +509,7 @@ const AccountPannel: React.FC = () => {
           </ul>
         )}
 
-        <ul className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-panel-bg-primary rounded-default">
+        <ul className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-card-header-primary rounded-default">
           {settingDatas.map((item, index) => (
             <ListItem
               key={index}
