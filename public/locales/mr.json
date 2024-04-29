@@ -1579,6 +1579,7 @@
     "changePassword": "पासवर्ड बदला",
     "passwordPlaceholder": "तुमचा पासवर्ड टाका",
     "done": "झाले",
+    "passwordChanged": "पूर्ण झाले. तुम्ही ५ सेकंदात लॉग आउट व्हाल...",
     "oldPassword": "जुना पासवर्ड",
     "newPassword": "नवीन पासवर्ड",
     "loginPassword": "लॉगिन पासवर्ड",

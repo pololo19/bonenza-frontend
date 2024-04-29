@@ -1579,6 +1579,7 @@
     "changePassword": "更改密码",
     "passwordPlaceholder": "输入您的密码",
     "done": "完毕",
+    "passwordChanged": "完成。您将在 5 秒内注销...",
     "oldPassword": "旧密码",
     "newPassword": "新密码",
     "loginPassword": "登录密码",

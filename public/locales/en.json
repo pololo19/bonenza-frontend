@@ -1579,6 +1579,7 @@
     "changePassword": "Change Password",
     "passwordPlaceholder": "Enter your password",
     "done": "Done",
+    "passwordChanged": "Done. You will be logged out within 5 seconds ...",
     "oldPassword": "Old Password",
     "newPassword": "New Password",
     "loginPassword": "Login Password",

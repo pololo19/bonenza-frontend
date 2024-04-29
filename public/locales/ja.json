@@ -1579,6 +1579,7 @@
     "changePassword": "パスワードを変更する",
     "passwordPlaceholder": "パスワードを入力してください",
     "done": "終わり",
+    "passwordChanged": "完了しました。5 秒以内にログアウトされます...",
     "oldPassword": "以前のパスワード",
     "newPassword": "新しいパスワード",
     "loginPassword": "ログインパスワード",

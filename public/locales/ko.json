@@ -1579,6 +1579,7 @@
     "changePassword": "비밀번호 변경",
     "passwordPlaceholder": "비밀번호를 입력하세요",
     "done": "완료",
+    "passwordChanged": "완료되었습니다.5초 이내에 로그아웃됩니다...",
     "oldPassword": "기존 비밀번호",
     "newPassword": "새 비밀번호",
     "loginPassword": "로그인 비밀번호",

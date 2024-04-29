@@ -1579,6 +1579,7 @@
     "changePassword": "Змінити пароль",
     "passwordPlaceholder": "Введіть ваш пароль",
     "done": "Готово",
+    "passwordChanged": "Готово. Ви вийдете з системи протягом 5 секунд...",
     "oldPassword": "Старий пароль",
     "newPassword": "Новий пароль",
     "loginPassword": "Логін Пароль",
