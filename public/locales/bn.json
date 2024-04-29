@@ -1578,6 +1578,7 @@
     "refuseTipFromStrangers": "অপরিচিতদের কাছ থেকে টিপ প্রত্যাখ্যান করুন",
     "changePassword": "পাসওয়ার্ড পরিবর্তন করুন",
     "passwordPlaceholder": "আপনার পাসওয়ার্ড লিখুন",
+    "passwordChanged": "সম্পন্ন। আপনি 5 সেকেন্ডের মধ্যে লগ আউট হবেন...",
     "done": "সম্পন্ন",
     "oldPassword": "পুরানো পাসওয়ার্ড",
     "newPassword": "নতুন পাসওয়ার্ড",

@@ -52,6 +52,7 @@ const SettingSecurity = () => {
   const [otp, setOtp] = useState('');
   const [qrCode, setQrCode] = useState<string>('');
   const [secret, setSecret] = useState<string>('');
+  const [logOutDelay, setLogOutDelay] = useState<number>(0);
   const [passwordBody, setPasswordBody] = useState<ForgotPasswordForm>({
     oldPassword: '',
     newPassword: '',
@@ -216,15 +217,17 @@ const SettingSecurity = () => {
         passwordBody.confirmNewPassword,
         passwordBody.codeOtp,
       );
-      onLogout();
-      setOpenModalCode(false);
-      toast.success(t('setting:done'), { containerId: TOAST_ENUM.COMMON });
-      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-      dispatch(changeIsShowAuthenticationModal(true));
+      toast.success(t('setting:passwordChanged'), { containerId: TOAST_ENUM.COMMON });
+      setTimeout(() => {
+        setOpenModalCode(false);
+        onLogout();
+        dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+        dispatch(changeIsShowAuthenticationModal(true));
+      }, 5000);
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       handleChangePassword('', 'codeOtp');
       if (tfa) setOpenModalCode(true);
     } finally {

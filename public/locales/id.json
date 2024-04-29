@@ -1579,6 +1579,7 @@
     "changePassword": "Ganti kata sandi",
     "passwordPlaceholder": "Masukkan kata sandi Anda",
     "done": "Selesai",
+    "passwordChanged": "Selesai. Anda akan keluar dalam 5 detik ...",
     "oldPassword": "password lama",
     "newPassword": "kata sandi baru",
     "loginPassword": "Kata sandi masuk",

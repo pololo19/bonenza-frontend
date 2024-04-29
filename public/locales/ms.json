@@ -1579,6 +1579,7 @@
     "changePassword": "Tukar kata laluan",
     "passwordPlaceholder": "Masukkan kata laluan anda",
     "done": "Selesai",
+    "passwordChanged": "Selesai. Anda akan dilog keluar dalam masa 5 saat ...",
     "oldPassword": "Kata laluan lama",
     "newPassword": "Kata laluan baharu",
     "loginPassword": "Kata Laluan Masuk",

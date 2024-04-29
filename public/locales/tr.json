@@ -1579,6 +1579,7 @@
     "changePassword": "Şifre değiştir",
     "passwordPlaceholder": "Şifrenizi girin",
     "done": "Tamamlamak",
+    "passwordChanged": "Bitti.5 saniye içinde çıkış yapacaksınız...",
     "oldPassword": "eski Şifre",
     "newPassword": "Yeni Şifre",
     "loginPassword": "Giriş şifresi",

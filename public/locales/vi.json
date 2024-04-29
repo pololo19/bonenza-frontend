@@ -1579,6 +1579,7 @@
     "changePassword": "Đổi mật khẩu",
     "passwordPlaceholder": "Nhập mật khẩu của bạn",
     "done": "Xong",
+    "passwordChanged": "Xong. Bạn sẽ đăng xuất trong vòng 5 giây ...",
     "oldPassword": "Mật khẩu cũ",
     "newPassword": "mật khẩu mới",
     "loginPassword": "Mật khẩu đăng nhập",

@@ -1578,6 +1578,7 @@
     "refuseTipFromStrangers": "رفض نصيحة من الغرباء",
     "changePassword": "تغيير كلمة المرور",
     "passwordPlaceholder": "ادخل رقمك السري",
+    "passwordChanged": "تم. سيتم تسجيل خروجك خلال 5 ثواني...",
     "done": "منتهي",
     "oldPassword": "كلمة المرور القديمة",
     "newPassword": "كلمة المرور الجديدة",

@@ -1579,6 +1579,7 @@
     "changePassword": "Cambiare la password",
     "passwordPlaceholder": "Inserisci la tua password",
     "done": "Fatto",
+    "passwordChanged": "Selesai. Anda akan keluar dalam 5 detik ...",
     "oldPassword": "vecchia password",
     "newPassword": "nuova password",
     "loginPassword": "Password per il login",
