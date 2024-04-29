@@ -1579,6 +1579,7 @@
     "changePassword": "เปลี่ยนรหัสผ่าน",
     "passwordPlaceholder": "ใส่รหัสผ่านของคุณ",
     "done": "เสร็จแล้ว",
+    "passwordChanged": "เสร็จสิ้นคุณจะออกจากระบบภายใน 5 วินาที ...",
     "oldPassword": "รหัสผ่านเก่า",
     "newPassword": "รหัสผ่านใหม่",
     "loginPassword": "รหัสผ่านการเข้าใช้งาน",

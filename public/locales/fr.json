@@ -1578,6 +1578,7 @@
     "refuseTipFromStrangers": "Refuser les pourboires des inconnus",
     "changePassword": "Changer le mot de passe",
     "passwordPlaceholder": "Tapez votre mot de passe",
+    "passwordChanged": "Terminé. Vous serez déconnecté dans 5 secondes...",
     "done": "Fait",
     "oldPassword": "ancien mot de passe",
     "newPassword": "nouveau mot de passe",

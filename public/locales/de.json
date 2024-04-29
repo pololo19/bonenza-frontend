@@ -1579,6 +1579,7 @@
     "changePassword": "Kennwort ändern",
     "passwordPlaceholder": "Geben Sie Ihr Passwort ein",
     "done": "Erledigt",
+    "passwordChanged": "Fertig. Sie werden innerhalb von 5 Sekunden abgemeldet ...",
     "oldPassword": "Altes Passwort",
     "newPassword": "Neues Kennwort",
     "loginPassword": "Passwort",

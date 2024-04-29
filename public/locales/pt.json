@@ -1579,6 +1579,7 @@
     "changePassword": "Alterar a senha",
     "passwordPlaceholder": "Coloque sua senha",
     "done": "Feito",
+    "passwordChanged": "Pronto.Você será desconectado em 5 segundos...",
     "oldPassword": "Senha Antiga",
     "newPassword": "Nova Senha",
     "loginPassword": "Senha de login",

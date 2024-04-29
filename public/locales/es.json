@@ -1578,6 +1578,7 @@
     "refuseTipFromStrangers": "Rechazar propina de extraños",
     "changePassword": "Cambiar la contraseña",
     "passwordPlaceholder": "Ingresa tu contraseña",
+    "passwordChanged": "Listo. Se cerrará tu sesión en 5 segundos...",
     "done": "Hecho",
     "oldPassword": "Contraseña anterior",
     "newPassword": "Nueva contraseña",
