@@ -178,7 +178,7 @@ const SettingSecurity = () => {
     try {
       const res = await api_disable2FA(otp, passwordLogin);
       toast.success(t('success:success'), { containerId: TOAST_ENUM.COMMON });
-
+      await getQrCode();
       dispatch(
         saveUserInfo({
           ...convertUserInfo(res.data),
