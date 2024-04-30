@@ -61,7 +61,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
   };
 
   useEffect(() => {
-    if (show && isLogin) {
+    if (show) {
       getLatestSpin();
     }
   }, [show, isLogin]);
@@ -76,7 +76,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
       ),
       minSize: 30,
       cell: ({ row }) => (
-        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px] text-[10px] sm:text-m_default truncate">
+        <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px] text-[10px] sm:text-m_default truncate max-w-[100px]">
           {row.original?.userName || ''}
         </div>
       ),
@@ -104,7 +104,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
       ),
       minSize: 30,
       cell: ({ row }) => (
-        <div className="dark:text-color-text-primary text-color-light-text-primary sm:pr-2 pr-[5px] text-[10px] sm:text-m_default font-bold truncate flex gap-1 items-center justify-end">
+        <div className="dark:text-color-text-primary text-color-light-text-primary min-w-[120px] sm:pr-2 pr-[5px] text-[10px] sm:text-m_default font-bold truncate flex gap-1 items-center justify-end">
           {row.original?.amount || ''}
           <Image
             width={25}
