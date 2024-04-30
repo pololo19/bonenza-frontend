@@ -138,16 +138,18 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
         amountUsd: item.amountUsd || 0,
         id: item.id || 0,
       }));
-      const tempLatestSpin: SpinDataType = {
-        amount: res.data.lastSpinner.amount || 0,
-        amountUsd: res.data.lastSpinner.amountUsd || 0,
-        symbol: res.data.lastSpinner.symbol || '',
-        symbolLogo: res.data.lastSpinner.symbolLogo || '',
-        type: res.data.lastSpinner.type || '',
-        userAvatar: res.data.lastSpinner.userAvatar || '',
-        userName: res.data.lastSpinner.userName || '',
-      };
-      setLatestSpin(tempLatestSpin);
+      if (res.data.lastSpinner) {
+        const tempLatestSpin: SpinDataType = {
+          amount: res.data.lastSpinner.amount || 0,
+          amountUsd: res.data.lastSpinner.amountUsd || 0,
+          symbol: res.data.lastSpinner.symbol || '',
+          symbolLogo: res.data.lastSpinner.symbolLogo || '',
+          type: res.data.lastSpinner.type || '',
+          userAvatar: res.data.lastSpinner.userAvatar || '',
+          userName: res.data.lastSpinner.userName || '',
+        };
+        setLatestSpin(tempLatestSpin);
+      }
       setSpinBonusTotal(res.data.totalBonusUsd || 0);
       setSpinItems({ lucky: tempLuckyData, super: tempSuperData, mega: tempMegaData });
     } catch (error) {

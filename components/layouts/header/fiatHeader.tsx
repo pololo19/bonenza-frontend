@@ -25,6 +25,7 @@ import CsrWrapper from '@/components/CsrWrapper';
 import InputSearch from '@/components/input/typing/InputSearch';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
+import { useRouter } from 'next/router';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -41,6 +42,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
   const { theme } = useTheme();
+  const router = useRouter();
 
   const {
     isWalletLoading,
@@ -73,6 +75,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     shallowEqual,
   );
 
+  const [showCurrency, setShowCurrency] = useState<boolean>(true);
   const [searchFiatInput, setSearchFiatInput] = useState<string>('');
 
   const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
@@ -147,6 +150,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     }
   }, [cryptoSymbols, activeCurrency]);
 
+  useEffect(() => {
+    const path = router.asPath;
+    if (path.indexOf('?gameId') > -1) setShowCurrency(false);
+    else setShowCurrency(true);
+  }, [router]);
   return (
     <>
       <Menu as="div" className="relative w-auto text-left rounded flex dark:text-white h-full text-[#000]">
@@ -173,7 +181,8 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
               />
-              {viewInFiat && (
+              {!showCurrency && activeCurrency.name}
+              {showCurrency && viewInFiat && (
                 <div className="text-[16px] truncate w-full font-semibold">
                   {viewInFiat
                     ? `${currencyFormat1(
@@ -184,7 +193,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     : `${currencyFormat1(Number(getBalanceBySymbol(activeCurrency)), cryptoDecimals, '', false)}`}
                 </div>
               )}
-              {!viewInFiat && (
+              {showCurrency && !viewInFiat && (
                 <div className="w-full font-bold truncate text-default">
                   {currencyFormat1(getBalanceBySymbol(activeCurrency), cryptoDecimals, '', false)}
                 </div>
