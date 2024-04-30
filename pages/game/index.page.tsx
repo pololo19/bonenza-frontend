@@ -339,8 +339,13 @@ function GamePage() {
           // The number of game parameters depends on 'strategy'.
         },
       };
+      window.sg.launch(gameLaunchOptions, success, error);
       if (isMobile) {
-        window.open(gameUrl, '_blank');
+        var a = document.createElement('a');
+        a.href = gameUrl;
+        a.target = '_blank';
+        a.click();
+        // // window.sg.launch(gameLaunchOptions, success, error);
       } else {
         window.sg.launch(gameLaunchOptions, success, error);
       }
