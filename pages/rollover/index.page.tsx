@@ -98,7 +98,7 @@ const RolloverPage = () => {
   };
 
   const columns: ColumnDef<RolloverType>[] = useMemo(() => {
-    if(width > 1024) {
+    if (width > 1024) {
       return [
         {
           accessorKey: 'type',
@@ -118,7 +118,7 @@ const RolloverPage = () => {
           cell: ({ row }) => (
             <div
               className={`${
-                optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-primary'
+                optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-text-green'
               } flex items-center justify-center gap-1`}
             >
               {optionFilter.type.name === 'Withdraw' ? '-' : ''}
@@ -127,7 +127,7 @@ const RolloverPage = () => {
               ) : (
                 currencyFormat1(Math.abs(row.original.amount), 4, '', false)
               )}
-  
+
               <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="" />
             </div>
           ),
@@ -169,7 +169,7 @@ const RolloverPage = () => {
                     row.original.status.toString() === 'rejected' ||
                     row.original.status.toString() === 'failed' ||
                     row.original.status.toString() === 'not_started',
-                  'bg-color-primary':
+                  'bg-color-text-green':
                     row.original.status.toString() === 'done' ||
                     row.original.status.toString() === 'all' ||
                     row.original.status.toString() === 'complete' ||
@@ -211,7 +211,7 @@ const RolloverPage = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-primary'
+              optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-text-green'
             } flex items-center justify-center gap-1`}
           >
             {optionFilter.type.name === 'Withdraw' ? '-' : ''}
@@ -228,7 +228,9 @@ const RolloverPage = () => {
       {
         accessorKey: 'status',
         header: () => (
-          <div className="text-right dark:text-color-text-primary text-black pr-2">{String(t('transaction:status'))}</div>
+          <div className="text-right dark:text-color-text-primary text-black pr-2">
+            {String(t('transaction:status'))}
+          </div>
         ),
         cell: ({ row }) => (
           <div className="flex items-center justify-end gap-2 cursor-pointer">
@@ -243,7 +245,7 @@ const RolloverPage = () => {
                   row.original.status.toString() === 'rejected' ||
                   row.original.status.toString() === 'failed' ||
                   row.original.status.toString() === 'not_started',
-                'bg-color-primary':
+                'bg-color-text-green':
                   row.original.status.toString() === 'done' ||
                   row.original.status.toString() === 'all' ||
                   row.original.status.toString() === 'complete' ||
@@ -364,7 +366,7 @@ const RolloverPage = () => {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                          className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-[#f5f6fa]"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, type: item })}
                         >
@@ -412,7 +414,7 @@ const RolloverPage = () => {
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
-                            className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                            className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-[#f5f6fa]"
                             role="button"
                             onClick={() => setOptionFilter({ ...optionFilter, bonusEvent: item })}
                           >
@@ -458,7 +460,7 @@ const RolloverPage = () => {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#212b36] hover:bg-[#f5f6fa]"
+                          className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-[#f5f6fa]"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, status: item })}
                         >

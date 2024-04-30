@@ -99,7 +99,7 @@ const TransactionPage = () => {
           cell: ({ row }) => (
             <div
               className={`${
-                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
+                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
               } flex items-center justify-center gap-1`}
             >
               {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
@@ -150,7 +150,7 @@ const TransactionPage = () => {
                   // row.original.status === 'ongoing',
                   'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
                   // row.original.status === 'not_started',
-                  'bg-color-primary':
+                  'bg-color-text-green':
                     // row.original.status === 'done' ||
                     // row.original.status === 'all' ||
                     row.original.status === 'complete' || row.original.status === 'approved',
@@ -174,8 +174,8 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div
             className={`${
-              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
-            } flex items-center justify-center gap-1`}
+              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
+            } flex items-center justify-center gap-1 min-w-[100px]`}
           >
             {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
             {viewInFiat ? (
@@ -225,7 +225,7 @@ const TransactionPage = () => {
                 // row.original.status === 'ongoing',
                 'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
                 // row.original.status === 'not_started',
-                'bg-color-primary':
+                'bg-color-text-green':
                   // row.original.status === 'done' ||
                   // row.original.status === 'all' ||
                   row.original.status === 'complete' || row.original.status === 'approved',
@@ -288,7 +288,7 @@ const TransactionPage = () => {
           accessorKey: 'swapTo',
           header: () => <div className="text-center">{String(t('transaction:swapTo'))}</div>,
           cell: ({ row }) => (
-            <div className="text-color-primary flex items-center gap-1 justify-center truncate">
+            <div className="text-color-text-green flex items-center gap-1 justify-center truncate">
               <span>
                 {viewInFiat ? (
                   <>
@@ -355,7 +355,7 @@ const TransactionPage = () => {
         accessorKey: 'swapTo',
         header: () => <div className="text-center">{String(t('transaction:swapTo'))}</div>,
         cell: ({ row }) => (
-          <div className="text-color-primary flex items-center gap-1 justify-center truncate">
+          <div className="text-color-text-green flex items-center gap-1 justify-center truncate">
             <span>
               {viewInFiat ? (
                 <>
@@ -442,7 +442,7 @@ const TransactionPage = () => {
                   row.original?.type?.toLowerCase() == 'bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
                   row.original.type.toLocaleLowerCase() === 'swap send',
-                'text-color-primary': !(
+                'text-color-text-green': !(
                   row.original?.type?.toLowerCase() == 'bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
                   row.original.type.toLocaleLowerCase() === 'swap send'
@@ -572,7 +572,7 @@ const TransactionPage = () => {
                   row.original?.type?.toLowerCase() == 'bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
                   row.original.type.toLocaleLowerCase() === 'swap send',
-                'text-color-primary': !(
+                'text-color-text-green': !(
                   row.original?.type?.toLowerCase() == 'bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
                   row.original.type.toLocaleLowerCase() === 'swap send'
@@ -645,7 +645,7 @@ const TransactionPage = () => {
           cell: ({ row }) => (
             <div
               className={`min-w-[100px] ${
-                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
+                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
               } flex items-center justify-center gap-1`}
             >
               {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
@@ -694,7 +694,7 @@ const TransactionPage = () => {
                   // row.original.status === 'ongoing',
                   'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
                   // row.original.status === 'not_started',
-                  'bg-color-primary':
+                  'bg-color-text-green':
                     // row.original.status === 'done' ||
                     // row.original.status === 'all' ||
                     row.original.status === 'complete' || row.original.status === 'approved',
@@ -714,7 +714,7 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div
             className={`min-w-[100px] ${
-              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-primary'
+              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
             } flex items-center justify-start gap-1`}
           >
             {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
@@ -766,7 +766,7 @@ const TransactionPage = () => {
                 // row.original.status === 'ongoing',
                 'bg-color-red': row.original.status === 'rejected' || row.original.status === 'failed',
                 // row.original.status === 'not_started',
-                'bg-color-primary':
+                'bg-color-text-green':
                   // row.original.status === 'done' ||
                   // row.original.status === 'all' ||
                   row.original.status === 'complete' || row.original.status === 'approved',
@@ -806,7 +806,7 @@ const TransactionPage = () => {
           cell: ({ row }) => (
             <div
               className={`${
-                row.original.amount < 0 ? 'text-red-500' : 'text-color-primary'
+                row.original.amount < 0 ? 'text-red-500' : 'text-color-text-green'
               } flex items-center justify-center gap-1`}
             >
               <span>{row.original.amount < 0 ? '-' : ''}</span>
@@ -902,7 +902,7 @@ const TransactionPage = () => {
           <div className="flex flex-col gap-1">
             <div
               className={`${
-                row.original.amount < 0 ? 'text-red-500' : 'text-color-primary'
+                row.original.amount < 0 ? 'text-red-500' : 'text-color-text-green'
               } flex items-center justify-end gap-1`}
             >
               <span>{row.original.amount < 0 ? '-' : ''}</span>
@@ -1263,7 +1263,7 @@ const TransactionPage = () => {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
+                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-color-light-hover-primary"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, type: item })}
                         >
@@ -1309,7 +1309,7 @@ const TransactionPage = () => {
                   <Menu.Item>
                     {({ active }) => (
                       <div
-                        className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
+                        className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-color-light-hover-primary"
                         role="button"
                         onClick={() => setOptionFilter({ ...optionFilter, currency: '' })}
                       >
@@ -1323,7 +1323,7 @@ const TransactionPage = () => {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
+                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-color-light-hover-primary"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, currency: coin.id })}
                         >
@@ -1370,7 +1370,7 @@ const TransactionPage = () => {
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
-                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-hover-primary"
+                          className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-color-light-hover-primary"
                           role="button"
                           onClick={() => setOptionFilter({ ...optionFilter, dayPast: item })}
                         >
@@ -1416,7 +1416,7 @@ const TransactionPage = () => {
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
-                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-bg-primary"
+                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-color-light-bg-primary"
                             role="button"
                             onClick={() => setTypeBill(item)}
                           >
@@ -1467,7 +1467,7 @@ const TransactionPage = () => {
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
-                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#212b36] hover:bg-color-light-bg-primary"
+                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-color-light-bg-primary"
                             role="button"
                             onClick={() => setOptionFilter({ ...optionFilter, filterStatus: item })}
                           >

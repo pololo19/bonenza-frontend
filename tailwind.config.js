@@ -86,6 +86,7 @@ module.exports = {
         'color-btn-green': '#1E8E00',
         'color-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
         'color-text-primary': '#98A7B5',
+        'color-text-green': '#3BC117',
         'color-light-text-primary': '#31373D',
         'color-text-secondary': '#939699',
         'color-text-mailto': '#00BAE6',
