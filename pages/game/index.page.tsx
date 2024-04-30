@@ -339,15 +339,16 @@ function GamePage() {
           // The number of game parameters depends on 'strategy'.
         },
       };
-      if (isMobile) {
-        var a = document.createElement('a');
-        a.href = gameUrl;
-        a.target = '_blank';
-        document.body.appendChild(a);
-        a.click();
-      } else {
-        window.sg.launch(gameLaunchOptions, success, error);
-      }
+      window.sg.launch(gameLaunchOptions, success, error);
+      // if (isMobile) {
+      //   var a = document.createElement('a');
+      //   a.href = gameUrl;
+      //   a.target = '_blank';
+      //   document.body.appendChild(a);
+      //   a.click();
+      // } else {
+      //   window.sg.launch(gameLaunchOptions, success, error);
+      // }
     } catch (error) {
       console.log('error', error);
       setSuccessfullyLaunched(false);
