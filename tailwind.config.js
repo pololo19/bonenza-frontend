@@ -109,7 +109,7 @@ module.exports = {
         'color-border-primary': '#3B3C41',
         'color-border-secondary': '#3C404A',
         'color-light-border-primary': '#DADDE6',
-        'color-input-primary': '#1F3355',
+        'color-input-primary': '#2F4466',
         'color-input-hover-primary': '#254060',
         'color-light-input-primary': '#F0F1F5',
         'color-input-secondary': '#FFFFFF22',
