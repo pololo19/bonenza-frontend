@@ -99,7 +99,7 @@ const DepositCryptoComponent = () => {
                 dangerouslySetInnerHTML={{
                   __html: String(
                     t('deposit:getExtra', {
-                      percent: depositDetail.rankReturn,
+                      percent: `${depositDetail.percent}%`,
                       value: `${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false).padEnd(
                         10,
                         '0',
