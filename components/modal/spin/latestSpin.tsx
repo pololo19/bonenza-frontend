@@ -142,7 +142,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
           <div
             className={cn(
               'bg-black mx-4 mb-4 rounded-large overflow-hidden overflow-y-scroll ',
-              'max-h-[calc(100vh-122px)] sm:max-h-[calc(100vh-122px)]',
+              'max-h-[calc(100vh-202px)] sm:max-h-[calc(100vh-162px)]',
             )}
           >
             <RankingTableComponent
