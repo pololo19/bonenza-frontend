@@ -284,8 +284,8 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black text-center w-full truncate">
               {viewInFiat
-                ? currencyFormat1(userData?.totalWager || 0, 2, localFiat?.name || 'USD')
-                : currencyFormat1(userData?.totalWager || 0, 2)}
+                ? currencyFormat1((userData?.totalWager || 0) * exchange, 2, localFiat?.name || 'USD')
+                : currencyFormat1(userData?.totalWager || 0, 2, '', false)}
             </div>
           </div>
         </div>

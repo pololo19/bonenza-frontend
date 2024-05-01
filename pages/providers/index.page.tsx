@@ -63,8 +63,8 @@ function ProvidersPage() {
                 className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-color-card-bg-primary hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
               >
                 <Image
-                  height={80}
-                  width={180}
+                  height={54}
+                  width={150}
                   src={
                     provider.identifier
                       ? `https://cdn.softswiss.net/logos/providers/color/${provider.identifier}.svg`
@@ -74,7 +74,7 @@ function ProvidersPage() {
                   onError={(e) => {
                     e.currentTarget.src = `/img/providers/softswiss.png`;
                   }}
-                  className="object-cover max-w-[150px] max-h-full w-full rounded-[5px]"
+                  className="!object-contain max-h-[54px] rounded-[5px]"
                 />
               </Link>
             ))}

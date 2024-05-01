@@ -38,8 +38,8 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
                 className={cn(
                   'min-w-fit flex items-center px-[10px] py-[10px] bg-[#f0f1f5] dark:bg-color-card-header-primary gap-[10px] flex-shrink-0 rounded-default dark:text-white text-color-light-text-primary hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',
                   `${
-                    (href === '/' ? router.route === href : router.route.includes(href))
-                      ? 'dark:text-white dark:!bg-color-card-header-active bg-[#F6F7FA] font-semibold'
+                    (href === '/' ? router.asPath === href : router.asPath.includes(href))
+                      ? 'dark:text-white dark:!bg-color-card-header-active bg-[#F6F7FA] font-extrabold'
                       : ''
                   }`,
                 )}
