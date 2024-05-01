@@ -69,10 +69,12 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
               !
             </span>
           </div>
-          <div>
-            <div>{t('affiliate:customizedYourCommission')}</div>
-            <a className="font-semibold text-lime-400 cursor-pointer">{t('affiliate:viewMyCommission')}</a>
-          </div>
+          <span>
+            <span>{t('affiliate:customizedYourCommission')}</span>
+            <span>
+              <a className="font-semibold text-lime-400 cursor-pointer pl-1">{t('affiliate:viewMyCommission')}</a>
+            </span>
+          </span>
         </div>
         <div className="text-left light:bg-white px-5 pt-4 pb-8">
           <ul>
@@ -83,9 +85,9 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
             <li className="mt-4">&#8226;&nbsp;{t('affiliate:commissionRewardRules5')}</li>
           </ul>
         </div>
-        <div className="text-center light:bg-white p-4 border-[0.3px] rounded-md border-solid">
+        <div className="text-center light:bg-white px-8 py-3 border-[0.3px] rounded-md border-solid">
           <span>{t('affiliate:textQuestion')}</span>
-          <a className="!font-semibold text-lime-400 cursor-pointer">&nbsp;{t('affiliate:contactUs')}</a>
+          <a className="!font-semibold text-lime-400 cursor-pointer lowercase">&nbsp;{t('affiliate:contactUs')}</a>
         </div>
       </div>
     </CommonModal>

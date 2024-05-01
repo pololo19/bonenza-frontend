@@ -198,7 +198,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           >
             <div
               className={cn('font-bold text-end truncate', {
-                'text-color-primary': row.original.profitAmount >= 0,
+                'text-color-text-green': row.original.profitAmount >= 0,
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >
