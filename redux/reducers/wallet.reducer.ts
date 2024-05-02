@@ -21,6 +21,7 @@ const initialState: WalletState = {
   depositTime: 0,
   activeCurrency: {
     id: '',
+    fullName: '',
     name: '',
     alias: '',
     logo: '',
@@ -230,6 +231,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
       symbols?.map((item: any) => ({
         id: item.id,
         name: item.symbol,
+        fullName: item.name,
         alias: item.symbol,
         logo: item.logo,
         iso_currency: item.iso_currency,
