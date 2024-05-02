@@ -230,6 +230,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
       symbols?.map((item: any) => ({
         id: item.id,
         name: item.symbol,
+        fullName: item.name,
         alias: item.symbol,
         logo: item.logo,
         iso_currency: item.iso_currency,

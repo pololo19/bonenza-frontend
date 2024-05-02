@@ -47,6 +47,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const {
     isWalletLoading,
     viewInFiat,
+    viewInFullName,
     showFullNameCurrency,
     cryptoSymbols,
     cryptoBalances,
@@ -60,6 +61,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       isWalletLoading: state.wallet.isWalletLoading,
       // fiatArray: state.common.fiatArray,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      viewInFullName: state.auth.user.generalSetting.settingShowFullNameCrypto,
       settings: state.auth.user.generalSetting,
 
       activeCurrency: state.wallet.activeCurrency,
@@ -305,8 +307,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                               e.currentTarget.src = '/img/fiats/USDT.png';
                             }}
                           />
-                          <div>
+                          <div className="min-w-[120px]">
                             <div className="text-default font-vietnam-bold">{crypto.name}</div>
+                            {viewInFullName && (
+                              <div className="text-m_default text-color-text-secondary">{crypto.alias}</div>
+                            )}
                           </div>
                           <div className="w-full font-bold text-right text-black truncate text-default dark:text-white">
                             {viewInFiat &&
