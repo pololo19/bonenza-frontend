@@ -21,7 +21,6 @@ const initialState: WalletState = {
   depositTime: 0,
   activeCurrency: {
     id: '',
-    fullName: '',
     name: '',
     alias: '',
     logo: '',
