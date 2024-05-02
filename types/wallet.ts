@@ -29,7 +29,6 @@ export type CurrencySymbolType = 'crypto' | 'fiat';
 export type CurrencyType = {
   id: string;
   name: string;
-  fullName: string;
   alias: string;
   logo: string;
   iso_currency: string;

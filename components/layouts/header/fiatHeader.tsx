@@ -310,7 +310,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                           <div className="min-w-[120px]">
                             <div className="text-default font-vietnam-bold">{crypto.name}</div>
                             {viewInFullName && (
-                              <div className="text-m_default text-color-text-secondary">{crypto.fullName}</div>
+                              <div className="text-m_default text-color-text-secondary">{crypto.alias}</div>
                             )}
                           </div>
                           <div className="w-full font-bold text-right text-black truncate text-default dark:text-white">
