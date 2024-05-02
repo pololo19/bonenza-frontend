@@ -296,6 +296,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         }
         const localFiat: CurrencyType = {
           id: res.data.settingFiatCurrency.id ?? '',
+          fullName: res.data.name ?? '',
           name: res.data.settingFiatCurrency.symbol ?? '',
           alias: res.data.settingFiatCurrency.name ?? '',
           logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
