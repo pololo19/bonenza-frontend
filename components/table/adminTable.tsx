@@ -75,7 +75,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
   return (
     <div className={cn('table-responsive relative', containerClassName, styles.tableWrapper)}>
       <table className={cn('table mb-0 min-h-[100px] w-full h-full', tableClassName, styles.table)}>
-        <thead className={cn(styles.tableHeader, 'dark:bg-black bg-color-light-bg-primary')}>
+        <thead className={cn(styles.tableHeader, 'dark:bg-[#1D2738] bg-color-light-bg-primary')}>
           {getHeaderGroups()?.map((headerGroup) => (
             <tr key={headerGroup.id} className="relative z-0">
               {headerGroup.headers.map((header, index) => {
@@ -85,7 +85,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
                     className={cn(
                       headerVarian ? styles[headerVarian] : '',
                       { '!text-right': index === headerGroup.headers.length - 1 },
-                      'whitespace-nowrap dark:text-white text-color-text-primary font-semibold sm:!text-[14px] !text-[12px] !border-0 text-left',
+                      'whitespace-nowrap dark:text-white text-color-text-primary bg-white/10 font-semibold sm:!text-[14px] !text-[12px] !border-0 text-left',
                     )}
                     {...{
                       style: {
@@ -103,7 +103,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
           ))}
         </thead>
         <tbody
-          className={cn({ 'relative py-10': isLoading }, 'sm:!text-[14px] !text-[12px] bg-[#f7f8fa] min-h-[500px]')}
+          className={cn({ 'relative py-10': isLoading }, 'sm:!text-[14px] !text-[12px] bg-[#1D2738] min-h-[500px]')}
         >
           {isLoading && (
             <tr>
@@ -118,7 +118,7 @@ const AdminTableComponent: React.FC<AdminTableComponentPropsType> = ({
             getRowModel().rows.map((row) => (
               <tr
                 key={row.id}
-                className={cn(renderRowClass?.(row), 'h-0 cursor-pointer border-solid border-b border-b-gray-200')}
+                className={cn(renderRowClass?.(row), 'h-0 cursor-pointer')}
                 onClick={() => onRowClick?.(row)}
               >
                 {row.getVisibleCells?.().map((cell) => (

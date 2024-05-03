@@ -33,6 +33,7 @@ module.exports = {
         'light-gradient-top-bottom':
           'linear-gradient(360deg, rgba(255, 255, 255, 0.9) 23.22%, rgba(255, 255, 255, 0) 60.86%)',
         active: 'rgba(246, 27, 79, 0.2)',
+        'gradient-card-default': 'linear-gradient(235deg, #005664 -18.13%, #111136 122.93%)',
         'gradient-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
         // 'gradient-btn-play': 'linear-gradient(180deg, #58AF10 10%, #1D803A 90%)',
         'gradient-btn-play': 'linear-gradient(29deg, #005063 12.79%, #00BAE6 84.65%)',

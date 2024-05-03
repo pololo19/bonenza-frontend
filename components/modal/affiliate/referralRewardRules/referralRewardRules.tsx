@@ -90,19 +90,19 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
       onClose={onClose}
       panelClass="rounded sm:max-w-[464px] sm:!h-[90vh]"
       header={
-        <div className="relative sm:px-[30px] px-[20px] text-center pt-[20px] text-title pb-[10px] font-bold">
+        <div className="bg-color-modal-bg-secondary relative sm:px-[30px] px-[20px] text-center pt-[20px] text-title pb-[10px] font-bold">
           {t('affiliate:referralRewardRules')}
         </div>
       }
     >
-      <div className="pb-7 text-[#94a9bf] max-sm:h-full text-[13px] bg-[#24262b] overflow-y-auto">
+      <div className="pb-7 text-[#94a9bf] max-sm:h-full text-[13px] bg-color-modal-bg-primary overflow-y-auto">
         <div className="flex pt-5 justify-center pb-4 max-sm:bg-[#17191b]">{t('affiliate:getReferral')}</div>
         <div className="px-5 grid grid-cols-1 sm:grid-cols-3 gap-[16px] max-sm:bg-[#17191b] max-sm:pb-6">
           {referralRewardList.map((item, index) => (
             <div key={index} className={`h-[160px] relative max-sm:bg-[#24262b]`}>
               <div className={cn(styles[item.className], 'absolute inset-0 bg-center')}></div>
 
-              <div className="ml-2 w-[140px] absolute tracking-tighter w-[90%]">
+              <div className="ml-2 w-[140px] absolute tracking-tighter">
                 <div className="text-[#3bc117] text-[40px] sm:text-[35px] font-bold">{item.number}</div>
                 <div className="text-white font-weight-500 text-[18px] sm:text-[14px] max-sm:mt-2 mb-4 sm:mb-2 leading-4">
                   {item.title}
@@ -112,16 +112,16 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
             </div>
           ))}
         </div>
-        <div className="px-5 flex pt-6 flex-col items-center w-[100%] bg-[#1e2024]">
+        <div className="px-5 flex pt-6 flex-col items-center w-[100%] bg-bg-color-modal-bg-primary">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-28 h-[2px] bg-gradient-to-r from-white via-transparent to-transparent transform scale-x-[-1]"></div>
             <span>{t('affiliate:unlockRules')}</span>
             <div className="w-28 h-[2px] bg-gradient-to-r from-white via-transparent to-transparent transform -scale-x-1"></div>
           </div>
-          <div className="w-full bg-[#17181b]">
+          <div className="w-full bg-color-modal-bg-primary">
             <div className="relative w-full overflow-x-auto">
               <table className="w-full text-base text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-[#94a9bf] bg-[#1e2024]">
+                <thead className="text-xs text-[#94a9bf] bg-[#FFFFFF11]">
                   <tr>
                     {titleColumn.map((item, index) => (
                       <th
@@ -139,9 +139,7 @@ export default function ReferralRewardRules({ show, onClose }: ModalReferralRewa
                     <tr
                       key={index}
                       className={`${
-                        index % 2 === 0
-                          ? 'bg-white border-b dark:bg-[#17181b]'
-                          : 'border-b bg-gray-50 dark:bg-[#1e2024]'
+                        index % 2 === 0 ? 'bg-white border-b dark:bg-[#3333]' : 'border-b bg-gray-50 dark:bg-[#1113]'
                       }`}
                     >
                       <th
