@@ -184,30 +184,30 @@ function DashboardComponent() {
         <title>Affiliate - Bonenza</title>
       </Head>
       <div className="flex flex-col mt-[20px]">
-        <div className="w-full flex flex-col-reverse lg:flex-row pb-[23px] lg:justify-center gap-4">
+        <div className="w-full flex flex-col lg:flex-row pb-[23px] lg:justify-center gap-4">
           <div className="flex flex-col w-full items-center dark:bg-gradient-card-default bg-white rounded-default overflow-hidden justify-start gap-8">
             <div className="flex flex-col w-full px-6 py-8 gap-8">
               <div className="text-white text-title sm:text-m_title font-bold flex uppercase">
                 {t('affiliate:inviteAFriendToGet')}
               </div>
-              <div className="flex">
-                <div className="flex gap-[10px] pr-4">
-                  <div className="text-[#FFCD6E] text-[16px] font-bold">
+              <div className="flex flex-col md:flex-row text-default">
+                <div className="flex gap-[10px] pb-4 md:pr-4 md:pb-0">
+                  <div className="text-[#FFCD6E] font-bold">
                     {viewInFiat ? (
                       <>{currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD')}</>
                     ) : (
                       <>{currencyFormat1(1000, 2)}</>
                     )}
                   </div>
-                  <div className="text-[#FFFFFF] text-[16px] font-light">{t('affiliate:referralReward')}</div>
+                  <div className="text-[#FFFFFF] font-light">{t('affiliate:referralReward')}</div>
                 </div>
-                <div className="flex gap-[10px] pl-4 border-l border-solid border-color-primary">
-                  <div className="text-[#FFCD6E] text-[16px] font-bold">25%</div>
-                  <div className="text-[#FFFFFF] text-[16px] font-light ">{t('affiliate:commissionReward')}</div>
+                <div className="flex gap-[10px] pt-4 md:pl-4 md:pt-0 border-t md:border-t-0 md:border-l border-solid border-color-primary">
+                  <div className="text-[#FFCD6E] font-bold ">25%</div>
+                  <div className="text-[#FFFFFF] font-light ">{t('affiliate:commissionReward')}</div>
                 </div>
               </div>
               <div className="text-white text-m_default">{t('affiliate:inviteDescription')}</div>
-              <div className="w-full grid grid-cols-2 gap-4">
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="w-full">
                   <div className="text-m_default sm:text-default font-normal text-black dark:text-white mb-[3px]">
                     {t('affiliate:referralCode')}
@@ -318,7 +318,7 @@ function DashboardComponent() {
             <div className="rounded-default w-full grid grid-cols-2 py-10 bg-gradient-card-default">
               <div className="min-w-[150px] flex flex-col justify-center items-center">
                 <Image
-                  className="object-cover h-[80px] w-[80px] hidden sm:block"
+                  className="object-cover h-[80px] w-[80px]"
                   height={50}
                   width={50}
                   src="/img/affiliate/rewards.png"
@@ -338,13 +338,7 @@ function DashboardComponent() {
                 </div>
               </div>
               <div className="min-w-[150px] flex flex-col justify-center items-center border-l border-solid border-color-primary">
-                <Image
-                  className="w-[80px] h-[80px] hidden sm:block"
-                  height={50}
-                  width={50}
-                  src="/img/affiliate/friends.png"
-                  alt=""
-                />
+                <Image className="w-[80px] h-[80px]" height={50} width={50} src="/img/affiliate/friends.png" alt="" />
                 <div className="flex flex-col items-center">
                   <div className="text-m_default sm:text-default mb-[15px] font-normal dark:text-white text-black">
                     {t('affiliate:totalFriendsReferred')}

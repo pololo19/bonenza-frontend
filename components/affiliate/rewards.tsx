@@ -261,9 +261,13 @@ function RewardsComponent() {
     return [
       {
         accessorKey: 'commissionRewardsAvailable',
-        header: () => <div className="text-left text-default pl-[100px]">{t('mycasino:commissionRewards')}</div>,
+        header: () => (
+          <div className="text-left text-default pl-2 lg:pl-[100px] truncate max-w-[100px] lg:max-w-max">
+            {t('mycasino:commissionRewards')}
+          </div>
+        ),
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start text-white gap-[5px] truncate pl-[100px]')}>
+          <div className={cn('flex items-center justify-start text-white gap-[5px] truncate pl-2 lg:pl-[100px]')}>
             <div className="flex gap-1 font-normal truncate">
               {`${
                 viewInFiat
@@ -300,9 +304,9 @@ function RewardsComponent() {
       },
       {
         accessorKey: 'status',
-        header: () => <div className="text-right text-default pr-[100px]">{t('mycasino:status')}</div>,
+        header: () => <div className="text-right text-default pr-2 lg:pr-[100px]">{t('mycasino:status')}</div>,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-end text-white gap-[5px] truncate pr-[100px]')}>
+          <div className={cn('flex items-center justify-end text-white gap-[5px] truncate pr-2 lg:pr-[100px]')}>
             <div
               className={cn('font-normal truncate', {
                 'text-color-text-green': row.original.status,
@@ -366,8 +370,8 @@ function RewardsComponent() {
         <title>Affiliate - Bonenza</title>
       </Head>
       <div className="flex flex-col mt-[20px]">
-        <div className="grid grid-cols-3 bg-gradient-card-default rounded-default">
-          <div className="py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 bg-gradient-card-default rounded-default gap-6 py-5">
+          <div className="md:py-10">
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
               {t('affiliate:availableCommission')}
             </div>
@@ -401,7 +405,7 @@ function RewardsComponent() {
               </span>
             </div>
           </div>
-          <div className="py-10">
+          <div className="md:py-10">
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
               {t('affiliate:availableReferral')}
             </div>
@@ -527,7 +531,7 @@ function RewardsComponent() {
                   control={control}
                   name="username"
                   placeholder="Please input"
-                  customClass="min-w-[200px] !bg-color-input-primary !border-none"
+                  customClass="min-w-[200px] !bg-[#181818] !border-none !text-white py-2"
                 />
               </div>
 
@@ -538,7 +542,7 @@ function RewardsComponent() {
                 <AdminInputDateRange
                   control={control}
                   name="registrationDate"
-                  customClass="min-w-[350px] !bg-color-input-primary !border-none !text-white"
+                  customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
                 />
               </div>
               <div className="flex flex-col items-start gap-1">

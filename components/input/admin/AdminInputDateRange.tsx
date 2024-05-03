@@ -1,6 +1,8 @@
 import { DatePicker, InputProps } from 'antd';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
+import styles from './date.module.scss';
+
 interface InputTextProps<TFieldValues extends FieldValues> extends InputProps {
   name: Path<TFieldValues>;
   customClass?: string;
@@ -29,7 +31,11 @@ const AdminInputDateRange = <TFieldValues extends Record<string, unknown>>({
               value={(field.value ?? '') as string}
               onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}
             /> */}
-            <DatePicker.RangePicker name={name} onChange={(val) => field.onChange(val)} className={customClass} />
+            <DatePicker.RangePicker
+              name={name}
+              onChange={(val) => field.onChange(val)}
+              className={`${customClass} ${styles.mydate}`}
+            />
             {error?.message && <span className="text-red-500 text-[12px]"> {error?.message}</span>}
           </div>
         );
