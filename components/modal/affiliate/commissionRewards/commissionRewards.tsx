@@ -34,14 +34,14 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
       onClose={onClose}
       panelClass="rounded sm:max-w-[464px] sm:!h-[90vh]"
       header={
-        <div className="relative sm:px-[30px] px-[20px] sm:py-[30px] py-[25px] bg-white dark:bg-[#17191b]">
+        <div className="relative sm:px-[30px] px-[20px] sm:py-[30px] py-[25px] bg-white dark:bg-color-modal-bg-secondary">
           <div className="absolute left-0 top-0 h-[60px] w-full flex items-center pl-[24px]">
             {t('affiliate:commissionRewardRules')}
           </div>
         </div>
       }
     >
-      <div className="p-5 text-[#94a9bf] bg-[#1e2024] text-[13px] overflow-y-auto">
+      <div className="p-5 text-[#94a9bf] bg-color-modal-bg-primary text-[13px] overflow-y-auto">
         <div className="my-4 text-[14px] font-thin">
           <span className="">&#8226;&nbsp; {t('affiliate:commissionDependsDifferent')}</span>
         </div>
@@ -63,7 +63,7 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
             </div>
           </div>
         ))}
-        <div className="h-70px bg-[#24262B] rounded-sm p-4 flex justify-center items-center mb-4 gap-2">
+        <div className="h-70px bg-[#FFFFFF11] rounded-sm p-4 flex justify-center items-center mb-4 gap-2">
           <div>
             <span className="w-5 h-5 bg-[#656B74] font-bold text-[#24262B] rounded-full flex items-center justify-center text-[16px]">
               !
