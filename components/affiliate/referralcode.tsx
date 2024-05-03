@@ -234,8 +234,8 @@ function ReferralCodeFriendComponent() {
         <title>Affiliate - Bonenza</title>
       </Head>
       <div className="flex flex-col mt-[20px]">
-        <div className="grid grid-cols-3 bg-gradient-card-default rounded-default">
-          <div className="py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 bg-gradient-card-default rounded-default gap-6 py-5">
+          <div className="md:py-10">
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
               {t('affiliate:referralCodeCreated')}
             </div>
@@ -244,7 +244,7 @@ function ReferralCodeFriendComponent() {
               <span className="font-bold">/ 20</span>
             </div>
           </div>
-          <div className="py-10">
+          <div className="md:py-10">
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
               {t('affiliate:friends')}
             </div>
@@ -308,7 +308,7 @@ function ReferralCodeFriendComponent() {
                   control={control}
                   name="username"
                   placeholder="Please input"
-                  customClass="sm:min-w-[350px] w-full !bg-color-input-primary !border-none"
+                  customClass="min-w-[200px] !bg-[#181818] !border-none !text-white py-2"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
@@ -319,7 +319,7 @@ function ReferralCodeFriendComponent() {
                   control={control}
                   name="userId"
                   placeholder="Please input"
-                  customClass="sm:min-w-[350px] w-full !bg-color-input-primary !border-none"
+                  customClass="min-w-[200px] !bg-[#181818] !border-none !text-white py-2"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
@@ -329,7 +329,7 @@ function ReferralCodeFriendComponent() {
                 <AdminInputDateRange
                   control={control}
                   name="registrationDate"
-                  customClass="sm:min-w-[350px] w-full !bg-color-input-primary !border-none"
+                  customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
@@ -339,7 +339,7 @@ function ReferralCodeFriendComponent() {
                 <AdminInputDateRange
                   control={control}
                   name="wagerDateRange"
-                  customClass="sm:min-w-[350px] w-full !bg-color-input-primary !border-none"
+                  customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">

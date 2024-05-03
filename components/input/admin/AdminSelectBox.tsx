@@ -1,5 +1,6 @@
 import { Select, SelectProps } from 'antd';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
+import styles from './select.module.scss';
 
 interface InputTextProps<TFieldValues extends FieldValues> extends SelectProps {
   name: Path<TFieldValues>;
@@ -21,7 +22,7 @@ const AdminSelectBox = <TFieldValues extends Record<string, unknown>>({
         return (
           <div className="w-full flex-1">
             <Select
-              className={customClass}
+              className={`${customClass}`}
               {...rest}
               showSearch
               placeholder="Select a person"
