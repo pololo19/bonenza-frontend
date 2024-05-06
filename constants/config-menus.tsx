@@ -17,7 +17,7 @@ import { ROUTER } from './common';
 
 export const headerMenus: OptionSidebarDataType[] = [
   {
-    title: 'layout:home',
+    title: '', //'layout:home',
     href: '/',
     // icon: <HomeIcon className="text-color-light-text-primary dark:text-white" />,
     icon: HomeIcon,

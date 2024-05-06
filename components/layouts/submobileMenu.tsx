@@ -13,11 +13,11 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
   const router = useRouter();
 
   return (
-    <div className="sticky top-0 z-[9] dark:bg-color-header-secondary">
+    <div className="sticky -top-[1px] z-[9] dark:bg-color-header-secondary">
       <div className="p-0">
         <div
           className={cn(
-            `relative my-[4px] mx-[12px] max-w-full overflow-x-auto snap-x snap-mandatory sm:hidden flex sm:flex-wrap flex-nowrap gap-[8px]`,
+            `relative my-[4px] mx-[12px] max-w-full overflow-x-scroll snap-x snap-mandatory sm:hidden flex sm:flex-wrap flex-nowrap gap-[4px]`,
             {
               hidden: !isShow,
               '-translate-y-full': !isShow,
@@ -36,7 +36,7 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
                 key={index}
                 href={href}
                 className={cn(
-                  'min-w-fit flex items-center px-[10px] py-[10px] bg-[#f0f1f5] dark:bg-color-card-header-primary gap-[10px] flex-shrink-0 rounded-default dark:text-white text-color-light-text-primary hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',
+                  'min-w-fit flex items-center px-[8px] py-[10px] bg-[#f0f1f5] dark:bg-color-card-header-primary gap-[4px] flex-shrink-0 rounded-default dark:text-white text-color-light-text-primary hover:bg-[#F6F7FA]  dark:hover:bg-color-hover-primary',
                   `${
                     (href === '/' ? router.asPath === href : router.asPath.includes(href))
                       ? 'dark:text-white dark:!bg-color-card-header-active bg-[#F6F7FA] font-extrabold'
@@ -44,8 +44,8 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
                   }`,
                 )}
               >
-                <IconEle className="w-[18px] h-[18px]" />
-                <div className={`text-[14px]`}>{t(title)}</div>
+                <IconEle className={`${title ? 'w-[12px] h-[12px]' : 'w-[18px] h-[18px]'}`} />
+                {title && <div className={`text-[13px]`}>{t(title)}</div>}
               </Link>
             );
           })}
