@@ -1669,7 +1669,7 @@
     "verificationPending": "التحقق الأساسي معلق",
     "verifyCodeHeader": "لقد أرسلنا رمز التحقق إلى {{code}}يرجى إدخال الرمز المكون من 6 أرقام أدناه:",
     "remove": "يزيل",
-    "inUser": "في المستخدم"
+    "inUse": "في الاستخدام"
   },
   "wagerContest": {
     "history": "تاريخ",

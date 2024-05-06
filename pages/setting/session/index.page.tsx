@@ -76,7 +76,7 @@ const SettingSession = () => {
           cell: ({ row }) => (
             <>
               {row.original.active ? (
-                <div className="text-color-primary">{t('setting:inUser')}</div>
+                <div className="text-color-primary">{t('setting:inUse')}</div>
               ) : (
                 <div
                   className="text-color-primary"
@@ -136,7 +136,7 @@ const SettingSession = () => {
         cell: ({ row }) => (
           <>
             {row.original.active ? (
-              <div className="text-color-primary">{t('setting:inUser')}</div>
+              <div className="text-color-primary">{t('setting:inUse')}</div>
             ) : (
               <div
                 className="text-color-primary"

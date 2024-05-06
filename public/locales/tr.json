@@ -1669,7 +1669,7 @@
     "verificationPending": "Temel Doğrulama Bekleniyor",
     "verifyCodeHeader": "Şuraya bir doğrulama kodu gönderdik: {{code}}, lütfen aşağıya 6 haneli kodu girin:",
     "remove": "Kaldırmak",
-    "inUser": "Kullanıcıda"
+    "inUse": "Kullanımda"
   },
   "wagerContest": {
     "history": "Tarih",
