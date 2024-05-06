@@ -7,6 +7,7 @@ import { api_deleteSession, api_getSessions } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { useWidth } from '@/base/hooks/useWidth';
 import { formatDate } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { SessionType } from '@/base/types/common';
@@ -15,7 +16,6 @@ import withAuth from '@/components/hoc/withAuth';
 import SettingLayout from '@/components/layouts/setting.layout';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
-import { useWidth } from '@/base/hooks/useWidth';
 
 const SettingSession = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -74,9 +74,20 @@ const SettingSession = () => {
           header: 'Action',
           maxSize: 80,
           cell: ({ row }) => (
-            <div className="text-color-primary" role="button" onClick={() => handleRemoveUserSession(row.original.id)}>
-              {t('setting:remove')}
-            </div>
+            <>
+              {row.original.active ? (
+                <div className="text-color-primary">{t('setting:inUser')}</div>
+              ) : (
+                <div
+                  className="text-color-primary"
+                  role="button"
+                  aria-disabled={row.original.active}
+                  onClick={() => handleRemoveUserSession(row.original.id)}
+                >
+                  {t('setting:remove')}
+                </div>
+              )}
+            </>
           ),
         },
       ];
@@ -123,13 +134,24 @@ const SettingSession = () => {
         header: 'Action',
         maxSize: 80,
         cell: ({ row }) => (
-          <div className="text-color-primary" role="button" onClick={() => handleRemoveUserSession(row.original.id)}>
-            {t('setting:remove')}
-          </div>
+          <>
+            {row.original.active ? (
+              <div className="text-color-primary">{t('setting:inUser')}</div>
+            ) : (
+              <div
+                className="text-color-primary"
+                role="button"
+                aria-disabled={row.original.active}
+                onClick={() => handleRemoveUserSession(row.original.id)}
+              >
+                {t('setting:remove')}
+              </div>
+            )}
+          </>
         ),
       },
     ];
-  }, [i18n.language]);
+  }, [i18n.language, width]);
 
   const handleRemoveUserSession = async (sessionId: string) => {
     try {

@@ -1668,7 +1668,8 @@
     "verificationVerified": "ยืนยันการตรวจสอบขั้นพื้นฐานแล้ว",
     "verificationPending": "การยืนยันขั้นพื้นฐานรอดำเนินการ",
     "verifyCodeHeader": "เราได้ส่งรหัสยืนยันไปที่ {{code}}กรุณากรอกรหัส 6 หลักด้านล่าง:",
-    "remove": "ลบ"
+    "remove": "ลบ",
+    "inUser": "ในผู้ใช้"
   },
   "wagerContest": {
     "history": "ประวัติศาสตร์",

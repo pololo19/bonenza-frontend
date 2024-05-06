@@ -1668,7 +1668,8 @@
     "verificationVerified": "মৌলিক যাচাই যাচাই করা হয়েছে",
     "verificationPending": "মৌলিক যাচাইকরণ মুলতুবি",
     "verifyCodeHeader": "আমরা একটি যাচাইকরণ কোড পাঠিয়েছি {{code}}, অনুগ্রহ করে নিচের 6-সংখ্যার কোডটি লিখুন:",
-    "remove": "অপসারণ"
+    "remove": "অপসারণ",
+    "inUser": "ব্যবহারকারীর মধ্যে"
   },
   "wagerContest": {
     "history": "ইতিহাস",

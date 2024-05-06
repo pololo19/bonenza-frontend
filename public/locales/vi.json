@@ -1668,7 +1668,8 @@
     "verificationVerified": "Xác minh cơ bản Đã xác minh",
     "verificationPending": "Đang chờ xác minh cơ bản",
     "verifyCodeHeader": "Chúng tôi đã gửi mã xác minh tới {{code}}, vui lòng nhập mã gồm 6 chữ số bên dưới:",
-    "remove": "Di dời"
+    "remove": "Di dời",
+    "inUser": "Trong người dùng"
   },
   "wagerContest": {
     "history": "Lịch sử",

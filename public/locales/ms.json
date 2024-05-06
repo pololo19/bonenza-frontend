@@ -1668,7 +1668,8 @@
     "verificationVerified": "Pengesahan Asas Disahkan",
     "verificationPending": "Pengesahan Asas Belum Selesai",
     "verifyCodeHeader": "Kami telah menghantar kod pengesahan kepada {{code}}, sila masukkan kod 6 digit di bawah:",
-    "remove": "Alih keluar"
+    "remove": "Alih keluar",
+    "inUser": "Dalam Pengguna"
   },
   "wagerContest": {
     "history": "Sejarah",
