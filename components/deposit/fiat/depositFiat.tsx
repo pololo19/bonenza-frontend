@@ -87,7 +87,7 @@ const DepositFiatComponent = () => {
       {isLoading && <Loader />}
 
       <form onSubmit={handleSubmit(handleStripePayment)} className="md:max-w-[492px]">
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="dark:text-[#C2C2C2] text-[#31373d] text-[14px]">{t('deposit:depositCurrency')}</div>
           <Controller
             control={control}
@@ -139,7 +139,7 @@ const DepositFiatComponent = () => {
             render={({ field }) => {
               return (
                 <CurrencyInput
-                  className="flex-1 px-5 w-full py-[16px] dark:text-white text-black w-full text-[14px] rounded dark:bg-[#161D26] bg-[#dadde680] placeholder:text-[#53575C] outline-none"
+                  className="flex-1 px-5 w-full py-[16px] dark:text-white text-black w-full text-[14px] rounded dark:bg-[#161D26] bg-[#dadde680] placeholder:text-color-text-primary outline-none"
                   maxLength={15}
                   allowDecimals
                   placeholder={String(t('deposit:depositAmount'))}

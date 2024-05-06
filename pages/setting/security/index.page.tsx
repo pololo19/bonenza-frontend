@@ -5,6 +5,7 @@ import { googleLogout } from '@react-oauth/google';
 import cn from 'classnames';
 import { Copy, InfoCircle } from 'iconsax-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ReactElement, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -30,7 +31,6 @@ import withAuth from '@/components/hoc/withAuth';
 import InputPassword from '@/components/input/typing/InputPassword';
 import SettingLayout from '@/components/layouts/setting.layout';
 import ModalEnterCodeSecurity from '@/components/modal/confirmChangeSecurity/confrimChangeSecurity';
-import Link from 'next/link';
 
 type ForgotPasswordForm = {
   oldPassword: string;
@@ -269,7 +269,7 @@ const SettingSecurity = () => {
                           {t('setting:oldPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-[#777777]"
+                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-color-text-primary"
                           name="oldPassword"
                           placeholder={`${t('setting:oldPassword')}`}
                           value={passwordBody?.oldPassword}
@@ -282,7 +282,7 @@ const SettingSecurity = () => {
                           {t('setting:newPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-[#777777]"
+                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-color-text-primary"
                           name="newPassword"
                           placeholder={`${t('setting:newPassword')}`}
                           value={passwordBody?.newPassword}
@@ -295,7 +295,7 @@ const SettingSecurity = () => {
                           {t('setting:confirmNewPassword')}
                         </label>
                         <InputPassword
-                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-[#777777]"
+                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-color-text-primary"
                           name="confirmNewPassword"
                           placeholder={`${t('setting:confirmNewPassword')}`}
                           value={passwordBody?.confirmNewPassword}
@@ -341,7 +341,7 @@ const SettingSecurity = () => {
                     <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
                       <div className="flex flex-col items-start gap-[10px] mt-2">
                         <InputPassword
-                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-[#777777]"
+                          customClass="rounded-default w-full dark:!bg-color-input-primary !text-default placeholder:text-default placeholder:text-color-text-primary"
                           name="oldPassword"
                           placeholder={`${t('setting:passwordPlaceholder')}`}
                           value={password}
@@ -410,7 +410,7 @@ const SettingSecurity = () => {
                         <div className="flex justify-center">
                           <Image height={100} width={100} src={qrCode} alt="" />
                         </div>
-                        <div className="flex justify-center gap-4 sm:gap-8 align-middle items-center">
+                        <div className="flex items-center justify-center gap-4 align-middle sm:gap-8">
                           <Link
                             target="_blank"
                             className="flex gap-1 items-center bg-color-card-header-active rounded-[7px] pl-2 pr-5 py-[6px] w-[170px]"
@@ -468,7 +468,7 @@ const SettingSecurity = () => {
                       </>
                     )}
                     <InputPassword
-                      customClass="rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
+                      customClass="rounded-default w-full !text-default placeholder:text-default placeholder:text-color-text-primary"
                       name="password"
                       placeholder="Login Password"
                       value={passwordLogin}

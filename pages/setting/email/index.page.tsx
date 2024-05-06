@@ -135,7 +135,7 @@ const SettingEmail = () => {
             </div>
             <div className="relative w-full">
               <InputText
-                customClass="px-[10px] h-[51px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
+                customClass="px-[10px] h-[51px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-color-text-primary"
                 name="email"
                 placeholder={`${t('setting:emailPlaceholder')}`}
                 disabled={emailVerified}
@@ -162,8 +162,8 @@ const SettingEmail = () => {
           </div>
           <Disclosure>
             {({ open }) => (
-              <div className="sm:hidden block w-full">
-                <Disclosure.Button className="py-2 w-full flex justify-between">
+              <div className="block w-full sm:hidden">
+                <Disclosure.Button className="flex justify-between w-full py-2">
                   <div className="font-semibold text-default">{t('setting:emailVerification')}</div>
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                 </Disclosure.Button>
@@ -181,7 +181,7 @@ const SettingEmail = () => {
                     </div>
                     <div className="relative w-full">
                       <InputText
-                        customClass="px-[10px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-text-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
+                        customClass="px-[10px] py-[10px] my-[10px] dark:bg-color-input-primary bg-color-light-text-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-color-text-primary"
                         name="email"
                         disabled={!emailVerified}
                         placeholder={`${t('setting:emailPlaceholder')}`}
@@ -224,7 +224,7 @@ const SettingEmail = () => {
             <div className="flex flex-col my-[10px] relative dark:bg-color-input-primary bg-color-light-input-primary rounded-default w-full text-default placeholder:text-default">
               {phoneVerified && (
                 <InputText
-                  customClass="px-[10px] h-[51px] py-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
+                  customClass="px-[10px] h-[51px] py-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-color-text-primary"
                   name="phoneNumber"
                   placeholder={`${t('setting:phonePlaceholder')}`}
                   disabled={phoneVerified}
@@ -239,7 +239,7 @@ const SettingEmail = () => {
                     setCountryCallingCode(value);
                   }}
                   disabled={phoneVerified}
-                  customClass="px-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-[#777777]"
+                  customClass="px-[10px] dark:!bg-color-input-primary !bg-color-light-input-primary rounded-default w-full !text-default placeholder:text-default placeholder:text-color-text-primary"
                   onChange={(e) => setPhoneInput(e.target.value)}
                   name="phoneNumber"
                   placeholder={String(t('setting:phonePlaceholder'))}
@@ -266,8 +266,8 @@ const SettingEmail = () => {
           </div>
           <Disclosure>
             {({ open }) => (
-              <div className="sm:hidden block w-full">
-                <Disclosure.Button className="py-2 w-full flex justify-between">
+              <div className="block w-full sm:hidden">
+                <Disclosure.Button className="flex justify-between w-full py-2">
                   <div className="font-semibold text-[14px]">{t('setting:phoneNumber')}</div>
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5`} />
                 </Disclosure.Button>

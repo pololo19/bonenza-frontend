@@ -215,7 +215,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <input
                 autoFocus
                 className={cn(
-                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-default h-[40px] rounded-default dark:bg-color-input-secondary bg-white border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-default h-[40px] rounded-default dark:bg-color-input-secondary bg-white border border-solid border-white/10 focus-within:border-color-primary placeholder:text-color-text-primary outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => {
@@ -226,7 +226,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <SearchNormal
                 width={22}
                 height={22}
-                className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-[#4D545C] text-color-light-text-primary"
+                className="absolute top-1/2 left-[20px] transform -translate-x-1/2 -translate-y-1/2 dark:text-color-text-primary text-color-light-text-primary"
               />
               {debouncedSearchValue.length > 0 && (
                 <div
@@ -263,7 +263,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                     <div className="font-[600] dark:text-white text-black sm:text-[16px] text-default">
                       {t('casino:searchHistory')}
                     </div>
-                    <div className="text-color-text-primary cursor-pointer" onClick={handleDeleteAllHistory}>
+                    <div className="cursor-pointer text-color-text-primary" onClick={handleDeleteAllHistory}>
                       <Trash className="w-[20px] h-[20px]" />
                     </div>
                   </div>
@@ -295,7 +295,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             </div>
             {searchResult}
 
-            <div className="sm:block hidden">
+            <div className="hidden sm:block">
               <CasinoSwiper
                 title={''}
                 delay={4000}

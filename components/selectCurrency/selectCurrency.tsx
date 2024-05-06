@@ -59,7 +59,7 @@ const SelectCurrency = ({
 
   const filterListCoin = useMemo(() => {
     return symbols
-      .filter((item) => String(item.name).toLowerCase().includes(searchInput.toLowerCase()) && item.favorite)
+      .filter((item) => String(item.name).toLowerCase().includes(searchInput.toLowerCase()))
       .sort(
         (a, b) =>
           (balances.find((item) => item.symbolId === b.id)?.amount || 0) * b.price -
