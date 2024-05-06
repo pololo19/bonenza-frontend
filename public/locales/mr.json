@@ -1668,7 +1668,8 @@
     "verificationVerified": "मूलभूत पडताळणी सत्यापित",
     "verificationPending": "मूलभूत पडताळणी प्रलंबित",
     "verifyCodeHeader": "आम्ही वर पडताळणी कोड पाठवला आहे {{code}}, कृपया खालील 6-अंकी कोड प्रविष्ट करा:",
-    "remove": "काढा"
+    "remove": "काढा",
+    "inUser": "वापरकर्ता मध्ये"
   },
   "wagerContest": {
     "history": "इतिहास",

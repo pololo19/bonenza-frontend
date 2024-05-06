@@ -1668,7 +1668,8 @@
     "verificationVerified": "Verifikasi Dasar Diverifikasi",
     "verificationPending": "Verifikasi Dasar Tertunda",
     "verifyCodeHeader": "Kami telah mengirimkan kode verifikasi ke {{code}}, silakan masukkan kode 6 digit di bawah ini:",
-    "remove": "Menghapus"
+    "remove": "Menghapus",
+    "inUser": "Di Pengguna"
   },
   "wagerContest": {
     "history": "Sejarah",

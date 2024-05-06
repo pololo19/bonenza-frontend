@@ -1668,7 +1668,8 @@
     "verificationVerified": "Verificação básica verificada",
     "verificationPending": "Verificação básica pendente",
     "verifyCodeHeader": "Enviamos um código de verificação para {{code}}, digite o código de 6 dígitos abaixo:",
-    "remove": "Remover"
+    "remove": "Remover",
+    "inUser": "No usuário"
   },
   "wagerContest": {
     "history": "História",
