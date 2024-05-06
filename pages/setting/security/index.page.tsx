@@ -179,7 +179,7 @@ const SettingSecurity = () => {
     setIsLoading(true);
     try {
       const res = await api_disable2FA(otp, passwordLogin);
-      toast.success(t('success:success'), { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('success:success'), { toastId: 'disable-2fa-error-success', containerId: TOAST_ENUM.COMMON });
       await getQrCode();
       dispatch(
         saveUserInfo({
@@ -192,7 +192,7 @@ const SettingSecurity = () => {
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { toastId: 'disable-2fa-error-notify', containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
     }
