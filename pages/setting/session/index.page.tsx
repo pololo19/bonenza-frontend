@@ -5,8 +5,9 @@ import { toast } from 'react-toastify';
 
 import { api_deleteSession, api_getSessions } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { useWidth } from '@/base/hooks/useWidth';
 import { formatDate } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { SessionType } from '@/base/types/common';
@@ -23,61 +24,134 @@ const SettingSession = () => {
   const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(10);
   const [totalRows, setTotalRows] = useState<number>(0);
+  const width = useWidth();
 
   const sessionColumns: ColumnDef<SessionType>[] = useMemo(() => {
+    if (width > 800)
+      return [
+        {
+          accessorKey: 'browser',
+          header: String(t('setting:browser')),
+          cell: ({ row }) => <div className="text-black dark:text-white">{row.original.browser}</div>,
+          minSize: 100,
+        },
+        {
+          accessorKey: 'location',
+          header: String(t('setting:location')),
+          minSize: 30,
+          cell: ({ row }) => <div className="text-black dark:text-color-text-primary">{row.original.location}</div>,
+        },
+        {
+          accessorKey: 'ip',
+          header: String(t('setting:IPAddress')),
+          cell: ({ row }) => <div className="text-black dark:text-white">{row.original.ipAddress}</div>,
+          maxSize: 80,
+        },
+        {
+          accessorKey: 'lastUsed',
+          header: String(t('setting:lastUsed')),
+          maxSize: 30,
+          cell: ({ row }) => (
+            <div
+              className={cn('flex items-center justify-center gap-[10px]', {
+                'text-color-primary': row.original.active,
+                'dark:text-color-text-primary text-black': !row.original.active,
+              })}
+            >
+              {row.original.active && (
+                <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
+              )}
+              <div className="font-bold text-center">
+                {row.original.active
+                  ? 'Online'
+                  : formatDate(row.original.lastUsedAt, DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+              </div>
+            </div>
+          ),
+        },
+        {
+          accessorKey: 'action',
+          header: 'Action',
+          maxSize: 80,
+          cell: ({ row }) => (
+            <>
+              {row.original.active ? (
+                <div className="text-color-primary">{t('setting:inUser')}</div>
+              ) : (
+                <div
+                  className="text-color-primary"
+                  role="button"
+                  aria-disabled={row.original.active}
+                  onClick={() => handleRemoveUserSession(row.original.id)}
+                >
+                  {t('setting:remove')}
+                </div>
+              )}
+            </>
+          ),
+        },
+      ];
+
     return [
       {
         accessorKey: 'browser',
         header: String(t('setting:browser')),
-        cell: ({ row }) => <div className="text-black dark:text-white">{row.original.browser}</div>,
+        cell: ({ row }) => (
+          <div>
+            <div className="text-black dark:text-white">{row.original.browser}</div>
+            <div
+              className={cn('flex items-center justify-center gap-[10px]', {
+                'text-color-primary': row.original.active,
+                'dark:text-color-text-primary text-black': !row.original.active,
+              })}
+            >
+              {row.original.active && (
+                <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
+              )}
+              <div className="font-bold text-center">
+                {row.original.active
+                  ? 'Online'
+                  : formatDate(row.original.lastUsedAt, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
+              </div>
+            </div>
+          </div>
+        ),
         minSize: 100,
-      },
-      {
-        accessorKey: 'location',
-        header: String(t('setting:location')),
-        minSize: 30,
-        cell: ({ row }) => <div className="text-black dark:text-color-text-primary">{row.original.location}</div>,
       },
       {
         accessorKey: 'ip',
         header: String(t('setting:IPAddress')),
-        cell: ({ row }) => <div className="text-black dark:text-white">{row.original.ipAddress}</div>,
-        maxSize: 80,
-      },
-      {
-        accessorKey: 'lastUsed',
-        header: String(t('setting:lastUsed')),
-        maxSize: 30,
         cell: ({ row }) => (
-          <div
-            className={cn('flex items-center justify-center gap-[10px]', {
-              'text-color-primary': row.original.active,
-              'dark:text-color-text-primary text-black': !row.original.active,
-            })}
-          >
-            {row.original.active && (
-              <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
-            )}
-            <div className="font-bold text-center">
-              {row.original.active
-                ? 'Online'
-                : formatDate(row.original.lastUsedAt, DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
-            </div>
+          <div>
+            <div className="text-black dark:text-white">{row.original.ipAddress}</div>
+            <div className="text-black dark:text-color-text-primary">{row.original.location}</div>
           </div>
         ),
+        maxSize: 90,
       },
       {
         accessorKey: 'action',
         header: 'Action',
         maxSize: 80,
         cell: ({ row }) => (
-          <div className="text-color-primary" role="button" onClick={() => handleRemoveUserSession(row.original.id)}>
-            {t('setting:remove')}
-          </div>
+          <>
+            {row.original.active ? (
+              <div className="text-color-primary">{t('setting:inUser')}</div>
+            ) : (
+              <div
+                className="text-color-primary"
+                role="button"
+                aria-disabled={row.original.active}
+                onClick={() => handleRemoveUserSession(row.original.id)}
+              >
+                {t('setting:remove')}
+              </div>
+            )}
+          </>
         ),
       },
     ];
-  }, [i18n.language]);
+  }, [i18n.language, width]);
 
   const handleRemoveUserSession = async (sessionId: string) => {
     try {

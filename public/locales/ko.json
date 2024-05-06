@@ -1668,7 +1668,8 @@
     "verificationVerified": "기본 검증이 완료되었습니다",
     "verificationPending": "기본 확인 대기 중",
     "verifyCodeHeader": "다음 주소로 인증 코드가 전송되었습니다. {{code}}, 아래 6자리 코드를 입력하세요.",
-    "remove": "제거하다"
+    "remove": "제거하다",
+    "inUser": "사용자"
   },
   "wagerContest": {
     "history": "역사",

@@ -1668,7 +1668,8 @@
     "verificationVerified": "मूल सत्यापन सत्यापित",
     "verificationPending": "बुनियादी सत्यापन लंबित",
     "verifyCodeHeader": "हमने एक सत्यापन कोड भेज दिया है {{code}}, कृपया नीचे 6-अंकीय कोड दर्ज करें:",
-    "remove": "निकालना"
+    "remove": "निकालना",
+    "inUser": "उपयोगकर्ता में"
   },
   "wagerContest": {
     "history": "इतिहास",
