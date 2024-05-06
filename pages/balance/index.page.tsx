@@ -106,7 +106,7 @@ const BalancePage = () => {
       <Head>
         <title>Balance - Bonenza</title>
       </Head>
-      <div className="flex items-center justify-between dark:bg-color-modal-bg-secondary bg-white">
+      <div className="flex items-center justify-between bg-white dark:bg-color-modal-bg-secondary">
         <div className="flex items-center justify-start gap-[15px] w-full">
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
           <div className="flex sm:flex-row flex-col items-center justify-start md:gap-[40px] gap-[15px] flex-1">
@@ -143,11 +143,11 @@ const BalancePage = () => {
               />
             </Switch>
           </div>
-          <div className="flex flex-1 justify-end">
+          <div className="flex justify-end flex-1">
             <div className="relative">
               <input
                 className={cn(
-                  'sm:pl-[50px] pl-[40px] w-full max-w-[250px] dark:text-white text-color-light-text-primary sm:text-default text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-[#4D545C] outline-none pointer-events-auto',
+                  'sm:pl-[50px] pl-[40px] w-full max-w-[250px] dark:text-white text-color-light-text-primary sm:text-default text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-white outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
@@ -163,7 +163,7 @@ const BalancePage = () => {
         </div>
 
         {!!filterListCrypto?.length && (
-          <div className="w-full flex flex-col justify-start items-start">
+          <div className="flex flex-col items-start justify-start w-full">
             <div className="text-default dark:text-[#C2C2C2] text-color-light-text-primary mb-[10px]">
               {t('balance:cryptoCurrency')}
             </div>
@@ -183,8 +183,9 @@ const BalancePage = () => {
                         e.currentTarget.src = '/img/fiats/USDT.png';
                       }}
                     />
-                    <div className="flex-1 text-start text-default font-bold dark:text-white text-black">
+                    <div className="flex-1 font-bold text-black text-start text-default dark:text-white">
                       {item.name}
+                      <span className="ml-[5px] text-[12px] text-gray-400">{item.alias}</span>
                     </div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-color-primary font-normal">
@@ -197,7 +198,7 @@ const BalancePage = () => {
                           {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                         {item.name.toLowerCase() === 'usdt' && (
-                          <div className="mt-1 flex justify-end text-color-secondary">
+                          <div className="flex justify-end mt-1 text-color-secondary">
                             <div
                               role="button"
                               className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2 text-[10px]"
@@ -223,7 +224,7 @@ const BalancePage = () => {
                           {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
                         </div>
                         {item.name.toLowerCase() === 'usdt' && (
-                          <div className="mt-1 flex justify-end text-color-secondary">
+                          <div className="flex justify-end mt-1 text-color-secondary">
                             <div
                               className="w-fit flex items-center justify-end dark:bg-white/20 bg-black/10 px-1 rounded gap-2 text-[10px]"
                               onClick={() => dispatch(changeIsShowRakeBack(true))}
@@ -282,7 +283,7 @@ const BalancePage = () => {
                         e.currentTarget.src = '/img/fiats/USD.png';
                       }}
                     />
-                    <div className="text-default font-bold dark:text-white text-black">{item.name}</div>
+                    <div className="font-bold text-black text-default dark:text-white">{item.name}</div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-color-primary font-normal">
                     {viewInFiat ? (
