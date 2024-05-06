@@ -269,10 +269,10 @@ export default function RewardDropdown() {
 
         {bonuses.length == 0 && (
           <Link
-            className="block dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
+            className="block dark:hover:bg-color-hover-primary w-[44px] hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black p-[10px] max-[400px]:px-0 rounded-md"
             href={ROUTER.Bonus}
           >
-            <Gift width={18} height={18} variant="Bold" />
+            <Gift width={18} height={18} variant="Bold" className="m-auto" />
           </Link>
         )}
       </>
