@@ -77,7 +77,7 @@ const SettingSession = () => {
     try {
       setIsLoading(true);
       const res = await api_deleteSession(sessionId);
-      getListUserSessions(limit, page);
+      getListUserSessions();
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
@@ -91,45 +91,40 @@ const SettingSession = () => {
     let newPage: number;
     newPage = action === 'Next' ? page + 1 : action === 'Prev' ? page - 1 : +action;
     setPage(newPage);
-    getListUserSessions(newPage);
   };
 
   const handleChangeItemPerPage = (itemPerPage: number) => {
     setLimit(itemPerPage);
     setPage(1);
-    getListUserSessions(itemPerPage, 1);
   };
 
-  const getListUserSessions = useCallback(
-    async (itemPerPage: number, sessionPage: number = page) => {
-      try {
-        setIsLoading(true);
-        setDataTable([]);
-        setTotalRows(0);
-        const _res = await api_getSessions(sessionPage, itemPerPage);
-        const tempSessions: SessionType[] = _res.data?.sessions?.map((item: any) => ({
-          lastUsedAt: new Date(item.lastUsedAt),
-          ipAddress: item.ipAddress ?? '',
-          location: item.location ?? '',
-          id: item.id ?? '',
-          browser: item.browser ?? '',
-          active: !!item.active,
-        }));
-        setPage(Number(_res.data?.page || 0));
-        setTotalRows(Number(_res.data?.totalCount || 0));
-        setDataTable(tempSessions);
-      } catch (error) {
-        setDataTable([]);
-      } finally {
-        setIsLoading(false);
-      }
-    },
-    [page, limit],
-  );
+  const getListUserSessions = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setDataTable([]);
+      setTotalRows(0);
+      const _res = await api_getSessions(page, limit);
+      const tempSessions: SessionType[] = _res.data?.sessions?.map((item: any) => ({
+        lastUsedAt: new Date(item.lastUsedAt),
+        ipAddress: item.ipAddress ?? '',
+        location: item.location ?? '',
+        id: item.id ?? '',
+        browser: item.browser ?? '',
+        active: !!item.active,
+      }));
+      setPage(Number(_res.data?.page || 0));
+      setTotalRows(Number(_res.data?.totalCount || 0));
+      setDataTable(tempSessions);
+    } catch (error) {
+      setDataTable([]);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [page, limit]);
 
   useEffect(() => {
-    getListUserSessions(limit, page);
-  }, []);
+    getListUserSessions();
+  }, [getListUserSessions]);
 
   return (
     <>
