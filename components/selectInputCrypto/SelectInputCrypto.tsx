@@ -60,7 +60,7 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
       <div>
         <div className="flex-1 flex justify-between items-center sm:gap-5 gap-2 dark:bg-[#161D26] font-semibold mt-5 py-[10px] px-[22px] text-white w-full text-[16px] rounded-[16px] bg-[#f5f6fa] outline-none">
           <CurrencyInput
-            className="outline-none bg-transparent ms:w-full dark:placeholder:text-[#53575C] placeholder:text-[#31373d] dark:text-white text-black h-full py-2"
+            className="outline-none bg-transparent ms:w-full dark:placeholder:text-color-text-primary placeholder:text-[#31373d] dark:text-white text-black h-full py-2"
             decimalsLimit={0}
             maxLength={15}
             size={15}
@@ -69,7 +69,7 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
           />
           <div
             role="button"
-            className="flex items-center gap-2 dark:bg-gray-700/50 bg-white py-2 px-2 dark:border border-0 border-solid border-gray-600 rounded"
+            className="flex items-center gap-2 px-2 py-2 bg-white border-0 border-gray-600 border-solid rounded dark:bg-gray-700/50 dark:border"
             onClick={() => setIsShowFiatModal(true)}
           >
             <div className="flex items-center gap-3">
@@ -78,12 +78,12 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
                 {coin?.symbol} <span className="font-[300] text-[12px] text-gray-400">{coin?.network}</span>
               </div>
             </div>
-            <ArrowDown2 className="dark:text-white text-black" />
+            <ArrowDown2 className="text-black dark:text-white" />
           </div>
         </div>
         {coin?.depositAddress && (
           <div className="text-[#C2C2C2] mt-3 text-left text-[12px]">
-            {t('deposit:yourWallet')}: <span className="dark:text-white text-black">{coin?.depositAddress}</span>
+            {t('deposit:yourWallet')}: <span className="text-black dark:text-white">{coin?.depositAddress}</span>
           </div>
         )}
       </div>
@@ -98,10 +98,10 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
           </Transition.Child>
           <div className="fixed inset-0 z-10">
-            <div className="flex min-h-full justify-center p-4 text-center items-center">
+            <div className="flex items-center justify-center min-h-full p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -112,7 +112,7 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
                 <Dialog.Panel className="bg-[#f5f6fa] text-black dark:text-white flex flex-col relative transform rounded-lg dark:bg-gray-800 text-left shadow-xl transition-all my-8 w-full max-w-5xl max-h-[80vh]">
-                  <Dialog.Title as="div" className="relative mb-2 px-4 pt-4">
+                  <Dialog.Title as="div" className="relative px-4 pt-4 mb-2">
                     <div className="text-[18px] text-black dark:text-white font-[600]">
                       {t('deposit:assetsPortfolio')}
                     </div>

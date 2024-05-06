@@ -51,7 +51,7 @@ import { useExchange } from '../hooks/useExchange';
 import { CookiesStorage } from '../libs/storage/cookie';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
-import { changeIsLoading, setIsNewMessage } from '../redux/reducers/common.reducer';
+import { setIsNewMessage } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
 
 function IndexPage() {
@@ -339,23 +339,23 @@ function IndexPage() {
                     className="absolute top-0 left-0 w-[646px] h-[120px]"
                     alt=""
                   />
-                  <div className="absolute top-12 left-12 right-6 bottom-10 flex">
-                    <div className="text-m_default w-1/3 pl-2">
+                  <div className="absolute flex top-12 left-12 right-6 bottom-10">
+                    <div className="w-1/3 pl-2 text-m_default">
                       <div className="text-[#0DFDE4] font-extrabold">{t('homePage:jackpotGrand')}</div>
                       <div className={styles.goldText}>$ {`500, 000.00`}</div>
                     </div>
-                    <div className="text-m_default w-1/3 pl-2">
+                    <div className="w-1/3 pl-2 text-m_default">
                       <div className="text-[#0DFDE4] font-extrabold">{t('homePage:jackpotMajor')}</div>
                       <div className={styles.goldText}>$ {`100, 000.00`}</div>
                     </div>
-                    <div className="text-m_default w-1/3 pl-2">
+                    <div className="w-1/3 pl-2 text-m_default">
                       <div className="text-[#0DFDE4] font-extrabold">{t('homePage:jackpotMinor')}</div>
                       <div className={styles.goldText}>$ {`50, 000.00`}</div>
                     </div>
                   </div>
                 </div> */}
                 {!isLogin && (
-                  <div className="text-start font-semibold">
+                  <div className="font-semibold text-start">
                     <div>
                       <span className="dark:text-white text-black sm:text-[20px] text-[14px] font-bold">
                         {String(t('homePage:signUpUpper'))} &{' '}
@@ -365,7 +365,7 @@ function IndexPage() {
                       </span>
                     </div>
                     <div className={'lg:text-[56px] sm:text-[45px] text-[24px] font-semibold mt-0 tracking-tighter'}>
-                      <span className="dark:text-white text-black font-bold">{String(t('homePage:upTo'))} </span>
+                      <span className="font-bold text-black dark:text-white">{String(t('homePage:upTo'))} </span>
                       <span className={`bg-gradient-text bg-clip-text text-transparent font-bold`}>
                         {currencyFormat1(20000 * exchangeRate, 2, String(localFiat?.name ?? 'USD'))}
                       </span>
@@ -454,7 +454,7 @@ function IndexPage() {
               <RecentBigWinComponent />
               {!isLogin && (
                 <>
-                  <div className="relative w-full sm:hidden block">
+                  <div className="relative block w-full sm:hidden">
                     <div className="flex justify-between items-center gap-[10px]">
                       <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">
                         {String(t('layout:casino'))}
@@ -479,7 +479,7 @@ function IndexPage() {
                 </>
               )}
               {isLogin && (
-                <div className="relative w-full sm:hidden block">
+                <div className="relative block w-full sm:hidden">
                   <div className="font-[600] dark:text-white text-[#000] text-m_title mb-4">
                     {String(t('layout:casino'))}
                   </div>
@@ -517,14 +517,14 @@ function IndexPage() {
                   src="/img/octopus.png"
                   width={20}
                   height={20}
-                  className="inset w-full object-cover hidden lg:block rounded-large"
+                  className="hidden object-cover w-full inset lg:block rounded-large"
                   alt=""
                 />
                 <Image
                   src="/img/mobile-octopus.png"
                   width={20}
                   height={20}
-                  className="inset w-full object-cover block lg:hidden rounded-large"
+                  className="block object-cover w-full inset lg:hidden rounded-large"
                   alt=""
                 />
                 <div className="absolute left-[8%] right-0 top-[10%] lg:top-[30%] bottom-[10%] flex flex-col justify-between">
@@ -552,12 +552,12 @@ function IndexPage() {
                 </div>
               </div>
 
-              <div className="relative w-full sm:block hidden">
+              <div className="relative hidden w-full sm:block">
                 <HomepageSession showIcon={false} isHome={true}>
                   <LatestBetRace />
                 </HomepageSession>
               </div>
-              <div className="relative w-full hidden sm:block">
+              <div className="relative hidden w-full sm:block">
                 <div
                   onClick={() => {
                     if (isLogin) dispatch(changeIsShowVipClubModal(true));
@@ -568,21 +568,21 @@ function IndexPage() {
                     src="/img/whale.png"
                     width={20}
                     height={20}
-                    className="hidden md:block w-full object-cover rounded-large"
+                    className="hidden object-cover w-full md:block rounded-large"
                     alt=""
                   />
                   <Image
                     src="/img/mobile-whale.png"
                     width={20}
                     height={20}
-                    className="block md:hidden w-full object-cover rounded-large"
+                    className="block object-cover w-full md:hidden rounded-large"
                     alt=""
                   />
                 </div>
               </div>
               <RecommendedGamesComponent listRecommendedGame={listRecommendedGame} />
               {isLogin && (
-                <div className="relative w-full sm:hidden block">
+                <div className="relative block w-full sm:hidden">
                   <div className="flex items-center gap-[10px]">
                     <div className="font-[600] dark:text-white text-[#000] text-default sm:text-m_title">
                       {String(t('casino:pickForYou'))}
@@ -612,15 +612,15 @@ function IndexPage() {
               <div className="">
                 <div className="sm:py-[35px] py-[20px] lg:flex gap-[60px] rounded-[15px]">
                   <div className="lg:w-[50%]">
-                    <div className="text-black dark:text-white text-default font-semibold ">
+                    <div className="font-semibold text-black dark:text-white text-default ">
                       {String(t('homePage:cryptoOnlineCasino'))}
                     </div>
                     <div
-                      className="text-color-text-secondary text-default mt-5 text-justify"
+                      className="mt-5 text-justify text-color-text-secondary text-default"
                       dangerouslySetInnerHTML={{ __html: String(t('homePage:casinosOnlineHaveNot')) }}
                     ></div>
                     <div
-                      className="text-color-text-secondary text-default mt-5 text-justify"
+                      className="mt-5 text-justify text-color-text-secondary text-default"
                       dangerouslySetInnerHTML={{ __html: String(t('homePage:playersAreAlways')) }}
                     ></div>
                     <div
@@ -634,16 +634,16 @@ function IndexPage() {
                     </div>
                   </div>
                   <div className="mt-[42px] lg:mt-0 lg:w-[50%] text-default">
-                    <div className="text-black dark:text-white text-center lg:text-left text-default font-semibold mb-5">
+                    <div className="mb-5 font-semibold text-center text-black dark:text-white lg:text-left text-default">
                       {String(t('homePage:helpUsImproveYourExperience'))}
                     </div>
                     <textarea
-                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-color-card-body-primary h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-[#53575C] placeholder:text-color-light-text-primary"
+                      className="rounded-[3px] dark:text-white bg-white shadow-[rgba(50,_50,_105,_0.15)_0px_2px_5px_0px,_rgba(0,_0,_0,_0.05)_0px_1px_1px_0px] dark:bg-color-card-body-primary h-[100px] max-[414px]:placeholder:text-[10px] focus:outline-none w-full text-color-text-secondary text-default p-[20px] resize-none placeholder:text-[13px] dark:placeholder:text-color-text-primary placeholder:text-color-light-text-primary"
                       placeholder={String(t('homePage:foundBug'))}
                       value={feedbackText}
                       onChange={(e) => setFeedbackText(e.target.value)}
                     />
-                    <div className="flex flex-col-reverse w-full lg:w-unset lg:flex-row items-center mt-5 gap-5">
+                    <div className="flex flex-col-reverse items-center w-full gap-5 mt-5 lg:w-unset lg:flex-row">
                       <div
                         className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
                         onClick={() => {
@@ -668,7 +668,7 @@ function IndexPage() {
                       <span className="text-default text-color-text-secondary mr-[10px]">
                         {String(t('homePage:orEmail'))}
                       </span>
-                      <a href="mailto:feedback@bonenza.com" className="text-default text-color-primary cursor-pointer">
+                      <a href="mailto:feedback@bonenza.com" className="cursor-pointer text-default text-color-primary">
                         feedback@bonenza.com
                       </a>
                     </div>

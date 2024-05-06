@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { ArrowDown2, Global } from 'iconsax-react';
 import Image from 'next/image';
@@ -9,7 +10,6 @@ import api from '@/api/api';
 import { useTranslation } from '@/base/config/i18next';
 import { MoonpayCurrencyType, MoonpayFiatType } from '@/base/types/common';
 
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import Loader from '../common/preloader/loader';
 import InputSearch from '../input/typing/InputSearch';
 
@@ -83,9 +83,9 @@ const SelectInputFiat = ({
       {isLoading && <Loader />}
       <div>
         <div className="flex-1 flex items-center gap-5 dark:bg-[#161D26] bg-[#f5f6fa] font-semibold mt-5 py-[10px] px-[22px] text-white w-full text-[16px] rounded-[16px] bg-[#161D26] outline-none">
-          <div className="flex-1 h-full flex text-start">
+          <div className="flex flex-1 h-full text-start">
             <CurrencyInput
-              className="flex-1 outline-none bg-transparent dark:placeholder:text-[#53575C] placeholder:text-[#31373d] dark:text-white text-black h-full py-2"
+              className="flex-1 outline-none bg-transparent dark:placeholder:text-color-text-primary placeholder:text-[#31373d] dark:text-white text-black h-full py-2"
               decimalsLimit={0}
               maxLength={15}
               onBlur={(event) => {
@@ -100,7 +100,7 @@ const SelectInputFiat = ({
           </div>
           <div
             role="button"
-            className="flex items-center gap-2 dark:bg-gray-700/50 bg-white py-2 px-2 dark:border border-0 border-solid border-gray-600 rounded min-w-fit"
+            className="flex items-center gap-2 px-2 py-2 bg-white border-0 border-gray-600 border-solid rounded dark:bg-gray-700/50 dark:border min-w-fit"
             onClick={() => setIsShowFiatModal(true)}
           >
             {activeMoonpayFiat ? (
@@ -118,7 +118,7 @@ const SelectInputFiat = ({
             ) : (
               <Global />
             )}
-            <ArrowDown2 size={20} className="dark:text-white text-black" />
+            <ArrowDown2 size={20} className="text-black dark:text-white" />
           </div>
         </div>
       </div>
@@ -133,10 +133,10 @@ const SelectInputFiat = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
           </Transition.Child>
           <div className="fixed inset-0 z-10">
-            <div className="flex min-h-full items-center justify-center p-4 text-center items-center p-0">
+            <div className="flex items-center justify-center min-h-full p-0 p-4 text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -147,7 +147,7 @@ const SelectInputFiat = ({
                 leaveTo="opacity-0 translate-y-4 translate-y-0 scale-95"
               >
                 <Dialog.Panel className="text-white flex flex-col relative transform rounded-lg bg-[#f5f6fa] dark:bg-gray-800 text-left shadow-xl transition-all my-8 w-full max-w-5xl max-h-[80vh]">
-                  <Dialog.Title as="div" className="relative mb-2 px-4 pt-4">
+                  <Dialog.Title as="div" className="relative px-4 pt-4 mb-2">
                     <div className="text-[18px] text-black dark:text-white font-[600]">{t('deposit:selectFiat')}</div>
                     <div
                       className="absolute bg-red-500 hover:opacity-70 dark:hover:bg-[#39B1C0] sm:top-[20px] top-[10px] sm:right-[20px] right-[10px] dark:sm:bg-[#20D4EB] rounded-md p-1 z-[10]"

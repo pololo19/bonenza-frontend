@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import Image from 'next/image';
-import { toast } from 'react-toastify';
-import CurrencyInput from 'react-currency-input-field';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Image from 'next/image';
+import React, { useState } from 'react';
+import CurrencyInput from 'react-currency-input-field';
 import { Controller, useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
-import { FiatType } from '@/base/types/common';
 import { useTranslation } from '@/base/config/i18next';
 import { currencyFormat } from '@/base/libs/utils';
-
+import { FiatType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import SelectFiat from '@/components/selectFiat/SelectFiat';
 
@@ -111,7 +110,7 @@ const WithdrawFiatComponent = () => {
             render={({ field }) => {
               return (
                 <CurrencyInput
-                  className="flex-1 px-5 w-full py-[16px] text-white w-full text-[16px] rounded dark:bg-[#161D26] bg-[#f5f6fa] placeholder:text-[#53575C] outline-none"
+                  className="flex-1 px-5 w-full py-[16px] text-white text-[16px] rounded dark:bg-[#161D26] bg-[#f5f6fa] placeholder:text-[#53575C] outline-none"
                   maxLength={15}
                   allowDecimals
                   placeholder={String(t('withdraw:withdrawAmount'))}
