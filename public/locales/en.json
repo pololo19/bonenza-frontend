@@ -1669,7 +1669,7 @@
     "verificationPending": "Basic Verification Pending",
     "verifyCodeHeader": "We’ve sent a verification code to {{code}}, please enter the 6-digit code below:",
     "remove": "Remove",
-    "inUser": "In User"
+    "inUse": "In Use"
   },
   "wagerContest": {
     "history": "History",

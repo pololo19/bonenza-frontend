@@ -1669,7 +1669,7 @@
     "verificationPending": "基本验证待定",
     "verifyCodeHeader": "我们已将验证码发送至 {{code}}，请输入以下6位数字代码：",
     "remove": "消除",
-    "inUser": "在用户中"
+    "inUse": "正在使用"
   },
   "wagerContest": {
     "history": "历史",

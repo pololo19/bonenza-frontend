@@ -162,7 +162,8 @@ var Sg;
   function detectLaunchTypeDeprecated(target, lo, callbacks) {
     var uri = gameURLFromOptions(lo);
     if (isMobileDeprecated()) {
-      return (win.location = uri);
+      // return (win.location = uri);
+      return win.open(uri, '_blank');
     } else {
       return createIframe(target, uri, callbacks);
     }
@@ -201,7 +202,8 @@ var Sg;
     var lo = options.launch_options;
     switch (lo.strategy) {
       case 'redirect':
-        return (win.location = lo.game_url);
+        // return (win.location = lo.game_url);
+        return win.open(lo.game_url, '_blank');
       case 'iframe':
         return createIframe(target, gameURLFromOptions(lo), callbacks);
       case 'detect':

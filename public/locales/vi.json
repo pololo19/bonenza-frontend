@@ -1669,7 +1669,7 @@
     "verificationPending": "Đang chờ xác minh cơ bản",
     "verifyCodeHeader": "Chúng tôi đã gửi mã xác minh tới {{code}}, vui lòng nhập mã gồm 6 chữ số bên dưới:",
     "remove": "Di dời",
-    "inUser": "Trong người dùng"
+    "inUse": "Đang sử dụng"
   },
   "wagerContest": {
     "history": "Lịch sử",
