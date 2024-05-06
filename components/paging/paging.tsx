@@ -44,7 +44,7 @@ const Paging: React.FC<IProps> = ({
   }
   if (totalItem > 0)
     return (
-      <div className="flex flex-col sm:flex-row items-center justify-end p-[10px] gap-6 select-none">
+      <div className="w-full flex flex-wrap justify-center p-[10px] gap-6 select-none">
         {hiddenPerPage && (
           <Menu
             as="div"
