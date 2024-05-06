@@ -1669,7 +1669,7 @@
     "verificationPending": "Verifica di base in attesa",
     "verifyCodeHeader": "Abbiamo inviato un codice di verifica a {{code}}, inserisci il codice di 6 cifre qui sotto:",
     "remove": "Rimuovere",
-    "inUser": "Nell'utente"
+    "inUse": "In uso"
   },
   "wagerContest": {
     "history": "Storia",

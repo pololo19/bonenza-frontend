@@ -1669,7 +1669,7 @@
     "verificationPending": "Verificación básica pendiente",
     "verifyCodeHeader": "Hemos enviado un código de verificación a {{code}}, ingrese el código de 6 dígitos a continuación:",
     "remove": "Eliminar",
-    "inUser": "En usuario"
+    "inUse": "En uso"
   },
   "wagerContest": {
     "history": "Historia",

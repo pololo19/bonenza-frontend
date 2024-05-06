@@ -1669,7 +1669,7 @@
     "verificationPending": "基本検証保留中",
     "verifyCodeHeader": "確認コードを送信しました {{code}}、以下の 6 桁のコードを入力してください。",
     "remove": "取り除く",
-    "inUser": "ユーザー内"
+    "inUse": "使用中で"
   },
   "wagerContest": {
     "history": "歴史",

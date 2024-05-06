@@ -1669,7 +1669,7 @@
     "verificationPending": "Grundlegende Verifizierung steht aus",
     "verifyCodeHeader": "Wir haben einen Bestätigungscode an gesendet {{code}}Bitte geben Sie den folgenden 6-stelligen Code ein:",
     "remove": "Entfernen",
-    "inUser": "Im Benutzer"
+    "inUse": "In Benutzung"
   },
   "wagerContest": {
     "history": "Geschichte",
