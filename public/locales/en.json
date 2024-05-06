@@ -2200,6 +2200,8 @@
       "requiredMail": "Please verify your email to activate this feature.",
       "validReferral": "The referral code isn't valid.",
       "notMatchedCredential": "Invalid Email or Password!",
+      "isNotMatchedPassword": "Invalid Password!",
+      "isNotMatchedEmail": "Invalid Email!",
       "notExistPassword": "Password isn't set.",
       "notMatched2FA": "Invalid two factor authenticate.",
       "notMatchedCurrentPassword": "Sorry, Invalid Old password. Please try again.",
