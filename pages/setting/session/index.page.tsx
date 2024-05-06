@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { api_deleteSession, api_getSessions } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
+import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
+import { formatDate } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { SessionType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
@@ -56,7 +58,11 @@ const SettingSession = () => {
             {row.original.active && (
               <div className={cn('w-[8px] h-[8px] rounded-full bg-color-primary blur-[1px]')}></div>
             )}
-            <div className="font-bold text-center">{row.original.active ? 'Online' : 'Offline'}</div>
+            <div className="font-bold text-center">
+              {row.original.active
+                ? 'Online'
+                : formatDate(row.original.lastUsedAt, DATE_TIME_SUBMIT_FORMAT_WITH_SECOND)}
+            </div>
           </div>
         ),
       },

@@ -324,7 +324,7 @@ function DashboardComponent() {
                   src="/img/affiliate/rewards.png"
                   alt=""
                 />
-                <div className="text-m_default sm:text-default mb-[15px] font-normal dark:text-white text-black">
+                <div className="text-m_default text-center px-1 sm:text-default mb-[15px] font-normal dark:text-white text-black">
                   {t('affiliate:totalRewardEarned')}
                 </div>
                 <div
@@ -340,7 +340,7 @@ function DashboardComponent() {
               <div className="min-w-[150px] flex flex-col justify-center items-center border-l border-solid border-color-primary">
                 <Image className="w-[80px] h-[80px]" height={50} width={50} src="/img/affiliate/friends.png" alt="" />
                 <div className="flex flex-col items-center">
-                  <div className="text-m_default sm:text-default mb-[15px] font-normal dark:text-white text-black">
+                  <div className="text-m_default text-center px-1 sm:text-default mb-[15px] font-normal dark:text-white text-black">
                     {t('affiliate:totalFriendsReferred')}
                   </div>
                   <div
@@ -434,7 +434,7 @@ function DashboardComponent() {
               {t('affiliate:liveRewards')}
             </div>
           </div>
-          <div className="flex w-full lg:flex-row flex-col gap-[30px] py-[20px] justify-start items-center rounded-default bg-white dark:bg-gradient-card-default mb-[40px] ">
+          <div className="flex w-full lg:flex-row flex-col gap-[30px] py-[35px] justify-start items-center rounded-default bg-white dark:bg-gradient-card-default mb-[40px] ">
             <div className="w-[80%] items-center border-b-[1px] dark:border-[#2b3139] border-[#EAECF3] border-r-1 lg:w-1/2 flex-col flex lg:flex-row  border-solid lg:border-b-[0px] lg:border-r-[1px]">
               <div className="mt-3 sm:mt-0 w-full mr-[0px] sm:mr-[20px] text-center my-auto">
                 <h5 className="mb-[10px] text-m_default sm:text-default dark:text-[#BCB7B1] text-[#43484E]">
