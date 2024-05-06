@@ -170,7 +170,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
             <div
               role="button"
               className={cn(
-                'flex items-center max-[435px]:max-w-[150px] sm:max-md:max-w-[150px] md:max-w-[200px] gap-2 py-2 px-2 w-full rounded',
+                'flex justify-center items-center max-[435px]:max-w-[150px] sm:max-md:max-w-[150px] md:max-w-[200px] gap-2 py-2 px-2 w-full rounded',
                 buttonClass,
               )}
             >
