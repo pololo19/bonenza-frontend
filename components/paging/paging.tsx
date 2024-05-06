@@ -141,6 +141,7 @@ const Paging: React.FC<IProps> = ({
         </div>
       </div>
     );
+  else return <div></div>;
 };
 
 export default Paging;
