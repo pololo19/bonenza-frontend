@@ -2183,6 +2183,8 @@
       "expiredToken": "টোকেনের মেয়াদ শেষ।",
       "requiredMail": "এই বৈশিষ্ট্য সক্রিয় করতে আপনার ইমেল যাচাই করুন.",
       "validReferral": "রেফারেল কোড বৈধ নয়।",
+      "isNotMatchedPassword": "অবৈধ পাসওয়ার্ড!",
+      "isNotMatchedEmail": "অবৈধ ইমেল!",
       "notMatchedCredential": "অবৈধ ইমেল বা পাসওয়ার্ড!",
       "notExistPassword": "পাসওয়ার্ড সেট করা নেই।",
       "notMatched2FA": "অবৈধ দুই ফ্যাক্টর প্রমাণীকরণ.",

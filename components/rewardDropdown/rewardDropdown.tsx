@@ -134,7 +134,7 @@ export default function RewardDropdown() {
       <>
         {bonuses.length > 0 && (
           <Popover className="h-full mr-[10px] relative w-auto rounded-default text-center aspect-square dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary">
-            {({ open }) => (
+            {({ open, close }) => (
               <>
                 <Popover.Button className="h-full">
                   <div
@@ -253,7 +253,7 @@ export default function RewardDropdown() {
                           </div>
                         ))}
                       </div>
-                      <Link href={ROUTER.Bonus}>
+                      <Link href={ROUTER.Bonus} onClick={close}>
                         <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary rounded-large border-color-light-border-primary justify-center">
                           {t('bonus:bonusDashboard')}
                           <ArrowRight2 size={16} />

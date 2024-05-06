@@ -2183,6 +2183,8 @@
       "expiredToken": "Token'ın süresi doldu.",
       "requiredMail": "Bu özelliği etkinleştirmek için lütfen e-posta adresinizi doğrulayın.",
       "validReferral": "Yönlendirme kodu geçerli değil.",
+      "isNotMatchedPassword": "Geçersiz şifre!",
+      "isNotMatchedEmail": "Geçersiz e-posta!",
       "notMatchedCredential": "Geçersiz e-posta veya şifre!",
       "notExistPassword": "Şifre ayarlanmadı.",
       "notMatched2FA": "Geçersiz iki faktörlü kimlik doğrulama.",
