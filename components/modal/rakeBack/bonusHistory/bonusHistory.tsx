@@ -113,7 +113,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
         cell: ({ row }) => (
           <div
             className={cn('font-bold text-[14px] flex justify-end gap-1 truncate text-center', {
-              'text-color-primary': row.original.amount >= 0,
+              'text-color-text-green': row.original.amount >= 0,
               'text-color-red': row.original.amount < 0,
             })}
           >

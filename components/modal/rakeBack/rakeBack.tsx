@@ -182,7 +182,7 @@ export default function ModalRakeBack({
                 </div>
               </div>
             </div>
-            <div className="h-[48px] mt-2 mb-5 px-6 py-[6px] dark:bg-[#24272B] bg-[#f5f6fa] rounded-[5px] flex items-center justify-between">
+            <div className="h-[48px] mt-2 mb-5 px-6 py-[6px] dark:bg-color-card-bg-default bg-[#f5f6fa] rounded-[5px] flex items-center justify-between">
               <div className="flex items-center gap-1 font-bold dark:text-color-text-primary text-color-light-text-primary">
                 <Lock size={12} variant="Bold" /> {t('deposit:locked')} USDT
               </div>
@@ -203,7 +203,7 @@ export default function ModalRakeBack({
               </div>
             </div>
             <div className="text-[14px] font-bold text-center">{t('deposit:howClaim')}</div>
-            <div className="rounded-[5px] dark:bg-[#24272B] bg-[#f5f6fa] p-4 text-[12px]  mb-4">
+            <div className="rounded-[5px] dark:bg-color-card-bg-default bg-[#f5f6fa] p-4 text-[12px]  mb-4">
               <p className="text-black dark:text-white">{t('deposit:unlockAmount')}</p>
               {requiredWagerAmount > 0 && (
                 <p className="mt-[14px]">
@@ -242,7 +242,7 @@ export default function ModalRakeBack({
               </div>
             </div>
             <div
-              className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-[#f5f6fa] min-w-[131px] max-w-fit m-auto dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
+              className="flex items-center gap-2 dark:bg-color-primary cursor-pointer bg-[#f5f6fa] min-w-[131px] max-w-fit m-auto dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
               onClick={() => handleClickModalHistory()}
             >
               USDT {t('deposit:bonusHistory')}
