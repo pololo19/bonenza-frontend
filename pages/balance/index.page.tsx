@@ -42,6 +42,7 @@ const BalancePage = () => {
     realUsdBalance,
     bonusUsdBalance,
     lockedAmount,
+    showFullNameCurrency,
   } = useSelector(
     (state: AppState) => ({
       localeFiat: state.common.localeFiat,
@@ -61,6 +62,7 @@ const BalancePage = () => {
       realUsdBalance: state.wallet.realBalance,
       bonusUsdBalance: state.wallet.bonusBalance,
       lockedAmount: state.wallet.lockedAmount,
+      showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
     }),
     shallowEqual,
   );
@@ -185,7 +187,7 @@ const BalancePage = () => {
                     />
                     <div className="flex-1 font-bold text-black text-start text-default dark:text-white">
                       {item.name}
-                      <span className="ml-[5px] text-[12px] text-gray-400">{item.alias}</span>
+                      {showFullNameCurrency && <div className="mt-[5px] text-[12px] text-gray-400">{item.alias}</div>}
                     </div>
                   </div>
                   <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-color-primary font-normal">
