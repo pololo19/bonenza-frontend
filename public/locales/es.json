@@ -353,6 +353,7 @@
     "jackpotMinor": "MENOR"
   },
   "sidebar": {
+    "dailyContest": "Concurso diario",
     "bonus": "Prima",
     "account": "Cuenta",
     "quest": "Búsqueda",
