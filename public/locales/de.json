@@ -353,6 +353,7 @@
     "jackpotMinor": "UNERHEBLICH"
   },
   "sidebar": {
+    "dailyContest": "Täglicher Wettbewerb",
     "bonus": "Bonus",
     "account": "Konto",
     "quest": "Suche",

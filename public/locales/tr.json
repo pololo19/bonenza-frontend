@@ -353,6 +353,7 @@
     "jackpotMinor": "KÜÇÜK"
   },
   "sidebar": {
+    "dailyContest": "Günlük Yarışma",
     "bonus": "Bonus",
     "account": "Hesap",
     "quest": "Görev",

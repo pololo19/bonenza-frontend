@@ -353,6 +353,7 @@
     "jackpotMinor": "미성년자"
   },
   "sidebar": {
+    "dailyContest": "일일 콘테스트",
     "bonus": "보너스",
     "account": "계정",
     "quest": "퀘스트",

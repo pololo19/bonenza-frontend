@@ -353,6 +353,7 @@
     "jackpotMinor": "ส่วนน้อย"
   },
   "sidebar": {
+    "dailyContest": "การแข่งขันรายวัน",
     "bonus": "โบนัส",
     "account": "บัญชี",
     "quest": "ภารกิจ",

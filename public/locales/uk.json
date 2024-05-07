@@ -353,6 +353,7 @@
     "jackpotMinor": "МІНОР"
   },
   "sidebar": {
+    "dailyContest": "Щоденний конкурс",
     "bonus": "Бонус",
     "account": "Обліковий запис",
     "quest": "Квест",
