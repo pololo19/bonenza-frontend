@@ -31,10 +31,11 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
   const { theme } = useTheme();
   const dispatch = useDispatch();
 
-  const { fiatArray, cryptoArray } = useSelector(
+  const { showFullNameCurrency, fiatArray, cryptoArray } = useSelector(
     (state: AppState) => ({
       fiatArray: state.wallet.fiatSymbols,
       cryptoArray: state.wallet.symbols,
+      showFullNameCurrency: state.auth.user.generalSetting.settingShowFullNameCrypto,
     }),
     shallowEqual,
   );
@@ -140,7 +141,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
           <div className="flex gap-4 items-center w-full pb-[10px] pt-[25px] px-5">
             <InputSearch
               value={searchInput}
-              className="!w-full border border-solid dark:border-transparent border-color-light-border-primary focus-within:border-color-primary dark:!bg-color-panel-bg-primary"
+              className="!w-full border border-solid dark:border-transparent border-color-light-border-primary focus-within:border-color-primary dark:!bg-color-input-primary"
               showClose={searchInput !== '' ? true : false}
               onClose={() => {
                 setSearchInput('');
@@ -160,7 +161,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               <div
                 onClick={() => setOpenTab(1)}
                 className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
-                  'dark:text-white dark:bg-color-active-secondary text-[#000] bg-color-light-active-primary font-bold':
+                  'dark:text-white dark:bg-color-input-hover-primary text-[#000] bg-color-light-active-primary font-bold':
                     openTab === 1,
                   'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
                     openTab !== 1,
@@ -194,7 +195,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               <div
                 onClick={() => setOpenTab(4)}
                 className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
-                  'dark:text-white dark:bg-color-active-secondary text-[#000]  bg-color-light-active-primary font-bold':
+                  'dark:text-white dark:bg-color-input-hover-primary text-[#000]  bg-color-light-active-primary font-bold':
                     openTab === 4,
                   'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
                     openTab !== 4,
@@ -240,7 +241,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                       <div className="flex-1 text-black dark:text-white text-start text-default">{coin.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
-                      {/* <span>{coin.alias}</span> */}
+                      {showFullNameCurrency && <span className="text-m_default">{coin.alias}</span>}
                       <Switch
                         id={`coin_${index}`}
                         checked={coin.favorite}
@@ -300,9 +301,11 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                       <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
                       <div className="flex-1 text-black text-start dark:text-white text-default">{coin.name}</div>
                     </div>
-                    <div className="flex items-center">
-                      <span>{coin.alias}</span>
-                    </div>
+                    {showFullNameCurrency && (
+                      <div className="flex items-center text-m_default">
+                        <span>{coin.alias}</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               {!!listCoinCrypto.length || !!listCoinFiat.length || (openTab === 4 && !!listCoinFavorite.length) || (
