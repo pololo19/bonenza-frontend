@@ -16,6 +16,7 @@ import Loader from '@/components/common/preloader/loader';
 import TableComponent from '@/components/table';
 
 import CommonModal from '../commonModal/commonModal';
+import { useWidth } from '@/base/hooks/useWidth';
 
 type ModalBonusDetailProps = {
   onClose: () => void;
@@ -28,6 +29,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
   const { t } = useTranslation('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
+  const width = useWidth();
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [bonusCategoriesValue, setbonusCategoriesValue] = useState({
@@ -172,20 +174,75 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
     }
   }, [getListTypeBonus, show, isLogin]);
 
-  const columns = useMemo(() => {
-    const columnsDefault: ColumnDef<BonusTransactionType>[] = [
+  const columns: ColumnDef<BonusTransactionType>[] = useMemo(() => {
+    if (width > 1024)
+      return [
+        {
+          accessorKey: 'actionType',
+          header: () => (
+            <div className="text-left text-[12px] text-color-text-primary font-normal">
+              {t('historyBonus:bonusType')}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div className="text-[14px] text-left dark:text-color-text-primary text-[#000] truncate">
+              {row.original.type}
+            </div>
+          ),
+          minSize: 50,
+          maxSize: 80,
+        },
+        {
+          accessorKey: 'amountClaimed',
+          header: () => (
+            <div className="text-center text-[12px] font-normal text-color-text-primary">
+              {t('historyBonus:amountClaimed')}
+            </div>
+          ),
+          cell: ({ row }) => (
+            <div className="font-bold text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
+              <Image
+                height={20}
+                width={20}
+                src={row.original.symbol ? `/img/fiats/${row.original.symbol}.png` : `/img/fiats/USDT.png`}
+                onError={(e) => {
+                  e.currentTarget.src = `/img/fiats/USDT.png`;
+                }}
+                alt=""
+              />
+              {viewInFiat
+                ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name)
+                : currencyFormat1(row.original.amount, 4, '', false)}
+            </div>
+          ),
+          minSize: 200,
+          maxSize: 200,
+        },
+        {
+          accessorKey: 'createdAt',
+          header: () => (
+            <div className="text-right text-[12px] text-color-text-primary font-normal">{t('historyBonus:time')}</div>
+          ),
+          cell: ({ row }) => (
+            <div className="text-color-text-primary truncate flex items-center justify-end gap-[5px]">
+              {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_MARKER)}
+            </div>
+          ),
+        },
+      ];
+    return [
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-left text-[12px] text-color-text-primary font-normal">{t('historyBonus:bonusType')}</div>
+          <div className="text-left text-m_default text-color-text-primary font-normal">
+            {t('historyBonus:bonusType')}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[14px] text-left dark:text-color-text-primary text-[#000] truncate">
+          <div className="w-full max-w-[100px] sm:max-w-max text-m_default sm:text-default text-left dark:text-color-text-primary text-[#000] truncate">
             {row.original.type}
           </div>
         ),
-        minSize: 50,
-        maxSize: 80,
       },
       {
         accessorKey: 'amountClaimed',
@@ -195,7 +252,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
           </div>
         ),
         cell: ({ row }) => (
-          <div className="font-bold text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
+          <div className="max-w-[80px] sm:max-w-max font-bold text-m_default sm:text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
             <Image
               height={20}
               width={20}
@@ -210,22 +267,21 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
               : currencyFormat1(row.original.amount, 4, '', false)}
           </div>
         ),
-        minSize: 200,
-        maxSize: 200,
       },
       {
         accessorKey: 'createdAt',
         header: () => (
-          <div className="text-right text-[12px] text-color-text-primary font-normal">{t('historyBonus:time')}</div>
+          <div className="text-right text-m_default sm:text-default text-color-text-primary font-normal">
+            {t('historyBonus:time')}
+          </div>
         ),
         cell: ({ row }) => (
-          <div className="text-color-text-primary truncate flex items-center justify-end gap-[5px]">
+          <div className="text-m_default sm:text-default min-w-[90px] sm:min-w-[200px] text-color-text-primary text-right flex items-center justify-end gap-[5px]">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_MARKER)}
           </div>
         ),
       },
     ];
-    return columnsDefault;
   }, [t, localFiat]);
 
   const handleChangePage = (action: string) => {
@@ -251,22 +307,24 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
           </div>
         }
       >
-        <div className="flex flex-col relative h-full dark:text-color-text-primary text-[#3137d] overflow-y-auto px-[20px] p-5 bg-color-light-bg-primary dark:bg-[#24262B]">
+        <div className="flex flex-col relative h-full dark:text-color-text-primary text-[#3137d] overflow-y-auto p-3 sm:p-5 bg-color-light-bg-primary dark:bg-color-modal-bg-default">
           {isLoading && <Loader />}
           <div className="">
-            <div className="dark:text-white text-black text-[16px] mb-3">{t('bonus:bonusCategories')}</div>
-            <div className="grid grid-cols-2 sm:grid-cols-5 p-4 pt-0 dark:bg-[#2D3035] bg-white">
+            <div className="dark:text-white text-black text-m_default sm:text-[16px] mb-3">
+              {t('bonus:bonusCategories')}
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-5 p-1 sm:p-4 pt-0 dark:bg-color-card-bg-default bg-white rounded-default">
               {bonusCategories
                 .filter((item) => item.show)
                 .map((item, index) => (
-                  <div key={index} className="text-[12px] mt-4">
+                  <div key={index} className="text-[12px] mt-1 sm:mt-4">
                     <div className="flex items-center">
                       <div className="w-[28px] h-[28px] flex items-center justify-center">
                         <Image src={item.img} width={21} height={21} alt="" />
                       </div>
                       <div className="truncate max-w-full">{item.title}</div>
                     </div>
-                    <div className="text-[14px] font-bold dark:text-white text-black pl-[6px]">
+                    <div className="text-m_default sm:text-[14px] font-bold dark:text-white text-black pl-[6px]">
                       {item.category === 'weekly_cashback' &&
                         (viewInFiat
                           ? currencyFormat1(bonusCategoriesValue.weeklyCashbackUsd * exchangeRate, 2, localFiat?.name)
@@ -296,11 +354,13 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
                 ))}
             </div>
           </div>
-          <div className="flex items-center gap-3 flex-wrap justify-between mt-5">
-            <div className="dark:text-white text-black text-[16px]">{t('bonus:bonusTransaction')}</div>
+          <div className="flex items-center gap-1 flex-wrap justify-between mt-2">
+            <div className="dark:text-white text-black text-m_default sm:text-[16px]">
+              {t('bonus:bonusTransaction')}
+            </div>
             <Menu
               as="div"
-              className="relative flex h-[40px] px-[20px] min-w-[200px] dark:bg-[#2D3035] bg-white rounded-[4px]"
+              className="relative flex h-[40px] px-[20px] min-w-[200px] dark:bg-color-input-primary bg-white rounded-[4px]"
             >
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
@@ -324,13 +384,13 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute dark:bg-[#17181b] bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
-                  <div className="py-1  dark:bg-[#17181b] bg-white">
+                <Menu.Items className="absolute dark:bg-color-menu-primary bg-white w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer">
+                  <div className="py-1  dark:bg-color-menu-primary bg-white">
                     {bonusCategories.map((bonus, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
                           <div
-                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-[#2d303566] hover:bg-[#f5f6fa]"
+                            className="flex items-center justify-start py-[10px] px-[20px] w-full dark:hover:bg-color-menu-secondary hover:bg-[#f5f6fa]"
                             role="button"
                             onClick={() => setTypeFilter(bonus.category)}
                           >
@@ -348,8 +408,8 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
               </Transition>
             </Menu>
           </div>
-          <div className="mt-2 mb-3 text-[14px]">{t('bonus:onlyTheLatest')}</div>
-          <div className="dark:bg-[#2D3035] bg-white p-3 pb-0">
+          <div className="mt-2 mb-3 text-[11px] sm:text-[14px]">{t('bonus:onlyTheLatest')}</div>
+          <div className="dark:bg-color-card-bg-secondary bg-white p-0 sm:p-3 pb-0">
             <TableComponent
               isExpanding={false}
               isLoading={isLoadingTable}

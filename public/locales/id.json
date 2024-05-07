@@ -2183,6 +2183,8 @@
       "expiredToken": "Token sudah habis masa berlakunya.",
       "requiredMail": "Harap verifikasi email Anda untuk mengaktifkan fitur ini.",
       "validReferral": "Kode referral tidak valid.",
+      "isNotMatchedPassword": "Kata sandi salah!",
+      "isNotMatchedEmail": "Email tidak valid!",
       "notMatchedCredential": "Email atau Kata Sandi Tidak Valid!",
       "notExistPassword": "Kata sandi belum disetel.",
       "notMatched2FA": "Otentikasi dua faktor tidak valid.",
