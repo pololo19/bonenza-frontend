@@ -78,6 +78,7 @@ export type ModalState = {
   isShowBonusDetail?: boolean;
   isShowDepositRule?: boolean;
   isShowSelfExclusion?: boolean;
+  isShowDailyContest?: boolean;
 };
 
 export type LoadingState = {
