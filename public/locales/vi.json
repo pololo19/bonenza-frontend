@@ -353,6 +353,7 @@
     "jackpotMinor": "NGƯỜI VỊ THÀNH NIÊN"
   },
   "sidebar": {
+    "dailyContest": "Cuộc thi hàng ngày",
     "bonus": "Thưởng",
     "account": "Tài khoản",
     "quest": "Nhiệm vụ",
@@ -2183,8 +2184,8 @@
       "expiredToken": "Mã thông báo đã hết hạn.",
       "requiredMail": "Vui lòng xác minh email của bạn để kích hoạt tính năng này.",
       "validReferral": "Mã giới thiệu không hợp lệ.",
-      "isNotMatchedPassword": "Mật khẩu không hợp lệ!",
-      "isNotMatchedEmail": "Email không hợp lệ!",
+      "notMatchedPassword": "Mật khẩu không hợp lệ!",
+      "notMatchedEmail": "Email không hợp lệ!",
       "notMatchedCredential": "Email hoặc mật khẩu không hợp lệ!",
       "notExistPassword": "Mật khẩu chưa được đặt.",
       "notMatched2FA": "Xác thực hai yếu tố không hợp lệ.",

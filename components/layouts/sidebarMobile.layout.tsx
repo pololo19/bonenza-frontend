@@ -13,6 +13,7 @@ import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowCasinoSearch,
+  changeIsShowDailyContest,
   changeIsShowMenuPannel,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
@@ -21,6 +22,7 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import CsrWrapper from '../CsrWrapper';
+import LiveCasinoIcon from '../icons/LiveCasinoIcon';
 
 const SidebarMobileLayout: React.FC = () => {
   const { t, i18n } = useTranslation('');
@@ -47,6 +49,7 @@ const SidebarMobileLayout: React.FC = () => {
             dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
             dispatch(changeIsShowAuthenticationModal(true));
           } else {
+            dispatch(changeIsShowMenuPannel(false));
             dispatch(changeIsShowVipClubModal(true));
           }
         },
@@ -130,20 +133,16 @@ const SidebarMobileLayout: React.FC = () => {
           <span className="dark:text-color-text-primary text-color-light-text-primary px-[12px] py-[5px] text-[12px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
             {t('layout:games')}
           </span>
-          {casinoGames.map((game, index) => (
-            <CsrWrapper key={index}>
-              <IconOption
-                title={String(t(game.title))}
-                href={game.href}
-                icon={game.icon}
-                classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
-                onClick={() => dispatch(changeIsShowMenuPannel(false))}
-              />
-            </CsrWrapper>
-          ))}
-        </ul>
-
-        <ul className="flex flex-col content-center list-none bg-white md:flex-col md:min-w-full dark:bg-color-hover-primary rounded-default">
+          <IconOption
+            title={String(t('sidebar:dailyContest'))}
+            href="#"
+            icon={LiveCasinoIcon}
+            onClick={() => {
+              dispatch(changeIsShowMenuPannel(false));
+              dispatch(changeIsShowDailyContest(true));
+            }}
+            classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+          />
           {initDatas.map((item, index) => (
             <CsrWrapper key={index}>
               <IconOption
@@ -152,6 +151,17 @@ const SidebarMobileLayout: React.FC = () => {
                 icon={item.icon}
                 onClick={item.onClick}
                 classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+              />
+            </CsrWrapper>
+          ))}
+          {casinoGames.map((game, index) => (
+            <CsrWrapper key={index}>
+              <IconOption
+                title={String(t(game.title))}
+                href={game.href}
+                icon={game.icon}
+                classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
+                onClick={() => dispatch(changeIsShowMenuPannel(false))}
               />
             </CsrWrapper>
           ))}

@@ -27,6 +27,7 @@ import {
   changeIsShowCasinoSearch,
   changeIsShowChatRule,
   changeIsShowCryptoOnlineModal,
+  changeIsShowDailyContest,
   changeIsShowDepositModal,
   changeIsShowDepositProgress,
   changeIsShowDepositRule,
@@ -107,6 +108,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalDailyContest from '../modal/dailyContest/dailyContest';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -198,6 +200,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowBonusDetail,
     isShowDepositRule,
     isShowSelfExclusion,
+    isShowDailyContest,
     isLoading,
   } = useSelector(
     (state: AppState) => ({
@@ -245,6 +248,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowBonusDetail: state.modal.isShowBonusDetail,
       isShowDepositRule: state.modal.isShowDepositRule,
       isShowSelfExclusion: state.modal.isShowSelfExclusion,
+      isShowDailyContest: state.modal.isShowDailyContest,
     }),
     shallowEqual,
   );
@@ -941,6 +945,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowSelfExclusion || false}
         onClose={() => dispatch(changeIsShowSelfExclusion(false))}
       />
+      <ModalDailyContest show={isShowDailyContest || false} onClose={() => dispatch(changeIsShowDailyContest(false))} />
     </>
   );
 };

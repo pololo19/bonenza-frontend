@@ -198,7 +198,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="text-m_default sm:text-default text-color-primary truncate sm:px-2 px-[5px] font-bold">
+          <div className="text-m_default sm:text-default text-color-text-green truncate sm:px-2 px-[5px] font-bold">
             {viewInFiat
               ? currencyFormat1(row.original.wageredUsd * exchangeRate, 8, localFiat?.name)
               : currencyFormat1(row.original.wageredUsd, 8)}
@@ -215,7 +215,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
         minSize: 30,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-m_default sm:text-default ">
-            <span className="text-color-primary font-bold">
+            <span className="text-color-text-green font-bold">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, 4, localFiat?.name)
                 : currencyFormat1(row.original.prizeUsd, 4)}

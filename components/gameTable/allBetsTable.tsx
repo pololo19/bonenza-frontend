@@ -201,7 +201,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           <div className={cn('flex items-center justify-end gap-[5px]  sm:p-2 p-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-color-primary': row.original.profitAmount >= 0,
+                'text-color-text-green': row.original.profitAmount >= 0,
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >

@@ -98,9 +98,12 @@ const SettingSession = () => {
         header: String(t('setting:browser')),
         cell: ({ row }) => (
           <div>
-            <div className="text-black dark:text-white">{row.original.browser}</div>
+            <div className="text-[13px] font-extrabold text-left text-black dark:text-white">
+              {row.original.browser}
+            </div>
+            <div className="font-extralight text-left text-black dark:text-white">{`${row.original.location} | ${row.original.ipAddress}`}</div>
             <div
-              className={cn('flex items-center justify-center gap-[10px]', {
+              className={cn('flex items-center justify-start gap-[10px]', {
                 'text-color-primary': row.original.active,
                 'dark:text-color-text-primary text-black': !row.original.active,
               })}
@@ -117,17 +120,6 @@ const SettingSession = () => {
           </div>
         ),
         minSize: 100,
-      },
-      {
-        accessorKey: 'ip',
-        header: String(t('setting:IPAddress')),
-        cell: ({ row }) => (
-          <div>
-            <div className="text-black dark:text-white">{row.original.ipAddress}</div>
-            <div className="text-black dark:text-color-text-primary">{row.original.location}</div>
-          </div>
-        ),
-        maxSize: 90,
       },
       {
         accessorKey: 'action',
@@ -209,7 +201,7 @@ const SettingSession = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="px-[12px] py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex flex-col items-start relative w-full">
+      <div className="px-1 sm:px-[12px] py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex flex-col items-start relative w-full">
         <div className="font-semibold text-default">{t('setting:sessionsUsedInPast')}</div>
         <TableComponent
           containerClassName="w-full mt-[30px]"

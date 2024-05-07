@@ -353,6 +353,7 @@
     "jackpotMinor": "KECIL"
   },
   "sidebar": {
+    "dailyContest": "Peraduan Harian",
     "bonus": "Bonus",
     "account": "Akaun",
     "quest": "Pencarian",
@@ -2183,8 +2184,8 @@
       "expiredToken": "Token telah tamat tempoh.",
       "requiredMail": "Sila sahkan e-mel anda untuk mengaktifkan ciri ini.",
       "validReferral": "Kod rujukan tidak sah.",
-      "isNotMatchedPassword": "Kata laluan tidak sah!",
-      "isNotMatchedEmail": "Email tidak sah!",
+      "notMatchedPassword": "Kata laluan tidak sah!",
+      "notMatchedEmail": "Email tidak sah!",
       "notMatchedCredential": "Email atau kata laluan tidak sah!",
       "notExistPassword": "Kata laluan tidak ditetapkan.",
       "notMatched2FA": "Pengesahan dua faktor tidak sah.",

@@ -90,7 +90,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                     <Image height={20} width={20} src={`/img/fiats/${detailsBet.betDetail.currency}.png`} alt="" />
                     <div
                       className={`text-[22px] font-bold ${
-                        Number(detailsBet.betDetail.profitAmount) >= 0 ? 'text-color-primary' : 'text-white'
+                        Number(detailsBet.betDetail.profitAmount) >= 0 ? 'text-color-text-green' : 'text-white'
                       }`}
                     >
                       {detailsBet.betDetail.profitAmount > 0 ? '+' : '-'}

@@ -78,7 +78,7 @@ export default function ModalDetailTransaction({
             <div
               className={cn('text-[22px]', {
                 'text-red-500': transaction.type === TRANSACTION_TYPE.Withdraw,
-                'text-color-primary': Number(transaction?.amount) >= 0,
+                'text-color-text-green': Number(transaction?.amount) >= 0,
                 'text-[#FD6E0B]': Number(transaction?.amount) < 0,
               })}
             >
@@ -112,7 +112,7 @@ export default function ModalDetailTransaction({
                       (transactionStatus?.toString() || '') === 'rejected' ||
                       (transactionStatus?.toString() || '') === 'failed' ||
                       (transactionStatus?.toString() || '') === 'not_started',
-                    'bg-color-primary':
+                    'bg-color-text-green':
                       (transactionStatus?.toString() || '') === 'done' ||
                       (transactionStatus?.toString() || '') === 'all' ||
                       (transactionStatus?.toString() || '') === 'complete' ||

@@ -252,7 +252,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
           </div>
         ),
         cell: ({ row }) => (
-          <div className="max-w-[80px] sm:max-w-max font-bold text-m_default sm:text-[14px] flex justify-center gap-1 dark:text-white text-[#000] truncate text-center">
+          <div className="max-w-[110px] sm:max-w-max font-bold text-m_default sm:text-[14px] flex justify-start gap-1 dark:text-white text-[#000] truncate text-center">
             <Image
               height={20}
               width={20}
@@ -282,7 +282,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         ),
       },
     ];
-  }, [t, localFiat]);
+  }, [t, localFiat, width]);
 
   const handleChangePage = (action: string) => {
     let newPage: number;

@@ -353,6 +353,7 @@
     "jackpotMinor": "MINEURE"
   },
   "sidebar": {
+    "dailyContest": "Concours quotidien",
     "bonus": "Prime",
     "account": "Compte",
     "quest": "Quête",
@@ -2183,8 +2184,8 @@
       "expiredToken": "Le jeton est expiré.",
       "requiredMail": "Veuillez vérifier votre adresse e-mail pour activer cette fonctionnalité.",
       "validReferral": "Le code de parrainage n'est pas valide.",
-      "isNotMatchedPassword": "Mot de passe incorrect!",
-      "isNotMatchedEmail": "Email invalide!",
+      "notMatchedPassword": "Mot de passe incorrect!",
+      "notMatchedEmail": "Email invalide!",
       "notMatchedCredential": "Email ou mot de passe invalide!",
       "notExistPassword": "Le mot de passe n'est pas défini.",
       "notMatched2FA": "Authentification à deux facteurs non valide.",

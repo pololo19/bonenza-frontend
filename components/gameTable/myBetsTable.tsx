@@ -193,7 +193,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           <div className={cn('flex items-center justify-end gap-[5px] p-2')}>
             <div
               className={cn('font-bold text-end truncate', {
-                'text-color-primary': row.original.profitAmount >= 0,
+                'text-color-text-green': row.original.profitAmount >= 0,
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}
             >

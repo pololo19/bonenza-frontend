@@ -353,6 +353,7 @@
     "jackpotMinor": "صغير"
   },
   "sidebar": {
+    "dailyContest": "المسابقة اليومية",
     "bonus": "علاوة",
     "account": "حساب",
     "quest": "بحث",
@@ -2183,8 +2184,8 @@
       "expiredToken": "انتهت صلاحية الرمز المميز.",
       "requiredMail": "يرجى التحقق من بريدك الإلكتروني لتفعيل هذه الميزة.",
       "validReferral": "رمز الإحالة غير صالح.",
-      "isNotMatchedPassword": "رمز مرور خاطئ!",
-      "isNotMatchedEmail": "بريد إلكتروني خاطئ!",
+      "notMatchedPassword": "رمز مرور خاطئ!",
+      "notMatchedEmail": "بريد إلكتروني خاطئ!",
       "notMatchedCredential": "البريد الإلكتروني أو كلمة السر خاطئة!",
       "notExistPassword": "لم يتم تعيين كلمة المرور.",
       "notMatched2FA": "المصادقة الثنائية غير صالحة.",

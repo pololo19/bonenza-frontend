@@ -353,6 +353,7 @@
     "jackpotMinor": "MENOR"
   },
   "sidebar": {
+    "dailyContest": "Concurso Diário",
     "bonus": "Bônus",
     "account": "Conta",
     "quest": "Busca",
@@ -2183,8 +2184,8 @@
       "expiredToken": "O token expirou.",
       "requiredMail": "Verifique seu e-mail para ativar este recurso.",
       "validReferral": "O código de referência não é válido.",
-      "isNotMatchedPassword": "Senha inválida!",
-      "isNotMatchedEmail": "E-mail inválido!",
+      "notMatchedPassword": "Senha inválida!",
+      "notMatchedEmail": "E-mail inválido!",
       "notMatchedCredential": "E-mail ou senha inválidos!",
       "notExistPassword": "A senha não está definida.",
       "notMatched2FA": "Autenticação de dois fatores inválida.",

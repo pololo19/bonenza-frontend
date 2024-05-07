@@ -353,6 +353,7 @@
     "jackpotMinor": "ส่วนน้อย"
   },
   "sidebar": {
+    "dailyContest": "การแข่งขันรายวัน",
     "bonus": "โบนัส",
     "account": "บัญชี",
     "quest": "ภารกิจ",
@@ -2183,8 +2184,8 @@
       "expiredToken": "โทเค็นหมดอายุแล้ว",
       "requiredMail": "โปรดยืนยันอีเมลของคุณเพื่อเปิดใช้งานคุณสมบัตินี้",
       "validReferral": "รหัสอ้างอิงไม่ถูกต้อง",
-      "isNotMatchedPassword": "รหัสผ่านไม่ถูกต้อง!",
-      "isNotMatchedEmail": "อีเมลไม่ถูกต้อง!",
+      "notMatchedPassword": "รหัสผ่านไม่ถูกต้อง!",
+      "notMatchedEmail": "อีเมลไม่ถูกต้อง!",
       "notMatchedCredential": "อีเมลหรือรหัสผ่านไม่ถูกต้อง!",
       "notExistPassword": "ยังไม่ได้ตั้งรหัสผ่าน",
       "notMatched2FA": "การตรวจสอบสิทธิ์แบบสองปัจจัยไม่ถูกต้อง",

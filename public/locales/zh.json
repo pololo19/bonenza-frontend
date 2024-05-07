@@ -353,6 +353,7 @@
     "jackpotMinor": "次要的"
   },
   "sidebar": {
+    "dailyContest": "每日竞赛",
     "bonus": "奖金",
     "account": "帐户",
     "quest": "寻求",
@@ -2183,8 +2184,8 @@
       "expiredToken": "令牌已过期。",
       "requiredMail": "请验证您的电子邮件以激活此功能。",
       "validReferral": "推荐代码无效。",
-      "isNotMatchedPassword": "无效的密码！",
-      "isNotMatchedEmail": "不合规电邮！",
+      "notMatchedPassword": "无效的密码！",
+      "notMatchedEmail": "不合规电邮！",
       "notMatchedCredential": "无效的电子邮件或密码！",
       "notExistPassword": "密码未设置。",
       "notMatched2FA": "二因素身份验证无效。",

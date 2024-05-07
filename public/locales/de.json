@@ -353,6 +353,7 @@
     "jackpotMinor": "UNERHEBLICH"
   },
   "sidebar": {
+    "dailyContest": "Täglicher Wettbewerb",
     "bonus": "Bonus",
     "account": "Konto",
     "quest": "Suche",
@@ -2183,8 +2184,8 @@
       "expiredToken": "El token ha caducado.",
       "requiredMail": "Verifique su correo electrónico para activar esta función.",
       "validReferral": "El código de referencia no es válido.",
-      "isNotMatchedPassword": "Ungültiges Passwort!",
-      "isNotMatchedEmail": "Ungültige E-Mail!",
+      "notMatchedPassword": "Ungültiges Passwort!",
+      "notMatchedEmail": "Ungültige E-Mail!",
       "notMatchedCredential": "Correo electrónico o contraseña no válidos!",
       "notExistPassword": "La contraseña no está establecida.",
       "notMatched2FA": "Autenticación de dos factores no válida.",
