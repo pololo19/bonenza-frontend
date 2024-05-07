@@ -161,6 +161,12 @@ export function getErrorMesssage1(errorType: string) {
     case 'isNotMatchededCredential':
       message = 'errors:auth:notMatchedCredential';
       break;
+    case 'isNotMatchedPassword':
+      message = 'errors:auth:notMatchedPassword';
+      break;
+    case 'isNotMatchedEmail':
+      message = 'errors:auth:notMatchedEmail';
+      break;
     case 'isNotExistPassword':
       message = 'errors:auth:notExistPassword';
       break;
