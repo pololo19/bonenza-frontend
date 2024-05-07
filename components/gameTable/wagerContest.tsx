@@ -315,7 +315,7 @@ const WagerContestComponent = () => {
         ),
         minSize: 30,
         cell: ({ row }) => (
-          <div className="text-color-primary truncate sm:px-2 px-[5px] font-bold text-default">
+          <div className="text-color-text-green truncate sm:px-2 px-[5px] font-bold text-default">
             {viewInFiat
               ? currencyFormat1(row.original.wageredAmountUsd * exchangeRate, 8, localFiat?.name)
               : currencyFormat1(row.original.wageredAmountUsd, 8)}
@@ -332,7 +332,7 @@ const WagerContestComponent = () => {
         minSize: 30,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-default">
-            <span className="text-color-primary font-bold">
+            <span className="text-color-text-green font-bold">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
                 : currencyFormat1(row.original.prizeAmountUsd, 4)}
@@ -520,7 +520,7 @@ const WagerContestComponent = () => {
                         }}
                         alt=""
                       />
-                      <span className="text-color-primary ml-1 font-bold">
+                      <span className="text-color-text-green ml-1 font-bold">
                         {viewInFiat
                           ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
                           : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
@@ -616,7 +616,7 @@ const WagerContestComponent = () => {
           </p>
         </div>
         <div
-          className="flex items-center gap-2 dark:bg-[#25262B] cursor-pointer bg-color-light-bg-primary mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
+          className="flex items-center gap-2 dark:bg-color-btn-primary cursor-pointer bg-color-light-bg-primary mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
           onClick={() => {
             dispatch(changeIsShowWagerContestHistory(true));
           }}
