@@ -176,7 +176,7 @@ const ChattingComponent = () => {
           </div>
         </div>
         <div
-          className="flex flex-col max-h-[calc(100vh_-_240px)] min-h-[calc(100vh_-_240px)] sm:max-h-[calc(100vh_-_70px)] sm:min-h-[calc(100vh_-_70px)] bg-black overflow-y-auto"
+          className="flex flex-col max-h-[calc(100vh_-_130px)] min-h-[calc(100vh_-_130px)] sm:max-h-[calc(100vh_-_70px)] sm:min-h-[calc(100vh_-_70px)] bg-black overflow-y-auto"
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
