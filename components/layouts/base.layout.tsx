@@ -67,7 +67,7 @@ import {
   updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetTableDataType, FiatType, MessageType } from '@/base/types/common';
+import { BetTableDataType, MessageType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
@@ -80,6 +80,7 @@ import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
 import ModalChatRules from '../modal/chatRules/chatRules';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
+import ModalDailyContest from '../modal/dailyContest/dailyContest';
 import ModalDepositBonusRules from '../modal/depositBonusRules/depositBonusRules';
 import ModalDeposit from '../modal/depositModal/depositModal';
 import ModalDepositProgress from '../modal/depositModal/depositProgress';
@@ -108,7 +109,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import ModalDailyContest from '../modal/dailyContest/dailyContest';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -610,7 +610,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isLoading ? (
         <Loader isHomePage />
       ) : (
-        <div className="min-h-screen h-full w-full overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
+        <div className="w-full h-full min-h-screen overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
           {isToggleSidebar && (
             <div
               className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0  dark:bg-black/60 z-[20]"
@@ -672,21 +672,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 <ScrollToTop />
               </div>
 
-              {showChatType && (
-                <div
-                  className={cn(
-                    '2xl:relative fixed inset-0 right-0 h-screen mt-0 sm:-mt-[70px] z-10 duration-500 drop-shadow-md',
-                    'transition-all duration-200 ease-in',
-                    {
-                      'translate-x-0 md:opacity-100 scale-100': showChatType,
-                      'translate-x-[110%] sm:scale-100 md:opacity-0 md:translate-x-0 md:scale-0': !showChatType,
-                      'w-full': showFullChat,
-                    },
-                  )}
-                >
-                  <ChattingComponent />
-                </div>
-              )}
+              <div
+                className={cn(
+                  '2xl:relative fixed right-0 sm:max-h-screen max-h-[calc(100vh_-_150px)] mt-0 top-[130px] bottom-[60px] sm:bottom-0 sm:top-0 2xl:-mt-[70px] z-10 duration-500 drop-shadow-md ',
+                  'transition-transform ease-in origin-bottom sm:origin-right',
+                  {
+                    'sm:translate-x-0 sm:translate-y-0 translate-y-0 w-auto': showChatType,
+                    'sm:translate-x-full sm:translate-y-0 translate-y-full w-0': !showChatType,
+                    'w-full': showFullChat,
+                  },
+                )}
+              >
+                <ChattingComponent />
+              </div>
 
               {/*Start footer navigator */}
               <SidebarMobileLayout />
@@ -694,9 +692,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               <div
                 className={cn(
                   'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-[#f5f6fa] shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0',
-                  {
-                    hidden: showChatType,
-                  },
+                  // {
+                  //   hidden: showChatType,
+                  // },
                 )}
               >
                 <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
@@ -704,6 +702,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     role="button"
                     onClick={() => {
                       if (!isShowSidebar) dispatch(changeIsShowCasinoSearch(false));
+                      dispatch(changeShowChatType(false));
                       dispatch(changeIsShowMenuPannel(!isShowSidebar));
                       if (!isShowSidebar) {
                         setIsShowMobileSubMenu(true);
@@ -780,6 +779,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     onClick={() => {
                       dispatch(changeIsShowAccountPannel(!isShowAccount));
                       if (!isShowAccount) {
+                        dispatch(changeShowChatType(false));
                         dispatch(changeIsShowMenuPannel(false));
                         setIsShowMobileSubMenu(false);
                       } else {
@@ -813,6 +813,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                       dispatch(changeIsShowMenuPannel(false));
                       dispatch(changeShowChatType(!showChatType));
                       dispatch(changeShowFullChat(!showFullChat));
+                      if (activeHrefsToMobileSubMenu.some((path) => router.route.includes(path))) {
+                        setIsShowMobileSubMenu(true);
+                      } else {
+                        setIsShowMobileSubMenu(false);
+                      }
                     }}
                   >
                     <div className="pt-2">
