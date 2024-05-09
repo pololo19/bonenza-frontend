@@ -145,7 +145,7 @@ export default function ModalRakeBack({
         }
       >
         <>
-          <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[30px] justify-between overflow-auto">
+          <div className="dark:text-color-text-primary text-color-light-text-primary flex-col flex gap-[10px] h-[calc(100%-60px)] p-[12px] pt-0 pb-[60px] sm:pb-3 justify-between overflow-auto">
             <div className="bg-[url('/img/rakeBackBg.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative">
               <div className="flex flex-col items-center justify-center h-full gap-[10px]">
                 <div className="flex flex-col items-center justify-center">
