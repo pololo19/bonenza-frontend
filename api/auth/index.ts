@@ -49,20 +49,20 @@ export const api_login = (data: LoginRequest) => {
   return api.post(API_AUTH_LOGIN, data);
 };
 
-export const api_loginWithGoogle = (code: string) => {
-  return api.post(API_AUTH_LOGIN_WITH_GOOGLE, { code });
+export const api_loginWithGoogle = (code: string, referralCode: string) => {
+  return api.post(API_AUTH_LOGIN_WITH_GOOGLE, { code, referralCode });
 };
 
-export const api_loginWithGooglePop = (clientId: string, token: string) => {
-  return api.post(API_AUTH_LOGIN_WITH_GOOGLE_TOP, { clientId, token });
+export const api_loginWithGooglePop = (token: string, referralCode: string) => {
+  return api.post(API_AUTH_LOGIN_WITH_GOOGLE_TOP, { token, referralCode });
 };
 
 export const api_loginWithTelegram = (data: any) => {
   return api.post(API_AUTH_LOGIN_WITH_TELEGRAM, data);
 };
 
-export const api_loginWithWallet = (address: string, signature: string) => {
-  return api.post(API_AUTH_LOGIN_WITH_WALLET, { address, signature });
+export const api_loginWithWallet = (address: string, signature: string, referralCode: string) => {
+  return api.post(API_AUTH_LOGIN_WITH_WALLET, { address, signature, referralCode });
 };
 
 export const api_verify = (data: VerifyCodeRequest) => {
