@@ -20,7 +20,6 @@ import {
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import Loader from '@/components/common/preloader/loader';
 import BaseLayout from '@/components/layouts/base.layout';
 
 import CardGeneralBonus from '../cards/cardGeneralBonus';
@@ -54,6 +53,7 @@ function BonusLoggedPage() {
         currentVipXP: 0,
         currentVipName: '',
         nextVipXP: 0,
+        bonus: 0,
       },
       weeklyCashBack: {
         bonus: 0,
@@ -211,6 +211,7 @@ function BonusLoggedPage() {
             currentVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.currentVipXp || 0),
             currentVipName: _res.data?.vipBonus?.levelUpRewards?.currentVipName || '',
             nextVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.nextVipXp || 0),
+            bonus: Number(_res.data?.bonusAmountUsd || 0),
           },
           weeklyCashBack: {
             bonus: Number(_res.data?.vipBonus?.weeklyCashBack?.bonusUsd || 0),
@@ -402,11 +403,11 @@ function BonusLoggedPage() {
                         <span>{bonusData.vip.levelUp.nextVipXP}</span>
                       </div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right">
-                        {totalData.bonusClaimedUsd === 0
+                        {bonusData.vip.levelUp.bonus === 0
                           ? '-'
                           : viewInFiat
-                          ? currencyFormat1(totalData.bonusClaimedUsd * exchangeRate, 2, localFiat?.name)
-                          : currencyFormat1(totalData.bonusClaimedUsd, 2)}
+                          ? currencyFormat1(bonusData.vip.levelUp.bonus * exchangeRate, 2, localFiat?.name)
+                          : currencyFormat1(bonusData.vip.levelUp.bonus, 2)}
                       </div>
                     </div>
                   </div>
