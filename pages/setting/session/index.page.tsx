@@ -71,15 +71,15 @@ const SettingSession = () => {
         },
         {
           accessorKey: 'action',
-          header: 'Action',
+          header: String(t('setting:action')),
           maxSize: 80,
           cell: ({ row }) => (
             <>
               {row.original.active ? (
-                <div className="text-color-primary">{t('setting:inUse')}</div>
+                <div className="text-color-text-green">{t('setting:inUse')}</div>
               ) : (
                 <div
-                  className="text-color-primary"
+                  className="text-color-red"
                   role="button"
                   aria-disabled={row.original.active}
                   onClick={() => handleRemoveUserSession(row.original.id)}
@@ -95,9 +95,9 @@ const SettingSession = () => {
     return [
       {
         accessorKey: 'browser',
-        header: String(t('setting:browser')),
+        header: () => <div className="text-left font-semibold pl-2">{String(t('setting:browser'))}</div>,
         cell: ({ row }) => (
-          <div>
+          <div className="pl-2">
             <div className="text-[13px] font-extrabold text-left text-black dark:text-white">
               {row.original.browser}
             </div>
@@ -123,15 +123,15 @@ const SettingSession = () => {
       },
       {
         accessorKey: 'action',
-        header: 'Action',
+        header: () => <div className="text-right font-semibold pr-2">{String(t('setting:action'))}</div>,
         maxSize: 80,
         cell: ({ row }) => (
           <>
             {row.original.active ? (
-              <div className="text-color-primary">{t('setting:inUse')}</div>
+              <div className="text-color-text-green text-right pr-2">{t('setting:inUse')}</div>
             ) : (
               <div
-                className="text-color-primary"
+                className="text-color-red text-right pr-2"
                 role="button"
                 aria-disabled={row.original.active}
                 onClick={() => handleRemoveUserSession(row.original.id)}
