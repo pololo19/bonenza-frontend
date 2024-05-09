@@ -2,6 +2,7 @@ import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { WalletButton } from '@rainbow-me/rainbowkit';
 import { CodeResponse, useGoogleLogin } from '@react-oauth/google';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { ElementType, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi';
@@ -31,6 +32,9 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isHere, setIsHere] = useState(false);
+  const { query } = useRouter();
+  const { referral } = query;
   const { address, isConnected } = useAccount();
   const { disconnect } = useDisconnect();
   const { signMessageAsync } = useSignMessage();
@@ -38,7 +42,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   const googleLogin = async (codeResponse: Omit<CodeResponse, 'error' | 'error_description' | 'error_uri'>) => {
     try {
       setIsLoading(true);
-      const _Res = await api_loginWithGoogle(codeResponse.code);
+      const _Res = await api_loginWithGoogle(codeResponse.code, referral ? String(referral) : '');
       await onSuccessfullyLogined(_Res);
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
@@ -71,6 +75,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
           setIsLoading(false);
           return;
         }
+        data.referralCode = referral ? String(referral) : '';
         const _Res = await api_loginWithTelegram(data);
         await onSuccessfullyLogined(_Res);
         toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
@@ -99,7 +104,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       if (!isConnected) return;
       const message = getMessageMetamask(String(address));
       const signauture = await signMessageAsync({ message });
-      const _Res = await api_loginWithWallet(String(address), String(signauture));
+      const _Res = await api_loginWithWallet(String(address), String(signauture), referral ? String(referral) : '');
       await onSuccessfullyLogined(_Res);
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
@@ -147,10 +152,16 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
   };
 
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && isHere) {
       handleWallet();
     }
   }, [isConnected]);
+
+  useEffect(() => {
+    return () => {
+      setIsHere(false);
+    };
+  }, []);
   return (
     <>
       <div className="text-center text-white text-[14px] font-[600]">
@@ -175,7 +186,14 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
             <WalletButton.Custom wallet="metamask">
               {({ ready, connect }) => {
                 return (
-                  <button className="px-2 py-2 w-full text-white" disabled={!ready} onClick={connect}>
+                  <button
+                    className="px-2 py-2 w-full text-white"
+                    disabled={!ready}
+                    onClick={() => {
+                      setIsHere(true);
+                      connect();
+                    }}
+                  >
                     <Image height={30} width={30} src={'/img/icon/MetaMask.png'} alt="" className="inline w-[30px]" />
                   </button>
                 );
@@ -186,7 +204,14 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
             <WalletButton.Custom wallet="walletConnect">
               {({ ready, connect }) => {
                 return (
-                  <button className="px-2 py-2 w-full text-white" disabled={!ready} onClick={connect}>
+                  <button
+                    className="px-2 py-2 w-full text-white"
+                    disabled={!ready}
+                    onClick={() => {
+                      setIsHere(true);
+                      connect();
+                    }}
+                  >
                     <Image
                       height={30}
                       width={30}

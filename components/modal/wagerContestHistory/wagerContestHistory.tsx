@@ -10,12 +10,17 @@ import { api_wagerContestHistory } from '@/api/game';
 import { API_AVATAR } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
-import { changeIsShowInformation, changeIsShowWagerContestHistory } from '@/base/redux/reducers/modal.reducer';
+import {
+  changeIsShowDailyContest,
+  changeIsShowInformation,
+  changeIsShowWagerContestHistory,
+} from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import RankingTableComponent from '@/components/table/rankingTable';
 
 import CommonModal from '../commonModal/commonModal';
+import { useWidth } from '@/base/hooks/useWidth';
 
 type ModalWagerContestHistoryProps = {
   onClose: () => void;
@@ -36,6 +41,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
   const { t } = useTranslation();
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const dispatch = useAppDispatch();
+  const width = useWidth();
   const [wagerHistory, setWagerHistory] = useState<WagerContestHistoryItemType[]>([]);
   const [wagerData, setWagerData] = useState({
     currentTime: 0,
@@ -237,7 +243,10 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
   return (
     <CommonModal
       show={show}
-      onClose={onClose}
+      onClose={() => {
+        if (width < 640) dispatch(changeIsShowDailyContest(true));
+        onClose();
+      }}
       panelClass="rounded"
       header={
         <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">

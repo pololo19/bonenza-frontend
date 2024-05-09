@@ -25,7 +25,7 @@ export default function ModalDailyContest({ show, onClose }: DailyContestProps) 
         </div>
       }
     >
-      <div className="bg-color-modal-bg-secondary overflow-y-auto sm:p-5 sm:pt-6 px-3 pb-[80px]">
+      <div className="bg-color-modal-bg-secondary overflow-y-auto pt-4 sm:p-5 sm:pt-6 px-3 pb-[80px]">
         <WagerContestComponent />
       </div>
     </CommonModal>

@@ -1,6 +1,6 @@
 import { CredentialResponse, useGoogleOneTapLogin } from '@react-oauth/google';
 import { t } from 'i18next';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 
 import { api_loginWithGooglePop } from '@/api/auth';
@@ -14,16 +14,16 @@ import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 
 export default function LoginGoogleOneTap() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
+  const { query } = useRouter();
+  const { referral } = query;
   const dispatch = useAppDispatch();
 
   const googleLogin = async (credentialResponse: CredentialResponse) => {
     try {
       dispatch(changeIsLoading(true));
       const _res = await api_loginWithGooglePop(
-        String(credentialResponse.clientId),
         String(credentialResponse.credential),
+        referral ? String(referral) : '',
       );
       const { token, user } = _res.data;
       CookiesStorage.setAccessToken(token);
