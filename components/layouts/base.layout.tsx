@@ -674,7 +674,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
               <div
                 className={cn(
-                  '2xl:relative fixed right-0 sm:max-h-screen max-h-[calc(100vh_-_60px)] mt-0 top-0 bottom-[60px] sm:bottom-0 sm:top-0 2xl:-mt-[70px] z-10 drop-shadow-md ',
+                  '2xl:relative fixed right-0 max-h-screen mt-0 top-0 bottom-0 sm:bottom-0 sm:top-0 2xl:-mt-[70px] z-10 drop-shadow-md ',
                   'transition-transform origin-bottom sm:origin-right',
                   {
                     'sm:translate-x-0 sm:translate-y-0 translate-y-0 w-auto': showChatType,
@@ -692,9 +692,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               <div
                 className={cn(
                   'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-[#f5f6fa] shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0',
-                  // {
-                  //   hidden: showChatType,
-                  // },
+                  {
+                    hidden: showChatType,
+                  },
                 )}
               >
                 <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
