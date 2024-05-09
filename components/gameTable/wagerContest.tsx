@@ -17,6 +17,7 @@ import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
+  changeIsShowDailyContest,
   changeIsShowInformation,
   changeIsShowWagerContestHistory,
 } from '@/base/redux/reducers/modal.reducer';
@@ -357,15 +358,9 @@ const WagerContestComponent = () => {
 
   return (
     <>
-      <div className="flex gap-2 mb-3 flex-wrap">
-        <div className="rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-center flex gap-[12px] sm:gap-[1.5rem] lg:gap-[2rem] min-w-fit grow">
-          <Image
-            width={125}
-            height={110}
-            className="object-cover md:ml-3 w-full h-auto max-w-[108px] md:max-w-[125px]"
-            src="/img/cup.png"
-            alt=""
-          />
+      <div className="grid grid-cols-12 gap-2 mb-3 flex-wrap">
+        <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly flex gap-[12px] sm:gap-[1.5rem] lg:gap-[2rem] min-w-fit grow">
+          <Image width={125} height={110} className="object-cover md:ml-3 h-full" src="/img/cup.png" alt="" />
           <div className="flex">
             <div className="flex flex-col gap-2 justify-end">
               <span className="text-[14px] text-color-primary font-bold">{t('wagerContest:daily')}</span>
@@ -382,167 +377,179 @@ const WagerContestComponent = () => {
             </div>
           </div>
         </div>
-        <div
-          className={`min-[830px]:max-w-[380px] rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
-        >
-          <p className="text-color-text-primary text-center text-[14px]">
-            {userId ? t('wagerContest:timeRemaining') : t('wagerContest:timeRemainingBeforeLogin')}
-          </p>
-          {userId ? (
-            <>
-              {new Date(timeCoundown).getTime() - new Date().getTime() > 0 && (
-                <div className="flex gap-2">
-                  <Countdown
-                    date={timeCoundown}
-                    renderer={({ days, hours, minutes, seconds, completed }) => (
-                      <>
-                        <div
-                          className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-                        >
-                          <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(hours)}</p>
-                          <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
-                        </div>
-                        <div
-                          className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-                        >
-                          <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(minutes)}</p>
-                          <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
-                        </div>
-                        <div
-                          className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
-                        >
-                          <p className="font-bold text-[18px] dark:text-white text-[#000]">{Number(seconds)}</p>
-                          <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
-                        </div>
-                      </>
-                    )}
-                  />
-                </div>
-              )}
-              {new Date(timeCoundown).getTime() - new Date().getTime() < 0 && (
-                <div className="flex gap-2 text-color-primary font-bold text-[16px]">
-                  <p>{t('wagerContest:nextWagerComingSoon')}</p>
-                </div>
-              )}
-            </>
-          ) : (
-            <div
-              className="bg-[#F61B4F] h-[48px] hover:opacity-90 cursor-pointer max-w-[280px] rounded-[4px] text-white font-bold text-[14px] w-full flex items-center justify-center"
-              onClick={() => {
-                dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
-                dispatch(changeIsShowAuthenticationModal(true));
-              }}
-            >
-              {t('wagerContest:participateNow')}
-            </div>
-          )}
-        </div>
-        <div className={`rounded-[5px] relative ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 grow`}>
-          <Image
-            width={48}
-            height={48}
-            className="object-cover h-[3rem] w-[3rem] absolute left-0 top-0 rounded-full"
-            src="/img/icon/winner.png"
-            alt=""
-          />
+        <div className="col-span-12 lg:col-span-8 grid grid-cols-12 gap-2 ">
           <div
-            className={`dark:bg-color-card-body-primary bg-color-light-bg-primary h-full w-full ${styles.boxCenter} px-3`}
+            className={`col-span-5 min-[830px]:max-w-[380px] rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
           >
-            <div className="flex flex-col items-center w-full">
-              <div className="flex items-center gap-2 mb-[14px] w-full justify-center">
-                <Image
-                  width={16}
-                  height={13}
-                  className="object-cover h-[13px] w-[16px]"
-                  src="/img/icon/crown.png"
-                  alt=""
-                />
-                <span className="text-[12px] text-color-text-primary leading-[18px]">
-                  {t('wagerContest:lastChampion')}
-                </span>
+            <p className="text-color-text-primary text-center text-m_default sm:text-[14px]">
+              {userId ? t('wagerContest:timeRemaining') : t('wagerContest:timeRemainingBeforeLogin')}
+            </p>
+            {userId ? (
+              <>
+                {new Date(timeCoundown).getTime() - new Date().getTime() > 0 && (
+                  <div className="flex gap-2">
+                    <Countdown
+                      date={timeCoundown}
+                      renderer={({ days, hours, minutes, seconds, completed }) => (
+                        <>
+                          <div
+                            className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                          >
+                            <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
+                              {Number(hours)}
+                            </p>
+                            <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
+                          </div>
+                          <div
+                            className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                          >
+                            <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
+                              {Number(minutes)}
+                            </p>
+                            <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
+                          </div>
+                          <div
+                            className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                          >
+                            <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
+                              {Number(seconds)}
+                            </p>
+                            <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
+                          </div>
+                        </>
+                      )}
+                    />
+                  </div>
+                )}
+                {new Date(timeCoundown).getTime() - new Date().getTime() < 0 && (
+                  <div className="flex gap-2 text-color-primary font-bold text-[16px]">
+                    <p>{t('wagerContest:nextWagerComingSoon')}</p>
+                  </div>
+                )}
+              </>
+            ) : (
+              <div
+                className="bg-[#F61B4F] h-[48px] hover:opacity-90 cursor-pointer max-w-[280px] rounded-[4px] text-white font-bold text-[14px] w-full flex items-center justify-center"
+                onClick={() => {
+                  dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
+                  dispatch(changeIsShowAuthenticationModal(true));
+                }}
+              >
+                {t('wagerContest:participateNow')}
               </div>
-              <div className="flex justify-center gap-5 items-center w-full">
-                <div className="relative border-solid border-2 rounded-full border-color-secondary">
+            )}
+          </div>
+          <div
+            className={`col-span-7 sm:w-auto rounded-[5px] relative ${styles.boxCenter} h-[8.313rem] flex-col gap-4 grow`}
+          >
+            <Image
+              width={48}
+              height={48}
+              className="object-cover h-[3rem] w-[3rem] absolute left-0 top-0 rounded-full"
+              src="/img/icon/winner.png"
+              alt=""
+            />
+            <div
+              className={`rounded dark:bg-color-card-body-primary bg-color-light-bg-primary h-full w-full ${styles.boxCenter} px-3`}
+            >
+              <div className="flex flex-col items-center w-full">
+                <div className="flex items-center gap-2 mb-[14px] w-full justify-center">
                   <Image
                     width={16}
                     height={13}
-                    className="absolute -top-[13px] -translate-x-2/4 left-1/2 object-cover h-[13px] w-[16px]"
+                    className="object-cover h-[13px] w-[16px]"
                     src="/img/icon/crown.png"
                     alt=""
                   />
-                  {wagerHistory.playerId !== userId && !wagerHistory.playerName ? (
-                    <Image
-                      width={46}
-                      height={59}
-                      className="rounded-full grayscale brightness-50"
-                      src="/img/avatar-hidden.png"
-                      alt=""
-                    />
-                  ) : (
-                    <Image
-                      width={46}
-                      height={59}
-                      className="object-cover rounded-full"
-                      src={
-                        wagerHistory.playerAvatar ? `${API_AVATAR}${wagerHistory.playerAvatar}` : '/img/avatar-1.png'
-                      }
-                      alt=""
-                      onError={(e) => {
-                        e.currentTarget.src = '/img/avatar-1.png';
-                      }}
-                    />
-                  )}
+                  <span className="text-[12px] text-color-text-primary leading-[18px]">
+                    {t('wagerContest:lastChampion')}
+                  </span>
                 </div>
-                <div className="">
-                  <p
-                    className={cn('dark:text-white text-[#000] text-m_default sm:text-default', {
-                      'pointer-events-none': wagerHistory.playerId !== userId && !wagerHistory.playerName,
-                      'hover:underline cursor-pointer': !(wagerHistory.playerId !== userId && !wagerHistory.playerName),
-                    })}
-                    onClick={() => handleModalUserProfile(wagerHistory)}
-                  >
-                    {wagerHistory.playerId !== userId && !wagerHistory.playerName
-                      ? t('homePage:hidden')
-                      : wagerHistory.playerId === userId
-                      ? userName
-                      : wagerHistory.playerName}
-                  </p>
-                  <div className="text-[12px] leading-[18px] text-color-text-primary mt-3 gap-[3px] flex">
-                    <span>{t('wagerContest:profit')}</span>
-                    <div className="flex items-center gap-[3px] ml-2">
+                <div className="flex justify-center gap-2 sm:gap-5 items-center w-full">
+                  <div className="relative border-solid border-2 rounded-full border-color-secondary">
+                    <Image
+                      width={16}
+                      height={13}
+                      className="absolute -top-[13px] -translate-x-2/4 left-1/2 object-cover h-[13px] w-[16px]"
+                      src="/img/icon/crown.png"
+                      alt=""
+                    />
+                    {wagerHistory.playerId !== userId && !wagerHistory.playerName ? (
                       <Image
-                        width={16}
-                        height={16}
-                        className="object-cover w-[1rem] h-[1rem]"
-                        src={`/img/fiats/USDT.png`}
-                        onError={(e) => {
-                          e.currentTarget.src = '/img/fiats/USDT.png';
-                        }}
+                        width={46}
+                        height={59}
+                        className="max-w-[30px] max-h-[30px] rounded-full grayscale brightness-50"
+                        src="/img/avatar-hidden.png"
                         alt=""
                       />
-                      <span className="text-color-text-green ml-1 font-bold">
-                        {viewInFiat
-                          ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
-                          : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
-                      </span>
-                      <span className="dark:text-white text-[#000]">{`${wagerHistory.percentage}%`}</span>
+                    ) : (
+                      <Image
+                        width={46}
+                        height={59}
+                        className="max-w-[40px] max-h-[40px] object-cover rounded-full"
+                        src={
+                          wagerHistory.playerAvatar ? `${API_AVATAR}${wagerHistory.playerAvatar}` : '/img/avatar-1.png'
+                        }
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/avatar-1.png';
+                        }}
+                      />
+                    )}
+                  </div>
+                  <div className="">
+                    <p
+                      className={cn('dark:text-white text-[#000] text-m_default sm:text-default', {
+                        'pointer-events-none': wagerHistory.playerId !== userId && !wagerHistory.playerName,
+                        'hover:underline cursor-pointer': !(
+                          wagerHistory.playerId !== userId && !wagerHistory.playerName
+                        ),
+                      })}
+                      onClick={() => handleModalUserProfile(wagerHistory)}
+                    >
+                      {wagerHistory.playerId !== userId && !wagerHistory.playerName
+                        ? t('homePage:hidden')
+                        : wagerHistory.playerId === userId
+                        ? userName
+                        : wagerHistory.playerName}
+                    </p>
+                    <div className="flex flex-col sm:flex-row text-[12px] leading-[18px] text-color-text-primary mt-3 gap-2">
+                      <span>{t('wagerContest:profit')}</span>
+                      <div className="flex justify-start items-center gap-[2px]">
+                        <Image
+                          width={16}
+                          height={16}
+                          className="object-cover w-[1rem] h-[1rem]"
+                          src={`/img/fiats/USDT.png`}
+                          onError={(e) => {
+                            e.currentTarget.src = '/img/fiats/USDT.png';
+                          }}
+                          alt=""
+                        />
+                        <span className="text-color-text-green ml-1 font-bold text-[11px] sm:text-m_default">
+                          {viewInFiat
+                            ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
+                            : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
+                        </span>
+                        <span className="dark:text-white text-[#000]">{`(${wagerHistory.percentage}%)`}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
+                <QuestionMarkCircleIcon
+                  width={24}
+                  className="text-color-primary cursor-pointer object-cover h-[18px] sm:h-[24px] mt-3 w-[18px] sm:w-[24px] absolute top-0 right-[8px] sm:right-[16px]"
+                  role="button"
+                  data-tooltip-id={'fee-tooltip'}
+                  onClick={() => setIsShowWagerRules(true)}
+                />
               </div>
-              <QuestionMarkCircleIcon
-                width={24}
-                className="text-color-primary cursor-pointer object-cover h-[24px] mt-3 w-[24px] absolute top-0 right-[16px]"
-                role="button"
-                data-tooltip-id={'fee-tooltip'}
-                onClick={() => setIsShowWagerRules(true)}
-              />
             </div>
           </div>
         </div>
       </div>
       {userId && (
-        <div className="flex md:items-center flex-col md:flex-row md:px-4 p-2 md:h-[3.5rem] dark:bg-color-card-body-primary bg-color-light-bg-primary gap-y-4 text-color-text-primary text-[0.625rem]">
+        <div className="flex rounded md:items-center flex-col md:flex-row md:px-4 p-2 md:h-[3.5rem] dark:bg-color-card-body-primary bg-color-light-bg-primary gap-y-4 text-color-text-primary text-[0.625rem]">
           <div
             className={`flex ${styles.boxBorder} bg-transparent gap-3 w-full md:w-auto grow-[3] border-r items-center dark:border-color-border-primary border-color-light-border-primary`}
           >
@@ -607,8 +614,8 @@ const WagerContestComponent = () => {
           </div>
         </div>
       )}
-      <div className="text-[0.813rem] flex items-center justify-between">
-        <div className="flex  gap-4 mt-8 mb-4 items-center">
+      <div className="text-[0.813rem] my-4 flex items-center justify-between">
+        <div className="flex gap-4 items-center">
           <p className="dark:text-[#fff] text-[#000]">{t('wagerContest:active')}</p>
           <p className="dark:text-color-text-primary text-color-light-text-primary">
             {formatDate(new Date(wagerContestData.startTime), 'LL/dd/yyyy')} ~{' '}
@@ -616,8 +623,9 @@ const WagerContestComponent = () => {
           </p>
         </div>
         <div
-          className="flex items-center gap-2 dark:bg-color-btn-primary cursor-pointer bg-color-light-bg-primary mt-8 dark:text-white text-black text-[12px] font-bold px-[10px] py-2 rounded-[5px]"
+          className="flex items-center gap-2 dark:bg-color-card-bg-secondary cursor-pointer bg-color-light-bg-primary dark:text-white text-black text-[11px] sm:text-m_default font-bold px-[10px] py-1 sm:py-2 rounded-[5px]"
           onClick={() => {
+            dispatch(changeIsShowDailyContest(false));
             dispatch(changeIsShowWagerContestHistory(true));
           }}
         >
