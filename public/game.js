@@ -163,7 +163,11 @@ var Sg;
     var uri = gameURLFromOptions(lo);
     if (isMobileDeprecated()) {
       // return (win.location = uri);
-      return win.open(uri, '_blank');
+      const newWin = win.open(uri, '_blank');
+      if (newWin) {
+        newWin.opener = null;
+      }
+      return newWin;
     } else {
       return createIframe(target, uri, callbacks);
     }
@@ -203,7 +207,11 @@ var Sg;
     switch (lo.strategy) {
       case 'redirect':
         // return (win.location = lo.game_url);
-        return win.open(lo.game_url, '_blank');
+        const newWin = win.open(uri, '_blank');
+        if (newWin) {
+          newWin.opener = null;
+        }
+        return newWin;
       case 'iframe':
         return createIframe(target, gameURLFromOptions(lo), callbacks);
       case 'detect':
