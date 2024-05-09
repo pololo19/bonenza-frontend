@@ -152,7 +152,7 @@ const ChattingComponent = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-between flex-1 w-full bg-white dark:bg-color-bg-primary min-w-[100vw] sm:min-w-[330px]">
+      <div className="flex flex-col justify-between h-full w-full bg-white dark:bg-color-bg-primary min-w-[100vw] sm:min-w-[330px]">
         <div className="flex justify-between items-center h-[70px] z-[5] px-5 py-2 border-b-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
           <div className="text-[18px] text-black dark:text-[#ffffff] font-semibold">{t('chatting:chat')}</div>
           <div className="flex gap-[13px]">
@@ -176,11 +176,11 @@ const ChattingComponent = () => {
           </div>
         </div>
         <div
-          className="flex flex-col max-h-[calc(100vh_-_130px)] min-h-[calc(100vh_-_130px)] sm:max-h-[calc(100vh_-_70px)] sm:min-h-[calc(100vh_-_70px)] bg-black overflow-y-auto"
+          className="flex flex-col bg-black overflow-y-auto pb-[60px]"
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
-          <div className="flex w-full pb-[90px] my-[10px] justify-end gap-[20px] flex-col-reverse relative">
+          <div className="flex w-full my-[10px] justify-end gap-[20px] flex-col-reverse relative">
             {messages.map((message, index) => (
               <div className="w-full" key={index}>
                 <MessageBox

@@ -85,3 +85,7 @@ ul.react-paginate {
   content: 'Enter Message here...';
   color: #505D6A;
 }
+
+body {
+  min-height: -webkit-fill-available;
+}
