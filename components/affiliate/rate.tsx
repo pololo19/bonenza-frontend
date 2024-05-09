@@ -1,8 +1,8 @@
-import { useTranslation } from 'react-i18next';
-import Image from 'next/image';
-import { ArrowDown, ArrowDown2, Calculator } from 'iconsax-react';
 import { Menu } from '@headlessui/react';
+import { ArrowDown2, Calculator } from 'iconsax-react';
+import Image from 'next/image';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const friendVipData = [
   {
@@ -12,25 +12,25 @@ const friendVipData = [
     unlockAmount: '+ 0.50 $',
   },
   {
-    logo: '/img/bronze-medal.png',
+    logo: '/img/silver-medal.png',
     level: 'VIP 08',
     wagerAmount: '5000',
     unlockAmount: '+ 2.50 $',
   },
   {
-    logo: '/img/bronze-medal.png',
+    logo: '/img/silver-medal.png',
     level: 'VIP 14',
     wagerAmount: '17000',
     unlockAmount: '+ 5.00 $',
   },
   {
-    logo: '/img/bronze-medal.png',
+    logo: '/img/gold-medal.png',
     level: 'VIP 22',
     wagerAmount: '49000',
     unlockAmount: '+ 12.00 $',
   },
   {
-    logo: '/img/bronze-medal.png',
+    logo: '/img/gold-medal.png',
     level: 'VIP 30',
     wagerAmount: '129000',
     unlockAmount: '+ 25.00 $',
@@ -54,13 +54,13 @@ const friendVipData = [
     unlockAmount: '+ 120.00 $',
   },
   {
-    logo: '/img/platinum1-medal.png',
+    logo: '/img/platinum2-medal.png',
     level: 'VIP 62',
     wagerAmount: '4097000',
     unlockAmount: '+ 205.00 $',
   },
   {
-    logo: '/img/platinum1-medal.png',
+    logo: '/img/diamond1-medal.png',
     level: 'VIP 70',
     wagerAmount: '9217000',
     unlockAmount: '+ 500.00 $',
@@ -76,21 +76,21 @@ function RateAndRulesComponent() {
 
   return (
     <div className="w-full mt-5">
-      <div className="w-full flex flex-col lg:flex-row gap-4">
-        <div className="w-full flex flex-col gap-4">
+      <div className="flex flex-col w-full gap-4 lg:flex-row">
+        <div className="flex flex-col w-full gap-4">
           <div className="relative">
             <Image
               src="/img/affiliate/casino-rule-1.png"
               width={20}
               height={20}
-              className="w-full object-cover rounded-large"
+              className="object-cover w-full rounded-large"
               alt=""
             />
-            <div className="absolute top-0 left-0 right-0 bottom-0 py-6 px-10 flex flex-col gap-4 justify-center">
+            <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center gap-4 px-10 py-6">
               <div className="text-default lg:text-title">Live Casino</div>
-              <div className="text-m_default lg:text-default pl-4">
+              <div className="pl-4 text-m_default lg:text-default">
                 Wager * 1% *{' '}
-                <span className="text-color-text-green font-bold">{t('mycasino:commissionRate')} (7%)</span>
+                <span className="font-bold text-color-text-green">{t('mycasino:commissionRate')} (7%)</span>
               </div>
             </div>
           </div>
@@ -99,25 +99,25 @@ function RateAndRulesComponent() {
               src="/img/affiliate/casino-rule-2.png"
               width={20}
               height={20}
-              className="w-full object-cover rounded-large"
+              className="object-cover w-full rounded-large"
               alt=""
             />
-            <div className="absolute top-0 left-0 right-0 bottom-0 py-6 px-10 flex flex-col gap-4 justify-center">
+            <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center gap-4 px-10 py-6">
               <div className="text-default lg:text-title">Slot Game</div>
-              <div className="text-m_default lg:text-default pl-4">
+              <div className="pl-4 text-m_default lg:text-default">
                 Wager * 1% *{' '}
-                <span className="text-color-text-green font-bold">{t('mycasino:commissionRate')} (15%)</span>
+                <span className="font-bold text-color-text-green">{t('mycasino:commissionRate')} (15%)</span>
               </div>
             </div>
           </div>
         </div>
         <div className="flex flex-col gap-4 bg-gradient-card-default rounded-default min-w-[300px] p-6">
-          <div className="flex justify-start items-center gap-1">
+          <div className="flex items-center justify-start gap-1">
             <Calculator className="w-5 h-5" />
             {t('affiliate:commissionCalculator')}
           </div>
           <div className="grid grid-cols-2 gap-4">
-            <div className="flex justify-start items-end gap-4">
+            <div className="flex items-end justify-start gap-4">
               <div className="flex flex-col gap-2">
                 <div className="text-m_default">Wager (USDT)</div>
                 <input
@@ -128,7 +128,7 @@ function RateAndRulesComponent() {
               </div>
               <div className="min-w-[50px] text-center py-3">* 1% *</div>
             </div>
-            <div className="flex justify-start items-end gap-4">
+            <div className="flex items-end justify-start gap-4">
               <div className="flex flex-col gap-2">
                 <div className="text-m_default">{t('mycasino:commissionRate')}</div>
                 <input className="text-[#9AA6BC] px-4 py-3 rounded-default w-full" value={commissionRate} />
@@ -150,7 +150,7 @@ function RateAndRulesComponent() {
               <Menu.Item>
                 {({ active }) => (
                   <div
-                    className="bg-color-input-secondary w-full px-4 py-2 text-m_default"
+                    className="w-full px-4 py-2 bg-color-input-secondary text-m_default"
                     onClick={() => {
                       setCurrentCommission('live');
                       setCommissionRate(7);
@@ -163,7 +163,7 @@ function RateAndRulesComponent() {
               <Menu.Item>
                 {({ active }) => (
                   <div
-                    className="bg-color-input-secondary w-full px-4 py-2 text-m_default"
+                    className="w-full px-4 py-2 bg-color-input-secondary text-m_default"
                     onClick={() => {
                       setCurrentCommission('slot');
                       setCommissionRate(15);
@@ -175,21 +175,21 @@ function RateAndRulesComponent() {
               </Menu.Item>
             </Menu.Items>
           </Menu>
-          <div className="text-color-text-green font-extrabold text-m_title">
+          <div className="font-extrabold text-color-text-green text-m_title">
             {`= ${(wagerAmount * 0.01 * commissionRate) / 100} USDT`}
           </div>
         </div>
       </div>
-      <div className="mt-5 flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mt-5">
         <div className="font-semibold">{t('footer:rules')}</div>
         <div className="flex flex-col gap-4 text-default">
           <div>{t('affiliate:commissionRule1')}</div>
           <div>{t('affiliate:commissionRule2')}</div>
         </div>
       </div>
-      <div className="bg-gradient-card-default mt-4 rounded-default p-6">
+      <div className="p-6 mt-4 bg-gradient-card-default rounded-default">
         {t('affiliate:howToGetReferralReward')}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 mt-4">
+        <div className="grid grid-cols-1 gap-20 mt-4 lg:grid-cols-3">
           <div className="flex gap-8">
             <div className="text-[40px] text-color-primary font-bold">1</div>
             <div className="flex flex-col">
@@ -234,11 +234,11 @@ function RateAndRulesComponent() {
           </div>
         </div>
       </div>
-      <div className="bg-color-card-bg-primary mt-4 py-6 px-4 rounded-default">
+      <div className="px-4 py-6 mt-4 bg-color-card-bg-primary rounded-default">
         <div className="grid grid-cols-3 text-default">
-          <div className="text-center font-bold">{t('affiliate:friendsLevel')}</div>
-          <div className="text-center font-bold">{t('affiliate:totalWager')}</div>
-          <div className="text-center font-bold">{t('affiliate:unlockAmount')}</div>
+          <div className="font-bold text-center">{t('affiliate:friendsLevel')}</div>
+          <div className="font-bold text-center">{t('affiliate:totalWager')}</div>
+          <div className="font-bold text-center">{t('affiliate:unlockAmount')}</div>
         </div>
         <div className="mt-5">
           {friendVipData.map((friend, index) => (
@@ -248,11 +248,11 @@ function RateAndRulesComponent() {
                 index % 2 === 0 ? ' bg-[#FFF1]' : 'bg-[#FFF2]'
               }`}
             >
-              <div className="flex justify-center items-center gap-4 text-center font-bold">
-                <Image src={friend.logo} width={32} height={32} className="h-8 object-cover" alt="logo" />
+              <div className="flex items-center justify-center gap-4 font-bold text-center">
+                <Image src={friend.logo} width={32} height={32} className="object-cover h-8" alt="logo" />
                 {friend.level}
               </div>
-              <div className="flex justify-center items-center text-center font-bold">{friend.wagerAmount}</div>
+              <div className="flex items-center justify-center font-bold text-center">{friend.wagerAmount}</div>
               <div className="flex justify-center items-center text-center font-bold text-[#FFF27C]">
                 {friend.unlockAmount}
               </div>
