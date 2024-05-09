@@ -207,6 +207,7 @@ var Sg;
       case 'iframe':
         return createIframe(target, gameURLFromOptions(lo), callbacks);
       case 'detect':
+        return win.open(lo.game_url, '_blank');
         return detectLaunchTypeDeprecated(target, lo, callbacks);
       case 'detect_device':
         return detectDeviceDeprecated(target, lo, callbacks);
