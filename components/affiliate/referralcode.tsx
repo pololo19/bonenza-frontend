@@ -240,7 +240,7 @@ function ReferralCodeFriendComponent() {
               {t('affiliate:referralCodeCreated')}
             </div>
             <div className={`text-title mt-5 sm:text-[22px] font-bold text-center`}>
-              <span className="text-color-text-green font-bold">{15} </span>
+              <span className="text-color-text-green font-bold">{0} </span>
               <span className="font-bold">/ 20</span>
             </div>
           </div>
@@ -248,7 +248,9 @@ function ReferralCodeFriendComponent() {
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
               {t('affiliate:friends')}
             </div>
-            <div className={`text-title mt-5 sm:text-[22px] font-bold text-center text-color-text-green`}>{5}</div>
+            <div className={`text-title mt-5 sm:text-[22px] font-bold text-center text-color-text-green`}>
+              {totalFriendsCnt}
+            </div>
           </div>
           <div className="flex justify-center items-center">
             <div className="bg-gradient-btn-play min-w-[170px] px-12 py-3 rounded-default cursor-pointer hover:opacity-80 hover:!text-white">
