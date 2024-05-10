@@ -396,7 +396,7 @@ export function currencyFormat1(value: number, zeroNum: number, currency: string
   try {
     let i = 0,
       pow = 1;
-    for (i = 0; i <= zeroNum; i++) pow = pow * 10;
+    for (i = 0; i < zeroNum; i++) pow = pow * 10;
     const number = Math.floor(value * pow) / pow;
     let res = '';
     const symbol = flag ? handleLocaleSymbol(currency) : '';
