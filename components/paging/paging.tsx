@@ -105,7 +105,7 @@ const Paging: React.FC<IProps> = ({
               <div
                 key={`page-${index}`}
                 className={cn('dark:text-white text-black text-[14px] font-light', {
-                  '!font-bold': `${currentPage}` === pageNum,
+                  '!font-bold !text-color-primary': `${currentPage}` === pageNum,
                   'cursor-pointer': pageNum != '...',
                 })}
                 onClick={() => {
