@@ -470,7 +470,7 @@
     "howToClaim3": "それでおしまい！ {{currency}} すぐにご利用いただけるようになりました！",
     "aboutCurrency": "について {{currency}}",
     "canBeExchange": "できる {{currency}} 他の通貨に交換できますか？",
-    "canBeExchange1": "絶対に！ {{currency}} と <a class='cursor-pointer text-[#189614]'>USDTスワップ</a> いつでも他の通貨に交換できます。",
+    "canBeExchange1": "絶対に！ {{currency}} と <a class='cursor-pointer text-color-primary font-bold' href='/swap'>スワップ</a> いつでも他の通貨に交換できます。",
     "whatSpecialAbout": "何が特別なのか {{currency}}?",
     "whatSpecialAbout1": "を保管すると、最大 10% の年率収益率をお楽しみいただけます。 {{currency}} で <a class='cursor-pointer text-[#189614]'>ボールト プロ</a>。 {{currency}}！"
   },

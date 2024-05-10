@@ -470,7 +470,7 @@
     "howToClaim3": "এটাই!  {{currency}} এখন অবিলম্বে ব্যবহারের জন্য উপলব্ধ!",
     "aboutCurrency": "সম্পর্কিত {{currency}}",
     "canBeExchange": "করতে পারা {{currency}} অন্য কোন মুদ্রা বিনিময় করা হবে?",
-    "canBeExchange1": "একেবারেই!  {{currency}} সঙ্গে <a class='cursor-pointer text-[#189614]'>USDT অদলবদল</a> যে কোন সময় অন্যান্য মুদ্রায়।",
+    "canBeExchange1": "একেবারেই!  {{currency}} সঙ্গে <a class='cursor-pointer text-color-primary font-bold' href='/swap'>অদলবদল</a> যে কোন সময় অন্যান্য মুদ্রায়।",
     "whatSpecialAbout": "সম্পর্কে বিশেষ কি {{currency}}?",
     "whatSpecialAbout1": "আপনি যখন আপনার সঞ্চয় করেন তখন আপনি 10% পর্যন্ত বার্ষিক হারের রিটার্ন উপভোগ করতে পারেন {{currency}} ভিতরে <a class='cursor-pointer text-[#189614]'>ভল্ট প্রো</a>.  {{currency}}!"
   },

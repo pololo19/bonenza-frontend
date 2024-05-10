@@ -470,7 +470,7 @@
     "howToClaim3": "É isso!  {{currency}} agora está imediatamente disponível para uso!",
     "aboutCurrency": "Sobre {{currency}}",
     "canBeExchange": "Pode {{currency}} ser trocado por qualquer outra moeda?",
-    "canBeExchange1": "Absolutamente!  {{currency}} com <a class='cursor-pointer text-[#189614]'>Troca de USDT</a> em outras moedas a qualquer momento.",
+    "canBeExchange1": "Absolutamente!  {{currency}} com <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Troca de</a> em outras moedas a qualquer momento.",
     "whatSpecialAbout": "O que há de especial {{currency}}?",
     "whatSpecialAbout1": "Você pode desfrutar de uma taxa de retorno anualizada de até 10% ao armazenar seu {{currency}} em <a class='cursor-pointer text-[#189614]'>Cofre Pro</a>.  {{currency}}!"
   },

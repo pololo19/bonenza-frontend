@@ -470,7 +470,7 @@
     "howToClaim3": "그게 다야!  {{currency}} 이제 즉시 사용이 가능합니다!",
     "aboutCurrency": "에 대한 {{currency}}",
     "canBeExchange": "할 수 있다 {{currency}} 다른 통화로 교환할 수 있나요?",
-    "canBeExchange1": "전적으로!  {{currency}} ~와 함께 <a class='cursor-pointer text-[#189614]'>USDT 스왑</a> 언제든지 다른 통화로 변환할 수 있습니다.",
+    "canBeExchange1": "전적으로!  {{currency}} ~와 함께 <a class='cursor-pointer text-color-primary font-bold' href='/swap'>스왑</a> 언제든지 다른 통화로 변환할 수 있습니다.",
     "whatSpecialAbout": "특별한 점은 무엇입니까? {{currency}}?",
     "whatSpecialAbout1": "보관 시 연간 최대 10%의 수익률을 누릴 수 있습니다. {{currency}} ~에 <a class='cursor-pointer text-[#189614]'>볼트 프로</a>.  {{currency}}!"
   },

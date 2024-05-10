@@ -470,7 +470,7 @@
     "howToClaim3": "That’s it! Your {{currency}} is now immediately available to use!",
     "aboutCurrency": "About {{currency}}",
     "canBeExchange": "Can {{currency}} be exchanged to any other currency?",
-    "canBeExchange1": "Absolutely! You can swap {{currency}} with <a class='cursor-pointer text-[#189614]'>USDT Swap</a> into other currencies at any time.",
+    "canBeExchange1": "Absolutely! You can swap {{currency}} with <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Swap</a> into other currencies at any time.",
     "whatSpecialAbout": "What is special about {{currency}}?",
     "whatSpecialAbout1": "You can enjoy up to 10% annualized rate of return when you store your {{currency}} in <a class='cursor-pointer text-[#189614]'>Vault Pro</a>. So enjoy collecting {{currency}}!"
   },

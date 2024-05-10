@@ -470,7 +470,7 @@
     "howToClaim3": "Itu sahaja!  {{currency}} kini tersedia serta-merta untuk digunakan!",
     "aboutCurrency": "Tentang {{currency}}",
     "canBeExchange": "boleh {{currency}} ditukar kepada mana-mana mata wang lain?",
-    "canBeExchange1": "Sudah tentu!  {{currency}} dengan <a class='cursor-pointer text-[#189614]'>Tukaran USDT</a> ke dalam mata wang lain pada bila-bila masa.",
+    "canBeExchange1": "Sudah tentu!  {{currency}} dengan <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Tukaran</a> ke dalam mata wang lain pada bila-bila masa.",
     "whatSpecialAbout": "Apa yang istimewa tentang {{currency}}?",
     "whatSpecialAbout1": "Anda boleh menikmati sehingga 10% kadar pulangan tahunan apabila anda menyimpan anda {{currency}} dalam <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },

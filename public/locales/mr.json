@@ -470,7 +470,7 @@
     "howToClaim3": "बस एवढेच!  {{currency}} आता वापरण्यासाठी त्वरित उपलब्ध आहे!",
     "aboutCurrency": "बद्दल {{currency}}",
     "canBeExchange": "करू शकतो {{currency}} इतर कोणत्याही चलनात बदलता येईल?",
-    "canBeExchange1": "एकदम!  {{currency}} सह <a class='cursor-pointer text-[#189614]'>USDT स्वॅप</a> कोणत्याही वेळी इतर चलनांमध्ये.",
+    "canBeExchange1": "एकदम!  {{currency}} सह <a class='cursor-pointer text-color-primary font-bold' href='/swap'>स्वॅप</a> कोणत्याही वेळी इतर चलनांमध्ये.",
     "whatSpecialAbout": "काय विशेष आहे {{currency}}?",
     "whatSpecialAbout1": "तुम्ही तुमचा संग्रह करता तेव्हा तुम्ही 10% वार्षिक दराचा आनंद घेऊ शकता {{currency}} मध्ये <a class='cursor-pointer text-[#189614]'>व्हॉल्ट प्रो</a>.  {{currency}}!"
   },
