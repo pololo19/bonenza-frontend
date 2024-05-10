@@ -1,8 +1,7 @@
-import { Dialog, DialogProps, Switch, Transition, TransitionRootProps } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
+import { DialogProps, Switch, TransitionRootProps } from '@headlessui/react';
 import cn from 'classnames';
 import Image from 'next/image';
-import { ElementType, Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -77,7 +76,12 @@ export default function ModalAssetsPortfolio({
       item.name.toLowerCase().includes(searchFiatInput.trim().toLowerCase()),
     );
     if (showSmallFiat) {
-      const avaSymbols = balances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
+      const avaSymbols = balances
+        .filter(
+          (item: BalanceType) =>
+            item.amount * (cryptoSymbols.find((symbol) => symbol.id === item.symbolId)?.price || 0) > 1,
+        )
+        .map((item) => item.symbolId);
       arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
     }
     return arraySearch;
@@ -108,7 +112,7 @@ export default function ModalAssetsPortfolio({
             <div className="text-[0.875rem] sm:text-[1rem] dark:text-white text-black font-[600]">
               {t('deposit:assetsPortfolio')}
             </div>
-            <div className="flex gap-1 items-center">
+            <div className="flex items-center gap-1">
               <div className="w-[9.375rem]">
                 <InputSearch
                   value={searchFiatInput}

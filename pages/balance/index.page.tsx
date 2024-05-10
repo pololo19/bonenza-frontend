@@ -81,7 +81,12 @@ const BalancePage = () => {
     });
 
     if (hideBalance) {
-      const avaSymbols = cryptoBalances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
+      const avaSymbols = cryptoBalances
+        .filter(
+          (item: BalanceType) =>
+            item.amount * (cryptoSymbols.find((symbol) => symbol.id === item.symbolId)?.price || 0) > 1,
+        )
+        .map((item) => item.symbolId);
       arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
     }
 
@@ -127,7 +132,7 @@ const BalancePage = () => {
         <div className="w-full flex justify-between items-center mb-[20px] sm:mb-[30px] gap-[30px]">
           <div className="flex items-center gap-[10px]">
             <div className="dark:text-color-text-primary text-color-light-text-primary sm:text-default text-[12px]">
-              {t('balance:hideBalance')}
+              {t('fiatHeader:smallFiat')}
             </div>
             <Switch
               checked={hideBalance}
