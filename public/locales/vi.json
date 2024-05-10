@@ -470,7 +470,7 @@
     "howToClaim3": "Đó là nó!  {{currency}} hiện đã có sẵn để sử dụng ngay lập tức!",
     "aboutCurrency": "Về {{currency}}",
     "canBeExchange": "Có thể {{currency}} có thể đổi sang loại tiền tệ khác không?",
-    "canBeExchange1": "Tuyệt đối!  {{currency}} với <a class='cursor-pointer text-[#189614]'>Hoán đổi USDT</a> sang các loại tiền tệ khác bất cứ lúc nào.",
+    "canBeExchange1": "Tuyệt đối!  {{currency}} với <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Hoán đổi</a> sang các loại tiền tệ khác bất cứ lúc nào.",
     "whatSpecialAbout": "Điều gì đặc biệt về {{currency}}?",
     "whatSpecialAbout1": "Bạn có thể tận hưởng tỷ suất lợi nhuận hàng năm lên tới 10% khi bạn lưu trữ {{currency}} TRONG <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },

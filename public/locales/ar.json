@@ -470,7 +470,7 @@
     "howToClaim3": "هذا كل شيء!  {{currency}} أصبح الآن متاحًا للاستخدام على الفور!",
     "aboutCurrency": "عن {{currency}}",
     "canBeExchange": "يستطيع {{currency}} هل يمكن استبدالها بأي عملة أخرى؟",
-    "canBeExchange1": "قطعاً!  {{currency}} مع <a class='cursor-pointer text-[#189614]'>مبادلة USDT</a> إلى عملات أخرى في أي وقت.",
+    "canBeExchange1": "قطعاً!  {{currency}} مع <a class='cursor-pointer text-color-primary font-bold' href='/swap'>مبادلة</a> إلى عملات أخرى في أي وقت.",
     "whatSpecialAbout": "ما هو خاص عنه {{currency}}؟",
     "whatSpecialAbout1": "يمكنك الاستمتاع بمعدل عائد سنوي يصل إلى 10% عند تخزين منتجاتك {{currency}} في <a class='cursor-pointer text-[#189614]'>قبو برو</a>.  {{currency}}!"
   },

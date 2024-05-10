@@ -470,7 +470,7 @@
     "howToClaim3": "就是这样！ {{currency}} 现在可以立即使用！",
     "aboutCurrency": "关于 {{currency}}",
     "canBeExchange": "能 {{currency}} 可以兑换成其他货币吗？",
-    "canBeExchange1": "绝对地！ {{currency}} 和 <a class='cursor-pointer text-[#189614]'>USDT 互换</a> 随时兑换成其他货币。",
+    "canBeExchange1": "绝对地！ {{currency}} 和 <a class='cursor-pointer text-color-primary font-bold' href='/swap'>互换</a> 随时兑换成其他货币。",
     "whatSpecialAbout": "有什么特别之处 {{currency}}？",
     "whatSpecialAbout1": "存仓即可享受高达10%的年化收益率 {{currency}} 在 <a class='cursor-pointer text-[#189614]'>Vault 专业版</a>。 {{currency}}！"
   },

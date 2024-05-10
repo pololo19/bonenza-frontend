@@ -470,7 +470,7 @@
     "howToClaim3": "इतना ही!  {{currency}} अब तुरंत उपयोग के लिए उपलब्ध है!",
     "aboutCurrency": "के बारे में {{currency}}",
     "canBeExchange": "कर सकना {{currency}} किसी अन्य मुद्रा में बदला जा सकता है?",
-    "canBeExchange1": "बिल्कुल!  {{currency}} साथ <a class='cursor-pointer text-[#189614]'>यूएसडीटी स्वैप</a> किसी भी समय अन्य मुद्राओं में।",
+    "canBeExchange1": "बिल्कुल!  {{currency}} साथ <a class='cursor-pointer  text-color-primary font-bold' href='/swap'>यूएसडीटी स्वैप</a> किसी भी समय अन्य मुद्राओं में।",
     "whatSpecialAbout": "किस बारे में है खास {{currency}}?",
     "whatSpecialAbout1": "जब आप अपना भंडारण करते हैं तो आप 10% तक वार्षिक रिटर्न दर का आनंद ले सकते हैं {{currency}} में <a class='cursor-pointer text-[#189614]'>वॉल्ट प्रो</a>.  {{currency}}!"
   },

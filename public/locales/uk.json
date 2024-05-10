@@ -470,7 +470,7 @@
     "howToClaim3": "Це воно!  {{currency}} тепер доступний для використання!",
     "aboutCurrency": "про {{currency}}",
     "canBeExchange": "може {{currency}} обміняти на іншу валюту?",
-    "canBeExchange1": "Абсолютно!  {{currency}} з <a class='cursor-pointer text-[#189614]'>USDT своп</a> в інші валюти в будь-який час.",
+    "canBeExchange1": "Абсолютно!  {{currency}} з <a class='cursor-pointer text-color-primary font-bold' href='/swap'>своп</a> в інші валюти в будь-який час.",
     "whatSpecialAbout": "У чому особливість {{currency}}?",
     "whatSpecialAbout1": "Ви можете отримати до 10% річної норми прибутку, коли зберігаєте свій {{currency}} в <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },

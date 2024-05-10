@@ -470,7 +470,7 @@
     "howToClaim3": "Itu dia!  {{currency}} sekarang segera tersedia untuk digunakan!",
     "aboutCurrency": "Tentang {{currency}}",
     "canBeExchange": "Bisa {{currency}} ditukar dengan mata uang lain?",
-    "canBeExchange1": "Sangat!  {{currency}} dengan <a class='cursor-pointer text-[#189614]'>Pertukaran USDT</a> ke dalam mata uang lain kapan saja.",
+    "canBeExchange1": "Sangat!  {{currency}} dengan <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Pertukaran</a> ke dalam mata uang lain kapan saja.",
     "whatSpecialAbout": "Apa yang spesial darinya {{currency}}?",
     "whatSpecialAbout1": "Anda dapat menikmati tingkat pengembalian tahunan hingga 10% saat Anda menyimpan {{currency}} di dalam <a class='cursor-pointer text-[#189614]'>Gudang Pro</a>.  {{currency}}!"
   },

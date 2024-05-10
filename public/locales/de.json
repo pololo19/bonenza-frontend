@@ -470,7 +470,7 @@
     "howToClaim3": "Das ist es!  {{currency}} ist jetzt sofort einsatzbereit!",
     "aboutCurrency": "Um {{currency}}",
     "canBeExchange": "Kann {{currency}} in eine andere Währung umgetauscht werden?",
-    "canBeExchange1": "Absolut!  {{currency}} mit <a class='cursor-pointer text-[#189614]'>USDT-Swap</a> jederzeit in andere Währungen umtauschen.",
+    "canBeExchange1": "Absolut!  {{currency}} mit <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Swap</a> jederzeit in andere Währungen umtauschen.",
     "whatSpecialAbout": "Was ist das Besondere? {{currency}}?",
     "whatSpecialAbout1": "Bei der Lagerung profitieren Sie von einer jährlichen Rendite von bis zu 10 % {{currency}} In <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },

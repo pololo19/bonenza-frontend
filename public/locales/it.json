@@ -470,7 +470,7 @@
     "howToClaim3": "Questo è tutto!  {{currency}} è ora immediatamente disponibile per l'uso!",
     "aboutCurrency": "Di {{currency}}",
     "canBeExchange": "Potere {{currency}} essere cambiato in qualsiasi altra valuta?",
-    "canBeExchange1": "Assolutamente!  {{currency}} con <a class='cursor-pointer text-[#189614]'>Scambio USDT</a> in altre valute in qualsiasi momento.",
+    "canBeExchange1": "Assolutamente!  {{currency}} con <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Scambio</a> in altre valute in qualsiasi momento.",
     "whatSpecialAbout": "In cosa è speciale {{currency}}?",
     "whatSpecialAbout1": "Puoi usufruire di un tasso di rendimento annualizzato fino al 10% quando conservi il tuo {{currency}} In <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },
