@@ -122,18 +122,22 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               {t('profile:userInformation')}
             </div>
             <div className="absolute top-0 right-[70px]">
-              <div className="relative">
+              <div className="relative h-[160px]">
                 <Image
                   onError={(e) => {
                     e.currentTarget.src = `/img/vip/vip-0-ribbon.png`;
                   }}
                   src={vipData.medal ? vipData.medal : `/img/vip/vip-0-ribbon.png`}
-                  width={80}
+                  width={70}
                   height={69}
                   alt=""
-                  className="w-[60px] h-[89px]"
+                  className="!h-[130px] w-auto object-cover"
                 />
-                <div className="absolute flex flex-col items-center left-0 top-[58px] w-full h-full">
+                <div
+                  className={`absolute flex flex-col items-center left-0 top-[${
+                    vipData.level !== 'VIP 0' ? 50 : 40
+                  }px] w-full h-full`}
+                >
                   <p className="text-[16px] font-semibold">
                     {`${vipData.level}`?.split(' ')?.at(0)?.charAt(0).toUpperCase()}
                     {`${vipData.level}`?.split(' ')?.at(1)}
@@ -253,7 +257,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               ))}
             </div>
           </div> */}
-          <div className="bg-white dark:bg-color-modal-bg-primary py-[12px] px-[14px] rounded-[5px]">
+          <div className="bg-white dark:bg-color-panel-bg py-[12px] px-[14px] rounded-[5px]">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2 align-middle">
                 <ChartBarIcon width={18} height={18} className="stroke-[2]" />
@@ -305,7 +309,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             </div>
           </div>
-          <div className="px-5 py-5 bg-white dark:bg-color-modal-bg-primary rounded-default">
+          <div className="px-5 py-5 bg-white dark:bg-color-panel-bg rounded-default">
             <div className="text-[16px] text-color-light-text-primary dark:text-white">
               {t('profile:top3FavoriteGames')}
             </div>
@@ -355,7 +359,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             )}
           </div>
-          <div className="dark:bg-color-modal-bg-primary bg-white rounded-[10px] py-5">
+          <div className="dark:bg-color-panel-bg bg-white rounded-[10px] py-5">
             <div className="text-[16px] text-color-light-text-primary dark:text-white px-5">
               {t('profile:wagerContest')}
             </div>
