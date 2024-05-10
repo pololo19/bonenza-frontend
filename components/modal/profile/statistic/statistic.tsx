@@ -76,7 +76,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
             />
-            <span className="dark:text-white text-black font-bold">{row.original.currency}</span>
+            <span className="dark:text-white text-black font-normal">{row.original.currency}</span>
           </div>
         ),
       },
@@ -84,21 +84,21 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
         accessorKey: 'win',
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:win')}</div>,
         cell: ({ row }) => (
-          <div className="font-bold dark:text-white text-[#000] truncate text-center">{row.original.wins}</div>
+          <div className="font-normal dark:text-white text-[#000] truncate text-center">{row.original.wins}</div>
         ),
       },
       {
         accessorKey: 'betAmount',
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:bet')}</div>,
         cell: ({ row }) => (
-          <div className="font-bold dark:text-white text-[#000] truncate text-center">{row.original.bets}</div>
+          <div className="font-normal dark:text-white text-[#000] truncate text-center">{row.original.bets}</div>
         ),
       },
       {
         accessorKey: 'wagered',
         header: () => <div className="text-center text-[12px] font-normal">{t('statistic:wagered')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-white text-[#000] truncate text-center font-bold">
+          <div className="dark:text-white text-[#000] truncate text-center font-semibold">
             {viewInFiat
               ? currencyFormat1(row.original.wageredUsd * exchange, 2, localFiat?.name || 'USD')
               : currencyFormat1(row.original.wagered, 4, '', false)}
@@ -161,7 +161,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
         </div>
       }
     >
-      <div className="mt-[14px] !h-[calc(100%-64px)] p-5">
+      <div className="bg-color-header-primary !h-[calc(100%-64px)] p-5">
         <div className="flex gap-[16px] items-center justify-between">
           <div className="dark:text-white text-black text-[14px] sm:text-[16px] font-semibold">
             {t('statistic:statistics')}
@@ -171,7 +171,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
             className="relative w-full max-w-[200px] text-left rounded flex dark:text-white text-[#000] dark:bg-color-input-primary bg-color-light-bg-primary"
           >
             <Menu.Button className="w-full">
-              <div className="dark:bg-[#1e2024] bg-white flex items-center justify-between w-full h-[36px] px-[20px]">
+              <div className="dark:bg-color-input-primary rounded bg-white flex items-center justify-between w-full h-[36px] px-[20px]">
                 <div className="dark:text-color-text-primary text-[#31373d] text-[12px] sm:text-[14px] truncate">
                   {game?.title || t('statistic:global')}
                 </div>
@@ -258,7 +258,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
             </div>
           </div>
         </div>
-        <div className="dark:bg-color-modal-bg-primary bg-white rounded-[5px] p-[14px] flex items-center justify-between mt-[12px] gap-3">
+        <div className="dark:bg-color-panel-bg bg-white rounded-[5px] p-[14px] flex items-center justify-between mt-[12px] gap-3">
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
               <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
@@ -293,7 +293,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
           {!isLoading && statisticTransaction.length > 0 && (
             <RankingTableComponent
               isLoading={isLoading}
-              containerClassName="w-full dark:bg-[#1e2024] bg-white"
+              containerClassName="w-full dark:bg-color-panel-bg rounded !p-1 bg-white"
               data={statisticTransaction.filter((e) => !!e)}
               columns={statisticsColumn}
             />
