@@ -470,7 +470,7 @@
     "howToClaim3": "แค่นั้นแหละ!  {{currency}} สามารถใช้งานได้ทันที!",
     "aboutCurrency": "เกี่ยวกับ {{currency}}",
     "canBeExchange": "สามารถ {{currency}} สามารถแลกเปลี่ยนเป็นสกุลเงินอื่นได้หรือไม่?",
-    "canBeExchange1": "อย่างแน่นอน!  {{currency}} กับ <a class='cursor-pointer text-[#189614]'>การแลกเปลี่ยน USDT</a> เป็นสกุลเงินอื่นได้ตลอดเวลา",
+    "canBeExchange1": "อย่างแน่นอน!  {{currency}} กับ <a class='cursor-pointer text-color-primary font-bold' href='/swap'>การแลกเปลี่ยน</a> เป็นสกุลเงินอื่นได้ตลอดเวลา",
     "whatSpecialAbout": "มีอะไรพิเศษเกี่ยวกับ {{currency}}?",
     "whatSpecialAbout1": "คุณสามารถเพลิดเพลินกับอัตราผลตอบแทนสูงถึง 10% ต่อปีเมื่อคุณจัดเก็บของคุณ {{currency}} ใน <a class='cursor-pointer text-[#189614]'>ห้องนิรภัยโปร</a>.  {{currency}}!"
   },

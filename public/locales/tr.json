@@ -470,7 +470,7 @@
     "howToClaim3": "Bu kadar!  {{currency}} artık hemen kullanıma hazır!",
     "aboutCurrency": "Hakkında {{currency}}",
     "canBeExchange": "Olabilmek {{currency}} başka bir para birimine çevrilebilir mi?",
-    "canBeExchange1": "Kesinlikle!  {{currency}} ile <a class='cursor-pointer text-[#189614]'>USDT Takası</a> istediğiniz zaman diğer para birimlerine dönüştürebilirsiniz.",
+    "canBeExchange1": "Kesinlikle!  {{currency}} ile <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Takası</a> istediğiniz zaman diğer para birimlerine dönüştürebilirsiniz.",
     "whatSpecialAbout": "Özel olan ne {{currency}}?",
     "whatSpecialAbout1": "Sakladığınızda yıllık %10'a varan getiri oranının keyfini çıkarabilirsiniz. {{currency}} içinde <a class='cursor-pointer text-[#189614]'>Kasa Pro</a>.  {{currency}}!"
   },

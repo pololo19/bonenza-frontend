@@ -470,7 +470,7 @@
     "howToClaim3": "C'est ça!  {{currency}} est maintenant immédiatement disponible!",
     "aboutCurrency": "À propos {{currency}}",
     "canBeExchange": "Peut {{currency}} être échangé contre une autre devise ?",
-    "canBeExchange1": "Absolument!  {{currency}} avec <a class='cursor-pointer text-[#189614]'>Échange USDT</a> dans d'autres devises à tout moment.",
+    "canBeExchange1": "Absolument!  {{currency}} avec <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Échange</a> dans d'autres devises à tout moment.",
     "whatSpecialAbout": "Quelle est la particularité de {{currency}}?",
     "whatSpecialAbout1": "Vous pouvez bénéficier d'un taux de rendement annualisé allant jusqu'à 10 % lorsque vous stockez votre {{currency}} dans <a class='cursor-pointer text-[#189614]'>Coffre Pro</a>.  {{currency}}!"
   },

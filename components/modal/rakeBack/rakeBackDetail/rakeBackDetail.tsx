@@ -82,13 +82,13 @@ export default function ModalRakeBackDetail({ show, onClose, setShowModalRakeBac
             <Disclosure defaultOpen>
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-color-bg-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none">
+                  <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium rounded dark:bg-color-input-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none">
                     <span className="text-white text-[14px] flex items-center gap-1 font-medium">
                       {t('rakeBackDetail:howUnlockClaim', { currency: 'USDT' })}
                     </span>
                     <ChevronUpIcon className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-[#939699]`} />
                   </Disclosure.Button>
-                  <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-secondary bg-color-light-bg-primary">
+                  <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary rounded dark:bg-color-panel-bg bg-color-light-bg-primary">
                     <div className="text-white mb-4">{t('rakeBackDetail:howUnlock', { currency: 'USDT' })}</div>
                     <div className="flex flex-col gap-3">
                       <p>{t('rakeBackDetail:howToUnlock1', { currency: 'USDT' })}</p>
@@ -113,13 +113,13 @@ export default function ModalRakeBackDetail({ show, onClose, setShowModalRakeBac
             <Disclosure defaultOpen>
               {({ open }) => (
                 <>
-                  <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium dark:bg-color-bg-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75">
+                  <Disclosure.Button className="flex w-full h-[40px] justify-between py-2 px-2 text-left text-sm font-medium rounded dark:bg-color-input-primary bg-color-light-bg-primary hover:dark:bg-color-hover-primary focus:outline-none focus-visible:ring focus-visible:ring-purple-500/75">
                     <span className="text-white text-[14px] flex items-center gap-1 font-medium">
                       {t('rakeBackDetail:aboutCurrency', { currency: 'USDT' })}
                     </span>
                     <ChevronUpIcon className={`${open ? '' : 'rotate-180 transform'} h-5 w-5 text-[#939699]`} />
                   </Disclosure.Button>
-                  <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary dark:bg-color-modal-bg-secondary bg-color-light-bg-primary">
+                  <Disclosure.Panel className="text-[12px] px-3 py-5 text-sm dark:text-color-text-primary text-color-light-text-primary rounded dark:bg-color-panel-bg bg-color-light-bg-primary">
                     <div className="text-white mb-4">{t('rakeBackDetail:canBeExchange', { currency: 'USDT' })}</div>
                     <div className="flex flex-col gap-3">
                       <span
@@ -127,12 +127,12 @@ export default function ModalRakeBackDetail({ show, onClose, setShowModalRakeBac
                           __html: String(t('rakeBackDetail:canBeExchange1', { currency: 'USDT' })),
                         }}
                       ></span>
-                      <p className="text-white mb-4">{t('rakeBackDetail:whatSpecialAbout', { currency: 'USDT' })}</p>
+                      {/* <p className="text-white mb-4">{t('rakeBackDetail:whatSpecialAbout', { currency: 'USDT' })}</p>
                       <p
                         dangerouslySetInnerHTML={{
                           __html: String(t('rakeBackDetail:whatSpecialAbout1', { currency: 'USDT' })),
                         }}
-                      ></p>
+                      ></p> */}
                     </div>
                   </Disclosure.Panel>
                 </>
