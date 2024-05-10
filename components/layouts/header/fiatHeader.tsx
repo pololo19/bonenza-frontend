@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { AddSquare, Lock } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import React, { Fragment, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
@@ -25,7 +26,6 @@ import CsrWrapper from '@/components/CsrWrapper';
 import InputSearch from '@/components/input/typing/InputSearch';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
-import { useRouter } from 'next/router';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -104,7 +104,12 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
         item.favorite,
     );
     if (showSmallFiat) {
-      const avaSymbols = cryptoBalances.filter((item: BalanceType) => item.amount > 0).map((item) => item.symbolId);
+      const avaSymbols = cryptoBalances
+        .filter(
+          (item: BalanceType) =>
+            item.amount * (cryptoSymbols.find((symbol) => symbol.id === item.symbolId)?.price || 0) > 1,
+        )
+        .map((item) => item.symbolId);
       arraySearch = [...arraySearch.filter((item) => avaSymbols.indexOf(item.id) != -1)];
     }
     return arraySearch.sort(
