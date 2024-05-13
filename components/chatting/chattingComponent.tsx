@@ -60,7 +60,7 @@ const ChattingComponent = () => {
         })) || [];
       if (tempMessages.length > 0) {
         const lastMessage = tempMessages[0];
-        CookiesStorage.setCookieData('last_message', lastMessage.id);
+        if (messages.length === 0) CookiesStorage.setCookieData('last_message', lastMessage.id);
         dispatch(setIsNewMessage(false));
       }
 

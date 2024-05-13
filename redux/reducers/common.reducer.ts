@@ -27,7 +27,7 @@ const initialCommonState: CommonState = {
     text: '',
   },
   isRestricting: false,
-  isNewMessage: true,
+  isNewMessage: false,
 };
 
 export const queryDataSlice = createSlice({
