@@ -62,7 +62,7 @@ export const initialCommonState: ModalState = {
   isShowDepositRule: false,
   isShowSelfExclusion: false,
   isShowDailyContest: false,
-  isShowAccountRestriction: true,
+  isShowAccountRestriction: false,
 };
 
 export const queryDataSlice = createSlice({
