@@ -82,8 +82,10 @@
     "referralCodeCreated": "추천 코드가 생성되었습니다",
     "createCode": "코드 생성",
     "commissionCalculator": "커미션 계산기",
-    "commissionRule1": "모든 공공 환경(예: 대학, 학교, 도서관 및 사무실 공간)에서는 각 사용자, IP 주소, 전자 기기, 집, 전화번호, 청구 방법, 이메일 주소, 컴퓨터 및 IP 주소에 대해 하나의 커미션만 지급될 수 있습니다. ",
-    "commissionRule2": "시스템은 24시간마다 커미션을 계산합니다.",
+    "commissionRule1": "모든 공공 환경(예: 대학, 학교, 도서관, 사무실 공간)에서는 각 사용자, IP 주소, 전자 기기, 집, 전화번호, 청구 방법, 이메일 주소, 컴퓨터 및 IP 주소에 대해 하나의 커미션만 지급될 수 있습니다. ",
+    "commissionRule2": "베팅 결정은 입금이 이루어지고 베팅이 성공적으로 이루어진 후 전적으로 당사의 재량에 따라 결정됩니다. 당사는 시장에서 대부분의 통화를 지원합니다. 커미션은 언제든지 당사 내부 BONENZA 지갑으로 인출될 수 있습니다.",
+    "commissionRule3": "(대시보드에서 커미션 추출을 확인하고 지갑의 잔액을 확인하세요.)",
+    "commissionRule4": "시스템은 24시간마다 커미션을 계산합니다.",
     "howToGetReferralReward": "추천 보상을 받는 방법",
     "shareFriends1": "친구에게 공유",
     "shareFriends2": "추천 링크나 코드를 친구에게 공유하세요",
@@ -525,7 +527,10 @@
     "available": "사용 가능",
     "lockedFunds": "잠긴 자금",
     "withdrawProgress": "출금이 진행 중입니다.",
-    "withdrawComplete": "출금 성공"
+    "withdrawComplete": "출금 성공",
+    "withdrawRestriction": "귀하의 출금 및 팁 제공 권한은 다음 기간 동안 정지됩니다. <span class='text-color-red-primary'>{{time}}</span>, 비밀번호 변경으로 인해.",
+    "accountRestriction": "계정 제한",
+    "accountRestrictionDescription": "귀하의 계정 안전을 보호하기 위해, <span class='font-bold text-white'>우리는 24시간 동안 귀하의 인출을 비활성화할 것입니다</span> 비밀번호를 변경한 후."
   },
   "balance": {
     "cryptoCurrency": "암호화폐",
@@ -2168,6 +2173,7 @@
     "badRequest": "귀하의 요청 데이터가 유효하지 않습니다.",
     "notAllowedAction": "귀하의 행동은 허용되지 않습니다.",
     "internalServer": "이런! ",
+    "emptyFields": "모든 필드를 작성해 주세요.",
     "auth": {
       "existPhone": "이 전화는 이미 존재합니다.",
       "existMail": "이 이메일은 이미 존재합니다.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "청구되지 않은",
     "claimed": "청구됨",
     "expired": "만료됨"
+  },
+  "button": {
+    "cancel": "취소",
+    "continue": "계속하다"
   }
 }

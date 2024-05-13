@@ -82,8 +82,10 @@
     "referralCodeCreated": "Yönlendirme Kodu Oluşturuldu",
     "createCode": "Kod Oluştur",
     "commissionCalculator": "Komisyon Hesaplayıcı",
-    "commissionRule1": "Herhangi bir kamusal ortamda (örn. üniversiteler, okullar, kütüphaneler ve ofis alanları), her kullanıcıya, IP adresine, elektronik cihaza, eve, telefon numarasına, faturalandırma yöntemine, e-posta adresine, bilgisayara ve IP adresine yalnızca bir komisyon ödenebilir. ",
-    "commissionRule2": "Sistem komisyonu 24 saatte bir hesaplar.",
+    "commissionRule1": "Herhangi bir halka açık ortamda (örneğin üniversiteler, okullar, kütüphaneler ve ofis alanları), her kullanıcıya, IP adresine, elektronik cihaza, eve, telefon numarasına, faturalandırma yöntemine, e-posta adresine, bilgisayara ve IP adresine yalnızca bir komisyon ödenebilir. ",
+    "commissionRule2": "Bahis çekme kararımız, para yatırıldıktan ve bahis başarılı bir şekilde oynandıktan sonra tamamen bizim takdirimize bağlı olacaktır. Piyasadaki para birimlerinin çoğunu destekliyoruz. Komisyonlar dahili BONENZA cüzdanımıza herhangi bir zamanda çekilebilir.",
+    "commissionRule3": "(Komisyon kazancınızı kontrol panelinde görüntüleyin ve cüzdandaki bakiyeyi görüntüleyin).",
+    "commissionRule4": "Sistem komisyonu 24 saatte bir hesaplar.",
     "howToGetReferralReward": "Referans Ödülünüzü Nasıl Alabilirsiniz?",
     "shareFriends1": "Arkadaşlarınla ​​paylaş",
     "shareFriends2": "Yönlendirme bağlantınızı veya kodunuzu arkadaşlarınızla paylaşın",
@@ -525,7 +527,10 @@
     "available": "Mevcut",
     "lockedFunds": "Kilitli fonlar",
     "withdrawProgress": "Para çekme işlemi devam ediyor",
-    "withdrawComplete": "Para Çekme Başarılı"
+    "withdrawComplete": "Para Çekme Başarılı",
+    "withdrawRestriction": "Para çekme ve bahşiş izinleriniz şu süre boyunca askıya alınacaktır: <span class='text-color-red-primary'>{{time}}</span>, şifrenizi değiştirdiğiniz için.",
+    "accountRestriction": "Hesap Kısıtlamaları",
+    "accountRestrictionDescription": "Hesabınızın güvenliğini korumak amacıyla, <span class='font-bold text-white'>para çekme işlemlerinizi 24 saat süreyle devre dışı bırakacağız</span> şifrenizi değiştirdikten sonra."
   },
   "balance": {
     "cryptoCurrency": "Kripto para",
@@ -2168,6 +2173,7 @@
     "badRequest": "Talebiniz Veriler geçerli değil.",
     "notAllowedAction": "İşleminize izin verilmiyor.",
     "internalServer": "Hata! ",
+    "emptyFields": "Lütfen tüm alanları doldurun",
     "auth": {
       "existPhone": "Bu Telefon zaten mevcut.",
       "existMail": "Bu E-posta zaten mevcut.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "Talep Edilmedi",
     "claimed": "Hak talebinde bulunuldu",
     "expired": "Günü geçmiş"
+  },
+  "button": {
+    "cancel": "İptal etmek",
+    "continue": "Devam etmek"
   }
 }

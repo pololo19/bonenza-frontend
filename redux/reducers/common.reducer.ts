@@ -26,7 +26,8 @@ const initialCommonState: CommonState = {
     time: '',
     text: '',
   },
-  isNewMessage: true,
+  isRestricting: false,
+  isNewMessage: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -70,6 +71,9 @@ export const queryDataSlice = createSlice({
     changeDisabledPeriod: (state: CommonState, action: PayloadAction<number>) => {
       state.disabledPeriod = action.payload;
     },
+    changeIsRestricting: (state: CommonState, action: PayloadAction<boolean>) => {
+      state.isRestricting = action.payload;
+    },
   },
 });
 
@@ -86,5 +90,6 @@ export const {
   setIsNewMessage,
   changeIsLoading,
   changeDisabledPeriod,
+  changeIsRestricting,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

@@ -164,9 +164,6 @@ var Sg;
     if (isMobileDeprecated()) {
       // return (win.location = uri);
       const newWin = win.open(uri, '_blank');
-      if (newWin) {
-        newWin.opener = null;
-      }
       return newWin;
     } else {
       return createIframe(target, uri, callbacks);
@@ -208,14 +205,10 @@ var Sg;
       case 'redirect':
         // return (win.location = lo.game_url);
         const newWin = win.open(uri, '_blank');
-        if (newWin) {
-          newWin.opener = null;
-        }
         return newWin;
       case 'iframe':
         return createIframe(target, gameURLFromOptions(lo), callbacks);
       case 'detect':
-        return win.open(lo.game_url, '_blank');
         return detectLaunchTypeDeprecated(target, lo, callbacks);
       case 'detect_device':
         return detectDeviceDeprecated(target, lo, callbacks);

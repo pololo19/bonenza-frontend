@@ -83,7 +83,9 @@
     "createCode": "Crea codice",
     "commissionCalculator": "Calcolatore delle commissioni",
     "commissionRule1": "In qualsiasi ambiente pubblico (ad esempio università, scuole, biblioteche e uffici), è possibile pagare solo una commissione per ciascun utente, indirizzo IP, dispositivo elettronico, casa, numero di telefono, metodo di fatturazione, indirizzo e-mail, computer e indirizzo IP ",
-    "commissionRule2": "Il sistema calcola la commissione ogni 24 ore.",
+    "commissionRule2": "La nostra decisione di effettuare una scommessa sarà basata interamente sulla nostra discrezione dopo che è stato effettuato un deposito e una scommessa è stata piazzata con successo. Supportiamo la maggior parte delle valute sul mercato. Le commissioni possono essere prelevate nel nostro portafoglio interno BONENZA in qualsiasi momento.",
+    "commissionRule3": "(Visualizza l'estrazione delle tue commissioni nella dashboard e visualizza il saldo nel portafoglio).",
+    "commissionRule4": "Il sistema calcola la commissione ogni 24 ore.",
     "howToGetReferralReward": "Come ottenere il premio di riferimento",
     "shareFriends1": "Condividi con gli amici",
     "shareFriends2": "Condividi il tuo link o codice di riferimento con i tuoi amici",
@@ -525,7 +527,10 @@
     "available": "Disponibile",
     "lockedFunds": "Fondi bloccati",
     "withdrawProgress": "Il ritiro è in corso",
-    "withdrawComplete": "Ritiro riuscito"
+    "withdrawComplete": "Ritiro riuscito",
+    "withdrawRestriction": "I tuoi permessi di ritiro e mancia saranno sospesi per <span class='text-color-red-primary'>{{time}}</span>, a causa della modifica della password.",
+    "accountRestriction": "Restrizioni sull'account",
+    "accountRestrictionDescription": "Per proteggere la sicurezza del tuo account, <span class='font-bold text-white'>disabiliteremo i tuoi prelievi per 24 ore</span> dopo aver cambiato la password."
   },
   "balance": {
     "cryptoCurrency": "Criptovaluta",
@@ -2168,6 +2173,7 @@
     "badRequest": "I dati della tua richiesta non sono validi.",
     "notAllowedAction": "La tua azione non è consentita.",
     "internalServer": "Ops! ",
+    "emptyFields": "Per favore compila tutti i campi",
     "auth": {
       "existPhone": "Questo telefono esiste già.",
       "existMail": "Questa email esiste già.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "Non reclamato",
     "claimed": "Reclamato",
     "expired": "Scaduto"
+  },
+  "button": {
+    "cancel": "Annulla",
+    "continue": "Continua"
   }
 }
