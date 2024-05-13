@@ -1,5 +1,4 @@
 import cn from 'classnames';
-import { ArrowRight2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -147,7 +146,7 @@ const IconOption = ({
               />
             )}
             {count > 0 && (
-              <div className="bg-color-primary text-white font-extrabold w-6 h-6 text-m_default p-1 flex items-center justify-center text-center absolute -right-2 -top-2 rounded-full">
+              <div className="absolute flex items-center justify-center w-6 h-6 p-1 font-extrabold text-center text-white rounded-full bg-color-primary text-m_default -right-2 -top-2">
                 {count}
               </div>
             )}
@@ -178,7 +177,7 @@ const IconOption = ({
               'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 rounded-large',
               'hover:bg-color-menu-hover',
               {
-                'dark:bg-color-hover-default/60': showDropDownCasino,
+                'dark:bg-color-hover-primary': showDropDownCasino,
               },
             )}
             onClick={() => {

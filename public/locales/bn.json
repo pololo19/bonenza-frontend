@@ -527,7 +527,10 @@
     "available": "পাওয়া যায়",
     "lockedFunds": "লক করা তহবিল",
     "withdrawProgress": "প্রত্যাহার চলছে",
-    "withdrawComplete": "প্রত্যাহার সফল"
+    "withdrawComplete": "প্রত্যাহার সফল",
+    "withdrawRestriction": "এর জন্য আপনার প্রত্যাহার এবং টিপিং অনুমতি স্থগিত করা হবে <span class='text-color-red-primary'>{{time}}</span>, আপনার পাসওয়ার্ড পরিবর্তনের কারণে।",
+    "accountRestriction": "অ্যাকাউন্ট সীমাবদ্ধতা",
+    "accountRestrictionDescription": "আপনার অ্যাকাউন্টের নিরাপত্তা রক্ষা করার জন্য, <span class='font-bold text-white'>আমরা 24 ঘন্টার জন্য আপনার তোলা নিষ্ক্রিয় করব</span> আপনি আপনার পাসওয়ার্ড পরিবর্তন করার পরে।"
   },
   "balance": {
     "cryptoCurrency": "ক্রিপ্টো কারেন্সি",
@@ -2170,6 +2173,7 @@
     "badRequest": "আপনার অনুরোধ ডেটা বৈধ নয়.",
     "notAllowedAction": "আপনার কর্ম অনুমোদিত নয়.",
     "internalServer": "উফ! ",
+    "emptyFields": "সব ক্ষেত্রগুলি পূরণ করুন",
     "auth": {
       "existPhone": "এই ফোনটি আগে থেকেই আছে।",
       "existMail": "এই ইমেলটি ইতিমধ্যেই বিদ্যমান।",
@@ -2262,5 +2266,9 @@
     "unClaimedQuest": "Nicht abgeholt",
     "claimed": "Behauptet",
     "expired": "Abgelaufen"
+  },
+  "button": {
+    "cancel": "বাতিল করুন",
+    "continue": "চালিয়ে যান"
   }
 }

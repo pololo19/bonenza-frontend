@@ -527,7 +527,10 @@
     "available": "متاح",
     "lockedFunds": "الأموال المقفلة",
     "withdrawProgress": "السحب قيد التقدم",
-    "withdrawComplete": "تم السحب بنجاح"
+    "withdrawComplete": "تم السحب بنجاح",
+    "withdrawRestriction": "سيتم تعليق أذونات السحب والبقشيش الخاصة بك لمدة <span class='text-color-red-primary'>{{time}}</span>، بسبب تغيير كلمة المرور الخاصة بك.",
+    "accountRestriction": "قيود الحساب",
+    "accountRestrictionDescription": "من أجل حماية سلامة حسابك، <span class='font-bold text-white'>سنقوم بتعطيل عمليات السحب الخاصة بك لمدة 24 ساعة</span> بعد تغيير كلمة المرور الخاصة بك."
   },
   "balance": {
     "cryptoCurrency": "عملة مشفرة",
@@ -2170,6 +2173,7 @@
     "badRequest": "بيانات طلبك غير صالحة.",
     "notAllowedAction": "تصرفك غير مسموح به.",
     "internalServer": "أُووبس! ",
+    "emptyFields": "لو سمحت أملأ كل الحقول",
     "auth": {
       "existPhone": "هذا الهاتف موجود بالفعل.",
       "existMail": "هذا البريد الإلكتروني موجود بالفعل.",
@@ -2262,5 +2266,9 @@
     "unClaimedQuest": "غير مُطالب به",
     "claimed": "ادعى",
     "expired": "منتهي الصلاحية"
+  },
+  "button": {
+    "cancel": "يلغي",
+    "continue": "يكمل"
   }
 }

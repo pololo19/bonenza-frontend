@@ -22,7 +22,12 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, copyClipBoard } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
-import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
+import { changeIsRestricting } from '@/base/redux/reducers/common.reducer';
+import {
+  changeAuthenticationType,
+  changeIsShowAccountRestriction,
+  changeIsShowAuthenticationModal,
+} from '@/base/redux/reducers/modal.reducer';
 import { logoutWallet } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
@@ -62,10 +67,11 @@ const SettingSecurity = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { email, tfa } = useSelector(
+  const { email, tfa, isRestricting } = useSelector(
     (state: AppState) => ({
       email: state.auth.user.email,
       tfa: state.auth.user.tfa,
+      isRestricting: state.common.isRestricting,
     }),
     shallowEqual,
   );
@@ -204,12 +210,26 @@ const SettingSecurity = () => {
     }
   }, [passwordBody.codeOtp]);
 
+  useEffect(() => {
+    if (isRestricting) {
+      handleSubmitPassword();
+    }
+  }, [isRestricting]);
+
+  const onChangePassword = async () => {
+    dispatch(changeIsShowAccountRestriction(true));
+  };
+
   const handleSubmitPassword = async () => {
     if (tfa && !passwordBody.codeOtp) {
       setOpenModalCode(true);
       return;
     }
     setIsLoading(true);
+    if (!passwordBody.oldPassword || !passwordBody.newPassword || !passwordBody.confirmNewPassword) {
+      toast.error(t('errors:emptyFields'), { containerId: TOAST_ENUM.COMMON });
+      return;
+    }
     try {
       const res = await api_changePassword(
         passwordBody.oldPassword,
@@ -220,7 +240,9 @@ const SettingSecurity = () => {
       toast.success(t('setting:passwordChanged'), { containerId: TOAST_ENUM.COMMON });
       setTimeout(() => {
         setOpenModalCode(false);
+
         onLogout();
+        dispatch(changeIsRestricting(false));
         dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
         dispatch(changeIsShowAuthenticationModal(true));
       }, 5000);
@@ -229,6 +251,7 @@ const SettingSecurity = () => {
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       handleChangePassword('', 'codeOtp');
+      dispatch(changeIsRestricting(false));
       if (tfa) setOpenModalCode(true);
     } finally {
       setIsLoading(false);
@@ -307,7 +330,7 @@ const SettingSecurity = () => {
                         <InfoCircle size={16} /> {t('setting:reLoginWillBeRequiredAfterChangingThePassword')}
                       </div>
                       <div
-                        onClick={handleSubmitPassword}
+                        onClick={onChangePassword}
                         role="button"
                         className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                       >

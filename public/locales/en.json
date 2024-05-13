@@ -527,7 +527,10 @@
     "available": "Available",
     "lockedFunds": "Locked funds",
     "withdrawProgress": "Withdrawal is in progress",
-    "withdrawComplete": "Withdrawal Successful"
+    "withdrawComplete": "Withdrawal Successful",
+    "withdrawRestriction": "Your withdrawal and tipping permissions will be suspended for <span class='text-color-red-primary'>{{time}}</span>, due to changing your password.",
+    "accountRestriction": "Account Restrictions",
+    "accountRestrictionDescription": "In order to protect your account safety, <span class='font-bold text-white'>we will disable your withdrawals for 24 hours</span> after you change your password."
   },
   "balance": {
     "cryptoCurrency": "Crypto Currency",
@@ -2186,6 +2189,7 @@
     "badRequest": "Your request Data is not valid.",
     "notAllowedAction": "Your action is not allowed.",
     "internalServer": "Oops! Something went wrong, Please try again later.",
+    "emptyFields": "Please fill all fields",
     "auth": {
       "existPhone": "This Phone is already exists.",
       "existMail": "This Email is already exists.",
@@ -2262,5 +2266,9 @@
     "emptyRepresentativeID": "Please input representative ID correctly.",
     "incorrectRepresentativeID": "{{representativeID}} is NOT the official representative of BONENZA. Do not trust this account..",
     "emptyMessageContent": "Message content cannot be empty!"
+  },
+  "button": {
+    "cancel": "Cancel",
+    "continue": "Continue"
   }
 }

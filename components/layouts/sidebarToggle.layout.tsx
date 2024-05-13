@@ -297,7 +297,7 @@ export default function SidebarToggle() {
           >
             <HambergerMenu size={18} className={cn('m-auto')} />
           </button>
-          <Link href={'/'} className="hidden sm:flex items-center">
+          <Link href={'/'} className="items-center hidden sm:flex">
             <Image
               width={158}
               height={31}
@@ -330,7 +330,7 @@ export default function SidebarToggle() {
                   <IconOption
                     imageURL="/img/sidebar/quest.png"
                     imageClass="absolute -left-[5px] -top-[13px] w-[43px] h-[43px]"
-                    textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[8px]"
+                    textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[8px] dark:!text-white"
                     title={String(t('sidebar:quest'))}
                     href={''}
                     icon={Gift}
@@ -352,14 +352,14 @@ export default function SidebarToggle() {
                     imageURL="/img/sidebar/spin.png"
                     count={isLogin ? spinCount : 0}
                     imageClass="absolute -left-[5px] -top-[13px] w-[41px] h-[41px]"
-                    textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px]"
+                    textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px] dark:!text-white"
                     title={String(t('sidebar:spin'))}
                     href={''}
                     icon={Gift}
                     isFontMedium
                     fontWeight={600}
                     onClick={() => dispatch(changeIsShowSpin(true))}
-                    classNames="h-[40px] bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 px-[10px] pr-[4px]"
+                    classNames="h-[40px] !text-white bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 px-[10px] pr-[4px]"
                   />
                 </CsrWrapper>
               </div>
@@ -461,7 +461,7 @@ export default function SidebarToggle() {
         <div className="flex justify-center items-center min-h-[67px] px-[8px] py-[10px]">
           <button
             className={cn(
-              'sm:block hidden rounded-md  dark:bg-[#25262B] dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
+              'sm:block hidden rounded-md  dark:bg-color-hover-primary dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
@@ -476,7 +476,7 @@ export default function SidebarToggle() {
             href={ROUTER.Bonus}
             type="button"
             className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
             )}
             data-tooltip-id={'bonus-tooltip'}
           >
@@ -497,7 +497,7 @@ export default function SidebarToggle() {
             <div
               role="button"
               key={'quest-small'}
-              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
+              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
               data-tooltip-id={'quest-tooltip'}
               onClick={() => dispatch(changeIsShowQuest(true))}
             >
@@ -513,7 +513,7 @@ export default function SidebarToggle() {
             <div
               role="button"
               id="spin-small"
-              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
+              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
               data-tooltip-id={'spin-tooltip'}
               onClick={() => dispatch(changeIsShowSpin(true))}
             >
@@ -532,7 +532,7 @@ export default function SidebarToggle() {
                 href={item.href}
                 type="button"
                 className={cn(
-                  'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                  'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                 )}
                 onClick={item?.onClick && item?.onClick}
                 data-tooltip-id={`${item.title}-tooltip`}
@@ -554,7 +554,7 @@ export default function SidebarToggle() {
                   href={item.href}
                   type="button"
                   className={cn(
-                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                   )}
                   data-tooltip-id={`${item.title}-tooltip`}
                 >
@@ -579,7 +579,7 @@ export default function SidebarToggle() {
                 <div
                   role="button"
                   className={cn(
-                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                   )}
                   onClick={item?.onClick && item?.onClick}
                   data-tooltip-id={`${item.title}-tooltip`}
@@ -592,7 +592,7 @@ export default function SidebarToggle() {
                   href={item.href}
                   type="button"
                   className={cn(
-                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-[#1D1E22] text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                   )}
                   onClick={item?.onClick && item?.onClick}
                   data-tooltip-id={`${item.title}-tooltip`}

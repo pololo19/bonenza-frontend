@@ -36,7 +36,8 @@ module.exports = {
         'gradient-card-default': 'linear-gradient(235deg, #005664 -18.13%, #111136 122.93%)',
         'gradient-btn-default': 'conic-gradient(from 0deg at 49.82% 50%, #58AF10 0deg, #1D803A 360deg)',
         // 'gradient-btn-play': 'linear-gradient(180deg, #58AF10 10%, #1D803A 90%)',
-        'gradient-btn-play': 'linear-gradient(29deg, #005063 12.79%, #00BAE6 84.65%)',
+        // 'gradient-btn-play': 'linear-gradient(29deg, #005063 12.79%, #00BAE6 84.65%)',
+        'gradient-btn-play': 'linear-gradient(3deg, #005063 2.44%, #00BAE6 98.26%)',
         'gradient-btn-secondary': 'conic-gradient(from 0deg at 49.82% 50%, #F39717 0deg, #D47F00 360deg)',
         'gradient-btn-purple': 'conic-gradient(from 1turn,rgba(136,83,252,1),rgba(110,52,226,1))',
         'quest-gradient-btn':

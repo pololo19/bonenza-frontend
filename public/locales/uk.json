@@ -527,7 +527,10 @@
     "available": "в наявності",
     "lockedFunds": "Заблоковані кошти",
     "withdrawProgress": "Виведення коштів триває",
-    "withdrawComplete": "Виведення успішно"
+    "withdrawComplete": "Виведення успішно",
+    "withdrawRestriction": "Para çekme ve bahşiş izinleriniz şu süre boyunca askıya alınacaktır: <span class='text-color-red-primary'>{{time}}</span>, şifrenizi değiştirdiğiniz için.",
+    "accountRestriction": "Hesap Kısıtlamaları",
+    "accountRestrictionDescription": "Hesabınızın güvenliğini korumak amacıyla, <span class='font-bold text-white'>para çekme işlemlerinizi 24 saat süreyle devre dışı bırakacağız</span> şifrenizi değiştirdikten sonra."
   },
   "balance": {
     "cryptoCurrency": "Криптовалюта",
@@ -2170,6 +2173,7 @@
     "badRequest": "Дані вашого запиту недійсні.",
     "notAllowedAction": "Ваша дія не дозволена.",
     "internalServer": "Ой! ",
+    "emptyFields": "Будь ласка, заповніть усі поля",
     "auth": {
       "existPhone": "Цей телефон вже існує.",
       "existMail": "Ця електронна адреса вже існує.",
@@ -2262,5 +2266,9 @@
     "unClaimedQuest": "Незатребуваний",
     "claimed": "Заявлено",
     "expired": "Термін дії минув"
+  },
+  "button": {
+    "cancel": "Скасувати",
+    "continue": "Продовжити"
   }
 }

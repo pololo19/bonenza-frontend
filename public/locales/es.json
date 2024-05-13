@@ -527,7 +527,10 @@
     "available": "Disponible",
     "lockedFunds": "Fondos bloqueados",
     "withdrawProgress": "La retirada está en curso",
-    "withdrawComplete": "Retiro exitoso"
+    "withdrawComplete": "Retiro exitoso",
+    "withdrawRestriction": "Sus permisos de retiro y propinas se suspenderán por <span class='text-color-red-primary'>{{time}}</span>, debido al cambio de contraseña.",
+    "accountRestriction": "Restricciones de cuenta",
+    "accountRestrictionDescription": "Para proteger la seguridad de su cuenta, <span class='font-bold text-white'>desactivaremos sus retiros durante 24 horas</span> después de cambiar su contraseña."
   },
   "balance": {
     "cryptoCurrency": "moneda criptográfica",
@@ -2170,6 +2173,7 @@
     "badRequest": "Los datos de tu solicitud no son válidos.",
     "notAllowedAction": "Tu acción no está permitida.",
     "internalServer": "¡Ups! ",
+    "emptyFields": "Por favor llena todos los espacios",
     "auth": {
       "existPhone": "Este teléfono ya existe.",
       "existMail": "Este correo electrónico ya existe.",
@@ -2262,5 +2266,9 @@
     "unClaimedQuest": "No reclamado",
     "claimed": "Reclamado",
     "expired": "Venció"
+  },
+  "button": {
+    "cancel": "Cancelar",
+    "continue": "Continuar"
   }
 }

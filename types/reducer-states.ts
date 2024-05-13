@@ -79,6 +79,7 @@ export type ModalState = {
   isShowDepositRule?: boolean;
   isShowSelfExclusion?: boolean;
   isShowDailyContest?: boolean;
+  isShowAccountRestriction?: boolean;
 };
 
 export type LoadingState = {
@@ -100,6 +101,7 @@ export type CommonState = {
   casinoTab?: boolean;
   lastMessage?: MessageType;
   isNewMessage?: boolean;
+  isRestricting?: boolean;
 };
 
 export type UserDataState = {

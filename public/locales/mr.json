@@ -527,7 +527,10 @@
     "available": "उपलब्ध",
     "lockedFunds": "कुलूपबंद निधी",
     "withdrawProgress": "पैसे काढण्याचे काम सुरू आहे",
-    "withdrawComplete": "पैसे काढणे यशस्वी झाले"
+    "withdrawComplete": "पैसे काढणे यशस्वी झाले",
+    "withdrawRestriction": "तुमच्या पैसे काढण्याच्या आणि टिपिंगच्या परवानग्या निलंबित केल्या जातील <span class='text-color-red-primary'>{{time}}</span>, तुमचा पासवर्ड बदलल्यामुळे.",
+    "accountRestriction": "खाते निर्बंध",
+    "accountRestrictionDescription": "तुमच्या खात्याच्या सुरक्षिततेचे रक्षण करण्यासाठी, <span class='font-bold text-white'>आम्ही तुमचे पैसे काढणे २४ तासांसाठी अक्षम करू</span> तुम्ही तुमचा पासवर्ड बदलल्यानंतर."
   },
   "balance": {
     "cryptoCurrency": "क्रिप्टो चलन",
@@ -2170,6 +2173,7 @@
     "badRequest": "तुमची विनंती डेटा वैध नाही.",
     "notAllowedAction": "तुमच्या कृतीला परवानगी नाही.",
     "internalServer": "अरेरे! ",
+    "emptyFields": "कृपया सर्व फील्ड भरा",
     "auth": {
       "existPhone": "हा फोन आधीपासून अस्तित्वात आहे.",
       "existMail": "हा ईमेल आधीपासून अस्तित्वात आहे.",
@@ -2262,5 +2266,9 @@
     "unClaimedQuest": "दावा न केलेला",
     "claimed": "दावा केला",
     "expired": "कालबाह्य"
+  },
+  "button": {
+    "cancel": "रद्द करा",
+    "continue": "सुरू"
   }
 }

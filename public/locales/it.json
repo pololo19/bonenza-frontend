@@ -527,7 +527,10 @@
     "available": "Disponibile",
     "lockedFunds": "Fondi bloccati",
     "withdrawProgress": "Il ritiro è in corso",
-    "withdrawComplete": "Ritiro riuscito"
+    "withdrawComplete": "Ritiro riuscito",
+    "withdrawRestriction": "I tuoi permessi di ritiro e mancia saranno sospesi per <span class='text-color-red-primary'>{{time}}</span>, a causa della modifica della password.",
+    "accountRestriction": "Restrizioni sull'account",
+    "accountRestrictionDescription": "Per proteggere la sicurezza del tuo account, <span class='font-bold text-white'>disabiliteremo i tuoi prelievi per 24 ore</span> dopo aver cambiato la password."
   },
   "balance": {
     "cryptoCurrency": "Criptovaluta",
@@ -2170,6 +2173,7 @@
     "badRequest": "I dati della tua richiesta non sono validi.",
     "notAllowedAction": "La tua azione non è consentita.",
     "internalServer": "Ops! ",
+    "emptyFields": "Per favore compila tutti i campi",
     "auth": {
       "existPhone": "Questo telefono esiste già.",
       "existMail": "Questa email esiste già.",
@@ -2262,5 +2266,9 @@
     "unClaimedQuest": "Non reclamato",
     "claimed": "Reclamato",
     "expired": "Scaduto"
+  },
+  "button": {
+    "cancel": "Annulla",
+    "continue": "Continua"
   }
 }

@@ -527,7 +527,10 @@
     "available": "Có sẵn",
     "lockedFunds": "Tiền bị khóa",
     "withdrawProgress": "Quá trình rút tiền đang được tiến hành",
-    "withdrawComplete": "Rút tiền thành công"
+    "withdrawComplete": "Rút tiền thành công",
+    "withdrawRestriction": "Quyền rút tiền và tiền boa của bạn sẽ bị đình chỉ trong <span class='text-color-red-primary'>{{time}}</span>, do bạn thay đổi mật khẩu.",
+    "accountRestriction": "Hạn chế tài khoản",
+    "accountRestrictionDescription": "Để bảo vệ an toàn cho tài khoản của bạn, <span class='font-bold text-white'>chúng tôi sẽ vô hiệu hóa việc rút tiền của bạn trong 24 giờ</span> sau khi bạn thay đổi mật khẩu của mình."
   },
   "balance": {
     "cryptoCurrency": "Tiền điện tử",
@@ -2170,6 +2173,7 @@
     "badRequest": "Yêu cầu của bạn Dữ liệu không hợp lệ.",
     "notAllowedAction": "Hành động của bạn không được phép.",
     "internalServer": "Ối! ",
+    "emptyFields": "Vui lòng điền vào tất cả các trường",
     "auth": {
       "existPhone": "Điện thoại này đã tồn tại.",
       "existMail": "Email này đã tồn tại.",
@@ -2262,5 +2266,9 @@
     "unClaimedQuest": "Chưa được xác nhận",
     "claimed": "Đã xác nhận quyền sở hữu",
     "expired": "Hết hạn"
+  },
+  "button": {
+    "cancel": "Hủy bỏ",
+    "continue": "Tiếp tục"
   }
 }
