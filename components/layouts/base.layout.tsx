@@ -540,11 +540,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             time: msgData?.time ?? '',
             text: msgData?.text ?? '',
           };
-          if (showChatTypeRef.current) {
-            CookiesStorage.setCookieData('last_message', msgData.id);
+          if (showChatTypeRef.current === true) {
+            CookiesStorage.setCookieData('last_message', tempIncomingMesssage.id);
             dispatch(setIsNewMessage(false));
           } else {
-            dispatch(setIsNewMessage(true));
+            if (CookiesStorage.getCookieData('last_message') !== tempIncomingMesssage.id)
+              dispatch(setIsNewMessage(true));
+            else dispatch(setIsNewMessage(false));
           }
           dispatch(setLastMessage({ ...tempIncomingMesssage }));
         } catch (error) {
