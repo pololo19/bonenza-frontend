@@ -365,6 +365,7 @@ export const convertUserInfo = (userData: any) => {
     tfa: userData?.tfa,
     createdAt: userData?.createdAt,
     updatedAt: userData?.updatedAt,
+    restrictedTo: userData?.restrictedTo,
     generalSetting: {
       settingShowFullNameCrypto: userData?.settingShowFullNameCrypto,
       settingReceiveMarketPromotion: userData?.settingReceiveMarketPromotion,

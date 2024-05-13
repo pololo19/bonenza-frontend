@@ -525,7 +525,10 @@
     "available": "Tersedia",
     "lockedFunds": "Dana terkunci",
     "withdrawProgress": "Penarikan sedang berlangsung",
-    "withdrawComplete": "Penarikan Berhasil"
+    "withdrawComplete": "Penarikan Berhasil",
+    "withdrawRestriction": "Izin penarikan dan pemberian tip Anda akan ditangguhkan <span class='text-color-red-primary'>{{time}}</span>, karena mengubah kata sandi Anda.",
+    "accountRestriction": "Pembatasan Akun",
+    "accountRestrictionDescription": "Untuk melindungi keamanan akun Anda, <span class='font-bold text-white'>kami akan menonaktifkan penarikan Anda selama 24 jam</span> setelah Anda mengubah kata sandi Anda."
   },
   "balance": {
     "cryptoCurrency": "Mata Uang Kripto",
@@ -2168,6 +2171,7 @@
     "badRequest": "Data permintaan Anda tidak valid.",
     "notAllowedAction": "Tindakan Anda tidak diperbolehkan.",
     "internalServer": "Ups! ",
+    "emptyFields": "Silakan isi semua kolom",
     "auth": {
       "existPhone": "Telepon ini sudah ada.",
       "existMail": "Email ini sudah ada.",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "Tidak Diklaim",
     "claimed": "Diklaim",
     "expired": "Kedaluwarsa"
+  },
+  "button": {
+    "cancel": "Membatalkan",
+    "continue": "Melanjutkan"
   }
 }

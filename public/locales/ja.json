@@ -525,7 +525,10 @@
     "available": "利用可能",
     "lockedFunds": "ロックされた資金",
     "withdrawProgress": "引き出しが進行中です",
-    "withdrawComplete": "出金成功"
+    "withdrawComplete": "出金成功",
+    "withdrawRestriction": "出金とチップの許可は次の期間停止されます。 <span class='text-color-red-primary'>{{time}}</span>、パスワードを変更したため。",
+    "accountRestriction": "アカウント制限",
+    "accountRestrictionDescription": "アカウントの安全を守るために、 <span class='font-bold text-white'>24時間出金を無効にします</span> パスワードを変更した後。"
   },
   "balance": {
     "cryptoCurrency": "暗号通貨",
@@ -2168,6 +2171,7 @@
     "badRequest": "リクエストのデータが無効です。",
     "notAllowedAction": "あなたの行動は許可されていません。",
     "internalServer": "おっとっと！",
+    "emptyFields": "全ての項目を埋めてください",
     "auth": {
       "existPhone": "この電話はすでに存在します。",
       "existMail": "このメールはすでに存在します。",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "未請求",
     "claimed": "主張した",
     "expired": "期限切れ"
+  },
+  "button": {
+    "cancel": "キャンセル",
+    "continue": "続く"
   }
 }

@@ -525,7 +525,10 @@
     "available": "Verfügbar",
     "lockedFunds": "Gesperrte Gelder",
     "withdrawProgress": "Die Auszahlung ist im Gange",
-    "withdrawComplete": "Auszahlung erfolgreich"
+    "withdrawComplete": "Auszahlung erfolgreich",
+    "withdrawRestriction": "Ihre Auszahlungs- und Trinkgelderlaubnis wird für gesperrt <span class='text-color-red-primary'>{{time}}</span>, da Sie Ihr Passwort geändert haben.",
+    "accountRestriction": "Kontobeschränkungen",
+    "accountRestrictionDescription": "Um die Sicherheit Ihres Kontos zu schützen, <span class='font-bold text-white'>Wir werden Ihre Auszahlungen für 24 Stunden sperren</span> nachdem Sie Ihr Passwort geändert haben."
   },
   "balance": {
     "cryptoCurrency": "Kryptowährung",
@@ -2168,6 +2171,7 @@
     "badRequest": "Los datos de tu solicitud no son válidos.",
     "notAllowedAction": "Tu acción no está permitida.",
     "internalServer": "¡Ups! ",
+    "emptyFields": "Bitte alle Felder ausfüllen",
     "auth": {
       "existPhone": "Este teléfono ya existe.",
       "existMail": "Este correo electrónico ya existe.",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "Nicht abgeholt",
     "claimed": "Behauptet",
     "expired": "Abgelaufen"
+  },
+  "button": {
+    "cancel": "Stornieren",
+    "continue": "Weitermachen"
   }
 }

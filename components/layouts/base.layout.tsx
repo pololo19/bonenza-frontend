@@ -21,6 +21,7 @@ import { changeIsLoading, setIsNewMessage, setLastMessage } from '@/base/redux/r
 import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAccountPannel,
+  changeIsShowAccountRestriction,
   changeIsShowAuthenticationModal,
   changeIsShowBonusDetail,
   changeIsShowBonusHistory,
@@ -75,6 +76,7 @@ import ChattingComponent from '../chatting/chattingComponent';
 import Loader from '../common/preloader/loader';
 import HomeIconOutline from '../icons/HomeIconOutline';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
+import ModalAccountRestriction from '../modal/accountRestriction/accountRestriction';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
@@ -202,6 +204,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowSelfExclusion,
     isShowDailyContest,
     isLoading,
+    isShowAccountRestriction,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -249,6 +252,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowDepositRule: state.modal.isShowDepositRule,
       isShowSelfExclusion: state.modal.isShowSelfExclusion,
       isShowDailyContest: state.modal.isShowDailyContest,
+      isShowAccountRestriction: state.modal.isShowAccountRestriction,
     }),
     shallowEqual,
   );
@@ -951,6 +955,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         onClose={() => dispatch(changeIsShowSelfExclusion(false))}
       />
       <ModalDailyContest show={isShowDailyContest || false} onClose={() => dispatch(changeIsShowDailyContest(false))} />
+      <ModalAccountRestriction
+        show={isShowAccountRestriction || false}
+        onClose={() => dispatch(changeIsShowAccountRestriction(false))}
+      />
     </>
   );
 };

@@ -525,7 +525,10 @@
     "available": "มีอยู่",
     "lockedFunds": "กองทุนที่ถูกล็อค",
     "withdrawProgress": "กำลังดำเนินการถอนเงิน",
-    "withdrawComplete": "การถอนเงินสำเร็จ"
+    "withdrawComplete": "การถอนเงินสำเร็จ",
+    "withdrawRestriction": "สิทธิ์การถอนและการให้ทิปของคุณจะถูกระงับ <span class='text-color-red-primary'>{{time}}</span>เนื่องจากการเปลี่ยนรหัสผ่านของคุณ",
+    "accountRestriction": "ข้อจำกัดของบัญชี",
+    "accountRestrictionDescription": "เพื่อปกป้องความปลอดภัยของบัญชีของคุณ <span class='font-bold text-white'>เราจะปิดการใช้งานการถอนเงินของคุณเป็นเวลา 24 ชั่วโมง</span> หลังจากที่คุณเปลี่ยนรหัสผ่านของคุณ"
   },
   "balance": {
     "cryptoCurrency": "สกุลเงินดิจิตอล",
@@ -2168,6 +2171,7 @@
     "badRequest": "ข้อมูลคำขอของคุณไม่ถูกต้อง",
     "notAllowedAction": "ไม่อนุญาตให้คุณดำเนินการใดๆ",
     "internalServer": "อ๊ะ! ",
+    "emptyFields": "กรุณากรอกข้อมูลให้ครบทุกช่อง",
     "auth": {
       "existPhone": "โทรศัพท์นี้มีอยู่แล้ว",
       "existMail": "อีเมลนี้มีอยู่แล้ว",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "ไม่มีการอ้างสิทธิ์",
     "claimed": "อ้างสิทธิ์",
     "expired": "หมดอายุแล้ว"
+  },
+  "button": {
+    "cancel": "ยกเลิก",
+    "continue": "ดำเนินการต่อ"
   }
 }

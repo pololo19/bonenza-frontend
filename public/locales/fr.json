@@ -525,7 +525,10 @@
     "available": "Disponible",
     "lockedFunds": "Fonds bloqués",
     "withdrawProgress": "Le retrait est en cours",
-    "withdrawComplete": "Retrait réussi"
+    "withdrawComplete": "Retrait réussi",
+    "withdrawRestriction": "Vos autorisations de retrait et de pourboire seront suspendues pendant <span class='text-color-red-primary'>{{time}}</span>, en raison d'un changement de mot de passe.",
+    "accountRestriction": "Restrictions de compte",
+    "accountRestrictionDescription": "Afin de protéger la sécurité de votre compte, <span class='font-bold text-white'>nous désactiverons vos retraits pendant 24 heures</span> après avoir modifié votre mot de passe."
   },
   "balance": {
     "cryptoCurrency": "Crypto-monnaie",
@@ -2168,6 +2171,7 @@
     "badRequest": "Les données de votre demande ne sont pas valides.",
     "notAllowedAction": "Votre action n'est pas autorisée.",
     "internalServer": "Oops! ",
+    "emptyFields": "Merci de compléter tous les champs",
     "auth": {
       "existPhone": "Ce téléphone existe déjà.",
       "existMail": "Cet e-mail existe déjà.",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "Non réclamés",
     "claimed": "Revendiqué",
     "expired": "Expiré"
+  },
+  "button": {
+    "cancel": "Annuler",
+    "continue": "Continuer"
   }
 }

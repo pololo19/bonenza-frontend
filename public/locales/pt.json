@@ -525,7 +525,10 @@
     "available": "Disponível",
     "lockedFunds": "Fundos bloqueados",
     "withdrawProgress": "A retirada está em andamento",
-    "withdrawComplete": "Retirada bem-sucedida"
+    "withdrawComplete": "Retirada bem-sucedida",
+    "withdrawRestriction": "Suas permissões de retirada e gorjeta serão suspensas por <span class='text-color-red-primary'>{{time}}</span>, devido à alteração de sua senha.",
+    "accountRestriction": "Restrições de conta",
+    "accountRestrictionDescription": "Para proteger a segurança da sua conta, <span class='font-bold text-white'>desabilitaremos seus saques por 24 horas</span> depois de alterar sua senha."
   },
   "balance": {
     "cryptoCurrency": "Moeda criptográfica",
@@ -2168,6 +2171,7 @@
     "badRequest": "Os dados da sua solicitação não são válidos.",
     "notAllowedAction": "Sua ação não é permitida.",
     "internalServer": "Ops! ",
+    "emptyFields": "Por favor preencha todos os campos",
     "auth": {
       "existPhone": "Este telefone já existe.",
       "existMail": "Este e-mail já existe.",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "Não reclamado",
     "claimed": "Reivindicado",
     "expired": "Expirado"
+  },
+  "button": {
+    "cancel": "Cancelar",
+    "continue": "Continuar"
   }
 }

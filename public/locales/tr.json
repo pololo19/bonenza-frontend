@@ -525,7 +525,10 @@
     "available": "Mevcut",
     "lockedFunds": "Kilitli fonlar",
     "withdrawProgress": "Para çekme işlemi devam ediyor",
-    "withdrawComplete": "Para Çekme Başarılı"
+    "withdrawComplete": "Para Çekme Başarılı",
+    "withdrawRestriction": "Para çekme ve bahşiş izinleriniz şu süre boyunca askıya alınacaktır: <span class='text-color-red-primary'>{{time}}</span>, şifrenizi değiştirdiğiniz için.",
+    "accountRestriction": "Hesap Kısıtlamaları",
+    "accountRestrictionDescription": "Hesabınızın güvenliğini korumak amacıyla, <span class='font-bold text-white'>para çekme işlemlerinizi 24 saat süreyle devre dışı bırakacağız</span> şifrenizi değiştirdikten sonra."
   },
   "balance": {
     "cryptoCurrency": "Kripto para",
@@ -2168,6 +2171,7 @@
     "badRequest": "Talebiniz Veriler geçerli değil.",
     "notAllowedAction": "İşleminize izin verilmiyor.",
     "internalServer": "Hata! ",
+    "emptyFields": "Lütfen tüm alanları doldurun",
     "auth": {
       "existPhone": "Bu Telefon zaten mevcut.",
       "existMail": "Bu E-posta zaten mevcut.",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "Talep Edilmedi",
     "claimed": "Hak talebinde bulunuldu",
     "expired": "Günü geçmiş"
+  },
+  "button": {
+    "cancel": "İptal etmek",
+    "continue": "Devam etmek"
   }
 }

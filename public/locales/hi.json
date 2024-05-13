@@ -525,7 +525,10 @@
     "available": "उपलब्ध",
     "lockedFunds": "बंद धन",
     "withdrawProgress": "निकासी की प्रक्रिया चल रही है",
-    "withdrawComplete": "निकासी सफल"
+    "withdrawComplete": "निकासी सफल",
+    "withdrawRestriction": "आपकी निकासी और टिपिंग अनुमतियाँ निलंबित कर दी जाएंगी <span class='text-color-red-primary'>{{time}}</span>, अपना पासवर्ड बदलने के कारण।",
+    "accountRestriction": "खाता प्रतिबंध",
+    "accountRestrictionDescription": "आपके खाते की सुरक्षा के लिए, <span class='font-bold text-white'>हम आपकी निकासी को 24 घंटे के लिए अक्षम कर देंगे</span> अपना पासवर्ड बदलने के बाद."
   },
   "balance": {
     "cryptoCurrency": "क्रिप्टो करेंसी",
@@ -2168,6 +2171,7 @@
     "badRequest": "आपका अनुरोध डेटा मान्य नहीं है.",
     "notAllowedAction": "आपकी कार्रवाई की अनुमति नहीं है.",
     "internalServer": "उफ़! ",
+    "emptyFields": "कृपया सभी क्षेत्रों को भरें",
     "auth": {
       "existPhone": "यह फ़ोन पहले से ही मौजूद है.",
       "existMail": "यह ईमेल पहले से मौजूद है.",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "लावारिस",
     "claimed": "दावा किया",
     "expired": "खत्म हो चुका"
+  },
+  "button": {
+    "cancel": "रद्द करना",
+    "continue": "जारी रखना"
   }
 }

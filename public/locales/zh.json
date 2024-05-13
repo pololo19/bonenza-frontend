@@ -525,7 +525,10 @@
     "available": "可用的",
     "lockedFunds": "锁定资金",
     "withdrawProgress": "提款正在进行中",
-    "withdrawComplete": "提现成功"
+    "withdrawComplete": "提现成功",
+    "withdrawRestriction": "您的提款和小费权限将被暂停 <span class='text-color-red-primary'>{{time}}</span>，由于更改了密码。",
+    "accountRestriction": "账户限制",
+    "accountRestrictionDescription": "为了保护您的账户安全， <span class='font-bold text-white'>我们将在 24 小时内禁止您提款</span> 更改密码后。"
   },
   "balance": {
     "cryptoCurrency": "加密货币",
@@ -2168,6 +2171,7 @@
     "badRequest": "您的请求数据无效。",
     "notAllowedAction": "你的行为是不被允许的。",
     "internalServer": "哎呀！",
+    "emptyFields": "请填写所有字段",
     "auth": {
       "existPhone": "此电话已存在。",
       "existMail": "该电子邮件已存在。",
@@ -2260,5 +2264,9 @@
     "unClaimedQuest": "无人认领",
     "claimed": "声称",
     "expired": "已到期"
+  },
+  "button": {
+    "cancel": "取消",
+    "continue": "继续"
   }
 }
