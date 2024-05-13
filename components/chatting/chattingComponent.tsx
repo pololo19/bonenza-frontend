@@ -152,12 +152,12 @@ const ChattingComponent = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-between h-full w-full bg-white dark:bg-color-bg-primary min-w-[100vw] sm:min-w-[330px]">
-        <div className="flex justify-between items-center h-[70px] z-[5] px-5 py-2 border-b-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
+      <div className="flex flex-col justify-between h-full w-full bg-white dark:bg-color-header-primary min-w-[100vw] sm:min-w-[330px]  border-solid border-[1px] border-color-bg-primary border-l-color-card-body-primary drop-shadow-lg shadow-bs-default">
+        <div className="flex justify-between items-center h-[70px] z-[5] px-5 py-3 border-b-[1px] border-solid dark:border-b-color-card-body-primary border-color-light-border-primary">
           <div className="text-[18px] text-black dark:text-[#ffffff] font-semibold">{t('chatting:chat')}</div>
           <div className="flex gap-[13px]">
             <button
-              className="bg-color-light-bg-primary dark:bg-color-input-primary text-black dark:text-[#ffffff] hover:bg-gray-400 hover:text-white dark:hover:bg-gray-800 rounded-[14px] p-[10px] flex items-center justify-center"
+              className="text-black dark:text-[#ffffff] hover:text-white rounded-[14px] p-1 flex items-center justify-center hover:opacity-80"
               onClick={() => {
                 dispatch(changeIsShowChatRule(true));
               }}
@@ -165,7 +165,7 @@ const ChattingComponent = () => {
               <InfoCircle className="" width={20} height={20} />
             </button>
             <button
-              className="bg-color-light-bg-primary dark:bg-color-input-primary text-black dark:text-[#ffffff] hover:bg-gray-400 hover:text-white dark:hover:bg-gray-800 rounded-[14px] p-[10px] flex items-center justify-center"
+              className="text-black dark:text-[#ffffff] hover:text-white rounded-[14px] p-1 flex items-center justify-center hover:opacity-80"
               onClick={() => {
                 dispatch(changeShowChatType(false));
                 dispatch(changeShowFullChat(false));
@@ -176,7 +176,7 @@ const ChattingComponent = () => {
           </div>
         </div>
         <div
-          className="flex flex-col bg-black overflow-y-auto pb-[60px]"
+          className="flex flex-col bg-transparent overflow-y-auto pb-[80px]"
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
@@ -204,13 +204,13 @@ const ChattingComponent = () => {
             </div>
           )}
         </div>
-        <div className="flex py-[10px] w-full bg-color-bg-primary px-[7px] gap-[10px] fixed bottom-0">
+        <div className="flex py-[10px] w-full bg-color-header-primary px-[7px] gap-[10px] fixed bottom-0 border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary">
           <div
             contentEditable={true}
             style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
             onKeyDown={(e) => handleSubmit(e)}
             className={
-              'flex w-full max-h-[200px] py-[12px] leading-[20px] px-[10px] overflow-y-auto border-none outline-none lign-baseline editBox dark:bg-[#0A0A0A] rounded-default cursor-text text-[14px] dark:text-white'
+              'flex w-full max-h-[200px] py-[12px] leading-[20px] px-[10px] overflow-y-auto border-none outline-none lign-baseline editBox dark:bg-color-input-primary rounded-default cursor-text text-[14px] dark:text-white'
             }
             ref={chatRef}
           />

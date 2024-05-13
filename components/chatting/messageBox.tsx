@@ -2,10 +2,11 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { API_AVATAR } from '@/base/constants/common';
+import { API_AVATAR, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
+import { formatDate } from '@/base/libs/utils';
 
 interface MessageBoxProps {
   userId: string;
@@ -58,9 +59,14 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
   };
   return (
     <>
-      <div className={cn('flex w-full px-[10px]', { 'justify-end': id === userId, 'justify-start': id !== userId })}>
+      <div
+        className={cn('flex w-full px-[20px]', {
+          'justify-end': id === userId,
+          'justify-start': id !== userId,
+        })}
+      >
         <div
-          className={cn('flex w-full gap-1', {
+          className={cn('flex w-full gap-2', {
             'justify-start flex-row-reverse': id === userId,
             'justify-start': id !== userId,
           })}
@@ -86,10 +92,18 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
               </span>
             </div>
           </div>
-          <div
-            className="flex items-center text-[12px] h-fit max-w-[220px] break-all bg-color-bg-primary text-white rounded-default p-[10px]"
-            dangerouslySetInnerHTML={{ __html: text }}
-          />
+          <div className="flex flex-col gap-1">
+            <div className="text-m_default pl-1">
+              <span className="text-[#BBB] font-semibold">{userName}</span>
+              <span className="text-[11px] text-[#999] font-normal">
+                {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
+              </span>
+            </div>
+            <div
+              className="flex items-center text-[11px] sm:text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] p-[8px]"
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -61,7 +61,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
             <div
               className={cn('text-[22px]', {
                 'text-red-500': transaction.type === 'Withdraw',
-                'text-color-primary': Number(transaction.amount) >= 0,
+                'text-color-text-green': Number(transaction.amount) >= 0,
                 'text-[#FD6E0B]': Number(transaction.amount) < 0,
               })}
             >
