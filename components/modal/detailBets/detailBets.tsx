@@ -72,7 +72,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
         onClose={onClose}
         panelClass="sm:!max-w-[480px]"
         header={
-          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-color-header-primary bg-[#f5f6fa]">
+          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-color-modal-bg-primary bg-[#f5f6fa]">
             <div className="text-[16px] dark:text-white text-black font-[600]">
               {detailsBet?.titleModal || String(t('gameDetail:betDetail'))}
             </div>
@@ -212,7 +212,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                 </div>
               </div>
             </div>
-            <div className="mt-5 dark:bg-color-bg-primary bg-[#f5f6fa] rounded-[5px] py-[9px] px-[10px] flex items-center justify-between mx-[6px]">
+            <div className="mt-5 rounded-[5px] py-[9px] px-[10px] flex items-center justify-between mx-[6px]">
               <div className="flex items-center gap-[7px]">
                 <Image
                   width={38}

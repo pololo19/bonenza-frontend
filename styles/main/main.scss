@@ -83,7 +83,9 @@ ul.react-paginate {
 .editBox:empty:focus::before,
 .editBox:empty::before{
   content: 'Enter Message here...';
-  color: #505D6A;
+  color: #98A7B5;
+  font-size: 14px;
+  font-weight: 400;
 }
 
 body {
