@@ -83,7 +83,9 @@
     "createCode": "Buat Kode",
     "commissionCalculator": "Kalkulator Komisi",
     "commissionRule1": "Di lingkungan publik mana pun (misalnya universitas, sekolah, perpustakaan, dan ruang kantor), hanya satu komisi yang dapat dibayarkan kepada setiap pengguna, alamat IP, perangkat elektronik, rumah, nomor telepon, metode penagihan, alamat email, serta komputer dan alamat IP ",
-    "commissionRule2": "Sistem menghitung komisi setiap 24 jam.",
+    "commissionRule2": "Keputusan kami untuk menarik taruhan akan didasarkan sepenuhnya pada kebijaksanaan kami setelah deposit dilakukan dan taruhan berhasil dipasang. Kami mendukung sebagian besar mata uang di pasar. Komisi dapat ditarik ke dompet internal BONENZA kami kapan saja.",
+    "commissionRule3": "(Lihat ekstraksi komisi Anda di dasbor dan lihat saldo di dompet).",
+    "commissionRule4": "Sistem menghitung komisi setiap 24 jam.",
     "howToGetReferralReward": "Cara Mendapatkan Hadiah Referensi Anda",
     "shareFriends1": "Bagikan ke teman",
     "shareFriends2": "Bagikan link atau kode referral Anda ke teman Anda",
@@ -525,7 +527,10 @@
     "available": "Tersedia",
     "lockedFunds": "Dana terkunci",
     "withdrawProgress": "Penarikan sedang berlangsung",
-    "withdrawComplete": "Penarikan Berhasil"
+    "withdrawComplete": "Penarikan Berhasil",
+    "withdrawRestriction": "Izin penarikan dan pemberian tip Anda akan ditangguhkan <span class='text-color-red-primary'>{{time}}</span>, karena mengubah kata sandi Anda.",
+    "accountRestriction": "Pembatasan Akun",
+    "accountRestrictionDescription": "Untuk melindungi keamanan akun Anda, <span class='font-bold text-white'>kami akan menonaktifkan penarikan Anda selama 24 jam</span> setelah Anda mengubah kata sandi Anda."
   },
   "balance": {
     "cryptoCurrency": "Mata Uang Kripto",
@@ -2168,6 +2173,7 @@
     "badRequest": "Data permintaan Anda tidak valid.",
     "notAllowedAction": "Tindakan Anda tidak diperbolehkan.",
     "internalServer": "Ups! ",
+    "emptyFields": "Silakan isi semua kolom",
     "auth": {
       "existPhone": "Telepon ini sudah ada.",
       "existMail": "Email ini sudah ada.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "Tidak Diklaim",
     "claimed": "Diklaim",
     "expired": "Kedaluwarsa"
+  },
+  "button": {
+    "cancel": "Membatalkan",
+    "continue": "Melanjutkan"
   }
 }

@@ -83,7 +83,9 @@
     "createCode": "Tạo mã",
     "commissionCalculator": "Công cụ tính hoa hồng",
     "commissionRule1": "Trong bất kỳ môi trường công cộng nào (ví dụ: trường đại học, trường học, thư viện và không gian văn phòng), chỉ có thể trả một khoản hoa hồng cho mỗi người dùng, địa chỉ IP, thiết bị điện tử, số nhà, số điện thoại, phương thức thanh toán, địa chỉ email, máy tính và địa chỉ IP ",
-    "commissionRule2": "Hệ thống tính toán hoa hồng cứ sau 24 giờ.",
+    "commissionRule2": "Quyết định đặt cược của chúng tôi sẽ hoàn toàn dựa trên quyết định của chúng tôi sau khi gửi tiền và đặt cược thành công. Chúng tôi hỗ trợ phần lớn các loại tiền tệ trên thị trường. Tiền hoa hồng có thể được rút vào ví BONENZA nội bộ của chúng tôi bất cứ lúc nào.",
+    "commissionRule3": "(Xem trích xuất hoa hồng của bạn trong bảng điều khiển và xem số dư trong ví).",
+    "commissionRule4": "Hệ thống tính toán hoa hồng cứ sau 24 giờ.",
     "howToGetReferralReward": "Cách nhận phần thưởng giới thiệu của bạn",
     "shareFriends1": "Chia sẻ với bạn bè",
     "shareFriends2": "Chia sẻ liên kết hoặc mã giới thiệu của bạn với bạn bè",
@@ -525,7 +527,10 @@
     "available": "Có sẵn",
     "lockedFunds": "Tiền bị khóa",
     "withdrawProgress": "Quá trình rút tiền đang được tiến hành",
-    "withdrawComplete": "Rút tiền thành công"
+    "withdrawComplete": "Rút tiền thành công",
+    "withdrawRestriction": "Quyền rút tiền và tiền boa của bạn sẽ bị đình chỉ trong <span class='text-color-red-primary'>{{time}}</span>, do bạn thay đổi mật khẩu.",
+    "accountRestriction": "Hạn chế tài khoản",
+    "accountRestrictionDescription": "Để bảo vệ an toàn cho tài khoản của bạn, <span class='font-bold text-white'>chúng tôi sẽ vô hiệu hóa việc rút tiền của bạn trong 24 giờ</span> sau khi bạn thay đổi mật khẩu của mình."
   },
   "balance": {
     "cryptoCurrency": "Tiền điện tử",
@@ -2168,6 +2173,7 @@
     "badRequest": "Yêu cầu của bạn Dữ liệu không hợp lệ.",
     "notAllowedAction": "Hành động của bạn không được phép.",
     "internalServer": "Ối! ",
+    "emptyFields": "Vui lòng điền vào tất cả các trường",
     "auth": {
       "existPhone": "Điện thoại này đã tồn tại.",
       "existMail": "Email này đã tồn tại.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "Chưa được xác nhận",
     "claimed": "Đã xác nhận quyền sở hữu",
     "expired": "Hết hạn"
+  },
+  "button": {
+    "cancel": "Hủy bỏ",
+    "continue": "Tiếp tục"
   }
 }

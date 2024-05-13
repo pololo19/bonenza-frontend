@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import Head from 'next/head';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import Countdown from 'react-countdown';
 import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -19,6 +20,7 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import { WithdrawRequest } from '@/base/types/requestTypes';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import Loader from '@/components/common/preloader/loader';
+import CsrWrapper from '@/components/CsrWrapper';
 import withAuth from '@/components/hoc/withAuth';
 import InputNumber from '@/components/input/typing/InputNumber';
 import InputText from '@/components/input/typing/InputText';
@@ -64,9 +66,10 @@ const WithdrawCryptoPage = () => {
     type: 1,
   });
 
-  const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat } = useSelector(
+  const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat, restrictedTo } = useSelector(
     (state: AppState) => ({
       // localeFiat: state.common.localeFiat,
+      restrictedTo: state.auth.user.restrictedTo,
       localFiat: state.wallet.localFiat,
       balances: state.wallet.balances,
       cryptoCurrencies: state.wallet.cryptoCurrencies,
@@ -166,6 +169,12 @@ const WithdrawCryptoPage = () => {
     defaultValues: { withdrawAmount: '0' },
     mode: 'onSubmit',
   });
+
+  const restrictedDuration = useMemo(() => {
+    const now = Math.floor(Date.now() / 1000);
+    const diff = Number(restrictedTo) - now;
+    return diff;
+  }, [restrictedTo]);
 
   const getWithdrawInfo = useCallback(async () => {
     try {
@@ -282,6 +291,8 @@ const WithdrawCryptoPage = () => {
     getWithdrawInfo();
   }, [getWithdrawInfo]);
 
+  console.log(restrictedTo, '=====294');
+
   return (
     <>
       <div className={`${styles.cardContent}`}>
@@ -318,6 +329,23 @@ const WithdrawCryptoPage = () => {
             </Link> */}
           {/* </div> */}
           <div className="md:max-w-[492px]">
+            {restrictedDuration > 0 && (
+              <div className="">
+                <CsrWrapper>
+                  <Countdown
+                    date={new Date(restrictedTo * 1000)}
+                    renderer={({ days, hours, minutes, seconds }) => (
+                      <div
+                        className="text-white"
+                        dangerouslySetInnerHTML={{
+                          __html: String(t('withdraw:withdrawRestriction', { time: `${hours}:${minutes}:${seconds}` })),
+                        }}
+                      ></div>
+                    )}
+                  />
+                </CsrWrapper>
+              </div>
+            )}
             <div className="">
               <SelectCurrency
                 activeCoin={activeCoin}
@@ -325,6 +353,7 @@ const WithdrawCryptoPage = () => {
                 onChangeCoin={setActiveCoin}
                 onChangeNetwork={setActiveNetwork}
                 withDrawTab={true}
+                disabled={restrictedDuration > 0}
               />
             </div>
 
@@ -336,6 +365,7 @@ const WithdrawCryptoPage = () => {
                 <InputText
                   customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default"
                   control={control}
+                  disabled={restrictedDuration > 0}
                   placeholder={String(t('withdraw:withdrawalAddressPlaceholder'))}
                   name="withdrawAddress"
                 />
@@ -365,12 +395,14 @@ const WithdrawCryptoPage = () => {
                     isShowError={false}
                     onBlur={handleBlur}
                     name="withdrawAmount"
+                    disabled={restrictedDuration > 0}
                     placeholder={String(t('withdraw:withdrawAmount'))}
                   />
                   <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-default text-m_default">
                     {renderKeys.isMin && (
                       <div
                         role="button"
+                        aria-disabled={restrictedDuration > 0}
                         className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setValue('withdrawAmount', String(renderMinValue.min))}
                       >
@@ -380,6 +412,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isQuater && (
                       <div
                         role="button"
+                        aria-disabled={restrictedDuration > 0}
                         className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(25)}
                       >
@@ -389,6 +422,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isHalf && (
                       <div
                         role="button"
+                        aria-disabled={restrictedDuration > 0}
                         className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(50)}
                       >
@@ -398,6 +432,7 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMax && (
                       <div
                         role="button"
+                        aria-disabled={restrictedDuration > 0}
                         className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
                         onClick={() => setAmountByPercent(100)}
                       >
@@ -480,6 +515,7 @@ const WithdrawCryptoPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
+                  disabled={restrictedDuration > 0}
                   className="bg-gradient-btn-play hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px]"
                 >
                   {t('withdraw:confirm')}

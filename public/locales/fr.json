@@ -82,8 +82,10 @@
     "referralCodeCreated": "Code de parrainage créé",
     "createCode": "Créer du code",
     "commissionCalculator": "Calculateur de commissions",
-    "commissionRule1": "Dans n'importe quel environnement public (par exemple, universités, écoles, bibliothèques et bureaux), une seule commission peut être versée à chaque utilisateur, adresse IP, appareil électronique, domicile, numéro de téléphone, méthode de facturation, adresse e-mail, ordinateur et adresse IP. ",
-    "commissionRule2": "Le système calcule la commission toutes les 24 heures.",
+    "commissionRule1": "Dans tout environnement public (par exemple, universités, écoles, bibliothèques et bureaux), une seule commission peut être versée à chaque utilisateur, adresse IP, appareil électronique, domicile, numéro de téléphone, méthode de facturation, adresse e-mail, ordinateur et adresse IP. ",
+    "commissionRule2": "Notre décision de tirer un pari sera basée entièrement sur notre discrétion une fois qu'un dépôt aura été effectué et qu'un pari aura été placé avec succès. Nous prenons en charge la majorité des devises du marché. Les commissions peuvent être retirées dans notre portefeuille interne BONENZA à tout moment.",
+    "commissionRule3": "(Consultez votre extraction de commission dans le tableau de bord et consultez le solde dans le portefeuille).",
+    "commissionRule4": "Le système calcule la commission toutes les 24 heures.",
     "howToGetReferralReward": "Comment obtenir votre récompense de parrainage",
     "shareFriends1": "Partager avec des amis",
     "shareFriends2": "Partagez votre lien ou code de parrainage avec vos amis",
@@ -525,7 +527,10 @@
     "available": "Disponible",
     "lockedFunds": "Fonds bloqués",
     "withdrawProgress": "Le retrait est en cours",
-    "withdrawComplete": "Retrait réussi"
+    "withdrawComplete": "Retrait réussi",
+    "withdrawRestriction": "Vos autorisations de retrait et de pourboire seront suspendues pendant <span class='text-color-red-primary'>{{time}}</span>, en raison d'un changement de mot de passe.",
+    "accountRestriction": "Restrictions de compte",
+    "accountRestrictionDescription": "Afin de protéger la sécurité de votre compte, <span class='font-bold text-white'>nous désactiverons vos retraits pendant 24 heures</span> après avoir modifié votre mot de passe."
   },
   "balance": {
     "cryptoCurrency": "Crypto-monnaie",
@@ -2168,6 +2173,7 @@
     "badRequest": "Les données de votre demande ne sont pas valides.",
     "notAllowedAction": "Votre action n'est pas autorisée.",
     "internalServer": "Oops! ",
+    "emptyFields": "Merci de compléter tous les champs",
     "auth": {
       "existPhone": "Ce téléphone existe déjà.",
       "existMail": "Cet e-mail existe déjà.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "Non réclamés",
     "claimed": "Revendiqué",
     "expired": "Expiré"
+  },
+  "button": {
+    "cancel": "Annuler",
+    "continue": "Continuer"
   }
 }

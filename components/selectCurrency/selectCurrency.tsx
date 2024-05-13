@@ -24,6 +24,7 @@ type SelectCurrencyProps = {
   onChangeCoin: (coin: CurrencyType) => void;
   onChangeNetwork: (network: CryptoNetWorkType) => void;
   withDrawTab?: boolean;
+  disabled?: boolean;
 };
 
 const fiatDecimals = 2;
@@ -35,6 +36,7 @@ const SelectCurrency = ({
   onChangeCoin,
   onChangeNetwork,
   withDrawTab,
+  disabled = false,
 }: SelectCurrencyProps) => {
   const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
@@ -190,7 +192,7 @@ const SelectCurrency = ({
                   </Menu.Button>
                 </div>
               )}
-              <Menu.Button className="mt-[15px] w-full flex-1">
+              <Menu.Button className="mt-[15px] w-full flex-1" disabled={disabled}>
                 <div
                   className="dark:bg-color-input-primary bg-color-light-input-primary rounded-default flex items-center justify-between w-full py-[13px] px-[20px] "
                   // role="button"
@@ -344,7 +346,7 @@ const SelectCurrency = ({
           as="div"
           className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-default"
         >
-          <Menu.Button className="flex-1 py-[15px] px-[20px]">
+          <Menu.Button className="flex-1 py-[15px] px-[20px]" disabled={disabled}>
             <div className="flex items-center justify-between w-full" role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
                 <div className="flex-1 text-black text-start dark:text-white text-default">{activeNetwork.name}</div>

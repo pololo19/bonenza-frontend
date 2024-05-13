@@ -82,8 +82,10 @@
     "referralCodeCreated": "Реферальний код створено",
     "createCode": "Створити код",
     "commissionCalculator": "Калькулятор комісії",
-    "commissionRule1": "У будь-якому громадському середовищі (наприклад, університети, школи, бібліотеки та офісні приміщення) лише одна комісія може бути сплачена кожному користувачеві, IP-адресі, електронному пристрою, дому, номеру телефону, методу виставлення рахунків, адресі електронної пошти, комп’ютеру та IP-адресі ",
-    "commissionRule2": "Система нараховує комісію кожні 24 години.",
+    "commissionRule1": "У будь-якому публічному середовищі (наприклад, в університетах, школах, бібліотеках та офісних приміщеннях) лише одна комісія може бути сплачена кожному користувачеві, IP-адресі, електронному пристрою, дому, номеру телефону, методу виставлення рахунків, адресі електронної пошти, комп’ютеру та IP-адресі ",
+    "commissionRule2": "Наше рішення розіграти ставку буде повністю засноване на нашому розсуді після внесення депозиту та успішного розміщення ставки. Ми підтримуємо більшість валют на ринку. Комісійні можна вивести на наш внутрішній гаманець BONENZA у будь-який час.",
+    "commissionRule3": "(Перегляньте свою комісію на інформаційній панелі та перегляньте баланс у гаманці).",
+    "commissionRule4": "Система нараховує комісію кожні 24 години.",
     "howToGetReferralReward": "Як отримати винагороду за рекомендацію",
     "shareFriends1": "Поділіться з друзями",
     "shareFriends2": "Поділіться своїм реферальним посиланням або кодом з друзями",
@@ -525,7 +527,10 @@
     "available": "в наявності",
     "lockedFunds": "Заблоковані кошти",
     "withdrawProgress": "Виведення коштів триває",
-    "withdrawComplete": "Виведення успішно"
+    "withdrawComplete": "Виведення успішно",
+    "withdrawRestriction": "Para çekme ve bahşiş izinleriniz şu süre boyunca askıya alınacaktır: <span class='text-color-red-primary'>{{time}}</span>, şifrenizi değiştirdiğiniz için.",
+    "accountRestriction": "Hesap Kısıtlamaları",
+    "accountRestrictionDescription": "Hesabınızın güvenliğini korumak amacıyla, <span class='font-bold text-white'>para çekme işlemlerinizi 24 saat süreyle devre dışı bırakacağız</span> şifrenizi değiştirdikten sonra."
   },
   "balance": {
     "cryptoCurrency": "Криптовалюта",
@@ -2168,6 +2173,7 @@
     "badRequest": "Дані вашого запиту недійсні.",
     "notAllowedAction": "Ваша дія не дозволена.",
     "internalServer": "Ой! ",
+    "emptyFields": "Будь ласка, заповніть усі поля",
     "auth": {
       "existPhone": "Цей телефон вже існує.",
       "existMail": "Ця електронна адреса вже існує.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "Незатребуваний",
     "claimed": "Заявлено",
     "expired": "Термін дії минув"
+  },
+  "button": {
+    "cancel": "Скасувати",
+    "continue": "Продовжити"
   }
 }

@@ -82,8 +82,10 @@
     "referralCodeCreated": "推荐代码已创建",
     "createCode": "创建代码",
     "commissionCalculator": "佣金计算器",
-    "commissionRule1": "在任何公共环境（如大学、学校、图书馆、办公场所），每个用户只能支付一笔佣金，IP地址、电子设备、家庭、电话号码、计费方式、电子邮件地址、计算机和IP地址",
-    "commissionRule2": "系统每24小时计算一次佣金。",
+    "commissionRule1": "在任何公共环境（例如大学、学校、图书馆和办公场所），只能向每个用户支付一笔佣金，IP地址、电子设备、家庭、电话号码、计费方式、电子邮件地址以及计算机和IP地址",
+    "commissionRule2": "我们是否抽注的决定将完全取决于我们在存款并成功下注后的判断。我们支持市场上的大多数货币。佣金可以随时提取到我们内部的 BONENZA 钱包中。",
+    "commissionRule3": "（在仪表板中查看您的佣金提取并查看钱包中的余额）。",
+    "commissionRule4": "系统每24小时计算一次佣金。",
     "howToGetReferralReward": "如何获得推荐奖励",
     "shareFriends1": "分享给朋友",
     "shareFriends2": "将您的推荐链接或代码分享给您的朋友",
@@ -525,7 +527,10 @@
     "available": "可用的",
     "lockedFunds": "锁定资金",
     "withdrawProgress": "提款正在进行中",
-    "withdrawComplete": "提现成功"
+    "withdrawComplete": "提现成功",
+    "withdrawRestriction": "您的提款和小费权限将被暂停 <span class='text-color-red-primary'>{{time}}</span>，由于更改了密码。",
+    "accountRestriction": "账户限制",
+    "accountRestrictionDescription": "为了保护您的账户安全， <span class='font-bold text-white'>我们将在 24 小时内禁止您提款</span> 更改密码后。"
   },
   "balance": {
     "cryptoCurrency": "加密货币",
@@ -2168,6 +2173,7 @@
     "badRequest": "您的请求数据无效。",
     "notAllowedAction": "你的行为是不被允许的。",
     "internalServer": "哎呀！",
+    "emptyFields": "请填写所有字段",
     "auth": {
       "existPhone": "此电话已存在。",
       "existMail": "该电子邮件已存在。",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "无人认领",
     "claimed": "声称",
     "expired": "已到期"
+  },
+  "button": {
+    "cancel": "取消",
+    "continue": "继续"
   }
 }

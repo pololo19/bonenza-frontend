@@ -82,8 +82,10 @@
     "referralCodeCreated": "Kod Rujukan Dibuat",
     "createCode": "Cipta Kod",
     "commissionCalculator": "Kalkulator Komisen",
-    "commissionRule1": "Dalam mana-mana persekitaran awam (cth, universiti, sekolah, perpustakaan, dan ruang pejabat), hanya satu komisen boleh dibayar kepada setiap pengguna, alamat IP, peranti elektronik, rumah, nombor telefon, kaedah pengebilan, alamat e-mel, dan komputer dan alamat IP. ",
-    "commissionRule2": "Sistem mengira komisen setiap 24 jam.",
+    "commissionRule1": "Dalam mana-mana persekitaran awam (cth, universiti, sekolah, perpustakaan dan ruang pejabat), hanya satu komisen boleh dibayar kepada setiap pengguna, alamat IP, peranti elektronik, rumah, nombor telefon, kaedah pengebilan, alamat e-mel dan komputer dan alamat IP. ",
+    "commissionRule2": "Keputusan kami untuk membuat pertaruhan adalah berdasarkan budi bicara kami sepenuhnya selepas deposit dibuat dan pertaruhan berjaya diletakkan. Kami menyokong majoriti mata wang di pasaran. Komisen boleh dikeluarkan ke dalam dompet BONENZA dalaman kami pada bila-bila masa.",
+    "commissionRule3": "(Lihat pengekstrakan komisen anda di papan pemuka dan lihat baki dalam dompet).",
+    "commissionRule4": "Sistem mengira komisen setiap 24 jam.",
     "howToGetReferralReward": "Cara Mendapatkan Ganjaran Rujukan anda",
     "shareFriends1": "Kongsikan kepada rakan-rakan",
     "shareFriends2": "Kongsi pautan rujukan atau kod anda kepada rakan anda",
@@ -525,7 +527,10 @@
     "available": "Tersedia",
     "lockedFunds": "Dana terkunci",
     "withdrawProgress": "Pengeluaran sedang dijalankan",
-    "withdrawComplete": "Pengeluaran Berjaya"
+    "withdrawComplete": "Pengeluaran Berjaya",
+    "withdrawRestriction": "तुमच्या पैसे काढण्याच्या आणि टिपिंगच्या परवानग्या निलंबित केल्या जातील <span class='text-color-red-primary'>{{time}}</span>, तुमचा पासवर्ड बदलल्यामुळे.",
+    "accountRestriction": "खाते निर्बंध",
+    "accountRestrictionDescription": "तुमच्या खात्याच्या सुरक्षिततेचे रक्षण करण्यासाठी, <span class='font-bold text-white'>आम्ही तुमचे पैसे काढणे २४ तासांसाठी अक्षम करू</span> तुम्ही तुमचा पासवर्ड बदलल्यानंतर."
   },
   "balance": {
     "cryptoCurrency": "Mata Wang Kripto",
@@ -2168,6 +2173,7 @@
     "badRequest": "Data permintaan anda tidak sah.",
     "notAllowedAction": "Tindakan anda tidak dibenarkan.",
     "internalServer": "Aduh! ",
+    "emptyFields": "Sila isi semua medan",
     "auth": {
       "existPhone": "Telefon ini sudah wujud.",
       "existMail": "E-mel ini telah pun wujud.",
@@ -2260,5 +2266,9 @@
     "unClaimedQuest": "Tidak Dituntut",
     "claimed": "Dituntut",
     "expired": "Tamat tempoh"
+  },
+  "button": {
+    "cancel": "Batal",
+    "continue": "teruskan"
   }
 }

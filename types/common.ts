@@ -273,6 +273,7 @@ export type UserDetail = {
   wallet: string;
   isKyc: KYC_ENUM;
   tfa: boolean;
+  restrictedTo: number;
   generalSetting: UserSettingGeneralType;
   privacySetting: UserSettingPrivacyType;
   verifiedSetting: UserSettingVerifiedType;

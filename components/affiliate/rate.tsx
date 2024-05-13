@@ -183,8 +183,10 @@ function RateAndRulesComponent() {
       <div className="flex flex-col gap-4 mt-5">
         <div className="font-semibold">{t('footer:rules')}</div>
         <div className="flex flex-col gap-4 text-default">
-          <div>{t('affiliate:commissionRule1')}</div>
-          <div>{t('affiliate:commissionRule2')}</div>
+          <div>
+            {`${t('affiliate:commissionRule1')} ${t('affiliate:commissionRule2')} ${t('affiliate:commissionRule3')}`}
+          </div>
+          <div>{t('affiliate:commissionRule4')}</div>
         </div>
       </div>
       <div className="p-6 mt-4 bg-gradient-card-default rounded-default">

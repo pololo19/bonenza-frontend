@@ -62,6 +62,7 @@ export const initialCommonState: ModalState = {
   isShowDepositRule: false,
   isShowSelfExclusion: false,
   isShowDailyContest: false,
+  isShowAccountRestriction: true,
 };
 
 export const queryDataSlice = createSlice({
@@ -226,6 +227,9 @@ export const queryDataSlice = createSlice({
     changeIsShowDepositRule: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowDepositRule = action.payload;
     },
+    changeIsShowAccountRestriction: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowAccountRestriction = action.payload;
+    },
   },
 });
 
@@ -270,5 +274,6 @@ export const {
   changeIsShowDepositRule,
   changeIsShowSelfExclusion,
   changeIsShowDailyContest,
+  changeIsShowAccountRestriction,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
