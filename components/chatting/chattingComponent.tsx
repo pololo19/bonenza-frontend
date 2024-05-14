@@ -117,10 +117,9 @@ const ChattingComponent = () => {
     msg = msg.replaceAll('<div>', '');
     msg = msg.replaceAll('</div>', '');
     const _res = await api_sendChat(msg);
-    scrollDown();
     $spanEl.innerHTML = '';
     $spanEl.blur();
-    $spanEl.focus();
+    scrollDown();
   };
 
   const { t } = useTranslation('');
