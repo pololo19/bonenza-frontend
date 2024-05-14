@@ -121,7 +121,7 @@ const SelectCurrency = ({
 
   return (
     <div className="flex flex-col items-start md:gap-[20px] gap-[15px] text-white">
-      <div className="flex flex-col items-start w-full gap-4">
+      <div className="flex flex-col items-start w-full gap-2">
         {!withDrawTab && (
           <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
             {t('deposit:depositCurrency')}
@@ -192,9 +192,11 @@ const SelectCurrency = ({
                   </Menu.Button>
                 </div>
               )}
-              <Menu.Button className="mt-[15px] w-full flex-1" disabled={disabled}>
+              <Menu.Button className="w-full flex-1" disabled={disabled}>
                 <div
-                  className="dark:bg-color-input-primary bg-color-light-input-primary rounded-default flex items-center justify-between w-full py-[13px] px-[20px] "
+                  className={cn(
+                    'dark:bg-color-input-primary bg-color-light-input-primary rounded-default flex items-center justify-between w-full py-[13px] px-[20px]',
+                  )}
                   // role="button"
                 >
                   <div className="flex-1 flex items-center justify-start gap-[10px]">
@@ -211,15 +213,25 @@ const SelectCurrency = ({
                       />
                     </LazyLoad>
 
-                    <div className="flex-1 text-black dark:text-white text-start text-default">
+                    <div
+                      className={cn('flex-1 text-black dark:text-white text-start text-default', {
+                        'dark:!text-gray-400': disabled,
+                      })}
+                    >
                       {activeCoin.name}
-                      <span className="ml-[5px] text-[10px] text-gray-400">{activeCoin.name}</span>
+                      <span className={cn('ml-[5px] text-[10px] text-gray-400', { 'text-gray-500': disabled })}>
+                        {activeCoin.alias}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
                     <div className="flex items-center text-default dark:text-color-text-primary text-color-light-text-primary gap-[10px]">
                       {t('deposit:balance')}{' '}
-                      <span className="font-semibold text-default dark:text-white text-color-light-text-primary">
+                      <span
+                        className={cn('font-semibold text-default dark:text-white text-color-light-text-primary', {
+                          'dark:!text-gray-400': disabled,
+                        })}
+                      >
                         {viewInFiat
                           ? currencyFormat1(
                               getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
@@ -338,7 +350,7 @@ const SelectCurrency = ({
           )}
         </Menu>
       </div>
-      <div className="flex flex-col items-start w-full gap-4">
+      <div className="flex flex-col items-start w-full gap-2">
         <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
           {t('deposit:chooseNetwork')}
         </div>
@@ -349,7 +361,13 @@ const SelectCurrency = ({
           <Menu.Button className="flex-1 py-[15px] px-[20px]" disabled={disabled}>
             <div className="flex items-center justify-between w-full" role="button">
               <div className="flex-1 flex items-center justify-start gap-[10px]">
-                <div className="flex-1 text-black text-start dark:text-white text-default">{activeNetwork.name}</div>
+                <div
+                  className={cn('flex-1 text-black text-start dark:text-white text-default', {
+                    'dark:!text-gray-400': disabled,
+                  })}
+                >
+                  {activeNetwork.name}
+                </div>
               </div>
               <div className="flex items-center justify-start gap-[10px]">
                 <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />
