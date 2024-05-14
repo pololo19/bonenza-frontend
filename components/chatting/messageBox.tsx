@@ -7,6 +7,7 @@ import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { formatDate } from '@/base/libs/utils';
+import { t } from 'i18next';
 
 interface MessageBoxProps {
   userId: string;
@@ -72,18 +73,28 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
           })}
         >
           <div className="block relative w-[50px] h-fit cursor-pointer" onClick={() => handleModalProfile()}>
-            <Image
-              className="w-[50px] h-[50px] rounded-full"
-              width={50}
-              height={50}
-              alt=""
-              src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
-              onError={(e) => {
-                e.currentTarget.src = '/img/avatar-1.png';
-              }}
-            />
+            {userName ? (
+              <Image
+                className="w-[50px] h-[50px] rounded-full"
+                width={50}
+                height={50}
+                alt=""
+                src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
+                onError={(e) => {
+                  e.currentTarget.src = '/img/avatar-1.png';
+                }}
+              />
+            ) : (
+              <Image
+                width={50}
+                height={50}
+                className="w-[50px] h-[50px] rounded-full grayscale brightness-50"
+                src="/img/avatar-hidden.png"
+                alt=""
+              />
+            )}
 
-            <div className="flex items-center justify-center w-full absolute bottom-0 ">
+            <div className="flex items-center justify-center w-full absolute -bottom-2 ">
               <span
                 className={'text-white rounded text-[12px] flex justify-center w-fit px-[10px]'}
                 style={{ backgroundColor: getColorOfLevel(Number(level)) }}
@@ -95,10 +106,10 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
           <div className="flex flex-col gap-1">
             <div className="text-m_default pl-1">
               <span
-                className="text-[#BBB] font-semibold hover:underline cursor-pointer"
+                className={cn('text-[#BBB] font-semibold', { 'hover:underline cursor-pointer': userName })}
                 onClick={() => handleModalProfile()}
               >
-                {userName}
+                {userName ? userName : t('homePage:hidden')}
               </span>
               <span className="text-[11px] text-[#999] font-normal">
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
