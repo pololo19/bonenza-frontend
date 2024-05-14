@@ -94,7 +94,12 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
           </div>
           <div className="flex flex-col gap-1">
             <div className="text-m_default pl-1">
-              <span className="text-[#BBB] font-semibold">{userName}</span>
+              <span
+                className="text-[#BBB] font-semibold hover:underline cursor-pointer"
+                onClick={() => handleModalProfile()}
+              >
+                {userName}
+              </span>
               <span className="text-[11px] text-[#999] font-normal">
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
               </span>
