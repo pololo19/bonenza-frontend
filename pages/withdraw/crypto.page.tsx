@@ -334,7 +334,7 @@ const WithdrawCryptoPage = () => {
                     date={new Date(restrictedTo * 1000)}
                     renderer={({ days, hours, minutes, seconds }) => (
                       <div
-                        className="text-m_default sm:text-[13px] text-white text-left my-4 bg-color-red/30 p-3 px-4 rounded-default"
+                        className="text-[13px] text-white text-left my-4 bg-color-red/30 p-3 px-4 rounded-default"
                         dangerouslySetInnerHTML={{
                           __html: String(
                             t('withdraw:withdrawRestriction', {
