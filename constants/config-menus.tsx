@@ -115,7 +115,7 @@ export const casinoGames: OptionSidebarDataType[] = [
   // },
   // { title: 'casino:slot', href: ROUTER.Tagname('slots'), icon: SlotIcon },
   // { title: 'layout:racing', href: ROUTER.Tagname('Racing'), icon: RacingBoldIcon },
-  // { title: 'casino:liveCasino', href: ROUTER.Tagname('Live Casino'), icon: LiveCasinoIcon },
+  { title: 'casino:liveCasino', href: ROUTER.Tagname('Live Casino'), icon: LiveCasinoIcon },
   { title: 'casino:hotGame', href: ROUTER.Tagname('Hot Games'), icon: HotGameIcon },
   { title: 'casino:newReleases', href: ROUTER.Tagname('New Releases'), icon: ReleaseIcon },
   { title: 'casino:featureBuyIn', href: ROUTER.Tagname('Feature Buy-in'), icon: BuyInIcon },
