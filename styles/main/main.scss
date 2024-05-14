@@ -90,4 +90,5 @@ ul.react-paginate {
 
 body {
   min-height: -webkit-fill-available;
+  scroll-padding-top: 60px; /* Adjust the value based on the height of your address bar */
 }
