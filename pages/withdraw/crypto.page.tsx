@@ -14,7 +14,7 @@ import { api_withdraw, api_withdrawInfo } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1 } from '@/base/libs/utils';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { WithdrawRequest } from '@/base/types/requestTypes';
@@ -291,8 +291,6 @@ const WithdrawCryptoPage = () => {
     getWithdrawInfo();
   }, [getWithdrawInfo]);
 
-  console.log(restrictedTo, '=====294');
-
   return (
     <>
       <div className={`${styles.cardContent}`}>
@@ -336,9 +334,13 @@ const WithdrawCryptoPage = () => {
                     date={new Date(restrictedTo * 1000)}
                     renderer={({ days, hours, minutes, seconds }) => (
                       <div
-                        className="text-white"
+                        className="text-m_default sm:text-[13px] text-white text-left my-4 bg-color-red/30 p-3 px-4 rounded-default"
                         dangerouslySetInnerHTML={{
-                          __html: String(t('withdraw:withdrawRestriction', { time: `${hours}:${minutes}:${seconds}` })),
+                          __html: String(
+                            t('withdraw:withdrawRestriction', {
+                              time: formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss'),
+                            }),
+                          ),
                         }}
                       ></div>
                     )}
