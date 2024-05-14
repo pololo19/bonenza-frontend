@@ -616,16 +616,16 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       {isLoading ? (
         <Loader isHomePage />
       ) : (
-        <div className="w-full h-full min-h-screen overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
+        <div className="w-full sm:h-full sm:min-h-screen sm:overflow-hidden font-dayOne dark:bg-color-bg-primary bg-color-light-bg-primary">
           {isToggleSidebar && (
             <div
               className="xl:hidden sm:block hidden fixed xl:w-0 w-[calc(100vw)] h-screen right-0  dark:bg-black/60 z-[20]"
               onClick={() => dispatch(changeToggleSidebar(!isToggleSidebar))}
             ></div>
           )}
-          <div className="relative w-full h-full md:pt-0">
+          <div className="relative w-full sm:h-full md:pt-0">
             <HeaderStats />
-            <div className="flex h-full w-full max-h-[calc(100vh-70px)] mt-[70px] sm:flex-row flex-col">
+            <div className="flex sm:h-full w-full sm:max-h-[calc(100vh-70px)] mt-[70px] sm:flex-row flex-col">
               <div
                 className={cn(
                   'z-[50] dark:bg-color-bg-primary bg-[#fff] sm:block hidden h-[calc(100vh)] mt-[-70px] border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',

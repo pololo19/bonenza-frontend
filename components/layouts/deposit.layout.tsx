@@ -263,14 +263,14 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                     </div>
                   </div>
 
-                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-[#24262B] bg-color-light-bg-primary shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
+                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-color-light-bg-primary shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
                     <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
                       <Link
                         href={ROUTER.Deposit}
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.Deposit),
                           },
                         )}
@@ -287,7 +287,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.Balance),
                           },
                         )}
@@ -304,7 +304,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.Withdraw),
                           },
                         )}
@@ -322,7 +322,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
-                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
+                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
                               router.route.includes(ROUTER.Swap),
                           },
                         )}

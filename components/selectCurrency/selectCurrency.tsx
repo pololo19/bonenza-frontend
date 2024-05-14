@@ -136,7 +136,7 @@ const SelectCurrency = ({
           {({ open }) => (
             <>
               {!withDrawTab && (
-                <div className="flex w-full gap-1 overflow-hidden overflow-x-auto">
+                <div className="flex w-full gap-1 overflow-hidden overflow-x-auto mb-3">
                   {symbols.slice(0, width >= 510 ? 4 : 3).map((symbol, index) => (
                     <button
                       className={cn(
