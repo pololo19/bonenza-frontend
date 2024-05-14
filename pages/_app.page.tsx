@@ -119,13 +119,14 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
                 name="keywords"
                 content="NFT, play to earn, P2E, NFT games, GOD, metaverse, meta, metaverseNFT, NFTgaming, coin, DRON"
               />
-              <meta name="theme-color" content="#24262b"></meta>
               <meta name="language" content="English" />
               <meta name="author" content="contact@bonenza.com" />
               <meta name="url" content="https://www.bonenza.com" />
 
               <meta property="twitter:image" content="https://bonenza.com/img/logo-mobile.png" />
               <meta property="og:image" content="https://bonenza.com/img/logo-mobile.png" />
+              <meta name="theme-color" content="#FFF" media="(prefers-color-scheme: light)" />
+              <meta name="theme-color" content="#01042C" media="(prefers-color-scheme: dark)" />
               {/* <script src="https://cdn.launcher.a8r.games/connector.js" defer></script> */}
               {/* <script src="https://casino.int.a8r.games/public/sg.js"></script> */}
               <noscript>Your browser does not support JavaScript!</noscript>
