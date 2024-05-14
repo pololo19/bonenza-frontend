@@ -122,26 +122,26 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               {t('profile:userInformation')}
             </div>
             <div className="absolute top-0 right-[70px]">
-              <div className="relative h-[160px]">
-                <Image
-                  onError={(e) => {
-                    e.currentTarget.src = `/img/vip/vip-0-ribbon.png`;
-                  }}
-                  src={vipData.medal ? vipData.medal : `/img/vip/vip-0-ribbon.png`}
-                  width={70}
-                  height={69}
-                  alt=""
-                  className="!h-[130px] w-auto object-cover"
-                />
-                <div
-                  className={`absolute flex flex-col items-center left-0 top-[${
-                    vipData.level !== 'VIP 0' ? 50 : 40
-                  }px] w-full h-full`}
-                >
-                  <p className="text-[16px] font-semibold">
+              <div className="w-full h-full">
+                <div className="relative">
+                  <Image
+                    onError={(e) => {
+                      e.currentTarget.src = `/img/vip/vip-0-ribbon.png`;
+                    }}
+                    src={vipData.medal ? vipData.medal : `/img/vip/vip-0-ribbon.png`}
+                    width={70}
+                    height={69}
+                    alt=""
+                    className="!h-[110px] sm:!h-[130px] w-auto object-cover"
+                  />
+                  <div
+                    className={`text-[16px] font-semibold absolute right-0 text-center left-0 top-[${
+                      vipData.level !== 'VIP 0' ? 40 : 30
+                    }px] sm:top-[${vipData.level !== 'VIP 0' ? 50 : 40}px]`}
+                  >
                     {`${vipData.level}`?.split(' ')?.at(0)?.charAt(0).toUpperCase()}
                     {`${vipData.level}`?.split(' ')?.at(1)}
-                  </p>
+                  </div>
                 </div>
               </div>
             </div>

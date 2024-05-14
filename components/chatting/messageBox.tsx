@@ -105,7 +105,7 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
               </span>
             </div>
             <div
-              className="flex items-center text-[11px] sm:text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] p-[8px]"
+              className="flex items-center text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] p-[8px]"
               dangerouslySetInnerHTML={{ __html: text }}
             />
           </div>
