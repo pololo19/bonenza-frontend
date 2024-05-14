@@ -1031,12 +1031,13 @@ export const SETTING_BANNER: Settings = {
   ],
 };
 
-export const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'] };
+export const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'], withCredentials: true };
 export const socketWalletConfig = {
   transports: ['websocket'],
   reconnectionDelay: 10000,
   retries: 10,
   reconnectionAttempts: 50,
+  withCredentials: true
   // reconnection: false,
 };
 
