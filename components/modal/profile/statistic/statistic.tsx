@@ -23,8 +23,7 @@ import { API_AVATAR } from '@/base/constants/common';
 type ModalStatisticProps = {
   userData?: UserDetail;
   isShow: boolean;
-  onClose: () => void;
-  goBackToProfile: () => void;
+  onBack: () => void;
 };
 
 type StatisticTransactionType = {
@@ -36,7 +35,7 @@ type StatisticTransactionType = {
   wageredUsd: number;
 };
 
-export default function Statistic({ userData, isShow, onClose, goBackToProfile }: ModalStatisticProps) {
+export default function Statistic({ userData, isShow, onBack }: ModalStatisticProps) {
   const { theme } = useTheme();
   const { t } = useTranslation('');
   const exchange = useExchange();
@@ -143,29 +142,16 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
   };
 
   return (
-    <CommonModal
-      show={isShow}
-      onClose={onClose}
-      panelClass="rounded max-w-full sm:max-w-[540px]"
-      header={
-        <div className="px-[12px] py-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
-          <div>
-            <div
-              className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer"
-              onClick={() => goBackToProfile()}
-            >
-              <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
-              <div className="text-[16px]">{t('profile:details')}</div>
-            </div>
-          </div>
+    <div className="rounded max-w-full sm:max-w-[540px]">
+      <div className="bg-color-header-primary !h-[calc(100%-64px)] p-0">
+        <div
+          className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer"
+          onClick={onBack}
+        >
+          <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
+          <div className="text-[16px]">{t('statistic:statistics')}</div>
         </div>
-      }
-    >
-      <div className="bg-color-header-primary !h-[calc(100%-64px)] p-5">
-        <div className="flex gap-[16px] items-center justify-between">
-          <div className="dark:text-white text-black text-[14px] sm:text-[16px] font-semibold">
-            {t('statistic:statistics')}
-          </div>
+        {/* <div className="flex gap-[16px] items-center justify-center">
           <Menu
             as="div"
             className="relative w-full max-w-[200px] text-left rounded flex dark:text-white text-[#000] dark:bg-color-input-primary bg-color-light-bg-primary"
@@ -241,7 +227,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
               </Menu.Items>
             </Transition>
           </Menu>
-          <div className="flex items-center gap-[6px]">
+          <div className="flex items-center gap-[16px]">
             <div className="h-[35px] w-[35px] rounded-full overflow-hidden">
               <Image
                 height={35}
@@ -257,7 +243,7 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
               {userData?.userName || userName}
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="dark:bg-color-panel-bg bg-white rounded-[5px] p-[14px] flex items-center justify-between mt-[12px] gap-3">
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
@@ -320,6 +306,6 @@ export default function Statistic({ userData, isShow, onClose, goBackToProfile }
           <Paging onPageChange={handleChangePage} itemPerPage={limit} totalItem={totalTable} currentPage={page} />
         )}
       </div>
-    </CommonModal>
+    </div>
   );
 }

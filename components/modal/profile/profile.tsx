@@ -16,6 +16,7 @@ import { changeIsShowInformation, changeIsShowUpdateInformation } from '@/base/r
 import { AppState } from '@/base/redux/store';
 import { UserDetail } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
+import cn from 'classnames';
 
 import CommonModal from '../commonModal/commonModal';
 import MasterMedals from './masterMedals/masterMedals';
@@ -225,10 +226,28 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       );
     }
     return (
-      <div className="flex flex-col gap-[6px] overflow-y-auto px-[12px] pt-[4px] pb-[17px] h-full dark:bg-color-header-primary bg-color-light-bg-primary scrollbar">
-        <div className="flex flex-col gap-2">
-          {/* Hiding medal on user profile */}
-          {/* <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
+      <div className="relative h-full bg-color-header-primary">
+        <div
+          className={cn('absolute top-0 left-0 right-0 px-4 transition-all duration-300 bg-color-header-primary', {
+            'translate-x-0': isStatistic,
+            'translate-x-full': !isStatistic,
+          })}
+        >
+          <Statistic userData={user} isShow={isStatistic} onBack={() => setIsStatistic(false)} />
+        </div>
+        <div
+          className={cn(
+            'w-full flex flex-col gap-[6px] overflow-y-auto px-4 pt-[4px] pb-[17px] h-full dark:bg-color-header-primary bg-color-light-bg-primary scrollbar overflow-hidden',
+            'absolute top-0 left-0 right-0 transition-all duration-300',
+            {
+              'translate-x-0': !isStatistic,
+              'translate-x-full': isStatistic,
+            },
+          )}
+        >
+          <div className="w-full flex flex-col gap-2 pb-4">
+            {/* Hiding medal on user profile */}
+            {/* <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
             <div className="flex items-center justify-between" onClick={() => setIsMedalDetail(true)}>
               <div className="flex gap-2 text-black dark:text-white text-[16px] items-center align-middle">
                 <TrophyIcon width={18} height={18} className="stroke-[2]" />
@@ -257,116 +276,119 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               ))}
             </div>
           </div> */}
-          <div className="bg-white dark:bg-color-panel-bg py-[12px] px-[14px] rounded-[5px]">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 align-middle">
-                <ChartBarIcon width={18} height={18} className="stroke-[2]" />
-                <div className="text-black dark:text-white text-[16px]">{t('profile:statistics')}</div>
-              </div>
-              <div
-                className="flex items-center gap-[5px] cursor-pointer"
-                onClick={() => {
-                  setIsStatistic(true);
-                }}
-              >
-                <div className="text-color-primary text-[14px]">{t('profile:details')}</div>
-                <ChevronRightIcon width={14} className="text-color-primary" />
-              </div>
-            </div>
-            <div className="flex items-center flex-row gap-2 sm:gap-[15px] sm:justify-between mt-5">
-              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
-                <div className="flex gap-[5px] items-center">
-                  <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
-                  <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
+            <div className="bg-white dark:bg-color-panel-bg py-[12px] px-[14px] rounded-[5px]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2 align-middle">
+                  <ChartBarIcon width={18} height={18} className="stroke-[2]" />
+                  <div className="text-black dark:text-white text-[16px]">{t('profile:statistics')}</div>
                 </div>
-                <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
-              </div>
-              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
-                <div className="flex gap-[5px] items-center">
-                  <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
-                  <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
-                </div>
-                <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
-              </div>
-              <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
-                <div className="flex gap-[5px] items-center">
-                  <Image
-                    src="/img/icon/total-wagered.png"
-                    width={12}
-                    height={12}
-                    className="w-[12px] h-[12px]"
-                    alt=""
-                  />
-                  <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalWagered')}</div>
-                </div>
-                <div className="text-[14px] sm:text-[1rem] dark:text-white text-black truncate max-w-full px-1">
-                  {viewInFiat ? (
-                    <>{currencyFormat1(user.totalWager * exchangeRate, 2, localFiat?.name || 'USD')}</>
-                  ) : (
-                    <>{currencyFormat1(user.totalWager, 2)}</>
-                  )}
+                <div
+                  className="flex items-center gap-[5px] cursor-pointer"
+                  onClick={() => {
+                    setIsStatistic(true);
+                  }}
+                >
+                  <div className="text-color-primary text-[14px]">{t('profile:details')}</div>
+                  <ChevronRightIcon width={14} className="text-color-primary" />
                 </div>
               </div>
-            </div>
-          </div>
-          <div className="px-5 py-5 bg-white dark:bg-color-panel-bg rounded-default">
-            <div className="text-[16px] text-color-light-text-primary dark:text-white">
-              {t('profile:top3FavoriteGames')}
-            </div>
-            {!!listGame.length && (
-              <div className="flex flex-col gap-[5px] mt-[15px]">
-                {listGame.map((item, index) => (
-                  <div className="flex items-center justify-between" key={index}>
-                    <Link href={ROUTER.GameDetail(item.identifier || '')}>
-                      <div className="flex items-center gap-[10px]" onClick={onClose}>
-                        <Image
-                          height={60}
-                          width={60}
-                          src={`https://cdn.softswiss.net/i/s4/${(item.identifier || '').replace(':', '/')}.png`}
-                          alt=""
-                          onError={(err) => {
-                            err.currentTarget.src = '/img/recommended-game-3.png';
-                          }}
-                          className="object-cover max-h-auto rounded-[5px]"
-                        />
-                        <div className="text-[14px] text-color-text-primary">{item.title}</div>
-                      </div>
-                    </Link>
-                    <div className="text-[14px] text-color-text-primary text-right">
-                      <div>{t('profile:wagered')}</div>
-                      <div className="text-white">
-                        {viewInFiat
-                          ? currencyFormat1(item.totalWageredAmountUsd * exchangeRate, 2, localFiat?.name || 'USD')
-                          : currencyFormat1(item.totalWageredAmountUsd, 2)}
-                      </div>
+              <div className="flex items-center flex-row gap-2 sm:gap-[15px] sm:justify-between mt-5">
+                <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+                  <div className="flex gap-[5px] items-center">
+                    <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
+                    <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
+                  </div>
+                  <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
+                </div>
+                <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+                  <div className="flex gap-[5px] items-center">
+                    <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
+                    <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
+                  </div>
+                  <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
+                </div>
+                <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
+                  <div className="flex gap-[5px] items-center">
+                    <Image
+                      src="/img/icon/total-wagered.png"
+                      width={12}
+                      height={12}
+                      className="w-[12px] h-[12px]"
+                      alt=""
+                    />
+                    <div className="text-[10px] sm:text-[14px] text-color-text-primary">
+                      {t('profile:totalWagered')}
                     </div>
                   </div>
-                ))}
+                  <div className="text-[14px] sm:text-[1rem] dark:text-white text-black truncate max-w-full px-1">
+                    {viewInFiat ? (
+                      <>{currencyFormat1(user.totalWager * exchangeRate, 2, localFiat?.name || 'USD')}</>
+                    ) : (
+                      <>{currencyFormat1(user.totalWager, 2)}</>
+                    )}
+                  </div>
+                </div>
               </div>
-            )}
-            {!listGame.length && (
-              <div className="relative flex justify-center">
-                <Image
-                  src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                  width={90}
-                  height={90}
-                  className="w-[200px] h-[200px]"
-                  alt=""
-                />
-                <p className="absolute dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] bottom-0 text-center">
-                  {t('table:noData')}
-                </p>
-              </div>
-            )}
-          </div>
-          <div className="dark:bg-color-panel-bg bg-white rounded-[10px] py-5">
-            <div className="text-[16px] text-color-light-text-primary dark:text-white px-5">
-              {t('profile:wagerContest')}
             </div>
-            <WagerContest userData={user} />
-          </div>
-          <div className="text-color-text-primary text-[14px] w-full text-center mt-[10px]">
-            {t('profile:joinedOn')} {formatDate(new Date(user?.createdAt ?? ''), 'dd/MM/yyyy')}
+            <div className="px-5 py-5 bg-white dark:bg-color-panel-bg rounded-default">
+              <div className="text-[16px] text-color-light-text-primary dark:text-white">
+                {t('profile:top3FavoriteGames')}
+              </div>
+              {!!listGame.length && (
+                <div className="flex flex-col gap-[5px] mt-[15px]">
+                  {listGame.map((item, index) => (
+                    <div className="flex items-center justify-between" key={index}>
+                      <Link href={ROUTER.GameDetail(item.identifier || '')}>
+                        <div className="flex items-center gap-[10px]" onClick={onClose}>
+                          <Image
+                            height={60}
+                            width={60}
+                            src={`https://cdn.softswiss.net/i/s4/${(item.identifier || '').replace(':', '/')}.png`}
+                            alt=""
+                            onError={(err) => {
+                              err.currentTarget.src = '/img/recommended-game-3.png';
+                            }}
+                            className="object-cover max-h-auto rounded-[5px]"
+                          />
+                          <div className="text-[14px] text-color-text-primary">{item.title}</div>
+                        </div>
+                      </Link>
+                      <div className="text-[14px] text-color-text-primary text-right">
+                        <div>{t('profile:wagered')}</div>
+                        <div className="text-white">
+                          {viewInFiat
+                            ? currencyFormat1(item.totalWageredAmountUsd * exchangeRate, 2, localFiat?.name || 'USD')
+                            : currencyFormat1(item.totalWageredAmountUsd, 2)}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {!listGame.length && (
+                <div className="relative flex justify-center">
+                  <Image
+                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                    width={90}
+                    height={90}
+                    className="w-[200px] h-[200px]"
+                    alt=""
+                  />
+                  <p className="absolute dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] bottom-0 text-center">
+                    {t('table:noData')}
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="dark:bg-color-panel-bg bg-white rounded-[10px] py-5">
+              <div className="text-[16px] text-color-light-text-primary dark:text-white px-5">
+                {t('profile:wagerContest')}
+              </div>
+              <WagerContest userData={user} />
+            </div>
+            <div className="text-color-text-primary text-[14px] w-full text-center mt-[10px]">
+              {t('profile:joinedOn')} {formatDate(new Date(user?.createdAt ?? ''), 'dd/MM/yyyy')}
+            </div>
           </div>
         </div>
       </div>
@@ -383,18 +405,6 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
       >
         <>
           {isLoading && <Loader />}
-          <Statistic
-            userData={user}
-            isShow={isStatistic}
-            onClose={() => {
-              setIsStatistic(false);
-              // dispatch(changeIsShowInformation(false));
-            }}
-            goBackToProfile={() => {
-              setIsStatistic(false);
-              // dispatch(changeIsShowInformation(true));
-            }}
-          />
           <MasterMedals
             isShow={isMedalsDetail}
             onClose={() => {
