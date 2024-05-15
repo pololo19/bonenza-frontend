@@ -405,7 +405,13 @@ const WithdrawCryptoPage = () => {
                       <div
                         role="button"
                         aria-disabled={restrictedDuration > 0}
-                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className={cn(
+                          'text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] hover-color-light-bg-primary bg-white text-center',
+                          {
+                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
+                            'cursor-default text-gray-400': restrictedDuration > 0,
+                          },
+                        )}
                         onClick={() => {
                           if (restrictedDuration > 0) return;
                           setValue('withdrawAmount', String(renderMinValue.min));
@@ -418,7 +424,13 @@ const WithdrawCryptoPage = () => {
                       <div
                         role="button"
                         aria-disabled={restrictedDuration > 0}
-                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className={cn(
+                          'md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] hover-color-light-bg-primary bg-white text-center',
+                          {
+                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
+                            'cursor-default text-gray-400': restrictedDuration > 0,
+                          },
+                        )}
                         onClick={() => {
                           if (restrictedDuration > 0) return;
                           setAmountByPercent(25);
@@ -431,7 +443,13 @@ const WithdrawCryptoPage = () => {
                       <div
                         role="button"
                         aria-disabled={restrictedDuration > 0}
-                        className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className={cn(
+                          'md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white hover-color-light-bg-primary text-center',
+                          {
+                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
+                            'cursor-default text-gray-400': restrictedDuration > 0,
+                          },
+                        )}
                         onClick={() => {
                           if (restrictedDuration > 0) return;
                           setAmountByPercent(50);
@@ -444,7 +462,13 @@ const WithdrawCryptoPage = () => {
                       <div
                         role="button"
                         aria-disabled={restrictedDuration > 0}
-                        className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
+                        className={cn(
+                          'text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white hover-color-light-bg-primary text-center',
+                          {
+                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
+                            'cursor-default text-gray-400': restrictedDuration > 0,
+                          },
+                        )}
                         onClick={() => {
                           if (restrictedDuration > 0) return;
                           setAmountByPercent(100);
