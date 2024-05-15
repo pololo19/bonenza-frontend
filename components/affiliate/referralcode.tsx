@@ -77,7 +77,7 @@ function ReferralCodeFriendComponent() {
     shallowEqual,
   );
 
-  const [codeTab, setCodeTab] = useState<ReferralType>('code');
+  const [codeTab, setCodeTab] = useState<ReferralType>('friend');
   const [isLoading, setIsLoading] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
 
@@ -233,7 +233,7 @@ function ReferralCodeFriendComponent() {
       <Head>
         <title>Affiliate - Bonenza</title>
       </Head>
-      <div className="flex flex-col mt-[20px]">
+      {/* <div className="flex flex-col mt-[20px]">
         <div className="grid grid-cols-1 md:grid-cols-3 bg-gradient-card-default rounded-default gap-6 py-5">
           <div className="md:py-10">
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
@@ -262,8 +262,8 @@ function ReferralCodeFriendComponent() {
             </div>
           </div>
         </div>
-      </div>
-      <div className="flex justify-between mt-5">
+      </div> */}
+      {/* <div className="flex justify-between mt-5">
         <div className="flex">
           <div
             onClick={() => setCodeTab('code')}
@@ -292,7 +292,7 @@ function ReferralCodeFriendComponent() {
             <div className="sm:text-default text-m_default font-semibold">{t('affiliate:friends')}</div>
           </div>
         </div>
-      </div>
+      </div> */}
       {codeTab === 'code' && (
         <div className="w-full rounded-default bg-[#1D2738] mt-5 text-center py-20">
           {t('affiliate:noReferralCode')}

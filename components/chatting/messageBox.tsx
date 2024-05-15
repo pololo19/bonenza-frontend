@@ -103,7 +103,7 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
               </span>
             </div>
           </div>
-          <div className="flex flex-col gap-1">
+          <div>
             <div className="text-m_default pl-1">
               <span
                 className={cn('text-[#BBB] font-semibold', { 'hover:underline cursor-pointer': userName })}
@@ -116,7 +116,7 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
               </span>
             </div>
             <div
-              className="flex items-center text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] p-[8px]"
+              className="inline-block text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] px-2 py-[8px]"
               dangerouslySetInnerHTML={{ __html: text }}
             />
           </div>
