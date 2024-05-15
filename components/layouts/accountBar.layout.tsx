@@ -356,7 +356,7 @@ const AccountPannel: React.FC = () => {
       className={cn(
         'fixed w-screen max-h-[calc(100vh_-_70px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[70px] bottom-[60px] dark:bg-color-bg-primary bg-color-light-bg-primary shadow sm:hidden',
         {
-          'translate-y-full': !isShow,
+          'translate-y-[120%]': !isShow,
           'translate-y-0': isShow,
         },
       )}
