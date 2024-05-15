@@ -406,7 +406,10 @@ const WithdrawCryptoPage = () => {
                         role="button"
                         aria-disabled={restrictedDuration > 0}
                         className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
-                        onClick={() => setValue('withdrawAmount', String(renderMinValue.min))}
+                        onClick={() => {
+                          if (restrictedDuration > 0) return;
+                          setValue('withdrawAmount', String(renderMinValue.min));
+                        }}
                       >
                         {t('deposit:min')}
                       </div>
@@ -416,7 +419,10 @@ const WithdrawCryptoPage = () => {
                         role="button"
                         aria-disabled={restrictedDuration > 0}
                         className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
-                        onClick={() => setAmountByPercent(25)}
+                        onClick={() => {
+                          if (restrictedDuration > 0) return;
+                          setAmountByPercent(25);
+                        }}
                       >
                         25%
                       </div>
@@ -426,7 +432,10 @@ const WithdrawCryptoPage = () => {
                         role="button"
                         aria-disabled={restrictedDuration > 0}
                         className="md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
-                        onClick={() => setAmountByPercent(50)}
+                        onClick={() => {
+                          if (restrictedDuration > 0) return;
+                          setAmountByPercent(50);
+                        }}
                       >
                         50%
                       </div>
@@ -436,7 +445,10 @@ const WithdrawCryptoPage = () => {
                         role="button"
                         aria-disabled={restrictedDuration > 0}
                         className="text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white dark:hover:bg-gray-700 hover-color-light-bg-primary dark:text-white text-black text-center"
-                        onClick={() => setAmountByPercent(100)}
+                        onClick={() => {
+                          if (restrictedDuration > 0) return;
+                          setAmountByPercent(100);
+                        }}
                       >
                         {t('deposit:max')}
                       </div>
