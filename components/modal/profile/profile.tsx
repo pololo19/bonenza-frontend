@@ -135,7 +135,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     className="!h-[110px] sm:!h-[130px] w-auto object-cover"
                   />
                   <div
-                    className={`text-[16px] font-semibold absolute right-0 text-center left-0 top-[${
+                    className={`text-[16px] mt-2 font-semibold absolute right-0 text-center left-0 top-[${
                       vipData.level !== 'VIP 0' ? 40 : 30
                     }px] sm:top-[${vipData.level !== 'VIP 0' ? 50 : 40}px]`}
                   >
