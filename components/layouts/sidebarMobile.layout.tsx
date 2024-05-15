@@ -83,7 +83,7 @@ const SidebarMobileLayout: React.FC = () => {
       className={cn(
         'fixed w-screen max-h-[calc(100vh_-_150px)] transition-transform duration-800 origin-bottom overflow-y-auto top-[130px] bottom-[60px] dark:bg-color-bg-primary bg-color-light-bg-primary shadow sm:hidden',
         {
-          'translate-y-full': !isShowSidebar,
+          'translate-y-[120%]': !isShowSidebar,
           'translate-y-0': isShowSidebar,
         },
       )}

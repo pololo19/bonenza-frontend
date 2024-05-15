@@ -214,7 +214,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                 leaveTo="opacity-0 translate-x-1"
               >
                 <div className="w-full flex flex-col h-screen dark:bg-color-modal-secondary bg-white">
-                  <div className="w-full dark:bg-color-wallet-header dark:text-color-text-primary bg-white text-color-light-text-primary pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
+                  <div className="w-full dark:bg-color-card-bg-primary dark:text-color-text-primary bg-white text-color-light-text-primary pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
                     <div className="flex-1 flex justify-between items-center">
                       <div className="text-[14px] sm:text-[16px] font-bold dark:text-white text-black">
                         {t('sidebar:wallet')}
