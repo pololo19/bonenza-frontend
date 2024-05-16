@@ -95,7 +95,7 @@ export default function CommonModal({
                 {isShowCloseButton && (
                   <div
                     className={cn(
-                      'p-5 absolute top-[0px] right-[0px] rounded-md transition-all duration-300 rotate-0 hover:rotate-90',
+                      'p-5 absolute top-[0px] right-[0px] z-[10] rounded-md transition-all duration-300 rotate-0 hover:rotate-90',
                       'dark:text-color-text-primary dark:hover:text-white text-color-light-text-primary hover:text-black',
                     )}
                     role="button"

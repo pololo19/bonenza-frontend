@@ -279,14 +279,14 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     key={`${spin}-tab`}
                     width={150}
                     height={151}
-                    className={`w-[60px] h-[60px] z-10 ${isRotating ? 'cursor-not-allowed' : 'cursor-pointer '}`}
+                    className={`w-[60px] h-[60px] ${isRotating ? 'cursor-not-allowed' : 'cursor-pointer '}`}
                     src={spin === spinTab ? `/img/spin/${spin}-spin.png` : `/img/spin/disabled-${spin}-spin.png`}
                     alt=""
                     onClick={() => onSpinTabChange(spin)}
                   />
                 ))}
                 <div
-                  className={cn('rounded-large z-0 absolute w-[33%] h-[100%] transition-all bg-[#7777]', {
+                  className={cn('rounded-large absolute w-[33%] h-[100%] transition-all bg-[#7777]', {
                     'translate-x-[0%]': spinTab === 'lucky',
                     'translate-x-[101%]': spinTab === 'super',
                     'translate-x-[204%]': spinTab === 'mega',
