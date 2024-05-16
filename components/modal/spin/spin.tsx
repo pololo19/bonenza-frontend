@@ -279,7 +279,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     key={`${spin}-tab`}
                     width={150}
                     height={151}
-                    className={`w-[60px] h-[60px] ${isRotating ? 'cursor-not-allowed' : 'cursor-pointer '}`}
+                    className={`w-[60px] h-[60px] z-[5] ${isRotating ? 'cursor-not-allowed' : 'cursor-pointer '}`}
                     src={spin === spinTab ? `/img/spin/${spin}-spin.png` : `/img/spin/disabled-${spin}-spin.png`}
                     alt=""
                     onClick={() => onSpinTabChange(spin)}
