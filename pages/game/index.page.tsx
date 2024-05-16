@@ -148,7 +148,7 @@ function GamePage() {
     }
   };
 
-  const handleFreeplay = async () => {
+  const handleFreeplay = () => {
     try {
       setIsLoadingGame({
         request: 'demo',
@@ -162,21 +162,34 @@ function GamePage() {
         gameId: gameDetail.id,
         locale: language,
       };
-      const res = await api_startGameDemo(requestData);
-      const lanuchGameOption: LaunchUrlTye = {
-        gameLauncherUrl: res.data.gameLauncherUrl,
-        gameUrl: res.data.gameUrl,
-        strategy: res.data.strategy,
-        lobbyUrl: res.data.lobbyUrl,
-        tokenId: res.data.tokenId,
-      };
-      await launchGame(
-        lanuchGameOption.gameUrl,
-        lanuchGameOption.gameLauncherUrl,
-        lanuchGameOption.strategy,
-        lanuchGameOption.lobbyUrl,
-        lanuchGameOption.tokenId,
-      );
+      // const res = await api_startGameDemo(requestData);
+      let newWindow: any;
+      if (isMobile) {
+        newWindow = window.open('about:blank', '_blank');
+      }
+
+      api_startGameDemo(requestData).then((res) => {
+        const lanuchGameOption: LaunchUrlTye = {
+          gameLauncherUrl: res.data.gameLauncherUrl,
+          gameUrl: res.data.gameUrl,
+          strategy: res.data.strategy,
+          lobbyUrl: res.data.lobbyUrl,
+          tokenId: res.data.tokenId,
+        };
+
+        if (isMobile && newWindow) {
+          newWindow.location.href = lanuchGameOption.gameUrl;
+        }
+        if (!isMobile) {
+          launchGame(
+            lanuchGameOption.gameUrl,
+            lanuchGameOption.gameLauncherUrl,
+            lanuchGameOption.strategy,
+            lanuchGameOption.lobbyUrl,
+            lanuchGameOption.tokenId,
+          );
+        }
+      });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
@@ -192,7 +205,7 @@ function GamePage() {
     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
     dispatch(changeIsShowAuthenticationModal(true));
   };
-  const handlePlayRequest = async () => {
+  const handlePlayRequest = () => {
     try {
       const tempBalances = [...balances];
       const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
@@ -218,21 +231,33 @@ function GamePage() {
         currencyType: activeCurrency.type,
         currencyId: activeCurrency.id,
       };
-      const res = await api_startGameSession(requestData);
-      const lanuchGameOption: LaunchUrlTye = {
-        gameLauncherUrl: res.data.gameLauncherUrl,
-        gameUrl: res.data.gameUrl,
-        strategy: res.data.strategy,
-        lobbyUrl: res.data.lobbyUrl,
-        tokenId: res.data.tokenId,
-      };
-      await launchGame(
-        lanuchGameOption.gameUrl,
-        lanuchGameOption.gameLauncherUrl,
-        lanuchGameOption.strategy,
-        lanuchGameOption.lobbyUrl,
-        lanuchGameOption.tokenId,
-      );
+      let newWindow: any;
+      if (isMobile) {
+        newWindow = window.open('about:blank', '_blank');
+      }
+
+      // const res = await api_startGameSession(requestData);
+      api_startGameSession(requestData).then((res) => {
+        const lanuchGameOption: LaunchUrlTye = {
+          gameLauncherUrl: res.data.gameLauncherUrl,
+          gameUrl: res.data.gameUrl,
+          strategy: res.data.strategy,
+          lobbyUrl: res.data.lobbyUrl,
+          tokenId: res.data.tokenId,
+        };
+        if (newWindow && isMobile) {
+          newWindow.location.href = lanuchGameOption.gameUrl;
+        }
+        if (!isMobile) {
+          launchGame(
+            lanuchGameOption.gameUrl,
+            lanuchGameOption.gameLauncherUrl,
+            lanuchGameOption.strategy,
+            lanuchGameOption.lobbyUrl,
+            lanuchGameOption.tokenId,
+          );
+        }
+      });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
@@ -300,13 +325,7 @@ function GamePage() {
     }
   };
 
-  const launchGame = async (
-    gameUrl: string,
-    launcherUrl: string,
-    strategy: string,
-    lobbyUrl: string,
-    tokenId: string,
-  ) => {
+  const launchGame = (gameUrl: string, launcherUrl: string, strategy: string, lobbyUrl: string, tokenId: string) => {
     try {
       // Define the game launch options
       // setIsLoading(true);
