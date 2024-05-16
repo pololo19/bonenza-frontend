@@ -7,7 +7,9 @@
 
   .input {
     padding-right: 2.5rem;
-    border: 1px solid $color-text-2;
+    border: none;
+    background: transparent;
+    font-size: 14px;
     width: 100%;
     border-radius: 0.5rem;
 

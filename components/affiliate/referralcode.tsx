@@ -29,17 +29,14 @@ import AdminTableComponent from '../table/adminTable';
 import Paging from '../paging/paging';
 import { ColumnDef } from '@tanstack/react-table';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
-import { api_getClaims } from '@/api/wallet';
-import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
-import { toast } from 'react-toastify';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
-import ReactLoading from 'react-loading';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import AdminInputText from '../input/admin/AdminInputText';
 import AdminInputDateRange from '../input/admin/AdminInputDateRange';
 import AdminSelectBox from '../input/admin/AdminSelectBox';
+import InputText from '@/components/input/typing/InputText';
+import InputDateRangePicker from '../input/datePicker/inputDateRangePicker';
+import SelectBox from '../input/selectBox/selectBox';
 
 const fiatDecimals = 4;
 type ReferralType = 'code' | 'friend';
@@ -47,8 +44,10 @@ type ReferralType = 'code' | 'friend';
 type FilterType = {
   username?: string;
   userId?: string;
-  registrationDate?: any[];
-  wagerDateRange?: any[];
+  registrationStartDate?: any;
+  registrationEndDate?: any;
+  wagerStartDate?: any;
+  wagerEndDate?: any;
   code?: string;
 };
 
@@ -114,14 +113,14 @@ function ReferralCodeFriendComponent() {
     async (filter?: FilterType) => {
       try {
         setIsLoadingTable(true);
-        const registrationStartDate = filter?.registrationDate
-          ? new Date(filter.registrationDate[0]).getTime()
+        const registrationStartDate =
+          filter?.registrationStartDate?.length > 0 ? new Date(filter?.registrationStartDate).getTime() : undefined;
+        const registrationEndDate = filter?.registrationEndDate
+          ? new Date(filter.registrationEndDate).getTime()
           : undefined;
-        const registrationEndDate = filter?.registrationDate
-          ? new Date(filter.registrationDate[1]).getTime()
-          : undefined;
-        const wagerStartDate = filter?.wagerDateRange ? new Date(filter.wagerDateRange[0]).getTime() : undefined;
-        const wagerEndDate = filter?.wagerDateRange ? new Date(filter.wagerDateRange[0]).getTime() : undefined;
+        const wagerStartDate =
+          filter?.wagerStartDate.length > 0 ? new Date(filter?.wagerStartDate).getTime() : undefined;
+        const wagerEndDate = filter?.wagerEndDate.length > 0 ? new Date(filter?.wagerEndDate).getTime() : undefined;
         const _res = await api_affiliateFriends(
           friendsPage,
           friendsLimit,
@@ -306,52 +305,61 @@ function ReferralCodeFriendComponent() {
                 <label className="!text-default !font-normal" htmlFor="username">
                   {t('mycasino:Username')}
                 </label>
-                <AdminInputText
+                <InputText
                   control={control}
                   name="username"
                   placeholder="Please input"
-                  customClass="min-w-[200px] !bg-[#181818] !border-none !text-white py-2"
+                  customClass="min-w-[200px] !bg-color-input-primary !border-none !text-white py-2 px-3"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="userId">
                   {t('mycasino:UserId')}
                 </label>
-                <AdminInputText
+                <InputText
                   control={control}
                   name="userId"
                   placeholder="Please input"
-                  customClass="min-w-[200px] !bg-[#181818] !border-none !text-white py-2"
+                  customClass="min-w-[200px] !bg-color-input-primary !border-none !text-white py-2 px-3"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="registrationDate">
                   {t('mycasino:registrationDate')}
                 </label>
-                <AdminInputDateRange
+                {/* <AdminInputDateRange
                   control={control}
                   name="registrationDate"
                   customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
+                /> */}
+                <InputDateRangePicker
+                  control={control}
+                  startName="registrationStartDate"
+                  endName="registrationEndDate"
+                  customClass="flex flex-row !bg-color-input-primary !border-none rounded-default !text-white py-2 px-3"
+                  pickerClass="!w-[120px] !bg-transparent"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="wagerDateRange">
                   {t('mycasino:wagerDateRange')}
                 </label>
-                <AdminInputDateRange
+                <InputDateRangePicker
                   control={control}
-                  name="wagerDateRange"
-                  customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
+                  startName="wagerStartDate"
+                  endName="wagerEndDate"
+                  customClass="flex flex-row !bg-color-input-primary !border-none rounded-default !text-white py-2 px-3"
+                  pickerClass="!w-[120px] !bg-transparent"
                 />
               </div>
               <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="code">
                   {t('mycasino:code')}
                 </label>
-                <AdminSelectBox
+                <SelectBox
+                  customClass="min-w-[120px]"
                   control={control}
                   name="code"
-                  customClass="sm:min-w-[350px] w-full !bg-color-input-primary !border-none"
                   options={[
                     {
                       value: 'all',
