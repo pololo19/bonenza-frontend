@@ -71,7 +71,7 @@ export default function SidebarToggle() {
       {
         title: String(t('sidebar:casino')),
         key: 'casino',
-        href: '',
+        href: '/casino',
         icon: Notepad2,
         smallIcon: (
           <Notepad2
