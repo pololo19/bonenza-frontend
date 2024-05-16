@@ -103,7 +103,7 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
               </span>
             </div>
           </div>
-          <div>
+          <div className={cn({ 'text-left': id !== userId, 'text-right': id === userId })}>
             <div className="text-m_default pl-1">
               <span
                 className={cn('text-[#BBB] font-semibold', { 'hover:underline cursor-pointer': userName })}

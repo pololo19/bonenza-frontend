@@ -147,15 +147,15 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             </div>
             <div className="flex-1 flex gap-[10px] justify-between mt-[35px]">
-              <div
+              {/* <div
                 role="button"
                 className="py-[6px] px-[10px] rounded-default bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit flex items-center gap-[5px]"
               >
-                {/* <div className="flex w-[14px] h-[14px]">
+                <div className="flex w-[14px] h-[14px]">
                   <Image width={14} height={14} src="/img/heart.png" alt="" />
                 </div>
-                <div className="flex text-black dark:text-white">0</div> */}
-              </div>
+                <div className="flex text-black dark:text-white">0</div>
+              </div> */}
               <div className="flex flex-col items-center gap-[10px] w-full">
                 <div className="h-[80px] w-[80px] rounded-full overflow-hidden">
                   <Image
@@ -183,7 +183,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
               {user?.userId === userId ? (
                 <div
-                  className="sm:px-[15px] sm:py-[10px] text-black dark:text-white dark:hover:text-white p-2 rounded-default bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit text-[14px] "
+                  className="sm:px-[15px] sm:py-[10px] text-black dark:text-white dark:hover:text-white p-2 rounded-default bg-white dark:bg-color-card-bg-primary dark:hover:bg-gray-600 hover:bg-gray-200 h-fit text-[14px] "
                   onClick={() => {
                     dispatch(changeIsShowUpdateInformation(true));
                     dispatch(changeIsShowInformation(false));
