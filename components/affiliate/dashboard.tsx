@@ -213,11 +213,11 @@ function DashboardComponent() {
                     {t('affiliate:referralCode')}
                   </div>
                   <div className="flex rounded-[7px] overflow-hidden">
-                    <div className="dark:bg-[#181818] bg-color-light-bg-primary py-[15px] text-[#43484E] w-full pl-[17px] rounded-l-[5px] dark:text-[#FFFFFF] text-m_default sm:text-default font-normal ">
+                    <div className="dark:bg-color-input-primary bg-color-light-bg-primary py-[15px] text-[#43484E] w-full pl-[17px] rounded-l-[5px] dark:text-[#FFFFFF] text-m_default sm:text-default font-normal ">
                       {referralCode}
                     </div>
                     <div
-                      className="bg-[#181818] p-2 sm:p-[17px]"
+                      className="dark:bg-color-input-primary p-2 sm:p-[17px]"
                       role="button"
                       onClick={() => copyClipBoard(String(referralCode))}
                     >
@@ -230,11 +230,11 @@ function DashboardComponent() {
                     {t('affiliate:referralLink')}
                   </div>
                   <div className="flex rounded-[7px] overflow-hidden">
-                    <div className="dark:bg-[#181818] bg-color-light-bg-primary py-[15px] w-full pl-[17px] rounded-l-[5px] text-gray-500 dark:text-[#FFFFF] text-m_default sm:text-default font-normal ">
+                    <div className="dark:bg-color-input-primary bg-color-light-bg-primary py-[15px] w-full pl-[17px] rounded-l-[5px] text-white dark:text-[#FFFFF] text-m_default sm:text-default font-normal ">
                       {ROUTER.REFERRAL_CODE(String(referralCode))}
                     </div>
                     <div
-                      className="bg-[#181818] p-2 sm:p-[17px] rounded-[2px]"
+                      className="bg-color-input-primary p-2 sm:p-[17px] rounded-[2px]"
                       role="button"
                       onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(String(referralCode)))}
                     >

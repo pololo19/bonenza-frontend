@@ -121,7 +121,7 @@ function RateAndRulesComponent() {
               <div className="flex flex-col gap-2">
                 <div className="text-m_default">Wager (USDT)</div>
                 <input
-                  className="text-[#9AA6BC] px-4 py-3 rounded-default w-full"
+                  className="bg-color-input-primary text-white px-4 py-3 rounded-default w-full"
                   value={wagerAmount}
                   onChange={(event) => setWagerAmount(parseFloat(event.target.value))}
                 />
@@ -131,7 +131,10 @@ function RateAndRulesComponent() {
             <div className="flex items-end justify-start gap-4">
               <div className="flex flex-col gap-2">
                 <div className="text-m_default">{t('mycasino:commissionRate')}</div>
-                <input className="text-[#9AA6BC] px-4 py-3 rounded-default w-full" value={commissionRate} />
+                <input
+                  className="bg-color-input-primary text-white px-4 py-3 rounded-default w-full"
+                  value={commissionRate}
+                />
               </div>
               <div className="min-w-[20px] text-center py-3">%</div>
             </div>

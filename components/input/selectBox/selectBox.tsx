@@ -42,6 +42,7 @@ interface SelectBoxProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
   noOptionsMessageString?: string;
   clearValueWhenSearch?: boolean;
+  customClass?: string;
   ['data-testid']?: string;
 }
 
@@ -54,6 +55,7 @@ const SelectBox = <
   control,
   name,
   onChange,
+  customClass,
   noOptionsMessageString,
   clearValueWhenSearch,
   ...rest
@@ -61,7 +63,9 @@ const SelectBox = <
   const style: StylesConfig<Option, IsMulti, Group> = {
     control: (base: CSSObjectWithLabel, state: ControlProps<Option, IsMulti, Group>) => ({
       ...base,
+      backgroundColor: '#2F4466',
       fontSize: '0.875rem',
+      color: '#FFF !important',
       boxShadow: '0',
       borderColor: state.isFocused ? SELECT_BOX_BORDER_COLOR_FOCUSED : SELECT_BOX_BORDER_COLOR,
       borderWidth: state.isFocused ? '2px' : '1px',
@@ -97,11 +101,12 @@ const SelectBox = <
             <ReactSelect
               instanceId={instanceId}
               className={cn(
-                'form-control-select text-gray-900',
+                'form-control-select text-gray-400',
+                customClass,
                 { invalid: error?.message },
                 styles.selectCustomControl,
               )}
-              classNamePrefix="hook-select"
+              classNamePrefix="hook-select !border-none !text-gray-400 !rounded-default "
               {...rest}
               {...(field as ObjectLiteral)}
               styles={style}
