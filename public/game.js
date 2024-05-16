@@ -204,7 +204,7 @@ var Sg;
     switch (lo.strategy) {
       case 'redirect':
         // return (win.location = lo.game_url);
-        const newWin = win.open(uri, '_blank');
+        const newWin = win.open(lo.game_url, '_blank');
         return newWin;
       case 'iframe':
         return createIframe(target, gameURLFromOptions(lo), callbacks);
