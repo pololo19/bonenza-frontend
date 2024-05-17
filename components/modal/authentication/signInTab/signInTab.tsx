@@ -158,6 +158,7 @@ export default function SignInTab({
             ...convertUserInfo(user),
           }),
         );
+        setIsLoginTwoFactor(false);
         dispatch(initWalletInfo());
         dispatch(setLocalFiat(localFiat));
         dispatch(changeIsShowAuthenticationModal(false));
