@@ -137,7 +137,7 @@ export default function ModalRakeBack({
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] sm:my-0"
+        panelClass="sm:max-w-[464px] h-screen sm:!h-[640px] sm:!max-h-[90vh] sm:my-0"
         header={
           <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
             <div className="text-[16px] dark:text-white text-black">USDT {t('deposit:rakeback')}</div>
