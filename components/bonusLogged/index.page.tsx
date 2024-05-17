@@ -190,6 +190,7 @@ function BonusLoggedPage() {
   const getBonusStatistics = async () => {
     try {
       const _res = await api_bonusStatistics();
+
       const tempTotalData = {
         bonusClaimedUsd: Number(_res.data?.totalBonusClaimedUsd || 0),
         vipBonusUsd: Number(_res.data?.totalVipBonusUsd || 0),
@@ -197,6 +198,7 @@ function BonusLoggedPage() {
         generalBonusUsd: Number(_res.data?.totalGeneralBonusUsd || 0),
       };
       setTotalData(tempTotalData);
+      console.log(_res);
       const tempBonusData = {
         general: {
           depositTime: Number(_res.data?.generalBonus?.deposit?.depositTimes || 0),
@@ -211,7 +213,7 @@ function BonusLoggedPage() {
             currentVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.currentVipXp || 0),
             currentVipName: _res.data?.vipBonus?.levelUpRewards?.currentVipName || '',
             nextVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.nextVipXp || 0),
-            bonus: Number(_res.data?.bonusAmountUsd || 0),
+            bonus: Number(_res.data?.vipBonus?.levelUpRewards?.bonusAmountUsd || 0),
           },
           weeklyCashBack: {
             bonus: Number(_res.data?.vipBonus?.weeklyCashBack?.bonusUsd || 0),
