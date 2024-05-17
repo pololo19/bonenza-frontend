@@ -68,6 +68,8 @@
     "cancel": "يلغي"
   },
   "affiliate": {
+    "startDate": "تاريخ البدء",
+    "endDate": "تاريخ الانتهاء",
     "dashboard": "لوحة القيادة",
     "myReward": "مكافآتي",
     "referralCodeAndFriends": "أصدقاء",

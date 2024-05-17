@@ -68,6 +68,8 @@
     "cancel": "取消"
   },
   "affiliate": {
+    "startDate": "开始日期",
+    "endDate": "结束日期",
     "dashboard": "仪表板",
     "myReward": "我的奖励",
     "referralCodeAndFriends": "朋友们",

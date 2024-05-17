@@ -68,6 +68,8 @@
     "cancel": "रद्द करना"
   },
   "affiliate": {
+    "startDate": "आरंभ करने की तिथि",
+    "endDate": "अंतिम तिथि",
     "dashboard": "डैशबोर्ड",
     "myReward": "मेरे पुरस्कार",
     "referralCodeAndFriends": "दोस्त",

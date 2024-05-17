@@ -68,6 +68,8 @@
     "cancel": "Cancel"
   },
   "affiliate": {
+    "startDate": "Start Date",
+    "endDate": "End Date",
     "dashboard": "Dashboard",
     "myReward": "My Rewards",
     "referralCodeAndFriends": "Friends",
@@ -2181,7 +2183,7 @@
     "slotMaster": "Single-day profit reaches {{amount}}",
     "weeklyWager": "Weekly wager reaches {{amount}}.",
     "unFinishedQuest": "Unfinished quests",
-    "unClaimedQuest": "UnClaimed",
+    "unClaimedQuest": "Unclaimed",
     "claimed": "Claimed",
     "expired": "Expired"
   },

@@ -68,6 +68,8 @@
     "cancel": "বাতিল করুন"
   },
   "affiliate": {
+    "startDate": "শুরুর তারিখ",
+    "endDate": "শেষ তারিখ",
     "dashboard": "ড্যাশবোর্ড",
     "myReward": "আমার পুরস্কার",
     "referralCodeAndFriends": "বন্ধুরা",

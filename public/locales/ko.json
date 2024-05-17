@@ -68,6 +68,8 @@
     "cancel": "취소"
   },
   "affiliate": {
+    "startDate": "시작일",
+    "endDate": "종료일",
     "dashboard": "계기반",
     "myReward": "내 보상",
     "referralCodeAndFriends": "친구",
