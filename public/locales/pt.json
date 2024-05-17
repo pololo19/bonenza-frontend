@@ -68,6 +68,8 @@
     "cancel": "Cancelar"
   },
   "affiliate": {
+    "startDate": "Data de início",
+    "endDate": "Data final",
     "dashboard": "Painel",
     "myReward": "Minhas recompensas",
     "referralCodeAndFriends": "Amigos",

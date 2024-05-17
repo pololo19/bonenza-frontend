@@ -37,7 +37,7 @@ const InputDateRangePicker = <TFieldValues extends Record<string, unknown>>({
   disabledDate,
   ...rest
 }: InputDateRangePickerProps<TFieldValues>) => {
-  const { i18n } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
   const inputRef = useRef<Flatpickr | null>(null);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const InputDateRangePicker = <TFieldValues extends Record<string, unknown>>({
                 type="text"
                 data-input
                 className={cn(styles.input, { [styles.error]: error?.message }, 'w-100 form-control')}
-                placeholder={placeholder || ''}
+                placeholder={t('affiliate:startDate') || ''}
               />
               <div className={cn(styles.toggle)} title="toggle" data-toggle>
                 <span className="iconimgs-calendar" />
@@ -147,7 +147,7 @@ const InputDateRangePicker = <TFieldValues extends Record<string, unknown>>({
                 type="text"
                 data-input
                 className={cn(styles.input, { [styles.error]: error?.message }, 'w-100 form-control')}
-                placeholder={placeholder || ''}
+                placeholder={t('affiliate:endDate') || ''}
               />
               <div className={cn(styles.toggle)} title="toggle" data-toggle>
                 <span className="iconimgs-calendar" />

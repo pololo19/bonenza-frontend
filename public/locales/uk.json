@@ -68,6 +68,8 @@
     "cancel": "Скасувати"
   },
   "affiliate": {
+    "startDate": "Дата початку",
+    "endDate": "Дата закінчення",
     "dashboard": "Панель приладів",
     "myReward": "Мої нагороди",
     "referralCodeAndFriends": "друзі",

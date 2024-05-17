@@ -68,6 +68,8 @@
     "cancel": "Annulla"
   },
   "affiliate": {
+    "startDate": "Data d'inizio",
+    "endDate": "Data di fine",
     "dashboard": "Pannello di controllo",
     "myReward": "I miei premi",
     "referralCodeAndFriends": "Amici",

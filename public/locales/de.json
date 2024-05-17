@@ -68,6 +68,8 @@
     "cancel": "Stornieren"
   },
   "affiliate": {
+    "startDate": "Startdatum",
+    "endDate": "Endtermin",
     "dashboard": "Armaturenbrett",
     "myReward": "Meine Belohnungen",
     "referralCodeAndFriends": "Freunde",
