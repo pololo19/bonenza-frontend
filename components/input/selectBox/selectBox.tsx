@@ -1,10 +1,10 @@
 import cn from 'classnames';
 import { useId } from 'react';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
-import ReactSelect, { Props, components, createFilter } from 'react-select';
+import ReactSelect, { components, createFilter, Props } from 'react-select';
 import {
-  CSSObjectWithLabel,
   ControlProps,
+  CSSObjectWithLabel,
   DropdownIndicatorProps,
   GroupBase,
   StylesConfig,
@@ -69,7 +69,7 @@ const SelectBox = <
       boxShadow: '0',
       borderColor: state.isFocused ? SELECT_BOX_BORDER_COLOR_FOCUSED : SELECT_BOX_BORDER_COLOR,
       borderWidth: state.isFocused ? '2px' : '1px',
-      borderRadius: '0.375rem',
+      borderRadius: '0rem',
       padding: '0.0625rem',
       minHeight: '36px',
     }),

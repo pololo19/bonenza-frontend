@@ -1,45 +1,43 @@
 import 'swiper/css';
 import 'swiper/css/grid';
 
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ColumnDef } from '@tanstack/react-table';
+import cn from 'classnames';
 import { Activity, BookSquare } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
 
 import {
-  api_affiliate,
   api_affiliateCommissionRewards,
   api_affiliateCommissionRewardsHistory,
   api_affiliateCommissionRewardsWithdraw,
   api_affiliateReferralRewards,
   api_affiliateReferralRewardsWithdrw,
 } from '@/api/bonus';
+import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
+import InputText from '@/components/input/typing/InputText';
 import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
 import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
-import cn from 'classnames';
-import AdminTableComponent from '../table/adminTable';
-import Paging from '../paging/paging';
-import { ColumnDef } from '@tanstack/react-table';
-import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
-import { api_getClaims } from '@/api/wallet';
-import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
-import { toast } from 'react-toastify';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
-import ReactLoading from 'react-loading';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import AdminInputText from '../input/admin/AdminInputText';
-import AdminInputDateRange from '../input/admin/AdminInputDateRange';
-import InputText from '@/components/input/typing/InputText';
+
 import InputDateRangePicker from '../input/datePicker/inputDateRangePicker';
+import Paging from '../paging/paging';
+import AdminTableComponent from '../table/adminTable';
 
 const fiatDecimals = 8;
 const decimals = 6;
@@ -372,7 +370,7 @@ function RewardsComponent() {
         <title>Affiliate - Bonenza</title>
       </Head>
       <div className="flex flex-col mt-[20px]">
-        <div className="grid grid-cols-1 md:grid-cols-3 bg-gradient-card-default rounded-default gap-6 py-5">
+        <div className="grid grid-cols-1 gap-6 py-5 md:grid-cols-3 bg-gradient-card-default rounded-default">
           <div className="md:py-10">
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
               {t('affiliate:availableCommission')}
@@ -441,7 +439,7 @@ function RewardsComponent() {
               </span>
             </div>
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <div
               className="bg-gradient-btn-play min-w-[170px] px-12 py-3 rounded-default cursor-pointer hover:opacity-80 hover:!text-white"
               onClick={handleWithdraw}
@@ -468,7 +466,7 @@ function RewardsComponent() {
             )}
             role="button"
           >
-            <div className="sm:text-default text-m_default font-semibold">{t('affiliate:commissionReward')}</div>
+            <div className="font-semibold sm:text-default text-m_default">{t('affiliate:commissionReward')}</div>
           </div>
           <div
             onClick={() => setRewardsTab('reward')}
@@ -481,11 +479,11 @@ function RewardsComponent() {
             )}
             role="button"
           >
-            <div className="sm:text-default text-m_default font-semibold">{t('affiliate:referralReward')}</div>
+            <div className="font-semibold sm:text-default text-m_default">{t('affiliate:referralReward')}</div>
           </div>
         </div>
         <div
-          className="flex justify-start items-center gap-2 text-color-primary underline cursor-pointer text-m_default"
+          className="flex items-center justify-start gap-2 underline cursor-pointer text-color-primary text-m_default"
           onClick={() => {
             if (rewardsTab === 'reward') setShowReferralRewardRules(true);
             else setShowDetailCommissionsRewards(true);
@@ -526,7 +524,7 @@ function RewardsComponent() {
           <div className="p-4 mt-4 bg-[#1D2738] rounded">
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-wrap items-center gap-[20px]">
               <div className="flex flex-col items-start gap-1">
-                <label className="text-default font-normal" htmlFor="username">
+                <label className="font-normal text-default" htmlFor="username">
                   {t('mycasino:Username')}
                 </label>
                 <InputText
@@ -538,7 +536,7 @@ function RewardsComponent() {
               </div>
 
               <div className="flex flex-col items-start gap-1">
-                <label className="text-default font-normal" htmlFor="registrationDate">
+                <label className="font-normal text-default" htmlFor="registrationDate">
                   {t('mycasino:registrationDate')}
                 </label>
                 {/* <AdminInputDateRange
@@ -550,7 +548,7 @@ function RewardsComponent() {
                   control={control}
                   startName="registrationStartDate"
                   endName="registrationEndDate"
-                  customClass="flex flex-row !bg-color-input-primary !border-none rounded-default !text-white py-2 px-3"
+                  customClass="flex flex-row !bg-color-input-primary !border-none rounded !text-white py-2 px-3"
                   pickerClass="!w-[120px] !bg-transparent"
                 />
               </div>
