@@ -168,37 +168,44 @@ function GamePage() {
         newWindow = window.open('about:blank', '_blank');
       }
 
-      api_startGameDemo(requestData).then((res) => {
-        const lanuchGameOption: LaunchUrlTye = {
-          gameLauncherUrl: res.data.gameLauncherUrl,
-          gameUrl: res.data.gameUrl,
-          strategy: res.data.strategy,
-          lobbyUrl: res.data.lobbyUrl,
-          tokenId: res.data.tokenId,
-        };
+      api_startGameDemo(requestData)
+        .then((res) => {
+          const lanuchGameOption: LaunchUrlTye = {
+            gameLauncherUrl: res.data.gameLauncherUrl,
+            gameUrl: res.data.gameUrl,
+            strategy: res.data.strategy,
+            lobbyUrl: res.data.lobbyUrl,
+            tokenId: res.data.tokenId,
+          };
 
-        if (isMobile && newWindow) {
-          newWindow.location.href = lanuchGameOption.gameUrl;
-        }
-        if (!isMobile) {
-          launchGame(
-            lanuchGameOption.gameUrl,
-            lanuchGameOption.gameLauncherUrl,
-            lanuchGameOption.strategy,
-            lanuchGameOption.lobbyUrl,
-            lanuchGameOption.tokenId,
-          );
-        }
-      });
+          if (isMobile && newWindow) {
+            newWindow.location.href = lanuchGameOption.gameUrl;
+          }
+          if (!isMobile) {
+            launchGame(
+              lanuchGameOption.gameUrl,
+              lanuchGameOption.gameLauncherUrl,
+              lanuchGameOption.strategy,
+              lanuchGameOption.lobbyUrl,
+              lanuchGameOption.tokenId,
+            );
+          }
+        })
+        .catch((error: any) => {
+          const errType = error.response?.data?.message ?? '';
+          const errMessage = getErrorMesssage1(errType);
+          toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+        })
+        .finally(() => {
+          setIsLoadingGame({
+            request: 'demo',
+            status: false,
+          });
+        });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-    } finally {
-      setIsLoadingGame({
-        request: 'demo',
-        status: false,
-      });
     }
   };
   const handleSignUp = async () => {
@@ -237,36 +244,43 @@ function GamePage() {
       }
 
       // const res = await api_startGameSession(requestData);
-      api_startGameSession(requestData).then((res) => {
-        const lanuchGameOption: LaunchUrlTye = {
-          gameLauncherUrl: res.data.gameLauncherUrl,
-          gameUrl: res.data.gameUrl,
-          strategy: res.data.strategy,
-          lobbyUrl: res.data.lobbyUrl,
-          tokenId: res.data.tokenId,
-        };
-        if (newWindow && isMobile) {
-          newWindow.location.href = lanuchGameOption.gameUrl;
-        }
-        if (!isMobile) {
-          launchGame(
-            lanuchGameOption.gameUrl,
-            lanuchGameOption.gameLauncherUrl,
-            lanuchGameOption.strategy,
-            lanuchGameOption.lobbyUrl,
-            lanuchGameOption.tokenId,
-          );
-        }
-      });
+      api_startGameSession(requestData)
+        .then((res) => {
+          const lanuchGameOption: LaunchUrlTye = {
+            gameLauncherUrl: res.data.gameLauncherUrl,
+            gameUrl: res.data.gameUrl,
+            strategy: res.data.strategy,
+            lobbyUrl: res.data.lobbyUrl,
+            tokenId: res.data.tokenId,
+          };
+          if (newWindow && isMobile) {
+            newWindow.location.href = lanuchGameOption.gameUrl;
+          }
+          if (!isMobile) {
+            launchGame(
+              lanuchGameOption.gameUrl,
+              lanuchGameOption.gameLauncherUrl,
+              lanuchGameOption.strategy,
+              lanuchGameOption.lobbyUrl,
+              lanuchGameOption.tokenId,
+            );
+          }
+        })
+        .catch((error: any) => {
+          const errType = error.response?.data?.message ?? '';
+          const errMessage = getErrorMesssage1(errType);
+          toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+        })
+        .finally(() => {
+          setIsLoadingGame({
+            request: 'real',
+            status: false,
+          });
+        });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-      setIsLoadingGame({
-        request: 'real',
-        status: false,
-      });
-    } finally {
       setIsLoadingGame({
         request: 'real',
         status: false,
