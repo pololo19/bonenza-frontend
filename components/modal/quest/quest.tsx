@@ -614,7 +614,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       <CommonModal
         show={isHistory}
         onClose={() => setIsHistory(false)}
-        panelClass="max-w-full sm:max-w-[600px] sm:!h-[80vh]"
+        panelClass={`max-w-full sm:max-w-[600px] sm:!h-[${height < 768 ? 90 : 80}vh]`}
         header={
           <div className="relative p-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
             <div className="flex items-center dark:text-white text-black gap-[10px] justify-between pr-[40px]">
