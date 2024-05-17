@@ -1,42 +1,28 @@
 import 'swiper/css';
 import 'swiper/css/grid';
 
-import { Activity, BookSquare } from 'iconsax-react';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ColumnDef } from '@tanstack/react-table';
+import cn from 'classnames';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
+import * as yup from 'yup';
 
-import {
-  api_affiliate,
-  api_affiliateCommissionRewards,
-  api_affiliateCommissionRewardsHistory,
-  api_affiliateCommissionRewardsWithdraw,
-  api_affiliateFriends,
-  api_affiliateReferralRewards,
-  api_affiliateReferralRewardsWithdrw,
-} from '@/api/bonus';
+import { api_affiliateFriends } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
-import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
-import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
-import cn from 'classnames';
-import AdminTableComponent from '../table/adminTable';
-import Paging from '../paging/paging';
-import { ColumnDef } from '@tanstack/react-table';
-import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import AdminInputDateRange from '../input/admin/AdminInputDateRange';
-import AdminSelectBox from '../input/admin/AdminSelectBox';
 import InputText from '@/components/input/typing/InputText';
+
 import InputDateRangePicker from '../input/datePicker/inputDateRangePicker';
-import SelectBox from '../input/selectBox/selectBox';
+import Paging from '../paging/paging';
+import AdminTableComponent from '../table/adminTable';
 
 const fiatDecimals = 4;
 type ReferralType = 'code' | 'friend';
@@ -233,13 +219,13 @@ function ReferralCodeFriendComponent() {
         <title>Affiliate - Bonenza</title>
       </Head>
       {/* <div className="flex flex-col mt-[20px]">
-        <div className="grid grid-cols-1 md:grid-cols-3 bg-gradient-card-default rounded-default gap-6 py-5">
+        <div className="grid grid-cols-1 gap-6 py-5 md:grid-cols-3 bg-gradient-card-default rounded-default">
           <div className="md:py-10">
             <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
               {t('affiliate:referralCodeCreated')}
             </div>
             <div className={`text-title mt-5 sm:text-[22px] font-bold text-center`}>
-              <span className="text-color-text-green font-bold">{0} </span>
+              <span className="font-bold text-color-text-green">{0} </span>
               <span className="font-bold">/ 20</span>
             </div>
           </div>
@@ -251,7 +237,7 @@ function ReferralCodeFriendComponent() {
               {totalFriendsCnt}
             </div>
           </div>
-          <div className="flex justify-center items-center">
+          <div className="flex items-center justify-center">
             <div className="bg-gradient-btn-play min-w-[170px] px-12 py-3 rounded-default cursor-pointer hover:opacity-80 hover:!text-white">
               {isCreating ? (
                 <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-6 !h-6" />
@@ -275,7 +261,7 @@ function ReferralCodeFriendComponent() {
             )}
             role="button"
           >
-            <div className="sm:text-default text-m_default font-semibold">{t('affiliate:referralCode')}</div>
+            <div className="font-semibold sm:text-default text-m_default">{t('affiliate:referralCode')}</div>
           </div>
           <div
             onClick={() => setCodeTab('friend')}
@@ -288,7 +274,7 @@ function ReferralCodeFriendComponent() {
             )}
             role="button"
           >
-            <div className="sm:text-default text-m_default font-semibold">{t('affiliate:friends')}</div>
+            <div className="font-semibold sm:text-default text-m_default">{t('affiliate:friends')}</div>
           </div>
         </div>
       </div> */}
@@ -301,7 +287,7 @@ function ReferralCodeFriendComponent() {
         <div className="mt-5">
           <div className="bg-[#1D2738] rounded p-4">
             <form onSubmit={handleSubmit(onSubmit)} className="min-h-[120px] flex flex-wrap items-center gap-[20px]">
-              <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
+              <div className="flex flex-col items-start w-full gap-1 sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="username">
                   {t('mycasino:Username')}
                 </label>
@@ -309,10 +295,10 @@ function ReferralCodeFriendComponent() {
                   control={control}
                   name="username"
                   placeholder="Please input"
-                  customClass="min-w-[200px] !bg-color-input-primary !border-none !text-white py-2 px-3"
+                  customClass="min-w-[200px] !rounded !bg-color-input-primary !border-none !text-white py-2 px-3"
                 />
               </div>
-              <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
+              <div className="flex flex-col items-start w-full gap-1 sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="userId">
                   {t('mycasino:UserId')}
                 </label>
@@ -320,10 +306,10 @@ function ReferralCodeFriendComponent() {
                   control={control}
                   name="userId"
                   placeholder="Please input"
-                  customClass="min-w-[200px] !bg-color-input-primary !border-none !text-white py-2 px-3"
+                  customClass="min-w-[200px] !rounded !bg-color-input-primary !border-none !text-white py-2 px-3"
                 />
               </div>
-              <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
+              <div className="flex flex-col items-start w-full gap-1 sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="registrationDate">
                   {t('mycasino:registrationDate')}
                 </label>
@@ -336,11 +322,11 @@ function ReferralCodeFriendComponent() {
                   control={control}
                   startName="registrationStartDate"
                   endName="registrationEndDate"
-                  customClass="flex flex-row !bg-color-input-primary !border-none rounded-default !text-white py-2 px-3"
+                  customClass="flex flex-row !bg-color-input-primary !border-none rounded !text-white py-2 px-3"
                   pickerClass="!w-[120px] !bg-transparent"
                 />
               </div>
-              <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
+              <div className="flex flex-col items-start w-full gap-1 sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="wagerDateRange">
                   {t('mycasino:wagerDateRange')}
                 </label>
@@ -348,16 +334,17 @@ function ReferralCodeFriendComponent() {
                   control={control}
                   startName="wagerStartDate"
                   endName="wagerEndDate"
-                  customClass="flex flex-row !bg-color-input-primary !border-none rounded-default !text-white py-2 px-3"
+                  customClass="flex flex-row !bg-color-input-primary !border-none rounded !text-white py-2 px-3"
                   pickerClass="!w-[120px] !bg-transparent"
                 />
               </div>
-              <div className="flex flex-col items-start gap-1 w-full sm:w-auto">
+              {/* <div className="flex flex-col items-start w-full gap-1 sm:w-auto">
                 <label className="!text-default !font-normal" htmlFor="code">
                   {t('mycasino:code')}
                 </label>
+
                 <SelectBox
-                  customClass="min-w-[120px]"
+                  customClass="min-w-[120px] rounded"
                   control={control}
                   name="code"
                   options={[
@@ -375,10 +362,10 @@ function ReferralCodeFriendComponent() {
                     },
                   ]}
                 />
-              </div>
+              </div> */}
               <div className="flex flex-col items-start gap-1">
                 <label className="opacity-0">1</label>
-                <button className="bg-gradient-btn-play px-6 py-1 rounded-default text-white" type="submit">
+                <button className="px-6 py-2 text-white bg-gradient-btn-play rounded-default" type="submit">
                   {t('mycasino:search')}
                 </button>
               </div>

@@ -1,23 +1,13 @@
 import 'swiper/css';
 import 'swiper/css/grid';
 
-import { Disclosure, Transition } from '@headlessui/react';
-import {
-  Add,
-  ArrowDown,
-  ArrowDown2,
-  ArrowRight,
-  ArrowRight2,
-  ArrowUp,
-  ArrowUp2,
-  Minus,
-  SmsTracking,
-} from 'iconsax-react';
+import { Disclosure } from '@headlessui/react';
+import { ArrowDown2, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
-import { ReactElement, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_affiliate } from '@/api/bonus';
@@ -28,11 +18,7 @@ import { copyClipBoard, currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon';
-import BaseLayout from '@/components/layouts/base.layout';
-import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
-import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
 import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
-
 import styles from '@/pages/affiliate/index.module.scss';
 
 type ReferralType = 'commission' | 'reward';
@@ -185,9 +171,9 @@ function DashboardComponent() {
       </Head>
       <div className="flex flex-col mt-[20px]">
         <div className="w-full flex flex-col lg:flex-row pb-[23px] lg:justify-center gap-4">
-          <div className="flex flex-col w-full items-center dark:bg-gradient-card-default bg-white rounded-default overflow-hidden justify-start gap-8">
-            <div className="flex flex-col w-full px-6 py-8 gap-8">
-              <div className="text-white text-title sm:text-m_title font-bold flex uppercase">
+          <div className="flex flex-col items-center justify-start w-full gap-8 overflow-hidden bg-white dark:bg-gradient-card-default rounded-default">
+            <div className="flex flex-col w-full gap-8 px-6 py-8">
+              <div className="flex font-bold text-white uppercase text-title sm:text-m_title">
                 {t('affiliate:inviteAFriendToGet')}
               </div>
               <div className="flex flex-col md:flex-row text-default">
@@ -207,13 +193,13 @@ function DashboardComponent() {
                 </div>
               </div>
               <div className="text-white text-m_default">{t('affiliate:inviteDescription')}</div>
-              <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
                 <div className="w-full">
                   <div className="text-m_default sm:text-default font-normal text-black dark:text-white mb-[3px]">
                     {t('affiliate:referralCode')}
                   </div>
-                  <div className="flex rounded-[7px] overflow-hidden">
-                    <div className="dark:bg-color-input-primary bg-color-light-bg-primary py-[15px] text-[#43484E] w-full pl-[17px] rounded-l-[5px] dark:text-[#FFFFFF] text-m_default sm:text-default font-normal ">
+                  <div className="flex overflow-hidden rounded">
+                    <div className="dark:bg-color-input-primary bg-color-light-bg-primary py-[15px] text-[#43484E] w-full pl-[17px] dark:text-[#FFFFFF] text-m_default sm:text-default font-normal ">
                       {referralCode}
                     </div>
                     <div
@@ -229,7 +215,7 @@ function DashboardComponent() {
                   <div className="text-m_default sm:text-default font-normal text-black dark:text-white mb-[3px]">
                     {t('affiliate:referralLink')}
                   </div>
-                  <div className="flex rounded-[7px] overflow-hidden">
+                  <div className="flex overflow-hidden rounded">
                     <div className="dark:bg-color-input-primary bg-color-light-bg-primary py-[15px] w-full pl-[17px] rounded-l-[5px] text-white dark:text-[#FFFFF] text-m_default sm:text-default font-normal ">
                       {ROUTER.REFERRAL_CODE(String(referralCode))}
                     </div>
@@ -243,7 +229,7 @@ function DashboardComponent() {
                   </div>
                 </div>
               </div>
-              <div className="w-full flex flex-row justify-start items-center gap-4">
+              <div className="flex flex-row items-center justify-start w-full gap-4">
                 <div className="text-default text-[#43484E] dark:text-[#FFFFFF] font-normal">
                   {t('affiliate:shareViaSocialMedia')}
                 </div>
@@ -315,7 +301,7 @@ function DashboardComponent() {
             </div>
           </div>
           <div className="lg:min-w-[360px] flex flex-col rounded-default overflow-hidden gap-4">
-            <div className="rounded-default w-full grid grid-cols-2 py-10 bg-gradient-card-default">
+            <div className="grid w-full grid-cols-2 py-10 rounded-default bg-gradient-card-default">
               <div className="min-w-[150px] flex flex-col justify-center items-center">
                 <Image
                   className="object-cover h-[80px] w-[80px]"
@@ -351,8 +337,8 @@ function DashboardComponent() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row justify-between w-full gap-4">
-              <div className="w-full lg:w-1/2 dark:bg-gradient-card-default bg-color-light-bg-primary rounded-default py-10">
+            <div className="flex flex-col justify-between w-full gap-4 md:flex-row">
+              <div className="w-full py-10 lg:w-1/2 dark:bg-gradient-card-default bg-color-light-bg-primary rounded-default">
                 <div className="min-w-[150px] text-center text-m_default sm:text-default font-normal dark:text-[#FFFFFF] text-[#141414]">
                   {t('affiliate:referralReward')}
                 </div>
@@ -368,7 +354,7 @@ function DashboardComponent() {
                   )}
                 </div>
               </div>
-              <div className="w-full lg:w-1/2 dark:bg-gradient-card-default bg-color-light-bg-primary rounded-default py-10">
+              <div className="w-full py-10 lg:w-1/2 dark:bg-gradient-card-default bg-color-light-bg-primary rounded-default">
                 <div className="min-w-[150px] text-center text-m_default sm:text-default font-normal dark:text-[#FFFFFF] text-[#141414]">
                   {t('affiliate:commissionReward')}
                 </div>
@@ -391,7 +377,7 @@ function DashboardComponent() {
             </div>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-4">
+        <div className="flex flex-col w-full gap-4">
           <div className="text-m_default sm:text-[16px] font-semibold dark:text-[#FFFFFF] text-[#141414]">
             {t('affiliate:rewardsActivities')}
           </div>
@@ -410,8 +396,8 @@ function DashboardComponent() {
             {!!rewardActivitiesData?.length &&
               rewardActivitiesData?.map((item: any, key: any) => {
                 return (
-                  <div className="flex justify-between items-center px-10 py-5" key={key}>
-                    <div className="dark:text-gray-200 text-gray-700 text-m_default sm:text-default">
+                  <div className="flex items-center justify-between px-10 py-5" key={key}>
+                    <div className="text-gray-700 dark:text-gray-200 text-m_default sm:text-default">
                       {item?.type === 'commission' ? t('affiliate:commissionReward') : t('affiliate:referralRewards')}{' '}
                       <span className="ml-1">USDT</span>
                     </div>
@@ -427,7 +413,7 @@ function DashboardComponent() {
               })}
           </div>
         </div>
-        <div className="w-full relative mt-6">
+        <div className="relative w-full mt-6">
           <div className="absolute top-0 left-5 py-1 px-4 flex justify-center items-center text-black dark:text-white bg-[#31373D] rounded-[5px]">
             <div className="bg-color-text-green rounded-full w-3 h-3 mr-[10px]" />
             <div className="text-default sm:text-[16px] font-semibold dark:text-white text-[#141414]">
@@ -440,7 +426,7 @@ function DashboardComponent() {
                 <h5 className="mb-[10px] text-m_default sm:text-default dark:text-[#BCB7B1] text-[#43484E]">
                   {t('affiliate:totalRewards')}
                 </h5>
-                <div className="w-full flex justify-center">
+                <div className="flex justify-center w-full">
                   <div className="w-full dark:bg-color-panel-bg bg-color-light-bg-primary rounded-[5px] xl:w-[342px] py-3 flex justify-center items-center">
                     <span className={`font-bold text-[16px] text-color-secondary  ${styles.textBanner}`}>
                       {viewInFiat ? (
@@ -552,7 +538,7 @@ function DashboardComponent() {
         </div>
       </div>
 
-      <div className="flex justify-center items-center">
+      <div className="flex items-center justify-center">
         <div className="w-[95%] h-full md:w-[1067px] pt-[16px] pb-[47px] md:px-[20px] px-[20px]">
           <div className="text-center mb-[26px]">
             <h1 className="text-[16px] sm:text-m_title pt-42 dark:text-white text-[#141414] font-semibold">
@@ -566,7 +552,7 @@ function DashboardComponent() {
                 {({ open }) => (
                   <div className="w-full">
                     <Disclosure.Button className="mb-[20px] w-full flex justify-between">
-                      <div className="text-left font-normal text-m_default sm:text-default dark:text-white text-black w-full">
+                      <div className="w-full font-normal text-left text-black text-m_default sm:text-default dark:text-white">
                         {item.title}
                       </div>
                       <div
