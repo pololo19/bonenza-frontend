@@ -634,8 +634,22 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       >
         <div className="flex flex-col px-5 py-5 items-center gap-[10px] overflow-y-auto">
           <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex text-white text-[16px] w-full">{t('quest:unClaimedQuest')}</div>
-
+            <div className="flex flex-row justify-between w-full">
+              <div className="flex text-white text-[16px]">{t('quest:unClaimedQuest')}</div>
+              <div className="flex justify-start items-center text-default text-gray-400 gap-1">
+                {t('quest:expiredIn')}
+                <CsrWrapper>
+                  <Countdown
+                    date={new Date(Number(weeklyQuest.endTime))}
+                    renderer={({ days, hours, minutes, seconds }) => (
+                      <div className="text-white text-default text-center">
+                        {`${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
+                      </div>
+                    )}
+                  />
+                </CsrWrapper>
+              </div>
+            </div>
             {prevQuest.unClaimed.daily.length === 0 && prevQuest.unClaimed.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
                 <CsrWrapper>
