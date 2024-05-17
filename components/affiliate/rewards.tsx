@@ -38,6 +38,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AdminInputText from '../input/admin/AdminInputText';
 import AdminInputDateRange from '../input/admin/AdminInputDateRange';
+import InputText from '@/components/input/typing/InputText';
+import InputDateRangePicker from '../input/datePicker/inputDateRangePicker';
 
 const fiatDecimals = 8;
 const decimals = 6;
@@ -62,7 +64,8 @@ type ReferralRewardType = {
 
 type FilterType = {
   username?: string;
-  registrationDate?: any[];
+  registrationStartDate?: any;
+  registrationEndDate?: any;
 };
 
 function RewardsComponent() {
@@ -197,13 +200,12 @@ function RewardsComponent() {
   const getReferralData = useCallback(
     async (filter?: FilterType) => {
       try {
+        console.log(filter);
         setIsLoading(true);
-        const registrationStartDate = filter?.registrationDate
-          ? new Date(filter.registrationDate[0]).getTime()
-          : undefined;
-        const registrationEndDate = filter?.registrationDate
-          ? new Date(filter.registrationDate[1]).getTime()
-          : undefined;
+        const registrationStartDate =
+          filter?.registrationStartDate?.length > 0 ? new Date(filter?.registrationStartDate).getTime() : undefined;
+        const registrationEndDate =
+          filter?.registrationEndDate?.length > 0 ? new Date(filter?.registrationEndDate).getTime() : undefined;
         const _res = await api_affiliateReferralRewards(
           referralPage,
           referralLimit,
@@ -527,11 +529,11 @@ function RewardsComponent() {
                 <label className="text-default font-normal" htmlFor="username">
                   {t('mycasino:Username')}
                 </label>
-                <AdminInputText
+                <InputText
                   control={control}
                   name="username"
                   placeholder="Please input"
-                  customClass="min-w-[200px] !bg-[#181818] !border-none !text-white py-2"
+                  customClass="min-w-[200px] !bg-color-input-primary !border-none !text-white py-2 px-3"
                 />
               </div>
 
@@ -539,10 +541,17 @@ function RewardsComponent() {
                 <label className="text-default font-normal" htmlFor="registrationDate">
                   {t('mycasino:registrationDate')}
                 </label>
-                <AdminInputDateRange
+                {/* <AdminInputDateRange
                   control={control}
                   name="registrationDate"
                   customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
+                /> */}
+                <InputDateRangePicker
+                  control={control}
+                  startName="registrationStartDate"
+                  endName="registrationEndDate"
+                  customClass="flex flex-row !bg-color-input-primary !border-none rounded-default !text-white py-2 px-3"
+                  pickerClass="!w-[120px] !bg-transparent"
                 />
               </div>
               <div className="flex flex-col items-start gap-1">
