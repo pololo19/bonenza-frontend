@@ -2265,6 +2265,8 @@
     "slotMaster": "Lucro em um único dia atinge {{amount}}",
     "weeklyWager": "A aposta semanal atinge {{amount}}.",
     "unFinishedQuest": "Missões inacabadas",
+    "onlyLatestWeek": "Apenas a última semana mostrada",
+    "onlyLatestWeekDescription": "Somente as duas últimas atualizações serão exibidas aqui para as tarefas nas quais você participou, mas não concluiu totalmente.",
     "unClaimedQuest": "Não reclamado",
     "claimed": "Reivindicado",
     "expired": "Expirado"

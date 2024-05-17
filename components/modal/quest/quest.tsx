@@ -27,6 +27,7 @@ import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
+import { Tooltip } from 'react-tooltip';
 
 type ModalQuest = {
   onClose: () => void;
@@ -660,7 +661,30 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           </div>
 
           <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex text-white text-[16px] w-full">{t('quest:unFinishedQuest')}</div>
+            <div className="flex justify-between w-full">
+              <div className="flex text-white text-[16px] w-full">{t('quest:unFinishedQuest')}</div>
+              <div className="flex justify-end gap-1 items-center text-gray-400 text-m_default w-full text-right">
+                {t('quest:onlyLatestWeek')}
+                <Image
+                  src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
+                  width={16}
+                  height={16}
+                  alt=""
+                  className="w-4 h-4"
+                  data-tooltip-id={`unfinished-quest-tooltip`}
+                />
+                <Tooltip
+                  id={`unfinished-quest-tooltip`}
+                  place="bottom"
+                  className="dark:bg-black/0 bg-white z-[30]"
+                  opacity={100}
+                >
+                  <div className="text-left text-m_default sm:text-[13px] max-w-[300px] bg-color-card-bg-primary p-4 rounded-large">
+                    {t('quest:onlyLatestWeekDescription')}
+                  </div>
+                </Tooltip>
+              </div>
+            </div>
 
             {prevQuest.unFinished.daily.length === 0 && prevQuest.unFinished.weekly.length === 0 && (
               <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">

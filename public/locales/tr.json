@@ -2265,6 +2265,8 @@
     "slotMaster": "Tek günlük kâra ulaşıldı {{amount}}",
     "weeklyWager": "Haftalık bahis miktarına ulaşıldı {{amount}}.",
     "unFinishedQuest": "Bitmemiş görevler",
+    "onlyLatestWeek": "Yalnızca son hafta gösteriliyor",
+    "onlyLatestWeekDescription": "Katıldığınız ancak tam olarak tamamlamadığınız görevler için burada yalnızca en son iki yenileme görüntülenecektir.",
     "unClaimedQuest": "Talep Edilmedi",
     "claimed": "Hak talebinde bulunuldu",
     "expired": "Günü geçmiş"

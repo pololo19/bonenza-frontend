@@ -2265,6 +2265,8 @@
     "slotMaster": "Il profitto di un giorno raggiunge {{amount}}",
     "weeklyWager": "La scommessa settimanale raggiunge {{amount}}.",
     "unFinishedQuest": "Missioni incompiute",
+    "onlyLatestWeek": "Viene mostrata solo l'ultima settimana",
+    "onlyLatestWeekDescription": "Qui verranno visualizzati solo gli ultimi due aggiornamenti per le attività a cui hai partecipato ma che non hai completato completamente.",
     "unClaimedQuest": "Non reclamato",
     "claimed": "Reclamato",
     "expired": "Scaduto"

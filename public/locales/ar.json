@@ -2265,6 +2265,8 @@
     "slotMaster": "يصل الربح في يوم واحد {{amount}}",
     "weeklyWager": "يصل الرهان الأسبوعي {{amount}}.",
     "unFinishedQuest": "المهام غير المكتملة",
+    "onlyLatestWeek": "تم عرض اخر اسبوع فقط",
+    "onlyLatestWeekDescription": "سيتم عرض آخر تحديثين فقط هنا للمهام التي شاركت فيها ولكن لم تكملها بالكامل.",
     "unClaimedQuest": "غير مُطالب به",
     "claimed": "ادعى",
     "expired": "منتهي الصلاحية"

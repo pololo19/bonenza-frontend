@@ -2265,6 +2265,8 @@
     "slotMaster": "1 日の利益が達成される {{amount}}",
     "weeklyWager": "毎週の賭け金が到達する {{amount}}。",
     "unFinishedQuest": "未完了のクエスト",
+    "onlyLatestWeek": "最新週のみ表示",
+    "onlyLatestWeekDescription": "ここには、参加したが完全には完了しなかったタスクについては、最新の 2 つの更新のみが表示されます。",
     "unClaimedQuest": "未請求",
     "claimed": "主張した",
     "expired": "期限切れ"

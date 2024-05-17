@@ -2265,6 +2265,8 @@
     "slotMaster": "Keuntungan satu hari tercapai {{amount}}",
     "weeklyWager": "Taruhan mingguan mencapai {{amount}}.",
     "unFinishedQuest": "Pencarian yang belum selesai",
+    "onlyLatestWeek": "Hanya minggu terakhir yang ditampilkan",
+    "onlyLatestWeekDescription": "Hanya dua penyegaran terbaru yang akan ditampilkan di sini untuk tugas yang Anda ikuti tetapi belum diselesaikan sepenuhnya.",
     "unClaimedQuest": "Tidak Diklaim",
     "claimed": "Diklaim",
     "expired": "Kedaluwarsa"
