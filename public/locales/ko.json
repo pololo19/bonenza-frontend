@@ -2265,6 +2265,8 @@
     "slotMaster": "일일 이익 달성 {{amount}}",
     "weeklyWager": "주간 베팅 도달 {{amount}}.",
     "unFinishedQuest": "끝나지 않은 퀘스트",
+    "onlyLatestWeek": "최근 주만 표시됨",
+    "onlyLatestWeekDescription": "참여했지만 완전히 완료하지 않은 작업에 대해 최근 두 번의 새로 고침만 여기에 표시됩니다.",
     "unClaimedQuest": "청구되지 않은",
     "claimed": "청구됨",
     "expired": "만료됨"

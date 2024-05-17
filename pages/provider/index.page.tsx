@@ -54,7 +54,7 @@ function ProviderPage() {
           releasedAt: item?.releasedAt ?? '',
           providerName: item?.producerName ?? '',
         }));
-        if (games.length < 40 || listGame.length + games.length === totalGames) {
+        if (games.length <= 40 || listGame.length + games.length === totalGames) {
           setIsShowMore(false);
         }
         setListGame((current) => [...current, ...tempGameListData]);
@@ -139,13 +139,13 @@ function ProviderPage() {
             {isShowMore && (
               <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
                 <div
-                  className="flex items-center dark:bg-[#2D3035] bg-white py-[9px] px-[10px] rounded-[5px]"
+                  className="flex items-center dark:bg-color-card-bg-primary bg-white py-[8px] px-[12px] rounded-[5px]"
                   role="button"
                   onClick={() => {
                     setCurrentPage(currentPage + 1);
                   }}
                 >
-                  <div className="text-[10px] text-[#FFFFFF] font-bold">{t('casino:loadMore')}</div>
+                  <div className="text-[11px] sm:text-default text-[#FFFFFF] font-semibold">{t('casino:loadMore')}</div>
                 </div>
               </div>
             )}
