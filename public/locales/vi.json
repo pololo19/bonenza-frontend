@@ -2265,6 +2265,8 @@
     "slotMaster": "Đạt lợi nhuận trong một ngày {{amount}}",
     "weeklyWager": "Số tiền đặt cược hàng tuần đạt {{amount}}.",
     "unFinishedQuest": "Nhiệm vụ còn dang dở",
+    "onlyLatestWeek": "Chỉ hiển thị tuần gần nhất",
+    "onlyLatestWeekDescription": "Chỉ có hai lần làm mới mới nhất sẽ được hiển thị ở đây cho các nhiệm vụ mà bạn đã tham gia nhưng chưa hoàn thành đầy đủ.",
     "unClaimedQuest": "Chưa được xác nhận",
     "claimed": "Đã xác nhận quyền sở hữu",
     "expired": "Hết hạn"

@@ -2265,6 +2265,8 @@
     "slotMaster": "单日盈利达到 {{amount}}",
     "weeklyWager": "每周投注额达到 {{amount}}。",
     "unFinishedQuest": "未完成的任务",
+    "onlyLatestWeek": "仅显示最近一周",
+    "onlyLatestWeekDescription": "对于您参与但未完全完成的任务，此处仅显示最近两次刷新。",
     "unClaimedQuest": "无人认领",
     "claimed": "声称",
     "expired": "已到期"

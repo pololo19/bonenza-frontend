@@ -2265,6 +2265,8 @@
     "slotMaster": "Eintägige Gewinnreichweiten {{amount}}",
     "weeklyWager": "Wöchentliche Wetteinsätze {{amount}}.",
     "unFinishedQuest": "Unvollendete Quests",
+    "onlyLatestWeek": "শুধুমাত্র সর্বশেষ সপ্তাহ দেখানো হয়েছে",
+    "onlyLatestWeekDescription": "আপনি যে কাজগুলিতে অংশগ্রহণ করেছিলেন কিন্তু সম্পূর্ণরূপে সম্পূর্ণ করেননি সেগুলির জন্য শুধুমাত্র সাম্প্রতিক দুটি রিফ্রেশ এখানে প্রদর্শিত হবে৷",
     "unClaimedQuest": "Nicht abgeholt",
     "claimed": "Behauptet",
     "expired": "Abgelaufen"
