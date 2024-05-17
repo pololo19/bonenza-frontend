@@ -68,6 +68,8 @@
     "cancel": "Membatalkan"
   },
   "affiliate": {
+    "startDate": "Mulai tanggal",
+    "endDate": "Tanggal Berakhir",
     "dashboard": "Dasbor",
     "myReward": "Hadiahku",
     "referralCodeAndFriends": "Teman-teman",

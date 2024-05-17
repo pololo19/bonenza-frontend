@@ -68,6 +68,8 @@
     "cancel": "ยกเลิก"
   },
   "affiliate": {
+    "startDate": "วันที่เริ่มต้น",
+    "endDate": "วันที่สิ้นสุด",
     "dashboard": "แผงควบคุม",
     "myReward": "รางวัลของฉัน",
     "referralCodeAndFriends": "เพื่อน",

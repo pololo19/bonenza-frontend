@@ -68,6 +68,8 @@
     "cancel": "キャンセル"
   },
   "affiliate": {
+    "startDate": "開始日",
+    "endDate": "終了日",
     "dashboard": "ダッシュボード",
     "myReward": "私のご褒美",
     "referralCodeAndFriends": "友達",

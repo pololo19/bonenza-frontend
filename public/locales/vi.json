@@ -68,6 +68,8 @@
     "cancel": "Hủy bỏ"
   },
   "affiliate": {
+    "startDate": "Ngày bắt đầu",
+    "endDate": "Ngày cuối",
     "dashboard": "bảng điều khiển",
     "myReward": "Giải thưởng của tôi",
     "referralCodeAndFriends": "Bạn",

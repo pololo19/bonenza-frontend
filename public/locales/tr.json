@@ -68,6 +68,8 @@
     "cancel": "İptal etmek"
   },
   "affiliate": {
+    "startDate": "Başlangıç ​​tarihi",
+    "endDate": "Bitiş tarihi",
     "dashboard": "Gösterge Paneli",
     "myReward": "Ödüllerim",
     "referralCodeAndFriends": "Arkadaşlar",

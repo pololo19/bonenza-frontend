@@ -68,6 +68,8 @@
     "cancel": "Batal"
   },
   "affiliate": {
+    "startDate": "Tarikh mula",
+    "endDate": "Tarikh tamat",
     "dashboard": "Papan pemuka",
     "myReward": "Ganjaran saya",
     "referralCodeAndFriends": "Kawan-kawan",

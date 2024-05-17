@@ -198,7 +198,6 @@ function BonusLoggedPage() {
         generalBonusUsd: Number(_res.data?.totalGeneralBonusUsd || 0),
       };
       setTotalData(tempTotalData);
-      console.log(_res);
       const tempBonusData = {
         general: {
           depositTime: Number(_res.data?.generalBonus?.deposit?.depositTimes || 0),
