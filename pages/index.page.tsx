@@ -489,7 +489,7 @@ function IndexPage() {
                     ) : (
                       <>
                         <div className="font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">
-                          {t('casino:favorite')}
+                          {t('casino:recent')}
                         </div>
                         <div className="py-[10px] w-full">
                           <NoDataComponent />

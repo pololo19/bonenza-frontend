@@ -154,7 +154,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
       <CommonModal
         show={show}
         onClose={handleCloseModal}
-        panelClass="sm:max-w-[464px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0"
+        panelClass="sm:max-w-[464px] sm:!h-[640px] sm:!max-h-[90vh] sm:my-0"
         header={
           <div
             className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px]"
