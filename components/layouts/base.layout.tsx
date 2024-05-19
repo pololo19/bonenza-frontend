@@ -897,9 +897,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
       <ModalVipLevel
         show={isShowVipLevelModal || false}
-        onClose={() => {
+        onBack={() => {
           dispatch(changeIsShowVipLevelModal(false));
           dispatch(changeIsShowVipClubModal(true));
+        }}
+        onClose={() => {
+          dispatch(changeIsShowVipLevelModal(false));
         }}
       />
 

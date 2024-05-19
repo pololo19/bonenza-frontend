@@ -126,7 +126,7 @@ const LevelTableComponent: React.FC<LevelTableComponentPropsType> = ({
                 key={row.id}
                 className={cn(
                   renderRowClass?.(row),
-                  'rounded-full bg-color-card-body-secondary cursor-pointer hover:dark:bg-color-card-body-hover hover:bg-color-light-hover-primary',
+                  'rounded-full bg-color-card-body-hover cursor-pointer hover:dark:bg-color-card-body-hover/80 hover:bg-color-light-hover-primary',
                 )}
                 onClick={() => onRowClick?.(row)}
               >

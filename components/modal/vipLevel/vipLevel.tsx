@@ -17,6 +17,7 @@ import LevelTableComponent from '@/components/table/levelTable';
 
 type ModalVipLevelProps = {
   onClose: () => void;
+  onBack: () => void;
   show: boolean;
 } & TransitionRootProps<ElementType> &
   DialogProps<ElementType>;
@@ -38,7 +39,7 @@ type rankUpType = {
   levels: levelDataType[];
 };
 
-export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
+export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelProps) {
   const { t } = useTranslation('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [rankList, setRankList] = useState<rankUpType[]>([]);
@@ -126,7 +127,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           <div className="text-center text-[12px] sm:text-[14px] font-semilbold">{t('vipClub:requiredXP')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] sm:text-[14px] text-center dark:text-white text-color-light-text-primary truncate sm:px-2 p-[5px]">
+          <div className="text-[12px] sm:text-[14px] text-center dark:text-white text-color-light-text-primary truncate sm:px-2 px-[5px]">
             {row?.original?.xp}
           </div>
         ),
@@ -139,7 +140,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] sm:text-[14px] dark:text-white text-[#000] truncate text-right sm:px-4 p-[12px]">
+          <div className="text-[12px] sm:text-[14px] dark:text-white text-[#000] truncate text-right sm:px-4 px-[12px]">
             {row.original.levelUpBonus}
           </div>
         ),
@@ -162,11 +163,7 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
         panelClass="rounded sm:rounded-large overflow-hidden h-full sm:h-[720px] sm:!max-h-[90vh]"
       >
         <div className="flex max-sm:flex-1 flex-col gap-3 overflow-y-auto px-[20px] pt-[10px] pb-[30px] bg-gradient-card-modal sm:rounded-default sm:h-[820px]">
-          <div
-            className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex justify-center py-4 items-center gap-[20px] cursor-pointer"
-            onClick={onClose}
-          >
-            <ArrowLeft2 className="w-[16px] dark:text-color-text-primary text-color-light-text-primary stroke-4" />
+          <div className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex justify-center py-4 items-center gap-[20px]">
             <div className="text-default sm:text-[18px] font-semibold">{t('vipClub:VIPLevelSystem')}</div>
           </div>
           {isLoading && <Loader />}
@@ -210,10 +207,16 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
             ${levelCurrent.levels.at(0)?.level}-${levelCurrent.levels.at(levelCurrent.levels.length - 1)?.level}`}
           </div>
           <LevelTableComponent
-            containerClassName="w-full pt-0 !px-0 bg-color-card-bg-primary rounded-default"
+            containerClassName="w-full pt-0 !px-0 bg-color-card-bg-primary"
             data={levelCurrent.levels}
             columns={vipColumns}
           />
+          <div
+            onClick={onBack}
+            className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play p-[10px]"
+          >
+            {t('exclusion:exclusionGoBack')}
+          </div>
         </div>
       </CommonModal>
     </>
