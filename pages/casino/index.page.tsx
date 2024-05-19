@@ -189,7 +189,7 @@ function CasinoPage() {
             <Link
               href={ROUTER.Provider(String(item.name))}
               role="button"
-              className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-white dark:bg-color-card-bg-secondary hover:opacity-70 gap-[10px] flex-shrink-0 rounded-large flex items-center justify-center"
+              className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-white dark:bg-gradient-card-provider hover:opacity-70 gap-[10px] flex-shrink-0 rounded-large flex items-center justify-center"
             >
               <Image
                 height={0}

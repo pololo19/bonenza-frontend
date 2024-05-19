@@ -54,7 +54,7 @@ function ProviderPage() {
           releasedAt: item?.releasedAt ?? '',
           providerName: item?.producerName ?? '',
         }));
-        if (games.length <= 40 || listGame.length + games.length === totalGames) {
+        if (totalCount <= 40 || games.length < 40) {
           setIsShowMore(false);
         }
         setListGame((current) => [...current, ...tempGameListData]);
