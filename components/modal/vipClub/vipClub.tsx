@@ -238,7 +238,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     </div>
 
                     <div className="w-full flex flex-col gap-[10px] justify-center">
-                      <div className="font-bold text-center">{`${currentRank?.name || ''} - ${vipData.name}`}</div>
+                      <div className="font-bold text-center">{`${currentRank?.name ? currentRank.name + ' -' : ''}${
+                        vipData.name
+                      }`}</div>
                       <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div
                           className="absolute top-0 h-full left-0 bg-color-text-green rounded-[25px]"
