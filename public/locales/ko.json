@@ -1704,6 +1704,8 @@
     "founded": "설립"
   },
   "vipClub": {
+    "benefitDetails": "이전 레벨의 혜택이 모두 포함됩니다.",
+    "vipLevelTier": "VIP 레벨 등급",
     "vipClub": "VIP 클럽",
     "levelUpToGetExclusiveAccess": "레벨을 올려 관대한 보상과 맞춤형 선물을 독점적으로 받으세요! ",
     "viewLevelUpDetails": "레벨업 세부정보 보기",
