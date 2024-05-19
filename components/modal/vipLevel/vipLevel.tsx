@@ -10,10 +10,10 @@ import { api_getVipProgress, api_vipLevelSystem } from '@/api/vip';
 import { useTranslation } from '@/base/config/i18next';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
-import RankingTableComponent from '@/components/table/rankingTable';
 
 import CommonModal from '../commonModal/commonModal';
 import styles from './index.module.scss';
+import LevelTableComponent from '@/components/table/levelTable';
 
 type ModalVipLevelProps = {
   onClose: () => void;
@@ -109,16 +109,12 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       {
         accessorKey: 'level',
 
-        header: () => <div className="text-left pl-2 text-[12px] sm:text-[14px] font-normal">{t('vipClub:level')}</div>,
+        header: () => (
+          <div className="text-left pl-2 text-[12px] sm:text-[14px] font-semibold">{t('vipClub:level')}</div>
+        ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex items-center gap-2 sm:px-2 p-[5px]">
-            <Image
-              height={18}
-              width={16}
-              src={dataMedal.find((item) => item.name === row?.original?.rank)?.img || '/img/bronze-medal.png'}
-              alt=""
-            />
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] pl-2 min-w-[80px]">
+          <div className="dark:text-white text-color-light-text-primary truncate flex items-center gap-2 sm:px-2 p-[5px]">
+            <div className="dark:text-white text-color-light-text-primary text-[12px] sm:text-[14px] pl-2 min-w-[80px]">
               {row?.original?.name}
             </div>
           </div>
@@ -127,12 +123,10 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       {
         accessorKey: 'xp',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] font-normal">
-            {t('vipClub:requiredXP')}
-          </div>
+          <div className="text-center text-[12px] sm:text-[14px] font-semilbold">{t('vipClub:requiredXP')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] sm:text-[14px] text-center dark:text-color-text-primary text-color-light-text-primary truncate sm:px-2 p-[5px]">
+          <div className="text-[12px] sm:text-[14px] text-center dark:text-white text-color-light-text-primary truncate sm:px-2 p-[5px]">
             {row?.original?.xp}
           </div>
         ),
@@ -140,12 +134,12 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       {
         accessorKey: 'levelUpBonus',
         header: () => (
-          <div className="text-right dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] font-normal pr-2">
+          <div className="text-right text-[12px] sm:text-[14px] font-semibold pr-2">
             {t('vipClub:levelUpBonus')} (USDT)
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] sm:text-[14px] dark:text-white text-[#000] truncate text-right sm:px-2 p-[5px] pr-2">
+          <div className="text-[12px] sm:text-[14px] dark:text-white text-[#000] truncate text-right sm:px-4 p-[12px]">
             {row.original.levelUpBonus}
           </div>
         ),
@@ -165,24 +159,18 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded"
-        header={
-          <div className="relative px-[20px] py-[18px] bg-white dark:bg-color-header-primary">
-            <div>
-              <div
-                className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex items-center gap-[10px] cursor-pointer"
-                onClick={onClose}
-              >
-                <ArrowLeft2 className="w-[16px] dark:text-color-text-primary text-color-light-text-primary stroke-4" />
-                <div className="text-[16px]">{t('vipClub:VIPLevelSystem')}</div>
-              </div>
-            </div>
-          </div>
-        }
+        panelClass="rounded sm:rounded-large overflow-hidden h-full sm:h-[720px] sm:!max-h-[90vh]"
       >
-        <div className="flex max-sm:flex-1 flex-col gap-3 overflow-y-auto px-[20px] pt-[10px] pb-[30px] bg-white dark:bg-color-header-primary">
+        <div className="flex max-sm:flex-1 flex-col gap-3 overflow-y-auto px-[20px] pt-[10px] pb-[30px] bg-gradient-card-modal sm:rounded-default sm:h-[820px]">
+          <div
+            className="text-black dark:text-white md:text-[18px] text-[16px] font-bold flex justify-center py-4 items-center gap-[20px] cursor-pointer"
+            onClick={onClose}
+          >
+            <ArrowLeft2 className="w-[16px] dark:text-color-text-primary text-color-light-text-primary stroke-4" />
+            <div className="text-default sm:text-[18px] font-semibold">{t('vipClub:VIPLevelSystem')}</div>
+          </div>
           {isLoading && <Loader />}
-          <div className={`w-full flex gap-1 overflow-x-auto scrollbar min-h-[100px]`}>
+          <div className={`w-full flex gap-1 overflow-x-auto scrollbar min-h-[100px] mt-4`}>
             {rankList.map((item, index) => (
               <div
                 className={cn(
@@ -199,8 +187,6 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
                   alt=""
                   className={cn({
                     'w-[35px] h-[35px] md:w-[50px] md:h-[50px]': true,
-                    'opacity-100': levelCurrent.startLevel === item.startLevel,
-                    'opacity-30': levelCurrent.startLevel !== item.startLevel,
                   })}
                   onError={(e) => {
                     e.currentTarget.src = '/img/vip.png';
@@ -215,11 +201,19 @@ export default function ModalVipLevel({ show, onClose }: ModalVipLevelProps) {
                     className="absolute left-0 right-0 -bottom-0 w-full h-full"
                   />
                 )}
-                <div className="text-white text-[12px] font-semibold">{item.name}</div>
+                <div className="text-white text-[12px] font-semibold z-[1]">{item.name}</div>
               </div>
             ))}
           </div>
-          <RankingTableComponent containerClassName="w-full pt-0" data={levelCurrent.levels} columns={vipColumns} />
+          <div className="text-default sm:text-[16px] font-semibold text-center py-2">
+            {`${t('vipClub:vipLevelTier')} 
+            ${levelCurrent.levels.at(0)?.level}-${levelCurrent.levels.at(levelCurrent.levels.length - 1)?.level}`}
+          </div>
+          <LevelTableComponent
+            containerClassName="w-full pt-0 !px-0 bg-color-card-bg-primary rounded-default"
+            data={levelCurrent.levels}
+            columns={vipColumns}
+          />
         </div>
       </CommonModal>
     </>

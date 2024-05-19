@@ -200,26 +200,24 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="rounded sm:rounded-large overflow-hidden sm:!max-h-[90vh]"
-        header={
-          <div className="relative text-default md:text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
-            {t('vipClub:vipClub')}
-          </div>
-        }
+        panelClass="rounded sm:rounded-large overflow-hidden h-full sm:h-[720px] sm:!max-h-[90vh]"
       >
         <>
-          <div className="flex flex-col gap-[20px] overflow-y-auto px-[10px] sm:px-[20px] pb-[40px] bg-color-light-bg-primary dark:bg-color-modal-bg-primary">
-            <div className="dark:text-color-text-primary text-black text-m_default md:text-default text-center py-2">
+          <div className="flex flex-col gap-[20px] overflow-y-auto px-[10px] sm:px-[20px] pb-[40px] rounded-default dark:bg-gradient-card-modal">
+            <div className="relative text-default md:text-m_title pt-[22px] pb-[18px] text-black dark:text-white font-[700] text-center">
+              {t('vipClub:vipClub')}
+            </div>
+            <div className="dark:text-white text-black text-m_default md:text-default text-center py-2 px-4">
               {t('vipClub:levelUpToGetExclusiveAccess')}{' '}
               <span
                 role="button"
                 onClick={() => onOpenModalVipLevel(vipData.level)}
-                className="text-color-primary hover:opacity-[0.9] hover:underline"
+                className="text-color-text-green hover:opacity-[0.9] hover:underline"
               >
                 {t('vipClub:viewLevelUpDetails')}
               </span>
             </div>
-            <div className="rounded-large bg-color-card-header-primary">
+            <div className="rounded-large">
               <div className="block lg:flex">
                 <div className="w-full lg:w-[50%] pt-[28px] px-5">
                   <div className="text-default md:text-title text-white font-semibold">
@@ -237,19 +235,13 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           e.currentTarget.src = '/img/vip.png';
                         }}
                       />
-
-                      {vipData.level > 0 && (
-                        <div className="absolute w-full h-full flex flex-col items-center justify-center">
-                          {/* <p className="text-[12px]">{selectedRank.name}</p> */}
-                          <p className="font-bold text-[14px] mt-[-10px] text-white">{getVipName(vipData.name)}</p>
-                        </div>
-                      )}
                     </div>
 
                     <div className="w-full flex flex-col gap-[10px] justify-center">
+                      <div className="font-bold text-center">{`${currentRank?.name || ''} - ${vipData.name}`}</div>
                       <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div
-                          className="absolute top-0 h-full left-0 bg-color-primary rounded-[25px]"
+                          className="absolute top-0 h-full left-0 bg-color-text-green rounded-[25px]"
                           style={{ width: `${percent}%` }}
                         ></div>
                         <div
@@ -270,7 +262,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         </Tooltip>
                       </div>
                       <div className="text-m_default sm:text-default md:text-[16px] text-center">
-                        <span className="text-[#00AAE6]">
+                        <span className="text-color-text-green">
                           {t('vipClub:gain')}
                           {' +'}
                           {vipData.level < 1 ? vipData.remainingXp.toFixed(2) : Math.ceil(vipData.remainingXp)}
@@ -329,7 +321,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         className={cn({
                           'w-[35px] h-[35px] md:w-[50px] md:h-[50px]': true,
                           'opacity-100': selectedRank.startLevel === item.startLevel,
-                          'opacity-30': selectedRank.startLevel !== item.startLevel,
+                          // 'opacity-100': selectedRank.startLevel !== item.startLevel,
                         })}
                         onError={(e) => {
                           e.currentTarget.src = '/img/vip.png';
@@ -344,7 +336,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           className="absolute left-0 right-0 -bottom-0 w-full h-full"
                         />
                       )}
-                      <div className="text-white text-[12px] font-semibold mt-[8px]">{item.name}</div>
+                      <div className="text-white text-[12px] font-semibold mt-[8px] z-1">{item.name}</div>
                     </div>
                   ))}
                 </div>
@@ -357,17 +349,17 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           <div
                             className={cn(
                               styles[getColorBg(String(selectedRank.name))],
-                              styles.rank,
-                              'flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-color-card-header-primary after:!border-r-color-light-bg-primary',
-                              {
-                                'text-black': (selectedRank.name.split(' ').at(0) || '').toLowerCase() === 'silver',
-                              },
+                              styles['rank'],
+                              'dark:text-white text-black font-semibold flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-color-card-header-primary after:!border-r-color-light-bg-primary',
                             )}
                           >
                             {selectedRank.name}
                           </div>
                         </div>
-                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[13px]">{`${selectedRank.startLevelDes}-${selectedRank.endLevelDes}`}</div>
+                        <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] font-semibold">
+                          {`${selectedRank.startLevelDes}-${selectedRank.endLevelDes}`}
+                          {t('vipClub:benefitDetails')}
+                        </div>
                       </div>
                       <div className="mt-[18px] grid sm:grid-cols-2 grid-cols-1 gap-4">
                         {selectedRank.bonuses.map((bonus) => {
@@ -376,114 +368,87 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           return (
                             <>
                               {type === 'level_up' && (
-                                <div
-                                  className={cn(
-                                    ' p-[1px] rounded-[20px]',
-                                    'bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]',
-                                    'dark:border-color-border-primary border-color-light-border-primary border border-solid',
-                                  )}
-                                  role="button"
-                                >
-                                  <div className="bg-color-card-header-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
-                                    <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      {currentVipLevel >= selectedRank.startLevel ? (
-                                        <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="" />
-                                      ) : (
-                                        <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
-                                      )}
+                                <div className="border-solid border-2 border-color-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
+                                  <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
+                                    {currentVipLevel >= selectedRank.startLevel ? (
+                                      <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="" />
+                                    ) : (
+                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                    )}
+                                  </div>
+                                  <div className="flex flex-col gap-[6px]">
+                                    <div className="text-[14px] text-black dark:text-white font-bold ">
+                                      {t('vipClub:levelUpBonus')}
                                     </div>
-                                    <div className="flex flex-col gap-[6px]">
-                                      <div className="text-[14px] text-black dark:text-white font-bold ">
-                                        {t('vipClub:levelUpBonus')}
-                                      </div>
-                                      <div className="text-color-text-primary text-[11px]">
-                                        {t('vipClub:totalPrize')}:{' '}
-                                        <span className="text-color-secondary font-semibold">
-                                          {bonus.levelUpTotalPrizeAmountUsd} USDT
-                                        </span>
-                                      </div>
+                                    <div className="text-color-text-primary text-[11px]">
+                                      {t('vipClub:totalPrize')}:{' '}
+                                      <span className="text-color-secondary font-semibold">
+                                        {bonus.levelUpTotalPrizeAmountUsd} USDT
+                                      </span>
                                     </div>
                                   </div>
                                 </div>
                               )}
                               {type === 'weekly_cashback' && (
-                                <div
-                                  className={cn(
-                                    ' p-[1px] rounded-[20px]',
-                                    'bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]',
-                                    'dark:border-color-border-primary border-color-light-border-primary border border-solid',
-                                  )}
-                                  role="button"
-                                >
-                                  <div className="bg-color-card-header-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
-                                    <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      {currentVipLevel >= selectedRank.startLevel ? (
-                                        <Image
-                                          src={'/img/vip/bonus_weekly_cashback.png'}
-                                          className="min-w-[55px] min-h-[56px]"
-                                          width={55}
-                                          height={56}
-                                          alt=""
-                                        />
-                                      ) : (
-                                        <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
-                                      )}
+                                <div className="border-solid border-2 border-color-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
+                                  <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
+                                    {currentVipLevel >= selectedRank.startLevel ? (
+                                      <Image
+                                        src={'/img/vip/bonus_weekly_cashback.png'}
+                                        className="min-w-[55px] min-h-[56px]"
+                                        width={55}
+                                        height={56}
+                                        alt=""
+                                      />
+                                    ) : (
+                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                    )}
+                                  </div>
+                                  <div className="flex flex-col gap-[6px]">
+                                    <div className="text-[14px] text-black dark:text-white font-bold ">
+                                      {t('vipClub:weeklyCashback')}
                                     </div>
-                                    <div className="flex flex-col gap-[6px]">
-                                      <div className="text-[14px] text-black dark:text-white font-bold ">
-                                        {t('vipClub:weeklyCashback')}
-                                      </div>
-                                      <div
-                                        className="text-color-text-primary text-[11px]"
-                                        dangerouslySetInnerHTML={{
-                                          __html: String(
-                                            t('vipClub:weeklyCashbackContent', {
-                                              weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
-                                            }),
-                                          ),
-                                        }}
-                                      ></div>
-                                    </div>
+                                    <div
+                                      className="text-color-text-primary text-[11px]"
+                                      dangerouslySetInnerHTML={{
+                                        __html: String(
+                                          t('vipClub:weeklyCashbackContent', {
+                                            weeklyCashback: `Wager*1%*${bonus.weeklyCashbackPercentage}%`,
+                                          }),
+                                        ),
+                                      }}
+                                    ></div>
                                   </div>
                                 </div>
                               )}
                               {type === 'monthly_cashback' && (
-                                <div
-                                  className={cn(
-                                    ' p-[1px] rounded-[20px]',
-                                    'bg-gradient-to-tr to-[#20D4EB] via-[#EE3777] from-[#FF6800]',
-                                    'dark:border-color-border-primary border-color-light-border-primary border border-solid',
-                                  )}
-                                  role="button"
-                                >
-                                  <div className="bg-color-card-header-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
-                                    <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
-                                      {currentVipLevel >= selectedRank.startLevel ? (
-                                        <Image
-                                          src={'/img/vip/bonus_monthly_cashback.png'}
-                                          width={50}
-                                          height={51}
-                                          alt=""
-                                        />
-                                      ) : (
-                                        <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
-                                      )}
+                                <div className="border-solid border-2 border-color-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
+                                  <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
+                                    {currentVipLevel >= selectedRank.startLevel ? (
+                                      <Image
+                                        src={'/img/vip/bonus_monthly_cashback.png'}
+                                        width={50}
+                                        height={51}
+                                        alt=""
+                                      />
+                                    ) : (
+                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                    )}
+                                  </div>
+                                  <div className="flex flex-col gap-[6px]">
+                                    <div className="text-[14px] text-black dark:text-white font-bold ">
+                                      {t('vipClub:monthlyCashback')}
                                     </div>
-                                    <div className="flex flex-col gap-[6px]">
-                                      <div className="text-[14px] text-black dark:text-white font-bold ">
-                                        {t('vipClub:monthlyCashback')}
-                                      </div>
-                                      <div
-                                        className="text-color-text-primary text-[11px]"
-                                        dangerouslySetInnerHTML={{
-                                          __html: String(
-                                            t('vipClub:monthlyCashbackContent', {
-                                              monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
-                                            }),
-                                          ),
-                                        }}
-                                      ></div>
-                                    </div>
+                                    <div
+                                      className="text-color-text-primary text-[11px]"
+                                      dangerouslySetInnerHTML={{
+                                        __html: String(
+                                          t('vipClub:monthlyCashbackContent', {
+                                            monthlyCashback: `Wager*1%*${bonus.monthlyCashbackPercentage}%`,
+                                          }),
+                                        ),
+                                      }}
+                                    ></div>
                                   </div>
                                 </div>
                               )}
@@ -498,7 +463,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
             </div>
             <div
               onClick={navigationVipPage}
-              className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-color-primary font-semibold dark:border-color-border-primary border-color-light-border-primary border border-solid p-[10px]"
+              className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play p-[10px]"
             >
               {t('vipClub:learnMore')}
             </div>
