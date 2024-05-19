@@ -1704,6 +1704,8 @@
     "founded": "成立"
   },
   "vipClub": {
+    "benefitDetails": "以前级别的好处都包含在内",
+    "vipLevelTier": "VIP 等级",
     "vipClub": "贵宾俱乐部",
     "levelUpToGetExclusiveAccess": "升级即可独家获得丰厚奖励和个性化礼物！",
     "viewLevelUpDetails": "查看升级详细信息",

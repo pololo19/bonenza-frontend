@@ -1704,6 +1704,8 @@
     "founded": "ก่อตั้ง"
   },
   "vipClub": {
+    "benefitDetails": "รวมสิทธิประโยชน์จากระดับก่อนหน้าไว้แล้ว",
+    "vipLevelTier": "ระดับวีไอพี",
     "vipClub": "วีไอพีคลับ",
     "levelUpToGetExclusiveAccess": "เพิ่มระดับเพื่อรับรางวัลสุดพิเศษและของขวัญส่วนตัว! ",
     "viewLevelUpDetails": "ดูรายละเอียดการเลื่อนระดับ",

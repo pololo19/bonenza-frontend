@@ -202,7 +202,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
       </div>
       <div className="sm:hidden block">
         <Transition show={true}>
-          <div className="inset-0 z-10">
+          <div className="inset-0 z-10 dark:bg-color-modal-bg-secondary bg-white min-h-screen">
             <div className="flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0">
               <Transition.Child
                 as={Fragment}
@@ -213,8 +213,8 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                 leaveFrom="opacity-100 translate-x-0"
                 leaveTo="opacity-0 translate-x-1"
               >
-                <div className="w-full flex flex-col h-screen dark:bg-color-modal-secondary bg-white">
-                  <div className="w-full dark:bg-color-card-bg-primary dark:text-color-text-primary bg-white text-color-light-text-primary pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] h-full z-10 gap-2">
+                <div className="w-full flex flex-col dark:bg-color-modal-secondary bg-white">
+                  <div className="w-full dark:bg-color-card-bg-primary dark:text-color-text-primary bg-white text-color-light-text-primary pl-[15px] pr-[10px] py-[15px] flex items-center fixed max-h-[60px] z-10 gap-2">
                     <div className="flex-1 flex justify-between items-center">
                       <div className="text-[14px] sm:text-[16px] font-bold dark:text-white text-black">
                         {t('sidebar:wallet')}
@@ -252,18 +252,18 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                       <XMarkIcon width={20} className="sm:text-black text-gray-500" />
                     </div>
                   </div>
-                  <div className="flex-1 overflow-y-auto pt-[60px] pb-[60px] max-h-full dark:bg-color-modal-bg-secondary bg-white">
+                  <div className="flex-1 pt-[60px] pb-[80px] dark:bg-color-modal-bg-secondary bg-white">
                     <div
                       className={cn(
                         styles.cardMain,
-                        'flex-1 dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black p-[20px] min-h-full',
+                        'flex-1 dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black p-[20px]',
                       )}
                     >
                       {children}
                     </div>
                   </div>
 
-                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-color-light-bg-primary shadow shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
+                  <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-color-light-bg-primary shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
                     <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
                       <Link
                         href={ROUTER.Deposit}

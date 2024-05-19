@@ -57,26 +57,29 @@ function ProvidersPage() {
         <>
           <div className="game-grid-parent mt-[20px]">
             {providers.map((provider, index) => (
-              <Link
-                href={ROUTER.Provider(String(provider.name))}
-                role="button"
-                className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-color-card-bg-primary hover:opacity-70 gap-[10px] flex-shrink-0 rounded flex items-center justify-center"
-              >
-                <Image
-                  height={54}
-                  width={150}
-                  src={
-                    provider.identifier
-                      ? `https://cdn.softswiss.net/logos/providers/color/${provider.identifier}.svg`
-                      : `/img/providers/softswiss.png`
-                  }
-                  alt=""
-                  onError={(e) => {
-                    e.currentTarget.src = `/img/providers/softswiss.png`;
-                  }}
-                  className="!object-contain max-h-[54px] rounded-[5px]"
-                />
-              </Link>
+              <div>
+                <Link
+                  href={ROUTER.Provider(String(provider.name))}
+                  role="button"
+                  className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-gradient-card-provider hover:opacity-70 gap-[10px] flex-shrink-0 rounded-default flex items-center justify-center"
+                >
+                  <Image
+                    height={54}
+                    width={150}
+                    src={
+                      provider.identifier
+                        ? `https://cdn.softswiss.net/logos/providers/color/${provider.identifier}.svg`
+                        : `/img/providers/softswiss.png`
+                    }
+                    alt=""
+                    onError={(e) => {
+                      e.currentTarget.src = `/img/providers/softswiss.png`;
+                    }}
+                    className="!object-contain max-h-[54px] rounded-[5px]"
+                  />
+                </Link>
+                <div className="text-default text-center pt-1">{provider.name}</div>
+              </div>
             ))}
           </div>
         </>

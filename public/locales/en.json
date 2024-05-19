@@ -1704,10 +1704,12 @@
     "founded": "Founded"
   },
   "vipClub": {
+    "benefitDetails": "Benefits from previous levels are all included",
+    "vipLevelTier": "Vip Level Tier",
     "vipClub": "Vip Club",
     "levelUpToGetExclusiveAccess": "Level up to get exclusive access to generous rewards and personalized gifts! Join our community of elite players and enjoy the best that online gaming has to offer.",
     "viewLevelUpDetails": "View level up details",
-    "yourVipProgress": "Your VIP Progress",
+    "yourVipProgress": "VIP Progress",
     "vipHost": "VIP Host",
     "unlockYourExclusiveVip": "Unlock your exclusive ",
     "hostAt": "at",

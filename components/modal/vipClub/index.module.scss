@@ -1,18 +1,7 @@
 .rank {
-  height: 20px;
-  position: relative;
-  border: none;
-
-  &::after {
-    content: ' ';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border: 0.8rem solid transparent;
-    border-right: 0.4rem solid #FF0000;
-    right: 0px;
-    top: 0;
-  }
+  padding-left: 10px;
+  padding-right: 70px;
+  clip-path: polygon(0% 0%, 92% 0%, 100% 50%, 92% 100%, 0% 100%);
 }
 
 .rank_text {
@@ -37,21 +26,21 @@
 }
 
 .bronze {
-  background: rgb(224, 154, 106);
+  background: #77493E;
 }
 
 .silver {
-  background: rgb(225, 225, 225);
+  background: #98A7B5;
 }
 
 .gold {
-  background: rgb(255, 195, 41);
+  background: #C6793A;
 }
 
 .platinum {
-  background: rgb(157, 99, 246);
+  background: linear-gradient(90deg, #6A5982 0%, #00BAE6 100%);
 }
 
 .diamond {
-  background: rgb(244, 80, 169);
+  background: linear-gradient(90deg, #04C 0%, #00B2FF 100%);
 }
