@@ -1704,6 +1704,8 @@
     "founded": "Thành lập"
   },
   "vipClub": {
+    "benefitDetails": "Tất cả các lợi ích từ các cấp độ trước đó đều được bao gồm",
+    "vipLevelTier": "Cấp độ Vip",
     "vipClub": "Câu lạc bộ VIP",
     "levelUpToGetExclusiveAccess": "Lên cấp để có quyền truy cập độc quyền vào các phần thưởng hào phóng và quà tặng được cá nhân hóa! ",
     "viewLevelUpDetails": "Xem chi tiết lên cấp",

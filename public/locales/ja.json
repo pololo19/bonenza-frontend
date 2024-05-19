@@ -1704,6 +1704,8 @@
     "founded": "設立"
   },
   "vipClub": {
+    "benefitDetails": "以前のレベルの利点がすべて含まれています",
+    "vipLevelTier": "Vip レベルのティア",
     "vipClub": "VIPクラブ",
     "levelUpToGetExclusiveAccess": "レベルアップして、豪華な報酬やパーソナライズされたギフトへの限定アクセスを獲得しましょう!",
     "viewLevelUpDetails": "レベルアップの詳細を表示する",

@@ -1704,6 +1704,8 @@
     "founded": "Kurulan"
   },
   "vipClub": {
+    "benefitDetails": "Önceki seviyelerden elde edilen faydaların tümü dahildir",
+    "vipLevelTier": "VIP Seviyesi Kademesi",
     "vipClub": "VIP Kulüp",
     "levelUpToGetExclusiveAccess": "Cömert ödüllere ve kişiselleştirilmiş hediyelere özel erişim elde etmek için seviye atlayın! ",
     "viewLevelUpDetails": "Seviye atlama ayrıntılarını görüntüle",

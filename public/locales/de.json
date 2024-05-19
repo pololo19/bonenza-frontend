@@ -1704,6 +1704,8 @@
     "founded": "Gegründet"
   },
   "vipClub": {
+    "benefitDetails": "Alle Leistungen der vorherigen Stufen sind enthalten",
+    "vipLevelTier": "VIP-Level-Stufe",
     "vipClub": "VIP-Club",
     "levelUpToGetExclusiveAccess": "Steigen Sie auf, um exklusiven Zugang zu großzügigen Belohnungen und personalisierten Geschenken zu erhalten! ",
     "viewLevelUpDetails": "Details zum Levelaufstieg anzeigen",

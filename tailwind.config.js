@@ -41,6 +41,8 @@ module.exports = {
         'gradient-btn-play': 'linear-gradient(3deg, #005063 2.44%, #00BAE6 98.26%)',
         'gradient-btn-secondary': 'conic-gradient(from 0deg at 49.82% 50%, #F39717 0deg, #D47F00 360deg)',
         'gradient-btn-purple': 'conic-gradient(from 1turn,rgba(136,83,252,1),rgba(110,52,226,1))',
+        'gradient-card-provider': 'linear-gradient(227deg, #31373D 0%, #8393A3 100%)',
+        'gradient-card-modal': 'linear-gradient(0deg, #005664 -67.73%, #111136 124.42%)',
         'quest-gradient-btn':
           'linear-gradient(26.79deg,rgba(109,43,255,.480402) 1.86%,rgba(109,43,255,.04) 85.25%,rgba(109,43,255,.04) 85.25%),rgba(216,216,216,.05)',
         'spin-gradient-btn':
@@ -67,6 +69,7 @@ module.exports = {
         'color-card-body-default': '#17181B',
         'color-card-body-primary': '#0C2442',
         'color-card-body-secondary': '#273449',
+        'color-card-body-hover': '#394B69',
         'color-card-input-primary': '#202227',
         'color-card-button-primary': '#2F3339',
         'color-panel-bg': '#1D2738',

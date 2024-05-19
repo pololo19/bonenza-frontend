@@ -1704,6 +1704,8 @@
     "founded": "Didirikan"
   },
   "vipClub": {
+    "benefitDetails": "Semua manfaat dari level sebelumnya sudah termasuk",
+    "vipLevelTier": "Tingkat Tingkat VIP",
     "vipClub": "Klub VIP",
     "levelUpToGetExclusiveAccess": "Naik level untuk mendapatkan akses eksklusif ke hadiah berlimpah dan hadiah yang dipersonalisasi! ",
     "viewLevelUpDetails": "Lihat detail naik level",
