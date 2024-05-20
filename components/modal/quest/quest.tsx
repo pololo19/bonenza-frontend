@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Tooltip } from 'react-tooltip';
 
 import { api_bonusClaim } from '@/api/bonus';
 import { api_questHistory, api_questList } from '@/api/spin';
@@ -27,7 +28,6 @@ import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
-import { Tooltip } from 'react-tooltip';
 
 type ModalQuest = {
   onClose: () => void;
@@ -522,7 +522,10 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
     <>
       <CommonModal
         show={show}
-        panelClass={`max-w-full sm:max-w-[600px] sm:!h-[${height < 768 ? 90 : 80}vh]`}
+        panelClass={cn(`max-w-full sm:max-w-[600px]`, {
+          'sm:!h-[90vh]': height <= 768,
+          'sm:!h-[80vh]': height > 768,
+        })}
         onClose={onClose}
         header={
           <>
@@ -636,13 +639,13 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           <div className="flex flex-col items-center w-full gap-[5px]">
             <div className="flex flex-row justify-between w-full">
               <div className="flex text-white text-[16px]">{t('quest:unClaimedQuest')}</div>
-              <div className="flex justify-start items-center text-default text-gray-400 gap-1">
+              <div className="flex items-center justify-start gap-1 text-gray-400 text-default">
                 {t('quest:expiredIn')}
                 <CsrWrapper>
                   <Countdown
                     date={new Date(Number(weeklyQuest.endTime))}
                     renderer={({ days, hours, minutes, seconds }) => (
-                      <div className="text-white text-default text-center">
+                      <div className="text-center text-white text-default">
                         {`${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
                       </div>
                     )}
@@ -677,7 +680,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           <div className="flex flex-col items-center w-full gap-[5px]">
             <div className="flex justify-between w-full">
               <div className="flex text-white text-[16px] w-full">{t('quest:unFinishedQuest')}</div>
-              <div className="flex justify-end gap-1 items-center text-gray-400 text-m_default w-full text-right">
+              <div className="flex items-center justify-end w-full gap-1 text-right text-gray-400 text-m_default">
                 {t('quest:onlyLatestWeek')}
                 <Image
                   src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
