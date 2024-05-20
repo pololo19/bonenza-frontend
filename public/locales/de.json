@@ -68,6 +68,8 @@
     "cancel": "Stornieren"
   },
   "affiliate": {
+    "showRule": "Regel anzeigen",
+    "hideRule": "Regel ausblenden",
     "startDate": "Startdatum",
     "endDate": "Endtermin",
     "dashboard": "Armaturenbrett",

@@ -68,6 +68,8 @@
     "cancel": "يلغي"
   },
   "affiliate": {
+    "showRule": "إظهار القاعدة",
+    "hideRule": "إخفاء القاعدة",
     "startDate": "تاريخ البدء",
     "endDate": "تاريخ الانتهاء",
     "dashboard": "لوحة القيادة",

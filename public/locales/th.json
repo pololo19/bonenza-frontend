@@ -68,6 +68,8 @@
     "cancel": "ยกเลิก"
   },
   "affiliate": {
+    "showRule": "แสดงกฎ",
+    "hideRule": "ซ่อนกฎ",
     "startDate": "วันที่เริ่มต้น",
     "endDate": "วันที่สิ้นสุด",
     "dashboard": "แผงควบคุม",
