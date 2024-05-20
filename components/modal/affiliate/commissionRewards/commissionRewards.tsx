@@ -63,7 +63,7 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
             </div>
           </div>
         ))}
-        <div className="h-70px bg-[#FFFFFF11] rounded-sm p-4 flex justify-center items-center mb-4 gap-2">
+        {/* <div className="h-70px bg-[#FFFFFF11] rounded-sm p-4 flex justify-center items-center mb-4 gap-2">
           <div>
             <span className="w-5 h-5 bg-[#656B74] font-bold text-[#24262B] rounded-full flex items-center justify-center text-[16px]">
               !
@@ -75,7 +75,7 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
               <a className="font-semibold text-lime-400 cursor-pointer pl-1">{t('affiliate:viewMyCommission')}</a>
             </span>
           </span>
-        </div>
+        </div> */}
         <div className="text-left light:bg-white px-5 pt-4 pb-8">
           <ul>
             <li className="">&#8226;&nbsp;{t('affiliate:commissionRewardRules1')}</li>
