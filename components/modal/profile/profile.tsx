@@ -22,6 +22,7 @@ import CommonModal from '../commonModal/commonModal';
 import MasterMedals from './masterMedals/masterMedals';
 import Statistic from './statistic/statistic';
 import WagerContest from './wager/wager';
+import CsrWrapper from '@/components/CsrWrapper';
 
 type ModalProfileProps = {
   onClose: () => void;
@@ -122,7 +123,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             <div className="text-black dark:text-white md:text-[18px] text-[16px] px-[20px] font-bold">
               {t('profile:userInformation')}
             </div>
-            <div className="absolute top-0 right-[70px]">
+            <div className="absolute top-0 right-[70px] md:right-[90px]">
               <div className="w-full h-full">
                 <div className="relative">
                   <Image
@@ -144,7 +145,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 </div>
               </div>
             </div>
-            <div className="flex-1 flex gap-[10px] justify-between mt-[35px]">
+            <div className="relative flex-1 flex gap-[10px] justify-between mt-[35px]">
               {/* <div
                 role="button"
                 className="py-[6px] px-[10px] rounded-default bg-white dark:bg-[#12181F] dark:hover:bg-gray-600 hover:bg-gray-200 h-fit flex items-center gap-[5px]"
@@ -167,8 +168,8 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   />
                 </div>
                 <div className="text-black dark:text-white text-[24px] font-[700]">{user?.userName}</div>
-                <div className="text-[14px] text-color-text-primary w-full flex justify-between items-center">
-                  <div className="w-full text-center">
+                <div className="text-[14px] text-color-text-primary w-full flex justify-evenly items-center">
+                  <div className="text-center">
                     {t('profile:userID')}: {user?.userId}
                   </div>
                   <button
@@ -179,9 +180,9 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   </button>
                 </div>
               </div>
-              {user?.userId === userId ? (
+              {user?.userId === userId && (
                 <div
-                  className="sm:px-[15px] sm:py-[10px] text-black dark:text-white dark:hover:text-white p-2 rounded-default bg-white dark:bg-color-card-bg-primary dark:hover:bg-gray-600 hover:bg-gray-200 h-fit text-[14px] "
+                  className="absolute top-2 right-3 sm:p-[10px] text-black dark:text-white dark:hover:text-white p-2 rounded-default bg-white dark:bg-color-card-bg-primary dark:hover:bg-gray-600 hover:bg-gray-200 h-fit text-[14px] "
                   onClick={() => {
                     dispatch(changeIsShowUpdateInformation(true));
                     dispatch(changeIsShowInformation(false));
@@ -190,8 +191,6 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 >
                   <Edit2 size={16} />
                 </div>
-              ) : (
-                <div className="sm:px-[15px] sm:py-[10px] p-2"></div>
               )}
             </div>
           </div>
@@ -243,7 +242,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
             },
           )}
         >
-          <div className="w-full flex flex-col gap-2 pb-4">
+          <div className="w-full flex flex-col gap-2 pb-16 sm:pb-4">
             {/* Hiding medal on user profile */}
             {/* <div className="rounded-[5px] dark:bg-color-modal-bg-primary bg-white px-[14px] pt-[16px] pb-[12px]">
             <div className="flex items-center justify-between" onClick={() => setIsMedalDetail(true)}>
@@ -278,7 +277,9 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 align-middle">
                   <ChartBarIcon width={18} height={18} className="stroke-[2]" />
-                  <div className="text-black dark:text-white text-[16px]">{t('profile:statistics')}</div>
+                  <div className="text-black dark:text-white text-default sm:text-[16px]">
+                    {t('profile:statistics')}
+                  </div>
                 </div>
                 <div
                   className="flex items-center gap-[5px] cursor-pointer"
@@ -329,7 +330,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               </div>
             </div>
             <div className="px-5 py-5 bg-white dark:bg-color-panel-bg rounded-default">
-              <div className="text-[16px] text-color-light-text-primary dark:text-white">
+              <div className="text-default sm:text-[16px] text-color-light-text-primary dark:text-white mb-[10px]">
                 {t('profile:top3FavoriteGames')}
               </div>
               {!!listGame.length && (
@@ -364,22 +365,22 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 </div>
               )}
               {!listGame.length && (
-                <div className="relative flex justify-center">
-                  <Image
-                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                    width={90}
-                    height={90}
-                    className="w-[200px] h-[200px]"
-                    alt=""
-                  />
-                  <p className="absolute dark:text-color-text-primary text-color-light-text-primary text-[12px] sm:text-[14px] bottom-0 text-center">
-                    {t('table:noData')}
-                  </p>
+                <div className="flex flex-col items-center gap-[15px] text-[#53575C] md:!text-[14px] !text-[12px]">
+                  <CsrWrapper>
+                    <Image
+                      src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                      alt="noData"
+                      width={150}
+                      height={150}
+                    />
+                  </CsrWrapper>
+
+                  {t('table:noData')}
                 </div>
               )}
             </div>
             <div className="dark:bg-color-panel-bg bg-white rounded-[10px] py-5">
-              <div className="text-[16px] text-color-light-text-primary dark:text-white px-5">
+              <div className="text-default sm:text-[16px] text-color-light-text-primary dark:text-white px-5">
                 {t('profile:wagerContest')}
               </div>
               <WagerContest userData={user} />
