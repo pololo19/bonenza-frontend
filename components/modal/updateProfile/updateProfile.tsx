@@ -107,8 +107,11 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
         panelClass="rounded !max-w-[464px]"
         header={
           <div className="relative p-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
-            <div className="flex items-center text-black dark:text-white gap-[10px]">
-              <ChevronLeftIcon width={20} role="button" onClick={() => goBackProfile()} />
+            <div
+              className="flex items-center text-black dark:text-white gap-[10px] hover:cursor-pointer"
+              onClick={() => goBackProfile()}
+            >
+              <ChevronLeftIcon width={20} role="button" />
               <div className="text-[18px] font-[600]">{t('profile:updateInformation')}</div>
             </div>
           </div>
@@ -148,7 +151,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
                   {t('profile:username')}
                 </label>
                 <InputText
-                  customClass="px-[20px] py-[10px] my-[10px] dark:bg-color-bg-primary"
+                  customClass="px-[20px] py-[10px] my-[10px] dark:bg-color-bg-primary rounded-default"
                   control={control}
                   typeInput={EnumTypeInput.EMAIL}
                   placeholder={String(t('profile:username'))}
@@ -159,7 +162,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
               </div>
               <button
                 type="submit"
-                className="bg-gradient-btn-play w-full rounded-[3px] flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-play w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-[14px] text-white">{t('profile:modify')}</div>
