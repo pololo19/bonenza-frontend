@@ -68,6 +68,8 @@
     "cancel": "Membatalkan"
   },
   "affiliate": {
+    "showRule": "Tampilkan Aturan",
+    "hideRule": "Sembunyikan Aturan",
     "startDate": "Mulai tanggal",
     "endDate": "Tanggal Berakhir",
     "dashboard": "Dasbor",

@@ -68,6 +68,8 @@
     "cancel": "रद्द करा"
   },
   "affiliate": {
+    "showRule": "नियम दाखवा",
+    "hideRule": "नियम लपवा",
     "startDate": "प्रारंभ तारीख",
     "endDate": "शेवटची तारीख",
     "dashboard": "डॅशबोर्ड",

@@ -68,6 +68,8 @@
     "cancel": "Batal"
   },
   "affiliate": {
+    "showRule": "Tunjukkan Peraturan",
+    "hideRule": "Sembunyikan Peraturan",
     "startDate": "Tarikh mula",
     "endDate": "Tarikh tamat",
     "dashboard": "Papan pemuka",

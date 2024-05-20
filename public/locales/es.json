@@ -68,6 +68,8 @@
     "cancel": "Cancelar"
   },
   "affiliate": {
+    "showRule": "Mostrar regla",
+    "hideRule": "Ocultar regla",
     "startDate": "Fecha de inicio",
     "endDate": "Fecha final",
     "dashboard": "Panel",

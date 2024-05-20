@@ -68,6 +68,8 @@
     "cancel": "キャンセル"
   },
   "affiliate": {
+    "showRule": "ルールの表示",
+    "hideRule": "ルールを隠す",
     "startDate": "開始日",
     "endDate": "終了日",
     "dashboard": "ダッシュボード",

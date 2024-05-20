@@ -9,6 +9,8 @@ import { GameListType } from '@/base/types/common';
 
 import CasinoSS from '../casino/casinoSS';
 import GameCard from '../gameCard/gameCard';
+import { useState } from 'react';
+import cn from 'classnames';
 
 type CardGameProps = {
   title: string;
@@ -17,6 +19,7 @@ type CardGameProps = {
 
 type CasinoRecentProps = {
   listRecentGames: GameListType[];
+  listFavoriteGames: GameListType[];
 };
 
 export function CardGame({ title, imgCard }: CardGameProps) {
@@ -45,13 +48,35 @@ export function CardGame({ title, imgCard }: CardGameProps) {
   );
 }
 
-function CasinoRecentComponent({ listRecentGames }: CasinoRecentProps) {
+function CasinoRecentComponent({ listRecentGames, listFavoriteGames }: CasinoRecentProps) {
   const { t } = useTranslation('');
+  const [isRecent, setIsRecent] = useState<boolean>(true);
 
   return (
     <CasinoSS
-      title={String(t('casino:recent'))}
-      data={listRecentGames}
+      title={
+        <div className="flex flex-row gap-4">
+          <div
+            className={cn('font-[600] text-default sm:text-[16px] md:text-m_title cursor-pointer', {
+              'text-white': isRecent,
+              'text-gray-500': !isRecent,
+            })}
+            onClick={() => setIsRecent(true)}
+          >
+            {t('casino:recent')}
+          </div>
+          <div
+            className={cn('font-[600] text-default sm:text-[16px] md:text-m_title cursor-pointer', {
+              'text-white': !isRecent,
+              'text-gray-500': isRecent,
+            })}
+            onClick={() => setIsRecent(false)}
+          >
+            {t('casino:favorite')}
+          </div>
+        </div>
+      }
+      data={isRecent ? listRecentGames : listFavoriteGames}
       renderItem={(item) => (
         <GameCard
           gameDetail={item}
@@ -65,7 +90,7 @@ function CasinoRecentComponent({ listRecentGames }: CasinoRecentProps) {
           )}
         />
       )}
-      viewAllUrl={ROUTER.Recent}
+      viewAllUrl={isRecent ? ROUTER.Recent : ROUTER.Favorite}
     />
   );
 }

@@ -110,7 +110,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
             </tr>
           ))}
         </thead>
-        <tbody className={cn({ 'relative py-10': isLoading }, 'md:!text-[14px] sm:!text-[12px] !text-[10px]')}>
+        <tbody className={cn({ 'relative py-10': isLoading }, 'md:!text-[14px] !text-[12px]')}>
           {isLoading && (
             <tr>
               <td colSpan={columns.length}>

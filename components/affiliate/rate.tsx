@@ -1,8 +1,10 @@
 import { Menu } from '@headlessui/react';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { ArrowDown2, Calculator } from 'iconsax-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import cn from 'classnames';
 
 const friendVipData = [
   {
@@ -71,6 +73,7 @@ function RateAndRulesComponent() {
   const { t, i18n } = useTranslation('');
   const [wagerAmount, setWagerAmount] = useState<number>(1000);
   const [commissionRate, setCommissionRate] = useState<number>(7);
+  const [isShowMore, setIsShowMore] = useState<boolean>(true);
 
   const [currentCommission, setCurrentCommission] = useState<'live' | 'slot'>('live');
 
@@ -180,13 +183,32 @@ function RateAndRulesComponent() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 mt-5">
+      <div className="flex flex-col gap-4 mt-5 bg-color-card-bg-primary p-4 rounded-default">
         <div className="font-semibold">{t('footer:rules')}</div>
-        <div className="flex flex-col gap-4 text-default">
+        <div
+          className={cn('overflow-hidden flex flex-col gap-4 text-default', 'transition-all ease-in duration-300', {
+            'max-h-[0px] -mt-8': isShowMore,
+            'max-h-[800px]': !isShowMore,
+          })}
+        >
           <div>
             {`${t('affiliate:commissionRule1')} ${t('affiliate:commissionRule2')} ${t('affiliate:commissionRule3')}`}
           </div>
           <div>{t('affiliate:commissionRule4')}</div>
+        </div>
+        <div
+          className="cursor-pointer flex justify-center items-center m-auto text-m_default sm:text-default gap-2 text-color-text-green"
+          onClick={() => setIsShowMore(!isShowMore)}
+        >
+          {isShowMore ? t('affiliate:showRule') : t('affiliate:hideRule')}
+          <ChevronDownIcon
+            width={20}
+            height={20}
+            className={cn('dark:text-white stroke-[3]', 'transition-all ease-in duration-200', {
+              'rotate-0': isShowMore,
+              'rotate-180': !isShowMore,
+            })}
+          />
         </div>
       </div>
       <div className="p-6 mt-4 bg-gradient-card-default rounded-default">
