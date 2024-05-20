@@ -106,7 +106,7 @@ const SignUpEmailForm = (props: SignUpEmailFormProps, ref: Ref<SignUpEmailFormRe
           <InputText
             control={control}
             name="referralCode"
-            customClass="dark:bg-color-input-primary bg-white focus:outline-none w-full !rounded-[3px] h-[51px] px-[15px] placeholder:text-default dark:text-white text-color-light-text-primary mt-1"
+            customClass="dark:bg-color-bg-primary bg-white focus:outline-none rounded-default w-full h-[46px] px-[15px] placeholder:text-default dark:text-white mt-1"
             placeholder={String(t('authentication:referral'))}
             autoComplete="off"
           />
