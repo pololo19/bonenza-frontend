@@ -121,12 +121,12 @@ const QuestItem = ({
               ))}
             {!isBigWin && <ProgressBar goalAmount={goalAmount} currentAmount={currentAmount} status={status} />}
           </div>
-          <div className="flex flex-col gap-[5px]">
+          <div className="flex flex-col gap-[5px] text-m_default sm:text-[16px]">
             {header}
             <p className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">{description}</p>
             <div className="flex gap-[5px] items-center">
               <Image width={50} height={50} className="w-[16px] h-[16px]" src="/img/fiats/USDT.png" alt="" />
-              <p className="text-color-secondary font-bold text-[16px] italic">{`Earn ${earn} USDT`}</p>
+              <p className="text-color-secondary font-bold text-m_default sm:text-[16px] italic">{`Earn ${earn} USDT`}</p>
             </div>
           </div>
         </div>
@@ -163,7 +163,11 @@ const QuestItem = ({
             )}
           </div>
         )}
-        {isExpired && <div className="flex items-center text-color-text-primary">{t('quest:expired')}</div>}
+        {isExpired && (
+          <div className="text-m_default sm:text-[16px] font-bold flex items-center text-color-text-primary">
+            {t('quest:expired')}
+          </div>
+        )}
         {extra}
       </div>
     </>
@@ -480,7 +484,9 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           {data.map((item) => (
             <QuestItem
               category={item.category}
-              header={<div className="flex text-[16px] font-bold">{getTopicByCategory(item.category)}</div>}
+              header={
+                <div className="flex text-default sm:text-[16px] font-bold">{getTopicByCategory(item.category)}</div>
+              }
               description={String(
                 t(getContentByCategory(item.category), {
                   amount: viewInFiat
@@ -635,124 +641,142 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
           </div>
         }
       >
-        <div className="flex flex-col px-5 py-5 items-center gap-[10px] overflow-y-auto">
-          <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex flex-row justify-between w-full">
-              <div className="flex text-white text-[16px]">{t('quest:unClaimedQuest')}</div>
-              <div className="flex items-center justify-start gap-1 text-gray-400 text-default">
-                {t('quest:expiredIn')}
-                <CsrWrapper>
-                  <Countdown
-                    date={new Date(Number(weeklyQuest.endTime))}
-                    renderer={({ days, hours, minutes, seconds }) => (
-                      <div className="text-center text-white text-default">
-                        {`${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
-                      </div>
-                    )}
-                  />
-                </CsrWrapper>
-              </div>
-            </div>
-            {prevQuest.unClaimed.daily.length === 0 && prevQuest.unClaimed.weekly.length === 0 && (
-              <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
-                <CsrWrapper>
-                  <Image
-                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                    alt="noData"
-                    width={150}
-                    height={150}
-                  />
-                </CsrWrapper>
-
-                {t('table:noData')}
-              </div>
-            )}
-            {(prevQuest.unClaimed.daily.length !== 0 || prevQuest.unClaimed.weekly.length !== 0) && (
-              <>
-                <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
-                {returnBody(prevQuest.unClaimed.daily, true)}
-                <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
-                {returnBody(prevQuest.unClaimed.weekly, true)}
-              </>
-            )}
-          </div>
-
-          <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex justify-between w-full">
-              <div className="flex text-white text-[16px] w-full">{t('quest:unFinishedQuest')}</div>
-              <div className="flex items-center justify-end w-full gap-1 text-right text-gray-400 text-m_default">
-                {t('quest:onlyLatestWeek')}
+        <div className="!h-full sm:h-[720px] flex flex-col px-5 py-5 items-center gap-8 overflow-y-auto">
+          {prevQuest.unClaimed.daily.length === 0 &&
+          prevQuest.unFinished.daily.length === 0 &&
+          prevQuest.claimed.daily.length === 0 ? (
+            <div className="h-full flex flex-col justify-center min-h-[150px] text-color-text-primary text-default w-full items-center pb-16">
+              <CsrWrapper>
                 <Image
-                  src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
-                  width={16}
-                  height={16}
-                  alt=""
-                  className="w-4 h-4"
-                  data-tooltip-id={`unfinished-quest-tooltip`}
+                  src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                  alt="noData"
+                  width={150}
+                  height={150}
                 />
-                <Tooltip
-                  id={`unfinished-quest-tooltip`}
-                  place="bottom"
-                  className="dark:bg-black/0 bg-white z-[30]"
-                  opacity={100}
-                >
-                  <div className="text-left text-m_default sm:text-[13px] max-w-[300px] bg-color-card-bg-primary p-4 rounded-large">
-                    {t('quest:onlyLatestWeekDescription')}
-                  </div>
-                </Tooltip>
-              </div>
+              </CsrWrapper>
+
+              {t('table:noData')}
             </div>
+          ) : (
+            <>
+              <div className="flex flex-col items-center w-full gap-[5px]">
+                <div className="flex flex-row justify-between w-full">
+                  <div className="flex text-white text-default sm:text-[16px]">{t('quest:unClaimedQuest')}</div>
+                  {prevQuest.unClaimed.daily.length > 0 && (
+                    <div className="flex items-center justify-start gap-1 text-gray-400 text-default">
+                      {t('quest:expiredIn')}
+                      <CsrWrapper>
+                        <Countdown
+                          date={new Date(Number(weeklyQuest.endTime))}
+                          renderer={({ days, hours, minutes, seconds }) => (
+                            <div className="text-center text-white text-default">
+                              {`${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
+                            </div>
+                          )}
+                        />
+                      </CsrWrapper>
+                    </div>
+                  )}
+                </div>
+                {prevQuest.unClaimed.daily.length === 0 && prevQuest.unClaimed.weekly.length === 0 && (
+                  <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
+                    <CsrWrapper>
+                      <Image
+                        src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                        alt="noData"
+                        width={150}
+                        height={150}
+                      />
+                    </CsrWrapper>
 
-            {prevQuest.unFinished.daily.length === 0 && prevQuest.unFinished.weekly.length === 0 && (
-              <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
-                <CsrWrapper>
-                  <Image
-                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                    alt="noData"
-                    width={150}
-                    height={150}
-                  />
-                </CsrWrapper>
-
-                {t('table:noData')}
+                    {t('table:noData')}
+                  </div>
+                )}
+                {(prevQuest.unClaimed.daily.length !== 0 || prevQuest.unClaimed.weekly.length !== 0) && (
+                  <>
+                    <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
+                    {returnBody(prevQuest.unClaimed.daily, true)}
+                    <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
+                    {returnBody(prevQuest.unClaimed.weekly, true)}
+                  </>
+                )}
               </div>
-            )}
-            {(prevQuest.unFinished.daily.length !== 0 || prevQuest.unFinished.weekly.length !== 0) && (
-              <>
-                <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
-                {returnBody(prevQuest.unFinished.daily, true)}
-                <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
-                {returnBody(prevQuest.unFinished.weekly, true)}
-              </>
-            )}
-          </div>
+              <div className="flex flex-col items-center w-full gap-[5px]">
+                <div className="flex justify-between w-full">
+                  <div className="flex text-white text-default sm:text-[16px]">{t('quest:unFinishedQuest')}</div>
+                  <div className="flex items-center justify-end gap-1 text-right text-gray-400 text-m_default">
+                    {t('quest:onlyLatestWeek')}
+                    <Image
+                      src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
+                      width={16}
+                      height={16}
+                      alt=""
+                      className="w-4 h-4"
+                      data-tooltip-id={`unfinished-quest-tooltip`}
+                    />
+                    <Tooltip
+                      id={`unfinished-quest-tooltip`}
+                      place="bottom"
+                      className="dark:bg-black/0 bg-white z-[30]"
+                      opacity={100}
+                    >
+                      <div className="text-left text-m_default sm:text-[13px] max-w-[300px] bg-color-card-bg-primary p-4 rounded-large">
+                        {t('quest:onlyLatestWeekDescription')}
+                      </div>
+                    </Tooltip>
+                  </div>
+                </div>
+                {prevQuest.unFinished.daily.length === 0 && prevQuest.unFinished.weekly.length === 0 && (
+                  <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
+                    <CsrWrapper>
+                      <Image
+                        src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                        alt="noData"
+                        width={150}
+                        height={150}
+                      />
+                    </CsrWrapper>
 
-          <div className="flex flex-col items-center w-full gap-[5px]">
-            <div className="flex text-white text-[16px] w-full">{t('quest:claimed')}</div>
-
-            {prevQuest.claimed.daily.length === 0 && prevQuest.claimed.weekly.length === 0 && (
-              <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
-                <CsrWrapper>
-                  <Image
-                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                    alt="noData"
-                    width={150}
-                    height={150}
-                  />
-                </CsrWrapper>
-
-                {t('table:noData')}
+                    {t('table:noData')}
+                  </div>
+                )}
+                {(prevQuest.unFinished.daily.length !== 0 || prevQuest.unFinished.weekly.length !== 0) && (
+                  <>
+                    <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
+                    {returnBody(prevQuest.unFinished.daily, true)}
+                    <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
+                    {returnBody(prevQuest.unFinished.weekly, true)}
+                  </>
+                )}
               </div>
-            )}
-            {(prevQuest.claimed.daily.length !== 0 || prevQuest.claimed.weekly.length !== 0) && (
-              <>
-                <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
-                {returnBody(prevQuest.claimed.daily, true)}
-                <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
-                {returnBody(prevQuest.claimed.weekly, true)}
-              </>
-            )}
-          </div>
+              <div className="flex flex-col items-center w-full gap-[5px]">
+                <div className="flex text-white text-default sm:text-[16px] w-full">{t('quest:claimed')}</div>
+
+                {prevQuest.claimed.daily.length === 0 && prevQuest.claimed.weekly.length === 0 && (
+                  <div className="flex flex-col min-h-[150px] text-color-text-primary text-default w-full items-center">
+                    <CsrWrapper>
+                      <Image
+                        src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                        alt="noData"
+                        width={150}
+                        height={150}
+                      />
+                    </CsrWrapper>
+
+                    {t('table:noData')}
+                  </div>
+                )}
+                {(prevQuest.claimed.daily.length !== 0 || prevQuest.claimed.weekly.length !== 0) && (
+                  <>
+                    <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:dailyQuest')}</div>
+                    {returnBody(prevQuest.claimed.daily, true)}
+                    <div className="flex w-full text-color-text-primary text-[12px]"> {t('quest:weeklyQuest')}</div>
+                    {returnBody(prevQuest.claimed.weekly, true)}
+                  </>
+                )}
+              </div>
+            </>
+          )}
         </div>
       </CommonModal>
     </>
