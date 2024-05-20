@@ -82,7 +82,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
       {
         accessorKey: 'createdAt',
         header: () => (
-          <div className="text-left text-default text-color-text font-normal">{t('historyBonus:time')}</div>
+          <div className="font-normal text-left text-default text-color-text">{t('historyBonus:time')}</div>
         ),
         cell: ({ row }) => (
           <div className="text-color-text-primary truncate flex flex-col items-start justify-start gap-[5px] text-default">
@@ -95,7 +95,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-center text-default text-color-text font-normal">{t('historyBonus:bonusType')}</div>
+          <div className="font-normal text-center text-default text-color-text">{t('historyBonus:bonusType')}</div>
         ),
         cell: ({ row }) => (
           <div className="text-default dark:text-color-text-primary text-[#000] truncate text-center">
@@ -108,7 +108,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
       {
         accessorKey: 'amountClaimed',
         header: () => (
-          <div className="text-right text-default font-normal text-color-text">{t('transaction:amount')}</div>
+          <div className="font-normal text-right text-default text-color-text">{t('transaction:amount')}</div>
         ),
         cell: ({ row }) => (
           <div
@@ -157,7 +157,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
         panelClass="sm:max-w-[464px] sm:!h-[640px] sm:!max-h-[90vh] sm:my-0"
         header={
           <div
-            className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px]"
+            className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px] hover:cursor-pointer"
             onClick={handleCloseModal}
           >
             <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
