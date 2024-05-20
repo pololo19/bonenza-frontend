@@ -68,6 +68,8 @@
     "cancel": "বাতিল করুন"
   },
   "affiliate": {
+    "showRule": "নিয়ম দেখান",
+    "hideRule": "নিয়ম লুকান",
     "startDate": "শুরুর তারিখ",
     "endDate": "শেষ তারিখ",
     "dashboard": "ড্যাশবোর্ড",

@@ -68,6 +68,8 @@
     "cancel": "Hủy bỏ"
   },
   "affiliate": {
+    "showRule": "Hiển thị quy tắc",
+    "hideRule": "Ẩn quy tắc",
     "startDate": "Ngày bắt đầu",
     "endDate": "Ngày cuối",
     "dashboard": "bảng điều khiển",

@@ -68,6 +68,8 @@
     "cancel": "취소"
   },
   "affiliate": {
+    "showRule": "규칙 표시",
+    "hideRule": "규칙 숨기기",
     "startDate": "시작일",
     "endDate": "종료일",
     "dashboard": "계기반",

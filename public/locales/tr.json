@@ -68,6 +68,8 @@
     "cancel": "İptal etmek"
   },
   "affiliate": {
+    "showRule": "Kuralı Göster",
+    "hideRule": "Kuralı Gizle",
     "startDate": "Başlangıç ​​tarihi",
     "endDate": "Bitiş tarihi",
     "dashboard": "Gösterge Paneli",
