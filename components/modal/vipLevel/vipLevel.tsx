@@ -124,10 +124,10 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
       {
         accessorKey: 'xp',
         header: () => (
-          <div className="text-center text-[12px] sm:text-[14px] font-semilbold">{t('vipClub:requiredXP')}</div>
+          <div className="text-center text-[12px] sm:text-[14px] font-semibold">{t('vipClub:requiredXP')}</div>
         ),
         cell: ({ row }) => (
-          <div className="text-[12px] sm:text-[14px] text-center dark:text-white text-color-light-text-primary truncate sm:px-2 px-[5px]">
+          <div className="sm:min-w-[400px] text-[12px] sm:text-[14px] text-center dark:text-white text-color-light-text-primary truncate sm:px-2 px-[5px]">
             {row?.original?.xp}
           </div>
         ),
@@ -135,8 +135,9 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
       {
         accessorKey: 'levelUpBonus',
         header: () => (
-          <div className="text-right text-[12px] sm:text-[14px] font-semibold pr-2">
-            {t('vipClub:levelUpBonus')} (USDT)
+          <div>
+            <div className="text-right text-[12px] sm:text-[14px] font-semibold pr-2">{t('vipClub:levelUpBonus')}</div>
+            <div className="text-right text-[12px] sm:text-[14px] font-semibold pr-2">(USDT)</div>
           </div>
         ),
         cell: ({ row }) => (
@@ -167,11 +168,11 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
             <div className="text-default sm:text-[18px] font-semibold">{t('vipClub:VIPLevelSystem')}</div>
           </div>
           {isLoading && <Loader />}
-          <div className={`w-full flex gap-1 overflow-x-auto scrollbar min-h-[100px] mt-4`}>
+          <div className={`w-full flex gap-1 overflow-x-auto scrollbar min-h-[120px] mt-4`}>
             {rankList.map((item, index) => (
               <div
                 className={cn(
-                  'relative flex flex-col justify-between items-center w-[87px] min-w-fit cursor-pointer border-none pb-[15px] px-[10px] bg-transparent',
+                  'relative flex flex-col items-center w-[87px] h-[105px] sm:h-[120px] min-w-fit cursor-pointer border-none pb-[15px] px-[10px] bg-transparent',
                   styles.rank_text,
                 )}
                 key={index}
@@ -182,8 +183,13 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
                   width={50}
                   height={50}
                   alt=""
-                  className={cn({
-                    'w-[35px] h-[35px] md:w-[50px] md:h-[50px]': true,
+                  className={cn('mt-auto mb-auto', {
+                    'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
+                      item.name.split(' ').at(0) !== 'Platinum' && item.name !== 'Diamond III',
+                    'w-[42px] h-[42px] md:w-[60px] md:h-[60px]':
+                      item.name.split(' ').at(0) === 'Platinum' || item.name === 'Diamond III',
+                    'opacity-100': levelCurrent.startLevel === item.startLevel,
+                    // 'opacity-100': selectedRank.startLevel !== item.startLevel,
                   })}
                   onError={(e) => {
                     e.currentTarget.src = '/img/vip.png';
@@ -202,7 +208,7 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
               </div>
             ))}
           </div>
-          <div className="text-default sm:text-[16px] font-semibold text-center py-2">
+          <div className="text-default sm:text-[16px] font-semibold text-left py-2 px-2">
             {`${t('vipClub:vipLevelTier')} 
             ${levelCurrent.levels.at(0)?.level}-${levelCurrent.levels.at(levelCurrent.levels.length - 1)?.level}`}
           </div>
@@ -213,7 +219,7 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
           />
           <div
             onClick={onBack}
-            className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play p-[10px]"
+            className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play p-[10px] mt-auto"
           >
             {t('exclusion:exclusionGoBack')}
           </div>

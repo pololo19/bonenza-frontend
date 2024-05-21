@@ -309,7 +309,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                   {rankList.map((item, index) => (
                     <div
                       className={cn(
-                        'relative flex flex-col justify-between items-center w-[87px] min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] px-[15px] bg-transparent',
+                        'h-[105px] sm:h-[120px] relative flex flex-col items-center w-[87px] min-w-fit cursor-pointer border-none pt-[18px] pb-[15px] px-[15px] bg-transparent',
                         styles.rank_text,
                       )}
                       key={index}
@@ -320,8 +320,11 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         width={50}
                         height={50}
                         alt=""
-                        className={cn({
-                          'w-[35px] h-[35px] md:w-[50px] md:h-[50px]': true,
+                        className={cn('mt-auto mb-auto', {
+                          'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
+                            item.name.split(' ').at(0) !== 'Platinum' && item.name !== 'Diamond III',
+                          'w-[42px] h-[42px] md:w-[60px] md:h-[60px]':
+                            item.name.split(' ').at(0) === 'Platinum' || item.name === 'Diamond III',
                           'opacity-100': selectedRank.startLevel === item.startLevel,
                           // 'opacity-100': selectedRank.startLevel !== item.startLevel,
                         })}
@@ -360,7 +363,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         </div>
                         <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] font-semibold">
                           {`${selectedRank.startLevelDes}-${selectedRank.endLevelDes}`}
-                          {t('vipClub:benefitDetails')}
+                          {selectedRank.startLevel >= 8 && (
+                            <span className="pl-4 font-light">{t('vipClub:benefitDetails')}</span>
+                          )}
                         </div>
                       </div>
                       <div className="mt-[18px] grid sm:grid-cols-2 grid-cols-1 gap-4">

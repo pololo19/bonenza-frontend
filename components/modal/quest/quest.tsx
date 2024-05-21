@@ -707,7 +707,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                   <div className="flex items-center justify-end gap-1 text-right text-gray-400 text-m_default">
                     {t('quest:onlyLatestWeek')}
                     <Image
-                      src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
+                      src={'/img/icon/icon-question-light.png'}
                       width={16}
                       height={16}
                       alt=""
