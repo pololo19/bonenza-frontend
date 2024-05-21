@@ -486,6 +486,8 @@
     "time": "Waktu"
   },
   "chat": {
+    "replyToYou": "Membalasmu",
+    "yourReplyTo": "Balasan Anda ke {{receiver}}",
     "chatRules": "Aturan Obrolan",
     "chatRules1": "1. Jangan melakukan spam, melecehkan, atau menyinggung pengguna lain. ",
     "chatRules2": "2. Jangan mengemis atau meminta pinjaman, hujan, tip dan penggandaan uang logam.",

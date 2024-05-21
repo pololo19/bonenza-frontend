@@ -37,6 +37,7 @@ const ChattingComponent = () => {
   const [isFirstLoading, setIsFirstLoading] = useState(false);
   const [availableUsers, setAvailableUsers] = useState<UserType[]>([]);
   const [isShowTagMenu, setIsShowTagMenu] = useState<boolean>(false);
+  const [replyId, setReplyId] = useState<string>('');
   const [tagFilter, setTagFilter] = useState<string>('');
 
   const { showChatType, showFullChat, isLogin, lastMessage } = useSelector(
@@ -66,6 +67,12 @@ const ChattingComponent = () => {
           level: item.userVipLevel ?? '',
           time: item.time ?? '',
           text: item.text ?? '',
+          replyId: item.replyId ?? '',
+          replyText: item.replyText ?? '',
+          replyTime: item.replyTime ?? '',
+          replyUserId: item.replyUserId ?? '',
+          replyUserName: item.replyUserName ?? '',
+          replyUserLevel: item.replyUserVipLevel ?? '',
         })) || [];
 
       const tempUsers: UserType[] =
@@ -85,6 +92,7 @@ const ChattingComponent = () => {
         if (messages.length === 0) CookiesStorage.setCookieData('last_message', lastMessage.id);
         dispatch(setIsNewMessage(false));
       }
+      console.log(messages, tempMessages);
       setMessages([...messages, ...tempMessages]);
       setAvailableUsers([...uniqueUsers]);
     } catch (error) {
@@ -117,8 +125,7 @@ const ChattingComponent = () => {
 
     var setpos = document.createRange();
     var set = window.getSelection();
-    console.log($spanEl.innerText);
-    setpos.setStart($spanEl.childNodes[0], $spanEl.innerText.length);
+    setpos.setStart($spanEl.childNodes[$spanEl.childNodes.length - 1], user.userName.length + 1);
     setpos.collapse(true);
     set?.removeAllRanges();
     set?.addRange(setpos);
@@ -127,7 +134,10 @@ const ChattingComponent = () => {
 
   const tagUsers: UserType[] = useMemo(() => {
     const users = availableUsers.filter((user) => user.userName.toLowerCase().indexOf(tagFilter.toLowerCase()) >= 0);
-    if (users.length === 0) setIsShowTagMenu(false);
+    if (users.length === 0) {
+      setIsShowTagMenu(false);
+      setTagFilter('');
+    }
     return users || [];
   }, [isShowTagMenu, availableUsers, tagFilter]);
 
@@ -138,7 +148,7 @@ const ChattingComponent = () => {
     if (!$spanEl) return;
     innerText = $spanEl.innerText;
     innerText = innerText.trim();
-    if (e.keyCode !== 13 || e.shiftKey || !innerText) {
+    if (e.keyCode !== 13) {
       const lastLetter = innerText.at(innerText.length - 1);
       if (lastLetter === '@') setIsShowTagMenu(true);
       if (e.keyCode === 32 || innerText.indexOf('@') < 0) setIsShowTagMenu(false);
@@ -186,7 +196,8 @@ const ChattingComponent = () => {
     let msg = $spanEl.innerHTML;
     msg = msg.replaceAll('<div>', '');
     msg = msg.replaceAll('</div>', '');
-    const _res = await api_sendChat(msg);
+    const _res = await api_sendChat(msg, replyId ? replyId : undefined);
+    setReplyId('');
     $spanEl.innerHTML = '';
     $spanEl.blur();
     scrollDown();
@@ -218,6 +229,15 @@ const ChattingComponent = () => {
       scrollDown();
     }
   }, [messages, isFirstLoading]);
+
+  const onReply = (messageId: string, receiverId: string, receiverName: string, senderId: string) => {
+    const $spanEl = chatRef.current;
+    if (!$spanEl) return;
+    $spanEl.innerHTML = '@';
+    onTagUser({ userId: receiverId, userName: receiverName });
+    console.log(messageId);
+    setReplyId(messageId);
+  };
 
   return (
     <>
@@ -253,12 +273,18 @@ const ChattingComponent = () => {
             {messages.map((message, index) => (
               <div className="w-full" key={index}>
                 <MessageBox
+                  messageId={message.id}
                   userId={message.userId}
                   userName={message.userName}
                   time={message.time}
                   text={message.text}
                   level={message.level}
                   userAvatar={message.userAvatar}
+                  onReply={onReply}
+                  replyId={message.replyId}
+                  replyText={message.replyText}
+                  replyUserName={message.replyUserName}
+                  replyUserId={message.replyUserId}
                 />
               </div>
             ))}
@@ -305,7 +331,7 @@ const ChattingComponent = () => {
               {tagUsers.map((user) => (
                 <div
                   key={`chat-user-tag-${user.userId}`}
-                  className="px-2 py-[6px] cursor-pointer border-solid border border-transparent hover:border-color-primary text-m_default sm:text-default rounded-[8px]"
+                  className="text-white px-2 py-[6px] cursor-pointer border-solid border border-transparent hover:border-color-primary text-m_default sm:text-default rounded-[8px]"
                   onClick={() => onTagUser(user)}
                 >
                   {user.userName}

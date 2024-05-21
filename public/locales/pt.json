@@ -486,6 +486,8 @@
     "time": "Tempo"
   },
   "chat": {
+    "replyToYou": "Responder para você",
+    "yourReplyTo": "Sua resposta para {{receiver}}",
     "chatRules": "Regras de bate-papo",
     "chatRules1": "1. Não envie spam, assedie ou seja ofensivo para outros usuários. ",
     "chatRules2": "2. Não mendigue nem peça empréstimos, chuvas, gorjetas e moedas duplicadas.",

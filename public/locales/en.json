@@ -486,6 +486,8 @@
     "time": "Time"
   },
   "chat": {
+    "replyToYou": "Reply to you",
+    "yourReplyTo": "Your reply to {{receiver}}",
     "chatRules": "Chat Rules",
     "chatRules1": "1. Don't spam, harass or be offensive to other users. Also, avoid using CAPS! No one likes to be screamed at!",
     "chatRules2": "2. Don't beg or ask for loans, rains, tips and doubling coins.",
