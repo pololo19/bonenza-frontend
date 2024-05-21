@@ -153,12 +153,6 @@ function CasinoPage() {
 
       {/* Game Options */}
       <div className="flex flex-col gap-[30px] sm:pt-0 pt-[10px]">
-        <CasinoSS
-          title={String(t('casino:bonenzaOriginals'))}
-          data={listGames.games}
-          renderItem={(item) => <GameCard gameDetail={item} />}
-          viewAllUrl={ROUTER.Category('Bonenza Mini Games')}
-        />
         <div className="relative sm:block hidden">
           <RecentBigWinComponent />
         </div>
@@ -236,22 +230,10 @@ function CasinoPage() {
           )}
         />
         <CasinoSS
-          title={String(t('casino:bonenzaExclusives'))}
-          data={listGames.exclusives}
-          renderItem={(item) => <GameCard gameDetail={item} />}
-          viewAllUrl={ROUTER.Tagname('Bonenza Exclusives')}
-        />
-        <CasinoSS
           title={String(t('casino:tableGames'))}
           data={listGames.tableGames}
           renderItem={(item) => <GameCard gameDetail={item} />}
           viewAllUrl={ROUTER.Tagname('Table Games')}
-        />
-        <CasinoSS
-          title={String(t('casino:megaways'))}
-          data={listGames.megaways}
-          renderItem={(item) => <GameCard gameDetail={item} />}
-          viewAllUrl={ROUTER.Tagname('Megaways')}
         />
       </div>
 

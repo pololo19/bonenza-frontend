@@ -1,7 +1,7 @@
 import { PaperAirplaneIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { CloseCircle, InfoCircle } from 'iconsax-react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
 
@@ -20,6 +20,12 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum, MessageType } from '@/base/types/common';
 
 import { MessageBox } from './messageBox';
+import { InputText } from '../input/typing';
+
+type UserType = {
+  userId: string;
+  userName: string;
+};
 
 const ChattingComponent = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +35,9 @@ const ChattingComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isShowChatRules, setIsShowChatRules] = useState(false);
   const [isFirstLoading, setIsFirstLoading] = useState(false);
+  const [availableUsers, setAvailableUsers] = useState<UserType[]>([]);
+  const [isShowTagMenu, setIsShowTagMenu] = useState<boolean>(false);
+  const [tagFilter, setTagFilter] = useState<string>('');
 
   const { showChatType, showFullChat, isLogin, lastMessage } = useSelector(
     (state: AppState) => ({
@@ -58,13 +67,26 @@ const ChattingComponent = () => {
           time: item.time ?? '',
           text: item.text ?? '',
         })) || [];
+
+      const tempUsers: UserType[] =
+        _res.data?.map((item: any) => ({
+          userId: item.userId ?? '',
+          userName: item.userName ?? '',
+        })) || [];
+      let uniqueUsers: UserType[] = [];
+      tempUsers.map((user) => {
+        if (!uniqueUsers.find((value) => value.userId === user.userId)) uniqueUsers.push(user);
+      });
+      availableUsers.map((user) => {
+        if (!uniqueUsers.find((value) => value.userId === user.userId)) uniqueUsers.push(user);
+      });
       if (tempMessages.length > 0) {
         const lastMessage = tempMessages[0];
         if (messages.length === 0) CookiesStorage.setCookieData('last_message', lastMessage.id);
         dispatch(setIsNewMessage(false));
       }
-
       setMessages([...messages, ...tempMessages]);
+      setAvailableUsers([...uniqueUsers]);
     } catch (error) {
       console.log(error);
       // setMessages([]);
@@ -81,7 +103,35 @@ const ChattingComponent = () => {
     $chatContainer.scrollTop = $chatContainer.scrollHeight;
   };
 
-  const handleSubmit = async (e: any) => {
+  const onTagUser = (user: UserType | undefined) => {
+    if (!user) return;
+    let $spanEl;
+    $spanEl = chatRef.current;
+    if (!$spanEl) return;
+    const lastTagIndex = $spanEl.innerText.lastIndexOf('@');
+    setIsShowTagMenu(false);
+    $spanEl.innerText =
+      $spanEl.innerText.substring(0, lastTagIndex + 1) +
+      user.userName +
+      $spanEl.innerText.substring(lastTagIndex + tagFilter.length + 1, $spanEl.innerText.length);
+
+    var setpos = document.createRange();
+    var set = window.getSelection();
+    console.log($spanEl.innerText);
+    setpos.setStart($spanEl.childNodes[0], $spanEl.innerText.length);
+    setpos.collapse(true);
+    set?.removeAllRanges();
+    set?.addRange(setpos);
+    $spanEl.focus();
+  };
+
+  const tagUsers: UserType[] = useMemo(() => {
+    const users = availableUsers.filter((user) => user.userName.toLowerCase().indexOf(tagFilter.toLowerCase()) >= 0);
+    if (users.length === 0) setIsShowTagMenu(false);
+    return users || [];
+  }, [isShowTagMenu, availableUsers, tagFilter]);
+
+  const onKeyUp = async (e: any) => {
     let $spanEl;
     let innerText;
     $spanEl = chatRef.current;
@@ -89,11 +139,31 @@ const ChattingComponent = () => {
     innerText = $spanEl.innerText;
     innerText = innerText.trim();
     if (e.keyCode !== 13 || e.shiftKey || !innerText) {
+      const lastLetter = innerText.at(innerText.length - 1);
+      if (lastLetter === '@') setIsShowTagMenu(true);
+      if (e.keyCode === 32 || innerText.indexOf('@') < 0) setIsShowTagMenu(false);
+      if (isShowTagMenu) {
+        const index = innerText.lastIndexOf('@');
+        if (index >= 0) setTagFilter(innerText.substring(index + 1, innerText.length));
+      }
+    }
+  };
+  const onKeyDown = async (e: any) => {
+    let $spanEl;
+    let innerText;
+    $spanEl = chatRef.current;
+    if (!$spanEl) return;
+    innerText = $spanEl.innerText;
+    innerText = innerText.trim();
+    if (e.keyCode == 13 && isShowTagMenu && tagUsers.length > 0) {
+      onTagUser(tagUsers.at(0));
+      e.preventDefault();
       return;
     }
-    await sendMessage();
-
-    e.preventDefault();
+    if (e.keyCode == 13 && !isShowTagMenu && !e.shiftKey && innerText) {
+      await sendMessage();
+      e.preventDefault();
+    }
   };
 
   const loadNewMessage = async () => {
@@ -179,7 +249,7 @@ const ChattingComponent = () => {
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
-          <div className="flex w-full my-[10px] justify-end gap-[20px] flex-col-reverse relative">
+          <div className="flex w-full my-[10px] justify-end gap-[8px] flex-col-reverse relative">
             {messages.map((message, index) => (
               <div className="w-full" key={index}>
                 <MessageBox
@@ -203,22 +273,44 @@ const ChattingComponent = () => {
             </div>
           )}
         </div>
-        <div className="flex py-[10px] w-full bg-color-header-primary px-[7px] gap-[10px] fixed bottom-0 border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary">
-          <div
-            contentEditable={true}
-            style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
-            onKeyDown={(e) => handleSubmit(e)}
-            className={
-              'flex w-full max-h-[200px] py-[12px] leading-[20px] px-[10px] overflow-y-auto border-none outline-none lign-baseline editBox dark:bg-color-input-primary rounded-default cursor-text text-[14px] dark:text-white'
-            }
-            ref={chatRef}
-          />
-          <div className="flex flex-col justify-end flex-1">
+        <div className="fixed bottom-0 w-full">
+          <div className="relative flex py-[10px] w-full bg-color-header-primary px-[7px] gap-[10px]  border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary">
             <div
-              className="flex flex-col h-fit justify-end p-[10px] rounded-default bg-gradient-btn-play cursor-pointer"
-              onClick={sendMessage}
+              contentEditable={true}
+              style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
+              onKeyDown={(e) => onKeyDown(e)}
+              onKeyUp={(e) => onKeyUp(e)}
+              className={
+                'relative flex w-full max-h-[200px] py-[12px] leading-[20px] px-[10px] overflow-y-auto border-none outline-none lign-baseline editBox dark:bg-color-input-primary rounded-default cursor-text text-[14px] dark:text-white'
+              }
+              ref={chatRef}
+            />
+            <div className="flex flex-col justify-end flex-1">
+              <div
+                className="flex flex-col h-fit justify-end p-[10px] rounded-default bg-gradient-btn-play cursor-pointer"
+                onClick={sendMessage}
+              >
+                <PaperAirplaneIcon className="w-[25px] h-[25px] text-white" />
+              </div>
+            </div>
+            <div
+              className={cn(
+                'fixed bottom-[70px] w-[75%] rounded-[8px] overflow-y-auto overflow-hidden transition-all duration-300 bg-color-input-primary/80 backdrop-blur',
+                {
+                  'max-h-0 p-0': !isShowTagMenu,
+                  'max-h-[155px] p-2': isShowTagMenu,
+                },
+              )}
             >
-              <PaperAirplaneIcon className="w-[25px] h-[25px] text-white" />
+              {tagUsers.map((user) => (
+                <div
+                  key={`chat-user-tag-${user.userId}`}
+                  className="px-2 py-[6px] cursor-pointer border-solid border border-transparent hover:border-color-primary text-m_default sm:text-default rounded-[8px]"
+                  onClick={() => onTagUser(user)}
+                >
+                  {user.userName}
+                </div>
+              ))}
             </div>
           </div>
         </div>

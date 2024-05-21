@@ -20,9 +20,10 @@ interface MessageBoxProps {
 
 export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: MessageBoxProps) => {
   const dispatch = useAppDispatch();
-  const { id } = useSelector(
+  const { id, name } = useSelector(
     (state: AppState) => ({
       id: state.auth.user.userId,
+      name: state.auth.user.userName,
     }),
     shallowEqual,
   );
@@ -61,9 +62,10 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
   return (
     <>
       <div
-        className={cn('flex w-full px-[20px]', {
+        className={cn('flex w-full px-[20px] rounded min-h-[60px] py-2', {
           'justify-end': id === userId,
           'justify-start': id !== userId,
+          'bg-color-primary/30': text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0,
         })}
       >
         <div
@@ -94,7 +96,7 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
               />
             )}
 
-            <div className="flex items-center justify-center w-full absolute -bottom-2 ">
+            <div className="flex items-center justify-center w-full absolute -bottom-[3px] ">
               <span
                 className={'text-white rounded text-[12px] flex justify-center w-fit px-[10px]'}
                 style={{ backgroundColor: getColorOfLevel(Number(level)) }}
@@ -109,14 +111,14 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
                 className={cn('text-[#BBB] font-semibold', { 'hover:underline cursor-pointer': userName })}
                 onClick={() => handleModalProfile()}
               >
-                {userName ? userName : t('homePage:hidden')}
+                {id !== userId ? (userName ? userName : t('homePage:hidden')) : ''}
               </span>
               <span className="text-[11px] text-[#999] font-normal">
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
               </span>
             </div>
             <div
-              className="inline-block text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] px-2 py-[8px]"
+              className="inline-block text-left text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] px-2 py-[8px]"
               dangerouslySetInnerHTML={{ __html: text }}
             />
           </div>
