@@ -87,7 +87,9 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
         </div>
         <div className="text-center light:bg-white px-8 py-3 border-[0.3px] rounded-md border-solid">
           <span>{t('affiliate:textQuestion')}</span>
-          <a className="!font-semibold text-lime-400 cursor-pointer lowercase">&nbsp;{t('affiliate:contactUs')}</a>
+          <a className="!font-semibold text-lime-400 cursor-pointer lowercase" href="https://t.me/skyearth008">
+            &nbsp;{t('affiliate:contactUs')}
+          </a>
         </div>
       </div>
     </CommonModal>

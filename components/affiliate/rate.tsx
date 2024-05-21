@@ -92,7 +92,7 @@ function RateAndRulesComponent() {
             <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center gap-4 px-10 py-6">
               <div className="text-default lg:text-title">Live Casino</div>
               <div className="pl-4 text-m_default lg:text-default">
-                Wager * 1% *{' '}
+                Wager x 1% x{' '}
                 <span className="font-bold text-color-text-green">{t('mycasino:commissionRate')} (7%)</span>
               </div>
             </div>
@@ -108,7 +108,7 @@ function RateAndRulesComponent() {
             <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center gap-4 px-10 py-6">
               <div className="text-default lg:text-title">Slot Game</div>
               <div className="pl-4 text-m_default lg:text-default">
-                Wager * 1% *{' '}
+                Wager x 1% x{' '}
                 <span className="font-bold text-color-text-green">{t('mycasino:commissionRate')} (15%)</span>
               </div>
             </div>
@@ -129,7 +129,7 @@ function RateAndRulesComponent() {
                   onChange={(event) => setWagerAmount(parseFloat(event.target.value))}
                 />
               </div>
-              <div className="min-w-[50px] text-center py-3">* 1% *</div>
+              <div className="min-w-[50px] text-center py-3">x 1% x</div>
             </div>
             <div className="flex items-end justify-start gap-4">
               <div className="flex flex-col gap-2">

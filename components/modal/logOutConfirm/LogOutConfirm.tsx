@@ -59,7 +59,7 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
             <button
               className={`${
                 isLoggingOut ? 'py-0' : 'py-3'
-              } bg-color-btn-primary w-[50%] rounded-large text-default flex justify-center`}
+              } bg-gradient-btn-play w-[50%] rounded-large text-default flex justify-center`}
               onClick={onClikLogOut}
             >
               {isLoggingOut ? (
