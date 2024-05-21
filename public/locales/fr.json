@@ -486,6 +486,8 @@
     "time": "Temps"
   },
   "chat": {
+    "replyToYou": "Vous répondre",
+    "yourReplyTo": "Votre réponse à {{receiver}}",
     "chatRules": "Règles de discussion",
     "chatRules1": "1. Ne spammez pas, ne harcelez pas et ne soyez pas offensant envers les autres utilisateurs. ",
     "chatRules2": "2. Ne mendiez pas et ne demandez pas de prêts, de pluies, de pourboires et de pièces doublées.",

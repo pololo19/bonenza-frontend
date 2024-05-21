@@ -486,6 +486,8 @@
     "time": "Zaman"
   },
   "chat": {
+    "replyToYou": "Sana cevap vermek",
+    "yourReplyTo": "Cevabınız {{receiver}}",
     "chatRules": "Sohbet Kuralları",
     "chatRules1": "1. Diğer kullanıcılara spam göndermeyin, taciz etmeyin veya saldırgan olmayın. ",
     "chatRules2": "2. Borç, yağmur, bahşiş ve ikiye katlanan paralar için yalvarmayın veya istemeyin.",
