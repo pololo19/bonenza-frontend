@@ -117,7 +117,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:w-auto w-[30vw] p-2">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:w-auto w-[27vw] p-2">
             {row.original.betId}
           </div>
         ),
@@ -133,7 +133,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           <>
             {row.original.betAmount !== null && (
               <div className="flex items-center justify-center gap-[5px] truncate">
-                <div className="font-bold text-black truncate dark:text-white">
+                <div className="font-normal text-black truncate dark:text-white">
                   {viewInFiat
                     ? `${currencyFormat1(
                         row.original.betAmountUsd * exchangeRate,
@@ -177,7 +177,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           </div>
         ),
         cell: ({ row }) => (
-          <div className="font-bold text-center truncate dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-center truncate dark:text-color-text-primary text-color-light-text-primary">
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
@@ -192,7 +192,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-end gap-[5px] p-2')}>
             <div
-              className={cn('font-bold text-end truncate', {
+              className={cn('font-semibold text-end truncate', {
                 'text-color-text-green': row.original.profitAmount >= 0,
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}

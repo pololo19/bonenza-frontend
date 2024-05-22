@@ -20,19 +20,19 @@ export default function ModalChatRules({ show, onClose }: ChatRulesProps) {
       onClose={onClose}
       header={
         <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
-          <div className="dark:text-white text-black text-[14px] sm:text-[16px]">{t('chat:chatRules')}</div>
+          <div className="font-bold dark:text-white text-black text-[16px] sm:text-[18px]">{t('chat:chatRules')}</div>
         </div>
       }
     >
-      <div className="overflow-y-auto sm:p-5 sm:pt-6 px-3 pb-[80px]">
-        <div className="flex flex-col">
+      <div className="overflow-y-auto p-8">
+        <div className="flex flex-col text-default">
           <p className="mt-3">{t('chat:chatRules1')}</p>
           <p className="mt-3">{t('chat:chatRules2')}</p>
           <p className="mt-3">{t('chat:chatRules3')}</p>
           <p className="mt-3">{t('chat:chatRules4')}</p>
           <p className="mt-3">{t('chat:chatRules5')}</p>
           <p className="mt-3">{t('chat:chatRules6')}</p>
-          <p className="mt-5">{t('chat:chatNote')}</p>
+          <p className="mt-8">{t('chat:chatNote')}</p>
         </div>
       </div>
     </CommonModal>
