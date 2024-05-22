@@ -719,7 +719,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               <AccountPannel />
               <div
                 className={cn(
-                  'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-[#f5f6fa] shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0',
+                  'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-bg-primary bg-[#f5f6fa] bottom-0',
+                  'drop-shadow-[0_4px_4px_rgb(255,255,255,1)] shadow-bs-default',
                   {
                     hidden: showChatType,
                   },
@@ -790,7 +791,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                       dispatch(changeIsShowMenuPannel(false));
                     }}
                   >
-                    <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-color-card-bg-primary bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
+                    <div className="h-[48px] w-[60px] rounded-[50%] dark:bg-color-bg-primary bg-[#f5f6fa] absolute top-[-15px] left-1/2 transform -translate-x-1/2 p-2">
                       <div className="m-auto h-[38px] w-[38px] dark:bg-color-hover-primary rounded-full bg-color-light-hover-primary text-white flex items-center justify-center">
                         <EmptyWallet className="dark:text-white text-color-text-primary" variant="Bold" size={22} />
                       </div>
