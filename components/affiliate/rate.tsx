@@ -126,7 +126,7 @@ function RateAndRulesComponent() {
                 <input
                   className="w-full px-4 py-3 text-white rounded bg-color-input-primary"
                   value={wagerAmount}
-                  onChange={(event) => setWagerAmount(parseFloat(event.target.value))}
+                  onChange={(event) => setWagerAmount(event.target.value ? parseFloat(event.target.value) : 0)}
                 />
               </div>
               <div className="min-w-[50px] text-center py-3">x 1% x</div>
