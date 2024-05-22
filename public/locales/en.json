@@ -1478,7 +1478,9 @@
     "questToolTip": "Keep completing Quests and earning more rewards.",
     "rakebackTooltip1": "Locked USDT is obtained through certain bonuses, such as deposit bonus and lucky spin.",
     "rakebackTooltip2": "Unlocking USDT is easy! It’s essentially the same as rakeback & will be unlocked proportionally by wagering.",
-    "redeemLimit": "You've reached your daily limit for sending requests. Come back tomorrow for more interactions!"
+    "redeemLimit": "You've reached your daily limit for sending requests. Come back tomorrow for more interactions!",
+    "redeemNoCode": "That code doesn't exist.",
+    "redeemEmpty": "The code cannot be empty!"
   },
   "promotion": {
     "promotion": "Promotion",

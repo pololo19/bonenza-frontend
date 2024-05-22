@@ -718,6 +718,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                       id={`unfinished-quest-tooltip`}
                       place="bottom"
                       className="dark:bg-black/0 bg-white z-[30]"
+                      offset={2}
                       opacity={100}
                     >
                       <div className="text-left text-m_default sm:text-[13px] max-w-[300px] bg-color-card-bg-primary p-4 rounded-large">

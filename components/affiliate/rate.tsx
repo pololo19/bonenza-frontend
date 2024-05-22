@@ -197,14 +197,14 @@ function RateAndRulesComponent() {
           <div>{t('affiliate:commissionRule4')}</div>
         </div>
         <div
-          className="cursor-pointer flex justify-center items-center m-auto text-m_default sm:text-default gap-2 text-color-text-green"
+          className="cursor-pointer flex justify-center items-center m-auto text-m_default sm:text-default gap-2 text-color-primary font-semibold"
           onClick={() => setIsShowMore(!isShowMore)}
         >
           {isShowMore ? t('affiliate:showRule') : t('affiliate:hideRule')}
           <ChevronDownIcon
             width={20}
             height={20}
-            className={cn('dark:text-white stroke-[3]', 'transition-all ease-in duration-200', {
+            className={cn('dark:text-color-primary stroke-[3]', 'transition-all ease-in duration-200', {
               'rotate-0': isShowMore,
               'rotate-180': !isShowMore,
             })}

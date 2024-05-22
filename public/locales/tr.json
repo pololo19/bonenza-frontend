@@ -1478,7 +1478,8 @@
     "rakebackTooltip1": "Kilitli USDT, para yatırma bonusu ve şanslı çevirme gibi belirli bonuslarla elde edilir.",
     "rakebackTooltip2": "USDT'nin kilidini açmak kolaydır! Temel olarak komisyon iadesiyle aynıdır. Bahis yapılarak orantılı olarak kilidi açılacaktır.",
     "redeemLimit": "Günlük istek gönderme sınırınıza ulaştınız. Daha fazla etkileşim için yarın tekrar gelin!",
-    "redeemNoCode": "Kod mevcut değil."
+    "redeemNoCode": "Bu kod mevcut değil.",
+    "redeemEmpty": "Kod boş olamaz!"
   },
   "promotion": {
     "promotion": "Terfi",

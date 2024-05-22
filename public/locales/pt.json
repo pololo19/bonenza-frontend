@@ -1478,7 +1478,8 @@
     "rakebackTooltip1": "O USDT bloqueado é obtido através de certos bônus, como bônus de depósito e giro da sorte.",
     "rakebackTooltip2": "Desbloquear o USDT é fácil! É essencialmente o mesmo que rakeback. Ele será desbloqueado proporcionalmente pelas apostas.",
     "redeemLimit": "Você atingiu seu limite diário de envio de solicitações. Volte amanhã para mais interações!",
-    "redeemNoCode": "O código não existe."
+    "redeemNoCode": "Esse código não existe.",
+    "redeemEmpty": "O código não pode estar vazio!"
   },
   "promotion": {
     "promotion": "Promoção",

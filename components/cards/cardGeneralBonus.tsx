@@ -158,6 +158,7 @@ export default function CardGeneralBonus({
                 place="bottom"
                 className="dark:bg-black/0 bg-white z-[30]"
                 opacity={100}
+                offset={2}
               >
                 <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large">
                   {tooltip.length > 1 &&
