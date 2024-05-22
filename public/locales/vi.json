@@ -486,6 +486,8 @@
     "time": "Thời gian"
   },
   "chat": {
+    "replyToYou": "Trả lời bạn",
+    "yourReplyTo": "Câu trả lời của bạn cho {{receiver}}",
     "chatRules": "Quy tắc trò chuyện",
     "chatRules1": "1. Không spam, quấy rối hoặc xúc phạm người dùng khác. ",
     "chatRules2": "2. Đừng van xin hay xin vay tiền, cầu mưa, tiền boa và nhân đôi số xu.",

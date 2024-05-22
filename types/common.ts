@@ -518,4 +518,10 @@ export type MessageType = {
   level: string;
   time: string;
   text: string;
+  replyId: string;
+  replyText: string;
+  replyTime: string;
+  replyUserId: string;
+  replyUserName: string;
+  replyUserLevel: string;
 };

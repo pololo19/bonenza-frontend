@@ -486,6 +486,8 @@
     "time": "Zeit"
   },
   "chat": {
+    "replyToYou": "Dir antworten",
+    "yourReplyTo": "Ihre Antwort auf {{receiver}}",
     "chatRules": "Chat-Regeln",
     "chatRules1": "1. Spammen Sie nicht, belästigen Sie andere Benutzer nicht und seien Sie nicht beleidigend. ",
     "chatRules2": "2. Bitten oder betteln Sie nicht um Kredite, Regen, Trinkgelder und verdoppelte Münzen.",

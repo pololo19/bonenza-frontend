@@ -8,17 +8,41 @@ import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { formatDate } from '@/base/libs/utils';
 import { t } from 'i18next';
+import styles from './message.module.scss';
+import AltIcon from '../icons/AltIcon';
+import TipIcon from '../icons/TipIcon';
+import { useTranslation } from 'react-i18next';
 
 interface MessageBoxProps {
+  messageId: string;
   userId: string;
   time: string;
   level: string;
   text: string;
   userName: string;
   userAvatar: string;
+  replyId: string;
+  replyUserId: string;
+  replyUserName: string;
+  replyText: string;
+  onReply: (messageId: string, receiverId: string, receiverName: string, senderId: string) => void;
 }
 
-export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: MessageBoxProps) => {
+export const MessageBox = ({
+  messageId,
+  userId,
+  time,
+  level,
+  text,
+  userName,
+  userAvatar,
+  onReply,
+  replyId,
+  replyUserId,
+  replyUserName,
+  replyText,
+}: MessageBoxProps) => {
+  const { t } = useTranslation('');
   const dispatch = useAppDispatch();
   const { id, name } = useSelector(
     (state: AppState) => ({
@@ -62,10 +86,11 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
   return (
     <>
       <div
-        className={cn('flex w-full px-[20px] rounded min-h-[60px] py-2', {
+        className={cn('flex w-full px-[10px] rounded min-h-[60px] py-2', styles['message'], {
           'justify-end': id === userId,
           'justify-start': id !== userId,
-          'bg-color-primary/30': text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0,
+          'border-l-[3px] border-solid border-l-color-primary':
+            text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0,
         })}
       >
         <div
@@ -106,21 +131,58 @@ export const MessageBox = ({ userId, time, level, text, userName, userAvatar }: 
             </div>
           </div>
           <div className={cn({ 'text-left': id !== userId, 'text-right': id === userId })}>
-            <div className="text-m_default pl-1">
-              <span
+            <div className={cn('flex items-center gap-2 text-[13px] pl-1')}>
+              <div
                 className={cn('text-[#BBB] font-semibold', { 'hover:underline cursor-pointer': userName })}
                 onClick={() => handleModalProfile()}
               >
                 {id !== userId ? (userName ? userName : t('homePage:hidden')) : ''}
-              </span>
-              <span className="text-[11px] text-[#999] font-normal">
+              </div>
+              <div className={cn('text-[12px] text-center text-[#999] font-normal')}>
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
-              </span>
+              </div>
+              {id !== userId && (
+                <div className={cn('cursor-pointer pl-4', styles['tip'])}>
+                  <TipIcon className="w-4 h-4" />
+                </div>
+              )}
+              {id !== userId && (
+                <div
+                  className={cn('cursor-pointer', styles['reply'])}
+                  onClick={() => onReply(messageId, userId, userName, id)}
+                >
+                  <AltIcon className="w-6 h-6" />
+                </div>
+              )}
             </div>
-            <div
-              className="inline-block text-left text-[13px] h-fit max-w-[220px] break-all bg-color-input-primary text-white rounded-[8px] px-2 py-[8px]"
-              dangerouslySetInnerHTML={{ __html: text }}
-            />
+            <div className="inline-block">
+              {}
+              {replyId && (replyUserId === id || userId === id) && (
+                <div className="bg-[#272727] rounded-[8px] p-2 pb-[10px] -mb-[10px]">
+                  <div className="text-left text-gray-400 text-[13px]">
+                    {replyUserId === id
+                      ? t('chat:replyToYou')
+                      : String(
+                          t('chat:yourReplyTo', {
+                            receiver: replyUserName,
+                          }),
+                        )}
+                  </div>
+                  <div
+                    className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] break-all text-gray-500 rounded-[8px] py-[8px]"
+                    dangerouslySetInnerHTML={{ __html: replyText }}
+                  />
+                  <br />
+                </div>
+              )}
+              <div
+                className={cn(
+                  'inline-block text-left text-[13px] h-fit max-w-[230px] break-all text-white rounded-[8px] px-2 py-[8px]',
+                  { 'bg-color-input-primary': id !== userId, 'bg-[#385730]': id === userId },
+                )}
+                dangerouslySetInnerHTML={{ __html: text }}
+              />
+            </div>
           </div>
         </div>
       </div>

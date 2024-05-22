@@ -486,6 +486,8 @@
     "time": "时间"
   },
   "chat": {
+    "replyToYou": "回复你",
+    "yourReplyTo": "您对 {{receiver}} 的回复",
     "chatRules": "聊天规则",
     "chatRules1": "1. 不得发送垃圾邮件、骚扰或冒犯其他用户。",
     "chatRules2": "2.不要乞讨或索取贷款、降雨、小费和双倍硬币。",

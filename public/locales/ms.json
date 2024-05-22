@@ -486,6 +486,8 @@
     "time": "Masa"
   },
   "chat": {
+    "replyToYou": "Balas kepada anda",
+    "yourReplyTo": "Balasan anda kepada {{receiver}}",
     "chatRules": "Peraturan Sembang",
     "chatRules1": "1. Jangan spam, mengganggu atau menyinggung perasaan pengguna lain. ",
     "chatRules2": "2. Jangan mengemis atau meminta pinjaman, hujan, tip dan syiling berganda.",
