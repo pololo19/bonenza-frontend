@@ -20,6 +20,7 @@ import Loader from '@/components/common/preloader/loader';
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon';
 import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
 import styles from '@/pages/affiliate/index.module.scss';
+import { LiveRewardType } from '@/base/types/common';
 
 type ReferralType = 'commission' | 'reward';
 
@@ -27,12 +28,6 @@ type ReferralActivityType = {
   type: ReferralType;
   currency: string;
   amount: number;
-};
-
-type LiveRewardDataType = {
-  userName: string;
-  symbolLogo: string;
-  amountUsd: number;
 };
 
 const fiatDecimals = 8;
@@ -96,7 +91,7 @@ function DashboardComponent() {
     commissionReward: 0,
     totalRewardsSentToDate: 0,
   });
-  const [liveRewardData, setLiveRewardData] = useState<LiveRewardDataType[]>([]);
+  const [liveRewardData, setLiveRewardData] = useState<LiveRewardType[]>([]);
   const [rewardActivitiesData, setRewardActivitiesData] = useState<ReferralActivityType[]>();
 
   const { gameSocket } = useSelector(
@@ -123,7 +118,14 @@ function DashboardComponent() {
           currency: 'USD',
           amount: Number(item.amountUsd || 0),
         })) ?? [];
+      const tempRecentRewardsAcitivities: LiveRewardType[] =
+        _res.data?.recentRewardsActivities?.map((item: any) => ({
+          logo: item.logo ?? '',
+          name: item.name ?? '',
+          amountUsd: Number(item.amountUsd || 0),
+        })) ?? [];
       setRewardActivitiesData(tempRewardsActivities);
+      setLiveRewardData(tempRecentRewardsAcitivities);
       setReferralData(tempReferralData);
     } catch (error) {
     } finally {
@@ -152,12 +154,14 @@ function DashboardComponent() {
     if (gameSocket) {
       gameSocket.on(`rewards`, (reward: any) => {
         const data = JSON.parse(reward);
-        const tempReward: LiveRewardDataType = {
-          userName: data.user_name ?? '',
-          symbolLogo: data.symbol_logo ?? '',
+        const tempReward: LiveRewardType = {
+          name: data.user_name ?? '',
+          logo: data.symbol_logo ?? '',
           amountUsd: Number(data.amount_usd || 0),
         };
-        setLiveRewardData((prev) => [tempReward, ...prev]);
+        const prev = [...liveRewardData.slice(1)];
+        prev.push(tempReward);
+        setLiveRewardData(prev);
       });
     }
   }, [gameSocket]);
@@ -416,36 +420,12 @@ function DashboardComponent() {
         <div className="relative w-full mt-6">
           <div className="absolute top-0 left-5 py-1 px-4 flex justify-center items-center text-black dark:text-white bg-[#31373D] rounded-[5px]">
             <div className="bg-color-text-green rounded-full w-3 h-3 mr-[10px]" />
-            <div className="text-default sm:text-[16px] font-semibold dark:text-white text-[#141414]">
+            <div className="text-default 2xl:text-[16px] font-semibold dark:text-white text-[#141414]">
               {t('affiliate:liveRewards')}
             </div>
           </div>
-          <div className="flex w-full lg:flex-row flex-col gap-[30px] py-[35px] justify-start items-center rounded-default bg-white dark:bg-gradient-card-default mb-[40px] ">
-            <div className="w-[80%] items-center border-b-[1px] dark:border-[#2b3139] border-[#EAECF3] border-r-1 lg:w-1/2 flex-col flex lg:flex-row  border-solid lg:border-b-[0px] lg:border-r-[1px]">
-              <div className="mt-3 sm:mt-0 w-full mr-[0px] sm:mr-[20px] text-center my-auto">
-                <h5 className="mb-[10px] text-m_default sm:text-default dark:text-[#BCB7B1] text-[#43484E]">
-                  {t('affiliate:totalRewards')}
-                </h5>
-                <div className="flex justify-center w-full">
-                  <div className="w-full dark:bg-color-panel-bg bg-color-light-bg-primary rounded-[5px] xl:w-[342px] py-3 flex justify-center items-center">
-                    <span className={`font-bold text-[16px] text-color-secondary  ${styles.textBanner}`}>
-                      {viewInFiat ? (
-                        <>
-                          {currencyFormat1(
-                            referralData.totalRewardsSentToDate * exchange,
-                            fiatDecimals,
-                            localFiat?.name || 'USD',
-                          )}
-                        </>
-                      ) : (
-                        <>{currencyFormat1(referralData.totalRewardsSentToDate, fiatDecimals)}</>
-                      )}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="w-[80%] lg:w-1/2 flex flex-wrap justify-between gap-2 lg:pr-4 max-h-[65px] h-full overflow-y-auto">
+          <div className="flex w-full xl:grid xl:grid-cols-4 flex-col gap-4 p-4 justify-start items-center rounded-default bg-white dark:bg-gradient-card-default mb-[40px]">
+            <div className="xl:col-span-3">
               {!liveRewardData?.length && (
                 <div className="flex flex-col justify-center items-center gap-[15px] text-[#53575C] text-[14px] w-full">
                   <Image
@@ -456,24 +436,50 @@ function DashboardComponent() {
                   />
                 </div>
               )}
-              {!!liveRewardData.length &&
-                liveRewardData.map((reward, index) => {
-                  return (
-                    <div className="flex mb-[5px] lg:mb-[10px] items-center w-[45%]" key={index}>
-                      <div className="mr-[5px]">
-                        <Image height={16} width={16} src={reward.symbolLogo} className="w-[16px] h-[16px]" alt="" />
+              {!!liveRewardData.length && (
+                <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-x-6 pt-6 xl:pt-4 2xl:pt-2">
+                  {liveRewardData.map((reward, index) => {
+                    return (
+                      <div className="flex justify-center items-center py-[6px]" key={index}>
+                        <div className="text-default dark:text-color-text-primary text-[#43484E] font-semibold mr-1">
+                          <span className="dark:text-white text-color-light-text-primary mr-2 font-bold">{`${reward.name}`}</span>
+                          {`${t('affiliate:got')}`}{' '}
+                          <span className="text-color-text-green font-bold">
+                            {viewInFiat ? (
+                              <>
+                                {currencyFormat1(reward.amountUsd * exchange, fiatDecimals, localFiat?.name || 'USD')}
+                              </>
+                            ) : (
+                              <>{currencyFormat1(reward.amountUsd, fiatDecimals)}</>
+                            )}
+                          </span>{' '}
+                        </div>
+                        <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="" />
                       </div>
-                      <div className="text-default dark:text-color-text-primary text-[#43484E] gap-[5px]">
-                        <span className="dark:text-white text-color-light-text-primary mr-[5px]">{`${reward.userName}`}</span>
-                        {`${t('affiliate:got')}`}{' '}
-                        <span className="text-color-primary">
-                          {currencyFormat1(reward.amountUsd, fiatDecimals, '', false)}
-                        </span>{' '}
-                        {t('affiliate:rewards')}
-                      </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+            <div className="bg-color-panel-bg rounded-default px-6 lg:px-3 w-full md:w-auto py-2">
+              <h5 className="text-center font-bold text-m_default sm:text-[13px] dark:text-white text-black">
+                {t('affiliate:totalRewards')}
+              </h5>
+              <div className="flex justify-center w-full">
+                <span className={`font-bold text-[18px] 2xl:text-[22px] text-color-secondary  ${styles.textBanner}`}>
+                  {viewInFiat ? (
+                    <>
+                      {currencyFormat1(
+                        referralData.totalRewardsSentToDate * exchange,
+                        fiatDecimals,
+                        localFiat?.name || 'USD',
+                      )}
+                    </>
+                  ) : (
+                    <>{currencyFormat1(referralData.totalRewardsSentToDate, fiatDecimals)}</>
+                  )}
+                </span>
+              </div>
             </div>
           </div>
         </div>
