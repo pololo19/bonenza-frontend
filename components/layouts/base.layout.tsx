@@ -347,9 +347,25 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   }, [innerWidth]);
 
   useEffect(() => {
+    const connectWalletSocket = async () => {
+      if (!walletSocket?.connected) {
+        const newSocket = await initialSocketConnection(SOCKET_WALLET_URL ?? '');
+        dispatch(setSocket(newSocket));
+      }
+    };
+
+    const connectGameSocket = async () => {
+      if (!gameSocket?.connected) {
+        const newGameSocket = await initialSocketConnection(SOCKET_GAME_URL ?? '');
+        dispatch(setGameSocket(newGameSocket));
+      }
+    };
     if (!isLogin) {
       connectAccount();
       // getBonus();
+    } else {
+      connectWalletSocket();
+      connectGameSocket();
     }
     // handleGet();
   }, [isLogin]);
