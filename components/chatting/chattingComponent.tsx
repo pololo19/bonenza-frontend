@@ -92,7 +92,6 @@ const ChattingComponent = () => {
         if (messages.length === 0) CookiesStorage.setCookieData('last_message', lastMessage.id);
         dispatch(setIsNewMessage(false));
       }
-      console.log(messages, tempMessages);
       setMessages([...messages, ...tempMessages]);
       setAvailableUsers([...uniqueUsers]);
     } catch (error) {
@@ -235,7 +234,6 @@ const ChattingComponent = () => {
     if (!$spanEl) return;
     $spanEl.innerHTML = '@';
     onTagUser({ userId: receiverId, userName: receiverName });
-    console.log(messageId);
     setReplyId(messageId);
   };
 
@@ -299,7 +297,7 @@ const ChattingComponent = () => {
             </div>
           )}
         </div>
-        <div className="fixed bottom-0 w-full">
+        <div className="sticky bottom-0 w-full">
           <div className="relative flex py-[10px] w-full bg-color-header-primary px-[7px] gap-[10px]  border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary">
             <div
               contentEditable={true}
