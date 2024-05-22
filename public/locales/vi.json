@@ -1478,7 +1478,8 @@
     "rakebackTooltip1": "USDT bị khóa có thể nhận được thông qua một số phần thưởng nhất định, chẳng hạn như phần thưởng tiền gửi và vòng quay may mắn.",
     "rakebackTooltip2": "Mở khóa USDT thật dễ dàng! Về cơ bản nó giống như rakeback. Nó sẽ được mở khóa tương ứng bằng cách đặt cược.",
     "redeemLimit": "Bạn đã đạt đến giới hạn gửi yêu cầu hàng ngày. Hãy quay lại vào ngày mai để có nhiều tương tác hơn!",
-    "redeemNoCode": "Mã này không tồn tại."
+    "redeemNoCode": "Mã đó không tồn tại.",
+    "redeemEmpty": "Mã không được để trống!"
   },
   "promotion": {
     "promotion": "Khuyến mãi",

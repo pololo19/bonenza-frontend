@@ -1478,7 +1478,8 @@
     "rakebackTooltip1": "USDT berkunci diperoleh melalui bonus tertentu, seperti bonus deposit dan putaran bertuah.",
     "rakebackTooltip2": "Membuka kunci USDT adalah mudah! Ia pada asasnya sama seperti rakeback. ia akan dibuka secara berkadar dengan pertaruhan.",
     "redeemLimit": "Anda telah mencapai had harian anda untuk menghantar permintaan. Kembali esok untuk lebih banyak interaksi!",
-    "redeemNoCode": "Kod itu tidak wujud."
+    "redeemNoCode": "Kod itu tidak wujud.",
+    "redeemEmpty": "Kod tidak boleh kosong!"
   },
   "promotion": {
     "promotion": "kenaikan pangkat",

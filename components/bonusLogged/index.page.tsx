@@ -33,6 +33,7 @@ function BonusLoggedPage() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const usdtPrice = useUSDTPrice();
 
+  const [redeemCode, setRedeemCode] = useState<string>('');
   const [totalData, setTotalData] = useState({
     bonusClaimedUsd: 0,
     vipBonusUsd: 0,
@@ -238,6 +239,16 @@ function BonusLoggedPage() {
     }
   }, [isLogin, isShowSpinClaim]);
   const onRedeemClick = () => {
+    if (!redeemCode) {
+      toast.error(t('bonus:redeemEmpty'), {
+        toastId: 'redeemEmpty',
+        containerId: TOAST_ENUM.COMMON,
+        icon: true,
+        autoClose: 3000,
+        hideProgressBar: false,
+      });
+      return;
+    }
     const redeemDate = localStorage.getItem(CookieKey.redeemDate) || '';
     if (redeemDate) {
       const difference = new Date().getTime() - new Date(redeemDate).getTime();
@@ -261,13 +272,14 @@ function BonusLoggedPage() {
       });
     } else {
       toast.error(t('bonus:redeemNoCode'), {
-        toastId: 'redeemCodeEmpty',
+        toastId: 'redeemNoCode',
         containerId: TOAST_ENUM.COMMON,
         icon: true,
         autoClose: 3000,
         hideProgressBar: false,
       });
     }
+    setRedeemCode('');
   };
 
   return (
@@ -282,6 +294,8 @@ function BonusLoggedPage() {
               className="focus:outline-none dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
               type="text"
+              value={redeemCode}
+              onChange={(e) => setRedeemCode(e.target.value)}
             />
             <div
               onClick={onRedeemClick}
