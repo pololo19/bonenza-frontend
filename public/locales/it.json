@@ -1478,7 +1478,8 @@
     "rakebackTooltip1": "L'USDT bloccato si ottiene tramite determinati bonus, come bonus di deposito e giri fortunati.",
     "rakebackTooltip2": "Sbloccare USDT è facile! È essenzialmente la stessa cosa che rakeback.it verrà sbloccato proporzionalmente scommettendo.",
     "redeemLimit": "Hai raggiunto il limite giornaliero per l'invio di richieste. Torna domani per ulteriori interazioni!",
-    "redeemNoCode": "Il codice non esiste."
+    "redeemNoCode": "Kode itu tidak ada.",
+    "redeemEmpty": "Kode tidak boleh kosong!"
   },
   "promotion": {
     "promotion": "Promozione",

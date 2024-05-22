@@ -90,7 +90,7 @@ export const MessageBox = ({
           'justify-end': id === userId,
           'justify-start': id !== userId,
           'border-l-[3px] border-solid border-l-color-primary':
-            text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0,
+            text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0 && id,
         })}
       >
         <div
