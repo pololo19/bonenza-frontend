@@ -543,6 +543,12 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             level: msgData?.user_vip_level ?? '',
             time: msgData?.time ?? '',
             text: msgData?.text ?? '',
+            replyId: msgData.reply_id ?? '',
+            replyText: msgData.reply_text ?? '',
+            replyTime: msgData.reply_time ?? '',
+            replyUserId: msgData.reply_user_id ?? '',
+            replyUserName: msgData.reply_user_name ?? '',
+            replyUserLevel: msgData.reply_user_vip_level ?? '',
           };
           if (showChatTypeRef.current === true) {
             CookiesStorage.setCookieData('last_message', tempIncomingMesssage.id);
