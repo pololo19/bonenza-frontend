@@ -1497,6 +1497,7 @@
     "latestPromotions": "最新促销活动",
     "archived": "已存档",
     "endAt": "结束于",
+    "endIn": "结束于",
     "inProgress": "进行中"
   },
   "chatting": {
