@@ -156,7 +156,7 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: currencyFormat1(1000, 2),
+        wagerValue: currencyFormat1(1000, 2, '', false),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
@@ -164,6 +164,8 @@ function BonusLoggedPage() {
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:weeklyCashBackTooltip1'), t('bonus:weeklyCashBackTooltip2')],
+        expiration: new Date().getTime(),
+        currentWager: currencyFormat1(0, 2),
       },
       {
         backgroundDark: '/img/bg-weekly-cashback2.png',
@@ -175,7 +177,7 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
-        wagerValue: currencyFormat1(10000, 2),
+        wagerValue: currencyFormat1(1000, 2, '', false),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
@@ -183,6 +185,8 @@ function BonusLoggedPage() {
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:monthlyCashBackTooltip1'), t('bonus:monthlyCashBackTooltip2')],
+        expiration: new Date().getTime(),
+        currentWager: currencyFormat1(0, 2),
       },
     ],
     [i18n.language, viewInFiat, localFiat],
@@ -472,6 +476,8 @@ function BonusLoggedPage() {
                 showHour={item.showHour}
                 showDescription={item.showDescription}
                 tooltip={item.tooltip}
+                expiration={item.expiration + 5000}
+                currentWager={item.currentWager}
               />
             ))}
           </div>

@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { ArrowRight2, Ghost } from 'iconsax-react';
+import { ArrowRight2, Snapchat } from 'iconsax-react';
 import Image from 'next/image';
 import { useCallback, useEffect, useState } from 'react';
 import { isMobile } from 'react-device-detect';
@@ -93,7 +93,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
           >
             {userData?.userId !== userId && !userData?.username ? (
               <span className="flex items-center">
-                <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 mr-1" />
+                <Snapchat width={12} height={12} variant="Bulk" className="w-5 h-5 mr-1" />
                 {String(t('homePage:hidden'))}
               </span>
             ) : userData.userId === userId ? (

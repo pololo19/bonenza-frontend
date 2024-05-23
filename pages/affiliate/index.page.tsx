@@ -4,7 +4,7 @@ import { Add, ArrowRight2, Minus, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ReactElement, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -12,7 +12,7 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeAuthenticationType, changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { AuthenticationModeEnum } from '@/base/types/common';
+import { AuthenticationModeEnum, LiveRewardType } from '@/base/types/common';
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon';
 import BaseLayout from '@/components/layouts/base.layout';
 import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
@@ -21,6 +21,7 @@ import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
 
 import AffiliateLoggedPage from '../affiliate-logged/index.module';
 import styles from './index.module.scss';
+import { api_affiliate } from '@/api/bonus';
 
 function AffiliatePage() {
   const exchange = useExchange();
@@ -30,6 +31,8 @@ function AffiliatePage() {
   const [showDetailCommissionsRewards, setShowDetailCommissionsRewards] = useState(false);
   const [showReferralRewardRules, setShowReferralRewardRules] = useState(false);
   const [showReferralTerm, setShowReferralTerm] = useState(false);
+  const [liveRewardData, setLiveRewardData] = useState<LiveRewardType[]>([]);
+  const [totalRewardsSent, setTotalRewardsSent] = useState<number>(0);
 
   const { isLogin, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -85,6 +88,26 @@ function AffiliatePage() {
     ],
     [i18n],
   );
+
+  const getReferralData = async () => {
+    try {
+      const _res = await api_affiliate();
+      setTotalRewardsSent(Number(_res.data?.totalRewardsSentToDate || 0));
+      const tempRecentRewardsAcitivities: LiveRewardType[] =
+        _res.data?.recentRewardsActivities?.map((item: any) => ({
+          logo: item.logo ?? '',
+          name: item.name ?? '',
+          amountUsd: Number(item.amountUsd || 0),
+        })) ?? [];
+      setLiveRewardData(tempRecentRewardsAcitivities);
+    } catch (error) {
+    } finally {
+    }
+  };
+
+  useEffect(() => {
+    // getReferralData();
+  }, []);
   return (
     <>
       <Head>
@@ -94,18 +117,27 @@ function AffiliatePage() {
         <>
           <div
             className={cn(
-              'dark:bg-[#1C1E22] bg-[#FFFFFF] bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] pt-[50px] lg:pt-[25px] lg:h-[360px]',
+              'bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] lg:pt-[25px] lg:h-[360px]',
               "lg:dark:bg-[url('/img/page/banner-affiliate.png')]",
               "lg:bg-[url('/img/page/banner-affiliate-light-mode.png')]",
-              "bg-[url('/img/page/banner-affiliate-back-mobile.png')]",
+              "bg-[url('/img/page/banner-affiliate-mobile.png')]",
             )}
           >
             <div className="flex flex-col lg:w-1/2 w-full h-full justify-center items-center">
-              <h1 className="italic text-[36px] lg:text-[28px] xl:text-[36px] mb-[10px] dark:text-white text-[#141414] text-center font-bold">
+              <div className={cn('block lg:hidden h-auto w-full')}>
+                <Image
+                  height={366}
+                  width={130}
+                  src="/img/page/mobile-banner-affiliate.png"
+                  alt="affiliate-banner-mobile"
+                  className="!w-full object-contain rounded-default"
+                />
+              </div>
+              <h1 className="italic text-[28px] lg:text-[32px] xl:text-[42px] mb-[10px] dark:text-white text-[#141414] text-center font-bold">
                 {t('affiliate:inviteFriendsToEarn')}
               </h1>
               <h5
-                className={`text-[30px] lg:text-[20px] xl:text-[30px] mb-[30px] text-center font-bold bg-clip-text text-transparent bg-gradient-to-b from-[#ffd339] to-[#f59e00]`}
+                className={`text-[30px] lg:text-[24px] xl:text-[32px] mb-[30px] text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-[#ffd339] to-[#f59e00]`}
               >
                 {`${
                   viewInFiat ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(1000, 2)
@@ -137,17 +169,10 @@ function AffiliatePage() {
                 </div>
                 <ArrowRight2 size={16} />
               </div>
-              <div
-                className={cn(
-                  'lg:hidden',
-                  "bg-[url('/img/page/banner-affiliate-mobile.png')] bg-[length:100%_100%]",
-                  'h-[300px] w-[450px] mt-10',
-                )}
-              />
             </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-            <div className="py-7 px-5 dark:bg-[#2D3237] bg-[#D2CDC9] md:bg-[url('/img/banner-image-box1.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:28%_auto] rounded">
+            <div className="py-7 px-5 dark:bg-color-card-bg-primary bg-[#D2CDC9] md:bg-[url('/img/banner-image-box1.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:28%_auto] rounded">
               <div className="sm:w-[100%] md:w-[70%]">
                 <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
                   {t('affiliate:getYour')}
@@ -186,7 +211,7 @@ function AffiliatePage() {
                 </div>
               </div>
             </div>
-            <div className="py-7 px-5 dark:bg-[#2D3237] bg-[#D2CDC9] md:bg-[url('/img/banner-image-box2.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:35%_auto] rounded">
+            <div className="py-7 px-5 dark:bg-color-card-bg-primary bg-[#D2CDC9] md:bg-[url('/img/banner-image-box2.png')] bg-[center_right_1rem] bg-no-repeat bg-[length:35%_auto] rounded">
               <div className="sm:w-[100%] md:w-[70%]">
                 <div className="text-[26px] mb-[16px] font-bold dark:text-white text-[#141414]">
                   {t('affiliate:getYour')}{' '}
@@ -218,41 +243,57 @@ function AffiliatePage() {
               </div>
             </div>
           </div>
-          <div className="flex mb-[20px] mt-[50px]">
-            <div className="mr-[10px]">
-              <Image width={24} height={24} src="/img/Live-Stream.png" className="w-full h-auto" alt="" />
-            </div>
-            <div className="dark:text-white text-[#141414]">{t('affiliate:liveRewards')}</div>
-          </div>
-          <div className="flex lg:flex-row flex-col gap-[30px] py-[20px] justify-start items-center rounded-[5px] bg-[#FFFFFF] dark:bg-color-input-primary mb-[40px]">
-            <div className="mr-[18px] ml-[12px]">
-              <Image width={24} height={24} src="/img/Rewards.png" className="w-full h-auto" alt="" />
-            </div>
-            <div className="text-center mr-[40px]">
-              <h5 className="mb-[10px] text-[14px] dark:text-white text-[#141414]">{t('affiliate:totalRewards')}</h5>
-              <div className="dark:bg-color-panel-bg bg-[#F6F7FA] rounded-[5px] w-[420px] h-[60px] flex justify-center items-center ">
-                <span className={`font-bold text-[24px] dark:text-white text-[#141414]`}>
-                  {viewInFiat ? currencyFormat1(0 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(0, 2)}
-                </span>
+          <div className="relative w-full mt-6">
+            <div className="absolute top-0 left-5 py-1 px-4 flex justify-center items-center text-black dark:text-white bg-[#31373D] rounded-[5px]">
+              <div className="bg-color-text-green rounded-full w-3 h-3 mr-[10px]" />
+              <div className="text-default 2xl:text-[16px] font-semibold dark:text-white text-[#141414]">
+                {t('affiliate:liveRewards')}
               </div>
             </div>
-            <div>
-              {/* <div className="flex mb-[10px]">
-                <div className="mr-[5px]">
-                  <Image width={24} height={24} src="/img/icon/USDT-logo.svg" className="w-[24px] h-[24px]" alt="" />
-                </div>
-                <div>
-                  <span className="text-[14px] dark:text-white text-[#43484E]"> {t('affiliate:jeoifahq')}</span>
+            <div className="flex w-full xl:grid xl:grid-cols-4 flex-col gap-4 p-4 justify-start items-center rounded-default bg-white dark:bg-gradient-card-default mb-[40px]">
+              <div className="xl:col-span-3">
+                {!liveRewardData?.length && (
+                  <div className="flex flex-col justify-center items-center gap-[15px] text-[#53575C] text-[14px] w-full">
+                    <Image src="/img/empty-dark.png" alt="noData" width={50} height={50} />
+                  </div>
+                )}
+                {!!liveRewardData.length && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-x-6 pt-6 xl:pt-4 2xl:pt-2">
+                    {liveRewardData.map((reward, index) => {
+                      return (
+                        <div className="flex justify-center items-center py-[6px]" key={index}>
+                          <div className="text-default dark:text-color-text-primary text-[#43484E] font-semibold mr-1">
+                            <span className="dark:text-white text-color-light-text-primary mr-2 font-bold">{`${reward.name}`}</span>
+                            {`${t('affiliate:got')}`}{' '}
+                            <span className="text-color-text-green font-bold">
+                              {viewInFiat ? (
+                                <>{currencyFormat1(reward.amountUsd * exchange, 8, localFiat?.name || 'USD')}</>
+                              ) : (
+                                <>{currencyFormat1(reward.amountUsd, 8)}</>
+                              )}
+                            </span>{' '}
+                          </div>
+                          <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="" />
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              <div className="bg-color-panel-bg rounded-default px-6 lg:px-3 w-full md:w-auto py-2">
+                <h5 className="text-center font-bold text-m_default sm:text-[13px] dark:text-white text-black">
+                  {t('affiliate:totalRewards')}
+                </h5>
+                <div className="flex justify-center w-full">
+                  <span className={`font-bold text-[18px] 2xl:text-[22px] text-color-secondary  ${styles.textBanner}`}>
+                    {viewInFiat ? (
+                      <>{currencyFormat1(100 * exchange, 8, localFiat?.name || 'USD')}</>
+                    ) : (
+                      <>{currencyFormat1(100, 8)}</>
+                    )}
+                  </span>
                 </div>
               </div>
-              <div className="flex">
-                <div className="mr-[5px]">
-                  <Image width={24} height={24} src="/img/icon/USDT-logo.svg" className="w-[24px] h-[24px]" alt="" />
-                </div>
-                <div>
-                  <span className="text-[14px] dark:text-white text-[#43484E]">{t('affiliate:jeoifahq')}</span>
-                </div>
-              </div> */}
             </div>
           </div>
           <div className="dark:bg-color-card-bg-secondary bg-white rounded-[5px] flex lg:flex-row flex-col items-center justify-center mb-[60px] p-[20px]">
