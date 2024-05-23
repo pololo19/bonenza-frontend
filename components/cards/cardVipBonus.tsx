@@ -1,9 +1,17 @@
-import { Crown } from 'iconsax-react';
+import { Clock, Crown } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
 import { useTranslation } from '@/base/config/i18next';
 import { Tooltip } from 'react-tooltip';
+import { AppState } from '@/base/redux/store';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { api_getProfile } from '@/api/user';
+import cn from 'classnames';
+import CsrWrapper from '../CsrWrapper';
+import Countdown from 'react-countdown';
+import { formatDate } from '@/base/libs/utils';
 
 type CardVipBonusProps = {
   background: string;
@@ -22,6 +30,8 @@ type CardVipBonusProps = {
   showHour: boolean;
   showDescription: boolean;
   tooltip: string[];
+  expiration: number;
+  currentWager: string;
 };
 
 export default function CardVipBonus({
@@ -41,12 +51,34 @@ export default function CardVipBonus({
   showHour,
   showDescription,
   tooltip,
+  expiration,
+  currentWager,
 }: CardVipBonusProps) {
   const { t } = useTranslation('');
   const { theme, setTheme } = useTheme();
 
+  const [vipLevel, setVipLevel] = useState<number>(0);
+  const { userId } = useSelector(
+    (state: AppState) => ({
+      userId: state.auth.user.userId,
+    }),
+    shallowEqual,
+  );
+
+  const getUserProfile = async (selectedUserId: string) => {
+    try {
+      const res = await api_getProfile(selectedUserId);
+      setVipLevel(res.data.currentVipLevel || 0);
+    } catch (error) {
+    } finally {
+    }
+  };
+
+  useEffect(() => {
+    getUserProfile(userId);
+  }, [userId]);
   return (
-    <div className="relative min-h-[250px] dark:bg-[#1C1E22] bg-white">
+    <div className="relative rounded-default min-h-[250px] dark:bg-[#1C1E22] bg-white">
       <Image src={background} width={339} height={192} alt="" className="h-full w-full object-cover rounded-default" />
       <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
         <div>
@@ -100,7 +132,7 @@ export default function CardVipBonus({
           </div>
           <div>
             <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right truncate">
-              {wagerValue}
+              <span className="font-semibold text-white">{currentWager}</span> / {wagerValue}
             </div>
             <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right truncate">
               {tierValue}
@@ -118,10 +150,33 @@ export default function CardVipBonus({
         </div>
         <div
           role="button"
-          className="dark:bg-[#2D3035] bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
+          className={cn('flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]', {
+            'dark:bg-[#2D3035] bg-color-light-bg-primary': vipLevel < 22,
+            'dark:bg-color-btn-primary text-white': vipLevel >= 22,
+          })}
         >
-          <Crown size={20} className="text-[#939699]" />
-          <div className="text-[#939699] text-[14px]">{t('bonus:availableAt')} VIP 22</div>
+          {vipLevel < 22 && (
+            <>
+              <Crown size={20} className="text-[#939699]" />
+              <div className="text-[#939699] text-[14px]">{t('bonus:availableAt')} VIP 22</div>
+            </>
+          )}
+          {vipLevel >= 22 && (
+            <div className="flex justify-start items-center gap-1 text-default">
+              <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
+              {t('promotion:endIn')}
+              <CsrWrapper>
+                <Countdown
+                  date={new Date(Number(expiration))}
+                  renderer={({ days, hours, minutes, seconds }) => (
+                    <div className="text-center text-white text-default">
+                      {`${days} Days ` + formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
+                    </div>
+                  )}
+                />
+              </CsrWrapper>
+            </div>
+          )}
         </div>
       </div>
     </div>

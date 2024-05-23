@@ -53,7 +53,7 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
+        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
           <Image
             src={background}
             width={339}
