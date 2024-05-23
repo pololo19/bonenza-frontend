@@ -1,7 +1,7 @@
 import { QuestionMarkCircleIcon } from '@heroicons/react/24/outline';
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
-import { ArrowRight2, Ghost } from 'iconsax-react';
+import { ArrowRight2, Snapchat } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -295,7 +295,7 @@ const WagerContestComponent = () => {
             <div className="font-bold truncate text-default">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
                 <div className="flex gap-[3px] items-center">
-                  <Ghost width={12} height={12} variant="Bulk" className="hidden sm:block w-[20px] h-[20px]" />
+                  <Snapchat width={12} height={12} variant="Bulk" className="hidden sm:block w-[20px] h-[20px]" />
                   <span className="font-bold">{t('homePage:hidden')}</span>
                 </div>
               ) : row.original.playerId === userId ? (

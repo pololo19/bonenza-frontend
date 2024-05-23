@@ -1,6 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import cn from 'classnames';
-import { Ghost } from 'iconsax-react';
+import { Snapchat } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -183,7 +183,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
             <div className="font-bold truncate text-m_default sm:text-default ">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
                 <div className="font-bold flex gap-[3px] items-center">
-                  <Ghost width={12} height={12} variant="Bulk" className="w-4 h-4 hidden sm:block " />
+                  <Snapchat width={12} height={12} variant="Bulk" className="w-4 h-4 hidden sm:block " />
                   {t('homePage:hidden')}
                 </div>
               ) : row.original.playerId === userId ? (

@@ -1,6 +1,6 @@
 import { ColumnDef, Row } from '@tanstack/react-table';
 import cn from 'classnames';
-import { ArrowDown2, ArrowUp2, Ghost } from 'iconsax-react';
+import { ArrowDown2, ArrowUp2, Snapchat } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
@@ -155,7 +155,7 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
           >
             {row.original.playerId !== userId && !row.original.player ? (
               <div className="dark:text-color-text-primary text-[#31373d] flex justify-center items-center gap-[5px]">
-                <Ghost width={12} height={12} variant="Bulk" className="w-5 h-5" />
+                <Snapchat width={12} height={12} variant="Bulk" className="w-5 h-5" />
                 {t('homePage:hidden')}
               </div>
             ) : (
