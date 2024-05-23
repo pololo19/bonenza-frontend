@@ -525,3 +525,9 @@ export type MessageType = {
   replyUserName: string;
   replyUserLevel: string;
 };
+
+export type LiveRewardType = {
+  amountUsd: number;
+  logo: string;
+  name: string;
+};

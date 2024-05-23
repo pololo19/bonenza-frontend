@@ -198,7 +198,6 @@ function RewardsComponent() {
   const getReferralData = useCallback(
     async (filter?: FilterType) => {
       try {
-        console.log(filter);
         setIsLoading(true);
         const registrationStartDate =
           filter?.registrationStartDate?.length > 0 ? new Date(filter?.registrationStartDate).getTime() : undefined;

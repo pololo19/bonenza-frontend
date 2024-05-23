@@ -263,7 +263,7 @@ const ChattingComponent = () => {
           </div>
         </div>
         <div
-          className="flex flex-col bg-transparent overflow-y-auto pb-[80px]"
+          className="flex flex-col bg-transparent overflow-y-auto pb-[20px]"
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
