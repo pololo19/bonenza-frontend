@@ -47,6 +47,7 @@ function BonusLoggedPage() {
       weeklyCompleteQuest: 0,
       availableSpin: 0,
       wagerAmountForDailySpin: 1600,
+      currentWagerAmountForDailySpin: 0,
       levelForSpin: 8,
     },
     vip: {
@@ -116,7 +117,15 @@ function BonusLoggedPage() {
         descriptionValue: `${bonusData.general.availableSpin}`,
         title: t('bonus:spinTitle'),
         total: t('bonus:spinTotal'),
-        titleValue: `${currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2)}`,
+        titleValue: (
+          <div className="font-semibold">
+            <div className="text-[10px] text-left -mt-3">{t('bonus:wagerRequired')}</div>
+            <span className="text-white font-semibold">
+              {`${currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2, 'USD', false)}`}
+            </span>
+            {` /${currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2, 'USD', false)}`}
+          </div>
+        ),
         totalValue: `${t('bonus:spinTotalDescription')} VIP ${bonusData.general.levelForSpin}`,
         nameButton: t('bonus:spinButton'),
         showDeposit: false,
@@ -177,7 +186,7 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
-        wagerValue: currencyFormat1(1000, 2, '', false),
+        wagerValue: currencyFormat1(10000, 2, '', false),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
@@ -209,6 +218,7 @@ function BonusLoggedPage() {
           availableSpin: Number(_res.data?.generalBonus?.spin?.availableCount || 0),
           levelForSpin: Number(_res.data?.generalBonus?.spin?.reachVipLevel || 0),
           wagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.requiredWagerAmountUsd || 0),
+          currentWagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.currentWagerAmountUsd || 0),
           dailyCompleteQuest: Number(_res.data?.generalBonus?.quest?.dailyCompleteCount || 0),
           weeklyCompleteQuest: Number(_res.data?.generalBonus?.quest?.weeklyCompleteCount || 0),
         },
@@ -316,7 +326,7 @@ function BonusLoggedPage() {
         </div>
         <div
           className={cn(
-            'dark:bg-color-card-bg-secondary bg-white rounded-default max-[923px]', // Color & Border-radius
+            'dark:bg-gradient-card-default bg-white rounded-default max-[923px]', // Color & Border-radius
             'w-full gap-4 flex flex-col lg:flex-row lg:justify-between', // Layout
             'mt-[24px] px-[16px] py-[20px]', // Margin & Padding
           )}
@@ -386,8 +396,15 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-4 max-[1227px]:grid-cols-2 max-[883px]:grid-cols-1 gap-[24px]">
-            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
+          <div className="grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px]">
+            <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full min-h-[250px]">
+              <Image
+                src="/img/bg-levelup.png"
+                width={339}
+                height={192}
+                alt=""
+                className="h-full w-full object-cover rounded-default"
+              />
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-[10px]">
@@ -417,11 +434,13 @@ function BonusLoggedPage() {
                         {bonusData.vip.levelUp.currentVipName}
                       </div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right flex">
-                        <span className="font-bold dark:text-white">{bonusData.vip.levelUp.currentVipXP}</span>
+                        <span className="font-semibold dark:text-color-text-green">
+                          {bonusData.vip.levelUp.currentVipXP}
+                        </span>
                         <span>/</span>
-                        <span>{bonusData.vip.levelUp.nextVipXP}</span>
+                        <span className="font-semibold text-white">{bonusData.vip.levelUp.nextVipXP}</span>
                       </div>
-                      <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right">
+                      <div className="dark:text-white text-color-light-text-primary text-[14px] text-right font-semibold">
                         {bonusData.vip.levelUp.bonus === 0
                           ? '-'
                           : viewInFiat
@@ -434,9 +453,9 @@ function BonusLoggedPage() {
                 <div
                   role="button"
                   onClick={() => dispatch(changeIsShowVipClubModal(true))}
-                  className="dark:bg-color-btn-primary hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
+                  className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
                 >
-                  <div className="text-color-primary font-medium text-[14px]">{t('bonus:viewVIPClub')}</div>
+                  <div className="text-white font-medium text-[14px]">{t('bonus:viewVIPClub')}</div>
                 </div>
               </div>
             </div>

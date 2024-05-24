@@ -98,7 +98,7 @@ module.exports = {
         'color-text-mailto': '#00BAE6',
         'color-primary': '#00BAE6',
         'color-primary-1': '#46a41f',
-        'color-secondary': '#F4C416',
+        'color-secondary': '#FF9E4F',
         'color-table-header-bg-primary': '#1D2738',
         'color-table-header-text-primary': '#0DFDE4',
         'color-table-header-text-secondary': '#888',
