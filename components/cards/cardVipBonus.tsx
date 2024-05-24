@@ -131,19 +131,25 @@ export default function CardVipBonus({
             </div>
           </div>
           <div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right truncate">
-              <span className="font-semibold text-white">{currentWager}</span> / {wagerValue}
+            <div className="dark:text-white font-semibold text-color-light-text-primary text-[14px] text-right truncate">
+              {vipLevel >= 22 && (
+                <>
+                  <span className="font-semibold text-white">{currentWager}</span>
+                  <span> /</span>
+                </>
+              )}{' '}
+              {wagerValue}
             </div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
               {tierValue}
             </div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
               {rechargeRateValue}
             </div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
               {readyToClaimValue}
             </div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
               {lastWeekBonusValue}
             </div>
           </div>
@@ -151,14 +157,14 @@ export default function CardVipBonus({
         <div
           role="button"
           className={cn('flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]', {
-            'dark:bg-[#2D3035] bg-color-light-bg-primary': vipLevel < 22,
-            'dark:bg-color-btn-primary text-white': vipLevel >= 22,
+            'dark:bg-gray-700 bg-color-light-bg-primary': vipLevel < 22,
+            'dark:bg-gradient-btn-play text-white': vipLevel >= 22,
           })}
         >
           {vipLevel < 22 && (
             <>
-              <Crown size={20} className="text-[#939699]" />
-              <div className="text-[#939699] text-[14px]">{t('bonus:availableAt')} VIP 22</div>
+              <Crown size={20} className="text-color-secondary" />
+              <div className="text-color-secondary text-[14px]">{t('bonus:availableAt')} VIP 22</div>
             </>
           )}
           {vipLevel >= 22 && (
