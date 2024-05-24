@@ -121,7 +121,7 @@ function BonusLoggedPage() {
           <div className="font-semibold">
             <div className="text-[10px] text-left -mt-3">{t('bonus:wagerRequired')}</div>
             <span className="text-white font-semibold">
-              {`${currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2, 'USD', false)}`}
+              {`${currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2, 'USD', true)}`}
             </span>
             {` /${currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2, 'USD', false)}`}
           </div>
