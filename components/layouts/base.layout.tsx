@@ -530,7 +530,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         });
       }
 
-      gameSocket.on(`prices`, (item: string) => {
+      gameSocket.on(`price`, (item: string) => {
         const data = JSON.parse(item);
         const cryptoDatas: PriceUpdateType[] =
           data?.cryptocurrency?.map((item: any) => ({

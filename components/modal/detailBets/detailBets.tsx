@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1, formatDate, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
 import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
@@ -19,7 +20,6 @@ import { BetTableDataType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 
 import CommonModal from '../commonModal/commonModal';
-import { useHeight } from '@/base/hooks/useHeight';
 
 type ModalDetailBetsProps = {
   onClose: () => void;
@@ -52,7 +52,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
   );
 
   const copy = (text: string) => {
-    toast.success('success:copied', { containerId: TOAST_ENUM.COMMON });
+    toast.success(t('success:copied'), { containerId: TOAST_ENUM.COMMON });
     navigator.clipboard.writeText(text);
   };
 
@@ -111,7 +111,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                 <div className="h-[1px] bg-white dark:bg-color-primary/40 mt-[10px]" />
               </div>
               <div className="mt-[8px] flex items-center justify-evenly">
-                <div className="w-full flex flex-col">
+                <div className="flex flex-col w-full">
                   <div className="text-center text-[10px] text-[#31373d] dark:text-color-text-primary">
                     {t('gameTable:betAmount')}
                   </div>
