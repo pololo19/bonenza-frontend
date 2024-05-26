@@ -364,7 +364,10 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] font-semibold">
                           {`${selectedRank.startLevelDes}-${selectedRank.endLevelDes}`}
                           {selectedRank.startLevel >= 8 && (
-                            <span className="pl-4 font-light">{t('vipClub:benefitDetails')}</span>
+                            <span className="font-light">
+                              {` * `}
+                              {t('vipClub:benefitDetails')}
+                            </span>
                           )}
                         </div>
                       </div>
