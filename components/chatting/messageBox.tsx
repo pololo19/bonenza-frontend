@@ -85,16 +85,6 @@ export const MessageBox = ({
     return bg;
   };
 
-  useEffect(() => {
-    const handleDoubleClick = (event: MouseEvent) => {
-      onReply(messageId, text, userName);
-    };
-    window.addEventListener('dblclick', handleDoubleClick);
-    return () => {
-      window.removeEventListener('dblclick', handleDoubleClick);
-    };
-  }, [messageRef]);
-
   return (
     <>
       <div
@@ -104,7 +94,7 @@ export const MessageBox = ({
           'bg-color-primary/10 border-l-[4px] border-solid border-l-color-primary':
             text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0 && id,
         })}
-        ref={messageRef}
+        onDoubleClick={() => onReply(messageId, text, userName)}
       >
         <div
           className={cn('flex w-full gap-2', {
