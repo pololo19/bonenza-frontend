@@ -19,6 +19,7 @@ import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
+import { changeIsShowDepositRule } from '@/base/redux/reducers/modal.reducer';
 
 type ModalRakeBackProps = {
   onClose: () => void;
@@ -111,12 +112,16 @@ export default function ModalRakeBack({
   const handleCliam = async () => {
     if (isClaiming) return;
     try {
-      setIsClaiming(true);
-      await api_postClaims(unlockedData.amount);
+      if (lockedAmount.balance > 0) {
+        setIsClaiming(true);
+        await api_postClaims(unlockedData.amount);
 
-      await api_getClaims();
-      toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
-      dispatch(getBalance());
+        await api_getClaims();
+        toast.success(t('deposit:claimComplete'), { containerId: TOAST_ENUM.COMMON });
+        dispatch(getBalance());
+      } else {
+        dispatch(changeIsShowDepositRule(true));
+      }
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
@@ -158,17 +163,22 @@ export default function ModalRakeBack({
                   <div
                     role="button"
                     className={cn(
-                      'w-[240px] cursor-pointer h-[38px] bg-gradient-btn-play text-white text-[14px] font-bold flex items-center justify-center rounded-default',
+                      'w-[240px] cursor-pointer h-[38px] text-white text-[14px] font-bold flex items-center justify-center rounded-default',
                       {
-                        'pointer-events-none opacity-60': unlockedData.amount < unlockedData.minimumUnlockAmount,
+                        'pointer-events-none opacity-60':
+                          unlockedData.amount < unlockedData.minimumUnlockAmount && lockedAmount.balance > 0,
+                        'bg-gradient-btn-play ': lockedAmount.balance > 0,
+                        'bg-[#f36d36]': lockedAmount.balance === 0,
                       },
                     )}
                     onClick={handleCliam}
                   >
                     {isClaiming ? (
                       <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-7 !h-7" />
-                    ) : (
+                    ) : lockedAmount.balance > 0 ? (
                       t('deposit:claim')
+                    ) : (
+                      t('bonus:activate')
                     )}
                   </div>
                   <div className="text-[12px] mt-[2px] flex items-center justify-center dark:text-color-text-primary text-color-light-text-primary">

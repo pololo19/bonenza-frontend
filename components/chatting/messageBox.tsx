@@ -89,7 +89,7 @@ export const MessageBox = ({
         className={cn('flex w-full px-[10px] rounded min-h-[60px] py-2', styles['message'], {
           'justify-end': id === userId,
           'justify-start': id !== userId,
-          'border-l-[3px] border-solid border-l-color-primary':
+          'bg-color-primary/10 border-l-[3px] border-solid border-l-color-primary':
             text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0 && id,
         })}
       >
