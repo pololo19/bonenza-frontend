@@ -7,11 +7,9 @@ import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { formatDate } from '@/base/libs/utils';
-import { t } from 'i18next';
 import styles from './message.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Back, Gift } from 'iconsax-react';
-import { useEffect, useRef } from 'react';
 
 interface MessageBoxProps {
   messageId: string;
@@ -44,7 +42,6 @@ export const MessageBox = ({
 }: MessageBoxProps) => {
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
-  const messageRef = useRef<HTMLDivElement>(null);
   const { id, name } = useSelector(
     (state: AppState) => ({
       id: state.auth.user.userId,
