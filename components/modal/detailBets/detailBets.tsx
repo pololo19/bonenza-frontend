@@ -52,7 +52,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
   );
 
   const copy = (text: string) => {
-    toast.success(t('success:copied'), { containerId: TOAST_ENUM.COMMON });
+    toast.success(t('success:copied'), { containerId: TOAST_ENUM.COMMON, toastId: 'bet-detail-modal-copy' });
     navigator.clipboard.writeText(text);
   };
 
