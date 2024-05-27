@@ -11,6 +11,7 @@ import { t } from 'i18next';
 import styles from './message.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Back, Gift } from 'iconsax-react';
+import { useEffect, useRef } from 'react';
 
 interface MessageBoxProps {
   messageId: string;
@@ -43,6 +44,7 @@ export const MessageBox = ({
 }: MessageBoxProps) => {
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
+  const messageRef = useRef<HTMLDivElement>(null);
   const { id, name } = useSelector(
     (state: AppState) => ({
       id: state.auth.user.userId,
@@ -82,6 +84,17 @@ export const MessageBox = ({
     }
     return bg;
   };
+
+  useEffect(() => {
+    const handleDoubleClick = (event: MouseEvent) => {
+      onReply(messageId, text, userName);
+    };
+    window.addEventListener('dblclick', handleDoubleClick);
+    return () => {
+      window.removeEventListener('dblclick', handleDoubleClick);
+    };
+  }, [messageRef]);
+
   return (
     <>
       <div
@@ -91,6 +104,7 @@ export const MessageBox = ({
           'bg-color-primary/10 border-l-[4px] border-solid border-l-color-primary':
             text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0 && id,
         })}
+        ref={messageRef}
       >
         <div
           className={cn('flex w-full gap-2', {
@@ -141,13 +155,13 @@ export const MessageBox = ({
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
               </div>
               {id !== userId && (
-                <div className={cn('cursor-pointer pl-4', styles['tip'])}>
+                <div className={cn('cursor-pointer pl-4 text-white', styles['tip'])}>
                   <Gift className="w-4 h-4 -mt-1" />
                 </div>
               )}
               {id !== userId && (
                 <div
-                  className={cn('cursor-pointer', styles['reply'])}
+                  className={cn('cursor-pointer text-white', styles['reply'])}
                   onClick={() => onReply(messageId, text, userName)}
                 >
                   <Back className="w-4 h-4 -mt-1" />
