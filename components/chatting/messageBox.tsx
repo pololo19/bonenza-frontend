@@ -9,9 +9,8 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import { formatDate } from '@/base/libs/utils';
 import { t } from 'i18next';
 import styles from './message.module.scss';
-import AltIcon from '../icons/AltIcon';
-import TipIcon from '../icons/TipIcon';
 import { useTranslation } from 'react-i18next';
+import { Back, Gift } from 'iconsax-react';
 
 interface MessageBoxProps {
   messageId: string;
@@ -25,7 +24,7 @@ interface MessageBoxProps {
   replyUserId: string;
   replyUserName: string;
   replyText: string;
-  onReply: (messageId: string, receiverId: string, receiverName: string, senderId: string) => void;
+  onReply: (messageId: string, messageContent: string, receiverName: string) => void;
 }
 
 export const MessageBox = ({
@@ -86,10 +85,10 @@ export const MessageBox = ({
   return (
     <>
       <div
-        className={cn('flex w-full px-[10px] rounded min-h-[60px] py-2', styles['message'], {
+        className={cn('flex w-full px-[10px] rounded-[4px] min-h-[60px] py-2', styles['message'], {
           'justify-end': id === userId,
           'justify-start': id !== userId,
-          'border-l-[3px] border-solid border-l-color-primary':
+          'bg-color-primary/10 border-l-[4px] border-solid border-l-color-primary':
             text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0 && id,
         })}
       >
@@ -143,45 +142,38 @@ export const MessageBox = ({
               </div>
               {id !== userId && (
                 <div className={cn('cursor-pointer pl-4', styles['tip'])}>
-                  <TipIcon className="w-4 h-4" />
+                  <Gift className="w-4 h-4 -mt-1" />
                 </div>
               )}
               {id !== userId && (
                 <div
                   className={cn('cursor-pointer', styles['reply'])}
-                  onClick={() => onReply(messageId, userId, userName, id)}
+                  onClick={() => onReply(messageId, text, userName)}
                 >
-                  <AltIcon className="w-6 h-6" />
+                  <Back className="w-4 h-4 -mt-1" />
                 </div>
               )}
             </div>
             <div className="inline-block">
-              {}
-              {replyId && (replyUserId === id || userId === id) && (
-                <div className="bg-[#272727] rounded-[8px] p-2 pb-[10px] -mb-[10px]">
-                  <div className="text-left text-gray-400 text-[13px]">
-                    {replyUserId === id
-                      ? t('chat:replyToYou')
-                      : String(
-                          t('chat:yourReplyTo', {
-                            receiver: replyUserName,
-                          }),
-                        )}
-                  </div>
-                  <div
-                    className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] break-all text-gray-500 rounded-[8px] py-[8px]"
-                    dangerouslySetInnerHTML={{ __html: replyText }}
-                  />
-                  <br />
-                </div>
-              )}
               <div
                 className={cn(
-                  'inline-block text-left text-[13px] h-fit max-w-[230px] break-all text-white rounded-[8px] px-2 py-[8px]',
+                  'text-left text-[13px] h-fit max-w-[230px] break-all text-white rounded-[8px] px-2 py-2',
                   { 'bg-color-input-primary': id !== userId, 'bg-[#385730]': id === userId },
                 )}
-                dangerouslySetInnerHTML={{ __html: text }}
-              />
+              >
+                {replyId && (replyUserId === id || userId === id) && (
+                  <div className="bg-black/20 rounded-[8px] pt-2 pb-1 px-2 mb-2">
+                    <div className="font-semibold text-left text-gray-400 text-[13px]">{replyUserName}</div>
+                    <div
+                      className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] break-all text-gray-500 rounded-[8px]"
+                      dangerouslySetInnerHTML={{ __html: replyText }}
+                    />
+                    <br />
+                    <div />
+                  </div>
+                )}
+                <div dangerouslySetInnerHTML={{ __html: text }} />
+              </div>
             </div>
           </div>
         </div>
