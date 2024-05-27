@@ -310,7 +310,7 @@ const ChattingComponent = () => {
                     />
                   </div>
                   <CloseCircle
-                    className="w-4 h-4 cursor-pointer hover:opacity-80"
+                    className="w-4 h-4 cursor-pointer hover:opacity-80 text-white"
                     variant="Bulk"
                     onClick={() => setReplyMsg({ id: '', userName: '', text: '' })}
                   />

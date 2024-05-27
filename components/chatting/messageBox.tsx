@@ -7,11 +7,9 @@ import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { formatDate } from '@/base/libs/utils';
-import { t } from 'i18next';
 import styles from './message.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Back, Gift } from 'iconsax-react';
-import { useEffect, useRef } from 'react';
 
 interface MessageBoxProps {
   messageId: string;
@@ -44,7 +42,6 @@ export const MessageBox = ({
 }: MessageBoxProps) => {
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
-  const messageRef = useRef<HTMLDivElement>(null);
   const { id, name } = useSelector(
     (state: AppState) => ({
       id: state.auth.user.userId,
@@ -85,16 +82,6 @@ export const MessageBox = ({
     return bg;
   };
 
-  useEffect(() => {
-    const handleDoubleClick = (event: MouseEvent) => {
-      onReply(messageId, text, userName);
-    };
-    window.addEventListener('dblclick', handleDoubleClick);
-    return () => {
-      window.removeEventListener('dblclick', handleDoubleClick);
-    };
-  }, [messageRef]);
-
   return (
     <>
       <div
@@ -104,7 +91,7 @@ export const MessageBox = ({
           'bg-color-primary/10 border-l-[4px] border-solid border-l-color-primary':
             text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0 && id,
         })}
-        ref={messageRef}
+        onDoubleClick={() => onReply(messageId, text, userName)}
       >
         <div
           className={cn('flex w-full gap-2', {
