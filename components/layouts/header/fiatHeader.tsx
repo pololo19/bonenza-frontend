@@ -12,6 +12,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey } from '@/base/constants/common';
+import { useActiveCurrencyPrice } from '@/base/hooks/useActiveCurrencyPrice';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
@@ -38,6 +39,7 @@ const cryptoDecimals = 4;
 
 export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: FiatHeaderProps) {
   const usdtPrice = useUSDTPrice();
+  const activeCurrencyPrice = useActiveCurrencyPrice();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
@@ -162,6 +164,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
     if (path.indexOf('?gameId') > -1) setShowCurrency(false);
     else setShowCurrency(true);
   }, [router]);
+
   return (
     <>
       <Menu as="div" className="relative w-auto text-left rounded flex dark:text-white h-full text-[#000]">
@@ -193,7 +196,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 <div className="text-[16px] truncate w-full font-semibold">
                   {viewInFiat
                     ? `${currencyFormat1(
-                        getBalanceBySymbol(activeCurrency) * activeCurrency.price * exchangeRate,
+                        getBalanceBySymbol(activeCurrency) * activeCurrencyPrice * exchangeRate,
                         fiatDecimals,
                         localFiat?.name || 'USD',
                       )}`
