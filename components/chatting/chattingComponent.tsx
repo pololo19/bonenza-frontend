@@ -305,7 +305,7 @@ const ChattingComponent = () => {
                   <div className="w-full flex flex-col">
                     <div className="font-semibold text-left text-gray-400 text-[13px]">{replyMsg.userName}</div>
                     <div
-                      className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] break-all text-gray-500 rounded-[8px]"
+                      className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] max-h-[40px] overflow-hidden break-all text-gray-500 rounded-[8px]"
                       dangerouslySetInnerHTML={{ __html: replyMsg.text }}
                     />
                   </div>
