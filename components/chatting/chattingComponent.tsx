@@ -37,7 +37,7 @@ const ChattingComponent = () => {
   const [isFirstLoading, setIsFirstLoading] = useState(false);
   const [availableUsers, setAvailableUsers] = useState<UserType[]>([]);
   const [isShowTagMenu, setIsShowTagMenu] = useState<boolean>(false);
-  const [replyId, setReplyId] = useState<string>('');
+  const [replyMsg, setReplyMsg] = useState<{ id: string; userName: string; text: string }>();
   const [tagFilter, setTagFilter] = useState<string>('');
 
   const { showChatType, showFullChat, isLogin, lastMessage } = useSelector(
@@ -195,8 +195,8 @@ const ChattingComponent = () => {
     let msg = $spanEl.innerHTML;
     msg = msg.replaceAll('<div>', '');
     msg = msg.replaceAll('</div>', '');
-    const _res = await api_sendChat(msg, replyId ? replyId : undefined);
-    setReplyId('');
+    const _res = await api_sendChat(msg, replyMsg?.id ? replyMsg.id : undefined);
+    setReplyMsg({ id: '', userName: '', text: '' });
     $spanEl.innerHTML = '';
     $spanEl.blur();
     scrollDown();
@@ -229,12 +229,12 @@ const ChattingComponent = () => {
     }
   }, [messages, isFirstLoading]);
 
-  const onReply = (messageId: string, receiverId: string, receiverName: string, senderId: string) => {
+  const onReply = (messageId: string, messageContent: string, receiverName: string) => {
     const $spanEl = chatRef.current;
     if (!$spanEl) return;
-    $spanEl.innerHTML = '@';
-    onTagUser({ userId: receiverId, userName: receiverName });
-    setReplyId(messageId);
+    $spanEl.innerHTML = '';
+    $spanEl.focus();
+    setReplyMsg({ id: messageId, userName: receiverName, text: messageContent });
   };
 
   return (
@@ -298,17 +298,35 @@ const ChattingComponent = () => {
           )}
         </div>
         <div className="sticky bottom-0 w-full">
-          <div className="relative flex py-[10px] w-full bg-color-header-primary px-[7px] gap-[10px]  border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary">
-            <div
-              contentEditable={true}
-              style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
-              onKeyDown={(e) => onKeyDown(e)}
-              onKeyUp={(e) => onKeyUp(e)}
-              className={
-                'relative flex w-full max-h-[200px] py-[12px] leading-[20px] px-[10px] overflow-y-auto border-none outline-none lign-baseline editBox dark:bg-color-input-primary rounded-default cursor-text text-[14px] dark:text-white'
-              }
-              ref={chatRef}
-            />
+          <div className="relative flex py-[10px] w-full bg-color-header-primary px-[7px] gap-[10px] border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary">
+            <div className="flex flex-col w-full dark:bg-color-input-primary rounded-default px-[10px] py-[12px]">
+              {replyMsg?.id && (
+                <div className="flex w-full bg-black/20 rounded-[8px] pt-2 pb-1 px-2 mb-2">
+                  <div className="w-full flex flex-col">
+                    <div className="font-semibold text-left text-gray-400 text-[13px]">{replyMsg.userName}</div>
+                    <div
+                      className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] break-all text-gray-500 rounded-[8px]"
+                      dangerouslySetInnerHTML={{ __html: replyMsg.text }}
+                    />
+                  </div>
+                  <CloseCircle
+                    className="w-4 h-4 cursor-pointer hover:opacity-80"
+                    variant="Bulk"
+                    onClick={() => setReplyMsg({ id: '', userName: '', text: '' })}
+                  />
+                </div>
+              )}
+              <div
+                contentEditable={true}
+                style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
+                onKeyDown={(e) => onKeyDown(e)}
+                onKeyUp={(e) => onKeyUp(e)}
+                className={
+                  'w-full max-w-[250px] max-h-[200px] leading-[20px] overflow-y-auto border-none outline-none lign-baseline editBox cursor-text text-[14px] dark:text-white'
+                }
+                ref={chatRef}
+              />
+            </div>
             <div className="flex flex-col justify-end flex-1">
               <div
                 className="flex flex-col h-fit justify-end p-[10px] rounded-default bg-gradient-btn-play cursor-pointer"
