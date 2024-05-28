@@ -80,6 +80,12 @@ export type ModalState = {
   isShowSelfExclusion?: boolean;
   isShowDailyContest?: boolean;
   isShowAccountRestriction?: boolean;
+  isShowChatTip?: boolean;
+  tipReceiver: {
+    userId?: string;
+    userName?: string;
+    userAvatar?: string;
+  };
 };
 
 export type LoadingState = {

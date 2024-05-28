@@ -25,6 +25,7 @@ type SelectCurrencyProps = {
   onChangeNetwork: (network: CryptoNetWorkType) => void;
   withDrawTab?: boolean;
   disabled?: boolean;
+  isShowNetwork?: boolean;
 };
 
 const fiatDecimals = 2;
@@ -37,6 +38,7 @@ const SelectCurrency = ({
   onChangeNetwork,
   withDrawTab,
   disabled = false,
+  isShowNetwork = true,
 }: SelectCurrencyProps) => {
   const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
@@ -350,74 +352,76 @@ const SelectCurrency = ({
           )}
         </Menu>
       </div>
-      <div className="flex flex-col items-start w-full gap-2">
-        <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
-          {t('deposit:chooseNetwork')}
-        </div>
-        <Menu
-          as="div"
-          className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-default"
-        >
-          <Menu.Button className="flex-1 py-[15px] px-[20px]" disabled={disabled}>
-            <div className="flex items-center justify-between w-full" role="button">
-              <div className="flex-1 flex items-center justify-start gap-[10px]">
-                <div
-                  className={cn('flex-1 text-black text-start dark:text-white text-default', {
-                    'dark:!text-gray-400': disabled,
-                  })}
-                >
-                  {activeNetwork.name}
+      {isShowNetwork && (
+        <div className="flex flex-col items-start w-full gap-2">
+          <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
+            {t('deposit:chooseNetwork')}
+          </div>
+          <Menu
+            as="div"
+            className="relative flex w-full dark:bg-color-input-primary bg-color-light-input-primary rounded-default"
+          >
+            <Menu.Button className="flex-1 py-[15px] px-[20px]" disabled={disabled}>
+              <div className="flex items-center justify-between w-full" role="button">
+                <div className="flex-1 flex items-center justify-start gap-[10px]">
+                  <div
+                    className={cn('flex-1 text-black text-start dark:text-white text-default', {
+                      'dark:!text-gray-400': disabled,
+                    })}
+                  >
+                    {activeNetwork.name}
+                  </div>
+                </div>
+                <div className="flex items-center justify-start gap-[10px]">
+                  <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />
                 </div>
               </div>
-              <div className="flex items-center justify-start gap-[10px]">
-                <ChevronDownIcon width={15} className="dark:text-white text-color-light-text-primary" />
-              </div>
-            </div>
-          </Menu.Button>
+            </Menu.Button>
 
-          <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          >
-            <Menu.Items className="absolute rounded-default dark:bg-color-input-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer shadow-bs-default">
-              <div className="py-1 max-h-[250px] overflow-y-auto p-2">
-                {availableNetworks.map((network, index) => (
-                  <Menu.Item key={index}>
-                    {({ active }) => (
-                      <div
-                        className={cn(
-                          'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-input-hover-primary hover:bg-color-light-hover-primary mb-2 rounded-default',
-                          {
-                            'border border-color-primary/50 border-solid': network.id === activeNetwork.id,
-                          },
-                        )}
-                        role="button"
-                        onClick={() => onChangeNetwork(network)}
-                      >
-                        <div className="flex-1 flex items-center justify-start gap-[10px]">
-                          {network && (
-                            <div className="flex-1 font-semibold dark:text-white text-color-light-text-primary text-start text-default">
-                              {network.name}
-                            </div>
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute rounded-default dark:bg-color-input-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer shadow-bs-default">
+                <div className="py-1 max-h-[250px] overflow-y-auto p-2">
+                  {availableNetworks.map((network, index) => (
+                    <Menu.Item key={index}>
+                      {({ active }) => (
+                        <div
+                          className={cn(
+                            'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-input-hover-primary hover:bg-color-light-hover-primary mb-2 rounded-default',
+                            {
+                              'border border-color-primary/50 border-solid': network.id === activeNetwork.id,
+                            },
                           )}
+                          role="button"
+                          onClick={() => onChangeNetwork(network)}
+                        >
+                          <div className="flex-1 flex items-center justify-start gap-[10px]">
+                            {network && (
+                              <div className="flex-1 font-semibold dark:text-white text-color-light-text-primary text-start text-default">
+                                {network.name}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex items-center justify-start gap-[10px]">
+                            <ChevronDownIcon width={15} className="opacity-0" />
+                          </div>
                         </div>
-                        <div className="flex items-center justify-start gap-[10px]">
-                          <ChevronDownIcon width={15} className="opacity-0" />
-                        </div>
-                      </div>
-                    )}
-                  </Menu.Item>
-                ))}
-              </div>
-            </Menu.Items>
-          </Transition>
-        </Menu>
-      </div>
+                      )}
+                    </Menu.Item>
+                  ))}
+                </div>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+        </div>
+      )}
     </div>
   );
 };

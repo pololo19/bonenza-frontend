@@ -11,7 +11,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
-import { currencyFormat1 } from '@/base/libs/utils';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeIsShowBonusDetail,
   changeIsShowQuest,
@@ -24,6 +24,10 @@ import BaseLayout from '@/components/layouts/base.layout';
 
 import CardGeneralBonus from '../cards/cardGeneralBonus';
 import CardVipBonus from '../cards/cardVipBonus';
+import { Tooltip } from 'react-tooltip';
+import { Clock, Shuffle } from 'iconsax-react';
+import CsrWrapper from '@/base/components/CsrWrapper';
+import Countdown from 'react-countdown';
 
 function BonusLoggedPage() {
   const exchangeRate = useExchange();
@@ -40,6 +44,7 @@ function BonusLoggedPage() {
     specialBonusUsd: 0,
     generalBonusUsd: 0,
   });
+  const [spinLogs, setSpinLogs] = useState<Array<{ type: string; time: string }>>([]);
   const [bonusData, setBonusData] = useState({
     general: {
       depositTime: 0,
@@ -49,6 +54,8 @@ function BonusLoggedPage() {
       wagerAmountForDailySpin: 1600,
       currentWagerAmountForDailySpin: 0,
       levelForSpin: 8,
+      dailySpinStartTime: new Date(),
+      dailySpinEndTime: new Date(),
     },
     vip: {
       levelUp: {
@@ -66,6 +73,7 @@ function BonusLoggedPage() {
     },
   });
   const [lockedAmount, setLockedAmount] = useState<number>(0);
+  const [isShowSpinLog, setIsShowSpinLog] = useState<boolean>(false);
 
   const { localFiat, viewInFiat, isLogin, isShowSpinClaim } = useSelector(
     (state: AppState) => ({
@@ -94,47 +102,6 @@ function BonusLoggedPage() {
         action: () => {},
       },
       {
-        backgroundDark: '/img/bg-quest.png',
-        backgroundLight: '/img/bg-quest-light.png',
-        name: t('bonus:quest'),
-        description: t('bonus:questDescription'),
-        title: t('bonus:questTitle'),
-        total: t('bonus:questTotal'),
-        titleValue: `${bonusData.general.dailyCompleteQuest}/3`,
-        totalValue: `${bonusData.general.weeklyCompleteQuest}/1`,
-        nameButton: t('bonus:questButton'),
-        showDeposit: false,
-        tooltip: [t('bonus:questToolTip')],
-        action: () => {
-          dispatch(changeIsShowQuest(true));
-        },
-      },
-      {
-        backgroundDark: '/img/bg-lucky-spin.png',
-        backgroundLight: '/img/bg-lucky-spin-light.png',
-        name: t('bonus:spin'),
-        description: `${t('bonus:spinDescription')}`,
-        descriptionValue: `${bonusData.general.availableSpin}`,
-        title: t('bonus:spinTitle'),
-        total: t('bonus:spinTotal'),
-        titleValue: (
-          <div className="font-semibold">
-            <div className="text-[10px] text-left -mt-3">{t('bonus:wagerRequired')}</div>
-            <span className="text-white font-semibold">
-              {`${currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2, 'USD', true)}`}
-            </span>
-            {` /${currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2, 'USD', false)}`}
-          </div>
-        ),
-        totalValue: `${t('bonus:spinTotalDescription')} VIP ${bonusData.general.levelForSpin}`,
-        nameButton: t('bonus:spinButton'),
-        showDeposit: false,
-        tooltip: [t('bonus:luckySpinToolTip1'), t('bonus:luckySpinToolTip2')],
-        action: () => {
-          dispatch(changeIsShowSpin(true));
-        },
-      },
-      {
         backgroundDark: '/img/bg-rakeback.png',
         backgroundLight: '/img/bg-rakeback-light.png',
         name: t('bonus:BNZRakeback'),
@@ -149,6 +116,22 @@ function BonusLoggedPage() {
           dispatch(changeIsShowRakeBack(true));
         },
         tooltip: [t('bonus:rakebackTooltip1'), t('bonus:rakebackTooltip2')],
+      },
+      {
+        backgroundDark: '/img/bg-quest.png',
+        backgroundLight: '/img/bg-quest-light.png',
+        name: t('bonus:quest'),
+        description: t('bonus:questDescription'),
+        title: t('bonus:questTitle'),
+        total: t('bonus:questTotal'),
+        titleValue: `${bonusData.general.dailyCompleteQuest}/3`,
+        totalValue: `${bonusData.general.weeklyCompleteQuest}/1`,
+        nameButton: t('bonus:questButton'),
+        showDeposit: false,
+        tooltip: [t('bonus:questToolTip')],
+        action: () => {
+          dispatch(changeIsShowQuest(true));
+        },
       },
     ],
     [i18n.language, lockedAmount, bonusData, viewInFiat, localFiat],
@@ -212,12 +195,19 @@ function BonusLoggedPage() {
         generalBonusUsd: Number(_res.data?.totalGeneralBonusUsd || 0),
       };
       setTotalData(tempTotalData);
+      const tempSpinLogs = _res.data?.generalBonus?.spin?.logs.map((item: any) => ({
+        type: item.type ?? '',
+        time: item.time ?? '',
+      }));
+      setSpinLogs(tempSpinLogs);
       const tempBonusData = {
         general: {
           depositTime: Number(_res.data?.generalBonus?.deposit?.depositTimes || 0),
           availableSpin: Number(_res.data?.generalBonus?.spin?.availableCount || 0),
           levelForSpin: Number(_res.data?.generalBonus?.spin?.reachVipLevel || 0),
           wagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.requiredWagerAmountUsd || 0),
+          dailySpinStartTime: new Date(Number(_res.data?.generalBonus?.spin?.startTime || 0) * 1000),
+          dailySpinEndTime: new Date(Number(_res.data?.generalBonus?.spin?.endTime || 0) * 1000),
           currentWagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.currentWagerAmountUsd || 0),
           dailyCompleteQuest: Number(_res.data?.generalBonus?.quest?.dailyCompleteCount || 0),
           weeklyCompleteQuest: Number(_res.data?.generalBonus?.quest?.weeklyCompleteCount || 0),
@@ -429,7 +419,7 @@ function BonusLoggedPage() {
                         {t('bonus:readyToClaim')}
                       </div>
                     </div>
-                    <div>
+                    <div className="flex flex-col items-end">
                       <div className="dark:text-[#fff] text-color-light-text-primary font-semibold text-[14px] text-right">
                         {bonusData.vip.levelUp.currentVipName}
                       </div>
@@ -465,7 +455,7 @@ function BonusLoggedPage() {
                 background={theme === 'dark' ? item.backgroundDark : item.backgroundLight}
                 name={item.name}
                 description={item.description}
-                descriptionValue={item?.descriptionValue || ''}
+                descriptionValue={''}
                 title={item.title}
                 total={item.total}
                 titleValue={item.titleValue}
@@ -476,6 +466,116 @@ function BonusLoggedPage() {
                 onClick={item.action}
               />
             ))}
+            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
+              <Image
+                src="/img/bg-lucky-spin.png"
+                width={339}
+                height={192}
+                alt=""
+                className="h-full w-full object-cover rounded-default"
+              />
+              <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
+                <div className="flex justify-between p-0">
+                  <div className="flex items-center gap-2">
+                    <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                      {t('bonus:spin')}
+                    </div>
+                    <Image
+                      src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
+                      width={16}
+                      height={16}
+                      alt=""
+                      data-tooltip-id={`$spin-bonus-tooltip`}
+                    />
+                    <Tooltip
+                      id={`$spin-bonus-tooltip`}
+                      place="bottom"
+                      className="dark:bg-black/0 bg-white z-[30]"
+                      opacity={100}
+                    >
+                      <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large shadow-bs-default">
+                        {[t('bonus:luckySpinToolTip1'), t('bonus:luckySpinToolTip2')].map((item, index) => (
+                          <div key={index} className="w-full flex gap-2">
+                            <div className="min-w-[6px] h-[6px] mt-2 rounded-full bg-color-text-primary"></div>
+                            <div>{item}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </Tooltip>
+                  </div>
+                  <div
+                    className="flex items-center gap-2 text-center text-default text-white leading-4 cursor-pointer"
+                    onClick={() => setIsShowSpinLog(!isShowSpinLog)}
+                  >
+                    <Shuffle className="w-4 h-4" stroke="3" />
+                    {t('mycasino:history')}
+                  </div>
+                </div>
+                {isShowSpinLog ? (
+                  <div className="h-full text-default flex flex-col">
+                    {spinLogs.map((spin, index) => (
+                      <div key={`bonus-spin-log-${index}`} className="w-full flex justify-between">
+                        <div>{spin?.type || ''}</div>
+                      </div>
+                    ))}
+                    {spinLogs.length === 0 && <div className="w-full text-center m-auto">{t('bonus:noData')}</div>}
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex flex-col gap-1">
+                      <div className="flex justify-between w-full">
+                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                          {t('bonus:spinDescription')}
+                        </div>
+                        <div className="dark:text-white text-color-light-text-primary text-[14px] font-semibold">
+                          {bonusData.general.availableSpin}
+                        </div>
+                      </div>
+                      <div className="flex justify-between items-center w-full">
+                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                          {t('bonus:spinTitle')}
+                        </div>
+                        <div className="dark:text-white text-color-light-text-primary text-[14px] font-semibold">
+                          <div className="text-[10px] text-left">{t('bonus:wagerRequired')}</div>
+                          <span className="text-white font-semibold">
+                            {`${currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2, 'USD', true)}`}
+                          </span>
+                          {` /${currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2, 'USD', false)}`}
+                        </div>
+                      </div>
+                      <div className="flex justify-between w-full">
+                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                          {t('bonus:spinTotal')}
+                        </div>
+                        <div className="dark:text-white text-color-light-text-primary text-[14px] text-right font-semibold">
+                          {`${t('bonus:spinTotalDescription')} VIP ${bonusData.general.levelForSpin}`}
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      role="button"
+                      className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px] text-default"
+                      onClick={() => dispatch(changeIsShowSpin(true))}
+                    >
+                      <div className="flex justify-start gap-1 items-center">
+                        <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
+                        {t('promotion:endIn')}
+                        <CsrWrapper>
+                          <Countdown
+                            date={new Date(bonusData.general.dailySpinEndTime)}
+                            renderer={({ days, hours, minutes, seconds }) => (
+                              <div className="text-center text-default">
+                                {formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
+                              </div>
+                            )}
+                          />
+                        </CsrWrapper>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
             {dataCardVipBonus.map((item, index) => (
               <CardVipBonus
                 key={index}
@@ -505,14 +605,14 @@ function BonusLoggedPage() {
           <div className="text-[16px] md:text-[20px] dark:text-white text-color-light-text-primary font-medium mb-[18px]">
             {t('bonus:specialBonus')}
           </div>
-          <div className="dark:bg-color-card-bg-secondary bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">
+          <div className="dark:bg-color-card-bg-primary bg-white rounded-[5px] w-full h-[250px] flex flex-col items-center justify-center gap-[12px]">
             <Image
               src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
               width={90}
               height={90}
               alt=""
             />
-            <div className="dark:text-[#53575C] text-color-text-primary text-[13px]">{t('bonus:noData')}</div>
+            <div className="dark:text-gray-400 text-color-text-primary text-[13px]">{t('bonus:noData')}</div>
           </div>
         </div>
       </div>
