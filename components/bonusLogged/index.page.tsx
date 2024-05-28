@@ -386,14 +386,14 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px]">
-            <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full min-h-[250px]">
+          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px]">
+            <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full max-h-[230px] overflow-hidden">
               <Image
                 src="/img/bg-levelup.png"
                 width={339}
                 height={192}
                 alt=""
-                className="h-full w-full object-cover rounded-default"
+                className="w-full sm:object-contain rounded-default"
               />
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div>
@@ -466,13 +466,13 @@ function BonusLoggedPage() {
                 onClick={item.action}
               />
             ))}
-            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
+            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full max-h-[230px] overflow-hidden">
               <Image
                 src="/img/bg-lucky-spin.png"
                 width={339}
                 height={192}
                 alt=""
-                className="h-full w-full object-cover rounded-default"
+                className="w-full sm:object-contain rounded-default"
               />
               <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
                 <div className="flex justify-between p-0">

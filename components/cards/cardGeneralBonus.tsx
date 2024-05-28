@@ -53,13 +53,13 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full min-h-[250px]">
+        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full max-h-[230px] overflow-hidden">
           <Image
             src={background}
             width={339}
             height={192}
             alt=""
-            className="h-full w-full object-cover rounded-default"
+            className="w-full sm:object-contain rounded-default"
           />
           <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
             <div className="flex items-center gap-[10px] p-0">
@@ -145,13 +145,13 @@ export default function CardGeneralBonus({
         </div>
       )}
       {showDeposit && (
-        <div className="rounded-default h-full flex flex-col justify-between min-h-[250px]">
+        <div className="rounded-default h-full flex flex-col justify-between max-h-[230px] overflow-hidden">
           <Image
             src="/img/bg-levelup.png"
             width={339}
             height={192}
             alt=""
-            className="h-full w-full object-cover rounded-default"
+            className="w-full sm:object-contain rounded-default"
           />
           <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
             <div className="flex items-center justify-between">
