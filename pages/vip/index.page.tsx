@@ -17,20 +17,20 @@ function VipPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const cardList = [
-    // {
-    //   id: 1,
-    //   img: '/img/vip-withdraw.png',
-    //   title: t('vipClub:noFeeWithdrawal'),
-    //   description: t('vipClub:noFeeWithdrawalDescription'),
-    //   key: 'cardWithdraw',
-    // },
-    // {
-    //   id: 2,
-    //   img: '/img/vip-reward.png',
-    //   title: t('vipClub:rewardlucky'),
-    //   description: t('vipClub:rewardluckyDescription'),
-    //   key: 'cardReward',
-    // },
+    {
+      id: 0,
+      img: '/img/vip-withdraw.png',
+      title: t('vipClub:noFeeWithdrawal'),
+      description: t('vipClub:noFeeWithdrawalDescription'),
+      key: 'cardWithdraw',
+    },
+    {
+      id: 2,
+      img: '/img/vip-reward.png',
+      title: t('vipClub:rewardlucky'),
+      description: t('vipClub:rewardluckyDescription'),
+      key: 'cardReward',
+    },
     // {
     //   id: 3,
     //   img: '/img/vip-host.png',
@@ -141,7 +141,7 @@ function VipPage() {
   return (
     <>
       <div className="w-full mt-4 sm:mt-8">
-        <div className="bg-[url('/img/vip-banner.png')] bg-cover relative w-full h-[700px] flex items-center justify-center sm:h-[260px] px-[30px] flex justify-between">
+        <div className="bg-[url('/img/vip-banner.png')] bg-cover relative w-full h-[700px] flex items-center  sm:h-[260px] px-[30px] justify-center rounded-default">
           <div className="md:max-w-[600px] max-sm:h-[650px] pl-4 flex sm:block flex-col items-center justify-between absolute left-0 max-sm:px-5 sm:left-[30px] top-[28px] sm:top-[42px] z-1">
             <div>
               <h2 className="text-[42px] leading-[1.2] max-sm:text-center sm:text-[32px] lg:text-[44px] mb-2 font-bold">
@@ -156,7 +156,7 @@ function VipPage() {
               height={100}
               alt=""
               src="/img/vip-benefit.png"
-              className="h-full block sm:hidden w-full max-h-[295px] right-[42px] top-0"
+              className="block sm:hidden object-contain w-[80%]"
             />
             <div className="flex items-center gap-6 mt-4">
               <button
@@ -178,7 +178,7 @@ function VipPage() {
             height={100}
             alt=""
             src="/img/vip-benefit.png"
-            className="absolute h-full hidden sm:block w-full max-w-[40%] max-h-[295px] right-[42px] top-0"
+            className="absolute hidden sm:block max-h-[295px] w-[300px] right-[42px] object-contain"
           />
         </div>
         <div className="grid grid-cols-3 max-[1144px]:grid-cols-2 max-[864px]:grid-cols-1 gap-[24px] mt-6">
@@ -208,14 +208,14 @@ function VipPage() {
           <div className="text-[18px] mb-[18px] font-semibold dark:text-white text-color-light-text-primary">
             {t('vipClub:rewardBreakdown')}
           </div>
-          <div className="p-2 pb-0 rounded-[5px] bg-[#2D3035] overflow-x-hidden">
+          <div className="p-2 pb-0 rounded-[5px] bg-color-card-bg-primary overflow-x-hidden">
             <div className="overflow-x-auto scrollbar pb-2">
               <div className="flex max-w-full">
-                <div className="bg-[#25272C] min-w-160px border-l-0 border-solid border-[#37393D]"></div>
+                <div className="bg-color-card-bg-primary min-w-160px border-l-0 border-solid border-color-card-bg-secondary"></div>
                 {dataMedal.map((item, index) => (
                   <div
                     key={index}
-                    className="px-5 py-4 min-w-[120px] flex-1 bg-[#25272C] border border-solid border-[#37393D] border-l-0 border-b-0 flex items-center justify-center gap-[5px]"
+                    className="px-5 py-4 min-w-[120px] flex-1 bg-color-card-bg-secondary border border-solid border-color-card-bg-primary border-l-0 border-b-0 flex items-center justify-center gap-[5px]"
                   >
                     <Image width={18} height={18} alt="" src={item.img} />
                     <p className="text-[12px] font-semibold min-w-fit break-keep">{item.name}</p>
@@ -224,31 +224,31 @@ function VipPage() {
               </div>
               {dataReward.map((item, index) => (
                 <div key={index} className="flex">
-                  <div className="min-w-[160px] flex items-center px-1 text-[14px] h-[50px] border border-l-0 border-solid border-[#37393D]">
+                  <div className="min-w-[160px] flex items-center px-1 text-[14px] h-[50px] border border-l-0 border-solid border-color-card-bg-secondary">
                     <p className="truncate">{item.name}</p>
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-[#37393D] border-l-0">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-color-card-bg-secondary border-l-0">
                     {item.bronze ? <StarIcon color="#E09A6A" width={16} height={16} /> : '-'}
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px border border-solid border-[#37393D] border-l-0]">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px border border-solid border-color-card-bg-secondary border-l-0]">
                     {item.silver ? <StarIcon color="#E1E1E1" width={16} height={16} /> : '-'}
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-[#37393D] border-l-0">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-color-card-bg-secondary border-l-0">
                     {item.gold ? <StarIcon color="#FFC329" width={16} height={16} /> : '-'}
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-[#37393D] border-l-0">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-color-card-bg-secondary border-l-0">
                     {item.platinum ? <StarIcon color="#0DFDE4" width={16} height={16} /> : '-'}
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-[#37393D] border-l-0">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-color-card-bg-secondary border-l-0">
                     {item.platinum ? <StarIcon color="#0DFDE4" width={16} height={16} /> : '-'}
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-[#37393D] border-l-0">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-color-card-bg-secondary border-l-0">
                     <StarIcon color="#F61B4F" width={16} height={16} />
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-[#37393D] border-l-0">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-color-card-bg-secondary border-l-0">
                     <StarIcon color="#F61B4F" width={16} height={16} />
                   </div>
-                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-[#37393D] border-l-0 border-r-0">
+                  <div className="min-w-[120px] flex-1 flex items-center justify-center h-[50px] border border-solid border-color-card-bg-secondary border-l-0 border-r-0">
                     <StarIcon color="#F61B4F" width={16} height={16} />
                   </div>
                 </div>
@@ -260,11 +260,11 @@ function VipPage() {
           <div className="text-[18px] mb-[18px] font-semibold dark:text-white text-color-light-text-primary">
             {t('vipClub:frequentlyQuestions')}
           </div>
-          <div className="p-2 rounded-[5px] dark:bg-[#2D3035] bg-white flex flex-col gap-2">
+          <div className="p-2 rounded-[5px] dark:bg-color-card-bg-primary bg-white flex flex-col gap-2">
             {faqs.map((item, index) => (
               <Disclosure key={index}>
                 {({ open }) => (
-                  <div className="w-full dark:bg-[#25272C] bg-[#f5f6fa]">
+                  <div className="w-full dark:bg-color-card-bg-secondary bg-[#f5f6fa]">
                     <Disclosure.Button className="py-3 w-full flex h-[48px] justify-between">
                       <div className="font-semibold text-[14px] flex gap-2 items-center pl-[10px] dark:text-white text-color-light-text-primary">
                         {item.title}
@@ -282,7 +282,7 @@ function VipPage() {
                       leaveTo="transform scale-95 opacity-0"
                     >
                       <Disclosure.Panel className={'flex flex-col gap-[20px] w-full'}>
-                        <div className="dark:bg-[#17191B] bg-color-light-bg-primary dark:text-white text-black py-[13px] px-[10px] text-[14px]">
+                        <div className="dark:bg-color-card-bg-secondary bg-color-light-bg-primary dark:text-white text-black py-[13px] px-[10px] text-[14px]">
                           {item.contents.map((content, index) => content)}
                         </div>
                       </Disclosure.Panel>

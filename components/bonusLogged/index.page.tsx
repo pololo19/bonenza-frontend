@@ -56,18 +56,24 @@ function BonusLoggedPage() {
       levelForSpin: 8,
       dailySpinStartTime: new Date(),
       dailySpinEndTime: new Date(),
+      weeklyCashBack: {
+        lastBonus: 0,
+        currentWagerAmount: 0,
+        requiredWagerAmount: 0,
+        expireDate: 0,
+      },
+      monthlyCashBack: {
+        lastBonus: 0,
+        currentWagerAmount: 0,
+        requiredWagerAmount: 0,
+        expireDate: 0,
+      },
     },
     vip: {
       levelUp: {
         currentVipXP: 0,
         currentVipName: '',
         nextVipXP: 0,
-        bonus: 0,
-      },
-      weeklyCashBack: {
-        bonus: 0,
-      },
-      monthlyCashBack: {
         bonus: 0,
       },
     },
@@ -148,16 +154,19 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: currencyFormat1(1000, 2, '', false),
+        wagerValue: currencyFormat1(bonusData.general.weeklyCashBack.requiredWagerAmount, 2, '', false),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
-        lastWeekBonusValue: '-',
+        lastWeekBonusValue:
+          bonusData.general.weeklyCashBack.lastBonus === 0
+            ? '-'
+            : currencyFormat1(bonusData.general.weeklyCashBack.lastBonus, 2),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:weeklyCashBackTooltip1'), t('bonus:weeklyCashBackTooltip2')],
-        expiration: new Date().getTime(),
-        currentWager: currencyFormat1(0, 2),
+        expiration: bonusData.general.weeklyCashBack.expireDate,
+        currentWager: currencyFormat1(bonusData.general.weeklyCashBack.currentWagerAmount, 2),
       },
       {
         backgroundDark: '/img/bg-weekly-cashback2.png',
@@ -169,19 +178,22 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
-        wagerValue: currencyFormat1(10000, 2, '', false),
+        wagerValue: currencyFormat1(bonusData.general.monthlyCashBack.requiredWagerAmount, 2, '', false),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
-        lastWeekBonusValue: '-',
+        lastWeekBonusValue:
+          bonusData.general.monthlyCashBack.lastBonus === 0
+            ? '-'
+            : currencyFormat1(bonusData.general.monthlyCashBack.lastBonus, 2),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:monthlyCashBackTooltip1'), t('bonus:monthlyCashBackTooltip2')],
-        expiration: new Date().getTime(),
-        currentWager: currencyFormat1(0, 2),
+        expiration: bonusData.general.monthlyCashBack.expireDate,
+        currentWager: currencyFormat1(bonusData.general.monthlyCashBack.currentWagerAmount, 2),
       },
     ],
-    [i18n.language, viewInFiat, localFiat],
+    [i18n.language, bonusData, viewInFiat, localFiat],
   );
 
   const getBonusStatistics = async () => {
@@ -195,7 +207,7 @@ function BonusLoggedPage() {
         generalBonusUsd: Number(_res.data?.totalGeneralBonusUsd || 0),
       };
       setTotalData(tempTotalData);
-      const tempSpinLogs = _res.data?.generalBonus?.spin?.logs.map((item: any) => ({
+      const tempSpinLogs = _res.data?.generalBonus?.spin?.logs?.map((item: any) => ({
         type: item.type ?? '',
         time: item.time ?? '',
       }));
@@ -211,6 +223,18 @@ function BonusLoggedPage() {
           currentWagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.currentWagerAmountUsd || 0),
           dailyCompleteQuest: Number(_res.data?.generalBonus?.quest?.dailyCompleteCount || 0),
           weeklyCompleteQuest: Number(_res.data?.generalBonus?.quest?.weeklyCompleteCount || 0),
+          weeklyCashBack: {
+            lastBonus: Number(_res.data?.generalBonus?.cashback?.weekly?.lastBonusAmountUsd || 0),
+            expireDate: Number(_res.data?.generalBonus?.cashback?.weekly?.endTime || 0) * 1000,
+            currentWagerAmount: Number(_res.data?.generalBonus?.cashback?.weekly?.currentWagerAmountUsd || 0),
+            requiredWagerAmount: Number(_res.data?.generalBonus?.cashback?.weekly?.requiredWagerAmountUsd || 0),
+          },
+          monthlyCashBack: {
+            lastBonus: Number(_res.data?.generalBonus?.cashback?.monthly?.lastBonusAmountUsd || 0),
+            expireDate: Number(_res.data?.generalBonus?.cashback?.monthly?.endTime || 0) * 1000,
+            currentWagerAmount: Number(_res.data?.generalBonus?.cashback?.monthly?.currentWagerAmountUsd || 0),
+            requiredWagerAmount: Number(_res.data?.generalBonus?.cashback?.monthly?.requiredWagerAmountUsd || 0),
+          },
         },
         vip: {
           levelUp: {
@@ -219,12 +243,6 @@ function BonusLoggedPage() {
             nextVipXP: Number(_res.data?.vipBonus?.levelUpRewards?.nextVipXp || 0),
             bonus: Number(_res.data?.vipBonus?.levelUpRewards?.bonusAmountUsd || 0),
           },
-          weeklyCashBack: {
-            bonus: Number(_res.data?.vipBonus?.weeklyCashBack?.bonusUsd || 0),
-          },
-          monthlyCashBack: {
-            bonus: Number(_res.data?.vipBonus?.monthlyCashBack?.bonusUsd || 0),
-          },
         },
       };
       setBonusData(tempBonusData);
@@ -232,6 +250,7 @@ function BonusLoggedPage() {
       const tempUnlockedAmount = Number(claimRes.data?.unlockedAmount ?? 0);
       setLockedAmount(tempUnlockedAmount);
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -595,7 +614,7 @@ function BonusLoggedPage() {
                 showHour={item.showHour}
                 showDescription={item.showDescription}
                 tooltip={item.tooltip}
-                expiration={item.expiration + 5000}
+                expiration={item.expiration}
                 currentWager={item.currentWager}
               />
             ))}
