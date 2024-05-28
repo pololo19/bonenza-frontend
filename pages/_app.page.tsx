@@ -128,11 +128,11 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="theme-color" content="#01042C" />
               <meta name="apple-mobile-web-app-capable" content="yes" />
               <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-              {/* <script src="https://cdn.launcher.a8r.games/connector.js" defer></script> */}
+              <script src="https://cdn.launcher.a8r.games/connector.js" defer></script>
               {/* <script src="https://casino.int.a8r.games/public/sg.js"></script> */}
               <noscript>Your browser does not support JavaScript!</noscript>
             </Head>
-            <Script async src="/game.js"></Script>
+            {/* <Script async src="/game.js"></Script> */}
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
             <NextNProgress />
