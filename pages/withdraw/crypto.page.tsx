@@ -365,7 +365,7 @@ const WithdrawCryptoPage = () => {
                   {t('withdraw:withdrawalAddress')}
                 </div>
                 <InputText
-                  customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default"
+                  customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default rounded-default"
                   control={control}
                   disabled={restrictedDuration > 0}
                   placeholder={String(t('withdraw:withdrawalAddressPlaceholder'))}

@@ -27,6 +27,7 @@ import {
   changeIsShowBonusHistory,
   changeIsShowCasinoSearch,
   changeIsShowChatRule,
+  changeIsShowChatTip,
   changeIsShowCryptoOnlineModal,
   changeIsShowDailyContest,
   changeIsShowDepositModal,
@@ -111,6 +112,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalChatTip from '../modal/chatTip/chatTip';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -205,6 +207,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowDailyContest,
     isLoading,
     isShowAccountRestriction,
+    isShowChatTip,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -253,6 +256,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowSelfExclusion: state.modal.isShowSelfExclusion,
       isShowDailyContest: state.modal.isShowDailyContest,
       isShowAccountRestriction: state.modal.isShowAccountRestriction,
+      isShowChatTip: state.modal.isShowChatTip,
     }),
     shallowEqual,
   );
@@ -866,6 +870,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
       {/* Modal */}
       <ModalProfile show={isShowInformation || false} onClose={() => dispatch(changeIsShowInformation(false))} />
+      <ModalChatTip show={isShowChatTip || false} onClose={() => dispatch(changeIsShowChatTip(false))} />
 
       <ModalReferAndEarn show={isShowReferAndEarn || false} onClose={() => dispatch(changeIsShowReferAndEarn(false))} />
 

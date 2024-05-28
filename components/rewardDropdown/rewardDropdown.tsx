@@ -254,7 +254,7 @@ export default function RewardDropdown() {
                         ))}
                       </div>
                       <Link href={ROUTER.Bonus} onClick={close}>
-                        <div className="flex items-center text-color-primary text-[14px] text-center py-[10px] border-[1px] border-solid dark:border-color-border-primary rounded-large border-color-light-border-primary justify-center">
+                        <div className="flex justify-center items-center text-white text-[14px] text-center bg-gradient-btn-play py-[10px] rounded-[10px]">
                           {t('bonus:bonusDashboard')}
                           <ArrowRight2 size={16} />
                         </div>
