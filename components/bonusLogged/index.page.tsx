@@ -207,7 +207,7 @@ function BonusLoggedPage() {
         generalBonusUsd: Number(_res.data?.totalGeneralBonusUsd || 0),
       };
       setTotalData(tempTotalData);
-      const tempSpinLogs = _res.data?.generalBonus?.spin?.logs.map((item: any) => ({
+      const tempSpinLogs = _res.data?.generalBonus?.spin?.logs?.map((item: any) => ({
         type: item.type ?? '',
         time: item.time ?? '',
       }));
@@ -250,6 +250,7 @@ function BonusLoggedPage() {
       const tempUnlockedAmount = Number(claimRes.data?.unlockedAmount ?? 0);
       setLockedAmount(tempUnlockedAmount);
     } catch (error) {
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
