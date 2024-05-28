@@ -407,10 +407,10 @@ function GamePage() {
     if (gameDetail.identifier) {
       getGameReactInfo();
     }
-    if (localFiat && activeCurrency.id !== '' && gameDetail.id && successfullyLaunched) {
+    if (localFiat?.id && activeCurrency.id !== '' && gameDetail.id && successfullyLaunched) {
       handlePlayRequest();
     }
-  }, [localFiat, activeCurrency, gameDetail]);
+  }, [localFiat?.id, activeCurrency.id, gameDetail]);
 
   return (
     <>

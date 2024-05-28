@@ -82,6 +82,7 @@ import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
 import ModalChatRules from '../modal/chatRules/chatRules';
+import ModalChatTip from '../modal/chatTip/chatTip';
 import ModalCryptoOnline from '../modal/cryptoOnlineCasino/cryptoOnlineCasino';
 import ModalDailyContest from '../modal/dailyContest/dailyContest';
 import ModalDepositBonusRules from '../modal/depositBonusRules/depositBonusRules';
@@ -112,7 +113,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import ModalChatTip from '../modal/chatTip/chatTip';
 
 type BaseLayoutProps = {
   children: JSX.Element;
