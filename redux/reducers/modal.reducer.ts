@@ -63,6 +63,12 @@ export const initialCommonState: ModalState = {
   isShowSelfExclusion: false,
   isShowDailyContest: false,
   isShowAccountRestriction: false,
+  isShowChatTip: false,
+  tipReceiver: {
+    userId: '',
+    userName: '',
+    userAvatar: '',
+  },
 };
 
 export const queryDataSlice = createSlice({
@@ -180,6 +186,15 @@ export const queryDataSlice = createSlice({
     changeIsShowDailyContest: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowDailyContest = action.payload;
     },
+    changeIsShowDepositRule: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowDepositRule = action.payload;
+    },
+    changeIsShowAccountRestriction: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowAccountRestriction = action.payload;
+    },
+    changeIsShowChatTip: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowChatTip = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -190,6 +205,16 @@ export const queryDataSlice = createSlice({
       }>,
     ) => {
       state.detailBets = action.payload;
+    },
+    setTipReceiver: (
+      state: ModalState,
+      action: PayloadAction<{
+        userId: string;
+        userName: string;
+        userAvatar: string;
+      }>,
+    ) => {
+      state.tipReceiver = action.payload;
     },
     setInitialModals: (state: ModalState) => {
       state.isShowAccountPannel = false;
@@ -223,12 +248,7 @@ export const queryDataSlice = createSlice({
       state.isShowWagerContestHistory = false;
       state.isShowLogOutConfirm = false;
       state.isShowDepositProgress = false;
-    },
-    changeIsShowDepositRule: (state: ModalState, action: PayloadAction<boolean>) => {
-      state.isShowDepositRule = action.payload;
-    },
-    changeIsShowAccountRestriction: (state: ModalState, action: PayloadAction<boolean>) => {
-      state.isShowAccountRestriction = action.payload;
+      state.isShowChatTip = false;
     },
   },
 });
@@ -266,8 +286,6 @@ export const {
   changeIsShowSpin,
   changeIsShowDepositProgress,
   changeIsShowSpinClaim,
-  setDetailBets,
-  setInitialModals,
   changeIsShowQuest,
   changeIsShowChatRule,
   changeIsShowBonusDetail,
@@ -275,5 +293,9 @@ export const {
   changeIsShowSelfExclusion,
   changeIsShowDailyContest,
   changeIsShowAccountRestriction,
+  changeIsShowChatTip,
+  setDetailBets,
+  setInitialModals,
+  setTipReceiver,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

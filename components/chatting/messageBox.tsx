@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { API_AVATAR, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
-import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
+import { changeIsShowChatTip, changeIsShowInformation, setTipReceiver } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { formatDate } from '@/base/libs/utils';
@@ -142,7 +142,13 @@ export const MessageBox = ({
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
               </div>
               {id !== userId && (
-                <div className={cn('cursor-pointer pl-4 text-white', styles['tip'])}>
+                <div
+                  className={cn('cursor-pointer pl-4 text-white', styles['tip'])}
+                  // onClick={() => {
+                  //   dispatch(setTipReceiver({ userId, userName, userAvatar }));
+                  //   dispatch(changeIsShowChatTip(true));
+                  // }}
+                >
                   <Gift className="w-4 h-4 -mt-1" />
                 </div>
               )}
