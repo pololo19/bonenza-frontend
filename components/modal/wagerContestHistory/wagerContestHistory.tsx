@@ -244,7 +244,6 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
     <CommonModal
       show={show}
       onClose={() => {
-        if (width < 640) dispatch(changeIsShowDailyContest(true));
         onClose();
       }}
       panelClass="rounded"
