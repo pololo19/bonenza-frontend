@@ -65,13 +65,13 @@ function BonusLoggedPage() {
         lastBonus: 0,
         currentWagerAmount: 0,
         requiredWagerAmount: 0,
-        expireDate: 0,
+        expireDate: formatDate(getNextDay(), 'LL/dd/yyyy'),
       },
       monthlyCashBack: {
         lastBonus: 0,
         currentWagerAmount: 0,
         requiredWagerAmount: 0,
-        expireDate: 0,
+        expireDate: formatDate(getNextDay(), 'LL/dd/yyyy'),
       },
     },
     vip: {
