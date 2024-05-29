@@ -165,14 +165,14 @@ export const MessageBox = ({
               <div
                 className={cn(
                   'text-left text-[13px] h-fit max-w-[230px] break-all text-white rounded-[8px] px-2 py-2',
-                  { 'bg-color-input-primary': id !== userId, 'bg-[#385730]': id === userId },
+                  { 'bg-color-input-primary': id !== userId, 'bg-[#8873DD]': id === userId },
                 )}
               >
                 {replyId && (replyUserId === id || userId === id) && (
                   <div className="bg-black/20 rounded-[8px] pt-2 pb-1 px-2 mb-2">
-                    <div className="font-semibold text-left text-gray-400 text-[13px]">{replyUserName}</div>
+                    <div className="font-semibold text-left text-[#BBB] text-[13px]">{replyUserName}</div>
                     <div
-                      className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] break-all text-gray-500 rounded-[8px]"
+                      className="font-normal inline-block !text-left text-[13px] h-fit max-w-[230px] break-all text-white rounded-[8px]"
                       dangerouslySetInnerHTML={{ __html: replyText }}
                     />
                     <br />

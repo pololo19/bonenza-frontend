@@ -120,13 +120,13 @@ const API_GAME_REVIEW_REPORT = '/game/review/report';
 /************************************ Affiliate **********************************/
 
 const API_AFFILIATE = '/affiliate/affiliate';
-const API_AFFILIATE_FRIENDS = '/affiliate/friends';
-const API_AFFILIATE_COMMISSION_REWARDS = '/affiliate/commission/rewards';
-const API_AFFILIATE_COMMISSION_HISTORY = '/affiliate/commission/history';
-const API_AFFILIATE_COMMISSION_WITHDRAW = '/affiliate/commission/withdraw';
 
-const API_AFFILIATE_REFERRAL_REWARDS = '/affiliate/referral/rewards';
-const API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW = '/affiliate/referral/withdraw';
+const API_AFFILIATE_FRIENDS = '/affiliate/friends';
+const API_AFFILIATE_REWARDS = '/affiliate/rewards';
+const API_AFFILIATE_WITHDRAW = '/affiliate/withdraw';
+
+const API_AFFILIATE_COMMISSION_HISTORY = '/affiliate/commission/history';
+
 const API_AFFILIATE_REFERRAL_HISTORY = '/affiliate/referral/history';
 const API_AFFILIATE_REFERRAL_RULE = '/affiliate/referral/rule';
 
@@ -166,13 +166,11 @@ const API_CHAT_ADD = '/chat/add';
 export {
   API_ADMIN_LOGIN,
   API_AFFILIATE,
-  API_AFFILIATE_COMMISSION_HISTORY,
-  API_AFFILIATE_COMMISSION_REWARDS,
-  API_AFFILIATE_COMMISSION_WITHDRAW,
   API_AFFILIATE_FRIENDS,
+  API_AFFILIATE_REWARDS,
+  API_AFFILIATE_WITHDRAW,
+  API_AFFILIATE_COMMISSION_HISTORY,
   API_AFFILIATE_REFERRAL_HISTORY,
-  API_AFFILIATE_REFERRAL_REWARDS,
-  API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
   API_AFFILIATE_REFERRAL_RULE,
   API_AUTH_CHANGE_PASSWORD,
   API_AUTH_FE,
