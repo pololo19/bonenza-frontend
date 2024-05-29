@@ -37,6 +37,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
     currency: '',
     betId: '',
     time: new Date(),
+    providerName: '',
   });
   const [myBetData, setMyBetData] = useState<BetTableDataType[]>([]);
   const [isLoadingTable, setIsLoadingTable] = useState(false);
@@ -78,6 +79,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
         currency: item.currency ?? 'USD',
         betId: item.id ?? '',
         time: item.time ?? new Date(),
+        providerName: item.providerName ?? '',
       }));
       setMyBetData(tempBetDatas);
     } catch (error: any) {
@@ -256,6 +258,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           currency: data.currency ?? 'USD',
           betId: data.id ?? '',
           time: data.time ?? new Date(),
+          providerName: data.providerName ?? '',
         };
         setNewBetData(tempData);
         // setMyBetData((prev) => [tempData, ...prev]);

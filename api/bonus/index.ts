@@ -1,12 +1,10 @@
 import {
   API_AFFILIATE,
-  API_AFFILIATE_COMMISSION_HISTORY,
-  API_AFFILIATE_COMMISSION_REWARDS,
-  API_AFFILIATE_COMMISSION_WITHDRAW,
   API_AFFILIATE_FRIENDS,
+  API_AFFILIATE_REWARDS,
+  API_AFFILIATE_WITHDRAW,
+  API_AFFILIATE_COMMISSION_HISTORY,
   API_AFFILIATE_REFERRAL_HISTORY,
-  API_AFFILIATE_REFERRAL_REWARDS,
-  API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW,
   API_AFFILIATE_REFERRAL_RULE,
   API_BONUS_BONUS_STATISTIC,
   API_BONUS_CLAIM,
@@ -49,32 +47,28 @@ export const api_affiliateFriends = async (
   });
 };
 
-export const api_affiliateCommissionRewards = async () => {
-  return api.get(API_AFFILIATE_COMMISSION_REWARDS);
+export const api_affiliateRewards = async () => {
+  return api.get(API_AFFILIATE_REWARDS);
+};
+
+export const api_affiliateRewardsWithdraw = async () => {
+  return api.post(API_AFFILIATE_WITHDRAW);
 };
 
 export const api_affiliateCommissionRewardsHistory = async (page: number, pageSize: number) => {
   return api.get(API_AFFILIATE_COMMISSION_HISTORY, { params: { page, pageSize } });
 };
 
-export const api_affiliateCommissionRewardsWithdraw = async () => {
-  return api.post(API_AFFILIATE_COMMISSION_WITHDRAW);
-};
-
-export const api_affiliateReferralRewards = async (
+export const api_affiliateReferralRewardsHistory = async (
   page: number,
   pageSize: number,
   userName: string | undefined = undefined,
   registrationStartDate: number | undefined = undefined,
   registrationEndDate: number | undefined = undefined,
 ) => {
-  return api.get(API_AFFILIATE_REFERRAL_REWARDS, {
+  return api.get(API_AFFILIATE_REFERRAL_HISTORY, {
     params: { userName, registrationStartDate, registrationEndDate, page, pageSize },
   });
-};
-
-export const api_affiliateReferralRewardsWithdrw = async () => {
-  return api.post(API_AFFILIATE_REFERRAL_REWARDS_WITHDRAW);
 };
 
 export const api_bonusUsdtHistory = async (page: number, pageSize: number) => {

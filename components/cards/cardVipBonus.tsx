@@ -78,12 +78,12 @@ export default function CardVipBonus({
     getUserProfile(userId);
   }, [userId]);
   return (
-    <div className="relative rounded-default max-h-[230px] overflow-hidden dark:bg-[#1C1E22] bg-white">
+    <div className="relative rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden dark:bg-[#1C1E22] bg-white">
       <Image src={background} width={339} height={192} alt="" className="w-full sm:object-contain rounded-default" />
-      <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
+      <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
         <div>
           <div className="flex items-center gap-[10px]">
-            <div className="text-[16px] dark:text-white text-[#141414] font-bold">{name}</div>
+            <div className="text-default sm:text-[16px] dark:text-white text-[#141414] font-bold">{name}</div>
             {showHour && (
               <div className="bg-color-primary/15 text-[12px] font-bold text-color-primary px-[7px]">
                 {t('bonus:hourly')}
@@ -113,25 +113,31 @@ export default function CardVipBonus({
             </Tooltip>
           </div>
           {showDescription && (
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] mt-[5px]">
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px] mt-[5px]">
               {description}
             </div>
           )}
         </div>
         <div className="mt-[10px] flex justify-between">
           <div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
               {wagerRequired}
             </div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">{currentTier}</div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">{rechargeRate}</div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">{readyToClaim}</div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
+              {currentTier}
+            </div>
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
+              {rechargeRate}
+            </div>
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
+              {readyToClaim}
+            </div>
+            <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
               {lastWeeklyBonus}
             </div>
           </div>
           <div>
-            <div className="dark:text-white font-semibold text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white font-semibold text-color-light-text-primary text-m_default sm:text-[14px] text-right truncate">
               {vipLevel >= 22 && (
                 <>
                   <span className="font-semibold text-white">{currentWager}</span>
@@ -140,23 +146,23 @@ export default function CardVipBonus({
               )}{' '}
               {wagerValue}
             </div>
-            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right truncate">
               {tierValue}
             </div>
-            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right truncate">
               {rechargeRateValue}
             </div>
-            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right truncate">
               {readyToClaimValue}
             </div>
-            <div className="dark:text-white text-color-light-text-primary text-[14px] text-right truncate">
+            <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right truncate">
               {lastWeekBonusValue}
             </div>
           </div>
         </div>
         <div
           role="button"
-          className={cn('flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]', {
+          className={cn('flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px]', {
             'dark:bg-gray-700 bg-color-light-bg-primary': vipLevel < 22,
             'dark:bg-gradient-btn-play text-white': vipLevel >= 22,
           })}
@@ -164,11 +170,11 @@ export default function CardVipBonus({
           {vipLevel < 22 && (
             <>
               <Crown size={20} className="text-color-secondary" />
-              <div className="text-color-secondary text-[14px]">{t('bonus:availableAt')} VIP 22</div>
+              <div className="text-color-secondary text-m_default sm:text-[14px]">{t('bonus:availableAt')} VIP 22</div>
             </>
           )}
           {vipLevel >= 22 && (
-            <div className="flex justify-start items-center gap-1 text-default">
+            <div className="flex justify-start items-center gap-1 text-m_default sm:text-default">
               <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
               {t('promotion:endIn')}
               <CsrWrapper>

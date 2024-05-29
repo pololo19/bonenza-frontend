@@ -117,12 +117,12 @@ const GameDetailComponent = ({
         </div>
       </div>
       <div className="mt-[36px]">
-        <CasinoSS
+        {/* <CasinoSS
           title={String(t('gameDetail:relatedGames'))}
           data={listRelatedGame}
           renderItem={(item) => <GameCard gameDetail={item} />}
           viewAllUrl={ROUTER.PicksForYou}
-        />
+        /> */}
       </div>
 
       <div className="mt-[36px]">

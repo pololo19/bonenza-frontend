@@ -53,7 +53,7 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full max-h-[230px] overflow-hidden">
+        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
           <Image
             src={background}
             width={339}
@@ -61,9 +61,11 @@ export default function CardGeneralBonus({
             alt=""
             className="w-full sm:object-contain rounded-default"
           />
-          <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
+          <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
             <div className="flex items-center gap-[10px] p-0">
-              <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">{name}</div>
+              <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                {name}
+              </div>
               <Image
                 src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
                 width={16}
@@ -93,21 +95,27 @@ export default function CardGeneralBonus({
             </div>
             <div>
               <div className="flex justify-between w-full">
-                <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                   {description}
                 </div>
-                <div className="dark:text-white text-color-light-text-primary text-[14px]">{descriptionValue}</div>
+                <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px]">
+                  {descriptionValue}
+                </div>
               </div>
               <div className="mt-[10px] flex justify-between w-full">
                 <div>
-                  <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">{title}</div>
-                  <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">{total}</div>
+                  <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
+                    {title}
+                  </div>
+                  <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
+                    {total}
+                  </div>
                 </div>
                 <div>
-                  <div className="dark:text-white text-color-light-text-primary text-[14px] text-right font-semibold">
+                  <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right font-semibold">
                     {titleValue}
                   </div>
-                  <div className="dark:text-white text-color-light-text-primary text-[14px] text-right font-semibold">
+                  <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right font-semibold">
                     {totalValue}
                   </div>
                 </div>
@@ -116,7 +124,7 @@ export default function CardGeneralBonus({
             {nameButton == t('bonus:unlockRakeBack') && (
               <div
                 role="button"
-                className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px] text-default"
+                className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
                 onClick={onClick}
               >
                 {nameButton}
@@ -125,7 +133,7 @@ export default function CardGeneralBonus({
             {(nameButton == t('bonus:questButton') || nameButton == t('bonus:spinButton')) && (
               <div
                 role="button"
-                className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px] text-default"
+                className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
                 onClick={onClick}
               >
                 {nameButton}
@@ -145,7 +153,7 @@ export default function CardGeneralBonus({
         </div>
       )}
       {showDeposit && (
-        <div className="rounded-default h-full flex flex-col justify-between max-h-[230px] overflow-hidden">
+        <div className="rounded-default h-full flex flex-col justify-between max-h-[180px] sm:max-h-[230px] overflow-hidden">
           <Image
             src="/img/bg-levelup.png"
             width={339}
@@ -153,10 +161,12 @@ export default function CardGeneralBonus({
             alt=""
             className="w-full sm:object-contain rounded-default"
           />
-          <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
+          <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-[10px]">
-                <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">{name}</div>
+                <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                  {name}
+                </div>
                 <Image
                   src={'/img/icon/icon-question.png'}
                   width={16}
@@ -185,7 +195,7 @@ export default function CardGeneralBonus({
               </div>
               <div className="flex items-center gap-[7px]">
                 <div
-                  className="text-color-primary text-[14px] hover:underline cursor-pointer"
+                  className="text-color-primary text-m_default sm:text-[14px] hover:underline cursor-pointer"
                   onClick={() => dispatch(changeIsShowDepositRule(true))}
                 >
                   {t('bonus:viewDetails')}
@@ -193,11 +203,11 @@ export default function CardGeneralBonus({
                 <ArrowRight size={10} className="text-color-primary" />
               </div>
             </div>
-            <div className="mt-[14px] flex flex-col text-[14px]">
+            <div className="flex flex-col text-m_default sm:text-[14px]">
               <div className="flex justify-between text-color-primary">
                 <div className="text-color-text-primary">1st Bonus</div>
                 {currentDepositTime < 1 ? (
-                  <div className="text-white py-[2px] font-semibold text-[13px]">180%</div>
+                  <div className="text-white py-[2px] font-semibold text-m_default sm:text-default">180%</div>
                 ) : (
                   <ArchiveTick className="w-5 h-5" />
                 )}
@@ -205,7 +215,7 @@ export default function CardGeneralBonus({
               <div className="flex justify-between text-color-primary">
                 <div className="text-color-text-primary">2nd Bonus</div>
                 {currentDepositTime < 2 ? (
-                  <div className="text-white py-[2px] font-semibold text-[13px]">240%</div>
+                  <div className="text-white py-[2px] font-semibold text-m_default sm:text-default">240%</div>
                 ) : (
                   <ArchiveTick className="w-5 h-5" />
                 )}
@@ -213,7 +223,7 @@ export default function CardGeneralBonus({
               <div className="flex justify-between text-color-primary">
                 <div className="text-color-text-primary">3rd Bonus</div>
                 {currentDepositTime < 3 ? (
-                  <div className="text-white py-[2px] font-semibold text-[13px]">300%</div>
+                  <div className="text-white py-[2px] font-semibold text-m_default sm:text-default">300%</div>
                 ) : (
                   <ArchiveTick className="w-5 h-5" />
                 )}
@@ -221,7 +231,7 @@ export default function CardGeneralBonus({
               <div className="flex justify-between text-color-primary">
                 <div className="text-color-text-primary">4th Bonus</div>
                 {currentDepositTime < 4 ? (
-                  <div className="text-white py-[2px] font-semibold text-[13px]">360%</div>
+                  <div className="text-white py-[2px] font-semibold text-m_default sm:text-default">360%</div>
                 ) : (
                   <ArchiveTick className="w-5 h-5" />
                 )}
@@ -230,7 +240,7 @@ export default function CardGeneralBonus({
             <div
               role="button"
               onClick={() => dispatch(changeIsShowDepositModal(true))}
-              className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px] text-default"
+              className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
             >
               {currentDepositTime == 0 && t('bonus:firstDesposit')}
               {currentDepositTime == 1 && t('promotion:secondDeposit')}

@@ -42,6 +42,7 @@ const HighRollerTableComponent = () => {
     currency: '',
     betId: '',
     time: new Date(),
+    providerName: '',
   });
   const [isPublicProfile, setIsPublicProfile] = useState<boolean>(false);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
@@ -88,6 +89,7 @@ const HighRollerTableComponent = () => {
         currency: item.currency ?? 'USD',
         betId: item.id ?? '',
         time: item.time ?? new Date(),
+        providerName: item.providerName || '',
       }));
       setHightRollerData(tempHighRollers);
     } catch (error: any) {

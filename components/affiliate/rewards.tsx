@@ -15,11 +15,10 @@ import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
 import {
-  api_affiliateCommissionRewards,
+  api_affiliateRewards,
+  api_affiliateRewardsWithdraw,
   api_affiliateCommissionRewardsHistory,
-  api_affiliateCommissionRewardsWithdraw,
-  api_affiliateReferralRewards,
-  api_affiliateReferralRewardsWithdrw,
+  api_affiliateReferralRewardsHistory,
 } from '@/api/bonus';
 import { api_getClaims } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
@@ -72,6 +71,12 @@ function RewardsComponent() {
   const { t, i18n } = useTranslation('');
   const dispatch = useAppDispatch();
 
+  const schema = yup.object().shape({});
+
+  const { handleSubmit, control } = useForm<FilterType>({
+    resolver: yupResolver(schema),
+  });
+
   const { referralCode, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       referralCode: state.auth.user.referralCode,
@@ -92,10 +97,11 @@ function RewardsComponent() {
   const [commissionTotalRows, setCommissionTotalRows] = useState(0);
 
   const [commsionRewardsData, setCommissionRewardsData] = useState<CommissionRewardType[]>([]);
-  const [commissionRewardsStatus, setCommissionRewardsStatus] = useState({
-    totalAmountUsd: 0,
-    receivedAmountUsd: 0,
-    availableAmountUsd: 0,
+  const [affiliateRewards, setAffiliateRewards] = useState({
+    receivedCommissionAmountUsd: 0,
+    availableCommissionAmountUsd: 0,
+    receivedReferralAmountUsd: 0,
+    availableReferralAmountUsd: 0,
   });
 
   const [referralPage, setReferralPage] = useState(1);
@@ -103,10 +109,52 @@ function RewardsComponent() {
   const [referralTotalRows, setReferralTotalRows] = useState<number>(0);
   const [referralRewardsData, setReferralRewardsData] = useState<ReferralRewardType[]>([]);
 
-  const [referralRewardsStatus, setReferralRewardsStatus] = useState({
-    receivedAmount: 0,
-    availableAmount: 0,
-  });
+  const getRewards = async () => {
+    try {
+      setIsLoading(true);
+      const _resAffiliateTotal = await api_affiliateRewards();
+      setAffiliateRewards({
+        receivedCommissionAmountUsd: Number(_resAffiliateTotal.data?.totalCommissionRewardsReceivedAmountUsd || 0),
+        availableCommissionAmountUsd: Number(_resAffiliateTotal.data?.commissionRewardsAvailableAmountUsd || 0),
+        receivedReferralAmountUsd: Number(_resAffiliateTotal.data?.totalReferralRewardsReceivedAmountUsd || 0),
+        availableReferralAmountUsd: Number(_resAffiliateTotal.data?.referralRewardsAvailableAmountUsd || 0),
+      });
+    } catch (error) {
+      setAffiliateRewards({
+        receivedCommissionAmountUsd: 0,
+        availableCommissionAmountUsd: 0,
+        receivedReferralAmountUsd: 0,
+        availableReferralAmountUsd: 0,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleWithdraw = async () => {
+    if (isClaiming) return;
+    try {
+      setIsClaiming(true);
+      const _res = await api_affiliateRewardsWithdraw();
+
+      const _resBonus = await api_getClaims();
+
+      const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+      await getCommissionData();
+
+      dispatch(setLockedAmount(tempLockedAmount));
+      toast.success(t('withdraw:withdrawComplete'), {
+        toastId: 'reward-withdraw-notify-success',
+        containerId: TOAST_ENUM.COMMON,
+      });
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { toastId: 'reward-withdraw-notify-error', containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setIsClaiming(false);
+    }
+  };
 
   const handleCommissionChangePage = (action: string) => {
     let newPage: number;
@@ -119,38 +167,11 @@ function RewardsComponent() {
     setCommissionPage(1);
   };
 
-  const handleCommissionWithdraw = async () => {
-    if (isClaiming) return;
-    try {
-      setIsClaiming(true);
-      const _res = await api_affiliateCommissionRewardsWithdraw();
-
-      const _resBonus = await api_getClaims();
-
-      const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
-      await getCommissionData();
-
-      dispatch(setLockedAmount(tempLockedAmount));
-      toast.success(t('withdraw:withdrawComplete'), {
-        toastId: 'reward-commision-notify-success',
-        containerId: TOAST_ENUM.COMMON,
-      });
-    } catch (error: any) {
-      const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { toastId: 'reward-commision-notify-error', containerId: TOAST_ENUM.COMMON });
-    } finally {
-      setIsClaiming(false);
-    }
-  };
   const getCommissionData = useCallback(async () => {
     try {
       setIsLoading(true);
-      const [_resAffiliateTotal, _resAffiliateHistory] = await Promise.all([
-        api_affiliateCommissionRewards(),
-        api_affiliateCommissionRewardsHistory(commissionPage, commissionLimit),
-      ]);
-      const tempCommissionData = _resAffiliateHistory.data?.rewards?.map((reward: any) => ({
+      const _resCommission = await api_affiliateCommissionRewardsHistory(commissionPage, commissionLimit);
+      const tempCommissionData = _resCommission.data?.rewards?.map((reward: any) => ({
         totalCommissionRewards: Number(reward.totalCommissionRewards || 0),
         commissionRewardsAvailable: Number(reward.amount || 0),
         currencyLogo: reward.currencyLogo,
@@ -158,13 +179,8 @@ function RewardsComponent() {
         time: reward.time,
         status: reward.status,
       }));
-      setCommissionRewardsStatus({
-        totalAmountUsd: Number(_resAffiliateTotal.data?.totalCommissionRewardsAmountUsd || 0),
-        receivedAmountUsd: Number(_resAffiliateTotal.data?.totalCommissionRewardsReceivedAmountUsd || 0),
-        availableAmountUsd: Number(_resAffiliateTotal.data?.commissionRewardsAvailableAmountUsd || 0),
-      });
 
-      setCommissionTotalRows(Number(_resAffiliateHistory.data?.totalCount || 0));
+      setCommissionTotalRows(Number(_resCommission.data?.totalCount || 0));
       setCommissionRewardsData(tempCommissionData);
     } catch (error) {
       setCommissionRewardsData([]);
@@ -172,12 +188,6 @@ function RewardsComponent() {
       setIsLoading(false);
     }
   }, [commissionPage, commissionLimit]);
-
-  const schema = yup.object().shape({});
-
-  const { handleSubmit, control } = useForm<FilterType>({
-    resolver: yupResolver(schema),
-  });
 
   const handleReferralChangePage = (action: string) => {
     let newPage: number;
@@ -191,10 +201,6 @@ function RewardsComponent() {
     setReferralPage(1);
   };
 
-  const onSubmit = async (data: FilterType) => {
-    await getReferralData(data);
-  };
-
   const getReferralData = useCallback(
     async (filter?: FilterType) => {
       try {
@@ -203,7 +209,7 @@ function RewardsComponent() {
           filter?.registrationStartDate?.length > 0 ? new Date(filter?.registrationStartDate).getTime() : undefined;
         const registrationEndDate =
           filter?.registrationEndDate?.length > 0 ? new Date(filter?.registrationEndDate).getTime() : undefined;
-        const _res = await api_affiliateReferralRewards(
+        const _res = await api_affiliateReferralRewardsHistory(
           referralPage,
           referralLimit,
           filter?.username,
@@ -219,10 +225,6 @@ function RewardsComponent() {
             userName: item.userName,
           })) || [];
         setReferralTotalRows(Number(_res.data?.totalCount || 0));
-        setReferralRewardsStatus({
-          receivedAmount: Number(_res.data?.totalReferralRewardsReceivedAmountUsd || 0),
-          availableAmount: Number(_res.data?.referralRewardsAvailableAmountUsd || 0),
-        });
         setReferralRewardsData(tempTableData);
       } catch (error) {
         setReferralRewardsData([]);
@@ -233,25 +235,12 @@ function RewardsComponent() {
     [referralPage, referralLimit],
   );
 
-  const handleReferralWithdraw = async () => {
-    try {
-      const _res = await api_affiliateReferralRewardsWithdrw();
-      toast.success(t('withdraw:withdrawComplete'), {
-        toastId: 'reward-referral-notify-error',
-        containerId: TOAST_ENUM.COMMON,
-      });
-    } catch (error: any) {
-      const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { toastId: 'reward-referral-notify-error', containerId: TOAST_ENUM.COMMON });
-    }
+  const onSubmit = async (data: FilterType) => {
+    await getReferralData(data);
   };
 
-  const handleWithdraw = () => {
-    if (rewardsTab === 'commission') handleCommissionWithdraw();
-    if (rewardsTab === 'reward') handleReferralWithdraw();
-  };
   useEffect(() => {
+    getRewards();
     if (rewardsTab === 'commission') getCommissionData();
     if (rewardsTab === 'reward') getReferralData();
   }, [rewardsTab, commissionPage, commissionLimit, referralPage, referralLimit]);
@@ -378,13 +367,13 @@ function RewardsComponent() {
               {viewInFiat ? (
                 <>
                   {currencyFormat1(
-                    commissionRewardsStatus.availableAmountUsd * exchangeRate,
+                    affiliateRewards.availableCommissionAmountUsd * exchangeRate,
                     fiatDecimals,
                     localFiat?.name || 'USD',
                   )}
                 </>
               ) : (
-                <>{currencyFormat1(commissionRewardsStatus.availableAmountUsd, fiatDecimals)}</>
+                <>{currencyFormat1(affiliateRewards.availableCommissionAmountUsd, fiatDecimals)}</>
               )}
             </div>
             <div className="flex justify-center text-m_default">
@@ -393,13 +382,13 @@ function RewardsComponent() {
                 {viewInFiat ? (
                   <>
                     {currencyFormat1(
-                      commissionRewardsStatus.receivedAmountUsd * exchangeRate,
+                      affiliateRewards.receivedCommissionAmountUsd * exchangeRate,
                       fiatDecimals,
                       localFiat?.name || 'USD',
                     )}
                   </>
                 ) : (
-                  <>{currencyFormat1(commissionRewardsStatus.receivedAmountUsd, fiatDecimals)}</>
+                  <>{currencyFormat1(affiliateRewards.receivedCommissionAmountUsd, fiatDecimals)}</>
                 )}
               </span>
             </div>
@@ -412,13 +401,13 @@ function RewardsComponent() {
               {viewInFiat ? (
                 <>
                   {currencyFormat1(
-                    referralRewardsStatus.availableAmount * exchangeRate,
+                    affiliateRewards.availableReferralAmountUsd * exchangeRate,
                     fiatDecimals,
                     localFiat?.name || 'USD',
                   )}
                 </>
               ) : (
-                <>{currencyFormat1(referralRewardsStatus.availableAmount, fiatDecimals)}</>
+                <>{currencyFormat1(affiliateRewards.availableReferralAmountUsd, fiatDecimals)}</>
               )}
             </div>
             <div className="flex justify-center text-m_default">
@@ -427,13 +416,13 @@ function RewardsComponent() {
                 {viewInFiat ? (
                   <>
                     {currencyFormat1(
-                      referralRewardsStatus.receivedAmount * exchangeRate,
+                      affiliateRewards.receivedReferralAmountUsd * exchangeRate,
                       fiatDecimals,
                       localFiat?.name || 'USD',
                     )}
                   </>
                 ) : (
-                  <>{currencyFormat1(referralRewardsStatus.receivedAmount, fiatDecimals)}</>
+                  <>{currencyFormat1(affiliateRewards.receivedReferralAmountUsd, fiatDecimals)}</>
                 )}
               </span>
             </div>

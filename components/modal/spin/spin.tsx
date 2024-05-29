@@ -105,6 +105,9 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
 
       const profileResponse = await api_getProfile(user.userId || '');
       const vipLevel = Number(profileResponse.data?.currentVipLevel || 0);
+      if (vipLevel >= 70) setSpinTab('mega');
+      else if (vipLevel >= 22) setSpinTab('super');
+      else setSpinTab('lucky');
       setCurrentViplevel(vipLevel);
 
       checkSpinAvailable(vipLevel, spinTab, tempAvailableCount);
