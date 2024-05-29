@@ -411,8 +411,8 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-[24px]">
-            <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full max-h-[230px] overflow-hidden">
+          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-[24px]">
+            <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
               <Image
                 src="/img/bg-levelup.png"
                 width={339}
@@ -420,42 +420,42 @@ function BonusLoggedPage() {
                 alt=""
                 className="w-full sm:object-contain rounded-default"
               />
-              <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
+              <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-[10px]">
-                    <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                    <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
                       {t('bonus:levelUpRewards')}
                     </div>
                   </div>
-                  <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] mt-[5px]">
+                  <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px] mt-[5px]">
                     {t('bonus:levelUpRewardsDescription')}
                   </div>
                 </div>
                 <div>
                   <div className="flex justify-between">
                     <div>
-                      <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                      <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                         {t('bonus:currentVIP')}
                       </div>
-                      <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                      <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                         {t('bonus:xPNextLevel')}
                       </div>
-                      <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                      <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                         {t('bonus:readyToClaim')}
                       </div>
                     </div>
                     <div className="flex flex-col items-end">
-                      <div className="dark:text-[#fff] text-color-light-text-primary font-semibold text-[14px] text-right">
+                      <div className="dark:text-[#fff] text-color-light-text-primary font-semibold text-m_default sm:text-[14px] text-right">
                         {bonusData.vip.levelUp.currentVipName}
                       </div>
-                      <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px] text-right flex">
+                      <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px] text-right flex">
                         <span className="font-semibold dark:text-color-text-green">
                           {bonusData.vip.levelUp.currentVipXP}
                         </span>
-                        <span>/</span>
+                        <span>{` / `}</span>
                         <span className="font-semibold text-white">{bonusData.vip.levelUp.nextVipXP}</span>
                       </div>
-                      <div className="dark:text-white text-color-light-text-primary text-[14px] text-right font-semibold">
+                      <div className="dark:text-white text-color-light-text-primary  text-m_default sm:text-[14px] text-right font-semibold">
                         {bonusData.vip.levelUp.bonus === 0
                           ? '-'
                           : viewInFiat
@@ -468,9 +468,9 @@ function BonusLoggedPage() {
                 <div
                   role="button"
                   onClick={() => dispatch(changeIsShowVipClubModal(true))}
-                  className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px]"
+                  className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px]"
                 >
-                  <div className="text-white font-medium text-[14px]">{t('bonus:viewVIPClub')}</div>
+                  <div className="text-white font-medium text-m_default sm:text-[14px]">{t('bonus:viewVIPClub')}</div>
                 </div>
               </div>
             </div>
@@ -491,7 +491,7 @@ function BonusLoggedPage() {
                 onClick={item.action}
               />
             ))}
-            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full max-h-[230px] overflow-hidden">
+            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
               <Image
                 src="/img/bg-lucky-spin.png"
                 width={339}
@@ -499,10 +499,10 @@ function BonusLoggedPage() {
                 alt=""
                 className="w-full sm:object-contain rounded-default"
               />
-              <div className="absolute top-5 bottom-5 left-[18px] right-[18px] flex flex-col justify-between">
+              <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
                 <div className="flex justify-between p-0">
                   <div className="flex items-center gap-2">
-                    <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                    <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
                       {t('bonus:spin')}
                     </div>
                     <Image
@@ -529,7 +529,7 @@ function BonusLoggedPage() {
                     </Tooltip>
                   </div>
                   <div
-                    className="flex items-center gap-2 text-center text-default text-white leading-4 cursor-pointer"
+                    className="flex items-center gap-2 text-center text-m_default sm:text-default text-white leading-4 cursor-pointer"
                     onClick={() => setIsShowSpinLog(!isShowSpinLog)}
                   >
                     <Shuffle className="w-4 h-4" stroke="3" />
@@ -549,18 +549,18 @@ function BonusLoggedPage() {
                   <>
                     <div className="flex flex-col gap-1">
                       <div className="flex justify-between w-full">
-                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                        <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                           {t('bonus:spinDescription')}
                         </div>
-                        <div className="dark:text-white text-color-light-text-primary text-[14px] font-semibold">
+                        <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] font-semibold">
                           {bonusData.general.availableSpin}
                         </div>
                       </div>
                       <div className="flex justify-between items-center w-full">
-                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                        <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                           {t('bonus:spinTitle')}
                         </div>
-                        <div className="dark:text-white text-color-light-text-primary text-[14px] font-semibold">
+                        <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] font-semibold">
                           <div className="text-[10px] text-left">{t('bonus:wagerRequired')}</div>
                           <span className="text-white font-semibold">
                             {`${currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2, 'USD', true)}`}
@@ -569,20 +569,20 @@ function BonusLoggedPage() {
                         </div>
                       </div>
                       <div className="flex justify-between w-full">
-                        <div className="dark:text-color-text-primary text-color-light-text-primary text-[14px]">
+                        <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                           {t('bonus:spinTotal')}
                         </div>
-                        <div className="dark:text-white text-color-light-text-primary text-[14px] text-right font-semibold">
+                        <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right font-semibold">
                           {`${t('bonus:spinTotalDescription')} VIP ${bonusData.general.levelForSpin}`}
                         </div>
                       </div>
                     </div>
                     <div
                       role="button"
-                      className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[38px] text-default"
+                      className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-default"
                       onClick={() => dispatch(changeIsShowSpin(true))}
                     >
-                      <div className="flex justify-start gap-1 items-center">
+                      <div className="flex justify-start gap-1 items-center text-m_default sm:text-default">
                         <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
                         {t('promotion:endIn')}
                         <CsrWrapper>
@@ -592,7 +592,7 @@ function BonusLoggedPage() {
                               date={new Date(bonusData.general.dailySpinEndTime)}
                               renderer={({ days, hours, minutes, seconds }) => {
                                 return (
-                                  <div className="text-center text-default">
+                                  <div className="text-center text-m_default sm:text-default">
                                     {formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
                                   </div>
                                 );

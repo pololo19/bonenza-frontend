@@ -330,6 +330,7 @@ export type BetTableDataType = {
   currency: string;
   betId: string;
   time: Date;
+  providerName: string;
 };
 
 export type BetDetail = {
@@ -459,6 +460,7 @@ export type BetDetailType = {
   userId: string;
   userName: string;
   userAvatar: string;
+  providerName: string;
 };
 
 export type TransactionBonusType = {
