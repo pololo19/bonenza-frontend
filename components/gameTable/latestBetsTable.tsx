@@ -69,6 +69,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         currency: item.currency ?? 'USDT',
         betId: item.id ?? '',
         time: item.time ?? new Date(),
+        providerName: item.providerName || '',
       }));
       dispatch(setBetHistory(tempBetData));
     } catch (error: any) {

@@ -225,7 +225,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                   <div>
                     <div className="text-[12px] dark:text-white text-black">{detailsBet.betDetail.game}</div>
                     <div className="text-[12px] dark:text-color-text-primary text-[#31373d] mt-[7px]">
-                      {detailsBet.betDetail.gameIdenfiter.split(':')[0]}
+                      {detailsBet.betDetail.providerName}
                     </div>
                   </div>
                 </div>

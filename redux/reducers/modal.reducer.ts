@@ -56,6 +56,7 @@ export const initialCommonState: ModalState = {
       currency: '',
       betId: '',
       time: new Date('20/04/2024'),
+      providerName: '',
     },
   },
   isShowQuest: false,

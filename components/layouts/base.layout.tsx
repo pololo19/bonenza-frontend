@@ -142,6 +142,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     currency: '',
     betId: '',
     time: new Date(),
+    providerName: '',
   });
   const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
   const baseBodyRef = useRef<HTMLDivElement>(null);
@@ -516,6 +517,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           currency: data.currency ?? 'USDT',
           betId: data.id ?? '',
           time: data.time ?? new Date(),
+          providerName: data.providerName ?? '',
         };
         setNewBetData(tempData);
       });

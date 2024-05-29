@@ -177,6 +177,7 @@ function RecentBigWinComponent() {
         userId: item?.userId ?? '',
         userName: item?.userName ?? '',
         userAvatar: item?.userAvatar ?? '',
+        providerName: item?.providerName ?? '',
       }));
       setListBigWinGame(tempBetLists);
     } catch (error) {
@@ -228,6 +229,7 @@ function RecentBigWinComponent() {
                 currency: game.currency,
                 betId: game.id,
                 time: new Date(),
+                providerName: game.providerName,
               },
               isPublicProfile: !!game?.userName,
             }),
