@@ -29,6 +29,11 @@ import { Clock, Shuffle } from 'iconsax-react';
 import CsrWrapper from '@/base/components/CsrWrapper';
 import Countdown from 'react-countdown';
 
+const getNextDay = () => {
+  let currentDate = new Date();
+  return currentDate.setDate(currentDate.getDate() + 1);
+};
+
 function BonusLoggedPage() {
   const exchangeRate = useExchange();
   const { t, i18n } = useTranslation('');
@@ -45,7 +50,7 @@ function BonusLoggedPage() {
     generalBonusUsd: 0,
   });
   const [spinLogs, setSpinLogs] = useState<Array<{ type: string; time: string }>>([]);
-  const [bonusData, setBonusData] = useState({
+  const [bonusData, setBonusData] = useState<any>({
     general: {
       depositTime: 0,
       dailyCompleteQuest: 0,
@@ -54,8 +59,8 @@ function BonusLoggedPage() {
       wagerAmountForDailySpin: 1600,
       currentWagerAmountForDailySpin: 0,
       levelForSpin: 8,
-      dailySpinStartTime: new Date(),
-      dailySpinEndTime: new Date(),
+      dailySpinStartTime: formatDate(formatDate(new Date(), 'LL/dd/yyyy')),
+      dailySpinEndTime: formatDate(getNextDay(), 'LL/dd/yyyy'),
       weeklyCashBack: {
         lastBonus: 0,
         currentWagerAmount: 0,
@@ -199,6 +204,7 @@ function BonusLoggedPage() {
   const getBonusStatistics = async () => {
     try {
       const _res = await api_bonusStatistics();
+      console.log(_res.data);
 
       const tempTotalData = {
         bonusClaimedUsd: Number(_res.data?.totalBonusClaimedUsd || 0),
@@ -218,8 +224,8 @@ function BonusLoggedPage() {
           availableSpin: Number(_res.data?.generalBonus?.spin?.availableCount || 0),
           levelForSpin: Number(_res.data?.generalBonus?.spin?.reachVipLevel || 0),
           wagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.requiredWagerAmountUsd || 0),
-          dailySpinStartTime: new Date(Number(_res.data?.generalBonus?.spin?.startTime || 0) * 1000),
-          dailySpinEndTime: new Date(Number(_res.data?.generalBonus?.spin?.endTime || 0) * 1000),
+          dailySpinStartTime: Number(_res.data?.generalBonus?.spin?.startTime || 0) * 1000,
+          dailySpinEndTime: Number(_res.data?.generalBonus?.spin?.endTime || 0) * 1000,
           currentWagerAmountForDailySpin: Number(_res.data?.generalBonus?.spin?.currentWagerAmountUsd || 0),
           dailyCompleteQuest: Number(_res.data?.generalBonus?.quest?.dailyCompleteCount || 0),
           weeklyCompleteQuest: Number(_res.data?.generalBonus?.quest?.weeklyCompleteCount || 0),
@@ -580,14 +586,19 @@ function BonusLoggedPage() {
                         <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
                         {t('promotion:endIn')}
                         <CsrWrapper>
-                          <Countdown
-                            date={new Date(bonusData.general.dailySpinEndTime)}
-                            renderer={({ days, hours, minutes, seconds }) => (
-                              <div className="text-center text-default">
-                                {formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
-                              </div>
-                            )}
-                          />
+                          {bonusData.general.dailySpinEndTime && (
+                            <Countdown
+                              key={'lucky-spin'}
+                              date={new Date(bonusData.general.dailySpinEndTime)}
+                              renderer={({ days, hours, minutes, seconds }) => {
+                                return (
+                                  <div className="text-center text-default">
+                                    {formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
+                                  </div>
+                                );
+                              }}
+                            />
+                          )}
                         </CsrWrapper>
                       </div>
                     </div>
