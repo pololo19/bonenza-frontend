@@ -168,7 +168,7 @@ export const MessageBox = ({
                   { 'bg-color-input-primary': id !== userId, 'bg-[#8873DD]': id === userId },
                 )}
               >
-                {replyId && (replyUserId === id || userId === id) && (
+                {replyId && (
                   <div className="bg-black/20 rounded-[8px] pt-2 pb-1 px-2 mb-2">
                     <div className="font-semibold text-left text-[#BBB] text-[13px]">{replyUserName}</div>
                     <div
