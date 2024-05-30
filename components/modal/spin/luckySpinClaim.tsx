@@ -45,7 +45,7 @@ export default function ModalSpinClaim({
     if (claimable) {
       try {
         setIsClaiming(true);
-        await api_bonusClaim(bonusId, spinType + '_spin');
+        await api_bonusClaim(bonusId, 'lucky_spin');
 
         const _resBonus = await api_getClaims();
         const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
