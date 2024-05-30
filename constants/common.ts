@@ -46,6 +46,7 @@ export const ROUTER = {
   Home: '/',
   REFERRAL_CODE: (code: string) => `https://bonenza.com/?referral=${code}`,
   Dashboard: '/dashboard',
+  Master: '/tournament',
   Sports: '/sports',
   Slots: '/tagname/?key=slots',
   Racing: '/racing',
@@ -1037,7 +1038,7 @@ export const socketWalletConfig = {
   reconnectionDelay: 10000,
   retries: 10,
   reconnectionAttempts: 50,
-  withCredentials: true
+  withCredentials: true,
   // reconnection: false,
 };
 
