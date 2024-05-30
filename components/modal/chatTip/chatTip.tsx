@@ -237,7 +237,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                     </div>
                   </div>
                 </div>
-                {isShowMessage && (
+                {!isShowMessage && (
                   <div className="mt-5 flex flex-col gap-2">
                     <div className="text-default dark:text-color-text-primary text-color-light-text-primary text-left">
                       {t('tip:tipMessage')}
