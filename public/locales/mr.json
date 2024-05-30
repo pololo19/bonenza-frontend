@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "रद्द करा",
     "continue": "सुरू"
+  },
+  "tip": {
+    "tipCurrency": "टीप चलन",
+    "tipAmount": "टीप रक्कम",
+    "tipMessage": "संदेश (पर्यायी)",
+    "tipMessageDescription": "खाजगी टीप (टिप माहिती सार्वजनिक चॅट रूममध्ये दर्शविली जाणार नाही)",
+    "tipConfirm": "टीप पाठवा"
   }
 }

@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "বাতিল করুন",
     "continue": "চালিয়ে যান"
+  },
+  "tip": {
+    "tipCurrency": "টিপ মুদ্রা",
+    "tipAmount": "টিপের পরিমাণ",
+    "tipMessage": "বার্তা (ঐচ্ছিক)",
+    "tipMessageDescription": "ব্যক্তিগত টিপ (টিপ তথ্য সর্বজনীন চ্যাট রুমে প্রদর্শিত হবে না)",
+    "tipConfirm": "টিপ পাঠান"
   }
 }

@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Batal",
     "continue": "teruskan"
+  },
+  "tip": {
+    "tipCurrency": "Mata Wang Tip",
+    "tipAmount": "Jumlah Petua",
+    "tipMessage": "Mesej (Pilihan)",
+    "tipMessageDescription": "Petua Peribadi (Maklumat petua tidak akan dipaparkan dalam bilik sembang awam)",
+    "tipConfirm": "Hantar Petua"
   }
 }

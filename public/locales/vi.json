@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Hủy bỏ",
     "continue": "Tiếp tục"
+  },
+  "tip": {
+    "tipCurrency": "tiền boa",
+    "tipAmount": "Số tiền tip",
+    "tipMessage": "Tin nhắn (Tùy chọn)",
+    "tipMessageDescription": "Mẹo riêng tư (Thông tin mẹo sẽ không hiển thị trong phòng trò chuyện công khai)",
+    "tipConfirm": "Gửi TIP"
   }
 }

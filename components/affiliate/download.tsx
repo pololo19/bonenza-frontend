@@ -16,7 +16,11 @@ function DownloadComponents() {
         <div className="flex flex-col gap-4 px-6 py-4">
           <div className="text-m_title font-semibold">{t('affiliate:bannerPack')}</div>
           <div className="text-default">{t('affiliate:bannerDescription')}</div>
-          <a href="/img/affiliate/banner1.png" download="banner1" className="w-[150px]">
+          <a
+            href="https://drive.google.com/file/d/1zVZ1dkyn4xjCXjMnACJhRXuplzpxJB0A/view?usp=sharing"
+            className="w-[150px]"
+            target="_blank"
+          >
             <div className="text-m_default bg-gradient-btn-play px-10 py-2 rounded-default w-full">
               {t('affiliate:download')}
             </div>
@@ -34,7 +38,12 @@ function DownloadComponents() {
         <div className="flex flex-col gap-4 px-6 py-4">
           <div className="text-m_title font-semibold">{t('affiliate:bannerPack')}</div>
           <div className="text-default">{t('affiliate:bannerDescription')}</div>
-          <a href="/img/affiliate/banner2.png" download="banner2" className="w-[150px]">
+          <a
+            href="https://drive.google.com/file/d/1eLMH--hN5c77H2DUozDc82KydOepTKg-/view?usp=sharing"
+            className="w-[150px]"
+            target="_blank"
+          >
+            {/* <a href="https://drive.google.com/file/d/1eLMH--hN5c77H2DUozDc82KydOepTKg-/view?usp=sharing" download="banner2" className="w-[150px]"> */}
             <div className="text-m_default bg-gradient-btn-play px-10 py-2 rounded-default w-full">
               {t('affiliate:download')}
             </div>

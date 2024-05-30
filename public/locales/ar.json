@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "يلغي",
     "continue": "يكمل"
+  },
+  "tip": {
+    "tipCurrency": "عملة النصيحة",
+    "tipAmount": "مبلغ النصيحة",
+    "tipMessage": "الرسالة (اختياري)",
+    "tipMessageDescription": "نصيحة خاصة (لن تظهر معلومات النصيحة في غرفة الدردشة العامة)",
+    "tipConfirm": "إرسال معلومات سرية"
   }
 }

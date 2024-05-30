@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "취소",
     "continue": "계속하다"
+  },
+  "tip": {
+    "tipCurrency": "팁 통화",
+    "tipAmount": "팁 금액",
+    "tipMessage": "메시지(선택사항)",
+    "tipMessageDescription": "비공개 팁 (공개 채팅방에는 팁 정보가 표시되지 않습니다)",
+    "tipConfirm": "팁 보내기"
   }
 }

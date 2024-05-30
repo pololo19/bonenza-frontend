@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Membatalkan",
     "continue": "Melanjutkan"
+  },
+  "tip": {
+    "tipCurrency": "Tip Mata Uang",
+    "tipAmount": "Jumlah Tip",
+    "tipMessage": "Pesan (pilihan)",
+    "tipMessageDescription": "Tip Pribadi (Info tip tidak akan muncul di ruang obrolan publik)",
+    "tipConfirm": "Kirim Tip"
   }
 }
