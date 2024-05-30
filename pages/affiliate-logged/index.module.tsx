@@ -104,12 +104,12 @@ function AffiliateLoggedPage() {
       <div className="flex md:hidden w-full">
         <Menu as="div" className="relative w-full">
           <Menu.Button className="w-full">
-            <div className="w-full flex items-center justify-between gap-2 px-4 py-[10px] bg-color-primary text-white text-default font-semibold">
+            <div className="w-full flex items-center justify-between gap-2 px-4 py-[10px] bg-gradient-btn-play text-white text-default font-semibold rounded-default">
               {t(`affiliate:${affiliateTab}`)}
               <ArrowDown2 />
             </div>
           </Menu.Button>
-          <Menu.Items className="absolute w-full origin-top-right right-0 top-[40px] z-[10] cursor-pointer p-1">
+          <Menu.Items className="absolute w-full origin-top-right right-0 top-[40px] z-[10] cursor-pointer p-1 overflow-hidden">
             <Menu.Item>
               <div
                 onClick={() => setAffiliateTab(AffiliateTabEnum.DASHBOARD)}

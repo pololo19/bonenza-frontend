@@ -262,8 +262,9 @@ const SelectCurrency = ({
                   className={cn(
                     'absolute dark:text-white text-black rounded-default dark:!bg-color-input-primary bg-color-light-input-primary w-full origin-top-right right-0 z-[10] cursor-pointer shadow-bs-default',
                     {
-                      'top-[110px]': !withDrawTab,
-                      'top-[80px]': withDrawTab,
+                      'top-[110px]': !withDrawTab && !labelText,
+                      'top-[80px]': withDrawTab && !labelText,
+                      'top-[60px]': labelText,
                     },
                   )}
                 >
