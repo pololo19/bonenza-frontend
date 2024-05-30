@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Annulla",
     "continue": "Continua"
+  },
+  "tip": {
+    "tipCurrency": "Valuta della mancia",
+    "tipAmount": "Importo della mancia",
+    "tipMessage": "Messaggio (facoltativo)",
+    "tipMessageDescription": "Suggerimento privato (le informazioni sul suggerimento non verranno visualizzate nella chat room pubblica)",
+    "tipConfirm": "Invia suggerimento"
   }
 }

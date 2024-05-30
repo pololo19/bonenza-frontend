@@ -144,10 +144,10 @@ export const MessageBox = ({
               {id !== userId && (
                 <div
                   className={cn('cursor-pointer pl-4 text-white', styles['tip'])}
-                  // onClick={() => {
-                  //   dispatch(setTipReceiver({ userId, userName, userAvatar }));
-                  //   dispatch(changeIsShowChatTip(true));
-                  // }}
+                  onClick={() => {
+                    dispatch(setTipReceiver({ userId, userName, userAvatar }));
+                    dispatch(changeIsShowChatTip(true));
+                  }}
                 >
                   <Gift className="w-4 h-4 -mt-1" />
                 </div>

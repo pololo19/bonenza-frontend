@@ -26,6 +26,7 @@ type SelectCurrencyProps = {
   withDrawTab?: boolean;
   disabled?: boolean;
   isShowNetwork?: boolean;
+  labelText?: string;
 };
 
 const fiatDecimals = 2;
@@ -39,6 +40,7 @@ const SelectCurrency = ({
   withDrawTab,
   disabled = false,
   isShowNetwork = true,
+  labelText = '',
 }: SelectCurrencyProps) => {
   const usdtPrice = useUSDTPrice();
   const exchangeRate = useExchange();
@@ -126,12 +128,12 @@ const SelectCurrency = ({
       <div className="flex flex-col items-start w-full gap-2">
         {!withDrawTab && (
           <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
-            {t('deposit:depositCurrency')}
+            {labelText ? labelText : t('deposit:depositCurrency')}
           </div>
         )}
         {withDrawTab && (
           <div className="text-default dark:text-color-text-primary text-color-light-text-primary">
-            {t('withdraw:withdrawCurrency')}
+            {labelText ? labelText : t('withdraw:withdrawCurrency')}
           </div>
         )}
         <Menu as="div" className="relative block w-full ">

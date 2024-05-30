@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Cancelar",
     "continue": "Continuar"
+  },
+  "tip": {
+    "tipCurrency": "Moeda da gorjeta",
+    "tipAmount": "Valor da gorjeta",
+    "tipMessage": "Mensagem (opcional)",
+    "tipMessageDescription": "Dica privada (as informações da dica não aparecerão na sala de bate-papo pública)",
+    "tipConfirm": "Enviar dica"
   }
 }

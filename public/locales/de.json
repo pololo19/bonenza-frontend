@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Stornieren",
     "continue": "Weitermachen"
+  },
+  "tip": {
+    "tipCurrency": "Trinkgeldwährung",
+    "tipAmount": "Trinkgeldbetrag",
+    "tipMessage": "Nachricht (optional)",
+    "tipMessageDescription": "Privater Tipp (Tippinformationen werden nicht im öffentlichen Chatraum angezeigt)",
+    "tipConfirm": "Tipp senden"
   }
 }

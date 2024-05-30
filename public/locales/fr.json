@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Annuler",
     "continue": "Continuer"
+  },
+  "tip": {
+    "tipCurrency": "Devise du pourboire",
+    "tipAmount": "Montant du pourboire",
+    "tipMessage": "Message (optionnel)",
+    "tipMessageDescription": "Pourboire privé (les informations sur le pourboire n'apparaîtront pas dans la salle de discussion publique)",
+    "tipConfirm": "Envoyer une astuce"
   }
 }

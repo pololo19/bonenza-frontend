@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "キャンセル",
     "continue": "続く"
+  },
+  "tip": {
+    "tipCurrency": "チップの通貨",
+    "tipAmount": "チップの金額",
+    "tipMessage": "メッセージ (オプション)",
+    "tipMessageDescription": "プライベート ヒント (ヒント情報は公開チャット ルームには表示されません)",
+    "tipConfirm": "チップを送る"
   }
 }
