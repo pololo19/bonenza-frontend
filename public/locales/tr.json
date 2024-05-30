@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "İptal etmek",
     "continue": "Devam etmek"
+  },
+  "tip": {
+    "tipCurrency": "Bahşiş Para Birimi",
+    "tipAmount": "Bahşiş Tutarı",
+    "tipMessage": "Mesaj (isteğe bağlı)",
+    "tipMessageDescription": "Özel İpucu (İpucu bilgileri genel sohbet odasında görünmez)",
+    "tipConfirm": "Bahşiş gönder"
   }
 }

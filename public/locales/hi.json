@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "रद्द करना",
     "continue": "जारी रखना"
+  },
+  "tip": {
+    "tipCurrency": "टिप मुद्रा",
+    "tipAmount": "टिप राशि",
+    "tipMessage": "संदेश (वैकल्पिक)",
+    "tipMessageDescription": "निजी टिप (टिप जानकारी सार्वजनिक चैट रूम में दिखाई नहीं देगी)",
+    "tipConfirm": "टिप भेजें"
   }
 }

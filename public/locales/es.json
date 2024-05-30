@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "Cancelar",
     "continue": "Continuar"
+  },
+  "tip": {
+    "tipCurrency": "Moneda de propina",
+    "tipAmount": "Monto de propina",
+    "tipMessage": "Mensaje (opcional)",
+    "tipMessageDescription": "Consejo privado (la información del consejo no aparecerá en la sala de chat pública)",
+    "tipConfirm": "Envía propina"
   }
 }

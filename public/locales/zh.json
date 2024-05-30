@@ -2282,5 +2282,12 @@
   "button": {
     "cancel": "取消",
     "continue": "继续"
+  },
+  "tip": {
+    "tipCurrency": "小费货币",
+    "tipAmount": "小费金额",
+    "tipMessage": "留言（可选）",
+    "tipMessageDescription": "私人提示（提示信息不会显示在公共聊天室中）",
+    "tipConfirm": "发送提示"
   }
 }
