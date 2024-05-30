@@ -1,6 +1,6 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
-import { ElementType, useMemo, useState } from 'react';
+import { ElementType, useCallback, useEffect, useMemo, useState } from 'react';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -19,6 +19,7 @@ import { currencyFormat1 } from '@/base/libs/utils';
 import { useExchange } from '@/base/hooks/useExchange';
 import ModalRollover from '../rollover/Rollover';
 import Textarea from '@/components/input/typing/Textarea';
+import { api_withdrawInfo } from '@/api/wallet';
 
 type ChatTipProps = {
   onClose: () => void;
@@ -62,7 +63,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     type: 1,
   });
 
-  const [withdrawInfo, setWithdrawInfo] = useState({
+  const [tipInfo, setTipInfo] = useState({
     availableAmountUsd: 0,
     availableAmount: 0,
     lockedAmount: 0,
@@ -82,6 +83,28 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     shallowEqual,
   );
 
+  const getTipInfo = useCallback(async () => {
+    try {
+      if (!activeCoin.id) {
+        return;
+      }
+      const _res = await api_withdrawInfo(activeCoin.id);
+      setTipInfo({
+        availableAmountUsd: Number(_res.data?.availableWithdrawalAmountUsd || 0),
+        availableAmount: Number(_res.data?.availableWithdrawalAmount || 0),
+        lockedAmount: Number(_res.data?.lockedFundsAmount || 0),
+        lockedAmountUsd: Number(_res.data?.lockedFundsAmountUsd || 0),
+      });
+    } catch (error) {
+      setTipInfo({
+        availableAmountUsd: 0,
+        availableAmount: 0,
+        lockedAmount: 0,
+        lockedAmountUsd: 0,
+      });
+    }
+  }, [activeCoin]);
+
   const renderMinValue = useMemo(() => {
     const cryptoCurrency = cryptoCurrencies.find(
       (item) => item.networkId === activeNetwork.id && item.symbolId === activeCoin.id,
@@ -90,14 +113,14 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
       min: cryptoCurrency ? cryptoCurrency.minWithdrawAmount : 0,
       fee: cryptoCurrency ? cryptoCurrency.withdrawFee : 0,
     };
-  }, [activeNetwork, activeCoin, cryptoCurrencies, withdrawInfo]);
+  }, [activeNetwork, activeCoin, cryptoCurrencies, setTipInfo]);
 
   const renderMaxValue = useMemo(() => {
     const activeCrypto = cryptoSymbols.find((item) => item.id === activeCoin.id);
-    const withdrawableAmountUsd = withdrawInfo.availableAmountUsd;
+    const withdrawableAmountUsd = tipInfo.availableAmountUsd;
     const withdrawableAmount = withdrawableAmountUsd / (activeCrypto?.price || 1);
     return withdrawableAmount;
-  }, [cryptoSymbols, withdrawInfo, activeCoin]);
+  }, [cryptoSymbols, tipInfo, activeCoin]);
 
   const renderBalanceValue = useMemo(() => {
     const selectedBalanceInfo = balances.find((item) => item.symbolId === activeCoin.id);
@@ -125,6 +148,11 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     mode: 'onSubmit',
   });
 
+  const onSubmit = async (data: TipFormType) => {};
+
+  useEffect(() => {
+    getTipInfo();
+  }, [getTipInfo]);
   return (
     <>
       <CommonModal
@@ -158,7 +186,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
               )}
               <span className="font-bold">{tipReceiver.userName || ''}</span>
             </div>
-            <form className="flex flex-col h-full">
+            <form className="flex flex-col h-full" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <SelectCurrency
                   activeCoin={activeCoin}
@@ -187,11 +215,11 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                       <span className="flex text-black dark:text-white">
                         {viewInFiat
                           ? currencyFormat1(
-                              withdrawInfo.availableAmountUsd * exchangeRate,
+                              tipInfo.availableAmountUsd * exchangeRate,
                               4,
                               String(localFiat?.name || 'USD'),
                             )
-                          : `${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)}`}
+                          : `${currencyFormat1(tipInfo.availableAmount, 4, '', false)}`}
                       </span>
                     </div>
                     <div className="flex flex-wrap justify-end gap-1">
@@ -203,12 +231,8 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                       </span>
                       <span className="flex text-black dark:text-white">
                         {viewInFiat
-                          ? `${currencyFormat1(
-                              withdrawInfo.lockedAmountUsd * exchangeRate,
-                              4,
-                              localFiat?.name || 'USD',
-                            )}`
-                          : `${currencyFormat1(withdrawInfo.lockedAmount, 4, '', false)}`}
+                          ? `${currencyFormat1(tipInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
+                          : `${currencyFormat1(tipInfo.lockedAmount, 4, '', false)}`}
                       </span>
                     </div>
                   </div>
