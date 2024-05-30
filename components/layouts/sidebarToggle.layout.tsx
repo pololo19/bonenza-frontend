@@ -8,6 +8,7 @@ import {
   Headphone,
   Notepad2,
   SecurityCard,
+  Cup,
 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -363,6 +364,18 @@ export default function SidebarToggle() {
                   />
                 </CsrWrapper>
               </div>
+              <CsrWrapper key="master">
+                <IconOption
+                  title={String(t('sidebar:master'))}
+                  href={ROUTER.Master}
+                  icon={Cup}
+                  isFontMedium
+                  fontWeight={600}
+                  classNames={
+                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000]'
+                  }
+                />
+              </CsrWrapper>
               {panel_1_datas.map((item, index) => (
                 <CsrWrapper key={index}>
                   <IconOption
@@ -525,7 +538,28 @@ export default function SidebarToggle() {
               </div>
             </Tooltip>
           </div>
-
+          <Link
+            key={`masters-small`}
+            href={ROUTER.Master}
+            type="button"
+            className={cn(
+              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+            )}
+            data-tooltip-id={'masters-tooltip'}
+          >
+            <Cup
+              size={22}
+              className={cn('m-auto', {
+                'dark:text-white text-black': router.route.includes(ROUTER.Master),
+              })}
+              variant="Bulk"
+            />
+          </Link>
+          <Tooltip id={'masters-tooltip'} place="right" positionStrategy="fixed" key={`masters-tooltip-small`}>
+            <div>
+              <p className="text-white">{t('sidebar:master')}</p>
+            </div>
+          </Tooltip>
           {panel_1_datas.map((item, index) => (
             <div className="w-full" key={`${index}-${item.title}`}>
               <Link
