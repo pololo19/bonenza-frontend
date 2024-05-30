@@ -125,6 +125,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     mode: 'onSubmit',
   });
 
+  const onSubmit = async (data: TipFormType) => {};
   return (
     <>
       <CommonModal
@@ -158,7 +159,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
               )}
               <span className="font-bold">{tipReceiver.userName || ''}</span>
             </div>
-            <form className="flex flex-col h-full">
+            <form className="flex flex-col h-full" onSubmit={handleSubmit(onSubmit)}>
               <div>
                 <SelectCurrency
                   activeCoin={activeCoin}
