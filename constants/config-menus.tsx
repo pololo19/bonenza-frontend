@@ -5,7 +5,6 @@ import BlackjackIcon from '@/components/icons/BlackjackIcon';
 import BuyInIcon from '@/components/icons/BuyInIcon';
 import CasinoBoldIcon from '@/components/icons/CasinoBoldIcon';
 import FavoriteIcon from '@/components/icons/FavoriteIcon';
-import HomeIcon from '@/components/icons/HomeIcon';
 import HotGameIcon from '@/components/icons/HotGameIcon';
 import LiveCasinoIcon from '@/components/icons/LiveCasinoIcon';
 import RacingBoldIcon from '@/components/icons/RacingBoldIcon';
@@ -14,13 +13,14 @@ import ReleaseIcon from '@/components/icons/ReleaseIcon';
 import SlotIcon from '@/components/icons/SlotIcon';
 
 import { ROUTER } from './common';
+import CupIcon from '@/components/icons/CupIcon';
 
 export const headerMenus: OptionSidebarDataType[] = [
   {
     title: '', //'layout:home',
-    href: '/',
+    href: ROUTER.Master,
     // icon: <HomeIcon className="text-color-light-text-primary dark:text-white" />,
-    icon: HomeIcon,
+    icon: CupIcon,
     image: '',
     isMobile: true,
   },
