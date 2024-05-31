@@ -374,7 +374,7 @@ export default function SidebarToggle() {
                   fontWeight={600}
                   activeClassNames="dark:bg-color-menu-hover !text-[#FFC700]"
                   classNames={
-                    'dark:hover:text-[#FFC700] dark:text-[#FFC700] text-color-light-text-primary hover:text-[#000]'
+                    'dark:hover:text-[#FFC700] !text-[#FFC700] text-color-light-text-primary hover:text-[#000]'
                   }
                 />
               </CsrWrapper>
