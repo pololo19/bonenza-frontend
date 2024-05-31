@@ -371,6 +371,7 @@ export default function SidebarToggle() {
                   icon={Cup}
                   isFontMedium
                   fontWeight={600}
+                  activeClassNames="dark:bg-color-menu-hover"
                   classNames={
                     'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000]'
                   }
