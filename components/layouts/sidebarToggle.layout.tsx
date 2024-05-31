@@ -35,6 +35,7 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption from '../common/iconOption/iconOption';
 import CsrWrapper from '../CsrWrapper';
+import CupIcon from '../icons/CupIcon';
 
 export default function SidebarToggle() {
   const { t, i18n } = useTranslation('');
@@ -368,12 +369,12 @@ export default function SidebarToggle() {
                 <IconOption
                   title={String(t('sidebar:master'))}
                   href={ROUTER.Master}
-                  icon={Cup}
+                  icon={CupIcon}
                   isFontMedium
                   fontWeight={600}
-                  activeClassNames="dark:bg-color-menu-hover"
+                  activeClassNames="dark:bg-color-menu-hover !text-[#FFC700]"
                   classNames={
-                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000]'
+                    'dark:hover:text-[#FFC700] dark:text-[#FFC700] text-color-light-text-primary hover:text-[#000]'
                   }
                 />
               </CsrWrapper>
