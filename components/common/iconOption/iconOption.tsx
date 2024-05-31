@@ -111,10 +111,15 @@ const IconOption = ({
               />
             )}
             <div
-              className={cn(`flex-1 text-start font-[${fontWeight}]`, textClass, {
-                'dark:text-color-primary text-color-light-text-primary': router.route.includes(href),
-                'text-base': isFontMedium,
-              })}
+              className={cn(
+                `flex-1 text-start font-[${fontWeight}]`,
+                textClass,
+                router.route.includes(href) ? activeClassNames : '',
+                {
+                  'dark:text-color-primary text-color-light-text-primary': router.route.includes(href),
+                  'text-base': isFontMedium,
+                },
+              )}
             >
               {title}
             </div>
