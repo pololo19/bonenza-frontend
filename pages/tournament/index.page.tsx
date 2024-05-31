@@ -230,12 +230,12 @@ function TournamentPage() {
         position="flex-col justify-center items-center"
         isCongrat
       >
-        <div className="bg-gradient-card-modal relative flex flex-col items-center justify-center p-12 overflow-y-auto">
-          <div className="text-[32px] text-white font-extrabold">Welcome!</div>
-          <div className="mt-10 text-[24px] text-white text-center font-extralight">
+        <div className="bg-gradient-card-modal relative flex flex-col items-center justify-center p-8 md:p-12 overflow-y-auto">
+          <div className="text-[24px] md:text-[32px] text-white font-extrabold">Welcome!</div>
+          <div className="mt-10 text-[16px] md:text-[24px] text-white text-center font-extralight">
             We are currently working on something exciting behind the scenes. Stay tuned for our upcoming launch!
           </div>
-          <div className="mt-4 text-[24px] text-white text-center font-extralight">
+          <div className="mt-4 text-[16px] md:text-[24px] text-white text-center font-extralight">
             Thank you for your patience and support.
           </div>
         </div>
