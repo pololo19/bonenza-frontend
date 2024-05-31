@@ -197,10 +197,10 @@ function GamePage() {
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
         })
         .finally(() => {
-          setIsLoadingGame({
-            request: 'demo',
-            status: false,
-          });
+          // setIsLoadingGame({
+          //   request: 'demo',
+          //   status: false,
+          // });
         });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
@@ -272,10 +272,10 @@ function GamePage() {
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
         })
         .finally(() => {
-          setIsLoadingGame({
-            request: 'real',
-            status: false,
-          });
+          // setIsLoadingGame({
+          //   request: 'real',
+          //   status: false,
+          // });
         });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
@@ -348,8 +348,14 @@ function GamePage() {
         list?.removeChild(list?.firstElementChild);
       }
 
+      const loadingGameStatus = { ...isLoadingGame };
+
       const success = () => {
         setSuccessfullyLaunched(true);
+        setIsLoadingGame({
+          status: false,
+          request: loadingGameStatus.request,
+        });
       };
       const error = () => {
         setSuccessfullyLaunched(false);
