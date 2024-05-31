@@ -65,7 +65,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
 
   useEffect(() => {
     reset({ username: userName });
-  }, [userName]);
+  }, [userName, show]);
 
   const goBackProfile = () => {
     dispatch(changeIsShowInformation(true));
