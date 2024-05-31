@@ -20,6 +20,7 @@ import {
   changeIsShowDailyContest,
   changeIsShowInformation,
   changeIsShowWagerContestHistory,
+  changeIsShowWagerRules,
 } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
@@ -70,7 +71,6 @@ const WagerContestComponent = () => {
     wageredAmountUsd: 0,
   });
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
-  const [isShowWagerRules, setIsShowWagerRules] = useState<boolean>(false);
 
   const { t } = useTranslation('');
 
@@ -98,17 +98,19 @@ const WagerContestComponent = () => {
     let rankReturn = '';
     if (rank >= 50) {
       rankReturn = '50th+';
+    } else if (rank > 10) {
+      rankReturn = '10th+';
     } else if (rank > 3) {
-      rankReturn = rank + 'th+';
+      rankReturn = rank + 'th';
     } else {
-      switch (Number(rank)) {
+      switch (rank) {
         case 1:
           rankReturn = '1st';
           break;
         case 2:
           rankReturn = '2nd';
           break;
-        default:
+        case 3:
           rankReturn = '3rd';
           break;
       }
@@ -181,19 +183,20 @@ const WagerContestComponent = () => {
 
   const wagerAndPostion = useMemo(() => {
     const position = positionData.position;
+    const numberOfContesters = wagerContestData.contesters.length;
     let wagerAmount = 0;
     let nextPosition = '';
-    if (position > 1) {
-      nextPosition = '1';
-      wagerAmount = wagerContestData.contesters[0]?.wageredAmountUsd ?? 0;
-    }
-    if (position > 5) {
-      nextPosition = '5';
-      wagerAmount = wagerContestData.contesters[4]?.wageredAmountUsd ?? 0;
-    }
     if (position > 10) {
       nextPosition = '10';
-      wagerAmount = wagerContestData.contesters[9]?.wageredAmountUsd ?? 0;
+      if (wagerContestData.contesters.length >= 10) wagerAmount = wagerContestData.contesters[9]?.wageredAmountUsd ?? 0;
+      else wagerAmount = wagerContestData.contesters[numberOfContesters - 1]?.wageredAmountUsd ?? 0;
+    } else if (position > 5) {
+      nextPosition = '5';
+      if (wagerContestData.contesters.length >= 5) wagerAmount = wagerContestData.contesters[4]?.wageredAmountUsd ?? 0;
+      else wagerAmount = wagerContestData.contesters[numberOfContesters - 1]?.wageredAmountUsd ?? 0;
+    } else if (position > 1) {
+      nextPosition = '1';
+      wagerAmount = wagerContestData.contesters[0]?.wageredAmountUsd ?? 0;
     }
     return { position: nextPosition, wagerAmount };
   }, [positionData, wagerContestData]);
@@ -377,31 +380,44 @@ const WagerContestComponent = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-12 lg:col-span-8 grid grid-cols-12 gap-2 ">
+        <div className="col-span-12 lg:col-span-8 grid grid-cols-11 gap-2 ">
           <div
             className={`col-span-5 min-[830px]:max-w-[380px] rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
           >
-            <p className="text-color-text-primary text-center text-m_default sm:text-[14px]">
+            <p
+              className={cn('text-color-text-primary text-center', {
+                'text-m_default sm:text-[14px] font-light': userId,
+                'text-[10px] sm:text-[12px]': !userId,
+              })}
+            >
               {userId ? t('wagerContest:timeRemaining') : t('wagerContest:timeRemainingBeforeLogin')}
             </p>
             {userId ? (
               <>
                 {new Date(timeCoundown).getTime() - new Date().getTime() > 0 && (
-                  <div className="flex gap-2">
+                  <div className="flex gap-[2px] sm:gap-2">
                     <Countdown
                       date={timeCoundown}
                       renderer={({ days, hours, minutes, seconds, completed }) => (
                         <>
                           <div
-                            className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                            className={cn(
+                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[50px] lg:h-[50px]',
+                              'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
+                              styles.boxTime,
+                            )}
                           >
-                            <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
+                            <p className="font-bold text-[16px] sm:text-[18px] lg:text-[22px] dark:text-white text-[#000]">
                               {Number(hours)}
                             </p>
                             <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
                           </div>
                           <div
-                            className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                            className={cn(
+                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[50px] lg:h-[50px]',
+                              'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
+                              styles.boxTime,
+                            )}
                           >
                             <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
                               {Number(minutes)}
@@ -409,7 +425,11 @@ const WagerContestComponent = () => {
                             <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
                           </div>
                           <div
-                            className={`dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px] ${styles.boxTime}`}
+                            className={cn(
+                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[50px] lg:h-[50px]',
+                              'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
+                              styles.boxTime,
+                            )}
                           >
                             <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
                               {Number(seconds)}
@@ -429,7 +449,7 @@ const WagerContestComponent = () => {
               </>
             ) : (
               <div
-                className="bg-[#F61B4F] h-[48px] hover:opacity-90 cursor-pointer max-w-[280px] rounded-[4px] text-white font-bold text-[14px] w-full flex items-center justify-center"
+                className="bg-[#F61B4F] h-[24px] sm:h-[36px] hover:opacity-90 cursor-pointer max-w-[280px] rounded-[4px] text-white font-bold text-[11px] sm:text-[14px] w-full flex items-center justify-center"
                 onClick={() => {
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                   dispatch(changeIsShowAuthenticationModal(true));
@@ -440,7 +460,7 @@ const WagerContestComponent = () => {
             )}
           </div>
           <div
-            className={`col-span-7 sm:w-auto rounded-[5px] relative ${styles.boxCenter} h-[8.313rem] flex-col gap-4 grow`}
+            className={`col-span-6 sm:w-auto rounded-[5px] relative ${styles.boxCenter} h-[8.313rem] flex-col gap-4 grow`}
           >
             <Image
               width={48}
@@ -514,8 +534,16 @@ const WagerContestComponent = () => {
                         : wagerHistory.playerName}
                     </p>
                     <div className="flex flex-col sm:flex-row text-[12px] leading-[18px] text-color-text-primary mt-3 gap-2">
-                      <span>{t('wagerContest:profit')}</span>
+                      <div>
+                        <span>{t('wagerContest:profit')}</span>
+                        <span className="dark:text-white text-[#000]">{`(${wagerHistory.percentage}%)`}</span>
+                      </div>
                       <div className="flex justify-start items-center gap-[2px]">
+                        <span className="text-color-text-green ml-1 font-bold text-[11px] sm:text-m_default">
+                          {viewInFiat
+                            ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
+                            : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
+                        </span>
                         <Image
                           width={16}
                           height={16}
@@ -526,12 +554,6 @@ const WagerContestComponent = () => {
                           }}
                           alt=""
                         />
-                        <span className="text-color-text-green ml-1 font-bold text-[11px] sm:text-m_default">
-                          {viewInFiat
-                            ? currencyFormat1(wagerHistory.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
-                            : currencyFormat1(wagerHistory.prizeAmountUsd / usdtPrice, 4, '', false)}
-                        </span>
-                        <span className="dark:text-white text-[#000]">{`(${wagerHistory.percentage}%)`}</span>
                       </div>
                     </div>
                   </div>
@@ -541,7 +563,7 @@ const WagerContestComponent = () => {
                   className="text-color-primary cursor-pointer object-cover h-[18px] sm:h-[24px] mt-3 w-[18px] sm:w-[24px] absolute top-0 right-[8px] sm:right-[16px]"
                   role="button"
                   data-tooltip-id={'fee-tooltip'}
-                  onClick={() => setIsShowWagerRules(true)}
+                  onClick={() => dispatch(changeIsShowWagerRules(true))}
                 />
               </div>
             </div>
@@ -641,7 +663,6 @@ const WagerContestComponent = () => {
           columns={WagerContestColumns}
         />
       </div>
-      {isShowWagerRules && <ModalWagerRules show={isShowWagerRules} onClose={() => setIsShowWagerRules(false)} />}
     </>
   );
 };
