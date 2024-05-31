@@ -9,6 +9,7 @@ import Countdown from 'react-countdown';
 import styles from './index.module.scss';
 import VectorIcon from '@/components/icons/VectorIcon';
 import CommonModal from '@/components/modal/commonModal/commonModal';
+import Link from 'next/link';
 
 const prizes = [
   { img: '/img/tournament/prize-1.png', percent: 50 },
@@ -230,14 +231,18 @@ function TournamentPage() {
         position="flex-col justify-center items-center"
         isCongrat
       >
-        <div className="bg-gradient-card-modal relative flex flex-col items-center justify-center p-8 md:p-12 overflow-y-auto">
-          <div className="text-[24px] md:text-[32px] text-white font-extrabold">Welcome!</div>
-          <div className="mt-10 text-[16px] md:text-[24px] text-white text-center font-extralight">
-            We are currently working on something exciting behind the scenes. Stay tuned for our upcoming launch!
+        <div className="bg-gradient-card-modal relative flex flex-col items-center justify-center p-8 md:p-10 overflow-y-auto">
+          <div className="text-[24px] md:text-[32px] text-white font-extrabold mb-4">{t('tournament:welcome')}</div>
+          <Image width={80} height={41} className="w-[80px] object-contain" src="/img/logo-mobile.png" alt="logo" />
+          <div className="mt-6 text-[16px] md:text-[18px] text-white text-center font-extralight">
+            {t('tournament:announce')}
           </div>
-          <div className="mt-4 text-[16px] md:text-[24px] text-white text-center font-extralight">
-            Thank you for your patience and support.
-          </div>
+          <Link
+            className="mt-6 text-[16px] md:text-[18px] text-color-text-mailto text-center font-semibold"
+            href={`mailto:support@bonenza.com`}
+          >
+            Bonenza Team
+          </Link>
         </div>
       </CommonModal>
     </>
