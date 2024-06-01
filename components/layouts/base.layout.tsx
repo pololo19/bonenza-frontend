@@ -51,6 +51,7 @@ import {
   changeIsShowVipClubModal,
   changeIsShowVipLevelModal,
   changeIsShowWagerContestHistory,
+  changeIsShowWagerRules,
   changeShowChatType,
   changeShowFullChat,
   changeToggleSidebar,
@@ -113,6 +114,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalWagerRules from '../modal/wagerRules/wagerRules';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -209,6 +211,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isLoading,
     isShowAccountRestriction,
     isShowChatTip,
+    isShowWagerRule,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -258,6 +261,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowDailyContest: state.modal.isShowDailyContest,
       isShowAccountRestriction: state.modal.isShowAccountRestriction,
       isShowChatTip: state.modal.isShowChatTip,
+      isShowWagerRule: state.modal.isShowWagerRule,
     }),
     shallowEqual,
   );
@@ -708,7 +712,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
               <div
                 className={cn(
-                  '2xl:relative fixed right-0 max-h-screen mt-[70px] 2xl:mt-0 top-0 bottom-0 sm:bottom-0 z-10 drop-shadow-md ',
+                  '2xl:relative fixed right-0 max-h-screen mt-[70px] 2xl:mt-0 top-0 bottom-[60px] sm:bottom-0 z-10 drop-shadow-md ',
                   'transition-transform origin-bottom sm:origin-right',
                   {
                     'sm:translate-x-0 sm:translate-y-0 translate-y-0 w-auto': showChatType,
@@ -727,9 +731,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 className={cn(
                   'text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-bg-primary bg-[#f5f6fa] bottom-0',
                   'drop-shadow-[0_4px_4px_rgb(255,255,255,1)] shadow-bs-default',
-                  {
-                    hidden: showChatType,
-                  },
+                  // {
+                  //   hidden: showChatType,
+                  // },
                 )}
               >
                 <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
@@ -994,6 +998,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         show={isShowAccountRestriction || false}
         onClose={() => dispatch(changeIsShowAccountRestriction(false))}
       />
+      <ModalWagerRules show={isShowWagerRule || false} onClose={() => dispatch(changeIsShowWagerRules(false))} />
     </>
   );
 };

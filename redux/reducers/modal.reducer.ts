@@ -65,6 +65,7 @@ export const initialCommonState: ModalState = {
   isShowDailyContest: false,
   isShowAccountRestriction: false,
   isShowChatTip: false,
+  isShowWagerRule: false,
   tipReceiver: {
     userId: '',
     userName: '',
@@ -196,6 +197,9 @@ export const queryDataSlice = createSlice({
     changeIsShowChatTip: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowChatTip = action.payload;
     },
+    changeIsShowWagerRules: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowWagerRule = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -295,6 +299,7 @@ export const {
   changeIsShowDailyContest,
   changeIsShowAccountRestriction,
   changeIsShowChatTip,
+  changeIsShowWagerRules,
   setDetailBets,
   setInitialModals,
   setTipReceiver,

@@ -411,7 +411,7 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-3 sm:gap-[24px]">
+          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 min-[1860px]:grid-cols-4 gap-3 sm:gap-[24px]">
             <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
               <Image
                 src="/img/bg-levelup.png"
