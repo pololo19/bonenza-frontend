@@ -212,7 +212,7 @@ function TournamentPage() {
           <div className="mt-4 text-default font-normal">
             <div className="text-[16px] font-semibold text-color-primary">{t('tournament:termsAndConditions')}</div>
             <div className="mt-4 pl-4 flex flex-col gap-2">
-              {new Array(19).fill(0).map((_, index) => (
+              {new Array(16).fill(0).map((_, index) => (
                 <div key={`terms-conditions-${index}`} className="mb-2">
                   <span className="font-semibold text-[#FFC700]">{`${index + 1}. ${t(
                     'tournament:terms' + (index + 1).toString(),
