@@ -557,6 +557,7 @@ export const TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER = 'MM/dd/yyyy, hh:mm:ss a';
 export const DATE_TIME_FORMAT_DEFAULT = 'yyyy/MM/dd HH:mm';
 export const DATE_TIME_FORMAT_CSV = 'yyyyMMdd_HHmmss';
 export const DATE_TIME_TRASH_FORMAT = 'yyyy/MM/dd - HH:mm';
+export const DATE_TIME_CHAT_DATE = 'EEE, MMM dd, yyyy';
 
 export const SELECT_BOX_BORDER_COLOR = '#d1d5db';
 export const SELECT_BOX_BORDER_COLOR_FOCUSED = '#4F46E5';
