@@ -21,6 +21,8 @@ import { AuthenticationModeEnum, MessageType } from '@/base/types/common';
 
 import { MessageBox } from './messageBox';
 import { InputText } from '../input/typing';
+import { formatDate } from '@/base/libs/utils';
+import { DATE_TIME_CHAT_DATE } from '@/base/constants/common';
 
 type UserType = {
   userId: string;
@@ -38,6 +40,7 @@ const ChattingComponent = () => {
   const [availableUsers, setAvailableUsers] = useState<UserType[]>([]);
   const [isShowTagMenu, setIsShowTagMenu] = useState<boolean>(false);
   const [replyMsg, setReplyMsg] = useState<{ id: string; userName: string; text: string }>();
+  const [days, setDays] = useState<Number[]>([]);
   const [tagFilter, setTagFilter] = useState<string>('');
 
   const { showChatType, showFullChat, isLogin, lastMessage } = useSelector(
@@ -229,6 +232,18 @@ const ChattingComponent = () => {
     }
   }, [messages, isFirstLoading]);
 
+  useEffect(() => {
+    let previousDay = new Date(Number(messages[0]?.time || 0) * 1000).getDate();
+    const tempDays: Number[] = [];
+    messages.map((message, index) => {
+      const currentDay = new Date(Number(message.time) * 1000).getDate();
+      console.log(currentDay);
+      if (previousDay != currentDay) tempDays.push(index - 1);
+      previousDay = currentDay;
+    });
+    setDays(tempDays);
+  }, [messages]);
+
   const onReply = (messageId: string, messageContent: string, receiverName: string) => {
     const $spanEl = chatRef.current;
     if (!$spanEl) return;
@@ -270,6 +285,13 @@ const ChattingComponent = () => {
           <div className="flex w-full my-[10px] justify-end gap-[8px] flex-col-reverse relative">
             {messages.map((message, index) => (
               <div className="w-full" key={index}>
+                {days.indexOf(index) > -1 && (
+                  <div className="flex justify-center py-2">
+                    <span className="border border-solid border-color-primary rounded-default text-[11px] sm:text-[13px] px-4 py-1">
+                      {formatDate(new Date(Number(message.time) * 1000), DATE_TIME_CHAT_DATE)}
+                    </span>
+                  </div>
+                )}
                 <MessageBox
                   messageId={message.id}
                   userId={message.userId}
