@@ -53,14 +53,16 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
-          <Image
-            src={background}
-            width={339}
-            height={192}
-            alt=""
-            className="w-full sm:object-contain rounded-default"
-          />
+        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px]">
+          <div className="h-full max-h-[180px] sm:max-h-[230px] rounded-default overflow-hidden">
+            <Image
+              src={background}
+              width={339}
+              height={192}
+              alt=""
+              className="w-full sm:object-contain rounded-default"
+            />
+          </div>
           <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
             <div className="flex items-center gap-[10px] p-0">
               <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
