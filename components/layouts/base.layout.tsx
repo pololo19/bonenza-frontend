@@ -107,6 +107,7 @@ import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndP
 import ModalVipClub from '../modal/vipClub/vipClub';
 import ModalVipLevel from '../modal/vipLevel/vipLevel';
 import ModalWagerContestHistory from '../modal/wagerContestHistory/wagerContestHistory';
+import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import AccountPannel from './accountBar.layout';
 import Footer from './footer.layout';
 import HeaderStats from './header.layout';
@@ -114,7 +115,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import ModalWagerRules from '../modal/wagerRules/wagerRules';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -722,6 +722,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 )}
               >
                 <ChattingComponent />
+                <div className="w-auto min-h-screen bg-white dark:bg-color-header-primary"></div>
               </div>
 
               {/*Start footer navigator */}
