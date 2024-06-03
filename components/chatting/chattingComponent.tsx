@@ -173,8 +173,8 @@ const ChattingComponent = () => {
       return;
     }
     if (e.keyCode == 13 && !isShowTagMenu && !e.shiftKey && innerText) {
-      await sendMessage();
       e.preventDefault();
+      await sendMessage();
     }
   };
 
@@ -344,7 +344,7 @@ const ChattingComponent = () => {
                 onKeyDown={(e) => onKeyDown(e)}
                 onKeyUp={(e) => onKeyUp(e)}
                 className={
-                  'w-full max-w-[250px] max-h-[200px] leading-[20px] overflow-y-auto border-none outline-none lign-baseline editBox cursor-text text-[14px] dark:text-white'
+                  'w-full max-w-full sm:max-w-[236px] max-h-[200px] leading-[20px] overflow-y-auto border-none outline-none lign-baseline editBox cursor-text text-[14px] dark:text-white'
                 }
                 ref={chatRef}
               />
