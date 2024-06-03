@@ -7,7 +7,9 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import { api_getChatHistory, api_sendChat } from '@/api/chat';
 import { useTranslation } from '@/base/config/i18next';
+import { DATE_TIME_CHAT_DATE } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
+import { formatDate } from '@/base/libs/utils';
 import { setIsNewMessage } from '@/base/redux/reducers/common.reducer';
 import {
   changeAuthenticationType,
@@ -20,9 +22,6 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum, MessageType } from '@/base/types/common';
 
 import { MessageBox } from './messageBox';
-import { InputText } from '../input/typing';
-import { formatDate } from '@/base/libs/utils';
-import { DATE_TIME_CHAT_DATE } from '@/base/constants/common';
 
 type UserType = {
   userId: string;
@@ -237,7 +236,6 @@ const ChattingComponent = () => {
     const tempDays: Number[] = [];
     messages.map((message, index) => {
       const currentDay = new Date(Number(message.time) * 1000).getDate();
-      console.log(currentDay);
       if (previousDay != currentDay) tempDays.push(index - 1);
       previousDay = currentDay;
     });
@@ -324,7 +322,7 @@ const ChattingComponent = () => {
             <div className="flex flex-col w-full dark:bg-color-input-primary rounded-default px-[10px] py-[12px]">
               {replyMsg?.id && (
                 <div className="flex w-full bg-black/20 rounded-[8px] pt-2 pb-1 px-2 mb-2">
-                  <div className="w-full flex flex-col">
+                  <div className="flex flex-col w-full">
                     <div className="font-semibold text-left text-gray-400 text-[13px]">{replyMsg.userName}</div>
                     <div
                       className="font-semibold inline-block !text-left text-[13px] h-fit max-w-[230px] max-h-[40px] overflow-hidden break-all text-gray-500 rounded-[8px]"
@@ -332,7 +330,7 @@ const ChattingComponent = () => {
                     />
                   </div>
                   <CloseCircle
-                    className="w-4 h-4 cursor-pointer hover:opacity-80 text-white"
+                    className="w-4 h-4 text-white cursor-pointer hover:opacity-80"
                     variant="Bulk"
                     onClick={() => setReplyMsg({ id: '', userName: '', text: '' })}
                   />
