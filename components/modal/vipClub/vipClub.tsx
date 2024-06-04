@@ -355,7 +355,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                             className={cn(
                               styles[getColorBg(String(selectedRank.name))],
                               styles['rank'],
-                              'dark:text-white text-black font-semibold flex items-center !h-[24px] pr-3 pl-[6px] dark:after:!border-r-color-card-header-primary after:!border-r-color-light-bg-primary',
+                              'dark:text-white text-black font-semibold flex items-center !h-[24px] !w-[100px] pr-3 pl-[6px] dark:after:!border-r-color-card-header-primary after:!border-r-color-light-bg-primary',
                             )}
                           >
                             {selectedRank.name}

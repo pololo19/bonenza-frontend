@@ -35,7 +35,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption from '../common/iconOption/iconOption';
 import CsrWrapper from '../CsrWrapper';
-import CupIcon from '../icons/CupIcon';
 
 export default function SidebarToggle() {
   const { t, i18n } = useTranslation('');
@@ -366,18 +365,15 @@ export default function SidebarToggle() {
                 </CsrWrapper>
               </div>
               <CsrWrapper key="master">
-                <IconOption
-                  title={String(t('sidebar:master'))}
-                  href={ROUTER.Master}
-                  icon={CupIcon}
-                  isFontMedium
-                  fontWeight={600}
-                  activeTextClassNames="!text-[#FFC700]"
-                  activeClassNames="dark:bg-color-menu-hover"
-                  classNames={
-                    'dark:hover:text-[#FFC700] !text-[#FFC700] text-color-light-text-primary hover:text-[#000]'
-                  }
-                />
+                <Link href={ROUTER.Master}>
+                  <Image
+                    width={480}
+                    height={121}
+                    src="/img/tournament/sidebar.png"
+                    alt="tournament"
+                    className="object-contain rounded"
+                  />
+                </Link>
               </CsrWrapper>
               {panel_1_datas.map((item, index) => (
                 <CsrWrapper key={index}>

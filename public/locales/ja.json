@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "ソース暗号通貨は存在しません。",
       "existDestinationCrypto": "宛先の暗号通貨が存在しません。",
       "isEnoughBalanceForSwap": "交換するには残高が少ないです。"
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "ヒントを送信するにはロールオーバーを完了してください",
+      "success": "チップは正常に送信されました"
     }
   },
   "success": {

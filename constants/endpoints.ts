@@ -71,6 +71,7 @@ const API_WALLET_SET_FAVORITE = '/wallet/set-currency-favorite-status';
 const API_WALLET_GET_CLAIM = '/wallet/claim';
 const API_WALLET_POST_CLAIM = '/wallet/claim';
 const API_WALLET_WITHDRAW_INFO = '/wallet/withdraw-info';
+const API_WALLET_CHAT_TIP = '/wallet/tip';
 
 /************************************ Game **********************************/
 const API_GAME_PICK_GAMES = '/game/get-pick-games-for-you';
@@ -283,6 +284,7 @@ export {
   API_WALLET_USER_BALANCE,
   API_WALLET_WITHDRAW,
   API_WALLET_WITHDRAW_INFO,
+  API_WALLET_CHAT_TIP,
   APIN_SPIN_AVAILABLE,
   APIN_SPIN_TRY,
   URL_REFRESH_TOKEN,

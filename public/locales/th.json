@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "ไม่มีสกุลเงินดิจิทัลต้นทาง",
       "existDestinationCrypto": "ไม่มีสกุลเงินดิจิทัลปลายทาง",
       "isEnoughBalanceForSwap": "ยอดคงเหลือน้อยให้แลก"
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "Conclua o rollover para enviar dicas",
+      "success": "Dica enviada com sucesso"
     }
   },
   "success": {

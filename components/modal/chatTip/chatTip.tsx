@@ -8,9 +8,9 @@ import * as yup from 'yup';
 import { useTranslation } from '@/base/config/i18next';
 
 import CommonModal from '../commonModal/commonModal';
-import { AppState } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { shallowEqual, useSelector } from 'react-redux';
-import { API_AVATAR } from '@/base/constants/common';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import SelectCurrency from '@/components/selectCurrency/selectCurrency';
 import { useForm } from 'react-hook-form';
@@ -19,7 +19,11 @@ import { currencyFormat1 } from '@/base/libs/utils';
 import { useExchange } from '@/base/hooks/useExchange';
 import ModalRollover from '../rollover/Rollover';
 import Textarea from '@/components/input/typing/Textarea';
-import { api_withdrawInfo } from '@/api/wallet';
+import { api_chatTip, api_withdrawInfo } from '@/api/wallet';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { toast } from 'react-toastify';
+import ReactLoading from 'react-loading';
+import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 
 type ChatTipProps = {
   onClose: () => void;
@@ -35,6 +39,7 @@ type TipFormType = {
 export default function ModalChatTip({ show, onClose }: ChatTipProps) {
   const { t } = useTranslation('');
   const exchangeRate = useExchange();
+  const dispatch = useAppDispatch();
   const { tipReceiver } = useSelector(
     (state: AppState) => ({
       tipReceiver: state.modal.tipReceiver,
@@ -42,6 +47,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     shallowEqual,
   );
   const [openRollover, setOpenRollover] = useState<boolean>(false);
+  const [isSending, setIsSending] = useState<boolean>(false);
   const [isShowMessage, setIsShowMessage] = useState<boolean>(false);
 
   const [activeCoin, setActiveCoin] = useState<CurrencyType>({
@@ -105,16 +111,6 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     }
   }, [activeCoin]);
 
-  const renderMinValue = useMemo(() => {
-    const cryptoCurrency = cryptoCurrencies.find(
-      (item) => item.networkId === activeNetwork.id && item.symbolId === activeCoin.id,
-    );
-    return {
-      min: cryptoCurrency ? cryptoCurrency.minWithdrawAmount : 0,
-      fee: cryptoCurrency ? cryptoCurrency.withdrawFee : 0,
-    };
-  }, [activeNetwork, activeCoin, cryptoCurrencies, setTipInfo]);
-
   const renderMaxValue = useMemo(() => {
     const activeCrypto = cryptoSymbols.find((item) => item.id === activeCoin.id);
     const withdrawableAmountUsd = tipInfo.availableAmountUsd;
@@ -127,13 +123,19 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     return selectedBalanceInfo ? selectedBalanceInfo.amount : 0;
   }, [balances, activeCoin]);
 
+  const handleBlur = useCallback(() => {
+    if (Number(watch('tipAmount')) > Math.min(renderMaxValue, renderBalanceValue)) {
+      setValue('tipAmount', Math.min(renderMaxValue, renderBalanceValue).toFixed(4));
+    }
+  }, [renderMaxValue, renderBalanceValue]);
+
   const schema = yup.object().shape({
     tipMessage: yup.string(),
     tipAmount: yup
       .number()
       .required('Withdraw amount is required')
       .typeError('Withdraw amount is required')
-      .min(+renderMinValue.min.toFixed(4), `Winthdraw amount should greater than ${renderMinValue.min.toFixed(4)}`)
+      .min(0, `Winthdraw amount should greater than 0}`)
       .max(+renderMaxValue.toFixed(4), `Winthdraw amount should be less than or equal to ${renderMaxValue.toFixed(4)}`),
   });
   const {
@@ -144,15 +146,29 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     formState: { errors },
   } = useForm<TipFormType>({
     resolver: yupResolver(schema),
-    defaultValues: { tipAmount: '0' },
+    defaultValues: { tipAmount: '0', tipMessage: '' },
     mode: 'onSubmit',
   });
 
-  const onSubmit = async (data: TipFormType) => {};
+  const onSubmit = async (data: TipFormType) => {
+    try {
+      setIsSending(true);
+      const _res = await api_chatTip(tipReceiver.userId || '', activeCoin.id, +data.tipAmount);
+      toast.success(t('errors:tip:success'), { toastId: 'chat-tip-notify-success', containerId: TOAST_ENUM.COMMON });
+      dispatch(getBalance());
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { toastId: 'chat-tip-notify-error', containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setIsSending(false);
+    }
+  };
 
   useEffect(() => {
     getTipInfo();
   }, [getTipInfo]);
+
   return (
     <>
       <CommonModal
@@ -205,6 +221,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                     customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default rounded-default"
                     control={control}
                     placeholder={String(t('withdraw:withdrawalAddressPlaceholder'))}
+                    onBlur={handleBlur}
                     name="tipAmount"
                   />
                   <div className="flex justify-between mt-2 text-default">
@@ -268,9 +285,13 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
               <div className="mt-6 w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-gradient-btn-play hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px]"
+                  className="bg-gradient-btn-play hover:opacity-[0.9] rounded-large h-[41px] px-[20px] min-w-[140px] text-center text-default"
                 >
-                  {t('tip:tipConfirm')}
+                  {isSending ? (
+                    <ReactLoading type="bubbles" color="#FFFFFF" className="!h-9 !w-9 m-auto" />
+                  ) : (
+                    t('tip:tipConfirm')
+                  )}
                 </button>
               </div>
             </form>

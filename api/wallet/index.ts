@@ -1,4 +1,5 @@
 import {
+  API_WALLET_CHAT_TIP,
   API_WALLET_DEPOSIT_TIME,
   API_WALLET_GET_CLAIM,
   API_WALLET_INFO,
@@ -82,4 +83,8 @@ export const api_withdrawInfo = async (symbolId: string) => {
 
 export const api_swapFeeInfo = async () => {
   return api.get(API_WALLET_SWAP_FEE);
+};
+
+export const api_chatTip = async (receiverId: string, symbolId: string, amount: number) => {
+  return api.post(API_WALLET_CHAT_TIP, { receiverId, symbolId, amount });
 };

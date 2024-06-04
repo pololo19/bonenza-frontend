@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "Sumber mata wang kripto tidak wujud.",
       "existDestinationCrypto": "Mata wang kripto destinasi tidak wujud.",
       "isEnoughBalanceForSwap": "Baki adalah rendah untuk ditukar."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "Sila lengkapkan peralihan untuk menghantar petua",
+      "success": "Berjaya menghantar petua"
     }
   },
   "success": {
