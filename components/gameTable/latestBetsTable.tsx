@@ -112,7 +112,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: String(t('gameTable:game')),
         cell: ({ row }) => (
           <div
-            className="dark:text-color-text-primary text-[#31373d] sm:text-[16px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px] sm:w-auto w-[20vw]"
+            className="dark:text-color-text-primary text-[#31373d] sm:text-[14px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px] sm:w-auto w-[20vw]"
             onClick={() => openModalBetDetail(row)}
           >
             <Image
@@ -136,7 +136,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           <div
             className={`${
               row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center sm:text-[16px] text-[12px] sm:p-2 p-[5px]`}
+            } font-bold truncate text-center sm:text-[14px] text-[12px] sm:p-2 p-[5px]`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
@@ -157,7 +157,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:betAmount')}</div>,
         cell: ({ row }) => (
           <div
-            className="dark:text-white sm:text-[16px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]"
+            className="dark:text-white sm:text-[14px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]"
             onClick={() => openModalBetDetail(row)}
           >
             {viewInFiat
@@ -181,7 +181,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
           <div
-            className="dark:text-color-text-primary sm:text-[16px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]"
+            className="dark:text-color-text-primary sm:text-[14px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]"
             onClick={() => openModalBetDetail(row)}
           >
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
@@ -194,7 +194,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         minSize: 60,
         cell: ({ row }) => (
           <div
-            className={cn('flex items-center sm:text-[16px] text-[12px] justify-end gap-[5px] sm:p-2 px-[5px]')}
+            className={cn('flex items-center sm:text-[14px] text-[12px] justify-end gap-[5px] sm:p-2 px-[5px]')}
             onClick={() => openModalBetDetail(row)}
           >
             <div

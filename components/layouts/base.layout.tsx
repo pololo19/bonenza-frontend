@@ -616,6 +616,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   useEffect(() => {
     showChatTypeRef.current = showChatType;
+    if (showChatType) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
   }, [showChatType]);
 
   useEffect(() => {

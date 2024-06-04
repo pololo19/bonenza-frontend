@@ -159,7 +159,7 @@ const HighRollerTableComponent = () => {
               }}
               className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
             />
-            <div className="font-bold truncate">{row.original.game}</div>
+            <div className="truncate">{row.original.game}</div>
           </div>
         ),
       },

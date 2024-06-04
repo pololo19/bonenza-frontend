@@ -41,6 +41,7 @@ export type IconOptionProps = {
   href: string;
   classNames?: string;
   activeClassNames?: string;
+  activeTextClassNames?: string;
   onClick?: () => void;
   isDropDown?: boolean;
   isShowDropDown?: boolean;
@@ -54,6 +55,7 @@ const IconOption = ({
   title,
   href,
   classNames,
+  activeTextClassNames,
   activeClassNames,
   icon,
   isDropDown,
@@ -114,7 +116,7 @@ const IconOption = ({
               className={cn(
                 `flex-1 text-start font-[${fontWeight}]`,
                 textClass,
-                router.route.includes(href) ? activeClassNames : '',
+                router.route.includes(href) ? activeTextClassNames : '',
                 {
                   'dark:text-color-primary text-color-light-text-primary': router.route.includes(href),
                   'text-base': isFontMedium,

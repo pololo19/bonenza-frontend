@@ -352,7 +352,13 @@ function BonusLoggedPage() {
               'border-solid border-b-[1px] border-b-gray-300 dark:border-b-gray-700 lg:border-r-[1px] lg:border-r-gray-300 dark:lg:border-r-gray-700 lg:border-b-0',
             )}
           >
-            <Image src={'/img/gold-coin.png'} width={93} height={76} alt="" className="pl-4" />
+            <Image
+              src={'/img/gold-coin.png'}
+              width={93}
+              height={76}
+              alt=""
+              className="pl-4 object-contain w-[93px] 2xl:w-[70px] min-[1800px]:w-[93px]"
+            />
             <div className="flex flex-col items-center">
               <div className="text-[14px] dark:text-white text-color-light-text-primary min-w-[155px]">
                 {t('bonus:totalBonusClaimed')}
@@ -364,7 +370,7 @@ function BonusLoggedPage() {
               </div>
             </div>
           </div>
-          <div className="sm:px-10 md:px-0 xl:px-10 grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-[40px] items-center">
+          <div className="sm:px-10 2xl:px-0 min-[1800px]:px-10 grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-[40px] items-center">
             {/* VIP Bonus */}
             <div className="min-w-[155px]">
               <div className="text-[14px] text-color-text-primary">{t('bonus:totalVIPBonus')}</div>
@@ -411,7 +417,7 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 min-[1860px]:grid-cols-4 gap-3 sm:gap-[24px]">
+          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 min-[1860px]:grid-cols-4 gap-3 sm:gap-[16px]">
             <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
               <Image
                 src="/img/bg-levelup.png"
@@ -491,14 +497,16 @@ function BonusLoggedPage() {
                 onClick={item.action}
               />
             ))}
-            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
-              <Image
-                src="/img/bg-lucky-spin.png"
-                width={339}
-                height={192}
-                alt=""
-                className="w-full sm:object-contain rounded-default"
-              />
+            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px]">
+              <div className="h-full max-h-[180px] sm:max-h-[230px] overflow-hidden rounded-default">
+                <Image
+                  src="/img/bg-lucky-spin.png"
+                  width={339}
+                  height={192}
+                  alt=""
+                  className="w-full sm:object-contain rounded-default"
+                />
+              </div>
               <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
                 <div className="flex justify-between p-0">
                   <div className="flex items-center gap-2">
