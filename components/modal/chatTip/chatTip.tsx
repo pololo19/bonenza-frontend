@@ -24,6 +24,7 @@ import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { toast } from 'react-toastify';
 import ReactLoading from 'react-loading';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { api_sendChat } from '@/api/chat';
 
 type ChatTipProps = {
   onClose: () => void;
@@ -152,11 +153,18 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
 
   const onSubmit = async (data: TipFormType) => {
     try {
+      console.log(data);
       setIsSending(true);
       const _res = await api_chatTip(tipReceiver.userId || '', activeCoin.id, +data.tipAmount);
       toast.success(t('errors:tip:success'), { toastId: 'chat-tip-notify-success', containerId: TOAST_ENUM.COMMON });
       dispatch(getBalance());
+      if (!isShowMessage)
+        await api_sendChat(
+          `<div style="background: #00000022; padding: 8px; color: #BBBBBB; border-radius: 8px; margin-bottom: 4px; font-weight: 600; overflow: hidden;">Sent tip to ${tipReceiver.userName}</div> ${data.tipMessage}`,
+          undefined,
+        );
     } catch (error: any) {
+      console.error(error);
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { toastId: 'chat-tip-notify-error', containerId: TOAST_ENUM.COMMON });
