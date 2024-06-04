@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "العملة المشفرة المصدر غير موجودة.",
       "existDestinationCrypto": "العملة المشفرة الوجهة غير موجودة.",
       "isEnoughBalanceForSwap": "الرصيد منخفض للتبديل."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "الرجاء إكمال التمرير لإرسال النصائح",
+      "success": "تم إرسال النصيحة بنجاح"
     }
   },
   "success": {

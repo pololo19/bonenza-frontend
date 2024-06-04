@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "Tiền điện tử nguồn không tồn tại.",
       "existDestinationCrypto": "Tiền điện tử đích không tồn tại.",
       "isEnoughBalanceForSwap": "Số dư thấp để trao đổi."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "Vui lòng hoàn tất chuyển khoản để gửi tiền boa",
+      "success": "Đã gửi mẹo thành công"
     }
   },
   "success": {

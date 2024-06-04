@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "Вихідної криптовалюти не існує.",
       "existDestinationCrypto": "Криптовалюта призначення не існує.",
       "isEnoughBalanceForSwap": "Залишок невеликий для обміну."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "Будь ласка, завершіть перехід, щоб надіслати поради",
+      "success": "Чайові успішно надіслано"
     }
   },
   "success": {

@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "Sumber cryptocurrency tidak ada.",
       "existDestinationCrypto": "Cryptocurrency tujuan tidak ada.",
       "isEnoughBalanceForSwap": "Saldonya rendah untuk ditukar."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "सुझाव भेजने के लिए कृपया रोलओवर पूरा करें",
+      "success": "टिप सफलतापूर्वक भेजी गई"
     }
   },
   "success": {

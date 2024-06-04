@@ -2264,6 +2264,10 @@
       "existSourceCrypto": "The source cryptocurrency does not exist.",
       "existDestinationCrypto": "The destination cryptocurrency does not exist.",
       "isEnoughBalanceForSwap": "The balance is low to swap."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "Please complete rollover to send tips",
+      "success": "Successfully sent tip"
     }
   },
   "success": {
@@ -2304,7 +2308,7 @@
     "minutes": "Mins",
     "seconds": "Secs",
     "introduction": "Introduction",
-    "registration": "Registration", 
+    "registration": "Registration",
     "competition": "Competition",
     "distribution": "Reward Distribution",
     "prizePool": "Prize Pool",
@@ -2338,7 +2342,7 @@
     "terms12": "Rebuy-in Period",
     "conditions12": "Rebuy-in is allowed until 30 minutes before the event ends.",
     "terms13": "Overlay added",
-    "conditions13": "70% of rebuy-in amount will be credited drectly to the prize pool. (ex. gurantee 10,000 USDT + 70% Overlay 90,000 USDT = total 100,000 USDT prize pool)",
+    "conditions13": "70% of rebuy-in amount will be credited directly to the prize pool. (ex. gurantee 10,000 USDT + 70% Overlay 90,000 USDT = total 100,000 USDT prize pool)",
     "terms14": "Compliance with Terms of Service",
     "conditions14": "All participants must strictly adhere to Bonenza's Terms of Service. Bonenza reserves the right to disqualify any participants who engage in dishonest or malicious activities.",
     "terms15": "Event Terms Modification",

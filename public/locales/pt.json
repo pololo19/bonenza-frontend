@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "A criptomoeda de origem não existe.",
       "existDestinationCrypto": "A criptomoeda de destino não existe.",
       "isEnoughBalanceForSwap": "O saldo é baixo para trocar."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "Conclua o rollover para enviar dicas",
+      "success": "Dica enviada com sucesso"
     }
   },
   "success": {

@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "स्रोत क्रिप्टोकरेंसी मौजूद नहीं है.",
       "existDestinationCrypto": "गंतव्य क्रिप्टोकरेंसी मौजूद नहीं है.",
       "isEnoughBalanceForSwap": "स्वैप करने के लिए शेष राशि कम है."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "सुझाव भेजने के लिए कृपया रोलओवर पूरा करें",
+      "success": "टिप सफलतापूर्वक भेजी गई"
     }
   },
   "success": {

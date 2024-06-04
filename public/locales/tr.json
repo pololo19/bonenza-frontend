@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "Kaynak kripto para birimi mevcut değil.",
       "existDestinationCrypto": "Hedef kripto para birimi mevcut değil.",
       "isEnoughBalanceForSwap": "Bakiye takas için düşük."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "İpuçları göndermek için lütfen rollover'ı tamamlayın",
+      "success": "İpucu başarıyla gönderildi"
     }
   },
   "success": {
