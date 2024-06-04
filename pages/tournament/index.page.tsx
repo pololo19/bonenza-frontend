@@ -10,6 +10,8 @@ import styles from './index.module.scss';
 import VectorIcon from '@/components/icons/VectorIcon';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 import Link from 'next/link';
+import { shallowEqual, useSelector } from 'react-redux';
+import { AppState } from '@/base/redux/store';
 
 const prizes = [
   { img: '/img/tournament/prize-1.png', percent: 50 },
@@ -29,6 +31,13 @@ function TournamentPage() {
   const { t } = useTranslation('');
   const [isRegistered, setIsRegistered] = useState<boolean>(false);
   const [isShowComing, setIsShowComing] = useState<boolean>(false);
+  const { showChatType } = useSelector(
+    (state: AppState) => ({
+      showChatType: state.modal.showChatType,
+    }),
+    shallowEqual,
+  );
+
   return (
     <>
       <div className="py-[24px]">
@@ -52,7 +61,15 @@ function TournamentPage() {
           />
           <div className="absolute top-0 left-0 right-0 bottom-0 p-4 lg:p-0">
             <div className="flex justify-between flex-col-reverse lg:flex-row items-center h-full w-full">
-              <div className="flex flex-col items-center lg:items-start m-auto w-full lg:w-[42%] 2xl:w-[37%] gap-3 sm:gap-7 lg:gap-2 xl:gap-7">
+              <div
+                className={cn(
+                  'flex flex-col items-center lg:items-start m-auto w-full lg:w-[42%] gap-3 sm:gap-7 lg:gap-2 xl:gap-7',
+                  {
+                    '2xl:w-[37%] 2xl:gap-7': !showChatType,
+                    '2xl:w-[50%] 2xl:gap-2 min-[1720px]:gap-6': showChatType,
+                  },
+                )}
+              >
                 <div className="flex gap-2 border-solid border border-white rounded-full">
                   <span
                     className={cn('font-semibold px-5 py-2 rounded-full', {
@@ -118,7 +135,7 @@ function TournamentPage() {
                     </CsrWrapper>
                     <div
                       className={cn(
-                        'px-16 lg:px-4 2xl:px-12 py-3 rounded-default cursor-pointer uppercase font-semibold text-default sm:text-[16px]',
+                        'px-16 lg:px-4 2xl:px-10 py-3 rounded-default cursor-pointer uppercase font-semibold text-default sm:text-[16px]',
                         {
                           'bg-gradient-btn-secondary': isRegistered,
                           'bg-gradient-btn-play': !isRegistered,
@@ -138,7 +155,10 @@ function TournamentPage() {
                 width={630}
                 height={500}
                 alt=""
-                className="w-[80%] lg:w-auto lg:h-[400px] object-contain"
+                className={cn('w-[80%] lg:w-auto lg:h-[300px] object-contain', {
+                  '2xl:h-[400px]': !showChatType,
+                  '2xl:h-[300px] min-[1800px]:h-[400px]': showChatType,
+                })}
               />
             </div>
           </div>

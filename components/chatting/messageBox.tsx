@@ -164,7 +164,7 @@ export const MessageBox = ({
             <div className="inline-block">
               <div
                 className={cn(
-                  'text-left text-[13px] h-fit max-w-[230px] break-all text-white rounded-[8px] px-2 py-2',
+                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[190px] break-all text-white rounded-[8px] px-2 py-2',
                   { 'bg-color-input-primary': id !== userId, 'bg-[#8873DD]': id === userId },
                 )}
               >
@@ -179,7 +179,7 @@ export const MessageBox = ({
                     <div />
                   </div>
                 )}
-                <div dangerouslySetInnerHTML={{ __html: text }} />
+                <div className="break-normal" dangerouslySetInnerHTML={{ __html: text }} />
               </div>
             </div>
           </div>
