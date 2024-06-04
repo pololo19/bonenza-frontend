@@ -7,6 +7,5 @@ export const api_getChatHistory = async (offset: number, limit: number) => {
 };
 
 export const api_sendChat = async (text: string, replyId?: string) => {
-  console.log(text, replyId);
   return api.post(API_CHAT_ADD, { text, replyId });
 };
