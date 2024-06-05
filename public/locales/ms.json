@@ -1479,7 +1479,8 @@
     "rakebackTooltip2": "Membuka kunci USDT adalah mudah! Ia pada asasnya sama seperti rakeback. ia akan dibuka secara berkadar dengan pertaruhan.",
     "redeemLimit": "Anda telah mencapai had harian anda untuk menghantar permintaan. Kembali esok untuk lebih banyak interaksi!",
     "redeemNoCode": "Kod itu tidak wujud.",
-    "redeemEmpty": "Kod tidak boleh kosong!"
+    "redeemEmpty": "Kod tidak boleh kosong!",
+    "depositBonusNotification": "Tahniah!Akaun anda telah berjaya dikreditkan dengan nilai bonus deposit {{amount}} Dolar Amerika"
   },
   "promotion": {
     "promotion": "kenaikan pangkat",

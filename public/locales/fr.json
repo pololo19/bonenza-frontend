@@ -1479,7 +1479,8 @@
     "rakebackTooltip2": "Débloquer l’USDT est simple ! C’est essentiellement la même chose que le rakeback. Il sera débloqué proportionnellement en misant.",
     "redeemLimit": "Vous avez atteint votre limite quotidienne d'envoi de demandes. Revenez demain pour plus d'interactions !",
     "redeemNoCode": "Ce code n'existe pas.",
-    "redeemEmpty": "Le code ne peut pas être vide !"
+    "redeemEmpty": "Le code ne peut pas être vide !",
+    "depositBonusNotification": "Félicitations !Votre compte a été crédité avec succès d'un bonus de dépôt d'une valeur {{amount}} USD"
   },
   "promotion": {
     "promotion": "Promotion",

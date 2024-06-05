@@ -482,6 +482,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         }
       });
 
+      walletSocket.on(`${userId}:deposit_bonus`, (data: any) => {
+        const amount_usd = data?.amount_usd || '';
+        toast.success(
+          t('deposit:depositBonusNotification', {
+            amount: `${amount_usd}`,
+          }),
+          {
+            toastId: 'deposit-bonus-notification',
+            containerId: TOAST_ENUM.COMMON,
+          },
+        );
+      });
+
       // walletSocket.on(`connect_error`, (data: any) => {
       //   if (walletServiceConnectedRef.current) {
       //     toast.error('Network connection is not stable. Please refresh.', {

@@ -1479,7 +1479,8 @@
     "rakebackTooltip2": "Mở khóa USDT thật dễ dàng! Về cơ bản nó giống như rakeback. Nó sẽ được mở khóa tương ứng bằng cách đặt cược.",
     "redeemLimit": "Bạn đã đạt đến giới hạn gửi yêu cầu hàng ngày. Hãy quay lại vào ngày mai để có nhiều tương tác hơn!",
     "redeemNoCode": "Mã đó không tồn tại.",
-    "redeemEmpty": "Mã không được để trống!"
+    "redeemEmpty": "Mã không được để trống!",
+    "depositBonusNotification": "Xin chúc mừng! Tài khoản của bạn đã được ghi có thành công với số tiền thưởng gửi tiền trị giá {{amount}} đô la Mỹ"
   },
   "promotion": {
     "promotion": "Khuyến mãi",
