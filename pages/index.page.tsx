@@ -515,13 +515,13 @@ function IndexPage() {
                       },
                     )}
                   >
-                    <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
-                    <span className="font-bold">
+                    <span className="font-medium sm:font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
+                    <span className="font-medium sm:font-bold">
                       {` `}
                       {t('homePage:getStarted')}
                       {` `}300%{` `}
                     </span>
-                    <span className="font-bold text-color-primary">{t('bonus:depositBonus')}</span>
+                    <span className="font-medium sm:font-bold text-color-primary">{t('bonus:depositBonus')}</span>
                   </div>
                   <div
                     className={cn(
@@ -533,7 +533,7 @@ function IndexPage() {
                       handleClickDeposit();
                     }}
                   >
-                    <span className="font-bold">{t('layout:deposit')}</span>
+                    <span className="font-medium sm:font-bold">{t('layout:deposit')}</span>
                   </div>
                 </div>
               </div>

@@ -142,7 +142,7 @@ export default function Navbar() {
               >
                 <button
                   type="button"
-                  className="truncate dark:text-color-text-primary rounded-large py-[9px] px-5 text-default font-bold text-color-light-text-primary  dark:hover:bg-color-hover-primary"
+                  className="truncate dark:text-color-text-primary rounded-large py-[9px] px-5 text-default font-normal sm:font-medium text-color-light-text-primary  dark:hover:bg-color-hover-primary"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -154,7 +154,7 @@ export default function Navbar() {
                 {/* Button */}
                 <button
                   type="button"
-                  className="truncate text-white rounded-large py-[9px] bg-gradient-btn-play px-5 text-default font-bold"
+                  className="truncate text-white rounded-large py-[9px] bg-gradient-btn-play px-5 text-default font-normal sm:font-medium"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     dispatch(changeIsShowAuthenticationModal(true));
