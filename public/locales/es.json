@@ -1479,7 +1479,8 @@
     "rakebackTooltip2": "¡Desbloquear USDT es fácil! Es esencialmente lo mismo que el rakeback. Se desbloqueará proporcionalmente al apostar.",
     "redeemLimit": "Has alcanzado tu límite diario para enviar solicitudes. ¡Vuelve mañana para ver más interacciones!",
     "redeemNoCode": "Ese código no existe.",
-    "redeemEmpty": "¡El código no puede estar vacío!"
+    "redeemEmpty": "¡El código no puede estar vacío!",
+    "depositBonusNotification": "¡Felicitaciones! Su cuenta ha sido acreditada exitosamente con un bono de depósito por valor {{amount}} Dólar estadounidense"
   },
   "promotion": {
     "promotion": "Promoción",
