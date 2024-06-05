@@ -476,7 +476,7 @@
     "howToClaim3": "Das ist es!  {{currency}} ist jetzt sofort einsatzbereit!",
     "aboutCurrency": "Um {{currency}}",
     "canBeExchange": "Kann {{currency}} in eine andere Währung umgetauscht werden?",
-    "canBeExchange1": "Absolut!  {{currency}} mit <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Swap</a> jederzeit in andere Währungen umtauschen.",
+    "canBeExchange1": "Absolut!  {{currency}} mit <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Swap</a> jederzeit in andere Währungen umtauschen.",
     "whatSpecialAbout": "Was ist das Besondere? {{currency}}?",
     "whatSpecialAbout1": "Bei der Lagerung profitieren Sie von einer jährlichen Rendite von bis zu 10 % {{currency}} In <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "La criptomoneda de origen no existe.",
       "existDestinationCrypto": "La criptomoneda de destino no existe.",
       "isEnoughBalanceForSwap": "El saldo es bajo para canjear."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Ihre Auszahlung ist innerhalb von 24 Stunden begrenzt.",
+      "exceedAvailableWithdrawalAmount": "Der verfügbare Auszahlungsbetrag wurde überschritten.",
+      "exceedAvailableBalanceToWithdraw": "Der Auszahlungsbetrag übersteigt das verfügbare Guthaben.",
+      "exceedAmountForTip": "Der Betrag überschreitet den Höchstbetrag.",
+      "notZeroAmountForTip": "Der Betrag muss über 0 liegen."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "Der gesperrte Betrag muss größer als 0 sein.",
+      "canClaimWithMinimumAmount": "Der geforderte Betrag muss mindestens 5 USDT betragen"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "টিপস পাঠাতে রোলওভার সম্পূর্ণ করুন",

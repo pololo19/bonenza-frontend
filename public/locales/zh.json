@@ -476,7 +476,7 @@
     "howToClaim3": "就是这样！ {{currency}} 现在可以立即使用！",
     "aboutCurrency": "关于 {{currency}}",
     "canBeExchange": "能 {{currency}} 可以兑换成其他货币吗？",
-    "canBeExchange1": "绝对地！ {{currency}} 和 <a class='cursor-pointer text-color-primary font-bold' href='/swap'>互换</a> 随时兑换成其他货币。",
+    "canBeExchange1": "绝对地！ {{currency}} 和 <a class='font-bold cursor-pointer text-color-primary' href='/swap'>互换</a> 随时兑换成其他货币。",
     "whatSpecialAbout": "有什么特别之处 {{currency}}？",
     "whatSpecialAbout1": "存仓即可享受高达10%的年化收益率 {{currency}} 在 <a class='cursor-pointer text-[#189614]'>Vault 专业版</a>。 {{currency}}！"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "源加密货币不存在。",
       "existDestinationCrypto": "目标加密货币不存在。",
       "isEnoughBalanceForSwap": "余额不足，无法兑换。"
+    },
+    "withdraw": {
+      "restrictWithdraw": "您的提款在 24 小时内受到限制。",
+      "exceedAvailableWithdrawalAmount": "已超出可用提款金额。",
+      "exceedAvailableBalanceToWithdraw": "提款金额超过可用余额。",
+      "exceedAmountForTip": "金额超过最大金额。",
+      "notZeroAmountForTip": "金额必须大于 0。"
+    },
+    "wallet": {
+      "canClaimOnRakeback": "锁定金额必须大于0。",
+      "canClaimWithMinimumAmount": "申领金额必须等于或大于5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "请完成滚动以发送提示",
