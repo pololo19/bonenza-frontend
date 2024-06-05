@@ -485,7 +485,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       walletSocket.on(`${userId}:deposit_bonus`, (data: any) => {
         const amount_usd = data?.amount_usd || '';
         toast.success(
-          t('deposit:depositBonusNotification', {
+          t('bonus:depositBonusNotification', {
             amount: `${amount_usd}`,
           }),
           {
