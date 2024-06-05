@@ -47,7 +47,7 @@ function AuthPage() {
         <div className="bg-[url('/img/bg-coming-soon.png')] h-screen flex flex-col items-center gap-[45px] w-full bg-center bg-cover">
           <form className="" onSubmit={handleSubmit(onSubmit)}>
             <div
-              className={`${styles.textGradient} bg-primary text-[30px] sm:text-[48px] lg:text-[100px] font-semibold text-center mt-20`}
+              className={`${styles.textGradient} bg-primary text-[30px] sm:text-[48px] lg:text-[100px] font-normal sm:font-semibold text-center mt-20`}
             >
               {/* {t('error:comingSoon')} */}
               Login

@@ -119,7 +119,7 @@ const IconOption = ({
                 router.route.includes(href) ? activeTextClassNames : '',
                 {
                   'dark:text-color-primary text-color-light-text-primary': router.route.includes(href),
-                  'text-base': isFontMedium,
+                  'text-[15px]': isFontMedium,
                 },
               )}
             >
@@ -160,7 +160,7 @@ const IconOption = ({
             <div
               className={cn(`flex-1 text-start font-[${fontWeight}] dark:hover:text-white`, textClass, {
                 'dark:text-color-text-primary text-color-light-text-primary': router.route.includes(href),
-                'text-base': isFontMedium,
+                'text-[15px]': isFontMedium,
               })}
             >
               {title}
@@ -184,7 +184,10 @@ const IconOption = ({
               'dark:hover:!text-white hover:!text-gray-800 dark:text-gray-400 text-gray-800 rounded-large',
               'hover:bg-color-menu-hover',
               {
-                'dark:bg-color-hover-primary': showDropDownCasino,
+                'dark:bg-color-menu-hover !text-color-primary': router.asPath
+                  .toLowerCase()
+                  .replace('%20', ' ')
+                  .includes(ROUTER.Casino),
               },
             )}
             onClick={() => {
@@ -203,7 +206,7 @@ const IconOption = ({
             <div
               className={cn('flex-1 text-start dark:hover:text-white', `font-[${fontWeight}]`, {
                 'dark:text-color-text-primary text-color-light-text-primary': showDropDownCasino,
-                'text-base': isFontMedium,
+                'text-[15px]': isFontMedium,
               })}
             >
               {title}
@@ -237,13 +240,13 @@ const IconOption = ({
                           .toLowerCase()
                           .replace('%20', ' ')
                           .includes(item.href.toLowerCase()),
-                        'text-base': isFontMedium,
+                        'text-[15px]': isFontMedium,
                       },
                     )}
                     key={index}
                   >
                     <SubIconElement size={18} />
-                    <div className={cn('flex-1 text-start font-semibold')}>{t(item.title)}</div>
+                    <div className={cn('flex-1 text-start font-normal')}>{t(item.title)}</div>
                   </Link>
                 );
               else
@@ -253,7 +256,7 @@ const IconOption = ({
                     key={index}
                   >
                     <SubIconElement size={18} />
-                    <div className={cn('flex-1 text-start font-semibold', { 'text-base': isFontMedium })}>
+                    <div className={cn('flex-1 text-start font-normal', { 'text-base': isFontMedium })}>
                       {item.title}
                     </div>
                   </div>
