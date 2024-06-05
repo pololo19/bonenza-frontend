@@ -60,13 +60,14 @@ function IndexPage() {
   const { query } = useRouter();
   const { key } = query;
 
-  const { isLogin, userName, localFiat, user } = useSelector(
+  const { isLogin, userName, localFiat, user, showChatType } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
       userName: state.auth.user.userName,
       localFiat: state.wallet.localFiat,
       user: state.auth.user,
       isLoading: state.common.isLoading,
+      showChatType: state.modal.showChatType,
     }),
     shallowEqual,
   );
@@ -504,7 +505,16 @@ function IndexPage() {
                   alt=""
                 />
                 <div className="absolute left-[8%] right-0 top-[10%] lg:top-[30%] bottom-[10%] flex flex-col justify-between">
-                  <div className="text-sm min-[390px]:text-lg min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl min-[1400px]:text-4xl w-[55%] text-left dark:text-white text-color-light-text-primary">
+                  <div
+                    className={cn(
+                      'text-sm min-[390px]:text-lg min-[520px]:text-2xl sm:text-3xl min-[900px]:text-4xl lg:text-3xl',
+                      'w-[55%] text-left dark:text-white text-color-light-text-primary',
+                      {
+                        '2xl:text-4xl': !showChatType,
+                        '2xl:text-3xl': showChatType,
+                      },
+                    )}
+                  >
                     <span className="font-bold text-[#FF9E4F]">{t('homePage:fastEasyWay')}</span>
                     <span className="font-bold">
                       {` `}
