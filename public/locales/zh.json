@@ -1479,7 +1479,8 @@
     "rakebackTooltip2": "解锁USDT很简单！本质上和返佣是一样的，通过下注按比例解锁。",
     "redeemLimit": "您已达到每日发送请求的限制。请明天回来进行更多互动！",
     "redeemNoCode": "该代码不存在。",
-    "redeemEmpty": "验证码不能为空！"
+    "redeemEmpty": "验证码不能为空！",
+    "depositBonusNotification": "恭喜！您的账户已成功存入价值存款奖金 {{amount}} 美元"
   },
   "promotion": {
     "promotion": "晋升",

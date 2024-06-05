@@ -482,6 +482,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         }
       });
 
+      walletSocket.on(`${userId}:deposit_bonus`, (data: any) => {
+        const amount_usd = data?.amount_usd || '';
+        toast.success(
+          t('deposit:depositBonusNotification', {
+            amount: `${amount_usd}`,
+          }),
+          {
+            toastId: 'deposit-bonus-notification',
+            containerId: TOAST_ENUM.COMMON,
+          },
+        );
+      });
+
       // walletSocket.on(`connect_error`, (data: any) => {
       //   if (walletServiceConnectedRef.current) {
       //     toast.error('Network connection is not stable. Please refresh.', {
@@ -717,7 +730,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
               <div
                 className={cn(
-                  '2xl:relative fixed right-0 max-h-screen mt-0 sm:mt-[70px] 2xl:mt-0 top-0 bottom-[60px] sm:bottom-0 z-10 drop-shadow-md ',
+                  '2xl:relative fixed right-0 max-h-screen mt-[70px] 2xl:mt-0 top-0 bottom-[60px] sm:bottom-0 z-9 drop-shadow-md ',
                   'transition-transform origin-bottom sm:origin-right',
                   {
                     'sm:translate-x-0 sm:translate-y-0 translate-y-0 w-auto': showChatType,

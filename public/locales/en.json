@@ -1481,7 +1481,8 @@
     "rakebackTooltip2": "Unlocking USDT is easy! It’s essentially the same as rakeback & will be unlocked proportionally by wagering.",
     "redeemLimit": "You've reached your daily limit for sending requests. Come back tomorrow for more interactions!",
     "redeemNoCode": "That code doesn't exist.",
-    "redeemEmpty": "The code cannot be empty!"
+    "redeemEmpty": "The code cannot be empty!",
+    "depositBonusNotification": "Congratulations! Your account has been successfully credited with a deposit bonus worth {{amount}} USD"
   },
   "promotion": {
     "promotion": "Promotion",
