@@ -476,7 +476,7 @@
     "howToClaim3": "Questo è tutto!  {{currency}} è ora immediatamente disponibile per l'uso!",
     "aboutCurrency": "Di {{currency}}",
     "canBeExchange": "Potere {{currency}} essere cambiato in qualsiasi altra valuta?",
-    "canBeExchange1": "Assolutamente!  {{currency}} con <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Scambio</a> in altre valute in qualsiasi momento.",
+    "canBeExchange1": "Assolutamente!  {{currency}} con <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Scambio</a> in altre valute in qualsiasi momento.",
     "whatSpecialAbout": "In cosa è speciale {{currency}}?",
     "whatSpecialAbout1": "Puoi usufruire di un tasso di rendimento annualizzato fino al 10% quando conservi il tuo {{currency}} In <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "La criptovaluta di origine non esiste.",
       "existDestinationCrypto": "La criptovaluta di destinazione non esiste.",
       "isEnoughBalanceForSwap": "Il saldo è basso da scambiare."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Il tuo prelievo è limitato entro 24 ore.",
+      "exceedAvailableWithdrawalAmount": "L'importo di prelievo disponibile è stato superato.",
+      "exceedAvailableBalanceToWithdraw": "L'importo del prelievo supera il saldo disponibile.",
+      "exceedAmountForTip": "L'importo supera l'importo massimo.",
+      "notZeroAmountForTip": "L'importo deve essere superiore a 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "L'importo bloccato deve essere maggiore di 0.",
+      "canClaimWithMinimumAmount": "L'importo richiesto deve essere pari o superiore a 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Completa il rollover per inviare suggerimenti",

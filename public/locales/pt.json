@@ -476,7 +476,7 @@
     "howToClaim3": "É isso!  {{currency}} agora está imediatamente disponível para uso!",
     "aboutCurrency": "Sobre {{currency}}",
     "canBeExchange": "Pode {{currency}} ser trocado por qualquer outra moeda?",
-    "canBeExchange1": "Absolutamente!  {{currency}} com <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Troca de</a> em outras moedas a qualquer momento.",
+    "canBeExchange1": "Absolutamente!  {{currency}} com <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Troca de</a> em outras moedas a qualquer momento.",
     "whatSpecialAbout": "O que há de especial {{currency}}?",
     "whatSpecialAbout1": "Você pode desfrutar de uma taxa de retorno anualizada de até 10% ao armazenar seu {{currency}} em <a class='cursor-pointer text-[#189614]'>Cofre Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "A criptomoeda de origem não existe.",
       "existDestinationCrypto": "A criptomoeda de destino não existe.",
       "isEnoughBalanceForSwap": "O saldo é baixo para trocar."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Sua retirada é restrita dentro de 24 horas.",
+      "exceedAvailableWithdrawalAmount": "O valor de retirada disponível foi excedido.",
+      "exceedAvailableBalanceToWithdraw": "O valor da retirada excede o saldo disponível.",
+      "exceedAmountForTip": "O valor excede o valor máximo.",
+      "notZeroAmountForTip": "O valor deve ser superior a 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "O valor bloqueado deve ser maior que 0.",
+      "canClaimWithMinimumAmount": "O valor reivindicado deve ser igual ou superior a 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Conclua o rollover para enviar dicas",

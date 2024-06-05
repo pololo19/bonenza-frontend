@@ -476,7 +476,7 @@
     "howToClaim3": "هذا كل شيء!  {{currency}} أصبح الآن متاحًا للاستخدام على الفور!",
     "aboutCurrency": "عن {{currency}}",
     "canBeExchange": "يستطيع {{currency}} هل يمكن استبدالها بأي عملة أخرى؟",
-    "canBeExchange1": "قطعاً!  {{currency}} مع <a class='cursor-pointer text-color-primary font-bold' href='/swap'>مبادلة</a> إلى عملات أخرى في أي وقت.",
+    "canBeExchange1": "قطعاً!  {{currency}} مع <a class='font-bold cursor-pointer text-color-primary' href='/swap'>مبادلة</a> إلى عملات أخرى في أي وقت.",
     "whatSpecialAbout": "ما هو خاص عنه {{currency}}؟",
     "whatSpecialAbout1": "يمكنك الاستمتاع بمعدل عائد سنوي يصل إلى 10% عند تخزين منتجاتك {{currency}} في <a class='cursor-pointer text-[#189614]'>قبو برو</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "العملة المشفرة المصدر غير موجودة.",
       "existDestinationCrypto": "العملة المشفرة الوجهة غير موجودة.",
       "isEnoughBalanceForSwap": "الرصيد منخفض للتبديل."
+    },
+    "withdraw": {
+      "restrictWithdraw": "السحب الخاص بك مقيد خلال 24 ساعة.",
+      "exceedAvailableWithdrawalAmount": "لقد تم تجاوز مبلغ السحب المتاح.",
+      "exceedAvailableBalanceToWithdraw": "مبلغ السحب يتجاوز الرصيد المتاح.",
+      "exceedAmountForTip": "المبلغ يتجاوز الحد الأقصى.",
+      "notZeroAmountForTip": "يجب أن يكون المبلغ أكثر من 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "يجب أن يكون المبلغ المقفل أكبر من 0.",
+      "canClaimWithMinimumAmount": "يجب أن يكون المبلغ المطالب به مساوياً أو أكبر من 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "الرجاء إكمال التمرير لإرسال النصائح",
