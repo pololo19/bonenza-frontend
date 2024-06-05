@@ -280,6 +280,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'isEnoughBalanceForSwap':
       message = 'errors:swap:enoughBalanceForSwap';
       break;
+    case 'notCompleteRollOverToWithdraw':
+      message = 'errors:tip:notCompleteRollOverToWithdraw';
+      break;
 
     default:
       message = 'errors:internalServer';

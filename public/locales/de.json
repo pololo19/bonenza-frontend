@@ -2244,6 +2244,10 @@
       "existSourceCrypto": "La criptomoneda de origen no existe.",
       "existDestinationCrypto": "La criptomoneda de destino no existe.",
       "isEnoughBalanceForSwap": "El saldo es bajo para canjear."
+    },
+    "tip": {
+      "notCompleteRollOverToWithdraw": "টিপস পাঠাতে রোলওভার সম্পূর্ণ করুন",
+      "success": "সফলভাবে টিপ পাঠানো হয়েছে"
     }
   },
   "success": {
