@@ -476,7 +476,7 @@
     "howToClaim3": "Itu sahaja!  {{currency}} kini tersedia serta-merta untuk digunakan!",
     "aboutCurrency": "Tentang {{currency}}",
     "canBeExchange": "boleh {{currency}} ditukar kepada mana-mana mata wang lain?",
-    "canBeExchange1": "Sudah tentu!  {{currency}} dengan <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Tukaran</a> ke dalam mata wang lain pada bila-bila masa.",
+    "canBeExchange1": "Sudah tentu!  {{currency}} dengan <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Tukaran</a> ke dalam mata wang lain pada bila-bila masa.",
     "whatSpecialAbout": "Apa yang istimewa tentang {{currency}}?",
     "whatSpecialAbout1": "Anda boleh menikmati sehingga 10% kadar pulangan tahunan apabila anda menyimpan anda {{currency}} dalam <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "Sumber mata wang kripto tidak wujud.",
       "existDestinationCrypto": "Mata wang kripto destinasi tidak wujud.",
       "isEnoughBalanceForSwap": "Baki adalah rendah untuk ditukar."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Pengeluaran anda dihadkan dalam masa 24 jam.",
+      "exceedAvailableWithdrawalAmount": "Jumlah pengeluaran yang tersedia telah melebihi.",
+      "exceedAvailableBalanceToWithdraw": "Jumlah pengeluaran melebihi baki yang ada.",
+      "exceedAmountForTip": "Jumlah melebihi jumlah maksimum.",
+      "notZeroAmountForTip": "Jumlahnya mestilah melebihi 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "Jumlah terkunci mestilah lebih besar daripada 0.",
+      "canClaimWithMinimumAmount": "Jumlah yang dituntut mestilah sama dengan atau lebih daripada 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Sila lengkapkan peralihan untuk menghantar petua",

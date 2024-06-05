@@ -476,7 +476,7 @@
     "howToClaim3": "Це воно!  {{currency}} тепер доступний для використання!",
     "aboutCurrency": "про {{currency}}",
     "canBeExchange": "може {{currency}} обміняти на іншу валюту?",
-    "canBeExchange1": "Абсолютно!  {{currency}} з <a class='cursor-pointer text-color-primary font-bold' href='/swap'>своп</a> в інші валюти в будь-який час.",
+    "canBeExchange1": "Абсолютно!  {{currency}} з <a class='font-bold cursor-pointer text-color-primary' href='/swap'>своп</a> в інші валюти в будь-який час.",
     "whatSpecialAbout": "У чому особливість {{currency}}?",
     "whatSpecialAbout1": "Ви можете отримати до 10% річної норми прибутку, коли зберігаєте свій {{currency}} в <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "Вихідної криптовалюти не існує.",
       "existDestinationCrypto": "Криптовалюта призначення не існує.",
       "isEnoughBalanceForSwap": "Залишок невеликий для обміну."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Виведення обмежено протягом 24 годин.",
+      "exceedAvailableWithdrawalAmount": "Перевищено доступну суму для зняття.",
+      "exceedAvailableBalanceToWithdraw": "Сума зняття перевищує доступний баланс.",
+      "exceedAmountForTip": "Сума перевищує максимальну суму.",
+      "notZeroAmountForTip": "Сума має бути більше 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "Заблокована сума має бути більшою за 0.",
+      "canClaimWithMinimumAmount": "Заявлена ​​сума має дорівнювати або перевищувати 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Будь ласка, завершіть перехід, щоб надіслати поради",

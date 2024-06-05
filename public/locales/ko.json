@@ -476,7 +476,7 @@
     "howToClaim3": "그게 다야!  {{currency}} 이제 즉시 사용이 가능합니다!",
     "aboutCurrency": "에 대한 {{currency}}",
     "canBeExchange": "할 수 있다 {{currency}} 다른 통화로 교환할 수 있나요?",
-    "canBeExchange1": "전적으로!  {{currency}} ~와 함께 <a class='cursor-pointer text-color-primary font-bold' href='/swap'>스왑</a> 언제든지 다른 통화로 변환할 수 있습니다.",
+    "canBeExchange1": "전적으로!  {{currency}} ~와 함께 <a class='font-bold cursor-pointer text-color-primary' href='/swap'>스왑</a> 언제든지 다른 통화로 변환할 수 있습니다.",
     "whatSpecialAbout": "특별한 점은 무엇입니까? {{currency}}?",
     "whatSpecialAbout1": "보관 시 연간 최대 10%의 수익률을 누릴 수 있습니다. {{currency}} ~에 <a class='cursor-pointer text-[#189614]'>볼트 프로</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "원본 암호화폐가 존재하지 않습니다.",
       "existDestinationCrypto": "대상 암호화폐가 존재하지 않습니다.",
       "isEnoughBalanceForSwap": "스왑하기에는 잔액이 부족합니다."
+    },
+    "withdraw": {
+      "restrictWithdraw": "24시간 이내에 출금이 제한됩니다.",
+      "exceedAvailableWithdrawalAmount": "출금가능금액을 초과하였습니다.",
+      "exceedAvailableBalanceToWithdraw": "인출금액이 사용가능잔액을 초과하였습니다.",
+      "exceedAmountForTip": "금액이 최대 금액을 초과합니다.",
+      "notZeroAmountForTip": "금액은 0 이상이어야 합니다."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "잠긴 금액은 0보다 커야 합니다.",
+      "canClaimWithMinimumAmount": "청구 금액은 5 USDT 이상이어야 합니다."
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "팁을 보내려면 롤오버를 완료하세요.",
