@@ -476,7 +476,7 @@
     "howToClaim3": "¡Eso es todo!  {{currency}} ¡Ahora está inmediatamente disponible para usar!",
     "aboutCurrency": "Acerca de {{currency}}",
     "canBeExchange": "Poder {{currency}} ¿Se puede cambiar a cualquier otra moneda?",
-    "canBeExchange1": "¡Absolutamente!  {{currency}} con <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Intercambio de</a> a otras monedas en cualquier momento.",
+    "canBeExchange1": "¡Absolutamente!  {{currency}} con <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Intercambio de</a> a otras monedas en cualquier momento.",
     "whatSpecialAbout": "¿Qué tiene de especial? {{currency}}?",
     "whatSpecialAbout1": "Puede disfrutar de una tasa de rendimiento anualizada de hasta el 10% cuando almacena su {{currency}} en <a class='cursor-pointer text-[#189614]'>Bóveda Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "La criptomoneda de origen no existe.",
       "existDestinationCrypto": "La criptomoneda de destino no existe.",
       "isEnoughBalanceForSwap": "El saldo es bajo para canjear."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Su retiro está restringido dentro de las 24 horas.",
+      "exceedAvailableWithdrawalAmount": "Se ha excedido el monto de retiro disponible.",
+      "exceedAvailableBalanceToWithdraw": "El monto del retiro excede el saldo disponible.",
+      "exceedAmountForTip": "El monto excede el monto máximo.",
+      "notZeroAmountForTip": "El importe debe ser superior a 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "La cantidad bloqueada debe ser mayor que 0.",
+      "canClaimWithMinimumAmount": "El monto reclamado debe ser igual o mayor a 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "টিপস পাঠাতে রোলওভার সম্পূর্ণ করুন",

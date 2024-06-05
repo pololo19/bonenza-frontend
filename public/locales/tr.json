@@ -476,7 +476,7 @@
     "howToClaim3": "Bu kadar!  {{currency}} artık hemen kullanıma hazır!",
     "aboutCurrency": "Hakkında {{currency}}",
     "canBeExchange": "Olabilmek {{currency}} başka bir para birimine çevrilebilir mi?",
-    "canBeExchange1": "Kesinlikle!  {{currency}} ile <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Takası</a> istediğiniz zaman diğer para birimlerine dönüştürebilirsiniz.",
+    "canBeExchange1": "Kesinlikle!  {{currency}} ile <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Takası</a> istediğiniz zaman diğer para birimlerine dönüştürebilirsiniz.",
     "whatSpecialAbout": "Özel olan ne {{currency}}?",
     "whatSpecialAbout1": "Sakladığınızda yıllık %10'a varan getiri oranının keyfini çıkarabilirsiniz. {{currency}} içinde <a class='cursor-pointer text-[#189614]'>Kasa Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "Kaynak kripto para birimi mevcut değil.",
       "existDestinationCrypto": "Hedef kripto para birimi mevcut değil.",
       "isEnoughBalanceForSwap": "Bakiye takas için düşük."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Para çekme işleminiz 24 saat içinde sınırlandırılmıştır.",
+      "exceedAvailableWithdrawalAmount": "Mevcut para çekme tutarı aşıldı.",
+      "exceedAvailableBalanceToWithdraw": "Para çekme tutarı mevcut bakiyeyi aşıyor.",
+      "exceedAmountForTip": "Tutar maksimum tutarı aşıyor.",
+      "notZeroAmountForTip": "Tutar 0'ın üzerinde olmalıdır."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "Kilitlenen miktar 0'dan büyük olmalıdır.",
+      "canClaimWithMinimumAmount": "Talep edilen tutar 5 USDT'ye eşit veya daha fazla olmalıdır"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "İpuçları göndermek için lütfen rollover'ı tamamlayın",

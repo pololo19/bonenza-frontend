@@ -477,7 +477,7 @@
     "howToClaim3": "That’s it! Your {{currency}} is now immediately available to use!",
     "aboutCurrency": "About {{currency}}",
     "canBeExchange": "Can {{currency}} be exchanged to any other currency?",
-    "canBeExchange1": "Absolutely! You can swap {{currency}} with <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Swap</a> into other currencies at any time.",
+    "canBeExchange1": "Absolutely! You can swap {{currency}} with <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Swap</a> into other currencies at any time.",
     "whatSpecialAbout": "What is special about {{currency}}?",
     "whatSpecialAbout1": "You can enjoy up to 10% annualized rate of return when you store your {{currency}} in <a class='cursor-pointer text-[#189614]'>Vault Pro</a>. So enjoy collecting {{currency}}!"
   },
@@ -2264,6 +2264,17 @@
       "existSourceCrypto": "The source cryptocurrency does not exist.",
       "existDestinationCrypto": "The destination cryptocurrency does not exist.",
       "isEnoughBalanceForSwap": "The balance is low to swap."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Your withdraw is restricted within 24 hours.",
+      "exceedAvailableWithdrawalAmount": "The available withdrawal amount has been exceeded.",
+      "exceedAvailableBalanceToWithdraw": "The withdrawal amount exceeds the available balance.",
+      "exceedAmountForTip": "The amount exceeds the max amount.",
+      "notZeroAmountForTip": "The amount must be over 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "The locked amount must be greater than 0.",
+      "canClaimWithMinimumAmount": "The claimed amount must be equal to or greater than 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Please complete rollover to send tips",

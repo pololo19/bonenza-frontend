@@ -476,7 +476,7 @@
     "howToClaim3": "इतना ही!  {{currency}} अब तुरंत उपयोग के लिए उपलब्ध है!",
     "aboutCurrency": "के बारे में {{currency}}",
     "canBeExchange": "कर सकना {{currency}} किसी अन्य मुद्रा में बदला जा सकता है?",
-    "canBeExchange1": "बिल्कुल!  {{currency}} साथ <a class='cursor-pointer  text-color-primary font-bold' href='/swap'>यूएसडीटी स्वैप</a> किसी भी समय अन्य मुद्राओं में।",
+    "canBeExchange1": "बिल्कुल!  {{currency}} साथ <a class='font-bold cursor-pointer text-color-primary' href='/swap'>यूएसडीटी स्वैप</a> किसी भी समय अन्य मुद्राओं में।",
     "whatSpecialAbout": "किस बारे में है खास {{currency}}?",
     "whatSpecialAbout1": "जब आप अपना भंडारण करते हैं तो आप 10% तक वार्षिक रिटर्न दर का आनंद ले सकते हैं {{currency}} में <a class='cursor-pointer text-[#189614]'>वॉल्ट प्रो</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "स्रोत क्रिप्टोकरेंसी मौजूद नहीं है.",
       "existDestinationCrypto": "गंतव्य क्रिप्टोकरेंसी मौजूद नहीं है.",
       "isEnoughBalanceForSwap": "स्वैप करने के लिए शेष राशि कम है."
+    },
+    "withdraw": {
+      "restrictWithdraw": "आपकी निकासी 24 घंटे के भीतर प्रतिबंधित है।",
+      "exceedAvailableWithdrawalAmount": "उपलब्ध निकासी राशि पार हो गई है.",
+      "exceedAvailableBalanceToWithdraw": "निकासी राशि उपलब्ध शेष राशि से अधिक है.",
+      "exceedAmountForTip": "राशि अधिकतम राशि से अधिक है.",
+      "notZeroAmountForTip": "राशि 0 से अधिक होनी चाहिए."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "लॉक की गई राशि 0 से अधिक होनी चाहिए.",
+      "canClaimWithMinimumAmount": "दावा की गई राशि 5 यूएसडीटी के बराबर या उससे अधिक होनी चाहिए"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "सुझाव भेजने के लिए कृपया रोलओवर पूरा करें",

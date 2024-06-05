@@ -476,7 +476,7 @@
     "howToClaim3": "Đó là nó!  {{currency}} hiện đã có sẵn để sử dụng ngay lập tức!",
     "aboutCurrency": "Về {{currency}}",
     "canBeExchange": "Có thể {{currency}} có thể đổi sang loại tiền tệ khác không?",
-    "canBeExchange1": "Tuyệt đối!  {{currency}} với <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Hoán đổi</a> sang các loại tiền tệ khác bất cứ lúc nào.",
+    "canBeExchange1": "Tuyệt đối!  {{currency}} với <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Hoán đổi</a> sang các loại tiền tệ khác bất cứ lúc nào.",
     "whatSpecialAbout": "Điều gì đặc biệt về {{currency}}?",
     "whatSpecialAbout1": "Bạn có thể tận hưởng tỷ suất lợi nhuận hàng năm lên tới 10% khi bạn lưu trữ {{currency}} TRONG <a class='cursor-pointer text-[#189614]'>Vault Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "Tiền điện tử nguồn không tồn tại.",
       "existDestinationCrypto": "Tiền điện tử đích không tồn tại.",
       "isEnoughBalanceForSwap": "Số dư thấp để trao đổi."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Việc rút tiền của bạn bị hạn chế trong vòng 24 giờ.",
+      "exceedAvailableWithdrawalAmount": "Số tiền rút có sẵn đã bị vượt quá.",
+      "exceedAvailableBalanceToWithdraw": "Số tiền rút vượt quá số dư khả dụng.",
+      "exceedAmountForTip": "Số tiền vượt quá số tiền tối đa.",
+      "notZeroAmountForTip": "Số tiền phải lớn hơn 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "Số tiền bị khóa phải lớn hơn 0.",
+      "canClaimWithMinimumAmount": "Số tiền được yêu cầu phải bằng hoặc lớn hơn 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Vui lòng hoàn tất chuyển khoản để gửi tiền boa",

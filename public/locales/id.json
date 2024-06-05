@@ -476,7 +476,7 @@
     "howToClaim3": "Itu dia!  {{currency}} sekarang segera tersedia untuk digunakan!",
     "aboutCurrency": "Tentang {{currency}}",
     "canBeExchange": "Bisa {{currency}} ditukar dengan mata uang lain?",
-    "canBeExchange1": "Sangat!  {{currency}} dengan <a class='cursor-pointer text-color-primary font-bold' href='/swap'>Pertukaran</a> ke dalam mata uang lain kapan saja.",
+    "canBeExchange1": "Sangat!  {{currency}} dengan <a class='font-bold cursor-pointer text-color-primary' href='/swap'>Pertukaran</a> ke dalam mata uang lain kapan saja.",
     "whatSpecialAbout": "Apa yang spesial darinya {{currency}}?",
     "whatSpecialAbout1": "Anda dapat menikmati tingkat pengembalian tahunan hingga 10% saat Anda menyimpan {{currency}} di dalam <a class='cursor-pointer text-[#189614]'>Gudang Pro</a>.  {{currency}}!"
   },
@@ -2244,6 +2244,17 @@
       "existSourceCrypto": "Sumber cryptocurrency tidak ada.",
       "existDestinationCrypto": "Cryptocurrency tujuan tidak ada.",
       "isEnoughBalanceForSwap": "Saldonya rendah untuk ditukar."
+    },
+    "withdraw": {
+      "restrictWithdraw": "Penarikan Anda dibatasi dalam waktu 24 jam.",
+      "exceedAvailableWithdrawalAmount": "Jumlah penarikan yang tersedia telah terlampaui.",
+      "exceedAvailableBalanceToWithdraw": "Jumlah penarikan melebihi saldo yang tersedia.",
+      "exceedAmountForTip": "Jumlahnya melebihi jumlah maksimal.",
+      "notZeroAmountForTip": "Jumlahnya harus lebih dari 0."
+    },
+    "wallet": {
+      "canClaimOnRakeback": "Jumlah yang dikunci harus lebih besar dari 0.",
+      "canClaimWithMinimumAmount": "Jumlah yang diklaim harus sama dengan atau lebih besar dari 5 USDT"
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "सुझाव भेजने के लिए कृपया रोलओवर पूरा करें",

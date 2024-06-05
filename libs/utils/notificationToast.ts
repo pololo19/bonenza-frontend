@@ -280,8 +280,31 @@ export function getErrorMesssage1(errorType: string) {
     case 'isEnoughBalanceForSwap':
       message = 'errors:swap:enoughBalanceForSwap';
       break;
+
+    // withdraw
     case 'notCompleteRollOverToWithdraw':
       message = 'errors:tip:notCompleteRollOverToWithdraw';
+      break;
+    case 'restrictWithdraw':
+      message = 'errors:withdraw:restrictWithdraw';
+      break;
+    case 'exceedAvailableWithdrawalAmount':
+      message = 'errors:withdraw:exceedAvailableWithdrawalAmount';
+      break;
+    case 'exceedAvailableBalanceToWithdraw':
+      message = 'errors:withdraw:exceedAvailableBalanceToWithdraw';
+      break;
+    case 'exceedAmountForTip':
+      message = 'errors:withdraw:exceedAmountForTip';
+      break;
+    case 'notZeroAmountForTip':
+      message = 'errors:withdraw:notZeroAmountForTip';
+      break;
+    case 'canClaimOnRakeback':
+      message = 'errors:wallet:canClaimOnRakeback';
+      break;
+    case 'canClaimWithMinimumAmount':
+      message = 'errors:wallet:canClaimWithMinimumAmount';
       break;
 
     default:
