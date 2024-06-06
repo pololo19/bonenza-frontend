@@ -275,37 +275,28 @@ const WagerContestComponent = () => {
               },
             )}
           >
-            {row.original?.playerId !== userId && !row.original?.playerName ? (
-              <Image
-                width={25}
-                height={25}
-                className="rounded-full grayscale brightness-50 sm:h-[25px] sm:w-[25px] w-[16px]"
-                src="/img/avatar-hidden.png"
-                alt=""
-              />
-            ) : (
-              <Image
-                height={25}
-                width={25}
-                src={row.original.playerAvatar ? `${API_AVATAR}${row.original.playerAvatar}` : '/img/avatar-1.png'}
-                onError={(e) => {
-                  e.currentTarget.src = '/img/avatar-1.png';
-                }}
-                alt=""
-                className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
-              />
-            )}
-            <div className="font-bold truncate text-default">
+            <div className="flex justify-center items-center w-[20px] h-[20px] sm:w-[32px] sm:h-[32px]">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
-                <div className="flex gap-[3px] items-center">
-                  <Snapchat width={12} height={12} variant="Bulk" className="hidden sm:block w-[20px] h-[20px]" />
-                  <span className="font-bold">{t('homePage:hidden')}</span>
-                </div>
-              ) : row.original.playerId === userId ? (
-                userName
+                <Snapchat width={25} height={25} variant="Bulk" className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]" />
               ) : (
-                row.original.playerName
+                <Image
+                  height={25}
+                  width={25}
+                  src={row.original.playerAvatar ? `${API_AVATAR}${row.original.playerAvatar}` : '/img/avatar-1.png'}
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                  alt=""
+                  className="object-cover rounded-full w-[16px] h-[16px] sm:w-[25px] sm:h-[25px]"
+                />
               )}
+            </div>
+            <div className="font-normal truncate text-default">
+              {row.original?.playerId !== userId && !row.original?.playerName
+                ? t('homePage:hidden')
+                : row.original.playerId === userId
+                ? userName
+                : row.original.playerName}
             </div>
           </div>
         ),
@@ -402,39 +393,45 @@ const WagerContestComponent = () => {
                         <>
                           <div
                             className={cn(
-                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[50px] lg:h-[50px]',
+                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[54px] lg:h-[54px]',
                               'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
                               styles.boxTime,
                             )}
                           >
-                            <p className="font-bold text-[16px] sm:text-[18px] lg:text-[22px] dark:text-white text-[#000]">
+                            <p className="font-bold text-[16px] sm:text-[18px] lg:text-[22px] 2xl:text-[24px] dark:text-white text-[#000]">
                               {Number(hours)}
                             </p>
-                            <p className="text-color-text-primary text-[8px]">{t('wagerContest:hours')}</p>
+                            <p className="text-color-text-primary text-[8px] 2xl:text-[10px]">
+                              {t('wagerContest:hours')}
+                            </p>
                           </div>
                           <div
                             className={cn(
-                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[50px] lg:h-[50px]',
+                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[54px] lg:h-[54px]',
                               'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
                               styles.boxTime,
                             )}
                           >
-                            <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
+                            <p className="font-bold text-[16px] sm:text-[18px] lg:text-[22px] 2xl:text-[24px] dark:text-white text-[#000]">
                               {Number(minutes)}
                             </p>
-                            <p className="text-color-text-primary text-[8px]">{t('wagerContest:minute')}</p>
+                            <p className="text-color-text-primary text-[8px] 2xl:text-[10px]">
+                              {t('wagerContest:minute')}
+                            </p>
                           </div>
                           <div
                             className={cn(
-                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[50px] lg:h-[50px]',
+                              'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[54px] lg:h-[54px]',
                               'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
                               styles.boxTime,
                             )}
                           >
-                            <p className="font-bold text-[16px] sm:text-[18px] dark:text-white text-[#000]">
+                            <p className="font-bold text-[16px] sm:text-[18px] lg:text-[22px] 2xl:text-[24px] dark:text-white text-[#000]">
                               {Number(seconds)}
                             </p>
-                            <p className="text-color-text-primary text-[8px]">{t('wagerContest:second')}</p>
+                            <p className="text-color-text-primary text-[8px] 2xl:text-[10px]">
+                              {t('wagerContest:second')}
+                            </p>
                           </div>
                         </>
                       )}
@@ -645,7 +642,7 @@ const WagerContestComponent = () => {
           </p>
         </div>
         <div
-          className="flex items-center gap-2 dark:bg-color-card-bg-secondary cursor-pointer bg-color-light-bg-primary dark:text-white text-black text-[11px] sm:text-m_default font-bold px-[10px] py-1 sm:py-2 rounded-[5px]"
+          className="flex items-center gap-2 dark:bg-color-card-bg-secondary cursor-pointer bg-color-light-bg-primary dark:text-white text-black text-[11px] sm:text-[13px] font-normal px-[10px] py-[6px] rounded-[5px]"
           onClick={() => {
             dispatch(changeIsShowDailyContest(false));
             dispatch(changeIsShowWagerContestHistory(true));
