@@ -78,7 +78,12 @@ video {
   padding: 0;
   border: 0;
   outline: none !important;
-  font-family: 'Inter', sans-serif;
+  @media screen and (min-width: 600px){
+    font-family: 'Inter';
+  }
+  @media screen and (max-width: 599px){
+    font-family:  'Outfit';
+  }
   font-weight: 400;
 }
 
