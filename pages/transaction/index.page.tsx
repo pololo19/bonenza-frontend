@@ -441,16 +441,19 @@ const TransactionPage = () => {
                 'text-color-red':
                   row.original?.type?.toLowerCase() == 'bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
+                  row.original.type.toLowerCase() === 'tip send' ||
                   row.original.type.toLocaleLowerCase() === 'swap send',
                 'text-color-text-green': !(
                   row.original?.type?.toLowerCase() == 'bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
+                  row.original.type.toLowerCase() === 'tip send' ||
                   row.original.type.toLocaleLowerCase() === 'swap send'
                 ),
               })}
             >
               {row.original?.type?.toLowerCase() == 'bet' ||
               row.original.type.toLowerCase() === 'withdraw' ||
+              row.original.type.toLowerCase() === 'tip send' ||
               row.original.type.toLocaleLowerCase() === 'swap send'
                 ? '-'
                 : ''}

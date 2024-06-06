@@ -125,25 +125,27 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
   }, [balances, activeCoin]);
 
   const handleBlur = useCallback(() => {
-    if (Number(watch('tipAmount')) > Math.min(renderMaxValue, renderBalanceValue)) {
-      setValue('tipAmount', Math.min(renderMaxValue, renderBalanceValue).toFixed(4));
-    }
+    // if (Number(watch('tipAmount')) > Math.min(renderMaxValue, renderBalanceValue)) {
+    //   setValue('tipAmount', Math.min(renderMaxValue, renderBalanceValue).toFixed(4));
+    // }
   }, [renderMaxValue, renderBalanceValue]);
 
   const schema = yup.object().shape({
     tipMessage: yup.string(),
     tipAmount: yup
       .number()
-      .required('Withdraw amount is required')
-      .typeError('Withdraw amount is required')
-      .min(0, `Winthdraw amount should greater than 0}`)
-      .max(+renderMaxValue.toFixed(4), `Winthdraw amount should be less than or equal to ${renderMaxValue.toFixed(4)}`),
+      .required('Tip amount is required')
+      .typeError('Tip amount is required')
+      .max(+renderMaxValue.toFixed(4), `Tip amount should be less than or equal to ${renderMaxValue.toFixed(4)}`)
+      .min(0, `Tip amount should greater than 0}`),
   });
+
   const {
     handleSubmit,
     setValue,
     control,
     watch,
+    reset,
     formState: { errors },
   } = useForm<TipFormType>({
     resolver: yupResolver(schema),
@@ -163,6 +165,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
           `<div style="background: #00000022; padding: 8px; color: #BBBBBB; border-radius: 8px; margin-bottom: 4px; font-weight: 600; overflow: hidden;">Sent tip to ${tipReceiver.userName}</div> ${data.tipMessage}`,
           undefined,
         );
+      reset({ tipAmount: '0', tipMessage: '' });
     } catch (error: any) {
       console.error(error);
       const errType = error.response?.data?.message ?? '';
@@ -175,7 +178,8 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
 
   useEffect(() => {
     getTipInfo();
-  }, [getTipInfo]);
+    reset({ tipAmount: '0', tipMessage: '' });
+  }, [show, getTipInfo]);
 
   return (
     <>
