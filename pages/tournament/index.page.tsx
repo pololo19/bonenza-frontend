@@ -12,6 +12,7 @@ import CommonModal from '@/components/modal/commonModal/commonModal';
 import Link from 'next/link';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppState } from '@/base/redux/store';
+import { ArrowRight2 } from 'iconsax-react';
 
 const prizes = [
   { img: '/img/tournament/prize-1.png', percent: 50 },
@@ -164,36 +165,38 @@ function TournamentPage() {
           </div>
         </div>
         <div className="p-6 mt-8 bg-gradient-card-default rounded-default">
-          <span className="text-[16px] sm:text-[20px] font-bold">{t('tournament:introduction')}</span>
-          <div className=" mt-2 pb-2 grid grid-cols-11 gap-4 lg:gap-2">
-            <div className="col-span-11 lg:col-span-3 flex gap-3 justify-center">
+          <div className="text-center sm:text-left text-[20px] sm:text-[22px] font-bold w-full">
+            {t('tournament:introduction')}
+          </div>
+          <div className=" mt-2 pb-2 grid grid-cols-11 gap-0 sm:gap-4 lg:gap-2">
+            <div className="col-span-11 lg:col-span-3 flex gap-3 justify-center items-center">
               <div className="text-[48px] text-color-primary font-bold mr-6">1</div>
               <div className="flex flex-col">
-                <div className="font-bold text-color-primary text-default sm:text-[18px]">
+                <div className="font-bold text-color-primary text-[16px] sm:text-[18px]">
                   {t('tournament:registration')}
                 </div>
                 <div className="mt-3 text-default">05/23 10:00~05/24 00:00 (UTC)</div>
               </div>
             </div>
-            <div className="col-span-11 lg:col-span-1 flex justify-center rotate-90 lg:rotate-0">
-              <VectorIcon />
+            <div className="col-span-11 lg:col-span-1 flex justify-center items-center rotate-90 lg:rotate-0 text-color-primary">
+              <ArrowRight2 className="w-10 h-10 font-extrabold" />
             </div>
-            <div className="col-span-11 lg:col-span-3 flex gap-3 justify-center">
+            <div className="col-span-11 lg:col-span-3 flex gap-3 justify-center items-center">
               <div className="text-[48px] text-color-primary font-bold mr-6">2</div>
               <div className="flex flex-col">
-                <div className="font-bold text-color-primary text-default sm:text-[18px]">
+                <div className="font-bold text-color-primary text-[16px] sm:text-[18px]">
                   {t('tournament:competition')}
                 </div>
                 <div className="mt-3 text-default">05/24 10:00~05/25 00:00 (UTC)</div>
               </div>
             </div>
-            <div className="col-span-11 lg:col-span-1 flex justify-center rotate-90 lg:rotate-0">
-              <VectorIcon />
+            <div className="col-span-11 lg:col-span-1 flex justify-center items-center rotate-90 lg:rotate-0 text-color-primary">
+              <ArrowRight2 className="w-10 h-10 font-extrabold" />
             </div>
-            <div className="col-span-11 lg:col-span-3 flex gap-3 justify-center">
+            <div className="col-span-11 lg:col-span-3 flex gap-3 justify-center items-center">
               <div className="text-[48px] text-color-primary font-bold mr-6">3</div>
               <div className="flex flex-col">
-                <div className="font-bold text-color-primary text-default sm:text-[18px]">
+                <div className="font-bold text-color-primary text-[16px] sm:text-[18px]">
                   {t('tournament:distribution')}
                 </div>
                 <div className="mt-3 text-default">05/25 00:00~05/26 00:00 (UTC)</div>
