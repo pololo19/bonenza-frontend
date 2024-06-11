@@ -797,6 +797,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                       },
                     )}
                     onClick={() => {
+                      setIsShowMobileSubMenu(true);
+                      dispatch(changeShowChatType(false));
                       dispatch(changeIsShowAccountPannel(false));
                       dispatch(changeIsShowMenuPannel(false));
                     }}
