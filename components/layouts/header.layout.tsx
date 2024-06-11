@@ -62,7 +62,7 @@ export default function Navbar() {
       {/* Navbar */}
       <div
         className={cn(
-          'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-10 h-[70px]',
+          'w-full my-auto dark:bg-color-header-secondary bg-white top-0 left-0 fixed z-8 h-[70px]',
           'sm:border-solid sm:border-[1px] sm:border-color-bg-primary sm:border-b-color-card-body-primary sm:drop-shadow-lg sm:shadow-bs-default',
           {
             'sm:ml-[62px] sm:max-w-[calc(100%_-_62px)]': !isToggleSidebar && !showChatType,
