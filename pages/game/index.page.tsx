@@ -195,13 +195,12 @@ function GamePage() {
           const errType = error.response?.data?.message ?? '';
           const errMessage = getErrorMesssage1(errType);
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-        })
-        .finally(() => {
           setIsLoadingGame({
             request: 'demo',
             status: false,
           });
-        });
+        })
+        .finally(() => {});
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
@@ -270,13 +269,12 @@ function GamePage() {
           const errType = error.response?.data?.message ?? '';
           const errMessage = getErrorMesssage1(errType);
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-        })
-        .finally(() => {
           setIsLoadingGame({
             request: 'real',
             status: false,
           });
-        });
+        })
+        .finally(() => {});
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
