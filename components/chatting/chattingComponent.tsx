@@ -280,11 +280,11 @@ const ChattingComponent = () => {
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
-          <div className="flex w-full my-[10px] justify-end gap-[8px] flex-col-reverse relative">
+          <div className="flex w-full my-[10px] justify-end gap-0 flex-col-reverse relative">
             {messages.map((message, index) => (
               <div className="w-full" key={index}>
                 {days.indexOf(index) > -1 && (
-                  <div className="flex justify-center py-2">
+                  <div className="flex justify-center my-1">
                     <span className="border border-solid border-color-primary rounded-default text-white text-[11px] sm:text-[13px] px-4 py-1">
                       {formatDate(new Date(Number(message.time) * 1000), DATE_TIME_CHAT_DATE)}
                     </span>
