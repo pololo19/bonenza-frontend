@@ -150,17 +150,6 @@ export default function RewardDropdown() {
                     )}
                   </div>
                 </Popover.Button>
-                <Transition.Child
-                  as={Fragment}
-                  enter="ease-out duration-300"
-                  enterFrom="opacity-0"
-                  enterTo="opacity-100"
-                  leave="ease-in duration-200"
-                  leaveFrom="opacity-100"
-                  leaveTo="opacity-0"
-                >
-                  <div className="fixed sm:hidden block inset-0 bg-black/80 transition-opacity z-[-1]" />
-                </Transition.Child>
                 <Transition
                   show={open}
                   as={Fragment}
@@ -173,7 +162,7 @@ export default function RewardDropdown() {
                 >
                   <Popover.Panel
                     static
-                    className="mr-0 right-0 sm:absolute fixed sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[57px]"
+                    className="mr-0 right-0 sm:absolute fixed sm:min-w-[400px] z-10 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none sm:w-auto w-full top-[64px]"
                   >
                     <div className="px-[20px] flex flex-col gap-[10px] rounded-default relative py-[10px] dark:bg-color-menu-secondary bg-white sm:w-auto w-full shadow-gray-700 dark:shadow">
                       <div className="flex justify-between">
