@@ -58,7 +58,7 @@ function ThemePage() {
                 key={index}
                 href={ROUTER.Theme(String(theme))}
                 role="button"
-                className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-[#31343a] hover:opacity-70
+                className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70
                gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
               >
                 {snakeCaseToString(theme)}
