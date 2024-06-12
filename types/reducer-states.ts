@@ -82,6 +82,8 @@ export type ModalState = {
   isShowAccountRestriction?: boolean;
   isShowChatTip?: boolean;
   isShowWagerRule?: boolean;
+  isShowFavoriteCoin?: boolean;
+  isViewInFiat?: boolean;
   tipReceiver: {
     userId?: string;
     userName?: string;
