@@ -34,6 +34,7 @@ import {
   changeIsShowDepositProgress,
   changeIsShowDepositRule,
   changeIsShowDetailBets,
+  changeIsShowFavoriteCoin,
   changeIsShowInformation,
   changeIsShowLogOutConfirm,
   changeIsShowMenuPannel,
@@ -48,6 +49,7 @@ import {
   changeIsShowUpdateAvatar,
   changeIsShowUpdateInformation,
   changeIsShowVerifyMailAndPhone,
+  changeIsShowViewInFiat,
   changeIsShowVipClubModal,
   changeIsShowVipLevelModal,
   changeIsShowWagerContestHistory,
@@ -72,6 +74,7 @@ import {
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BetTableDataType, MessageType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
+import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
 
 import ChattingComponent from '../chatting/chattingComponent';
@@ -104,6 +107,7 @@ import ModalSpin from '../modal/spin/spin';
 import ModalUpdateAvatar from '../modal/updateAvatar/updateAvatar';
 import ModalUpdateProfile from '../modal/updateProfile/updateProfile';
 import ModalVerificationMailAndPhone from '../modal/verification/verifyEmailAndPhone';
+import ViewInFiat from '../modal/viewInFiat/viewInFiat';
 import ModalVipClub from '../modal/vipClub/vipClub';
 import ModalVipLevel from '../modal/vipLevel/vipLevel';
 import ModalWagerContestHistory from '../modal/wagerContestHistory/wagerContestHistory';
@@ -212,6 +216,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowAccountRestriction,
     isShowChatTip,
     isShowWagerRule,
+    isShowFavoriteCoin,
+    isViewInFiat,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -262,6 +268,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowAccountRestriction: state.modal.isShowAccountRestriction,
       isShowChatTip: state.modal.isShowChatTip,
       isShowWagerRule: state.modal.isShowWagerRule,
+      isShowFavoriteCoin: state.modal.isShowFavoriteCoin,
+      isViewInFiat: state.modal.isViewInFiat,
     }),
     shallowEqual,
   );
@@ -1020,6 +1028,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         onClose={() => dispatch(changeIsShowAccountRestriction(false))}
       />
       <ModalWagerRules show={isShowWagerRule || false} onClose={() => dispatch(changeIsShowWagerRules(false))} />
+      <ModalFavoriteCoins
+        show={isShowFavoriteCoin || false}
+        onClose={() => {
+          dispatch(changeIsShowFavoriteCoin(false));
+        }}
+      />
+      <ViewInFiat show={isViewInFiat || false} onClose={() => dispatch(changeIsShowViewInFiat(false))} />
     </>
   );
 };

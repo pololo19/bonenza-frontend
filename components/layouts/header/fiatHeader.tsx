@@ -19,14 +19,16 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { updateSetting } from '@/base/redux/reducers/auth.reducer';
 import { changeActiveFiat } from '@/base/redux/reducers/common.reducer';
-import { changeIsShowRakeBack } from '@/base/redux/reducers/modal.reducer';
+import {
+  changeIsShowFavoriteCoin,
+  changeIsShowRakeBack,
+  changeIsShowViewInFiat,
+} from '@/base/redux/reducers/modal.reducer';
 import { setActiveCurrency } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { BalanceType, CurrencyType } from '@/base/types/wallet';
 import CsrWrapper from '@/components/CsrWrapper';
 import InputSearch from '@/components/input/typing/InputSearch';
-import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
-import ViewInFiatModal from '@/components/modal/viewInFiat/viewInFiat';
 
 type FiatHeaderProps = {
   inGamePage?: boolean;
@@ -261,7 +263,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                 </div>
                 {!inGamePage && (
                   <div
-                    onClick={() => setShowFavoriteCoins(true)}
+                    onClick={() => dispatch(changeIsShowFavoriteCoin(true))}
                     className="flex flex-col items-center justify-center px-[10px] pb-[2px] dark:text-[#67707B] text-[36px] text-[#9FA5AC] cursor-pointer"
                   >
                     <AddSquare size={24} stroke="2" />
@@ -520,7 +522,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                         } else {
                           dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
                         }
-                        if (value) setShowAllFiat(true);
+                        if (value) dispatch(changeIsShowViewInFiat(true));
                       }}
                       className={`${
                         viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
@@ -556,16 +558,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
           </Menu.Items>
         </Transition>
       </Menu>
-
-      <ViewInFiatModal show={showAllFiat} onClose={() => setShowAllFiat(false)} />
-      {showFavoriteCoins && (
-        <ModalFavoriteCoins
-          show={showFavoriteCoins}
-          onClose={() => {
-            setShowFavoriteCoins(false);
-          }}
-        />
-      )}
     </>
   );
 }

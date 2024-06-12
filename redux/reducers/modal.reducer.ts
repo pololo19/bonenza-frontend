@@ -71,6 +71,8 @@ export const initialCommonState: ModalState = {
     userName: '',
     userAvatar: '',
   },
+  isViewInFiat: false,
+  isShowFavoriteCoin: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -200,6 +202,12 @@ export const queryDataSlice = createSlice({
     changeIsShowWagerRules: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowWagerRule = action.payload;
     },
+    changeIsShowFavoriteCoin: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowFavoriteCoin = action.payload;
+    },
+    changeIsShowViewInFiat: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isViewInFiat = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -303,5 +311,7 @@ export const {
   setDetailBets,
   setInitialModals,
   setTipReceiver,
+  changeIsShowFavoriteCoin,
+  changeIsShowViewInFiat,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;
