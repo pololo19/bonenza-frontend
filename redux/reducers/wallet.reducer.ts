@@ -1,6 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { api_getDepositTime, api_getUserBalance, api_getWalletInfo, api_swapFeeInfo } from '@/api/wallet';
+import {
+  api_getClaims,
+  api_getDepositTime,
+  api_getUserBalance,
+  api_getWalletInfo,
+  api_swapFeeInfo,
+} from '@/api/wallet';
 import { AppDispatch } from '@/base/redux/store';
 import { WalletState } from '@/base/types/reducer-states';
 import {
@@ -301,6 +307,7 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
 export const getBalance = () => async (dispatch: AppDispatch) => {
   try {
     const result = await api_getUserBalance();
+    const bonusData = await api_getClaims();
     const tempBalances: BalanceType[] = result.data?.cryptoBalances?.map((item: any) => ({
       amount: Number(item.balance),
       symbol: item.symbol,
@@ -310,6 +317,7 @@ export const getBalance = () => async (dispatch: AppDispatch) => {
     const temptotalBalance = result.data?.totalBalance;
     const temprealBalance = result.data?.realBalance;
     const tempbonusBalance = result.data?.bonusBalance;
+    const tempLockedAmount = Number(bonusData.data?.lockedAmount ?? 0);
 
     dispatch(
       setBalance({
@@ -318,6 +326,7 @@ export const getBalance = () => async (dispatch: AppDispatch) => {
         bonusBalance: Number(tempbonusBalance),
       }),
     );
+    dispatch(setLockedAmount(tempLockedAmount));
     dispatch(setBalances(tempBalances));
   } catch (error) {
     console.log(error);
