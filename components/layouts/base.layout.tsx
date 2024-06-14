@@ -7,7 +7,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_validateToken } from '@/api/auth';
-import { api_getInitData } from '@/api/wallet';
+import { api_getClaims, api_getInitData } from '@/api/wallet';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL, TOAST_ENUM } from '@/base/constants/common';
@@ -67,6 +67,7 @@ import {
   setActiveTransactionStatus,
   setFiatSymbols,
   setLocalFiat,
+  setLockedAmount,
   updateBalance,
   updateCryptoPrice,
   updatedFiatPrice,
@@ -490,8 +491,15 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         }
       });
 
-      walletSocket.on(`${userId}:deposit_bonus`, (data: any) => {
+      walletSocket.on(`${userId}:deposit_bonus`, async (data: any) => {
         const amount_usd = data?.amount_usd || '';
+
+        const _resBonus = await api_getClaims();
+        const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+        // update balance
+        dispatch(getBalance());
+        dispatch(setLockedAmount(tempLockedAmount));
+
         toast.success(
           t('bonus:depositBonusNotification', {
             amount: `${amount_usd}`,
@@ -738,7 +746,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
               <div
                 className={cn(
-                  '2xl:relative fixed right-0 max-h-screen 2xl:mt-0 top-0 bottom-[60px] sm:bottom-0 z-11 drop-shadow-md ',
+                  '2xl:relative fixed right-0 max-h-screen 2xl:mt-0 top-0 sm:top-[70px] 2xl:top-0 bottom-[60px] sm:bottom-0 z-9 drop-shadow-md ',
                   'transition-transform origin-bottom sm:origin-right',
                   {
                     'sm:translate-x-0 sm:translate-y-0 translate-y-0 w-auto': showChatType,
