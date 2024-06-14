@@ -23,7 +23,7 @@ interface MessageBoxProps {
   replyUserId: string;
   replyUserName: string;
   replyText: string;
-  onReply: (messageId: string, messageContent: string, receiverName: string) => void;
+  onReply: (messageId: string, messageContent: string, receiverId: string, receiverName: string) => void;
 }
 
 export const MessageBox = ({
@@ -85,13 +85,13 @@ export const MessageBox = ({
   return (
     <>
       <div
-        className={cn('flex w-full px-[10px] rounded-[4px] min-h-[60px] py-2', styles['message'], {
+        className={cn('flex w-full px-[10px] rounded-[4px] min-h-[50px] py-0', styles['message'], {
           'justify-end': id === userId,
           'justify-start': id !== userId,
           'bg-color-primary/10 border-l-[4px] border-solid border-l-color-primary':
             text.toLowerCase().indexOf('@' + name.toLowerCase()) >= 0 && id,
         })}
-        onDoubleClick={() => onReply(messageId, text, userName)}
+        onDoubleClick={() => onReply(messageId, text, userId, userName)}
       >
         <div
           className={cn('flex w-full gap-2', {
@@ -99,12 +99,12 @@ export const MessageBox = ({
             'justify-start': id !== userId,
           })}
         >
-          <div className="block relative w-[50px] h-fit cursor-pointer" onClick={() => handleModalProfile()}>
+          <div className="block relative w-[45px] h-fit cursor-pointer" onClick={() => handleModalProfile()}>
             {userName ? (
               <Image
-                className="w-[50px] h-[50px] rounded-full"
-                width={50}
-                height={50}
+                className="w-[45px] h-[45px] rounded-full"
+                width={42}
+                height={42}
                 alt=""
                 src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
                 onError={(e) => {
@@ -113,9 +113,9 @@ export const MessageBox = ({
               />
             ) : (
               <Image
-                width={50}
-                height={50}
-                className="w-[50px] h-[50px] rounded-full grayscale brightness-50"
+                width={42}
+                height={42}
+                className="w-[45px] h-[45px] rounded-full grayscale brightness-50"
                 src="/img/avatar-hidden.png"
                 alt=""
               />
@@ -123,7 +123,7 @@ export const MessageBox = ({
 
             <div className="flex items-center justify-center w-full absolute -bottom-[3px] ">
               <span
-                className={'text-white rounded text-[12px] flex justify-center w-fit px-[10px]'}
+                className={'text-white rounded text-[11px] flex justify-center w-fit px-[6px]'}
                 style={{ backgroundColor: getColorOfLevel(Number(level)) }}
               >
                 {`V${level}`}
@@ -131,14 +131,14 @@ export const MessageBox = ({
             </div>
           </div>
           <div className={cn({ 'text-left': id !== userId, 'text-right': id === userId })}>
-            <div className={cn('flex items-center gap-2 text-[13px] pl-1')}>
+            <div className={cn('flex items-center gap-2 text-[12px] pl-1')}>
               <div
                 className={cn('text-[#BBB] font-semibold', { 'hover:underline cursor-pointer': userName })}
                 onClick={() => handleModalProfile()}
               >
                 {id !== userId ? (userName ? userName : t('homePage:hidden')) : ''}
               </div>
-              <div className={cn('text-[12px] text-center text-[#999] font-normal')}>
+              <div className={cn('text-[11px] text-center text-[#999] font-normal')}>
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
               </div>
               {id !== userId && (
@@ -149,22 +149,22 @@ export const MessageBox = ({
                     dispatch(changeIsShowChatTip(true));
                   }}
                 >
-                  <Gift className="w-4 h-4 -mt-1" />
+                  <Gift className="w-[14px] h-[14px] -mt-1" />
                 </div>
               )}
               {id !== userId && (
                 <div
                   className={cn('cursor-pointer text-white', styles['reply'])}
-                  onClick={() => onReply(messageId, text, userName)}
+                  onClick={() => onReply(messageId, text, userId, userName)}
                 >
-                  <Back className="w-4 h-4 -mt-1" />
+                  <Back className="w-[14px] h-[14px] -mt-1" />
                 </div>
               )}
             </div>
             <div className="inline-block">
               <div
                 className={cn(
-                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[190px] break-all text-white rounded-[8px] px-2 py-2',
+                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[190px] break-all text-white rounded-[8px] px-2 py-[6px]',
                   { 'bg-color-input-primary': id !== userId, 'bg-[#8873DD]': id === userId },
                 )}
               >

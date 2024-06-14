@@ -13,7 +13,7 @@ const SubMobileMenu: React.FC<SubMobileMenuProps> = ({ datas, isShow }) => {
   const router = useRouter();
 
   return (
-    <div className="fixed top-[69px] left-0 right-0 z-[9] dark:bg-color-header-secondary">
+    <div className="fixed top-[69px] left-0 right-0 z-[8] dark:bg-color-header-secondary">
       <div className="p-0">
         <div
           className={cn(
