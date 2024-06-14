@@ -242,18 +242,19 @@ const ChattingComponent = () => {
     setDays(tempDays);
   }, [messages]);
 
-  const onReply = (messageId: string, messageContent: string, receiverName: string) => {
+  const onReply = (messageId: string, messageContent: string, receiverId: string, receiverName: string) => {
     const $spanEl = chatRef.current;
     if (!$spanEl) return;
-    $spanEl.innerHTML = '';
+    $spanEl.innerHTML = '@';
     $spanEl.focus();
-    setReplyMsg({ id: messageId, userName: receiverName, text: messageContent });
+    onTagUser({ userId: receiverId, userName: receiverName });
+    // setReplyMsg({ id: messageId, userName: receiverName, text: messageContent });
   };
 
   return (
     <>
       <div className="flex flex-col justify-between h-full w-full bg-white dark:bg-color-header-primary min-w-[100vw] sm:min-w-[330px]  border-solid border-[1px] border-color-bg-primary border-l-color-card-body-primary drop-shadow-lg shadow-bs-default">
-        <div className="flex justify-between items-center h-[70px] z-[5] px-5 py-3 border-b-[1px] border-solid dark:border-b-color-card-body-primary border-color-light-border-primary">
+        <div className="flex justify-between items-center !min-h-[70px] px-5 py-3 border-b-[1px] border-solid dark:border-b-color-card-body-primary border-color-light-border-primary">
           <div className="text-[18px] text-black dark:text-[#ffffff] font-semibold">{t('chatting:chat')}</div>
           <div className="flex gap-[13px]">
             <button
@@ -276,11 +277,11 @@ const ChattingComponent = () => {
           </div>
         </div>
         <div
-          className="flex flex-col bg-transparent overflow-y-auto pb-[20px]"
+          className="flex flex-col bg-transparent overflow-y-auto h-full pb-[20px]"
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
-          <div className="flex w-full my-[10px] justify-end gap-0 flex-col-reverse relative">
+          <div className="flex w-full my-[10px] justify-end gap-2 flex-col-reverse relative">
             {messages.map((message, index) => (
               <div className="w-full" key={index}>
                 {days.indexOf(index) > -1 && (
