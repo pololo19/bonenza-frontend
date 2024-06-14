@@ -68,7 +68,7 @@ export default function CardVipBonus({
   const getUserProfile = async (selectedUserId: string) => {
     try {
       const res = await api_getProfile(selectedUserId);
-      setVipLevel(res.data.currentVipLevel || 0);
+      setVipLevel(23); //res.data.currentVipLevel || 0);
     } catch (error) {
     } finally {
     }
@@ -138,7 +138,7 @@ export default function CardVipBonus({
               {lastWeeklyBonus}
             </div>
           </div>
-          <div>
+          <div className="max-w-[60%]">
             <div className="dark:text-white font-semibold text-color-light-text-primary text-m_default sm:text-[14px] text-right truncate">
               {vipLevel >= 22 && (
                 <>
@@ -146,7 +146,7 @@ export default function CardVipBonus({
                   <span> /</span>
                 </>
               )}{' '}
-              {wagerValue}
+              {vipLevel >= 22 ? wagerValue.slice(2) : wagerValue}
             </div>
             <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] text-right truncate">
               {tierValue}
