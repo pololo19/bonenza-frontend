@@ -159,19 +159,39 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
-        wagerValue: currencyFormat1(bonusData.general.weeklyCashBack.requiredWagerAmount, 2, '', false),
+        wagerValue: viewInFiat
+          ? currencyFormat1(
+              bonusData.general.weeklyCashBack.requiredWagerAmount * exchangeRate,
+              2,
+              localFiat?.name || 'USD',
+              true,
+            )
+          : currencyFormat1(bonusData.general.weeklyCashBack.requiredWagerAmount, 2, '', true),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
         lastWeekBonusValue:
           bonusData.general.weeklyCashBack.lastBonus === 0
             ? '-'
-            : currencyFormat1(bonusData.general.weeklyCashBack.lastBonus, 2),
+            : viewInFiat
+            ? currencyFormat1(
+                bonusData.general.weeklyCashBack.lastBonus * exchangeRate,
+                2,
+                localFiat?.name || 'USD',
+                true,
+              )
+            : currencyFormat1(bonusData.general.weeklyCashBack.lastBonus, 2, '', true),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:weeklyCashBackTooltip1'), t('bonus:weeklyCashBackTooltip2')],
         expiration: bonusData.general.weeklyCashBack.expireDate,
-        currentWager: currencyFormat1(bonusData.general.weeklyCashBack.currentWagerAmount, 2),
+        currentWager: viewInFiat
+          ? currencyFormat1(
+              bonusData.general.weeklyCashBack.currentWagerAmount * exchangeRate,
+              2,
+              localFiat?.name || 'USD',
+            )
+          : currencyFormat1(bonusData.general.weeklyCashBack.currentWagerAmount, 2),
       },
       {
         backgroundDark: '/img/bg-weekly-cashback2.png',
@@ -183,22 +203,43 @@ function BonusLoggedPage() {
         rechargeRate: '',
         readyToClaim: '',
         lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
-        wagerValue: currencyFormat1(bonusData.general.monthlyCashBack.requiredWagerAmount, 2, '', false),
+        wagerValue: viewInFiat
+          ? currencyFormat1(
+              bonusData.general.monthlyCashBack.requiredWagerAmount * exchangeRate,
+              2,
+              localFiat?.name || 'USD',
+              true,
+            )
+          : currencyFormat1(bonusData.general.monthlyCashBack.requiredWagerAmount, 2, '', true),
         tierValue: '',
         rechargeRateValue: '',
         readyToClaimValue: '',
         lastWeekBonusValue:
           bonusData.general.monthlyCashBack.lastBonus === 0
             ? '-'
-            : currencyFormat1(bonusData.general.monthlyCashBack.lastBonus, 2),
+            : viewInFiat
+            ? currencyFormat1(
+                bonusData.general.monthlyCashBack.lastBonus * exchangeRate,
+                2,
+                localFiat?.name || 'USD',
+                true,
+              )
+            : currencyFormat1(bonusData.general.monthlyCashBack.lastBonus, 2, '', true),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:monthlyCashBackTooltip1'), t('bonus:monthlyCashBackTooltip2')],
         expiration: bonusData.general.monthlyCashBack.expireDate,
-        currentWager: currencyFormat1(bonusData.general.monthlyCashBack.currentWagerAmount, 2),
+        currentWager: viewInFiat
+          ? currencyFormat1(
+              bonusData.general.monthlyCashBack.currentWagerAmount * exchangeRate,
+              2,
+              localFiat?.name || 'USD',
+              true,
+            )
+          : currencyFormat1(bonusData.general.monthlyCashBack.currentWagerAmount, 2, '', true),
       },
     ],
-    [i18n.language, bonusData, viewInFiat, localFiat],
+    [i18n.language, bonusData, viewInFiat, localFiat, exchangeRate],
   );
 
   const getBonusStatistics = async () => {
@@ -455,7 +496,7 @@ function BonusLoggedPage() {
                         {bonusData.vip.levelUp.currentVipName}
                       </div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px] text-right flex">
-                        <span className="font-semibold dark:text-color-text-green">
+                        <span className="font-semibold text-black dark:text-white">
                           {bonusData.vip.levelUp.currentVipXP}
                         </span>
                         <span>{` / `}</span>
@@ -571,9 +612,31 @@ function BonusLoggedPage() {
                         <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] font-semibold">
                           <div className="text-[10px] text-left">{t('bonus:wagerRequired')}</div>
                           <span className="text-white font-semibold">
-                            {`${currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2, 'USD', true)}`}
+                            {viewInFiat ? (
+                              <>
+                                {currencyFormat1(
+                                  bonusData.general.currentWagerAmountForDailySpin * exchangeRate,
+                                  2,
+                                  localFiat?.name || 'USD',
+                                )}
+                              </>
+                            ) : (
+                              <>{currencyFormat1(bonusData.general.currentWagerAmountForDailySpin, 2)}</>
+                            )}
                           </span>
-                          {` /${currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2, 'USD', false)}`}
+                          {` / `}
+                          {viewInFiat ? (
+                            <>
+                              {currencyFormat1(
+                                bonusData.general.wagerAmountForDailySpin * exchangeRate,
+                                2,
+                                localFiat?.name || 'USD',
+                                false,
+                              )}
+                            </>
+                          ) : (
+                            <>{currencyFormat1(bonusData.general.wagerAmountForDailySpin, 2)}</>
+                          )}
                         </div>
                       </div>
                       <div className="flex justify-between w-full">
