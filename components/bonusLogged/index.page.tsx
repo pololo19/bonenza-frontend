@@ -496,7 +496,7 @@ function BonusLoggedPage() {
                         {bonusData.vip.levelUp.currentVipName}
                       </div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px] text-right flex">
-                        <span className="font-semibold dark:text-color-text-green">
+                        <span className="font-semibold text-black dark:text-white">
                           {bonusData.vip.levelUp.currentVipXP}
                         </span>
                         <span>{` / `}</span>
