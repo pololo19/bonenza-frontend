@@ -54,6 +54,7 @@ const ChattingComponent = () => {
   );
 
   const [messages, setMessages] = useState<MessageType[]>([]);
+  const [isSending, setIsSending] = useState<boolean>(false);
   const [inComingMessage, setInComingMessage] = useState<MessageType[]>([]);
 
   const getMessages = useCallback(async () => {
@@ -192,16 +193,24 @@ const ChattingComponent = () => {
       dispatch(changeIsShowAuthenticationModal(true));
       return;
     }
-    const $spanEl = chatRef.current;
-    if (!$spanEl) return;
-    let msg = $spanEl.innerHTML;
-    msg = msg.replaceAll('<div>', '');
-    msg = msg.replaceAll('</div>', '');
-    const _res = await api_sendChat(msg, replyMsg?.id ? replyMsg.id : undefined);
-    setReplyMsg({ id: '', userName: '', text: '' });
-    $spanEl.innerHTML = '';
-    $spanEl.blur();
-    scrollDown();
+    if (isSending) return;
+    try {
+      setIsSending(true);
+      const $spanEl = chatRef.current;
+      if (!$spanEl) return;
+      let msg = $spanEl.innerHTML;
+      msg = msg.replaceAll('<div>', '');
+      msg = msg.replaceAll('</div>', '');
+      await api_sendChat(msg, replyMsg?.id ? replyMsg.id : undefined);
+      setReplyMsg({ id: '', userName: '', text: '' });
+      $spanEl.innerHTML = '';
+      $spanEl.blur();
+      scrollDown();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   const { t } = useTranslation('');

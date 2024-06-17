@@ -164,7 +164,7 @@ export const MessageBox = ({
             <div className="inline-block">
               <div
                 className={cn(
-                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[190px] break-all text-white rounded-[8px] px-2 py-[6px]',
+                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[220px] break-all text-white rounded-[8px] px-2 py-[6px]',
                   { 'bg-color-input-primary': id !== userId, 'bg-[#8873DD]': id === userId },
                 )}
               >
