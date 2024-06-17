@@ -68,7 +68,7 @@ export default function CardVipBonus({
   const getUserProfile = async (selectedUserId: string) => {
     try {
       const res = await api_getProfile(selectedUserId);
-      setVipLevel(23); //res.data.currentVipLevel || 0);
+      setVipLevel(res.data.currentVipLevel || 0);
     } catch (error) {
     } finally {
     }
