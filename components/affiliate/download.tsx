@@ -5,7 +5,7 @@ function DownloadComponents() {
   const { t, i18n } = useTranslation('');
   return (
     <div className="flex flex-col lg:flex-row mt-10 gap-4">
-      <div className="bg-gradient-card-default rounded-default">
+      <div className="bg-gradient-card-default rounded-default overflow-hidden">
         <Image
           src="/img/affiliate/banner1.png"
           width={300}
@@ -14,10 +14,10 @@ function DownloadComponents() {
           alt="banner1"
         />
         <div className="flex flex-col gap-4 px-6 py-4">
-          <div className="text-m_title font-semibold">{t('affiliate:bannerPack')}</div>
+          <div className="text-m_title font-semibold">{t('affiliate:bannerPack1')}</div>
           <div className="text-default">{t('affiliate:bannerDescription')}</div>
           <a
-            href="https://drive.google.com/file/d/1zVZ1dkyn4xjCXjMnACJhRXuplzpxJB0A/view?usp=sharing"
+            href="https://drive.google.com/file/d/1oMqGWsPKqkeEcfCZ5svpSMTrCUilIoZC/view?usp=sharing"
             className="w-[150px]"
             target="_blank"
           >
@@ -27,7 +27,7 @@ function DownloadComponents() {
           </a>
         </div>
       </div>
-      <div className="bg-gradient-card-default rounded-default">
+      <div className="bg-gradient-card-default rounded-default overflow-hidden">
         <Image
           src="/img/affiliate/banner2.png"
           width={300}
@@ -36,10 +36,10 @@ function DownloadComponents() {
           alt="banner1"
         />
         <div className="flex flex-col gap-4 px-6 py-4">
-          <div className="text-m_title font-semibold">{t('affiliate:bannerPack')}</div>
+          <div className="text-m_title font-semibold">{t('affiliate:bannerPack2')}</div>
           <div className="text-default">{t('affiliate:bannerDescription')}</div>
           <a
-            href="https://drive.google.com/file/d/1eLMH--hN5c77H2DUozDc82KydOepTKg-/view?usp=sharing"
+            href="https://drive.google.com/file/d/1DdDE8PqfNvBibT6FCrtlrfaB0N-ltVFE/view?usp=sharing"
             className="w-[150px]"
             target="_blank"
           >

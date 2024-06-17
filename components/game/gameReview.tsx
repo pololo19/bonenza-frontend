@@ -342,7 +342,7 @@ const GameReviewComponent = ({
 
   return (
     <div className="relative">
-      <div className="dark:bg-color-bg-secondary bg-white w-full p-6 rounded-md text-[11px] text-color-text-primary font-normal mb-7">
+      <div className="dark:bg-color-card-bg-primary bg-white w-full p-6 rounded-md text-[11px] text-color-text-primary font-normal mb-7">
         <div className="flex gap-5">
           <Image
             height={90}
@@ -472,7 +472,7 @@ const GameReviewComponent = ({
       <div className="mb-10 dark:text-color-text-primary text-[#000]">
         {loading.ratingLoading && <Loader />}
         <h2 className="mb-1 text-lg font-semibold text-black dark:text-white">{t('gameDetail:ratings')} </h2>
-        <div className="w-full bg-white dark:bg-color-bg-secondary">
+        <div className="w-full bg-white dark:bg-color-card-bg-primary">
           <div className="flex sm:p-4 p-2 md:gap-[30px] gap-[30px]">
             <div className="flex md:flex-row flex-col gap-[10px]">
               <span className="text-4xl dark:text-color-primary text-[#f59e0b] font-normal">
@@ -502,7 +502,7 @@ const GameReviewComponent = ({
                       count={5 - index}
                     />
                   </div>
-                  <div className="w-full h-[5px] bg-color-progress-secondary rounded">
+                  <div className="w-full h-[5px] bg-gray-500 rounded">
                     <div
                       className="h-full rounded bg-color-primary"
                       style={{ width: `${(ratingData.counts[4 - index] / (ratingData.totalCount || 1)) * 100}%` }}
@@ -621,7 +621,7 @@ const GameReviewComponent = ({
           />
 
           <div
-            className="flex flex-col items-start justify-center w-full h-full text-sm border-none cursor-pointer dark:bg-color-bg-secondary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary px-7 focus:outline-none"
+            className="flex flex-col items-start justify-center w-full h-full text-sm border-none cursor-pointer dark:bg-color-card-bg-primary bg-color-light-bg-primary dark:text-color-text-primary text-color-light-bg-primary px-7 focus:outline-none"
             role="text"
             onClick={() => {
               if (!isLogin) {
@@ -641,7 +641,7 @@ const GameReviewComponent = ({
         </div>
         {commentData.map((comment, index) => (
           <div className="flex flex-col text-xs dark:text-color-text-primary text-color-light-text-primary" key={index}>
-            <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-bg-secondary bg-white">
+            <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-card-bg-primary bg-white">
               <div className="ml-[17px]">
                 <div className="flex items-center gap-2">
                   <Image
