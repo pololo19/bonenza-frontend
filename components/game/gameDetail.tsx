@@ -130,7 +130,7 @@ const GameDetailComponent = ({
           {t('gameDetail:aboutTheProvider')}
         </div>
         <div>
-          <div className="dark:bg-color-card-bg-default bg-white p-[15px] rounded-[5px] mt-[10px] mb-[30px]">
+          <div className="dark:bg-color-card-body-secondary bg-white p-[15px] rounded-[5px] mt-[10px] mb-[30px]">
             <div className="mb-[15px] ml-[15px]">
               <Image
                 height={0}
@@ -148,7 +148,7 @@ const GameDetailComponent = ({
             <div className="flex items-center gap-[10px]">
               <Link
                 href={ROUTER.Provider(String(gameDetail?.providerName))}
-                className="flex dark:bg-color-btn-primary dark:hover:bg-gray-600 text-[#000] hover:text-[#000] items-center p-[10px] justify-between rounded-[5px] gap-[5px] border dark:border-0 border-solid border-[#DADDE6]"
+                className="flex dark:bg-color-card-header-active dark:hover:bg-color-card-body-hover text-black dark:text-white items-center p-[10px] justify-between rounded-[5px] gap-[5px] border dark:border-0 border-solid border-[#DADDE6]"
                 role="button"
               >
                 <div className="text-[12px] dark:text-[#FFFFFF] text-[#31373D] hover:text-[#000] font-bold">
@@ -159,7 +159,7 @@ const GameDetailComponent = ({
               <Link
                 href={ROUTER.Provider(String(gameDetail?.providerName))}
                 role="button"
-                className="text-[12px] dark:text-[#FFFFFF] font-bold p-[10px] dark:bg-color-btn-primary text-[#31373D] hover:text-[#000] bg-white border dark:border-0 border-solid border-[#DADDE6] dark:hover:text-white dark:hover:bg-gray-600 rounded-[5px] text-center"
+                className="text-[12px] dark:text-[#FFFFFF] font-bold p-[10px] dark:dark:bg-color-card-header-active dark:hover:bg-color-card-body-hover text-[#31373D] hover:text-[#000] bg-white border dark:border-0 border-solid border-[#DADDE6] dark:hover:text-white rounded-[5px] text-center"
               >
                 {t('gameDetail:moreInfo')}
               </Link>
