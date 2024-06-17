@@ -156,7 +156,6 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
 
   const onSubmit = async (data: TipFormType) => {
     try {
-      console.log(data);
       setIsSending(true);
       const _res = await api_chatTip(tipReceiver.userId || '', activeCoin.id, +data.tipAmount);
       toast.success(t('errors:tip:success'), { toastId: 'chat-tip-notify-success', containerId: TOAST_ENUM.COMMON });
@@ -168,6 +167,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
         );
       reset({ tipAmount: '0', tipMessage: '' });
       dispatch(changeIsShowChatTip(false));
+      dispatch(getBalance());
     } catch (error: any) {
       console.error(error);
       const errType = error.response?.data?.message ?? '';
