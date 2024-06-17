@@ -19,5 +19,5 @@ export function copyClipBoard(text: string) {
     document.execCommand('copy');
     textArea.remove();
   }
-  toast.success('Copied', { containerId: TOAST_ENUM.COMMON });
+  toast.success('Copied', { containerId: TOAST_ENUM.COMMON, toastId: 'copy-clipboard-notification' });
 }

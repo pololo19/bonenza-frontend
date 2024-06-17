@@ -134,6 +134,13 @@ function RewardsComponent() {
   const handleWithdraw = async () => {
     if (isClaiming) return;
     try {
+      if (affiliateRewards.availableCommissionAmountUsd === 0 && affiliateRewards.availableReferralAmountUsd === 0) {
+        toast.error(t('affiliate:notEnoughAvailable'), {
+          toastId: 'reward-withdraw-notify-error',
+          containerId: TOAST_ENUM.COMMON,
+        });
+        return;
+      }
       setIsClaiming(true);
       const _res = await api_affiliateRewardsWithdraw();
 

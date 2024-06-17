@@ -207,6 +207,10 @@ const IconOption = ({
               className={cn('flex-1 text-start dark:hover:text-white', `font-[${fontWeight}]`, {
                 'dark:text-color-text-primary text-color-light-text-primary': showDropDownCasino,
                 'text-[15px]': isFontMedium,
+                'dark:bg-color-menu-hover !text-color-primary': router.asPath
+                  .toLowerCase()
+                  .replace('%20', ' ')
+                  .includes(ROUTER.Casino),
               })}
             >
               {title}
