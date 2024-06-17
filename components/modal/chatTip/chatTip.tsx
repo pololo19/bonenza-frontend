@@ -25,6 +25,7 @@ import { toast } from 'react-toastify';
 import ReactLoading from 'react-loading';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { api_sendChat } from '@/api/chat';
+import { changeIsShowChatTip } from '@/base/redux/reducers/modal.reducer';
 
 type ChatTipProps = {
   onClose: () => void;
@@ -166,6 +167,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
           undefined,
         );
       reset({ tipAmount: '0', tipMessage: '' });
+      dispatch(changeIsShowChatTip(false));
     } catch (error: any) {
       console.error(error);
       const errType = error.response?.data?.message ?? '';
