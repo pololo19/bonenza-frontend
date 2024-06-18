@@ -463,7 +463,8 @@
     "depositDetectedView": "ดูบน Blockchain",
     "depositCompleted": "การฝากเงินเสร็จสมบูรณ์",
     "depositCompletedDescription": "ได้รับการชำระเงินแล้ว อาจใช้เวลาสักครู่จึงจะปรากฏในบัญชีของคุณ",
-    "depositCompletedView": "ดูรายละเอียดธุรกรรม"
+    "depositCompletedView": "ดูรายละเอียดธุรกรรม",
+    "addressConfirm": "คัดลอกที่อยู่แล้ว โปรดตรวจสอบให้แน่ใจว่าที่อยู่ของคุณถูกต้องเมื่อวาง"
   },
   "rakeBackDetail": {
     "viewContract": "ดูสัญญา",

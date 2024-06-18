@@ -463,7 +463,8 @@
     "depositDetectedView": "在区块链上查看",
     "depositCompleted": "存款完成",
     "depositCompletedDescription": "付款已收到，可能需要一分钟时间才会显示在您的帐户中",
-    "depositCompletedView": "查看交易详情"
+    "depositCompletedView": "查看交易详情",
+    "addressConfirm": "地址已复制，粘贴时请确保地址正确。"
   },
   "rakeBackDetail": {
     "viewContract": "查看合同",

@@ -1,6 +1,8 @@
 import { toast } from 'react-toastify';
 
 import { TOAST_ENUM } from '@/base/constants/common';
+import { useAppDispatch } from '@/base/redux/store';
+import { changeIsShowAddressConfirm } from '@/base/redux/reducers/modal.reducer';
 
 export function copyClipBoard(text: string) {
   if (navigator.clipboard) {

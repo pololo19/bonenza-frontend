@@ -463,7 +463,8 @@
     "depositDetectedView": "ब्लॉकचेन वर पहा",
     "depositCompleted": "ठेव पूर्ण",
     "depositCompletedDescription": "पेमेंट प्राप्त झाले, ते तुमच्या खात्यात दर्शविण्यात एक मिनिट लागू शकतो",
-    "depositCompletedView": "व्यवहार तपशील पहा"
+    "depositCompletedView": "व्यवहार तपशील पहा",
+    "addressConfirm": "पत्ता कॉपी केला गेला आहे. कृपया पेस्ट करताना तुमचा पत्ता बरोबर असल्याची खात्री करा."
   },
   "rakeBackDetail": {
     "viewContract": "करार पहा",
