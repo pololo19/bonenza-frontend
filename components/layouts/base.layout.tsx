@@ -22,6 +22,7 @@ import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer
 import {
   changeIsShowAccountPannel,
   changeIsShowAccountRestriction,
+  changeIsShowAddressConfirm,
   changeIsShowAuthenticationModal,
   changeIsShowBonusDetail,
   changeIsShowBonusHistory,
@@ -120,6 +121,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import ModalAddressConfirm from '../modal/addressConfirm/addressConfirm';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -217,6 +219,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowAccountRestriction,
     isShowChatTip,
     isShowWagerRule,
+    isShowAddressConfirm,
     isShowFavoriteCoin,
     isViewInFiat,
   } = useSelector(
@@ -268,6 +271,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowDailyContest: state.modal.isShowDailyContest,
       isShowAccountRestriction: state.modal.isShowAccountRestriction,
       isShowChatTip: state.modal.isShowChatTip,
+      isShowAddressConfirm: state.modal.isShowAddressConfirm,
       isShowWagerRule: state.modal.isShowWagerRule,
       isShowFavoriteCoin: state.modal.isShowFavoriteCoin,
       isViewInFiat: state.modal.isViewInFiat,
@@ -1041,6 +1045,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         onClose={() => {
           dispatch(changeIsShowFavoriteCoin(false));
         }}
+      />
+      <ModalAddressConfirm
+        show={isShowAddressConfirm || false}
+        onClose={() => dispatch(changeIsShowAddressConfirm(false))}
       />
       <ViewInFiat show={isViewInFiat || false} onClose={() => dispatch(changeIsShowViewInFiat(false))} />
     </>

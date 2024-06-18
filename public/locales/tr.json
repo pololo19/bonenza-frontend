@@ -463,7 +463,8 @@
     "depositDetectedView": "Blockchain'de görüntüle",
     "depositCompleted": "Para Yatırma Tamamlandı",
     "depositCompletedDescription": "Ödeme alındı, hesabınızda görünmesi bir dakika sürebilir",
-    "depositCompletedView": "İşlem Detaylarını Görüntüle"
+    "depositCompletedView": "İşlem Detaylarını Görüntüle",
+    "addressConfirm": "Adres kopyalanmıştır. Lütfen yapıştırırken adresinizin doğru olduğundan emin olun."
   },
   "rakeBackDetail": {
     "viewContract": "Sözleşmeyi Görüntüle",

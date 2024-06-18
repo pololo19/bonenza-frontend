@@ -463,7 +463,8 @@
     "depositDetectedView": "عرض على Blockchain",
     "depositCompleted": "اكتمل الإيداع",
     "depositCompletedDescription": "تم استلام الدفعة، قد يستغرق ظهورها في حسابك دقيقة",
-    "depositCompletedView": "عرض تفاصيل المعاملة"
+    "depositCompletedView": "عرض تفاصيل المعاملة",
+    "addressConfirm": "تم نسخ العنوان. يرجى التأكد من صحة عنوانك عند لصقه."
   },
   "rakeBackDetail": {
     "viewContract": "عرض العقد",

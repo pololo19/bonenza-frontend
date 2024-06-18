@@ -463,7 +463,8 @@
     "depositDetectedView": "Xem trên Blockchain",
     "depositCompleted": "Gửi tiền đã hoàn tất",
     "depositCompletedDescription": "Đã nhận được thanh toán, có thể mất một phút để thanh toán được hiển thị trong tài khoản của bạn",
-    "depositCompletedView": "Xem chi tiết giao dịch"
+    "depositCompletedView": "Xem chi tiết giao dịch",
+    "addressConfirm": "Địa chỉ đã được sao chép. Vui lòng đảm bảo địa chỉ của bạn là chính xác khi dán."
   },
   "rakeBackDetail": {
     "viewContract": "Xem hợp đồng",

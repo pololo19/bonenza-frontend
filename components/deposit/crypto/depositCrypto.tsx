@@ -9,13 +9,15 @@ import { useTranslation } from '@/base/config/i18next';
 import { DEPOSIT_BONUS } from '@/base/constants/common';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { copyClipBoard, currencyFormat1 } from '@/base/libs/utils';
-import { AppState } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import { DepositAddressComponent } from '@/components/depositAddress/depositAddress';
 import SelectCurrency from '@/components/selectCurrency/selectCurrency';
+import { changeIsShowAddressConfirm } from '@/base/redux/reducers/modal.reducer';
 
 const DepositCryptoComponent = () => {
   const usdtPrice = useUSDTPrice();
+  const dispatch = useAppDispatch();
   const [activeCoin, setActiveCoin] = useState<CurrencyType>({
     id: '',
     name: '',
@@ -162,11 +164,12 @@ const DepositCryptoComponent = () => {
                     />
                     <div
                       className="bg-color-primary hover:opacity-[0.9] rounded-[5px] cursor-pointer flex items-center gap-[5px] p-2 text-[12px] text-white"
-                      onClick={() =>
+                      onClick={() => {
+                        dispatch(changeIsShowAddressConfirm(true));
                         copyClipBoard(
                           String(String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)),
-                        )
-                      }
+                        );
+                      }}
                     >
                       <DocumentDuplicateIcon width={18} height={18} />
                       {t('deposit:copy')}

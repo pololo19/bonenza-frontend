@@ -463,7 +463,8 @@
     "depositDetectedView": "ブロックチェーンについて見る",
     "depositCompleted": "入金完了",
     "depositCompletedDescription": "支払いを受け取りました。アカ​​ウントに表示されるまでに 1 分ほどかかる場合があります",
-    "depositCompletedView": "取引詳細の表示"
+    "depositCompletedView": "取引詳細の表示",
+    "addressConfirm": "住所がコピーされました。貼り付ける際は住所が正しいことを確認してください。"
   },
   "rakeBackDetail": {
     "viewContract": "契約書を見る",

@@ -65,6 +65,7 @@ export const initialCommonState: ModalState = {
   isShowDailyContest: false,
   isShowAccountRestriction: false,
   isShowChatTip: false,
+  isShowAddressConfirm: false,
   isShowWagerRule: false,
   tipReceiver: {
     userId: '',
@@ -208,6 +209,9 @@ export const queryDataSlice = createSlice({
     changeIsShowViewInFiat: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isViewInFiat = action.payload;
     },
+    changeIsShowAddressConfirm: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowAddressConfirm = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -308,6 +312,7 @@ export const {
   changeIsShowAccountRestriction,
   changeIsShowChatTip,
   changeIsShowWagerRules,
+  changeIsShowAddressConfirm,
   setDetailBets,
   setInitialModals,
   setTipReceiver,
