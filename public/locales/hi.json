@@ -463,7 +463,8 @@
     "depositDetectedView": "ब्लॉकचेन पर देखें",
     "depositCompleted": "जमा पूर्ण",
     "depositCompletedDescription": "भुगतान प्राप्त हो गया, इसे आपके खाते में प्रदर्शित होने में एक मिनट लग सकता है",
-    "depositCompletedView": "लेन-देन विवरण देखें"
+    "depositCompletedView": "लेन-देन विवरण देखें",
+    "addressConfirm": "पता कॉपी कर लिया गया है। कृपया इसे चिपकाते समय सुनिश्चित करें कि आपका पता सही है।"
   },
   "rakeBackDetail": {
     "viewContract": "अनुबंध देखें",

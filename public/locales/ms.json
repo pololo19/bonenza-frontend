@@ -463,7 +463,8 @@
     "depositDetectedView": "Lihat di Blockchain",
     "depositCompleted": "Deposit Selesai",
     "depositCompletedDescription": "Pembayaran diterima, mungkin mengambil masa seminit untuk ditunjukkan dalam akaun anda",
-    "depositCompletedView": "Lihat Butiran Transaksi"
+    "depositCompletedView": "Lihat Butiran Transaksi",
+    "addressConfirm": "Alamat telah disalin.Sila pastikan alamat anda betul semasa menampalnya."
   },
   "rakeBackDetail": {
     "viewContract": "Lihat Kontrak",

@@ -463,7 +463,8 @@
     "depositDetectedView": "Ver en Blockchain",
     "depositCompleted": "Depósito completado",
     "depositCompletedDescription": "Pago recibido, puede tardar un minuto en aparecer en su cuenta",
-    "depositCompletedView": "Ver detalles de la transacción"
+    "depositCompletedView": "Ver detalles de la transacción",
+    "addressConfirm": "La dirección ha sido copiada. Asegúrese de que su dirección sea correcta al pegarla."
   },
   "rakeBackDetail": {
     "viewContract": "Ver contrato",

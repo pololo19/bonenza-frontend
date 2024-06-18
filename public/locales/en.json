@@ -464,7 +464,8 @@
     "depositDetectedView": "View on Blockchain",
     "depositCompleted": "Deposit Completed",
     "depositCompletedDescription": "Payment received, it might take a minute to be shown in your account",
-    "depositCompletedView": "View Transaction Details"
+    "depositCompletedView": "View Transaction Details",
+    "addressConfirm": "The address has been copied. Please make sure your address is correct when pasting it."
   },
   "rakeBackDetail": {
     "viewContract": "View Contract",

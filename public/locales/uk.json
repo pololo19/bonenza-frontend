@@ -463,7 +463,8 @@
     "depositDetectedView": "Переглянути на Blockchain",
     "depositCompleted": "Депозит завершено",
     "depositCompletedDescription": "Платіж отримано, може знадобитися хвилина, перш ніж він відобразиться у вашому обліковому записі",
-    "depositCompletedView": "Переглянути деталі транзакції"
+    "depositCompletedView": "Переглянути деталі транзакції",
+    "addressConfirm": "Адресу скопійовано. Вставляючи її, переконайтеся, що ваша адреса правильна."
   },
   "rakeBackDetail": {
     "viewContract": "Переглянути договір",

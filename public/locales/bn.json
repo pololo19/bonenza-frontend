@@ -463,7 +463,8 @@
     "depositDetectedView": "ব্লকচেইনে দেখুন",
     "depositCompleted": "জমা সম্পূর্ণ হয়েছে",
     "depositCompletedDescription": "পেমেন্ট প্রাপ্ত হয়েছে, এটি আপনার অ্যাকাউন্টে দেখানো হতে এক মিনিট সময় লাগতে পারে",
-    "depositCompletedView": "লেনদেনের বিবরণ দেখুন"
+    "depositCompletedView": "লেনদেনের বিবরণ দেখুন",
+    "addressConfirm": "ঠিকানাটি অনুলিপি করা হয়েছে। অনুগ্রহ করে নিশ্চিত করুন যে আপনার ঠিকানাটি পেস্ট করার সময় সঠিক।"
   },
   "rakeBackDetail": {
     "viewContract": "চুক্তি দেখুন",
