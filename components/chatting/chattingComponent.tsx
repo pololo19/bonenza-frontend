@@ -124,10 +124,11 @@ const ChattingComponent = () => {
       $spanEl.innerText.substring(0, lastTagIndex + 1) +
       user.userName +
       $spanEl.innerText.substring(lastTagIndex + tagFilter.length + 1, $spanEl.innerText.length);
+    $spanEl.innerText = $spanEl.innerText + '\u00A0';
 
     var setpos = document.createRange();
     var set = window.getSelection();
-    setpos.setStart($spanEl.childNodes[$spanEl.childNodes.length - 1], user.userName.length + 1);
+    setpos.setStart($spanEl.childNodes[$spanEl.childNodes.length - 1], user.userName.length + 2);
     setpos.collapse(true);
     set?.removeAllRanges();
     set?.addRange(setpos);
@@ -257,17 +258,17 @@ const ChattingComponent = () => {
     $spanEl.innerHTML = '@';
     $spanEl.focus();
     onTagUser({ userId: receiverId, userName: receiverName });
-    // setReplyMsg({ id: messageId, userName: receiverName, text: messageContent });
+    setReplyMsg({ id: messageId, userName: receiverName, text: messageContent });
   };
 
   return (
     <>
       <div className="flex flex-col justify-between h-full w-full bg-white dark:bg-color-header-primary min-w-[100vw] sm:min-w-[330px]  border-solid border-[1px] border-color-bg-primary border-l-color-card-body-primary drop-shadow-lg shadow-bs-default">
-        <div className="flex justify-between items-center !min-h-[70px] px-5 py-3 border-b-[1px] border-solid dark:border-b-color-card-body-primary border-color-light-border-primary">
+        <div className="flex justify-between items-center !min-h-[60px] px-5 py-3 border-b-[1px] border-solid dark:border-b-color-card-body-primary border-color-light-border-primary">
           <div className="text-[18px] text-black dark:text-[#ffffff] font-semibold">{t('chatting:chat')}</div>
           <div className="flex gap-[13px]">
             <button
-              className="text-black dark:text-[#ffffff] hover:text-white rounded-[14px] p-1 flex items-center justify-center hover:opacity-80"
+              className="text-black dark:text-gray-400 hover:text-white rounded-[14px] p-1 flex items-center justify-center hover:opacity-80"
               onClick={() => {
                 dispatch(changeIsShowChatRule(true));
               }}
@@ -275,7 +276,7 @@ const ChattingComponent = () => {
               <InfoCircle className="" width={20} height={20} />
             </button>
             <button
-              className="text-black dark:text-[#ffffff] hover:text-white rounded-[14px] p-1 flex items-center justify-center hover:opacity-80"
+              className="text-black dark:text-gray-400 hover:text-white rounded-[14px] p-1 flex items-center justify-center hover:opacity-80"
               onClick={() => {
                 dispatch(changeShowChatType(false));
                 dispatch(changeShowFullChat(false));
@@ -294,8 +295,8 @@ const ChattingComponent = () => {
             {messages.map((message, index) => (
               <div className="w-full" key={index}>
                 {days.indexOf(index) > -1 && (
-                  <div className="flex justify-center my-1">
-                    <span className="border border-solid border-color-primary rounded-default text-white text-[11px] sm:text-[13px] px-4 py-1">
+                  <div className="flex justify-center my-[2px]">
+                    <span className="border border-solid border-color-primary rounded-default text-white text-[11px] sm:text-[12px] px-3 py-[2px]">
                       {formatDate(new Date(Number(message.time) * 1000), DATE_TIME_CHAT_DATE)}
                     </span>
                   </div>
@@ -352,7 +353,7 @@ const ChattingComponent = () => {
                 onKeyDown={(e) => onKeyDown(e)}
                 onKeyUp={(e) => onKeyUp(e)}
                 className={
-                  'w-full max-w-full sm:max-w-[236px] max-h-[200px] leading-[20px] overflow-y-auto border-none outline-none lign-baseline editBox cursor-text text-[14px] dark:text-white'
+                  'w-full max-w-full sm:max-w-[236px] max-h-[200px] leading-[20px] overflow-y-auto border-none outline-none lign-baseline editBox cursor-text text-[13px] dark:text-white'
                 }
                 ref={chatRef}
               />
