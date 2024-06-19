@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "팁을 보내려면 롤오버를 완료하세요.",
       "success": "팁이 성공적으로 전송되었습니다."
+    },
+    "chat": {
+      "isExceedMessageCount": "죄송합니다. 계정의 일일 메시지 한도에 도달했습니다. 내일 다시 시도해 주세요."
     }
   },
   "success": {

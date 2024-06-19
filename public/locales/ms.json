@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Sila lengkapkan peralihan untuk menghantar petua",
       "success": "Berjaya menghantar petua"
+    },
+    "chat": {
+      "isExceedMessageCount": "Maaf, anda telah mencapai had mesej harian untuk akaun anda. Sila cuba lagi esok."
     }
   },
   "success": {

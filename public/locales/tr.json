@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "İpuçları göndermek için lütfen rollover'ı tamamlayın",
       "success": "İpucu başarıyla gönderildi"
+    },
+    "chat": {
+      "isExceedMessageCount": "Üzgünüz, hesabınızın günlük mesaj sınırına ulaştınız. Lütfen yarın tekrar deneyin."
     }
   },
   "success": {

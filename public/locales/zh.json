@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "请完成滚动以发送提示",
       "success": "成功发送提示"
+    },
+    "chat": {
+      "isExceedMessageCount": "抱歉，您的帐户已达到每日消息上限。请明天重试。"
     }
   },
   "success": {

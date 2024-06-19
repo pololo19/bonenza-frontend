@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Vui lòng hoàn tất chuyển khoản để gửi tiền boa",
       "success": "Đã gửi mẹo thành công"
+    },
+    "chat": {
+      "isExceedMessageCount": "Rất tiếc, bạn đã đạt đến giới hạn tin nhắn hàng ngày cho tài khoản của mình. Vui lòng thử lại vào ngày mai."
     }
   },
   "success": {

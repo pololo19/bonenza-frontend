@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Completa il rollover per inviare suggerimenti",
       "success": "Suggerimento inviato con successo"
+    },
+    "chat": {
+      "isExceedMessageCount": "Siamo spiacenti, hai raggiunto il limite giornaliero di messaggi per il tuo account. Riprova domani."
     }
   },
   "success": {
