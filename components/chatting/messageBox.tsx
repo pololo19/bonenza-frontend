@@ -164,11 +164,14 @@ export const MessageBox = ({
             <div className="inline-block">
               <div
                 className={cn(
-                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[220px] break-all text-white rounded-[8px] px-2 py-[6px]',
-                  { 'bg-color-input-primary': id !== userId, 'bg-[#8873DD]': id === userId },
+                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[220px] break-all  rounded-[8px] px-2 py-[6px]',
+                  {
+                    'bg-color-input-primary text-gray-400': id !== userId,
+                    'bg-[#8873DD] text-gray-200': id === userId,
+                  },
                 )}
               >
-                {replyId && (
+                {/* {replyId && (
                   <div className="bg-black/20 rounded-[8px] pt-2 pb-1 px-2 mb-2">
                     <div className="font-semibold text-left text-[#BBB] text-[13px]">{replyUserName}</div>
                     <div
@@ -178,8 +181,15 @@ export const MessageBox = ({
                     <br />
                     <div />
                   </div>
-                )}
-                <div className="break-normal" dangerouslySetInnerHTML={{ __html: text }} />
+                )} */}
+                <div
+                  className="break-normal #00BAE6"
+                  dangerouslySetInnerHTML={{
+                    __html: replyUserName
+                      ? text.replace(`@${replyUserName}`, `<span style="color: #44DDFF;">@${replyUserName}</span>`)
+                      : text,
+                  }}
+                />
               </div>
             </div>
           </div>
