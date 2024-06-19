@@ -167,7 +167,7 @@ export const MessageBox = ({
                   'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[220px] break-all  rounded-[8px] px-2 py-[6px]',
                   {
                     'bg-color-input-primary text-gray-400': id !== userId,
-                    'bg-[#8873DD] text-gray-200': id === userId,
+                    'bg-[#8873DD] text-[#D5D5D5]': id === userId,
                   },
                 )}
               >
@@ -186,7 +186,12 @@ export const MessageBox = ({
                   className="break-normal #00BAE6"
                   dangerouslySetInnerHTML={{
                     __html: replyUserName
-                      ? text.replace(`@${replyUserName}`, `<span style="color: #44DDFF;">@${replyUserName}</span>`)
+                      ? text.replace(
+                          `@${replyUserName}`,
+                          `<span style="font-weight:600; color: ${
+                            id === userId ? '#FFF' : '#44DDFF'
+                          };">@${replyUserName}</span>`,
+                        )
                       : text,
                   }}
                 />
