@@ -13,6 +13,9 @@ import Link from 'next/link';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppState } from '@/base/redux/store';
 import { ArrowRight2 } from 'iconsax-react';
+import RocketIcon from '@/components/icons/RocketIcon';
+import { currencyFormat1 } from '@/base/libs/utils';
+import { Tooltip } from 'react-tooltip';
 
 const prizes = [
   { img: '/img/tournament/prize-1.png', percent: 50 },
@@ -26,6 +29,20 @@ const prizes = [
   { img: '/img/tournament/prize-9.png', percent: 1.5 },
   { img: '/img/tournament/prize-10.png', percent: 1 },
   { img: '/img/tournament/prize-11.png', percent: 0.5 },
+];
+
+const prizeDetail = [
+  { rank: 1, participants: 1000, prize: 18000 },
+  { rank: 2 },
+  { rank: 3 },
+  { rank: 4 },
+  { rank: 5 },
+  { rank: 6 },
+  { rank: 7 },
+  { rank: 8 },
+  { rank: 9 },
+  { rank: 10 },
+  { rank: 11 },
 ];
 
 function TournamentPage() {
@@ -136,7 +153,7 @@ function TournamentPage() {
                     </CsrWrapper>
                     <div
                       className={cn(
-                        'px-16 lg:px-4 2xl:px-10 py-3 rounded-default cursor-pointer uppercase font-semibold text-default sm:text-[16px]',
+                        'px-16 lg:px-3 2xl:px-10 py-3 rounded-default cursor-pointer uppercase font-semibold text-default sm:text-[16px]',
                         {
                           'bg-gradient-btn-secondary': isRegistered,
                           'bg-gradient-btn-play': !isRegistered,
@@ -152,13 +169,13 @@ function TournamentPage() {
                 </div>
               </div>
               <Image
-                src="/img/tournament/logo.png"
-                width={630}
-                height={500}
+                src="/img/tournament/logo.webp"
+                width={650}
+                height={600}
                 alt=""
-                className={cn('w-[80%] lg:w-auto lg:h-[300px] object-contain', {
-                  '2xl:h-[400px]': !showChatType,
-                  '2xl:h-[300px] min-[1800px]:h-[400px]': showChatType,
+                className={cn('w-[80%] lg:w-auto lg:h-[360px] object-contain', {
+                  'xl:h-[400px] 2xl:h-[540px] mr-[6%]': !showChatType,
+                  '2xl:h-[360px] min-[1800px]:h-[450px]': showChatType,
                 })}
               />
             </div>
@@ -208,6 +225,58 @@ function TournamentPage() {
           className={cn('mt-10 uppercase text-[40px] md:text[48px] xl:text-[64px] w-full text-center', styles.goldText)}
         >
           {t('tournament:prizePool')} 10,000 USDT
+        </div>
+        <div className="flex flex-col mt-8 gap-6">
+          <div className="flex flex-col md:flex-row justify-evenly items-center uppercase gap-4">
+            <div>
+              <div className="text-title font-semibold">Current Eligible Participants</div>
+              <div className="text-m_title font-extrabold text-[#FBFF4B] text-center">12890</div>
+            </div>
+            <div>
+              <div className="text-title font-semibold">Current Prize Pool</div>
+              <div className="text-m_title font-extrabold text-[#FBFF4B] text-center">
+                {currencyFormat1(313000.0, 2)}
+              </div>
+            </div>
+          </div>
+          <div
+            className={cn(
+              'grid grid-cols-11 gap-[2px] sm:gap-2 w-[100%] sm:w-[80%] lg:w-[45%] m-auto',
+              styles.barChart,
+            )}
+          >
+            {prizeDetail.map((prize) => (
+              <div key={`chart-${prize.rank}`} className="h-full relative">
+                {prize.rank === 5 && (
+                  <div className="flex justify-center absolute -top-8">
+                    <RocketIcon />
+                  </div>
+                )}
+                <div
+                  className={cn('relative !min-h-full', styles['bar'], styles['normalBar'])}
+                  data-tooltip-id={`bar-${prize.rank}`}
+                >
+                  <div
+                    className={cn(
+                      'absolute !bottom-0 !right-0 !left-0 !max-h-full',
+                      styles['bar'],
+                      prize.rank <= 5 ? styles['goldBar'] : '',
+                      { 'top-0': prize.rank !== 5, 'top-[65%]': prize.rank === 5 },
+                    )}
+                  ></div>
+                </div>
+                <Tooltip
+                  id={`bar-${prize.rank}`}
+                  place="top"
+                  className="dark:bg-black/0 bg-white z-[10]"
+                  opacity={100}
+                  offset={2}
+                >
+                  <div className={cn('max-w-[300px] p-4 rounded-large', styles['tooltip'])}>{prize.rank}</div>
+                </Tooltip>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="mt-4 2xl:w-[70%] flex flex-wrap justify-center m-auto">
           {prizes.map((prize) => (
