@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "सुझाव भेजने के लिए कृपया रोलओवर पूरा करें",
       "success": "टिप सफलतापूर्वक भेजी गई"
+    },
+    "chat": {
+      "isExceedMessageCount": "Maaf, Anda telah mencapai batas pesan harian untuk akun Anda. Silakan coba lagi besok."
     }
   },
   "success": {

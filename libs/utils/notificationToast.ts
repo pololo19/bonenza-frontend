@@ -307,6 +307,11 @@ export function getErrorMesssage1(errorType: string) {
       message = 'errors:wallet:canClaimWithMinimumAmount';
       break;
 
+    // chat
+    case 'isExceedMessageCount':
+      message = 'errors:chat:isExceedMessageCount';
+      break;
+
     default:
       message = 'errors:internalServer';
       break;

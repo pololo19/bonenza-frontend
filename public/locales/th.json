@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Conclua o rollover para enviar dicas",
       "success": "Dica enviada com sucesso"
+    },
+    "chat": {
+      "isExceedMessageCount": "ขออภัย บัญชีของคุณถึงขีดจำกัดข้อความรายวันแล้ว โปรดลองอีกครั้งในวันพรุ่งนี้"
     }
   },
   "success": {

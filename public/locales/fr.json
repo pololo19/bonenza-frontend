@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Veuillez compléter le survol pour envoyer des pourboires",
       "success": "Conseil envoyé avec succès"
+    },
+    "chat": {
+      "isExceedMessageCount": "Désolé, vous avez atteint la limite quotidienne de messages pour votre compte. Veuillez réessayer demain."
     }
   },
   "success": {

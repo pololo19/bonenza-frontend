@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "টিপস পাঠাতে রোলওভার সম্পূর্ণ করুন",
       "success": "সফলভাবে টিপ পাঠানো হয়েছে"
+    },
+    "chat": {
+      "isExceedMessageCount": "Lo sentimos, has alcanzado el límite de mensajes diarios de tu cuenta. Inténtalo de nuevo mañana."
     }
   },
   "success": {

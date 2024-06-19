@@ -2264,6 +2264,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "ヒントを送信するにはロールオーバーを完了してください",
       "success": "チップは正常に送信されました"
+    },
+    "chat": {
+      "isExceedMessageCount": "申し訳ありませんが、アカウントの 1 日のメッセージ制限に達しました。明日もう一度お試しください。"
     }
   },
   "success": {
