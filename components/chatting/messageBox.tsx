@@ -188,7 +188,9 @@ export const MessageBox = ({
                     __html: replyUserName
                       ? text.replace(
                           `@${replyUserName}`,
-                          `<span style="color: ${id === userId ? '#FFF' : '#44DDFF'};">@${replyUserName}</span>`,
+                          `<span style="font-weight:600; color: ${
+                            id === userId ? '#FFF' : '#44DDFF'
+                          };">@${replyUserName}</span>`,
                         )
                       : text,
                   }}
