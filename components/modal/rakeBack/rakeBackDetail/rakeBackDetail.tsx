@@ -9,7 +9,6 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
-import { FiatType } from '@/base/types/common';
 
 import CommonModal from '../../commonModal/commonModal';
 
@@ -57,7 +56,7 @@ export default function ModalRakeBackDetail({ show, onClose, setShowModalRakeBac
         panelClass="sm:max-w-[464px] h-screen sm:h-[720px] sm:max-h-[80vh] sm:my-0"
         header={
           <div
-            className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px]"
+            className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px] hover:cursor-pointer"
             onClick={handleClickCLose}
           >
             <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />

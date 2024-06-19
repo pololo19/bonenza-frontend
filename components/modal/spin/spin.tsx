@@ -163,7 +163,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
   };
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && isShowSpin) {
       getSpinAvailableCount();
     }
     getSpinData();
