@@ -12,7 +12,7 @@ import CommonModal from '@/components/modal/commonModal/commonModal';
 import Link from 'next/link';
 import { shallowEqual, useSelector } from 'react-redux';
 import { AppState } from '@/base/redux/store';
-import { ArrowRight2 } from 'iconsax-react';
+import { ArrowRight2, DollarCircle, InfoCircle, User } from 'iconsax-react';
 import RocketIcon from '@/components/icons/RocketIcon';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { Tooltip } from 'react-tooltip';
@@ -32,17 +32,17 @@ const prizes = [
 ];
 
 const prizeDetail = [
-  { rank: 1, participants: 1000, prize: 18000 },
-  { rank: 2 },
-  { rank: 3 },
-  { rank: 4 },
-  { rank: 5 },
-  { rank: 6 },
-  { rank: 7 },
-  { rank: 8 },
-  { rank: 9 },
-  { rank: 10 },
-  { rank: 11 },
+  { rank: 1, participants: 1000, prize: 10000, participantText: '1,000', prizeText: '$ 10K' },
+  { rank: 2, participants: 3000, prize: 30000, participantText: '3000', prizeText: '$ 30K' },
+  { rank: 3, participants: 5000, prize: 50000, participantText: '5000', prizeText: '$ 50K' },
+  { rank: 4, participants: 10000, prize: 100000, participantText: '10000', prizeText: '$ 100K' },
+  { rank: 5, participants: 25000, prize: 250000, participantText: '25000', prizeText: '$ 250K' },
+  { rank: 6, participants: 50000, prize: 500000, participantText: '50000', prizeText: '$ 500K' },
+  { rank: 7, participants: 100000, prize: 1000000, participantText: '100K', prizeText: '$ 1M' },
+  { rank: 8, participants: 150000, prize: 3000000, participantText: '150K', prizeText: '$ 3M' },
+  { rank: 9, participants: 200000, prize: 4000000, participantText: '200K', prizeText: '$ 4M' },
+  { rank: 10, participants: 250000, prize: 5000000, participantText: '250K', prizeText: '$ 5M' },
+  { rank: 11, participants: 500000, prize: 10000000, participantText: '500K', prizeText: '$ 10M' },
 ];
 
 function TournamentPage() {
@@ -230,52 +230,119 @@ function TournamentPage() {
           <div className="flex flex-col md:flex-row justify-evenly items-center uppercase gap-4">
             <div>
               <div className="text-title font-semibold">Current Eligible Participants</div>
-              <div className="text-m_title font-extrabold text-[#FBFF4B] text-center">12890</div>
+              <div className="text-[20px] md:text-[28px] font-extrabold text-[#FBFF4B] text-center">0</div>
             </div>
-            <div>
-              <div className="text-title font-semibold">Current Prize Pool</div>
-              <div className="text-m_title font-extrabold text-[#FBFF4B] text-center">
-                {currencyFormat1(313000.0, 2)}
+            <div className="flex justify-center items-center gap-4">
+              <div>
+                <div className="text-title font-semibold">Current Prize Pool</div>
+                <div className="text-[20px] md:text-[28px] font-extrabold text-[#FBFF4B] text-center">
+                  {currencyFormat1(10000.0, 2)}
+                </div>
               </div>
+              <InfoCircle className="text-white cursor-pointer" variant="Bulk" />
             </div>
           </div>
           <div
             className={cn(
-              'grid grid-cols-11 gap-[2px] sm:gap-2 w-[100%] sm:w-[80%] lg:w-[45%] m-auto',
-              styles.barChart,
+              'grid grid-cols-11 gap-[2px] sm:gap-2 w-[95%] sm:w-[80%] lg:w-[55%] m-auto min-h-[160px] md:min-h-[240px]',
+              styles['bar_chart'],
             )}
           >
             {prizeDetail.map((prize) => (
-              <div key={`chart-${prize.rank}`} className="h-full relative">
-                {prize.rank === 5 && (
-                  <div className="flex justify-center absolute -top-8">
-                    <RocketIcon />
+              <div
+                key={`prize-${prize.rank}`}
+                className="w-full relative"
+                data-tooltip-id={`bar-tooltip-${prize.rank}`}
+              >
+                <div className={cn('absolute top-0 right-0 bottom-0 left-0 !min-h-full', styles['bar_parent'])}>
+                  <div className={cn('!min-h-full', styles['bar'], styles['normal_bar'])}></div>
+                  <Tooltip
+                    id={`bar-tooltip-${prize.rank}`}
+                    place="top"
+                    className="dark:bg-black/0 bg-white z-[10]"
+                    opacity={100}
+                    offset={60}
+                  >
+                    <div
+                      className={cn(
+                        'flex flex-col justify-start items-start gap-2',
+                        'max-w-[300px] p-3 rounded-md',
+                        styles['tooltip'],
+                      )}
+                    >
+                      <div className="flex justify-center items-center gap-4 text-black font-bold">
+                        <User variant="Bold" className="w-5 h-5" /> {prize.participantText}
+                      </div>
+                      <div className="flex justify-center items-center gap-4 text-black font-bold">
+                        <DollarCircle variant="Bold" className="w-5 h-5" /> {prize.prizeText}
+                      </div>
+                    </div>
+                  </Tooltip>
+                  <svg className={styles['flt_svg']} xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <filter id="flt_tag">
+                        <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+                        <feColorMatrix
+                          in="blur"
+                          mode="matrix"
+                          values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                          result="flt_tag"
+                        />
+                        <feComposite in="SourceGraphic" in2="flt_tag" operator="atop" />
+                      </filter>
+                    </defs>
+                  </svg>
+                </div>
+                {prize.rank <= 1 && (
+                  <div
+                    className={cn('absolute right-0 bottom-0 left-0 !max-h-full', styles['bar_parent'], {
+                      'top-0': prize.rank !== 1,
+                      'top-[100%] !min-h-0': prize.rank === 1,
+                    })}
+                  >
+                    <div className={cn('!min-h-full', styles['bar'], styles['gold_bar'])}></div>
+                    <svg className={styles['flt_svg']} xmlns="http://www.w3.org/2000/svg">
+                      <defs>
+                        <filter id="flt_tag">
+                          <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+                          <feColorMatrix
+                            in="blur"
+                            mode="matrix"
+                            values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                            result="flt_tag"
+                          />
+                          <feComposite in="SourceGraphic" in2="flt_tag" operator="atop" />
+                        </filter>
+                      </defs>
+                    </svg>
                   </div>
                 )}
-                <div
-                  className={cn('relative !min-h-full', styles['bar'], styles['normalBar'])}
-                  data-tooltip-id={`bar-${prize.rank}`}
-                >
-                  <div
-                    className={cn(
-                      'absolute !bottom-0 !right-0 !left-0 !max-h-full',
-                      styles['bar'],
-                      prize.rank <= 5 ? styles['goldBar'] : '',
-                      { 'top-0': prize.rank !== 5, 'top-[65%]': prize.rank === 5 },
-                    )}
-                  ></div>
-                </div>
-                <Tooltip
-                  id={`bar-${prize.rank}`}
-                  place="top"
-                  className="dark:bg-black/0 bg-white z-[10]"
-                  opacity={100}
-                  offset={2}
-                >
-                  <div className={cn('max-w-[300px] p-4 rounded-large', styles['tooltip'])}>{prize.rank}</div>
-                </Tooltip>
               </div>
             ))}
+          </div>
+          <div className="flex flex-col md:flex-row justify-evenly items-center gap-4 text-default">
+            <div className="flex gap-2 text-white text-default font-bold">
+              <div>{t('deposit:min')}</div>
+              <div className="flex justify-center items-center gap-2">
+                <User variant="Bold" className="w-5 h-5" /> {prizeDetail.at(0)?.participantText || ''}
+              </div>
+              -
+              <div className="flex justify-center items-center gap-2">
+                <DollarCircle variant="Bold" className="w-5 h-5" /> {prizeDetail.at(0)?.prizeText || ''}
+              </div>
+            </div>
+            <div className="flex gap-2 text-white text-default font-bold">
+              <div>{t('deposit:min')}</div>
+              <div className="flex justify-center items-center gap-2">
+                <User variant="Bold" className="w-5 h-5" />{' '}
+                {prizeDetail.at(prizeDetail.length - 1)?.participantText || ''}
+              </div>
+              -
+              <div className="flex justify-center items-center gap-2">
+                <DollarCircle variant="Bold" className="w-5 h-5" />{' '}
+                {prizeDetail.at(prizeDetail.length - 1)?.prizeText || ''}
+              </div>
+            </div>
           </div>
         </div>
         <div className="mt-4 2xl:w-[70%] flex flex-wrap justify-center m-auto">

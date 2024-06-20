@@ -545,7 +545,7 @@
   "balance": {
     "cryptoCurrency": "암호화폐",
     "fiatCurrency": "법정화폐",
-    "totalBalance": "전체 균형",
+    "totalBalance": "전체 잔고",
     "realBalance": "실제 돈",
     "bonusMoney": "보너스 머니",
     "deposit": "입금",
