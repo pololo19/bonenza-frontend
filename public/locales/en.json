@@ -2268,7 +2268,8 @@
     "swap": {
       "existSourceCrypto": "The source cryptocurrency does not exist.",
       "existDestinationCrypto": "The destination cryptocurrency does not exist.",
-      "isEnoughBalanceForSwap": "The balance is low to swap."
+      "isEnoughBalanceForSwap": "The balance is low to swap.",
+      "disabledToken": "The token you are trying to swap is currently disabled and cannot be used for swapping."
     },
     "withdraw": {
       "restrictWithdraw": "Your withdraw is restricted within 24 hours.",

@@ -280,6 +280,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'isEnoughBalanceForSwap':
       message = 'errors:swap:enoughBalanceForSwap';
       break;
+    case 'disableSwap':
+      message = 'errors:swap:disabledToken';
+      break;
 
     // withdraw
     case 'notCompleteRollOverToWithdraw':

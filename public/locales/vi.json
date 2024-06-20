@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "Tiền điện tử nguồn không tồn tại.",
       "existDestinationCrypto": "Tiền điện tử đích không tồn tại.",
-      "isEnoughBalanceForSwap": "Số dư thấp để trao đổi."
+      "isEnoughBalanceForSwap": "Số dư thấp để trao đổi.",
+      "disabledToken": "Mã thông báo bạn đang cố gắng trao đổi hiện đã bị vô hiệu hóa và không thể sử dụng để trao đổi."
     },
     "withdraw": {
       "restrictWithdraw": "Việc rút tiền của bạn bị hạn chế trong vòng 24 giờ.",

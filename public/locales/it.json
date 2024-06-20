@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "La criptovaluta di origine non esiste.",
       "existDestinationCrypto": "La criptovaluta di destinazione non esiste.",
-      "isEnoughBalanceForSwap": "Il saldo è basso da scambiare."
+      "isEnoughBalanceForSwap": "Il saldo è basso da scambiare.",
+      "disabledToken": "Il token che stai tentando di scambiare è attualmente disabilitato e non può essere utilizzato per lo scambio."
     },
     "withdraw": {
       "restrictWithdraw": "Il tuo prelievo è limitato entro 24 ore.",

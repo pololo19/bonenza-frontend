@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "العملة المشفرة المصدر غير موجودة.",
       "existDestinationCrypto": "العملة المشفرة الوجهة غير موجودة.",
-      "isEnoughBalanceForSwap": "الرصيد منخفض للتبديل."
+      "isEnoughBalanceForSwap": "الرصيد منخفض للتبديل.",
+      "disabledToken": "الرمز المميز الذي تحاول تبديله معطل حاليًا ولا يمكن استخدامه للتبديل."
     },
     "withdraw": {
       "restrictWithdraw": "السحب الخاص بك مقيد خلال 24 ساعة.",

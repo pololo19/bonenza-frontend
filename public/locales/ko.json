@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "원본 암호화폐가 존재하지 않습니다.",
       "existDestinationCrypto": "대상 암호화폐가 존재하지 않습니다.",
-      "isEnoughBalanceForSwap": "스왑하기에는 잔액이 부족합니다."
+      "isEnoughBalanceForSwap": "스왑하기에는 잔액이 부족합니다.",
+      "disabledToken": "교환하려는 토큰은 현재 비활성화되어 교환에 사용할 수 없습니다."
     },
     "withdraw": {
       "restrictWithdraw": "24시간 이내에 출금이 제한됩니다.",
