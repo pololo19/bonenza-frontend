@@ -230,13 +230,13 @@ function TournamentPage() {
           <div className="flex flex-col md:flex-row justify-evenly items-center uppercase gap-4">
             <div>
               <div className="text-title font-semibold">Current Eligible Participants</div>
-              <div className="text-[20px] md:text-[28px] font-extrabold text-[#FBFF4B] text-center">12890</div>
+              <div className="text-[20px] md:text-[28px] font-extrabold text-[#FBFF4B] text-center">0</div>
             </div>
             <div className="flex justify-center items-center gap-4">
               <div>
                 <div className="text-title font-semibold">Current Prize Pool</div>
                 <div className="text-[20px] md:text-[28px] font-extrabold text-[#FBFF4B] text-center">
-                  {currencyFormat1(173000.0, 2)}
+                  {currencyFormat1(10000.0, 2)}
                 </div>
               </div>
               <InfoCircle className="text-white cursor-pointer" variant="Bulk" />
@@ -293,11 +293,11 @@ function TournamentPage() {
                     </defs>
                   </svg>
                 </div>
-                {prize.rank <= 5 && (
+                {prize.rank <= 1 && (
                   <div
                     className={cn('absolute right-0 bottom-0 left-0 !max-h-full', styles['bar_parent'], {
-                      'top-0': prize.rank !== 5,
-                      'top-[35%]': prize.rank === 5,
+                      'top-0': prize.rank !== 1,
+                      'top-[100%] !min-h-0': prize.rank === 1,
                     })}
                   >
                     <div className={cn('!min-h-full', styles['bar'], styles['gold_bar'])}></div>
