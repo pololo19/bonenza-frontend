@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { ReactElement, useRef, useState } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { api_swap } from '@/api/wallet';
@@ -7,7 +8,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
-import { useAppDispatch } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
 import DepositLayout from '@/components/layouts/deposit.layout';
@@ -19,6 +20,13 @@ import SelectCurrencySwap, {
 import styles from './index.module.scss';
 
 const SwapPage = () => {
+  const { symbols } = useSelector(
+    (state: AppState) => ({
+      symbols: state.wallet.symbols,
+    }),
+    shallowEqual,
+  );
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const formDataRef = useRef<SelectCurrencySwapFormRef>(null);
 
@@ -30,6 +38,12 @@ const SwapPage = () => {
   const onSubmit = async (data: SwapFormType) => {
     try {
       setIsLoading(true);
+      // disable dron for swap
+      const dron = symbols.find((symbol) => symbol.name.toLowerCase() === 'dron');
+      if (dron?.id === data.symbolFrom || dron?.id === data.symbolTo) {
+        toast.error(t('errors:swap:disabledToken'), { containerId: TOAST_ENUM.COMMON });
+        return;
+      }
       if (Number(data.amountFrom) === 0) {
         toast.error(t('swap:inValidSwapAmount'), { containerId: TOAST_ENUM.COMMON });
         return;
@@ -38,6 +52,7 @@ const SwapPage = () => {
         toast.error(t('swap:duplicateSwapAddress'), { containerId: TOAST_ENUM.COMMON });
         return;
       }
+
       await api_swap(String(data.symbolFrom), String(data.symbolTo), Number(data.amountFrom));
       dispatch(getBalance());
 

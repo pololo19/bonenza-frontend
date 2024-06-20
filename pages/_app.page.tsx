@@ -25,7 +25,7 @@ import ErrorProvider from '@/components/context/errorContext';
 import { wrapper } from '@/redux/store';
 
 import { useTranslation } from '../config/i18next';
-import { AUTH_KEY, CookieKey, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
+import { CookieKey, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
 import { CookiesStorage } from '../libs/storage/cookie';
 import resources from '../public/locales';
 
@@ -92,7 +92,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   };
 
   useEffect(() => {
-    handleAuthenticationWeb();
+    // handleAuthenticationWeb();
     handleLang();
   }, []);
 

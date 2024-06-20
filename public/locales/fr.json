@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "La cryptomonnaie source n’existe pas.",
       "existDestinationCrypto": "La cryptomonnaie de destination n’existe pas.",
-      "isEnoughBalanceForSwap": "Le solde est faible à échanger."
+      "isEnoughBalanceForSwap": "Le solde est faible à échanger.",
+      "disabledToken": "Le jeton que vous essayez d'échanger est actuellement désactivé et ne peut pas être utilisé pour l'échange."
     },
     "withdraw": {
       "restrictWithdraw": "Votre retrait est limité dans les 24 heures.",

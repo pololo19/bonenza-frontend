@@ -223,8 +223,8 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
   return (
     <>
-      <div className="text-left w-full">
-        <div className="flex items-center gap-1 justify-between">
+      <div className="w-full text-left">
+        <div className="flex items-center justify-between gap-1">
           <div className="text-[16px] text-color-light-text-primary dark:text-color-text-primary mb-[20px] text-left">
             {t('swap:getApproximately')}
           </div>
@@ -361,7 +361,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             )}
           >
             <div className="dark:text-white text-color-light-text-primary font-[700]">
-              <span className="inline-block w-1 h-1 rounded-full	bg-color-primary mr-1"></span>{' '}
+              <span className="inline-block w-1 h-1 mr-1 rounded-full bg-color-primary"></span>{' '}
               {currencyFormat1(1, 2, '', false)} {getSymbolById(watch('symbolFrom'))?.name} ≈{' '}
               {currencyFormat1(exchangeCoinRate, 8, '', false)} {getSymbolById(watch('symbolTo'))?.name}
             </div>

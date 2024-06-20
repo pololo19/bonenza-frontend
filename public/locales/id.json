@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "Sumber cryptocurrency tidak ada.",
       "existDestinationCrypto": "Cryptocurrency tujuan tidak ada.",
-      "isEnoughBalanceForSwap": "Saldonya rendah untuk ditukar."
+      "isEnoughBalanceForSwap": "Saldonya rendah untuk ditukar.",
+      "disabledToken": "Token yang Anda coba tukarkan saat ini dinonaktifkan dan tidak dapat digunakan untuk bertukar."
     },
     "withdraw": {
       "restrictWithdraw": "Penarikan Anda dibatasi dalam waktu 24 jam.",
