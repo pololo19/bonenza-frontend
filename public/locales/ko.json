@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "원본 암호화폐가 존재하지 않습니다.",
       "existDestinationCrypto": "대상 암호화폐가 존재하지 않습니다.",
-      "isEnoughBalanceForSwap": "스왑하기에는 잔액이 부족합니다."
+      "isEnoughBalanceForSwap": "스왑하기에는 잔액이 부족합니다.",
+      "disabledToken": "교환하려는 토큰은 현재 비활성화되어 교환에 사용할 수 없습니다."
     },
     "withdraw": {
       "restrictWithdraw": "24시간 이내에 출금이 제한됩니다.",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "팁을 보내려면 롤오버를 완료하세요.",
       "success": "팁이 성공적으로 전송되었습니다."
+    },
+    "chat": {
+      "isExceedMessageCount": "죄송합니다. 계정의 일일 메시지 한도에 도달했습니다. 내일 다시 시도해 주세요."
     }
   },
   "success": {

@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "Sumber mata wang kripto tidak wujud.",
       "existDestinationCrypto": "Mata wang kripto destinasi tidak wujud.",
-      "isEnoughBalanceForSwap": "Baki adalah rendah untuk ditukar."
+      "isEnoughBalanceForSwap": "Baki adalah rendah untuk ditukar.",
+      "disabledToken": "Token yang anda cuba tukar kini dilumpuhkan dan tidak boleh digunakan untuk menukar."
     },
     "withdraw": {
       "restrictWithdraw": "Pengeluaran anda dihadkan dalam masa 24 jam.",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Sila lengkapkan peralihan untuk menghantar petua",
       "success": "Berjaya menghantar petua"
+    },
+    "chat": {
+      "isExceedMessageCount": "Maaf, anda telah mencapai had mesej harian untuk akaun anda. Sila cuba lagi esok."
     }
   },
   "success": {

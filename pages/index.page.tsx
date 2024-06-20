@@ -9,7 +9,7 @@ import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { api_getChatHistory } from '@/api/chat';
+import { api_getChatHistory, api_leaveMessage } from '@/api/chat';
 import {
   api_getCasinoWithKey,
   api_getFavoriteGames,
@@ -39,7 +39,6 @@ import RecommendedGamesComponent from '@/components/homepage/recommendedGames';
 import TopRateGameComponent from '@/components/homepage/topRateGame';
 import BaseLayout from '@/components/layouts/base.layout';
 import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
-import { NoDataComponent } from '@/components/noData/noData';
 import GameBannerSlider from '@/components/sliders/gameSliders';
 import TabGames from '@/components/tabGames/tabGames';
 import VipProgressComponent from '@/components/vipProgress/vipProgress';
@@ -50,6 +49,7 @@ import { useExchange } from '../hooks/useExchange';
 import { CookiesStorage } from '../libs/storage/cookie';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
+import { getErrorMesssage1 } from '../libs/utils/notificationToast';
 import { setIsNewMessage } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
 
@@ -293,6 +293,21 @@ function IndexPage() {
       setCheckDeposit(false);
     } finally {
       // dispatch(changeIsLoading(false));
+    }
+  };
+
+  const leaveMessage = async (message: string) => {
+    try {
+      const res = await api_leaveMessage(message);
+      toast.success(String(t('success:success')), {
+        containerId: TOAST_ENUM.COMMON,
+        toastId: 'leaveMessage',
+      });
+      setFeedbackText('');
+    } catch (error: any) {
+      const errType = error?.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     }
   };
 
@@ -640,10 +655,7 @@ function IndexPage() {
                             });
                             return;
                           }
-                          setFeedbackText('');
-                          toast.success(String(t('success:success')), {
-                            containerId: TOAST_ENUM.COMMON,
-                          });
+                          leaveMessage(feedbackText);
                         }}
                       >
                         {String(t('homePage:leaveAMessage'))}

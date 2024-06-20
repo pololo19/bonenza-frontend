@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "ไม่มีสกุลเงินดิจิทัลต้นทาง",
       "existDestinationCrypto": "ไม่มีสกุลเงินดิจิทัลปลายทาง",
-      "isEnoughBalanceForSwap": "ยอดคงเหลือน้อยให้แลก"
+      "isEnoughBalanceForSwap": "ยอดคงเหลือน้อยให้แลก",
+      "disabledToken": "โทเค็นที่คุณกำลังพยายามสลับถูกปิดใช้งานอยู่ในขณะนี้ และไม่สามารถใช้สำหรับการสลับได้"
     },
     "withdraw": {
       "restrictWithdraw": "การถอนของคุณถูกจำกัดภายใน 24 ชั่วโมง",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Conclua o rollover para enviar dicas",
       "success": "Dica enviada com sucesso"
+    },
+    "chat": {
+      "isExceedMessageCount": "ขออภัย บัญชีของคุณถึงขีดจำกัดข้อความรายวันแล้ว โปรดลองอีกครั้งในวันพรุ่งนี้"
     }
   },
   "success": {

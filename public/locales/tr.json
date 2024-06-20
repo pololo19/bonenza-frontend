@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "Kaynak kripto para birimi mevcut değil.",
       "existDestinationCrypto": "Hedef kripto para birimi mevcut değil.",
-      "isEnoughBalanceForSwap": "Bakiye takas için düşük."
+      "isEnoughBalanceForSwap": "Bakiye takas için düşük.",
+      "disabledToken": "Değiştirmeye çalıştığınız token şu anda devre dışıdır ve takas için kullanılamaz."
     },
     "withdraw": {
       "restrictWithdraw": "Para çekme işleminiz 24 saat içinde sınırlandırılmıştır.",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "İpuçları göndermek için lütfen rollover'ı tamamlayın",
       "success": "İpucu başarıyla gönderildi"
+    },
+    "chat": {
+      "isExceedMessageCount": "Üzgünüz, hesabınızın günlük mesaj sınırına ulaştınız. Lütfen yarın tekrar deneyin."
     }
   },
   "success": {

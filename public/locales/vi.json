@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "Tiền điện tử nguồn không tồn tại.",
       "existDestinationCrypto": "Tiền điện tử đích không tồn tại.",
-      "isEnoughBalanceForSwap": "Số dư thấp để trao đổi."
+      "isEnoughBalanceForSwap": "Số dư thấp để trao đổi.",
+      "disabledToken": "Mã thông báo bạn đang cố gắng trao đổi hiện đã bị vô hiệu hóa và không thể sử dụng để trao đổi."
     },
     "withdraw": {
       "restrictWithdraw": "Việc rút tiền của bạn bị hạn chế trong vòng 24 giờ.",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "Vui lòng hoàn tất chuyển khoản để gửi tiền boa",
       "success": "Đã gửi mẹo thành công"
+    },
+    "chat": {
+      "isExceedMessageCount": "Rất tiếc, bạn đã đạt đến giới hạn tin nhắn hàng ngày cho tài khoản của mình. Vui lòng thử lại vào ngày mai."
     }
   },
   "success": {

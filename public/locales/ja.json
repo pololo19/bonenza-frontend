@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "ソース暗号通貨は存在しません。",
       "existDestinationCrypto": "宛先の暗号通貨が存在しません。",
-      "isEnoughBalanceForSwap": "交換するには残高が少ないです。"
+      "isEnoughBalanceForSwap": "交換するには残高が少ないです。",
+      "disabledToken": "スワップしようとしているトークンは現在無効になっているため、スワップに使用できません。"
     },
     "withdraw": {
       "restrictWithdraw": "出金は 24 時間以内に制限されています。",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "ヒントを送信するにはロールオーバーを完了してください",
       "success": "チップは正常に送信されました"
+    },
+    "chat": {
+      "isExceedMessageCount": "申し訳ありませんが、アカウントの 1 日のメッセージ制限に達しました。明日もう一度お試しください。"
     }
   },
   "success": {

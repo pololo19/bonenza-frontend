@@ -280,6 +280,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'isEnoughBalanceForSwap':
       message = 'errors:swap:enoughBalanceForSwap';
       break;
+    case 'disableSwap':
+      message = 'errors:swap:disabledToken';
+      break;
 
     // withdraw
     case 'notCompleteRollOverToWithdraw':
@@ -305,6 +308,11 @@ export function getErrorMesssage1(errorType: string) {
       break;
     case 'canClaimWithMinimumAmount':
       message = 'errors:wallet:canClaimWithMinimumAmount';
+      break;
+
+    // chat
+    case 'isExceedMessageCount':
+      message = 'errors:chat:isExceedMessageCount';
       break;
 
     default:

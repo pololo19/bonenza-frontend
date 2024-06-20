@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "La criptomoneda de origen no existe.",
       "existDestinationCrypto": "La criptomoneda de destino no existe.",
-      "isEnoughBalanceForSwap": "El saldo es bajo para canjear."
+      "isEnoughBalanceForSwap": "El saldo es bajo para canjear.",
+      "disabledToken": "Der Token, den Sie austauschen möchten, ist derzeit deaktiviert und kann nicht zum Austauschen verwendet werden."
     },
     "withdraw": {
       "restrictWithdraw": "Ihre Auszahlung ist innerhalb von 24 Stunden begrenzt.",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "টিপস পাঠাতে রোলওভার সম্পূর্ণ করুন",
       "success": "সফলভাবে টিপ পাঠানো হয়েছে"
+    },
+    "chat": {
+      "isExceedMessageCount": "Leider haben Sie das tägliche Nachrichtenlimit für Ihr Konto erreicht. Bitte versuchen Sie es morgen erneut."
     }
   },
   "success": {

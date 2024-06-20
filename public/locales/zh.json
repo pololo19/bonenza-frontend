@@ -2248,7 +2248,8 @@
     "swap": {
       "existSourceCrypto": "源加密货币不存在。",
       "existDestinationCrypto": "目标加密货币不存在。",
-      "isEnoughBalanceForSwap": "余额不足，无法兑换。"
+      "isEnoughBalanceForSwap": "余额不足，无法兑换。",
+      "disabledToken": "您尝试交换的令牌当前已禁用，无法用于交换。"
     },
     "withdraw": {
       "restrictWithdraw": "您的提款在 24 小时内受到限制。",
@@ -2264,6 +2265,9 @@
     "tip": {
       "notCompleteRollOverToWithdraw": "请完成滚动以发送提示",
       "success": "成功发送提示"
+    },
+    "chat": {
+      "isExceedMessageCount": "抱歉，您的帐户已达到每日消息上限。请明天重试。"
     }
   },
   "success": {
