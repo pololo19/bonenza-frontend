@@ -2329,7 +2329,7 @@
     "registration": "Registro",
     "competition": "Competencia",
     "distribution": "Distribución de recompensas",
-    "prizePool": "Bolsa de premios",
+    "prizePool": "Premio acumulado hasta {{value}}",
     "eventRules": "Reglas del evento",
     "eligibility": "Elegibilidad",
     "eligibilityDescription1": "Para ser elegible para registrarse, debe tener un nivel VIP2 en la cuenta Bonenza. Los usuarios de programas ilegales, los usuarios institucionales y los usuarios de piratería no son elegibles.",

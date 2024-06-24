@@ -2329,7 +2329,7 @@
     "registration": "Sự đăng ký",
     "competition": "Cuộc thi",
     "distribution": "Phân phối phần thưởng",
-    "prizePool": "Giải thưởng",
+    "prizePool": "Tổng giải thưởng lên đến {{value}}",
     "eventRules": "Quy tắc sự kiện",
     "eligibility": "Đủ điều kiện",
     "eligibilityDescription1": "Để đủ điều kiện đăng ký, bạn phải có cấp độ VIP2 trong Tài khoản Bonenza. Người dùng chương trình bất hợp pháp, người dùng tổ chức và người dùng hack không đủ điều kiện.",

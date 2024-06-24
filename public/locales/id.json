@@ -2329,7 +2329,7 @@
     "registration": "Registrasi",
     "competition": "Kompetisi",
     "distribution": "Distribusi Hadiah",
-    "prizePool": "Kolam Hadiah",
+    "prizePool": "Kumpulan Hadiah Hingga {{value}}",
     "eventRules": "Aturan Acara",
     "eligibility": "Kelayakan",
     "eligibilityDescription1": "Agar memenuhi syarat untuk mendaftar, Anda harus memiliki level VIP2 di Akun Bonenza. Pengguna program ilegal, pengguna Institusional, dan pengguna peretasan tidak memenuhi syarat.",
