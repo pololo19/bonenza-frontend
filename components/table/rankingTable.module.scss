@@ -27,9 +27,9 @@
     th {
       height: 40px;
       padding: 10px;
-      position: sticky;
+      // position: sticky;
       top: 0;
-      z-index: $z-index-header-table;
+      // z-index: $z-index-header-table;
 
       @media screen and (max-width: 960px) {
         padding: 10px 5px;

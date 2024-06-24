@@ -2329,7 +2329,7 @@
     "registration": "登録",
     "competition": "競争",
     "distribution": "報酬の配布",
-    "prizePool": "賞金総額",
+    "prizePool": "賞金プールまで {{value}}",
     "eventRules": "イベントルール",
     "eligibility": "資格",
     "eligibilityDescription1": "登録資格を得るには、Bonenza アカウントで VIP2 レベルを持っている必要があります。違法なプログラム ユーザー、機関ユーザー、およびハッキング ユーザーには資格がありません。",

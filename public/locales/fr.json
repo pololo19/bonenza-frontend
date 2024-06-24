@@ -2329,7 +2329,7 @@
     "registration": "Inscription",
     "competition": "Concours",
     "distribution": "Distribution des récompenses",
-    "prizePool": "cagnotte",
+    "prizePool": "cagnotte jusqu'à {{value}}",
     "eventRules": "Règles de l'événement",
     "eligibility": "Admissibilité",
     "eligibilityDescription1": "Pour pouvoir vous inscrire, vous devez avoir le niveau VIP2 dans le compte Bonenza. Les utilisateurs illégaux du programme, les utilisateurs institutionnels et les utilisateurs pirates ne sont pas éligibles.",

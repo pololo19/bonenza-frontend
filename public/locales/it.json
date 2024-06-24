@@ -2329,7 +2329,7 @@
     "registration": "Registrazione",
     "competition": "concorrenza",
     "distribution": "Distribuzione della ricompensa",
-    "prizePool": "Montepremi",
+    "prizePool": "Montepremi fino a {{value}}",
     "eventRules": "Regole dell'evento",
     "eligibility": "Eleggibilità",
     "eligibilityDescription1": "Per poterti registrare, devi avere il livello VIP2 nell'account Bonenza. Gli utenti illegali del programma, gli utenti istituzionali e gli utenti di hacking non sono idonei.",

@@ -2329,7 +2329,7 @@
     "registration": "Anmeldung",
     "competition": "Wettbewerb",
     "distribution": "Belohnungsverteilung",
-    "prizePool": "Preis Pool",
+    "prizePool": "Preispool bis zu {{value}}",
     "eventRules": "Veranstaltungsregeln",
     "eligibility": "Teilnahmeberechtigung",
     "eligibilityDescription1": "Um zur Registrierung berechtigt zu sein, müssen Sie über die VIP2-Stufe im Bonenza-Konto verfügen. Illegale Programmbenutzer, institutionelle Benutzer und Hackerbenutzer sind nicht berechtigt.",

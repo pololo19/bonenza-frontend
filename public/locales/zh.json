@@ -2329,7 +2329,7 @@
     "registration": "登记",
     "competition": "竞赛",
     "distribution": "奖励分配",
-    "prizePool": "奖池",
+    "prizePool": "奖池高达 {{value}}",
     "eventRules": "活动规则",
     "eligibility": "合格",
     "eligibilityDescription1": "想要获得注册资格，您的 Bonenza 账户必须具有 VIP2 级别。非法程序用户、机构用户和黑客用户不符合注册资格。",
