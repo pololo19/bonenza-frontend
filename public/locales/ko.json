@@ -2329,7 +2329,7 @@
     "registration": "등록",
     "competition": "경쟁",
     "distribution": "보상 분배",
-    "prizePool": "상금 풀",
+    "prizePool": "최대 상금 풀 {{value}}",
     "eventRules": "이벤트 규칙",
     "eligibility": "적임",
     "eligibilityDescription1": "등록 자격을 얻으려면 Bonenza 계정에 VIP2 레벨이 있어야 합니다. 불법 프로그램 사용자, 기관 사용자 및 해킹 사용자는 자격이 없습니다.",

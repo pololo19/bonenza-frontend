@@ -2329,7 +2329,7 @@
     "registration": "Kayıt",
     "competition": "Yarışma",
     "distribution": "Ödül Dağıtımı",
-    "prizePool": "Ödül havuzu",
+    "prizePool": "Ödül Havuzu Kadar {{value}}",
     "eventRules": "Etkinlik Kuralları",
     "eligibility": "Uygunluk",
     "eligibilityDescription1": "Kayıt olmaya hak kazanabilmeniz için Bonenza Hesabınızda VIP2 seviyesine sahip olmanız gerekir. Yasa dışı program kullanıcıları, Kurumsal kullanıcılar ve bilgisayar korsanlığı yapan kullanıcılar uygun değildir.",

@@ -120,8 +120,8 @@ function TournamentPage() {
                           <div className="flex items-start gap-2">
                             <div className="min-w-[50px]">
                               <div className="text-center text-white text-[32px] font-bold leading-8">
-                                {hours < 10 ? '0' : ''}
-                                {hours}
+                                {0 < 10 ? '0' : ''}
+                                {0}
                               </div>
                               <div className="text-center text-gray-400 text-[10px] font-light">
                                 {t('tournament:hours')}
@@ -130,8 +130,8 @@ function TournamentPage() {
                             <div className="text-center text-white text-[32px] font-normal leading-8">:</div>
                             <div className="min-w-[50px]">
                               <div className="text-center text-white text-[32px] font-bold leading-8">
-                                {minutes < 10 ? '0' : ''}
-                                {minutes}
+                                {0 < 10 ? '0' : ''}
+                                {0}
                               </div>
                               <div className="text-center text-gray-400 text-[10px] font-light">
                                 {t('tournament:minutes')}
@@ -140,8 +140,8 @@ function TournamentPage() {
                             <div className="text-center text-white text-[32px] font-normal leading-8">:</div>
                             <div className="min-w-[50px]">
                               <div className="text-center text-white text-[32px] font-bold leading-8">
-                                {seconds < 10 ? '0' : ''}
-                                {seconds}
+                                {0 < 10 ? '0' : ''}
+                                {0}
                               </div>
                               <div className="text-center text-gray-400 text-[10px] font-light">
                                 {t('tournament:seconds')}
@@ -223,9 +223,14 @@ function TournamentPage() {
         </div>
         <div
           className={cn('mt-10 uppercase text-[40px] md:text[48px] xl:text-[64px] w-full text-center', styles.goldText)}
-        >
-          {t('tournament:prizePool')} 10,000 USDT
-        </div>
+          dangerouslySetInnerHTML={{
+            __html: String(
+              t('tournament:prizePool', {
+                value: '10,000,000 USDT',
+              }),
+            ),
+          }}
+        ></div>
         <div className="flex flex-col mt-8 gap-6">
           <div className="flex flex-col md:flex-row justify-evenly items-center uppercase gap-4">
             <div>
