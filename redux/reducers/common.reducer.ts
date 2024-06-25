@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { CookieKey, CRYPTO_DATA, FIAT_DATA } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { DepositAddress, FiatType, MessageType } from '@/base/types/common';
+import { DepositAddress, FiatType, MessageType, NotificationType } from '@/base/types/common';
 import { CommonState } from '@/base/types/reducer-states';
 
 const initialCommonState: CommonState = {
@@ -32,8 +32,17 @@ const initialCommonState: CommonState = {
     replyUserName: '',
     replyUserLevel: '',
   },
+  lastNotification: {
+    id: '',
+    title: '',
+    description: '',
+    link: '',
+    image: '',
+    createdAt: '',
+  },
   isRestricting: false,
   isNewMessage: false,
+  isNewNotification: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -68,8 +77,14 @@ export const queryDataSlice = createSlice({
     setLastMessage: (state: CommonState, action: PayloadAction<MessageType>) => {
       state.lastMessage = action.payload;
     },
+    setLastNotification: (state: CommonState, action: PayloadAction<NotificationType>) => {
+      state.lastNotification = action.payload;
+    },
     setIsNewMessage: (state: CommonState, action: PayloadAction<boolean>) => {
       state.isNewMessage = action.payload;
+    },
+    setIsNewNotification: (state: CommonState, action: PayloadAction<boolean>) => {
+      state.isNewNotification = action.payload;
     },
     changeIsLoading: (state: CommonState, action: PayloadAction<boolean>) => {
       state.isLoading = action.payload;

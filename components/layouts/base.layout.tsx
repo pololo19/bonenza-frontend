@@ -122,6 +122,7 @@ import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
 import ModalAddressConfirm from '../modal/addressConfirm/addressConfirm';
+import NotificationComponent from '../notification/notification.page';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -222,6 +223,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     isShowAddressConfirm,
     isShowFavoriteCoin,
     isViewInFiat,
+    isShowNotification,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -275,6 +277,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       isShowWagerRule: state.modal.isShowWagerRule,
       isShowFavoriteCoin: state.modal.isShowFavoriteCoin,
       isViewInFiat: state.modal.isViewInFiat,
+      isShowNotification: state.modal.isShowNotification,
     }),
     shallowEqual,
   );
@@ -760,6 +763,19 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 )}
               >
                 <ChattingComponent />
+                <div className="w-auto min-h-screen bg-white dark:bg-color-header-primary"></div>
+              </div>
+              <div
+                className={cn(
+                  '2xl:relative fixed right-0 max-h-screen 2xl:mt-0 top-0 sm:top-[70px] 2xl:top-0 bottom-[60px] sm:bottom-0 z-9 drop-shadow-md ',
+                  'transition-transform origin-bottom sm:origin-right',
+                  {
+                    'sm:translate-x-0 sm:translate-y-0 translate-y-0 w-auto': isShowNotification,
+                    'sm:translate-x-full sm:translate-y-0 translate-y-full w-0': !isShowNotification,
+                  },
+                )}
+              >
+                <NotificationComponent />
                 <div className="w-auto min-h-screen bg-white dark:bg-color-header-primary"></div>
               </div>
 

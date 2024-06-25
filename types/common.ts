@@ -528,6 +528,15 @@ export type MessageType = {
   replyUserLevel: string;
 };
 
+export type NotificationType = {
+  id: string;
+  title: string;
+  description: string;
+  link: string;
+  image: string;
+  createdAt: string;
+};
+
 export type LiveRewardType = {
   amountUsd: number;
   logo: string;

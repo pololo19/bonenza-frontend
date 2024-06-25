@@ -165,6 +165,9 @@ const API_CHAT_LATEST = '/chat/latest';
 const API_CHAT_ADD = '/chat/add';
 const API_LEAVE_MESSAGE = '/chat/leave-message';
 
+/************************************ Notification **********************************/
+const API_NOTIFICATION_LATEST = '/notification/latest';
+
 export {
   API_ADMIN_LOGIN,
   API_AFFILIATE,
@@ -209,6 +212,7 @@ export {
   API_BONUS_USDT_BONUS_HISTORY,
   API_CHAT_ADD,
   API_CHAT_LATEST,
+  API_NOTIFICATION_LATEST,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,
