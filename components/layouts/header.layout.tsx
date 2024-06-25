@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Add, Global, MessageText1, MoneyRecive, SearchNormal } from 'iconsax-react';
+import { Add, Global, MessageText1, MoneyRecive, Notification, SearchNormal } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -15,6 +15,7 @@ import {
   changeIsShowCasinoSearch,
   changeIsShowDepositModal,
   changeIsShowMultiLanguageModal,
+  changeIsShowNotification,
   changeMultiLanguageTab,
   changeShowChatType,
 } from '@/base/redux/reducers/modal.reducer';
@@ -43,6 +44,7 @@ export default function Navbar() {
     isAccountPannel,
     isLoading,
     isNewMessage,
+    isShowNotification,
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -54,6 +56,7 @@ export default function Navbar() {
       isAccountPannel: state.modal.isShowAccountPannel,
       isLoading: state.auth.isLoading,
       isNewMessage: state.common.isNewMessage,
+      isShowNotification: state.modal.isShowNotification,
     }),
     shallowEqual,
   );
@@ -192,11 +195,27 @@ export default function Navbar() {
               </button>
             )} */}
             {/* Message */}
+            {isLogin && (
+              <button
+                type="button"
+                className={`sm:block hidden relative rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
+                onClick={() => {
+                  dispatch(changeShowChatType(false));
+                  dispatch(changeIsShowNotification(!isShowNotification));
+                }}
+              >
+                <Notification className="w-[24px] h-[24px] text-white" variant="Bold" />
+                {isNewMessage && (
+                  <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]" />
+                )}
+              </button>
+            )}
             {!isLogin && (
               <button
                 type="button"
                 className={`sm:block hidden relative rounded-default dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
                 onClick={() => {
+                  dispatch(changeIsShowNotification(false));
                   dispatch(changeShowChatType(!showChatType));
                 }}
               >
@@ -208,6 +227,7 @@ export default function Navbar() {
                 type="button"
                 className={`sm:block hidden relative rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-gray-400 dark:hover:text-white hover:text-black items-center justify-center gap-[7px] h-full px-[12px]`}
                 onClick={() => {
+                  dispatch(changeIsShowNotification(false));
                   dispatch(changeShowChatType(!showChatType));
                 }}
               >
