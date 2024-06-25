@@ -74,6 +74,7 @@ export const initialCommonState: ModalState = {
   },
   isViewInFiat: false,
   isShowFavoriteCoin: false,
+  isShowNotification: false,
 };
 
 export const queryDataSlice = createSlice({
@@ -212,6 +213,9 @@ export const queryDataSlice = createSlice({
     changeIsShowAddressConfirm: (state: ModalState, action: PayloadAction<boolean>) => {
       state.isShowAddressConfirm = action.payload;
     },
+    changeIsShowNotification: (state: ModalState, action: PayloadAction<boolean>) => {
+      state.isShowNotification = action.payload;
+    },
     setDetailBets: (
       state: ModalState,
       action: PayloadAction<{
@@ -318,5 +322,6 @@ export const {
   setTipReceiver,
   changeIsShowFavoriteCoin,
   changeIsShowViewInFiat,
+  changeIsShowNotification,
 } = queryDataSlice.actions;
 export default queryDataSlice.reducer;

@@ -7,6 +7,7 @@ import {
   FiatType,
   GameListType,
   MessageType,
+  NotificationType,
   UserDetail,
   VerifyModeEnum,
 } from './common';
@@ -90,6 +91,7 @@ export type ModalState = {
     userName?: string;
     userAvatar?: string;
   };
+  isShowNotification?: boolean;
 };
 
 export type LoadingState = {
@@ -110,7 +112,9 @@ export type CommonState = {
   usdtNetwork?: string;
   casinoTab?: boolean;
   lastMessage?: MessageType;
+  lastNotification?: NotificationType;
   isNewMessage?: boolean;
+  isNewNotification?: boolean;
   isRestricting?: boolean;
 };
 
