@@ -108,6 +108,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
       network: 'BSC',
       token: 'DAI',
     },
+    {
+      icon: '/img/icon/DRON.png',
+      networkIcon: 'img/fiats/BNB.png',
+      network: 'BSC',
+      token: 'DRON',
+    },
   ];
   return (
     <>
@@ -117,17 +123,17 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           'sm:block hidden': isDetailPage,
         })}
       >
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div
             className={cn('grid 2xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4', {
               'xl:grid-cols-3': showChatType,
               'xl:grid-cols-4': !showChatType,
             })}
           >
-            <div className="flex flex-col md:items-start items-center">
+            <div className="flex flex-col items-center md:items-start">
               <div className="flex gap-[10px] items-center mb-[10px]">
                 <div className="w-[2px] h-[12px] bg-[#0DFDE4]"></div>
-                <div className="text-sm text-black dark:text-white font-semibold ">{String(t('footer:casino'))}</div>
+                <div className="text-sm font-semibold text-black dark:text-white ">{String(t('footer:casino'))}</div>
               </div>
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 <Link
@@ -187,10 +193,10 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               </div>
             </div>
             {/* Hiding Sports */}
-            {/* <div className="flex flex-col md:items-start items-center">
+            {/* <div className="flex flex-col items-center md:items-start">
               <div className="flex gap-[10px] items-center mb-[10px]">
                 <div className="w-[2px] h-[12px] bg-[#F61B4F]"></div>
-                <div className="text-sm text-black dark:text-white font-semibold">{String(t('footer:sports'))}</div>
+                <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:sports'))}</div>
               </div>
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 <Link
@@ -213,17 +219,17 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </Link>
               </div>
             </div> */}
-            <div className="flex flex-col md:items-start items-center">
+            <div className="flex flex-col items-center md:items-start">
               <div className="flex gap-[10px] items-center mb-[10px]">
                 <div className="w-[2px] h-[12px] bg-[#F39717]"></div>
-                <div className="text-sm text-black dark:text-white font-semibold">{String(t('footer:promo'))}</div>
+                <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:promo'))}</div>
               </div>
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 <div
                   onClick={() => {
                     isLogin ? dispatch(changeIsShowVipClubModal(true)) : openModalLogin();
                   }}
-                  className="text-default cursor-pointer text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:vipClub'))}
                 </div>
@@ -249,16 +255,16 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   onClick={() => {
                     isLogin ? dispatch(changeIsShowReferAndEarn(true)) : openModalLogin();
                   }}
-                  className="text-default cursor-pointer text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:referAFriend'))}
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:items-start items-center">
+            <div className="flex flex-col items-center md:items-start">
               <div className="flex gap-[10px] items-center mb-[10px]">
                 <div className="w-[2px] h-[12px] bg-[#FD6E0B]"></div>
-                <div className="text-sm text-black dark:text-white font-semibold">
+                <div className="text-sm font-semibold text-black dark:text-white">
                   {String(t('footer:supportLegal'))}
                 </div>
               </div>
@@ -325,30 +331,30 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </Link> */}
               </div>
             </div>
-            <div className="flex flex-col md:items-start items-center">
+            <div className="flex flex-col items-center md:items-start">
               <div className="flex gap-[10px] items-center mb-[10px]">
                 <div className="w-[2px] h-[12px] bg-[#20D4EB]"></div>
-                <div className="text-sm text-black dark:text-white font-semibold">{String(t('footer:aboutUs'))}</div>
+                <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:aboutUs'))}</div>
               </div>
               <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
                 <div
                   onClick={() => setShowModalContacts(true)}
-                  className="text-default text-color-light-text-primary cursor-pointer dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:businessContacts'))}
                 </div>
                 <div
                   onClick={() => setShowModalVerify(true)}
-                  className="text-default text-color-light-text-primary cursor-pointer dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:verifyRepresentative'))}
                 </div>
               </div>
             </div>
-            <div className="flex flex-col md:items-start items-center hidden">
+            <div className="flex flex-col items-center hidden md:items-start">
               <div className="flex gap-[10px] items-center">
                 <div className="w-[2px] h-[12px] bg-white"></div>
-                <div className="text-sm text-black dark:text-white font-semibold">
+                <div className="text-sm font-semibold text-black dark:text-white">
                   {String(t('footer:joinOurCommunity'))}
                 </div>
               </div>
@@ -650,7 +656,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
               height={27}
               className="w-[220px] h-[44px] cursor-pointer"
             />
-            <div className="text-default font-light">{String(t('footer:bonenzaDescription1'))}</div>
+            <div className="font-light text-default">{String(t('footer:bonenzaDescription1'))}</div>
             <div className="flex flex-col gap-[10px] text-default font-light">
               <div className="flex gap-[5px]">
                 {String(t('footer:business'))}

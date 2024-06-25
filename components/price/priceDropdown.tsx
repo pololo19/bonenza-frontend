@@ -1,15 +1,17 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
+
+import { Popover, Transition } from '@headlessui/react';
 import cn from 'classnames';
 import Image from 'next/image';
-import { Popover, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
 
 export default function PriceDropdown() {
   const exchange = useExchange();
@@ -38,7 +40,7 @@ export default function PriceDropdown() {
 
   return (
     <>
-      <Popover className="relative w-auto text-left rounded-[7px] ml-4">
+      <Popover className="relative w-auto text-left rounded-default">
         {({ open }) => (
           <div className="flex flex-col">
             <Popover.Button ref={buttonRef}>
@@ -66,7 +68,7 @@ export default function PriceDropdown() {
                             e.currentTarget.src = '/img/fiats/USD.png';
                           }}
                         />
-                        <div className="flex-1 font-bold text-black text-start text-default dark:text-white">
+                        <div className="flex flex-col font-bold text-black text-start text-default dark:text-white">
                           <span className="font-semibold text-gray-300 text-[12px]">{symbol.name}</span>
                           <div className="leading-3 text-[11px] text-yellow-300 font-semibold">
                             {viewInFiat ? (
@@ -109,7 +111,7 @@ export default function PriceDropdown() {
                         'border-b border-solid border-b-color-card-body-primary': index < cryptoSymbols.length - 1,
                       })}
                     >
-                      <div className="flex justify-start items-center gap-2">
+                      <div className="flex items-center justify-start gap-2">
                         <Image
                           width={32}
                           height={32}
@@ -125,7 +127,7 @@ export default function PriceDropdown() {
                           <div className="mt-[2px] leading-3 text-[12px] text-gray-400">{symbol.alias}</div>
                         </div>
                       </div>
-                      <div className="text-default font-bold text-white">
+                      <div className="font-bold text-white text-default">
                         {viewInFiat ? (
                           <>
                             {currencyFormat1(
