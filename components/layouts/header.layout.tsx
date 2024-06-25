@@ -26,6 +26,7 @@ import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 import ProfileDropdown from '../profileDropdown/profileDropdown';
 import RewardDropdown from '../rewardDropdown/rewardDropdown';
 import FiatHeader from './header/fiatHeader';
+import PriceDropdown from '../price/priceDropdown';
 
 export default function Navbar() {
   const router = useRouter();
@@ -121,7 +122,7 @@ export default function Navbar() {
                 );
               })}
           </div>
-
+          <PriceDropdown />
           <div className="flex items-center justify-between sm:gap-x-[8px] gap-x-2 w-auto">
             {/* Button */}
             <button
