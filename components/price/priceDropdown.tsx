@@ -70,9 +70,15 @@ export default function PriceDropdown() {
                           <span className="font-semibold text-gray-300 text-[12px]">{symbol.name}</span>
                           <div className="leading-3 text-[11px] text-yellow-300 font-semibold">
                             {viewInFiat ? (
-                              <>{currencyFormat1(symbol.price * exchange, 6, localFiat?.name || 'USD')}</>
+                              <>
+                                {currencyFormat1(
+                                  symbol.price * exchange,
+                                  symbol.price > 0.1 ? 2 : 10,
+                                  localFiat?.name || 'USD',
+                                )}
+                              </>
                             ) : (
-                              <>{currencyFormat1(symbol.price, 6)}</>
+                              <>{currencyFormat1(symbol.price, symbol.price > 0.1 ? 2 : 10)}</>
                             )}
                           </div>
                         </div>
@@ -121,9 +127,15 @@ export default function PriceDropdown() {
                       </div>
                       <div className="text-default font-bold text-white">
                         {viewInFiat ? (
-                          <>{currencyFormat1(symbol.price * exchange, 6, localFiat?.name || 'USD')}</>
+                          <>
+                            {currencyFormat1(
+                              symbol.price * exchange,
+                              symbol.price > 0.1 ? 2 : 10,
+                              localFiat?.name || 'USD',
+                            )}
+                          </>
                         ) : (
-                          <>{currencyFormat1(symbol.price, 6)}</>
+                          <>{currencyFormat1(symbol.price, symbol.price > 0.1 ? 2 : 10)}</>
                         )}
                       </div>
                     </div>
