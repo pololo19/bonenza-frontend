@@ -192,7 +192,7 @@ function TournamentPage() {
                 <div className="font-bold text-color-primary text-[16px] sm:text-[18px]">
                   {t('tournament:registration')}
                 </div>
-                <div className="mt-3 text-default">05/23 10:00~05/24 00:00 (UTC)</div>
+                <div className="mt-3 text-default">{t('tournament:descriptionRegistration')}</div>
               </div>
             </div>
             <div className="col-span-11 lg:col-span-1 flex justify-center items-center rotate-90 lg:rotate-0 text-color-primary">
@@ -204,7 +204,7 @@ function TournamentPage() {
                 <div className="font-bold text-color-primary text-[16px] sm:text-[18px]">
                   {t('tournament:competition')}
                 </div>
-                <div className="mt-3 text-default">05/24 10:00~05/25 00:00 (UTC)</div>
+                <div className="mt-3 text-default">{t('tournament:descriptionCompetition')}</div>
               </div>
             </div>
             <div className="col-span-11 lg:col-span-1 flex justify-center items-center rotate-90 lg:rotate-0 text-color-primary">
@@ -216,7 +216,7 @@ function TournamentPage() {
                 <div className="font-bold text-color-primary text-[16px] sm:text-[18px]">
                   {t('tournament:distribution')}
                 </div>
-                <div className="mt-3 text-default">05/25 00:00~05/26 00:00 (UTC)</div>
+                <div className="mt-3 text-default">{t('tournament:descriptiondistribution')}</div>
               </div>
             </div>
           </div>
