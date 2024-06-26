@@ -44,6 +44,7 @@ export default function Navbar() {
     isAccountPannel,
     isLoading,
     isNewMessage,
+    isNewNotification,
     isShowNotification,
   } = useSelector(
     (state: AppState) => ({
@@ -56,6 +57,7 @@ export default function Navbar() {
       isAccountPannel: state.modal.isShowAccountPannel,
       isLoading: state.auth.isLoading,
       isNewMessage: state.common.isNewMessage,
+      isNewNotification: state.common.isNewNotification,
       isShowNotification: state.modal.isShowNotification,
     }),
     shallowEqual,
@@ -203,7 +205,7 @@ export default function Navbar() {
                 }}
               >
                 <Notification className="w-[24px] h-[24px] text-white" variant="Bold" />
-                {isNewMessage && (
+                {isNewNotification && (
                   <span className="absolute top-[5px] right-[5px] p-[5px] rounded-full bg-color-primary text-white text-[10px]" />
                 )}
               </button>

@@ -7,7 +7,7 @@ import ReactLoading from 'react-loading';
 import { shallowEqual, useSelector } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
-import { setIsNewMessage } from '@/base/redux/reducers/common.reducer';
+import { setIsNewMessage, setIsNewNotification } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowNotification } from '@/base/redux/reducers/modal.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { NotificationType } from '@/base/types/common';
@@ -50,7 +50,7 @@ const NotificationComponent = () => {
       if (_notifications.length > 0) {
         const _lastNotification = _notifications[0];
         if (notifications.length === 0) CookiesStorage.setCookieData('last_notification', _lastNotification.id);
-        dispatch(setIsNewMessage(false));
+        dispatch(setIsNewNotification(false));
       }
       setNotifications([...notifications, ..._notifications]);
     } catch (error) {
@@ -72,7 +72,7 @@ const NotificationComponent = () => {
   const loadNewMessage = async () => {
     const $chatContainer = scrollRef.current;
     if (!$chatContainer) return;
-    if ($chatContainer.scrollTop === 0) {
+    if ($chatContainer.scrollTop === $chatContainer?.scrollHeight - $chatContainer?.clientHeight) {
       setIsFirstLoading(false);
       await getMessages();
     }
@@ -125,7 +125,7 @@ const NotificationComponent = () => {
           ref={scrollRef}
           onScroll={() => loadNewMessage()}
         >
-          <div className="flex w-full my-[10px] justify-start items-center gap-3 flex-col-reverse relative">
+          <div className="flex w-full my-[10px] justify-start items-center gap-3 flex-col relative">
             {notifications.map((notification, index) => (
               <div
                 className="flex flex-col gap-2 w-full max-w-full sm:max-w-[310px] text-default text-gray-200 bg-color-card-body-primary p-3 pt-5 rounded-sm"
