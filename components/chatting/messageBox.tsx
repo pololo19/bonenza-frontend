@@ -133,7 +133,7 @@ export const MessageBox = ({
           <div className={cn({ 'text-left': id !== userId, 'text-right': id === userId })}>
             <div className={cn('flex items-center gap-2 text-[12px] pl-1')}>
               <div
-                className={cn('text-[#BBB] font-semibold', { 'hover:underline cursor-pointer': userName })}
+                className={cn('text-gray-500 font-semibold', { 'hover:underline cursor-pointer': userName })}
                 onClick={() => handleModalProfile()}
               >
                 {id !== userId ? (userName ? userName : t('homePage:hidden')) : ''}
@@ -166,8 +166,8 @@ export const MessageBox = ({
                 className={cn(
                   'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[220px] break-all  rounded-[8px] px-2 py-[6px]',
                   {
-                    'bg-color-input-primary text-gray-400': id !== userId,
-                    'bg-[#8873DD] text-[#D5D5D5]': id === userId,
+                    'bg-color-input-primary text-[#CCC]': id !== userId,
+                    'bg-[#8873DD] text-[#DDD]': id === userId,
                   },
                 )}
               >
@@ -188,7 +188,7 @@ export const MessageBox = ({
                     __html: replyUserName
                       ? text.replace(
                           `@${replyUserName}`,
-                          `<span style="font-weight:600; color: ${
+                          `<span style="font-weight:400; color: ${
                             id === userId ? '#FFF' : '#44DDFF'
                           };">@${replyUserName}</span>`,
                         )

@@ -296,7 +296,7 @@ const ChattingComponent = () => {
               <div className="w-full" key={index}>
                 {days.indexOf(index) > -1 && (
                   <div className="flex justify-center my-[2px]">
-                    <span className="border border-solid border-color-primary rounded-default text-white text-[11px] sm:text-[12px] px-3 py-[2px]">
+                    <span className="border border-solid border-color-primary rounded-default text-gray-200 text-[11px] sm:text-[12px] px-5 py-[2px]">
                       {formatDate(new Date(Number(message.time) * 1000), DATE_TIME_CHAT_DATE)}
                     </span>
                   </div>

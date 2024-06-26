@@ -53,12 +53,13 @@ const SettingEmail = () => {
   const [countryCallingCode, setCountryCallingCode] = useState<(typeof COUNTRY_CALLING_CODES)[number]>();
   const [phoneInput, setPhoneInput] = useState('');
 
-  const { email, phone, emailVerified, phoneVerified } = useSelector(
+  const { email, phone, emailVerified, phoneVerified, showChatType } = useSelector(
     (state: AppState) => ({
       phone: state.auth.user.phone,
       email: state.auth.user.email,
       emailVerified: state.auth.user.verifiedSetting.emailVerified,
       phoneVerified: state.auth.user.verifiedSetting.phoneVerified,
+      showChatType: state.modal.showChatType,
     }),
     shallowEqual,
   );
@@ -126,8 +127,17 @@ const SettingEmail = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="2xl:px-[80px] lg:px-[40px] md:px-[20px] px-[10px] xl:py-[32px] lg:py-[24px] md:py-[12px] md:mt-0 sm:mt-[30px] mt-0 flex min-[991px]:flex-row flex-col xl:gap-[80px] lg:gap-[40px] md:gap-[20px] gap-[10px]">
-        <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:py-4">
+        <form
+          className={cn(
+            'flex-1 flex flex-col items-start gap-[12px] w-full',
+            'border border-solid border-transparent border-b-color-card-body-hover border-r-transparent lg:border-b-transparent lg:border-r-color-card-body-hover',
+            {
+              'p-4 pr-8': showChatType,
+              'p-4 pr-8 2xl:p-[40px]': !showChatType,
+            },
+          )}
+        >
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
             <div className="font-semibold text-default">{t('setting:emailVerification')}</div>
             <div className="text-start text-des text-color-light-text-primary dark:text-color-text-primary">
@@ -213,9 +223,13 @@ const SettingEmail = () => {
             )}
           </Disclosure>
         </form>
-        <div className="dark:bg-color-border-primary bg-color-light-border-primary w-[1px]"></div>
 
-        <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
+        <form
+          className={cn('flex-1 flex flex-col items-start gap-[12px] w-full', {
+            'p-4 pl-8': showChatType,
+            'p-4 pl-8 2xl:p-[40px]': !showChatType,
+          })}
+        >
           <div className="flex-1 sm:flex hidden flex-col items-start gap-[12px] w-full">
             <div className="font-semibold text-default">{t('setting:phoneNumber')}</div>
             <div className="text-start text-des text-color-light-text-primary dark:text-color-text-primary">

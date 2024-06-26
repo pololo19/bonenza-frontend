@@ -154,7 +154,7 @@ const BalancePage = () => {
             <div className="relative">
               <input
                 className={cn(
-                  'sm:pl-[50px] pl-[40px] w-full max-w-[250px] dark:text-white text-color-light-text-primary sm:text-default text-[12px] h-[40px] rounded-[5px] dark:bg-color-input-secondary bg-[#f5f6fa] border border-solid border-white/10 focus-within:border-color-primary placeholder:text-white outline-none pointer-events-auto',
+                  'sm:pl-[50px] pl-[40px] w-full max-w-[250px] dark:text-white text-color-light-text-primary sm:text-default text-[12px] h-[40px] rounded-[5px] dark:bg-color-header-primary bg-[#f5f6fa] border border-solid border-gray-800 focus-within:border-color-primary placeholder:text-white outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
