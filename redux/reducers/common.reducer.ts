@@ -109,6 +109,7 @@ export const {
   setCasinoTab,
   setLastMessage,
   setIsNewMessage,
+  setIsNewNotification,
   changeIsLoading,
   changeDisabledPeriod,
   changeIsRestricting,

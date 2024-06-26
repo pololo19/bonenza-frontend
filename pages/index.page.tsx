@@ -50,8 +50,9 @@ import { CookiesStorage } from '../libs/storage/cookie';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
 import { getErrorMesssage1 } from '../libs/utils/notificationToast';
-import { setIsNewMessage } from '../redux/reducers/common.reducer';
+import { setIsNewMessage, setIsNewNotification } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
+import { api_getNotificationHistory } from '@/api/notification';
 
 function IndexPage() {
   const exchangeRate = useExchange();
@@ -145,10 +146,11 @@ function IndexPage() {
   const initDataLoad = async () => {
     try {
       // dispatch(changeIsLoading(true));
-      const [_resTopRatedGames, _resRecommendedGames, _resChat] = await Promise.all([
+      const [_resTopRatedGames, _resRecommendedGames, _resChat, _resNotification] = await Promise.all([
         api_getTopRelatedGames(),
         api_getPickGames(1, 20),
         api_getChatHistory(0, 1),
+        api_getNotificationHistory(0, 1),
       ]);
       const tempListTopRatedGames: GameListType[] = _resTopRatedGames.data.map((item: any) => ({
         id: item?.id ?? '',
@@ -178,6 +180,11 @@ function IndexPage() {
         dispatch(setIsNewMessage(tempLastMessageId !== localLastMessageId));
       }
 
+      if (_resNotification.data?.length > 0) {
+        const tempLastNotificationId = _resNotification.data?.length > 0 ? _resNotification.data[0].id : '';
+        const localLastNotificationId = CookiesStorage.getCookieData('last_notification');
+        dispatch(setIsNewNotification(tempLastNotificationId !== localLastNotificationId));
+      }
       setListTopRated(tempListTopRatedGames);
       setListRecommendedGame(tempListRecommandedGames);
     } catch (error) {
