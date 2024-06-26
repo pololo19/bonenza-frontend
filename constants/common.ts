@@ -883,44 +883,44 @@ export const CONVERT_CURRENCIES =
 
 export const BANNER_DATA = [
   {
-    img: '/img/banners/Aloha_King_Elvis.png',
-    url: ROUTER.GameDetail('softswiss:AlohaKingElvis'),
+    img: '/img/banners/GateofOlympus_PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal:gatesofolympus1000'),
   },
   {
-    img: '/img/banners/Dice_Bonaza.png',
-    url: ROUTER.GameDetail('softswiss:dicebonanza'),
+    img: '/img/banners/SugarSupreme_PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal:sugarsupremepowernudge'),
   },
   {
-    img: '/img/banners/Plinko.png',
-    url: ROUTER.GameDetail('softswiss:easterplinko'),
+    img: '/img/banners/BigBassCrash_PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal:bigbasscrash'),
   },
   {
-    img: "/img/banners/Dolphin's_Wealth.png",
-    url: ROUTER.GameDetail('1spin4win:DolphinsWealth'),
+    img: '/img/banners/Spaceman_PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal:spaceman'),
   },
   {
-    img: '/img/banners/Black_Jack_Gold.png',
-    url: ROUTER.GameDetail('ezugi:blackjackgold1'),
+    img: '/img/banners/BuffaloKing_PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal:buffaloking'),
   },
   {
-    img: '/img/banners/Cricket_War.png',
-    url: ROUTER.GameDetail('ezugi:cricketwar'),
+    img: '/img/banners/Baccarat_PragmaticLive.png',
+    url: ROUTER.GameDetail('pragmaticexternal:super8baccarat'),
   },
   {
-    img: '/img/banners/Keno.png',
-    url: ROUTER.GameDetail('infin:fastkeno'),
+    img: '/img/banners/BigBass_PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal:bigbasschristmasbash'),
   },
   {
-    img: '/img/banners/Dealer_Roulette.png',
-    url: ROUTER.GameDetail('ezugi:ezdealerroulette'),
+    img: '/img/banners/FuryofOdin_PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal:furyofodinmegaways'),
   },
   {
-    img: '/img/banners/Speed_Fortune_Baccarat.png',
-    url: ROUTER.GameDetail('ezugi:speedfortunebaccarat'),
+    img: '/img/banners/GrayhoundRacing_GoldenRace.png',
+    url: ROUTER.GameDetail('infin:dog6'),
   },
   {
-    img: '/img/banners/Wheel_Bet.png',
-    url: ROUTER.GameDetail('infin:wheelbet'),
+    img: '/img/banners/Keno_TvBet.png',
+    url: ROUTER.GameDetail('infin:tvbet_keno'),
   },
 ];
 
