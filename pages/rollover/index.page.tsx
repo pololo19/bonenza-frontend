@@ -17,7 +17,8 @@ import {
   TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER,
 } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1, formatDate, getColorByStatus } from '@/base/libs/utils';
+import { useWidth } from '@/base/hooks/useWidth';
+import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { RolloverStatus, RolloverType } from '@/base/types/common';
 import withAuth from '@/components/hoc/withAuth';
@@ -25,7 +26,6 @@ import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
-import { useWidth } from '@/base/hooks/useWidth';
 
 const LIST_FILTER_TYPE = [
   { name: 'transaction:allType', id: 1 },
@@ -103,17 +103,17 @@ const RolloverPage = () => {
         {
           accessorKey: 'type',
           header: () => (
-            <div className="text-left dark:text-color-text-primary text-black">{String(t('transaction:type'))}</div>
+            <div className="text-left text-black dark:text-color-text-primary">{String(t('transaction:type'))}</div>
           ),
           cell: ({ row }) => (
-            <div className="dark:text-white text-black text-left truncate py-2">{row.original.type}</div>
+            <div className="py-2 text-left text-black truncate dark:text-white">{row.original.type}</div>
           ),
           minSize: 20,
         },
         {
           accessorKey: 'amount',
           header: () => (
-            <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:amount'))}</div>
+            <div className="text-center text-black dark:text-color-text-primary">{String(t('transaction:amount'))}</div>
           ),
           cell: ({ row }) => (
             <div
@@ -136,11 +136,11 @@ const RolloverPage = () => {
         {
           accessorKey: 'time',
           header: () => (
-            <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:time'))}</div>
+            <div className="text-center text-black dark:text-color-text-primary">{String(t('transaction:time'))}</div>
           ),
           cell: ({ row }) => (
-            <div className="dark:text-white text-black text-center flex sm:flex-row flex-col">
-              <div className="sm:hidden flex flex-col">
+            <div className="flex flex-col text-center text-black dark:text-white sm:flex-row">
+              <div className="flex flex-col sm:hidden">
                 <span>{formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SECOND)}</span>
                 <span>{formatDate(new Date(row.original.createdAt), DATE_FORMAT_DEFAULT)}</span>
               </div>
@@ -154,7 +154,7 @@ const RolloverPage = () => {
         {
           accessorKey: 'status',
           header: () => (
-            <div className="text-right dark:text-color-text-primary text-black">{String(t('transaction:status'))}</div>
+            <div className="text-right text-black dark:text-color-text-primary">{String(t('transaction:status'))}</div>
           ),
           cell: ({ row }) => (
             <div className="flex items-center justify-end gap-2 cursor-pointer">
@@ -176,7 +176,7 @@ const RolloverPage = () => {
                     row.original.status.toString() === 'approved',
                 })}
               ></div>
-              <div className="dark:text-white text-black break-keep	">
+              <div className="text-black dark:text-white break-keep ">
                 {replaceStatus(row.original.status)?.charAt(0).toUpperCase() +
                   replaceStatus(row.original.status)?.slice(1)}
               </div>
@@ -192,12 +192,12 @@ const RolloverPage = () => {
       {
         accessorKey: 'type',
         header: () => (
-          <div className="text-left dark:text-color-text-primary text-black pl-2">{String(t('transaction:type'))}</div>
+          <div className="pl-2 text-left text-black dark:text-color-text-primary">{String(t('transaction:type'))}</div>
         ),
         cell: ({ row }) => (
           <div className="min-w-[120px]">
-            <div className="dark:text-white text-black text-left truncate py-2">{row.original.type}</div>
-            <div className="dark:text-white text-black text-left">
+            <div className="py-2 text-left text-black truncate dark:text-white">{row.original.type}</div>
+            <div className="text-left text-black dark:text-white">
               {formatDate(new Date(row.original.createdAt), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
           </div>
@@ -206,7 +206,7 @@ const RolloverPage = () => {
       {
         accessorKey: 'amount',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-black">{String(t('transaction:amount'))}</div>
+          <div className="text-center text-black dark:text-color-text-primary">{String(t('transaction:amount'))}</div>
         ),
         cell: ({ row }) => (
           <div
@@ -228,7 +228,7 @@ const RolloverPage = () => {
       {
         accessorKey: 'status',
         header: () => (
-          <div className="text-right dark:text-color-text-primary text-black pr-2">
+          <div className="pr-2 text-right text-black dark:text-color-text-primary">
             {String(t('transaction:status'))}
           </div>
         ),
@@ -252,7 +252,7 @@ const RolloverPage = () => {
                   row.original.status.toString() === 'approved',
               })}
             ></div>
-            <div className="dark:text-white text-black break-keep	">
+            <div className="text-black dark:text-white break-keep ">
               {replaceStatus(row.original.status)?.charAt(0).toUpperCase() +
                 replaceStatus(row.original.status)?.slice(1)}
             </div>
@@ -280,7 +280,7 @@ const RolloverPage = () => {
         const totalCount = _res.data?.totalCount;
         const tempRollovers: RolloverType[] = _res.data?.transactions?.map((item: any) => ({
           id: item?.id ?? '',
-          type: 'Deposit',
+          type: item.type,
           amount: Number(item?.amount || 0),
           amountUsd: Number(item?.amountUsd || 0),
           pendingWagerRequiredAmount: Number(item?.pendingWagerRequiredAmount || 0),
@@ -343,10 +343,10 @@ const RolloverPage = () => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                  <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.type.name)}</div>
+                  <div className="flex-1 text-black text-start dark:text-white">{t(optionFilter.type.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
-                  <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                  <ChevronDownIcon className="text-black  dark:text-white" width={15} />
                 </div>
               </div>
             </Menu.Button>
@@ -371,7 +371,7 @@ const RolloverPage = () => {
                           onClick={() => setOptionFilter({ ...optionFilter, type: item })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                            <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
+                            <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
                           </div>
                         </div>
                       )}
@@ -389,12 +389,12 @@ const RolloverPage = () => {
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
                   <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                    <div className="flex-1 text-start dark:text-white text-black">
+                    <div className="flex-1 text-black text-start dark:text-white">
                       {t(optionFilter.bonusEvent.name)}
                     </div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
-                    <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                    <ChevronDownIcon className="text-black  dark:text-white" width={15} />
                   </div>
                 </div>
               </Menu.Button>
@@ -419,7 +419,7 @@ const RolloverPage = () => {
                             onClick={() => setOptionFilter({ ...optionFilter, bonusEvent: item })}
                           >
                             <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                              <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
+                              <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
                             </div>
                           </div>
                         )}
@@ -437,10 +437,10 @@ const RolloverPage = () => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                  <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.status.name)}</div>
+                  <div className="flex-1 text-black text-start dark:text-white">{t(optionFilter.status.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
-                  <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                  <ChevronDownIcon className="text-black  dark:text-white" width={15} />
                 </div>
               </div>
             </Menu.Button>
@@ -465,7 +465,7 @@ const RolloverPage = () => {
                           onClick={() => setOptionFilter({ ...optionFilter, status: item })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                            <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
+                            <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
                           </div>
                         </div>
                       )}

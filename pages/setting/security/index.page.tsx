@@ -67,11 +67,12 @@ const SettingSecurity = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const { email, tfa, isRestricting } = useSelector(
+  const { email, tfa, isRestricting, showChatType } = useSelector(
     (state: AppState) => ({
       email: state.auth.user.email,
       tfa: state.auth.user.tfa,
       isRestricting: state.common.isRestricting,
+      showChatType: state.modal.showChatType,
     }),
     shallowEqual,
   );
@@ -268,9 +269,18 @@ const SettingSecurity = () => {
   return (
     <>
       {isLoading && <Loader />}
-      <div className="xl:px-[60px] lg:px-[40px] md:px-[20px] px-2 md:mt-0 sm:mt-[30px] mt-0 flex min-[991px]:flex-row flex-col lg:gap-[40px] md:gap-[20px] gap-[10px]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:py-4">
         {isSetLogin && (
-          <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
+          <form
+            className={cn(
+              'flex-1 flex flex-col items-start gap-[12px] w-full',
+              'border border-solid border-transparent border-b-color-card-body-hover border-r-transparent lg:border-b-transparent lg:border-r-color-card-body-hover',
+              {
+                'p-4 pr-8': showChatType,
+                'p-4 pr-8 2xl:p-[40px]': !showChatType,
+              },
+            )}
+          >
             <Disclosure defaultOpen={true}>
               {({ open }) => (
                 <div className="w-full">
@@ -345,7 +355,16 @@ const SettingSecurity = () => {
         )}
 
         {!isSetLogin && (
-          <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
+          <form
+            className={cn(
+              'flex-1 flex flex-col items-start gap-[12px] w-full',
+              'border border-solid border-transparent border-b-color-card-body-hover border-r-transparent lg:border-b-transparent lg:border-r-color-card-body-hover',
+              {
+                'p-4 pr-8': showChatType,
+                'p-4 pr-8 2xl:p-[40px]': !showChatType,
+              },
+            )}
+          >
             <Disclosure defaultOpen={true}>
               {({ open }) => (
                 <div className="w-full">
@@ -386,10 +405,12 @@ const SettingSecurity = () => {
             </Disclosure>
           </form>
         )}
-
-        <div className="dark:bg-color-border-primary bg-color-light-border-primary w-[1px]"></div>
-
-        <form className="flex-1 flex flex-col items-start gap-[12px] w-full">
+        <form
+          className={cn('flex-1 flex flex-col items-start gap-[12px] w-full', {
+            'p-4 pl-8': showChatType,
+            'p-4 pl-8 2xl:p-[40px]': !showChatType,
+          })}
+        >
           <Disclosure defaultOpen={true}>
             {({ open }) => (
               <div className="w-full">

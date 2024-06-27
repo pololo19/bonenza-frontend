@@ -55,7 +55,7 @@ const SettingVerify = () => {
         )}
 
         <div className="flex sm:flex-row flex-col items-start gap-[20px] text-color-text-primary">
-          <div className="bg-cover bg-no-repeat dark:bg-[url('/img/verification_card.png')] bg-[url('/img/light_verification_card.png')] rounded-lg flex flex-col items-center flex-1 p-[20px] gap-[12px] w-full">
+          <div className="rounded-lg flex flex-col items-center flex-1 p-[20px] gap-[12px] w-full bg-color-card-bg-default">
             {(isKyc === KYC_ENUM.REQUIRED || isKyc === KYC_ENUM.REJECT) && (
               <>
                 <div className="dark:text-white text-black">{t('setting:basicVerification')}</div>
