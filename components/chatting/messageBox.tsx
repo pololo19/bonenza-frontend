@@ -87,7 +87,6 @@ export const MessageBox = ({
 
   const handleUserNameClick = (event: any) => {
     if (event.target.id === `${messageId}-${replyUserId}`) {
-      console.log(event.target.id);
       const userData = {
         username: replyUserName,
         userId: replyUserId,
