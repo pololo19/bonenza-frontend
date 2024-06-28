@@ -73,7 +73,7 @@ export default function ModalDetailTransaction({
         }
       >
         <div className=" min-h-[516px] overflow-auto h-full bg-cover p-4">
-          <div className="flex flex-col items-center py-5 gap-2">
+          <div className="flex flex-col items-center gap-2 py-5">
             <Image height={40} width={40} src={transaction.symbolLogo} alt="" />
             <div
               className={cn('text-[22px]', {
@@ -92,7 +92,7 @@ export default function ModalDetailTransaction({
                   </span>
                 )}
               </span>
-              <span className="font-semibold dark:text-white text-black ml-1">{transaction.symbolName}</span>
+              <span className="ml-1 font-semibold text-black dark:text-white">{transaction.symbolName}</span>
             </div>
           </div>
           <div className="mt-5 flex flex-col gap-5  text-[14px]">
@@ -100,7 +100,7 @@ export default function ModalDetailTransaction({
               <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:status'))}
               </span>
-              <div className="flex gap-2 items-center">
+              <div className="flex items-center gap-2">
                 <div
                   className={cn(`w-[8px] h-[8px] rounded-full`, {
                     'bg-color-secondary':
@@ -119,13 +119,13 @@ export default function ModalDetailTransaction({
                       (transactionStatus?.toString() || '') === 'approved',
                   })}
                 />
-                <div className="dark:text-white text-black">{convertStatus(transactionStatus)}</div>
+                <div className="text-black dark:text-white">{convertStatus(transactionStatus)}</div>
               </div>
             </div>
             {transactionStatus === LIST_FILTER_STATUS[1].type && (
               <div className="flex items-center justify-between text-color-light-text-primary dark:text-color-text-primary">
                 <span className="">{String(t('transaction:txid'))}</span>
-                <div className="flex gap-2 items-center">
+                <div className="flex items-center gap-2">
                   <span className="text-black dark:text-white">{transformWalletAddress(transaction.txId)}</span>
                   <Simcard2
                     role="button"
@@ -139,8 +139,8 @@ export default function ModalDetailTransaction({
               <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:orderId'))}
               </span>
-              <div className="flex gap-2 items-center">
-                <span className="text-black dark:text-white text-right">{transformUUID(transaction.orderId)}</span>
+              <div className="flex items-center gap-2">
+                <span className="text-right text-black dark:text-white">{transformUUID(transaction.orderId)}</span>
                 <Simcard2
                   role="button"
                   onClick={() => copyClipBoard(String(transaction?.orderId))}
@@ -170,7 +170,7 @@ export default function ModalDetailTransaction({
                   <span className="dark:text-color-text-primary text-color-light-text-primary">
                     {String(t('transaction:withdrawalAddress'))}
                   </span>
-                  <span className="flex gap-2 items-center text-black dark:text-white">
+                  <span className="flex items-center gap-2 text-black dark:text-white">
                     {transformWalletAddress(transaction.withdrawalAddress)}
                     <Simcard2
                       role="button"
@@ -185,13 +185,13 @@ export default function ModalDetailTransaction({
               <>
                 <div className="h-[1px] w-full dark:bg-[#98A7B5] bg-[#f5f6fa]" />
                 <div className="flex items-center">
-                  <span className="dark:text-white text-black">{String(t('transaction:progress'))}</span>
+                  <span className="text-black dark:text-white">{String(t('transaction:progress'))}</span>
                 </div>
                 <div className="relative flex flex-col gap-3">
                   <div
-                    className={cn('h-[50%] absolute top-[16px] w-[2px] left-[14px]', {
-                      'bg-[#414346]': isProcess,
-                      'bg-color-primary': !isProcess,
+                    className={cn('h-[50%] absolute top-[16px] w-[2px] left-[14px] bg-[#414346]', {
+                      // 'bg-[#414346]': !isProcess,
+                      // 'bg-[#3BC117]': isProcess,
                     })}
                   ></div>
                   {type === TRANSACTION_TYPE.Withdraw && (
@@ -201,7 +201,7 @@ export default function ModalDetailTransaction({
                         <TickCircle size="32" color="green" variant="Bold" className="absolute w-[32px] h-[32px] z-1" />
                       </div>
                       <div className="flex flex-col">
-                        <span className="dark:text-white text-black">
+                        <span className="text-black dark:text-white">
                           {String(t('transaction:sendOrderSubmitted'))}
                         </span>
                         <span className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
@@ -226,7 +226,7 @@ export default function ModalDetailTransaction({
                       </div>
                     )}
                     <div className="flex flex-col">
-                      <span className="dark:text-white text-black">
+                      <span className="text-black dark:text-white">
                         {String(t('transaction:blockchainProcessing'))}
                       </span>
                       <span className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">
@@ -236,9 +236,9 @@ export default function ModalDetailTransaction({
                   </div>
                   {type === TRANSACTION_TYPE.Withdraw && (
                     <div
-                      className={cn('h-[50%] absolute top-[60px] w-[2px] left-[14px]', {
-                        'bg-[#414346]': isProcess,
-                        'bg-color-primary': !isProcess,
+                      className={cn('h-[50%] absolute top-[60px] w-[2px] left-[14px] bg-[#414346]', {
+                        // 'bg-[#414346]': isFailed,
+                        // 'bg-color-primary': !isFailed,
                       })}
                     ></div>
                   )}

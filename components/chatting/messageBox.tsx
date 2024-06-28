@@ -10,6 +10,8 @@ import { formatDate } from '@/base/libs/utils';
 import styles from './message.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Back, Gift } from 'iconsax-react';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 interface MessageBoxProps {
   messageId: string;
@@ -40,6 +42,7 @@ export const MessageBox = ({
   replyUserName,
   replyText,
 }: MessageBoxProps) => {
+  const router = useRouter();
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
   const { id, name } = useSelector(
@@ -81,6 +84,28 @@ export const MessageBox = ({
     }
     return bg;
   };
+
+  const handleUserNameClick = (event: any) => {
+    if (event.target.id === `${messageId}-${replyUserId}`) {
+      const userData = {
+        username: replyUserName,
+        userId: replyUserId,
+      };
+
+      dispatch(setUserData(userData));
+      if (userName) {
+        dispatch(changeIsShowInformation(true));
+      }
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleUserNameClick);
+
+    return () => {
+      document.removeEventListener('click', handleUserNameClick);
+    };
+  }, []);
 
   return (
     <>
@@ -188,9 +213,9 @@ export const MessageBox = ({
                     __html: replyUserName
                       ? text.replace(
                           `@${replyUserName}`,
-                          `<span style="font-weight:400; color: ${
+                          `<span style="cursor: pointer; font-weight:400; color: ${
                             id === userId ? '#FFF' : '#44DDFF'
-                          };">@${replyUserName}</span>`,
+                          };" id="${messageId}-${replyUserId}">@${replyUserName}</span>`,
                         )
                       : text,
                   }}

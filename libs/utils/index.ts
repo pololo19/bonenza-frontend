@@ -493,7 +493,7 @@ export const convertStatus = (status: TransactionStatus) => {
       newStatus = 'failed';
       break;
     case 'rejected':
-      newStatus = 'failed';
+      newStatus = 'rejected';
       break;
     case 'approved':
       newStatus = 'success';
