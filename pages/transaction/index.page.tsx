@@ -87,7 +87,7 @@ const TransactionPage = () => {
           accessorKey: 'transactionType',
           header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:type'))}</div>,
           cell: ({ row }) => (
-            <div className="dark:text-white text-black text-left truncate py-2">{t(optionFilter.type.name)}</div>
+            <div className="py-2 text-left text-black truncate dark:text-white">{t(optionFilter.type.name)}</div>
           ),
           minSize: 30,
         },
@@ -128,7 +128,7 @@ const TransactionPage = () => {
             <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:timeTransfer'))}</div>
           ),
           cell: ({ row }) => (
-            <div className="dark:text-white text-black">
+            <div className="text-black dark:text-white">
               {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
           ),
@@ -156,7 +156,7 @@ const TransactionPage = () => {
                     row.original.status === 'complete' || row.original.status === 'approved',
                 })}
               />
-              <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
+              <div className="text-black dark:text-white break-keep ">{convertStatus(row.original.status)}</div>
               <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
             </div>
           ),
@@ -203,7 +203,7 @@ const TransactionPage = () => {
           <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:timeTransfer'))}</div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black">
+          <div className="text-black dark:text-white">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
@@ -231,7 +231,7 @@ const TransactionPage = () => {
                   row.original.status === 'complete' || row.original.status === 'approved',
               })}
             />
-            <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
+            <div className="text-black dark:text-white break-keep ">{convertStatus(row.original.status)}</div>
             <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
           </div>
         ),
@@ -248,7 +248,7 @@ const TransactionPage = () => {
           accessorKey: 'swapFrom + swapTo',
           header: () => <div className="text-left">{String(t('transaction:type'))}</div>,
           cell: ({ row }) => (
-            <div className="text-white flex items-center gap-1 truncate">{t(optionFilter.type.name)}</div>
+            <div className="flex items-center gap-1 text-white truncate">{t(optionFilter.type.name)}</div>
           ),
           minSize: 30,
         },
@@ -288,7 +288,7 @@ const TransactionPage = () => {
           accessorKey: 'swapTo',
           header: () => <div className="text-center">{String(t('transaction:swapTo'))}</div>,
           cell: ({ row }) => (
-            <div className="text-color-text-green flex items-center gap-1 justify-center truncate">
+            <div className="flex items-center justify-center gap-1 truncate text-color-text-green">
               <span>
                 {viewInFiat ? (
                   <>
@@ -315,7 +315,7 @@ const TransactionPage = () => {
           accessorKey: 'timeTransfer',
           header: () => <div className="text-right">{String(t('transaction:time'))}</div>,
           cell: ({ row }) => (
-            <div className="text-color-text-primary text-right">
+            <div className="text-right text-color-text-primary">
               {formatDate(new Date(row.original.timeTransfer), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
           ),
@@ -355,7 +355,7 @@ const TransactionPage = () => {
         accessorKey: 'swapTo',
         header: () => <div className="text-center">{String(t('transaction:swapTo'))}</div>,
         cell: ({ row }) => (
-          <div className="text-color-text-green flex items-center gap-1 justify-center truncate">
+          <div className="flex items-center justify-center gap-1 truncate text-color-text-green">
             <span>
               {viewInFiat ? (
                 <>
@@ -402,7 +402,7 @@ const TransactionPage = () => {
           ),
           cell: ({ row }) => (
             <>
-              <div className="dark:text-white text-black flex items-center gap-1 truncate">
+              <div className="flex items-center gap-1 text-black truncate dark:text-white">
                 {row.original?.type?.toUpperCase()}{' '}
                 {row.original?.type && row.original?.gameName && (
                   <span className="text-[10px] text-gray-400 flex gap-[5px]">
@@ -531,7 +531,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div className="">
-            <div className="dark:text-white text-black flex items-center gap-1 truncate">
+            <div className="flex items-center gap-1 text-black truncate dark:text-white">
               {row.original?.type?.toUpperCase()}{' '}
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
@@ -542,7 +542,7 @@ const TransactionPage = () => {
                 </span>
               )}
             </div>
-            <div className="dark:text-white text-color-light-text-primary text-left">
+            <div className="text-left dark:text-white text-color-light-text-primary">
               {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
             {row.original?.gameId && (
@@ -637,7 +637,7 @@ const TransactionPage = () => {
           accessorKey: 'transactionType',
           header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:type'))}</div>,
           cell: ({ row }) => (
-            <div className="dark:text-white text-black text-left truncate py-2">{t(optionFilter.type.name)}</div>
+            <div className="py-2 text-left text-black truncate dark:text-white">{t(optionFilter.type.name)}</div>
           ),
         },
         {
@@ -703,7 +703,7 @@ const TransactionPage = () => {
                     row.original.status === 'complete' || row.original.status === 'approved',
                 })}
               />
-              <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
+              <div className="text-black dark:text-white break-keep ">{convertStatus(row.original.status)}</div>
               <ArrowRight2 className="h-[16px] w-[16px] dark:text-[#64748b] text-color-light-text-primary" />
             </div>
           ),
@@ -747,7 +747,7 @@ const TransactionPage = () => {
           <div className="text-center dark:text-[#64748b] text-black">{String(t('transaction:timeTransfer'))}</div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-white text-black">
+          <div className="text-black dark:text-white">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
           </div>
         ),
@@ -775,7 +775,7 @@ const TransactionPage = () => {
                   row.original.status === 'complete' || row.original.status === 'approved',
               })}
             />
-            <div className="dark:text-white text-black break-keep	">{convertStatus(row.original.status)}</div>
+            <div className="text-black dark:text-white break-keep ">{convertStatus(row.original.status)}</div>
           </div>
         ),
         maxSize: 30,
@@ -795,7 +795,7 @@ const TransactionPage = () => {
             </div>
           ),
           cell: ({ row }) => (
-            <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row.original.type}</div>
+            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{row.original.type}</div>
           ),
           minSize: 30,
         },
@@ -886,8 +886,8 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div>
-            <div className="dark:text-white text-black flex items-center gap-1 truncate py-2">{row.original.type}</div>
-            <div className="dark:text-color-text-primary text-color-light-text-primary text-left">
+            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{row.original.type}</div>
+            <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
               {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
           </div>
@@ -992,13 +992,13 @@ const TransactionPage = () => {
         status = 'complete';
         break;
       case 3:
-        status = 'pending';
+        status = 'failed';
         break;
       case 4:
         status = 'approved';
         break;
       case 5:
-        status = 'pending';
+        status = 'rejected';
         break;
 
       default:
@@ -1243,10 +1243,10 @@ const TransactionPage = () => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                  <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.type.name)}</div>
+                  <div className="flex-1 text-black text-start dark:text-white">{t(optionFilter.type.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
-                  <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                  <ChevronDownIcon className="text-black dark:text-white" width={15} />
                 </div>
               </div>
             </Menu.Button>
@@ -1271,7 +1271,7 @@ const TransactionPage = () => {
                           onClick={() => setOptionFilter({ ...optionFilter, type: item })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                            <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
+                            <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
                           </div>
                         </div>
                       )}
@@ -1288,12 +1288,12 @@ const TransactionPage = () => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                  <div className="flex-1 text-start dark:text-white text-black">
+                  <div className="flex-1 text-black text-start dark:text-white">
                     {getSymbolNameById(optionFilter.currency)}
                   </div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
-                  <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                  <ChevronDownIcon className="text-black dark:text-white" width={15} />
                 </div>
               </div>
             </Menu.Button>
@@ -1317,7 +1317,7 @@ const TransactionPage = () => {
                         onClick={() => setOptionFilter({ ...optionFilter, currency: '' })}
                       >
                         <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                          <div className="flex-1 text-start dark:text-white text-black">{getSymbolNameById('')}</div>
+                          <div className="flex-1 text-black text-start dark:text-white">{getSymbolNameById('')}</div>
                         </div>
                       </div>
                     )}
@@ -1331,7 +1331,7 @@ const TransactionPage = () => {
                           onClick={() => setOptionFilter({ ...optionFilter, currency: coin.id })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                            <div className="flex-1 text-start dark:text-white text-black">
+                            <div className="flex-1 text-black text-start dark:text-white">
                               {getSymbolNameById(coin.id)}
                             </div>
                           </div>
@@ -1350,10 +1350,10 @@ const TransactionPage = () => {
             <Menu.Button className="flex-1">
               <div className="flex items-center justify-between w-full" role="button">
                 <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                  <div className="flex-1 text-start dark:text-white text-black">{t(optionFilter.dayPast.name)}</div>
+                  <div className="flex-1 text-black text-start dark:text-white">{t(optionFilter.dayPast.name)}</div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
-                  <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                  <ChevronDownIcon className="text-black dark:text-white" width={15} />
                 </div>
               </div>
             </Menu.Button>
@@ -1378,7 +1378,7 @@ const TransactionPage = () => {
                           onClick={() => setOptionFilter({ ...optionFilter, dayPast: item })}
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                            <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
+                            <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
                           </div>
                         </div>
                       )}
@@ -1396,10 +1396,10 @@ const TransactionPage = () => {
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
                   <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                    <div className="flex-1 text-start dark:text-white text-black capitalize">{t(typeBill.name)}</div>
+                    <div className="flex-1 text-black capitalize text-start dark:text-white">{t(typeBill.name)}</div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
-                    <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                    <ChevronDownIcon className="text-black dark:text-white" width={15} />
                   </div>
                 </div>
               </Menu.Button>
@@ -1424,7 +1424,7 @@ const TransactionPage = () => {
                             onClick={() => setTypeBill(item)}
                           >
                             <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                              <div className="flex-1 text-start dark:text-white text-black capitalize">
+                              <div className="flex-1 text-black capitalize text-start dark:text-white">
                                 {t(item.name)}
                               </div>
                             </div>
@@ -1445,12 +1445,12 @@ const TransactionPage = () => {
               <Menu.Button className="flex-1">
                 <div className="flex items-center justify-between w-full" role="button">
                   <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                    <div className="flex-1 text-start dark:text-white text-black">
+                    <div className="flex-1 text-black text-start dark:text-white">
                       {t(optionFilter?.filterStatus.name)}
                     </div>
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
-                    <ChevronDownIcon className=" dark:text-white text-black" width={15} />
+                    <ChevronDownIcon className="text-black dark:text-white" width={15} />
                   </div>
                 </div>
               </Menu.Button>
@@ -1475,7 +1475,7 @@ const TransactionPage = () => {
                             onClick={() => setOptionFilter({ ...optionFilter, filterStatus: item })}
                           >
                             <div className="flex-1 flex items-center justify-start gap-[10px] text-default">
-                              <div className="flex-1 text-start dark:text-white text-black">{t(item.name)}</div>
+                              <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
                             </div>
                           </div>
                         )}
