@@ -336,7 +336,7 @@ const RolloverPage = () => {
       </Head>
       <div className="w-full h-1/3 sm:min-h-[400px]">
         <div className="flex items-center flex-wrap mb-[20px] sm:mb-[40px] sm:gap-[20px] gap-[10px]">
-          <Menu
+          {/* <Menu
             as="div"
             className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
           >
@@ -429,7 +429,7 @@ const RolloverPage = () => {
                 </Menu.Items>
               </Transition>
             </Menu>
-          )}
+          )} */}
           <Menu
             as="div"
             className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
