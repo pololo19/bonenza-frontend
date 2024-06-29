@@ -18,7 +18,6 @@ import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsLoading, setIsNewMessage, setLastMessage } from '@/base/redux/reducers/common.reducer';
-import { addBetHistory, setBetHistory } from '@/base/redux/reducers/game.reducer';
 import {
   changeIsShowAccountPannel,
   changeIsShowAccountRestriction,
@@ -74,7 +73,7 @@ import {
   updatedFiatPrice,
 } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
-import { BetTableDataType, MessageType } from '@/base/types/common';
+import { MessageType } from '@/base/types/common';
 import { CurrencyType, PriceUpdateType } from '@/base/types/wallet';
 import ModalFavoriteCoins from '@/components/modal/favoriteCoins/favoriteCoins';
 import ScrollToTop from '@/components/scrollToTop/ScrollToTop';
@@ -84,6 +83,7 @@ import Loader from '../common/preloader/loader';
 import HomeIconOutline from '../icons/HomeIconOutline';
 import LoginGoogleOneTap from '../loginGoogleOneTap/loginGoogleOneTap';
 import ModalAccountRestriction from '../modal/accountRestriction/accountRestriction';
+import ModalAddressConfirm from '../modal/addressConfirm/addressConfirm';
 import ModalAuthentication from '../modal/authentication/authenticationModal';
 import ModalBonusDetail from '../modal/bonusDetails/bonusDetails';
 import ModalCasinoSearch from '../modal/casinoSearch/casinoSearch';
@@ -114,6 +114,7 @@ import ModalVipClub from '../modal/vipClub/vipClub';
 import ModalVipLevel from '../modal/vipLevel/vipLevel';
 import ModalWagerContestHistory from '../modal/wagerContestHistory/wagerContestHistory';
 import ModalWagerRules from '../modal/wagerRules/wagerRules';
+import NotificationComponent from '../notification/notification.page';
 import AccountPannel from './accountBar.layout';
 import Footer from './footer.layout';
 import HeaderStats from './header.layout';
@@ -121,8 +122,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import ModalAddressConfirm from '../modal/addressConfirm/addressConfirm';
-import NotificationComponent from '../notification/notification.page';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -137,23 +136,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { t, i18n } = useTranslation('');
-
-  const [newBetData, setNewBetData] = useState<BetTableDataType>({
-    game: '',
-    gameIdenfiter: '',
-    player: '',
-    playerId: '',
-    playerAvatar: '',
-    betAmount: 0,
-    betAmountUsd: 0,
-    multiplier: 0,
-    profitAmount: 0,
-    profitAmountUsd: 0,
-    currency: '',
-    betId: '',
-    time: new Date(),
-    providerName: '',
-  });
   const [isShowMobileSubMenu, setIsShowMobileSubMenu] = useState<boolean>(true);
   const baseBodyRef = useRef<HTMLDivElement>(null);
   const showChatTypeRef = useRef<boolean>(false);
@@ -206,7 +188,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     userId,
     walletSocket,
     gameSocket,
-    betHistory,
     fiatSymbols,
     cryptoSymbols,
     isShowSpin,
@@ -262,7 +243,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
       walletSocket: state.socket.walletSocket,
       gameSocket: state.socket.gameSocket,
       depositTime: state.wallet.depositTime,
-      betHistory: state.game.betHistory,
       isShowSpin: state.modal.isShowSpin,
       isShowQuest: state.modal.isShowQuest,
       isShowDepositProgress: state.modal.isShowDepositProgress,
@@ -541,27 +521,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   useEffect(() => {
     if (gameSocket) {
-      gameSocket.on(`bets`, (item: any) => {
-        const data = JSON.parse(item);
-        const tempData: BetTableDataType = {
-          game: data.game_name ?? '',
-          gameIdenfiter: data.game_identifier ?? '',
-          player: data.player_name ?? '',
-          playerId: data.player_id ?? '',
-          playerAvatar: data.playerAvatar ?? '',
-          betAmount: Number(data.bet_amount || 0),
-          betAmountUsd: Number(data.bet_amount_usd || 0),
-          multiplier: Number(data.multiplier || 0),
-          profitAmount: Number(data.profit_amount || 0),
-          profitAmountUsd: Number(data.profit_amount_usd || 0),
-          currency: data.currency ?? 'USDT',
-          betId: data.id ?? '',
-          time: data.time ?? new Date(),
-          providerName: data.providerName ?? '',
-        };
-        setNewBetData(tempData);
-      });
-
       if (isLogin) {
         gameSocket.on(`${userId}:balance`, (item: string) => {
           const data = JSON.parse(item);
@@ -640,7 +599,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
     return () => {
       if (gameSocket) {
-        gameSocket.off(`bets`);
         gameSocket.off('prices');
         if (isLogin) {
           gameSocket.off(`${userId}:balance`);
@@ -665,24 +623,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     }
     baseBodyRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
   }, [router]);
-
-  useEffect(() => {
-    if (newBetData.betId) {
-      let preBetDatas = [...betHistory];
-      if (preBetDatas.findIndex((item) => item.betId === newBetData.betId) !== -1) {
-        const upBetDatas = preBetDatas.map((item) => {
-          if (item.betId === newBetData.betId) {
-            return { ...newBetData };
-          } else {
-            return { ...item };
-          }
-        });
-        dispatch(setBetHistory(upBetDatas));
-      } else {
-        dispatch(addBetHistory(newBetData));
-      }
-    }
-  }, [newBetData]);
 
   return (
     <>
