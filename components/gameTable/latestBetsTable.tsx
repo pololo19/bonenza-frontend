@@ -13,7 +13,6 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
-import { setBetHistory } from '@/base/redux/reducers/game.reducer';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -28,32 +27,49 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   const [isLoadingTable, setIsLoadingTable] = useState(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
 
+  const [betData, setBetData] = useState<BetTableDataType[]>([]);
+  const [newBetData, setNewBetData] = useState<BetTableDataType>({
+    game: '',
+    gameIdenfiter: '',
+    player: '',
+    playerId: '',
+    playerAvatar: '',
+    betAmount: 0,
+    betAmountUsd: 0,
+    multiplier: 0,
+    profitAmount: 0,
+    profitAmountUsd: 0,
+    currency: '',
+    betId: '',
+    time: new Date(),
+    providerName: '',
+  });
+
   const exchangeRate = useExchange();
   const innerWidth = useWidth();
   const dispatch = useAppDispatch();
   const { t } = useTranslation('');
 
-  const { userId, localFiat, betHistory, userName, viewInFiat } = useSelector(
+  const { userId, localFiat, userName, viewInFiat, gameSocket } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
-      betHistory: state.game.betHistory,
+      gameSocket: state.socket.gameSocket,
     }),
     shallowEqual,
   );
 
   const betHistoryFilter = useMemo(() => {
-    if (!betHistory.length) return betHistory;
-    if (isShowMore) return betHistory.slice(0, 40);
-    return betHistory.slice(0, 10);
-  }, [betHistory, isShowMore]);
+    if (!betData.length) return betData;
+    if (isShowMore) return betData.slice(0, 40);
+    return betData.slice(0, 10);
+  }, [betData, isShowMore]);
 
   const getAllBetHistory = async () => {
     try {
       setIsLoadingTable(true);
-      dispatch(setBetHistory([]));
       const res = await api_getLatestBets();
       const tempBetData = res.data.map((item: any) => ({
         game: item.gameName ?? '',
@@ -71,12 +87,12 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         time: item.time ?? new Date(),
         providerName: item.providerName || '',
       }));
-      dispatch(setBetHistory(tempBetData));
+      setBetData(tempBetData);
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-      dispatch(setBetHistory([]));
+      setBetData([]);
     } finally {
       setIsLoadingTable(false);
     }
@@ -232,6 +248,55 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       return allBetColumnsDefault;
     }
   }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
+
+  useEffect(() => {
+    if (gameSocket) {
+      gameSocket.on(`bets`, (item: any) => {
+        const data = JSON.parse(item);
+        const tempData: BetTableDataType = {
+          game: data.game_name ?? '',
+          gameIdenfiter: data.game_identifier ?? '',
+          player: data.player_name ?? '',
+          playerId: data.player_id ?? '',
+          playerAvatar: data.playerAvatar ?? '',
+          betAmount: Number(data.bet_amount || 0),
+          betAmountUsd: Number(data.bet_amount_usd || 0),
+          multiplier: Number(data.multiplier || 0),
+          profitAmount: Number(data.profit_amount || 0),
+          profitAmountUsd: Number(data.profit_amount_usd || 0),
+          currency: data.currency ?? 'USD',
+          betId: data.id ?? '',
+          time: data.time ?? new Date(),
+          providerName: data.providerName ?? '',
+        };
+        setNewBetData(tempData);
+      });
+    }
+
+    return () => {
+      if (gameSocket) {
+        gameSocket.off(`bets`);
+      }
+    };
+  }, [gameSocket]);
+
+  useEffect(() => {
+    if (newBetData.betId) {
+      let preBetDatas = [...betData];
+      if (preBetDatas.findIndex((item) => item.betId === newBetData.betId) !== -1) {
+        const upBetDatas = preBetDatas.map((item) => {
+          if (item.betId === newBetData.betId) {
+            return { ...newBetData };
+          } else {
+            return { ...item };
+          }
+        });
+        setBetData(upBetDatas);
+      } else {
+        setBetData((prev) => [newBetData, ...prev]);
+      }
+    }
+  }, [newBetData]);
 
   useEffect(() => {
     getAllBetHistory();

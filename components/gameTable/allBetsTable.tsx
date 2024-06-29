@@ -54,7 +54,6 @@ const AllBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) =>
       localFiat: state.wallet.localFiat,
       userId: state.auth.user.userId,
       userName: state.auth.user.userName,
-      betHistory: state.game.betHistory,
       gameSocket: state.socket.gameSocket,
       isLogin: state.auth.isLogin,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,

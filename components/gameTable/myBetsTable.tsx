@@ -261,13 +261,11 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           providerName: data.providerName ?? '',
         };
         setNewBetData(tempData);
-        // setMyBetData((prev) => [tempData, ...prev]);
       });
     }
 
     return () => {
       if (gameSocket) {
-        console.log('------- my bet table -------');
         gameSocket.off(`bets`);
       }
     };
