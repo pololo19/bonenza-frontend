@@ -87,19 +87,18 @@ function GamePage() {
   const gameScreen = useFullScreenHandle();
   const { t } = useTranslation('');
 
-  const { query, reload, route, pathname, asPath } = useRouter();
+  const { query, reload } = useRouter();
   const { gameId } = query;
   const [isSatisfied, setIsSatisfied] = useState<boolean>(true);
   const dispatch = useDispatch();
 
-  const { isLogin, localFiat, activeCurrency, balances, betHistory, language, viewInFiat } = useSelector(
+  const { isLogin, localFiat, activeCurrency, balances, language, viewInFiat } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       activeCurrency: state.wallet.activeCurrency,
       balances: state.wallet.balances,
       isLogin: state.auth.isLogin,
-      betHistory: state.game.betHistory,
 
       language: state.auth.user.generalSetting.settingLanguage,
     }),

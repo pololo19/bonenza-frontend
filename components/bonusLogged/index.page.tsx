@@ -1,12 +1,16 @@
 import cn from 'classnames';
+import { Clock, Shuffle } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import Countdown from 'react-countdown';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Tooltip } from 'react-tooltip';
 
 import { api_bonusStatistics } from '@/api/bonus';
 import { api_getClaims } from '@/api/wallet';
+import CsrWrapper from '@/base/components/CsrWrapper';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
@@ -24,10 +28,6 @@ import BaseLayout from '@/components/layouts/base.layout';
 
 import CardGeneralBonus from '../cards/cardGeneralBonus';
 import CardVipBonus from '../cards/cardVipBonus';
-import { Tooltip } from 'react-tooltip';
-import { Clock, Shuffle } from 'iconsax-react';
-import CsrWrapper from '@/base/components/CsrWrapper';
-import Countdown from 'react-countdown';
 
 const getNextDay = () => {
   let currentDate = new Date();
@@ -245,7 +245,6 @@ function BonusLoggedPage() {
   const getBonusStatistics = async () => {
     try {
       const _res = await api_bonusStatistics();
-      console.log(_res.data);
 
       const tempTotalData = {
         bonusClaimedUsd: Number(_res.data?.totalBonusClaimedUsd || 0),
@@ -355,7 +354,7 @@ function BonusLoggedPage() {
   return (
     <>
       <div className="mb-[50px]">
-        <div className="flex max-sm:flex-wrap items-center justify-between">
+        <div className="flex items-center justify-between max-sm:flex-wrap">
           <div className="text-[16px] md:text-[24px] dark:text-white text-color-light-text-primary font-semibold my-[16px] md:my-0">
             {t('bonus:bonus')}
           </div>
@@ -467,7 +466,7 @@ function BonusLoggedPage() {
                 alt=""
                 className="w-full sm:object-contain rounded-default"
               />
-              <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
+              <div className="absolute flex flex-col justify-between top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5">
                 <div>
                   <div className="flex items-center gap-[10px]">
                     <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
@@ -548,7 +547,7 @@ function BonusLoggedPage() {
                   className="w-full sm:object-contain rounded-default"
                 />
               </div>
-              <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
+              <div className="absolute flex flex-col justify-between top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5">
                 <div className="flex justify-between p-0">
                   <div className="flex items-center gap-2">
                     <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
@@ -569,7 +568,7 @@ function BonusLoggedPage() {
                     >
                       <div className="max-w-[300px] bg-color-card-header-primary p-4 rounded-large shadow-bs-default">
                         {[t('bonus:luckySpinToolTip1'), t('bonus:luckySpinToolTip2')].map((item, index) => (
-                          <div key={index} className="w-full flex gap-2">
+                          <div key={index} className="flex w-full gap-2">
                             <div className="min-w-[6px] h-[6px] mt-2 rounded-full bg-color-text-primary"></div>
                             <div>{item}</div>
                           </div>
@@ -578,7 +577,7 @@ function BonusLoggedPage() {
                     </Tooltip>
                   </div>
                   <div
-                    className="flex items-center gap-2 text-center text-m_default sm:text-default text-white leading-4 cursor-pointer"
+                    className="flex items-center gap-2 leading-4 text-center text-white cursor-pointer text-m_default sm:text-default"
                     onClick={() => setIsShowSpinLog(!isShowSpinLog)}
                   >
                     <Shuffle className="w-4 h-4" stroke="3" />
@@ -586,13 +585,13 @@ function BonusLoggedPage() {
                   </div>
                 </div>
                 {isShowSpinLog ? (
-                  <div className="h-full text-default flex flex-col">
+                  <div className="flex flex-col h-full text-default">
                     {spinLogs.map((spin, index) => (
-                      <div key={`bonus-spin-log-${index}`} className="w-full flex justify-between">
+                      <div key={`bonus-spin-log-${index}`} className="flex justify-between w-full">
                         <div>{spin?.type || ''}</div>
                       </div>
                     ))}
-                    {spinLogs.length === 0 && <div className="w-full text-center m-auto">{t('bonus:noData')}</div>}
+                    {spinLogs.length === 0 && <div className="w-full m-auto text-center">{t('bonus:noData')}</div>}
                   </div>
                 ) : (
                   <>
@@ -605,13 +604,13 @@ function BonusLoggedPage() {
                           {bonusData.general.availableSpin}
                         </div>
                       </div>
-                      <div className="flex justify-between items-center w-full">
+                      <div className="flex items-center justify-between w-full">
                         <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                           {t('bonus:spinTitle')}
                         </div>
                         <div className="dark:text-white text-color-light-text-primary text-m_default sm:text-[14px] font-semibold">
                           <div className="text-[10px] text-left">{t('bonus:wagerRequired')}</div>
-                          <span className="text-white font-semibold">
+                          <span className="font-semibold text-white">
                             {viewInFiat ? (
                               <>
                                 {currencyFormat1(
@@ -653,7 +652,7 @@ function BonusLoggedPage() {
                       className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-default"
                       onClick={() => dispatch(changeIsShowSpin(true))}
                     >
-                      <div className="flex justify-start gap-1 items-center text-m_default sm:text-default">
+                      <div className="flex items-center justify-start gap-1 text-m_default sm:text-default">
                         <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
                         {t('promotion:endIn')}
                         <CsrWrapper>
