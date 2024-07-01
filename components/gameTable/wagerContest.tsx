@@ -4,13 +4,12 @@ import cn from 'classnames';
 import { ArrowRight2, Snapchat } from 'iconsax-react';
 import Image from 'next/image';
 import { useEffect, useMemo, useState } from 'react';
+import Countdown from 'react-countdown';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_wagerContestHistory, api_wagerContestList, api_wagerContestPosition } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
-import Countdown from 'react-countdown';
-import { useCountdown } from '@/base/constants/useCountdown';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
@@ -26,7 +25,6 @@ import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
-import ModalWagerRules from '../modal/wagerRules/wagerRules';
 import RankingTableComponent from '../table/rankingTable';
 import styles from './index.module.scss';
 
@@ -250,7 +248,7 @@ const WagerContestComponent = () => {
               />
             )}
             {row.index !== 0 && row.index !== 1 && row.index !== 2 && (
-              <div className="dark:text-color-text-primary text-color-light-text-primary font-bold truncate text-default">
+              <div className="font-bold truncate dark:text-color-text-primary text-color-light-text-primary text-default">
                 {row.index + 1}th
               </div>
             )}
@@ -327,7 +325,7 @@ const WagerContestComponent = () => {
         minSize: 30,
         cell: ({ row }) => (
           <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-default">
-            <span className="text-color-text-green font-bold">
+            <span className="font-bold text-color-text-green">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
                 : currencyFormat1(row.original.prizeAmountUsd, 4)}
@@ -352,17 +350,17 @@ const WagerContestComponent = () => {
 
   return (
     <>
-      <div className="grid grid-cols-12 gap-2 mb-3 flex-wrap">
+      <div className="grid flex-wrap grid-cols-12 gap-2 mb-3">
         <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly flex gap-[12px] sm:gap-[1.5rem] lg:gap-[2rem] min-w-fit grow">
-          <Image width={125} height={110} className="object-cover md:ml-3 h-full" src="/img/cup.png" alt="" />
+          <Image width={125} height={110} className="object-cover h-full md:ml-3" src="/img/cup.png" alt="" />
           <div className="flex">
-            <div className="flex flex-col gap-2 justify-end">
+            <div className="flex flex-col justify-end gap-2">
               <span className="text-[14px] text-color-primary font-bold">{t('wagerContest:daily')}</span>
               <span className="text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                 {t('wagerContest:contestPrizePool')}
               </span>
               <div className="rounded-[5px] dark:bg-color-card-body-secondary bg-white text-[14px] md:text-[20px] font-black h-[37px] px-2 flex items-center justify-center">
-                <p className="text-color-secondary font-bold">
+                <p className="font-bold text-color-secondary">
                   {viewInFiat
                     ? currencyFormat1(wagerContestData.totalPrizePoolAmountUsd * exchangeRate, 4, localFiat?.name)
                     : currencyFormat1(wagerContestData.totalPrizePoolAmountUsd, 4)}
@@ -371,7 +369,7 @@ const WagerContestComponent = () => {
             </div>
           </div>
         </div>
-        <div className="col-span-12 lg:col-span-8 grid grid-cols-11 gap-2 ">
+        <div className="grid grid-cols-11 col-span-12 gap-2 lg:col-span-8 ">
           <div
             className={`col-span-5 min-[830px]:max-w-[380px] rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
           >
@@ -482,8 +480,8 @@ const WagerContestComponent = () => {
                     {t('wagerContest:lastChampion')}
                   </span>
                 </div>
-                <div className="flex justify-center gap-2 sm:gap-5 items-center w-full">
-                  <div className="relative border-solid border-2 rounded-full border-color-secondary">
+                <div className="flex items-center justify-center w-full gap-2 sm:gap-5">
+                  <div className="relative border-2 border-solid rounded-full border-color-secondary">
                     <Image
                       width={16}
                       height={13}
@@ -619,8 +617,12 @@ const WagerContestComponent = () => {
                 </span>
                 <span className="text-white">
                   {viewInFiat
-                    ? currencyFormat1(wagerAndPostion.wagerAmount * exchangeRate, 4, localFiat?.name)
-                    : currencyFormat1(wagerAndPostion.wagerAmount, 4)}
+                    ? currencyFormat1(
+                        (wagerAndPostion.wagerAmount - positionData.wageredAmountUsd) * exchangeRate,
+                        4,
+                        localFiat?.name,
+                      )
+                    : currencyFormat1(wagerAndPostion.wagerAmount - positionData.wageredAmountUsd, 4)}
                 </span>
                 <span className="dark:text-color-text-primary text-color-light-text-primary">
                   {t('wagerContest:toReach')}
@@ -634,7 +636,7 @@ const WagerContestComponent = () => {
         </div>
       )}
       <div className="text-[0.813rem] my-4 flex items-center justify-between">
-        <div className="flex gap-4 items-center">
+        <div className="flex items-center gap-4">
           <p className="dark:text-[#fff] text-[#000]">{t('wagerContest:active')}</p>
           <p className="dark:text-color-text-primary text-color-light-text-primary">
             {formatDate(new Date(wagerContestData.startTime), 'LL/dd/yyyy')} ~{' '}
