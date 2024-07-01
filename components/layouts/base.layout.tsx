@@ -68,6 +68,7 @@ import {
   setFiatSymbols,
   setLocalFiat,
   setLockedAmount,
+  setSymbols,
   updateBalance,
   updateCryptoPrice,
   updatedFiatPrice,
@@ -277,6 +278,20 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           availableNetworks: item?.availableNetworks || [],
           price: Number(item.price),
         })) || [];
+      const tempCryptoSymbols: CurrencyType[] =
+        res.data?.symbols?.map((item: any) => ({
+          id: item.id,
+          name: item.symbol,
+          alias: item.name,
+          logo: item.logo,
+          iso_currency: item.iso_currency,
+          iso_decimals: item.iso_decimals,
+          availableNetworks: item.availableNetworks,
+          price: Number(item.price),
+          type: 'crypto',
+          favorite: item?.favorite || false,
+        })) || [];
+      dispatch(setSymbols(tempCryptoSymbols));
       dispatch(setFiatSymbols(tempFiatSymbols));
     } catch (error) {
       dispatch(setFiatSymbols([]));
@@ -599,7 +614,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
     return () => {
       if (gameSocket) {
-        gameSocket.off('prices');
+        gameSocket.off('price');
         if (isLogin) {
           gameSocket.off(`${userId}:balance`);
         }
