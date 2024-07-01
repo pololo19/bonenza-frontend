@@ -40,7 +40,7 @@ export default function PriceDropdown() {
 
   return (
     <>
-      <Popover className="relative w-auto text-left rounded-default min-w-[100px]">
+      <Popover className="relative w-auto text-left rounded-default sm:min-w-[130px]">
         {({ open }) => (
           <div className="flex flex-col">
             <Popover.Button ref={buttonRef}>
