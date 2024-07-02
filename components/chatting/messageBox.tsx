@@ -2,7 +2,7 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { shallowEqual, useSelector } from 'react-redux';
 
-import { API_AVATAR, TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER } from '@/base/constants/common';
+import { API_AVATAR } from '@/base/constants/common';
 import { changeIsShowChatTip, changeIsShowInformation, setTipReceiver } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -11,7 +11,6 @@ import styles from './message.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Back, Gift } from 'iconsax-react';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 
 interface MessageBoxProps {
   messageId: string;
@@ -84,28 +83,6 @@ export const MessageBox = ({
     }
     return bg;
   };
-
-  const handleUserNameClick = (event: any) => {
-    if (event.target.id === `${messageId}-${replyUserId}`) {
-      const userData = {
-        username: replyUserName,
-        userId: replyUserId,
-      };
-
-      dispatch(setUserData(userData));
-      if (userName) {
-        dispatch(changeIsShowInformation(true));
-      }
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener('click', handleUserNameClick);
-
-    return () => {
-      document.removeEventListener('click', handleUserNameClick);
-    };
-  }, []);
 
   return (
     <>
@@ -210,14 +187,7 @@ export const MessageBox = ({
                 <div
                   className="break-normal #00BAE6"
                   dangerouslySetInnerHTML={{
-                    __html: replyUserName
-                      ? text.replace(
-                          `@${replyUserName}`,
-                          `<span style="cursor: pointer; font-weight:400; color: ${
-                            id === userId ? '#FFF' : '#44DDFF'
-                          };" id="${messageId}-${replyUserId}">@${replyUserName}</span>`,
-                        )
-                      : text,
+                    __html: text.replace('44DDFF', id === userId ? 'FFF' : '44DDFF'),
                   }}
                 />
               </div>
