@@ -15,6 +15,7 @@ import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowChatRule,
+  changeIsShowInformation,
   changeShowChatType,
   changeShowFullChat,
 } from '@/base/redux/reducers/modal.reducer';
@@ -22,6 +23,7 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum, MessageType } from '@/base/types/common';
 
 import { MessageBox } from './messageBox';
+import { setUserData } from '@/base/redux/reducers/user.reducer';
 
 type UserType = {
   userId: string;
@@ -188,6 +190,20 @@ const ChattingComponent = () => {
     }
   };
 
+  const convertUserNameToTag = (message: string) => {
+    const altIndex = message.indexOf('@');
+    if (altIndex < 0) return message;
+    const spaceIndex = message.indexOf('\u00A0', altIndex);
+    const userName = message.substring(altIndex + 1, spaceIndex);
+    const user = availableUsers.find((user) => user.userName === userName);
+    if (!user) return message;
+    const newMessage =
+      message.substring(0, altIndex) ||
+      '' +
+        `<span style="cursor: pointer; font-weight:400; color: #44DDFF;" id="message-${user?.userId}">@${user?.userName}</span>`;
+    return newMessage;
+  };
+
   const sendMessage = async () => {
     if (!isLogin) {
       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
@@ -199,10 +215,8 @@ const ChattingComponent = () => {
       setIsSending(true);
       const $spanEl = chatRef.current;
       if (!$spanEl) return;
-      let msg = $spanEl.innerHTML;
-      msg = msg.replaceAll('<div>', '');
-      msg = msg.replaceAll('</div>', '');
-      await api_sendChat(msg, replyMsg?.id ? replyMsg.id : undefined);
+      let msg = $spanEl.innerText;
+      await api_sendChat(convertUserNameToTag(msg));
       setReplyMsg({ id: '', userName: '', text: '' });
       $spanEl.innerHTML = '';
       $spanEl.blur();
@@ -215,6 +229,27 @@ const ChattingComponent = () => {
   };
 
   const { t } = useTranslation('');
+
+  const handleUserNameClick = (event: any) => {
+    const messageId = (event.target.id as string) || '';
+    if (messageId.indexOf('message-') >= 0) {
+      const userData = {
+        username: 'name',
+        userId: messageId.substring(8),
+      };
+
+      dispatch(setUserData(userData));
+      dispatch(changeIsShowInformation(true));
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('click', handleUserNameClick);
+
+    return () => {
+      document.removeEventListener('click', handleUserNameClick);
+    };
+  }, []);
 
   useEffect(() => {
     if (showChatType) {
@@ -258,7 +293,7 @@ const ChattingComponent = () => {
     $spanEl.innerHTML = '@';
     $spanEl.focus();
     onTagUser({ userId: receiverId, userName: receiverName });
-    setReplyMsg({ id: messageId, userName: receiverName, text: messageContent });
+    // setReplyMsg({ id: messageId, userName: receiverName, text: messageContent });
   };
 
   return (
