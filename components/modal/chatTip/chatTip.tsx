@@ -1,31 +1,30 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image';
 import { ElementType, useCallback, useEffect, useMemo, useState } from 'react';
-
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import ReactLoading from 'react-loading';
+import { shallowEqual, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
+import { api_sendChat } from '@/api/chat';
+import { api_chatTip, api_withdrawInfo } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
+import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
+import { useExchange } from '@/base/hooks/useExchange';
+import { currencyFormat1 } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { changeIsShowChatTip } from '@/base/redux/reducers/modal.reducer';
+import { getBalance } from '@/base/redux/reducers/wallet.reducer';
+import { AppState, useAppDispatch } from '@/base/redux/store';
+import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
+import { InputNumber } from '@/components/input/typing';
+import Textarea from '@/components/input/typing/Textarea';
+import SelectCurrency from '@/components/selectCurrency/selectCurrency';
 
 import CommonModal from '../commonModal/commonModal';
-import { AppState, useAppDispatch } from '@/base/redux/store';
-import { shallowEqual, useSelector } from 'react-redux';
-import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
-import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
-import SelectCurrency from '@/components/selectCurrency/selectCurrency';
-import { useForm } from 'react-hook-form';
-import { InputNumber } from '@/components/input/typing';
-import { currencyFormat1 } from '@/base/libs/utils';
-import { useExchange } from '@/base/hooks/useExchange';
 import ModalRollover from '../rollover/Rollover';
-import Textarea from '@/components/input/typing/Textarea';
-import { api_chatTip, api_withdrawInfo } from '@/api/wallet';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
-import { toast } from 'react-toastify';
-import ReactLoading from 'react-loading';
-import { getBalance } from '@/base/redux/reducers/wallet.reducer';
-import { api_sendChat } from '@/api/chat';
-import { changeIsShowChatTip } from '@/base/redux/reducers/modal.reducer';
 
 type ChatTipProps = {
   onClose: () => void;
@@ -78,7 +77,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
     lockedAmountUsd: 0,
   });
 
-  const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat, restrictedTo } = useSelector(
+  const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat, restrictedTo, isLogin } = useSelector(
     (state: AppState) => ({
       // localeFiat: state.common.localeFiat,
       restrictedTo: state.auth.user.restrictedTo,
@@ -87,13 +86,14 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
       cryptoCurrencies: state.wallet.cryptoCurrencies,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       cryptoSymbols: state.wallet.symbols,
+      isLogin: state.auth.isLogin,
     }),
     shallowEqual,
   );
 
   const getTipInfo = useCallback(async () => {
     try {
-      if (!activeCoin.id) {
+      if (!activeCoin.id || !isLogin) {
         return;
       }
       const _res = await api_withdrawInfo(activeCoin.id);
@@ -111,7 +111,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
         lockedAmountUsd: 0,
       });
     }
-  }, [activeCoin]);
+  }, [activeCoin.id, isLogin]);
 
   const renderMaxValue = useMemo(() => {
     const activeCrypto = cryptoSymbols.find((item) => item.id === activeCoin.id);
@@ -190,9 +190,9 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
         onClose={onClose}
         panelClass={`max-w-full sm:max-w-[420px] sm:max-h-[90vh] h-full sm:!h-[700px]`}
       >
-        <div className="bg-gradient-card-modal p-6 h-full">
+        <div className="h-full p-6 bg-gradient-card-modal">
           <div className="font-normal dark:text-white text-black text-[14px] sm:text-[16px] pb-4">Tip</div>
-          <div className="flex flex-col overflow-y-auto h-full">
+          <div className="flex flex-col h-full overflow-y-auto">
             <div className="flex flex-col items-center gap-4">
               {tipReceiver?.userName ? (
                 <Image
@@ -228,7 +228,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                   labelText={String(t('tip:tipCurrency'))}
                 />
                 <div className="mt-[20px] flex flex-col gap-2">
-                  <div className="text-default dark:text-color-text-primary text-color-light-text-primary text-left">
+                  <div className="text-left text-default dark:text-color-text-primary text-color-light-text-primary">
                     {t('tip:tipAmount')}
                   </div>
                   <InputNumber
@@ -269,8 +269,8 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                   </div>
                 </div>
                 {!isShowMessage && (
-                  <div className="mt-5 flex flex-col gap-2">
-                    <div className="text-default dark:text-color-text-primary text-color-light-text-primary text-left">
+                  <div className="flex flex-col gap-2 mt-5">
+                    <div className="text-left text-default dark:text-color-text-primary text-color-light-text-primary">
                       {t('tip:tipMessage')}
                     </div>
                     <Textarea

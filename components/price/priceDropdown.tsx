@@ -40,9 +40,9 @@ export default function PriceDropdown() {
 
   return (
     <>
-      <Popover className="relative w-auto text-left rounded-default">
+      <Popover className="relative w-auto text-left rounded-default min-w-[100px] px-[10px] sm:px-0 sm:min-w-[130px]">
         {({ open }) => (
-          <div className="flex flex-col">
+          <div className="flex flex-col w-auto">
             <Popover.Button ref={buttonRef}>
               <div className="relative overflow-hidden">
                 <Swiper
@@ -57,7 +57,7 @@ export default function PriceDropdown() {
                 >
                   {cryptoSymbols.map((symbol) => (
                     <SwiperSlide key={symbol.id}>
-                      <div className="flex justify-center items-center h-[48px] gap-1 sm:gap-2">
+                      <div className="flex justify-center items-center h-[48px] gap-1 sm:gap-2 w-auto">
                         <Image
                           width={32}
                           height={32}
@@ -68,19 +68,19 @@ export default function PriceDropdown() {
                             e.currentTarget.src = '/img/fiats/USD.png';
                           }}
                         />
-                        <div className="flex flex-col font-bold text-black text-start text-default dark:text-white">
+                        <div className="flex flex-col w-full font-bold text-black text-start text-default dark:text-white">
                           <span className="font-semibold text-gray-300 text-[12px]">{symbol.name}</span>
                           <div className="leading-3 text-[11px] text-yellow-300 font-semibold">
                             {viewInFiat ? (
                               <>
                                 {currencyFormat1(
                                   symbol.price * exchange,
-                                  symbol.price > 0.1 ? 2 : 10,
+                                  symbol.price > 0.1 ? 2 : 8,
                                   localFiat?.name || 'USD',
                                 )}
                               </>
                             ) : (
-                              <>{currencyFormat1(symbol.price, symbol.price > 0.1 ? 2 : 10)}</>
+                              <>{currencyFormat1(symbol.price, symbol.price > 0.1 ? 2 : 8)}</>
                             )}
                           </div>
                         </div>
