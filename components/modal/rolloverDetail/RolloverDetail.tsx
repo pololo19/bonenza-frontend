@@ -178,7 +178,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                 )}
               </span>
             </div>
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <span className="text-color-light-text-primary dark:text-color-text-primary">
                 {String(t('transaction:withdrawableFunds'))}
               </span>
@@ -195,7 +195,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                   currencyFormat1(transaction.withdrawableFundsAmount, cryptoDecimals, '', false)
                 )}
               </span>
-            </div>
+            </div> */}
             {/* <div className="flex items-center justify-between">
               <span className="text-color-light-text-primary dark:text-color-text-primary underline cursor-pointer">
                 {String(t('transaction:cancelBonus'))}
