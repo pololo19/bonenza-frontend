@@ -393,6 +393,7 @@ export function formatCompactNumber(number: number, setting: any) {
     return 0;
   }
 }
+
 export function currencyFormat1(value: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
   try {
     let i = 0,
@@ -444,6 +445,21 @@ export function currencyFormat1(value: number, zeroNum: number, currency: string
     return `${symbol} ${res}`;
   } catch (error) {
     return '';
+  }
+}
+
+export function currencyFormat2(value: string, decimal?: number) {
+  const filteredValue = parseFloat(`${value}`.replaceAll(',', ''));
+  if (filteredValue < 1000) return filteredValue.toFixed(2);
+  else if (filteredValue < 1000000) {
+    const kAmount = filteredValue / 1000;
+    return kAmount.toFixed(2) + 'K';
+  } else if (filteredValue < 100000000) {
+    const mAmount = filteredValue / 1000000;
+    return mAmount.toFixed(2) + 'M';
+  } else {
+    const mAmount = filteredValue / 100000000;
+    return mAmount.toFixed(2) + 'B';
   }
 }
 

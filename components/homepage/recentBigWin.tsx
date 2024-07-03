@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tooltip';
 import { api_getRecentBigWins } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1 } from '@/base/libs/utils';
+import { currencyFormat1, currencyFormat2 } from '@/base/libs/utils';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
@@ -61,9 +61,10 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
     }
   };
 
-  const { localFiat } = useSelector(
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
@@ -97,9 +98,9 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
                 {String(t('homePage:hidden'))}
               </span>
             ) : userData.userId === userId ? (
-              <div className="w-[84px] truncate px-1 text-left sm:text-center">{userName}</div>
+              <div className="sm:w-[84px] truncate px-2 text-left sm:text-center">{userName}</div>
             ) : (
-              <div className="w-[84px] truncate px-1 text-left sm:text-center">{userData?.username}</div>
+              <div className="sm:w-[84px] truncate px-2 text-left sm:text-center">{userData?.username}</div>
             )}
           </div>
         </div>
@@ -109,7 +110,23 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
             className="hidden sm:flex cursor-pointer sm:w-full  justify-center items-center text-center sm:rounded-[5px] mr-1"
           >
             <div className="text-[#FF9E4F] font-light sm:font-semibold text-[12px] sm:text-[10px] truncate">
-              {price}
+              <span className="text-color-primary-1 font-bold">
+                {currencyFormat2(
+                  String(price || '')
+                    .split(' ')
+                    .at(1) || '',
+                )}
+              </span>
+              <span>
+                {' '}
+                {viewInFiat
+                  ? String(price || '')
+                      .split(' ')
+                      .at(0) || ''
+                  : String(price || '')
+                      .split(' ')
+                      .at(2) || ''}
+              </span>
             </div>
           </div>
           <div className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]">
@@ -130,7 +147,9 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
           <ArrowRight2 width={12} height={12} variant="Bulk" className="w-4 h-4 block sm:hidden" />
         </div>
       </div>
-      <Tooltip id={'CardBigWinData' + price} place="bottom" content={String(price)} />
+      <Tooltip id={'CardBigWinData' + price} place="bottom" className="dark:bg-gray-700 bg-white z-[30]" opacity={100}>
+        <div className="text-white font-normal text-default">{price}</div>
+      </Tooltip>
     </>
   );
 }
