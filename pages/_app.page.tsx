@@ -13,7 +13,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ThemeProvider } from 'next-themes';
-import NextNProgress from 'nextjs-progressbar';
+import NextProgress from 'next-progress';
 import { ReactElement, ReactNode, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
@@ -135,7 +135,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
             <Script async src="/game.js"></Script>
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
-            <NextNProgress />
+            <NextProgress options={{ showSpinner: false }} />
             <ThemeProvider defaultTheme="dark" attribute="class">
               <>
                 <ToastContainer
