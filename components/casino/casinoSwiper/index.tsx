@@ -2,7 +2,7 @@ import 'swiper/css';
 
 import cn from 'classnames';
 import { ArrowLeft2, ArrowRight2 } from 'iconsax-react';
-import React, { ReactNode, useCallback, useEffect, useState } from 'react';
+import React, { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { shallowEqual, useSelector } from 'react-redux';
 import { A11y, Autoplay, Navigation } from 'swiper/modules';
@@ -62,6 +62,7 @@ const CasinoSwiper = <T,>({
 }: CasinoSwiperProps<T>): JSX.Element => {
   const width = useWidth();
   const [slide, setSlide] = useState<number>(maxCount);
+  const swiperRef = useRef<any>();
 
   const { showChatType, isToggleSidebar } = useSelector(
     (state: AppState) => ({
@@ -106,11 +107,19 @@ const CasinoSwiper = <T,>({
     }
   };
 
+  const handleMouseEnter = () => {
+    swiperRef?.current?.swiper?.autoplay?.stop();
+  };
+
+  const handleMouseLeave = () => {
+    swiperRef?.current?.swiper?.autoplay?.start();
+  };
+
   return (
     <>
       {!!data.length && (
         <div className="w-full relative">
-          <div className="w-full">
+          <div className="w-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="flex items-center gap-[10px] justify-between mb-[15px]">
               <div className="flex items-center gap-[10px]">
                 {icon}
@@ -120,11 +129,12 @@ const CasinoSwiper = <T,>({
               </div>
             </div>
             <Swiper
+              ref={swiperRef}
               slidesPerView={width >= 640 ? (isRecent ? 'auto' : slide) : 3}
               freeMode={true}
               autoplay={{
                 delay: delay,
-                disableOnInteraction: false,
+                disableOnInteraction: true,
               }}
               speed={speed}
               spaceBetween={width >= 640 ? 10 : 0}

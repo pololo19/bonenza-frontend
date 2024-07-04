@@ -1,6 +1,7 @@
 import 'swiper/css';
 import 'swiper/css/grid';
 
+import cn from 'classnames';
 import { Disclosure } from '@headlessui/react';
 import { ArrowDown2, SmsTracking } from 'iconsax-react';
 import Head from 'next/head';
@@ -133,11 +134,12 @@ function DashboardComponent() {
     }
   };
 
-  const { referralCode, localFiat, viewInFiat } = useSelector(
+  const { referralCode, localFiat, viewInFiat, showChatType } = useSelector(
     (state: AppState) => ({
       referralCode: state.auth.user.referralCode,
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      showChatType: state.modal.showChatType,
     }),
     shallowEqual,
   );
@@ -418,9 +420,9 @@ function DashboardComponent() {
           </div>
         </div>
         <div className="relative w-full mt-6">
-          <div className="absolute top-0 left-5 py-1 px-4 flex justify-center items-center text-black dark:text-white bg-[#31373D] rounded-[5px]">
+          <div className="absolute top-0 left-5 py-[2px] px-4 flex justify-center items-center text-black dark:text-white bg-[#31373D] rounded-[5px]">
             <div className="bg-color-text-green rounded-full w-3 h-3 mr-[10px]" />
-            <div className="text-default 2xl:text-[16px] font-semibold dark:text-white text-[#141414]">
+            <div className="text-default xl:text-[14px] 2xl:text-[15px] font-semibold dark:text-white text-[#141414]">
               {t('affiliate:liveRewards')}
             </div>
           </div>
@@ -440,10 +442,12 @@ function DashboardComponent() {
                 <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-x-6 pt-6 xl:pt-4 2xl:pt-2">
                   {liveRewardData.map((reward, index) => {
                     return (
-                      <div className="flex justify-center items-center py-[6px]" key={index}>
-                        <div className="text-default dark:text-color-text-primary text-[#43484E] font-semibold mr-1">
-                          <span className="dark:text-white text-color-light-text-primary mr-2 font-bold">{`${reward.name}`}</span>
-                          {`${t('affiliate:got')}`}{' '}
+                      <div className="flex flex-col justify-start items-center py-[6px]" key={index}>
+                        <div className="dark:text-white text-color-light-text-primary mr-2 font-bold">
+                          {reward.name}
+                        </div>
+                        <div className="flex gap-1">
+                          <span>{t('affiliate:got')}</span>
                           <span className="text-color-text-green font-bold">
                             {viewInFiat ? (
                               <>
@@ -452,9 +456,9 @@ function DashboardComponent() {
                             ) : (
                               <>{currencyFormat1(reward.amountUsd, fiatDecimals)}</>
                             )}
-                          </span>{' '}
+                          </span>
+                          <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="" />
                         </div>
-                        <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="" />
                       </div>
                     );
                   })}
@@ -484,8 +488,14 @@ function DashboardComponent() {
           </div>
         </div>
 
-        <div className="w-full pl-[14px] dark:bg-gradient-card-default bg-white rounded-default flex lg:flex-row flex-col items-center justify-center mb-[60px] lg:pl-[52px] py-[35px] pr-[14px]">
-          <div className="mr-[0px] lg:mr-[54px] ">
+        <div
+          className={cn(
+            'w-full py-[35px] mb-[60px] dark:bg-gradient-card-default bg-white rounded-default',
+            'flex lg:flex-row flex-col items-center justify-center',
+            { 'px-4 sm:px-8': showChatType, 'px-4 sm:px-10': !showChatType },
+          )}
+        >
+          <div className="mr-[0px] lg:mr-[20px]">
             <div className="inline-block flex-col items-center lg:flex-row gap-[5px] lg:hidden">
               <div className="text-center mr-[3px] text-[16px] lg:text-m_title dark:text-white text-[#141414]">
                 {t('affiliate:learnMoreAboutOur')}
@@ -498,8 +508,8 @@ function DashboardComponent() {
             </div>
             <Image className="m-auto min-w-[310px]" width={210} height={198} alt="" src="/img/loudspeaker.png" />
           </div>
-          <div className="w-full">
-            <div className="hidden lg:flex  gap-[5px]">
+          <div>
+            <div className="hidden lg:flex gap-[5px]">
               <div className="mr-[3px] text-[16px] lg:text-m_title dark:text-white text-[#141414] font-bold">
                 {t('affiliate:learnMoreAboutOur')}
               </div>
@@ -510,7 +520,7 @@ function DashboardComponent() {
             <div>
               <div className="flex mb-[9px] gap-[10px]">
                 <CheckMarkIcon className="w-[16px] h-[14px] text-color-primary" />
-                <div className="w-full text-m_default sm:text-default text-color-text-primary font-normal md:w-[593px] ">
+                <div className="w-full text-m_default sm:text-default text-color-text-primary font-normal">
                   {t('affiliate:ifYouHaveA')}
                 </div>
               </div>
@@ -518,7 +528,7 @@ function DashboardComponent() {
             <div>
               <div className="flex mb-[12px] gap-[10px]">
                 <CheckMarkIcon className="w-[16px] h-[14px] text-color-primary" />
-                <div className="w-full text-m_default sm:text-default text-color-text-primary font-normal md:w-[593px]">
+                <div className="w-full text-m_default sm:text-default text-color-text-primary font-normal">
                   {t('affiliate:ifYouCanInvite')}
                 </div>
               </div>

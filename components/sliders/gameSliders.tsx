@@ -6,7 +6,7 @@ import 'swiper/css/scrollbar';
 import cn from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useRef } from 'react';
 import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -15,9 +15,20 @@ import { useWidth } from '@/base/hooks/useWidth';
 
 const GameBannerSlider = ({ className }: { className?: string }) => {
   const width = useWidth();
+  const swiperRef = useRef<any>();
+
+  const handleMouseEnter = () => {
+    swiperRef?.current?.swiper?.autoplay?.stop();
+  };
+
+  const handleMouseLeave = () => {
+    swiperRef?.current?.swiper?.autoplay?.start();
+  };
+
   return (
-    <div className={cn('block', className)}>
+    <div className={cn('block', className)} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <Swiper
+        ref={swiperRef}
         spaceBetween={10}
         slidesPerView={1}
         slidesPerGroup={1}
