@@ -508,7 +508,6 @@ const SettingSecurity = () => {
                             inputStyle={
                               'bg-color-input-primary border border-1 border-color-border-primary focus:border-color-primary dark:!text-white !text-black !w-[48px] !h-[48px] !rounded-default focus:!outline-none'
                             }
-                            isDisabled
                             shouldAutoFocus={false}
                             containerStyle={'gap-[4px]'}
                           />
@@ -522,6 +521,7 @@ const SettingSecurity = () => {
                       value={passwordLogin}
                       onChange={(e) => setPasswordLogin(e.target.value)}
                       control={LoginPasswordControl}
+                      isAutoComplete="new-password"
                     />
                     {tfa && (
                       <div>

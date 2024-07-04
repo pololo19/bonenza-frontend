@@ -222,7 +222,7 @@ function TournamentPage() {
           </div>
         </div>
         <div
-          className={cn('mt-10 uppercase text-[28px] md:text[48px] xl:text-[64px] w-full text-center', styles.goldText)}
+          className={cn('mt-10 uppercase text-[32px] md:text[48px] xl:text-[64px] w-full text-center', styles.goldText)}
           dangerouslySetInnerHTML={{
             __html: String(
               t('tournament:prizePool', {
