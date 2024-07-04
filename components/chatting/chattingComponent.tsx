@@ -191,16 +191,26 @@ const ChattingComponent = () => {
   };
 
   const convertUserNameToTag = (message: string) => {
-    const altIndex = message.indexOf('@');
-    if (altIndex < 0) return message;
-    const spaceIndex = message.indexOf('\u00A0', altIndex);
-    const userName = message.substring(altIndex + 1, spaceIndex);
-    const user = availableUsers.find((user) => user.userName === userName);
-    if (!user) return message;
-    const newMessage =
-      message.substring(0, altIndex) ||
-      '' +
-        `<span style="cursor: pointer; font-weight:400; color: #44DDFF;" id="message-${user?.userId}">@${user?.userName}</span>`;
+    const filteredMessage = message.replaceAll(' ', '\u00A0');
+    let newMessage = '';
+    let startIndex = 0;
+    while (true) {
+      const altIndex = filteredMessage.indexOf('@', startIndex);
+      if (altIndex < 0) {
+        newMessage = newMessage + filteredMessage.substring(startIndex);
+        break;
+      }
+      newMessage = newMessage + filteredMessage.substring(startIndex, altIndex);
+      const spaceIndex = filteredMessage.indexOf('\u00A0', altIndex);
+      const userName = filteredMessage.substring(altIndex + 1, spaceIndex);
+      const user = availableUsers.find((user) => user.userName === userName);
+      if (!user) newMessage = newMessage + filteredMessage.substring(altIndex, spaceIndex);
+      else
+        newMessage =
+          newMessage +
+          `<span style="cursor: pointer; font-weight:400; color: #44DDFF;" id="message-${user?.userId}">@${user?.userName}</span>`;
+      startIndex = spaceIndex;
+    }
     return newMessage;
   };
 
