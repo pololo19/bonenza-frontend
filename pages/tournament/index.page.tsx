@@ -249,7 +249,7 @@ function TournamentPage() {
           </div>
           <div
             className={cn(
-              'grid grid-cols-11 gap-[2px] sm:gap-2 w-[95%] sm:w-[80%] lg:w-[55%] m-auto min-h-[160px] md:min-h-[240px]',
+              'grid grid-cols-11 gap-[2px] sm:gap-2 w-[95%] sm:w-[80%] lg:w-[55%] m-auto min-h-[160px] md:min-h-[240px] max-h-[160px] md:max-h-[240px]',
               styles['bar_chart'],
             )}
           >
@@ -352,20 +352,20 @@ function TournamentPage() {
         </div>
         <div className="mt-4 2xl:w-[70%] flex flex-wrap justify-center m-auto">
           {prizes.map((prize) => (
-            <div key={prize.img} className="flex flex-col items-center font-bold text-m_title">
+            <div key={prize.img} className="flex flex-col items-center font-bold text-default sm:text-m_title">
               <Image
                 src={prize.img}
                 width={150}
                 height={150}
                 alt=""
-                className="w-[120px] h-[120px] lg:w-[150px] lg:h-[150px] object-contain"
+                className="w-[90px] h-[90px] lg:w-[150px] lg:h-[150px] object-contain"
               />
               {`${prize.percent}%`}
             </div>
           ))}
         </div>
         <div className="bg-gradient-card-violet mt-8 rounded-default p-5 lg:py-10 lg:px-16 shadow-inner shadow-white">
-          <div className="text-m_title font-bold text-white">{t('tournament:eventRules')}</div>
+          <div className="text-title sm:text-m_title font-bold text-white">{t('tournament:eventRules')}</div>
           <div className="mt-4 text-default font-normal">
             <div className="text-[16px] font-semibold text-color-primary">{t('tournament:eligibility')}</div>
             <div className="mt-4 pl-4 flex flex-col gap-2">
