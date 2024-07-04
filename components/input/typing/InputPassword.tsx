@@ -16,6 +16,8 @@ interface InputTextProps<TFieldValues extends FieldValues> extends InputHTMLAttr
   dataErrorId?: string;
   invalid?: boolean;
   isBlockSpecialCharacter?: boolean;
+  isAutoComplete?: string;
+  isAutoFocus?: boolean;
   ['data-testid']?: string;
 }
 
@@ -28,6 +30,8 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
   dataErrorId,
   invalid,
   isBlockSpecialCharacter,
+  isAutoFocus = false,
+  isAutoComplete = 'off',
   ...rest
 }: InputTextProps<TFieldValues>) => {
   const [showPass, setShowPass] = useState(false);
@@ -74,7 +78,8 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
               {...rest}
               {...field}
               name={name}
-              autoComplete="off"
+              autoComplete={isAutoComplete}
+              autoFocus={isAutoFocus}
               type={showPass ? EnumTypeInput.TEXT : EnumTypeInput.PASSWORD}
               value={(field.value ?? '') as string}
               onChange={(event: InputTextType) => handleChangeValue(event, field.onChange)}

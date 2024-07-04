@@ -308,6 +308,8 @@ const SettingSecurity = () => {
                           value={passwordBody?.oldPassword}
                           onChange={(e) => handleChangePassword(e.target.value, 'oldPassword')}
                           control={control}
+                          isAutoComplete="on"
+                          isAutoFocus={true}
                         />
                       </div>
                       <div className="flex flex-col items-start gap-[10px]">
@@ -405,7 +407,7 @@ const SettingSecurity = () => {
             </Disclosure>
           </form>
         )}
-        <form
+        <div
           className={cn('flex-1 flex flex-col items-start gap-[12px] w-full', {
             'p-4 pl-8': showChatType,
             'p-4 pl-8 2xl:p-[40px]': !showChatType,
@@ -506,6 +508,7 @@ const SettingSecurity = () => {
                             inputStyle={
                               'bg-color-input-primary border border-1 border-color-border-primary focus:border-color-primary dark:!text-white !text-black !w-[48px] !h-[48px] !rounded-default focus:!outline-none'
                             }
+                            shouldAutoFocus={false}
                             containerStyle={'gap-[4px]'}
                           />
                         </div>
@@ -518,6 +521,7 @@ const SettingSecurity = () => {
                       value={passwordLogin}
                       onChange={(e) => setPasswordLogin(e.target.value)}
                       control={LoginPasswordControl}
+                      isAutoComplete="new-password"
                     />
                     {tfa && (
                       <div>
@@ -532,6 +536,7 @@ const SettingSecurity = () => {
                             inputStyle={
                               'bg-color-input-primary border border-1 border-color-border-primary focus:border-color-primary dark:!text-white !text-black !w-[48px] !h-[48px] !rounded-default focus:!outline-none'
                             }
+                            shouldAutoFocus={false}
                             containerStyle={'gap-[4px]'}
                           />
                         </div>
@@ -549,7 +554,7 @@ const SettingSecurity = () => {
               </div>
             )}
           </Disclosure>
-        </form>
+        </div>
       </div>
       {openModalCode && (
         <ModalEnterCodeSecurity
