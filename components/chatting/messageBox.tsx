@@ -187,7 +187,7 @@ export const MessageBox = ({
                 <div
                   className="break-normal #00BAE6"
                   dangerouslySetInnerHTML={{
-                    __html: text.replace('44DDFF', id === userId ? 'FFF' : '44DDFF'),
+                    __html: text.replaceAll('44DDFF', id === userId ? 'FFF' : '44DDFF'),
                   }}
                 />
               </div>
