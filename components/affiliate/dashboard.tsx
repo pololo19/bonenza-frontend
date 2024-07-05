@@ -166,6 +166,10 @@ function DashboardComponent() {
         setLiveRewardData(prev);
       });
     }
+
+    return () => {
+      gameSocket.off('rewards');
+    }
   }, [gameSocket]);
 
   return (
@@ -447,7 +451,7 @@ function DashboardComponent() {
                           {reward.name}
                         </div>
                         <div className="flex gap-1">
-                          <span>{t('affiliate:got')}</span>
+                          {/* <span className='text-color-text-green font-bold'>+</span> */}
                           <span className="text-color-text-green font-bold">
                             {viewInFiat ? (
                               <>

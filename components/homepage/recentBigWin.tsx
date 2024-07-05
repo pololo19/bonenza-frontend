@@ -19,7 +19,7 @@ import CasinoSwiper from '../casino/casinoSwiper';
 import LiveStream from '../icons/LiveStream';
 
 type CardBigWinProps = {
-  price?: string | number;
+  price: number;
   currency: string;
   imgCard: string;
   userData?: { userId: string; username: string };
@@ -43,6 +43,7 @@ const toBase64 = (str: string) =>
   typeof window === 'undefined' ? Buffer.from(str).toString('base64') : window.btoa(str);
 
 export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinProps) {
+  const exchangeRate = useExchange();
   const dispatch = useDispatch();
   const { t } = useTranslation('');
   const { userId, userName } = useSelector(
@@ -110,12 +111,12 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
             className="hidden sm:flex cursor-pointer sm:w-full  justify-center items-center text-center sm:rounded-[5px] mr-1"
           >
             <div className="text-[#FF9E4F] font-light sm:font-semibold text-[12px] sm:text-[10px] truncate">
-              {price}
+              {viewInFiat ? currencyFormat1(price * exchangeRate, 2, localFiat?.name || 'USD', true, true) : `${currencyFormat1(price, 2, '', false, true)} ${currency}`}
             </div>
           </div>
           <div className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]">
             <div className="text-[#FF9E4F] font-light sm:font-semibold text-[12px] sm:text-[10px] truncate">
-              {price}
+              {viewInFiat ? currencyFormat1(price * exchangeRate, 2, localFiat?.name || 'USD', true, false) : `${currencyFormat1(price, 2, '', false, false)} ${currency}`}
             </div>
             <Image
               src={currency ? `/img/fiats/${currency.toUpperCase()}.png` : '/img/fiats/USDT.png'}
@@ -202,7 +203,7 @@ function RecentBigWinComponent() {
         <CardBigWin
           userData={userData}
           currency={item.currency}
-          price={`${getExchangeRateLocalFiat(viewInFiat ? item.profitUsd : item.profit, item.currency)}`}
+          price={viewInFiat ? item.profitUsd : item.profit}
           imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
         />
       );
