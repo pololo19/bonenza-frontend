@@ -452,7 +452,7 @@ function IndexPage() {
                       {checkDeposit && <VipProgressComponent />}
                     </div>
                   )}
-                  {!isLogin && <LoginWalletDashboard onClose={() => {}} />}
+                  {!isLogin && <LoginWalletDashboard onClose={() => { }} />}
                 </div>
               </div>
             </div>

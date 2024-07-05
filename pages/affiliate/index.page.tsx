@@ -139,9 +139,8 @@ function AffiliatePage() {
               <h5
                 className={`text-[30px] lg:text-[24px] xl:text-[32px] mb-[30px] text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-[#ffd339] to-[#f59e00]`}
               >
-                {`${
-                  viewInFiat ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(1000, 2)
-                } + 25%`}{' '}
+                {`${viewInFiat ? currencyFormat1(1000 * exchange, 2, localFiat?.name || 'USD') : currencyFormat1(1000, 2)
+                  } + 25%`}{' '}
                 {t('affiliate:commission')}
               </h5>
               <div
@@ -264,7 +263,6 @@ function AffiliatePage() {
                         <div className="flex justify-center items-center py-[6px]" key={index}>
                           <div className="text-default dark:text-color-text-primary text-[#43484E] font-semibold mr-1">
                             <span className="dark:text-white text-color-light-text-primary mr-2 font-bold">{`${reward.name}`}</span>
-                            {`${t('affiliate:got')}`}{' '}
                             <span className="text-color-text-green font-bold">
                               {viewInFiat ? (
                                 <>{currencyFormat1(reward.amountUsd * exchange, 8, localFiat?.name || 'USD')}</>
@@ -357,11 +355,10 @@ function AffiliatePage() {
                             {item.title}
                           </div>
                           <div
-                            className={`${
-                              open
+                            className={`${open
                                 ? 'bg-color-primary text-white'
                                 : 'dark:bg-[#ffffff33] bg-[#f5f6fa] dark:text-[#98A7B5] text-[#31373d]'
-                            } w-[30px] h-[30px] rounded-full flex items-center justify-center`}
+                              } w-[30px] h-[30px] rounded-full flex items-center justify-center`}
                           >
                             {open ? <Minus size="24" /> : <Add size="24" />}
                           </div>
