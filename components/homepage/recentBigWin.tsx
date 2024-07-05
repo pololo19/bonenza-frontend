@@ -160,7 +160,6 @@ function RecentBigWinComponent() {
   }, [userId]);
 
   const getExchangeRateLocalFiat = (amount: number, currency: string) => {
-    if (!isLogin) return currencyFormat1(amount * exchangeRate, 2, localFiat?.name || 'USD', true, true);
     return viewInFiat
       ? `${currencyFormat1(amount * exchangeRate, 2, localFiat?.name || 'USD', true, true)}`
       : `${currencyFormat1(amount, 2, '', false, true)} ${currency}`;
