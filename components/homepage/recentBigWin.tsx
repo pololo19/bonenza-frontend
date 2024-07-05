@@ -110,23 +110,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
             className="hidden sm:flex cursor-pointer sm:w-full  justify-center items-center text-center sm:rounded-[5px] mr-1"
           >
             <div className="text-[#FF9E4F] font-light sm:font-semibold text-[12px] sm:text-[10px] truncate">
-              <span className="text-color-primary-1 font-bold">
-                {currencyFormat2(
-                  String(price || '')
-                    .split(' ')
-                    .at(1) || '',
-                )}
-              </span>
-              <span>
-                {' '}
-                {viewInFiat
-                  ? String(price || '')
-                      .split(' ')
-                      .at(0) || ''
-                  : String(price || '')
-                      .split(' ')
-                      .at(2) || ''}
-              </span>
+              {price}
             </div>
           </div>
           <div className="flex sm:hidden cursor-pointer sm:w-full justify-center text-center sm:rounded-[5px] mr-1 gap-[5px]">
@@ -176,10 +160,10 @@ function RecentBigWinComponent() {
   }, [userId]);
 
   const getExchangeRateLocalFiat = (amount: number, currency: string) => {
-    if (!isLogin) return currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD');
+    if (!isLogin) return currencyFormat1(amount * exchangeRate, 2, localFiat?.name || 'USD', true, true);
     return viewInFiat
-      ? `${currencyFormat1(amount * exchangeRate, 4, localFiat?.name || 'USD')}`
-      : `${currencyFormat1(amount, 4, '', false)} ${currency}`;
+      ? `${currencyFormat1(amount * exchangeRate, 2, localFiat?.name || 'USD', true, true)}`
+      : `${currencyFormat1(amount, 2, '', false, true)} ${currency}`;
   };
 
   const handleGetListBigWin = async () => {
