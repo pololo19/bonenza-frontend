@@ -4,6 +4,7 @@ import { ElementType, Fragment, useMemo, useRef } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
 import { formatDate } from '@/base/libs/utils';
+
 import CommonModal from '../commonModal/commonModal';
 
 type ModalWagerRulesProps = {
@@ -44,7 +45,7 @@ export default function ModalWagerRules({ show, onClose }: ModalWagerRulesProps)
           </div>
           <div className="mt-4 text-[14px]">
             {new Array(7).fill(0).map((_, index) => (
-              <div className="pb-1 flex justify-start gap-2">
+              <div className="pb-1 flex justify-start gap-2" key={index}>
                 <div className="min-w-[12px]">{`${index + 1}.`}</div>
                 <div>{t(`vipClub:rulesDailyWageringContest${index + 1}`)}</div>
               </div>
