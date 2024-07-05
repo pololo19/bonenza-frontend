@@ -394,7 +394,7 @@ export function formatCompactNumber(number: number, setting: any) {
   }
 }
 
-export function currencyFormat1(value: number, zeroNum: number, currency: string = 'USD', flag: boolean = true) {
+export function currencyFormat1(value: number, zeroNum: number, currency: string = 'USD', flag: boolean = true, notation = false) {
   try {
     let i = 0,
       pow = 1;
@@ -409,14 +409,22 @@ export function currencyFormat1(value: number, zeroNum: number, currency: string
     }
     let zeroCount = -Math.floor(Math.log10(number));
     if (zeroNum < 5) {
-      res = formatCompactNumber(number, {
+      res = formatCompactNumber(number, notation ? {
+        maximumFractionDigits: zeroNum,
+        minimumFractionDigits: 2,
+        notation: 'compact'
+      } : {
         maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
       }).toString();
       return `${symbol} ${res}`;
     }
     if (zeroCount < zeroNum) {
-      res = formatCompactNumber(number, {
+      res = formatCompactNumber(number, notation ? {
+        maximumFractionDigits: zeroNum,
+        minimumFractionDigits: 2,
+        notation: 'compact',
+      } : {
         maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
       }).toString();
@@ -437,7 +445,11 @@ export function currencyFormat1(value: number, zeroNum: number, currency: string
       }
       res = `0.(${zeroCount - 1})${nonZeros}`;
     } else {
-      res = formatCompactNumber(number, {
+      res = formatCompactNumber(number, notation ? {
+        maximumFractionDigits: zeroNum,
+        minimumFractionDigits: 2,
+        notation: 'compact'
+      } : {
         maximumFractionDigits: zeroNum,
         minimumFractionDigits: 2,
       }).toString();
