@@ -245,6 +245,8 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         type: 'crypto',
         favorite: item.favorite,
       })) || [];
+    const usdtIndex = tempSymbols.findIndex((symbol) => symbol.name === 'USDT');
+    tempSymbols.splice(0, 0, tempSymbols.splice(usdtIndex, 1)[0]);
 
     const tempCurrencies: CryptoCurrencyType[] =
       currency?.map((item: any) => ({
