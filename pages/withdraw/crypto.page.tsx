@@ -68,7 +68,6 @@ const WithdrawCryptoPage = () => {
 
   const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat, restrictedTo } = useSelector(
     (state: AppState) => ({
-      // localeFiat: state.common.localeFiat,
       restrictedTo: state.auth.user.restrictedTo,
       localFiat: state.wallet.localFiat,
       balances: state.wallet.balances,
@@ -196,7 +195,7 @@ const WithdrawCryptoPage = () => {
         lockedAmountUsd: 0,
       });
     }
-  }, [activeCoin]);
+  }, [activeCoin.id]);
 
   const setAmountByPercent = useCallback(
     (percent: number) => {
@@ -281,8 +280,8 @@ const WithdrawCryptoPage = () => {
             ? currencyFormat1(renderBalanceValue, 4, '', false)
             : currencyFormat1(withdrawInfo.availableAmount, 4, '', false)
           : withdrawInfo.availableAmount > renderMinValue.min
-          ? renderMinValue.min
-          : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
+            ? renderMinValue.min
+            : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
       ),
     );
   }, [renderMinValue, renderBalanceValue]);
@@ -479,32 +478,37 @@ const WithdrawCryptoPage = () => {
                     )}
                   </div>
                 </div>
-                <div className="flex justify-between mt-2 text-default">
-                  <div className="flex flex-wrap gap-1">
+                <div className="flex flex-wrap justify-between gap-1 mt-2 text-default">
+                  <span className="dark:text-color-text-primary text-color-light-text-primary">
+                    {t('withdraw:available')}:
+                  </span>
+                  <div className="flex text-black dark:text-white gap-1">
+                    {viewInFiat
+                      ? currencyFormat1(
+                        withdrawInfo.availableAmountUsd * exchangeRate,
+                        4,
+                        String(localFiat?.name || 'USD'),
+                      )
+                      : `${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)}`}
                     <span className="dark:text-color-text-primary text-color-light-text-primary">
-                      {t('withdraw:available')}:
-                    </span>
-                    <span className="flex text-black dark:text-white">
-                      {viewInFiat
-                        ? currencyFormat1(
-                            withdrawInfo.availableAmountUsd * exchangeRate,
-                            4,
-                            String(localFiat?.name || 'USD'),
-                          )
-                        : `${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)}`}
+                      {viewInFiat && `(${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)} )`}
                     </span>
                   </div>
-                  <div className="flex flex-wrap justify-end gap-1">
-                    <span
-                      className="underline cursor-pointer dark:text-color-text-primary text-color-light-text-primary"
-                      onClick={() => setOpenRollover(true)}
-                    >
-                      {t('withdraw:lockedFunds')}:
-                    </span>
-                    <span className="flex text-black dark:text-white">
-                      {viewInFiat
-                        ? `${currencyFormat1(withdrawInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
-                        : `${currencyFormat1(withdrawInfo.lockedAmount, 4, '', false)}`}
+
+                </div>
+                <div className="flex flex-wrap justify-between gap-1 mt-2 text-default">
+                  <span
+                    className="underline cursor-pointer dark:text-color-text-primary text-color-light-text-primary"
+                    onClick={() => setOpenRollover(true)}
+                  >
+                    {t('withdraw:lockedFunds')}:
+                  </span>
+                  <div className="flex text-black dark:text-white gap-1">
+                    {viewInFiat
+                      ? `${currencyFormat1(withdrawInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
+                      : `${currencyFormat1(withdrawInfo.lockedAmount, 4, '', false)}`}
+                    <span className="dark:text-color-text-primary text-color-light-text-primary">
+                      {viewInFiat && `(${currencyFormat1(withdrawInfo.lockedAmount, 4, '', false)})`}
                     </span>
                   </div>
                 </div>

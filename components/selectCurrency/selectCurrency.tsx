@@ -201,7 +201,6 @@ const SelectCurrency = ({
                   className={cn(
                     'dark:bg-color-input-primary bg-color-light-input-primary rounded-default flex items-center justify-between w-full py-[13px] px-[20px]',
                   )}
-                  // role="button"
                 >
                   <div className="flex-1 flex items-center justify-start gap-[10px]">
                     <LazyLoad height={30}>
@@ -230,7 +229,7 @@ const SelectCurrency = ({
                   </div>
                   <div className="flex items-center justify-start gap-[10px]">
                     <div className="flex items-center text-default dark:text-color-text-primary text-color-light-text-primary gap-[10px]">
-                      {t('deposit:balance')}{' '}
+                      {viewInFiat && currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
                       <span
                         className={cn('font-semibold text-default dark:text-white text-color-light-text-primary', {
                           'dark:!text-gray-400': disabled,
@@ -238,10 +237,10 @@ const SelectCurrency = ({
                       >
                         {viewInFiat
                           ? currencyFormat1(
-                              getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
-                              fiatDecimals,
-                              localFiat?.name,
-                            )
+                            getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
+                            fiatDecimals,
+                            localFiat?.name,
+                          )
                           : currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
                       </span>
                     </div>
@@ -331,10 +330,10 @@ const SelectCurrency = ({
                                         <Lock size={12} variant="Bold" />{' '}
                                         {viewInFiat
                                           ? currencyFormat1(
-                                              lockedAmount * usdtPrice * exchangeRate,
-                                              fiatDecimals,
-                                              localFiat?.name,
-                                            )
+                                            lockedAmount * usdtPrice * exchangeRate,
+                                            fiatDecimals,
+                                            localFiat?.name,
+                                          )
                                           : currencyFormat1(lockedAmount, 2, '', false)}
                                       </span>
                                     </div>

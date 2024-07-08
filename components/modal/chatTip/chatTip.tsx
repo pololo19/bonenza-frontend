@@ -230,15 +230,13 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                 <div className="mt-[20px] flex flex-col gap-2">
                   <div className="flex justify-between text-left text-default dark:text-color-text-primary text-color-light-text-primary">
                     <span>{t('tip:tipAmount')}</span>
-                    <span>{`${
-                      viewInFiat
-                        ? currencyFormat1(1 * exchangeRate, 2, localFiat?.name || 'USD')
-                        : currencyFormat1(1, 2)
-                    } ~ ${
-                      viewInFiat
+                    <span>{`${viewInFiat
+                      ? currencyFormat1(1 * exchangeRate, 2, localFiat?.name || 'USD')
+                      : currencyFormat1(1, 2)
+                      } ~ ${viewInFiat
                         ? currencyFormat1(5000 * exchangeRate, 2, localFiat?.name || 'USD')
                         : currencyFormat1(5000, 2)
-                    }`}</span>
+                      }`}</span>
                   </div>
                   <InputNumber
                     customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default rounded-default"
@@ -247,32 +245,37 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                     onBlur={handleBlur}
                     name="tipAmount"
                   />
-                  <div className="flex justify-between mt-2 text-default">
-                    <div className="flex flex-wrap gap-1">
-                      <span className="dark:text-color-text-primary text-color-light-text-primary">
-                        {t('withdraw:available')}:
+                  <div className="flex flex-wrap justify-between gap-1 mt-2 text-default">
+                    <span className="dark:text-color-text-primary text-color-light-text-primary">
+                      {t('withdraw:available')}:
+                    </span>
+                    <div className="flex text-black dark:text-white gap-1">
+                      {viewInFiat
+                        ? currencyFormat1(
+                          tipInfo.availableAmountUsd * exchangeRate,
+                          4,
+                          String(localFiat?.name || 'USD'),
+                        )
+                        : `${currencyFormat1(tipInfo.availableAmount, 4, '', false)}`}
+                      <span className='dark:text-color-text-primary text-color-light-text-primary'>
+                        {viewInFiat && `( ${currencyFormat1(tipInfo.availableAmount, 4, '', false)} )`}
                       </span>
-                      <span className="flex text-black dark:text-white">
-                        {viewInFiat
-                          ? currencyFormat1(
-                              tipInfo.availableAmountUsd * exchangeRate,
-                              4,
-                              String(localFiat?.name || 'USD'),
-                            )
-                          : `${currencyFormat1(tipInfo.availableAmount, 4, '', false)}`}
-                      </span>
+
                     </div>
-                    <div className="flex flex-wrap justify-end gap-1">
-                      <span
-                        className="underline cursor-pointer dark:text-color-text-primary text-color-light-text-primary"
-                        onClick={() => setOpenRollover(true)}
-                      >
-                        {t('withdraw:lockedFunds')}:
-                      </span>
-                      <span className="flex text-black dark:text-white">
-                        {viewInFiat
-                          ? `${currencyFormat1(tipInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
-                          : `${currencyFormat1(tipInfo.lockedAmount, 4, '', false)}`}
+                  </div>
+                  <div className="flex flex-wrap justify-between mt-1 gap-1 text-default">
+                    <span
+                      className="underline cursor-pointer dark:text-color-text-primary text-color-light-text-primary"
+                      onClick={() => setOpenRollover(true)}
+                    >
+                      {t('withdraw:lockedFunds')}:
+                    </span>
+                    <div className="flex text-black dark:text-white gap-1">
+                      {viewInFiat
+                        ? `${currencyFormat1(tipInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
+                        : `${currencyFormat1(tipInfo.lockedAmount, 4, '', false)}`}
+                      <span className='dark:text-color-text-primary text-color-light-text-primary'>
+                        {viewInFiat && `( ${currencyFormat1(tipInfo.lockedAmount, 4, '', false)} )`}
                       </span>
                     </div>
                   </div>

@@ -3,7 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import { Repeat } from 'iconsax-react';
 import Image from 'next/image';
-import React, { Ref, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import React, { Ref, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
 import { useForm, UseFormGetValues } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -11,13 +11,14 @@ import * as yup from 'yup';
 
 import { useTranslation } from '@/base/config/i18next';
 import { SWAP_MIN, TOAST_ENUM } from '@/base/constants/common';
-import { currencyFormat1, roundDeciamls } from '@/base/libs/utils';
+import { currencyFormat1, numberWithRounding, roundDeciamls } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 import { BasicFormRef } from '@/base/types/common';
 import { CurrencyType } from '@/base/types/wallet';
 
 import InputNumber from '../input/typing/InputNumber';
 import ModalAssetsPortfolio from '../modal/assestsPortfolio/assestsPortfolio';
+import { api_withdrawInfo } from '@/api/wallet';
 
 type SelectCurrencySwapProps = {
   onSubmit: (data: SwapFormType) => void;
@@ -54,6 +55,13 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const [isLoadingApproximately, setIsLoadingApproximately] = useState<boolean>(false);
   const [isShowFromModal, setIsShowFromModal] = useState<boolean>(false);
   const [isShowToModal, setIsShowToModal] = useState<boolean>(false);
+
+  const [rolloverInfo, setRolloverInfo] = useState({
+    availableAmountUsd: 0,
+    availableAmount: 0,
+    lockedAmount: 0,
+    lockedAmountUsd: 0,
+  });
 
   const schema = yup.object().shape({
     amountFrom: yup
@@ -157,9 +165,10 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     setValue('amountFrom', curVal.amountTo > currentSymbolBalance ? currentSymbolBalance : curVal.amountTo);
   };
 
-  const handleApproximately = async (balance: string) => {
+  const handleApproximately = useCallback(async () => {
     try {
       setIsLoadingApproximately(true);
+      const _balance = watch('amountFrom')
       // const res = await api_exchangeRate(watch('symbolFrom'), watch('symbolTo'));
       const symbolFrom = getSymbolById(watch('symbolFrom'));
       const symbolTo = getSymbolById(watch('symbolTo'));
@@ -168,7 +177,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
       const toPrice = symbolTo ? symbolTo.price : 1;
 
       // const { fromPrice, toPrice } = res.data;
-      const amountTo = (Number(balance) * fromPrice) / toPrice;
+      const amountTo = (Number(_balance) * fromPrice) / toPrice;
 
       setValue('amountTo', roundDeciamls(amountTo, 8).toString());
     } catch (error) {
@@ -176,7 +185,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     } finally {
       setIsLoadingApproximately(false);
     }
-  };
+  }, [watch('symbolFrom'), watch('symbolTo'), watch('amountFrom')]);
 
   const handleGetMaxBalance = () => {
     const symbolFrom = getSymbolById(watch('symbolFrom'));
@@ -204,6 +213,30 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     }
   };
 
+
+  const getRolloverInfo = useCallback(async () => {
+    try {
+      if (!watch('symbolFrom')) {
+        return;
+      }
+      const _fromCoinId = watch('symbolFrom');
+      const _res = await api_withdrawInfo(_fromCoinId);
+      setRolloverInfo({
+        availableAmountUsd: Number(_res.data?.availableWithdrawalAmountUsd || 0),
+        availableAmount: Number(_res.data?.availableWithdrawalAmount || 0),
+        lockedAmount: Number(_res.data?.lockedFundsAmount || 0),
+        lockedAmountUsd: Number(_res.data?.lockedFundsAmountUsd || 0),
+      });
+    } catch (error) {
+      setRolloverInfo({
+        availableAmountUsd: 0,
+        availableAmount: 0,
+        lockedAmount: 0,
+        lockedAmountUsd: 0,
+      });
+    }
+  }, [watch('symbolFrom')]);
+
   useEffect(() => {
     if (cryptoSymbols.length) {
       const symbolFrom = cryptoSymbols[0].id;
@@ -213,13 +246,16 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
       setValue('symbolFrom', symbolFrom);
       setValue('symbolTo', symbolTo);
       setValue('amountFrom', tempAmountFrom.toFixed(4));
-      handleApproximately(tempAmountFrom.toFixed(4));
     }
   }, [cryptoSymbols]);
 
   useEffect(() => {
-    handleApproximately(watch('amountFrom'));
-  }, [watch('amountFrom'), watch('symbolFrom'), watch('symbolTo')]);
+    handleApproximately();
+  }, [handleApproximately]);
+
+  useEffect(() => {
+    getRolloverInfo()
+  }, [getRolloverInfo])
 
   return (
     <>
@@ -231,7 +267,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
           <div className="text-[16px] text-color-light-text-primary dark:text-color-text-primary mb-[20px] text-left">
             <div>
               Min:
-              {currencyFormat1(Number(minSwap), 4, '', false)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+              {numberWithRounding(Number(minSwap), 4)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
             </div>
           </div>
         </div>
@@ -347,8 +383,14 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             </div>
           </div>
           <div className="mt-[20px] flex items-center mb-2 gap-1 justify-between text-[14px]">
-            <div>
-              Real Money: {getBalanceBySymbolId(watch('symbolFrom'))} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+            <div className='flex flex-wrap gap-1'>
+              <span className="dark:text-color-text-primary text-color-light-text-primary">
+                {t('withdraw:available')}:
+              </span>
+              <span>
+                {currencyFormat1(rolloverInfo.availableAmount, 8, '', false)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+              </span>
+
             </div>
             {/* <div>Bonus Money: {Number(swapData.bonusMoney)}</div> */}
           </div>
