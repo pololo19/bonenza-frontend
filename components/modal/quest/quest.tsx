@@ -56,7 +56,7 @@ type QuestItemProps = {
   description: string;
   status: boolean;
   extra: ReactNode;
-  earn: number | string;
+  earn: number;
   percent: number;
   isBigWin?: boolean;
   isExpired?: boolean;
@@ -126,7 +126,7 @@ const QuestItem = ({
             <p className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">{description}</p>
             <div className="flex gap-[5px] items-center">
               <Image width={50} height={50} className="w-[16px] h-[16px]" src="/img/fiats/USDT.png" alt="" />
-              <p className="text-color-secondary font-bold text-m_default sm:text-[16px] italic">{`Earn ${earn} USDT`}</p>
+              <p className="text-color-secondary font-bold text-m_default sm:text-[16px] italic">{`Earn ${currencyFormat1(earn, 8, '', false)} USDT`}</p>
             </div>
           </div>
         </div>
@@ -554,7 +554,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                   <span>{t('quest:accumulateRewards')}</span>
                   <div className="flex gap-[10px] items-center">
                     <Image width={50} height={50} className="w-[25px] h-[25px]" src={'/img/fiats/USDT.png'} alt="" />
-                    <span className="text-[20px] font-bold italic">{`${accumulated} USDT`}</span>
+                    <span className="text-[20px] font-bold italic">{`${currencyFormat1(accumulated, 8, '', false)} USDT`}</span>
                   </div>
                 </div>
                 <div
@@ -643,8 +643,8 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
       >
         <div className="!h-full sm:h-[720px] flex flex-col px-5 py-5 items-center gap-8 overflow-y-auto">
           {prevQuest.unClaimed.daily.length === 0 &&
-          prevQuest.unFinished.daily.length === 0 &&
-          prevQuest.claimed.daily.length === 0 ? (
+            prevQuest.unFinished.daily.length === 0 &&
+            prevQuest.claimed.daily.length === 0 ? (
             <div className="h-full flex flex-col justify-center min-h-[150px] text-color-text-primary text-default w-full items-center pb-16">
               <CsrWrapper>
                 <Image

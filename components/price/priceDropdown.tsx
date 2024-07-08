@@ -55,8 +55,8 @@ export default function PriceDropdown() {
                   modules={[Autoplay]}
                   className="max-h-[48px]"
                 >
-                  {cryptoSymbols.map((symbol) => (
-                    <SwiperSlide key={symbol.id}>
+                  {cryptoSymbols.map((symbol, index) => (
+                    <SwiperSlide key={index}>
                       <div className="flex justify-center items-center h-[48px] gap-1 sm:gap-2 w-auto">
                         <Image
                           width={32}
@@ -107,6 +107,7 @@ export default function PriceDropdown() {
                 <div className="max-h-[600px] scrollbar overflow-y-scroll border border-solid border-color-card-body-primary px-5 py-1 sm:relative fixed rounded-md dark:bg-color-header-primary bg-white sm:w-auto w-[100vw] shadow-gray-700 drop-shadow-sm ">
                   {cryptoSymbols.map((symbol, index) => (
                     <div
+                      key={index}
                       className={cn('flex justify-between items-center py-[10px]', {
                         'border-b border-solid border-b-color-card-body-primary': index < cryptoSymbols.length - 1,
                       })}

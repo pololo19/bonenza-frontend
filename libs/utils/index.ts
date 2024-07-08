@@ -460,6 +460,20 @@ export function currencyFormat1(value: number, zeroNum: number, currency: string
   }
 }
 
+export function numberWithRounding(number: number, zeroNum: number) {
+  try {
+    const res = formatCompactNumber(number, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: zeroNum,
+      roundingPriority: "morePrecision",
+      roundingMode: "ceil"
+    })
+    return res;
+  } catch (error) {
+    return 0;
+  }
+}
+
 export function currencyFormat2(value: string, decimal?: number) {
   const filteredValue = parseFloat(`${value}`.replaceAll(',', ''));
   if (filteredValue < 1000) return filteredValue.toFixed(2);

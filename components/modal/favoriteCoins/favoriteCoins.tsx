@@ -19,6 +19,7 @@ import Loader from '@/components/common/preloader/loader';
 import InputSearch from '@/components/input/typing/InputSearch';
 
 import CommonModal from '../commonModal/commonModal';
+import CsrWrapper from '@/components/CsrWrapper';
 
 type ModalCurrencyTypesProps = {
   onClose: () => void;
@@ -245,14 +246,12 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                       <Switch
                         id={`coin_${index}`}
                         checked={coin.favorite}
-                        className={`${
-                          coin.favorite ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-                        } relative inline-flex h-4 w-8 items-center rounded-full`}
+                        className={`${coin.favorite ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                          } relative inline-flex h-4 w-8 items-center rounded-full`}
                       >
                         <span
-                          className={`${
-                            coin.favorite ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
-                          } inline-block h-4 w-4 transform rounded-full transition`}
+                          className={`${coin.favorite ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                            } inline-block h-4 w-4 transform rounded-full transition`}
                         />
                       </Switch>
                     </div>
@@ -276,14 +275,12 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                       <Switch
                         id={`fiat_${index}`}
                         checked={fiat.favorite}
-                        className={`${
-                          fiat.favorite ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-                        } relative inline-flex h-4 w-8 items-center rounded-full`}
+                        className={`${fiat.favorite ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                          } relative inline-flex h-4 w-8 items-center rounded-full`}
                       >
                         <span
-                          className={`${
-                            fiat.favorite ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
-                          } inline-block h-4 w-4 transform rounded-full transition`}
+                          className={`${fiat.favorite ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                            } inline-block h-4 w-4 transform rounded-full transition`}
                         />
                       </Switch>
                     </div>
@@ -310,12 +307,15 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                 ))}
               {!!listCoinCrypto.length || !!listCoinFiat.length || (openTab === 4 && !!listCoinFavorite.length) || (
                 <div className="relative flex items-center justify-center">
-                  <Image
-                    src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
-                    width={200}
-                    height={200}
-                    alt=""
-                  />
+                  <CsrWrapper>
+                    <Image
+                      src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
+                      width={200}
+                      height={200}
+                      alt=""
+                    />
+                  </CsrWrapper>
+
                   <p className="absolute bottom-0 text-center text-14">{t('deposit:noCoin')}</p>
                 </div>
               )}
