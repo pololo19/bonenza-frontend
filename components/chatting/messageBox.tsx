@@ -166,7 +166,7 @@ export const MessageBox = ({
             <div className="inline-block">
               <div
                 className={cn(
-                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[220px] break-all  rounded-[8px] px-2 py-[6px]',
+                  'text-left text-[13px] h-fit max-w-[220px] sm:max-w-[220px] rounded-[8px] px-2 py-[6px]',
                   {
                     'bg-color-input-primary text-[#CCC]': id !== userId,
                     'bg-[#8873DD] text-[#DDD]': id === userId,
@@ -185,7 +185,7 @@ export const MessageBox = ({
                   </div>
                 )} */}
                 <div
-                  className="break-normal #00BAE6"
+                  className="max-w-[220px] sm:max-w-[220px] !break-words"
                   dangerouslySetInnerHTML={{
                     __html: text.replaceAll('44DDFF', id === userId ? 'FFF' : '44DDFF'),
                   }}

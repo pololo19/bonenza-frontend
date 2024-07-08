@@ -1124,6 +1124,7 @@ export const billTypes = [
   { name: 'transaction:game', value: 1 },
   { name: 'transaction:swap', value: 2 },
   { name: 'transaction:affiliate', value: 3 },
+  { name: 'mycasino:tip', value: 4 },
 ];
 
 export const billType = {
