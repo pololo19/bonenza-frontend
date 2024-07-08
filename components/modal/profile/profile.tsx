@@ -110,6 +110,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
 
   useEffect(() => {
     const selectedUserId = userData.userId;
+    setIsStatistic(false);
     if (show && selectedUserId) {
       getUserProfile(selectedUserId);
     }
