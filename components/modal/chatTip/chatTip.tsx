@@ -228,8 +228,17 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                   labelText={String(t('tip:tipCurrency'))}
                 />
                 <div className="mt-[20px] flex flex-col gap-2">
-                  <div className="text-left text-default dark:text-color-text-primary text-color-light-text-primary">
-                    {t('tip:tipAmount')}
+                  <div className="flex justify-between text-left text-default dark:text-color-text-primary text-color-light-text-primary">
+                    <span>{t('tip:tipAmount')}</span>
+                    <span>{`${
+                      viewInFiat
+                        ? currencyFormat1(1 * exchangeRate, 2, localFiat?.name || 'USD')
+                        : currencyFormat1(1, 2)
+                    } ~ ${
+                      viewInFiat
+                        ? currencyFormat1(5000 * exchangeRate, 2, localFiat?.name || 'USD')
+                        : currencyFormat1(5000, 2)
+                    }`}</span>
                   </div>
                   <InputNumber
                     customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default rounded-default"
