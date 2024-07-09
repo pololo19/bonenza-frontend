@@ -188,11 +188,13 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass={`max-w-full sm:max-w-[420px] sm:max-h-[90vh] h-full sm:!h-[700px]`}
+        panelClass={`max-w-full sm:max-w-[420px] sm:max-h-[90vh] h-full sm:!h-[710px]`}
       >
         <div className="h-full p-6 bg-gradient-card-modal">
-          <div className="font-normal dark:text-white text-black text-[14px] sm:text-[16px] pb-4">Tip</div>
-          <div className="flex flex-col h-full overflow-y-auto">
+          <div className="flex flex-col h-full overflow-y-auto relative">
+            <div className="sticky top-0 font-normal dark:text-white text-black text-[14px] sm:text-[16px] pb-4">
+              {t('mycasino:tip')}
+            </div>
             <div className="flex flex-col items-center gap-4">
               {tipReceiver?.userName ? (
                 <Image
@@ -230,13 +232,15 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                 <div className="mt-[20px] flex flex-col gap-2">
                   <div className="flex justify-between text-left text-default dark:text-color-text-primary text-color-light-text-primary">
                     <span>{t('tip:tipAmount')}</span>
-                    <span>{`${viewInFiat
-                      ? currencyFormat1(1 * exchangeRate, 2, localFiat?.name || 'USD')
-                      : currencyFormat1(1, 2)
-                      } ~ ${viewInFiat
+                    <span>{`${
+                      viewInFiat
+                        ? currencyFormat1(1 * exchangeRate, 2, localFiat?.name || 'USD')
+                        : currencyFormat1(1, 2)
+                    } ~ ${
+                      viewInFiat
                         ? currencyFormat1(5000 * exchangeRate, 2, localFiat?.name || 'USD')
                         : currencyFormat1(5000, 2)
-                      }`}</span>
+                    }`}</span>
                   </div>
                   <InputNumber
                     customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default rounded-default"
@@ -252,15 +256,14 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                     <div className="flex text-black dark:text-white gap-1">
                       {viewInFiat
                         ? currencyFormat1(
-                          tipInfo.availableAmountUsd * exchangeRate,
-                          4,
-                          String(localFiat?.name || 'USD'),
-                        )
+                            tipInfo.availableAmountUsd * exchangeRate,
+                            4,
+                            String(localFiat?.name || 'USD'),
+                          )
                         : `${currencyFormat1(tipInfo.availableAmount, 4, '', false)}`}
-                      <span className='dark:text-color-text-primary text-color-light-text-primary'>
+                      <span className="dark:text-color-text-primary text-color-light-text-primary">
                         {viewInFiat && `( ${currencyFormat1(tipInfo.availableAmount, 4, '', false)} )`}
                       </span>
-
                     </div>
                   </div>
                   <div className="flex flex-wrap justify-between mt-1 gap-1 text-default">
@@ -274,7 +277,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                       {viewInFiat
                         ? `${currencyFormat1(tipInfo.lockedAmountUsd * exchangeRate, 4, localFiat?.name || 'USD')}`
                         : `${currencyFormat1(tipInfo.lockedAmount, 4, '', false)}`}
-                      <span className='dark:text-color-text-primary text-color-light-text-primary'>
+                      <span className="dark:text-color-text-primary text-color-light-text-primary">
                         {viewInFiat && `( ${currencyFormat1(tipInfo.lockedAmount, 4, '', false)} )`}
                       </span>
                     </div>

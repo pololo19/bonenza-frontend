@@ -18,6 +18,7 @@ import SelectCurrencySwap, {
 } from '@/components/selectCurrencySwap/selectCurrencySwap';
 
 import styles from './index.module.scss';
+import ReactLoading from 'react-loading';
 
 const SwapPage = () => {
   const { symbols } = useSelector(
@@ -72,7 +73,6 @@ const SwapPage = () => {
         <title>Swap - Bonenza</title>
       </Head>
       <div className={`${styles.cardContent}`}>
-        {isLoading && <Loader />}
         <div className={`lg:max-w-[75%] ${styles.contentHeader}`}>
           <div>
             <div>
@@ -83,10 +83,14 @@ const SwapPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-gradient-btn-play rounded-large py-[10px] px-[20px] min-w-[140px] hover:opacity-[0.9]"
+                  className="flex justify-center items-center bg-gradient-btn-play rounded-large h-[45px] min-w-[150px] hover:opacity-[0.9]"
                   onClick={emitData}
                 >
-                  {t('swap:swapNow')}
+                  {isLoading ? (
+                    <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-10 !h-10" />
+                  ) : (
+                    t('swap:swapNow')
+                  )}
                 </button>
               </div>
             </div>

@@ -319,5 +319,6 @@ export function getErrorMesssage1(errorType: string) {
       message = 'errors:internalServer';
       break;
   }
+  if (err[0].indexOf('enoughBalanceForSwap') >= 0) message = 'errors:swap:enoughBalanceForSwap';
   return message;
 }
