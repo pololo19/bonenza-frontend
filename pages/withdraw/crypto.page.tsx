@@ -149,8 +149,8 @@ const WithdrawCryptoPage = () => {
       .number()
       .required('Withdraw amount is required')
       .typeError('Withdraw amount is required')
-      .min(+renderMinValue.min.toFixed(4), `Winthdraw amount should greater than ${renderMinValue.min.toFixed(4)}`)
-      .max(+renderMaxValue.toFixed(4), `Winthdraw amount should be less than or equal to ${renderMaxValue.toFixed(4)}`),
+      .min(+renderMinValue.min.toFixed(4), `Withdraw amount should greater than ${renderMinValue.min.toFixed(4)}`)
+      .max(+renderMaxValue.toFixed(4), `Withdraw amount should be less than or equal to ${renderMaxValue.toFixed(4)}`),
     // .required(String(t('withdraw:withdrawAmountRequire')))
     // .test('withdrawAmount', String(t('withdraw:withdrawAmountGreater', { max: minValue })), (_item, testContext) => {
     //   if (testContext?.parent.withdrawAmount > Number(activeCoin?.balance || 0)) return false;
