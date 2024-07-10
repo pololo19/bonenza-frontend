@@ -150,7 +150,10 @@ const WithdrawCryptoPage = () => {
       .required('Withdraw amount is required')
       .typeError('Withdraw amount is required')
       .min(+renderMinValue.min.toFixed(4), `Withdraw amount should greater than ${renderMinValue.min.toFixed(4)}`)
-      .max(+renderMaxValue.toFixed(4), `Withdraw amount should be less than or equal to ${renderMaxValue.toFixed(4)}`),
+      .max(
+        +renderMaxValue.toFixed(4),
+        `Withdraw amount should be less than or equal to ${renderMaxValue.toFixed(4)} ${activeCoin.name}`,
+      ),
     // .required(String(t('withdraw:withdrawAmountRequire')))
     // .test('withdrawAmount', String(t('withdraw:withdrawAmountGreater', { max: minValue })), (_item, testContext) => {
     //   if (testContext?.parent.withdrawAmount > Number(activeCoin?.balance || 0)) return false;
@@ -280,8 +283,8 @@ const WithdrawCryptoPage = () => {
             ? currencyFormat1(renderBalanceValue, 4, '', false)
             : currencyFormat1(withdrawInfo.availableAmount, 4, '', false)
           : withdrawInfo.availableAmount > renderMinValue.min
-            ? renderMinValue.min
-            : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
+          ? renderMinValue.min
+          : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
       ),
     );
   }, [renderMinValue, renderBalanceValue]);
@@ -485,16 +488,15 @@ const WithdrawCryptoPage = () => {
                   <div className="flex text-black dark:text-white gap-1">
                     {viewInFiat
                       ? currencyFormat1(
-                        withdrawInfo.availableAmountUsd * exchangeRate,
-                        4,
-                        String(localFiat?.name || 'USD'),
-                      )
+                          withdrawInfo.availableAmountUsd * exchangeRate,
+                          4,
+                          String(localFiat?.name || 'USD'),
+                        )
                       : `${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)}`}
                     <span className="dark:text-color-text-primary text-color-light-text-primary">
                       {viewInFiat && `(${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)} )`}
                     </span>
                   </div>
-
                 </div>
                 <div className="flex flex-wrap justify-between gap-1 mt-2 text-default">
                   <span
