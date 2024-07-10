@@ -237,10 +237,10 @@ const SelectCurrency = ({
                       >
                         {viewInFiat
                           ? currencyFormat1(
-                            getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
-                            fiatDecimals,
-                            localFiat?.name,
-                          )
+                              getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
+                              fiatDecimals,
+                              localFiat?.name,
+                            )
                           : currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
                       </span>
                     </div>
@@ -274,7 +274,7 @@ const SelectCurrency = ({
                       className="dark:text-white !bg-white dark:!bg-color-input-hover-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
                     />
                   </div>
-                  <div className="py-1 max-h-[250px] overflow-y-auto p-2">
+                  <div className="py-1 max-h-[250px] overflow-y-auto p-2 scrollbar">
                     {filterListCoin.map((symbol, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
@@ -330,10 +330,10 @@ const SelectCurrency = ({
                                         <Lock size={12} variant="Bold" />{' '}
                                         {viewInFiat
                                           ? currencyFormat1(
-                                            lockedAmount * usdtPrice * exchangeRate,
-                                            fiatDecimals,
-                                            localFiat?.name,
-                                          )
+                                              lockedAmount * usdtPrice * exchangeRate,
+                                              fiatDecimals,
+                                              localFiat?.name,
+                                            )
                                           : currencyFormat1(lockedAmount, 2, '', false)}
                                       </span>
                                     </div>

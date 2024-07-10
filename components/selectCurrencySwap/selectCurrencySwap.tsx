@@ -168,7 +168,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   const handleApproximately = useCallback(async () => {
     try {
       setIsLoadingApproximately(true);
-      const _balance = watch('amountFrom')
+      const _balance = watch('amountFrom');
       // const res = await api_exchangeRate(watch('symbolFrom'), watch('symbolTo'));
       const symbolFrom = getSymbolById(watch('symbolFrom'));
       const symbolTo = getSymbolById(watch('symbolTo'));
@@ -213,7 +213,6 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
     }
   };
 
-
   const getRolloverInfo = useCallback(async () => {
     try {
       if (!watch('symbolFrom')) {
@@ -254,8 +253,8 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   }, [handleApproximately]);
 
   useEffect(() => {
-    getRolloverInfo()
-  }, [getRolloverInfo])
+    getRolloverInfo();
+  }, [getRolloverInfo]);
 
   return (
     <>
@@ -277,7 +276,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
               className={cn(
                 'w-full pl-[18px] pr-[5px] h-full py-[5px] text-[16px] rounded-default bg-color-light-input-primary dark:bg-color-input-primary flex items-center justify-between border border-solid border-transparent gap-[10px] focus-within:border-color-primary min-h-[45px]',
                 {
-                  'border-red-50': errors.amountFrom?.message,
+                  'border-red-500': errors.amountFrom?.message,
                 },
               )}
             >
@@ -293,7 +292,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                 <div
                   role="button"
                   onClick={handleGetMaxBalance}
-                  className="px-2 md:px-3 py-[6px] md:min-w-[60px] rounded-default dark:bg-color-btn-primary bg-white dark:text-color-text-primary text-black text-center text-default"
+                  className="px-2 md:px-3 py-[6px] md:min-w-[60px] rounded-default dark:bg-color-btn-primary bg-white dark:text-white text-black text-center text-default"
                 >
                   {t('deposit:max')}
                 </div>
@@ -383,14 +382,14 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
             </div>
           </div>
           <div className="mt-[20px] flex items-center mb-2 gap-1 justify-between text-[14px]">
-            <div className='flex flex-wrap gap-1'>
+            <div className="flex flex-wrap gap-1">
               <span className="dark:text-color-text-primary text-color-light-text-primary">
                 {t('withdraw:available')}:
               </span>
               <span>
-                {currencyFormat1(rolloverInfo.availableAmount, 8, '', false)} {getSymbolById(watch('symbolFrom'))?.name ?? ''}
+                {currencyFormat1(rolloverInfo.availableAmount, 8, '', false)}{' '}
+                {getSymbolById(watch('symbolFrom'))?.name ?? ''}
               </span>
-
             </div>
             {/* <div>Bonus Money: {Number(swapData.bonusMoney)}</div> */}
           </div>
