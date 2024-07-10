@@ -147,6 +147,7 @@ function RewardsComponent() {
       const _resBonus = await api_getClaims();
 
       const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+      await getRewards();
       await getCommissionData();
 
       dispatch(setLockedAmount(tempLockedAmount));
@@ -264,15 +265,14 @@ function RewardsComponent() {
         cell: ({ row }) => (
           <div className={cn('flex items-center justify-start text-white gap-[5px] truncate pl-2 lg:pl-[100px]')}>
             <div className="flex gap-1 font-normal truncate">
-              {`${
-                viewInFiat
+              {`${viewInFiat
                   ? currencyFormat1(
-                      row.original.commissionRewardsAvailable * usdtPrice * exchangeRate,
-                      decimals,
-                      localFiat?.name,
-                    )
+                    row.original.commissionRewardsAvailable * usdtPrice * exchangeRate,
+                    decimals,
+                    localFiat?.name,
+                  )
                   : currencyFormat1(row.original.commissionRewardsAvailable, decimals)
-              }`}
+                }`}
               <Image
                 height={20}
                 width={20}
