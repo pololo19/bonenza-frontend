@@ -162,7 +162,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
       dispatch(getBalance());
       if (!isShowMessage)
         await api_sendChat(
-          `<div style="background: #00000022; padding: 8px; color: #BBBBBB; border-radius: 8px; margin-bottom: 4px; font-weight: 600; overflow: hidden;">Sent tip to ${tipReceiver.userName}</div> ${data.tipMessage}`,
+          `<div style="background: #00000022; padding: 8px; color: #BBBBBB; border-radius: 8px; margin-bottom: 4px; font-weight: 600; overflow: hidden;">Sent tip to <span style="cursor: pointer; font-weight:400; color: #44DDFF;" id="message-${tipReceiver.userId}">@${tipReceiver.userName}</span></div> ${data.tipMessage}`,
           undefined,
         );
       reset({ tipAmount: '0', tipMessage: '' });
