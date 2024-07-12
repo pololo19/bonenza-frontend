@@ -1,8 +1,5 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ElementType, useState } from 'react';
-import { toast } from 'react-toastify';
-import Web3 from 'web3';
-
 import { useTranslation } from '@/base/config/i18next';
 import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
