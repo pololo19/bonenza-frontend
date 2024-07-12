@@ -268,8 +268,11 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
 
   useEffect(() => {
     const amountFrom = watch('amountFrom');
-    if (amountFrom < minSwap) setSwapAvailable(false);
-    else setSwapAvailable(true);
+    if (parseFloat(amountFrom) < parseFloat(minSwap)) {
+      setSwapAvailable(false);
+    } else {
+      setSwapAvailable(true);
+    }
   }, [watch('amountFrom', minSwap)]);
 
   return (
