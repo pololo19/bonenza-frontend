@@ -498,7 +498,7 @@ function BonusLoggedPage() {
                         <span className="font-semibold text-black dark:text-white">
                           {bonusData.vip.levelUp.currentVipXP}
                         </span>
-                        <span>{` / `}</span>
+                        <span className="px-1">/</span>
                         <span className="font-semibold text-white">{bonusData.vip.levelUp.nextVipXP}</span>
                       </div>
                       <div className="dark:text-white text-color-light-text-primary  text-m_default sm:text-[14px] text-right font-semibold">
@@ -630,7 +630,7 @@ function BonusLoggedPage() {
                                 bonusData.general.wagerAmountForDailySpin * exchangeRate,
                                 2,
                                 localFiat?.name || 'USD',
-                                false,
+                                true,
                               )}
                             </>
                           ) : (
