@@ -29,6 +29,7 @@ const SwapPage = () => {
   );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSwapAvailable, setIsSwapAvailable] = useState<boolean>(true);
   const formDataRef = useRef<SelectCurrencySwapFormRef>(null);
 
   const { t } = useTranslation('');
@@ -77,14 +78,15 @@ const SwapPage = () => {
           <div>
             <div>
               <div className="flex flex-col items-start gap-[15px] w-full text-start">
-                <SelectCurrencySwap onSubmit={onSubmit} ref={formDataRef} />
+                <SelectCurrencySwap onSubmit={onSubmit} ref={formDataRef} setSwapAvailable={setIsSwapAvailable} />
               </div>
 
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="flex justify-center items-center bg-gradient-btn-play rounded-large h-[45px] min-w-[150px] hover:opacity-[0.9]"
+                  className="flex justify-center items-center bg-gradient-btn-play rounded-large h-[45px] min-w-[150px] hover:opacity-[0.9] disabled:opacity-60 disabled:text-gray-300"
                   onClick={emitData}
+                  disabled={!isSwapAvailable}
                 >
                   {isLoading ? (
                     <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-10 !h-10" />
