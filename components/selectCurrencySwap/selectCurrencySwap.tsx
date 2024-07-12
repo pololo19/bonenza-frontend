@@ -3,7 +3,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import cn from 'classnames';
 import { Repeat } from 'iconsax-react';
 import Image from 'next/image';
-import React, { Ref, useCallback, useEffect, useImperativeHandle, useMemo, useState } from 'react';
+import React, {
+  Dispatch,
+  Ref,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useState,
+} from 'react';
 import { useForm, UseFormGetValues } from 'react-hook-form';
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -22,6 +31,7 @@ import { api_withdrawInfo } from '@/api/wallet';
 
 type SelectCurrencySwapProps = {
   onSubmit: (data: SwapFormType) => void;
+  setSwapAvailable: Dispatch<SetStateAction<boolean>>;
 };
 
 export type SwapFormType = {
@@ -40,7 +50,7 @@ export type SelectCurrencySwapFormRef = BasicFormRef & {
 };
 
 const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurrencySwapFormRef>) => {
-  const { onSubmit } = props;
+  const { onSubmit, setSwapAvailable } = props;
   const { t } = useTranslation('');
 
   const { cryptoSymbols, balances, swapFee } = useSelector(
@@ -255,6 +265,12 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
   useEffect(() => {
     getRolloverInfo();
   }, [getRolloverInfo]);
+
+  useEffect(() => {
+    const amountFrom = watch('amountFrom');
+    if (amountFrom < minSwap) setSwapAvailable(false);
+    else setSwapAvailable(true);
+  }, [watch('amountFrom', minSwap)]);
 
   return (
     <>
