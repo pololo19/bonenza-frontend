@@ -313,11 +313,6 @@ function ReferralCodeFriendComponent() {
                 <label className="!text-default !font-normal" htmlFor="registrationDate">
                   {t('mycasino:registrationDate')}
                 </label>
-                {/* <AdminInputDateRange
-                  control={control}
-                  name="registrationDate"
-                  customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
-                /> */}
                 <InputDateRangePicker
                   control={control}
                   startName="registrationStartDate"

@@ -266,12 +266,12 @@ function RewardsComponent() {
           <div className={cn('flex items-center justify-start text-white gap-[5px] truncate pl-2 lg:pl-[100px]')}>
             <div className="flex gap-1 font-normal truncate">
               {`${viewInFiat
-                  ? currencyFormat1(
-                    row.original.commissionRewardsAvailable * usdtPrice * exchangeRate,
-                    decimals,
-                    localFiat?.name,
-                  )
-                  : currencyFormat1(row.original.commissionRewardsAvailable, decimals)
+                ? currencyFormat1(
+                  row.original.commissionRewardsAvailable * usdtPrice * exchangeRate,
+                  decimals,
+                  localFiat?.name,
+                )
+                : currencyFormat1(row.original.commissionRewardsAvailable, decimals)
                 }`}
               <Image
                 height={20}
@@ -534,11 +534,6 @@ function RewardsComponent() {
                 <label className="font-normal text-default" htmlFor="registrationDate">
                   {t('mycasino:registrationDate')}
                 </label>
-                {/* <AdminInputDateRange
-                  control={control}
-                  name="registrationDate"
-                  customClass="min-w-[350px] !bg-[#181818] !border-none !text-white py-2"
-                /> */}
                 <InputDateRangePicker
                   control={control}
                   startName="registrationStartDate"
