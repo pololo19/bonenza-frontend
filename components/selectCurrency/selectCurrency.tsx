@@ -5,7 +5,6 @@ import { Lock } from 'iconsax-react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { Fragment, useEffect, useMemo, useState } from 'react';
-import LazyLoad from 'react-lazy-load';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -155,18 +154,16 @@ const SelectCurrency = ({
                       key={index}
                       onClick={() => handleChangeCrypto(symbol)}
                     >
-                      <LazyLoad height={24}>
-                        <Image
-                          width={24}
-                          height={24}
-                          src={symbol.logo ? symbol.logo : '/img/fiats/USDT.png'}
-                          className="inline"
-                          alt=""
-                          onError={(e) => {
-                            e.currentTarget.src = '/img/fiats/USDT.png';
-                          }}
-                        />
-                      </LazyLoad>
+                      <Image
+                        width={24}
+                        height={24}
+                        src={symbol.logo ? symbol.logo : '/img/fiats/USDT.png'}
+                        className="inline"
+                        alt=""
+                        onError={(e) => {
+                          e.currentTarget.src = '/img/fiats/USDT.png';
+                        }}
+                      />
 
                       <h1 className="text-default font-normal pt-[3px]">{symbol.name}</h1>
                     </button>
@@ -203,18 +200,16 @@ const SelectCurrency = ({
                   )}
                 >
                   <div className="flex-1 flex items-center justify-start gap-[10px]">
-                    <LazyLoad height={30}>
-                      <Image
-                        width={30}
-                        height={30}
-                        src={activeCoin.logo ? activeCoin.logo : '/img/fiats/USD.png'}
-                        onError={(e) => {
-                          e.currentTarget.src = '/img/fiats/USD.png';
-                        }}
-                        className="inline"
-                        alt=""
-                      />
-                    </LazyLoad>
+                    <Image
+                      width={30}
+                      height={30}
+                      src={activeCoin.logo ? activeCoin.logo : '/img/fiats/USD.png'}
+                      onError={(e) => {
+                        e.currentTarget.src = '/img/fiats/USD.png';
+                      }}
+                      className="inline"
+                      alt=""
+                    />
 
                     <div
                       className={cn('flex-1 text-black dark:text-white text-start text-default', {
@@ -237,10 +232,10 @@ const SelectCurrency = ({
                       >
                         {viewInFiat
                           ? currencyFormat1(
-                              getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
-                              fiatDecimals,
-                              localFiat?.name,
-                            )
+                            getBalanceBySymbol(activeCoin) * activeCoin.price * exchangeRate,
+                            fiatDecimals,
+                            localFiat?.name,
+                          )
                           : currencyFormat1(getBalanceBySymbol(activeCoin), cryptoDecimals, '', false)}
                       </span>
                     </div>
@@ -330,10 +325,10 @@ const SelectCurrency = ({
                                         <Lock size={12} variant="Bold" />{' '}
                                         {viewInFiat
                                           ? currencyFormat1(
-                                              lockedAmount * usdtPrice * exchangeRate,
-                                              fiatDecimals,
-                                              localFiat?.name,
-                                            )
+                                            lockedAmount * usdtPrice * exchangeRate,
+                                            fiatDecimals,
+                                            localFiat?.name,
+                                          )
                                           : currencyFormat1(lockedAmount, 2, '', false)}
                                       </span>
                                     </div>

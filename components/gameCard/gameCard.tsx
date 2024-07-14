@@ -54,7 +54,6 @@ function GameCard(props: GameCardProps) {
         })}
       >
         <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-default">
-          {/* <LazyLoad className="min-h-[120px]"> */}
           <Image
             height={160}
             width={160}
@@ -67,7 +66,6 @@ function GameCard(props: GameCardProps) {
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
           />
-          {/* </LazyLoad> */}
         </Link>
         <div className="flex flex-col gap-5 py-2">
           <div className="flex justify-center items-center gap-[5px]">
@@ -89,7 +87,7 @@ function GameCard(props: GameCardProps) {
         opacity={100}
         id={`${gameDetail?.identifier} ${uuid}`}
         place="bottom"
-        // content={String(gameDetail?.description)}
+      // content={String(gameDetail?.description)}
       >
         <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3">
           <span className="font-bold dark:text-gray-300 text-gray-700">RPT:</span>
@@ -104,9 +102,8 @@ function GameCard(props: GameCardProps) {
         </div>
         <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
           <span className="font-bold dark:text-gray-300 text-gray-700">Recent biggest win:</span>
-          <span className="font-bold dark:text-gray-300 text-gray-700">{`${
-            gameDetail?.multiplier.toFixed(2) || '0'
-          } x`}</span>
+          <span className="font-bold dark:text-gray-300 text-gray-700">{`${gameDetail?.multiplier.toFixed(2) || '0'
+            } x`}</span>
         </div>
       </Tooltip>
     </div>

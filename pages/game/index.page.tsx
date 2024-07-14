@@ -199,7 +199,7 @@ function GamePage() {
             status: false,
           });
         })
-        .finally(() => {});
+        .finally(() => { });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
@@ -273,7 +273,7 @@ function GamePage() {
             status: false,
           });
         })
-        .finally(() => {});
+        .finally(() => { });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
@@ -655,7 +655,6 @@ function GamePage() {
                   },
                 )}
               >
-                {/* <LazyLoad width="100%" height="100%"> */}
                 <Image
                   src={
                     gameDetail.identifier
@@ -669,7 +668,6 @@ function GamePage() {
                     e.currentTarget.src = '/img/game-background.png';
                   }}
                 />
-                {/* </LazyLoad> */}
 
                 <div className={cn('h-full bg-black/80 w-full absolute')} />
 
