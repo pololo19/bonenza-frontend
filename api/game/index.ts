@@ -204,8 +204,17 @@ export const api_reviewList = async (
   sort: ReviewListSortType,
   userId: string,
 ) => {
-  if (!commentId) return api.get(API_GAME_REVIEW_LIST, { params: { page, pageSize, sort, gameId, userId } });
-  return api.get(API_GAME_REVIEW_LIST, { params: { commentId, page, pageSize, sort, gameId, userId } });
+  const data: any = {
+    commentId,
+    gameId,
+    page,
+    pageSize,
+    sort,
+    userId
+  }
+  if (!commentId) delete data.commentId;
+  if (!userId) delete data.userId;
+  return api.get(API_GAME_REVIEW_LIST, { params: data });
 };
 
 export const api_reviewLike = async (commentId: string) => {

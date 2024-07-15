@@ -16,15 +16,19 @@ import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
 import SortBy from '@/components/sortBy/sortBy';
 
-const sortBy = [
-  { id: 2, label: 'Popular', orderValue: 'popular', orderBy: 'total_favorite' },
-  { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
-  { id: 4, label: 'Z-A', orderValue: 'desc', orderBy: 'title' },
-  { id: 5, label: 'New', orderValue: 'desc', orderBy: 'released_at' },
-];
+
 
 function ProviderPage() {
   const { t } = useTranslation('');
+
+  const sortBy = [
+    { id: 2, label: String(t('casino:Popular')), orderValue: 'popular', orderBy: 'total_favorite' },
+    { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
+    { id: 4, label: 'Z-A', orderValue: 'desc', orderBy: 'title' },
+    { id: 5, label: String(t('casino:new')), orderValue: 'desc', orderBy: 'released_at' },
+  ];
+
+
   const { query } = useRouter();
   const { id } = query;
 

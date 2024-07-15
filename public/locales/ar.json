@@ -757,7 +757,9 @@
   "casino": {
     "gameNameAndProvider": "اسم اللعبة | ",
     "loadMore": "تحميل المزيد",
-    "sortBy": "ترتيب حسب",
+    "mayLike": "قد يعجبك",
+    "popular": "شائع",
+    "new": "جديد",
     "allProviders": "جميع مقدمي الخدمات",
     "clearAll": "امسح الكل",
     "provider": "مزود",

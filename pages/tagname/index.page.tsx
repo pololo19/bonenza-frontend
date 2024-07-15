@@ -24,18 +24,22 @@ import GameBannerSlider from '@/components/sliders/gameSliders';
 import SortBy from '@/components/sortBy/sortBy';
 import TabGames from '@/components/tabGames/tabGames';
 
-const sortBy = [
-  { id: 1, label: 'You may like', orderValue: 'like', orderBy: '' },
-  { id: 2, label: 'Popular', orderValue: 'popular', orderBy: 'total_favorite' },
-  { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
-  { id: 4, label: 'Z-A', orderValue: 'desc', orderBy: 'title' },
-  { id: 5, label: 'New', orderValue: 'desc', orderBy: 'released_at' },
-];
+
 
 const pageSize = 40;
 
 function CasinoTagnamePage() {
   const { t } = useTranslation('');
+
+  const sortBy = [
+    { id: 1, label: String(t('casino:mayLike')), orderValue: 'like', orderBy: '' },
+    { id: 2, label: String(t('casino:popular')), orderValue: 'popular', orderBy: 'total_favorite' },
+    { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
+    { id: 4, label: 'Z-A', orderValue: 'desc', orderBy: 'title' },
+    { id: 5, label: String(t('casino:new')), orderValue: 'desc', orderBy: 'released_at' },
+  ];
+
+
   const dispatch = useDispatch();
   const { query } = useRouter();
   const { key } = query;
