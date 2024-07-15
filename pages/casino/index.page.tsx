@@ -6,12 +6,12 @@ import Link from 'next/link';
 import { ReactElement, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { api_getCasinoWithKey, api_getProviders, api_getThemes, CasinoRequest } from '@/api/game';
+import { api_getCasinoGameData, api_getCasinoWithKey, api_getProviders, api_getThemes, CasinoRequest } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
-import { GameListType, GameProviderDetail } from '@/base/types/common';
+import { BetDetailType, GameListType, GameProviderDetail } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
 import Loader from '@/components/common/preloader/loader';
 import GameCard from '@/components/gameCard/gameCard';
@@ -30,8 +30,6 @@ type ListGamesType = {
   newReleases: GameListType[];
   blackjacks: GameListType[];
   tableGames: GameListType[];
-  megaways: GameListType[];
-  exclusives: GameListType[];
 };
 
 function CasinoPage() {
@@ -40,6 +38,7 @@ function CasinoPage() {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [listBigWinGame, setListBigWinGame] = useState<BetDetailType[]>([]);
   const [listProvider, setListProvider] = useState<GameProviderDetail[]>([]);
   const [listTheme, setListTheme] = useState<string[]>([]);
 
@@ -51,11 +50,9 @@ function CasinoPage() {
     newReleases: [],
     blackjacks: [],
     tableGames: [],
-    megaways: [],
-    exclusives: [],
   });
 
-  const getGames = async () => {
+  const getInitialData = async () => {
     const initGameDatas: ListGamesType = {
       games: [],
       slots: [],
@@ -64,20 +61,16 @@ function CasinoPage() {
       newReleases: [],
       blackjacks: [],
       tableGames: [],
-      megaways: [],
-      exclusives: [],
     };
     try {
       setIsLoading(true);
-      const keys = ['slots', 'hot-games', 'live-casino', 'new-releases', 'blackjack', 'table-games'];
-      const params: CasinoRequest = { page: 1, pageSize: 20, providers: '[]', sort: 'like' };
-      const _res = await Promise.all(keys.map((key) => api_getCasinoWithKey(key, params)));
+      const _resCasino = await api_getCasinoGameData();
+      const keys = ['slots', 'hotGames', 'liveCasino', 'newReleases', 'blackjacks', 'tableGames'];
+      let i = 0;
       let tempGameLists: ListGamesType = { ...initGameDatas };
-      for (let i = 0; i < _res.length; i++) {
-        const element = _res[i];
-        const totalCount = element?.data?.totalCount ?? 0;
-        const games = element?.data?.games ?? [];
-        const tempGameListData = games?.map((item: any) => ({
+      for (i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const tempGameListData = _resCasino.data[key]?.map((item: any) => ({
           id: item?.id ?? '',
           title: item?.title ?? '',
           description: item?.description ?? '',
@@ -93,41 +86,51 @@ function CasinoPage() {
         if (i === 3) tempGameLists['newReleases'] = [...tempGameListData];
         if (i === 4) tempGameLists['blackjacks'] = [...tempGameListData];
         if (i === 5) tempGameLists['tableGames'] = [...tempGameListData];
-        setListGames(tempGameLists);
       }
-    } catch (error) {
-      setListGames({ ...initGameDatas });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      const tempRecentBigWins: BetDetailType[] = _resCasino.data.recentBigWins?.map((item: any) => ({
+        id: item?.id ?? '',
+        game: item?.title ?? '',
+        identifier: item?.identifier ?? '',
+        amount: Number(item.betAmount || 0),
+        amountUsd: Number(item.betAmountUsd || 0),
+        currency: item?.currency ?? 'USD',
+        currencyType: 'crypto',
+        multiplier: Number(item?.multiplier || 0),
+        profit: Number(item?.profitAmount || 0),
+        profitUsd: Number(item?.profitAmountUsd || 0),
 
-  const getListProvidersAndThemes = async () => {
-    try {
-      setIsLoading(true);
-      const [_resProviders, _resThemes] = await Promise.all([api_getProviders(), api_getThemes()]);
-      const providers = _resProviders.data.map((provider: any) => ({
+        userId: item?.userId ?? '',
+        userName: item?.userName ?? '',
+        userAvatar: item?.userAvatar ?? '',
+        providerName: item?.providerName ?? '',
+      }));
+
+      const tempProviders = _resCasino.data.gameProviders?.map((provider: any) => ({
         id: provider.id,
         name: provider.name,
         image: provider.identifier,
         isSelect: false,
         totalGames: provider.gameCount,
       }));
-
-      const themes = [..._resThemes.data];
-      setListProvider(providers);
-      setListTheme(themes);
-    } catch (error) {
+      const tempThemes = [..._resCasino.data.themes];
+      setListGames(tempGameLists);
+      setListBigWinGame(tempRecentBigWins);
+      setListProvider(tempProviders);
+      setListTheme(tempThemes);
+    }
+    catch (err) {
+      console.error(err);
+      setListGames({ ...initGameDatas });
+      setListBigWinGame([]);
       setListProvider([]);
       setListTheme([]);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
   useEffect(() => {
-    getGames();
-    getListProvidersAndThemes();
+    getInitialData();
     localStorage.removeItem('tab');
   }, []);
 
@@ -154,7 +157,7 @@ function CasinoPage() {
       {/* Game Options */}
       <div className="flex flex-col gap-[30px] sm:pt-0 pt-[10px]">
         <div className="relative sm:block hidden">
-          <RecentBigWinComponent />
+          <RecentBigWinComponent listBigWinGame={listBigWinGame} />
         </div>
 
         <CasinoSS
