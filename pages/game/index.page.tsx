@@ -4,7 +4,7 @@ import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
@@ -57,7 +57,7 @@ function GamePage() {
   const [isLoadingGame, setIsLoadingGame] = useState({
     request: '',
     status: false,
-  });
+  }); // loading button
 
   const [gameDetail, setGameDetail] = useState<GameListType>({
     id: '',
@@ -82,6 +82,8 @@ function GamePage() {
   const [successfullyLaunched, setSuccessfullyLaunched] = useState<boolean>(false);
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
 
+  const playStatusRef = useRef<'Free' | 'Real'>('Free'); // free: free, real: real
+
   const [tab, setTab] = useState(1);
 
   const gameScreen = useFullScreenHandle();
@@ -89,7 +91,7 @@ function GamePage() {
 
   const { query, reload } = useRouter();
   const { gameId } = query;
-  const [isSatisfied, setIsSatisfied] = useState<boolean>(true);
+  const [isSatisfied, setIsSatisfied] = useState<boolean>(true); // if balance is enough, value is true
   const dispatch = useDispatch();
 
   const { isLogin, localFiat, activeCurrency, balances, language, viewInFiat } = useSelector(
@@ -105,13 +107,66 @@ function GamePage() {
     shallowEqual,
   );
 
-  const getGameDetail = async () => {
+  const _initFreePlay = useCallback(() => {
+    if (!gameDetail.id || !gameDetail.allowedDemo || isMobile) return;
+    if (playStatusRef.current === 'Real') return;
+    setIsLoading(true);
+
+    const list = document.getElementById('game_wrapper');
+    if (list?.firstElementChild) {
+      list?.removeChild(list?.firstElementChild);
+    }
+    const requestData: GameDemoRequest = {
+      gameId: gameDetail.id,
+      locale: language,
+    };
+
+    api_startGameDemo(requestData)
+      .then((res) => {
+        const lanuchGameOption: LaunchUrlTye = {
+          gameLauncherUrl: res.data.gameLauncherUrl,
+          gameUrl: res.data.gameUrl,
+          strategy: res.data.strategy,
+          lobbyUrl: res.data.lobbyUrl,
+          tokenId: res.data.tokenId,
+        };
+
+        const success = () => {
+          setIsLoading(false);
+        };
+        const error = () => {
+          setIsLoading(false);
+        };
+        launchGame(
+          lanuchGameOption.gameUrl,
+          lanuchGameOption.gameLauncherUrl,
+          lanuchGameOption.strategy,
+          lanuchGameOption.lobbyUrl,
+          lanuchGameOption.tokenId,
+          success,
+          error,
+        );
+      })
+      .catch((error: any) => {
+        const errType = error.response?.data?.message ?? '';
+        const errMessage = getErrorMesssage1(errType);
+        toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+        setIsLoading(false);
+      })
+      .finally(() => { });
+
+  }, [language, gameDetail.id, isMobile])
+
+  const _initLoad = useCallback(async () => {
+    if (!String(gameId)) {
+      return;
+    }
+    setIsLoading(true);
+    setIsNotFoundGame(false);
+
     try {
-      if (!String(gameId)) {
-        return;
-      }
-      setIsLoading(true);
-      setIsNotFoundGame(false);
+
+      /****************** LOAD GAME DATA  **************************/
 
       const _res = await api_getGameDetail(String(gameId));
 
@@ -132,27 +187,44 @@ function GamePage() {
         favorites: _res.data?.favoriteCount,
       };
 
+      setGameDetail(tempGameDetailData);
+
       if (!_res.data?.allowLocation) {
         toast.error(t('errors:game:canDetectLocation'), { containerId: TOAST_ENUM.COMMON });
       }
 
-      setGameDetail(tempGameDetailData);
+      playStatusRef.current = 'Free';
+      setIsLoading(false);
+
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-      setIsNotFoundGame(true);
-    } finally {
       setIsLoading(false);
+      setIsNotFoundGame(true);
     }
-  };
+
+  }, [String(gameId)])
 
   const handleFreeplay = () => {
     try {
+
+      playStatusRef.current = 'Free';
       setIsLoadingGame({
         request: 'demo',
         status: true,
       });
+      setSuccessfullyLaunched(false);
+
+      if (!isMobile) {
+        setSuccessfullyLaunched(true);
+        setIsLoadingGame({
+          status: false,
+          request: 'demo',
+        });
+        return;
+      }
+
       const list = document.getElementById('game_wrapper');
       if (list?.firstElementChild) {
         list?.removeChild(list?.firstElementChild);
@@ -161,12 +233,12 @@ function GamePage() {
         gameId: gameDetail.id,
         locale: language,
       };
-      // const res = await api_startGameDemo(requestData);
       let newWindow: any;
       if (isMobile) {
         newWindow = window.open('about:blank', '_blank');
       }
 
+      // for desktop, free mode is already rendered, no need to call this api
       api_startGameDemo(requestData)
         .then((res) => {
           const lanuchGameOption: LaunchUrlTye = {
@@ -176,19 +248,12 @@ function GamePage() {
             lobbyUrl: res.data.lobbyUrl,
             tokenId: res.data.tokenId,
           };
+          setIsLoadingGame({
+            status: false,
+            request: 'demo',
+          });
+          newWindow.location.href = lanuchGameOption.gameUrl;
 
-          if (isMobile && newWindow) {
-            newWindow.location.href = lanuchGameOption.gameUrl;
-          }
-          if (!isMobile) {
-            launchGame(
-              lanuchGameOption.gameUrl,
-              lanuchGameOption.gameLauncherUrl,
-              lanuchGameOption.strategy,
-              lanuchGameOption.lobbyUrl,
-              lanuchGameOption.tokenId,
-            );
-          }
         })
         .catch((error: any) => {
           const errType = error.response?.data?.message ?? '';
@@ -210,8 +275,9 @@ function GamePage() {
     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
     dispatch(changeIsShowAuthenticationModal(true));
   };
-  const handlePlayRequest = () => {
+  const handleRealPlay = () => {
     try {
+      playStatusRef.current = 'Real';
       const tempBalances = [...balances];
       const selectedBalance = tempBalances.find((item) => item.symbolId === activeCurrency.id);
       const balance = selectedBalance?.amount ?? 0;
@@ -241,7 +307,6 @@ function GamePage() {
         newWindow = window.open('about:blank', '_blank');
       }
 
-      // const res = await api_startGameSession(requestData);
       api_startGameSession(requestData)
         .then((res) => {
           const lanuchGameOption: LaunchUrlTye = {
@@ -252,15 +317,32 @@ function GamePage() {
             tokenId: res.data.tokenId,
           };
           if (newWindow && isMobile) {
+            setSuccessfullyLaunched(true);
+            setIsLoadingGame({
+              status: false,
+              request: 'real',
+            });
             newWindow.location.href = lanuchGameOption.gameUrl;
           }
           if (!isMobile) {
+            const success = () => {
+              setSuccessfullyLaunched(true);
+              setIsLoadingGame({
+                status: false,
+                request: 'real',
+              });
+            };
+            const error = () => {
+              setSuccessfullyLaunched(false);
+            };
             launchGame(
               lanuchGameOption.gameUrl,
               lanuchGameOption.gameLauncherUrl,
               lanuchGameOption.strategy,
               lanuchGameOption.lobbyUrl,
               lanuchGameOption.tokenId,
+              success,
+              error,
             );
           }
         })
@@ -285,7 +367,7 @@ function GamePage() {
     }
   };
 
-  const getGameReactInfo = async () => {
+  const getGameReactInfo = useCallback(async () => {
     try {
       if (!gameDetail.id || !isLogin) return;
       const res = await api_getGameFavorite(gameDetail.id);
@@ -303,7 +385,7 @@ function GamePage() {
         isLike: false,
       });
     }
-  };
+  }, [gameDetail.id, isLogin]);
 
   const handleReactGame = async (reaction: 'like' | 'favorite') => {
     try {
@@ -336,27 +418,13 @@ function GamePage() {
     }
   };
 
-  const launchGame = (gameUrl: string, launcherUrl: string, strategy: string, lobbyUrl: string, tokenId: string) => {
+  const launchGame = (gameUrl: string, launcherUrl: string, strategy: string, lobbyUrl: string, tokenId: string, onSuccess: Function, onError: Function) => {
     try {
-      // Define the game launch options
-      // setIsLoading(true);
       const list = document.getElementById('game_wrapper');
       if (list?.firstElementChild) {
         list?.removeChild(list?.firstElementChild);
       }
 
-      const loadingGameStatus = { ...isLoadingGame };
-
-      const success = () => {
-        setSuccessfullyLaunched(true);
-        setIsLoadingGame({
-          status: false,
-          request: loadingGameStatus.request,
-        });
-      };
-      const error = () => {
-        setSuccessfullyLaunched(false);
-      };
       const gameLaunchOptions = {
         target_element: 'game_wrapper',
         launch_options: {
@@ -375,45 +443,44 @@ function GamePage() {
           // The number of game parameters depends on 'strategy'.
         },
       };
-      window.sg.launch(gameLaunchOptions, success, error);
-      // if (isMobile) {
-      //   var a = document.createElement('a');
-      //   a.href = gameUrl;
-      //   a.target = '_blank';
-      //   document.body.appendChild(a);
-      //   a.click();
-      // } else {
-      //   window.sg.launch(gameLaunchOptions, success, error);
-      // }
+      window.sg.launch(gameLaunchOptions, onSuccess, onError);
     } catch (error) {
       console.log('error', error);
       setSuccessfullyLaunched(false);
       toast(t('notification:errors:gameLaunchedFailed'));
     } finally {
-      // setTimeout(() => {
-      //   setIsLoading(false);
-      // }, 1000);
     }
   };
 
   useEffect(() => {
     setSuccessfullyLaunched(false);
-    if (gameId) {
-      getGameDetail();
-    } else {
-      setIsNotFoundGame(true);
-    }
-  }, [gameId, language]);
+    setIsLoading(false);
+  }, [String(gameId)])
 
   useEffect(() => {
     setIsSatisfied(true);
-    if (gameDetail.identifier) {
-      getGameReactInfo();
-    }
     if (localFiat?.id && activeCurrency.id !== '' && gameDetail.id && successfullyLaunched) {
-      handlePlayRequest();
+      if (playStatusRef.current === 'Real') {
+        handleRealPlay();
+      }
+      if (playStatusRef.current === 'Free') {
+        handleFreeplay();
+      }
+
     }
-  }, [localFiat?.id, activeCurrency.id, gameDetail]);
+  }, [localFiat?.id, activeCurrency.id, gameDetail.id, language]);
+
+  useEffect(() => {
+    getGameReactInfo()
+  }, [getGameReactInfo])
+
+  useEffect(() => {
+    _initLoad();
+  }, [_initLoad])
+
+  useEffect(() => {
+    _initFreePlay()
+  }, [_initFreePlay])
 
   return (
     <>
@@ -448,15 +515,15 @@ function GamePage() {
                 )}
               />
 
-              {/* for mobile version */}
+              {/* ************************************************ for mobile version ****************************************** */}
               <div
                 className={cn(
                   'sm:hidden flex flex-col rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000 p-[15px] gap-[10px]',
                   {
                     // hidden: !isPlayRequested,
-                    'opacity-0': successfullyLaunched,
-                    'opacity-100': !successfullyLaunched,
-                    'pointer-events-none': successfullyLaunched,
+                    // 'opacity-0': successfullyLaunched,
+                    // 'opacity-100': !successfullyLaunched,
+                    // 'pointer-events-none': successfullyLaunched,
                   },
                 )}
               >
@@ -528,7 +595,7 @@ function GamePage() {
                       type="button"
                       disabled={!gameDetail.allowedLocation || isLoadingGame.status}
                       className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px] font-bold"
-                      onClick={() => handlePlayRequest()}
+                      onClick={() => handleRealPlay()}
                     >
                       {isLoadingGame.status && isLoadingGame.request === 'real' ? (
                         <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
@@ -643,33 +710,35 @@ function GamePage() {
                 {!isSatisfied && <div className="absolute z-[5] bg-[black]/80 w-full h-full left-0 top-0"></div>}
               </div>
 
-              {/* for desktop version */}
+              {/* ************************************************ for desktop version ***************************************** */}
               <div
                 className={cn(
                   'hidden sm:flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
                   {
-                    // hidden: !isPlayRequested,
                     'opacity-0': successfullyLaunched,
                     'opacity-100': !successfullyLaunched,
                     'pointer-events-none': successfullyLaunched,
                   },
                 )}
               >
-                <Image
-                  src={
-                    gameDetail.identifier
-                      ? `https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`
-                      : '/img/game-background.png'
-                  }
-                  fill
-                  alt=""
-                  className="hidden sm:block "
-                  onError={(e) => {
-                    e.currentTarget.src = '/img/game-background.png';
-                  }}
-                />
+                {
+                  isLoadingGame.status && <Image
+                    src={
+                      gameDetail.identifier
+                        ? `https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`
+                        : '/img/game-background.png'
+                    }
+                    fill
+                    alt=""
+                    className="hidden sm:block "
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/game-background.png';
+                    }}
+                  />
+                }
 
-                <div className={cn('h-full bg-black/80 w-full absolute')} />
+
+                <div className={cn('h-full bg-black/60 w-full absolute')} />
 
                 {isLogin && (
                   <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] hidden sm:flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
@@ -690,11 +759,9 @@ function GamePage() {
                               {t('gameDetail:insufficientBalanceIn')}
                             </div>
                           )}
-                          {!isMobile && (
-                            <div className="bg-[#17191B] rounded-default">
-                              <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
-                            </div>
-                          )}
+                          <div className="bg-[#17191B] rounded-default">
+                            <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
+                          </div>
                         </div>
 
                         {isSatisfied && (
@@ -719,7 +786,7 @@ function GamePage() {
                               type="button"
                               disabled={!gameDetail.allowedLocation || isLoadingGame.status}
                               className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-default text-[12px] flex items-center gap-[10px]"
-                              onClick={() => handlePlayRequest()}
+                              onClick={() => handleRealPlay()}
                             >
                               {isLoadingGame.status && isLoadingGame.request === 'real' ? (
                                 <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
