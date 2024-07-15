@@ -24,6 +24,7 @@ import { AuthenticationModeEnum, MessageType } from '@/base/types/common';
 
 import { MessageBox } from './messageBox';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
+import styles from './text.module.scss';
 
 type UserType = {
   userId: string;
@@ -374,8 +375,14 @@ const ChattingComponent = () => {
           )}
         </div>
         <div className="sticky bottom-0 w-full">
-          <div className="relative flex py-[10px] w-full bg-color-header-primary px-[7px] gap-[10px] border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary">
-            <div className="flex flex-col w-full dark:bg-color-input-primary rounded-default px-[10px] py-[12px]">
+          <div
+            className={cn(
+              'relative flex py-[10px] w-full bg-color-header-primary px-[7px]',
+              'border-[1px] border-solid border-color-bg-primary dark:border-t-color-card-body-primary',
+              styles['messageBox'],
+            )}
+          >
+            <div className={cn('flex flex-col w-full dark:bg-color-input-primary rounded-default px-[10px] py-[12px]')}>
               {replyMsg?.id && (
                 <div className="flex w-full bg-black/20 rounded-[8px] pt-2 pb-1 px-2 mb-2">
                   <div className="flex flex-col w-full">
@@ -397,19 +404,23 @@ const ChattingComponent = () => {
                 style={{ overflowWrap: 'anywhere', userSelect: 'none' }}
                 onKeyDown={(e) => onKeyDown(e)}
                 onKeyUp={(e) => onKeyUp(e)}
-                className={
-                  'w-full max-w-full sm:max-w-[236px] max-h-[200px] leading-[20px] overflow-y-auto border-none outline-none lign-baseline editBox cursor-text text-[13px] dark:text-white'
-                }
+                className={cn(
+                  'w-full max-w-full sm:max-w-[236px] max-h-[200px] leading-[20px] overflow-y-auto border-none outline-none lign-baseline editBox',
+                  'cursor-text text-[13px] dark:text-white',
+
+                  styles['messageContent'],
+                )}
                 ref={chatRef}
               />
             </div>
-            <div className="flex flex-col justify-end flex-1">
-              <div
-                className="flex flex-col h-fit justify-end p-[10px] rounded-default bg-gradient-btn-play cursor-pointer"
-                onClick={sendMessage}
-              >
-                <PaperAirplaneIcon className="w-[25px] h-[25px] text-white" />
-              </div>
+            <div
+              className={cn(
+                'flex flex-col h-11 justify-center items-center flex-1 rounded-default bg-gradient-btn-play cursor-pointer',
+                styles['messageBtn'],
+              )}
+              onClick={sendMessage}
+            >
+              <PaperAirplaneIcon className="w-[25px] h-[25px] text-white" />
             </div>
             <div
               className={cn(
