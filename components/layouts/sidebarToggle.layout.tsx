@@ -156,7 +156,7 @@ export default function SidebarToggle() {
       //   isDropDown: false,
       // },
       {
-        title: String(t('layout:updown')),
+        title: "UP & DOWN",
         href: 'https://bitup.game/trade',
         icon: ArrowSwapVertical,
         smallIcon: (
@@ -256,7 +256,7 @@ export default function SidebarToggle() {
             })}
           />
         ),
-        onClick: () => {},
+        onClick: () => { },
       },
       {
         title: String(t('sidebar:liveSupport')),
