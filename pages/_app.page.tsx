@@ -5,6 +5,7 @@ import 'react-phone-number-input/style.css';
 import 'react-tooltip/dist/react-tooltip.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { NextPage } from 'next';
@@ -12,8 +13,8 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import { ThemeProvider } from 'next-themes';
 import NextProgress from 'next-progress';
+import { ThemeProvider } from 'next-themes';
 import { ReactElement, ReactNode, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
@@ -25,7 +26,7 @@ import ErrorProvider from '@/components/context/errorContext';
 import { wrapper } from '@/redux/store';
 
 import { useTranslation } from '../config/i18next';
-import { CookieKey, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
+import { CookieKey, GOOGLE_ANALYTICS_ID, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
 import { CookiesStorage } from '../libs/storage/cookie';
 import resources from '../public/locales';
 
@@ -101,7 +102,6 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
       <RainbowKitProvider chains={chains}>
         <ErrorProvider>
           <GoogleOAuthProvider clientId={String(process.env.GOOGLE_CLIENT_ID || '')}>
-            {/* <Provider store={store}> */}
             <Head>
               <link rel="shortcut icon" type="image/x-icon" href="/favicon/favicon.ico" />
               <base href="/"></base>
@@ -128,9 +128,8 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="theme-color" content="#01042C" />
               <meta name="apple-mobile-web-app-capable" content="yes" />
               <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-              {/* <script src="https://cdn.launcher.a8r.games/connector.js" defer></script> */}
-              {/* <script src="https://casino.int.a8r.games/public/sg.js"></script> */}
               <noscript>Your browser does not support JavaScript!</noscript>
+
             </Head>
             <Script async src="/game.js"></Script>
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
@@ -154,7 +153,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
                 {getLayout(<Component {...props.pageProps} />)}
               </>
             </ThemeProvider>
-            {/* </Provider> */}
+            <GoogleAnalytics gaId={String(GOOGLE_ANALYTICS_ID)} />
           </GoogleOAuthProvider>
         </ErrorProvider>
       </RainbowKitProvider>
