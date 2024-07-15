@@ -122,7 +122,6 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                             activeClassNames="dark:!bg-color-menu-hover !bg-[#eaecf3] dark:!text-white !text-black"
                           />
                         ))}
-                        <div className="h-[1px] mx-[10px] dark:bg-color-modal-bg-secondary bg-white" />
                         <IconOption
                           title={String(t('sidebar:transactions'))}
                           href={ROUTER.Transaction}
