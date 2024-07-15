@@ -25,6 +25,7 @@ module.exports = () => {
     project: process.env.NAME,
     projectId: process.env.WALLET_CONNECT_PROJECT,
     AUTHKEY: process.env.AUTH,
+    GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
   };
 
   const compiler = {
