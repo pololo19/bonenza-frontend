@@ -117,7 +117,7 @@ const CasinoSwiper = <T,>({
 
   return (
     <>
-      {!!data.length && (
+      {!!data?.length && (
         <div className="w-full relative">
           <div className="w-full" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <div className="flex items-center gap-[10px] justify-between mb-[15px]">

@@ -139,14 +139,12 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
   );
 }
 
-function RecentBigWinComponent() {
-  const exchangeRate = useExchange();
+function RecentBigWinComponent({ listBigWinGame }: { listBigWinGame: BetDetailType[] }) {
   const { t } = useTranslation('');
 
   const dispatch = useDispatch();
-  const [listBigWinGame, setListBigWinGame] = useState<BetDetailType[]>([]);
 
-  const { userId, localFiat, viewInFiat, isLogin } = useSelector(
+  const { userId, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       userId: state.auth.user.userId,
       localFiat: state.wallet.localFiat,
@@ -155,43 +153,6 @@ function RecentBigWinComponent() {
     }),
     shallowEqual,
   );
-
-  useEffect(() => {
-    handleGetListBigWin();
-  }, [userId]);
-
-  const getExchangeRateLocalFiat = (amount: number, currency: string) => {
-    return viewInFiat
-      ? `${currencyFormat1(amount * exchangeRate, 2, localFiat?.name || 'USD', true, true)}`
-      : `${currencyFormat1(amount, 2, '', false, true)} ${currency}`;
-  };
-
-  const handleGetListBigWin = async () => {
-    try {
-      const res = await api_getRecentBigWins(40);
-      const tempBetLists: BetDetailType[] = res.data.map((item: any) => ({
-        id: item?.id ?? '',
-        game: item?.title ?? '',
-        identifier: item?.identifier ?? '',
-        amount: Number(item.betAmount || 0),
-        amountUsd: Number(item.betAmountUsd || 0),
-        currency: item?.currency ?? 'USD',
-        currencyType: 'crypto',
-        multiplier: Number(item?.multiplier || 0),
-        profit: Number(item?.profitAmount || 0),
-        profitUsd: Number(item?.profitAmountUsd || 0),
-
-        userId: item?.userId ?? '',
-        userName: item?.userName ?? '',
-        userAvatar: item?.userAvatar ?? '',
-        providerName: item?.providerName ?? '',
-      }));
-      setListBigWinGame(tempBetLists);
-    } catch (error) {
-      setListBigWinGame([]);
-    } finally {
-    }
-  };
 
   const renderData = useCallback(
     (item: BetDetailType) => {

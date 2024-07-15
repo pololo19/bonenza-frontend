@@ -12,10 +12,10 @@ import { toast } from 'react-toastify';
 import { api_getChatHistory, api_leaveMessage } from '@/api/chat';
 import {
   api_getCasinoWithKey,
+  api_getDashboardData,
   api_getFavoriteGames,
   api_getPickGames,
   api_getRecentGames,
-  api_getTopRelatedGames,
 } from '@/api/game';
 import { api_checkDeposit } from '@/api/vip';
 import {
@@ -25,7 +25,7 @@ import {
   changeIsShowDepositModal,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
-import { AuthenticationModeEnum, GameListType } from '@/base/types/common';
+import { AuthenticationModeEnum, BetDetailType, GameListType } from '@/base/types/common';
 import CardPlay from '@/components/cards/cardPlay';
 import CasinoSS from '@/components/casino/casinoSS';
 import CsrWrapper from '@/components/CsrWrapper';
@@ -118,6 +118,7 @@ function IndexPage() {
   const [listRecommendedGame, setListRecommendedGame] = useState<GameListType[]>([]);
   const [listTopRated, setListTopRated] = useState<GameListType[]>([]);
   const [listPicksForGame, setListPicksForGame] = useState<GameListType[]>([]);
+  const [listBigWinGame, setListBigWinGame] = useState<BetDetailType[]>([]);
 
   const [listRecentGames, setListRecentGame] = useState<GameListType[]>([]);
   const [listFavoriteGames, setListFavoriteGames] = useState<GameListType[]>([]);
@@ -146,13 +147,12 @@ function IndexPage() {
   const initDataLoad = async () => {
     try {
       // dispatch(changeIsLoading(true));
-      const [_resTopRatedGames, _resRecommendedGames, _resChat, _resNotification] = await Promise.all([
-        api_getTopRelatedGames(),
-        api_getPickGames(1, 20),
+      const [_resGameData, _resChat, _resNotification] = await Promise.all([
+        api_getDashboardData(),
         api_getChatHistory(0, 1),
         api_getNotificationHistory(0, 1),
       ]);
-      const tempListTopRatedGames: GameListType[] = _resTopRatedGames.data.map((item: any) => ({
+      const tempListTopRatedGames: GameListType[] = _resGameData.data.topRatedGames?.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: '',
@@ -163,7 +163,7 @@ function IndexPage() {
         releasedAt: new Date(),
       }));
 
-      const tempListRecommandedGames: GameListType[] = _resRecommendedGames.data.games.map((item: any) => ({
+      const tempListRecommandedGames: GameListType[] = _resGameData.data.recommendedGames?.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -173,7 +173,23 @@ function IndexPage() {
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? new Date(),
       }));
+      const tempBetLists: BetDetailType[] = _resGameData.data.recentBigWins?.map((item: any) => ({
+        id: item?.id ?? '',
+        game: item?.title ?? '',
+        identifier: item?.identifier ?? '',
+        amount: Number(item.betAmount || 0),
+        amountUsd: Number(item.betAmountUsd || 0),
+        currency: item?.currency ?? 'USD',
+        currencyType: 'crypto',
+        multiplier: Number(item?.multiplier || 0),
+        profit: Number(item?.profitAmount || 0),
+        profitUsd: Number(item?.profitAmountUsd || 0),
 
+        userId: item?.userId ?? '',
+        userName: item?.userName ?? '',
+        userAvatar: item?.userAvatar ?? '',
+        providerName: item?.providerName ?? '',
+      }));
       if (_resChat.data?.length > 0) {
         const tempLastMessageId = _resChat.data?.length > 0 ? _resChat.data[0].id : '';
         const localLastMessageId = CookiesStorage.getCookieData('last_message');
@@ -185,6 +201,7 @@ function IndexPage() {
         const localLastNotificationId = CookiesStorage.getCookieData('last_notification');
         dispatch(setIsNewNotification(tempLastNotificationId !== localLastNotificationId));
       }
+      setListBigWinGame(tempBetLists);
       setListTopRated(tempListTopRatedGames);
       setListRecommendedGame(tempListRecommandedGames);
     } catch (error) {
@@ -473,7 +490,7 @@ function IndexPage() {
                   />
                 ))}
               </div>
-              <RecentBigWinComponent />
+              <RecentBigWinComponent listBigWinGame={listBigWinGame} />
               {!isLogin && (
                 <>
                   <div className="relative block w-full sm:hidden">

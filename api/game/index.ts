@@ -3,7 +3,9 @@ import {
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,
   API_GAME_BLACKJACK,
+  API_GAME_CASINO_DATA,
   API_GAME_CREATE_SESSION,
+  API_GAME_DASHBOARD_DATA,
   API_GAME_DETAIL,
   API_GAME_FAVORITE_GAMES,
   API_GAME_FEATURE_BUY_IN,
@@ -137,6 +139,14 @@ export const api_getRecentBigWins = async (count: number) => {
 
 export const api_getTopRelatedGames = async () => {
   return api.get(API_GAME_TOP_RATED_GAMES);
+};
+
+export const api_getDashboardData = async () => {
+  return api.get(API_GAME_DASHBOARD_DATA);
+};
+
+export const api_getCasinoGameData = async () => {
+  return api.get(API_GAME_CASINO_DATA);
 };
 
 export const api_getGamesByProvider = async (providerName: string, sort: SortType, page: number, pageSize: number) => {

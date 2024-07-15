@@ -100,6 +100,8 @@ const API_GAME_BET_HISTORY_FOR_GAME = '/game/get-latest-bets-for-game';
 const API_GAME_BET_HISTORY_FOR_USER = '/game/get-latest-bets-for-user-game';
 const API_GAME_RECENT_BIG_WINS = '/game/get-recent-big-wins';
 const API_GAME_TOP_RATED_GAMES = '/game/get-top-rated-games';
+const API_GAME_DASHBOARD_DATA = '/game/dashboard/landing';
+const API_GAME_CASINO_DATA = '/game/dashboard/casino';
 
 const API_GAME_THEME = '/game/get-themes';
 const API_GAME_GAMES_BY_PROVIDER = '/game/get-games-by-provider';
@@ -250,6 +252,8 @@ export {
   API_GAME_TABLE_GAMES,
   API_GAME_THEME,
   API_GAME_TOP_RATED_GAMES,
+  API_GAME_DASHBOARD_DATA,
+  API_GAME_CASINO_DATA,
   API_LEAVE_MESSAGE,
   API_QUEST_HISTORY,
   API_QUEST_LIST,
