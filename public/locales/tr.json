@@ -2192,6 +2192,7 @@
     "notAllowedAction": "İşleminize izin verilmiyor.",
     "internalServer": "Hata! ",
     "emptyFields": "Lütfen tüm alanları doldurun",
+    "notMinimumVipLevelForTip": "VIP seviyeniz, bahşiş göndermek için gereken minimum seviyeyi karşılamıyor.",
     "auth": {
       "existPhone": "Bu Telefon zaten mevcut.",
       "existMail": "Bu E-posta zaten mevcut.",

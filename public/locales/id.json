@@ -2192,6 +2192,7 @@
     "notAllowedAction": "Tindakan Anda tidak diperbolehkan.",
     "internalServer": "Ups! ",
     "emptyFields": "Silakan isi semua kolom",
+    "notMinimumVipLevelForTip": "Level vip Anda tidak memenuhi level minimum yang diperlukan untuk mengirim tip.",
     "auth": {
       "existPhone": "Telepon ini sudah ada.",
       "existMail": "Email ini sudah ada.",

@@ -2192,6 +2192,7 @@
     "notAllowedAction": "귀하의 행동은 허용되지 않습니다.",
     "internalServer": "이런! ",
     "emptyFields": "모든 필드를 작성해 주세요.",
+    "notMinimumVipLevelForTip": "VIP 레벨이 팁을 보내는 데 필요한 최소 레벨을 충족하지 않습니다.",
     "auth": {
       "existPhone": "이 전화는 이미 존재합니다.",
       "existMail": "이 이메일은 이미 존재합니다.",

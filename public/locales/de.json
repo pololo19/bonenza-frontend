@@ -2192,6 +2192,7 @@
     "notAllowedAction": "Tu acción no está permitida.",
     "internalServer": "¡Ups! ",
     "emptyFields": "Bitte alle Felder ausfüllen",
+    "notMinimumVipLevelForTip": "Ihr VIP-Level entspricht nicht dem Mindestlevel, der zum Versenden eines Trinkgelds erforderlich ist.",
     "auth": {
       "existPhone": "Este teléfono ya existe.",
       "existMail": "Este correo electrónico ya existe.",

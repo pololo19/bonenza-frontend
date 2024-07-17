@@ -2192,6 +2192,7 @@
     "notAllowedAction": "Sua ação não é permitida.",
     "internalServer": "Ops! ",
     "emptyFields": "Por favor preencha todos os campos",
+    "notMinimumVipLevelForTip": "Seu nível vip não atende ao nível mínimo exigido para enviar uma gorjeta.",
     "auth": {
       "existPhone": "Este telefone já existe.",
       "existMail": "Este e-mail já existe.",

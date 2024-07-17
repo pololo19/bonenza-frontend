@@ -2192,6 +2192,7 @@
     "notAllowedAction": "Tu acción no está permitida.",
     "internalServer": "¡Ups! ",
     "emptyFields": "Por favor llena todos los espacios",
+    "notMinimumVipLevelForTip": "Tu nivel vip no cumple con el nivel mínimo requerido para enviar una propina.",
     "auth": {
       "existPhone": "Este teléfono ya existe.",
       "existMail": "Este correo electrónico ya existe.",

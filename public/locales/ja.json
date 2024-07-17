@@ -2192,6 +2192,7 @@
     "notAllowedAction": "あなたの行動は許可されていません。",
     "internalServer": "おっとっと！",
     "emptyFields": "全ての項目を埋めてください",
+    "notMinimumVipLevelForTip": "あなたの vip レベルは、チップを送るために必要な最低レベルを満たしていません。",
     "auth": {
       "existPhone": "この電話はすでに存在します。",
       "existMail": "このメールはすでに存在します。",

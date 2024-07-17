@@ -2192,6 +2192,7 @@
     "notAllowedAction": "Tindakan anda tidak dibenarkan.",
     "internalServer": "Aduh! ",
     "emptyFields": "Sila isi semua medan",
+    "notMinimumVipLevelForTip": "Tahap vip anda tidak memenuhi tahap minimum yang diperlukan untuk menghantar petua.",
     "auth": {
       "existPhone": "Telefon ini sudah wujud.",
       "existMail": "E-mel ini telah pun wujud.",

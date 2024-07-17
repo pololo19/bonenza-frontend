@@ -2192,6 +2192,7 @@
     "notAllowedAction": "La tua azione non è consentita.",
     "internalServer": "Ops! ",
     "emptyFields": "Per favore compila tutti i campi",
+    "notMinimumVipLevelForTip": "Il tuo livello VIP non soddisfa il livello minimo richiesto per inviare una mancia.",
     "auth": {
       "existPhone": "Questo telefono esiste già.",
       "existMail": "Questa email esiste già.",
