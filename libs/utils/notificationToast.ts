@@ -309,6 +309,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'canClaimWithMinimumAmount':
       message = 'errors:wallet:canClaimWithMinimumAmount';
       break;
+    case 'isExistAirdropCode':
+      message = 'bonus:redeemNoCode';
+      break;
 
     // chat
     case 'isExceedMessageCount':

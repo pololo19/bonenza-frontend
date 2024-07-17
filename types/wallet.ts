@@ -43,3 +43,14 @@ export type PriceUpdateType = {
   id: string;
   price: number;
 };
+
+export type BonusType = {
+  id: string;
+  amount: number;
+  amountUsd: number;
+  type: string;
+  typeName: string;
+  allow: boolean;
+  symbolName: string;
+  symbolLogo: string;
+};

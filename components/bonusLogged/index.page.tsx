@@ -8,13 +8,12 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
 
-import { api_bonusStatistics } from '@/api/bonus';
+import { api_bonusStatistics, api_redeem } from '@/api/bonus';
 import { api_getClaims } from '@/api/wallet';
 import CsrWrapper from '@/base/components/CsrWrapper';
 import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
-import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import {
   changeIsShowBonusDetail,
@@ -23,11 +22,13 @@ import {
   changeIsShowSpin,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import BaseLayout from '@/components/layouts/base.layout';
 
 import CardGeneralBonus from '../cards/cardGeneralBonus';
 import CardVipBonus from '../cards/cardVipBonus';
+import { getBonusList } from '@/base/redux/reducers/wallet.reducer';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 const getNextDay = () => {
   let currentDate = new Date();
@@ -38,9 +39,7 @@ function BonusLoggedPage() {
   const exchangeRate = useExchange();
   const { t, i18n } = useTranslation('');
   const { theme } = useTheme();
-  const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const usdtPrice = useUSDTPrice();
+  const dispatch = useAppDispatch();
 
   const [redeemCode, setRedeemCode] = useState<string>('');
   const [totalData, setTotalData] = useState({
@@ -110,7 +109,7 @@ function BonusLoggedPage() {
         nameButton: '',
         showDeposit: true,
         tooltip: [t('bonus:depositBonusRulesContent')],
-        action: () => {},
+        action: () => { },
       },
       {
         backgroundDark: '/img/bg-rakeback.png',
@@ -161,11 +160,11 @@ function BonusLoggedPage() {
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
         wagerValue: viewInFiat
           ? currencyFormat1(
-              bonusData.general.weeklyCashBack.requiredWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-              true,
-            )
+            bonusData.general.weeklyCashBack.requiredWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+            true,
+          )
           : currencyFormat1(bonusData.general.weeklyCashBack.requiredWagerAmount, 2, '', true),
         tierValue: '',
         rechargeRateValue: '',
@@ -174,23 +173,23 @@ function BonusLoggedPage() {
           bonusData.general.weeklyCashBack.lastBonus === 0
             ? '-'
             : viewInFiat
-            ? currencyFormat1(
+              ? currencyFormat1(
                 bonusData.general.weeklyCashBack.lastBonus * exchangeRate,
                 2,
                 localFiat?.name || 'USD',
                 true,
               )
-            : currencyFormat1(bonusData.general.weeklyCashBack.lastBonus, 2, '', true),
+              : currencyFormat1(bonusData.general.weeklyCashBack.lastBonus, 2, '', true),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:weeklyCashBackTooltip1'), t('bonus:weeklyCashBackTooltip2')],
         expiration: bonusData.general.weeklyCashBack.expireDate,
         currentWager: viewInFiat
           ? currencyFormat1(
-              bonusData.general.weeklyCashBack.currentWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-            )
+            bonusData.general.weeklyCashBack.currentWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+          )
           : currencyFormat1(bonusData.general.weeklyCashBack.currentWagerAmount, 2),
       },
       {
@@ -205,11 +204,11 @@ function BonusLoggedPage() {
         lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
         wagerValue: viewInFiat
           ? currencyFormat1(
-              bonusData.general.monthlyCashBack.requiredWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-              true,
-            )
+            bonusData.general.monthlyCashBack.requiredWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+            true,
+          )
           : currencyFormat1(bonusData.general.monthlyCashBack.requiredWagerAmount, 2, '', true),
         tierValue: '',
         rechargeRateValue: '',
@@ -218,24 +217,24 @@ function BonusLoggedPage() {
           bonusData.general.monthlyCashBack.lastBonus === 0
             ? '-'
             : viewInFiat
-            ? currencyFormat1(
+              ? currencyFormat1(
                 bonusData.general.monthlyCashBack.lastBonus * exchangeRate,
                 2,
                 localFiat?.name || 'USD',
                 true,
               )
-            : currencyFormat1(bonusData.general.monthlyCashBack.lastBonus, 2, '', true),
+              : currencyFormat1(bonusData.general.monthlyCashBack.lastBonus, 2, '', true),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:monthlyCashBackTooltip1'), t('bonus:monthlyCashBackTooltip2')],
         expiration: bonusData.general.monthlyCashBack.expireDate,
         currentWager: viewInFiat
           ? currencyFormat1(
-              bonusData.general.monthlyCashBack.currentWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-              true,
-            )
+            bonusData.general.monthlyCashBack.currentWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+            true,
+          )
           : currencyFormat1(bonusData.general.monthlyCashBack.currentWagerAmount, 2, '', true),
       },
     ],
@@ -297,8 +296,6 @@ function BonusLoggedPage() {
       setLockedAmount(tempUnlockedAmount);
     } catch (error) {
       console.error(error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -307,48 +304,35 @@ function BonusLoggedPage() {
       getBonusStatistics();
     }
   }, [isLogin, isShowSpinClaim]);
-  const onRedeemClick = () => {
+
+  const onRedeemClick = async () => {
     if (!redeemCode) {
       toast.error(t('bonus:redeemEmpty'), {
         toastId: 'redeemEmpty',
         containerId: TOAST_ENUM.COMMON,
-        icon: true,
-        autoClose: 3000,
-        hideProgressBar: false,
       });
       return;
     }
-    const redeemDate = localStorage.getItem(CookieKey.redeemDate) || '';
-    if (redeemDate) {
-      const difference = new Date().getTime() - new Date(redeemDate).getTime();
-      if (difference / 1000 / 60 / 60 >= 24) {
-        localStorage.setItem(CookieKey.redeemDate, new Date().toString());
-        localStorage.setItem(CookieKey.redeem, '0');
+    try {
+      const result = await api_redeem(redeemCode);
+      if (result.data.status) {
+        dispatch(getBonusList());
+        toast.success(t('bonus:redeemSuccess'), {
+          toastId: 'redeemCode',
+          containerId: TOAST_ENUM.COMMON,
+        })
+      } else {
+        toast.error(t('bonus:redeemNoCode'), {
+          toastId: 'redeemNoCode',
+          containerId: TOAST_ENUM.COMMON,
+        });
       }
-    } else {
-      localStorage.setItem(CookieKey.redeemDate, new Date().toString());
+      setRedeemCode('');
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     }
-    const redeemAttempt = Number(localStorage.getItem(CookieKey.redeem) || '0');
-    localStorage.setItem(CookieKey.redeem, `${redeemAttempt + 1}`);
-
-    if (redeemAttempt > 5) {
-      toast.error(t('bonus:redeemLimit'), {
-        toastId: 'redeemLimit',
-        containerId: TOAST_ENUM.COMMON,
-        icon: true,
-        autoClose: 3000,
-        hideProgressBar: false,
-      });
-    } else {
-      toast.error(t('bonus:redeemNoCode'), {
-        toastId: 'redeemNoCode',
-        containerId: TOAST_ENUM.COMMON,
-        icon: true,
-        autoClose: 3000,
-        hideProgressBar: false,
-      });
-    }
-    setRedeemCode('');
   };
 
   return (
@@ -360,7 +344,7 @@ function BonusLoggedPage() {
           </div>
           <div className="flex h-[48px] w-full justify-end">
             <input
-              className="focus:outline-none dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
+              className="focus:outline-none text-white font-bold dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
               type="text"
               value={redeemCode}
@@ -505,8 +489,8 @@ function BonusLoggedPage() {
                         {bonusData.vip.levelUp.bonus === 0
                           ? '-'
                           : viewInFiat
-                          ? currencyFormat1(bonusData.vip.levelUp.bonus * exchangeRate, 2, localFiat?.name)
-                          : currencyFormat1(bonusData.vip.levelUp.bonus, 2)}
+                            ? currencyFormat1(bonusData.vip.levelUp.bonus * exchangeRate, 2, localFiat?.name)
+                            : currencyFormat1(bonusData.vip.levelUp.bonus, 2)}
                       </div>
                     </div>
                   </div>

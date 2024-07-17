@@ -1,17 +1,18 @@
 import {
   API_AFFILIATE,
-  API_AFFILIATE_FRIENDS,
-  API_AFFILIATE_REWARDS,
-  API_AFFILIATE_WITHDRAW,
   API_AFFILIATE_COMMISSION_HISTORY,
+  API_AFFILIATE_FRIENDS,
   API_AFFILIATE_REFERRAL_HISTORY,
   API_AFFILIATE_REFERRAL_RULE,
+  API_AFFILIATE_REWARDS,
+  API_AFFILIATE_WITHDRAW,
   API_BONUS_BONUS_STATISTIC,
   API_BONUS_CLAIM,
   API_BONUS_CLAIM_LIST,
   API_BONUS_DETAILS,
   API_BONUS_DETAILS_CATEGORIES,
   API_BONUS_DETAILS_TRANSACTIONS,
+  API_BONUS_REDEEM,
   API_BONUS_USDT_BONUS_HISTORY,
 } from '@/base/constants/endpoints';
 
@@ -105,4 +106,8 @@ export const api_bonusDetailCategories = async () => {
 
 export const api_bonusDetailTransactions = async (category: bonusCategoryType = 'all') => {
   return api.get(API_BONUS_DETAILS_TRANSACTIONS, { params: { category } });
+};
+
+export const api_redeem = async (code: string) => {
+  return api.post(API_BONUS_REDEEM, { code });
 };
