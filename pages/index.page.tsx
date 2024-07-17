@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { ArrowRight } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
@@ -354,6 +355,17 @@ function IndexPage() {
 
   return (
     <>
+      <Head>
+        <title>Bonenza</title>
+        <meta
+          name="description"
+          content="Bonenza develops platforms of various genres. It aims to achieve a new experience by identifying the needs of the market and launching an interesting platform to secure a variety of users and apply AI technology to add fun."
+        />
+        <meta
+          name="keywords"
+          content="Bonenza, NFT, play to earn, P2E, NFT games, GOD, metaverse, meta, metaverseNFT, NFTgaming, coin, DRON"
+        />
+      </Head>
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">
