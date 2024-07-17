@@ -1486,7 +1486,7 @@
     "rakebackTooltip2": "USDT'nin kilidini açmak kolaydır! Temel olarak komisyon iadesiyle aynıdır. Bahis yapılarak orantılı olarak kilidi açılacaktır.",
     "redeemLimit": "Günlük istek gönderme sınırınıza ulaştınız. Daha fazla etkileşim için yarın tekrar gelin!",
     "redeemNoCode": "Bu kod mevcut değil.",
-    "redeemSuccess": "Bu fırsatı kaçırmayın! Airdrop bonusunuzu hemen alın ve özel ödüllerden yararlanın.",
+    "redeemSuccess": "Airdrop bonusunuzu hemen alın ve özel ödüllerden yararlanın.",
     "redeemEmpty": "Kod boş olamaz!",
     "depositBonusNotification": "Tebrikler!Hesabınıza başarıyla para yatırma bonusu yatırıldı {{amount}} Amerikan Doları"
   },
