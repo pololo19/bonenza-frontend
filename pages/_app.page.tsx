@@ -43,14 +43,6 @@ declare global {
     sg: any;
   }
 }
-const structData = {
-  '@context': 'https://bonenza.com',
-  '@type': 'Best Crypto Online Casino | Play & Win with Bitcoin & Ethereum',
-  headline: 'Join Bonenza, the leading crypto online casino. Enjoy secure, fast transactions with Bitcoin, Ethereum, and more. Participate in exciting baccarat tournaments and win big. Sign up now and start winning!',
-  description: 'Bonenza, crypto online casino, Bitcoin casino, Ethereum gambling, play online casino with crypto, baccarat tournament, crypto tournaments',
-  datePublished: '2024-07-01T09:00:00.000Z',
-};
-
 function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   const router = useRouter();
   const { props } = wrapper.useWrappedStore(rest);
@@ -116,15 +108,6 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
               <meta name="google-site-verification" content="8Pg6SQ4ANq-BBmT7jN0wRovBqUpW0JNxU5kuiVO4aLc" />
 
-              <title>Bonenza</title>
-              {/* <meta
-                name="description"
-                content="Bonenza develops platforms of various genres. It aims to achieve a new experience by identifying the needs of the market and launching an interesting platform to secure a variety of users and apply AI technology to add fun."
-              />
-              <meta
-                name="keywords"
-                content="NFT, play to earn, P2E, NFT games, GOD, metaverse, meta, metaverseNFT, NFTgaming, coin, DRON"
-              /> */}
               <meta name="language" content="English" />
               {/* <meta name="author" content="contact@bonenza.com" /> */}
               <meta name="url" content="https://www.bonenza.com" />
@@ -134,11 +117,6 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="theme-color" content="#01042C" />
               <meta name="apple-mobile-web-app-capable" content="yes" />
               <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-              <script
-                key="structured-1"
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(structData) }}
-              />
               <noscript>Your browser does not support JavaScript!</noscript>
 
             </Head>
