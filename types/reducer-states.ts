@@ -12,7 +12,14 @@ import {
   VerifyModeEnum,
 } from './common';
 import { VerifyRequestType } from './requestTypes';
-import { BalanceType, CryptoCurrencyType, CryptoNetWorkType, CurrencyType, DepositAddressType } from './wallet';
+import {
+  BalanceType,
+  BonusType,
+  CryptoCurrencyType,
+  CryptoNetWorkType,
+  CurrencyType,
+  DepositAddressType,
+} from './wallet';
 
 export type TokenState = {
   accessToken?: string;
@@ -150,6 +157,7 @@ export type WalletState = {
     time: Date | string;
     network: string;
   };
+  bonuses: BonusType[];
 };
 
 export type GameState = {

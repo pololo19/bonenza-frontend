@@ -11,12 +11,14 @@ import { AppDispatch } from '@/base/redux/store';
 import { WalletState } from '@/base/types/reducer-states';
 import {
   BalanceType,
+  BonusType,
   CryptoCurrencyType,
   CryptoNetWorkType,
   CurrencyType,
   DepositAddressType,
   PriceUpdateType,
 } from '@/base/types/wallet';
+import { api_bonusClaimList } from '@/api/bonus';
 
 const initialState: WalletState = {
   isWalletLoading: true,
@@ -55,6 +57,7 @@ const initialState: WalletState = {
     time: '19/03/2024',
     network: '',
   }, // socket deposit address
+  bonuses: [],
 };
 
 export const walletReducer = createSlice({
@@ -161,6 +164,9 @@ export const walletReducer = createSlice({
     setIsWalletLoading: (state: WalletState, action: PayloadAction<boolean>) => {
       state.isWalletLoading = action.payload;
     },
+    setBonus: (state: WalletState, action: PayloadAction<BonusType[]>) => {
+      state.bonuses = action.payload;
+    },
   },
 });
 
@@ -183,6 +189,7 @@ export const {
   setActiveTransactionStatus,
   setSwapFee,
   setIsWalletLoading,
+  setBonus,
 } = walletReducer.actions;
 export default walletReducer.reducer;
 
@@ -341,5 +348,24 @@ export const getDepositTime = () => async (dispatch: AppDispatch) => {
     dispatch(setDepositTime(result.data?.times ?? 0));
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getBonusList = () => async (dispatch: AppDispatch) => {
+  try {
+    const result = await api_bonusClaimList();
+    const tempBonuses: BonusType[] = result.data?.map((item: any) => ({
+      id: item.id ?? '',
+      amount: Number(item.amount || 0),
+      amountUsd: Number(item.amountUsd || 0),
+      type: item.type,
+      typeName: item?.typeName || '',
+      allow: item.allowClaim,
+      symbolName: item.symbolName || '',
+      symbolLogo: item.symbolLogo || '',
+    }));
+    dispatch(setBonus(tempBonuses));
+  } catch (error) {
+    dispatch(setBonus([]));
   }
 };

@@ -1486,6 +1486,7 @@
     "rakebackTooltip2": "USDT 잠금 해제는 쉽습니다! 기본적으로 rakeback과 동일합니다. 베팅을 통해 비례적으로 잠금 해제됩니다.",
     "redeemLimit": "일일 요청 전송 한도에 도달했습니다. 더 많은 상호작용을 위해 내일 다시 오세요!",
     "redeemNoCode": "해당 코드는 존재하지 않습니다.",
+    "redeemSuccess": "이 기회를 놓치지 마세요! 지금 Airdrop 보너스를 신청하고 독점 보상을 활용하세요.",
     "redeemEmpty": "코드는 비워둘 수 없습니다!",
     "depositBonusNotification": "축하합니다!귀하의 계정에 해당 금액의 입금 보너스가 성공적으로 적립되었습니다. {{amount}} USD"
   },

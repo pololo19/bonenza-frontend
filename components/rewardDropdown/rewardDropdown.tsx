@@ -16,7 +16,7 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { changeIsShowDepositRule } from '@/base/redux/reducers/modal.reducer';
-import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
+import { getBalance, getBonusList, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
 type BonusType = {
@@ -37,37 +37,17 @@ export default function RewardDropdown() {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const [claimingBonus, setClaimingBonus] = useState<string>('');
-  const { viewInFiat, localFiat, isLogin, isShowSpinClaim } = useSelector(
+  const { viewInFiat, localFiat, isLogin, isShowSpinClaim, bonuses } = useSelector(
     (state: AppState) => ({
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
       lockedAmount: state.wallet.lockedAmount,
       isLogin: state.auth.isLogin,
       isShowSpinClaim: state.modal.isShowSpinClaim,
+      bonuses: state.wallet.bonuses
     }),
     shallowEqual,
   );
-
-  const [bonuses, setBonuses] = useState<BonusType[]>([]);
-  const getBonusList = async () => {
-    try {
-      const _res = await api_bonusClaimList();
-      const tempBonuses: BonusType[] = _res.data?.map((item: any) => ({
-        id: item.id ?? '',
-        amount: Number(item.amount || 0),
-        amountUsd: Number(item.amountUsd || 0),
-        type: item.type,
-        typeName: item?.typeName || '',
-        allow: item.allowClaim,
-        symbolName: item.symbolName || '',
-        symbolLogo: item.symbolLogo || '',
-      }));
-      setBonuses(tempBonuses);
-    } catch (error) {
-      setBonuses([]);
-    } finally {
-    }
-  };
 
   const handleClaim = async (bonus: BonusType) => {
     if (claimingBonus === null || claimingBonus !== '') return;
@@ -78,7 +58,7 @@ export default function RewardDropdown() {
       const _resBonus = await api_getClaims();
       const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
 
-      await getBonusList();
+      dispatch(getBonusList());
 
       // update balance
       dispatch(getBalance());
@@ -95,7 +75,7 @@ export default function RewardDropdown() {
 
   useEffect(() => {
     if (isLogin) {
-      getBonusList();
+      dispatch(getBonusList());
     }
   }, [isLogin, isShowSpinClaim]);
 
