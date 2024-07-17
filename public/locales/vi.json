@@ -2192,6 +2192,7 @@
     "notAllowedAction": "Hành động của bạn không được phép.",
     "internalServer": "Ối! ",
     "emptyFields": "Vui lòng điền vào tất cả các trường",
+    "notMinimumVipLevelForTip": "Cấp vip của bạn không đáp ứng mức tối thiểu cần thiết để gửi tiền boa.",
     "auth": {
       "existPhone": "Điện thoại này đã tồn tại.",
       "existMail": "Email này đã tồn tại.",

@@ -314,7 +314,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'isExceedMessageCount':
       message = 'errors:chat:isExceedMessageCount';
       break;
-
+    case 'notMinimumVipLevelForTip':
+      message = 'errors:notMinimumVipLevelForTip';
+      break;
     default:
       message = 'errors:internalServer';
       break;

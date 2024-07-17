@@ -2192,6 +2192,7 @@
     "notAllowedAction": "Votre action n'est pas autorisée.",
     "internalServer": "Oops! ",
     "emptyFields": "Merci de compléter tous les champs",
+    "notMinimumVipLevelForTip": "Votre niveau VIP ne satisfait pas au niveau minimum requis pour envoyer un pourboire.",
     "auth": {
       "existPhone": "Ce téléphone existe déjà.",
       "existMail": "Cet e-mail existe déjà.",

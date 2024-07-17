@@ -2192,6 +2192,7 @@
     "notAllowedAction": "你的行为是不被允许的。",
     "internalServer": "哎呀！",
     "emptyFields": "请填写所有字段",
+    "notMinimumVipLevelForTip": "您的 VIP 级别未满足发送小费所需的最低级别。",
     "auth": {
       "existPhone": "此电话已存在。",
       "existMail": "该电子邮件已存在。",

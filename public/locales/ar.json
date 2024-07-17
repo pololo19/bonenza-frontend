@@ -2191,6 +2191,7 @@
     "notAllowedAction": "تصرفك غير مسموح به.",
     "internalServer": "أُووبس! ",
     "emptyFields": "لو سمحت أملأ كل الحقول",
+    "notMinimumVipLevelForTip": "مستوى VIP الخاص بك لا يفي بالحد الأدنى المطلوب لإرسال الإكرامية.",
     "auth": {
       "existPhone": "هذا الهاتف موجود بالفعل.",
       "existMail": "هذا البريد الإلكتروني موجود بالفعل.",
