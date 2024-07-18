@@ -885,7 +885,7 @@ export const CONVERT_CURRENCIES =
 export const BANNER_DATA = [
   {
     img: '/img/banners/GateofOlympus_PragmaticPlay.png',
-    url: ROUTER.GameDetail('pragmaticexternal:gatesofolympus1000'),
+    url: ROUTER.GameDetail('pragmaticexternal:gatesofolympus1'),
   },
   {
     img: '/img/banners/SugarSupreme_PragmaticPlay.png',
