@@ -97,6 +97,7 @@ export default function CardVipBonus({
               height={16}
               alt=""
               data-tooltip-id={`${name}-bonus-tooltip`}
+              className='cursor-pointer'
             />
             <Tooltip
               id={`${name}-bonus-tooltip`}

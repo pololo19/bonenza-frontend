@@ -150,7 +150,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               onChange={(e) => setSearchInput(e.target.value)}
             />
             <div className="rounded-md group" role="button" onClick={onClose}>
-              <XMarkIcon width={15} className="text-color-text-primary group-hover:text-white w-[1.5rem] h-[1.5rem]" />
+              <XMarkIcon width={15} className="text-color-text-primary group-hover:text-white w-[1.5rem] h-[1.5rem] transition-all duration-300 rotate-0 hover:rotate-90" />
             </div>
           </div>
         }

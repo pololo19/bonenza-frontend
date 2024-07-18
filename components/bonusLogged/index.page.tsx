@@ -110,7 +110,7 @@ function BonusLoggedPage() {
         nameButton: '',
         showDeposit: true,
         tooltip: [t('bonus:depositBonusRulesContent')],
-        action: () => {},
+        action: () => { },
       },
       {
         backgroundDark: '/img/bg-rakeback.png',
@@ -161,11 +161,11 @@ function BonusLoggedPage() {
         lastWeeklyBonus: t('bonus:lastWeeklyBonus'),
         wagerValue: viewInFiat
           ? currencyFormat1(
-              bonusData.general.weeklyCashBack.requiredWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-              true,
-            )
+            bonusData.general.weeklyCashBack.requiredWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+            true,
+          )
           : currencyFormat1(bonusData.general.weeklyCashBack.requiredWagerAmount, 2, '', true),
         tierValue: '',
         rechargeRateValue: '',
@@ -174,23 +174,23 @@ function BonusLoggedPage() {
           bonusData.general.weeklyCashBack.lastBonus === 0
             ? '-'
             : viewInFiat
-            ? currencyFormat1(
+              ? currencyFormat1(
                 bonusData.general.weeklyCashBack.lastBonus * exchangeRate,
                 2,
                 localFiat?.name || 'USD',
                 true,
               )
-            : currencyFormat1(bonusData.general.weeklyCashBack.lastBonus, 2, '', true),
+              : currencyFormat1(bonusData.general.weeklyCashBack.lastBonus, 2, '', true),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:weeklyCashBackTooltip1'), t('bonus:weeklyCashBackTooltip2')],
         expiration: bonusData.general.weeklyCashBack.expireDate,
         currentWager: viewInFiat
           ? currencyFormat1(
-              bonusData.general.weeklyCashBack.currentWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-            )
+            bonusData.general.weeklyCashBack.currentWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+          )
           : currencyFormat1(bonusData.general.weeklyCashBack.currentWagerAmount, 2),
       },
       {
@@ -205,11 +205,11 @@ function BonusLoggedPage() {
         lastWeeklyBonus: t('bonus:lastMonthlyBonus'),
         wagerValue: viewInFiat
           ? currencyFormat1(
-              bonusData.general.monthlyCashBack.requiredWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-              true,
-            )
+            bonusData.general.monthlyCashBack.requiredWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+            true,
+          )
           : currencyFormat1(bonusData.general.monthlyCashBack.requiredWagerAmount, 2, '', true),
         tierValue: '',
         rechargeRateValue: '',
@@ -218,24 +218,24 @@ function BonusLoggedPage() {
           bonusData.general.monthlyCashBack.lastBonus === 0
             ? '-'
             : viewInFiat
-            ? currencyFormat1(
+              ? currencyFormat1(
                 bonusData.general.monthlyCashBack.lastBonus * exchangeRate,
                 2,
                 localFiat?.name || 'USD',
                 true,
               )
-            : currencyFormat1(bonusData.general.monthlyCashBack.lastBonus, 2, '', true),
+              : currencyFormat1(bonusData.general.monthlyCashBack.lastBonus, 2, '', true),
         showHour: false,
         showDescription: true,
         tooltip: [t('bonus:monthlyCashBackTooltip1'), t('bonus:monthlyCashBackTooltip2')],
         expiration: bonusData.general.monthlyCashBack.expireDate,
         currentWager: viewInFiat
           ? currencyFormat1(
-              bonusData.general.monthlyCashBack.currentWagerAmount * exchangeRate,
-              2,
-              localFiat?.name || 'USD',
-              true,
-            )
+            bonusData.general.monthlyCashBack.currentWagerAmount * exchangeRate,
+            2,
+            localFiat?.name || 'USD',
+            true,
+          )
           : currencyFormat1(bonusData.general.monthlyCashBack.currentWagerAmount, 2, '', true),
       },
     ],
@@ -505,8 +505,8 @@ function BonusLoggedPage() {
                         {bonusData.vip.levelUp.bonus === 0
                           ? '-'
                           : viewInFiat
-                          ? currencyFormat1(bonusData.vip.levelUp.bonus * exchangeRate, 2, localFiat?.name)
-                          : currencyFormat1(bonusData.vip.levelUp.bonus, 2)}
+                            ? currencyFormat1(bonusData.vip.levelUp.bonus * exchangeRate, 2, localFiat?.name)
+                            : currencyFormat1(bonusData.vip.levelUp.bonus, 2)}
                       </div>
                     </div>
                   </div>
@@ -559,6 +559,7 @@ function BonusLoggedPage() {
                       height={16}
                       alt=""
                       data-tooltip-id={`$spin-bonus-tooltip`}
+                      className='cursor-pointer'
                     />
                     <Tooltip
                       id={`$spin-bonus-tooltip`}
