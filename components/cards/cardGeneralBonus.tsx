@@ -74,6 +74,7 @@ export default function CardGeneralBonus({
                 height={16}
                 alt=""
                 data-tooltip-id={`${title}-bonus-tooltip`}
+                className='cursor-pointer'
               />
               {tooltip.length > 0 && (
                 <Tooltip
@@ -175,6 +176,7 @@ export default function CardGeneralBonus({
                   height={16}
                   alt=""
                   data-tooltip-id={'deposit-bonus-tooltip'}
+                  className='cursor-pointer'
                 />
                 <Tooltip
                   id={'deposit-bonus-tooltip'}

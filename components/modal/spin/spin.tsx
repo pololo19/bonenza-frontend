@@ -265,13 +265,13 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass={cn('sm:rounded max-w-full sm:max-w-[400px] sm:!h-auto !bg-transparent', {
+        panelClass={cn('sm:rounded max-w-full sm:max-w-[430px] sm:!h-auto !bg-transparent', {
           'sm:py-[10px] sm:!max-h-[calc(100vh_-_20px)]': isMobile,
         })}
         position="flex-col justify-center items-center"
         isScrollableInRotate
       >
-        <div className={`max-w-full sm:w-[400px] overflow-hidden overflow-y-scroll h-full bg-cover ${styles[spinTab]}`}>
+        <div className={`max-w-full sm:w-[430px] overflow-hidden overflow-y-scroll h-full bg-cover ${styles[spinTab]}`}>
           <div
             className={`sm:rounded-large h-full flex flex-col items-center sm:justify-between relative mb-5 justify-start`}
           >
@@ -305,7 +305,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               />
             </div>
 
-            <div className="relative  sm:min-w-[350px] sm:min-h-[430px] px-[30px] sm:p-3">
+            <div className="relative sm:min-w-[350px] sm:min-h-[430px] px-[30px] sm:p-3">
               <div>
                 <div className="relative flex flex-col items-center justify-center">
                   <div>
@@ -325,7 +325,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                         height={781}
                         src={'/img/spin/spin-wheel.png'}
                         alt=""
-                        className="w-full h-full p-9"
+                        className="w-full h-full p-10"
                       />
                       {spinItems?.[spinTab].map((item, index) => (
                         <div
@@ -379,9 +379,8 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
               </div>
             </div>
             <div
-              className={`mb-${
-                height > 660 ? 5 : 3
-              } bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 h-full min-h-[95px] max-h-[100px] flex`}
+              className={`mb-${height > 660 ? 5 : 3
+                } bg-[#121519] w-[calc(100%-40px)] rounded-large px-5 h-full min-h-[95px] max-h-[100px] flex`}
             >
               <div className="flex-1 flex flex-col justify-center border-solid border-r-[1px] border-r-[#222] text-m_default sm:text-default">
                 <div className="font-bold uppercase">{t('bonus:spinBonusTotal')}</div>

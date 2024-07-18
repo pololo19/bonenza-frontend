@@ -543,6 +543,7 @@ function BonusLoggedPage() {
                       height={16}
                       alt=""
                       data-tooltip-id={`$spin-bonus-tooltip`}
+                      className='cursor-pointer'
                     />
                     <Tooltip
                       id={`$spin-bonus-tooltip`}
