@@ -206,6 +206,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'isNotMatchOTPError':
       message = 'errors:auth:notMatchOTP';
       break;
+    case 'isMatchReferralCodeError':
+      message = 'errors:auth:validReferral';
+      break;
 
     // affiliate
     case 'isEmptyAvailableCommissionRewards':
