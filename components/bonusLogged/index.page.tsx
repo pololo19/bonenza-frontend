@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
 import Countdown from 'react-countdown';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
@@ -15,6 +16,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { CookieKey, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeIsShowBonusDetail,
   changeIsShowQuest,
@@ -22,13 +24,12 @@ import {
   changeIsShowSpin,
   changeIsShowVipClubModal,
 } from '@/base/redux/reducers/modal.reducer';
+import { getBonusList } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import BaseLayout from '@/components/layouts/base.layout';
 
 import CardGeneralBonus from '../cards/cardGeneralBonus';
 import CardVipBonus from '../cards/cardVipBonus';
-import { getBonusList } from '@/base/redux/reducers/wallet.reducer';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 
 const getNextDay = () => {
   let currentDate = new Date();
@@ -42,6 +43,7 @@ function BonusLoggedPage() {
   const dispatch = useAppDispatch();
 
   const [redeemCode, setRedeemCode] = useState<string>('');
+  const [isRedeemLoading, setIsRedeemLoading] = useState(false);
   const [totalData, setTotalData] = useState({
     bonusClaimedUsd: 0,
     vipBonusUsd: 0,
@@ -314,6 +316,7 @@ function BonusLoggedPage() {
       return;
     }
     try {
+      setIsRedeemLoading(true);
       const result = await api_redeem(redeemCode);
       if (result.data.status) {
         dispatch(getBonusList());
@@ -331,7 +334,9 @@ function BonusLoggedPage() {
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'redeemErrorCode' });
+    } finally {
+      setIsRedeemLoading(false);
     }
   };
 
@@ -344,7 +349,9 @@ function BonusLoggedPage() {
           </div>
           <div className="flex h-[48px] w-full justify-end">
             <input
-              className="focus:outline-none text-white font-bold dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]"
+              className={cn("focus:outline-none text-white font-bold dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]", {
+                'pointer-events-none': isRedeemLoading
+              })}
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
               type="text"
               value={redeemCode}
@@ -357,9 +364,12 @@ function BonusLoggedPage() {
                 'active:scale-105 scale-100 transition-all',
                 'hover:opacity-[0.9] bg-gradient-btn-play text-[12px] sm:text-[14px] text-white font-medium rounded-r-large ',
                 'px-2 sm:px-4 justify-center flex items-center',
+                {
+                  'cursor-not-allowed opacity-80 justify-center w-[100px] h-full': isRedeemLoading
+                }
               )}
             >
-              {t('bonus:redeemBonusCode')}
+              {isRedeemLoading ? <ReactLoading type="bubbles" color="#00AAE6" height={36} width={36} /> : t('bonus:redeemBonusCode')}
             </div>
           </div>
         </div>
