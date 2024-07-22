@@ -437,24 +437,25 @@ const TransactionPage = () => {
             <div
               className={cn('flex items-center justify-center gap-1 truncate', {
                 'text-color-red':
-                  row.original?.type?.toLowerCase() == 'bet' ||
+                  row.original?.type?.toLowerCase() == 'game_bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
-                  row.original.type.toLowerCase() === 'tip send' ||
-                  row.original.type.toLocaleLowerCase() === 'swap send',
+                  row.original.type.toLowerCase() === 'tip_send' ||
+                  row.original.type.toLocaleLowerCase() === 'swap_send',
                 'text-color-text-green': !(
-                  row.original?.type?.toLowerCase() == 'bet' ||
+                  row.original?.type?.toLowerCase() == 'game_bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
-                  row.original.type.toLowerCase() === 'tip send' ||
-                  row.original.type.toLocaleLowerCase() === 'swap send'
+                  row.original.type.toLowerCase() === 'tip_send' ||
+                  row.original.type.toLocaleLowerCase() === 'swap_send'
                 ),
               })}
             >
-              {row.original?.type?.toLowerCase() == 'bet' ||
-                row.original.type.toLowerCase() === 'withdraw' ||
-                row.original.type.toLowerCase() === 'tip send' ||
-                row.original.type.toLocaleLowerCase() === 'swap send'
-                ? '-'
-                : ''}
+              {
+                row.original?.type?.toLowerCase() == 'game_bet' ||
+                  row.original.type.toLowerCase() === 'withdraw' ||
+                  row.original.type.toLowerCase() === 'tip_send' ||
+                  row.original.type.toLocaleLowerCase() === 'swap_send'
+                  ? '-'
+                  : ''}
               {viewInFiat ? (
                 <>
                   {currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}
