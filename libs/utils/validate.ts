@@ -54,3 +54,7 @@ export function isValidDate(date: Date | number | string | undefined, options?: 
 export function isAdminOfCompany(role?: string) {
   return USER_ROLE_DEFAULT.SUPER_ADMIN === role;
 }
+
+export function isEmpty(data: any) {
+  return data === '' || data === null || data === undefined
+}

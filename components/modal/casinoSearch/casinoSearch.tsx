@@ -1,13 +1,14 @@
-import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { SearchNormal, Trash } from 'iconsax-react';
-import Image from 'next/image';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useDebounce } from 'use-debounce';
 
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { api_getGamesByNameAndProvider, api_getPickGames } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useWidth } from '@/base/hooks/useWidth';
@@ -15,10 +16,10 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { setRecommandGames } from '@/base/redux/reducers/game.reducer';
 import { AppState } from '@/base/redux/store';
 import { GameListType } from '@/base/types/common';
-import CasinoSwiper from '@/components/casino/casinoSwiper';
-import Loader from '@/components/common/preloader/loader';
-import GameCard from '@/components/gameCard/gameCard';
 import { NoDataComponent } from '@/components/noData/noData';
+import CasinoSwiper from '@/components/casino/casinoSwiper';
+import GameCard from '@/components/gameCard/gameCard';
+import Loader from '@/components/common/preloader/loader';
 
 import styles from './index.module.scss';
 
@@ -29,7 +30,6 @@ type ModalCasinoSearchProps = {
   DialogProps<ElementType>;
 
 export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchProps) {
-  const width = useWidth();
   const { t } = useTranslation('');
   const dispatch = useDispatch();
   const { theme } = useTheme();
@@ -53,6 +53,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
 
   const onSearchGames = async (search: string) => {
     try {
+      if (!search) return;
       setIsLoading(true);
       const _res = await api_getGamesByNameAndProvider(search);
       const tempGameLists = _res.data.data.map((item: any) => ({
@@ -111,11 +112,11 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         sethistory(existValues);
       }
     }
-    return () => {};
+    return () => { };
   }, [debouncedSearchValue]);
 
   useEffect(() => {
-    if (width > 600) {
+    if (!isMobile) {
       getRecommandGames();
     }
 
@@ -124,7 +125,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
       const value = JSON.parse(casinoSearchHistories);
       sethistory(value);
     }
-  }, [width]);
+  }, [isMobile]);
 
   const layout = document.getElementById('base-layout');
   const wheelHandler = (event: any) => {
