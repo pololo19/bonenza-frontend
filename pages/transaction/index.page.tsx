@@ -3,7 +3,6 @@ import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import cn from 'classnames';
 import { ArrowRight2, Copy } from 'iconsax-react';
-import Head from 'next/head';
 import Image from 'next/image';
 import { Fragment, ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
@@ -36,6 +35,7 @@ import {
 } from '@/types/common';
 
 import styles from './index.module.scss';
+import { camelize } from 'humps';
 
 interface BillType {
   type: string;
@@ -244,7 +244,7 @@ const TransactionPage = () => {
       return [
         {
           accessorKey: 'swapFrom + swapTo',
-          header: () => <div className="text-left">{String(t('transaction:type'))}</div>,
+          header: () => <div className="text-left capitalize">{String(t('transaction:type'))}</div>,
           cell: ({ row }) => (
             <div className="flex items-center gap-1 text-white truncate">{t(optionFilter.type.name)}</div>
           ),
@@ -324,7 +324,7 @@ const TransactionPage = () => {
     return [
       {
         accessorKey: 'swapFrom',
-        header: () => <div className="text-left">{String(t('transaction:swapFrom'))}</div>,
+        header: () => <div className="text-left capitalize">{String(t('transaction:swapFrom'))}</div>,
         cell: ({ row }) => (
           <div className="text-[#FF053B] flex items-center justify-start gap-1 truncate py-2">
             <span>
@@ -394,14 +394,14 @@ const TransactionPage = () => {
         {
           accessorKey: 'actionType',
           header: () => (
-            <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+            <div className="text-left dark:text-color-text-primary text-color-light-text-primary capitalize">
               {String(t('transaction:type'))}
             </div>
           ),
           cell: ({ row }) => (
             <>
               <div className="flex items-center gap-1 text-black truncate dark:text-white">
-                {row.original?.type?.toUpperCase()}{' '}
+                {String(t(`transaction:${camelize(row.original?.type || '')}`))}{' '}
                 {row.original?.type && row.original?.gameName && (
                   <span className="text-[10px] text-gray-400 flex gap-[5px]">
                     ({row.original?.gameName})
@@ -523,14 +523,14 @@ const TransactionPage = () => {
       {
         accessorKey: 'actionType',
         header: () => (
-          <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-left dark:text-color-text-primary text-color-light-text-primary capitalize">
             {String(t('transaction:type'))}/{String(t('transaction:time'))}
           </div>
         ),
         cell: ({ row }) => (
           <div className="">
             <div className="flex items-center gap-1 text-black truncate dark:text-white">
-              {row.original?.type?.toUpperCase()}{' '}
+              {String(t(`transaction:${camelize(row.original?.type || '')}`))}{' '}
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
                   ({row.original?.gameName})
@@ -791,7 +791,7 @@ const TransactionPage = () => {
             </div>
           ),
           cell: ({ row }) => (
-            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{row.original.type}</div>
+            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{String(t(`transaction:${camelize(row.original?.type || '')}`))}</div>
           ),
           minSize: 30,
         },
@@ -881,7 +881,7 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div>
-            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{row.original.type}</div>
+            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{String(t(`transaction:${camelize(row.original?.type || '')}`))}</div>
             <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
               {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
