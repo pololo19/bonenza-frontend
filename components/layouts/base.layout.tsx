@@ -123,6 +123,7 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
+import Head from 'next/head';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -641,6 +642,14 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   return (
     <>
+      <Head>
+        <title>Bonenza | Best Crypto Online Casino | Play & Win with Bitcoin & Ethereum</title>
+        <meta name="description" content="Join Bonenza, the leading crypto online casino. Enjoy secure, fast transactions with Bitcoin, Ethereum, and more. Participate in exciting baccarat tournaments and win big. Sign up now and start winning!" />
+        <meta
+          name="keywords"
+          content="Bonenza, crypto online casino, Bitcoin casino, Ethereum gambling, play online casino with crypto, baccarat tournament, crypto tournaments"
+        />
+      </Head>
       {isLoading ? (
         <Loader isHomePage />
       ) : (

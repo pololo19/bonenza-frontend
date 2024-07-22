@@ -361,9 +361,6 @@ function RewardsComponent() {
   return (
     <div className="">
       {isLoading && <Loader />}
-      <Head>
-        <title>Affiliate - Bonenza</title>
-      </Head>
       <div className="flex flex-col mt-[20px]">
         <div className="grid grid-cols-1 gap-6 py-5 md:grid-cols-3 bg-gradient-card-default rounded-default">
           <div className="md:py-10">

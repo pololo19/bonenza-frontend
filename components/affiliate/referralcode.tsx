@@ -215,69 +215,6 @@ function ReferralCodeFriendComponent() {
   return (
     <div className="">
       {isLoading && <Loader />}
-      <Head>
-        <title>Affiliate - Bonenza</title>
-      </Head>
-      {/* <div className="flex flex-col mt-[20px]">
-        <div className="grid grid-cols-1 gap-6 py-5 md:grid-cols-3 bg-gradient-card-default rounded-default">
-          <div className="md:py-10">
-            <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
-              {t('affiliate:referralCodeCreated')}
-            </div>
-            <div className={`text-title mt-5 sm:text-[22px] font-bold text-center`}>
-              <span className="font-bold text-color-text-green">{0} </span>
-              <span className="font-bold">/ 20</span>
-            </div>
-          </div>
-          <div className="md:py-10">
-            <div className="min-w-[150px] text-center text-default sm:text-[16px] font-normal dark:text-[#FFFFFF] text-[#141414]">
-              {t('affiliate:friends')}
-            </div>
-            <div className={`text-title mt-5 sm:text-[22px] font-bold text-center text-color-text-green`}>
-              {totalFriendsCnt}
-            </div>
-          </div>
-          <div className="flex items-center justify-center">
-            <div className="bg-gradient-btn-play min-w-[170px] px-12 py-3 rounded-default cursor-pointer hover:opacity-80 hover:!text-white">
-              {isCreating ? (
-                <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-6 !h-6" />
-              ) : (
-                t('affiliate:createCode')
-              )}
-            </div>
-          </div>
-        </div>
-      </div> */}
-      {/* <div className="flex justify-between mt-5">
-        <div className="flex">
-          <div
-            onClick={() => setCodeTab('code')}
-            className={cn(
-              'flex items-center justify-center py-[10px] px-[20px] text-color-text-primary border-l border-solid border-color-primary',
-              {
-                'bg-gradient-to-b from-[#00BAE600] to-[#006880] dark:!text-white !text-black':
-                  codeTab === ('code' as ReferralType),
-              },
-            )}
-            role="button"
-          >
-            <div className="font-semibold sm:text-default text-m_default">{t('affiliate:referralCode')}</div>
-          </div>
-          <div
-            onClick={() => setCodeTab('friend')}
-            className={cn(
-              'flex items-center justify-center py-[10px] px-[20px] text-color-text-primary border-l border-r border-solid border-color-primary',
-              {
-                'bg-gradient-to-b from-[#00BAE600] to-[#006880] dark:!text-white !text-black':
-                  codeTab === ('friend' as ReferralType),
-              },
-            )}
-            role="button"
-          >
-            <div className="font-semibold sm:text-default text-m_default">{t('affiliate:friends')}</div>
-          </div>
-        </div>
-      </div> */}
       {codeTab === 'code' && (
         <div className="w-full rounded-default bg-[#1D2738] mt-5 text-center py-20">
           {t('affiliate:noReferralCode')}

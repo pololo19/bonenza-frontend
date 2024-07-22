@@ -127,9 +127,6 @@ function CasinoCategoryPage() {
 
   return (
     <div className="py-[24px]">
-      <Head>
-        <title>Casino - Bonenza</title>
-      </Head>
       {isLoading && <Loader />}
 
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">

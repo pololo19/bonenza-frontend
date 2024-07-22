@@ -43,6 +43,7 @@ function CasinoTagnamePage() {
   const dispatch = useDispatch();
   const { query } = useRouter();
   const { key } = query;
+  const _key = String(key);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
@@ -69,8 +70,7 @@ function CasinoTagnamePage() {
   }, []);
 
   const getGameList = async (pageNumber: number, providers: string[], sort: SortType) => {
-    // const query = key === 'slots' || key === 'Live Casino' ? { sort: selectedSortBy.orderValue } : {};
-    const query = key === 'slots' || key === 'Live Casino' || key === 'Racing' ? { sort } : {};
+    const query = _key === 'slots' || _key === 'Live Casino' || _key === 'Racing' ? { sort } : {};
     let tempGameListData: GameListType[] = [];
     let params: any = {
       pageSize,
@@ -84,7 +84,7 @@ function CasinoTagnamePage() {
         ...query,
         providers: JSON.stringify(providers),
       };
-      const res = await api_getCasinoWithKey(convert2Url(String(key)), params);
+      const res = await api_getCasinoWithKey(convert2Url(String(_key)), params);
 
       const totalCount = res?.data?.totalCount ?? 0;
       const games = res?.data?.games ?? [];
@@ -114,7 +114,7 @@ function CasinoTagnamePage() {
     try {
       setIsLoading(true);
       let category: CategoryType = 'all';
-      switch (convert2Url(String(key))) {
+      switch (convert2Url(String(_key))) {
         case 'slots':
           category = 'slots';
           break;
@@ -220,9 +220,6 @@ function CasinoTagnamePage() {
 
   return (
     <div className="py-[24px]">
-      <Head>
-        <title>Casino - Bonenza</title>
-      </Head>
       {isLoading && <Loader />}
       {showTab && (
         <>

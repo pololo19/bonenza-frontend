@@ -6,7 +6,7 @@ import BaseLayout from '@/components/layouts/base.layout';
 import styles from '@/styles/dashboard/index.module.scss';
 
 function NotFoundPage() {
-  const [days, hours, minutes, seconds] = useCountdown('4/1/2024');
+  const [days, hours, minutes, seconds] = useCountdown('9/1/2024');
   const { t } = useTranslation('');
   return (
     <>

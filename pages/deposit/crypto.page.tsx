@@ -11,47 +11,17 @@ import styles from './index.module.scss';
 
 const DepositCryptoPage = () => {
   const { t } = useTranslation('');
-  const router = useRouter();
 
   return (
-    <div className={`${styles.cardContent}`}>
-      <Head>
-        <title>Deposit Crypto - Bonenza</title>
-      </Head>
-      <div className={`h-1/3 ${styles.contentHeader}`}>
-        {/* Header Tabs */}
-        {/* <div className="flex mb-[20px] w-full"> */}
-        {/* <Link
-            href={ROUTER.DepositCrypto}
-            className={cn(
-              'bg-gradient-to-t from-color-primary/20 border-color-primary sm:max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid pb-[10px]',
-            )}
-            role="button"
-          >
-            <div className="text-[16px] dark:text-white text-black font-[700]">{t('deposit:crypto')}</div>
-          </Link>
-          <div
-            className={cn(
-              'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
-            )}
-          >
-            <div className="text-[16px] text-color-text-primary font-[700]">{t('deposit:fiat')}</div>
-          </div> */}
-        {/* <Link
-            href={ROUTER.DepositFiat}
-            className={cn(
-              'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
-            )}
-            role="button"
-            aria-disabled
-          >
-            <div className="text-[16px] dark:text-white text-black font-[700]">{t('deposit:fiat')}</div>
-          </Link> */}
-        {/* </div> */}
+    <>
+      <div className={`${styles.cardContent}`}>
 
-        <DepositCryptoComponent />
+        <div className={`h-1/3 ${styles.contentHeader}`}>
+
+          <DepositCryptoComponent />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

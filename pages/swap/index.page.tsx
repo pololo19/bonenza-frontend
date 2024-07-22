@@ -70,9 +70,6 @@ const SwapPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Swap - Bonenza</title>
-      </Head>
       <div className={`${styles.cardContent}`}>
         <div className={`lg:max-w-[75%] ${styles.contentHeader}`}>
           <div>

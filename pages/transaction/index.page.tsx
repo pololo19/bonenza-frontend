@@ -1225,9 +1225,6 @@ const TransactionPage = () => {
 
   return (
     <div className={`${styles.cardContent}`}>
-      <Head>
-        <title>Transactions History - Bonenza</title>
-      </Head>
       <div className="w-full">
         <div className="flex items-center flex-wrap mb-[20px] sm:mb-[40px] sm:gap-[20px] gap-[10px]">
           <Menu

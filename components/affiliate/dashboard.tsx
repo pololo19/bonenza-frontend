@@ -176,9 +176,6 @@ function DashboardComponent() {
     <div className="">
       {isLoading && <Loader />}
       {showReferralTerm && <ModalReferralTerm show={showReferralTerm} onClose={() => setShowReferralTerm(false)} />}
-      <Head>
-        <title>Affiliate - Bonenza</title>
-      </Head>
       <div className="flex flex-col mt-[20px]">
         <div className="w-full flex flex-col lg:flex-row pb-[23px] lg:justify-center gap-4">
           <div className="flex flex-col items-center justify-start w-full gap-8 overflow-hidden bg-white dark:bg-gradient-card-default rounded-default">
@@ -576,17 +573,15 @@ function DashboardComponent() {
                         {item.title}
                       </div>
                       <div
-                        className={`text-white w-[30px] h-[30px] rounded-full flex items-center justify-center transition-all ${
-                          open ? 'rotate-180' : 'rotate-0'
-                        }`}
+                        className={`text-white w-[30px] h-[30px] rounded-full flex items-center justify-center transition-all ${open ? 'rotate-180' : 'rotate-0'
+                          }`}
                       >
                         <ArrowDown2 size="20" />
                       </div>
                     </Disclosure.Button>
                     <div
-                      className={`flex flex-col gap-[20px] w-full transition-all duration-300 overflow-hidden ${
-                        open ? 'max-h-[600px]' : 'max-h-0'
-                      }`}
+                      className={`flex flex-col gap-[20px] w-full transition-all duration-300 overflow-hidden ${open ? 'max-h-[600px]' : 'max-h-0'
+                        }`}
                     >
                       <div className="flex justify-between dark:text-[#98A7B5] text-[#31373d] text-[12px] sm:text-[14px] mb-[20px]">
                         {item.content}
