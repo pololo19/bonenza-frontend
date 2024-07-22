@@ -1,4 +1,15 @@
-import { StarIcon } from '@heroicons/react/24/solid';
+import {
+  api_getGameDetail,
+  api_getGameFavorite,
+  api_setGameFavorite,
+  api_startGameDemo,
+  api_startGameSession,
+} from '@/api/game';
+import {
+  changeAuthenticationType,
+  changeIsShowAuthenticationModal,
+  changeIsShowDepositModal,
+} from '@/base/redux/reducers/modal.reducer';
 import cn from 'classnames';
 import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -11,32 +22,21 @@ import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import {
-  api_getGameDetail,
-  api_getGameFavorite,
-  api_setGameFavorite,
-  api_startGameDemo,
-  api_startGameSession,
-} from '@/api/game';
+import { StarIcon } from '@heroicons/react/24/solid';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { formatDate } from '@/base/libs/utils';
+import { formatDate, isEmpty } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
-import {
-  changeAuthenticationType,
-  changeIsShowAuthenticationModal,
-  changeIsShowDepositModal,
-} from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import Loader from '@/components/common/preloader/loader';
+import BaseLayout from '@/components/layouts/base.layout';
+import FiatHeader from '@/components/layouts/header/fiatHeader';
 import GameDescriptionComponent from '@/components/game/gameDescription';
 import GameDetailComponent from '@/components/game/gameDetail';
 import GameReviewComponent from '@/components/game/gameReview';
-import BaseLayout from '@/components/layouts/base.layout';
-import FiatHeader from '@/components/layouts/header/fiatHeader';
+import Loader from '@/components/common/preloader/loader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
@@ -158,9 +158,7 @@ function GamePage() {
   }, [language, gameDetail.id, isMobile])
 
   const _initLoad = useCallback(async () => {
-    if (!String(gameId)) {
-      return;
-    }
+    if (isEmpty(gameId)) return;
     setIsLoading(true);
     setIsNotFoundGame(false);
 
