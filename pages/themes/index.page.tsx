@@ -42,9 +42,6 @@ function ThemePage() {
   return (
     <>
       <div className="py-[24px]">
-        <Head>
-          <title>Themes - Bonenza</title>
-        </Head>
         {isLoading && <Loader />}
         <Breadcrumbs
           data={[{ title: 'Casino', href: ROUTER.Casino }]}

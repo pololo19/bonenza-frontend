@@ -283,8 +283,8 @@ const WithdrawCryptoPage = () => {
             ? currencyFormat1(renderBalanceValue, 4, '', false)
             : currencyFormat1(withdrawInfo.availableAmount, 4, '', false)
           : withdrawInfo.availableAmount > renderMinValue.min
-          ? renderMinValue.min
-          : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
+            ? renderMinValue.min
+            : currencyFormat1(withdrawInfo.availableAmount, 4, '', false),
       ),
     );
   }, [renderMinValue, renderBalanceValue]);
@@ -296,38 +296,9 @@ const WithdrawCryptoPage = () => {
   return (
     <>
       <div className={`${styles.cardContent}`}>
-        <Head>
-          <title>Withdraw Crypto - Bonenza</title>
-        </Head>
+
         {isLoading && <Loader />}
         <div className={`h-1/3 ${styles.contentHeader}`}>
-          {/* <div className="flex sm:mb-[32px] mb-[20px] w-full"> */}
-          {/* <Link
-              href={ROUTER.WithdrawCrypto}
-              className={cn(
-                'bg-gradient-to-t from-color-primary/20 border-color-primary sm:max-w-[161px] flex-1 flex hover:opacity-[0.9] items-center justify-center border-b-2 border-solid pb-[10px]',
-              )}
-              role="button"
-            >
-              <div className="text-[16px] dark:text-white text-black font-[700]">{t('deposit:crypto')}</div>
-            </Link>
-            <div
-              className={cn(
-                'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
-              )}
-            >
-              <div className="text-[16px] text-color-text-primary font-[700]">{t('deposit:fiat')}</div>
-            </div> */}
-          {/* <Link
-              href={ROUTER.WithdrawFiat}
-              className={cn(
-                'flex-1 flex items-center hover:opacity-[0.9] sm:max-w-[161px] justify-center border-b-2 border-solid dark:border-color-border-primary border-color-light-border-primary pb-[10px]',
-              )}
-              role="button"
-            >
-              <div className="text-[16px] dark:text-white text-black font-[700]">{t('deposit:fiat')}</div>
-            </Link> */}
-          {/* </div> */}
           <div className="md:max-w-[492px]">
             {restrictedDuration > 0 && (
               <div className="">
@@ -488,10 +459,10 @@ const WithdrawCryptoPage = () => {
                   <div className="flex text-black dark:text-white gap-1">
                     {viewInFiat
                       ? currencyFormat1(
-                          withdrawInfo.availableAmountUsd * exchangeRate,
-                          4,
-                          String(localFiat?.name || 'USD'),
-                        )
+                        withdrawInfo.availableAmountUsd * exchangeRate,
+                        4,
+                        String(localFiat?.name || 'USD'),
+                      )
                       : `${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)}`}
                     <span className="dark:text-color-text-primary text-color-light-text-primary">
                       {viewInFiat && `(${currencyFormat1(withdrawInfo.availableAmount, 4, '', false)} )`}
@@ -565,15 +536,6 @@ const WithdrawCryptoPage = () => {
                   {t('withdraw:confirm')}
                 </button>
               </div>
-              {/* <div className="flex items-center justify-end text-default text-color-text-primary gap-[5px] mt-5">
-                <div>{t('deposit:share')}</div>
-                <Link href={'/'}>
-                  <Image src={'/img/facebook.png'} alt="" width={30} height={30} />
-                </Link>
-                <Link href={'/'}>
-                  <Image src={'/img/telegram.png'} alt="" width={30} height={30} />
-                </Link>
-              </div> */}
             </form>
           </div>
         </div>

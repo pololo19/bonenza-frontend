@@ -66,9 +66,6 @@ function CasinoTagnamePage() {
 
   return (
     <div className="py-[24px]">
-      <Head>
-        <title>Casino - Bonenza</title>
-      </Head>
       {isLoading && <Loader />}
 
       <div

@@ -110,9 +110,6 @@ const BalancePage = () => {
   return (
     <div className={'relative'}>
       {isLoading && <Loader />}
-      <Head>
-        <title>Balance - Bonenza</title>
-      </Head>
       <div className="flex items-center justify-between bg-white dark:bg-color-modal-bg-secondary">
         <div className="flex items-center justify-start gap-[15px] w-full">
           <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
@@ -216,10 +213,10 @@ const BalancePage = () => {
                               <Lock size={12} variant="Bold" />{' '}
                               {viewInFiat
                                 ? currencyFormat1(
-                                    lockedAmount * usdtPrice * exchangeRate,
-                                    fiatDecimals,
-                                    localFiat?.name,
-                                  )
+                                  lockedAmount * usdtPrice * exchangeRate,
+                                  fiatDecimals,
+                                  localFiat?.name,
+                                )
                                 : currencyFormat1(lockedAmount, 2, '', false)}
                             </div>
                           </div>
@@ -239,10 +236,10 @@ const BalancePage = () => {
                               <Lock size={12} variant="Bold" />{' '}
                               {viewInFiat
                                 ? currencyFormat1(
-                                    lockedAmount * usdtPrice * exchangeRate,
-                                    cryptoDecimals,
-                                    localFiat?.name,
-                                  )
+                                  lockedAmount * usdtPrice * exchangeRate,
+                                  cryptoDecimals,
+                                  localFiat?.name,
+                                )
                                 : currencyFormat1(lockedAmount, 2, '', false)}
                             </div>
                           </div>

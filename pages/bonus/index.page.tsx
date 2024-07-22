@@ -39,9 +39,6 @@ function BonusPage() {
 
   return (
     <>
-      <Head>
-        <title>Bonus - Bonenza</title>
-      </Head>
       <div className="w-full pt-3 sm:pt-5">
         {!isLogin && (
           <div>

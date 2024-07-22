@@ -59,9 +59,6 @@ function TournamentPage() {
   return (
     <>
       <div className="py-[24px]">
-        <Head>
-          <title>Tournament - Bonenza</title>
-        </Head>
         <div className="relative">
           <Image
             src="/img/tournament/logo-back.png"

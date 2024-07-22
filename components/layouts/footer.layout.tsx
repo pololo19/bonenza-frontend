@@ -239,18 +239,6 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 >
                   {String(t('footer:affiliate'))}
                 </Link>
-                {/* <Link
-                  href={ROUTER.Promotion}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:promotions'))}
-                </Link> */}
-                {/* <Link
-                  href={ROUTER.Lottery}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:lottery'))}
-                </Link> */}
                 <div
                   onClick={() => {
                     isLogin ? dispatch(changeIsShowReferAndEarn(true)) : openModalLogin();

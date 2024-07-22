@@ -57,9 +57,6 @@ function RecentPage() {
 
   return (
     <div className="py-[24px]">
-      <Head>
-        <title>Recent Games - Bonenza</title>
-      </Head>
       {isLoading && <Loader />}
       <Breadcrumbs
         data={[{ title: 'Casino', href: ROUTER.Casino }]}

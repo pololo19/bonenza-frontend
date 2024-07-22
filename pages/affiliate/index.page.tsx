@@ -110,9 +110,6 @@ function AffiliatePage() {
   }, []);
   return (
     <>
-      <Head>
-        <title>Affiliate - Bonenza</title>
-      </Head>
       {!isLogin && (
         <>
           <div
@@ -356,8 +353,8 @@ function AffiliatePage() {
                           </div>
                           <div
                             className={`${open
-                                ? 'bg-color-primary text-white'
-                                : 'dark:bg-[#ffffff33] bg-[#f5f6fa] dark:text-[#98A7B5] text-[#31373d]'
+                              ? 'bg-color-primary text-white'
+                              : 'dark:bg-[#ffffff33] bg-[#f5f6fa] dark:text-[#98A7B5] text-[#31373d]'
                               } w-[30px] h-[30px] rounded-full flex items-center justify-center`}
                           >
                             {open ? <Minus size="24" /> : <Add size="24" />}

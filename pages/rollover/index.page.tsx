@@ -117,9 +117,8 @@ const RolloverPage = () => {
           ),
           cell: ({ row }) => (
             <div
-              className={`${
-                optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-text-green'
-              } flex items-center justify-center gap-1`}
+              className={`${optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-text-green'
+                } flex items-center justify-center gap-1`}
             >
               {optionFilter.type.name === 'Withdraw' ? '-' : ''}
               {viewInFiat ? (
@@ -210,9 +209,8 @@ const RolloverPage = () => {
         ),
         cell: ({ row }) => (
           <div
-            className={`${
-              optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-text-green'
-            } flex items-center justify-center gap-1`}
+            className={`${optionFilter.type.name === 'Withdraw' ? 'text-red-500' : 'text-color-text-green'
+              } flex items-center justify-center gap-1`}
           >
             {optionFilter.type.name === 'Withdraw' ? '-' : ''}
             {viewInFiat ? (
@@ -331,105 +329,8 @@ const RolloverPage = () => {
 
   return (
     <div>
-      <Head>
-        <title>Rollover Overview - Bonenza</title>
-      </Head>
       <div className="w-full h-1/3 sm:min-h-[400px]">
         <div className="flex items-center flex-wrap mb-[20px] sm:mb-[40px] sm:gap-[20px] gap-[10px]">
-          {/* <Menu
-            as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
-          >
-            <Menu.Button className="flex-1">
-              <div className="flex items-center justify-between w-full" role="button">
-                <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                  <div className="flex-1 text-black text-start dark:text-white">{t(optionFilter.type.name)}</div>
-                </div>
-                <div className="flex items-center justify-start gap-[10px]">
-                  <ChevronDownIcon className="text-black  dark:text-white" width={15} />
-                </div>
-              </div>
-            </Menu.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
-            >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
-                <div className="py-1">
-                  {LIST_FILTER_TYPE.map((item, index) => (
-                    <Menu.Item key={index}>
-                      {({ active }) => (
-                        <div
-                          className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-[#f5f6fa]"
-                          role="button"
-                          onClick={() => setOptionFilter({ ...optionFilter, type: item })}
-                        >
-                          <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                            <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
-                          </div>
-                        </div>
-                      )}
-                    </Menu.Item>
-                  ))}
-                </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-          {optionFilter.type.id === 3 && (
-            <Menu
-              as="div"
-              className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
-            >
-              <Menu.Button className="flex-1">
-                <div className="flex items-center justify-between w-full" role="button">
-                  <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                    <div className="flex-1 text-black text-start dark:text-white">
-                      {t(optionFilter.bonusEvent.name)}
-                    </div>
-                  </div>
-                  <div className="flex items-center justify-start gap-[10px]">
-                    <ChevronDownIcon className="text-black  dark:text-white" width={15} />
-                  </div>
-                </div>
-              </Menu.Button>
-
-              <Transition
-                as={Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
-                  <div className="py-1">
-                    {LIST_FILTER_EVENT_BONUS.map((item, index) => (
-                      <Menu.Item key={index}>
-                        {({ active }) => (
-                          <div
-                            className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-[#f5f6fa]"
-                            role="button"
-                            onClick={() => setOptionFilter({ ...optionFilter, bonusEvent: item })}
-                          >
-                            <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                              <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
-                            </div>
-                          </div>
-                        )}
-                      </Menu.Item>
-                    ))}
-                  </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
-          )} */}
           <Menu
             as="div"
             className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"

@@ -9,6 +9,7 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import InputText from '@/components/input/typing/InputText';
 import styles from '@/styles/dashboard/index.module.scss';
 import { api_checkAuthKey } from '@/api/auth';
+import Head from 'next/head';
 
 type AuthForm = {
   authKey: string;

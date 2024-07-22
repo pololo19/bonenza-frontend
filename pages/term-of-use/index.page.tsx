@@ -78,9 +78,6 @@ const Term = () => {
   const listDisclaimers = [t('termOfUse:disclaimers2'), t('termOfUse:disclaimers3'), t('termOfUse:disclaimers4')];
   return (
     <div>
-      <Head>
-        <title>Term Of Use - Bonenza</title>
-      </Head>
       <div className="bg-[url('/img/page/bg-home-image.png')] bg-no-repeat bg-cover flex justify-center pt-[100px] pb-[50px] md:pb-[100px]">
         <div className="bg-[#000f21] w-[1240px] px-[25px] md:px-[60px] pt-[25px] md:pt-[30px] pb-[50px] md:pb-[100px] text-[white] ">
           <div className=" text-[28px] font-bold flex justify-center">{t('termOfUse:termsOfUse')}</div>

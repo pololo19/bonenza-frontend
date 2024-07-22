@@ -55,9 +55,6 @@ function PickForYouPage() {
 
   return (
     <div className="py-[24px]">
-      <Head>
-        <title>Pick For You - Bonenza</title>
-      </Head>
       {isLoading && <Loader />}
 
       <Breadcrumbs
