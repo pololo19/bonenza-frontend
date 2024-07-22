@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "Щоденний квест Великий виграшний бонус",
     "dailyQuestJustWagerOnBonus": "Щоденний квест Просто відставний бонус",
     "dailyQuestSlotsMasterBonus": "Daily Quest Slots Master Bonus",
-    "weeklyQuestWagerWeekBonus": "Щотижневий квестовий бонус"
+    "weeklyQuestWagerWeekBonus": "Щотижневий квестовий бонус",
+    "win": "перемога",
+    "bet": "Ставка"
   },
   "buyCrypto": {
     "payWith": "Ви платите з",

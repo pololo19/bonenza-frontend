@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "দৈনিক কোয়েস্ট বড় জয় বোনাস",
     "dailyQuestJustWagerOnBonus": "ডেইলি কোয়েস্ট জাস্ট বাজি বোনাস",
     "dailyQuestSlotsMasterBonus": "দৈনিক কোয়েস্ট স্লট মাস্টার বোনাস",
-    "weeklyQuestWagerWeekBonus": "সাপ্তাহিক কোয়েস্ট বাজি বোনাস"
+    "weeklyQuestWagerWeekBonus": "সাপ্তাহিক কোয়েস্ট বাজি বোনাস",
+    "win": "জয়",
+    "bet": "বাজি"
   },
   "buyCrypto": {
     "payWith": "আপনি দিয়ে পরিশোধ করুন",

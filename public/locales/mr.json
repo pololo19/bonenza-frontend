@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "दैनिक क्वेस्ट बिग विन बोनस",
     "dailyQuestJustWagerOnBonus": "डेली क्वेस्ट जस्ट वेजर बोनस",
     "dailyQuestSlotsMasterBonus": "दैनिक क्वेस्ट स्लॉट मास्टर बोनस",
-    "weeklyQuestWagerWeekBonus": "साप्ताहिक क्वेस्ट वेजर बोनस"
+    "weeklyQuestWagerWeekBonus": "साप्ताहिक क्वेस्ट वेजर बोनस",
+    "win": "जिंकणे",
+    "bet": "पैज"
   },
   "buyCrypto": {
     "payWith": "तुम्ही यासह पैसे द्या",

@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "每日任务大赢奖金",
     "dailyQuestJustWagerOnBonus": "每日任务只需投注奖金",
     "dailyQuestSlotsMasterBonus": "每日任务老虎机大师奖励",
-    "weeklyQuestWagerWeekBonus": "每周任务投注奖金"
+    "weeklyQuestWagerWeekBonus": "每周任务投注奖金",
+    "win": "赢",
+    "bet": "赌注"
   },
   "buyCrypto": {
     "payWith": "您用以下方式付款",

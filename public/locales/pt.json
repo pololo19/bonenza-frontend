@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "Bônus de grande vitória da missão diária",
     "dailyQuestJustWagerOnBonus": "Bônus de apenas aposta da missão diária",
     "dailyQuestSlotsMasterBonus": "Bônus Mestre de Slots de Missões Diárias",
-    "weeklyQuestWagerWeekBonus": "Bônus de aposta de missão semanal"
+    "weeklyQuestWagerWeekBonus": "Bônus de aposta de missão semanal",
+    "win": "Ganhar",
+    "bet": "Aposta"
   },
   "buyCrypto": {
     "payWith": "Você paga com",

@@ -401,7 +401,7 @@ const TransactionPage = () => {
           cell: ({ row }) => (
             <>
               <div className="flex items-center gap-1 text-black truncate dark:text-white">
-                {String(t(`transaction:${camelize(row.original?.type || '')}`))}{' '}
+                {String(t(`transaction:${row.original?.type.indexOf('_') >= 0 ? camelize(row.original?.type || '') : row.original.type.toLowerCase()}`))}{' '}
                 {row.original?.type && row.original?.gameName && (
                   <span className="text-[10px] text-gray-400 flex gap-[5px]">
                     ({row.original?.gameName})
@@ -437,11 +437,13 @@ const TransactionPage = () => {
             <div
               className={cn('flex items-center justify-center gap-1 truncate', {
                 'text-color-red':
+                  row.original?.type?.toLowerCase() == 'bet' ||
                   row.original?.type?.toLowerCase() == 'game_bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
                   row.original.type.toLowerCase() === 'tip_send' ||
                   row.original.type.toLocaleLowerCase() === 'swap_send',
                 'text-color-text-green': !(
+                  row.original?.type?.toLowerCase() == 'bet' ||
                   row.original?.type?.toLowerCase() == 'game_bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
                   row.original.type.toLowerCase() === 'tip_send' ||
@@ -450,7 +452,8 @@ const TransactionPage = () => {
               })}
             >
               {
-                row.original?.type?.toLowerCase() == 'game_bet' ||
+                row.original?.type?.toLowerCase() == 'bet' ||
+                  row.original?.type?.toLowerCase() == 'game_bet' ||
                   row.original.type.toLowerCase() === 'withdraw' ||
                   row.original.type.toLowerCase() === 'tip_send' ||
                   row.original.type.toLocaleLowerCase() === 'swap_send'
@@ -531,7 +534,7 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div className="">
             <div className="flex items-center gap-1 text-black truncate dark:text-white">
-              {String(t(`transaction:${camelize(row.original?.type || '')}`))}{' '}
+              {String(t(`transaction:${row.original?.type.indexOf('_') >= 0 ? camelize(row.original?.type || '') : row.original.type.toLowerCase()}`))}{' '}
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
                   ({row.original?.gameName})

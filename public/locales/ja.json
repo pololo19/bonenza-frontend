@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "デイリークエスト大勝利ボーナス",
     "dailyQuestJustWagerOnBonus": "デイリークエストジャストウェイジャーボーナス",
     "dailyQuestSlotsMasterBonus": "デイリークエストスロットマスターボーナス",
-    "weeklyQuestWagerWeekBonus": "毎週のクエスト賭けボーナス"
+    "weeklyQuestWagerWeekBonus": "毎週のクエスト賭けボーナス",
+    "win": "勝つ",
+    "bet": "ベット"
   },
   "buyCrypto": {
     "payWith": "で支払います",
