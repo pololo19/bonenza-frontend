@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "Bonus de gros gains de quête quotidienne",
     "dailyQuestJustWagerOnBonus": "Quête quotidienne Just Wager Bonus",
     "dailyQuestSlotsMasterBonus": "Bonus principal des machines à sous de quête quotidienne",
-    "weeklyQuestWagerWeekBonus": "Bonus de pari de quête hebdomadaire"
+    "weeklyQuestWagerWeekBonus": "Bonus de pari de quête hebdomadaire",
+    "win": "Gagner",
+    "bet": "Pari"
   },
   "buyCrypto": {
     "payWith": "Vous payez avec",

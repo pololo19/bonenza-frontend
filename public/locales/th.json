@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "โบนัสการชนะรางวัลใหญ่รายวัน",
     "dailyQuestJustWagerOnBonus": "โบนัสการเดิมพันรายวันเพียงแค่เดิมพัน",
     "dailyQuestSlotsMasterBonus": "โบนัสมาสเตอร์สล็อตภารกิจรายวัน",
-    "weeklyQuestWagerWeekBonus": "โบนัสเดิมพันภารกิจรายสัปดาห์"
+    "weeklyQuestWagerWeekBonus": "โบนัสเดิมพันภารกิจรายสัปดาห์",
+    "win": "ชนะ",
+    "bet": "เดิมพัน"
   },
   "buyCrypto": {
     "payWith": "คุณชำระเงินด้วย",

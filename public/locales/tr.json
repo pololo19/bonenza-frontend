@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "Günlük Görev Büyük Kazanma Bonusu",
     "dailyQuestJustWagerOnBonus": "Günlük Görev Sadece Bahis Bonusu",
     "dailyQuestSlotsMasterBonus": "Günlük Görev Slotları Usta Bonusu",
-    "weeklyQuestWagerWeekBonus": "Haftalık Görev Bahis Bonusu"
+    "weeklyQuestWagerWeekBonus": "Haftalık Görev Bahis Bonusu",
+    "win": "Kazanç",
+    "bet": "Bahis"
   },
   "buyCrypto": {
     "payWith": "ile ödeme yaparsınız",

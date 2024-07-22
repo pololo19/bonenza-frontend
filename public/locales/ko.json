@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "일일 퀘스트 대승 보너스",
     "dailyQuestJustWagerOnBonus": "일일 퀘스트 Just Wager 보너스",
     "dailyQuestSlotsMasterBonus": "일일 퀘스트 슬롯 마스터 보너스",
-    "weeklyQuestWagerWeekBonus": "주간 퀘스트 베팅 보너스"
+    "weeklyQuestWagerWeekBonus": "주간 퀘스트 베팅 보너스",
+    "win": "이기다",
+    "bet": "내기"
   },
   "buyCrypto": {
     "payWith": "당신은 다음으로 지불합니다",

@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "Bonus Kemenangan Besar Pencarian Harian",
     "dailyQuestJustWagerOnBonus": "Pencarian Harian Hanya Bonus Taruhan",
     "dailyQuestSlotsMasterBonus": "Bonus Induk Slot Quest Harian",
-    "weeklyQuestWagerWeekBonus": "Bonus Pertaruhan Pencarian Mingguan"
+    "weeklyQuestWagerWeekBonus": "Bonus Pertaruhan Pencarian Mingguan",
+    "win": "Menang",
+    "bet": "pertaruhan"
   },
   "buyCrypto": {
     "payWith": "Anda membayar dengan",

@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "Täglicher Quest-Bonus für große Gewinne",
     "dailyQuestJustWagerOnBonus": "Täglicher Quest-Einsatzbonus",
     "dailyQuestSlotsMasterBonus": "Täglicher Quest-Slots-Master-Bonus",
-    "weeklyQuestWagerWeekBonus": "Wöchentlicher Quest-Einsatzbonus"
+    "weeklyQuestWagerWeekBonus": "Wöchentlicher Quest-Einsatzbonus",
+    "win": "Gewinnen",
+    "bet": "Wette"
   },
   "buyCrypto": {
     "payWith": "Sie zahlen mit",

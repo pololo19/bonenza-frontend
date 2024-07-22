@@ -635,7 +635,9 @@
     "dailyQuestBigWinBonus": "السعي اليومي مكافأة الفوز الكبير",
     "dailyQuestJustWagerOnBonus": "المهمة اليومية مجرد مكافأة الرهان",
     "dailyQuestSlotsMasterBonus": "المكافأة الرئيسية لفتحات المهام اليومية",
-    "weeklyQuestWagerWeekBonus": "مكافأة رهان المهمة الأسبوعية"
+    "weeklyQuestWagerWeekBonus": "مكافأة رهان المهمة الأسبوعية",
+    "win": "يفوز",
+    "bet": "رهان"
   },
   "buyCrypto": {
     "payWith": "أنت تدفع مع",

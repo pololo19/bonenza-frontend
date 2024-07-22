@@ -401,7 +401,7 @@ const TransactionPage = () => {
           cell: ({ row }) => (
             <>
               <div className="flex items-center gap-1 text-black truncate dark:text-white">
-                {String(t(`transaction:${camelize(row.original?.type || '')}`))}{' '}
+                {String(t(`transaction:${row.original?.type.indexOf('_') >= 0 ? camelize(row.original?.type || '') : row.original.type.toLowerCase()}`))}{' '}
                 {row.original?.type && row.original?.gameName && (
                   <span className="text-[10px] text-gray-400 flex gap-[5px]">
                     ({row.original?.gameName})
@@ -531,7 +531,7 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div className="">
             <div className="flex items-center gap-1 text-black truncate dark:text-white">
-              {String(t(`transaction:${camelize(row.original?.type || '')}`))}{' '}
+              {String(t(`transaction:${row.original?.type.indexOf('_') >= 0 ? camelize(row.original?.type || '') : row.original.type.toLowerCase()}`))}{' '}
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
                   ({row.original?.gameName})
