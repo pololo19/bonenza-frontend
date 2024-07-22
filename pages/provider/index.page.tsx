@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { api_getGamesByProvider, SortType } from '@/api/game';
+import { api_getGamesByProvider, api_getPickGames, SortType } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { titleCase } from '@/base/libs/utils';
@@ -40,6 +40,25 @@ function ProviderPage() {
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
 
   const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
+
+  const getRecommendedGames = async () => {
+    try {
+      const _res = await api_getPickGames(1, 20);
+      const tempListRecommandedGames: GameListType[] = _res.data.games?.map((item: any) => ({
+        id: item?.id ?? '',
+        title: item?.title ?? '',
+        description: item?.description ?? '',
+        identifier: item?.identifier ?? '',
+        payout: Number(item.payout || 0),
+        multiplier: Number(item.profitMultiplier || 0),
+        providerName: item?.producerName ?? '',
+        releasedAt: item?.releasedAt ?? new Date(),
+      }));
+      setListRelated(tempListRecommandedGames);
+    } catch {
+      setListRelated([]);
+    }
+  };
 
   const getListGames = useCallback(
     async (page: number = currentPage) => {
@@ -89,6 +108,10 @@ function ProviderPage() {
   useEffect(() => {
     if (currentPage > 1) getListGames();
   }, [currentPage]);
+
+  useEffect(() => {
+    getRecommendedGames();
+  }, []);
 
   return (
     <div className="py-[24px]">
