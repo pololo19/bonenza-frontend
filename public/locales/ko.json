@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "퀘스트를 완료해야 받을 수 있습니다.",
       "emptyAvailableSpin": "사용 가능한 스핀이 없습니다.",
       "VIP22ForSuperSpin": "귀하의 VIP는 22세 이상이어야 합니다.",
-      "VIP70ForMegaSpin": "귀하의 VIP는 70세 이상이어야 합니다."
+      "VIP70ForMegaSpin": "귀하의 VIP는 70세 이상이어야 합니다.",
+      "exceedAirdropTimes": "에어드롭 코드 사용이 한도를 초과했습니다."
     },
     "game": {
       "existGame": "게임이 존재하지 않습니다.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "청구 금액은 5 USDT 이상이어야 합니다."
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "팁을 보내려면 롤오버를 완료하세요.",
+      "notCompleteRollOverToWithdraw": "먼저 롤오버가 완료되었는지 확인하세요.",
       "success": "팁이 성공적으로 전송되었습니다."
     },
     "chat": {

@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "दावा करने के लिए खोज समाप्त होनी चाहिए।",
       "emptyAvailableSpin": "आपके पास कोई स्पिन उपलब्ध नहीं है.",
       "VIP22ForSuperSpin": "आपका वीआईपी कम से कम 22 होना चाहिए।",
-      "VIP70ForMegaSpin": "आपका VIP कम से कम 70 होना चाहिए."
+      "VIP70ForMegaSpin": "आपका VIP कम से कम 70 होना चाहिए.",
+      "exceedAirdropTimes": "एयरड्रॉप कोड का उपयोग सीमा से अधिक हो गया है।"
     },
     "game": {
       "existGame": "खेल मौजूद नहीं है.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "दावा की गई राशि 5 यूएसडीटी के बराबर या उससे अधिक होनी चाहिए"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "सुझाव भेजने के लिए कृपया रोलओवर पूरा करें",
+      "notCompleteRollOverToWithdraw": "सबसे पहले, कृपया सुनिश्चित करें कि रोलओवर पूरा हो गया है।",
       "success": "टिप सफलतापूर्वक भेजी गई"
     },
     "chat": {

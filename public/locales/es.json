@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "La misión debe estar terminada para reclamar.",
       "emptyAvailableSpin": "No tienes giro disponible.",
       "VIP22ForSuperSpin": "Tu VIP debe tener al menos 22 años.",
-      "VIP70ForMegaSpin": "Tu VIP debe tener al menos 70."
+      "VIP70ForMegaSpin": "Tu VIP debe tener al menos 70.",
+      "exceedAirdropTimes": "El uso de códigos de lanzamiento aéreo ha superado el límite."
     },
     "game": {
       "existGame": "El juego no existe.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "El monto reclamado debe ser igual o mayor a 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "টিপস পাঠাতে রোলওভার সম্পূর্ণ করুন",
+      "notCompleteRollOverToWithdraw": "En primer lugar, asegúrese de que se complete la transferencia.",
       "success": "সফলভাবে টিপ পাঠানো হয়েছে"
     },
     "chat": {

@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "Nhiệm vụ phải được hoàn thành để yêu cầu.",
       "emptyAvailableSpin": "Bạn không có sẵn vòng quay.",
       "VIP22ForSuperSpin": "VIP của bạn phải ít nhất là 22.",
-      "VIP70ForMegaSpin": "VIP của bạn phải ít nhất là 70."
+      "VIP70ForMegaSpin": "VIP của bạn phải ít nhất là 70.",
+      "exceedAirdropTimes": "Việc sử dụng mã airdrop đã vượt quá giới hạn."
     },
     "game": {
       "existGame": "Trò chơi không tồn tại.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "Số tiền được yêu cầu phải bằng hoặc lớn hơn 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Vui lòng hoàn tất chuyển khoản để gửi tiền boa",
+      "notCompleteRollOverToWithdraw": "Đầu tiên, hãy đảm bảo rằng việc chuyển khoản đã hoàn tất.",
       "success": "Đã gửi mẹo thành công"
     },
     "chat": {

@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "必须完成任务才能领取。",
       "emptyAvailableSpin": "您没有可用的旋转。",
       "VIP22ForSuperSpin": "您的 VIP 年龄必须至少为 22 岁。",
-      "VIP70ForMegaSpin": "您的 VIP 必须至少为 70 岁。"
+      "VIP70ForMegaSpin": "您的 VIP 必须至少为 70 岁。",
+      "exceedAirdropTimes": "空投代码的使用已超过限制。"
     },
     "game": {
       "existGame": "该游戏不存在。",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "申领金额必须等于或大于5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "请完成滚动以发送提示",
+      "notCompleteRollOverToWithdraw": "首先，请确保展期已完成。",
       "success": "成功发送提示"
     },
     "chat": {

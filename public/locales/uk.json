@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "Квест потрібно завершити, щоб отримати.",
       "emptyAvailableSpin": "У вас немає доступного обертання.",
       "VIP22ForSuperSpin": "Вашому VIP має бути не менше 22 років.",
-      "VIP70ForMegaSpin": "Ваш VIP має бути не менше 70."
+      "VIP70ForMegaSpin": "Ваш VIP має бути не менше 70.",
+      "exceedAirdropTimes": "Використання кодів airdrop перевищило ліміт."
     },
     "game": {
       "existGame": "Гра не існує.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "Заявлена ​​сума має дорівнювати або перевищувати 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Будь ласка, завершіть перехід, щоб надіслати поради",
+      "notCompleteRollOverToWithdraw": "По-перше, переконайтеся, що ролловер завершено.",
       "success": "Чайові успішно надіслано"
     },
     "chat": {

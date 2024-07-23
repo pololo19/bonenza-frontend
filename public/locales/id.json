@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "Pencarian harus diselesaikan untuk mengklaim.",
       "emptyAvailableSpin": "Anda tidak memiliki putaran yang tersedia.",
       "VIP22ForSuperSpin": "VIP Anda harus berusia minimal 22 tahun.",
-      "VIP70ForMegaSpin": "VIP Anda harus minimal 70."
+      "VIP70ForMegaSpin": "VIP Anda harus minimal 70.",
+      "exceedAirdropTimes": "Penggunaan kode airdrop telah melampaui batas."
     },
     "game": {
       "existGame": "Permainan itu tidak ada.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "Jumlah yang diklaim harus sama dengan atau lebih besar dari 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "सुझाव भेजने के लिए कृपया रोलओवर पूरा करें",
+      "notCompleteRollOverToWithdraw": "Pertama, harap pastikan bahwa rollover telah selesai.",
       "success": "टिप सफलतापूर्वक भेजी गई"
     },
     "chat": {

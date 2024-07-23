@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "ภารกิจจะต้องเสร็จสิ้นจึงจะรับสิทธิ์ได้",
       "emptyAvailableSpin": "คุณไม่มีการหมุนที่ใช้ได้",
       "VIP22ForSuperSpin": "VIP ของคุณต้องมีอายุอย่างน้อย 22 ปี",
-      "VIP70ForMegaSpin": "VIP ของคุณต้องมีอย่างน้อย 70"
+      "VIP70ForMegaSpin": "VIP ของคุณต้องมีอย่างน้อย 70",
+      "exceedAirdropTimes": "การใช้รหัสแอร์ดรอปเกินขีดจำกัดแล้ว"
     },
     "game": {
       "existGame": "เกมดังกล่าวไม่มีอยู่",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "จำนวนเงินที่อ้างสิทธิ์จะต้องเท่ากับหรือมากกว่า 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Conclua o rollover para enviar dicas",
+      "notCompleteRollOverToWithdraw": "ประการแรก โปรดตรวจสอบให้แน่ใจว่าการโรลโอเวอร์เสร็จสมบูรณ์",
       "success": "Dica enviada com sucesso"
     },
     "chat": {

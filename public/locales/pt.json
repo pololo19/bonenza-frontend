@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "A missão deve ser concluída para ser reivindicada.",
       "emptyAvailableSpin": "Você não tem giro disponível.",
       "VIP22ForSuperSpin": "Seu VIP deve ter pelo menos 22 anos.",
-      "VIP70ForMegaSpin": "Seu VIP deve ter pelo menos 70 anos."
+      "VIP70ForMegaSpin": "Seu VIP deve ter pelo menos 70 anos.",
+      "exceedAirdropTimes": "O uso de códigos de lançamento aéreo ultrapassou o limite."
     },
     "game": {
       "existGame": "O jogo não existe.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "O valor reivindicado deve ser igual ou superior a 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Conclua o rollover para enviar dicas",
+      "notCompleteRollOverToWithdraw": "Em primeiro lugar, certifique-se de que o rollover foi concluído.",
       "success": "Dica enviada com sucesso"
     },
     "chat": {
