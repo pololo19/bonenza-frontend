@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "Anda tidak memiliki putaran yang tersedia.",
       "VIP22ForSuperSpin": "VIP Anda harus berusia minimal 22 tahun.",
       "VIP70ForMegaSpin": "VIP Anda harus minimal 70.",
-      "exceedAirdropTimes": "Penggunaan kode airdrop telah melampaui batas."
+      "exceedAirdropTimes": "Penggunaan kode airdrop telah melampaui batas.",
+      "redeemAirdropBonus": "Kode ini sudah digunakan."
     },
     "game": {
       "existGame": "Permainan itu tidak ada.",

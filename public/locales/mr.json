@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "तुमच्याकडे स्पिन उपलब्ध नाही.",
       "VIP22ForSuperSpin": "तुमचा VIP किमान 22 असावा.",
       "VIP70ForMegaSpin": "तुमचा VIP किमान 70 असावा.",
-      "exceedAirdropTimes": "एअरड्रॉप कोडच्या वापराने मर्यादा ओलांडली आहे."
+      "exceedAirdropTimes": "एअरड्रॉप कोडच्या वापराने मर्यादा ओलांडली आहे.",
+      "redeemAirdropBonus": "हा कोड आधीच वापरला गेला आहे."
     },
     "game": {
       "existGame": "खेळ अस्तित्वात नाही.",

@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "Vous n'avez aucun tour disponible.",
       "VIP22ForSuperSpin": "Votre VIP doit avoir au moins 22 ans.",
       "VIP70ForMegaSpin": "Votre VIP doit avoir au moins 70 ans.",
-      "exceedAirdropTimes": "L’utilisation de codes de largage a dépassé la limite."
+      "exceedAirdropTimes": "L’utilisation de codes de largage a dépassé la limite.",
+      "redeemAirdropBonus": "Ce code a déjà été utilisé."
     },
     "game": {
       "existGame": "Le jeu n'existe pas.",

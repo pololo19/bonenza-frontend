@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "आपके पास कोई स्पिन उपलब्ध नहीं है.",
       "VIP22ForSuperSpin": "आपका वीआईपी कम से कम 22 होना चाहिए।",
       "VIP70ForMegaSpin": "आपका VIP कम से कम 70 होना चाहिए.",
-      "exceedAirdropTimes": "एयरड्रॉप कोड का उपयोग सीमा से अधिक हो गया है।"
+      "exceedAirdropTimes": "एयरड्रॉप कोड का उपयोग सीमा से अधिक हो गया है।",
+      "redeemAirdropBonus": "कोड इस्तेमाल हो चुका है।"
     },
     "game": {
       "existGame": "खेल मौजूद नहीं है.",

@@ -2258,7 +2258,8 @@
       "emptyAvailableSpin": "ليس لديك تدور المتاحة.",
       "VIP22ForSuperSpin": "يجب أن يكون عمر VIP الخاص بك 22 عامًا على الأقل.",
       "VIP70ForMegaSpin": "يجب أن يكون عمر VIP الخاص بك 70 عامًا على الأقل.",
-      "exceedAirdropTimes": "لقد تجاوز استخدام رموز airdrop الحد الأقصى."
+      "exceedAirdropTimes": "لقد تجاوز استخدام رموز airdrop الحد الأقصى.",
+      "redeemAirdropBonus": "هذه الشفرة مستعملة مسبقا."
     },
     "game": {
       "existGame": "اللعبة غير موجودة.",

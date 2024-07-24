@@ -328,6 +328,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'exceedAirdropTimes':
       message = 'errors:bonus:exceedAirdropTimes';
       break;
+    case 'redeemedAirdropBonus':
+      message = 'errors:bonus:redeemedAirdropBonus';
+      break;
     default:
       message = 'errors:internalServer';
       break;

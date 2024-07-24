@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "사용 가능한 스핀이 없습니다.",
       "VIP22ForSuperSpin": "귀하의 VIP는 22세 이상이어야 합니다.",
       "VIP70ForMegaSpin": "귀하의 VIP는 70세 이상이어야 합니다.",
-      "exceedAirdropTimes": "에어드롭 코드 사용이 한도를 초과했습니다."
+      "exceedAirdropTimes": "에어드롭 코드 사용이 한도를 초과했습니다.",
+      "redeemAirdropBonus": "이 코드는 이미 사용되었습니다."
     },
     "game": {
       "existGame": "게임이 존재하지 않습니다.",
