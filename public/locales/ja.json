@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "利用可能なスピンがありません。",
       "VIP22ForSuperSpin": "VIP は 22 歳以上である必要があります。",
       "VIP70ForMegaSpin": "VIP は 70 歳以上である必要があります。",
-      "exceedAirdropTimes": "エアドロップ コードの使用量が制限を超えています。"
+      "exceedAirdropTimes": "エアドロップ コードの使用量が制限を超えています。",
+      "redeemAirdropBonus": "このコードはすでに使われています。"
     },
     "game": {
       "existGame": "ゲームは存在しません。",

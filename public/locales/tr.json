@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "Kullanılabilir spininiz yok.",
       "VIP22ForSuperSpin": "VIP'niz en az 22 olmalıdır.",
       "VIP70ForMegaSpin": "VIP'niz en az 70 olmalıdır.",
-      "exceedAirdropTimes": "Airdrop kodlarının kullanımı sınırı aştı."
+      "exceedAirdropTimes": "Airdrop kodlarının kullanımı sınırı aştı.",
+      "redeemAirdropBonus": "Bu kod zaten kullanıldı."
     },
     "game": {
       "existGame": "Oyun mevcut değil.",

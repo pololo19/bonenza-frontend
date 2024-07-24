@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "您没有可用的旋转。",
       "VIP22ForSuperSpin": "您的 VIP 年龄必须至少为 22 岁。",
       "VIP70ForMegaSpin": "您的 VIP 必须至少为 70 岁。",
-      "exceedAirdropTimes": "空投代码的使用已超过限制。"
+      "exceedAirdropTimes": "空投代码的使用已超过限制。",
+      "redeemAirdropBonus": "此代码已经被使用。"
     },
     "game": {
       "existGame": "该游戏不存在。",

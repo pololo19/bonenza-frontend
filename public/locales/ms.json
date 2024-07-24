@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "Anda tiada putaran tersedia.",
       "VIP22ForSuperSpin": "VIP anda mestilah sekurang-kurangnya 22 tahun.",
       "VIP70ForMegaSpin": "VIP anda mestilah sekurang-kurangnya 70 tahun.",
-      "exceedAirdropTimes": "एअरड्रॉप कोडच्या वापराने मर्यादा ओलांडली आहे."
+      "exceedAirdropTimes": "एअरड्रॉप कोडच्या वापराने मर्यादा ओलांडली आहे.",
+      "redeemAirdropBonus": "Kod ini telah pun digunakan."
     },
     "game": {
       "existGame": "Permainan itu tidak wujud.",

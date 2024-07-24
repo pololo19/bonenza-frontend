@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "คุณไม่มีการหมุนที่ใช้ได้",
       "VIP22ForSuperSpin": "VIP ของคุณต้องมีอายุอย่างน้อย 22 ปี",
       "VIP70ForMegaSpin": "VIP ของคุณต้องมีอย่างน้อย 70",
-      "exceedAirdropTimes": "การใช้รหัสแอร์ดรอปเกินขีดจำกัดแล้ว"
+      "exceedAirdropTimes": "การใช้รหัสแอร์ดรอปเกินขีดจำกัดแล้ว",
+      "redeemAirdropBonus": "รหัสนี้ถูกใช้ไปแล้ว"
     },
     "game": {
       "existGame": "เกมดังกล่าวไม่มีอยู่",

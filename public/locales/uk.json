@@ -2259,7 +2259,8 @@
       "emptyAvailableSpin": "У вас немає доступного обертання.",
       "VIP22ForSuperSpin": "Вашому VIP має бути не менше 22 років.",
       "VIP70ForMegaSpin": "Ваш VIP має бути не менше 70.",
-      "exceedAirdropTimes": "Використання кодів airdrop перевищило ліміт."
+      "exceedAirdropTimes": "Використання кодів airdrop перевищило ліміт.",
+      "redeemAirdropBonus": "Цей код уже використовувався."
     },
     "game": {
       "existGame": "Гра не існує.",

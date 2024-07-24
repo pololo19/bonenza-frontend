@@ -2279,7 +2279,8 @@
       "emptyAvailableSpin": "You have no available spin.",
       "VIP22ForSuperSpin": "Your VIP must be at least 22.",
       "VIP70ForMegaSpin": "Your VIP must be at least 70.",
-      "exceedAirdropTimes": "The usage of airdrop codes has surpassed the limit."
+      "exceedAirdropTimes": "The usage of airdrop codes has surpassed the limit.",
+      "redeemedAirdropBonus": "This code has already been used."
     },
     "game": {
       "existGame": "The game does not exist.",
