@@ -644,7 +644,13 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     <>
       <Head>
         <title>Bonenza | Best Crypto Online Casino | Play & Win with Bitcoin & Ethereum</title>
+        <meta property="og:title" content="Bonenza | Best Crypto Online Casino | Play & Win with Bitcoin & Ethereum" />
+
         <meta name="description" content="Join Bonenza, the leading crypto online casino. Enjoy secure, fast transactions with Bitcoin, Ethereum, and more. Participate in exciting baccarat tournaments and win big. Sign up now and start winning!" />
+        <meta property="og:description" content="Join Bonenza, the leading crypto online casino. Enjoy secure, fast transactions with Bitcoin, Ethereum, and more. Participate in exciting baccarat tournaments and win big. Sign up now and start winning!" />
+        <meta property="og:image" content="https://bonenza.com/img/logo-mobile.png" />
+        <meta property="og:url" content="https://bonenza.com/casino" />
+        <meta property="og:type" content="website" />
         <meta
           name="keywords"
           content="Bonenza, crypto online casino, Bitcoin casino, Ethereum gambling, play online casino with crypto, baccarat tournament, crypto tournaments"
