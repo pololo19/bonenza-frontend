@@ -47,7 +47,7 @@ export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) 
         <div className="flex flex-col gap-[12px] overflow-y-auto sm:px-[30px] px-[20px] py-[40px]">
           <div className="bg-[#f5f6fa] dark:bg-color-card-bg-primary p-5 rounded-[10px] flex justify-center justify-around">
             <div>
-              <Image height={418} width={140} className="w-[140px] h-[418]" src="/img/Img.png" alt="" />
+              <Image height={418} width={140} className="w-[140px] h-[418]" src="/img/Img.png" alt="refer" />
             </div>
             <div>
               <div className="text-[18px] text-black dark:text-white font-bold">
@@ -88,7 +88,7 @@ export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) 
               onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(referralCode))}
             >
               <div className="mr-[3px]">
-                <Image height={18} width={18} className="w-[18px] h-[18px]" src="/img/simcard-2.png" alt="" />
+                <Image height={18} width={18} className="w-[18px] h-[18px]" src="/img/simcard-2.png" alt="copy" />
               </div>
               <div className="text-[12px] text-[#ffffff]"> {t('referAndEarn:copy')}</div>
             </div>

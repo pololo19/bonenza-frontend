@@ -94,7 +94,7 @@ const VipProgressComponent = () => {
         </div>
         <div className="flex gap-[4px] ">
           <div className="sm:p-[4px] p-[2px] border border-solid rounded-full dark:border-color-border-primary border-color-light-border-primary">
-            <Image width={30} height={30} src="/img/reward.png" className="w-[20px] h-[20px]" alt="" />
+            <Image width={30} height={30} src="/img/reward.png" className="w-[20px] h-[20px]" alt="reward" />
           </div>
           <div className="dark:text-white text-color-light-text-primary text-default flex items-center">
             {t('bonus:nextLevelBonus')}

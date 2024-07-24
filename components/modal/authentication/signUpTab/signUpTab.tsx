@@ -201,7 +201,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
           <div />
           <div className="text-[14px] text-white">{t('authentication:continue')}</div>
           <div className="w-[34px] h-[35px] flex items-center justify-center rounded-large bg-white/20">
-            <Image width={15} height={15} src="/img/icon/arrow-right.png" alt="" />
+            <Image width={15} height={15} src="/img/icon/arrow-right.png" alt="arrow right" />
           </div>
         </button>
         <div className="flex">

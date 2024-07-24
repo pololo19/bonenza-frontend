@@ -130,7 +130,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
-              alt=""
+              alt="currency"
             />
           </div>
         ),
@@ -168,7 +168,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
         <div className="h-full relative dark:bg-color-modal-bg-primary bg-white p-3 pb-[60px] sm:pb-3 overflow-hidden overflow-y-scroll">
           <TableComponent
             isLoading={isLoadingTable}
-            handleClickRow={() => {}}
+            handleClickRow={() => { }}
             data={listTransactions}
             columns={columns}
             isExpanding={false}

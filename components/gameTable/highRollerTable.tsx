@@ -153,7 +153,7 @@ const HighRollerTableComponent = () => {
               height={25}
               width={25}
               src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
-              alt=""
+              alt="game logo"
               onError={(err) => {
                 err.currentTarget.src = '/img/recommended-game-3.png';
               }}
@@ -172,9 +172,8 @@ const HighRollerTableComponent = () => {
         ),
         cell: ({ row }) => (
           <div
-            className={`${
-              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center  sm:p-2 p-[5px]`}
+            className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
+              } font-bold truncate text-center  sm:p-2 p-[5px]`}
             onClick={(event) => {
               event.stopPropagation();
               handleModalProfile(row);
@@ -216,7 +215,7 @@ const HighRollerTableComponent = () => {
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
-                  alt=""
+                  alt="currency-usdt"
                 />
               </div>
             )}
@@ -254,10 +253,10 @@ const HighRollerTableComponent = () => {
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                    Math.abs(row.original.profitAmountUsd * exchangeRate),
-                    fiatDecimals,
-                    localFiat?.name || 'USD',
-                  )}`
+                  Math.abs(row.original.profitAmountUsd * exchangeRate),
+                  fiatDecimals,
+                  localFiat?.name || 'USD',
+                )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
@@ -268,7 +267,7 @@ const HighRollerTableComponent = () => {
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
-              alt=""
+              alt="currency-usdt"
             />
           </div>
         ),

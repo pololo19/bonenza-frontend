@@ -13,7 +13,7 @@ export default function CardPromotion({ price, title, promotionName }: CardPromo
   return (
     <div className="bg-[#12181F] rounded-default p-[10px] w-full">
       <div className="relative">
-        <Image width={350} height={150} src="/img/bg-card-promotion.png" alt="" />
+        <Image width={350} height={150} src="/img/bg-card-promotion.png" alt="bg-card-promotion" />
         <div className="absolute top-[20px] left-[20px]">
           <div className="text-[24px] text-white font-bold">{price}</div>
           <div className="text-[13px] text-white font-bold uppercase">{title}</div>

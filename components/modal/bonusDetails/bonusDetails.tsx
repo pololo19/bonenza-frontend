@@ -208,7 +208,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
                 onError={(e) => {
                   e.currentTarget.src = `/img/fiats/USDT.png`;
                 }}
-                alt=""
+                alt="currency"
               />
               {viewInFiat
                 ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name)
@@ -260,7 +260,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
-              alt=""
+              alt="currency"
             />
             {viewInFiat
               ? currencyFormat1(row.original.amountUsd * exchangeRate, 2, localFiat?.name)
@@ -320,7 +320,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
                   <div key={index} className="text-[12px] mt-1 sm:mt-4">
                     <div className="flex items-center">
                       <div className="w-[28px] h-[28px] flex items-center justify-center">
-                        <Image src={item.img} width={21} height={21} alt="" />
+                        <Image src={item.img} width={21} height={21} alt="bonus" />
                       </div>
                       <div className="truncate max-w-full">{item.title}</div>
                     </div>
@@ -413,7 +413,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
             <TableComponent
               isExpanding={false}
               isLoading={isLoadingTable}
-              handleClickRow={() => {}}
+              handleClickRow={() => { }}
               data={listTransactions}
               columns={columns}
             />

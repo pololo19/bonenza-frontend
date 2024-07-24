@@ -83,7 +83,7 @@ export default function ModalEnterCodeSecurity({ show, onClose, value, onChange,
         ) : (
           <div className="dark:bg-[#25262B] bg-white p-5 text-[14px] dark:text-[#99a4b099] text-[#5f6975cc]">
             <div className="flex justify-center mb-[20px]">
-              <Image width={88} height={100} src="./img/page/judge.png" className="w-[88px] h-[100px]" alt="" />
+              <Image width={88} height={100} src="./img/page/judge.png" className="w-[88px] h-[100px]" alt="judge" />
             </div>
             <div className="text-center">
               {t('setting:pleaseEnterGoogle')} <br /> {t('setting:secutiry2FAKey')}

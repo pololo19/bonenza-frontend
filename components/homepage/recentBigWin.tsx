@@ -77,7 +77,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
             height={96}
             width={96}
             src={imgCard}
-            alt=""
+            alt="recommended game"
             className="sm:w-full w-[36px] h-[auto] object-contain sm:rounded-t-default"
             placeholder="blur"
             onError={(err) => {

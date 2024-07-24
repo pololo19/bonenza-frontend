@@ -107,7 +107,7 @@ export const MessageBox = ({
                 className="w-[45px] h-[45px] rounded-full"
                 width={42}
                 height={42}
-                alt=""
+                alt="avatar"
                 src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
                 onError={(e) => {
                   e.currentTarget.src = '/img/avatar-1.png';
@@ -119,7 +119,7 @@ export const MessageBox = ({
                 height={42}
                 className="w-[45px] h-[45px] rounded-full grayscale brightness-50"
                 src="/img/avatar-hidden.png"
-                alt=""
+                alt="avatar hidden"
               />
             )}
 

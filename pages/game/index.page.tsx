@@ -534,7 +534,7 @@ function GamePage() {
                           : '/img/game-background.png'
                       }
                       fill
-                      alt=""
+                      alt="game logo"
                       className="rounded-default"
                       onError={(e) => {
                         e.currentTarget.src = '/img/game-background.png';
@@ -727,7 +727,7 @@ function GamePage() {
                         : '/img/game-background.png'
                     }
                     fill
-                    alt=""
+                    alt="game logo"
                     className="hidden sm:block "
                     onError={(e) => {
                       e.currentTarget.src = '/img/game-background.png';
@@ -971,7 +971,7 @@ function GamePage() {
                     gameScreen.enter();
                   }}
                 >
-                  <Image alt="" src={'/img/expand.png'} width={18} height={18} />
+                  <Image alt="expand" src={'/img/expand.png'} width={18} height={18} />
                 </div>
               </div>
             </div>

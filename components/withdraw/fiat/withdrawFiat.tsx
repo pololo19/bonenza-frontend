@@ -85,11 +85,11 @@ const WithdrawFiatComponent = () => {
               width={66}
               src={'/img/icon/popular-tag.png'}
               className="w-[40px] sm:w-[66px] absolute right-0 top-0"
-              alt=""
+              alt="popular tag"
             />
             <div className="flex justify-between">
               <div className="flex items-center gap-[5px] sm:gap-[25px]">
-                <Image height={30} width={30} src={'/img/icon/stripe-logo.png'} alt="" className="rounded" />
+                <Image height={30} width={30} src={'/img/icon/stripe-logo.png'} alt="stripe logo" className="rounded" />
                 <div className="dark:text-white text-black text-[12px] sm:text-[16px]">Stripe Pay</div>
               </div>
               <div className="flex items-center gap-[10px]">

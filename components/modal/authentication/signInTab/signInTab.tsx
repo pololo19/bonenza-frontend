@@ -291,14 +291,13 @@ export default function SignInTab({
               </div>
               <button
                 type="submit"
-                className={`${
-                  codeOtp.length < 6 && 'opacity-70 pointer-events-none'
-                } bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
+                className={`${codeOtp.length < 6 && 'opacity-70 pointer-events-none'
+                  } bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
                 <div className="text-white text-default">{t('authentication:submit')}</div>
                 <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
-                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
+                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="arrow right" />
                 </div>
               </button>
             </>
@@ -337,7 +336,7 @@ export default function SignInTab({
                 <div />
                 <div className="text-white text-default">{t('authentication:continue')}</div>
                 <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
-                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
+                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="arrow right" />
                 </div>
               </button>
               <div className="flex">

@@ -134,7 +134,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     src={vipData.medal ? vipData.medal : `/img/vip/vip-0-ribbon.png`}
                     width={70}
                     height={69}
-                    alt=""
+                    alt="vip"
                     className="!h-[80px] sm:!h-[130px] w-auto object-cover"
                   />
                   <div
@@ -162,7 +162,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     height={80}
                     width={80}
                     src={user?.avatar ? `${API_AVATAR}${user?.avatar}` : '/img/avatar-1.png'}
-                    alt=""
+                    alt="avatar"
                     onError={(e) => {
                       e.currentTarget.src = '/img/avatar-1.png';
                     }}
@@ -295,14 +295,14 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
               <div className="flex items-center flex-row gap-2 sm:gap-[15px] sm:justify-between mt-5">
                 <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                   <div className="flex gap-[5px] items-center">
-                    <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
+                    <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total win" />
                     <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalWins')}</div>
                   </div>
                   <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.winCount}</div>
                 </div>
                 <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-default flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
                   <div className="flex gap-[5px] items-center">
-                    <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
+                    <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total bets" />
                     <div className="text-[10px] sm:text-[14px] text-color-text-primary">{t('profile:totalBets')}</div>
                   </div>
                   <div className="text-[14px] sm:text-[1rem] dark:text-white text-black">{user.betCount}</div>
@@ -314,7 +314,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                       width={12}
                       height={12}
                       className="w-[12px] h-[12px]"
-                      alt=""
+                      alt="total wagered"
                     />
                     <div className="text-[10px] sm:text-[14px] text-color-text-primary">
                       {t('profile:totalWagered')}
@@ -344,7 +344,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                             height={60}
                             width={60}
                             src={`https://cdn.softswiss.net/i/s4/${(item.identifier || '').replace(':', '/')}.png`}
-                            alt=""
+                            alt="game logo"
                             onError={(err) => {
                               err.currentTarget.src = '/img/recommended-game-3.png';
                             }}

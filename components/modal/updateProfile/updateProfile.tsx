@@ -126,7 +126,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
                   height={150}
                   width={150}
                   src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
-                  alt=""
+                  alt="avatar"
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
@@ -167,7 +167,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
                 <div />
                 <div className="text-[14px] text-white">{t('profile:modify')}</div>
                 <div className="p-[10px] flex items-center justify-center rounded-[3px] bg-white/20">
-                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
+                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="arrow right" />
                 </div>
               </button>
             </form>

@@ -112,7 +112,7 @@ const BalancePage = () => {
       {isLoading && <Loader />}
       <div className="flex items-center justify-between bg-white dark:bg-color-modal-bg-secondary">
         <div className="flex items-center justify-start gap-[15px] w-full">
-          <Image src={'/img/total-balance.png'} width={35} height={35} alt="" />
+          <Image src={'/img/total-balance.png'} width={35} height={35} alt="balance" />
           <div className="flex sm:flex-row flex-col items-center justify-start md:gap-[40px] gap-[15px] flex-1">
             <div className="flex w-full">
               <div className="pr-2 text-start sm:text-default text-[12px] dark:text-gray-300 text-color-light-text-primary font-[700] border-solid border-r-[2px] border-color-border-secondary">
@@ -182,7 +182,7 @@ const BalancePage = () => {
                       height={30}
                       width={30}
                       src={item.logo || '/img/fiats/USDT.png'}
-                      alt=""
+                      alt="currency"
                       onError={(e) => {
                         e.currentTarget.src = '/img/fiats/USDT.png';
                       }}

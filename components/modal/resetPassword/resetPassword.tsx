@@ -113,7 +113,7 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
           {isLoading && <Loader />}
           <div className="flex flex-col items-center my-[50px] gap-[20px]">
             <div>
-              <Image src={'/img/img-reset-password.png'} width={88} height={100} alt="" />
+              <Image src={'/img/img-reset-password.png'} width={88} height={100} alt="reset" />
             </div>
             <div>
               <div className="text-[#99a4b099] text-[20px] text-center">{t('authentication:resetAccountPassword')}</div>

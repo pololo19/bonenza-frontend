@@ -69,7 +69,7 @@ const InputEmailAuthentication = <TFieldValues extends Record<string, unknown>>(
                 },
               )}
             >
-              <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="" />
+              <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="mail" />
               <div className="w-[1px] h-[13px] bg-[#C3CDDB]" />
               <input
                 {...rest}

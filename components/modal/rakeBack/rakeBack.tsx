@@ -152,11 +152,11 @@ export default function ModalRakeBack({
             <div className="bg-[url('/img/rakeBackBg.png')] min-h-[200px] bg-cover h-[200px] w-full bg-no-repeat relative rounded-default">
               <div className="flex flex-col items-center justify-center h-full gap-[10px]">
                 <div className="flex flex-col items-center justify-center">
-                  <Image height={54} width={42} src="/img/coin-rakeBack.png" alt="" />
+                  <Image height={54} width={42} src="/img/coin-rakeBack.png" alt="rakeback" />
                   <p className="text-default mt-[2px] text-white font-semibold">{t('deposit:unlocked')} USDT</p>
                 </div>
                 <div className="w-[236px] rounded-[5px] h-[36px] text-color-text-green dark:bg-[#181818] bg-color-light-modal-bg-primary flex items-center justify-center gap-2">
-                  <Image height={18} width={18} src="/img/fiats/USDT.png" alt="" />
+                  <Image height={18} width={18} src="/img/fiats/USDT.png" alt="currency-usdt" />
                   <p className="text-[18px] font-bold">{currencyFormat1(unlockedData.amount, 2, '', false)}</p>
                 </div>
                 <div>

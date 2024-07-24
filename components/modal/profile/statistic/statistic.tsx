@@ -70,7 +70,7 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
               height={20}
               width={20}
               src={row.original.currencyLogo ? row.original.currencyLogo : '/img/fiats/USDT.png'}
-              alt=""
+              alt="currency"
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
@@ -247,7 +247,7 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
         <div className="dark:bg-color-panel-bg bg-white rounded-[5px] p-[14px] flex items-center justify-between mt-[12px] gap-3">
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
-              <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
+              <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total win" />
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWins')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
@@ -256,7 +256,7 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
-              <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
+              <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total bets" />
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalBets')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
@@ -265,7 +265,7 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%] max-w-[30%]">
             <div className="flex gap-[5px] items-center">
-              <Image src="/img/icon/total-wagered.png" width={12} height={12} className="w-[12px] h-[12px]" alt="" />
+              <Image src="/img/icon/total-wagered.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total wagered" />
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWagered')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black text-center w-full truncate">
@@ -292,7 +292,7 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
                   width={200}
                   height={200}
                   className="w-[200px] h-[200px]"
-                  alt=""
+                  alt="noData"
                 />
               </CsrWrapper>
 

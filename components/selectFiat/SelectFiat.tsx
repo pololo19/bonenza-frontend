@@ -77,7 +77,7 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
               height={25}
               width={25}
               src={activeFiat.logo || '/image/fiats/USDT.png'}
-              alt=""
+              alt="symbol"
               onError={(error) => {
                 error.currentTarget.src = '/image/fiats/USDT.png';
               }}
@@ -127,7 +127,7 @@ const SelectFiat = ({ onChangeMoonpayFiat }: SelectFiatProps) => {
                   }}
                 >
                   <div className="flex-1 flex gap-[10px] items-center">
-                    <Image height={30} width={30} src={item.logo} alt="" />
+                    <Image height={30} width={30} src={item.logo} alt="symbol" />
 
                     <div className="font-semibold text-default">{item.name}</div>
                   </div>

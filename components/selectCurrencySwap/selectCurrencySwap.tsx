@@ -328,7 +328,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
                     }}
                     className="inline"
-                    alt=""
+                    alt="symbol"
                   />
                   <div className="text-default ">
                     {getSymbolById(watch('symbolFrom')) && getSymbolById(watch('symbolFrom'))?.name}
@@ -387,7 +387,7 @@ const SelectCurrencySwap = (props: SelectCurrencySwapProps, ref: Ref<SelectCurre
                       e.currentTarget.src = '/img/icon/USDT-logo.svg';
                     }}
                     className="inline"
-                    alt=""
+                    alt="symbol"
                   />
                   <div className="text-[14px]">
                     {getSymbolById(watch('symbolTo')) && getSymbolById(watch('symbolTo'))?.name}

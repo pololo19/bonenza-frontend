@@ -171,7 +171,7 @@ export default function RewardDropdown() {
                                   height={30}
                                   src={getBonusIcon(bonus.type)}
                                   className="w-auth h-fit"
-                                  alt=""
+                                  alt="bonus"
                                 />
                               </div>
 
@@ -185,7 +185,7 @@ export default function RewardDropdown() {
                                     height={12}
                                     src={bonus.symbolLogo ? bonus.symbolLogo : '/img/fiats/USDT.png'}
                                     className="w-[20px] h-[20px]"
-                                    alt=""
+                                    alt="symbol"
                                     onError={(e) => {
                                       e.currentTarget.src = '/img/fiats/USDT.png';
                                     }}

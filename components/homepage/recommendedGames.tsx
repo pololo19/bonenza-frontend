@@ -28,7 +28,7 @@ export function CardRecommended({ title, imgCard }: CardRecommendedProps) {
           height={180}
           width={180}
           src={imgCard}
-          alt=""
+          alt="recommeded game"
           className="w-full object-cover max-h-[160px] rounded-[5px]"
         />
       </div>

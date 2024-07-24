@@ -84,19 +84,18 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                       {t('gameTable:profit')}
                     </div>
                     <div className="flex items-center gap-[6px] font-bold">
-                      <Image height={20} width={20} src={`/img/fiats/${detailsBet.betDetail.currency}.png`} alt="" />
+                      <Image height={20} width={20} src={`/img/fiats/${detailsBet.betDetail.currency}.png`} alt="currency" />
                       <div
-                        className={`text-[22px] font-bold ${
-                          Number(detailsBet.betDetail.profitAmount) >= 0 ? 'text-color-text-green' : 'text-color-red-primary'
-                        }`}
+                        className={`text-[22px] font-bold ${Number(detailsBet.betDetail.profitAmount) >= 0 ? 'text-color-text-green' : 'text-color-red-primary'
+                          }`}
                       >
                         {detailsBet.betDetail.profitAmount > 0 ? '+' : '-'}
                         {viewInFiat
                           ? `${currencyFormat1(
-                              Math.abs(detailsBet.betDetail.profitAmountUsd * exchangeRate),
-                              8,
-                              localFiat?.name || 'USD',
-                            )}`
+                            Math.abs(detailsBet.betDetail.profitAmountUsd * exchangeRate),
+                            8,
+                            localFiat?.name || 'USD',
+                          )}`
                           : `${currencyFormat1(Math.abs(detailsBet.betDetail.profitAmount), 8, '', false)} `}
                       </div>
                       <div className="text-[22px] text-black dark:text-white">
@@ -116,15 +115,15 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                     {t('gameTable:betAmount')}
                   </div>
                   <div className="flex justify-center items-center gap-[3px]">
-                    <Image height={15} width={15} src={`/img/fiats/${detailsBet.betDetail?.currency}.png`} alt="" />
+                    <Image height={15} width={15} src={`/img/fiats/${detailsBet.betDetail?.currency}.png`} alt="currency" />
 
                     <div className="font-bold text-[14px] dark:text-white text-black">
                       {viewInFiat
                         ? `${currencyFormat1(
-                            detailsBet.betDetail.betAmountUsd * exchangeRate,
-                            8,
-                            localFiat?.name || 'USD',
-                          )}`
+                          detailsBet.betDetail.betAmountUsd * exchangeRate,
+                          8,
+                          localFiat?.name || 'USD',
+                        )}`
                         : `${currencyFormat1(detailsBet.betDetail.betAmount, 8, '', false)} `}
                     </div>
                   </div>
@@ -145,7 +144,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                     width={44}
                     className="rounded-full grayscale brightness-50"
                     src="/img/avatar-hidden.png"
-                    alt=""
+                    alt="avatar hidden"
                   />
                 ) : (
                   <Image
@@ -157,7 +156,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                         ? `${API_AVATAR}${detailsBet.betDetail.playerAvatar}`
                         : '/img/avatar-1.png'
                     }
-                    alt=""
+                    alt="avatar"
                     onError={(e) => {
                       e.currentTarget.src = '/img/avatar-1.png';
                     }}
@@ -216,7 +215,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                     width={38}
                     height={38}
                     src={`https://cdn.softswiss.net/i/s4/${detailsBet.betDetail.gameIdenfiter.replace(':', '/')}.png`}
-                    alt=""
+                    alt="game logo"
                     className="object-cover max-h-auto rounded-[5px]"
                     onError={(e) => {
                       e.currentTarget.src = '/img/recommended-game-3.png';

@@ -238,7 +238,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                     role="button"
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
-                      <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
+                      <Image width={30} height={30} src={coin.logo} className="inline" alt="symbol" />
                       <div className="flex-1 text-black dark:text-white text-start text-default">{coin.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
@@ -267,7 +267,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                     role="button"
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
-                      <Image width={30} height={30} src={fiat.logo} className="inline" alt="" />
+                      <Image width={30} height={30} src={fiat.logo} className="inline" alt="symbol" />
                       <div className="flex-1 text-black dark:text-white text-start text-default">{fiat.name}</div>
                     </div>
                     <div className="flex items-center gap-[5px]">
@@ -295,7 +295,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                     role="button"
                   >
                     <div className="flex-1 flex items-center justify-start gap-[10px]">
-                      <Image width={30} height={30} src={coin.logo} className="inline" alt="" />
+                      <Image width={30} height={30} src={coin.logo} className="inline" alt="symbol" />
                       <div className="flex-1 text-black text-start dark:text-white text-default">{coin.name}</div>
                     </div>
                     {showFullNameCurrency && (
@@ -312,7 +312,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                       src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
                       width={200}
                       height={200}
-                      alt=""
+                      alt="noData"
                     />
                   </CsrWrapper>
 

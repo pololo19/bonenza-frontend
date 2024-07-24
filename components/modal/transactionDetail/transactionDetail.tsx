@@ -74,7 +74,7 @@ export default function ModalDetailTransaction({
       >
         <div className=" min-h-[516px] overflow-auto h-full bg-cover p-4">
           <div className="flex flex-col items-center gap-2 py-5">
-            <Image height={40} width={40} src={transaction.symbolLogo} alt="" />
+            <Image height={40} width={40} src={transaction.symbolLogo} alt="symbol" />
             <div
               className={cn('text-[22px]', {
                 'text-red-500': transaction.type === TRANSACTION_TYPE.Withdraw,
@@ -245,9 +245,8 @@ export default function ModalDetailTransaction({
                   <div className="flex items-center gap-2">
                     <div className="relative flex items-center jutify-center w-[32px] h-[32px]">
                       <div
-                        className={`${
-                          isProcess ? 'bg-[#898181]' : 'bg-white'
-                        } absolute w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	`}
+                        className={`${isProcess ? 'bg-[#898181]' : 'bg-white'
+                          } absolute w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	`}
                       ></div>
                       {isFailed ? (
                         <CloseCircle

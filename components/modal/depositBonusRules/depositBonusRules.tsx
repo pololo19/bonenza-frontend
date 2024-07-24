@@ -83,7 +83,7 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
               {depositBonus.map((item) => (
                 <div key={item.id} className="bg-[#2D3035] rounded-[10px] relative">
                   <div className="relative text-white dark:text-black">
-                    <Image src={item.img} className="w-full h-auto object-cover" width={100} height={100} alt="" />
+                    <Image src={item.img} className="w-full h-auto object-cover" width={100} height={100} alt="deposit bonus logo" />
                     <div className="absolute font-bold text-[14px] sm:text-[16px] max-[600px]:top-[10px] top-[16px] left-0 w-full text-center">
                       {item.title}
                     </div>

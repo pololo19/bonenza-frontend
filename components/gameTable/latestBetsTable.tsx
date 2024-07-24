@@ -135,7 +135,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               height={24}
               width={24}
               src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
-              alt=""
+              alt="game logo"
               onError={(err) => {
                 err.currentTarget.src = '/img/recommended-game-3.png';
               }}
@@ -150,9 +150,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         header: () => <div className="text-center">{t('gameTable:player')}</div>,
         cell: ({ row }) => (
           <div
-            className={`${
-              row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-            } font-bold truncate text-center sm:text-[14px] text-[12px] sm:p-2 p-[5px]`}
+            className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
+              } font-bold truncate text-center sm:text-[14px] text-[12px] sm:p-2 p-[5px]`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
@@ -187,7 +186,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
-              alt=""
+              alt="currency-usdt"
             />
           </div>
         ),
@@ -222,10 +221,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                    Math.abs(row.original.profitAmountUsd * exchangeRate),
-                    fiatDecimals,
-                    localFiat?.name || 'USD',
-                  )}`
+                  Math.abs(row.original.profitAmountUsd * exchangeRate),
+                  fiatDecimals,
+                  localFiat?.name || 'USD',
+                )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
@@ -236,7 +235,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
-              alt=""
+              alt="currency-usdt"
             />
           </div>
         ),

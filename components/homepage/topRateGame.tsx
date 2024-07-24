@@ -29,7 +29,7 @@ export function CardTopRated({ title, provider, identifier }: CardTopRatedProps)
           height={180}
           width={180}
           src={`https://cdn.softswiss.net/i/s4/${provider}/${identifier}.png`}
-          alt=""
+          alt="top rated game"
           onError={(err) => {
             err.currentTarget.src = '/img/recommended-game-3.png';
           }}

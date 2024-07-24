@@ -162,7 +162,7 @@ export default function ModalAssetsPortfolio({
                   height={30}
                   src={coin.logo ? coin.logo : '/img/fiats/USDT.png'}
                   className="inline"
-                  alt=""
+                  alt="currency"
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
@@ -207,14 +207,12 @@ export default function ModalAssetsPortfolio({
                   dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
                   if (value) setShowAllFiat(true);
                 }}
-                className={`${
-                  viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-                } relative inline-flex h-4 w-8 items-center rounded-full`}
+                className={`${viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                  } relative inline-flex h-4 w-8 items-center rounded-full`}
               >
                 <span
-                  className={`${
-                    viewInFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
-                  } inline-block h-4 w-4 transform rounded-full transition`}
+                  className={`${viewInFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                    } inline-block h-4 w-4 transform rounded-full transition`}
                 />
               </Switch>
               <div className="text-[12px] dark:text-gray-400 text-[#31373d]">{t('fiatHeader:viewInFiat')}</div>
@@ -223,14 +221,12 @@ export default function ModalAssetsPortfolio({
               <Switch
                 checked={showSmallFiat}
                 onChange={setShowSmallFiat}
-                className={`${
-                  showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-                } relative inline-flex h-4 w-8 items-center rounded-full`}
+                className={`${showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                  } relative inline-flex h-4 w-8 items-center rounded-full`}
               >
                 <span
-                  className={`${
-                    showSmallFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
-                  } inline-block h-4 w-4 transform rounded-full transition`}
+                  className={`${showSmallFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                    } inline-block h-4 w-4 transform rounded-full transition`}
                 />
               </Switch>
               <div className="text-[12px] dark:text-gray-400 text-[#31373d]">{t('fiatHeader:smallFiat')}</div>

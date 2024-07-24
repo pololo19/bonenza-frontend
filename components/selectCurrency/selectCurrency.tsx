@@ -159,7 +159,7 @@ const SelectCurrency = ({
                         height={24}
                         src={symbol.logo ? symbol.logo : '/img/fiats/USDT.png'}
                         className="inline"
-                        alt=""
+                        alt="symbol"
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USDT.png';
                         }}
@@ -182,7 +182,7 @@ const SelectCurrency = ({
                           height={24}
                           src={symbol.logo ? symbol.logo : '/img/fiats/USD.png'}
                           className="w-6 h-6 -ml-2"
-                          alt=""
+                          alt="symbol"
                           onError={(e) => {
                             e.currentTarget.src = '/img/fiats/USD.png';
                           }}
@@ -208,7 +208,7 @@ const SelectCurrency = ({
                         e.currentTarget.src = '/img/fiats/USD.png';
                       }}
                       className="inline"
-                      alt=""
+                      alt="symbol"
                     />
 
                     <div
@@ -292,7 +292,7 @@ const SelectCurrency = ({
                                   e.currentTarget.src = '/img/fiats/USD.png';
                                 }}
                                 className="inline"
-                                alt=""
+                                alt="symbol"
                               />
                               <div className="flex-1 font-semibold text-black text-start text-default dark:text-white">
                                 {symbol.name}

@@ -31,7 +31,7 @@ export default function Sidebar() {
           <div className="px-[15px] mt-[64px]">
             <div className="text-[#C2C2C2]">{t('layout:insights')}</div>
             <div className="mt-[15px] flex gap-[14px]">
-              <Image width={24} height={24} src="/img/icon/inbox.png" className="w-6 h-6" alt="" />
+              <Image width={24} height={24} src="/img/icon/inbox.png" className="w-6 h-6" alt="inbox" />
               <div className="text-[#C2C2C2]">{t('layout:inbox')}</div>
               <div className="w-[20px] h-[20px] rounded-md text-white bg-red-500 text-sm text-center items-center">
                 8
@@ -40,27 +40,25 @@ export default function Sidebar() {
           </div>
           <div className="mt-[50px] rounded-large bg-[#161D26] flex items-center justify-center p-[10px]">
             <div
-              className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded-[14px] cursor-pointer ${
-                mode === 0 ? 'bg-[#F39717]' : ''
-              }`}
+              className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded-[14px] cursor-pointer ${mode === 0 ? 'bg-[#F39717]' : ''
+                }`}
               onClick={() => {
                 setMode(0);
                 setTheme('dark');
               }}
             >
-              <Image width={16} height={16} src="/img/icon/dark.png" className="w-4 h-4" alt="" />
+              <Image width={16} height={16} src="/img/icon/dark.png" className="w-4 h-4" alt="dark" />
               <div className="text-white text-sm">{t('layout:dark')}</div>
             </div>
             <div
-              className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded-[14px] cursor-pointer ${
-                mode === 1 ? 'bg-[#F39717]' : ''
-              }`}
+              className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded-[14px] cursor-pointer ${mode === 1 ? 'bg-[#F39717]' : ''
+                }`}
               onClick={() => {
                 setMode(1);
                 setTheme('light');
               }}
             >
-              <Image width={16} height={16} src="/img/icon/light.png" className="w-4 h-4" alt="" />
+              <Image width={16} height={16} src="/img/icon/light.png" className="w-4 h-4" alt="light" />
               <div className="text-white text-sm">{t('layout:light')}</div>
             </div>
           </div>

@@ -175,7 +175,7 @@ export default function ReplyModal({
                   <div className="flex items-center gap-2">
                     <Image
                       src={sourceComment.userAvatar ? `${API_AVATAR}${sourceComment.userAvatar}` : '/img/avatar-1.png'}
-                      alt=""
+                      alt="avatar"
                       width={36}
                       height={36}
                       className="rounded-full w-7 h-7"
@@ -186,7 +186,7 @@ export default function ReplyModal({
 
                     <span
                       className="text-[14px] hover:underline cursor-pointer"
-                      // onClick={() => openModalUserProfile(sourceComment.userId, sourceComment.userAvatar, sourceComment.userName)}
+                    // onClick={() => openModalUserProfile(sourceComment.userId, sourceComment.userAvatar, sourceComment.userName)}
                     >
                       {sourceComment.userName}
                     </span>
@@ -261,7 +261,7 @@ export default function ReplyModal({
                     <div className="flex items-center gap-2">
                       <Image
                         src={comment.userAvatar ? `${API_AVATAR}${comment.userAvatar}` : '/img/avatar-1.png'}
-                        alt=""
+                        alt="avatar"
                         width={36}
                         height={36}
                         className="rounded-full w-7 h-7"
@@ -271,7 +271,7 @@ export default function ReplyModal({
                       />
                       <span
                         className="text-[14px] hover:underline cursor-pointer"
-                        // onClick={() => openModalUserProfile(comment.userId, comment.userAvatar, comment.userName)}
+                      // onClick={() => openModalUserProfile(comment.userId, comment.userAvatar, comment.userName)}
                       >
                         {comment.userName}
                       </span>

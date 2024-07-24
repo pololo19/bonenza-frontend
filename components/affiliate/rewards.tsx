@@ -277,7 +277,7 @@ function RewardsComponent() {
                 height={20}
                 width={20}
                 src={`/img/fiats/USDT.png`}
-                alt=""
+                alt="currency-usdt"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}

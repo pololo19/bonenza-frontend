@@ -313,7 +313,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
             <div />
             <div className="text-[14px] text-white">{t('profile:modify')}</div>
             <div className="px-[10px] py-[5px] flex items-center justify-center rounded-[3px] bg-white/20">
-              <NextImage height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
+              <NextImage height={14} width={14} src="/img/icon/arrow-right.png" alt="arrow right" />
             </div>
           </button>
           {!isErrorAvatar && avatar && (

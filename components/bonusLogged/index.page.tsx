@@ -390,7 +390,7 @@ function BonusLoggedPage() {
               src={'/img/gold-coin.png'}
               width={93}
               height={76}
-              alt=""
+              alt="currency-gold"
               className="pl-4 object-contain w-[93px] 2xl:w-[70px] min-[1800px]:w-[93px]"
             />
             <div className="flex flex-col items-center">
@@ -457,7 +457,7 @@ function BonusLoggedPage() {
                 src="/img/bg-levelup.png"
                 width={339}
                 height={192}
-                alt=""
+                alt="bg-levelup"
                 className="w-full sm:object-contain rounded-default"
               />
               <div className="absolute flex flex-col justify-between top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5">
@@ -537,7 +537,7 @@ function BonusLoggedPage() {
                   src="/img/bg-lucky-spin.png"
                   width={339}
                   height={192}
-                  alt=""
+                  alt="bg-lucky-spin"
                   className="w-full sm:object-contain rounded-default"
                 />
               </div>
@@ -551,7 +551,7 @@ function BonusLoggedPage() {
                       src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
                       width={16}
                       height={16}
-                      alt=""
+                      alt="question"
                       data-tooltip-id={`$spin-bonus-tooltip`}
                       className='cursor-pointer'
                     />
@@ -705,7 +705,7 @@ function BonusLoggedPage() {
               src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}
               width={90}
               height={90}
-              alt=""
+              alt="noData"
             />
             <div className="dark:text-gray-400 text-color-text-primary text-[13px]">{t('bonus:noData')}</div>
           </div>

@@ -153,7 +153,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       );
       dispatch(initWalletInfo());
       dispatch(setLocalFiat(localFiat));
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -179,7 +179,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
             onClick={() => handleGoogleLogin()}
           >
             <button className="px-2 py-2 w-full text-white">
-              <Image height={30} width={30} src={'/img/google.svg'} alt="" className="inline w-[30px]" />
+              <Image height={30} width={30} src={'/img/google.svg'} alt="google" className="inline w-[30px]" />
             </button>
           </div>
           <div
@@ -187,7 +187,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
             onClick={handleTelegram}
           >
             <button className="px-2 py-2 w-full text-white">
-              <Image height={30} width={30} src={'/img/telegram.svg'} alt="" className="inline w-[30px]" />
+              <Image height={30} width={30} src={'/img/telegram.svg'} alt="telegram" className="inline w-[30px]" />
             </button>
           </div>
           <div className="hover:bg-gray-200 dark:hover:bg-gray-700 p-0.5 font-semibold rounded-[20px]">
@@ -202,7 +202,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
                       connect();
                     }}
                   >
-                    <Image height={30} width={30} src={'/img/icon/MetaMask.png'} alt="" className="inline w-[30px]" />
+                    <Image height={30} width={30} src={'/img/icon/MetaMask.png'} alt="metamask" className="inline w-[30px]" />
                   </button>
                 );
               }}

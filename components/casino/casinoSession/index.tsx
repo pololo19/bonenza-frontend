@@ -163,7 +163,7 @@ const CasinoSession = <T,>({
                     prevSlide();
                   }}
                 >
-                  <Image src={'/img/icon/arrow-prev.png'} width={10} height={10} alt="" />
+                  <Image src={'/img/icon/arrow-prev.png'} width={10} height={10} alt="arrow prev" />
                 </div>
                 <div
                   role="button"
@@ -172,7 +172,7 @@ const CasinoSession = <T,>({
                     nextSlide();
                   }}
                 >
-                  <Image src={'/img/icon/arrow-next.png'} width={10} height={10} alt="" />
+                  <Image src={'/img/icon/arrow-next.png'} width={10} height={10} alt="arrow next" />
                 </div>
               </div>
             )}

@@ -42,7 +42,7 @@ export default function CardPlay({
         width={25}
         className={cn(styles.cardImage, 'w-full h-full object-cover')}
         src={imgBackGround}
-        alt=""
+        alt="card-play"
       />
       <div
         className={cn(

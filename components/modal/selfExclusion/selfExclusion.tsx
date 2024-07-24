@@ -38,7 +38,7 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
               width={401}
               height={486}
               src="/img/exclusion.png"
-              alt=""
+              alt="exclusion"
               className="object-cover h-[301px] sm:h-full"
             />
             <div className="absolute top-[10%] bottom-[50%] text-center w-full flex flex-col justify-center">
@@ -60,9 +60,8 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
             </div>
           </div>
           <div
-            className={`px-9 py-11 mx-auto flex-1 ${
-              height < 640 ? 'overflow-hidden' : 'overflow-y-auto'
-            } w-full flex flex-col justify-between`}
+            className={`px-9 py-11 mx-auto flex-1 ${height < 640 ? 'overflow-hidden' : 'overflow-y-auto'
+              } w-full flex flex-col justify-between`}
           >
             <div>
               <p className="text-[16px] sm:text-[24px] text-white font-bold text-center">

@@ -117,7 +117,7 @@ export default function ModalSelectCurrency({
                             height={30}
                             src={`/img/fiats/${coin?.symbol}.png`}
                             className="inline"
-                            alt=""
+                            alt="currency"
                           />
                           <div className="flex-1 text-start text-[14px]">
                             {coin?.symbol}

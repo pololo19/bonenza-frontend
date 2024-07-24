@@ -59,10 +59,10 @@ export default function WagerContest({ userData }: WagerContestProps) {
             {row.original.position === 1
               ? 'st'
               : row.original.position === 2
-              ? 'nd'
-              : row.original.position === 3
-              ? 'rd'
-              : 'th'}
+                ? 'nd'
+                : row.original.position === 3
+                  ? 'rd'
+                  : 'th'}
           </div>
         ),
       },
@@ -76,7 +76,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, fiatDecimals, localFiat?.name)
                 : currencyFormat1(row.original?.prize, cryptoDecimals, '', false)}
             </span>
-            <Image height={20} width={20} src={row.original?.currencyLogo} alt="" />
+            <Image height={20} width={20} src={row.original?.currencyLogo} alt="symbol" />
           </div>
         ),
       },

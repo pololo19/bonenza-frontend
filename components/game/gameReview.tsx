@@ -46,7 +46,7 @@ const RateStarComponent = ({
   total = 5,
   fillColor = true,
   value = 0,
-  onClick = () => {},
+  onClick = () => { },
 }: {
   rate: number;
   total?: number;
@@ -348,7 +348,7 @@ const GameReviewComponent = ({
             height={90}
             width={90}
             src={`https://cdn.softswiss.net/i/s4/${gameDetail?.identifier.replace(':', '/')}.png`}
-            alt=""
+            alt="game logo"
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
             }}
@@ -531,7 +531,7 @@ const GameReviewComponent = ({
                     {item && (
                       <Image
                         src={item ? `${API_AVATAR}${item}` : '/img/avatar-1.png'}
-                        alt=""
+                        alt="avatar"
                         width={36}
                         height={36}
                         className="w-4 h-4"
@@ -611,7 +611,7 @@ const GameReviewComponent = ({
         <div className="flex gap-[13px] h-11 items-center relative mt-[9px]">
           <Image
             src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
-            alt=""
+            alt="avatar"
             width={36}
             height={36}
             className="rounded-full w-9 h-9"
@@ -646,7 +646,7 @@ const GameReviewComponent = ({
                 <div className="flex items-center gap-2">
                   <Image
                     src={comment.userAvatar ? `${API_AVATAR}${comment.userAvatar}` : '/img/avatar-1.png'}
-                    alt=""
+                    alt="avatar"
                     width={36}
                     height={36}
                     className="rounded-full w-7 h-7"
@@ -750,7 +750,7 @@ const GameReviewComponent = ({
                     <div className="flex items-center gap-2">
                       <Image
                         src={item.userAvatar ? `${API_AVATAR}${item.userAvatar}` : '/img/avatar-1.png'}
-                        alt=""
+                        alt="avatar"
                         width={36}
                         height={36}
                         className="rounded-full w-7 h-7"

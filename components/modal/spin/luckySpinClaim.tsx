@@ -87,13 +87,13 @@ export default function ModalSpinClaim({
         isCongrat
       >
         <div className="relative flex flex-col items-center justify-center px-5 py-8 overflow-y-auto">
-          <Image width={400} height={600} src={`/img/spin/${spinType}-popup.png`} alt="" className="w-[80%] m-auto" />
+          <Image width={400} height={600} src={`/img/spin/${spinType}-popup.png`} alt="spin-popup" className="w-[80%] m-auto" />
           <div className="flex items-center text-2xl sm:text-3xl text-[#FFE600] font-bold mt-8">
             <span className="mr-1">{`+ `}</span>
             <span className="font-bold">{currentAmount}</span>
             <span className="ml-1">{`${symbol}`}</span>
             {symbolLogo && (
-              <Image width={25} height={25} className="ml-2 w-[30px] sm:w-[40px]" src={symbolLogo} alt="" />
+              <Image width={25} height={25} className="ml-2 w-[30px] sm:w-[40px]" src={symbolLogo} alt="symbol" />
             )}
           </div>
           {claimable && (

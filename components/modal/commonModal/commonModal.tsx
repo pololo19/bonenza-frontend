@@ -61,23 +61,22 @@ export default function CommonModal({
           >
             {isCongrat && (
               <div
-                className={`absolute w-[600px] aspect-square sm:w-[900px] sm:h-[900px] ${
-                  show ? 'translate-x-0' : 'translate-x-full'
-                }`}
+                className={`absolute w-[600px] aspect-square sm:w-[900px] sm:h-[900px] ${show ? 'translate-x-0' : 'translate-x-full'
+                  }`}
               >
                 <div className="relative w-full h-full">
                   <Image
                     width={400}
                     height={600}
                     src={`/img/spin/Coins.gif`}
-                    alt=""
+                    alt="coin"
                     className={`absolute w-full h-full ${show ? 'scale-100' : 'scale-0'}`}
                   />
                   <Image
                     width={400}
                     height={600}
                     src={`/img/spin/congrat1.webp`}
-                    alt=""
+                    alt="congrat"
                     className={`absolute w-full h-full ${show ? 'scale-100' : 'scale-0'}`}
                   />
                 </div>

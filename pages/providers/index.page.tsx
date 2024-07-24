@@ -68,7 +68,7 @@ function ProvidersPage() {
                         ? `https://cdn.softswiss.net/logos/providers/color/${provider.identifier}.svg`
                         : `/img/providers/softswiss.png`
                     }
-                    alt=""
+                    alt="provider logo"
                     onError={(e) => {
                       e.currentTarget.src = `/img/providers/softswiss.png`;
                     }}

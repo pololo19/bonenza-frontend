@@ -59,7 +59,7 @@ export default function CardGeneralBonus({
               src={background}
               width={339}
               height={192}
-              alt=""
+              alt="background"
               className="w-full sm:object-contain rounded-default"
             />
           </div>
@@ -72,7 +72,7 @@ export default function CardGeneralBonus({
                 src={theme === 'dark' ? '/img/icon/icon-question.png' : '/img/icon/icon-question-light.png'}
                 width={16}
                 height={16}
-                alt=""
+                alt="question"
                 data-tooltip-id={`${title}-bonus-tooltip`}
                 className='cursor-pointer'
               />
@@ -161,7 +161,7 @@ export default function CardGeneralBonus({
             src="/img/bg-levelup.png"
             width={339}
             height={192}
-            alt=""
+            alt="bg-levelup"
             className="w-full sm:object-contain rounded-default"
           />
           <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
@@ -174,7 +174,7 @@ export default function CardGeneralBonus({
                   src={'/img/icon/icon-question.png'}
                   width={16}
                   height={16}
-                  alt=""
+                  alt="question"
                   data-tooltip-id={'deposit-bonus-tooltip'}
                   className='cursor-pointer'
                 />
