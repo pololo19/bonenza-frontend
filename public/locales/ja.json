@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "取得するにはクエストを完了する必要があります。",
       "emptyAvailableSpin": "利用可能なスピンがありません。",
       "VIP22ForSuperSpin": "VIP は 22 歳以上である必要があります。",
-      "VIP70ForMegaSpin": "VIP は 70 歳以上である必要があります。"
+      "VIP70ForMegaSpin": "VIP は 70 歳以上である必要があります。",
+      "exceedAirdropTimes": "エアドロップ コードの使用量が制限を超えています。"
     },
     "game": {
       "existGame": "ゲームは存在しません。",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "請求額は 5 USDT 以上である必要があります"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "ヒントを送信するにはロールオーバーを完了してください",
+      "notCompleteRollOverToWithdraw": "まず、ロールオーバーが完了していることを確認してください。",
       "success": "チップは正常に送信されました"
     },
     "chat": {

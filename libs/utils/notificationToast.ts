@@ -323,6 +323,11 @@ export function getErrorMesssage1(errorType: string) {
     case 'notMinimumVipLevelForTip':
       message = 'errors:notMinimumVipLevelForTip';
       break;
+
+    //bonus
+    case 'exceedAirdropTimes':
+      message = 'errors:bonus:exceedAirdropTimes';
+      break;
     default:
       message = 'errors:internalServer';
       break;

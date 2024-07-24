@@ -2278,7 +2278,8 @@
       "finishedQuestToClaim": "The quest must be finished to claim.",
       "emptyAvailableSpin": "You have no available spin.",
       "VIP22ForSuperSpin": "Your VIP must be at least 22.",
-      "VIP70ForMegaSpin": "Your VIP must be at least 70."
+      "VIP70ForMegaSpin": "Your VIP must be at least 70.",
+      "exceedAirdropTimes": "The usage of airdrop codes has surpassed the limit."
     },
     "game": {
       "existGame": "The game does not exist.",
@@ -2310,7 +2311,7 @@
       "canClaimWithMinimumAmount": "The claimed amount must be equal to or greater than 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Please complete rollover to send tips",
+      "notCompleteRollOverToWithdraw": "Firstly, please ensure that the rollover is completed.",
       "success": "Successfully sent tip"
     },
     "chat": {

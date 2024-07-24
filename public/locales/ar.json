@@ -2257,7 +2257,8 @@
       "finishedQuestToClaim": "يجب الانتهاء من السعي للمطالبة.",
       "emptyAvailableSpin": "ليس لديك تدور المتاحة.",
       "VIP22ForSuperSpin": "يجب أن يكون عمر VIP الخاص بك 22 عامًا على الأقل.",
-      "VIP70ForMegaSpin": "يجب أن يكون عمر VIP الخاص بك 70 عامًا على الأقل."
+      "VIP70ForMegaSpin": "يجب أن يكون عمر VIP الخاص بك 70 عامًا على الأقل.",
+      "exceedAirdropTimes": "لقد تجاوز استخدام رموز airdrop الحد الأقصى."
     },
     "game": {
       "existGame": "اللعبة غير موجودة.",
@@ -2289,7 +2290,7 @@
       "canClaimWithMinimumAmount": "يجب أن يكون المبلغ المطالب به مساوياً أو أكبر من 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "الرجاء إكمال التمرير لإرسال النصائح",
+      "notCompleteRollOverToWithdraw": "أولاً، يرجى التأكد من اكتمال عملية التمديد.",
       "success": "تم إرسال النصيحة بنجاح"
     },
     "chat": {

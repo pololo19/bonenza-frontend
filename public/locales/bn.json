@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "দাবি করার জন্য অনুসন্ধান শেষ করতে হবে।",
       "emptyAvailableSpin": "আপনার কাছে কোন উপলব্ধ স্পিন নেই।",
       "VIP22ForSuperSpin": "আপনার ভিআইপি কমপক্ষে 22 হতে হবে।",
-      "VIP70ForMegaSpin": "আপনার ভিআইপি কমপক্ষে 70 হতে হবে।"
+      "VIP70ForMegaSpin": "আপনার ভিআইপি কমপক্ষে 70 হতে হবে।",
+      "exceedAirdropTimes": "এয়ারড্রপ কোডের ব্যবহার সীমা ছাড়িয়ে গেছে।"
     },
     "game": {
       "existGame": "খেলার অস্তিত্ব নেই।",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "দাবিকৃত পরিমাণ অবশ্যই 5 USDT এর সমান বা তার বেশি হতে হবে"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "টিপস পাঠাতে রোলওভার সম্পূর্ণ করুন",
+      "notCompleteRollOverToWithdraw": "প্রথমত, রোলওভার সম্পূর্ণ হয়েছে তা নিশ্চিত করুন।",
       "success": "সফলভাবে টিপ পাঠানো হয়েছে"
     },
     "chat": {

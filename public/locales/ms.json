@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "Pencarian mesti selesai untuk menuntut.",
       "emptyAvailableSpin": "Anda tiada putaran tersedia.",
       "VIP22ForSuperSpin": "VIP anda mestilah sekurang-kurangnya 22 tahun.",
-      "VIP70ForMegaSpin": "VIP anda mestilah sekurang-kurangnya 70 tahun."
+      "VIP70ForMegaSpin": "VIP anda mestilah sekurang-kurangnya 70 tahun.",
+      "exceedAirdropTimes": "एअरड्रॉप कोडच्या वापराने मर्यादा ओलांडली आहे."
     },
     "game": {
       "existGame": "Permainan itu tidak wujud.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "Jumlah yang dituntut mestilah sama dengan atau lebih daripada 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Sila lengkapkan peralihan untuk menghantar petua",
+      "notCompleteRollOverToWithdraw": "Pertama sekali, sila pastikan peralihan telah selesai.",
       "success": "Berjaya menghantar petua"
     },
     "chat": {

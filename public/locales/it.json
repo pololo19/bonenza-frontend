@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "La missione deve essere completata per reclamare.",
       "emptyAvailableSpin": "Non hai giri disponibili.",
       "VIP22ForSuperSpin": "Il tuo VIP deve avere almeno 22 anni.",
-      "VIP70ForMegaSpin": "Il tuo VIP deve avere almeno 70 anni."
+      "VIP70ForMegaSpin": "Il tuo VIP deve avere almeno 70 anni.",
+      "exceedAirdropTimes": "L'utilizzo dei codici airdrop ha superato il limite."
     },
     "game": {
       "existGame": "Il gioco non esiste.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "L'importo richiesto deve essere pari o superiore a 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Completa il rollover per inviare suggerimenti",
+      "notCompleteRollOverToWithdraw": "Innanzitutto, assicurati che il rollover sia completato.",
       "success": "Suggerimento inviato con successo"
     },
     "chat": {

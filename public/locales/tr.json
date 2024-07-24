@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "Hak talebinde bulunmak için görevin tamamlanması gerekir.",
       "emptyAvailableSpin": "Kullanılabilir spininiz yok.",
       "VIP22ForSuperSpin": "VIP'niz en az 22 olmalıdır.",
-      "VIP70ForMegaSpin": "VIP'niz en az 70 olmalıdır."
+      "VIP70ForMegaSpin": "VIP'niz en az 70 olmalıdır.",
+      "exceedAirdropTimes": "Airdrop kodlarının kullanımı sınırı aştı."
     },
     "game": {
       "existGame": "Oyun mevcut değil.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "Talep edilen tutar 5 USDT'ye eşit veya daha fazla olmalıdır"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "İpuçları göndermek için lütfen rollover'ı tamamlayın",
+      "notCompleteRollOverToWithdraw": "Öncelikle rollover işleminin tamamlandığından emin olun.",
       "success": "İpucu başarıyla gönderildi"
     },
     "chat": {

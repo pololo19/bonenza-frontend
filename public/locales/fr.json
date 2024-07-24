@@ -2258,7 +2258,8 @@
       "finishedQuestToClaim": "La quête doit être terminée pour pouvoir la réclamer.",
       "emptyAvailableSpin": "Vous n'avez aucun tour disponible.",
       "VIP22ForSuperSpin": "Votre VIP doit avoir au moins 22 ans.",
-      "VIP70ForMegaSpin": "Votre VIP doit avoir au moins 70 ans."
+      "VIP70ForMegaSpin": "Votre VIP doit avoir au moins 70 ans.",
+      "exceedAirdropTimes": "L’utilisation de codes de largage a dépassé la limite."
     },
     "game": {
       "existGame": "Le jeu n'existe pas.",
@@ -2290,7 +2291,7 @@
       "canClaimWithMinimumAmount": "Le montant réclamé doit être égal ou supérieur à 5 USDT"
     },
     "tip": {
-      "notCompleteRollOverToWithdraw": "Veuillez compléter le survol pour envoyer des pourboires",
+      "notCompleteRollOverToWithdraw": "Tout d’abord, veuillez vous assurer que le rollover est terminé.",
       "success": "Conseil envoyé avec succès"
     },
     "chat": {
