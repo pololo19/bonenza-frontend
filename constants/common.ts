@@ -884,6 +884,18 @@ export const CONVERT_CURRENCIES =
 
 export const BANNER_DATA = [
   {
+    img: '/img/banners/PenaltyShootOut_PragmaticPlay.png',
+    url: ROUTER.GameDetail('evoplay-penaltyshootout'),
+  },
+  {
+    img: '/img/banners/GoldenChicken_SpadeGaming.png',
+    url: ROUTER.GameDetail('spadegaming-goldenchicken'),
+  },
+  {
+    img: '/img/banners/RocketBlastMegaways _PragmaticPlay.png',
+    url: ROUTER.GameDetail('pragmaticexternal-rocketblastmegaways'),
+  },
+  {
     img: '/img/banners/GateofOlympus_PragmaticPlay.png',
     url: ROUTER.GameDetail('pragmaticexternal:gatesofolympus1'),
   },
