@@ -118,7 +118,7 @@ export default function MasterMedals({ isShow, onClose, goBackToProfile }: Maste
               key={index}
               className="px-[10px] sm:px-[20px] grow py-[10px] dark:bg-color-card-body-secondary bg-[#f5f6fa] rounded-[5px] flex flex-col items-center cursor-pointer "
             >
-              <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="" />
+              <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="prize" />
               <span className="text-[10px] mt-[8px] dark:text-[#939699] text-[#5f6975cc]">{item.value}</span>
             </div>
           ))}
@@ -127,7 +127,7 @@ export default function MasterMedals({ isShow, onClose, goBackToProfile }: Maste
           <div className="dark:bg-[#1E2024] bg-[#5f69752e] rounded-[10px] h-full">
             <div className="bg-color-primary relative rounded-[10px] w-[35px] h-full">
               <div className="absolute -top-[6px] left-1/2 -translate-x-2/4">
-                <Image className="w-[11px] h-[9px]" height={9} width={11} src={`/img/triangle.png`} alt="" />
+                <Image className="w-[11px] h-[9px]" height={9} width={11} src={`/img/triangle.png`} alt="triangle" />
               </div>
             </div>
           </div>
@@ -159,7 +159,7 @@ export default function MasterMedals({ isShow, onClose, goBackToProfile }: Maste
                 key={index}
                 className="px-[5px] py-[10px] dark:bg-color-card-body-secondary bg-[#f5f6fa] gap-[10px] rounded-[5px] flex flex-col items-center"
               >
-                <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="" />
+                <Image className="h-[37px] w-[37px]" height={28} width={28} src={item.img} alt="medal" />
                 <span className="text-[12px] text-color-text-primary">{item.text}</span>
                 <div className="flex items-center justify-center dark:bg-[#1E2024] bg-white gap-[5px] py-[5px] px-[10px]">
                   <Profile2User variant="Bold" className="w-[12px] h-[12px] text-color-primary" />

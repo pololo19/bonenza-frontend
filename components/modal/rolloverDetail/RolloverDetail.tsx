@@ -57,7 +57,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
       >
         <div className=" min-h-[516px] overflow-auto h-full bg-cover p-4">
           <div className="flex flex-col items-center py-0 gap-2">
-            <Image height={40} width={40} src={transaction.currencyLogo} alt="" />
+            <Image height={40} width={40} src={transaction.currencyLogo} alt="symbol" />
             <div
               className={cn('text-[22px]', {
                 'text-red-500': transaction.type === 'Withdraw',

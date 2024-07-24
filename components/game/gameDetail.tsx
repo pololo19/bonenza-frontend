@@ -136,7 +136,7 @@ const GameDetailComponent = ({
                 height={0}
                 width={0}
                 src={`https://cdn.softswiss.net/logos/providers/color/${gameDetail?.provider}.svg`}
-                alt=""
+                alt="game logo"
                 className="object-cover max-h-[50px] w-auto rounded-[5px]"
               />
             </div>

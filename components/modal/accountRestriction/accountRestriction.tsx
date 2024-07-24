@@ -21,7 +21,7 @@ export default function ModalAccountRestriction({ show, onClose }: AccountRestri
     <CommonModal show={show} onClose={onClose} panelClass="sm:!max-w-[420px]">
       <div className="overflow-y-auto sm:p-5 sm:pt-6 px-3 pb-[80px]">
         <div className="flex flex-col items-center justify-center text-center">
-          <Image src="/img/check-shield.png" width={301} height={277} alt="" className="w-[150px] h-[138px]" />
+          <Image src="/img/check-shield.png" width={301} height={277} alt="account" className="w-[150px] h-[138px]" />
           <p className="font-bold text-[24px]">{t('withdraw:accountRestriction')}</p>
           <div
             className="text-color-text-primary mt-[20px]"

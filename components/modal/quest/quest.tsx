@@ -115,9 +115,9 @@ const QuestItem = ({
           <div className="flex items-center h-[70px] w-[70px]">
             {isBigWin &&
               (status ? (
-                <Image width={124} height={124} src={'/img/big-wins-done.png'} alt="" />
+                <Image width={124} height={124} src={'/img/big-wins-done.png'} alt="big win" />
               ) : (
-                <Image width={124} height={124} src={'/img/big-wins.png'} alt="" />
+                <Image width={124} height={124} src={'/img/big-wins.png'} alt="big win" />
               ))}
             {!isBigWin && <ProgressBar goalAmount={goalAmount} currentAmount={currentAmount} status={status} />}
           </div>
@@ -125,7 +125,7 @@ const QuestItem = ({
             {header}
             <p className="dark:text-color-text-primary text-color-light-text-primary text-[12px]">{description}</p>
             <div className="flex gap-[5px] items-center">
-              <Image width={50} height={50} className="w-[16px] h-[16px]" src="/img/fiats/USDT.png" alt="" />
+              <Image width={50} height={50} className="w-[16px] h-[16px]" src="/img/fiats/USDT.png" alt="currency-usdt" />
               <p className="text-color-secondary font-bold text-m_default sm:text-[16px] italic">{`Earn ${currencyFormat1(earn, 8, '', false)} USDT`}</p>
             </div>
           </div>
@@ -553,7 +553,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                 <div>
                   <span>{t('quest:accumulateRewards')}</span>
                   <div className="flex gap-[10px] items-center">
-                    <Image width={50} height={50} className="w-[25px] h-[25px]" src={'/img/fiats/USDT.png'} alt="" />
+                    <Image width={50} height={50} className="w-[25px] h-[25px]" src={'/img/fiats/USDT.png'} alt="currency-usdt" />
                     <span className="text-[20px] font-bold italic">{`${currencyFormat1(accumulated, 8, '', false)} USDT`}</span>
                   </div>
                 </div>
@@ -710,7 +710,7 @@ export default function ModalQuest({ show, onClose }: ModalQuest) {
                       src={'/img/icon/icon-question-light.png'}
                       width={16}
                       height={16}
-                      alt=""
+                      alt="question"
                       className="w-4 h-4"
                       data-tooltip-id={`unfinished-quest-tooltip`}
                     />

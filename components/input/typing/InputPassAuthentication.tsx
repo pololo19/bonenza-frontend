@@ -72,7 +72,7 @@ const InputPassAuthentication = <TFieldValues extends Record<string, unknown>>({
                 },
               )}
             >
-              <Image width={20} height={20} src="/img/icon/icon-pass.png" alt="" />
+              <Image width={20} height={20} src="/img/icon/icon-pass.png" alt="pass" />
               <div className="w-[1px] h-[13px] bg-[#C3CDDB]" />
               <input
                 {...rest}

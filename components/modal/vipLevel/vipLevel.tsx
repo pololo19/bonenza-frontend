@@ -182,7 +182,7 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
                   src={dataMedal.find((medal) => medal.name === item.name)?.img || '/img/vip.png'}
                   width={50}
                   height={50}
-                  alt=""
+                  alt="vip"
                   className={cn('mt-auto mb-auto', {
                     'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
                       item.name.split(' ').at(0) !== 'Platinum' && item.name !== 'Diamond III',
@@ -200,7 +200,7 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
                     src="/img/selected-medal.png"
                     width={50}
                     height={50}
-                    alt=""
+                    alt="medal"
                     className="absolute left-0 right-0 -bottom-0 w-full h-full"
                   />
                 )}

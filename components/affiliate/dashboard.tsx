@@ -214,7 +214,7 @@ function DashboardComponent() {
                       role="button"
                       onClick={() => copyClipBoard(String(referralCode))}
                     >
-                      <Image height={20} width={20} src="/img/page/simcard.png" alt="" />
+                      <Image height={20} width={20} src="/img/page/simcard.png" alt="copy" />
                     </div>
                   </div>
                 </div>
@@ -231,7 +231,7 @@ function DashboardComponent() {
                       role="button"
                       onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(String(referralCode)))}
                     >
-                      <Image height={20} width={20} src="/img/page/simcard.png" alt="" />
+                      <Image height={20} width={20} src="/img/page/simcard.png" alt="copy" />
                     </div>
                   </div>
                 </div>
@@ -246,25 +246,25 @@ function DashboardComponent() {
                     href={`http://www.facebook.com/sharer/sharer.php?u=${linkReferral}&title=referralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-fb.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="facebook-share" src={'/img/share-fb.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                   <Link
                     href={`https://twitter.com/intent/tweet?url=${linkReferral}&title=rreferralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-tw.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="twitter-share" src={'/img/share-tw.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                   <Link
                     href={`https://t.me/share?url=${linkReferral}&title=rreferralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-tl.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="telegram-share" src={'/img/share-tl.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                   <Link
                     href={`http://vk.com/share.php?url=${linkReferral}&title=rreferralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-vk.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="vk-share" src={'/img/share-vk.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                   <Link
                     href={`https://lineit.line.me/share/ui?url=${linkReferral}&title=referralCode&text=referralCode`}
@@ -272,7 +272,7 @@ function DashboardComponent() {
                   >
                     <Image
                       role="button"
-                      alt=""
+                      alt="lineit-share"
                       src={'/img/share-line.png'}
                       width={24}
                       height={24}
@@ -283,25 +283,25 @@ function DashboardComponent() {
                     href={`https://web.skype.com/share?url=${linkReferral}&title=referralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-sk.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="skype-share" src={'/img/share-sk.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                   <Link
                     href={`https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&amp;st.shareUrl=url=${linkReferral}&title=referralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-ok.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="connect-share" src={'/img/share-ok.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                   <Link
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${linkReferral}&title=referralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-in.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="linkedin-share" src={'/img/share-in.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                   <Link
                     href={`https://api.whatsapp.com/send?url=${linkReferral}&title=referralCode&text=referralCode`}
                     target="_blank"
                   >
-                    <Image role="button" alt="" src={'/img/share-ws.png'} width={24} height={24} className="w-8 h-8" />
+                    <Image role="button" alt="whatsapp-share" src={'/img/share-ws.png'} width={24} height={24} className="w-8 h-8" />
                   </Link>
                 </div>
               </div>
@@ -315,7 +315,7 @@ function DashboardComponent() {
                   height={50}
                   width={50}
                   src="/img/affiliate/rewards.png"
-                  alt=""
+                  alt="affiliate-rewards"
                 />
                 <div className="text-m_default text-center px-1 sm:text-default mb-[15px] font-normal dark:text-white text-black">
                   {t('affiliate:totalRewardEarned')}
@@ -331,7 +331,7 @@ function DashboardComponent() {
                 </div>
               </div>
               <div className="min-w-[150px] flex flex-col justify-center items-center border-l border-solid border-color-primary">
-                <Image className="w-[80px] h-[80px]" height={50} width={50} src="/img/affiliate/friends.png" alt="" />
+                <Image className="w-[80px] h-[80px]" height={50} width={50} src="/img/affiliate/friends.png" alt="affiliate-friends" />
                 <div className="flex flex-col items-center">
                   <div className="text-m_default text-center px-1 sm:text-default mb-[15px] font-normal dark:text-white text-black">
                     {t('affiliate:totalFriendsReferred')}
@@ -458,7 +458,7 @@ function DashboardComponent() {
                               <>{currencyFormat1(reward.amountUsd, fiatDecimals)}</>
                             )}
                           </span>
-                          <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="" />
+                          <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="reward-logo" />
                         </div>
                       </div>
                     );
@@ -507,7 +507,7 @@ function DashboardComponent() {
                 {t('affiliate:affiliateProgram')}
               </div>
             </div>
-            <Image className="m-auto min-w-[310px]" width={210} height={198} alt="" src="/img/loudspeaker.png" />
+            <Image className="m-auto min-w-[310px]" width={210} height={198} alt="loudspeacker" src="/img/loudspeaker.png" />
           </div>
           <div>
             <div className="hidden lg:flex gap-[5px]">

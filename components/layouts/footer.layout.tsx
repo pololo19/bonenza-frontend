@@ -367,7 +367,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </div> */}
                 <div>
                   <Image
-                    alt=""
+                    alt="twitter"
                     src="/img/icon/twitter.png"
                     width={30}
                     height={30}
@@ -385,7 +385,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </div> */}
                 <div>
                   <Image
-                    alt=""
+                    alt="discord"
                     src="/img/icon/discord.png"
                     width={30}
                     height={30}
@@ -417,7 +417,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   <div className="max-w-[50px] max-h-[50px]" key={index}>
                     <div className="relative">
                       <Image
-                        alt=""
+                        alt="network icon"
                         src={item.icon}
                         width={50}
                         height={50}
@@ -426,7 +426,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       />
                       {item.networkIcon && (
                         <Image
-                          alt=""
+                          alt="network icon"
                           src={item.networkIcon}
                           width={50}
                           height={50}
@@ -444,7 +444,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     >
                       <div className="flex justify-center items-center w-[200px] gap-8 pt-3">
                         <Image
-                          alt=""
+                          alt="currency network icon"
                           src={item.icon}
                           width={50}
                           height={50}
@@ -566,7 +566,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center bg-color-bg-primary">
                   <Link href="https://sigmaawards.org/" target="_blank">
                     <Image
-                      alt=""
+                      alt="sigma logo"
                       src="/img/sigma-logo.png"
                       width={50}
                       height={50}
@@ -624,7 +624,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
                   <Link href="https://www.responsiblegambling.org/" target="_blank">
                     <Image
-                      alt=""
+                      alt="responsible gambling logo"
                       src="/img/responsible-gambling-logo.png"
                       width={120}
                       height={60}
@@ -638,7 +638,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
           {/* footer 4 */}
           <div className={cn('flex flex-col gap-5 pb-[120px] sm:pb-4', { 'mt-[40px]': isDetailPage })}>
             <Image
-              alt=""
+              alt="logo"
               src="/img/logo-light.png"
               width={220}
               height={27}

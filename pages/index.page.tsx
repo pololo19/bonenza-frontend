@@ -367,7 +367,7 @@ function IndexPage() {
                     height={384}
                     className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
                     src={theme === 'dark' ? '/img/homepage-bg-14.png' : '/img/homepage-bg-14.png'}
-                    alt=""
+                    alt="homepage"
                   />
                 </CsrWrapper>
               </div>
@@ -536,14 +536,14 @@ function IndexPage() {
                   width={20}
                   height={20}
                   className="hidden object-cover w-full inset lg:block rounded-large"
-                  alt=""
+                  alt="octopus"
                 />
                 <Image
                   src="/img/mobile-octopus.png"
                   width={20}
                   height={20}
                   className="block object-cover w-full inset lg:hidden rounded-large"
-                  alt=""
+                  alt="octopus"
                 />
                 <div className="absolute left-[8%] right-0 top-[10%] lg:top-[30%] bottom-[10%] flex flex-col justify-between">
                   <div
@@ -596,14 +596,14 @@ function IndexPage() {
                     width={20}
                     height={20}
                     className="hidden object-cover w-full md:block rounded-large"
-                    alt=""
+                    alt="whale"
                   />
                   <Image
                     src="/img/mobile-whale.png"
                     width={20}
                     height={20}
                     className="block object-cover w-full md:hidden rounded-large"
-                    alt=""
+                    alt="whale"
                   />
                 </div>
               </div>

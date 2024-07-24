@@ -58,7 +58,7 @@ function BonusPage() {
                   </div>
                 </div>
                 <div className="flex items-center sm:mt-[12px]">
-                  <Image width={50} height={50} src="/img/gift-bonus.png" className="w-[50px] h-[50px]" alt="" />
+                  <Image width={50} height={50} src="/img/gift-bonus.png" className="w-[50px] h-[50px]" alt="bonus" />
                   <div>
                     <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                       {t('bonus:levelUpBonus')}
@@ -67,7 +67,7 @@ function BonusPage() {
                   </div>
                 </div>
                 <div className="flex items-center mt-[12px]">
-                  <Image width={50} height={50} src="/img/coin-bonus.png" className="w-[50px] h-[50px]" alt="" />
+                  <Image width={50} height={50} src="/img/coin-bonus.png" className="w-[50px] h-[50px]" alt="bonus" />
                   <div>
                     <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                       {t('bonus:recharge')}
@@ -76,7 +76,7 @@ function BonusPage() {
                   </div>
                 </div>
                 <div className="flex items-center mt-[12px]">
-                  <Image width={50} height={50} src="/img/hourglass-bonus.png" className="w-[50px] h-[50px]" alt="" />
+                  <Image width={50} height={50} src="/img/hourglass-bonus.png" className="w-[50px] h-[50px]" alt="bonus" />
                   <div>
                     <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold uppercase">
                       {t('bonus:weeklyCashback')}
@@ -126,7 +126,7 @@ function BonusPage() {
             </div>
             <div className="mt-[60px] flex flex-col gap-[20px]">
               <div className="flex flex-col md:flex-row items-center">
-                <Image width={100} height={100} src="/img/special-deposit.png" className="w-fit md:w-[50%]" alt="" />
+                <Image width={100} height={100} src="/img/special-deposit.png" className="w-fit md:w-[50%]" alt="deposit" />
                 <div className="flex md:block flex-col items-center">
                   <div className="text-[24px] text-center md:text-left dark:text-white text-color-light-text-primary font-bold uppercase">
                     {t('bonus:discoverBonenza')}
@@ -165,10 +165,10 @@ function BonusPage() {
                     {t('bonus:unlockLevel')}
                   </div>
                 </div>
-                <Image width={100} height={100} src="/img/promotion-bonus.png" className="w-fit md:w-[50%]" alt="" />
+                <Image width={100} height={100} src="/img/promotion-bonus.png" className="w-fit md:w-[50%]" alt="bonus" />
               </div>
               <div className="flex flex-col md:flex-row items-center">
-                <Image width={100} height={100} src="/img/potential-of-BCD.png" className="w-fit md:w-[50%]" alt="" />
+                <Image width={100} height={100} src="/img/potential-of-BCD.png" className="w-fit md:w-[50%]" alt="potential of dron" />
                 <div className="flex md:block flex-col items-center">
                   <div className="text-[24px] text-center md:text-left dark:text-white text-color-light-text-primary font-bold">
                     {t('bonus:maximizeThePotential')}
@@ -208,7 +208,7 @@ function BonusPage() {
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">{t('bonus:conquerDaily')}</div>
                     </div>
-                    <Image width={100} height={100} src="/img/darts.png" className="w-[50%]" alt="" />
+                    <Image width={100} height={100} src="/img/darts.png" className="w-[50%]" alt="darts" />
                   </div>
                 </div>
                 <div className="bg-gradient-to-l from-color-primary/50">
@@ -222,7 +222,7 @@ function BonusPage() {
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">{t('bonus:spinAndWin')}</div>
                     </div>
-                    <Image width={100} height={100} src="/img/spin-lucky.png" className="w-[50%]" alt="" />
+                    <Image width={100} height={100} src="/img/spin-lucky.png" className="w-[50%]" alt="spin lucky" />
                   </div>
                 </div>
                 <div className="bg-gradient-to-l from-color-secondary/50">
@@ -236,7 +236,7 @@ function BonusPage() {
                       </div>
                       <div className="text-color-text-primary text-[12px] mt-[10px]">{t('bonus:theEarlier')}</div>
                     </div>
-                    <Image width={100} height={100} src="/img/egg-free.png" className="w-[50%]" alt="" />
+                    <Image width={100} height={100} src="/img/egg-free.png" className="w-[50%]" alt="egg free" />
                   </div>
                 </div>
               </div>
@@ -260,7 +260,7 @@ function BonusPage() {
                 </div>
                 <div className="dark:bg-[#272934]/80 bg-[#EAECF3]/80 rounded-[15px] flex flex-col lg:flex-row py-[30px] px-[10px] sm:px-5 md:px-[42px] gap-[10px] sm:gap-0 shadow-bs-default">
                   <div className="flex items-center gap-[24px]">
-                    <Image width={100} height={100} src="/img/treasure.png" className="w-[21%]" alt="" />
+                    <Image width={100} height={100} src="/img/treasure.png" className="w-[21%]" alt="treasure" />
                     <div>
                       <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
                         {t('bonus:rechargeActivation')}
@@ -271,7 +271,7 @@ function BonusPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-[24px]">
-                    <Image width={100} height={100} src="/img/star.png" className="w-[21%]" alt="" />
+                    <Image width={100} height={100} src="/img/star.png" className="w-[21%]" alt="star" />
                     <div>
                       <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
                         {t('bonus:rechargeAtYourPace')}
@@ -280,7 +280,7 @@ function BonusPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-[24px]">
-                    <Image width={100} height={100} src="/img/coin-bonus.png" className="w-[21%]" alt="" />
+                    <Image width={100} height={100} src="/img/coin-bonus.png" className="w-[21%]" alt="bonus" />
                     <div>
                       <div className="text-[14px] dark:text-white text-color-light-text-primary font-bold">
                         {t('bonus:rechargeRewardTiers')}
@@ -302,7 +302,7 @@ function BonusPage() {
               </div>
               <div className="flex justify-between gap-5 xl:gap-0 flex-col items-center sm:flex-row sm:items-baseline">
                 <div className="flex flex-col items-center max-w-[284px]">
-                  <Image src="/img/coco.png" width={139} height={139} className="object-cover" alt="" />
+                  <Image src="/img/coco.png" width={139} height={139} className="object-cover" alt="avatar" />
                   <div className="text-[14px] font-bold dark:text-white text-color-light-text-primary mt-[30px] text-center">
                     {t('bonus:catchCocoForSurprisingRewards')}
                   </div>
@@ -311,7 +311,7 @@ function BonusPage() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center max-w-[284px]">
-                  <Image src="/img/lotto.png" width={139} height={139} className="object-cover" alt="" />
+                  <Image src="/img/lotto.png" width={139} height={139} className="object-cover" alt="lotto" />
                   <div className="text-[14px] font-bold dark:text-white text-color-light-text-primary mt-[30px] text-center uppercase">
                     {t('bonus:winWithBonenzaLottery')}
                   </div>
@@ -320,7 +320,7 @@ function BonusPage() {
                   </div>
                 </div>
                 <div className="flex flex-col items-center max-w-[284px]">
-                  <Image src="/img/golden-bag.png" width={139} height={139} className="object-cover" alt="" />
+                  <Image src="/img/golden-bag.png" width={139} height={139} className="object-cover" alt="golden bag" />
                   <div className="text-[14px] font-bold dark:text-white text-color-light-text-primary mt-[30px] text-center">
                     {t('bonus:waitForCoinDrop')}
                   </div>

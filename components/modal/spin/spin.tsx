@@ -284,7 +284,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     height={151}
                     className={`w-[60px] h-[60px] z-[5] ${isRotating ? 'cursor-not-allowed' : 'cursor-pointer '}`}
                     src={spin === spinTab ? `/img/spin/${spin}-spin.png` : `/img/spin/disabled-${spin}-spin.png`}
-                    alt=""
+                    alt="spin"
                     onClick={() => onSpinTabChange(spin)}
                   />
                 ))}
@@ -301,7 +301,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 height={151}
                 className="object-contain h-[70px]"
                 src={`/img/spin/${spinTab}-level.png`}
-                alt=""
+                alt="spin-level"
               />
             </div>
 
@@ -313,7 +313,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                       width={781}
                       height={781}
                       src={`/img/spin/${spinTab}-ring.png`}
-                      alt=""
+                      alt="spin-ring"
                       className={`absolute p-1 ${styles['ring-rotation']}`}
                     />
                     <div
@@ -324,7 +324,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                         width={781}
                         height={781}
                         src={'/img/spin/spin-wheel.png'}
-                        alt=""
+                        alt="spin wheel"
                         className="w-full h-full p-10"
                       />
                       {spinItems?.[spinTab].map((item, index) => (
@@ -334,7 +334,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                           style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
                         >
                           <span className="font-bold text-[12px]">{currencyFormat1(item.amount, 9, '', false)}</span>
-                          <Image width={14} height={14} className="w-[16px] h-[16px]" src={item.symbolLogo} alt="" />
+                          <Image width={14} height={14} className="w-[16px] h-[16px]" src={item.symbolLogo} alt="symbol" />
                         </div>
                       ))}
                     </div>
@@ -355,7 +355,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                         width={230}
                         height={233}
                         className={cn('w-full h-auto object-cover')}
-                        alt=""
+                        alt="spin tab"
                         src={`/img/spin/${spinTab}-spin-button.png`}
                       />
                     </div>
@@ -364,14 +364,14 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     className="absolute top-[33.8%] left-[62%] right-[2%] z-[5]"
                     style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
                   >
-                    <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="" />
+                    <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="spin tab" />
                   </div>
                   <div className="-mt-[27px] z-[2] mx-[10px]">
                     <Image
                       width={856}
                       height={402}
                       className="w-[80%] m-auto"
-                      alt=""
+                      alt="spin ribbon"
                       src={`/img/spin/${spinTab}-spin-ribbon.png`}
                     />
                   </div>
@@ -403,7 +403,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
-                  alt=""
+                  alt="avatar"
                   className="object-cover rounded-full h-[25px] w-[25px]"
                 />
                 <div className="w-full text-m_default sm:text-default">
@@ -416,7 +416,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                         height={25}
                         className="w-[20px]"
                         src={latestSpin?.symbolLogo || '/img/fiats/USD.png'}
-                        alt=""
+                        alt="currency"
                       />
                     </div>
                   </div>

@@ -63,7 +63,7 @@ export default function PriceDropdown() {
                           height={32}
                           src={symbol.logo}
                           className="hidden sm:inline h-7 w-7"
-                          alt=""
+                          alt="symbol"
                           onError={(e) => {
                             e.currentTarget.src = '/img/fiats/USD.png';
                           }}
@@ -118,7 +118,7 @@ export default function PriceDropdown() {
                           height={32}
                           src={symbol.logo}
                           className="inline"
-                          alt=""
+                          alt="symbol"
                           onError={(e) => {
                             e.currentTarget.src = '/img/fiats/USD.png';
                           }}

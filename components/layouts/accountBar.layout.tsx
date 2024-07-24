@@ -376,7 +376,7 @@ const AccountPannel: React.FC = () => {
                   height={40}
                   width={40}
                   src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
-                  alt=""
+                  alt="avatar"
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
@@ -397,7 +397,7 @@ const AccountPannel: React.FC = () => {
           <div className="relative px-[10px] py-[14px] dark:bg-color-card-header-primary bg-white rounded-default">
             <div className="flex items-center flex-1 gap-[14px]">
               <div className="block w-[55px] h-[55px] rounded-full">
-                <Image height={40} width={40} src="/img/avatar-1.png" alt="" className="w-full h-full" />
+                <Image height={40} width={40} src="/img/avatar-1.png" alt="avatar" className="w-full h-full" />
               </div>
               <div className="flex flex-col justify-between flex-1 h-full">
                 <p className="text-[15px] dark:text-white text-black font-bold">{`${t(
@@ -447,10 +447,10 @@ const AccountPannel: React.FC = () => {
                   dispatch(changeIsShowAuthenticationModal(true));
                 }
               }}
-              icon={() => <Image height={30} width={30} src={'img/quest.png'} alt=""></Image>}
+              icon={() => <Image height={30} width={30} src={'img/quest.png'} alt="quest"></Image>}
               classNames="h-[40px] bg-gradient-to-b from-[#6A5982] to-[#6A00FF] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#6A5982] hover:!to-[#6A00FF] px-[10px] pr-[4px]"
 
-              // classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
+            // classNames="!bg-[#F6841B] gap-[5px] hover:opacity-[0.9] hover:text-white !text-white rounded pl-[10px] font-bold flex-1 !text-[14px]"
             />
             <IconOption
               imageClass="w-[30px] h-[30px]"
@@ -459,7 +459,7 @@ const AccountPannel: React.FC = () => {
               count={isLogin ? spinCount : 0}
               href=""
               onClick={() => dispatch(changeIsShowSpin(true))}
-              icon={() => <Image height={30} width={30} src={'img/sidebar/spin.png'} alt=""></Image>}
+              icon={() => <Image height={30} width={30} src={'img/sidebar/spin.png'} alt="spin"></Image>}
               classNames="h-[40px] bg-gradient-to-b from-[#F450A9] to-[#EA001C] hover:opacity-90 hover:bg-gradient-to-b hover:from-[#F450A9] hover:!to-[#EA001C] px-[10px] pr-[4px]"
             />
           </div>

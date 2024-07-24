@@ -150,7 +150,7 @@ function AffiliatePage() {
               >
                 <span className="text-[14px]">{t('affiliate:signUpAndEarn')}</span>
                 <div className="w-[34px] h-[35px] hidden md:flex items-center justify-center rounded-large bg-white/20">
-                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
+                  <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="arrow right" />
                 </div>
               </div>
               <div
@@ -195,7 +195,7 @@ function AffiliatePage() {
                     height={30}
                     src="/img/banner-image-box1.png"
                     className="w-[50%] h-[50%] m-auto"
-                    alt=""
+                    alt="banner image"
                   />
                 </div>
                 <div
@@ -226,7 +226,7 @@ function AffiliatePage() {
                     height={30}
                     src="/img/banner-image-box2.png"
                     className="w-[50%] h-[50%] m-auto"
-                    alt=""
+                    alt="banner image"
                   />
                 </div>
                 <div
@@ -268,7 +268,7 @@ function AffiliatePage() {
                               )}
                             </span>{' '}
                           </div>
-                          <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="" />
+                          <Image height={16} width={16} src={reward.logo} className="w-[20px] h-[20px]" alt="reward" />
                         </div>
                       );
                     })}

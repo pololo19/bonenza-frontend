@@ -131,7 +131,7 @@ export default function ModalForgotPassword() {
               <div />
               <div className="text-[14px] text-white">{t('resetPassword:resetPassword')}</div>
               <div className="p-[10px] flex items-center justify-center rounded-large bg-white/20">
-                <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="" />
+                <Image height={14} width={14} src="/img/icon/arrow-right.png" alt="arrow right" />
               </div>
             </button>
             <div className="text-[13px] mt-5">

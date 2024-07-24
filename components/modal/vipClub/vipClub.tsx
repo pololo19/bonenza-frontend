@@ -230,7 +230,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         width={240}
                         height={279}
                         className="w-[90px] h-fit"
-                        alt=""
+                        alt="vip"
                         onError={(e) => {
                           e.currentTarget.src = '/img/vip.png';
                         }}
@@ -238,9 +238,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     </div>
 
                     <div className="w-full flex flex-col gap-[10px] justify-center">
-                      <div className="font-bold text-center">{`${currentRank?.name ? currentRank.name + ' -' : ''}${
-                        vipData.name
-                      }`}</div>
+                      <div className="font-bold text-center">{`${currentRank?.name ? currentRank.name + ' -' : ''}${vipData.name
+                        }`}</div>
                       <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div
                           className="absolute top-0 h-full left-0 bg-color-text-green rounded-[25px]"
@@ -250,7 +249,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           className="absolute -top-[26px] w-[22px] h-[61px] -translate-x-[11px]"
                           style={{ left: `${percent}%` }}
                         >
-                          <Image src="/img/flare.png" className="w-[22px] h-[61px]" width={6} height={16} alt="" />
+                          <Image src="/img/flare.png" className="w-[22px] h-[61px]" width={6} height={16} alt="flare" />
                         </div>
                       </div>
                       <div className="flex justify-center items-center gap-[10px]">
@@ -283,7 +282,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                     src={'/img/img-vip-host.png'}
                     width={231}
                     height={40}
-                    alt=""
+                    alt="vip host"
                     className="w-[80%] lg:w-full m-auto object-cover"
                   />
                   <div className="text-m_default sm:text-default font-bold text-center">
@@ -319,7 +318,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         src={dataMedal.find((medal) => medal.name === item.name)?.img || '/img/vip.png'}
                         width={50}
                         height={50}
-                        alt=""
+                        alt="vip"
                         className={cn('mt-auto mb-auto', {
                           'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
                             item.name.split(' ').at(0) !== 'Platinum' && item.name !== 'Diamond III',
@@ -337,7 +336,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           src="/img/selected-medal.png"
                           width={50}
                           height={50}
-                          alt=""
+                          alt="medal"
                           className="absolute left-0 right-0 -bottom-0 w-full h-full"
                         />
                       )}
@@ -381,9 +380,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                 <div className="border-solid border-2 border-color-primary w-full rounded-[20px] p-3 flex gap-[16px] items-center h-full">
                                   <div className="min-w-[50px] min-h-[62px] flex items-center justify-center">
                                     {currentVipLevel >= selectedRank.startLevel ? (
-                                      <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="" />
+                                      <Image src={'/img/vip/bonus_levelup.png'} width={50} height={51} alt="bonus level" />
                                     ) : (
-                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="bonus lock" />
                                     )}
                                   </div>
                                   <div className="flex flex-col gap-[6px]">
@@ -408,10 +407,10 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                         className="min-w-[55px] min-h-[56px]"
                                         width={55}
                                         height={56}
-                                        alt=""
+                                        alt="bonus weekly cashback"
                                       />
                                     ) : (
-                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="vip lock" />
                                     )}
                                   </div>
                                   <div className="flex flex-col gap-[6px]">
@@ -439,10 +438,10 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                                         src={'/img/vip/bonus_monthly_cashback.png'}
                                         width={50}
                                         height={51}
-                                        alt=""
+                                        alt="bonus monthly cashback"
                                       />
                                     ) : (
-                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="" />
+                                      <Image src={'/img/vip/lock.png'} width={26} height={30} alt="vip lock" />
                                     )}
                                   </div>
                                   <div className="flex flex-col gap-[6px]">

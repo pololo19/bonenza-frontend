@@ -64,14 +64,14 @@ function TournamentPage() {
             src="/img/tournament/logo-back.png"
             width={1340}
             height={500}
-            alt=""
+            alt="tournament logo"
             className="w-full object-contain rounded-default hidden lg:block"
           />
           <Image
             src="/img/tournament/logo-back-mobile.png"
             width={1340}
             height={500}
-            alt=""
+            alt="tournament logo"
             className="w-[full] object-contain rounded-default block lg:hidden"
           />
           <div className="absolute top-0 left-0 right-0 bottom-0 p-4 lg:p-0">
@@ -169,7 +169,7 @@ function TournamentPage() {
                 src="/img/tournament/logo.webp"
                 width={650}
                 height={600}
-                alt=""
+                alt="tournament logo"
                 className={cn('w-[80%] lg:w-auto lg:h-[360px] object-contain', {
                   'xl:h-[400px] 2xl:h-[540px] mr-[6%]': !showChatType,
                   '2xl:h-[360px] min-[1800px]:h-[450px]': showChatType,
@@ -354,7 +354,7 @@ function TournamentPage() {
                 src={prize.img}
                 width={150}
                 height={150}
-                alt=""
+                alt="prize"
                 className="w-[90px] h-[90px] lg:w-[150px] lg:h-[150px] object-contain"
               />
               {`${prize.percent}%`}

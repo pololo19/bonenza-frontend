@@ -98,7 +98,7 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
               width={401}
               height={600}
               src="/img/auth/background.png"
-              alt=""
+              alt="background"
               className="sm:w-[400px] sm:brightness-75 object-cover w-full"
             />
             <div className="absolute sm:bottom-[50px] bottom-[10px] top-[30px] text-center w-full flex flex-col gap-[10px] sm:justify-between">
@@ -107,22 +107,20 @@ export default function ModalAuthentication({ show, onClose }: ModalAuthenticati
                 width={401}
                 height={600}
                 src="/img/auth/logo.png"
-                alt=""
+                alt="logo"
                 className="w-[100px] sm:w-[160px] md:w-[264px] object-cover m-auto"
               />
               <p
-                className={`${
-                  height < 640 ? 'hidden' : ''
-                } px-5 text-[15px] sm:text-[28px] text-color-primary font-semibold`}
+                className={`${height < 640 ? 'hidden' : ''
+                  } px-5 text-[15px] sm:text-[28px] text-color-primary font-semibold`}
               >
                 {t('homePage:startJourney')}
               </p>
             </div>
           </div>
           <div
-            className={`sm:py-[20px] pt-[10px] pb-[20px] sm:pb-[75px] sm:px-[30px] px-[10px] mx-auto flex-1 ${
-              height < 640 ? 'overflow-hidden' : 'overflow-y-auto'
-            } w-full flex flex-col ${forgotKey ? 'justify-start' : 'justify-start'}`}
+            className={`sm:py-[20px] pt-[10px] pb-[20px] sm:pb-[75px] sm:px-[30px] px-[10px] mx-auto flex-1 ${height < 640 ? 'overflow-hidden' : 'overflow-y-auto'
+              } w-full flex flex-col ${forgotKey ? 'justify-start' : 'justify-start'}`}
           >
             {returnForm()}
             {!isLoginTwoFactor && authenticationType != AuthenticationModeEnum.VERIFY && (

@@ -112,7 +112,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 height={25}
                 width={25}
                 src="/img/icon/gold.png"
-                alt=""
+                alt="gold"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -121,7 +121,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 height={25}
                 width={25}
                 src="/img/icon/sliver.png"
-                alt=""
+                alt="sliver"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -130,7 +130,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 height={25}
                 width={25}
                 src="/img/icon/bronze.png"
-                alt=""
+                alt="bronze"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -166,7 +166,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 height={25}
                 className="rounded-full grayscale brightness-50 sm:h-[25px] sm:w-[25px] w-[16px]"
                 src="/img/avatar-hidden.png"
-                alt=""
+                alt="avatar hidden"
               />
             ) : (
               <Image
@@ -176,7 +176,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 onError={(e) => {
                   e.currentTarget.src = '/img/avatar-1.png';
                 }}
-                alt=""
+                alt="avatar"
                 className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
               />
             )}

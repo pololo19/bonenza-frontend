@@ -31,7 +31,7 @@ export function CardGame({ title, imgCard }: CardGameProps) {
           height={180}
           width={180}
           src={imgCard}
-          alt=""
+          alt="card game"
           className="w-full object-cover max-h-[160px] rounded-[5px]"
         />
       </div>

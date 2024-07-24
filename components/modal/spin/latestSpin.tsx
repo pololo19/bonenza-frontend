@@ -111,7 +111,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
             height={25}
             className="ml-2 w-[16px] h-[16px]"
             src={row.original?.symbolLogo || '/img/fiats/USD.png'}
-            alt=""
+            alt="currency"
           />
         </div>
       ),
@@ -137,7 +137,7 @@ export default function ModalLatestSpins({ show, onClose }: ModalLatestSpinsProp
             <ArrowLeft2 width={16} className="stroke-[3]" />
           </div>
           <div className="w-[60%] object-cover m-auto py-4">
-            <Image width={230} height={233} alt="" src="/img/spin/spin-winners.png" />
+            <Image width={230} height={233} alt="spin" src="/img/spin/spin-winners.png" />
           </div>
           <div
             className={cn(

@@ -105,7 +105,7 @@ export default function ProfileDropdown() {
                   height={40}
                   width={40}
                   src={user.avatar ? `${API_AVATAR}${user.avatar}` : '/img/avatar-1.png'}
-                  alt=""
+                  alt="avatar"
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}

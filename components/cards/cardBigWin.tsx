@@ -12,7 +12,7 @@ export default function CardBigWin({ title, price, imgCard }: CardBigWinProps) {
   return (
     <div className="rounded-[15px] bg-[#12181F] p-[10px]">
       <div className="rounded-md">
-        <Image height={180} width={180} src={imgCard} alt="" className="w-full object-contain rounded-md max-w-[140px]" />
+        <Image height={180} width={180} src={imgCard} alt="bigWin" className="w-full object-contain rounded-md max-w-[140px]" />
       </div>
       <div className="">
         <div className="mt-[13px] flex justify-between">

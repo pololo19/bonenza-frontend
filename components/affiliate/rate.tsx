@@ -87,7 +87,7 @@ function RateAndRulesComponent() {
               width={20}
               height={20}
               className="object-cover w-full rounded-large"
-              alt=""
+              alt="affiliate-casino-rule"
             />
             <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center gap-4 px-10 py-6">
               <div className="text-default lg:text-title">Live Casino</div>
@@ -103,7 +103,7 @@ function RateAndRulesComponent() {
               width={20}
               height={20}
               className="object-cover w-full rounded-large"
-              alt=""
+              alt="affiliate-casino-rule"
             />
             <div className="absolute top-0 bottom-0 left-0 right-0 flex flex-col justify-center gap-4 px-10 py-6">
               <div className="text-default lg:text-title">Slot Game</div>
@@ -225,7 +225,7 @@ function RateAndRulesComponent() {
               height={50}
               width={50}
               src="/img/affiliate/friends.png"
-              alt=""
+              alt="affiliate-friends"
             />
           </div>
           <div className="flex gap-8">
@@ -239,7 +239,7 @@ function RateAndRulesComponent() {
               height={50}
               width={50}
               src="/img/fiats/USDT.png"
-              alt=""
+              alt="currency-usdt"
             />
           </div>
           <div className="flex gap-8">
@@ -253,7 +253,7 @@ function RateAndRulesComponent() {
               height={50}
               width={50}
               src="/img/affiliate/rewards.png"
-              alt=""
+              alt="affiliate-rewards"
             />
           </div>
         </div>
@@ -268,9 +268,8 @@ function RateAndRulesComponent() {
           {friendVipData.map((friend, index) => (
             <div
               key={`affiliate-rate-${friend.level}`}
-              className={`grid grid-cols-3 text-default py-2 rounded-default mb-1 ${
-                index % 2 === 0 ? ' bg-[#FFF1]' : 'bg-[#FFF2]'
-              }`}
+              className={`grid grid-cols-3 text-default py-2 rounded-default mb-1 ${index % 2 === 0 ? ' bg-[#FFF1]' : 'bg-[#FFF2]'
+                }`}
             >
               <div className="flex items-center justify-center gap-4 font-bold text-center">
                 <Image src={friend.logo} width={32} height={32} className="object-cover h-8" alt="logo" />

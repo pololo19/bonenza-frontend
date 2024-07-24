@@ -140,7 +140,7 @@ const BuyCryptoComponent = () => {
             <div className="flex justify-between items-center">
               <div className="text-[14px] text-[#31373d] dark:text-[#C2C2C2] text-left">{t('buyCrypto:provider')}</div>
               <div className="flex items-center gap-[10px]">
-                <Image width={30} height={30} src="/img/img-moonpay.png" className="w-[30px] h-[30px]" alt="" />
+                <Image width={30} height={30} src="/img/img-moonpay.png" className="w-[30px] h-[30px]" alt="moonpay" />
                 <div className="text-[14px] dark:text-white text-[#31373d] font-bold">Moonpay</div>
               </div>
             </div>
@@ -148,7 +148,7 @@ const BuyCryptoComponent = () => {
               <div className="text-[14px] text-[#31373d] dark:text-[#C2C2C2] text-left">{t('buyCrypto:method')}</div>
               <div className="flex flex-col items-end sm:items-center sm:flex-row gap-[10px]">
                 <div className="text-[14px] dark:text-white text-[#31373d] font-bold">{t('buyCrypto:creditCard')}</div>
-                <Image width={150} height={30} src="/img/img-visa.png" className="w-[150px] h-[30px]" alt="" />
+                <Image width={150} height={30} src="/img/img-visa.png" className="w-[150px] h-[30px]" alt="visa" />
               </div>
             </div>
             <div className="flex justify-between items-center mt-[12px]">
@@ -204,7 +204,7 @@ const BuyCryptoComponent = () => {
             <div
               className="bg-[#F61B4F] hover:opacity-[0.9 text-[#31373d] text-[14px] font-bold rounded-[5px] h-[45px] flex items-center justify-center gap-[7px] px-[20px] py-[10px]"
               role="button"
-              // onClick={() => setIsShowMoonpay(true)}
+            // onClick={() => setIsShowMoonpay(true)}
             >
               <Image width={30} height={30} src="/img/buy-moonpay.png" alt="moonpay" />
               <div className="sm:text-[14px] dark:text-[#ffffff] text-black text-[12px]">

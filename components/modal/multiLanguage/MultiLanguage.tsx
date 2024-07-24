@@ -117,9 +117,8 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
           <div>
             <div className="p-5 py-5 overflow-y-auto border">
               <div
-                className={`grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2 ${
-                  multiLanguageTab === MultiLanguageTabEnum.LANGUAGE ? 'block' : 'hidden'
-                }`}
+                className={`grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2 ${multiLanguageTab === MultiLanguageTabEnum.LANGUAGE ? 'block' : 'hidden'
+                  }`}
               >
                 {LANGUAGE_DATA.map((item, key) => (
                   <button
@@ -202,7 +201,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                         height={30}
                         width={30}
                         src={item.logo ? item.logo : '/img/fiats/USD.png'}
-                        alt=""
+                        alt="currency"
                         onError={(e) => {
                           e.currentTarget.src = '/img/fiats/USD.png';
                         }}

@@ -154,7 +154,7 @@ function VipPage() {
             <Image
               width={100}
               height={100}
-              alt=""
+              alt="vip"
               src="/img/vip-benefit.png"
               className="block sm:hidden object-contain w-[80%]"
             />
@@ -176,7 +176,7 @@ function VipPage() {
           <Image
             width={100}
             height={100}
-            alt=""
+            alt="vip"
             src="/img/vip-benefit.png"
             className="absolute hidden sm:block max-h-[295px] w-[300px] right-[42px] object-contain"
           />
@@ -191,7 +191,7 @@ function VipPage() {
               )}
             >
               <div className="flex-1 flex item-center justify-center">
-                <Image width={198} height={98} alt="" className="w-[198px] h-[124px]" src={item.img} />
+                <Image width={198} height={98} alt="card" className="w-[198px] h-[124px]" src={item.img} />
               </div>
               <div>
                 <div className="text-[22px] sm:text-[16px] font-semibold mb-[6px] uppercase text-color-light-text-primary dark:text-white">
@@ -217,7 +217,7 @@ function VipPage() {
                     key={index}
                     className="px-5 py-4 min-w-[120px] flex-1 bg-color-card-bg-secondary border border-solid border-color-card-bg-primary border-l-0 border-b-0 flex items-center justify-center gap-[5px]"
                   >
-                    <Image width={18} height={18} alt="" src={item.img} />
+                    <Image width={18} height={18} alt="medal" src={item.img} />
                     <p className="text-[12px] font-semibold min-w-fit break-keep">{item.name}</p>
                   </div>
                 ))}

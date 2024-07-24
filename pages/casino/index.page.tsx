@@ -193,7 +193,7 @@ function CasinoPage() {
                     ? `https://cdn.softswiss.net/logos/providers/color/${item?.image}.svg`
                     : `/img/providers/softswiss.png`
                 }
-                alt=""
+                alt="provider logo"
                 onError={(e) => {
                   e.currentTarget.src = `/img/providers/softswiss.png`;
                 }}

@@ -113,7 +113,7 @@ export default function ViewInFiat({ show, onClose }: ViewInFiatProps) {
                   height={16}
                   width={16}
                   src={item.logo ? item.logo : '/img/fiats/USDT.png'}
-                  alt=""
+                  alt="currency"
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USDT.png';
                   }}

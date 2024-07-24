@@ -109,7 +109,7 @@ const SelectInputFiat = ({
                   width={25}
                   height={25}
                   src={`https://static.moonpay.com/widget/currencies/${activeMoonpayFiat?.code?.toLowerCase()}.svg`}
-                  alt=""
+                  alt="currency"
                 />
                 <div className="font-normal dark:text-white text-black sm:text-[14px] text-[12px]">
                   {activeMoonpayFiat?.code}
@@ -182,7 +182,7 @@ const SelectInputFiat = ({
                               width={30}
                               height={30}
                               src={`https://static.moonpay.com/widget/currencies/${item?.code?.toLowerCase()}.svg`}
-                              alt=""
+                              alt="currency"
                               onClick={() => setIsShowFiatModal(true)}
                             />
                             <div className="font-semibold text-black dark:text-[#ffffff] text-[14px]">{item.code}</div>

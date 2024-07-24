@@ -202,7 +202,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                   width={80}
                   height={80}
                   src={tipReceiver.userAvatar ? `${API_AVATAR}${tipReceiver.userAvatar}` : '/img/avatar-1.png'}
-                  alt=""
+                  alt="avatar"
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
@@ -213,7 +213,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                   width={80}
                   height={80}
                   src="/img/avatar-hidden.png"
-                  alt=""
+                  alt="avatar hidden"
                 />
               )}
               <span className="font-bold">{tipReceiver.userName || ''}</span>
@@ -232,9 +232,8 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                 <div className="mt-[20px] flex flex-col gap-2">
                   <div className="flex justify-between text-left text-default dark:text-color-text-primary text-color-light-text-primary">
                     <span>{t('tip:tipAmount')}</span>
-                    <span>{`${(1 / activeCoin.price).toFixed(4)} ${activeCoin.name} ~ ${
-                      Math.ceil((5000 / activeCoin.price) * 100) / 100
-                    } ${activeCoin.name}`}</span>
+                    <span>{`${(1 / activeCoin.price).toFixed(4)} ${activeCoin.name} ~ ${Math.ceil((5000 / activeCoin.price) * 100) / 100
+                      } ${activeCoin.name}`}</span>
                   </div>
                   <InputNumber
                     customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default rounded-default"
@@ -250,10 +249,10 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                     <div className="flex text-black dark:text-white gap-1">
                       {viewInFiat
                         ? currencyFormat1(
-                            tipInfo.availableAmountUsd * exchangeRate,
-                            4,
-                            String(localFiat?.name || 'USD'),
-                          )
+                          tipInfo.availableAmountUsd * exchangeRate,
+                          4,
+                          String(localFiat?.name || 'USD'),
+                        )
                         : `${currencyFormat1(tipInfo.availableAmount, 4, '', false)}`}
                       <span className="dark:text-color-text-primary text-color-light-text-primary">
                         {viewInFiat && `( ${currencyFormat1(tipInfo.availableAmount, 4, '', false)} )`}

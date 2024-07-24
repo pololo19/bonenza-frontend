@@ -176,7 +176,7 @@ const WagerContestComponent = () => {
         position: Number(res.data.position ?? 1),
         wageredAmountUsd: Number(res.data.wageredAmountUsd ?? 0),
       });
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const wagerAndPostion = useMemo(() => {
@@ -225,7 +225,7 @@ const WagerContestComponent = () => {
                 height={25}
                 width={25}
                 src="/img/icon/gold.png"
-                alt=""
+                alt="medal gold"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -234,7 +234,7 @@ const WagerContestComponent = () => {
                 height={25}
                 width={25}
                 src="/img/icon/sliver.png"
-                alt=""
+                alt="medal sliver"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -243,7 +243,7 @@ const WagerContestComponent = () => {
                 height={25}
                 width={25}
                 src="/img/icon/bronze.png"
-                alt=""
+                alt="medal bronze"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -284,7 +284,7 @@ const WagerContestComponent = () => {
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
-                  alt=""
+                  alt="avatar"
                   className="object-cover rounded-full w-[16px] h-[16px] sm:w-[25px] sm:h-[25px]"
                 />
               )}
@@ -293,8 +293,8 @@ const WagerContestComponent = () => {
               {row.original?.playerId !== userId && !row.original?.playerName
                 ? t('homePage:hidden')
                 : row.original.playerId === userId
-                ? userName
-                : row.original.playerName}
+                  ? userName
+                  : row.original.playerName}
             </div>
           </div>
         ),
@@ -352,7 +352,7 @@ const WagerContestComponent = () => {
     <>
       <div className="grid flex-wrap grid-cols-12 gap-2 mb-3">
         <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly flex gap-[12px] sm:gap-[1.5rem] lg:gap-[2rem] min-w-fit grow">
-          <Image width={125} height={110} className="object-cover h-full md:ml-3" src="/img/cup.png" alt="" />
+          <Image width={125} height={110} className="object-cover h-full md:ml-3" src="/img/cup.png" alt="medal cup" />
           <div className="flex">
             <div className="flex flex-col justify-end gap-2">
               <span className="text-[14px] text-color-primary font-bold">{t('wagerContest:daily')}</span>
@@ -462,7 +462,7 @@ const WagerContestComponent = () => {
               height={48}
               className="object-cover h-[3rem] w-[3rem] absolute left-0 top-0 rounded-full"
               src="/img/icon/winner.png"
-              alt=""
+              alt="medal winner"
             />
             <div
               className={`rounded dark:bg-color-card-body-primary bg-color-light-bg-primary h-full w-full ${styles.boxCenter} px-3`}
@@ -474,7 +474,7 @@ const WagerContestComponent = () => {
                     height={13}
                     className="object-cover h-[13px] w-[16px]"
                     src="/img/icon/crown.png"
-                    alt=""
+                    alt="medal crown"
                   />
                   <span className="text-[12px] text-color-text-primary leading-[18px]">
                     {t('wagerContest:lastChampion')}
@@ -487,7 +487,7 @@ const WagerContestComponent = () => {
                       height={13}
                       className="absolute -top-[13px] -translate-x-2/4 left-1/2 object-cover h-[13px] w-[16px]"
                       src="/img/icon/crown.png"
-                      alt=""
+                      alt="medal crown"
                     />
                     {wagerHistory.playerId !== userId && !wagerHistory.playerName ? (
                       <Image
@@ -495,7 +495,7 @@ const WagerContestComponent = () => {
                         height={59}
                         className="max-w-[30px] max-h-[30px] rounded-full grayscale brightness-50"
                         src="/img/avatar-hidden.png"
-                        alt=""
+                        alt="avatar hidden"
                       />
                     ) : (
                       <Image
@@ -505,7 +505,7 @@ const WagerContestComponent = () => {
                         src={
                           wagerHistory.playerAvatar ? `${API_AVATAR}${wagerHistory.playerAvatar}` : '/img/avatar-1.png'
                         }
-                        alt=""
+                        alt="avatar"
                         onError={(e) => {
                           e.currentTarget.src = '/img/avatar-1.png';
                         }}
@@ -525,8 +525,8 @@ const WagerContestComponent = () => {
                       {wagerHistory.playerId !== userId && !wagerHistory.playerName
                         ? t('homePage:hidden')
                         : wagerHistory.playerId === userId
-                        ? userName
-                        : wagerHistory.playerName}
+                          ? userName
+                          : wagerHistory.playerName}
                     </p>
                     <div className="flex flex-col sm:flex-row text-[12px] leading-[18px] text-color-text-primary mt-3 gap-2">
                       <div>
@@ -547,7 +547,7 @@ const WagerContestComponent = () => {
                           onError={(e) => {
                             e.currentTarget.src = '/img/fiats/USDT.png';
                           }}
-                          alt=""
+                          alt="currency-usdt"
                         />
                       </div>
                     </div>
@@ -575,7 +575,7 @@ const WagerContestComponent = () => {
               height={28}
               className="object-cover h-[1.75rem] w-[1.75rem] rounded-full"
               src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
-              alt=""
+              alt="avatar"
               onError={(e) => {
                 e.currentTarget.src = '/img/avatar-1.png';
               }}
@@ -618,10 +618,10 @@ const WagerContestComponent = () => {
                 <span className="text-white">
                   {viewInFiat
                     ? currencyFormat1(
-                        (wagerAndPostion.wagerAmount - positionData.wageredAmountUsd) * exchangeRate,
-                        4,
-                        localFiat?.name,
-                      )
+                      (wagerAndPostion.wagerAmount - positionData.wageredAmountUsd) * exchangeRate,
+                      4,
+                      localFiat?.name,
+                    )
                     : currencyFormat1(wagerAndPostion.wagerAmount - positionData.wageredAmountUsd, 4)}
                 </span>
                 <span className="dark:text-color-text-primary text-color-light-text-primary">

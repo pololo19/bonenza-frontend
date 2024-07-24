@@ -33,55 +33,55 @@ export default function ModalShareGame({ show, onClose, gameDetail }: ModalShare
               href={`http://www.facebook.com/sharer/sharer.php?u=${linkGame}&title=${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-fb.png'} width={40} height={40} />
+              <Image role="button" alt="facebook-share" src={'/img/share-fb.png'} width={40} height={40} />
             </Link>
             <Link
               href={`https://twitter.com/intent/tweet?url=${linkGame}&title=r${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-tw.png'} width={40} height={40} />
+              <Image role="button" alt="twitter-share" src={'/img/share-tw.png'} width={40} height={40} />
             </Link>
             <Link
               href={`https://t.me/share?url=${linkGame}&title=r${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-tl.png'} width={40} height={40} />
+              <Image role="button" alt="telegram-share" src={'/img/share-tl.png'} width={40} height={40} />
             </Link>
             <Link
               href={`http://vk.com/share.php?url=${linkGame}&title=r${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-vk.png'} width={40} height={40} />
+              <Image role="button" alt="vk-share" src={'/img/share-vk.png'} width={40} height={40} />
             </Link>
             <Link
               href={`https://lineit.line.me/share/ui?url=${linkGame}&title=${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-line.png'} width={40} height={40} />
+              <Image role="button" alt="lineit-share" src={'/img/share-line.png'} width={40} height={40} />
             </Link>
             <Link
               href={`https://web.skype.com/share?url=${linkGame}&title=${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-sk.png'} width={40} height={40} />
+              <Image role="button" alt="skype-share" src={'/img/share-sk.png'} width={40} height={40} />
             </Link>
             <Link
               href={`https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&amp;st.shareUrl=url=${linkGame}&title=${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-ok.png'} width={40} height={40} />
+              <Image role="button" alt="connect-share" src={'/img/share-ok.png'} width={40} height={40} />
             </Link>
             <Link
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${linkGame}&title=${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-in.png'} width={40} height={40} />
+              <Image role="button" alt="linkedin-share" src={'/img/share-in.png'} width={40} height={40} />
             </Link>
             <Link
               href={`https://api.whatsapp.com/send?url=${linkGame}&title=${gameDetail.title}&text=${gameDetail.title}`}
               target="_blank"
             >
-              <Image role="button" alt="" src={'/img/share-ws.png'} width={40} height={40} />
+              <Image role="button" alt="whatsapp-share" src={'/img/share-ws.png'} width={40} height={40} />
             </Link>
           </div>
         </div>

@@ -138,10 +138,10 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                 <div className="font-normal text-black truncate dark:text-white">
                   {viewInFiat
                     ? `${currencyFormat1(
-                        row.original.betAmountUsd * exchangeRate,
-                        fiatDecimals,
-                        localFiat?.name || 'USD',
-                      )}`
+                      row.original.betAmountUsd * exchangeRate,
+                      fiatDecimals,
+                      localFiat?.name || 'USD',
+                    )}`
                     : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)}`}
                 </div>
                 <Image
@@ -151,7 +151,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USDT.png';
                   }}
-                  alt=""
+                  alt="currency-usdt"
                 />
               </div>
             )}
@@ -202,10 +202,10 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                    Math.abs(row.original.profitAmountUsd * exchangeRate),
-                    fiatDecimals,
-                    localFiat?.name || 'USD',
-                  )}`
+                  Math.abs(row.original.profitAmountUsd * exchangeRate),
+                  fiatDecimals,
+                  localFiat?.name || 'USD',
+                )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)}`}
             </div>
             <Image
@@ -216,7 +216,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
               }}
-              alt=""
+              alt="currency-usdt"
             />
           </div>
         ),

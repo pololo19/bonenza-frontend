@@ -115,7 +115,7 @@ const TransactionPage = () => {
                 onError={(e) => {
                   e.currentTarget.src = `/img/fiats/USDT.png`;
                 }}
-                alt=""
+                alt="symbol"
               />
             </div>
           ),
@@ -189,7 +189,7 @@ const TransactionPage = () => {
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
-              alt=""
+              alt="symbol"
             />
           </div>
         ),
@@ -273,7 +273,7 @@ const TransactionPage = () => {
                 height={20}
                 width={20}
                 src={row.original?.swapFromLogo || `/img/fiats/USDT.png`}
-                alt=""
+                alt="symbol"
                 onError={(e) => {
                   e.currentTarget.src = `/img/fiats/USDT.png`;
                 }}
@@ -300,7 +300,7 @@ const TransactionPage = () => {
                 height={20}
                 width={20}
                 src={row.original?.swapToLogo || `/img/fiats/USDT.png`}
-                alt=""
+                alt="symbol"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
@@ -341,7 +341,7 @@ const TransactionPage = () => {
               height={20}
               width={20}
               src={row.original?.swapFromLogo || `/img/fiats/USDT.png`}
-              alt=""
+              alt="symbol"
               onError={(e) => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
@@ -367,7 +367,7 @@ const TransactionPage = () => {
               height={20}
               width={20}
               src={row.original?.swapToLogo || `/img/fiats/USDT.png`}
-              alt=""
+              alt="symbol"
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
               }}
@@ -471,7 +471,7 @@ const TransactionPage = () => {
                 height={20}
                 width={20}
                 src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
-                alt=""
+                alt="currency"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
@@ -516,7 +516,7 @@ const TransactionPage = () => {
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
-                alt=""
+                alt="currency"
               />
             </div>
           ),
@@ -601,7 +601,7 @@ const TransactionPage = () => {
                 height={14}
                 width={14}
                 src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
-                alt=""
+                alt="currency"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
@@ -623,7 +623,7 @@ const TransactionPage = () => {
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
-                alt=""
+                alt="currency"
               />
             </div>
           </div>
@@ -666,7 +666,7 @@ const TransactionPage = () => {
                 onError={(e) => {
                   e.currentTarget.src = `/img/fiats/USDT.png`;
                 }}
-                alt=""
+                alt="symbol"
               />
             </div>
           ),
@@ -735,7 +735,7 @@ const TransactionPage = () => {
                 e.currentTarget.src = `/img/fiats/USDT.png`;
               }}
               className="w-4 h-4"
-              alt=""
+              alt="currency"
             />
           </div>
         ),
@@ -821,7 +821,7 @@ const TransactionPage = () => {
                 height={20}
                 width={20}
                 src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
-                alt=""
+                alt="currency"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
@@ -864,7 +864,7 @@ const TransactionPage = () => {
                 height={20}
                 width={20}
                 src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
-                alt=""
+                alt="currency"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
@@ -916,7 +916,7 @@ const TransactionPage = () => {
                 height={20}
                 width={20}
                 src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
-                alt=""
+                alt="currency"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}
@@ -933,7 +933,7 @@ const TransactionPage = () => {
                 height={20}
                 width={20}
                 src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : `/img/fiats/USDT.png`}
-                alt=""
+                alt="currency"
                 onError={(e) => {
                   e.currentTarget.src = '/img/fiats/USDT.png';
                 }}

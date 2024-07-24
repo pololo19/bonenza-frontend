@@ -40,7 +40,7 @@ export default function ModalVerifyRepresentative({ show, onClose }: ModalVerify
         panelClass="sm:max-w-[464px] max-w-full sm:h-[60vh] sm:min-h-[70vh] sm:my-0"
         header={
           <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
-            <Image src="/img/logo.png" width={159} height={32} alt="" />
+            <Image src="/img/logo.png" width={159} height={32} alt="logo" />
           </div>
         }
       >

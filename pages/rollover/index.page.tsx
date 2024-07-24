@@ -127,7 +127,7 @@ const RolloverPage = () => {
                 currencyFormat1(Math.abs(row.original.amount), 4, '', false)
               )}
 
-              <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="" />
+              <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="symbol" />
             </div>
           ),
           minSize: 150,
@@ -219,7 +219,7 @@ const RolloverPage = () => {
               currencyFormat1(Math.abs(row.original.amount), 4, '', false)
             )}
 
-            <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="" />
+            <Image height={20} width={20} src={`${row.original?.currencyLogo}`} alt="symbol" />
           </div>
         ),
       },

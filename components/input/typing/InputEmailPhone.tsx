@@ -89,7 +89,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
                 },
               )}
             >
-              {!showPhoneNumber && <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="" />}
+              {!showPhoneNumber && <Image width={20} height={20} src="/img/icon/icon-mail.png" alt="mail" />}
               {showPhoneNumber && (
                 <Menu>
                   <Menu.Button className="text-default flex items-center gap-[4px] cursor-pointer min-w-[45px]">
@@ -111,10 +111,9 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
                           <Menu.Item as={Fragment} key={index}>
                             {({ active }) => (
                               <div
-                                className={`${active ? 'bg-gray-700 text-white' : ''} ${
-                                  country.countryCode === activeCountry.countryCode &&
+                                className={`${active ? 'bg-gray-700 text-white' : ''} ${country.countryCode === activeCountry.countryCode &&
                                   'border border-color-primary border-solid'
-                                } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded`}
+                                  } flex p-2 text-[12px] text-gray-400 my-1 mx-1 rounded`}
                                 onClick={() => setActiveCountry(country)}
                               >
                                 <div className="flex-1">{country.country}</div>

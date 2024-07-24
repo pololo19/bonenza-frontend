@@ -73,7 +73,7 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
             onClick={() => setIsShowFiatModal(true)}
           >
             <div className="flex items-center gap-3">
-              <Image width={25} height={25} src={`/img/fiats/${coin?.symbol}.png`} alt="" />
+              <Image width={25} height={25} src={`/img/fiats/${coin?.symbol}.png`} alt="symbol" />
               <div className="font-normal dark:text-white text-black sm:text-[14px] text-[12px] truncate">
                 {coin?.symbol} <span className="font-[300] text-[12px] text-gray-400">{coin?.network}</span>
               </div>
@@ -146,7 +146,7 @@ const SelectInputCrypto = ({ currencyConvert = 0, onChangeCoin, activeCoin }: Se
                               width={30}
                               height={30}
                               src={`/img/fiats/${item?.symbol}.png`}
-                              alt=""
+                              alt="symbol"
                               onClick={() => setIsShowFiatModal(true)}
                             />
                             <div className="font-semibold text-[14px]">

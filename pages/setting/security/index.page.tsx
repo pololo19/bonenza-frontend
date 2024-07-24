@@ -454,7 +454,7 @@ const SettingSecurity = () => {
                           {t('setting:scanTheQRCode')}
                         </div>
                         <div className="flex justify-center">
-                          <Image height={100} width={100} src={qrCode} alt="" />
+                          <Image height={100} width={100} src={qrCode} alt="qrcode" />
                         </div>
                         <div className="flex items-center justify-center gap-4 align-middle sm:gap-8">
                           <Link

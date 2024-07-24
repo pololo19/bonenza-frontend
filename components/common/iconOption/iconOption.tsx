@@ -103,7 +103,7 @@ const IconOption = ({
             }}
           >
             {imageURL ? (
-              <Image src={imageURL} width={20} height={20} className={imageClass} alt="" />
+              <Image src={imageURL} width={20} height={20} className={imageClass} alt="image" />
             ) : (
               <IconElement
                 size={18}
@@ -143,7 +143,7 @@ const IconOption = ({
             }}
           >
             {imageURL ? (
-              <Image src={imageURL} width={20} height={20} className={imageClass} alt="" />
+              <Image src={imageURL} width={20} height={20} className={imageClass} alt="image" />
             ) : (
               <IconElement
                 size={18}

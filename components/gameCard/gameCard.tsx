@@ -58,7 +58,7 @@ function GameCard(props: GameCardProps) {
             height={160}
             width={160}
             src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
-            alt=""
+            alt="game logo"
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
             }}
