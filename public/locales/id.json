@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "Permainan itu tidak ada.",
       "canDetectLocation": "Lokasinya tidak dapat dideteksi.",
+      "notAllowedLocation": "Game ini tidak dapat diakses di lokasi Anda saat ini.",
+      "notAllowedDemo": "Mode bermain gratis tidak diizinkan untuk game ini.",
       "existCurrency": "Mata uangnya tidak ada.",
       "existCurrencyType": "Jenis mata uang tidak ada.",
       "matchedWithSign": "Tanda permintaan tidak cocok.",

@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "El juego no existe.",
       "canDetectLocation": "No se puede detectar la ubicación.",
+      "notAllowedLocation": "Dieses Spiel ist an Ihrem aktuellen Standort nicht verfügbar.",
+      "notAllowedDemo": "Der Freispielmodus ist für dieses Spiel nicht zulässig.",
       "existCurrency": "La moneda no existe.",
       "existCurrencyType": "El tipo de moneda no existe.",
       "matchedWithSign": "El signo de solicitud no coincide.",

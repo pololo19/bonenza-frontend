@@ -108,7 +108,7 @@ function GamePage() {
   );
 
   const _initFreePlay = useCallback(() => {
-    if (!gameDetail.id || !gameDetail.allowedDemo || isMobile) return;
+    if (!gameDetail.id || !gameDetail.allowedDemo || isMobile || !gameDetail.allowedLocation) return;
     if (playStatusRef.current === 'Real') return;
     setIsLoading(true);
 
@@ -188,7 +188,7 @@ function GamePage() {
       setGameDetail(tempGameDetailData);
 
       if (!_res.data?.allowLocation) {
-        toast.error(t('errors:game:canDetectLocation'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON });
       }
 
       playStatusRef.current = 'Free';
@@ -213,6 +213,24 @@ function GamePage() {
         status: true,
       });
       setSuccessfullyLaunched(false);
+
+      if (!gameDetail.allowedDemo) {
+        toast.error(t('errors:game:notAllowedDemo'), { containerId: TOAST_ENUM.COMMON });
+        setIsLoadingGame({
+          request: 'demo',
+          status: false
+        })
+        return;
+      }
+
+      if (!gameDetail.allowedLocation) {
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON });
+        setIsLoadingGame({
+          request: 'demo',
+          status: false
+        })
+        return;
+      }
 
       if (!isMobile) {
         setSuccessfullyLaunched(true);
@@ -291,6 +309,15 @@ function GamePage() {
         request: 'real',
         status: true,
       });
+
+      if (!gameDetail.allowedLocation) {
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON });
+        setIsLoadingGame({
+          request: 'real',
+          status: false,
+        });
+        return;
+      }
       const list = document.getElementById('game_wrapper');
       if (list?.firstElementChild) {
         list?.removeChild(list?.firstElementChild);
@@ -300,10 +327,12 @@ function GamePage() {
         currencyType: activeCurrency.type,
         currencyId: activeCurrency.id,
       };
+
       let newWindow: any;
       if (isMobile) {
         newWindow = window.open('about:blank', '_blank');
       }
+
 
       api_startGameSession(requestData)
         .then((res) => {
@@ -720,14 +749,14 @@ function GamePage() {
                 )}
               >
                 {
-                  isLoadingGame.status && <Image
+                  (isLoadingGame.status || !gameDetail.allowedDemo || !gameDetail.allowedLocation) && <Image
                     src={
                       gameDetail.identifier
                         ? `https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`
                         : '/img/game-background.png'
                     }
                     fill
-                    alt="game logo"
+                    alt="game background"
                     className="hidden sm:block "
                     onError={(e) => {
                       e.currentTarget.src = '/img/game-background.png';
@@ -905,65 +934,8 @@ function GamePage() {
                     <ReactLoading type={'balls'} width={20} height={20} />
                   </div>
                 )}
-                {/* {!isLoadingLike ? (
-                  <div
-                    role="button"
-                    className={cn(
-                      'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-color-light-bg-primary rounded p-2 flex gap-2 items-center',
-                      {
-                        '!text-[#ec4016]': reactionData.isLike,
-                      },
-                    )}
-                    onClick={() => handleReactGame('like')}
-                  >
-                    <Heart variant="Bold" size={20} />
-                    <span className="text-[12px]">{0}</span>
-                  </div>
-                ) : (
-                  <div className="w-[49px] flex items-center justify-center">
-                    <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                  </div>
-                )} */}
-                {/* Hiding Share game button */}
-                {/* <div
-                  role="button"
-                  className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
-                  onClick={() => setOpenShareGame(true)}
-                >
-                  <Send2 size={20} variant="Bold" /> 
-              </div>*/}
               </div>
               <div className="text-color-text-secondary flex gap-[20px] items-center">
-                {/* Hiding three Tooltips for Game */}
-                {/* <Tooltip
-                  message="Fairness"
-                  children={
-                    <div
-                      role="button"
-                      className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
-                    >
-                      <Image alt="" src={'/img/fairness.png'} width={18} height={18} />
-                    </div>
-                  }
-                />
-                <Tooltip
-                  message="Live Stats"
-                  children={
-                    <div
-                      role="button"
-                      className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
-                    >
-                      <Image alt="" src={'/img/hierarchy.png'} width={18} height={18} />
-                    </div>
-                  }
-                />
-
-                <div
-                  role="button"
-                  className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
-                >
-                  <Image alt="" src={'/img/monitor.png'} width={18} height={18} />
-                </div> */}
                 <div
                   role="button"
                   className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
@@ -975,36 +947,6 @@ function GamePage() {
                 </div>
               </div>
             </div>
-            {/* <div className="p-[8px] dark:bg-[#17191B] bg-white items-center justify-between sm:hidden grid grid-cols-2 gap-[10px] border-t-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
-              <div className="flex justify-center border-r-[1px] border-solid dark:border-color-border-primary border-color-light-border-primary">
-                <Tooltip
-                  message="Fairness"
-                  children={
-                    <div
-                      role="button"
-                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-default"
-                    >
-                      <Image className="w-[20px] h-[20px]" alt="" src={'/img/fairness.png'} width={14} height={14} />
-                      Fairness
-                    </div>
-                  }
-                />
-              </div>
-              <div className="flex justify-center">
-                <Tooltip
-                  message="Live Stats"
-                  children={
-                    <div
-                      role="button"
-                      className="dark:hover:bg-gray-700 dark:text-color-text-primary text-color-light-text-primary flex gap-[10px] dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black rounded p-2 text-default"
-                    >
-                      <Image className="w-[20px] h-[20px]" alt="" src={'/img/hierarchy.png'} width={14} height={14} />
-                      Live Stats
-                    </div>
-                  }
-                />
-              </div>
-            </div> */}
           </div>
 
           {gameDetail.id && (

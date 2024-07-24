@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "Trò chơi không tồn tại.",
       "canDetectLocation": "Không thể phát hiện được vị trí.",
+      "notAllowedLocation": "Trò chơi này không thể truy cập được ở vị trí hiện tại của bạn.",
+      "notAllowedDemo": "Chế độ chơi miễn phí không được phép cho trò chơi này.",
       "existCurrency": "Tiền tệ không tồn tại.",
       "existCurrencyType": "Loại tiền tệ không tồn tại.",
       "matchedWithSign": "Dấu hiệu yêu cầu không khớp.",

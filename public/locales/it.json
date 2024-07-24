@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "Il gioco non esiste.",
       "canDetectLocation": "La posizione non può essere rilevata.",
+      "notAllowedLocation": "Questo gioco non è accessibile nella tua posizione attuale.",
+      "notAllowedDemo": "La modalità di gioco gratuita non è consentita per questo gioco.",
       "existCurrency": "La moneta non esiste.",
       "existCurrencyType": "Il tipo di valuta non esiste.",
       "matchedWithSign": "Il segno della richiesta non corrisponde.",

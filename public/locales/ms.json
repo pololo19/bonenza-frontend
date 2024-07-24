@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "Permainan itu tidak wujud.",
       "canDetectLocation": "Lokasi tidak dapat dikesan.",
+      "notAllowedLocation": "Permainan ini tidak boleh diakses di lokasi semasa anda.",
+      "notAllowedDemo": "Mod main percuma tidak dibenarkan untuk permainan ini.",
       "existCurrency": "Mata wang itu tidak wujud.",
       "existCurrencyType": "Jenis mata wang tidak wujud.",
       "matchedWithSign": "Tanda permintaan tidak sepadan.",

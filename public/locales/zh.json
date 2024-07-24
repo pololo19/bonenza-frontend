@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "该游戏不存在。",
       "canDetectLocation": "无法检测到该位置。",
+      "notAllowedLocation": "在您当前的位置无法访问该游戏。",
+      "notAllowedDemo": "此游戏不允许免费游戏模式。",
       "existCurrency": "该货币不存在。",
       "existCurrencyType": "货币类型不存在。",
       "matchedWithSign": "请求标志不匹配。",

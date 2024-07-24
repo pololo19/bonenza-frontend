@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "Гра не існує.",
       "canDetectLocation": "Не вдається визначити місцезнаходження.",
+      "notAllowedLocation": "Ця гра недоступна у вашому поточному місці.",
+      "notAllowedDemo": "Безкоштовний режим гри не дозволений для цієї гри.",
       "existCurrency": "Валюта не існує.",
       "existCurrencyType": "Тип валюти не існує.",
       "matchedWithSign": "Знак запиту не збігається.",
