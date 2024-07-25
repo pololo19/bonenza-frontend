@@ -315,7 +315,7 @@ export default function SidebarToggle() {
                 <IconOption
                   imageURL="/img/sidebar/bonus.png"
                   imageClass="absolute left-[16px] -top-[18px] w-[69px] h-[61px]"
-                  textClass="!text-white ml-[64px] !text-[15px] !font-[400]"
+                  textClass="!text-white ml-[64px] !text-[15px] !font-[400] !font-bold"
                   title={String(t('sidebar:bonus'))}
                   href={ROUTER.Bonus}
                   icon={Gift}

@@ -110,10 +110,9 @@ export default function Navbar() {
                     href={menu.href}
                     className={cn(
                       'rounded-default px-[8px] py-[8px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
-                      `${
-                        router.route.includes(menu.href)
-                          ? 'dark:text-white dark:bg-color-input-hover-primary/60 bg-color-light-bg-primary font-semibold'
-                          : ''
+                      `${router.route.includes(menu.href)
+                        ? 'dark:text-white dark:bg-color-input-hover-primary/60 bg-color-light-bg-primary font-semibold'
+                        : ''
                       }`,
                     )}
                   >
@@ -162,7 +161,7 @@ export default function Navbar() {
                 {/* Button */}
                 <button
                   type="button"
-                  className="truncate text-white rounded-large py-[9px] bg-gradient-btn-play px-5 text-default font-medium"
+                  className="truncate text-white rounded-large py-[9px] bg-graident-btn-sign sm:bg-gradient-btn-play px-5 text-default font-medium"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -247,9 +246,8 @@ export default function Navbar() {
             {/* Multi Language */}
             <button
               type="button"
-              className={`${
-                isLogin ? 'hidden sm:flex' : 'flex'
-              } rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-color-text-primary dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
+              className={`${isLogin ? 'hidden sm:flex' : 'flex'
+                } rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-color-text-primary dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
                 dispatch(changeIsShowMultiLanguageModal(true));
