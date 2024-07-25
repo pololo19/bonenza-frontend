@@ -95,7 +95,7 @@ const TabGames = (props: tabGamesProps) => {
                 'flex items-center px-[20px] py-[10px] bg-[#f0f1f5] dark:bg-color-hover-primary hover:bg-gray-700 gap-[10px] flex-shrink-0 rounded-default text-black/50 dark:text-white/50 dark:hover:text-white dark:hover:bg-color-hover-primary hover:text-black hover:bg-white/90',
                 {
                   'bg-white text-black dark:!bg-color-input-primary dark:!text-white':
-                    `${router.pathname}${router.query?.key ? '/?key=' + router.query.key : ''}` === option.link,
+                    `${router.pathname}${router.query?.key ? '/?key=' + router.query.key : ''}` === option.link || router.pathname === option.homeLink,
                 },
               )}
               onClick={() => {

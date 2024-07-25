@@ -445,7 +445,7 @@ function IndexPage() {
                     <div className="flex items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] px-5 py-[9px] sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-large bg-graident-btn-sign sm:bg-gradient-btn-play flex items-center justify-center gap-[7px] px-5 py-[9px] sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));

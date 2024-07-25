@@ -798,8 +798,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     className={cn(
                       'flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                       {
-                        'text-color-text-primary': !router.route.includes(ROUTER.Home),
-                        'dark:!text-white !text-black': router.route.includes(ROUTER.Home),
+                        'text-color-red-bold hover:text-color-red-primary': router.pathname !== ROUTER.Home,
+                        'dark:!text-color-red-primary !text-black font-bold': router.pathname === ROUTER.Home,
                       },
                     )}
                     onClick={() => {
@@ -812,7 +812,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     <div className="pt-2">
                       <HomeIconOutline className="w-[21px] h-[21px]" size={22} />
                     </div>
-                    <div className="w-full pb-2 text-center truncate">{t('layout:home')}</div>
+                    <div className="w-full pb-2 text-center truncate font-bold">{t('layout:home')}</div>
                   </Link>
                   <Link
                     href={ROUTER.DepositCrypto}
@@ -887,9 +887,9 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                     }}
                   >
                     <div className="pt-2">
-                      <Message className="dark:text-color-text-primary text-color-text-primary" size={22} />
+                      <Message className="dark:text-[#FF9E4F] text-color-text-primary" size={22} />
                     </div>
-                    <div className="w-full pb-2 text-center truncate dark:text-color-text-primary text-color-text-primary">
+                    <div className="w-full pb-2 text-center truncate dark:text-[#FF9E4F] text-color-text-primary">
                       {t('sidebar:chat')}
                     </div>
                   </div>
