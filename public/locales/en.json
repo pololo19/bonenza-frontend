@@ -2285,6 +2285,8 @@
     "game": {
       "existGame": "The game does not exist.",
       "canDetectLocation": "The location can't be detected.",
+      "notAllowedLocation": "This game is not accessible in your current location.",
+      "notAllowedDemo": "Free play mode is not permitted for this game.",
       "existCurrency": "The currency does not exist.",
       "existCurrencyType": "The currency type does not exist.",
       "matchedWithSign": "The request sign does not match.",

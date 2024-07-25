@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "게임이 존재하지 않습니다.",
       "canDetectLocation": "위치를 감지할 수 없습니다.",
+      "notAllowedLocation": "현재 위치에서는 이 게임에 접속할 수 없습니다.",
+      "notAllowedDemo": "이 게임에는 무료 플레이 모드가 허용되지 않습니다.",
       "existCurrency": "통화가 존재하지 않습니다.",
       "existCurrencyType": "통화 유형이 존재하지 않습니다.",
       "matchedWithSign": "요청 기호가 일치하지 않습니다.",

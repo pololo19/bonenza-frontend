@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "ゲームは存在しません。",
       "canDetectLocation": "位置が検出できません。",
+      "notAllowedLocation": "現在の場所ではこのゲームにアクセスできません。",
+      "notAllowedDemo": "このゲームではフリープレイモードは許可されていません。",
       "existCurrency": "通貨は存在しません。",
       "existCurrencyType": "通貨タイプが存在しません。",
       "matchedWithSign": "リクエストの符号が一致しません。",

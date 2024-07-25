@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "Oyun mevcut değil.",
       "canDetectLocation": "Konum tespit edilemiyor.",
+      "notAllowedLocation": "Bu oyuna mevcut konumunuzda erişilemiyor.",
+      "notAllowedDemo": "Bu oyunda serbest oyun moduna izin verilmiyor.",
       "existCurrency": "Para birimi mevcut değil.",
       "existCurrencyType": "Para birimi türü mevcut değil.",
       "matchedWithSign": "İstek işareti eşleşmiyor.",

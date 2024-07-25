@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "খেলার অস্তিত্ব নেই।",
       "canDetectLocation": "অবস্থান সনাক্ত করা যাবে না.",
+      "notAllowedLocation": "এই গেমটি আপনার বর্তমান অবস্থানে অ্যাক্সেসযোগ্য নয়৷",
+      "notAllowedDemo": "এই গেমের জন্য ফ্রি প্লে মোড অনুমোদিত নয়।",
       "existCurrency": "মুদ্রার অস্তিত্ব নেই।",
       "existCurrencyType": "মুদ্রার ধরন বিদ্যমান নেই।",
       "matchedWithSign": "অনুরোধ চিহ্ন মেলে না.",

@@ -2264,6 +2264,8 @@
     "game": {
       "existGame": "اللعبة غير موجودة.",
       "canDetectLocation": "لا يمكن الكشف عن الموقع.",
+      "notAllowedLocation": "لا يمكن الوصول إلى هذه اللعبة في موقعك الحالي.",
+      "notAllowedDemo": "وضع اللعب الحر غير مسموح به لهذه اللعبة.",
       "existCurrency": "العملة غير موجودة.",
       "existCurrencyType": "نوع العملة غير موجود.",
       "matchedWithSign": "علامة الطلب غير متطابقة.",

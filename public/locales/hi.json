@@ -2265,6 +2265,8 @@
     "game": {
       "existGame": "खेल मौजूद नहीं है.",
       "canDetectLocation": "स्थान का पता नहीं चल पा रहा है.",
+      "notAllowedLocation": "यह गेम आपके वर्तमान स्थान पर पहुंच योग्य नहीं है.",
+      "notAllowedDemo": "इस गेम के लिए फ्री प्ले मोड की अनुमति नहीं है।",
       "existCurrency": "मुद्रा मौजूद नहीं है.",
       "existCurrencyType": "मुद्रा प्रकार मौजूद नहीं है.",
       "matchedWithSign": "अनुरोध चिह्न मेल नहीं खाता.",
