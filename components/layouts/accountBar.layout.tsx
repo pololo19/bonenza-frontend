@@ -41,7 +41,6 @@ import { AuthenticationModeEnum } from '@/base/types/common';
 
 import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
-import VipProgressComponent from '../vipProgress/vipProgress';
 
 type ListItemProps = {
   title: string;
@@ -436,7 +435,7 @@ const AccountPannel: React.FC = () => {
             <IconOption
               imageURL="/img/sidebar/quest.png"
               imageClass="w-[30px] h-[30px]"
-              textClass="text-white !text-[15px] font-semibold"
+              textClass="!text-white !text-[15px] font-semibold"
               title={String(t('sidebar:quest'))}
               href=""
               onClick={() => {
@@ -454,7 +453,7 @@ const AccountPannel: React.FC = () => {
             />
             <IconOption
               imageClass="w-[30px] h-[30px]"
-              textClass="text-white !text-[15px] font-semibold"
+              textClass="!text-white !text-[15px] font-semibold"
               title={String(t('sidebar:spin'))}
               count={isLogin ? spinCount : 0}
               href=""
