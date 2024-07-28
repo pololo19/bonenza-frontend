@@ -26,7 +26,7 @@ import ErrorProvider from '@/components/context/errorContext';
 import { wrapper } from '@/redux/store';
 
 import { useTranslation } from '../config/i18next';
-import { CookieKey, GOOGLE_ANALYTICS_ID, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
+import { CookieKey, GOOGLE_ANALYTICS_ID, LANGUAGE_DATA, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
 import { CookiesStorage } from '../libs/storage/cookie';
 import resources from '../public/locales';
 
@@ -67,9 +67,10 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
   });
 
   const handleLang = () => {
-    const lang = CookiesStorage.getCookieData(CookieKey.lang) ?? 'en';
-    if (resources.hasOwnProperty(lang)) {
-      i18n.changeLanguage(lang);
+    const _codes = navigator.language || navigator.languages[0];
+    const [_langCode, _regionCode] = _codes.split('-');
+    if (resources.hasOwnProperty(_langCode)) {
+      i18n.changeLanguage(_langCode);
     } else {
       i18n.changeLanguage('en');
     }
