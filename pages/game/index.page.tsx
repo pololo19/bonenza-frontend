@@ -674,7 +674,7 @@ function GamePage() {
                 </div>
 
                 <div
-                  className={cn('absolute top-[50px] w-full z-10 flex left-0', { 'p-[15px]': !isSatisfied && isLogin })}
+                  className={cn('absolute top-[50px] w-full z-[9] flex left-0', { 'p-[15px]': !isSatisfied && isLogin })}
                 >
                   {!isSatisfied && isLogin && (
                     <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] sm:hidden flex flex-col items-center z-1 rounded-large sm:max-w-[500px] w-full dark:bg-[#202226] bg-color-light-bg-primary">
