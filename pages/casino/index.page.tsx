@@ -158,10 +158,10 @@ function CasinoPage() {
         </div>
 
         <CasinoSS
-          title={String(t('casino:slot'))}
-          data={listGames.slots}
+          title={String(t('casino:liveCasino'))}
+          data={listGames.liveCasinos}
           renderItem={(item) => <GameCard gameDetail={item} />}
-          viewAllUrl={ROUTER.Tagname('slots')}
+          viewAllUrl={ROUTER.Tagname('Live Casino')}
         />
         <CasinoSS
           title={String(t('casino:hotGame'))}
@@ -170,10 +170,10 @@ function CasinoPage() {
           viewAllUrl={ROUTER.Tagname('Hot Games')}
         />
         <CasinoSS
-          title={String(t('casino:liveCasino'))}
-          data={listGames.liveCasinos}
+          title={String(t('casino:slot'))}
+          data={listGames.slots}
           renderItem={(item) => <GameCard gameDetail={item} />}
-          viewAllUrl={ROUTER.Tagname('Live Casino')}
+          viewAllUrl={ROUTER.Tagname('slots')}
         />
         <CasinoSS
           title={String(t('casino:gameProvider'))}
