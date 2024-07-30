@@ -330,10 +330,10 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                       {spinItems?.[spinTab].map((item, index) => (
                         <div
                           key={index}
-                          className="absolute flex gap-[2px] justify-end items-center top-[50%] left-[50%] right-[40px] text-[14px] leading-[20px] -mt-[10px]"
+                          className="absolute flex gap-[2px] justify-end items-center top-[50%] left-[50%] right-[48px] text-[14px] leading-[20px] -mt-[10px]"
                           style={{ transform: `rotate(${22.5 * index}deg)`, transformOrigin: 'left' }}
                         >
-                          <span className="font-bold text-[12px]">{currencyFormat1(item.amount, 9, '', false)}</span>
+                          <span className="font-bold text-[12px]">{currencyFormat1(item.amount, 9, '', false).slice(0, 10)}</span>
                           <Image width={14} height={14} className="w-[16px] h-[16px]" src={item.symbolLogo} alt="symbol" />
                         </div>
                       ))}
@@ -361,7 +361,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                     </div>
                   </div>
                   <div
-                    className="absolute top-[33.8%] left-[62%] right-[2%] z-[5]"
+                    className="absolute top-[33.6%] left-[62%] right-[2%] z-[5]"
                     style={{ transform: 'rotate(0deg)', transformOrigin: 'left center' }}
                   >
                     <Image width={353} height={193} src={`/img/spin/${spinTab}-select-spin.png`} alt="spin tab" />
