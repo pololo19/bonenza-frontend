@@ -1,22 +1,26 @@
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 import cn from 'classnames';
 import { ArrowRight2, Snapchat } from 'iconsax-react';
 import Image from 'next/image';
-import { useCallback, useEffect, useState } from 'react';
-import { isMobile } from 'react-device-detect';
+import { useCallback, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
-import { api_getRecentBigWins } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
-import { currencyFormat1, currencyFormat2 } from '@/base/libs/utils';
+import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetDetailType } from '@/base/types/common';
 
-import CasinoSwiper from '../casino/casinoSwiper';
-import LiveStream from '../icons/LiveStream';
+import { useWidth } from '@/base/hooks/useWidth';
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 type CardBigWinProps = {
   price: number;
@@ -172,40 +176,97 @@ function RecentBigWinComponent({ listBigWinGame }: { listBigWinGame: BetDetailTy
     [localFiat, viewInFiat],
   );
 
+  const width = useWidth();
+  const swiperRef = useRef<any>();
+
+  const handleMouseEnter = () => {
+    swiperRef?.current?.swiper?.autoplay?.stop();
+  };
+
+  const handleMouseLeave = () => {
+    swiperRef?.current?.swiper?.autoplay?.start();
+  };
   return (
-    <>
-      <CasinoSwiper
-        title={String(t('homePage:recentBigWins'))}
-        delay={600}
-        data={listBigWinGame}
-        icon={isMobile ? <LiveStream className="text-color-primary " /> : undefined}
-        renderItem={(item) => renderData(item)}
-        onClickItem={(game) => {
-          dispatch(
-            setDetailBets({
-              betDetail: {
-                game: game.game,
-                gameIdenfiter: game.identifier,
-                player: game.userName,
-                playerId: game.userId,
-                playerAvatar: game.userAvatar,
-                betAmount: game.amount,
-                betAmountUsd: game.amountUsd,
-                multiplier: game.multiplier,
-                profitAmount: game.profit,
-                profitAmountUsd: game.profitUsd,
-                currency: game.currency,
-                betId: game.id,
-                time: new Date(),
-                providerName: game.providerName,
-              },
-              isPublicProfile: !!game?.userName,
-            }),
-          );
-          dispatch(changeIsShowDetailBets(true));
+    <div className={cn('w-full relative')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <div className="flex gap-2 items-center mb-4 font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">
+        <div className="relative flex h-3 w-3 sm:hidden">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[limegreen] opacity-75"></span>
+          <span className="relative inline-flex h-3 w-3 rounded-full bg-[limegreen]"></span>
+        </div>
+        {t('homePage:recentBigWins')}
+      </div>
+      <Swiper
+        ref={swiperRef}
+        className="sm:!h-auto !h-[120px] banner-slider"
+        spaceBetween={width >= 640 ? 10 : 0}
+        autoplay={{
+          delay: 600,
+          disableOnInteraction: false,
         }}
-      />
-    </>
+        speed={500}
+        loop={true}
+        direction={width >= 640 ? 'horizontal' : 'vertical'}
+        modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
+        breakpoints={{
+          350: {
+            slidesPerView: 3,
+            slidesPerGroup: 1,
+          },
+          640: {
+            slidesPerView: 6,
+            slidesPerGroup: 1,
+          },
+          900: {
+            slidesPerView: 8,
+            slidesPerGroup: 1,
+          },
+          1200: {
+            slidesPerView: 10,
+            slidesPerGroup: 1,
+          },
+          1600: {
+            slidesPerView: 12,
+            slidesPerGroup: 1,
+          },
+          1920: {
+            slidesPerView: 14,
+            slidesPerGroup: 1,
+          },
+        }}
+      >
+        {listBigWinGame.map((item, id) => {
+          return (
+            <SwiperSlide key={id}
+              className="w-full !mb-0 !p-[0px] sm:!p-0 max-w-full sm:max-w-auto"
+              onClick={() => {
+                dispatch(
+                  setDetailBets({
+                    betDetail: {
+                      game: item.game,
+                      gameIdenfiter: item.identifier,
+                      player: item.userName,
+                      playerId: item.userId,
+                      playerAvatar: item.userAvatar,
+                      betAmount: item.amount,
+                      betAmountUsd: item.amountUsd,
+                      multiplier: item.multiplier,
+                      profitAmount: item.profit,
+                      profitAmountUsd: item.profitUsd,
+                      currency: item.currency,
+                      betId: item.id,
+                      time: new Date(),
+                      providerName: item.providerName,
+                    },
+                    isPublicProfile: !!item?.userName,
+                  }));
+                dispatch(changeIsShowDetailBets(true));
+              }}>
+              {renderData(item)}
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </div>
   );
 }
 

@@ -104,7 +104,7 @@ function CasinoPage() {
         userAvatar: item?.userAvatar ?? '',
         providerName: item?.providerName ?? '',
       }));
-
+      tempRecentBigWins.push(...tempRecentBigWins.slice(0));
       const tempProviders = _resCasino.data.gameProviders?.map((provider: any) => ({
         id: provider.id,
         name: provider.name,
@@ -153,7 +153,7 @@ function CasinoPage() {
 
       {/* Game Options */}
       <div className="flex flex-col gap-[30px] sm:pt-0 pt-[10px]">
-        <div className="relative sm:block hidden">
+        <div className="w-full sm:block hidden">
           <RecentBigWinComponent listBigWinGame={listBigWinGame} />
         </div>
 
