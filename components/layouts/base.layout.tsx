@@ -513,28 +513,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           },
         );
       });
-      walletSocket.on(`${userId}:tip`, async (data: any) => {
-        const sender_name = data?.sender_name || '';
-        const symbol = data?.symbol || '';
-        const amount = data?.amount || 0;
-
-        // update balance
-        const _resBonus = await api_getClaims();
-        const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
-        dispatch(getBalance());
-        dispatch(setLockedAmount(tempLockedAmount));
-
-        toast.info(
-          t('tip:tipNotification', {
-            sender: sender_name,
-            amount: amount,
-            symbol: symbol,
-          }),
-          {
-            toastId: 'tip-notification',
-            containerId: TOAST_ENUM.COMMON,
-          });
-      });
 
       // walletSocket.on(`connect_error`, (data: any) => {
       //   if (walletServiceConnectedRef.current) {
@@ -570,6 +548,30 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               symbolId: data.currency_id,
             }),
           );
+        });
+
+        gameSocket.on(`${userId}:tip`, async (data: any) => {
+          console.log(data, '605')
+          const sender_name = data?.sender_name || '';
+          const symbol = data?.symbol || '';
+          const amount = data?.amount || 0;
+
+          // update balance
+          const _resBonus = await api_getClaims();
+          const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+          dispatch(getBalance());
+          dispatch(setLockedAmount(tempLockedAmount));
+
+          toast.info(
+            t('tip:tipNotification', {
+              sender: sender_name,
+              amount: amount,
+              symbol: symbol,
+            }),
+            {
+              toastId: 'tip-notification',
+              containerId: TOAST_ENUM.COMMON,
+            });
         });
       }
 
@@ -622,6 +624,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           console.log(error, 'chat error');
         }
       });
+
 
       // gameSocket.on(`connect_error`, (data: any) => {
       //   if (gameServiceConnectedRef.current) {
