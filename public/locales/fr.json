@@ -2343,7 +2343,8 @@
     "tipAmount": "Montant du pourboire",
     "tipMessage": "Message (optionnel)",
     "tipMessageDescription": "Pourboire privé (les informations sur le pourboire n'apparaîtront pas dans la salle de discussion publique)",
-    "tipConfirm": "Envoyer une astuce"
+    "tipConfirm": "Envoyer une astuce",
+    "tipNotification": "Vous avez reçu un pourboire de {{amount}} {{symbol}} de la part de {{sender}}."
   },
   "tournament": {
     "registered": "Inscrit",

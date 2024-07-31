@@ -2343,7 +2343,8 @@
     "tipAmount": "Valor da gorjeta",
     "tipMessage": "Mensagem (opcional)",
     "tipMessageDescription": "Dica privada (as informações da dica não aparecerão na sala de bate-papo pública)",
-    "tipConfirm": "Enviar dica"
+    "tipConfirm": "Enviar dica",
+    "tipNotification": "Você recebeu uma dica de {{amount}} {{symbol}} de {{sender}}."
   },
   "tournament": {
     "registered": "Registrado",

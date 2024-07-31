@@ -2343,7 +2343,8 @@
     "tipAmount": "Jumlah Petua",
     "tipMessage": "Mesej (Pilihan)",
     "tipMessageDescription": "Petua Peribadi (Maklumat petua tidak akan dipaparkan dalam bilik sembang awam)",
-    "tipConfirm": "Hantar Petua"
+    "tipConfirm": "Hantar Petua",
+    "tipNotification": "Anda menerima petua {{amount}} {{symbol}} daripada {{sender}}."
   },
   "tournament": {
     "registered": "Berdaftar",

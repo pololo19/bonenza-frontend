@@ -2343,7 +2343,8 @@
     "tipAmount": "Bahşiş Tutarı",
     "tipMessage": "Mesaj (isteğe bağlı)",
     "tipMessageDescription": "Özel İpucu (İpucu bilgileri genel sohbet odasında görünmez)",
-    "tipConfirm": "Bahşiş gönder"
+    "tipConfirm": "Bahşiş gönder",
+    "tipNotification": "{{sender}}'den {{amount}} {{symbol}} ipucu aldınız."
   },
   "tournament": {
     "registered": "Kayıtlı",

@@ -2343,7 +2343,8 @@
     "tipAmount": "Importo della mancia",
     "tipMessage": "Messaggio (facoltativo)",
     "tipMessageDescription": "Suggerimento privato (le informazioni sul suggerimento non verranno visualizzate nella chat room pubblica)",
-    "tipConfirm": "Invia suggerimento"
+    "tipConfirm": "Invia suggerimento",
+    "tipNotification": "Hai ricevuto una mancia di {{amount}} {{symbol}} da {{sender}}."
   },
   "tournament": {
     "registered": "Registrato",

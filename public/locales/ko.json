@@ -2343,7 +2343,8 @@
     "tipAmount": "팁 금액",
     "tipMessage": "메시지(선택사항)",
     "tipMessageDescription": "비공개 팁 (공개 채팅방에는 팁 정보가 표시되지 않습니다)",
-    "tipConfirm": "팁 보내기"
+    "tipConfirm": "팁 보내기",
+    "tipNotification": "{{sender}}로부터 {{amount}} {{symbol}}의 팁을 받았습니다."
   },
   "tournament": {
     "registered": "등기",
