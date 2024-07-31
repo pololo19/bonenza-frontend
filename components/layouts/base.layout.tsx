@@ -551,7 +551,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
         });
 
         gameSocket.on(`${userId}:tip`, async (data: any) => {
-          console.log(data, '605')
           const sender_name = data?.sender_name || '';
           const symbol = data?.symbol || '';
           const amount = data?.amount || 0;

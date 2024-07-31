@@ -277,6 +277,10 @@ export const initWalletInfo = () => async (dispatch: AppDispatch) => {
         type: 'fiat',
         favorite: item.favorite,
       })) || [];
+    console.log(tempFiatSymbols);
+    const usdIndex = tempFiatSymbols.findIndex((symbol) => symbol.name === 'USD');
+    tempFiatSymbols.splice(0, 0, tempFiatSymbols.splice(usdIndex, 1)[0]);
+
     const tempLockedAmount = Number(lockedUSDT || 0);
     dispatch(
       setBalance({
