@@ -2342,7 +2342,8 @@
     "tipAmount": "مبلغ النصيحة",
     "tipMessage": "الرسالة (اختياري)",
     "tipMessageDescription": "نصيحة خاصة (لن تظهر معلومات النصيحة في غرفة الدردشة العامة)",
-    "tipConfirm": "إرسال معلومات سرية"
+    "tipConfirm": "إرسال معلومات سرية",
+    "tipNotification": "لقد تلقيت إكرامية بقيمة {{amount}} {{symbol}} من {{sender}}."
   },
   "tournament": {
     "registered": "مسجل",

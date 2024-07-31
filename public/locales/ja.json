@@ -2343,7 +2343,8 @@
     "tipAmount": "チップの金額",
     "tipMessage": "メッセージ (オプション)",
     "tipMessageDescription": "プライベート ヒント (ヒント情報は公開チャット ルームには表示されません)",
-    "tipConfirm": "チップを送る"
+    "tipConfirm": "チップを送る",
+    "tipNotification": "{{sender}} から {{amount}} {{symbol}} のヒントを受け取りました。"
   },
   "tournament": {
     "registered": "登録済み",

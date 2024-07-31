@@ -2343,7 +2343,8 @@
     "tipAmount": "Monto de propina",
     "tipMessage": "Mensaje (opcional)",
     "tipMessageDescription": "Consejo privado (la información del consejo no aparecerá en la sala de chat pública)",
-    "tipConfirm": "Envía propina"
+    "tipConfirm": "Envía propina",
+    "tipNotification": "Recibiste un aviso de {{amount}} {{symbol}} de {{sender}}."
   },
   "tournament": {
     "registered": "Registrado",

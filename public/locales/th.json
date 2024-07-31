@@ -2343,7 +2343,8 @@
     "tipAmount": "จำนวนทิป",
     "tipMessage": "ข้อความ (ไม่บังคับ)",
     "tipMessageDescription": "เคล็ดลับส่วนตัว (ข้อมูลเคล็ดลับจะไม่แสดงในห้องสนทนาสาธารณะ)",
-    "tipConfirm": "ส่งทิป"
+    "tipConfirm": "ส่งทิป",
+    "tipNotification": "คุณได้รับทิป {{amount}} {{symbol}} จาก {{sender}}"
   },
   "tournament": {
     "registered": "ลงทะเบียนแล้ว",

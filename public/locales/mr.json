@@ -2343,7 +2343,8 @@
     "tipAmount": "टीप रक्कम",
     "tipMessage": "संदेश (पर्यायी)",
     "tipMessageDescription": "खाजगी टीप (टिप माहिती सार्वजनिक चॅट रूममध्ये दर्शविली जाणार नाही)",
-    "tipConfirm": "टीप पाठवा"
+    "tipConfirm": "टीप पाठवा",
+    "tipNotification": "तुम्हाला {{sender}} कडून {{amount}} {{symbol}} ची टीप मिळाली आहे."
   },
   "tournament": {
     "registered": "नोंदणीकृत",

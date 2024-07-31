@@ -2343,7 +2343,8 @@
     "tipAmount": "टिप राशि",
     "tipMessage": "संदेश (वैकल्पिक)",
     "tipMessageDescription": "निजी टिप (टिप जानकारी सार्वजनिक चैट रूम में दिखाई नहीं देगी)",
-    "tipConfirm": "टिप भेजें"
+    "tipConfirm": "टिप भेजें",
+    "tipNotification": "आपको {{sender}} से {{amount}} {{symbol}} की टिप मिली।"
   },
   "tournament": {
     "registered": "दर्ज कराई",

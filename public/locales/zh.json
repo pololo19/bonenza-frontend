@@ -2343,7 +2343,8 @@
     "tipAmount": "小费金额",
     "tipMessage": "留言（可选）",
     "tipMessageDescription": "私人提示（提示信息不会显示在公共聊天室中）",
-    "tipConfirm": "发送提示"
+    "tipConfirm": "发送提示",
+    "tipNotification": "您收到了来自 {{sender}} 的 {{amount}} {{symbol}} 小费。"
   },
   "tournament": {
     "registered": "挂号的",

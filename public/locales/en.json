@@ -2345,7 +2345,8 @@
     "tipAmount": "Tip Amount",
     "tipMessage": "Message (Optional)",
     "tipMessageDescription": "Private Tip (Tip info won't show up in the public chat room)",
-    "tipConfirm": "Send Tip"
+    "tipConfirm": "Send Tip",
+    "tipNotification": "You received a tip of {{amount}} {{symbol}} from {{sender}}."
   },
   "tournament": {
     "registered": "Registered",

@@ -2343,7 +2343,8 @@
     "tipAmount": "Số tiền tip",
     "tipMessage": "Tin nhắn (Tùy chọn)",
     "tipMessageDescription": "Mẹo riêng tư (Thông tin mẹo sẽ không hiển thị trong phòng trò chuyện công khai)",
-    "tipConfirm": "Gửi TIP"
+    "tipConfirm": "Gửi TIP",
+    "tipNotification": "Bạn đã nhận được tiền boa {{amount}} {{symbol}} từ {{sender}}."
   },
   "tournament": {
     "registered": "Đăng ký",
