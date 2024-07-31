@@ -143,7 +143,8 @@ const WithdrawCryptoPage = () => {
   const schema = yup.object().shape({
     withdrawAddress: yup
       .string()
-      // .required(String(t('withdraw:withdrawAddressRequire')))
+      .matches(/\b(0x[a-fA-F0-9]{40})\b/, 'Incorrect Address Format')
+      .required(String(t('withdraw:withdrawAddressRequire')))
       .trim(),
     withdrawAmount: yup
       .number()
