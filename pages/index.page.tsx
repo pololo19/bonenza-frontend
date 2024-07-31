@@ -191,6 +191,7 @@ function IndexPage() {
         userAvatar: item?.userAvatar ?? '',
         providerName: item?.providerName ?? '',
       }));
+      tempBetLists.push(...tempBetLists.slice(0));
       if (_resChat.data?.length > 0) {
         const tempLastMessageId = _resChat.data?.length > 0 ? _resChat.data[0].id : '';
         const localLastMessageId = CookiesStorage.getCookieData('last_message');
@@ -492,7 +493,9 @@ function IndexPage() {
                   />
                 ))}
               </div>
-              <RecentBigWinComponent listBigWinGame={listBigWinGame} />
+              <div className="w-full block sm:hidden">
+                <RecentBigWinComponent listBigWinGame={listBigWinGame} />
+              </div>
               {!isLogin && (
                 <>
                   <div className="relative block w-full sm:hidden">
