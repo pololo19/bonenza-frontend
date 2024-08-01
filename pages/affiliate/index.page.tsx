@@ -117,11 +117,10 @@ function AffiliatePage() {
               'bg-[length:100%] lg:bg-[length:auto_100%] bg-no-repeat bg-right mb-[40px] mt-[25px] lg:pt-[25px] lg:h-[360px]',
               "lg:dark:bg-[url('/img/page/banner-affiliate.png')]",
               "lg:bg-[url('/img/page/banner-affiliate-light-mode.png')]",
-              "bg-[url('/img/page/banner-affiliate-mobile.png')]",
             )}
           >
             <div className="flex flex-col lg:w-1/2 w-full h-full justify-center items-center">
-              <div className={cn('block lg:hidden h-auto w-full')}>
+              <div className={cn('block lg:hidden h-auto w-full mb-4')}>
                 <Image
                   height={366}
                   width={130}
