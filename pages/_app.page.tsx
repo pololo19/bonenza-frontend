@@ -122,7 +122,6 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
 
             </Head>
             <Script async src="/game.js"></Script>
-            <Script async src='/tawkwidget.js'></Script>
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
             <NextProgress options={{ showSpinner: false }} />
