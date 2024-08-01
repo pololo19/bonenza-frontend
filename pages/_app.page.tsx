@@ -1,34 +1,34 @@
 'use client';
 
-import '@/styles/main/main.scss';
-import 'react-phone-number-input/style.css';
-import 'react-tooltip/dist/react-tooltip.css';
-import '@rainbow-me/rainbowkit/styles.css';
-
-import { GoogleAnalytics } from "@next/third-parties/google";
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import type { NextPage } from 'next';
+import NextProgress from 'next-progress';
+import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import NextProgress from 'next-progress';
-import { ThemeProvider } from 'next-themes';
 import { ReactElement, ReactNode, useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { arbitrum, base, mainnet, optimism, polygon, zora } from 'wagmi/chains';
 import { publicProvider } from 'wagmi/providers/public';
 
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { api_validateAuthToken } from '@/api/auth';
-import ErrorProvider from '@/components/context/errorContext';
 import { wrapper } from '@/redux/store';
+import ErrorProvider from '@/components/context/errorContext';
 
+import { CookiesStorage } from '../libs/storage/cookie';
 import { useTranslation } from '../config/i18next';
 import { CookieKey, GOOGLE_ANALYTICS_ID, LANGUAGE_DATA, PROJECT_ID, PROJECT_NAME, TOAST_ENUM } from '../constants/common';
-import { CookiesStorage } from '../libs/storage/cookie';
 import resources from '../public/locales';
+
+import '@/styles/main/main.scss';
+import 'react-phone-number-input/style.css';
+import 'react-tooltip/dist/react-tooltip.css';
+import '@rainbow-me/rainbowkit/styles.css';
 
 // eslint-disable-next-line
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -122,6 +122,7 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
 
             </Head>
             <Script async src="/game.js"></Script>
+            <Script async src='/tawkwidget.js'></Script>
             <Script async src="https://telegram.org/js/telegram-widget.js?22"></Script>
 
             <NextProgress options={{ showSpinner: false }} />
