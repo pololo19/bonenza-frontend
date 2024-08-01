@@ -446,6 +446,7 @@ const WagerContestComponent = () => {
               <div
                 className="bg-[#F61B4F] h-[24px] sm:h-[36px] hover:opacity-90 cursor-pointer max-w-[280px] rounded-[4px] text-white font-bold text-[11px] sm:text-[14px] w-full flex items-center justify-center"
                 onClick={() => {
+                  dispatch(changeIsShowDailyContest(false));
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                   dispatch(changeIsShowAuthenticationModal(true));
                 }}

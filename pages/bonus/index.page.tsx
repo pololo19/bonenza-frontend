@@ -225,7 +225,7 @@ function BonusPage() {
                     <Image width={100} height={100} src="/img/spin-lucky.png" className="w-[50%]" alt="spin lucky" />
                   </div>
                 </div>
-                <div className="bg-gradient-to-l from-color-secondary/50">
+                {/* <div className="bg-gradient-to-l from-color-secondary/50">
                   <div className="bg-color-secondary/20 rounded-br-[25px] text-color-secondary text-[14px] font-bold max-w-[160px] h-[40px] flex items-center justify-center">
                     {t('bonus:everyDayAndWeek')}
                   </div>
@@ -238,7 +238,7 @@ function BonusPage() {
                     </div>
                     <Image width={100} height={100} src="/img/egg-free.png" className="w-[50%]" alt="egg free" />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="mt-[40px] sm:mt-0">
