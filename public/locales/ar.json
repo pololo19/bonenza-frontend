@@ -539,6 +539,7 @@
     "withdrawProgress": "السحب قيد التقدم",
     "withdrawComplete": "تم السحب بنجاح",
     "withdrawRestriction": "سيتم تعليق أذونات السحب والبقشيش الخاصة بك لمدة <span class='text-color-red-primary'>{{time}}</span>، بسبب تغيير كلمة المرور الخاصة بك.",
+    "withdrawDisable": "تم تعليق أذونات السحب والبقشيش الخاصة بك. يرجى الاتصال بالمسؤول.",
     "accountRestriction": "قيود الحساب",
     "accountRestrictionDescription": "من أجل حماية سلامة حسابك، <span class='font-bold text-white'>سنقوم بتعطيل عمليات السحب الخاصة بك لمدة 24 ساعة</span> بعد تغيير كلمة المرور الخاصة بك."
   },

@@ -539,6 +539,7 @@
     "withdrawProgress": "引き出しが進行中です",
     "withdrawComplete": "出金成功",
     "withdrawRestriction": "出金とチップの許可は次の期間停止されます。 <span class='text-color-red-primary'>{{time}}</span>、パスワードを変更したため。",
+    "withdrawDisable": "出金とチップの許可は停止されています。管理者に連絡してください。",
     "accountRestriction": "アカウント制限",
     "accountRestrictionDescription": "アカウントの安全を守るために、 <span class='font-bold text-white'>24時間出金を無効にします</span> パスワードを変更した後。"
   },

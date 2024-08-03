@@ -540,6 +540,7 @@
     "withdrawProgress": "Withdrawal is in progress",
     "withdrawComplete": "Withdrawal Successful",
     "withdrawRestriction": "Your withdrawal and tipping permissions will be suspended for <span class='text-color-red-primary'>{{time}}</span>, due to changing your password.",
+    "withdrawDisable": "Your withdrawal and tipping permissions are suspended. Please contact Admin.",
     "accountRestriction": "Account Restrictions",
     "accountRestrictionDescription": "In order to protect your account safety, <span class='font-bold text-white'>we will disable your withdrawals for 24 hours</span> after you change your password."
   },

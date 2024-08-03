@@ -539,6 +539,7 @@
     "withdrawProgress": "Le retrait est en cours",
     "withdrawComplete": "Retrait réussi",
     "withdrawRestriction": "Vos autorisations de retrait et de pourboire seront suspendues pendant <span class='text-color-red-primary'>{{time}}</span>, en raison d'un changement de mot de passe.",
+    "withdrawDisable": "Vos autorisations de retrait et de pourboire sont suspendues. Veuillez contacter l'administrateur.",
     "accountRestriction": "Restrictions de compte",
     "accountRestrictionDescription": "Afin de protéger la sécurité de votre compte, <span class='font-bold text-white'>nous désactiverons vos retraits pendant 24 heures</span> après avoir modifié votre mot de passe."
   },

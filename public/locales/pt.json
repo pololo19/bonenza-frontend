@@ -539,6 +539,7 @@
     "withdrawProgress": "A retirada está em andamento",
     "withdrawComplete": "Retirada bem-sucedida",
     "withdrawRestriction": "Suas permissões de retirada e gorjeta serão suspensas por <span class='text-color-red-primary'>{{time}}</span>, devido à alteração de sua senha.",
+    "withdrawDisable": "Suas permissões de retirada e gorjeta estão suspensas. Entre em contato com o administrador.",
     "accountRestriction": "Restrições de conta",
     "accountRestrictionDescription": "Para proteger a segurança da sua conta, <span class='font-bold text-white'>desabilitaremos seus saques por 24 horas</span> depois de alterar sua senha."
   },

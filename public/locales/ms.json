@@ -539,6 +539,7 @@
     "withdrawProgress": "Pengeluaran sedang dijalankan",
     "withdrawComplete": "Pengeluaran Berjaya",
     "withdrawRestriction": "तुमच्या पैसे काढण्याच्या आणि टिपिंगच्या परवानग्या निलंबित केल्या जातील <span class='text-color-red-primary'>{{time}}</span>, तुमचा पासवर्ड बदलल्यामुळे.",
+    "withdrawDisable": "Kebenaran pengeluaran dan pemberian tip anda digantung. Sila hubungi Admin.",
     "accountRestriction": "खाते निर्बंध",
     "accountRestrictionDescription": "तुमच्या खात्याच्या सुरक्षिततेचे रक्षण करण्यासाठी, <span class='font-bold text-white'>आम्ही तुमचे पैसे काढणे २४ तासांसाठी अक्षम करू</span> तुम्ही तुमचा पासवर्ड बदलल्यानंतर."
   },

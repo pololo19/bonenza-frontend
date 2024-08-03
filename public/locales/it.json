@@ -539,6 +539,7 @@
     "withdrawProgress": "Il ritiro è in corso",
     "withdrawComplete": "Ritiro riuscito",
     "withdrawRestriction": "I tuoi permessi di ritiro e mancia saranno sospesi per <span class='text-color-red-primary'>{{time}}</span>, a causa della modifica della password.",
+    "withdrawDisable": "I tuoi permessi di ritiro e mancia sono sospesi. Contatta l'amministratore.",
     "accountRestriction": "Restrizioni sull'account",
     "accountRestrictionDescription": "Per proteggere la sicurezza del tuo account, <span class='font-bold text-white'>disabiliteremo i tuoi prelievi per 24 ore</span> dopo aver cambiato la password."
   },

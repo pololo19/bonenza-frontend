@@ -539,6 +539,7 @@
     "withdrawProgress": "Penarikan sedang berlangsung",
     "withdrawComplete": "Penarikan Berhasil",
     "withdrawRestriction": "Izin penarikan dan pemberian tip Anda akan ditangguhkan <span class='text-color-red-primary'>{{time}}</span>, karena mengubah kata sandi Anda.",
+    "withdrawDisable": "Izin penarikan dan pemberian tip Anda ditangguhkan. Silakan hubungi Admin.",
     "accountRestriction": "Pembatasan Akun",
     "accountRestrictionDescription": "Untuk melindungi keamanan akun Anda, <span class='font-bold text-white'>kami akan menonaktifkan penarikan Anda selama 24 jam</span> setelah Anda mengubah kata sandi Anda."
   },

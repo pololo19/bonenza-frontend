@@ -137,6 +137,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'isNotValidToken':
       message = 'errors:auth:notValidToken';
       break;
+    case 'isNotAllowedUser':
+      message = 'authentication:userNotAllow';
+      break;
     case 'isExpiredToken':
       message = 'errors:auth:expiredToken';
       break;

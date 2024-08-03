@@ -539,6 +539,7 @@
     "withdrawProgress": "La retirada está en curso",
     "withdrawComplete": "Retiro exitoso",
     "withdrawRestriction": "Sus permisos de retiro y propinas se suspenderán por <span class='text-color-red-primary'>{{time}}</span>, debido al cambio de contraseña.",
+    "withdrawDisable": "Sus permisos de retiro y propinas están suspendidos. Comuníquese con el administrador.",
     "accountRestriction": "Restricciones de cuenta",
     "accountRestrictionDescription": "Para proteger la seguridad de su cuenta, <span class='font-bold text-white'>desactivaremos sus retiros durante 24 horas</span> después de cambiar su contraseña."
   },

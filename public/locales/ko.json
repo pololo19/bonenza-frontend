@@ -539,6 +539,7 @@
     "withdrawProgress": "출금이 진행 중입니다.",
     "withdrawComplete": "출금 성공",
     "withdrawRestriction": "귀하의 출금 및 팁 제공 권한은 다음 기간 동안 정지됩니다. <span class='text-color-red-primary'>{{time}}</span>, 비밀번호 변경으로 인해.",
+    "withdrawDisable": "출금 및 팁 제공 권한이 정지되었습니다. 관리자에게 문의하시기 바랍니다.",
     "accountRestriction": "계정 제한",
     "accountRestrictionDescription": "귀하의 계정 안전을 보호하기 위해, <span class='font-bold text-white'>우리는 24시간 동안 귀하의 인출을 비활성화할 것입니다</span> 비밀번호를 변경한 후."
   },

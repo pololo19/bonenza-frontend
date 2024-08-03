@@ -539,6 +539,7 @@
     "withdrawProgress": "Quá trình rút tiền đang được tiến hành",
     "withdrawComplete": "Rút tiền thành công",
     "withdrawRestriction": "Quyền rút tiền và tiền boa của bạn sẽ bị đình chỉ trong <span class='text-color-red-primary'>{{time}}</span>, do bạn thay đổi mật khẩu.",
+    "withdrawDisable": "Quyền rút tiền và tiền boa của bạn bị đình chỉ. Vui lòng liên hệ với Quản trị viên.",
     "accountRestriction": "Hạn chế tài khoản",
     "accountRestrictionDescription": "Để bảo vệ an toàn cho tài khoản của bạn, <span class='font-bold text-white'>chúng tôi sẽ vô hiệu hóa việc rút tiền của bạn trong 24 giờ</span> sau khi bạn thay đổi mật khẩu của mình."
   },
