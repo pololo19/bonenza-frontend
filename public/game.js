@@ -41,6 +41,8 @@ var Sg;
       callbacks.success();
     };
   }
+
+  // this is for mobile rendering
   function createIframeMobile(target, uri, callbacks) {
     const iframe = document.createElement('iframe');
     iframe.src = uri;
@@ -49,7 +51,6 @@ var Sg;
     iframe.setAttribute('height', '100%');
     target.appendChild(iframe);
     iframe.onload = function () {
-      // This function will be called when the iframe content is fully loaded
       callbacks.success();
     };
   }
@@ -173,7 +174,6 @@ var Sg;
   }
   function detectLaunchTypeDeprecated(target, lo, callbacks) {
     var uri = gameURLFromOptions(lo);
-    console.log(uri, '----164');
     if (isMobileDeprecated()) {
       // return (win.location = uri);
       // const newWin = win.open(uri, '_blank');
