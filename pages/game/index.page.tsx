@@ -268,7 +268,7 @@ function GamePage() {
             status: false,
             request: 'demo',
           });
-          newWindow.location.href = generateMobilePlayUrl(lanuchGameOption);
+          newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
 
         })
         .catch((error: any) => {
@@ -349,7 +349,7 @@ function GamePage() {
               status: false,
               request: 'real',
             });
-            newWindow.location.href = generateMobilePlayUrl(lanuchGameOption);
+            newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
           }
           if (!isMobile) {
             const success = () => {
@@ -445,7 +445,9 @@ function GamePage() {
     }
   };
 
-  const generateMobilePlayUrl = (data: Record<string, string>) => {
+  // for mobile playing, generate redirect url
+  const _generateMobilePlayUrl = (data: Record<string, string>) => {
+    // ...
     let urls: string[] = [];
     Object.keys(data).map((key: string) => {
       if (!isEmpty(data[key])) {

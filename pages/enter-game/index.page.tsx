@@ -28,9 +28,6 @@ function EnterGame() {
             const gameLaunchOptions = {
                 target_element: 'game_wrapper_mobile',
                 launch_options: {
-                    // IMPORTANT WARNING:
-                    // You will receive all these parameters as a response by launch demo / session request to the SOFTSWISS Game Aggregator.
-                    // Pass them directly here without any manual modifications, as this could disrupt the game launching process.
 
                     // Required
                     game_launcher_url: launcherUrl, // URL to GameLauncher HTML page
