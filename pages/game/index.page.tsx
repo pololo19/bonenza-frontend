@@ -268,7 +268,8 @@ function GamePage() {
             status: false,
             request: 'demo',
           });
-          newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
+          // newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
+          newWindow.location.href = lanuchGameOption.gameUrl
 
         })
         .catch((error: any) => {
@@ -349,7 +350,8 @@ function GamePage() {
               status: false,
               request: 'real',
             });
-            newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
+            // newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
+            newWindow.location.href = lanuchGameOption.gameUrl
           }
           if (!isMobile) {
             const success = () => {
