@@ -40,7 +40,10 @@ function EnterGame() {
                     // The number of game parameters depends on 'strategy'.
                 },
             };
-            window.sg.launch(gameLaunchOptions, onSuccess, onError);
+            setTimeout(() => {
+                window.sg.launch(gameLaunchOptions, onSuccess, onError);
+            }, 2000);
+
 
         } catch (error) {
             console.log(error)
@@ -55,9 +58,7 @@ function EnterGame() {
             const _lobby = String(lobbyUrl);
             const _token = String(tokenId);
             const _mode = String(strategy);
-            setTimeout(() => {
-                launchGame(_src, _launcher, _mode, _lobby, _token, onSuccess, onError)
-            }, 2000);
+            launchGame(_src, _launcher, _mode, _lobby, _token, onSuccess, onError)
 
         }
     }, [gameUrl, gameLauncherUrl, lobbyUrl, tokenId, strategy])
