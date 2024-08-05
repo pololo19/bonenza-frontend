@@ -451,7 +451,7 @@ function GamePage() {
     let urls: string[] = [];
     Object.keys(data).map((key: string) => {
       if (!isEmpty(data[key])) {
-        urls.push(`${key}=${data[key]}`)
+        urls.push(`${key}=${encodeURIComponent(data[key])}`)
       }
     })
 
