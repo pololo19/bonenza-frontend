@@ -41,6 +41,18 @@ var Sg;
       callbacks.success();
     };
   }
+  function createIframeMobile(target, uri, callbacks) {
+    const iframe = document.createElement('iframe');
+    iframe.src = uri;
+    iframe.setAttribute('allow', 'fullscreen; camera; microphone; autoplay');
+    iframe.setAttribute('width', '100%');
+    iframe.setAttribute('height', '100%');
+    target.appendChild(iframe);
+    iframe.onload = function () {
+      // This function will be called when the iframe content is fully loaded
+      callbacks.success();
+    };
+  }
   function startNetent(target, lo, callbacks) {
     var script = document.createElement('script');
     script.type = 'text/javascript';
@@ -161,17 +173,20 @@ var Sg;
   }
   function detectLaunchTypeDeprecated(target, lo, callbacks) {
     var uri = gameURLFromOptions(lo);
+    console.log(uri, '----164');
     if (isMobileDeprecated()) {
       // return (win.location = uri);
-      const newWin = win.open(uri, '_blank');
-      return newWin;
+      // const newWin = win.open(uri, '_blank');
+      // return newWin;
+      return createIframeMobile(target, uri, callbacks);
     } else {
       return createIframe(target, uri, callbacks);
     }
   }
   function detectDeviceDeprecated(target, lo, callbacks) {
     if (isMobileDeprecated()) {
-      return (win.location = lo.mobile_url);
+      // return (win.location = lo.mobile_url);
+      return createIframeMobile(target, io.desktop_url, callbacks);
     } else {
       return createIframe(target, lo.desktop_url, callbacks);
     }
@@ -204,8 +219,9 @@ var Sg;
     switch (lo.strategy) {
       case 'redirect':
         // return (win.location = lo.game_url);
-        const newWin = win.open(lo.game_url, '_blank');
-        return newWin;
+        // const newWin = win.open(lo.game_url, '_blank');
+        // return newWin;
+        return createIframeMobile(target, gameURLFromOptions(lo), callbacks);
       case 'iframe':
         return createIframe(target, gameURLFromOptions(lo), callbacks);
       case 'detect':
