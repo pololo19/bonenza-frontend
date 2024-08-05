@@ -539,6 +539,7 @@
     "withdrawProgress": "Para çekme işlemi devam ediyor",
     "withdrawComplete": "Para Çekme Başarılı",
     "withdrawRestriction": "Para çekme ve bahşiş izinleriniz şu süre boyunca askıya alınacaktır: <span class='text-color-red-primary'>{{time}}</span>, şifrenizi değiştirdiğiniz için.",
+    "withdrawDisable": "Para çekme ve bahşiş izinleriniz askıya alındı. Lütfen Yönetici ile iletişime geçin.",
     "accountRestriction": "Hesap Kısıtlamaları",
     "accountRestrictionDescription": "Hesabınızın güvenliğini korumak amacıyla, <span class='font-bold text-white'>para çekme işlemlerinizi 24 saat süreyle devre dışı bırakacağız</span> şifrenizi değiştirdikten sonra."
   },

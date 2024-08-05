@@ -268,7 +268,7 @@ function GamePage() {
             status: false,
             request: 'demo',
           });
-          newWindow.location.href = lanuchGameOption.gameUrl;
+          newWindow.location.href = generateMobilePlayUrl(lanuchGameOption);
 
         })
         .catch((error: any) => {
@@ -349,7 +349,7 @@ function GamePage() {
               status: false,
               request: 'real',
             });
-            newWindow.location.href = lanuchGameOption.gameUrl;
+            newWindow.location.href = generateMobilePlayUrl(lanuchGameOption);
           }
           if (!isMobile) {
             const success = () => {
@@ -444,6 +444,20 @@ function GamePage() {
       }
     }
   };
+
+  const generateMobilePlayUrl = (data: Record<string, string>) => {
+    let urls: string[] = [];
+    Object.keys(data).map((key: string) => {
+      if (!isEmpty(data[key])) {
+        urls.push(`${key}=${data[key]}`)
+      }
+    })
+
+    const protocal = window.location.protocol;
+    const host = window.location.host;
+    const url = `${protocal}//${host}/enter-game/?${urls.join('&')}`
+    return url;
+  }
 
   const launchGame = (gameUrl: string, launcherUrl: string, strategy: string, lobbyUrl: string, tokenId: string, onSuccess: Function, onError: Function) => {
     try {

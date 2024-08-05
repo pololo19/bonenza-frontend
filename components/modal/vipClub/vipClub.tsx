@@ -167,10 +167,6 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     return className;
   };
 
-  // const selectLevel = (rank: string) => {
-  //   const levelSelect = VIP_LEVEL_DATA.find((level) => level.rank === rank);
-  //   setLevelData(levelSelect);
-  // };
 
   const navigationVipPage = () => {
     dispatch(changeIsShowVipClubModal(false));

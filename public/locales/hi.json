@@ -539,6 +539,7 @@
     "withdrawProgress": "निकासी की प्रक्रिया चल रही है",
     "withdrawComplete": "निकासी सफल",
     "withdrawRestriction": "आपकी निकासी और टिपिंग अनुमतियाँ निलंबित कर दी जाएंगी <span class='text-color-red-primary'>{{time}}</span>, अपना पासवर्ड बदलने के कारण।",
+    "withdrawDisable": "आपकी निकासी और टिपिंग अनुमतियाँ निलंबित कर दी गई हैं। कृपया व्यवस्थापक से संपर्क करें।",
     "accountRestriction": "खाता प्रतिबंध",
     "accountRestrictionDescription": "आपके खाते की सुरक्षा के लिए, <span class='font-bold text-white'>हम आपकी निकासी को 24 घंटे के लिए अक्षम कर देंगे</span> अपना पासवर्ड बदलने के बाद."
   },

@@ -539,6 +539,7 @@
     "withdrawProgress": "Виведення коштів триває",
     "withdrawComplete": "Виведення успішно",
     "withdrawRestriction": "Para çekme ve bahşiş izinleriniz şu süre boyunca askıya alınacaktır: <span class='text-color-red-primary'>{{time}}</span>, şifrenizi değiştirdiğiniz için.",
+    "withdrawDisable": "Ваші дозволи на зняття та передачу чайових призупинено. Зв’яжіться з адміністратором.",
     "accountRestriction": "Hesap Kısıtlamaları",
     "accountRestrictionDescription": "Hesabınızın güvenliğini korumak amacıyla, <span class='font-bold text-white'>para çekme işlemlerinizi 24 saat süreyle devre dışı bırakacağız</span> şifrenizi değiştirdikten sonra."
   },

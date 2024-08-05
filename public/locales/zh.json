@@ -539,6 +539,7 @@
     "withdrawProgress": "提款正在进行中",
     "withdrawComplete": "提现成功",
     "withdrawRestriction": "您的提款和小费权限将被暂停 <span class='text-color-red-primary'>{{time}}</span>，由于更改了密码。",
+    "withdrawDisable": "您的提款和小费权限已暂停。请联系管理员。",
     "accountRestriction": "账户限制",
     "accountRestrictionDescription": "为了保护您的账户安全， <span class='font-bold text-white'>我们将在 24 小时内禁止您提款</span> 更改密码后。"
   },

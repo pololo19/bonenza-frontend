@@ -274,6 +274,7 @@ export type UserDetail = {
   isKyc: KYC_ENUM;
   tfa: boolean;
   restrictedTo: number;
+  disabledWithdraw: boolean;
   generalSetting: UserSettingGeneralType;
   privacySetting: UserSettingPrivacyType;
   verifiedSetting: UserSettingVerifiedType;

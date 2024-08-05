@@ -539,6 +539,7 @@
     "withdrawProgress": "กำลังดำเนินการถอนเงิน",
     "withdrawComplete": "การถอนเงินสำเร็จ",
     "withdrawRestriction": "สิทธิ์การถอนและการให้ทิปของคุณจะถูกระงับ <span class='text-color-red-primary'>{{time}}</span>เนื่องจากการเปลี่ยนรหัสผ่านของคุณ",
+    "withdrawDisable": "สิทธิ์การถอนและการให้ทิปของคุณถูกระงับ โปรดติดต่อผู้ดูแลระบบ",
     "accountRestriction": "ข้อจำกัดของบัญชี",
     "accountRestrictionDescription": "เพื่อปกป้องความปลอดภัยของบัญชีของคุณ <span class='font-bold text-white'>เราจะปิดการใช้งานการถอนเงินของคุณเป็นเวลา 24 ชั่วโมง</span> หลังจากที่คุณเปลี่ยนรหัสผ่านของคุณ"
   },

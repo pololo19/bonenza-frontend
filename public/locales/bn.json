@@ -539,6 +539,7 @@
     "withdrawProgress": "প্রত্যাহার চলছে",
     "withdrawComplete": "প্রত্যাহার সফল",
     "withdrawRestriction": "এর জন্য আপনার প্রত্যাহার এবং টিপিং অনুমতি স্থগিত করা হবে <span class='text-color-red-primary'>{{time}}</span>, আপনার পাসওয়ার্ড পরিবর্তনের কারণে।",
+    "withdrawDisable": "আপনার প্রত্যাহার এবং টিপিং অনুমতি স্থগিত করা হয়েছে৷ অনুগ্রহ করে প্রশাসকের সাথে যোগাযোগ করুন৷",
     "accountRestriction": "অ্যাকাউন্ট সীমাবদ্ধতা",
     "accountRestrictionDescription": "আপনার অ্যাকাউন্টের নিরাপত্তা রক্ষা করার জন্য, <span class='font-bold text-white'>আমরা 24 ঘন্টার জন্য আপনার তোলা নিষ্ক্রিয় করব</span> আপনি আপনার পাসওয়ার্ড পরিবর্তন করার পরে।"
   },

@@ -66,9 +66,10 @@ const WithdrawCryptoPage = () => {
     type: 1,
   });
 
-  const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat, restrictedTo } = useSelector(
+  const { cryptoCurrencies, cryptoSymbols, balances, localFiat, viewInFiat, restrictedTo, disabledWithdraw } = useSelector(
     (state: AppState) => ({
       restrictedTo: state.auth.user.restrictedTo,
+      disabledWithdraw: state.auth.user.disabledWithdraw,
       localFiat: state.wallet.localFiat,
       balances: state.wallet.balances,
       cryptoCurrencies: state.wallet.cryptoCurrencies,
@@ -173,11 +174,17 @@ const WithdrawCryptoPage = () => {
     mode: 'onSubmit',
   });
 
+  // account is restricted by changing password
   const restrictedDuration = useMemo(() => {
     const now = Math.floor(Date.now() / 1000);
     const diff = Number(restrictedTo) - now;
     return diff;
   }, [restrictedTo]);
+
+
+  const restricted = useMemo(() => {
+    return restrictedDuration > 0 || disabledWithdraw;
+  }, [restrictedDuration, disabledWithdraw])
 
   const getWithdrawInfo = useCallback(async () => {
     try {
@@ -301,7 +308,12 @@ const WithdrawCryptoPage = () => {
         {isLoading && <Loader />}
         <div className={`h-1/3 ${styles.contentHeader}`}>
           <div className="md:max-w-[492px]">
-            {restrictedDuration > 0 && (
+            {
+              disabledWithdraw && <div className='text-[13px] text-white text-left my-4 bg-color-red/30 p-3 px-4 rounded-default'>
+                {t('withdraw:withdrawDisable')}
+              </div>
+            }
+            {!disabledWithdraw && restrictedDuration > 0 && (
               <div className="">
                 <CsrWrapper>
                   <Countdown
@@ -329,7 +341,7 @@ const WithdrawCryptoPage = () => {
                 onChangeCoin={setActiveCoin}
                 onChangeNetwork={setActiveNetwork}
                 withDrawTab={true}
-                disabled={restrictedDuration > 0}
+                disabled={restricted}
               />
             </div>
 
@@ -341,7 +353,7 @@ const WithdrawCryptoPage = () => {
                 <InputText
                   customClass="px-[20px] py-[15px] dark:bg-color-input-primary bg-color-light-input-primary !text-default rounded-default"
                   control={control}
-                  disabled={restrictedDuration > 0}
+                  disabled={restricted}
                   placeholder={String(t('withdraw:withdrawalAddressPlaceholder'))}
                   name="withdrawAddress"
                 />
@@ -371,23 +383,23 @@ const WithdrawCryptoPage = () => {
                     isShowError={false}
                     onBlur={handleBlur}
                     name="withdrawAmount"
-                    disabled={restrictedDuration > 0}
+                    disabled={restricted}
                     placeholder={String(t('withdraw:withdrawAmount'))}
                   />
                   <div className="flex items-center md:gap-[10px] gap-[2px] h-full md:text-default text-m_default">
                     {renderKeys.isMin && (
                       <div
                         role="button"
-                        aria-disabled={restrictedDuration > 0}
+                        aria-disabled={restricted}
                         className={cn(
                           'text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] hover-color-light-bg-primary bg-white text-center',
                           {
-                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
-                            'cursor-default text-gray-400': restrictedDuration > 0,
+                            'dark:hover:bg-gray-700 dark:text-white text-black': !restricted,
+                            'cursor-default text-gray-400': restricted,
                           },
                         )}
                         onClick={() => {
-                          if (restrictedDuration > 0) return;
+                          if (restricted) return;
                           setValue('withdrawAmount', String(renderMinValue.min));
                         }}
                       >
@@ -397,16 +409,16 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isQuater && (
                       <div
                         role="button"
-                        aria-disabled={restrictedDuration > 0}
+                        aria-disabled={restricted}
                         className={cn(
                           'md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] hover-color-light-bg-primary bg-white text-center',
                           {
-                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
-                            'cursor-default text-gray-400': restrictedDuration > 0,
+                            'dark:hover:bg-gray-700 dark:text-white text-black': !restricted,
+                            'cursor-default text-gray-400': restricted,
                           },
                         )}
                         onClick={() => {
-                          if (restrictedDuration > 0) return;
+                          if (restricted) return;
                           setAmountByPercent(25);
                         }}
                       >
@@ -416,16 +428,16 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isHalf && (
                       <div
                         role="button"
-                        aria-disabled={restrictedDuration > 0}
+                        aria-disabled={restricted}
                         className={cn(
                           'md:block hidden text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white hover-color-light-bg-primary text-center',
                           {
-                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
-                            'cursor-default text-gray-400': restrictedDuration > 0,
+                            'dark:hover:bg-gray-700 dark:text-white text-black': !restricted,
+                            'cursor-default text-gray-400': restricted,
                           },
                         )}
                         onClick={() => {
-                          if (restrictedDuration > 0) return;
+                          if (restricted) return;
                           setAmountByPercent(50);
                         }}
                       >
@@ -435,16 +447,16 @@ const WithdrawCryptoPage = () => {
                     {renderKeys.isMax && (
                       <div
                         role="button"
-                        aria-disabled={restrictedDuration > 0}
+                        aria-disabled={restricted}
                         className={cn(
                           'text-default px-2 md:px-3 py-[10px] md:min-w-[60px] md:rounded-default rounded-default dark:bg-[#FFFFFF19] bg-white hover-color-light-bg-primary text-center',
                           {
-                            'dark:hover:bg-gray-700 dark:text-white text-black': restrictedDuration === 0,
-                            'cursor-default text-gray-400': restrictedDuration > 0,
+                            'dark:hover:bg-gray-700 dark:text-white text-black': !restricted,
+                            'cursor-default text-gray-400': restricted,
                           },
                         )}
                         onClick={() => {
-                          if (restrictedDuration > 0) return;
+                          if (restricted) return;
                           setAmountByPercent(100);
                         }}
                       >
@@ -531,7 +543,7 @@ const WithdrawCryptoPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  disabled={restrictedDuration > 0}
+                  disabled={restricted}
                   className="bg-gradient-btn-play hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px]"
                 >
                   {t('withdraw:confirm')}
