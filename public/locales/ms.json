@@ -574,7 +574,7 @@
     "failed": "gagal",
     "pending": "Yang belum selesai",
     "notStarted": "Tidak bermula",
-    "onGoing": "Sedang berlangsung",
+    "ongoing": "Sedang berlangsung",
     "done": "Selesai",
     "canceled": "Dibatalkan",
     "expired": "Tamat tempoh",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "Bonus Induk Slot Quest Harian",
     "weeklyQuestWagerWeekBonus": "Bonus Pertaruhan Pencarian Mingguan",
     "win": "Menang",
-    "bet": "pertaruhan"
+    "bet": "pertaruhan",
+    "tip": "Petua"
   },
   "buyCrypto": {
     "payWith": "Anda membayar dengan",

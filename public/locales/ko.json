@@ -574,7 +574,7 @@
     "failed": "실패한",
     "pending": "보류 중",
     "notStarted": "시작되지 않음",
-    "onGoing": "전진",
+    "ongoing": "전진",
     "done": "완료",
     "canceled": "취소 된",
     "expired": "만료됨",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "일일 퀘스트 슬롯 마스터 보너스",
     "weeklyQuestWagerWeekBonus": "주간 퀘스트 베팅 보너스",
     "win": "이기다",
-    "bet": "내기"
+    "bet": "내기",
+    "tip": "팁"
   },
   "buyCrypto": {
     "payWith": "당신은 다음으로 지불합니다",

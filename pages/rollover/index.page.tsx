@@ -26,6 +26,7 @@ import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
+import { camelize } from 'humps';
 
 const LIST_FILTER_TYPE = [
   { name: 'transaction:allType', id: 1 },
@@ -106,7 +107,9 @@ const RolloverPage = () => {
             <div className="text-left text-black dark:text-color-text-primary">{String(t('transaction:type'))}</div>
           ),
           cell: ({ row }) => (
-            <div className="py-2 text-left text-black truncate dark:text-white">{row.original.type}</div>
+            <div className="py-2 text-left text-black truncate dark:text-white">
+              {String(t(`transaction:${row.original?.type.indexOf('_') >= 0 ? camelize(row.original?.type || '') : row.original.type.toLowerCase()}`))}{' '}
+            </div>
           ),
           minSize: 20,
         },
@@ -176,8 +179,7 @@ const RolloverPage = () => {
                 })}
               ></div>
               <div className="text-black dark:text-white break-keep ">
-                {replaceStatus(row.original.status)?.charAt(0).toUpperCase() +
-                  replaceStatus(row.original.status)?.slice(1)}
+                {String(t(`transaction:${row.original.status.indexOf('_') >= 0 ? camelize(row.original.status || '') : row.original.status.toLowerCase()}`))}{' '}
               </div>
               <ArrowRight2 className="h-[16px] w-[16px] dark:text-color-text-primary text-[#31373d]" />
             </div>

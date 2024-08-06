@@ -347,7 +347,7 @@ function BonusLoggedPage() {
           <div className="text-[16px] md:text-[24px] dark:text-white text-color-light-text-primary font-semibold my-[16px] md:my-0">
             {t('bonus:bonus')}
           </div>
-          <div className="flex h-[48px] w-full justify-end">
+          <div className="flex h-[48px] justify-end">
             <input
               className={cn("focus:outline-none text-white font-bold dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]", {
                 'pointer-events-none': isRedeemLoading

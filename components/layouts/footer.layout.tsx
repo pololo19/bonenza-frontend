@@ -659,6 +659,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </Link>
               </div>
             </div>
+            <div className="text-center text-m_default sm:text-default font-semibold">
+            </div>
+            <div className="text-center text-m_default sm:text-default font-semibold flex flex-col gap-2">
+              <p>Crypto trading is not gambling by definition, therefore it is not covered by our gaming license</p>
+              <p>Copyright ©2024 BLOCKDANCE B.V. ALL RIGHTS RESERVED</p>
+            </div>
           </div>
         </div>
       </footer>

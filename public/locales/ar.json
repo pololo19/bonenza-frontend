@@ -574,7 +574,7 @@
     "failed": "فشل",
     "pending": "قيد الانتظار",
     "notStarted": "لم يبدأ",
-    "onGoing": "جاري التنفيذ",
+    "ongoing": "جاري التنفيذ",
     "done": "منتهي",
     "canceled": "ألغيت",
     "expired": "منتهي الصلاحية",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "المكافأة الرئيسية لفتحات المهام اليومية",
     "weeklyQuestWagerWeekBonus": "مكافأة رهان المهمة الأسبوعية",
     "win": "يفوز",
-    "bet": "رهان"
+    "bet": "رهان",
+    "tip": "نصيحة"
   },
   "buyCrypto": {
     "payWith": "أنت تدفع مع",

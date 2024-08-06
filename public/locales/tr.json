@@ -574,7 +574,7 @@
     "failed": "Arızalı",
     "pending": "Askıda olması",
     "notStarted": "Başlatılmadı",
-    "onGoing": "Devam Ediyor",
+    "ongoing": "Devam Ediyor",
     "done": "Tamamlamak",
     "canceled": "İptal edildi",
     "expired": "Günü geçmiş",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "Günlük Görev Slotları Usta Bonusu",
     "weeklyQuestWagerWeekBonus": "Haftalık Görev Bahis Bonusu",
     "win": "Kazanç",
-    "bet": "Bahis"
+    "bet": "Bahis",
+    "tip": "Uç"
   },
   "buyCrypto": {
     "payWith": "ile ödeme yaparsınız",

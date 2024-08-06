@@ -574,7 +574,7 @@
     "failed": "ব্যর্থ",
     "pending": "বিচারাধীন",
     "notStarted": "শুরু না",
-    "onGoing": "চলছে",
+    "ongoing": "চলছে",
     "done": "সম্পন্ন",
     "canceled": "বাতিল",
     "expired": "মেয়াদোত্তীর্ণ",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "দৈনিক কোয়েস্ট স্লট মাস্টার বোনাস",
     "weeklyQuestWagerWeekBonus": "সাপ্তাহিক কোয়েস্ট বাজি বোনাস",
     "win": "জয়",
-    "bet": "বাজি"
+    "bet": "বাজি",
+    "tip": "টিপ"
   },
   "buyCrypto": {
     "payWith": "আপনি দিয়ে পরিশোধ করুন",

@@ -47,7 +47,7 @@ const SelectCurrency = ({
   const { query } = useRouter();
   const width = useWidth();
 
-  const { symbols, balances, networks, localFiat, lockedAmount, viewInFiat } = useSelector(
+  const { symbols, balances, networks, localFiat, lockedAmount, viewInFiat, activeCurrency } = useSelector(
     (state: AppState) => ({
       symbols: state.wallet.symbols,
       balances: state.wallet.balances,
@@ -55,6 +55,7 @@ const SelectCurrency = ({
       localFiat: state.wallet.localFiat,
       lockedAmount: state.wallet.lockedAmount,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
+      activeCurrency: state.wallet.activeCurrency,
     }),
     shallowEqual,
   );
@@ -87,12 +88,17 @@ const SelectCurrency = ({
   useEffect(() => {
     if (symbols.length > 0) {
       /***** SET USDT as default symbol *****/
-      const defaultSymbol = symbols.find((item) => item.name.toLowerCase() === 'usdt');
-      if (defaultSymbol) {
-        onChangeCoin(defaultSymbol);
+      if (activeCurrency?.id) {
+        handleChangeCrypto(activeCurrency);
+      }
+      else {
+        const defaultSymbol = symbols.find((item) => item.name.toLowerCase() === 'usdt');
+        if (defaultSymbol) {
+          handleChangeCrypto(defaultSymbol);
+        }
       }
     }
-  }, [symbols]);
+  }, [symbols, activeCurrency]);
 
   const handleChangeCrypto = (symbol: CurrencyType) => {
     const availableNetworkIds = symbol.availableNetworks;
