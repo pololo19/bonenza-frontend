@@ -879,7 +879,9 @@
     "business": "İşletme:",
     "help": "Yardım:",
     "businessMail": "business@bonenza.com",
-    "helpMail": "yardım@bonenza.com"
+    "helpMail": "yardım@bonenza.com",
+    "copyright1": "Kripto ticareti tanımı gereği kumar değildir, bu nedenle oyun lisansımız kapsamında değildir",
+    "copyright2": "Telif hakkı ©2024 BLOCKDANCE B.V. TÜM HAKLARI SAKLIDIR"
   },
   "helper": {
     "definitionsML": "Tanımlar ML",

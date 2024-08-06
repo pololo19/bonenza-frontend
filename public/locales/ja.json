@@ -879,7 +879,9 @@
     "business": "仕事：",
     "help": "ヘルプ：",
     "businessMail": "business@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "仮想通貨取引は定義上ギャンブルではないため、当社のゲームライセンスの対象外です",
+    "copyright2": "Copyright ©2024 BLOCKDANCE B.V. 全著作権所有"
   },
   "helper": {
     "definitionsML": "定義ML",

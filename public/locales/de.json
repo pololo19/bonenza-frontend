@@ -879,7 +879,9 @@
     "business": "Geschäft:",
     "help": "Helfen:",
     "businessMail": "business@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "Der Handel mit Kryptowährungen ist per Definition kein Glücksspiel und fällt daher nicht unter unsere Glücksspiellizenz",
+    "copyright2": "Copyright ©2024 BLOCKDANCE B.V. ALLE RECHTE VORBEHALTEN"
   },
   "helper": {
     "definitionsML": "Definitionen ML",
