@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { EmptyWallet, HambergerMenu, Message, User } from 'iconsax-react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useRef, useState } from 'react';
@@ -123,7 +124,6 @@ import SidebarMobileLayout from './sidebarMobile.layout';
 import SidebarToggle from './sidebarToggle.layout';
 import SubMobileMenu from './submobileMenu';
 import WrapperBody from './wapperBody';
-import Head from 'next/head';
 
 type BaseLayoutProps = {
   children: JSX.Element;
@@ -467,7 +467,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 }),
               );
               dispatch(getBalance());
-            }, 2000);
+            }, 5000);
 
             break;
           case 'Complete':
@@ -486,7 +486,7 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
                 }),
               );
               dispatch(getBalance());
-            }, 2500);
+            }, 5000);
             break;
 
           default:

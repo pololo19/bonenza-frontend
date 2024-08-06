@@ -98,7 +98,7 @@ const SettingEmail = () => {
       if (type === VerifyModeEnum.PHONE) {
         const phoneNumber = `+${countryCallingCode?.countryCallingCode}${phoneInput}`;
         if (!isPhone(phoneNumber)) {
-          toast.error(t('authentication:phoneWrong'), { containerId: TOAST_ENUM.COMMON });
+          toast.error(t('authentication:phoneWrong'), { containerId: TOAST_ENUM.COMMON, toastId: 'verify-error' });
           return;
         }
         await api_sendSMSToUser(phoneNumber, '');
@@ -106,12 +106,12 @@ const SettingEmail = () => {
       }
       dispatch(changeVerifyMode(type));
       dispatch(changeIsShowVerifyMailAndPhone(true));
-      toast.success(t('authentication:verificationSentSuccess'), { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('authentication:verificationSentSuccess'), { containerId: TOAST_ENUM.COMMON, toastId: 'verify-success' });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const status = error.response?.data?.statusCode ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'verify-error' });
     } finally {
       setIsLoading(false);
     }

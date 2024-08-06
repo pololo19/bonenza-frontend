@@ -169,7 +169,6 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
       dispatch(changeIsShowChatTip(false));
       dispatch(getBalance());
     } catch (error: any) {
-      console.error(error);
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { toastId: 'chat-tip-notify-error', containerId: TOAST_ENUM.COMMON });

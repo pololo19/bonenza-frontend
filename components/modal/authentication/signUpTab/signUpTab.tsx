@@ -97,7 +97,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
 
   const onSignUp = async () => {
     if (!isConfirm) {
-      toast.error(String(t('authentication:pleaseAgree')), { containerId: TOAST_ENUM.COMMON });
+      toast.error(String(t('authentication:pleaseAgree')), { containerId: TOAST_ENUM.COMMON, toastId: 'agree-policy' });
       return;
     }
     if (isPhoneNumber) await emitPhoneData();
