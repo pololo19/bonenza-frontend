@@ -12,6 +12,7 @@ import { AppState } from '@/base/redux/store';
 import { RolloverType } from '@/base/types/common';
 
 import CommonModal from '../commonModal/commonModal';
+import { camelize } from 'humps';
 
 type ModalDetailTransactionProps = {
   onClose: () => void;
@@ -104,15 +105,16 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                   })}
                 />
                 <div className="dark:text-white text-black text-[14px] break-keep	">
-                  {replaceStatus(transaction.status)?.charAt(0).toUpperCase() +
-                    replaceStatus(transaction.status)?.slice(1)}
+                  {String(t(`transaction:${transaction.status.indexOf('_') >= 0 ? camelize(transaction.status || '') : transaction.status.toLowerCase()}`))}{' '}
                 </div>
               </div>
             </div>
             <div className="flex items-center justify-between text-color-light-text-primary dark:text-color-text-primary">
               <span className="">{String(t('transaction:type'))}</span>
               <div className="flex gap-2 items-center">
-                <span className="text-black dark:text-white">{transaction.type}</span>
+                <span className="text-black dark:text-white">
+                  {String(t(`transaction:${transaction.type.indexOf('_') >= 0 ? camelize(transaction.type || '') : transaction.type.toLowerCase()}`))}{' '}
+                </span>
               </div>
             </div>
             <div className="flex items-center justify-between">

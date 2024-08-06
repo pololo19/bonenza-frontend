@@ -574,7 +574,7 @@
     "failed": "Не вдалося",
     "pending": "В очікуванні",
     "notStarted": "Не розпочато",
-    "onGoing": "Триває",
+    "ongoing": "Триває",
     "done": "Готово",
     "canceled": "Скасовано",
     "expired": "Термін дії минув",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "Daily Quest Slots Master Bonus",
     "weeklyQuestWagerWeekBonus": "Щотижневий квестовий бонус",
     "win": "перемога",
-    "bet": "Ставка"
+    "bet": "Ставка",
+    "tip": "Порада"
   },
   "buyCrypto": {
     "payWith": "Ви платите з",

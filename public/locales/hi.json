@@ -574,7 +574,7 @@
     "failed": "असफल",
     "pending": "लंबित",
     "notStarted": "शुरू नहीं",
-    "onGoing": "चल रहे",
+    "ongoing": "चल रहे",
     "done": "हो गया",
     "canceled": "रद्द",
     "expired": "खत्म हो चुका",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "दैनिक क्वेस्ट स्लॉट मास्टर बोनस",
     "weeklyQuestWagerWeekBonus": "साप्ताहिक क्वेस्ट दांव बोनस",
     "win": "जीतना",
-    "bet": "शर्त"
+    "bet": "शर्त",
+    "tip": "बख्शीश"
   },
   "buyCrypto": {
     "payWith": "आप इसके साथ भुगतान करें",

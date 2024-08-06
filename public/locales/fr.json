@@ -574,7 +574,7 @@
     "failed": "Échoué",
     "pending": "En attente",
     "notStarted": "Pas commencé",
-    "onGoing": "En cours",
+    "ongoing": "En cours",
     "done": "Fait",
     "canceled": "Annulé",
     "expired": "Expiré",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "Bonus principal des machines à sous de quête quotidienne",
     "weeklyQuestWagerWeekBonus": "Bonus de pari de quête hebdomadaire",
     "win": "Gagner",
-    "bet": "Pari"
+    "bet": "Pari",
+    "tip": "Conseil"
   },
   "buyCrypto": {
     "payWith": "Vous payez avec",

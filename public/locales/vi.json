@@ -574,7 +574,7 @@
     "failed": "Thất bại",
     "pending": "Chưa giải quyết",
     "notStarted": "Chưa bắt đầu",
-    "onGoing": "Đang thực hiện",
+    "ongoing": "Đang thực hiện",
     "done": "Xong",
     "canceled": "Đã hủy",
     "expired": "Hết hạn",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "Tiền thưởng bậc thầy của nhiệm vụ hàng ngày",
     "weeklyQuestWagerWeekBonus": "Tiền thưởng đặt cược nhiệm vụ hàng tuần",
     "win": "Thắng",
-    "bet": "Cá cược"
+    "bet": "Cá cược",
+    "tip": "Mẹo"
   },
   "buyCrypto": {
     "payWith": "Bạn thanh toán bằng",

@@ -574,7 +574,7 @@
     "failed": "失败的",
     "pending": "待办的",
     "notStarted": "没有开始",
-    "onGoing": "进行中",
+    "ongoing": "进行中",
     "done": "完毕",
     "canceled": "取消",
     "expired": "已到期",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "每日任务老虎机大师奖励",
     "weeklyQuestWagerWeekBonus": "每周任务投注奖金",
     "win": "赢",
-    "bet": "赌注"
+    "bet": "赌注",
+    "tip": "提示"
   },
   "buyCrypto": {
     "payWith": "您用以下方式付款",

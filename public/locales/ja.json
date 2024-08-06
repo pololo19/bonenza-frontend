@@ -574,7 +574,7 @@
     "failed": "失敗した",
     "pending": "保留中",
     "notStarted": "始まっていない",
-    "onGoing": "進行中",
+    "ongoing": "進行中",
     "done": "終わり",
     "canceled": "キャンセル",
     "expired": "期限切れ",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "デイリークエストスロットマスターボーナス",
     "weeklyQuestWagerWeekBonus": "毎週のクエスト賭けボーナス",
     "win": "勝つ",
-    "bet": "ベット"
+    "bet": "ベット",
+    "tip": "ヒント"
   },
   "buyCrypto": {
     "payWith": "で支払います",

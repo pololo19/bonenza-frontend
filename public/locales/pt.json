@@ -574,7 +574,7 @@
     "failed": "Fracassado",
     "pending": "Pendente",
     "notStarted": "não foi iniciado",
-    "onGoing": "Em andamento",
+    "ongoing": "Em andamento",
     "done": "Feito",
     "canceled": "Cancelado",
     "expired": "Expirado",
@@ -638,7 +638,8 @@
     "dailyQuestSlotsMasterBonus": "Bônus Mestre de Slots de Missões Diárias",
     "weeklyQuestWagerWeekBonus": "Bônus de aposta de missão semanal",
     "win": "Ganhar",
-    "bet": "Aposta"
+    "bet": "Aposta",
+    "tip": "Dica"
   },
   "buyCrypto": {
     "payWith": "Você paga com",
