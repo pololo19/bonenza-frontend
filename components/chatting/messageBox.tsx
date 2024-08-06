@@ -143,7 +143,7 @@ export const MessageBox = ({
               <div className={cn('text-[11px] text-center text-[#999] font-normal')}>
                 {formatDate(new Date(parseFloat(time) * 1000), '  HH:mm a')}
               </div>
-              {id !== userId && (
+              {id && id !== userId && (
                 <div
                   className={cn('cursor-pointer pl-4 text-white', styles['tip'])}
                   onClick={() => {
@@ -154,7 +154,7 @@ export const MessageBox = ({
                   <Gift className="w-[14px] h-[14px] -mt-1" />
                 </div>
               )}
-              {id !== userId && (
+              {id && id !== userId && (
                 <div
                   className={cn('cursor-pointer text-white', styles['reply'])}
                   onClick={() => onReply(messageId, text, userId, userName)}
