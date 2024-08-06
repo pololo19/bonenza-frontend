@@ -124,9 +124,8 @@ const DepositCryptoComponent = () => {
                   </p>
                   <p className="text-color-text-primary">{`${depositDetail.percent}% ${t(
                     'deposit:upTo',
-                  )} ${currencyFormat1((depositDetail.uptoAmount * usdtPrice) / activeCoin.price, 8, '', false)} ${
-                    activeCoin.name
-                  }`}</p>
+                  )} ${currencyFormat1((depositDetail.uptoAmount * usdtPrice) / activeCoin.price, 8, '', false)} ${activeCoin.name
+                    }`}</p>
                   <p className="text-color-text-primary">
                     {t('deposit:minimumDeposit')}{' '}
                     {`${currencyFormat1(depositDetail.minAmount / activeCoin.price, 4, '', false)} ${activeCoin.name}`}
@@ -136,7 +135,7 @@ const DepositCryptoComponent = () => {
             </div>
           )}
 
-          {wallets.findIndex((wallet) => wallet.networkId === activeNetwork.id) != -1 && (
+          {wallets.findIndex((wallet) => wallet.networkId === activeNetwork?.id) != -1 && (
             <div className="rounded-default w-full flex sm:flex-row flex-col items-center dark:text-white text-color-light-text-primary gap-[20px] py-[13px] px-[20px] dark:bg-color-canvas-bg-primary bg-color-light-bg-primary">
               <div className="rounded-[16px]">
                 <Canvas

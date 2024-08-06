@@ -372,7 +372,7 @@ const SelectCurrency = ({
                       'dark:!text-gray-400': disabled,
                     })}
                   >
-                    {activeNetwork.name}
+                    {activeNetwork?.name || ''}
                   </div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
