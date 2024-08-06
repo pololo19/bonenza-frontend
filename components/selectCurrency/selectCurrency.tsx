@@ -104,12 +104,15 @@ const SelectCurrency = ({
     const availableNetworkIds = symbol.availableNetworks;
 
     const filteredNetworks: CryptoNetWorkType[] = networks.filter((item) => availableNetworkIds.indexOf(item.id) != -1);
-    const defaultNetwork = filteredNetworks[0];
+    if (filteredNetworks.length > 0) {
+      const defaultNetwork = filteredNetworks[0];
+      onChangeNetwork(defaultNetwork);
+    }
 
     setAvailabeNetworks([...filteredNetworks]);
     setSearchInput('');
     onChangeCoin(symbol);
-    onChangeNetwork(defaultNetwork);
+
   };
 
   const getBalanceBySymbol = (symbol: CurrencyType) => {
@@ -372,7 +375,7 @@ const SelectCurrency = ({
                       'dark:!text-gray-400': disabled,
                     })}
                   >
-                    {activeNetwork?.name || ''}
+                    {activeNetwork.name}
                   </div>
                 </div>
                 <div className="flex items-center justify-start gap-[10px]">
@@ -391,13 +394,13 @@ const SelectCurrency = ({
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute rounded-default dark:bg-color-input-primary bg-color-light-bg-primary w-full origin-top-right right-0 top-[60px] z-[10] cursor-pointer shadow-bs-default">
-                <div className="py-1 max-h-[250px] overflow-y-auto p-2">
+                <div className="max-h-[250px] overflow-y-auto p-2">
                   {availableNetworks.map((network, index) => (
                     <Menu.Item key={index}>
                       {({ active }) => (
                         <div
                           className={cn(
-                            'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-input-hover-primary hover:bg-color-light-hover-primary mb-2 rounded-default',
+                            'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-input-hover-primary hover:bg-color-light-hover-primary rounded-default',
                             {
                               'border border-color-primary/50 border-solid': network.id === activeNetwork.id,
                             },
