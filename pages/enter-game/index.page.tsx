@@ -1,9 +1,8 @@
+import Loader from "@/components/common/preloader/loader";
+import BaseLayout from "@/components/layouts/base.layout";
 import cn from "classnames";
 import { useRouter } from "next/router";
 import { ReactElement, useEffect, useState } from "react";
-
-import Loader from "@/components/common/preloader/loader";
-import BaseLayout from "@/components/layouts/base.layout";
 
 function EnterGame() {
 
@@ -26,19 +25,22 @@ function EnterGame() {
                 list?.removeChild(list?.firstElementChild);
             }
 
-            const gameLaunchOptions: any = { target_element: 'game_wrapper' };
-            gameLaunchOptions['launch_options'] = {
-                // Required
-                game_launcher_url: launcherUrl, // URL to GameLauncher HTML page
+            const gameLaunchOptions = {
+                target_element: 'game_wrapper_mobile',
+                launch_options: {
 
-                // Game parameters. Required.
-                game_url: gameUrl,
-                strategy: strategy,
-                lobby_url: lobbyUrl,
-                token_id: tokenId,
-                // The number of game parameters depends on 'strategy'.,
+                    // Required
+                    game_launcher_url: launcherUrl, // URL to GameLauncher HTML page
+
+                    // Game parameters. Required.
+                    game_url: gameUrl,
+                    strategy: strategy,
+                    lobby_url: lobbyUrl,
+                    token_id: tokenId,
+                    // The number of game parameters depends on 'strategy'.
+                },
             };
-            window.sg.launch(gameLaunchOptions);
+            window.sg.launch(gameLaunchOptions, onSuccess, onError);
         } catch (error) {
             console.log(error)
         } finally {
@@ -52,7 +54,6 @@ function EnterGame() {
             const _lobby = String(lobbyUrl);
             const _token = String(tokenId);
             const _mode = String(strategy);
-            console.log(_src, _launcher, _lobby, _token, _mode, 'entergame');
             launchGame(decodeURIComponent(_src), decodeURIComponent(_launcher), decodeURIComponent(_mode), decodeURIComponent(_lobby), decodeURIComponent(_token), onSuccess, onError)
 
         }

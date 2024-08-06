@@ -1,16 +1,3 @@
-import { StarIcon } from '@heroicons/react/24/solid';
-import cn from 'classnames';
-import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-// import { isMobile } from 'react-device-detect';
-import { FullScreen, useFullScreenHandle } from 'react-full-screen';
-import ReactLoading from 'react-loading';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
-
 import {
   api_getGameDetail,
   api_getGameFavorite,
@@ -18,29 +5,41 @@ import {
   api_startGameDemo,
   api_startGameSession,
 } from '@/api/game';
-import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
-import { formatDate, isEmpty } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowDepositModal,
 } from '@/base/redux/reducers/modal.reducer';
+import cn from 'classnames';
+import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
+import { FullScreen, useFullScreenHandle } from 'react-full-screen';
+import ReactLoading from 'react-loading';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+
+import { StarIcon } from '@heroicons/react/24/solid';
+import { useTranslation } from '@/base/config/i18next';
+import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { formatDate, isEmpty } from '@/base/libs/utils';
+import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import Loader from '@/components/common/preloader/loader';
+import BaseLayout from '@/components/layouts/base.layout';
+import FiatHeader from '@/components/layouts/header/fiatHeader';
 import GameDescriptionComponent from '@/components/game/gameDescription';
 import GameDetailComponent from '@/components/game/gameDetail';
 import GameReviewComponent from '@/components/game/gameReview';
-import BaseLayout from '@/components/layouts/base.layout';
-import FiatHeader from '@/components/layouts/header/fiatHeader';
+import Loader from '@/components/common/preloader/loader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
-import { useWidth } from '@/base/hooks/useWidth';
 
 type LaunchUrlTye = {
   gameLauncherUrl: string;
@@ -51,7 +50,6 @@ type LaunchUrlTye = {
 };
 
 function GamePage() {
-  const width = useWidth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
@@ -88,9 +86,6 @@ function GamePage() {
 
   const [tab, setTab] = useState(1);
 
-  const isMobile = useMemo(() => {
-    return width < 600;
-  }, [width])
   const gameScreen = useFullScreenHandle();
   const { t } = useTranslation('');
 
@@ -273,8 +268,8 @@ function GamePage() {
             status: false,
             request: 'demo',
           });
-          newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
-          // newWindow.location.href = lanuchGameOption.gameUrl
+          // newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
+          newWindow.location.href = lanuchGameOption.gameUrl
 
         })
         .catch((error: any) => {
@@ -355,8 +350,8 @@ function GamePage() {
               status: false,
               request: 'real',
             });
-            newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
-            // newWindow.location.href = lanuchGameOption.gameUrl
+            // newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
+            newWindow.location.href = lanuchGameOption.gameUrl
           }
           if (!isMobile) {
             const success = () => {
@@ -454,7 +449,6 @@ function GamePage() {
 
   // for mobile playing, generate redirect url
   const _generateMobilePlayUrl = (data: Record<string, string>) => {
-    console.log(data, "-----452")
     // ...
     let urls: string[] = [];
     Object.keys(data).map((key: string) => {
@@ -465,8 +459,7 @@ function GamePage() {
 
     const protocal = window.location.protocol;
     const host = window.location.host;
-    const url = `${protocal}//${host}/enter-game/?${urls.join('&')}`;
-
+    const url = `${protocal}//${host}/enter-game/?${urls.join('&')}`
     return url;
   }
 
@@ -477,21 +470,25 @@ function GamePage() {
         list?.removeChild(list?.firstElementChild);
       }
 
+      const gameLaunchOptions = {
+        target_element: 'game_wrapper',
+        launch_options: {
+          // IMPORTANT WARNING:
+          // You will receive all these parameters as a response by launch demo / session request to the SOFTSWISS Game Aggregator.
+          // Pass them directly here without any manual modifications, as this could disrupt the game launching process.
 
-      const gameLaunchOptions: any = { target_element: 'game_wrapper' };
-      gameLaunchOptions['launch_options'] = {
-        // Required
-        game_launcher_url: launcherUrl || '', // URL to GameLauncher HTML page
+          // Required
+          game_launcher_url: launcherUrl, // URL to GameLauncher HTML page
 
-        // Game parameters. Required.
-        // game_url: gameUrl,
-        launch_url: gameUrl,
-        strategy: strategy,
-        lobby_url: lobbyUrl,
-        token_id: tokenId,
-        // The number of game parameters depends on 'strategy'.,
+          // Game parameters. Required.
+          game_url: gameUrl,
+          strategy: strategy,
+          lobby_url: lobbyUrl,
+          token_id: tokenId,
+          // The number of game parameters depends on 'strategy'.
+        },
       };
-      window.sg.launch(gameLaunchOptions);
+      window.sg.launch(gameLaunchOptions, onSuccess, onError);
     } catch (error) {
       console.log('error', error);
       setSuccessfullyLaunched(false);
