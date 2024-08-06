@@ -56,7 +56,7 @@ export default function ModalForgotPassword() {
     }
 
     if (error) {
-      toast.error(mes, { containerId: TOAST_ENUM.MODAL });
+      toast.error(mes, { containerId: TOAST_ENUM.MODAL, toastId: 'type-error' });
     }
     return error;
   };

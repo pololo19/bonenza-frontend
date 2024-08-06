@@ -154,7 +154,7 @@ const SettingSecurity = () => {
     setIsLoading(true);
     try {
       const res = await api_confirmQRCode(otp, passwordLogin);
-      toast.success(t('success:success'), { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('success:success'), { containerId: TOAST_ENUM.COMMON, toastId: 'confirm-qr' });
 
       dispatch(
         saveUserInfo({
@@ -167,7 +167,7 @@ const SettingSecurity = () => {
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'confirm-qr-error' });
     } finally {
       setIsLoading(false);
     }
@@ -228,7 +228,7 @@ const SettingSecurity = () => {
     }
     setIsLoading(true);
     if (!passwordBody.oldPassword || !passwordBody.newPassword || !passwordBody.confirmNewPassword) {
-      toast.error(t('errors:emptyFields'), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t('errors:emptyFields'), { containerId: TOAST_ENUM.COMMON, toastId: 'security-error' });
       return;
     }
     try {
@@ -238,7 +238,7 @@ const SettingSecurity = () => {
         passwordBody.confirmNewPassword,
         passwordBody.codeOtp,
       );
-      toast.success(t('setting:passwordChanged'), { containerId: TOAST_ENUM.COMMON });
+      toast.success(t('setting:passwordChanged'), { containerId: TOAST_ENUM.COMMON, toastId: 'security-success' });
       setTimeout(() => {
         setOpenModalCode(false);
 
@@ -250,7 +250,7 @@ const SettingSecurity = () => {
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'security-error' });
       handleChangePassword('', 'codeOtp');
       dispatch(changeIsRestricting(false));
       if (tfa) setOpenModalCode(true);

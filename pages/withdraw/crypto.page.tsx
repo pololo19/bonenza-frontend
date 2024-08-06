@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import Countdown from 'react-countdown';
 import { useForm } from 'react-hook-form';
+import ReactLoading from "react-loading";
 import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip';
@@ -41,6 +42,7 @@ const WithdrawCryptoPage = () => {
   const exchangeRate = useExchange();
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isWithdrawing, setIsWithdrawing] = useState<boolean>(false);
   const [openRollover, setOpenRollover] = useState<boolean>(false);
   const [withdrawInfo, setWithdrawInfo] = useState({
     availableAmountUsd: 0,
@@ -241,7 +243,7 @@ const WithdrawCryptoPage = () => {
       validate = true;
     }
     if (messError) {
-      toast.error(t(messError), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(messError), { containerId: TOAST_ENUM.COMMON, toastId: 'withdraw-error' });
     }
     return validate;
   };
@@ -252,7 +254,7 @@ const WithdrawCryptoPage = () => {
       return;
     }
     try {
-      // setIsLoading(true);
+      setIsWithdrawing(true);
 
       const formData: WithdrawRequest = {
         symbolId: activeCoin.id,
@@ -279,6 +281,7 @@ const WithdrawCryptoPage = () => {
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
+      setIsWithdrawing(false);
     }
   };
 
@@ -540,13 +543,16 @@ const WithdrawCryptoPage = () => {
                 </h1>
               </div>
 
-              <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
+              <div className={cn("mt-[40px] text-white w-full text-start flex items-center justify-center gap-[10px]", {
+                'opacity-90': restricted || isWithdrawing
+              })}>
                 <button
                   type="submit"
-                  disabled={restricted}
-                  className="bg-gradient-btn-play hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px]"
+                  disabled={restricted || isWithdrawing}
+                  className="flex justify-center bg-gradient-btn-play hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px] gap-[5px]"
                 >
-                  {t('withdraw:confirm')}
+                  {isWithdrawing && <ReactLoading type='bubbles' className='text-color-text-primary' width={20} height={20} />}
+                  <span>{t('withdraw:confirm')}</span>
                 </button>
               </div>
             </form>

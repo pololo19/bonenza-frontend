@@ -50,12 +50,12 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
       const backendCard = data.backCard;
       const avaTypes = ['image/jpeg', 'image/png'];
       if (!checkFiletypes(frontendCard.type, avaTypes) || !checkFiletypes(backendCard.type, avaTypes)) {
-        toast.error(String(t('setting:fileSizeLimit')), { containerId: TOAST_ENUM.COMMON });
+        toast.error(String(t('setting:fileSizeLimit')), { containerId: TOAST_ENUM.COMMON, toastId: 'file-error' });
         return;
       }
 
       if (getSizeOfFileByMega(frontendCard.size) > 1 || getSizeOfFileByMega(backendCard.size) > 1) {
-        toast.error(String(t('setting:fileSizeLimit')), { containerId: TOAST_ENUM.COMMON });
+        toast.error(String(t('setting:fileSizeLimit')), { containerId: TOAST_ENUM.COMMON, toastId: 'file-error' });
         return;
       }
       const _res = await api_uploadIdCards(formData);

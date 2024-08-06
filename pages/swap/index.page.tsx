@@ -43,26 +43,26 @@ const SwapPage = () => {
       // disable dron for swap
       const dron = symbols.find((symbol) => symbol.name.toLowerCase() === 'dron');
       if (dron?.id === data.symbolFrom || dron?.id === data.symbolTo) {
-        toast.error(t('errors:swap:disabledToken'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('errors:swap:disabledToken'), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-error' });
         return;
       }
       if (Number(data.amountFrom) === 0) {
-        toast.error(t('swap:inValidSwapAmount'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('swap:inValidSwapAmount'), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-error' });
         return;
       }
       if (data.symbolTo === data.symbolFrom) {
-        toast.error(t('swap:duplicateSwapAddress'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('swap:duplicateSwapAddress'), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-error' });
         return;
       }
 
       await api_swap(String(data.symbolFrom), String(data.symbolTo), Number(data.amountFrom));
       dispatch(getBalance());
 
-      toast.success(String(t('swap:swapSuccessfully')), { containerId: TOAST_ENUM.COMMON });
+      toast.success(String(t('swap:swapSuccessfully')), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-success' });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-error' });
     } finally {
       setIsLoading(false);
     }

@@ -215,7 +215,7 @@ function GamePage() {
       setSuccessfullyLaunched(false);
 
       if (!gameDetail.allowedDemo) {
-        toast.error(t('errors:game:notAllowedDemo'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('errors:game:notAllowedDemo'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
         setIsLoadingGame({
           request: 'demo',
           status: false
@@ -224,7 +224,7 @@ function GamePage() {
       }
 
       if (!gameDetail.allowedLocation) {
-        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
         setIsLoadingGame({
           request: 'demo',
           status: false
@@ -312,7 +312,7 @@ function GamePage() {
       });
 
       if (!gameDetail.allowedLocation) {
-        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON });
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
         setIsLoadingGame({
           request: 'real',
           status: false,
