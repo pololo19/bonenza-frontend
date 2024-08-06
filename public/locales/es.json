@@ -879,7 +879,9 @@
     "business": "Negocio:",
     "help": "Ayuda:",
     "businessMail": "negocio@bonenza.com",
-    "helpMail": "ayuda@bonenza.com"
+    "helpMail": "ayuda@bonenza.com",
+    "copyright1": "El comercio de criptomonedas no es un juego de azar por definición, por lo tanto, no está cubierto por nuestra licencia de juego.",
+    "copyright2": "Copyright ©2024 BLOCKDANCE BV TODOS LOS DERECHOS RESERVADOS"
   },
   "helper": {
     "definitionsML": "Definiciones ML",

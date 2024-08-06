@@ -879,7 +879,9 @@
     "business": "ธุรกิจ:",
     "help": "ช่วย:",
     "businessMail": "business@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "การซื้อขาย Crypto ไม่ใช่การพนันตามคำนิยาม ดังนั้นใบอนุญาตการเล่นเกมของเราจึงไม่ครอบคลุม",
+    "copyright2": "ลิขสิทธิ์ ©2024 BLOCKDANCE B.V. สงวนลิขสิทธิ์"
   },
   "helper": {
     "definitionsML": "คำจำกัดความ ม.ล",

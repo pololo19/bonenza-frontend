@@ -879,7 +879,9 @@
     "business": "Negócios:",
     "help": "Ajuda:",
     "businessMail": "business@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "A negociação de criptografia não é um jogo de azar por definição, portanto não é coberta pela nossa licença de jogo",
+    "copyright2": "Copyright ©2024 BLOCKDANCE B.V. TODOS OS DIREITOS RESERVADOS"
   },
   "helper": {
     "definitionsML": "Definições ML",

@@ -879,7 +879,9 @@
     "business": "Attività commerciale:",
     "help": "Aiuto:",
     "businessMail": "business@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "Il trading di criptovalute non è gioco d'azzardo per definizione, pertanto non è coperto dalla nostra licenza di gioco",
+    "copyright2": "Copyright ©2024 BLOCKDANCE B.V. TUTTI I DIRITTI RISERVATI"
   },
   "helper": {
     "definitionsML": "Definizioni M.L",

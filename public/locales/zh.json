@@ -879,7 +879,9 @@
     "business": "商业：",
     "help": "帮助：",
     "businessMail": "业务@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "根据定义，加密货币交易不是赌博，因此它不在我们的游戏许可证范围内",
+    "copyright2": "版权所有 ©2024 BLOCKDANCE B.V. 保留所有权利"
   },
   "helper": {
     "definitionsML": "定义 机器学习",

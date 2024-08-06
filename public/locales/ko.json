@@ -879,7 +879,9 @@
     "business": "사업:",
     "help": "돕다:",
     "businessMail": "business@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "암호화폐 거래는 정의상 도박이 아니므로 게임 라이센스가 적용되지 않습니다.",
+    "copyright2": "저작권 © 2024 BLOCKDANCE B.V. ALL RIGHTS RESERVED"
   },
   "helper": {
     "definitionsML": "정의 ML",

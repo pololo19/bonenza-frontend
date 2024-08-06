@@ -879,7 +879,9 @@
     "business": "ব্যবসা:",
     "help": "সাহায্য:",
     "businessMail": "business@bonenza.com",
-    "helpMail": "help@bonenza.com"
+    "helpMail": "help@bonenza.com",
+    "copyright1": "ক্রিপ্টো ট্রেডিং সংজ্ঞা অনুসারে জুয়া খেলা নয়, তাই এটি আমাদের গেমিং লাইসেন্সের আওতায় পড়ে না",
+    "copyright2": "কপিরাইট ©2024 ব্লকড্যান্স বি.ভি. সর্বস্বত্ব সংরক্ষিত"
   },
   "helper": {
     "definitionsML": "সংজ্ঞা ML",

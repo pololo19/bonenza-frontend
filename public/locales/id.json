@@ -879,7 +879,9 @@
     "business": "Bisnis:",
     "help": "Membantu:",
     "businessMail": "bisnis@bonenza.com",
-    "helpMail": "bantuan@bonenza.com"
+    "helpMail": "bantuan@bonenza.com",
+    "copyright1": "Perdagangan kripto menurut definisinya bukanlah perjudian, oleh karena itu perdagangan ini tidak tercakup dalam lisensi permainan kami",
+    "copyright2": "Hak Cipta ©2024 BLOCKDANCE B.V. SEMUA HAK DILINDUNGI"
   },
   "helper": {
     "definitionsML": "Definisi ml",

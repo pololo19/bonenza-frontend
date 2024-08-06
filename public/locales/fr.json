@@ -879,7 +879,9 @@
     "business": "Entreprise:",
     "help": "Aide:",
     "businessMail": "entreprise@bonenza.com",
-    "helpMail": "aide@bonenza.com"
+    "helpMail": "aide@bonenza.com",
+    "copyright1": "Le trading de cryptomonnaies n'est pas un jeu de hasard par définition, il n'est donc pas couvert par notre licence de jeu.",
+    "copyright2": "Copyright ©2024 BLOCKDANCE B.V. TOUS DROITS RÉSERVÉS"
   },
   "helper": {
     "definitionsML": "Définitions ML",
