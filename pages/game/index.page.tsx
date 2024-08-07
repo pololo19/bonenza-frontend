@@ -89,7 +89,8 @@ function GamePage() {
   const gameScreen = useFullScreenHandle();
   const { t } = useTranslation('');
 
-  const { query, reload } = useRouter();
+  const router = useRouter();
+  const { query, reload } = router;
   const { gameId } = query;
   const [isSatisfied, setIsSatisfied] = useState<boolean>(true); // if balance is enough, value is true
   const dispatch = useDispatch();
@@ -108,8 +109,10 @@ function GamePage() {
   );
 
   const _initFreePlay = useCallback(() => {
-    if (!gameDetail.id || !gameDetail.allowedDemo || isMobile || !gameDetail.allowedLocation) return;
-    if (playStatusRef.current === 'Real') return;
+    if (!gameDetail.id || !gameDetail.allowedDemo || isMobile || !gameDetail.allowedLocation || playStatusRef.current === 'Real') {
+      setIsLoading(false);
+      return;
+    };
     setIsLoading(true);
 
     const list = document.getElementById('game_wrapper');
@@ -192,7 +195,6 @@ function GamePage() {
       }
 
       playStatusRef.current = 'Free';
-      setIsLoading(false);
 
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
@@ -249,10 +251,10 @@ function GamePage() {
         gameId: gameDetail.id,
         locale: language,
       };
-      let newWindow: any;
-      if (isMobile) {
-        newWindow = window.open('about:blank', '_blank');
-      }
+      // let newWindow: any;
+      // if (isMobile) {
+      //   newWindow = window.open('about:blank', '_blank');
+      // }
 
       // for desktop, free mode is already rendered, no need to call this api
       api_startGameDemo(requestData)
@@ -268,8 +270,9 @@ function GamePage() {
             status: false,
             request: 'demo',
           });
-          // newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
-          newWindow.location.href = lanuchGameOption.gameUrl
+          const url = _generateMobilePlayUrl(lanuchGameOption);
+          router.push(url);
+          // newWindow.location.href = lanuchGameOption.gameUrl
 
         })
         .catch((error: any) => {
@@ -329,10 +332,10 @@ function GamePage() {
         currencyId: activeCurrency.id,
       };
 
-      let newWindow: any;
-      if (isMobile) {
-        newWindow = window.open('about:blank', '_blank');
-      }
+      // let newWindow: any;
+      // if (isMobile) {
+      //   newWindow = window.open('about:blank', '_blank');
+      // }
 
 
       api_startGameSession(requestData)
@@ -350,8 +353,9 @@ function GamePage() {
               status: false,
               request: 'real',
             });
-            // newWindow.location.href = _generateMobilePlayUrl(lanuchGameOption);
-            newWindow.location.href = lanuchGameOption.gameUrl
+            const url = _generateMobilePlayUrl(lanuchGameOption);
+            router.push(url);
+            // newWindow.location.href = lanuchGameOption.gameUrl
           }
           if (!isMobile) {
             const success = () => {
@@ -494,6 +498,7 @@ function GamePage() {
       setSuccessfullyLaunched(false);
       toast(t('notification:errors:gameLaunchedFailed'));
     } finally {
+      setIsLoading(false);
     }
   };
 
