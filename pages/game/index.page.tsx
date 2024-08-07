@@ -253,10 +253,10 @@ function GamePage() {
         gameId: gameDetail.id,
         locale: language,
       };
-      // let newWindow: any;
-      // if (isMobile) {
-      //   newWindow = window.open('about:blank', '_blank');
-      // }
+      let newWindow: any;
+      if (isMobile) {
+        newWindow = window.open('about:blank', '_blank');
+      }
 
       // for desktop, free mode is already rendered, no need to call this api
       api_startGameDemo(requestData)
@@ -272,9 +272,9 @@ function GamePage() {
             status: false,
             request: 'demo',
           });
-          const url = _generateMobilePlayUrl(lanuchGameOption);
-          router.push(url);
-          // newWindow.location.href = lanuchGameOption.gameUrl
+          // const url = _generateMobilePlayUrl(lanuchGameOption);
+          // router.push(url);
+          newWindow.location.href = lanuchGameOption.gameUrl
 
         })
         .catch((error: any) => {
@@ -334,10 +334,10 @@ function GamePage() {
         currencyId: activeCurrency.id,
       };
 
-      // let newWindow: any;
-      // if (isMobile) {
-      //   newWindow = window.open('about:blank', '_blank');
-      // }
+      let newWindow: any;
+      if (isMobile) {
+        newWindow = window.open('about:blank', '_blank');
+      }
 
 
       api_startGameSession(requestData)
@@ -349,15 +349,15 @@ function GamePage() {
             lobbyUrl: res.data.lobbyUrl,
             tokenId: res.data.tokenId,
           };
-          if (isMobile) {
+          if (isMobile && newWindow) {
             setSuccessfullyLaunched(true);
             setIsLoadingGame({
               status: false,
               request: 'real',
             });
-            const url = _generateMobilePlayUrl(lanuchGameOption);
-            router.push(url);
-            // newWindow.location.href = lanuchGameOption.gameUrl
+            // const url = _generateMobilePlayUrl(lanuchGameOption);
+            // router.push(url);
+            newWindow.location.href = lanuchGameOption.gameUrl
           }
           if (!isMobile) {
             const success = () => {
