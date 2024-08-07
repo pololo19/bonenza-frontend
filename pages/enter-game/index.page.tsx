@@ -44,6 +44,7 @@ function EnterGame() {
         } catch (error) {
             console.log(error)
         } finally {
+            onError();
         }
     };
 
