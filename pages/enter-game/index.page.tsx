@@ -1,14 +1,14 @@
-import { isEmpty } from "@/base/libs/utils";
-import Loader from "@/components/common/preloader/loader";
-import BaseLayout from "@/components/layouts/base.layout";
 import cn from "classnames";
 import { useRouter } from "next/router";
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
+import { isEmpty } from "@/base/libs/utils";
+import Loader from "@/components/common/preloader/loader";
 
 function EnterGame() {
 
     const [isLoading, setIsLoading] = useState(false);
-    const { query, reload } = useRouter();
+    const { query } = useRouter();
     const { gameUrl, gameLauncherUrl, lobbyUrl, tokenId, strategy } = query;
 
     const onSuccess = () => {
@@ -55,7 +55,6 @@ function EnterGame() {
         const _lobby = String(lobbyUrl);
         const _token = String(tokenId);
         const _mode = String(strategy);
-        console.log(_src, decodeURIComponent(_src), "======58")
         if (!isEmpty(_src) && !isEmpty(strategy)) {
 
             launchGame(decodeURIComponent(_src), decodeURIComponent(_launcher), decodeURIComponent(_mode), decodeURIComponent(_lobby), decodeURIComponent(_token), onSuccess, onError)
