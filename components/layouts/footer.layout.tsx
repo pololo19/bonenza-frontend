@@ -118,79 +118,80 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
   return (
     <>
       <footer
-        className={cn('pt-20 h-fit bg-transparent', {
+        className={cn('pt-10 h-fit bg-transparent', {
           block: !isDetailPage,
           'sm:block hidden': isDetailPage,
         })}
       >
         <div className="container px-4 mx-auto">
           <div
-            className={cn('grid 2xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-4', {
+            className={cn('grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 gap-10 lg:gap-4', {
               'xl:grid-cols-3': showChatType,
-              'xl:grid-cols-4': !showChatType,
+              'xl:grid-cols-5': !showChatType,
             })}
           >
-            <div className="flex flex-col items-center md:items-start">
-              <div className="flex gap-[10px] items-center mb-[10px]">
-                <div className="w-[2px] h-[12px] bg-[#0DFDE4]"></div>
-                <div className="text-sm font-semibold text-black dark:text-white ">{String(t('footer:casino'))}</div>
-              </div>
-              <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
-                <Link
-                  href={ROUTER.Casino}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:casinoHome'))}
-                </Link>
-                <Link
-                  href={ROUTER.Tagname('slots')}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:slots'))}
-                </Link>
-                <Link
-                  href={ROUTER.Tagname('Racing')}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('layout:racing'))}
-                </Link>
-                <Link
-                  href={ROUTER.Tagname('Live Casino')}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:liveCasino'))}
-                </Link>
-                <Link
-                  href={ROUTER.Tagname('New Releases')}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:newReleases'))}
-                </Link>
-                <Link
-                  href={ROUTER.HomeRecommend}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:recommended'))}
-                </Link>
-                <Link
-                  href={ROUTER.Tagname('Table Games')}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:tableGame'))}
-                </Link>
-                <Link
-                  href={ROUTER.Tagname('Blackjack')}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:blackJack'))}
-                </Link>
-                {/* <Link
+            <div className="flex flex-col items-center">
+              <div className="w-[150px]">
+                <div className="flex gap-[10px] items-center mb-[10px]">
+                  <div className="w-[2px] h-[12px] bg-[#0DFDE4]"></div>
+                  <div className="text-sm font-semibold text-black dark:text-white ">{String(t('footer:casino'))}</div>
+                </div>
+                <div className="flex flex-col gap-[15px] items-start justify-center">
+                  <Link
+                    href={ROUTER.Casino}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:casinoHome'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.Tagname('slots')}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:slots'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.Tagname('Racing')}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('layout:racing'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.Tagname('Live Casino')}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:liveCasino'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.Tagname('New Releases')}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:newReleases'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.HomeRecommend}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:recommended'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.Tagname('Table Games')}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:tableGame'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.Tagname('Blackjack')}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:blackJack'))}
+                  </Link>
+                  {/* <Link
                   href={ROUTER.Tagname('Megaways')}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('casino:megaways'))}
                 </Link> */}
-              </div>
+                </div></div>
             </div>
             {/* Hiding Sports */}
             {/* <div className="flex flex-col items-center md:items-start">
@@ -198,7 +199,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 <div className="w-[2px] h-[12px] bg-[#F61B4F]"></div>
                 <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:sports'))}</div>
               </div>
-              <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
+              <div className="flex flex-col gap-[15px] items-start justify-center">
                 <Link
                   href={ROUTER.Sports}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
@@ -219,188 +220,206 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 </Link>
               </div>
             </div> */}
-            <div className="flex flex-col items-center md:items-start">
-              <div className="flex gap-[10px] items-center mb-[10px]">
-                <div className="w-[2px] h-[12px] bg-[#F39717]"></div>
-                <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:promo'))}</div>
-              </div>
-              <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
-                <div
-                  onClick={() => {
-                    isLogin ? dispatch(changeIsShowVipClubModal(true)) : openModalLogin();
-                  }}
-                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:vipClub'))}
+            <div className="flex flex-col items-center">
+              <div className="w-[150px]">
+                <div className="flex gap-[10px] items-center mb-[10px]">
+                  <div className="w-[2px] h-[12px] bg-[#F39717]"></div>
+                  <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:promo'))}</div>
                 </div>
-                <Link
-                  href={ROUTER.Affiliate}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:affiliate'))}
-                </Link>
-                <div
-                  onClick={() => {
-                    isLogin ? dispatch(changeIsShowReferAndEarn(true)) : openModalLogin();
-                  }}
-                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:referAFriend'))}
+                <div className="flex flex-col gap-[15px] items-start justify-center">
+                  <div
+                    onClick={() => {
+                      isLogin ? dispatch(changeIsShowVipClubModal(true)) : openModalLogin();
+                    }}
+                    className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:vipClub'))}
+                  </div>
+                  <Link
+                    href={ROUTER.Affiliate}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:affiliate'))}
+                  </Link>
+                  <div
+                    onClick={() => {
+                      isLogin ? dispatch(changeIsShowReferAndEarn(true)) : openModalLogin();
+                    }}
+                    className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:referAFriend'))}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-center md:items-start">
-              <div className="flex gap-[10px] items-center mb-[10px]">
-                <div className="w-[2px] h-[12px] bg-[#FD6E0B]"></div>
-                <div className="text-sm font-semibold text-black dark:text-white">
-                  {String(t('footer:supportLegal'))}
+            <div className="flex flex-col items-center">
+              <div className="w-[150px]">
+                <div className="flex gap-[10px] items-center mb-[10px]">
+                  <div className="w-[2px] h-[12px] bg-[#FD6E0B]"></div>
+                  <div className="text-sm font-semibold text-black dark:text-white">
+                    {String(t('footer:supportLegal'))}
+                  </div>
                 </div>
-              </div>
-              <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
-                {/* <Link
+                <div className="flex flex-col gap-[15px] items-start justify-center">
+                  {/* <Link
                   href={ROUTER.HelperPrivacy}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:helpCenter'))}
                 </Link> */}
-                <Link
-                  href={ROUTER.HelperGambleAware}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:gambleAware'))}
-                </Link>
-                {/* <Link
+                  <Link
+                    href={ROUTER.HelperGambleAware}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:gambleAware'))}
+                  </Link>
+                  {/* <Link
                   href={ROUTER.Helper}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:fairness'))}
                 </Link> */}
-                {/* <Link
+                  {/* <Link
                   href={ROUTER.HelperFAQ}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:faq'))}
                 </Link> */}
-                <Link
-                  href={ROUTER.HelperPrivacy}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:privacyPolicy'))}
-                </Link>
-                <Link
-                  href={ROUTER.HelperTermsOfService}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:termsOfService'))}
-                </Link>
-                <Link
-                  href={ROUTER.HelperSelfExclusion}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:selfExclusion'))}
-                </Link>
-                <Link
-                  href={ROUTER.HelperAML}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:aml'))}
-                </Link>
-                {/* <Link
+                  <Link
+                    href={ROUTER.HelperPrivacy}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:privacyPolicy'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.HelperTermsOfService}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:termsOfService'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.HelperSelfExclusion}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:selfExclusion'))}
+                  </Link>
+                  <Link
+                    href={ROUTER.HelperAML}
+                    className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:aml'))}
+                  </Link>
+                  {/* <Link
                   href={ROUTER.Home}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:app'))}
                 </Link> */}
-                {/* <Link
+                  {/* <Link
                   href={ROUTER.LiveSupport}
                   className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                 >
                   {String(t('footer:liveSupport'))}
                 </Link> */}
-              </div>
-            </div>
-            <div className="flex flex-col items-center md:items-start">
-              <div className="flex gap-[10px] items-center mb-[10px]">
-                <div className="w-[2px] h-[12px] bg-[#20D4EB]"></div>
-                <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:aboutUs'))}</div>
-              </div>
-              <div className="flex md:flex-col flex-row flex-wrap gap-[15px] items-start justify-center">
-                <div
-                  onClick={() => setShowModalContacts(true)}
-                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:businessContacts'))}
-                </div>
-                <div
-                  onClick={() => setShowModalVerify(true)}
-                  className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:verifyRepresentative'))}
                 </div>
               </div>
             </div>
-            <div className="flex flex-col items-center hidden md:items-start">
-              <div className="flex gap-[10px] items-center">
-                <div className="w-[2px] h-[12px] bg-white"></div>
-                <div className="text-sm font-semibold text-black dark:text-white">
-                  {String(t('footer:joinOurCommunity'))}
+            <div className="flex flex-col items-center">
+              <div className="w-[150px]">
+                <div className="flex gap-[10px] items-center mb-[10px]">
+                  <div className="w-[2px] h-[12px] bg-[#20D4EB]"></div>
+                  <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:aboutUs'))}</div>
+                </div>
+                <div className="flex flex-col gap-[15px] items-start justify-center">
+                  <div
+                    onClick={() => setShowModalContacts(true)}
+                    className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:businessContacts'))}
+                  </div>
+                  <div
+                    onClick={() => setShowModalVerify(true)}
+                    className="cursor-pointer text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                  >
+                    {String(t('footer:verifyRepresentative'))}
+                  </div>
                 </div>
               </div>
-              <div className="flex grid-cols-6 md:grid-cols-3 gap-4 mt-[15px]">
-                {/* <div>
-                  <Image
-                    alt=""
-                    src="/img/icon/telegram.png"
-                    width={30}
-                    height={30}
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
-                </div> */}
-                {/* <div>
-                  <Image
-                    alt=""
-                    src="/img/icon/github.png"
-                    width={30}
-                    height={30}
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
-                </div> */}
-                <div>
-                  <Image
-                    alt="twitter"
-                    src="/img/icon/twitter.png"
-                    width={30}
-                    height={30}
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
+            </div>
+            <div className="flex flex-col items-center">
+              <div className="w-[150px]">
+                <div className="flex gap-[10px] items-center mb-[10px]">
+                  <div className="w-[2px] h-[12px] bg-white"></div>
+                  <div className="text-sm font-semibold text-black dark:text-white">
+                    {String(t('footer:joinOurCommunity'))}
+                  </div>
                 </div>
-                {/* <div>
-                  <Image
-                    alt=""
-                    src="/img/icon/facebook.png"
-                    width={30}
-                    height={30}
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
-                </div> */}
-                <div>
-                  <Image
-                    alt="discord"
-                    src="/img/icon/discord.png"
-                    width={30}
-                    height={30}
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
+                <div className="flex flex-col gap-[15px] items-start justify-center">
+                  <Link
+                    className="flex items-center gap-3 text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                    href="https://discord.gg/REMNdmvh9N"
+                    target="_blank"
+                  >
+                    <Image
+                      alt="discord"
+                      src="/img/social/Discord.png"
+                      width={30}
+                      height={30}
+                      className="w-[32px] h-[32px] cursor-pointer"
+                    />
+                    <p>
+                      Discord
+                    </p>
+                  </Link>
+                  <Link
+                    className="flex items-center gap-3 text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                    href="https://x.com/Bonenzacom?s=09"
+                    target="_blank"
+                  >
+                    <Image
+                      alt="x"
+                      src="/img/social/X.png"
+                      width={30}
+                      height={30}
+                      className="w-[32px] h-[32px] cursor-pointer"
+                    />
+                    <p>
+                      X / Twitter
+                    </p>
+                  </Link>
+                  <Link
+                    className="flex items-center gap-3 text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                    href="https://t.me/Bonenzacom"
+                    target="_blank"
+                  >
+                    <Image
+                      alt="telegram_official"
+                      src="/img/social/Telegram_Official.png"
+                      width={30}
+                      height={30}
+                      className="w-[32px] h-[32px] cursor-pointer"
+                    />
+                    <p>
+                      Telegram Offical
+                    </p>
+                  </Link>
+                  <Link
+                    className="flex items-center gap-3 text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
+                    href="https://t.me/Bonenzachannel"
+                    target="_blank"
+                  >
+                    <Image
+                      alt="telegram_announcement"
+                      src="/img/social/Telegram_Announcement.png"
+                      width={30}
+                      height={30}
+                      className="w-[32px] h-[32px] cursor-pointer"
+                    />
+                    <p>
+                      Telegram Announcement
+                    </p>
+                  </Link>
                 </div>
-                {/* <div>
-                  <Image
-                    alt=""
-                    src="/img/icon/bitcoin.png"
-                    width={30}
-                    height={30}
-                    className="w-[30px] h-[30px] cursor-pointer"
-                  />
-                </div> */}
               </div>
             </div>
           </div>
