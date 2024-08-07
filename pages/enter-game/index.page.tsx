@@ -1,3 +1,4 @@
+import { isEmpty } from "@/base/libs/utils";
 import Loader from "@/components/common/preloader/loader";
 import BaseLayout from "@/components/layouts/base.layout";
 import cn from "classnames";
@@ -49,13 +50,14 @@ function EnterGame() {
     };
 
     useEffect(() => {
-        if (gameUrl && strategy) {
-            const _src = String(gameUrl);
-            const _launcher = String(gameLauncherUrl);
-            const _lobby = String(lobbyUrl);
-            const _token = String(tokenId);
-            const _mode = String(strategy);
-            console.log(_src, decodeURIComponent(_src), "======58")
+        const _src = String(gameUrl);
+        const _launcher = String(gameLauncherUrl);
+        const _lobby = String(lobbyUrl);
+        const _token = String(tokenId);
+        const _mode = String(strategy);
+        console.log(_src, decodeURIComponent(_src), "======58")
+        if (!isEmpty(_src) && !isEmpty(strategy)) {
+
             launchGame(decodeURIComponent(_src), decodeURIComponent(_launcher), decodeURIComponent(_mode), decodeURIComponent(_lobby), decodeURIComponent(_token), onSuccess, onError)
 
         }
