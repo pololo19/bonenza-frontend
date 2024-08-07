@@ -1,15 +1,4 @@
-import {
-  api_getGameDetail,
-  api_getGameFavorite,
-  api_setGameFavorite,
-  api_startGameDemo,
-  api_startGameSession,
-} from '@/api/game';
-import {
-  changeAuthenticationType,
-  changeIsShowAuthenticationModal,
-  changeIsShowDepositModal,
-} from '@/base/redux/reducers/modal.reducer';
+import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import Image from 'next/image';
@@ -22,21 +11,32 @@ import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
-import { StarIcon } from '@heroicons/react/24/solid';
+import {
+  api_getGameDetail,
+  api_getGameFavorite,
+  api_setGameFavorite,
+  api_startGameDemo,
+  api_startGameSession,
+} from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, isEmpty } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import {
+  changeAuthenticationType,
+  changeIsShowAuthenticationModal,
+  changeIsShowDepositModal,
+} from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import BaseLayout from '@/components/layouts/base.layout';
-import FiatHeader from '@/components/layouts/header/fiatHeader';
+import Loader from '@/components/common/preloader/loader';
 import GameDescriptionComponent from '@/components/game/gameDescription';
 import GameDetailComponent from '@/components/game/gameDetail';
 import GameReviewComponent from '@/components/game/gameReview';
-import Loader from '@/components/common/preloader/loader';
+import BaseLayout from '@/components/layouts/base.layout';
+import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
@@ -156,7 +156,9 @@ function GamePage() {
         toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
         setIsLoading(false);
       })
-      .finally(() => { });
+      .finally(() => {
+        setIsLoading(false);
+      });
 
   }, [language, gameDetail.id, isMobile])
 
@@ -347,7 +349,7 @@ function GamePage() {
             lobbyUrl: res.data.lobbyUrl,
             tokenId: res.data.tokenId,
           };
-          if (newWindow && isMobile) {
+          if (isMobile) {
             setSuccessfullyLaunched(true);
             setIsLoadingGame({
               status: false,
