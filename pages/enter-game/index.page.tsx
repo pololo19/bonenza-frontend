@@ -55,6 +55,7 @@ function EnterGame() {
             const _lobby = String(lobbyUrl);
             const _token = String(tokenId);
             const _mode = String(strategy);
+            console.log(_src, decodeURIComponent(_src), "======58")
             launchGame(decodeURIComponent(_src), decodeURIComponent(_launcher), decodeURIComponent(_mode), decodeURIComponent(_lobby), decodeURIComponent(_token), onSuccess, onError)
 
         }
