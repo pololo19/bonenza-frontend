@@ -173,7 +173,7 @@ const WithdrawCryptoPage = () => {
   } = useForm<WithdrawFormType>({
     resolver: yupResolver(schema),
     defaultValues: { withdrawAmount: '0' },
-    mode: 'onSubmit',
+    mode: 'onBlur',
   });
 
   // account is restricted by changing password
