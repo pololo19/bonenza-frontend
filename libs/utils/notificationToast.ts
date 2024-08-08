@@ -318,6 +318,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'isExistAirdropCode':
       message = 'bonus:redeemNoCode';
       break;
+    case 'disabledWithdraw':
+      message = 'withdraw:withdrawDisable';
+      break;
 
     // chat
     case 'isExceedMessageCount':
