@@ -273,6 +273,7 @@ const WithdrawCryptoPage = () => {
         setValue('withdrawAddress', '');
       } else {
         toast.success(message, { containerId: TOAST_ENUM.COMMON });
+        setValue('withdrawAddress', '');
       }
       // router.push(ROUTER.Transaction);
     } catch (error: any) {
