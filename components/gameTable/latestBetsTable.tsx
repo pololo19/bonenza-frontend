@@ -251,24 +251,29 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
   useEffect(() => {
     if (gameSocket) {
       gameSocket.on(`bets`, (item: any) => {
-        const data = JSON.parse(item);
-        const tempData: BetTableDataType = {
-          game: data.game_name ?? '',
-          gameIdenfiter: data.game_identifier ?? '',
-          player: data.player_name ?? '',
-          playerId: data.player_id ?? '',
-          playerAvatar: data.playerAvatar ?? '',
-          betAmount: Number(data.bet_amount || 0),
-          betAmountUsd: Number(data.bet_amount_usd || 0),
-          multiplier: Number(data.multiplier || 0),
-          profitAmount: Number(data.profit_amount || 0),
-          profitAmountUsd: Number(data.profit_amount_usd || 0),
-          currency: data.currency ?? 'USD',
-          betId: data.id ?? '',
-          time: data.time ?? new Date(),
-          providerName: data.providerName ?? '',
-        };
-        setNewBetData(tempData);
+        try {
+          const data = JSON.parse(item);
+          const tempData: BetTableDataType = {
+            game: data?.game_name ?? '',
+            gameIdenfiter: data?.game_identifier ?? '',
+            player: data?.player_name ?? '',
+            playerId: data?.player_id ?? '',
+            playerAvatar: data?.player_avatar ?? '',
+            betAmount: Number(data?.bet_amount || 0),
+            betAmountUsd: Number(data?.bet_amount_usd || 0),
+            multiplier: Number(data?.multiplier || 0),
+            profitAmount: Number(data?.profit_amount || 0),
+            profitAmountUsd: Number(data?.profit_amount_usd || 0),
+            currency: data?.currency ?? 'USD',
+            betId: data?.id ?? '',
+            time: data?.time ?? new Date(),
+            providerName: data.provider_name ?? '',
+          };
+          setNewBetData(tempData);
+        } catch (error) {
+          console.log(error, 'latest bet error')
+        }
+
       });
     }
 

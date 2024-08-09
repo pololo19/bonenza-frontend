@@ -584,7 +584,7 @@ function GamePage() {
                     <Image
                       src={
                         gameDetail.identifier
-                          ? `https://cdn.softswiss.net/i/s4/${gameDetail.identifier.replace(':', '/')}.png`
+                          ? `https://cdn.softswiss.net/i/s4/${gameDetail?.identifier?.replace(':', '/')}.png`
                           : '/img/game-background.png'
                       }
                       fill
@@ -777,7 +777,7 @@ function GamePage() {
                   (isLoadingGame.status || !gameDetail.allowedDemo || !gameDetail.allowedLocation) && <Image
                     src={
                       gameDetail.identifier
-                        ? `https://cdn.softswiss.net/b/${gameDetail.identifier.replace(':', '/')}.jpg`
+                        ? `https://cdn.softswiss.net/b/${gameDetail?.identifier?.replace(':', '/')}.jpg`
                         : '/img/game-background.png'
                     }
                     fill

@@ -324,16 +324,16 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           dispatch(setSocket(newSocket));
         }
         const localFiat: CurrencyType = {
-          id: res.data.settingFiatCurrency.id ?? '',
-          name: res.data.settingFiatCurrency.symbol ?? '',
-          alias: res.data.settingFiatCurrency.name ?? '',
-          logo: `/img/fiats/${res.data.settingFiatCurrency.symbol}.png`,
-          iso_currency: res.data.settingFiatCurrency.iso_currency,
-          iso_decimals: res.data.settingFiatCurrency.iso_decimals,
+          id: res.data?.settingFiatCurrency?.id ?? '',
+          name: res.data?.settingFiatCurrency?.symbol ?? '',
+          alias: res.data?.settingFiatCurrency?.name ?? '',
+          logo: `/img/fiats/${res.data?.settingFiatCurrency?.symbol}.png`,
+          iso_currency: res.data?.settingFiatCurrency?.iso_currency,
+          iso_decimals: res.data?.settingFiatCurrency?.iso_decimals,
           availableNetworks: [],
-          price: Number(res.data.settingFiatCurrency.price),
+          price: Number(res.data?.settingFiatCurrency?.price),
           type: 'fiat',
-          favorite: res.data.settingFiatCurrency.favorite,
+          favorite: res.data?.settingFiatCurrency?.favorite,
         };
         i18n.changeLanguage(res.data?.settingLanguage ?? 'en');
         dispatch(saveUserInfo({ ...convertUserInfo(res.data) }));
@@ -539,57 +539,71 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
     if (gameSocket) {
       if (isLogin) {
         gameSocket.on(`${userId}:balance`, (item: string) => {
-          const data = JSON.parse(item);
-          const currencyType = data.currency_type;
-          dispatch(
-            updateBalance({
-              amount: Number(data.balance || 0),
-              symbol: data.currency,
-              symbolId: data.currency_id,
-            }),
-          );
+          try {
+            const data = JSON.parse(item);
+            dispatch(
+              updateBalance({
+                amount: Number(data.balance || 0),
+                symbol: data.currency,
+                symbolId: data.currency_id,
+              }),
+            );
+          } catch (error) {
+            console.log(error, "balance error");
+          }
+
         });
 
         gameSocket.on(`${userId}:tip`, async (data: any) => {
-          const sender_name = data?.sender_name || '';
-          const symbol = data?.symbol || '';
-          const amount = data?.amount || 0;
+          try {
+            const sender_name = data?.sender_name || '';
+            const symbol = data?.symbol || '';
+            const amount = data?.amount || 0;
 
-          // update balance
-          const _resBonus = await api_getClaims();
-          const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
-          dispatch(getBalance());
-          dispatch(setLockedAmount(tempLockedAmount));
+            // update balance
+            const _resBonus = await api_getClaims();
+            const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+            dispatch(getBalance());
+            dispatch(setLockedAmount(tempLockedAmount));
 
-          toast.info(
-            t('tip:tipNotification', {
-              sender: sender_name,
-              amount: amount,
-              symbol: symbol,
-            }),
-            {
-              toastId: 'tip-notification',
-              containerId: TOAST_ENUM.COMMON,
-            });
+            toast.info(
+              t('tip:tipNotification', {
+                sender: sender_name,
+                amount: amount,
+                symbol: symbol,
+              }),
+              {
+                toastId: 'tip-notification',
+                containerId: TOAST_ENUM.COMMON,
+              });
+          } catch (error) {
+            console.log(error, 'tip error')
+          }
+
         });
       }
 
       gameSocket.on(`price`, (item: string) => {
-        const data = JSON.parse(item);
-        const cryptoDatas: PriceUpdateType[] =
-          data?.cryptocurrency?.map((item: any) => ({
-            id: item.id,
-            price: item.price,
-          })) || [];
+        try {
+          const data = JSON.parse(item);
+          const cryptoDatas: PriceUpdateType[] =
+            data?.cryptocurrency?.map((item: any) => ({
+              id: item.id,
+              price: item.price,
+            })) || [];
 
-        const fiatDatas: PriceUpdateType[] =
-          data?.fiat?.map((item: any) => ({
-            id: item.id,
-            price: item.price,
-          })) || [];
+          const fiatDatas: PriceUpdateType[] =
+            data?.fiat?.map((item: any) => ({
+              id: item.id,
+              price: item.price,
+            })) || [];
 
-        dispatch(updatedFiatPrice(fiatDatas));
-        dispatch(updateCryptoPrice(cryptoDatas));
+          dispatch(updatedFiatPrice(fiatDatas));
+          dispatch(updateCryptoPrice(cryptoDatas));
+        } catch (error) {
+          console.log(error, 'price update error')
+        }
+
       });
 
       gameSocket.on('chat', (data: any) => {
