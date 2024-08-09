@@ -21,7 +21,7 @@ const faqQuesAnsListComponent = (header: string, questions: string[], contents: 
         {questions.length > 0 && (
           <div className="text-black dark:text-[#FFF] font-normal text-left pb-[9px]">
             {`${index + 1}. `}
-            {questions.length <= index ? '' : questions.at(index)}
+            {questions.length <= index ? '' : questions?.at(index)}
           </div>
         )}
         <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">

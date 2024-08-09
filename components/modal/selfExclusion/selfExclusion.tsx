@@ -26,8 +26,7 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
   );
   const height = useHeight();
 
-  const headerText1 = t('exclusion:exclusionDaysLeft').split('*')?.at(0) || '';
-  const headerText2 = t('exclusion:exclusionDaysLeft').split('*')?.at(1) || '';
+  const headers = t('exclusion:exclusionDaysLeft').split('*');
 
   return (
     <>
@@ -44,11 +43,11 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
             <div className="absolute top-[10%] bottom-[50%] text-center w-full flex flex-col justify-center">
               {disabledPeriod !== -1 && (
                 <>
-                  <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText1}</p>
+                  <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headers[0] || ''}</p>
                   <p className="text-[48px] sm:text-[64px] text-color-light-notice-primary font-semibold leading-none">
                     {Math.floor(((disabledPeriod || Date.now() / 1000) - Date.now() / 1000) / 24 / 60 / 60)}
                   </p>
-                  <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headerText2}</p>
+                  <p className="text-[24px] sm:text-[32px] text-white font-semibold leading-none">{headers[1] || ''}</p>
                 </>
               )}
 
@@ -69,11 +68,11 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
               </p>
               <div className="text-[12px] sm:text-[16px] text-white leading-9 text-center">
                 <span className="font-extralight">{t('exclusion:exclusionHello')}, </span>
-                <span className="font-extralight">{t('exclusion:exclusionNotify1').split('*')?.at(0) || ''}</span>
+                <span className="font-extralight">{t('exclusion:exclusionNotify1').split('*')[0] || ''}</span>
                 <span className="font-extralight text-color-light-notice-primary">
                   {t('exclusion:exclusionExclude')}{' '}
                 </span>
-                <span className="font-extralight">{t('exclusion:exclusionNotify1').split('*')?.at(1) || ''}</span>
+                <span className="font-extralight">{t('exclusion:exclusionNotify1').split('*')[1] || ''}</span>
               </div>
               <div className="text-[12px] sm:text-[16px] text-[#FF9E4F] font-semibold text-center leading-9">
                 <span>{t('exclusion:exclusionPeriod')} </span>
