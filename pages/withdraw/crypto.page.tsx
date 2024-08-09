@@ -278,7 +278,8 @@ const WithdrawCryptoPage = () => {
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'withdraw-error' });
+      setValue('withdrawAmount', '')
     } finally {
       setIsLoading(false);
       setIsWithdrawing(false);
