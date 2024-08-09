@@ -56,5 +56,5 @@ export function isAdminOfCompany(role?: string) {
 }
 
 export function isEmpty(data: any) {
-  return data === '' || data === null || data === undefined
+  return data === '' || data === null || data === undefined || data === 'undefined';
 }

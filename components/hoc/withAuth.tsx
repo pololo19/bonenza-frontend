@@ -9,12 +9,12 @@ import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
 import { initialSocketConnection } from '@/base/libs/utils/socket-helpers';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
+import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowAuthenticationModal } from '@/base/redux/reducers/modal.reducer';
 import { setGameSocket, setSocket } from '@/base/redux/reducers/socket.reducer';
 import { initWalletInfo, logoutWallet, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
-import { changeViewInFiat } from '@/base/redux/reducers/common.reducer';
 
 type WithAuthComponent<P> = React.FunctionComponent<P> & {
   getLayout?: (page: React.ReactElement) => React.ReactElement;
@@ -64,16 +64,16 @@ function withAuth<P extends Record<string, unknown>>(WrappedComponent: any): Wit
 
         const result = await api_validateToken(accessToken);
         const localFiat: CurrencyType = {
-          id: result.data.settingFiatCurrency.id ?? '',
-          name: result.data.settingFiatCurrency.symbol ?? '',
-          alias: result.data.settingFiatCurrency.name ?? '',
-          logo: `/img/fiats/${result.data.settingFiatCurrency.symbol}.png`,
-          iso_currency: result.data.settingFiatCurrency.iso_currency,
-          iso_decimals: result.data.settingFiatCurrency.iso_decimals,
+          id: result.data?.settingFiatCurrency?.id ?? '',
+          name: result.data?.settingFiatCurrency?.symbol ?? '',
+          alias: result.data?.settingFiatCurrency?.name ?? '',
+          logo: `/img/fiats/${result.data?.settingFiatCurrency?.symbol}.png`,
+          iso_currency: result.data?.settingFiatCurrency?.iso_currency,
+          iso_decimals: result.data?.settingFiatCurrency?.iso_decimals,
           availableNetworks: [],
-          price: Number(result.data.settingFiatCurrency.price),
+          price: Number(result.data?.settingFiatCurrency?.price),
           type: 'fiat',
-          favorite: result.data.settingFiatCurrency.favorite,
+          favorite: result.data?.settingFiatCurrency?.favorite,
         };
 
         dispatch(saveUserInfo({ ...convertUserInfo(result.data) }));

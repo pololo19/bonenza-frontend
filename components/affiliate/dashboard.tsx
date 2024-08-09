@@ -155,15 +155,20 @@ function DashboardComponent() {
   useEffect(() => {
     if (gameSocket) {
       gameSocket.on(`rewards`, (reward: any) => {
-        const data = JSON.parse(reward);
-        const tempReward: LiveRewardType = {
-          name: data.user_name ?? '',
-          logo: data.symbol_logo ?? '',
-          amountUsd: Number(data.amount_usd || 0),
-        };
-        const prev = [...liveRewardData.slice(1)];
-        prev.push(tempReward);
-        setLiveRewardData(prev);
+        try {
+          const data = JSON.parse(reward);
+          const tempReward: LiveRewardType = {
+            name: data.user_name ?? '',
+            logo: data.symbol_logo ?? '',
+            amountUsd: Number(data.amount_usd || 0),
+          };
+          const prev = [...liveRewardData.slice(1)];
+          prev.push(tempReward);
+          setLiveRewardData(prev);
+        } catch (error) {
+          console.log(error, 'reward error')
+        }
+
       });
     }
 
