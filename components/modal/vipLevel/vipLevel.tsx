@@ -69,13 +69,13 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
         endLevel: Number(item.endLevelNum ?? 0),
         startLevelDes: item.startLevel ?? '',
         endLevelDes: item.endLevel ?? '',
-        levels: item.levels.map((level: any) => ({
+        levels: item?.levels?.map((level: any) => ({
           rank: item.medalName ?? '',
           level: level.level,
           name: level.name,
           xp: level.requiredXp,
           levelUpBonus: level.levelUpBonus,
-        })),
+        })) || [],
       }));
       const currentLevel = Number(_resVipProgress.data?.currentVipLevel || 0);
       setRankList(tempRankDatas);
@@ -185,9 +185,9 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
                   alt="vip"
                   className={cn('mt-auto mb-auto', {
                     'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
-                      item.name.split(' ').at(0) !== 'Platinum' && item.name !== 'Diamond III',
+                      item.name.includes('Platinum') && item.name !== 'Diamond III',
                     'w-[42px] h-[42px] md:w-[60px] md:h-[60px]':
-                      item.name.split(' ').at(0) === 'Platinum' || item.name === 'Diamond III',
+                    item.name.includes('Platinum') || item.name === 'Diamond III',
                     'opacity-100': levelCurrent.startLevel === item.startLevel,
                     // 'opacity-100': selectedRank.startLevel !== item.startLevel,
                   })}
@@ -210,7 +210,7 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
           </div>
           <div className="text-default sm:text-[16px] font-semibold text-left py-2 px-2">
             {`${t('vipClub:vipLevelTier')} 
-            ${levelCurrent.levels.at(0)?.level}-${levelCurrent.levels.at(levelCurrent.levels.length - 1)?.level}`}
+            ${levelCurrent?.levels[0]?.level}-${levelCurrent?.levels[(levelCurrent.levels.length - 1)]?.level}`}
           </div>
           <LevelTableComponent
             containerClassName="w-full pt-0 !px-0 bg-color-card-bg-primary"

@@ -155,7 +155,7 @@ const ChattingComponent = () => {
     innerText = $spanEl.innerText;
     innerText = innerText.trim();
     if (e.keyCode !== 13) {
-      const lastLetter = innerText.at(innerText.length - 1);
+      const lastLetter = innerText?.at(innerText.length - 1);
       if (lastLetter === '@') setIsShowTagMenu(true);
       if (e.keyCode === 32 || innerText.indexOf('@') < 0) setIsShowTagMenu(false);
       if (isShowTagMenu) {

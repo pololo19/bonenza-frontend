@@ -138,10 +138,9 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                     className="!h-[80px] sm:!h-[130px] w-auto object-cover"
                   />
                   <div
-                    className={`text-[11px] sm:text-[16px] flex flex-col justify-center font-semibold absolute top-0 bottom-0 left-0 right-0 text-center `}
+                    className={`text-[11px] sm:text-[16px] flex flex-col justify-center font-semibold absolute top-0 bottom-0 left-0 right-0 text-center capitalize`}
                   >
-                    {`${vipData.level}`?.split(' ')?.at(0)?.charAt(0).toUpperCase()}
-                    {`${vipData.level}`?.split(' ')?.at(1)}
+                    {vipData.level}
                   </div>
                 </div>
               </div>

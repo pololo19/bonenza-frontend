@@ -326,23 +326,23 @@ function TournamentPage() {
             <div className="flex gap-2 text-white text-default font-bold">
               <div>{t('deposit:min')}</div>
               <div className="flex justify-center items-center gap-2">
-                <User variant="Bold" className="w-5 h-5" /> {prizeDetail.at(0)?.participantText || ''}
+                <User variant="Bold" className="w-5 h-5" /> {prizeDetail?.at(0)?.participantText || ''}
               </div>
               -
               <div className="flex justify-center items-center gap-2">
-                <DollarCircle variant="Bold" className="w-5 h-5" /> {prizeDetail.at(0)?.prizeText || ''}
+                <DollarCircle variant="Bold" className="w-5 h-5" /> {prizeDetail?.at(0)?.prizeText || ''}
               </div>
             </div>
             <div className="flex gap-2 text-white text-default font-bold">
               <div>{t('deposit:min')}</div>
               <div className="flex justify-center items-center gap-2">
                 <User variant="Bold" className="w-5 h-5" />{' '}
-                {prizeDetail.at(prizeDetail.length - 1)?.participantText || ''}
+                {prizeDetail?.at(prizeDetail.length - 1)?.participantText || ''}
               </div>
               -
               <div className="flex justify-center items-center gap-2">
                 <DollarCircle variant="Bold" className="w-5 h-5" />{' '}
-                {prizeDetail.at(prizeDetail.length - 1)?.prizeText || ''}
+                {prizeDetail?.at(prizeDetail.length - 1)?.prizeText || ''}
               </div>
             </div>
           </div>

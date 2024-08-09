@@ -39,7 +39,7 @@ const DepositBonusTerms = () => {
         {claimHeaders.map((item, index) => (
           <div key={`how-to-claim${index}`} className="mt-2">
             <div>{item}</div>
-            <div className="ml-4">{claimContents.at(index)}</div>
+            <div className="ml-4">{claimContents[index] || ''}</div>
           </div>
         ))}
       </div>

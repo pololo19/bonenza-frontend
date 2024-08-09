@@ -317,9 +317,9 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         alt="vip"
                         className={cn('mt-auto mb-auto', {
                           'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
-                            item.name.split(' ').at(0) !== 'Platinum' && item.name !== 'Diamond III',
+                            !item.name.includes('Platinum') && item.name !== 'Diamond III',
                           'w-[42px] h-[42px] md:w-[60px] md:h-[60px]':
-                            item.name.split(' ').at(0) === 'Platinum' || item.name === 'Diamond III',
+                          !item.name.includes('Platinum') || item.name === 'Diamond III',
                           'opacity-100': selectedRank.startLevel === item.startLevel,
                           // 'opacity-100': selectedRank.startLevel !== item.startLevel,
                         })}
