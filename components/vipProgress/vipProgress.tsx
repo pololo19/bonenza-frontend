@@ -25,6 +25,8 @@ const VipProgressComponent = () => {
     nextName: '',
     nextXp: 0,
     nextLevelBonus: 0,
+    progress: 0,
+    currentVipXp: 0,
   });
   const { t } = useTranslation('');
 
@@ -49,6 +51,8 @@ const VipProgressComponent = () => {
         nextName: _res.data?.nextVipName ?? '',
         nextXp: Number(_res.data?.nextVipXp || 0),
         nextLevelBonus: Number(_res.data?.nextLevelBonus || 0),
+        progress: Number(_res.data?.progress || 0),
+        currentVipXp: Number(_res.data?.currentVipXp || 0),
       });
     } catch (error) {
       console.log(error);
@@ -56,10 +60,6 @@ const VipProgressComponent = () => {
       setIsLoading(false);
     }
   };
-
-  const percent = useMemo(() => {
-    return Math.ceil((currentLevel.xp / (currentLevel.xp + currentLevel.remainingXp)) * 100) || 0;
-  }, [currentLevel]);
 
   useEffect(() => {
     if (!isLogin) return;
@@ -81,9 +81,9 @@ const VipProgressComponent = () => {
           <ArrowRight className="cursor-pointer" onClick={() => dispatch(changeIsShowVipClubModal(true))} />
         </div>
         <div className="text-[12px] dark:text-gray-400 text-color-light-text-primary sm:pb-[10px] pb-[5px] border-solid border-b-[1px] dark:border-color-border-primary border-color-light-border-primary">
-          <div>{percent}%</div>
+          <div>{currentLevel.progress}%</div>
           <div className="w-full rounded-[5px] h-[10px] sm:h-[13px] dark:bg-color-progress-primary bg-color-light-bg-primary my-[5px]">
-            <div className="h-full relative" style={{ width: `${percent}%` }}>
+            <div className="h-full relative" style={{ width: `${currentLevel.progress}%` }}>
               <div className={cn(`h-full rounded-[5px] w-full`, styles['slideProgress'])} />
             </div>
           </div>
