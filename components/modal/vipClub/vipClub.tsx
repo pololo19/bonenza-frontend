@@ -62,6 +62,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
     nextName: '',
     nextXp: 0,
     nextLevelBonus: 0,
+    progress: 0,
+    currentVipXp: 0,
   });
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedRank, setSelectedRank] = useState<rankDataType>({
@@ -120,6 +122,8 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
         nextName: _resVipProgress.data?.nextVipName ?? '',
         nextXp: Number(_resVipProgress.data?.nextVipXp || 0),
         nextLevelBonus: Number(_resVipProgress.data?.nextLevelBonus || 0),
+        progress: Number(_resVipProgress.data?.progress || 0),
+        currentVipXp: Number(_resVipProgress.data?.currentVipXp || 0),
       });
       if (tempRankData.length > 0) {
         const userRank = tempRankData.find((item) => currentLevel >= item.startLevel && currentLevel <= item.endLevel);
@@ -239,17 +243,17 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                       <div className="bg-white rounded-[5px] h-[8px] relative">
                         <div
                           className="absolute top-0 h-full left-0 bg-color-text-green rounded-[25px]"
-                          style={{ width: `${percent}%` }}
+                          style={{ width: `${vipData.progress}%` }}
                         ></div>
                         <div
                           className="absolute -top-[26px] w-[22px] h-[61px] -translate-x-[11px]"
-                          style={{ left: `${percent}%` }}
+                          style={{ left: `${vipData.progress}%` }}
                         >
                           <Image src="/img/flare.png" className="w-[22px] h-[61px]" width={6} height={16} alt="flare" />
                         </div>
                       </div>
                       <div className="flex justify-center items-center gap-[10px]">
-                        <div className="text-[14px] text-white">{`${vipData.xp} / ${vipData.nextXp} XP`}</div>
+                        <div className="text-[14px] text-white">{`${vipData.remainingXp} / ${vipData.nextXp - vipData.currentVipXp} XP`}</div>
                         <InfoCircle size={20} className="text-color-primary" data-tooltip-id={'your-vip-tooltip'} />
                         <Tooltip id={'your-vip-tooltip'} place="bottom" className="z-[10] !bg-white dark:!bg-black">
                           <div className="dark:text-color-text-primary text-color-light-text-primary">
@@ -319,7 +323,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                           'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
                             !item.name.includes('Platinum') && item.name !== 'Diamond III',
                           'w-[42px] h-[42px] md:w-[60px] md:h-[60px]':
-                          !item.name.includes('Platinum') || item.name === 'Diamond III',
+                            !item.name.includes('Platinum') || item.name === 'Diamond III',
                           'opacity-100': selectedRank.startLevel === item.startLevel,
                           // 'opacity-100': selectedRank.startLevel !== item.startLevel,
                         })}
