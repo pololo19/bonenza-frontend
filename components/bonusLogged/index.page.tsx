@@ -375,7 +375,7 @@ function BonusLoggedPage() {
         </div>
         <div
           className={cn(
-            'dark:bg-gradient-card-default bg-white rounded-default max-[923px]', // Color & Border-radius
+            'dark:bg-color-modal-bg-default bg-white rounded-default max-[923px]', // Color & Border-radius
             'w-full gap-4 flex flex-col lg:flex-row lg:justify-between', // Layout
             'mt-[24px] px-[16px] py-[20px]', // Margin & Padding
           )}
