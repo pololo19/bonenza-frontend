@@ -405,15 +405,6 @@ function BonusLoggedPage() {
             </div>
           </div>
           <div className="sm:px-10 2xl:px-0 min-[1800px]:px-10 grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-[40px] items-center">
-            {/* Special Bonus */}
-            <div className="min-w-[155px]">
-              {/* <div className="text-[14px] text-color-text-primary">{t('bonus:totalSpecialBonus')}</div>
-              <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
-                {viewInFiat
-                  ? currencyFormat1(totalData.specialBonusUsd * exchangeRate, 2, localFiat?.name)
-                  : currencyFormat1(totalData.specialBonusUsd, 2)}
-              </div> */}
-            </div>
             {/* VIP Bonus */}
             <div className="min-w-[155px]">
               <div className="text-[14px] text-color-text-primary">{t('bonus:totalVIPBonus')}</div>
@@ -431,6 +422,15 @@ function BonusLoggedPage() {
                   ? currencyFormat1(totalData.generalBonusUsd * exchangeRate, 2, localFiat?.name)
                   : currencyFormat1(totalData.generalBonusUsd, 2)}
               </div>
+            </div>
+            {/* Special Bonus */}
+            <div className="min-w-[155px]">
+              {/* <div className="text-[14px] text-color-text-primary">{t('bonus:totalSpecialBonus')}</div>
+              <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                {viewInFiat
+                  ? currencyFormat1(totalData.specialBonusUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(totalData.specialBonusUsd, 2)}
+              </div> */}
             </div>
             {/* Claim & Details Button */}
             <div
