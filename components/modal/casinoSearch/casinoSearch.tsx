@@ -22,6 +22,7 @@ import GameCard from '@/components/gameCard/gameCard';
 import Loader from '@/components/common/preloader/loader';
 
 import styles from './index.module.scss';
+import ReactLoading from 'react-loading';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;
@@ -46,6 +47,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   );
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoadingRecommendedGames, setIsLoadingRecommendedGames] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState('');
   const [debouncedSearchValue] = useDebounce(searchValue, 500);
   const [listSearchGame, setListSearchGame] = useState<GameListType[]>([]);
@@ -76,7 +78,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
 
   const getRecommandGames = async () => {
     try {
-      setIsLoading(true);
+      setIsLoadingRecommendedGames(true);
       const _res = await api_getPickGames(1, 20);
       const tempListRecommandedGames: GameListType[] = _res.data.games.map((item: any) => ({
         id: item?.id ?? '',
@@ -92,7 +94,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
     } catch (error) {
       dispatch(setRecommandGames([]));
     } finally {
-      setIsLoading(false);
+      setIsLoadingRecommendedGames(false);
     }
   };
 
@@ -194,7 +196,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         onWheel={wheelHandler}
         ref={casinoSearchRef}
         className={cn(
-          'fixed top-[67px] right-0 z-[10]  bottom-0 shadow-bs-default dark:bg-black/70 bg-white/70 w-full sm:w-auto',
+          'fixed top-[67px] right-0 z-[10] bottom-0 shadow-bs-default dark:bg-black/70 bg-white/70 w-full sm:w-auto overflow-y-auto scrollbar',
           {
             'sm:left-[62px] left-0': !isToggleSidebar,
             'sm:left-[244px] left-0': isToggleSidebar,
@@ -210,7 +212,6 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
           style={{ transform: 'translateY(0%) translateZ(0px)' }}
           ref={casinoSearchBodyRef}
         >
-          {isLoading && <Loader />}
           <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto h-full">
             <div className="relative">
               <input
@@ -294,17 +295,26 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 ''
               )}
             </div>
-            {searchResult}
-
+            {isLoading ?
+              <div className="flex justify-center items-center min-h-[100px]">
+                <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
+              </div>
+              : searchResult
+            }
             <div className="hidden sm:block">
-              <CasinoSwiper
-                title={''}
-                delay={4000}
-                speed={2000}
-                isRecent={false}
-                data={listRecommendGame}
-                renderItem={(item) => <GameCard gameDetail={item} />}
-              />
+              {isLoadingRecommendedGames ?
+                <div className="flex justify-center items-center min-h-[200px]">
+                  <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
+                </div> :
+                <CasinoSwiper
+                  title={''}
+                  delay={4000}
+                  speed={2000}
+                  isRecent={false}
+                  data={listRecommendGame}
+                  renderItem={(item) => <GameCard gameDetail={item} />}
+                />
+              }
               {/* <CasinoSS
                 title={String(t('casino:recommendedForYou'))}
                 data={listRecommendGame}
