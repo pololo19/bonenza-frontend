@@ -405,15 +405,6 @@ function BonusLoggedPage() {
             </div>
           </div>
           <div className="sm:px-10 2xl:px-0 min-[1800px]:px-10 grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-[40px] items-center">
-            {/* Special Bonus */}
-            <div className="min-w-[155px]">
-              {/* <div className="text-[14px] text-color-text-primary">{t('bonus:totalSpecialBonus')}</div>
-              <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
-                {viewInFiat
-                  ? currencyFormat1(totalData.specialBonusUsd * exchangeRate, 2, localFiat?.name)
-                  : currencyFormat1(totalData.specialBonusUsd, 2)}
-              </div> */}
-            </div>
             {/* VIP Bonus */}
             <div className="min-w-[155px]">
               <div className="text-[14px] text-color-text-primary">{t('bonus:totalVIPBonus')}</div>
@@ -431,6 +422,15 @@ function BonusLoggedPage() {
                   ? currencyFormat1(totalData.generalBonusUsd * exchangeRate, 2, localFiat?.name)
                   : currencyFormat1(totalData.generalBonusUsd, 2)}
               </div>
+            </div>
+            {/* Special Bonus */}
+            <div className="min-w-[155px]">
+              {/* <div className="text-[14px] text-color-text-primary">{t('bonus:totalSpecialBonus')}</div>
+              <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                {viewInFiat
+                  ? currencyFormat1(totalData.specialBonusUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(totalData.specialBonusUsd, 2)}
+              </div> */}
             </div>
             {/* Claim & Details Button */}
             <div
@@ -451,8 +451,8 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 min-[1860px]:grid-cols-3 gap-3 sm:gap-[16px] 2xl:gap-6">
-            <div className="relative rounded-default max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+          <div className="p-0 sm:p-0 grid grid-cols-1 min-[840px]:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-[16px] 2xl:gap-6">
+            <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
               <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
                 <Image
                   src="/img/bg-levelup.png"
@@ -533,7 +533,7 @@ function BonusLoggedPage() {
                 onClick={item.action}
               />
             ))}
-            <div className="relative rounded-default max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+            <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
               <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
                 <Image
                   src="/img/bg-lucky-spin.png"
