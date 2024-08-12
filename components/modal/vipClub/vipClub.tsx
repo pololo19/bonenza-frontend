@@ -253,7 +253,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
                         </div>
                       </div>
                       <div className="flex justify-center items-center gap-[10px]">
-                        <div className="text-[14px] text-white">{`${vipData.remainingXp} / ${vipData.nextXp - vipData.currentVipXp} XP`}</div>
+                        <div className="text-[14px] text-white">{`${vipData.xp - vipData.currentVipXp} / ${vipData.nextXp - vipData.currentVipXp} XP`}</div>
                         <InfoCircle size={20} className="text-color-primary" data-tooltip-id={'your-vip-tooltip'} />
                         <Tooltip id={'your-vip-tooltip'} place="bottom" className="z-[10] !bg-white dark:!bg-black">
                           <div className="dark:text-color-text-primary text-color-light-text-primary">
