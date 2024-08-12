@@ -86,7 +86,7 @@ module.exports = {
         'color-hover-secondary': '#252529',
 
         // 'color-bg-primary': '#1B1C20',
-        'color-bg-primary': '#01042C ',
+        'color-bg-primary': '#01042C',
         'color-light-bg-primary': '#F6F7FA',
         'color-bg-secondary': '#151518',
         'color-btn-primary': '#005F75',

@@ -1,4 +1,4 @@
-import { Clock, Crown } from 'iconsax-react';
+import { Crown, Timer1 } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 
@@ -78,9 +78,9 @@ export default function CardVipBonus({
     getUserProfile(userId);
   }, [userId]);
   return (
-    <div className="relative rounded-default max-h-[180px] sm:max-h-[230px] dark:bg-[#1C1E22] bg-white">
-      <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden">
-        <Image src={background} width={339} height={192} alt="vip bonus" className="w-full sm:object-contain rounded-default" />
+    <div className="relative rounded-default max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+      <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
+        <Image src={background} width={339} height={192} alt="vip bonus" className="w-[150px] object-contain" />
       </div>
       <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
         <div>
@@ -121,7 +121,7 @@ export default function CardVipBonus({
             </div>
           )}
         </div>
-        <div className="mt-[10px] flex justify-between">
+        <div className="mt-[10px] flex justify-between mr-[100px]">
           <div>
             <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
               {wagerRequired}
@@ -166,19 +166,19 @@ export default function CardVipBonus({
         <div
           role="button"
           className={cn('flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px]', {
-            'dark:bg-gray-700 bg-color-light-bg-primary': vipLevel < 22,
-            'dark:bg-gradient-btn-play text-white': vipLevel >= 22,
+            'dark:bg-color-panel-bg bg-color-light-bg-primary': vipLevel < 22,
+            'dark:bg-color-panel-bg text-white': vipLevel >= 22,
           })}
         >
           {vipLevel < 22 && (
             <>
-              <Crown size={20} className="text-color-secondary" />
-              <div className="text-color-secondary text-m_default sm:text-[14px]">{t('bonus:availableAt')} VIP 22</div>
+              <Crown size={20} className="text-[#8D8D8D]" variant='Bold' />
+              <div className="text-[#8D8D8D] text-m_default sm:text-[14px]">{t('bonus:availableAt')} VIP 22</div>
             </>
           )}
           {vipLevel >= 22 && (
-            <div className="flex justify-start items-center gap-1 text-m_default sm:text-default">
-              <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
+            <div className="text-[#8D8D8D] flex justify-start items-center gap-1 text-m_default sm:text-default">
+              <Timer1 variant="Bulk" width={16} height={16} className="w-5 h-5" />
               {t('promotion:endIn')}
               <CsrWrapper>
                 <Countdown

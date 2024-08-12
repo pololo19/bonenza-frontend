@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { Clock, Shuffle } from 'iconsax-react';
+import { Timer1 } from 'iconsax-react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
@@ -13,7 +13,7 @@ import { api_bonusStatistics, api_redeem } from '@/api/bonus';
 import { api_getClaims } from '@/api/wallet';
 import CsrWrapper from '@/base/components/CsrWrapper';
 import { useTranslation } from '@/base/config/i18next';
-import { CookieKey, TOAST_ENUM } from '@/base/constants/common';
+import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
@@ -405,6 +405,15 @@ function BonusLoggedPage() {
             </div>
           </div>
           <div className="sm:px-10 2xl:px-0 min-[1800px]:px-10 grid gap-4 grid-cols-2 lg:grid-cols-4 lg:gap-[40px] items-center">
+            {/* Special Bonus */}
+            <div className="min-w-[155px]">
+              {/* <div className="text-[14px] text-color-text-primary">{t('bonus:totalSpecialBonus')}</div>
+              <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                {viewInFiat
+                  ? currencyFormat1(totalData.specialBonusUsd * exchangeRate, 2, localFiat?.name)
+                  : currencyFormat1(totalData.specialBonusUsd, 2)}
+              </div> */}
+            </div>
             {/* VIP Bonus */}
             <div className="min-w-[155px]">
               <div className="text-[14px] text-color-text-primary">{t('bonus:totalVIPBonus')}</div>
@@ -412,15 +421,6 @@ function BonusLoggedPage() {
                 {viewInFiat
                   ? currencyFormat1(totalData.vipBonusUsd * exchangeRate, 2, localFiat?.name)
                   : currencyFormat1(totalData.vipBonusUsd, 2)}
-              </div>
-            </div>
-            {/* Special Bonus */}
-            <div className="min-w-[155px]">
-              <div className="text-[14px] text-color-text-primary">{t('bonus:totalSpecialBonus')}</div>
-              <div className="text-[16px] dark:text-white text-color-light-text-primary font-bold">
-                {viewInFiat
-                  ? currencyFormat1(totalData.specialBonusUsd * exchangeRate, 2, localFiat?.name)
-                  : currencyFormat1(totalData.specialBonusUsd, 2)}
               </div>
             </div>
             {/* General Bonus */}
@@ -451,15 +451,17 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 min-[1860px]:grid-cols-4 gap-3 sm:gap-[16px]">
-            <div className="rounded-default relative dark:bg-gradient-card-default bg-white h-full max-h-[180px] sm:max-h-[230px] overflow-hidden">
-              <Image
-                src="/img/bg-levelup.png"
-                width={339}
-                height={192}
-                alt="bg-levelup"
-                className="w-full sm:object-contain rounded-default"
-              />
+          <div className="p-0 sm:p-0 grid grid-cols-1 min-[670px]:grid-cols-2 lg:grid-cols-3 min-[1860px]:grid-cols-3 gap-3 sm:gap-[16px] 2xl:gap-6">
+            <div className="relative rounded-default max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+              <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
+                <Image
+                  src="/img/bg-levelup.png"
+                  width={339}
+                  height={192}
+                  alt="bg-levelup"
+                  className="w-[150px] object-contain"
+                />
+              </div>
               <div className="absolute flex flex-col justify-between top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5">
                 <div>
                   <div className="flex items-center gap-[10px]">
@@ -472,7 +474,7 @@ function BonusLoggedPage() {
                   </div>
                 </div>
                 <div>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between mr-[100px]">
                     <div>
                       <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                         {t('bonus:currentVIP')}
@@ -508,9 +510,9 @@ function BonusLoggedPage() {
                 <div
                   role="button"
                   onClick={() => dispatch(changeIsShowVipClubModal(true))}
-                  className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px]"
+                  className="text-color-primary dark:bg-color-panel-bg hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
                 >
-                  <div className="text-white font-medium text-m_default sm:text-[14px]">{t('bonus:viewVIPClub')}</div>
+                  <div className="font-medium text-m_default sm:text-[14px]">{t('bonus:viewVIPClub')}</div>
                 </div>
               </div>
             </div>
@@ -531,20 +533,26 @@ function BonusLoggedPage() {
                 onClick={item.action}
               />
             ))}
-            <div className="rounded-default relative dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px]">
-              <div className="h-full max-h-[180px] sm:max-h-[230px] overflow-hidden rounded-default">
+            <div className="relative rounded-default max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+              <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
                 <Image
                   src="/img/bg-lucky-spin.png"
                   width={339}
                   height={192}
                   alt="bg-lucky-spin"
-                  className="w-full sm:object-contain rounded-default"
+                  className="w-[150px] object-contain"
                 />
               </div>
               <div className="absolute flex flex-col justify-between top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5">
                 <div className="flex justify-between p-0">
                   <div className="flex items-center gap-2">
                     <div className="text-default sm:text-[16px] dark:text-white text-color-light-text-primary font-bold">
+                      {t('bonus:spin')}
+                    </div>
+                    <div
+                      className="bg-color-primary-1 py-[2px] px-2 rounded-full flex items-center gap-2 leading-4 text-center text-white cursor-pointer text-[10px] sm:text-m_default"
+                      onClick={() => setIsShowSpinLog(!isShowSpinLog)}
+                    >
                       {t('bonus:spin')}
                     </div>
                     <Image
@@ -571,26 +579,19 @@ function BonusLoggedPage() {
                       </div>
                     </Tooltip>
                   </div>
-                  <div
-                    className="flex items-center gap-2 leading-4 text-center text-white cursor-pointer text-m_default sm:text-default"
-                    onClick={() => setIsShowSpinLog(!isShowSpinLog)}
-                  >
-                    <Shuffle className="w-4 h-4" stroke="3" />
-                    {t('mycasino:history')}
-                  </div>
                 </div>
                 {isShowSpinLog ? (
-                  <div className="flex flex-col h-full text-default">
+                  <div className="flex flex-col h-full text-default gap-4 mt-4 overflow-y-auto">
                     {spinLogs.map((spin, index) => (
-                      <div key={`bonus-spin-log-${index}`} className="flex justify-between w-full">
-                        <div>{spin?.type || ''}</div>
+                      <div key={`bonus-spin-log-${index}`} className="flex justify-start w-full text-[13px]">
+                        {spin?.type || ''} ({formatDate(new Date(Number(spin?.time || 0) * 1000), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)})
                       </div>
                     ))}
                     {spinLogs.length === 0 && <div className="w-full m-auto text-center">{t('bonus:noData')}</div>}
                   </div>
                 ) : (
                   <>
-                    <div className="flex flex-col gap-1">
+                    <div className="flex flex-col gap-1 mr-[100px]">
                       <div className="flex justify-between w-full">
                         <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                           {t('bonus:spinDescription')}
@@ -644,11 +645,11 @@ function BonusLoggedPage() {
                     </div>
                     <div
                       role="button"
-                      className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-default"
+                      className="dark:bg-color-panel-bg hover:opacity-80 bg-color-light-bg-primary text-[#8D8D8D] font-semibold flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-default"
                       onClick={() => dispatch(changeIsShowSpin(true))}
                     >
                       <div className="flex items-center justify-start gap-1 text-m_default sm:text-default">
-                        <Clock variant="Bulk" width={16} height={16} className="w-5 h-5" />
+                        <Timer1 width={16} height={16} className="w-5 h-5" />
                         {t('promotion:endIn')}
                         <CsrWrapper>
                           {bonusData.general.dailySpinEndTime && (
@@ -657,7 +658,7 @@ function BonusLoggedPage() {
                               date={new Date(bonusData.general.dailySpinEndTime)}
                               renderer={({ days, hours, minutes, seconds }) => {
                                 return (
-                                  <div className="text-center text-m_default sm:text-default">
+                                  <div className="text-white font-semibold text-center text-m_default sm:text-default">
                                     {formatDate(new Date(0, 0, 0, hours, minutes, seconds), 'HH:mm:ss')}
                                   </div>
                                 );
@@ -696,7 +697,7 @@ function BonusLoggedPage() {
             ))}
           </div>
         </div>
-        <div className="mt-5">
+        {/* <div className="mt-5">
           <div className="text-[16px] md:text-[20px] dark:text-white text-color-light-text-primary font-medium mb-[18px]">
             {t('bonus:specialBonus')}
           </div>
@@ -709,7 +710,7 @@ function BonusLoggedPage() {
             />
             <div className="dark:text-gray-400 text-color-text-primary text-[13px]">{t('bonus:noData')}</div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

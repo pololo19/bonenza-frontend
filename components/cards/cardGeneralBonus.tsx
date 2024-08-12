@@ -53,14 +53,14 @@ export default function CardGeneralBonus({
   return (
     <div className="relative h-full">
       {!showDeposit && (
-        <div className="relative rounded-default dark:bg-color-card-bg-primary bg-white h-full max-h-[180px] sm:max-h-[230px]">
-          <div className="h-full max-h-[180px] sm:max-h-[230px] rounded-default overflow-hidden">
+        <div className="relative rounded-default dark:bg-[#161D3D] bg-white h-full max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px]">
+          <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
             <Image
               src={background}
               width={339}
               height={192}
               alt="background"
-              className="w-full sm:object-contain rounded-default"
+              className="w-[150px] object-contain"
             />
           </div>
           <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
@@ -96,7 +96,7 @@ export default function CardGeneralBonus({
                 </Tooltip>
               )}
             </div>
-            <div>
+            <div className="mr-[100px]">
               <div className="flex justify-between w-full">
                 <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-[14px]">
                   {description}
@@ -127,7 +127,7 @@ export default function CardGeneralBonus({
             {nameButton == t('bonus:unlockRakeBack') && (
               <div
                 role="button"
-                className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
+                className="text-color-primary dark:bg-color-panel-bg hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
                 onClick={onClick}
               >
                 {nameButton}
@@ -136,7 +136,7 @@ export default function CardGeneralBonus({
             {(nameButton == t('bonus:questButton') || nameButton == t('bonus:spinButton')) && (
               <div
                 role="button"
-                className="dark:bg-gray-700 hover:opacity-80 bg-color-light-bg-primary text-color-secondary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
+                className="text-color-primary dark:bg-color-panel-bg hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
                 onClick={onClick}
               >
                 {nameButton}
@@ -156,14 +156,7 @@ export default function CardGeneralBonus({
         </div>
       )}
       {showDeposit && (
-        <div className="rounded-default h-full flex flex-col justify-between max-h-[180px] sm:max-h-[230px] overflow-hidden">
-          <Image
-            src="/img/bg-levelup.png"
-            width={339}
-            height={192}
-            alt="bg-levelup"
-            className="w-full sm:object-contain rounded-default"
-          />
+        <div className="relative rounded-default max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
           <div className="absolute top-3 bottom-3 sm:top-5 sm:bottom-5 left-5 right-5 flex flex-col justify-between">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-[10px]">
