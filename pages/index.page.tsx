@@ -494,7 +494,7 @@ function IndexPage() {
                 ))}
               </div>
               <div className="w-full block sm:hidden">
-                <RecentBigWinComponent listBigWinGame={listBigWinGame} />
+                {listBigWinGame.length > 0 && <RecentBigWinComponent listBigWinGame={listBigWinGame} />}
               </div>
               {!isLogin && (
                 <>
