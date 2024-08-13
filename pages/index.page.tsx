@@ -1,8 +1,8 @@
 import cn from 'classnames';
 import { ArrowRight } from 'iconsax-react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
 import React, { ReactElement, useEffect, useMemo, useState } from 'react';
@@ -18,6 +18,7 @@ import {
   api_getPickGames,
   api_getRecentGames,
 } from '@/api/game';
+import { api_getNotificationHistory } from '@/api/notification';
 import { api_checkDeposit } from '@/api/vip';
 import {
   changeAuthenticationType,
@@ -53,7 +54,6 @@ import { convert2Url } from '../libs/utils/convert';
 import { getErrorMesssage1 } from '../libs/utils/notificationToast';
 import { setIsNewMessage, setIsNewNotification } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
-import { api_getNotificationHistory } from '@/api/notification';
 
 function IndexPage() {
   const exchangeRate = useExchange();

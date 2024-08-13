@@ -119,6 +119,7 @@ const API_GAME_REVIEW_COMMENT = '/game/review/comment';
 const API_GAME_REVIEW_ADD = '/game/review/add';
 const API_GAME_REVIEW_LIKE = '/game/review/like';
 const API_GAME_REVIEW_REPORT = '/game/review/report';
+const API_GAME_ALL_IDENTIFIERS = '/game/get-all-games';
 
 /************************************ Affiliate **********************************/
 
@@ -216,6 +217,7 @@ export {
   API_BONUS_USDT_BONUS_HISTORY,
   API_CHAT_ADD,
   API_CHAT_LATEST,
+  API_GAME_ALL_IDENTIFIERS,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,
@@ -299,4 +301,5 @@ export {
   API_WALLET_WITHDRAW_INFO,
   APIN_SPIN_AVAILABLE,
   APIN_SPIN_TRY,
-  URL_REFRESH_TOKEN};
+  URL_REFRESH_TOKEN,
+};

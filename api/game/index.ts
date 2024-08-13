@@ -1,4 +1,5 @@
 import {
+  API_GAME_ALL_IDENTIFIERS,
   API_GAME_BET_HISTORY,
   API_GAME_BET_HISTORY_FOR_GAME,
   API_GAME_BET_HISTORY_FOR_USER,
@@ -75,6 +76,10 @@ export const api_getRecentGames = async (page: number, pageSize: number) => {
 
 export const api_getGameDetail = async (identifier: string) => {
   return api.get(API_GAME_DETAIL, { params: { identifier } });
+};
+
+export const apiSSR_getGameDetail = async (identifier: string) => {
+  return apiSSR.get(API_GAME_DETAIL, { params: { identifier } });
 };
 
 export const api_getCasinoWithKey = async (key: string, params: CasinoRequest) => {
@@ -168,7 +173,7 @@ export const api_getThemes = async () => {
 
 export const apiSSR_getThemes = async () => {
   return apiSSR.get(API_GAME_THEME);
-}
+};
 
 export const api_getGamesByTheme = async (providers: string, page: number, pageSize: number, theme: string) => {
   return api.get(API_GAME_GAMES_BY_THEME, { params: { providers, page, pageSize, theme } });
@@ -250,4 +255,8 @@ export const api_reviewReport = async (commentId: string, reason: string) => {
 
 export const api_highRollers = async () => {
   return api.get(API_GAME_HIGH_ROLLERs);
+};
+
+export const apiSSR_gamesIdentifiers = async () => {
+  return apiSSR.get(API_GAME_ALL_IDENTIFIERS);
 };
