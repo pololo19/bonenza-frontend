@@ -69,9 +69,12 @@ function GameCard(props: GameCardProps) {
         </Link>
         <div className="flex flex-col gap-5 py-2">
           <div className="flex justify-center items-center gap-[5px]">
-            <div className="dark:text-white text-black font-light text-default sm:text-[16px] truncate">
-              {String(gameDetail.providerName)?.charAt(0).toUpperCase() + String(gameDetail.providerName)?.slice(1)}
-            </div>
+            <Link
+              href={ROUTER.Provider(String(gameDetail.providerName))}
+              className="dark:text-white text-black font-light text-default sm:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
+            >
+              {gameDetail.providerName.toLowerCase()}
+            </Link>
             <InfoCircle
               data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
               size={20}
@@ -83,7 +86,7 @@ function GameCard(props: GameCardProps) {
         {footer?.()}
       </div>
       <Tooltip
-        className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-color-bg-secondary"
+        className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-[#161D3D]"
         opacity={100}
         id={`${gameDetail?.identifier} ${uuid}`}
         place="bottom"
