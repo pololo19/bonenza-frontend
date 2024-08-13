@@ -6,7 +6,7 @@ import 'swiper/css/scrollbar';
 import cn from 'classnames';
 import { ArrowRight2, Snapchat } from 'iconsax-react';
 import Image from 'next/image';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
@@ -148,9 +148,8 @@ function RecentBigWinComponent({ listBigWinGame }: { listBigWinGame: BetDetailTy
 
   const dispatch = useDispatch();
 
-  const { userId, localFiat, viewInFiat } = useSelector(
+  const { localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
-      userId: state.auth.user.userId,
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       isLogin: state.auth.isLogin,
@@ -186,6 +185,10 @@ function RecentBigWinComponent({ listBigWinGame }: { listBigWinGame: BetDetailTy
   const handleMouseLeave = () => {
     swiperRef?.current?.swiper?.autoplay?.start();
   };
+
+  useEffect(() => {
+    setTimeout(() => { swiperRef?.current?.swiper?.autoplay?.start() }, 500);
+  }, []);
   return (
     <div className={cn('w-full relative')} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
       <div className="flex gap-2 items-center mb-4 font-[600] dark:text-white text-black text-default sm:text-[16px] md:text-m_title">

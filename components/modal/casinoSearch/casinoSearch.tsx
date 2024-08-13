@@ -9,9 +9,8 @@ import { useDebounce } from 'use-debounce';
 
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
-import { api_getGamesByNameAndProvider, api_getPickGames } from '@/api/game';
+import { api_getDashboardData, api_getGamesByNameAndProvider } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { useWidth } from '@/base/hooks/useWidth';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { setRecommandGames } from '@/base/redux/reducers/game.reducer';
 import { AppState } from '@/base/redux/store';
@@ -19,7 +18,6 @@ import { GameListType } from '@/base/types/common';
 import { NoDataComponent } from '@/components/noData/noData';
 import CasinoSwiper from '@/components/casino/casinoSwiper';
 import GameCard from '@/components/gameCard/gameCard';
-import Loader from '@/components/common/preloader/loader';
 
 import styles from './index.module.scss';
 import ReactLoading from 'react-loading';
@@ -79,8 +77,8 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
   const getRecommandGames = async () => {
     try {
       setIsLoadingRecommendedGames(true);
-      const _res = await api_getPickGames(1, 20);
-      const tempListRecommandedGames: GameListType[] = _res.data.games.map((item: any) => ({
+      const _res = await api_getDashboardData();
+      const tempListRecommandedGames: GameListType[] = _res.data.recommendedGames?.map((item: any) => ({
         id: item?.id ?? '',
         title: item?.title ?? '',
         description: item?.description ?? '',
@@ -217,7 +215,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
               <input
                 autoFocus
                 className={cn(
-                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-default h-[40px] rounded-default dark:bg-color-input-secondary bg-white border border-solid border-white/10 focus-within:border-color-primary placeholder:text-color-text-primary outline-none pointer-events-auto',
+                  'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-default h-[40px] rounded-default bg-transparent border border-solid border-color-card-body-primary focus-within:border-color-primary placeholder:text-color-text-primary outline-none pointer-events-auto',
                 )}
                 value={searchValue}
                 onChange={(e) => {
@@ -257,7 +255,16 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 />
               )}
               {debouncedSearchValue.length < 3 && (
-                <div className="dark:text-gray-500 text-color-light-text-primary">{t('casino:searchRequires')}</div>
+                <div className={cn(
+                  "dark:text-gray-500 text-color-light-text-primary",
+                  "transition-all duration-500 overflow-hidden",
+                  {
+                    "max-h-0": debouncedSearchValue.length >= 3,
+                    "max-h-80": debouncedSearchValue.length < 3
+                  }
+                )}>
+                  {t('casino:searchRequires')}
+                </div>
               )}
               {history.length && debouncedSearchValue.length < 3 ? (
                 <>
@@ -303,7 +310,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
             }
             <div className="hidden sm:block">
               {isLoadingRecommendedGames ?
-                <div className="flex justify-center items-center min-h-[200px]">
+                <div className="flex justify-center items-center min-h-[270px]">
                   <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
                 </div> :
                 <CasinoSwiper

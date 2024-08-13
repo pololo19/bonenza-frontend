@@ -154,7 +154,7 @@ function CasinoPage() {
       {/* Game Options */}
       <div className="flex flex-col gap-[30px] sm:pt-0 pt-[10px]">
         <div className="w-full sm:block hidden">
-          <RecentBigWinComponent listBigWinGame={listBigWinGame} />
+          {listBigWinGame.length > 0 && <RecentBigWinComponent listBigWinGame={listBigWinGame} />}
         </div>
 
         <CasinoSS
