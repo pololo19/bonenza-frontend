@@ -54,7 +54,7 @@ function ProvidersPage() {
         <>
           <div className="game-grid-parent mt-[20px]">
             {providers.map((provider, index) => (
-              <div>
+              <div key={index}>
                 <Link
                   href={ROUTER.Provider(String(provider.name))}
                   role="button"

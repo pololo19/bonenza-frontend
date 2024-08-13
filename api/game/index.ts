@@ -45,6 +45,7 @@ import { CategoryType } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 
 import api from '../api';
+import apiSSR from '../apiSSR';
 
 export type SortType = 'popular' | 'asc' | 'desc' | 'new' | 'a-z' | 'z-a' | 'like';
 export type ReviewListSortType = 'newest' | 'top_comments' | 'top_likes';
@@ -58,6 +59,10 @@ export type CasinoRequest = {
 };
 export const api_getPickGames = async (page: number, pageSize: number) => {
   return api.get(API_GAME_PICK_GAMES, { params: { page, pageSize } });
+};
+
+export const apiSSR_getPickGames = async (page: number, pageSize: number) => {
+  return apiSSR.get(API_GAME_PICK_GAMES, { params: { page, pageSize } });
 };
 
 export const api_getFavoriteGames = async (page: number, pageSize: number) => {
@@ -103,6 +108,10 @@ export const api_getSlots = async (params: CasinoRequest) => {
 
 export const api_getProviders = async (category: CategoryType = 'all') => {
   return api.get(API_GAME_PROVIDER, { params: { category } });
+};
+
+export const apiSSR_getProviders = async (category: CategoryType = 'all') => {
+  return apiSSR.get(API_GAME_PROVIDER, { params: { category } });
 };
 
 export const api_getLiveCasinos = async (params: CasinoRequest) => {
@@ -156,6 +165,10 @@ export const api_getGamesByProvider = async (providerName: string, sort: SortTyp
 export const api_getThemes = async () => {
   return api.get(API_GAME_THEME);
 };
+
+export const apiSSR_getThemes = async () => {
+  return apiSSR.get(API_GAME_THEME);
+}
 
 export const api_getGamesByTheme = async (providers: string, page: number, pageSize: number, theme: string) => {
   return api.get(API_GAME_GAMES_BY_THEME, { params: { providers, page, pageSize, theme } });
@@ -220,8 +233,8 @@ export const api_reviewList = async (
     page,
     pageSize,
     sort,
-    userId
-  }
+    userId,
+  };
   if (!commentId) delete data.commentId;
   if (!userId) delete data.userId;
   return api.get(API_GAME_REVIEW_LIST, { params: data });
