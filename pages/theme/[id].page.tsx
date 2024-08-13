@@ -1,9 +1,7 @@
-import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { GetStaticPaths, InferGetStaticPropsType } from 'next';
 import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { api_getGamesByTheme, api_getProviders } from '@/api/game';
+import { api_getGamesByTheme, api_getProviders, apiSSR_getProviders, apiSSR_getThemes } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
@@ -15,10 +13,30 @@ import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
 import ProviderFilter from '@/components/providerFilter/providerFilter';
 
-function CasinoCategoryPage() {
+
+export const getStaticPaths = (async () => {
+  const response = await apiSSR_getThemes();
+  const themes = response.data;
+  return {
+    paths: themes.map((theme: any) => ({ params: { id: theme } })),
+    fallback: true, // false or "blocking"
+  }
+}) satisfies GetStaticPaths
+
+export const getStaticProps = (async ({ params }: any) => {
+  const response = await apiSSR_getProviders();
+  const providers: GameProviderDetail[] = response.data?.map((provider: any) => ({
+    id: provider.id,
+    name: provider.name,
+    isSelect: false,
+    totalGames: provider.gameCount,
+  }))
+  return { props: { providers, params } }
+})
+
+function CasinoCategoryPage({ providers, params }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { t } = useTranslation('');
-  const { query } = useRouter();
-  const { key } = query;
+  const { id } = params;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isShowMore, setIsShowMore] = useState<boolean>(true);
@@ -73,7 +91,7 @@ function CasinoCategoryPage() {
   const handleGetListGame = async () => {
     try {
       setIsLoading(true);
-      const res = await api_getGamesByTheme(JSON.stringify(selectedProvider), currentPage, 40, String(key));
+      const res = await api_getGamesByTheme(JSON.stringify(selectedProvider), currentPage, 40, id);
       const totalCount = res?.data?.totalCount ?? 0;
       const games = res?.data?.games ?? [];
       const tempGameListData = games?.map((item: any) => ({
@@ -111,11 +129,11 @@ function CasinoCategoryPage() {
   }, [selectedProvider]);
 
   useEffect(() => {
-    if (key) {
+    if (id) {
       setListGame([]);
       handleGetListGame();
     }
-  }, [key]);
+  }, [id]);
 
   useEffect(() => {
     getListProviders();
@@ -132,7 +150,7 @@ function CasinoCategoryPage() {
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
         <Breadcrumbs
           data={[{ title: 'Casino', href: ROUTER.Casino }]}
-          endpoint={{ title: snakeCaseToString(String(key) ?? ''), href: ROUTER.Tagname(String(key) ?? '') }}
+          endpoint={{ title: snakeCaseToString(id ?? ''), href: ROUTER.Tagname(id ?? '') }}
         />
         <div className="flex items-center text-[14px] text-[#98a7b5] gap-[12px] md:gap-[48px] max-sm:w-full">
           <ProviderFilter

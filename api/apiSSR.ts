@@ -45,14 +45,6 @@ const apiSSR = axios.create({
   },
 });
 apiSSR.interceptors.request.use((config) => {
-  const authorization = getAccessToken();
-  if (authorization) {
-    config.headers!.Authorization = authorization;
-  }
-  const companyId = getCompanyId();
-  if (companyId) {
-    config.headers!['X-Company-Id'] = companyId;
-  }
   config.headers['Content-Type'] = 'application/json';
   if (config.data) {
     config.data = decamelizeKeys(config.data);
