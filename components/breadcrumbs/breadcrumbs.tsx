@@ -21,7 +21,7 @@ export const Breadcrumbs = ({ data, endpoint }: BreadcrumbsProps) => {
       })}
       <Link
         href={endpoint.href}
-        className="dark:text-white text-[#31373D] cursor-text hover:text-[#31373D] text-[14px] dark:hover:text-white"
+        className="dark:text-white text-[#31373D] hover:text-[#31373D] text-[14px] dark:hover:text-white"
       >
         {endpoint.title}
       </Link>

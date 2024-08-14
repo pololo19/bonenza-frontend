@@ -1,6 +1,10 @@
 import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
+import type {
+  GetStaticPaths,
+  InferGetStaticPropsType,
+} from 'next'
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,10 +21,13 @@ import {
   api_setGameFavorite,
   api_startGameDemo,
   api_startGameSession,
+  apiSSR_gamesIdentifiers,
+  apiSSR_getGameDetail,
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, isEmpty } from '@/base/libs/utils';
+import { convertToUrlCase } from '@/base/libs/utils/convert';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
@@ -41,6 +48,42 @@ import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
 
+
+export const getStaticPaths = (async () => {
+  const response = await apiSSR_gamesIdentifiers();
+  const games = response.data;
+  return {
+    paths: games.map((game: any) => ({ params: { id: convertToUrlCase(game) } })),
+    fallback: true, // false or "blocking"
+  }
+}) satisfies GetStaticPaths
+
+export const getStaticProps = (async ({ params }: any) => {
+  try {
+    const response = await apiSSR_getGameDetail(params.id);
+    const game: GameListType = {
+      id: response.data?.id ?? '',
+      title: response.data?.title ?? '',
+      provider: response.data?.producerIdentifier ?? '',
+      providerName: response.data?.producerName ?? '',
+      identifier: response.data?.identifier ?? '',
+      payout: Number(response.data?.payout ?? 0),
+      multiplier: Number(response.data?.multiplier ?? 0),
+      isExpiration: response.data?.isExpiration ?? false,
+      description: response.data?.description ?? '',
+      releasedAt: response.data?.releasedAt ?? '',
+      gameCnt: Number(response.data?.producerDetails?.gameCount ?? 0),
+      allowedLocation: response.data?.allowLocation,
+      allowedDemo: response.data?.allowDemo,
+      favorites: response.data?.favoriteCount,
+    };
+    return { props: { game, params } }
+  } catch (error) {
+    return { props: { game: null, params } }
+  }
+
+})
+
 type LaunchUrlTye = {
   gameLauncherUrl: string;
   gameUrl: string;
@@ -49,7 +92,7 @@ type LaunchUrlTye = {
   tokenId: string;
 };
 
-function GamePage() {
+function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
   const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
@@ -60,20 +103,19 @@ function GamePage() {
   }); // loading button
 
   const [gameDetail, setGameDetail] = useState<GameListType>({
-    id: '',
-    title: '',
-    provider: '',
-    identifier: '',
-    payout: 0,
-    multiplier: 0,
-    description: '',
-    releasedAt: '',
-    allowedLocation: false,
-    allowedDemo: false,
-    providerName: '',
-    favorites: 0,
+    id: game?.id || '',
+    title: game?.title || '',
+    provider: game?.provider || '',
+    identifier: game?.identifier || '',
+    payout: game?.payout || 0,
+    multiplier: game?.multiplier || 0,
+    description: game?.description || '',
+    releasedAt: game?.releasedAt || '',
+    allowedLocation: game?.allowedLocation || false,
+    allowedDemo: game?.allowedDemo || false,
+    providerName: game?.providerName || '',
+    favorites: game?.favorites || 0,
   });
-  const [isNotFoundGame, setIsNotFoundGame] = useState<boolean>(false);
   const [openShareGame, setOpenShareGame] = useState<boolean>(false);
   const [reactionData, setReactionData] = useState({
     isFavorite: false,
@@ -90,8 +132,7 @@ function GamePage() {
   const { t } = useTranslation('');
 
   const router = useRouter();
-  const { query, reload } = router;
-  const { gameId } = query;
+  const { reload } = router;
   const [isSatisfied, setIsSatisfied] = useState<boolean>(true); // if balance is enough, value is true
   const dispatch = useDispatch();
 
@@ -109,7 +150,20 @@ function GamePage() {
   );
 
   const _initFreePlay = useCallback(() => {
-    if (!gameDetail.id || !gameDetail.allowedDemo || isMobile || !gameDetail.allowedLocation || playStatusRef.current === 'Real') {
+    if (!gameDetail.id) {
+      toast.error(t('errors:game:existGame'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+      return;
+    }
+    if (!gameDetail.allowedLocation) {
+      toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+      return;
+    }
+    if (!gameDetail.allowedDemo) {
+      toast.error(t('errors:game:notAllowedDemo'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+      return;
+    }
+
+    if (isMobile || playStatusRef.current === 'Real' || !gameDetail.id) {
       setIsLoading(false);
       return;
     };
@@ -160,53 +214,7 @@ function GamePage() {
         setIsLoading(false);
       });
 
-  }, [language, gameDetail.id, isMobile])
-
-  const _initLoad = useCallback(async () => {
-    if (isEmpty(gameId)) return;
-    setIsLoading(true);
-    setIsNotFoundGame(false);
-
-    try {
-
-      /****************** LOAD GAME DATA  **************************/
-
-      const _res = await api_getGameDetail(String(gameId));
-
-      const tempGameDetailData: GameListType = {
-        id: _res.data?.id ?? '',
-        title: _res.data?.title ?? '',
-        provider: _res.data?.producerIdentifier ?? '',
-        providerName: _res.data?.producerName ?? '',
-        identifier: _res.data?.identifier ?? '',
-        payout: Number(_res.data?.payout ?? 0),
-        multiplier: Number(_res.data?.multiplier ?? 0),
-        isExpiration: _res.data?.isExpiration ?? false,
-        description: _res.data?.description ?? '',
-        releasedAt: _res.data?.releasedAt ?? '',
-        gameCnt: Number(_res.data?.producerDetails?.gameCount ?? 0),
-        allowedLocation: _res.data?.allowLocation,
-        allowedDemo: _res.data?.allowDemo,
-        favorites: _res.data?.favoriteCount,
-      };
-
-      setGameDetail(tempGameDetailData);
-
-      if (!_res.data?.allowLocation) {
-        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON });
-      }
-
-      playStatusRef.current = 'Free';
-
-    } catch (error: any) {
-      const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
-      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-      setIsLoading(false);
-      setIsNotFoundGame(true);
-    }
-
-  }, [String(gameId)])
+  }, [language, isMobile])
 
   const handleFreeplay = () => {
     try {
@@ -420,7 +428,7 @@ function GamePage() {
         isLike: false,
       });
     }
-  }, [gameDetail.id, isLogin]);
+  }, [isLogin]);
 
   const handleReactGame = async (reaction: 'like' | 'favorite') => {
     try {
@@ -507,11 +515,11 @@ function GamePage() {
   useEffect(() => {
     setSuccessfullyLaunched(false);
     setIsLoading(false);
-  }, [String(gameId)])
+  }, [])
 
   useEffect(() => {
     setIsSatisfied(true);
-    if (localFiat?.id && activeCurrency.id !== '' && gameDetail.id && successfullyLaunched) {
+    if (localFiat?.id && activeCurrency.id !== '' && successfullyLaunched) {
       if (playStatusRef.current === 'Real') {
         handleRealPlay();
       }
@@ -520,15 +528,11 @@ function GamePage() {
       }
 
     }
-  }, [localFiat?.id, activeCurrency.id, gameDetail.id, language]);
+  }, [localFiat?.id, activeCurrency.id, language]);
 
   useEffect(() => {
     getGameReactInfo()
   }, [getGameReactInfo])
-
-  useEffect(() => {
-    _initLoad();
-  }, [_initLoad])
 
   useEffect(() => {
     _initFreePlay()
@@ -537,12 +541,12 @@ function GamePage() {
   return (
     <>
       {isLoading && <Loader />}
-      {!isNotFoundGame && (
+      {gameDetail.id && (
         <div className="py-[24px]">
           <div className="items-center justify-between hidden w-full sm:flex">
             <Breadcrumbs
               data={[{ title: 'Casino', href: ROUTER.Casino }]}
-              endpoint={{ title: String(gameDetail.title), href: ROUTER.GameDetail(String(gameId)) }}
+              endpoint={{ title: String(gameDetail.title), href: ROUTER.GameDetail(params?.id) }}
             />
             <div>
               <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
@@ -560,7 +564,6 @@ function GamePage() {
               {/* for desktop, for load ifram data */}
               <div
                 id="game_wrapper"
-                key={String(gameId)}
                 className={cn(
                   'h-full sm:dark:bg-black dark:bg-color-modal-bg-primary bg-white rounded-large',
                   styles.gameWrapper,
@@ -1018,7 +1021,7 @@ function GamePage() {
           )}
         </div>
       )}
-      {isNotFoundGame && !isLoading && (
+      {!gameDetail.id && !isLoading && (
         <div
           className={cn(
             'aspect-[2] w-full my-[20px] text-default dark:text-white text-black flex flex-col items-center justify-center gap-[20px]',
