@@ -1513,7 +1513,8 @@
     "redeemSuccess": "احصل على مكافأة Airdrop الخاصة بك الآن واستفد من المكافآت الحصرية.",
     "redeemNoCode": "هذا الرمز غير موجود.",
     "redeemEmpty": "لا يمكن أن يكون الرمز فارغًا!",
-    "depositBonusNotification": "تهانينا! لقد تمت إضافة مكافأة إيداع بقيمة حسابك بنجاح {{amount}} دولار أمريكي"
+    "depositBonusNotification": "تهانينا! لقد تمت إضافة مكافأة إيداع بقيمة حسابك بنجاح {{amount}} دولار أمريكي",
+    "bonusNotification": "تهانينا! لقد حصلت على مكافأة قدرها {{type}} بقيمة {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "ترقية",

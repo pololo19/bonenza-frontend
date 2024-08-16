@@ -1514,7 +1514,8 @@
     "redeemNoCode": "ไม่มีรหัสนั้น",
     "redeemSuccess": "รับโบนัส Airdrop ของคุณทันทีและใช้ประโยชน์จากรางวัลสุดพิเศษ",
     "redeemEmpty": "รหัสไม่สามารถเว้นว่างได้!",
-    "depositBonusNotification": "ยินดีด้วย! บัญชีของคุณได้รับโบนัสเงินฝากมูลค่าเรียบร้อยแล้ว {{amount}} ดอลล่าร์"
+    "depositBonusNotification": "ยินดีด้วย! บัญชีของคุณได้รับโบนัสเงินฝากมูลค่าเรียบร้อยแล้ว {{amount}} ดอลล่าร์",
+    "bonusNotification": "ยินดีด้วย!คุณได้รับโบนัส {{type}} จำนวน {{amount}} {{symbol}}"
   },
   "promotion": {
     "promotion": "การส่งเสริม",

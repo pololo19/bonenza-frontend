@@ -1516,7 +1516,8 @@
     "redeemNoCode": "That code doesn't exist.",
     "redeemSuccess": "Claim your Airdrop bonus now and take advantage of the exclusive rewards.",
     "redeemEmpty": "The code cannot be empty!",
-    "depositBonusNotification": "Congratulations! Your account has been successfully credited with a deposit bonus worth {{amount}} USD"
+    "depositBonusNotification": "Congratulations! Your account has been successfully credited with a deposit bonus worth {{amount}} USD",
+    "bonusNotification": "Congratulations! You have been awarded a {{type}} bonus of {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "Promotion",

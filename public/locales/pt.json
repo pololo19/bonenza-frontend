@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Esse código não existe.",
     "redeemSuccess": "Reivindique seu bônus Airdrop agora e aproveite as recompensas exclusivas.",
     "redeemEmpty": "O código não pode estar vazio!",
-    "depositBonusNotification": "Parabéns!Sua conta foi creditada com sucesso com um bônus de depósito no valor {{amount}} USD"
+    "depositBonusNotification": "Parabéns!Sua conta foi creditada com sucesso com um bônus de depósito no valor {{amount}} USD",
+    "bonusNotification": "Parabéns! Você recebeu um bônus {{type}} de {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "Promoção",

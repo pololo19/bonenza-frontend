@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Dieser Code existiert nicht.",
     "redeemSuccess": "Fordern Sie jetzt Ihren Airdrop-Bonus an und profitieren Sie von den exklusiven Prämien.",
     "redeemEmpty": "Der Code darf nicht leer sein!",
-    "depositBonusNotification": "Herzlichen Glückwunsch! Ihrem Konto wurde erfolgreich ein Einzahlungsbonus im Wert gutgeschrieben {{amount}} US Dollar"
+    "depositBonusNotification": "Herzlichen Glückwunsch! Ihrem Konto wurde erfolgreich ein Einzahlungsbonus im Wert gutgeschrieben {{amount}} US Dollar",
+    "bonusNotification": "Herzlichen Glückwunsch! Sie haben einen {{type}}-Bonus von {{amount}} {{symbol}} erhalten."
   },
   "promotion": {
     "promotion": "Förderung",

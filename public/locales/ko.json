@@ -1514,7 +1514,8 @@
     "redeemNoCode": "해당 코드는 존재하지 않습니다.",
     "redeemSuccess": "지금 Airdrop 보너스를 신청하고 독점 보상을 활용하세요.",
     "redeemEmpty": "코드는 비워둘 수 없습니다!",
-    "depositBonusNotification": "축하합니다!귀하의 계정에 해당 금액의 입금 보너스가 성공적으로 적립되었습니다. {{amount}} USD"
+    "depositBonusNotification": "축하합니다!귀하의 계정에 해당 금액의 입금 보너스가 성공적으로 적립되었습니다. {{amount}} USD",
+    "bonusNotification": "축하합니다!당신은 {{amount}} {{symbol}}의 {{type}} 보너스를 받았습니다."
   },
   "promotion": {
     "promotion": "홍보",

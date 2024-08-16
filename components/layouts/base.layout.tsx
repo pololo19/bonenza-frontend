@@ -63,6 +63,7 @@ import { setGameSocket, setSocket } from '@/base/redux/reducers/socket.reducer';
 import {
   addDepositTime,
   getBalance,
+  getBonusList,
   initWalletInfo,
   logoutWallet,
   setActiveTransactionStatus,
@@ -552,6 +553,34 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
             console.log(error, "balance error");
           }
 
+        });
+
+        gameSocket.on(`${userId}:bonus`, async (data: any) => {
+          try {
+            const type = String(data?.type || '');
+            const amount = parseFloat(data?.amount) || 0;
+            const symbol = data?.symbol || '';
+
+            // update balance
+            const _resBonus = await api_getClaims();
+            const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
+            dispatch(getBalance());
+            dispatch(getBonusList());
+            dispatch(setLockedAmount(tempLockedAmount));
+
+            toast.success(
+              t('bonus:bonusNotification', {
+                type: type.replaceAll('_', ' ').toUpperCase(),
+                amount: amount,
+                symbol: symbol,
+              }),
+              {
+                toastId: 'bonus-notification',
+                containerId: TOAST_ENUM.COMMON,
+              });
+          } catch (error) {
+            console.log(error, "bonus error");
+          }
         });
 
         gameSocket.on(`${userId}:tip`, async (data: any) => {

@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Kode itu tidak ada.",
     "redeemSuccess": "Richiedi subito il tuo bonus Airdrop e approfitta dei premi esclusivi.",
     "redeemEmpty": "Kode tidak boleh kosong!",
-    "depositBonusNotification": "Congratulazioni! Sul tuo conto è stato accreditato con successo un bonus di deposito del valore {{amount}} Dollaro statunitense"
+    "depositBonusNotification": "Congratulazioni! Sul tuo conto è stato accreditato con successo un bonus di deposito del valore {{amount}} Dollaro statunitense",
+    "bonusNotification": "Congratulazioni! Ti è stato assegnato un bonus {{type}} di {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "Promozione",
