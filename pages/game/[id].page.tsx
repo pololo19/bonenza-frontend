@@ -8,7 +8,7 @@ import type {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
@@ -34,7 +34,7 @@ import {
   changeIsShowAuthenticationModal,
   changeIsShowDepositModal,
 } from '@/base/redux/reducers/modal.reducer';
-import { AppState } from '@/base/redux/store';
+import { AppState, useAppDispatch } from '@/base/redux/store';
 import { AuthenticationModeEnum, GameListType, GameProviderDetail } from '@/base/types/common';
 import { GameCreateSessionRequest, GameDemoRequest } from '@/base/types/requestTypes';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
@@ -59,29 +59,7 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths
 
 export const getStaticProps = (async ({ params }: any) => {
-  try {
-    const response = await apiSSR_getGameDetail(params.id);
-    const game: GameListType = {
-      id: response.data?.id ?? '',
-      title: response.data?.title ?? '',
-      provider: response.data?.producerIdentifier ?? '',
-      providerName: response.data?.producerName ?? '',
-      identifier: response.data?.identifier ?? '',
-      payout: Number(response.data?.payout ?? 0),
-      multiplier: Number(response.data?.multiplier ?? 0),
-      isExpiration: response.data?.isExpiration ?? false,
-      description: response.data?.description ?? '',
-      releasedAt: response.data?.releasedAt ?? '',
-      gameCnt: Number(response.data?.producerDetails?.gameCount ?? 0),
-      allowedLocation: response.data?.allowLocation,
-      allowedDemo: response.data?.allowDemo,
-      favorites: response.data?.favoriteCount,
-    };
-    return { props: { game, params } }
-  } catch (error) {
-    return { props: { game: null, params } }
-  }
-
+  return { props: { params } }
 })
 
 type LaunchUrlTye = {
@@ -92,29 +70,34 @@ type LaunchUrlTye = {
   tokenId: string;
 };
 
-function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoadingFavorite, setIsLoadingFavorite] = useState<boolean>(false);
-  const [isLoadingLike, setIsLoadingLike] = useState<boolean>(false);
+function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter();
+  const { reload } = router;
+  const dispatch = useAppDispatch();
 
-  const [isLoadingGame, setIsLoadingGame] = useState({
-    request: '',
-    status: false,
-  }); // loading button
+  const { id } = params;
+
+  const [loadings, setLoadings] = useState({
+    screenLoad: false,
+    gameLoad: false,
+    reactLoad: false
+  })
+
+  const playStatusRef = useRef<'Free' | 'Real'>('Free'); // free: free, real: real
 
   const [gameDetail, setGameDetail] = useState<GameListType>({
-    id: game?.id || '',
-    title: game?.title || '',
-    provider: game?.provider || '',
-    identifier: game?.identifier || '',
-    payout: game?.payout || 0,
-    multiplier: game?.multiplier || 0,
-    description: game?.description || '',
-    releasedAt: game?.releasedAt || '',
-    allowedLocation: game?.allowedLocation || false,
-    allowedDemo: game?.allowedDemo || false,
-    providerName: game?.providerName || '',
-    favorites: game?.favorites || 0,
+    id: '',
+    title: '',
+    provider: '',
+    identifier: '',
+    payout: 0,
+    multiplier: 0,
+    description: '',
+    releasedAt: '',
+    allowedLocation: false,
+    allowedDemo: false,
+    providerName: '',
+    favorites: 0,
   });
   const [openShareGame, setOpenShareGame] = useState<boolean>(false);
   const [reactionData, setReactionData] = useState({
@@ -124,17 +107,14 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
   const [successfullyLaunched, setSuccessfullyLaunched] = useState<boolean>(false);
   const [providerDetail, setProviderDetail] = useState<GameProviderDetail | any>();
 
-  const playStatusRef = useRef<'Free' | 'Real'>('Free'); // free: free, real: real
-
   const [tab, setTab] = useState(1);
 
   const gameScreen = useFullScreenHandle();
   const { t } = useTranslation('');
 
-  const router = useRouter();
-  const { reload } = router;
+
   const [isSatisfied, setIsSatisfied] = useState<boolean>(true); // if balance is enough, value is true
-  const dispatch = useDispatch();
+
 
   const { isLogin, localFiat, activeCurrency, balances, language, viewInFiat } = useSelector(
     (state: AppState) => ({
@@ -149,9 +129,56 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
     shallowEqual,
   );
 
+  const _initLoadGame = useCallback(async () => {
+    if (isEmpty(id)) return;
+
+    setLoadings({
+      ...loadings,
+      screenLoad: true
+    })
+
+    try {
+      const _res = await api_getGameDetail(String(id));
+
+      const tempGameDetailData: GameListType = {
+        id: _res.data?.id ?? '',
+        title: _res.data?.title ?? '',
+        provider: _res.data?.producerIdentifier ?? '',
+        providerName: _res.data?.producerName ?? '',
+        identifier: _res.data?.identifier ?? '',
+        payout: Number(_res.data?.payout ?? 0),
+        multiplier: Number(_res.data?.multiplier ?? 0),
+        isExpiration: _res.data?.isExpiration ?? false,
+        description: _res.data?.description ?? '',
+        releasedAt: _res.data?.releasedAt ?? '',
+        gameCnt: Number(_res.data?.producerDetails?.gameCount ?? 0),
+        allowedLocation: _res.data?.allowLocation,
+        allowedDemo: _res.data?.allowDemo,
+        favorites: _res.data?.favoriteCount,
+      };
+
+      setGameDetail(tempGameDetailData);
+
+      if (!_res.data?.allowLocation) {
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON });
+      }
+
+      playStatusRef.current = 'Free';
+    } catch (error: any) {
+      const errType = error.response?.data?.message ?? '';
+      const errMessage = getErrorMesssage1(errType);
+      toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
+    } finally {
+      setLoadings({
+        ...loadings,
+        screenLoad: false
+      })
+    }
+
+  }, [id])
+
   const _initFreePlay = useCallback(() => {
     if (!gameDetail.id) {
-      toast.error(t('errors:game:existGame'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
       return;
     }
     if (!gameDetail.allowedLocation) {
@@ -163,11 +190,12 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
       return;
     }
 
-    if (isMobile || playStatusRef.current === 'Real' || !gameDetail.id) {
-      setIsLoading(false);
-      return;
-    };
-    setIsLoading(true);
+    if (isMobile || playStatusRef.current === 'Real') return;
+
+    setLoadings({
+      ...loadings,
+      gameLoad: true
+    })
 
     const list = document.getElementById('game_wrapper');
     if (list?.firstElementChild) {
@@ -189,10 +217,16 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
         };
 
         const success = () => {
-          setIsLoading(false);
+          setLoadings({
+            ...loadings,
+            gameLoad: false
+          })
         };
         const error = () => {
-          setIsLoading(false);
+          setLoadings({
+            ...loadings,
+            gameLoad: false
+          })
         };
         launchGame(
           lanuchGameOption.gameUrl,
@@ -208,48 +242,42 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
         const errType = error.response?.data?.message ?? '';
         const errMessage = getErrorMesssage1(errType);
         toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-        setIsLoading(false);
+        setLoadings({
+          ...loadings,
+          gameLoad: false
+        })
       })
       .finally(() => {
-        setIsLoading(false);
+        setLoadings({
+          ...loadings,
+          gameLoad: false
+        })
       });
 
-  }, [language, isMobile])
+  }, [language, isMobile, gameDetail.id])
 
   const handleFreeplay = () => {
     try {
 
-      playStatusRef.current = 'Free';
-      setIsLoadingGame({
-        request: 'demo',
-        status: true,
-      });
-      setSuccessfullyLaunched(false);
-
       if (!gameDetail.allowedDemo) {
         toast.error(t('errors:game:notAllowedDemo'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
-        setIsLoadingGame({
-          request: 'demo',
-          status: false
-        })
         return;
       }
 
       if (!gameDetail.allowedLocation) {
         toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
-        setIsLoadingGame({
-          request: 'demo',
-          status: false
-        })
         return;
       }
 
+      playStatusRef.current = 'Free';
+      setLoadings({
+        ...loadings,
+        gameLoad: true
+      })
+      setSuccessfullyLaunched(false);
+
       if (!isMobile) {
         setSuccessfullyLaunched(true);
-        setIsLoadingGame({
-          status: false,
-          request: 'demo',
-        });
         return;
       }
 
@@ -276,12 +304,10 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
             lobbyUrl: res.data.lobbyUrl,
             tokenId: res.data.tokenId,
           };
-          setIsLoadingGame({
-            status: false,
-            request: 'demo',
-          });
-          // const url = _generateMobilePlayUrl(lanuchGameOption);
-          // router.push(url);
+          setLoadings({
+            ...loadings,
+            gameLoad: false
+          })
           newWindow.location.href = lanuchGameOption.gameUrl
 
         })
@@ -289,9 +315,9 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
           const errType = error.response?.data?.message ?? '';
           const errMessage = getErrorMesssage1(errType);
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-          setIsLoadingGame({
-            request: 'demo',
-            status: false,
+          setLoadings({
+            ...loadings,
+            gameLoad: false
           });
         })
         .finally(() => { });
@@ -319,17 +345,17 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
         setIsSatisfied(false);
         return;
       }
-      setIsLoadingGame({
-        request: 'real',
-        status: true,
-      });
+      setLoadings({
+        ...loadings,
+        gameLoad: true
+      })
 
       if (!gameDetail.allowedLocation) {
         toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
-        setIsLoadingGame({
-          request: 'real',
-          status: false,
-        });
+        setLoadings({
+          ...loadings,
+          gameLoad: true
+        })
         return;
       }
       const list = document.getElementById('game_wrapper');
@@ -359,9 +385,9 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
           };
           if (isMobile && newWindow) {
             setSuccessfullyLaunched(true);
-            setIsLoadingGame({
-              status: false,
-              request: 'real',
+            setLoadings({
+              ...loadings,
+              gameLoad: false
             });
             // const url = _generateMobilePlayUrl(lanuchGameOption);
             // router.push(url);
@@ -370,9 +396,9 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
           if (!isMobile) {
             const success = () => {
               setSuccessfullyLaunched(true);
-              setIsLoadingGame({
-                status: false,
-                request: 'real',
+              setLoadings({
+                ...loadings,
+                gameLoad: false
               });
             };
             const error = () => {
@@ -393,9 +419,9 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
           const errType = error.response?.data?.message ?? '';
           const errMessage = getErrorMesssage1(errType);
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-          setIsLoadingGame({
-            request: 'real',
-            status: false,
+          setLoadings({
+            ...loadings,
+            gameLoad: false
           });
         })
         .finally(() => { });
@@ -403,9 +429,9 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
       const errType = error.response?.data?.message ?? '';
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
-      setIsLoadingGame({
-        request: 'real',
-        status: false,
+      setLoadings({
+        ...loadings,
+        gameLoad: false
       });
     }
   };
@@ -428,20 +454,19 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
         isLike: false,
       });
     }
-  }, [isLogin]);
+  }, [isLogin, gameDetail.id]);
 
-  const handleReactGame = async (reaction: 'like' | 'favorite') => {
+  const handleReactGame = async () => {
     try {
       if (!isLogin) {
         dispatch(changeIsShowAuthenticationModal(true));
         dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
         return;
       }
-      if (reaction === 'like') {
-        setIsLoadingLike(true);
-      } else {
-        setIsLoadingFavorite(true);
-      }
+      setLoadings({
+        ...loadings,
+        reactLoad: true
+      })
 
       const res = await api_setGameFavorite(gameDetail.id);
       const count = res.data?.count;
@@ -453,11 +478,10 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
       const errMessage = getErrorMesssage1(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
-      if (reaction === 'like') {
-        setIsLoadingLike(false);
-      } else {
-        setIsLoadingFavorite(false);
-      }
+      setLoadings({
+        ...loadings,
+        reactLoad: false
+      })
     }
   };
 
@@ -508,13 +532,20 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
       setSuccessfullyLaunched(false);
       toast(t('notification:errors:gameLaunchedFailed'));
     } finally {
-      setIsLoading(false);
+      setLoadings({
+        ...loadings,
+        gameLoad: false
+      });
     }
   };
 
   useEffect(() => {
     setSuccessfullyLaunched(false);
-    setIsLoading(false);
+    setLoadings({
+      screenLoad: false,
+      gameLoad: false,
+      reactLoad: false
+    })
   }, [])
 
   useEffect(() => {
@@ -538,9 +569,395 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
     _initFreePlay()
   }, [_initFreePlay])
 
+  useEffect(() => {
+    _initLoadGame()
+  }, [_initLoadGame])
+
+
+  const GamePlayingMobile = useMemo(() => {
+    if (!isMobile) return <></>;
+
+    return <>
+      <div
+        className={cn(
+          'sm:hidden flex flex-col rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000 p-[15px] gap-[10px]',
+          {
+            // hidden: !isPlayRequested,
+            // 'opacity-0': successfullyLaunched,
+            // 'opacity-100': !successfullyLaunched,
+            // 'pointer-events-none': successfullyLaunched,
+          },
+        )}
+      >
+        <div className="grid grid-cols-2 w-full h-fit gap-[10px]">
+          <div className="relative flex aspect-square">
+            <Image
+              src={
+                gameDetail.identifier
+                  ? `https://cdn.softswiss.net/i/s4/${gameDetail?.identifier?.replace(':', '/')}.png`
+                  : '/img/game-background.png'
+              }
+              fill
+              alt="game logo"
+              className="rounded-default"
+              onError={(e) => {
+                e.currentTarget.src = '/img/game-background.png';
+              }}
+            />
+          </div>
+          <div className="flex flex-col aspect-square px-[10px] justify-between">
+            <div className="flex flex-col gap-[10px]">
+              <div className="font-bold text-black dark:text-white text-default">{gameDetail.title}</div>
+              <div className="text-black dark:text-white text-des">
+                <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
+                <Link
+                  className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
+                  href={ROUTER.Provider(String(gameDetail.providerName))}
+                >
+                  {gameDetail.providerName}
+                </Link>
+              </div>
+              <div className="text-black dark:text-color-text-secondary text-des">
+                {`${formatDate(new Date(gameDetail.releasedAt), 'yyyy.MM.dd')}`}
+              </div>
+            </div>
+            <div className="flex text-color-text-primary">
+              {!loadings.reactLoad ? (
+                <div
+                  role="button"
+                  className={cn(
+                    'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-color-light-bg-primary rounded p-2 flex gap-2 items-center',
+                    {
+                      '!text-amber-400': reactionData.isFavorite,
+                    },
+                  )}
+                  onClick={() => handleReactGame()}
+                >
+                  <StarIcon width={20} />
+                  <span className="text-des">{gameDetail?.favorites ?? 0}</span>
+                </div>
+              ) : (
+                <div className="w-[49px] flex items-center justify-center">
+                  <ReactLoading type={'balls'} width={20} height={20} />
+                </div>
+              )}
+              <div
+                role="button"
+                className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
+                onClick={() => setOpenShareGame(true)}
+              >
+                <Send2 size={20} variant="Bold" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 w-full gap-[10px] mt-[15px]">
+          {isLogin ? (
+            <button
+              type="button"
+              disabled={!gameDetail.allowedLocation || loadings.gameLoad}
+              className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px] font-bold"
+              onClick={() => handleRealPlay()}
+            >
+              {loadings.gameLoad && playStatusRef.current === 'Real' ? (
+                <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+              ) : (
+                <PlayCricle size={20} />
+              )}
+
+              <div className="font-bold">{t('gameDetail:realPlayMobile')}</div>
+            </button>
+          ) : (
+            <button
+              type="button"
+              disabled={!gameDetail.allowedLocation || loadings.gameLoad}
+              className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px]"
+              onClick={() => handleSignUp()}
+            >
+              {loadings.gameLoad && playStatusRef.current === 'Real' ? (
+                <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+              ) : (
+                <LoginCurve size={20} />
+              )}
+
+              <div>{t('layout:signUp')}</div>
+            </button>
+          )}
+
+          <button
+            type="button"
+            className={cn(
+              'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] py-[15px] text-default items-center gap-[10px] justify-center',
+              {
+                flex: gameDetail.allowedDemo,
+                hidden: !gameDetail.allowedDemo,
+              },
+            )}
+            disabled={!gameDetail.allowedLocation || loadings.gameLoad}
+            onClick={() => {
+              handleFreeplay();
+            }}
+          >
+            {loadings.gameLoad && playStatusRef.current === 'Free' ? (
+              <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+            ) : (
+              <PlayCricle size={20} />
+            )}
+
+            <div>{t('gameDetail:freePlayMobile')}</div>
+          </button>
+        </div>
+
+        <div
+          className={cn('absolute top-[50px] w-full z-[9] flex left-0', { 'p-[15px]': !isSatisfied && isLogin })}
+        >
+          {!isSatisfied && isLogin && (
+            <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] sm:hidden flex flex-col items-center z-1 rounded-large sm:max-w-[500px] w-full dark:bg-[#202226] bg-color-light-bg-primary">
+              {gameDetail?.isExpiration ? (
+                <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
+                  {t('gameDetail:gameExpiration')}
+                </div>
+              ) : (
+                <>
+                  <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
+                    <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
+                      {t('gameDetail:insufficientBalanceIn')}
+                    </div>
+                    <div className="bg-[#17191B] rounded-default">
+                      <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
+                    </div>
+                  </div>
+                  <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
+                    <span className="!text-red-500">
+                      {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')},
+                    </span>
+                    {t('gameDetail:switchToAnotherAsset')}
+                  </div>
+
+                  <div className="flex items-center gap-[20px]">
+                    <button
+                      type="button"
+                      className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[8px] sm:text-default text-[12px] flex items-center gap-[10px]"
+                      onClick={() => {
+                        dispatch(changeIsShowDepositModal(true));
+                      }}
+                    >
+                      <PlayCricle size={20} />
+                      <div>{t('gameDetail:depositAndPlay')}</div>
+                    </button>
+                    <button
+                      type="button"
+                      className={cn(
+                        'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] sm:px-5 px-[8px] sm:text-default text-[12px] items-center gap-[10px]',
+                        {
+                          flex: gameDetail.allowedDemo,
+                          hidden: !gameDetail.allowedDemo,
+                        },
+                      )}
+                      disabled={!gameDetail.allowedLocation || loadings.gameLoad}
+                      onClick={() => {
+                        handleFreeplay();
+                      }}
+                    >
+                      <PlayCricle size={20} />
+                      <div>{t('gameDetail:freePlay')}</div>
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
+        </div>
+
+        {!isSatisfied && <div className="absolute z-[5] bg-[black]/80 w-full h-full left-0 top-0"></div>}
+      </div>
+    </>
+  }, [isLogin, isMobile, gameDetail.id, loadings, isSatisfied, activeCurrency, reactionData])
+
+  const GamePlayingDesktop = useMemo(() => {
+    if (isMobile) return <></>;
+
+    return <>
+      <div
+        className={cn(
+          'hidden sm:flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
+          {
+            'opacity-0': successfullyLaunched,
+            'opacity-100': !successfullyLaunched,
+            'pointer-events-none': successfullyLaunched,
+            'bg-black': loadings.gameLoad
+          },
+        )}
+      >
+        {
+          (loadings.gameLoad || !gameDetail.allowedDemo || !gameDetail.allowedLocation) && <Image
+            src={
+              gameDetail.identifier
+                ? `https://cdn.softswiss.net/b/${gameDetail?.identifier?.replace(':', '/')}.jpg`
+                : '/img/game-background.png'
+            }
+            fill
+            alt="game background"
+            className="hidden sm:block "
+            onError={(e) => {
+              e.currentTarget.src = '/img/game-background.png';
+            }}
+          />
+        }
+
+
+        <div className={cn('h-full bg-black/60 w-full absolute')} />
+
+        {isLogin && (
+          <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] hidden sm:flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
+            {gameDetail?.isExpiration ? (
+              <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
+                {t('gameDetail:gameExpiration')}
+              </div>
+            ) : (
+              <>
+                <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
+                  {isSatisfied && (
+                    <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
+                      {t('gameDetail:playWithBalanceIn')}
+                    </div>
+                  )}
+                  {!isSatisfied && (
+                    <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
+                      {t('gameDetail:insufficientBalanceIn')}
+                    </div>
+                  )}
+                  <div className="bg-[#17191B] rounded-default">
+                    <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
+                  </div>
+                </div>
+
+                {isSatisfied && (
+                  <div className="sm:text-[12px] text-[11px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
+                    {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
+                    <span className="!text-color-primary">{viewInFiat ? localFiat?.name ?? 'USD' : 'USD'}</span>
+                    , {t('gameDetail:ifYouChangeCurrency')}
+                  </div>
+                )}
+                {!isSatisfied && (
+                  <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
+                    <span className="!text-red-500">
+                      {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')},
+                    </span>
+                    {t('gameDetail:switchToAnotherAsset')}
+                  </div>
+                )}
+
+                <div className="flex items-center gap-[20px]">
+                  {isSatisfied && (
+                    <button
+                      type="button"
+                      disabled={!gameDetail.allowedLocation || loadings.gameLoad}
+                      className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-default text-[12px] flex items-center gap-[10px]"
+                      onClick={() => handleRealPlay()}
+                    >
+                      {loadings.gameLoad && playStatusRef.current === 'Real' ? (
+                        <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                      ) : (
+                        <PlayCricle size={20} />
+                      )}
+
+                      <div>{t('gameDetail:realPlay')}</div>
+                    </button>
+                  )}
+                  {!isSatisfied && (
+                    <button
+                      type="button"
+                      className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[5px] sm:text-default text-[12px] flex items-center gap-[10px]"
+                      onClick={() => {
+                        dispatch(changeIsShowDepositModal(true));
+                      }}
+                    >
+                      <PlayCricle size={20} />
+                      <div>{t('gameDetail:depositAndPlay')}</div>
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    className={cn(
+                      'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] items-center gap-[10px]',
+                      {
+                        flex: gameDetail.allowedDemo,
+                        hidden: !gameDetail.allowedDemo,
+                      },
+                    )}
+                    disabled={!gameDetail.allowedLocation || loadings.gameLoad}
+                    onClick={() => {
+                      handleFreeplay();
+                    }}
+                  >
+                    {loadings.gameLoad && playStatusRef.current === 'Free' ? (
+                      <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
+                    ) : (
+                      <PlayCricle size={20} />
+                    )}
+
+                    <div>{t('gameDetail:freePlay')}</div>
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+        {!isLogin && (
+          <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] hidden sm:flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
+            {gameDetail?.isExpiration ? (
+              <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
+                {t('gameDetail:gameExpiration')}
+              </div>
+            ) : (
+              <>
+                <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
+                  {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
+                  <span className="!text-color-primary">{localFiat?.name ?? 'USD'}</span>{' '}
+                  {t('gameDetail:ifYouChangeCurrency')}
+                </div>
+
+                <div className="flex items-center gap-[20px]">
+                  <button
+                    type="button"
+                    className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
+                    onClick={() => {
+                      dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
+                      dispatch(changeIsShowAuthenticationModal(true));
+                    }}
+                  >
+                    <div>{t('gameDetail:signUp')}</div>
+                  </button>
+                  <button
+                    type="button"
+                    className={cn(
+                      'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] items-center gap-[10px]',
+                      {
+                        flex: gameDetail.allowedDemo,
+                        hidden: !gameDetail.allowedDemo,
+                      },
+                    )}
+                    disabled={!gameDetail.allowedLocation || loadings.gameLoad}
+                    onClick={() => {
+                      handleFreeplay();
+                    }}
+                  >
+                    <PlayCricle size={20} />
+                    <div>{t('gameDetail:freePlay')}</div>
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        )}
+      </div>
+    </>
+  }, [isLogin, isMobile, successfullyLaunched, loadings.gameLoad, isSatisfied, viewInFiat, localFiat, activeCurrency])
+
   return (
     <>
-      {isLoading && <Loader />}
+      {loadings.screenLoad && <Loader />}
       {gameDetail.id && (
         <div className="py-[24px]">
           <div className="items-center justify-between hidden w-full sm:flex">
@@ -571,379 +988,15 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
               />
 
               {/* ************************************************ for mobile version ****************************************** */}
-              <div
-                className={cn(
-                  'sm:hidden flex flex-col rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000 p-[15px] gap-[10px]',
-                  {
-                    // hidden: !isPlayRequested,
-                    // 'opacity-0': successfullyLaunched,
-                    // 'opacity-100': !successfullyLaunched,
-                    // 'pointer-events-none': successfullyLaunched,
-                  },
-                )}
-              >
-                <div className="grid grid-cols-2 w-full h-fit gap-[10px]">
-                  <div className="relative flex aspect-square">
-                    <Image
-                      src={
-                        gameDetail.identifier
-                          ? `https://cdn.softswiss.net/i/s4/${gameDetail?.identifier?.replace(':', '/')}.png`
-                          : '/img/game-background.png'
-                      }
-                      fill
-                      alt="game logo"
-                      className="rounded-default"
-                      onError={(e) => {
-                        e.currentTarget.src = '/img/game-background.png';
-                      }}
-                    />
-                  </div>
-                  <div className="flex flex-col aspect-square px-[10px] justify-between">
-                    <div className="flex flex-col gap-[10px]">
-                      <div className="font-bold text-black dark:text-white text-default">{gameDetail.title}</div>
-                      <div className="text-black dark:text-white text-des">
-                        <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
-                        <Link
-                          className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
-                          href={ROUTER.Provider(String(gameDetail.providerName))}
-                        >
-                          {gameDetail.providerName}
-                        </Link>
-                      </div>
-                      <div className="text-black dark:text-color-text-secondary text-des">
-                        {`${formatDate(new Date(gameDetail.releasedAt), 'yyyy.MM.dd')}`}
-                      </div>
-                    </div>
-                    <div className="flex text-color-text-primary">
-                      {!isLoadingFavorite ? (
-                        <div
-                          role="button"
-                          className={cn(
-                            'dark:hover:bg-gray-700 dark:text-color-text-secondary dark:hover:text-white hover:bg-color-light-bg-primary rounded p-2 flex gap-2 items-center',
-                            {
-                              '!text-amber-400': reactionData.isFavorite,
-                            },
-                          )}
-                          onClick={() => handleReactGame('favorite')}
-                        >
-                          <StarIcon width={20} />
-                          <span className="text-des">{gameDetail?.favorites ?? 0}</span>
-                        </div>
-                      ) : (
-                        <div className="w-[49px] flex items-center justify-center">
-                          <ReactLoading type={'balls'} width={20} height={20} />
-                        </div>
-                      )}
-                      <div
-                        role="button"
-                        className="p-2 rounded dark:hover:bg-gray-700 dark:hover:text-white hover:bg-color-light-bg-primary hover:text-black"
-                        onClick={() => setOpenShareGame(true)}
-                      >
-                        <Send2 size={20} variant="Bold" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 w-full gap-[10px] mt-[15px]">
-                  {isLogin ? (
-                    <button
-                      type="button"
-                      disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                      className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px] font-bold"
-                      onClick={() => handleRealPlay()}
-                    >
-                      {isLoadingGame.status && isLoadingGame.request === 'real' ? (
-                        <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                      ) : (
-                        <PlayCricle size={20} />
-                      )}
-
-                      <div className="font-bold">{t('gameDetail:realPlayMobile')}</div>
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                      className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px]"
-                      onClick={() => handleSignUp()}
-                    >
-                      {isLoadingGame.status && isLoadingGame.request === 'real' ? (
-                        <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                      ) : (
-                        <LoginCurve size={20} />
-                      )}
-
-                      <div>{t('layout:signUp')}</div>
-                    </button>
-                  )}
-
-                  <button
-                    type="button"
-                    className={cn(
-                      'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] py-[15px] text-default items-center gap-[10px] justify-center',
-                      {
-                        flex: gameDetail.allowedDemo,
-                        hidden: !gameDetail.allowedDemo,
-                      },
-                    )}
-                    disabled={isLoadingGame.status}
-                    onClick={() => {
-                      handleFreeplay();
-                    }}
-                  >
-                    {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
-                      <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                    ) : (
-                      <PlayCricle size={20} />
-                    )}
-
-                    <div>{t('gameDetail:freePlayMobile')}</div>
-                  </button>
-                </div>
-
-                <div
-                  className={cn('absolute top-[50px] w-full z-[9] flex left-0', { 'p-[15px]': !isSatisfied && isLogin })}
-                >
-                  {!isSatisfied && isLogin && (
-                    <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] sm:hidden flex flex-col items-center z-1 rounded-large sm:max-w-[500px] w-full dark:bg-[#202226] bg-color-light-bg-primary">
-                      {gameDetail?.isExpiration ? (
-                        <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
-                          {t('gameDetail:gameExpiration')}
-                        </div>
-                      ) : (
-                        <>
-                          <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
-                            <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
-                              {t('gameDetail:insufficientBalanceIn')}
-                            </div>
-                            <div className="bg-[#17191B] rounded-default">
-                              <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
-                            </div>
-                          </div>
-                          <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
-                            <span className="!text-red-500">
-                              {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')},
-                            </span>
-                            {t('gameDetail:switchToAnotherAsset')}
-                          </div>
-
-                          <div className="flex items-center gap-[20px]">
-                            <button
-                              type="button"
-                              className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[8px] sm:text-default text-[12px] flex items-center gap-[10px]"
-                              onClick={() => {
-                                dispatch(changeIsShowDepositModal(true));
-                              }}
-                            >
-                              <PlayCricle size={20} />
-                              <div>{t('gameDetail:depositAndPlay')}</div>
-                            </button>
-                            <button
-                              type="button"
-                              className={cn(
-                                'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] sm:px-5 px-[8px] sm:text-default text-[12px] items-center gap-[10px]',
-                                {
-                                  flex: gameDetail.allowedDemo,
-                                  hidden: !gameDetail.allowedDemo,
-                                },
-                              )}
-                              disabled={isLoadingGame.status}
-                              onClick={() => {
-                                handleFreeplay();
-                              }}
-                            >
-                              <PlayCricle size={20} />
-                              <div>{t('gameDetail:freePlay')}</div>
-                            </button>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {!isSatisfied && <div className="absolute z-[5] bg-[black]/80 w-full h-full left-0 top-0"></div>}
-              </div>
+              {GamePlayingMobile}
 
               {/* ************************************************ for desktop version ***************************************** */}
-              <div
-                className={cn(
-                  'hidden sm:flex items-center justify-center rounded h-full absolute z-[5] top-0 w-full transition-opacity duration-1000',
-                  {
-                    'opacity-0': successfullyLaunched,
-                    'opacity-100': !successfullyLaunched,
-                    'pointer-events-none': successfullyLaunched,
-                  },
-                )}
-              >
-                {
-                  (isLoadingGame.status || !gameDetail.allowedDemo || !gameDetail.allowedLocation) && <Image
-                    src={
-                      gameDetail.identifier
-                        ? `https://cdn.softswiss.net/b/${gameDetail?.identifier?.replace(':', '/')}.jpg`
-                        : '/img/game-background.png'
-                    }
-                    fill
-                    alt="game background"
-                    className="hidden sm:block "
-                    onError={(e) => {
-                      e.currentTarget.src = '/img/game-background.png';
-                    }}
-                  />
-                }
-
-
-                <div className={cn('h-full bg-black/60 w-full absolute')} />
-
-                {isLogin && (
-                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] hidden sm:flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
-                    {gameDetail?.isExpiration ? (
-                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
-                        {t('gameDetail:gameExpiration')}
-                      </div>
-                    ) : (
-                      <>
-                        <div className="flex flex-row items-center md:gap-[30px] gap-[10px]">
-                          {isSatisfied && (
-                            <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
-                              {t('gameDetail:playWithBalanceIn')}
-                            </div>
-                          )}
-                          {!isSatisfied && (
-                            <div className="text-start md:text-[18px] sm:text-default text-[12px] dark:text-white text-black">
-                              {t('gameDetail:insufficientBalanceIn')}
-                            </div>
-                          )}
-                          <div className="bg-[#17191B] rounded-default">
-                            <FiatHeader inGamePage={true} wrapperClass="!right-0" buttonClass="min-w-[150px]" />
-                          </div>
-                        </div>
-
-                        {isSatisfied && (
-                          <div className="sm:text-[12px] text-[11px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
-                            {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                            <span className="!text-color-primary">{viewInFiat ? localFiat?.name ?? 'USD' : 'USD'}</span>
-                            , {t('gameDetail:ifYouChangeCurrency')}
-                          </div>
-                        )}
-                        {!isSatisfied && (
-                          <div className="sm:text-[12px] text-[10px] text-[#C2C2C2] text-center">
-                            <span className="!text-red-500">
-                              {t('gameDetail:insufficient')} {activeCurrency?.name ?? 'USD'} {t('gameDetail:balance')},
-                            </span>
-                            {t('gameDetail:switchToAnotherAsset')}
-                          </div>
-                        )}
-
-                        <div className="flex items-center gap-[20px]">
-                          {isSatisfied && (
-                            <button
-                              type="button"
-                              disabled={!gameDetail.allowedLocation || isLoadingGame.status}
-                              className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] sm:px-5 py-[5px] px-[5px] sm:text-default text-[12px] flex items-center gap-[10px]"
-                              onClick={() => handleRealPlay()}
-                            >
-                              {isLoadingGame.status && isLoadingGame.request === 'real' ? (
-                                <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                              ) : (
-                                <PlayCricle size={20} />
-                              )}
-
-                              <div>{t('gameDetail:realPlay')}</div>
-                            </button>
-                          )}
-                          {!isSatisfied && (
-                            <button
-                              type="button"
-                              className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] sm:px-5 px-[5px] sm:text-default text-[12px] flex items-center gap-[10px]"
-                              onClick={() => {
-                                dispatch(changeIsShowDepositModal(true));
-                              }}
-                            >
-                              <PlayCricle size={20} />
-                              <div>{t('gameDetail:depositAndPlay')}</div>
-                            </button>
-                          )}
-                          <button
-                            type="button"
-                            className={cn(
-                              'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] items-center gap-[10px]',
-                              {
-                                flex: gameDetail.allowedDemo,
-                                hidden: !gameDetail.allowedDemo,
-                              },
-                            )}
-                            disabled={isLoadingGame.status}
-                            onClick={() => {
-                              handleFreeplay();
-                            }}
-                          >
-                            {isLoadingGame.status && isLoadingGame.request === 'demo' ? (
-                              <ReactLoading type={'balls'} color={'white'} width={20} height={20} />
-                            ) : (
-                              <PlayCricle size={20} />
-                            )}
-
-                            <div>{t('gameDetail:freePlay')}</div>
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
-                {!isLogin && (
-                  <div className="lg:p-[20px] p-[10px] sm:gap-[20px] gap-[10px] hidden sm:flex flex-col items-center z-1 sm:max-w-[500px] sm:w-full w-[90%] dark:bg-[#202226] bg-color-light-bg-primary rounded">
-                    {gameDetail?.isExpiration ? (
-                      <div className="min-h-[100px] flex items-center dark:text-white text-black text-default">
-                        {t('gameDetail:gameExpiration')}
-                      </div>
-                    ) : (
-                      <>
-                        <div className="sm:text-[12px] text-[10px] dark:text-[#C2C2C2] text-color-light-text-primary text-center">
-                          {t('gameDetail:theSelectedCurrencyWillBeDisplayedIn')}{' '}
-                          <span className="!text-color-primary">{localFiat?.name ?? 'USD'}</span>{' '}
-                          {t('gameDetail:ifYouChangeCurrency')}
-                        </div>
-
-                        <div className="flex items-center gap-[20px]">
-                          <button
-                            type="button"
-                            className="truncate hover:bg-[red] text-white rounded-default font-semibold bg-[#F61B4F] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] flex items-center gap-[10px]"
-                            onClick={() => {
-                              dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
-                              dispatch(changeIsShowAuthenticationModal(true));
-                            }}
-                          >
-                            <div>{t('gameDetail:signUp')}</div>
-                          </button>
-                          <button
-                            type="button"
-                            className={cn(
-                              'truncate hover:bg-gray-400 text-white rounded-default font-semibold bg-[#6B7180] sm:py-[9px] py-[5px] px-5 sm:text-default text-[12px] items-center gap-[10px]',
-                              {
-                                flex: gameDetail.allowedDemo,
-                                hidden: !gameDetail.allowedDemo,
-                              },
-                            )}
-                            disabled={isLoadingGame.status}
-                            onClick={() => {
-                              handleFreeplay();
-                            }}
-                          >
-                            <PlayCricle size={20} />
-                            <div>{t('gameDetail:freePlay')}</div>
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                )}
-              </div>
+              {GamePlayingDesktop}
             </FullScreen>
             {/* Game actions */}
             <div className="p-[15px] dark:bg-[#17191B] bg-white items-center justify-between sm:flex hidden">
               <div className="text-color-text-secondary flex gap-[20px] items-center">
-                {!isLoadingFavorite ? (
+                {!loadings.reactLoad ? (
                   <div
                     role="button"
                     className={cn(
@@ -952,7 +1005,7 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
                         '!text-amber-400': reactionData.isFavorite,
                       },
                     )}
-                    onClick={() => handleReactGame('favorite')}
+                    onClick={() => handleReactGame()}
                   >
                     <StarIcon width={20} />
                     <span className="text-[12px]">{gameDetail?.favorites ?? 0}</span>
@@ -1021,7 +1074,7 @@ function GamePage({ game, params }: InferGetStaticPropsType<typeof getStaticProp
           )}
         </div>
       )}
-      {!gameDetail.id && !isLoading && (
+      {!gameDetail.id && !loadings.screenLoad && (
         <div
           className={cn(
             'aspect-[2] w-full my-[20px] text-default dark:text-white text-black flex flex-col items-center justify-center gap-[20px]',
