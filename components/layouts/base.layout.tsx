@@ -557,7 +557,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
         gameSocket.on(`${userId}:bonus`, async (data: any) => {
           try {
-            console.log(data);
             const type = String(data?.type || '');
             const amount = parseFloat(data?.amount) || 0;
             const symbol = data?.symbol || '';
