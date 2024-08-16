@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Цього коду не існує.",
     "redeemSuccess": "Вимагайте бонус Airdrop зараз і скористайтеся ексклюзивними винагородами.",
     "redeemEmpty": "Код не може бути порожнім!",
-    "depositBonusNotification": "Вітаємо! На ваш рахунок успішно зараховано бонус на депозит {{amount}} доларів США"
+    "depositBonusNotification": "Вітаємо! На ваш рахунок успішно зараховано бонус на депозит {{amount}} доларів США",
+    "bonusNotification": "Вітаємо! Ви отримали бонус {{type}} {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "просування по службі",

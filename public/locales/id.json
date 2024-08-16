@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Kode itu tidak ada.",
     "redeemSuccess": "Klaim bonus Airdrop Anda sekarang dan manfaatkan hadiah eksklusifnya.",
     "redeemEmpty": "Kode tidak boleh kosong!",
-    "depositBonusNotification": "Selamat!Akun Anda telah berhasil dikreditkan dengan nilai bonus deposit {{amount}} USD"
+    "depositBonusNotification": "Selamat!Akun Anda telah berhasil dikreditkan dengan nilai bonus deposit {{amount}} USD",
+    "bonusNotification": "Selamat!Anda telah diberikan bonus {{type}} sebesar {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "Promosi",

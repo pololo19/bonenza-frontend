@@ -1514,7 +1514,8 @@
     "redeemNoCode": "そのコードは存在しません。",
     "redeemSuccess": "今すぐエアドロップ ボーナスを受け取り、限定特典を活用してください。",
     "redeemEmpty": "コードを空にすることはできません。",
-    "depositBonusNotification": "おめでとうございます!あなたのアカウントに入金ボーナス相当額が正常に入金されました。 {{amount}} 米ドル"
+    "depositBonusNotification": "おめでとうございます!あなたのアカウントに入金ボーナス相当額が正常に入金されました。 {{amount}} 米ドル",
+    "bonusNotification": "おめでとうございます!{{amount}} {{symbol}} の {{type}} ボーナスを獲得しました。"
   },
   "promotion": {
     "promotion": "プロモーション",

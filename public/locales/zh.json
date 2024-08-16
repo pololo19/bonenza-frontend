@@ -1514,7 +1514,8 @@
     "redeemNoCode": "该代码不存在。",
     "redeemSuccess": "立即领取您的空投奖金并享受独家奖励。",
     "redeemEmpty": "验证码不能为空！",
-    "depositBonusNotification": "恭喜！您的账户已成功存入价值存款奖金 {{amount}} 美元"
+    "depositBonusNotification": "恭喜！您的账户已成功存入价值存款奖金 {{amount}} 美元",
+    "bonusNotification": "恭喜您！您已获得 {{type}} 奖金 {{amount}} {{symbol}}。"
   },
   "promotion": {
     "promotion": "晋升",

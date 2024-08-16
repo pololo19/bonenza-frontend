@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Kod itu tidak wujud.",
     "redeemSuccess": "Tuntut bonus Airdrop anda sekarang dan manfaatkan ganjaran eksklusif.",
     "redeemEmpty": "Kod tidak boleh kosong!",
-    "depositBonusNotification": "Tahniah!Akaun anda telah berjaya dikreditkan dengan nilai bonus deposit {{amount}} Dolar Amerika"
+    "depositBonusNotification": "Tahniah!Akaun anda telah berjaya dikreditkan dengan nilai bonus deposit {{amount}} Dolar Amerika",
+    "bonusNotification": "Tahniah! Anda telah dianugerahkan bonus {{type}} sebanyak {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "kenaikan pangkat",

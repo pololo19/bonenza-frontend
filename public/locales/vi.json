@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Mã đó không tồn tại.",
     "redeemSuccess": "Yêu cầu phần thưởng Airdrop của bạn ngay bây giờ và tận dụng phần thưởng độc quyền.",
     "redeemEmpty": "Mã không được để trống!",
-    "depositBonusNotification": "Xin chúc mừng! Tài khoản của bạn đã được ghi có thành công với số tiền thưởng gửi tiền trị giá {{amount}} đô la Mỹ"
+    "depositBonusNotification": "Xin chúc mừng! Tài khoản của bạn đã được ghi có thành công với số tiền thưởng gửi tiền trị giá {{amount}} đô la Mỹ",
+    "bonusNotification": "Xin chúc mừng! Bạn đã được thưởng {{type}} tiền thưởng là {{amount}} {{symbol}}."
   },
   "promotion": {
     "promotion": "Khuyến mãi",

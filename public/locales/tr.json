@@ -1514,7 +1514,8 @@
     "redeemNoCode": "Bu kod mevcut değil.",
     "redeemSuccess": "Airdrop bonusunuzu hemen alın ve özel ödüllerden yararlanın.",
     "redeemEmpty": "Kod boş olamaz!",
-    "depositBonusNotification": "Tebrikler!Hesabınıza başarıyla para yatırma bonusu yatırıldı {{amount}} Amerikan Doları"
+    "depositBonusNotification": "Tebrikler!Hesabınıza başarıyla para yatırma bonusu yatırıldı {{amount}} Amerikan Doları",
+    "bonusNotification": "Tebrikler! {{amount}} {{symbol}} tutarında {{type}} bonusla ödüllendirildiniz."
   },
   "promotion": {
     "promotion": "Terfi",

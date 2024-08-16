@@ -1514,7 +1514,8 @@
     "redeemNoCode": "वह कोड मौजूद नहीं है.",
     "redeemSuccess": "अभी अपने एयरड्रॉप बोनस का दावा करें और विशेष पुरस्कारों का लाभ उठाएं।",
     "redeemEmpty": "कोड खाली नहीं हो सकता!",
-    "depositBonusNotification": "बधाई हो! आपके खाते में सफलतापूर्वक जमा बोनस राशि जमा कर दी गई है {{amount}} USD"
+    "depositBonusNotification": "बधाई हो! आपके खाते में सफलतापूर्वक जमा बोनस राशि जमा कर दी गई है {{amount}} USD",
+    "bonusNotification": "बधाई हो! आपको {{amount}} {{symbol}} का {{type}} बोनस दिया गया है।"
   },
   "promotion": {
     "promotion": "पदोन्नति",
