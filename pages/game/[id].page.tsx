@@ -186,7 +186,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       return;
     }
     if (!gameDetail.allowedDemo) {
-      toast.error(t('errors:game:notAllowedDemo'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+      // toast.error(t('errors:game:notAllowedDemo'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
       return;
     }
 
@@ -278,6 +278,10 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
 
       if (!isMobile) {
         setSuccessfullyLaunched(true);
+        setLoadings({
+          ...loadings,
+          gameLoad: false
+        })
         return;
       }
 
@@ -345,19 +349,18 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
         setIsSatisfied(false);
         return;
       }
+
+      if (!gameDetail.allowedLocation) {
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+        return;
+      }
+
+
       setLoadings({
         ...loadings,
         gameLoad: true
       })
-
-      if (!gameDetail.allowedLocation) {
-        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
-        setLoadings({
-          ...loadings,
-          gameLoad: true
-        })
-        return;
-      }
+      
       const list = document.getElementById('game_wrapper');
       if (list?.firstElementChild) {
         list?.removeChild(list?.firstElementChild);
@@ -403,6 +406,10 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
             };
             const error = () => {
               setSuccessfullyLaunched(false);
+              setLoadings({
+                ...loadings,
+                gameLoad: false
+              });
             };
             launchGame(
               lanuchGameOption.gameUrl,
@@ -953,7 +960,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
         )}
       </div>
     </>
-  }, [isLogin, isMobile, successfullyLaunched, loadings.gameLoad, isSatisfied, viewInFiat, localFiat, activeCurrency])
+  }, [isLogin, isMobile, successfullyLaunched, loadings.gameLoad, isSatisfied, viewInFiat, localFiat, activeCurrency, gameDetail.id])
 
   return (
     <>
