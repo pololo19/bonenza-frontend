@@ -163,7 +163,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
 
   useEffect(() => {
     const path = router.asPath;
-    if (path.indexOf('?gameId') > -1) setShowCurrency(false);
+    if (path.indexOf('/game/') > -1) setShowCurrency(false);
     else setShowCurrency(true);
   }, [router]);
 
