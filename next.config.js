@@ -74,7 +74,7 @@ module.exports = () => {
     webpack,
     env,
     pageExtensions,
-    output: 'standalone',
+    output: 'export',
     swcMinify: true,
     trailingSlash: true,
     images: {
