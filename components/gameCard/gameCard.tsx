@@ -78,7 +78,7 @@ function GameCard(props: GameCardProps) {
             <InfoCircle
               data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
               size={20}
-              className="text-[#8E8E90] min-w-[16px]"
+              className="text-[#8E8E90] min-w-[16px] focus:!outline-none"
               role="button"
             />
           </div>
