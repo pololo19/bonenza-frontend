@@ -87,12 +87,13 @@ function BonusLoggedPage() {
   const [lockedAmount, setLockedAmount] = useState<number>(0);
   const [isShowSpinLog, setIsShowSpinLog] = useState<boolean>(false);
 
-  const { localFiat, viewInFiat, isLogin, isShowSpinClaim } = useSelector(
+  const { localFiat, viewInFiat, isLogin, isShowSpinClaim, showChatType } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       isLogin: state.auth.isLogin,
       isShowSpinClaim: state.modal.isShowSpinClaim,
+      showChatType: state.modal.showChatType,
     }),
     shallowEqual,
   );
@@ -451,7 +452,13 @@ function BonusLoggedPage() {
               </span>
             </div>
           </div>
-          <div className="p-0 sm:p-0 grid grid-cols-1 min-[840px]:grid-cols-2 2xl:grid-cols-3 gap-3 sm:gap-[16px] 2xl:gap-6">
+          <div className={cn(
+            "p-0 sm:p-0 grid grid-cols-1 min-[840px]:grid-cols-2 gap-3 sm:gap-[16px] 2xl:gap-6",
+            {
+              "2xl:grid-cols-2 min-[1800px]:grid-cols-3": showChatType,
+              "2xl:grid-cols-3": !showChatType
+            })}
+          >
             <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
               <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
                 <Image

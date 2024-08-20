@@ -1,16 +1,16 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { ElementType } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { useExchange } from '@/base/hooks/useExchange';
-import { copyClipBoard, currencyFormat1 } from '@/base/libs/utils';
+import { copyClipBoard } from '@/base/libs/utils';
 import { AppState } from '@/base/redux/store';
 
 import CommonModal from '../commonModal/commonModal';
+import { ArrowRight2 } from 'iconsax-react';
 
 type ModalProfileProps = {
   onClose: () => void;
@@ -19,14 +19,10 @@ type ModalProfileProps = {
   DialogProps<ElementType>;
 
 export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) {
-  const exchangeRate = useExchange();
   const { t } = useTranslation('');
-  const router = useRouter();
 
-  const { viewInFiat, localFiat, referralCode } = useSelector(
+  const { referralCode } = useSelector(
     (state: AppState) => ({
-      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
-      localFiat: state.wallet.localFiat,
       referralCode: state.auth.user.referralCode,
     }),
     shallowEqual,
@@ -37,60 +33,47 @@ export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) 
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:!max-w-[530px]"
-        header={
-          <div className="relative sm:px-[30px] px-[20px] text-left pt-[20px] text-title pb-[10px] bg-color-light-bg-primary dark:bg-color-header-primary text-black dark:text-white font-bold">
+        panelClass={`max-w-full sm:max-w-[450px] sm:!h-[450px]`}
+      >
+        <div className="bg-gradient-card-modal h-full p-4">
+          <div className="w-full text-center font-bold text-title py-4">
             {t('referAndEarn:referAFriend')}
           </div>
-        }
-      >
-        <div className="flex flex-col gap-[12px] overflow-y-auto sm:px-[30px] px-[20px] py-[40px]">
-          <div className="bg-[#f5f6fa] dark:bg-color-card-bg-primary p-5 rounded-[10px] flex justify-center justify-around">
+          <div className="flex flex-col justify-evenly gap-3 h-[calc(100%-60px)]">
             <div>
-              <Image height={418} width={140} className="w-[140px] h-[418]" src="/img/Img.png" alt="refer" />
+              <Image
+                alt="refer-background"
+                src={'/img/referModalBackground.png'}
+                width={386}
+                height={173}
+                className="w-full object-contain rounded-xl"
+              />
             </div>
-            <div>
-              <div className="text-[18px] text-black dark:text-white font-bold">
-                {t('referAndEarn:referAFriendAndGet')}
-              </div>
-              <div className="flex sm:flex-row flex-col text-[30px]">
-                <div className="text-color-secondary font-bold">
-                  {viewInFiat ? currencyFormat1(1000 * exchangeRate, 2, localFiat?.name) : currencyFormat1(1000, 2)}{' '}
-                </div>
-                <div className="text-color-primary font-bold">+15 %</div>
-              </div>
-              <div className="text-black dark:text-white font-bold uppercase text-18px] mb-[20px]">
-                {t('referAndEarn:commission')}
-              </div>
-              <div className="text-color-primary text-[14px]">{t('referAndEarn:inviteFriendsEarnMoney')}</div>
-            </div>
-          </div>
-          <div className="px-2 py-2">
-            <div className="flex items-center justify-center">
-              <div
-                className="flex items-center justify-center cursor-pointer"
-                onClick={() => {
-                  router.push('/affiliate');
-                  onClose();
-                }}
-              >
-                <div className="text-[14px] text-color-primary mr-[5px]">{t('referAndEarn:learnMore')}</div>
-              </div>
-            </div>
-          </div>
-          <div className="px-5 text-[14px] text-black dark:text-[#C2C2C2]">
-            {t('referAndEarn:shareYourReferralLink')}
-          </div>
-          <div className="bg-[#f5f6fa] dark:bg-color-card-bg-primary text-black dark:text-white rounded-default px-5 py-5 h-[70px] flex justify-between items-center cursor-pointer">
-            <div className="max-sm:text-[14px]">{ROUTER.REFERRAL_CODE(referralCode)}</div>
-            <div
-              className="flex w-[74px] h-[38px] bg-color-primary rounded-default justify-center items-center"
-              onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(referralCode))}
+            <Link
+              href={ROUTER.Affiliate}
+              onClick={onClose}
             >
-              <div className="mr-[3px]">
-                <Image height={18} width={18} className="w-[18px] h-[18px]" src="/img/simcard-2.png" alt="copy" />
+              <div className="flex justify-center items-center gap-2 text-center text-default text-color-primary">
+                {t('referAndEarn:learnMore')}
+                <ArrowRight2 size={12} />
               </div>
-              <div className="text-[12px] text-[#ffffff]"> {t('referAndEarn:copy')}</div>
+            </Link>
+            <div className="flex flex-col gap-2">
+              <div className="text-[14px] text-black dark:text-white">
+                {t('referAndEarn:shareYourReferralLink')}
+              </div>
+              <div className="flex justify-center items-center p-2 bg-[#f5f6fa] dark:bg-color-input-primary text-black dark:text-white rounded-lg">
+                <div className="text-default text-center w-full">{ROUTER.REFERRAL_CODE(referralCode)}</div>
+                <div
+                  className="flex py-2 px-4 bg-color-primary rounded-lg justify-center items-center"
+                  onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(referralCode))}
+                >
+                  <div className="mr-[3px]">
+                    <Image height={16} width={16} className="min-w-[16px] min-h-[16px]" src="/img/simcard-2.png" alt="copy" />
+                  </div>
+                  <div className="text-[12px] text-[#ffffff]"> {t('referAndEarn:copy')}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

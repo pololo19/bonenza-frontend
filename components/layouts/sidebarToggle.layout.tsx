@@ -9,6 +9,7 @@ import {
   Notepad2,
   SecurityCard,
   Cup,
+  Profile2User,
 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,6 +27,7 @@ import {
   changeIsShowAuthenticationModal,
   changeIsShowCasinoSearch,
   changeIsShowQuest,
+  changeIsShowReferAndEarn,
   changeIsShowSpin,
   changeIsShowVipClubModal,
   changeToggleSidebar,
@@ -371,10 +373,22 @@ export default function SidebarToggle() {
                     height={121}
                     src="/img/tournament/sidebar.png"
                     alt="tournament"
-                    className="object-contain rounded"
+                    className="object-contain rounded-md"
                   />
                 </Link>
               </CsrWrapper>
+              {isLogin &&
+                <CsrWrapper key="refer">
+                  <Image
+                    width={480}
+                    height={121}
+                    src="/img/refer.png"
+                    alt="refer"
+                    className="object-contain rounded-md cursor-pointer"
+                    onClick={() => dispatch(changeIsShowReferAndEarn(true))}
+                  />
+                </CsrWrapper>
+              }
               {panel_1_datas.map((item, index) => (
                 <CsrWrapper key={index}>
                   <IconOption
@@ -557,6 +571,27 @@ export default function SidebarToggle() {
           <Tooltip id={'masters-tooltip'} place="right" positionStrategy="fixed" key={`masters-tooltip-small`}>
             <div>
               <p className="text-white">{t('sidebar:master')}</p>
+            </div>
+          </Tooltip>
+          <div
+            key={`masters-small`}
+            className={cn(
+              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+            )}
+            data-tooltip-id={'refer-tooltip'}
+            onClick={() => dispatch(changeIsShowReferAndEarn(true))}
+          >
+            <Profile2User
+              size={22}
+              className={cn('m-auto', {
+                'dark:text-white text-black': router.route.includes(ROUTER.Master),
+              })}
+              variant="Bulk"
+            />
+          </div>
+          <Tooltip id={'refer-tooltip'} place="right" positionStrategy="fixed" key={`refer-tooltip-small`}>
+            <div>
+              <p className="text-white">{t('layout:referAndEarn')}</p>
             </div>
           </Tooltip>
           {panel_1_datas.map((item, index) => (

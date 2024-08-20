@@ -15,15 +15,8 @@ function Loader({ isHomePage = false }: { isHomePage?: boolean }) {
           <Image
             width={165}
             height={165}
-            className="absolute object-cover w-[150px]"
+            className="absolute object-cover w-[120px]"
             src="/img/loading.gif"
-            alt="logo"
-          />
-          <Image
-            width={32}
-            height={47}
-            className="absolute object-cover w-[32px]"
-            src="/img/logo-mobile.png"
             alt="logo"
           />
         </div>
