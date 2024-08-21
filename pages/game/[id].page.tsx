@@ -54,7 +54,7 @@ export const getStaticPaths = (async () => {
   const games = response.data;
   return {
     paths: games.map((game: any) => ({ params: { id: convertToUrlCase(game) } })),
-    fallback: true, // false or "blocking"
+    fallback: false, // false or "blocking"
   }
 }) satisfies GetStaticPaths
 
@@ -360,7 +360,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
         ...loadings,
         gameLoad: true
       })
-      
+
       const list = document.getElementById('game_wrapper');
       if (list?.firstElementChild) {
         list?.removeChild(list?.firstElementChild);
