@@ -72,7 +72,7 @@ const WagerContestComponent = () => {
 
   const { t } = useTranslation('');
 
-  const { userName, avatar, userId, viewInFiat, localFiat, isLogin } = useSelector(
+  const { userName, avatar, userId, viewInFiat, localFiat, isLogin, showChatType } = useSelector(
     (state: AppState) => ({
       localFiat: state.wallet.localFiat,
       userName: state.auth.user.userName,
@@ -81,6 +81,7 @@ const WagerContestComponent = () => {
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       isLogin: state.auth.isLogin,
       cryptoPrices: state.wallet.symbols,
+      showChatType: state.modal.showChatType,
     }),
     shallowEqual,
   );
@@ -351,19 +352,25 @@ const WagerContestComponent = () => {
   return (
     <>
       <div className="grid flex-wrap grid-cols-12 gap-2 mb-3">
-        <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly flex gap-[12px] sm:gap-[1.5rem] lg:gap-[2rem] min-w-fit grow">
-          <Image width={125} height={110} className="object-cover h-full md:ml-3" src="/img/cup.png" alt="medal cup" />
+        <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly items-center flex gap-[12px] sm:gap-[0.5rem] lg:gap-[1rem] min-w-fit grow">
+          <Image width={125} height={110} className="object-contain h-[80%] md:ml-3" src="/img/cup.png" alt="medal cup" />
           <div className="flex">
             <div className="flex flex-col justify-end gap-2">
               <span className="text-[14px] text-color-primary font-bold">{t('wagerContest:daily')}</span>
               <span className="text-[12px] dark:text-color-text-primary text-color-light-text-primary">
                 {t('wagerContest:contestPrizePool')}
               </span>
-              <div className="rounded-[5px] dark:bg-color-card-body-secondary bg-white text-[14px] md:text-[20px] font-black h-[37px] px-2 flex items-center justify-center">
-                <p className="font-bold text-color-secondary">
+              <div className="rounded-[5px] dark:bg-color-card-body-secondary bg-white font-black h-[37px] px-2 flex items-center justify-center">
+                <p className={cn(
+                  "font-bold text-color-secondary text-default lg:text-m_title",
+                  {
+                    "2xl:text-[16px]": showChatType,
+                    "2xl:text-m_title": !showChatType
+                  })}
+                >
                   {viewInFiat
-                    ? currencyFormat1(wagerContestData.totalPrizePoolAmountUsd * exchangeRate, 4, localFiat?.name)
-                    : currencyFormat1(wagerContestData.totalPrizePoolAmountUsd, 4)}
+                    ? currencyFormat1(wagerContestData.totalPrizePoolAmountUsd * exchangeRate, 2, localFiat?.name)
+                    : currencyFormat1(wagerContestData.totalPrizePoolAmountUsd, 2)}
                 </p>
               </div>
             </div>

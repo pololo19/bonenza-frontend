@@ -65,7 +65,7 @@ export default function ModalReferAndEarn({ show, onClose }: ModalProfileProps) 
               <div className="flex justify-center items-center p-2 bg-[#f5f6fa] dark:bg-color-input-primary text-black dark:text-white rounded-lg">
                 <div className="text-default text-center w-full">{ROUTER.REFERRAL_CODE(referralCode)}</div>
                 <div
-                  className="flex py-2 px-4 bg-color-primary rounded-lg justify-center items-center"
+                  className="flex py-2 px-4 bg-color-primary rounded-lg justify-center items-center cursor-pointer"
                   onClick={() => copyClipBoard(ROUTER.REFERRAL_CODE(referralCode))}
                 >
                   <div className="mr-[3px]">
