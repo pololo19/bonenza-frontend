@@ -187,7 +187,7 @@ export const MessageBox = ({
                 <div
                   className="max-w-[220px] sm:max-w-[220px] !break-words"
                   dangerouslySetInnerHTML={{
-                    __html: text.replaceAll('44DDFF', id === userId ? 'FFF' : '44DDFF').replaceAll("&nbsp;", ' '),
+                    __html: text.replaceAll('44DDFF', id === userId ? 'FFF' : '44DDFF').replaceAll('\u00A0', ' '),
                   }}
                 />
               </div>
