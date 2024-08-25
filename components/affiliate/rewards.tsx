@@ -27,7 +27,7 @@ import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
-import { setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
+import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import InputText from '@/components/input/typing/InputText';
@@ -148,6 +148,7 @@ function RewardsComponent() {
 
       const tempLockedAmount = Number(_resBonus.data?.lockedAmount ?? 0);
       await getRewards();
+      dispatch(getBalance());
       await getCommissionData();
 
       dispatch(setLockedAmount(tempLockedAmount));
