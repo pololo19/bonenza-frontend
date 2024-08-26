@@ -37,49 +37,49 @@ const TabGames = (props: tabGamesProps) => {
       icon: <LobbyBoldIcon />,
       title: t('casino:lobby'),
       link: ROUTER.Casino,
-      homeLink: '/',
+      homeLink: ROUTER.Casino,
       id: 1,
     },
     {
       icon: <OriginalBoldIcon />,
       title: t('casino:topPicks'),
-      link: ROUTER.Tagname('Top Picks'),
-      homeLink: `/?key=Top Picks`,
+      link: ROUTER.Tagname('top-picks'),
+      homeLink: `?key=top-picks`,
       id: 2,
     },
     {
       icon: <SlotBoldIcon />,
       title: t('casino:slot'),
       link: ROUTER.Tagname('slots'),
-      homeLink: `/?key=slots`,
+      homeLink: `?key=slots`,
       id: 3,
     },
     {
       icon: <HotGameBoldIcon />,
       title: t('casino:hotGame'),
-      link: ROUTER.Tagname('Hot Games'),
-      homeLink: `/?key=Hot Games`,
+      link: ROUTER.Tagname('hot-games'),
+      homeLink: `?key=hot-games`,
       id: 4,
     },
     {
       icon: <LiveCasinoBoldIcon />,
       title: t('casino:liveCasino'),
-      link: ROUTER.Tagname('Live Casino'),
-      homeLink: `/?key=Live Casino`,
+      link: ROUTER.Tagname('live-casino'),
+      homeLink: `?key=live-casino`,
       id: 5,
     },
     {
       icon: <TableGameBoldIcon />,
       title: t('casino:tableGames'),
-      link: ROUTER.Tagname('Table Games'),
-      homeLink: `/?key=Table Games`,
+      link: ROUTER.Tagname('table-games'),
+      homeLink: `?key=table-games`,
       id: 6,
     },
     {
       icon: <ReleaseBoldIcon />,
       title: t('casino:newReleases'),
-      link: ROUTER.Tagname('New Releases'),
-      homeLink: `/?key=New Releases`,
+      link: ROUTER.Tagname('new-releases'),
+      homeLink: `?key=new-releases`,
       id: 7,
     },
   ];
@@ -94,8 +94,7 @@ const TabGames = (props: tabGamesProps) => {
               className={cn(
                 'flex items-center px-[20px] py-[10px] bg-[#f0f1f5] dark:bg-color-hover-primary hover:bg-gray-700 gap-[10px] flex-shrink-0 rounded-default text-black/50 dark:text-white/50 dark:hover:text-white dark:hover:bg-color-hover-primary hover:text-black hover:bg-white/90',
                 {
-                  'bg-white text-black dark:!bg-color-input-primary dark:!text-white':
-                    `${router.pathname}${router.query?.key ? '/?key=' + router.query.key : ''}` === option.link || router.pathname === option.homeLink,
+                  'bg-white text-black dark:!bg-color-input-primary dark:!text-white': (!router.query?.key ? router.asPath === option.link : (option.id !== 1 && (router.asPath.includes(option.homeLink) || router.asPath.includes(option.link)))),
                 },
               )}
               onClick={() => {

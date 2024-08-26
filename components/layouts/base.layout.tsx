@@ -11,7 +11,7 @@ import { api_validateToken } from '@/api/auth';
 import { api_getClaims, api_getInitData } from '@/api/wallet';
 // import { getExchangeRate } from '@/api/exchangeRate';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL, TOAST_ENUM } from '@/base/constants/common';
+import { ROUTER, SOCKET_GAME_URL, SOCKET_WALLET_URL, Tags, TOAST_ENUM } from '@/base/constants/common';
 import { headerMenus } from '@/base/constants/config-menus';
 import { useWidth } from '@/base/hooks/useWidth';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
@@ -132,7 +132,7 @@ type BaseLayoutProps = {
   contentClass?: string;
 };
 
-const activeHrefsToMobileSubMenu = [ROUTER.Home, ROUTER.Casino, ROUTER.Tagname('')];
+const activeHrefsToMobileSubMenu = [ROUTER.Home, ROUTER.Casino, ...Tags.map(tag => ROUTER.Tagname(tag))];
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, contentClass }) => {
   const innerWidth = useWidth();

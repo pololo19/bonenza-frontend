@@ -150,19 +150,19 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     {String(t('footer:slots'))}
                   </Link>
                   <Link
-                    href={ROUTER.Tagname('Racing')}
+                    href={ROUTER.Tagname('racing')}
                     className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                   >
                     {String(t('layout:racing'))}
                   </Link>
                   <Link
-                    href={ROUTER.Tagname('Live Casino')}
+                    href={ROUTER.Tagname('live-casino')}
                     className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                   >
                     {String(t('footer:liveCasino'))}
                   </Link>
                   <Link
-                    href={ROUTER.Tagname('New Releases')}
+                    href={ROUTER.Tagname('new-releases')}
                     className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                   >
                     {String(t('footer:newReleases'))}
@@ -174,13 +174,13 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     {String(t('footer:recommended'))}
                   </Link>
                   <Link
-                    href={ROUTER.Tagname('Table Games')}
+                    href={ROUTER.Tagname('table-games')}
                     className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                   >
                     {String(t('footer:tableGame'))}
                   </Link>
                   <Link
-                    href={ROUTER.Tagname('Blackjack')}
+                    href={ROUTER.Tagname('blackjack')}
                     className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                   >
                     {String(t('footer:blackJack'))}

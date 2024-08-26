@@ -9,18 +9,17 @@ import Image from 'next/image';
 import { useCallback, useEffect, useRef } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
+import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
+import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1 } from '@/base/libs/utils';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState } from '@/base/redux/store';
 import { BetDetailType } from '@/base/types/common';
-
-import { useWidth } from '@/base/hooks/useWidth';
-import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 type CardBigWinProps = {
   price: number;
@@ -75,7 +74,7 @@ export function CardBigWin({ price, imgCard, userData, currency }: CardBigWinPro
   );
   return (
     <>
-      <div className="sm:max-w-[84px] h-full max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
+      <div className="sm:max-w-[120px] max-w-full cursor-pointer flex sm:flex-col flex-row sm:gap-[5px] items-center justify-between bg-[#31373D77] pb-0 sm:pb-2 sm:rounded-large overflow-hidden px-1 sm:px-0">
         <div className="sm:w-full w-auto flex sm:flex-col items-center gap-[6px]">
           <Image
             height={96}

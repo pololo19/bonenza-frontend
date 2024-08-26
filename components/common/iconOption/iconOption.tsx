@@ -9,20 +9,6 @@ import { ROUTER } from '@/base/constants/common';
 import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 
-const casinoPaths = [
-  ROUTER.Casino,
-  ROUTER.PicksForYou,
-  ROUTER.Favorite,
-  ROUTER.Recent,
-  ROUTER.Tagname('slots'),
-  ROUTER.Tagname('Live Casino'),
-  ROUTER.Tagname('Hot Games'),
-  ROUTER.Tagname('New Releases'),
-  ROUTER.Tagname('Feature Buy-in'),
-  ROUTER.Tagname('Blackjack'),
-  ROUTER.Tagname('Table Games'),
-];
-
 export type OptionSidebarDataType = {
   title: string;
   href: string;

@@ -4,6 +4,7 @@ import { OptionSidebarDataType } from '@/components/common/iconOption/iconOption
 import BlackjackIcon from '@/components/icons/BlackjackIcon';
 import BuyInIcon from '@/components/icons/BuyInIcon';
 import CasinoBoldIcon from '@/components/icons/CasinoBoldIcon';
+import CupIcon from '@/components/icons/CupIcon';
 import FavoriteIcon from '@/components/icons/FavoriteIcon';
 import HotGameIcon from '@/components/icons/HotGameIcon';
 import LiveCasinoIcon from '@/components/icons/LiveCasinoIcon';
@@ -13,7 +14,6 @@ import ReleaseIcon from '@/components/icons/ReleaseIcon';
 import SlotIcon from '@/components/icons/SlotIcon';
 
 import { ROUTER } from './common';
-import CupIcon from '@/components/icons/CupIcon';
 
 export const headerMenus: OptionSidebarDataType[] = [
   {
@@ -25,7 +25,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     isMobile: true,
   },
   {
-    title: 'Casino',
+    title: 'sidebar:casino',
     href: ROUTER.Casino,
     // icon: <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />,
     icon: CasinoBoldIcon,
@@ -33,7 +33,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     isMobile: false,
   },
   {
-    title: 'Slots',
+    title: 'casino:slots',
     href: ROUTER.Slots,
     // icon: (
     //   <Image
@@ -49,8 +49,8 @@ export const headerMenus: OptionSidebarDataType[] = [
     isMobile: false,
   },
   {
-    title: 'Racing',
-    href: ROUTER.Tagname('Racing'),
+    title: 'layout:racing',
+    href: ROUTER.Tagname('racing'),
     // icon: (
     //   <Image
     //     width={18}
@@ -64,24 +64,6 @@ export const headerMenus: OptionSidebarDataType[] = [
     icon: RacingBoldIcon,
     isMobile: false,
   },
-  // {
-  //   title: 'layout:sports',
-  //   href: ROUTER.Sports,
-  //   icon: <SportBoldIcon className="text-[#FE073A] w-[18px] h-[18px]" />,
-  // },
-  // {
-  //   title: 'layout:liveHoldem',
-  //   href: 'https://cmd23.com/room/games.php',
-  //   icon: (
-  //     <Image
-  //       width={18}
-  //       height={18}
-  //       className="max-w-[60px] sm:max-w-[107px] md:max-w-[none] md:max-h-[none] max-h-[40px] text-color-primary"
-  //       src="/icon/liveholdem.png"
-  //       alt="logo"
-  //     />
-  //   ),
-  // },
   {
     title: 'BitUp Game',
     href: 'https://bitup.game/trade',
@@ -115,10 +97,10 @@ export const casinoGames: OptionSidebarDataType[] = [
   // },
   // { title: 'casino:slot', href: ROUTER.Tagname('slots'), icon: SlotIcon },
   // { title: 'layout:racing', href: ROUTER.Tagname('Racing'), icon: RacingBoldIcon },
-  { title: 'casino:liveCasino', href: ROUTER.Tagname('Live Casino'), icon: LiveCasinoIcon },
-  { title: 'casino:hotGame', href: ROUTER.Tagname('Hot Games'), icon: HotGameIcon },
-  { title: 'casino:newReleases', href: ROUTER.Tagname('New Releases'), icon: ReleaseIcon },
-  { title: 'casino:featureBuyIn', href: ROUTER.Tagname('Feature Buy-in'), icon: BuyInIcon },
-  { title: 'casino:blackjack', href: ROUTER.Tagname('Blackjack'), icon: BlackjackIcon },
-  { title: 'casino:tableGames', href: ROUTER.Tagname('Table Games'), icon: LiveCasinoIcon },
+  { title: 'casino:liveCasino', href: ROUTER.Tagname('live-casino'), icon: LiveCasinoIcon },
+  { title: 'casino:hotGame', href: ROUTER.Tagname('hot-games'), icon: HotGameIcon },
+  { title: 'casino:newReleases', href: ROUTER.Tagname('new-releases'), icon: ReleaseIcon },
+  { title: 'casino:featureBuyIn', href: ROUTER.Tagname('feature-buy-in'), icon: BuyInIcon },
+  { title: 'casino:blackjack', href: ROUTER.Tagname('blackjack'), icon: BlackjackIcon },
+  { title: 'casino:tableGames', href: ROUTER.Tagname('table-games'), icon: LiveCasinoIcon },
 ];

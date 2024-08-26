@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useTheme } from 'next-themes';
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 import { isMobile } from 'react-device-detect';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -98,7 +98,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes4'),
         textButton: t('homePage:introduceCardButton4'),
         action: 'racing',
-        href: ROUTER.Tagname('Racing'),
+        href: ROUTER.Tagname('racing'),
       },
       {
         imgBackGround: '/img/page/bitup.png',
@@ -214,7 +214,7 @@ function IndexPage() {
     }
   };
 
-  const getGameList = async () => {
+  const getGameList = useCallback(async () => {
     const query = { sort: 'popular' };
     let tempGameListData: GameListType[] = [];
     let params: any = {
@@ -247,7 +247,7 @@ function IndexPage() {
     } finally {
       // dispatch(changeIsLoading(false));
     }
-  };
+  }, [key]);
 
   const loadDataAfterLoginMobile = async () => {
     try {
@@ -343,7 +343,7 @@ function IndexPage() {
 
   useEffect(() => {
     getGameList();
-  }, [key]);
+  }, [getGameList]);
 
   useEffect(() => {
     if (isLogin && isMobile) {

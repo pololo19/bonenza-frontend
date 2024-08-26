@@ -1,37 +1,30 @@
 import cn from 'classnames';
+import { camelize, decamelize, pascalize } from 'humps';
 import { SearchNormal } from 'iconsax-react';
-import Head from 'next/head';
 import { useRouter } from 'next/router';
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getCasinoWithKey, api_getProviders, SortType } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
-import { snakeCaseToString } from '@/base/libs/utils';
+import { ROUTER, TagType } from '@/base/constants/common';
 import { convert2Url } from '@/base/libs/utils/convert';
 import { setCasinoTab } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
-import { CategoryType, GameListType, GameProviderDetail } from '@/base/types/common';
+import { CategoryType, GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import Loader from '@/components/common/preloader/loader';
-import GameCard from '@/components/gameCard/gameCard';
+import GameCategory from '@/components/gameCategory/gameCategory';
 import BaseLayout from '@/components/layouts/base.layout';
-import { NoDataComponent } from '@/components/noData/noData';
 import ProviderFilter from '@/components/providerFilter/providerFilter';
 import GameBannerSlider from '@/components/sliders/gameSliders';
 import SortBy from '@/components/sortBy/sortBy';
 import TabGames from '@/components/tabGames/tabGames';
 
-
-
-const pageSize = 40;
-
 function CasinoTagnamePage() {
   const { t } = useTranslation('');
 
-  const sortBy = [
+  const sortBy: Array<{ id: number, label: string, orderValue: SortType, orderBy: string }> = [
     { id: 1, label: String(t('casino:mayLike')), orderValue: 'like', orderBy: '' },
     { id: 2, label: String(t('casino:popular')), orderValue: 'popular', orderBy: 'total_favorite' },
     { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
@@ -45,11 +38,6 @@ function CasinoTagnamePage() {
   const { key } = query;
   const _key = String(key);
 
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [isShowMore, setIsShowMore] = useState<boolean>(true);
-  const [listGame, setListGame] = useState<GameListType[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalGames, setTotalGames] = useState<number>(0);
   const [listProvider, setListProvider] = useState<GameProviderDetail[]>([]);
   const [selectedProvider, setSelectedProvider] = useState<string[]>([]);
   const [isClearAll, setIsClearAll] = useState<boolean>(false);
@@ -69,50 +57,61 @@ function CasinoTagnamePage() {
     setIsSort(true);
   }, []);
 
-  const getGameList = async (pageNumber: number, providers: string[], sort: SortType) => {
-    const query = _key === 'slots' || _key === 'Live Casino' || _key === 'Racing' ? { sort } : {};
-    let tempGameListData: GameListType[] = [];
+  const getGames = useCallback(async (page: number, pageSize: number) => {
+    const query = _key === 'slots' || _key === 'live-casino' || _key === 'racing' ? { sort: selectedSortBy.orderValue } : {};
     let params: any = {
+      page,
       pageSize,
-      // page: currentPage || 1,
-      page: pageNumber,
+      ...query,
+      providers: JSON.stringify(selectedProvider)
     };
-    try {
-      setIsLoading(true);
-      params = {
-        ...params,
-        ...query,
-        providers: JSON.stringify(providers),
-      };
-      const res = await api_getCasinoWithKey(convert2Url(String(_key)), params);
-
-      const totalCount = res?.data?.totalCount ?? 0;
-      const games = res?.data?.games ?? [];
-      tempGameListData = games?.map((item: any) => ({
-        id: item?.id ?? '',
-        title: item?.title ?? '',
-        description: item?.description ?? '',
-        identifier: item?.identifier ?? '',
-        payout: Number(item?.payout ?? 0),
-        multiplier: Number(item?.profitMultiplier ?? 0),
-        providerName: item?.producerName ?? '',
-        releasedAt: item?.releasedAt ?? '',
-      }));
-      setListGame((current) => [...current, ...tempGameListData]);
-      setTotalGames(totalCount);
-      if (games.length < pageSize || games.length === totalCount) {
-        setIsShowMore(false);
-      }
-    } catch (error) {
-      setListGame([]);
-    } finally {
-      setIsLoading(false);
+    const _res = await api_getCasinoWithKey(convert2Url(String(_key)), params);
+    return {
+      data: _res.data?.games,
+      page: _res.data?.page,
+      pageSize: _res.data?.pageSize,
+      totalPage: _res.data?.totalPage,
+      totalCount: _res.data?.totalCount
     }
-  };
+  }, [selectedProvider, selectedSortBy, _key])
+
+  const convertTag2Label = (tag: string) => {
+    let label = '';
+    switch (tag) {
+      case 'slots':
+        label = 'slots';
+        break;
+      case 'live-casino':
+        label = 'Live Casino';
+        break;
+      case 'hot-games':
+        label = 'Hot Games';
+        break;
+      case 'new-releases':
+        label = 'New Releases';
+        break;
+      case 'blackjack':
+        label = 'Blackjack';
+        break;
+      case 'feature-buy-in':
+        label = 'Feature Buy In';
+        break;
+      case 'table-games':
+        label = 'Table Games';
+        break;
+      case 'racing':
+        label = 'Racing';
+        break;
+      default:
+        label = 'Slots';
+        break;
+    }
+    return label;
+  }
+
 
   const getListProviders = async () => {
     try {
-      setIsLoading(true);
       let category: CategoryType = 'all';
       switch (convert2Url(String(_key))) {
         case 'slots':
@@ -153,8 +152,6 @@ function CasinoTagnamePage() {
       setListProvider(providers);
     } catch (error) {
       setListProvider([]);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -180,10 +177,6 @@ function CasinoTagnamePage() {
     [listProvider],
   );
 
-  const percent = useMemo(() => {
-    return Number((listGame.length / totalGames) * 100).toFixed(0);
-  }, [listGame, totalGames]);
-
   useEffect(() => {
     const tabStorage = localStorage.getItem('tab');
     const tabShow = Number(tabStorage) === 1 || !tabStorage ? false : true;
@@ -194,33 +187,13 @@ function CasinoTagnamePage() {
     if (key) {
       setIsClearAll(false);
       setSelectedProvider([]);
-
-      setIsShowMore(true);
-      setListGame([]);
-      setCurrentPage(1);
-
       getListProviders();
-      getGameList(1, [], 'popular');
     }
   }, [key]);
 
-  useEffect(() => {
-    if (selectedProvider.length > 0 || isClearAll || isSort) {
-      setIsShowMore(true);
-      setListGame([]);
-      setIsClearAll(false);
-      setCurrentPage(1);
-      getGameList(1, selectedProvider, selectedSortBy.orderValue as SortType);
-    }
-  }, [selectedProvider, isSort, selectedSortBy]);
-
-  useEffect(() => {
-    if (currentPage > 1) getGameList(currentPage, selectedProvider, selectedSortBy.orderValue as SortType);
-  }, [currentPage]);
 
   return (
     <div className="py-[24px]">
-      {isLoading && <Loader />}
       {showTab && (
         <>
           <GameBannerSlider className="!mt-0" />
@@ -235,15 +208,15 @@ function CasinoTagnamePage() {
         </>
       )}
       {showTab ? (
-        <TabGames setCurrentPage={setCurrentPage} />
+        <TabGames />
       ) : (
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
           <Breadcrumbs
             data={[{ title: 'Casino', href: ROUTER.Casino }]}
-            endpoint={{ title: snakeCaseToString(String(key) ?? ''), href: ROUTER.Tagname(String(key) ?? '') }}
+            endpoint={{ title: convertTag2Label(String(key) || ''), href: ROUTER.Tagname((String(key) ?? '') as TagType) }}
           />
           <div className="flex items-center text-[14px] text-[#98a7b5] gap-[12px] md:gap-[48px] max-sm:w-full">
-            {(key === 'slots' || key === 'Live Casino') && (
+            {(key === 'slots' || key === 'live-casino') && (
               <SortBy sortBy={sortBy} selectSortBy={selectSortBy} selectedSortBy={selectedSortBy} />
             )}
             <ProviderFilter
@@ -255,51 +228,7 @@ function CasinoTagnamePage() {
         </div>
       )}
       <div className="min-h-[380px]">
-        {!!listGame.length && (
-          <>
-            <div className="game-grid-parent mt-[20px]">
-              {listGame.map((game, index) => {
-                return (
-                  <div key={index} className="max-w-game-card">
-                    <GameCard gameDetail={game} />
-                  </div>
-                );
-              })}
-            </div>
-            {!!totalGames && (
-              <div className="text-[12px] text-gray-400 flex items-center justify-center gap-[10px] mt-[20px]">
-                <div>
-                  {listGame.length}/{totalGames}
-                </div>
-                <div className="max-w-[80px] w-full rounded-[5px] h-[5px] bg-gray-500">
-                  <div
-                    className="h-full max-w-[80px] bg-color-primary rounded-[5px]"
-                    style={{ width: `${percent}%` }}
-                  ></div>
-                </div>
-                <div>{percent}%</div>
-              </div>
-            )}
-            {isShowMore && (
-              <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
-                <div
-                  className="flex items-center dark:bg-[#2D3035] bg-white py-[9px] px-[10px] rounded-[5px]"
-                  role="button"
-                  onClick={() => {
-                    setCurrentPage(currentPage + 1);
-                  }}
-                >
-                  <div className="text-[10px] dark:text-white text-black font-bold">{t('casino:loadMore')}</div>
-                </div>
-              </div>
-            )}
-          </>
-        )}
-        {!isLoading && !listGame.length && (
-          <div className="py-[100px]">
-            <NoDataComponent />
-          </div>
-        )}
+        <GameCategory getData={getGames} />
       </div>
     </div>
   );
