@@ -223,21 +223,6 @@ export default function SidebarToggle() {
           />
         ),
       },
-      // {
-      //   title: String(t('sidebar:provablyFair')),
-      //   href: ROUTER.ProvablyFair,
-      //   icon: Judge,
-
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Judge
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.ProvablyFair),
-      //       })}
-      //     />
-      //   ),
-      // },
     ],
     [isShowVipClubModal, i18n.language, router.route, isLogin],
   );

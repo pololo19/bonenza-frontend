@@ -1,16 +1,14 @@
 import { GetStaticPaths, InferGetStaticPropsType } from 'next';
-import { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
+import { ReactElement, useCallback, useState } from 'react';
 
-import { api_getGamesByTheme, api_getProviders, apiSSR_getProviders, apiSSR_getThemes } from '@/api/game';
+import { api_getGamesByTheme, apiSSR_getProviders, apiSSR_getThemes } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
-import { GameListType, GameProviderDetail } from '@/base/types/common';
+import { GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import Loader from '@/components/common/preloader/loader';
-import GameCard from '@/components/gameCard/gameCard';
+import GameCategory from '@/components/gameCategory/gameCategory';
 import BaseLayout from '@/components/layouts/base.layout';
-import { NoDataComponent } from '@/components/noData/noData';
 import ProviderFilter from '@/components/providerFilter/providerFilter';
 
 
@@ -19,7 +17,7 @@ export const getStaticPaths = (async () => {
   const themes = response.data;
   return {
     paths: themes.map((theme: any) => ({ params: { id: theme } })),
-    fallback: true, // false or "blocking"
+    fallback: false, // false or "blocking"
   }
 }) satisfies GetStaticPaths
 
@@ -38,13 +36,7 @@ function CasinoCategoryPage({ providers, params }: InferGetStaticPropsType<typeo
   const { t } = useTranslation('');
   const { id } = params;
 
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isShowMore, setIsShowMore] = useState<boolean>(true);
-  const [listGame, setListGame] = useState<GameListType[]>([]);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const [totalGames, setTotalGames] = useState<number>(0);
-
-  const [listProvider, setListProvider] = useState<GameProviderDetail[]>([]);
+  const [listProvider, setListProvider] = useState<GameProviderDetail[]>(providers);
   const [selectedProvider, setSelectedProvider] = useState<string[]>([]);
   const [isClearAll, setIsClearAll] = useState<boolean>(false);
 
@@ -70,82 +62,20 @@ function CasinoCategoryPage({ providers, params }: InferGetStaticPropsType<typeo
     [listProvider],
   );
 
-  const getListProviders = async () => {
-    try {
-      setIsLoading(true);
-      const res = await api_getProviders();
-      const providers = res.data.map((provider: any) => ({
-        id: provider.id,
-        name: provider.name,
-        isSelect: false,
-        totalGames: provider.gameCount,
-      }));
-      setListProvider(providers);
-    } catch (error) {
-      setListProvider([]);
-    } finally {
-      setIsLoading(false);
+  const getGames = useCallback(async (page: number, pageSize: number) => {
+    const _res = await api_getGamesByTheme(JSON.stringify(selectedProvider), page, pageSize, id);
+    return {
+      data: _res.data?.games,
+      page: _res.data?.page,
+      pageSize: _res.data?.pageSize,
+      totalPage: _res.data?.totalPage,
+      totalCount: _res.data?.totalCount
     }
-  };
+  }, [id, selectedProvider]);
 
-  const handleGetListGame = async () => {
-    try {
-      setIsLoading(true);
-      const res = await api_getGamesByTheme(JSON.stringify(selectedProvider), currentPage, 40, id);
-      const totalCount = res?.data?.totalCount ?? 0;
-      const games = res?.data?.games ?? [];
-      const tempGameListData = games?.map((item: any) => ({
-        id: item?.id ?? '',
-        title: item?.title ?? '',
-        description: item?.description ?? '',
-        identifier: item?.identifier ?? '',
-        payout: Number(item?.payout ?? 0),
-        multiplier: Number(item?.profitMultiplier ?? 0),
-        providerName: item?.producerName ?? '',
-        releasedAt: item?.releasedAt ?? '',
-      }));
-      setListGame((current) => [...current, ...tempGameListData]);
-      setTotalGames(totalCount);
-      if (games.length < 40 || listGame.length + games.length === totalGames) {
-        setIsShowMore(false);
-      }
-    } catch (error) {
-      setListGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const percent = useMemo(() => {
-    return Number((listGame.length / totalGames) * 100).toFixed(0);
-  }, [listGame, totalGames]);
-
-  useEffect(() => {
-    if (selectedProvider.length > 0 || isClearAll) {
-      setListGame([]);
-      setIsClearAll(false);
-      handleGetListGame();
-    }
-  }, [selectedProvider]);
-
-  useEffect(() => {
-    if (id) {
-      setListGame([]);
-      handleGetListGame();
-    }
-  }, [id]);
-
-  useEffect(() => {
-    getListProviders();
-  }, []);
-
-  useEffect(() => {
-    if (currentPage > 1) handleGetListGame();
-  }, [currentPage]);
 
   return (
     <div className="py-[24px]">
-      {isLoading && <Loader />}
 
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
         <Breadcrumbs
@@ -162,48 +92,7 @@ function CasinoCategoryPage({ providers, params }: InferGetStaticPropsType<typeo
         </div>
       </div>
 
-      {!!listGame.length && (
-        <>
-          <div className="game-grid-parent mt-[20px]">
-            {listGame.map((game, index) => {
-              return (
-                <div key={index} className="max-w-game-card">
-                  <GameCard gameDetail={game} />
-                </div>
-              );
-            })}
-          </div>
-          {!!totalGames && (
-            <div className="text-[12px] text-gray-400 flex items-center justify-center gap-[10px] mt-[20px]">
-              <div>
-                {listGame.length}/{totalGames}
-              </div>
-              <div className="max-w-[80px] w-full rounded-[5px] h-[5px] bg-gray-500">
-                <div className="h-full max-w-[80px] bg-amber-500 rounded-[5px]" style={{ width: `${percent}%` }}></div>
-              </div>
-              <div>{percent}%</div>
-            </div>
-          )}
-          {isShowMore && (
-            <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
-              <div
-                className="flex items-center dark:bg-[#2D3035] bg-white py-[9px] px-[10px] rounded-[5px]"
-                role="button"
-                onClick={() => {
-                  setCurrentPage(currentPage + 1);
-                }}
-              >
-                <div className="text-[10px] text-[#FFFFFF] font-bold">{t('casino:loadMore')}</div>
-              </div>
-            </div>
-          )}
-        </>
-      )}
-      {!listGame.length && (
-        <div className="py-[100px]">
-          <NoDataComponent />
-        </div>
-      )}
+      <GameCategory getData={getGames} />
     </div>
   );
 }
