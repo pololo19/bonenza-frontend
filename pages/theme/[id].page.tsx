@@ -1,5 +1,5 @@
 import { GetStaticPaths, InferGetStaticPropsType } from 'next';
-import { ReactElement, useCallback, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { api_getGamesByTheme, apiSSR_getProviders, apiSSR_getThemes } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
@@ -72,6 +72,11 @@ function CasinoCategoryPage({ providers, params }: InferGetStaticPropsType<typeo
       totalCount: _res.data?.totalCount
     }
   }, [id, selectedProvider]);
+
+  useEffect(() => {
+    setListProvider(providers);
+    setSelectedProvider([])
+  }, [id])
 
 
   return (

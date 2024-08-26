@@ -2,9 +2,10 @@ import type {
     GetStaticPaths,
     InferGetStaticPropsType,
 } from 'next'
+import { notFound } from 'next/navigation';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
-import { api_getCasinoWithKey, api_getProviders, SortType } from '@/api/game';
+import { api_getCasinoWithKey, api_getProviders, apiSSR_getProviders, SortType } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, Tags, TagType } from '@/base/constants/common';
 import { convert2Url } from '@/base/libs/utils/convert';
@@ -24,10 +25,53 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths
 
 export const getStaticProps = (async ({ params }: any) => {
-    return { props: { params } }
+    const tag = params?.tag;
+    if (!tag) {
+        return { notFound: true }
+    } else {
+        let category: CategoryType = 'all';
+        switch (tag) {
+            case 'slots':
+                category = 'slots';
+                break;
+            case 'live-casino':
+                category = 'live_casino';
+                break;
+            case 'hot-games':
+                category = 'hot_games';
+                break;
+            case 'new-releases':
+                category = 'new_releases';
+                break;
+            case 'blackjack':
+                category = 'blackjack';
+                break;
+            case 'feature-buy-in':
+                category = 'feature_Buy_In';
+                break;
+            case 'table-games':
+                category = 'table_games';
+                break;
+            case 'racing':
+                category = 'racing';
+                break;
+            default:
+                category = 'all';
+                break;
+        }
+        const _res = await apiSSR_getProviders(category);
+        const providers: GameProviderDetail[] = _res.data.map((provider: any) => ({
+            id: provider.id,
+            name: provider.name,
+            isSelect: false,
+            totalGames: provider.gameCount,
+        }));
+        return { props: { params, providers } }
+    }
+
 })
 
-function CasinoTagnamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
+function CasinoTagnamePage({ params, providers }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { tag } = params;
     const { t } = useTranslation('');
 
@@ -39,7 +83,7 @@ function CasinoTagnamePage({ params }: InferGetStaticPropsType<typeof getStaticP
         { id: 5, label: String(t('casino:new')), orderValue: 'desc', orderBy: 'released_at' },
     ];
 
-    const [listProvider, setListProvider] = useState<GameProviderDetail[]>([]);
+    const [listProvider, setListProvider] = useState<GameProviderDetail[]>(providers);
     const [selectedProvider, setSelectedProvider] = useState<string[]>([]);
 
     const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
@@ -100,52 +144,6 @@ function CasinoTagnamePage({ params }: InferGetStaticPropsType<typeof getStaticP
         return label;
     }
 
-
-    const getListProviders = async () => {
-        try {
-            let category: CategoryType = 'all';
-            switch (convert2Url(String(tag))) {
-                case 'slots':
-                    category = 'slots';
-                    break;
-                case 'live-casino':
-                    category = 'live_casino';
-                    break;
-                case 'hot-games':
-                    category = 'hot_games';
-                    break;
-                case 'new-releases':
-                    category = 'new_releases';
-                    break;
-                case 'blackjack':
-                    category = 'blackjack';
-                    break;
-                case 'feature-buy-in':
-                    category = 'feature_Buy_In';
-                    break;
-                case 'table-games':
-                    category = 'table_games';
-                    break;
-                case 'racing':
-                    category = 'racing';
-                    break;
-                default:
-                    category = 'all';
-                    break;
-            }
-            const res = await api_getProviders(category);
-            const providers = res.data.map((provider: any) => ({
-                id: provider.id,
-                name: provider.name,
-                isSelect: false,
-                totalGames: provider.gameCount,
-            }));
-            setListProvider(providers);
-        } catch (error) {
-            setListProvider([]);
-        }
-    };
-
     const handleSelectedProvider = useCallback(
         (providerId?: string | undefined) => {
             if (providerId) {
@@ -167,8 +165,8 @@ function CasinoTagnamePage({ params }: InferGetStaticPropsType<typeof getStaticP
 
     useEffect(() => {
         setSelectedProvider([]);
-        getListProviders();
-    }, []);
+        setListProvider(providers)
+    }, [tag]);
 
 
     return (
