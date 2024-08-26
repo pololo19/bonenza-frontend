@@ -43,6 +43,29 @@ export const CookieKey = {
 
 export const AUTH_KEY = process.env.AUTHKEY;
 
+export type TagType =
+  | 'slots'
+  | 'live-casino'
+  | 'hot-games'
+  | 'new-releases'
+  | 'blackjack'
+  | 'feature-buy-in'
+  | 'table-games'
+  | 'top-picks'
+  | 'racing';
+
+export const Tags: TagType[] = [
+  'slots',
+  'live-casino',
+  'hot-games',
+  'new-releases',
+  'blackjack',
+  'feature-buy-in',
+  'table-games',
+  'top-picks',
+  'racing',
+];
+
 export const ROUTER = {
   Home: '/',
   REFERRAL_CODE: (code: string) => `https://bonenza.com/?referral=${code}`,
@@ -68,7 +91,7 @@ export const ROUTER = {
   PrivacyPolicy: '/privacy-policy',
   TermOfUse: '/term-of-use',
   Bonus: '/bonus',
-  Casino: '/casino',
+  Casino: '/casino/',
   Lottery: '/lottery',
   Bingo: '/bingo',
   Promotion: '/promotion',
@@ -116,7 +139,7 @@ export const ROUTER = {
   Provider: (providerId: string) => `/provider/${providerId}`,
   Themes: '/themes',
   Theme: (themeId: string) => `/theme/${themeId}`,
-  Tagname: (tagname: string) => `/tagname/?key=${tagname}`,
+  Tagname: (tagname: TagType) => `/tagname/?key=${tagname}`,
   ProviderLogo: (providerId: string) => `https://cdn.softswiss.net/logos/providers/color/${providerId}.svg`,
   AdminRewards: '/admin/mycasino/rewards/',
   AdminReferral: '/admin/mycasino/referral/',

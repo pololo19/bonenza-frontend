@@ -2,14 +2,14 @@ import cn from 'classnames';
 import {
   ArrowSwapVertical,
   Command,
+  Cup,
   Diamonds,
   Gift,
   HambergerMenu,
   Headphone,
   Notepad2,
-  SecurityCard,
-  Cup,
   Profile2User,
+  SecurityCard,
 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -165,7 +165,7 @@ export default function SidebarToggle() {
           <ArrowSwapVertical
             size={22}
             className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
+              'dark:text-white text-black': router.route.includes(ROUTER.Tagname('racing')),
             })}
           />
         ),

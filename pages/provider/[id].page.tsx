@@ -11,11 +11,11 @@ import { ROUTER } from '@/base/constants/common';
 import { titleCase } from '@/base/libs/utils';
 import { GameListType } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
-import CasinoSS from '@/components/casino/casinoSS';
-import Loader from '@/components/common/preloader/loader';
-import GameCard from '@/components/gameCard/gameCard';
-import BaseLayout from '@/components/layouts/base.layout';
 import { NoDataComponent } from '@/components/noData/noData';
+import BaseLayout from '@/components/layouts/base.layout';
+import CasinoSS from '@/components/casino/casinoSS';
+import GameCard from '@/components/gameCard/gameCard';
+import Loader from '@/components/common/preloader/loader';
 import SortBy from '@/components/sortBy/sortBy';
 
 export const getStaticPaths = (async () => {
@@ -185,7 +185,7 @@ function ProviderPage({ games, params }: InferGetStaticPropsType<typeof getStati
                         title={String(t('casino:alsoLike'))}
                         data={games}
                         renderItem={(item) => <GameCard gameDetail={item} />}
-                        viewAllUrl={ROUTER.Tagname('Live Casino')}
+                        viewAllUrl={ROUTER.Tagname('live-casino')}
                     />
                 </div>
             </>
