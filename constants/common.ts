@@ -139,7 +139,7 @@ export const ROUTER = {
   Provider: (providerId: string) => `/provider/${providerId}`,
   Themes: '/themes',
   Theme: (themeId: string) => `/theme/${themeId}`,
-  Tagname: (tagname: TagType) => `/tagname/?key=${tagname}`,
+  Tagname: (tagname: TagType) => `/tagname/${tagname}`,
   ProviderLogo: (providerId: string) => `https://cdn.softswiss.net/logos/providers/color/${providerId}.svg`,
   AdminRewards: '/admin/mycasino/rewards/',
   AdminReferral: '/admin/mycasino/referral/',

@@ -79,6 +79,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
 
   const onCropComplete = useCallback(
     async (croppedArea: Area, croppedAreaPixels: Area) => {
+      if (!selectedAvatar) return;
       const croppedImage = await getCroppedImg(selectedAvatar, croppedAreaPixels, 0);
       const myFile = new File([croppedImage], 'avatar.png', {
         type: 'image/png',
