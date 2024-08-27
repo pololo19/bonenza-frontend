@@ -65,21 +65,21 @@ export const MessageBox = ({
   };
 
   const getColorOfLevel = (level: number) => {
-    let bg = '#00AAE6';
+    let bg = '#F42F73';
     if (level > 1) {
-      bg = '#77493E';
+      bg = '#D98D7B';
     }
     if (level > 7) {
-      bg = '#939699';
+      bg = '#BDBDBD';
     }
     if (level > 21) {
-      bg = '#A37843';
-    }
-    if (level > 37) {
-      bg = '#00C2FF';
+      bg = '#F7F370';
     }
     if (level > 69) {
-      bg = '#00B9A6';
+      bg = '#B26EFA';
+    }
+    if (level > 106) {
+      bg = '#00C2FF';
     }
     return bg;
   };
@@ -125,7 +125,7 @@ export const MessageBox = ({
 
             <div className="flex items-center justify-center w-full absolute -bottom-[3px] ">
               <span
-                className={'text-white rounded text-[11px] flex justify-center w-fit px-[6px]'}
+                className={'text-[#222] font-extrabold rounded text-[11px] flex justify-center w-fit px-[6px]'}
                 style={{ backgroundColor: getColorOfLevel(Number(level)) }}
               >
                 {`V${level}`}
