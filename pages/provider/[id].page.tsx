@@ -84,9 +84,9 @@ function ProviderPage({ games, params }: InferGetStaticPropsType<typeof getStati
                 />
             </div>
             <>
-                <div className="sm:text-[24px] text-[16px] mt-[24px] dark:text-white text-black">
+                <h1 className="sm:text-[24px] text-[16px] mt-[24px] dark:text-white text-black">
                     {titleCase(String(id))} {t('layout:games')}
-                </div>
+                </h1>
                 <GameCategory getData={getGames} />
                 <div className="mt-10">
                     <CasinoSS

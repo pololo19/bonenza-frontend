@@ -180,10 +180,10 @@ const DepositCryptoComponent = () => {
           )}
         </div>
         <div className="rounded-large mt-[20px] w-full px-[20px] py-[10px] dark:text-white text-color-light-text-primary dark:bg-color-notice-primary bg-color-light-notice-primary/10 text-start">
-          <h1 className="text-[14px]">
+          <p className="text-[14px]">
             <span className="text-color-primary me-1 inline text-[16px]">{t('deposit:notice')}</span>{' '}
             {t('deposit:doNotDeposit', { crypto: String(activeCoin.name) })}
-          </h1>
+          </p>
         </div>
       </div>
     </>
