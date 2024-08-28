@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "सबसे पहले, कृपया सुनिश्चित करें कि रोलओवर पूरा हो गया है।",
+      "notReachedMinAmountForTip": "राशि न्यूनतम आवश्यक राशि से कम है.",
       "success": "टिप सफलतापूर्वक भेजी गई"
     },
     "chat": {

@@ -329,7 +329,9 @@ export function getErrorMesssage1(errorType: string) {
     case 'notMinimumVipLevelForTip':
       message = 'errors:notMinimumVipLevelForTip';
       break;
-
+    case 'notReachedMinAmountForTip':
+      message = 'errors:tip:notReachedMinAmountForTip';
+      break;
     //bonus
     case 'exceedAirdropTimes':
       message = 'errors:bonus:exceedAirdropTimes';

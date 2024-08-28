@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "まず、ロールオーバーが完了していることを確認してください。",
+      "notReachedMinAmountForTip": "金額が最低必要金額を下回っています。",
       "success": "チップは正常に送信されました"
     },
     "chat": {

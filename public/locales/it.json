@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Innanzitutto, assicurati che il rollover sia completato.",
+      "notReachedMinAmountForTip": "L'importo è inferiore all'importo minimo richiesto.",
       "success": "Suggerimento inviato con successo"
     },
     "chat": {

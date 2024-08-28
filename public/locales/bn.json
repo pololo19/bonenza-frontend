@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "প্রথমত, রোলওভার সম্পূর্ণ হয়েছে তা নিশ্চিত করুন।",
+      "notReachedMinAmountForTip": "পরিমাণটি ন্যূনতম প্রয়োজনীয় পরিমাণের চেয়ে কম।",
       "success": "সফলভাবে টিপ পাঠানো হয়েছে"
     },
     "chat": {
