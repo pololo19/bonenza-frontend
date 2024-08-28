@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "首先，请确保展期已完成。",
+      "notReachedMinAmountForTip": "金额小于最低要求金额。",
       "success": "成功发送提示"
     },
     "chat": {

@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Pertama, harap pastikan bahwa rollover telah selesai.",
+      "notReachedMinAmountForTip": "Jumlahnya kurang dari jumlah minimum yang disyaratkan.",
       "success": "टिप सफलतापूर्वक भेजी गई"
     },
     "chat": {

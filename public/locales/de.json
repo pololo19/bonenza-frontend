@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "Bitte stellen Sie zunächst sicher, dass der Rollover abgeschlossen ist.",
+      "notReachedMinAmountForTip": "Der Betrag liegt unter dem erforderlichen Mindestbetrag.",
       "success": "সফলভাবে টিপ পাঠানো হয়েছে"
     },
     "chat": {

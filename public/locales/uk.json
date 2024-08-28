@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "По-перше, переконайтеся, що ролловер завершено.",
+      "notReachedMinAmountForTip": "Сума менша за мінімально необхідну суму.",
       "success": "Чайові успішно надіслано"
     },
     "chat": {

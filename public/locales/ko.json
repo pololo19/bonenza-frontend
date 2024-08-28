@@ -2300,6 +2300,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "먼저 롤오버가 완료되었는지 확인하세요.",
+      "notReachedMinAmountForTip": "금액이 최소 요구 금액보다 적습니다.",
       "success": "팁이 성공적으로 전송되었습니다."
     },
     "chat": {

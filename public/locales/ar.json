@@ -2299,6 +2299,7 @@
     },
     "tip": {
       "notCompleteRollOverToWithdraw": "أولاً، يرجى التأكد من اكتمال عملية التمديد.",
+      "notReachedMinAmountForTip": "المبلغ أقل من الحد الأدنى المطلوب.",
       "success": "تم إرسال النصيحة بنجاح"
     },
     "chat": {
