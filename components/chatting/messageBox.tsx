@@ -66,6 +66,9 @@ export const MessageBox = ({
 
   const getColorOfLevel = (level: number) => {
     let bg = '#F42F73';
+    if (level > 0) {
+      bg = '#57C439';
+    }
     if (level > 1) {
       bg = '#D98D7B';
     }
