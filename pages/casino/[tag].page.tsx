@@ -2,10 +2,9 @@ import type {
     GetStaticPaths,
     InferGetStaticPropsType,
 } from 'next'
-import { notFound } from 'next/navigation';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
-import { api_getCasinoWithKey, api_getProviders, apiSSR_getProviders, SortType } from '@/api/game';
+import { api_getCasinoWithKey, apiSSR_getProviders, SortType } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, Tags, TagType } from '@/base/constants/common';
 import { convert2Url } from '@/base/libs/utils/convert';

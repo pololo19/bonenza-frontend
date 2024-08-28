@@ -174,7 +174,7 @@ const SelectCurrency = ({
                         }}
                       />
 
-                      <h1 className="text-default font-normal pt-[3px]">{symbol.name}</h1>
+                      <div className="text-default font-normal pt-[3px]">{symbol.name}</div>
                     </button>
                   ))}
                   <Menu.Button

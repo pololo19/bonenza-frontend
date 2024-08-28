@@ -12,7 +12,7 @@ import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState 
 import { isMobile } from 'react-device-detect';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import ReactLoading from 'react-loading';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import {
@@ -22,7 +22,6 @@ import {
   api_startGameDemo,
   api_startGameSession,
   apiSSR_gamesIdentifiers,
-  apiSSR_getGameDetail,
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';

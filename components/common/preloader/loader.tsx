@@ -17,6 +17,7 @@ function Loader({ isHomePage = false }: { isHomePage?: boolean }) {
             height={165}
             className="absolute object-cover w-[120px]"
             src="/img/loading.gif"
+            priority
             alt="logo"
           />
         </div>

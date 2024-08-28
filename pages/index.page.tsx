@@ -369,6 +369,7 @@ function IndexPage() {
                     className="absolute right-[0px] bg-cover sm:bg-right bg-center overflow-hidden sm:min-h-[384px] min-h-[170px] object-cover"
                     src={theme === 'dark' ? '/img/homepage-bg-14.png' : '/img/homepage-bg-14.png'}
                     alt="homepage"
+                    priority
                   />
                 </CsrWrapper>
               </div>

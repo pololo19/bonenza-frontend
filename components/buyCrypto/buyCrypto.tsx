@@ -178,9 +178,9 @@ const BuyCryptoComponent = () => {
           </div>
         </div>
         <div className="w-full px-[20px] py-[10px] bg-[#0DFDE4]/10 rounded-[16px] text-start">
-          <h1 className="text-[14px] dark:text-white text-[#31373d]">
+          <p className="text-[14px] dark:text-white text-[#31373d]">
             <span className="text-[#0DFDE4] me-1 inline">{t('buyCrypto:notice')}</span> {t('buyCrypto:noticeDes')}
-          </h1>
+          </p>
         </div>
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-[10px]">

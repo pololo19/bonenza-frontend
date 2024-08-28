@@ -124,6 +124,15 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="apple-mobile-web-app-capable" content="yes" />
               <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
               <noscript>Your browser does not support JavaScript!</noscript>
+              <script type="application/ld+json" dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "Organization",
+                  "name": "Bonenza",
+                  "url": "https://bonenza.com/",
+                  "logo": "https://bonenza.com/img/logo-mobile.png"
+                })
+              }} />
 
             </Head>
             <Script async src="/game.js"></Script>

@@ -563,9 +563,9 @@ function DashboardComponent() {
       <div className="flex items-center justify-center">
         <div className="w-[95%] h-full md:w-[1067px] pt-[16px] pb-[47px] md:px-[20px] px-[20px]">
           <div className="text-center mb-[26px]">
-            <h1 className="text-[16px] sm:text-m_title pt-42 dark:text-white text-[#141414] font-semibold">
+            <p className="text-[16px] sm:text-m_title pt-42 dark:text-white text-[#141414] font-semibold">
               {t('affiliate:frequentlyAskedQuestions')}
-            </h1>
+            </p>
           </div>
           {questions.map((item) => (
             <div key={item.id}>

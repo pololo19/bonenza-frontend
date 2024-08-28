@@ -75,11 +75,11 @@ export const api_getRecentGames = async (page: number, pageSize: number) => {
 };
 
 export const api_getGameDetail = async (identifier: string) => {
-  return api.get(API_GAME_DETAIL, { params: { identifier } });
+  return api.get(API_GAME_DETAIL, { params: { identifier: encodeURIComponent(identifier) } });
 };
 
 export const apiSSR_getGameDetail = async (identifier: string) => {
-  return apiSSR.get(API_GAME_DETAIL, { params: { identifier } });
+  return apiSSR.get(API_GAME_DETAIL, { params: { identifier: encodeURIComponent(identifier) } });
 };
 
 export const api_getCasinoWithKey = async (key: string, params: CasinoRequest) => {

@@ -129,9 +129,9 @@ function AffiliatePage() {
                   className="!w-full object-contain rounded-default"
                 />
               </div>
-              <h1 className="italic text-[28px] lg:text-[32px] xl:text-[42px] mb-[10px] dark:text-white text-[#141414] text-center font-bold">
+              <div className="italic text-[28px] lg:text-[32px] xl:text-[42px] mb-[10px] dark:text-white text-[#141414] text-center font-bold">
                 {t('affiliate:inviteFriendsToEarn')}
-              </h1>
+              </div>
               <h5
                 className={`text-[30px] lg:text-[24px] xl:text-[32px] mb-[30px] text-center font-extrabold bg-clip-text text-transparent bg-gradient-to-b from-[#ffd339] to-[#f59e00]`}
               >
@@ -336,9 +336,9 @@ function AffiliatePage() {
           <div className="flex justify-center items-center">
             <div className="w-[95%] h-full md:w-[1067px] pt-[16px] pb-[47px] md:px-[20px] px-[20px]">
               <div className="text-center text-3xl mb-[26px]">
-                <h1 className="text-[16px] lg:text-[36px] pt-42 dark:text-white text-[#141414] font-semibold">
+                <div className="text-[16px] lg:text-[36px] pt-42 dark:text-white text-[#141414] font-semibold">
                   {t('affiliate:frequentlyAskedQuestions')}
-                </h1>
+                </div>
               </div>
               {questions.map((item) => (
                 <div key={item.id}>

@@ -369,6 +369,7 @@ export default function SidebarToggle() {
                     height={121}
                     src="/img/refer.png"
                     alt="refer"
+                    priority
                     className="object-contain rounded-md cursor-pointer"
                     onClick={() => dispatch(changeIsShowReferAndEarn(true))}
                   />
@@ -559,7 +560,7 @@ export default function SidebarToggle() {
             </div>
           </Tooltip>
           <div
-            key={`masters-small`}
+            key={`refer-small`}
             className={cn(
               'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
             )}
