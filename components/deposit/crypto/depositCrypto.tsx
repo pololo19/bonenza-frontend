@@ -166,7 +166,7 @@ const DepositCryptoComponent = () => {
                       onClick={() => {
                         dispatch(changeIsShowAddressConfirm(true));
                         copyClipBoard(
-                          String(String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)),
+                          String(String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)), false
                         );
                       }}
                     >

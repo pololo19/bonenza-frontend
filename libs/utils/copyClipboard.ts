@@ -4,7 +4,7 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { useAppDispatch } from '@/base/redux/store';
 import { changeIsShowAddressConfirm } from '@/base/redux/reducers/modal.reducer';
 
-export function copyClipBoard(text: string) {
+export function copyClipBoard(text: string, showToast: boolean = true) {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text);
   } else {
@@ -21,5 +21,5 @@ export function copyClipBoard(text: string) {
     document.execCommand('copy');
     textArea.remove();
   }
-  toast.success('Copied', { containerId: TOAST_ENUM.COMMON, toastId: 'copy-clipboard-notification' });
+  if (showToast) toast.success('Copied', { containerId: TOAST_ENUM.COMMON, toastId: 'copy-clipboard-notification' });
 }
