@@ -46,6 +46,7 @@ export default function Navbar() {
     isNewMessage,
     isNewNotification,
     isShowNotification,
+    settings
   } = useSelector(
     (state: AppState) => ({
       isLogin: state.auth.isLogin,
@@ -54,6 +55,7 @@ export default function Navbar() {
       showChatType: state.modal.showChatType,
       viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
       localFiat: state.wallet.localFiat,
+      settings: state.auth.user.generalSetting,
       isAccountPannel: state.modal.isShowAccountPannel,
       isLoading: state.auth.isLoading,
       isNewMessage: state.common.isNewMessage,
@@ -247,7 +249,7 @@ export default function Navbar() {
             <button
               type="button"
               className={`${isLogin ? 'hidden sm:flex' : 'flex'
-                } rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-color-text-primary dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
+                } text-default font-semibold uppercase rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-color-text-primary dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
                 dispatch(changeIsShowMultiLanguageModal(true));
@@ -256,7 +258,8 @@ export default function Navbar() {
               {isLoading.isLanguage ? (
                 <ReactLoading width={20} height={20} type="spin" color="#00AAE6" />
               ) : (
-                <Global className="w-[20px] h-[20px]" />
+                settings.settingLanguage === 'en' ?
+                  <Global className="w-[20px] h-[20px]" /> : settings.settingLanguage
               )}
             </button>
             {viewInFiat && localFiat && <div className="hidden w-px h-5 bg-slate-400 sm:block"></div>}
