@@ -265,12 +265,12 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-color-light-bg-primary shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
                     <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
                       <Link
-                        href={ROUTER.Deposit}
+                        href={ROUTER.DepositCrypto}
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
                             'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.Deposit),
+                              router.route.includes(ROUTER.DepositCrypto),
                           },
                         )}
                       >
@@ -299,12 +299,12 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         </div>
                       </Link>
                       <Link
-                        href={ROUTER.Withdraw}
+                        href={ROUTER.WithdrawCrypto}
                         className={cn(
                           'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
                           {
                             'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.Withdraw),
+                              router.route.includes(ROUTER.WithdrawCrypto),
                           },
                         )}
                       >
