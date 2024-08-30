@@ -159,10 +159,6 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
 
       setGameDetail(tempGameDetailData);
 
-      if (!_res.data?.allowLocation) {
-        toast.error(t('errors:game:notAllowedLocation'), { toastId: 'toast-notAllowed-notification', containerId: TOAST_ENUM.COMMON });
-      }
-
       playStatusRef.current = 'Free';
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
