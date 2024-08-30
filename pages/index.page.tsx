@@ -160,6 +160,7 @@ function IndexPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
         multiplier: Number(item.profitMultiplier || 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: new Date(),
       }));
@@ -171,6 +172,7 @@ function IndexPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
         multiplier: Number(item.profitMultiplier || 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? new Date(),
       }));
@@ -265,6 +267,7 @@ function IndexPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
@@ -275,6 +278,7 @@ function IndexPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
@@ -285,6 +289,7 @@ function IndexPage() {
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));

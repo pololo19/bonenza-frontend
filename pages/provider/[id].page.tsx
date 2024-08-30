@@ -35,6 +35,7 @@ export const getStaticProps = (async ({ params }: any) => {
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
         multiplier: Number(item.profitMultiplier || 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: '',
     }))
@@ -48,7 +49,7 @@ function ProviderPage({ games, params }: InferGetStaticPropsType<typeof getStati
         { id: 2, label: String(t('casino:Popular')), orderValue: 'popular', orderBy: 'total_favorite' },
         { id: 3, label: 'A-Z', orderValue: 'asc', orderBy: 'title' },
         { id: 4, label: 'Z-A', orderValue: 'desc', orderBy: 'title' },
-        { id: 5, label: String(t('casino:new')), orderValue: 'desc', orderBy: 'released_at' },
+        { id: 5, label: String(t('casino:new')), orderValue: 'new', orderBy: 'released_at' },
     ];
 
     const { id } = params;

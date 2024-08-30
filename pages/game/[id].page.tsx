@@ -619,7 +619,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
                 <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
                 <Link
                   className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
-                  href={ROUTER.Provider(String(gameDetail.providerName))}
+                  href={ROUTER.Provider(String(gameDetail.provider))}
                 >
                   {gameDetail.providerName}
                 </Link>
@@ -976,7 +976,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
               <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
               <Link
                 className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
-                href={ROUTER.Provider(String(gameDetail.identifier))}
+                href={ROUTER.Provider(String(gameDetail.provider))}
               >
                 {gameDetail.providerName}
               </Link>
