@@ -205,7 +205,7 @@ function CasinoPage() {
               viewAllUrl={ROUTER.Providers}
               renderItem={(item: GameProviderDetail) => (
                 <Link
-                  href={ROUTER.Provider(String(item.name))}
+                  href={ROUTER.Provider(String(item.image))}
                   role="button"
                   className="p-[8px] sm:max-h-[70px] h-full max-h-[50px] bg-white dark:bg-gradient-card-provider hover:opacity-70 gap-[10px] flex-shrink-0 rounded-large flex items-center justify-center"
                 >

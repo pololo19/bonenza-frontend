@@ -8,8 +8,6 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { GameListType, GameProviderDetail } from '@/base/types/common';
 
-import CasinoSS from '../casino/casinoSS';
-import GameCard from '../gameCard/gameCard';
 import AllBetsTableComponent from '../gameTable/allBetsTable';
 import HighRollerTableComponent from '../gameTable/highRollerTable';
 import MyBetsTableComponent from '../gameTable/myBetsTable';
@@ -24,28 +22,8 @@ const GameDetailComponent = ({
   gameProvider?: GameProviderDetail;
 }) => {
   const [openTab, setOpenTab] = useState(1);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [listRelatedGame, setListRelatedGame] = useState<GameListType[]>([]);
 
   const { t } = useTranslation('');
-
-  const handleGetListGame = async () => {
-    try {
-      setIsLoading(true);
-      // const res = await api.get('game/get-related-list', {
-      //   params: { limit: '0', game_id: gameDetail?.id },
-      // });
-      // setListRelatedGame(res.data.data);
-    } catch (error) {
-      setListRelatedGame([]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    handleGetListGame();
-  }, []);
 
   return (
     <div>
@@ -147,7 +125,7 @@ const GameDetailComponent = ({
             </div>
             <div className="flex items-center gap-[10px]">
               <Link
-                href={ROUTER.Provider(String(gameDetail?.identifier))}
+                href={ROUTER.Provider(String(gameDetail?.provider))}
                 className="flex dark:bg-color-card-header-active dark:hover:bg-color-card-body-hover text-black dark:text-white items-center p-[10px] justify-between rounded-[5px] gap-[5px] border dark:border-0 border-solid border-[#DADDE6]"
                 role="button"
               >
@@ -157,7 +135,7 @@ const GameDetailComponent = ({
                 <ArrowRight2 size={12} />
               </Link>
               <Link
-                href={ROUTER.Provider(String(gameDetail?.identifier))}
+                href={ROUTER.Provider(String(gameDetail?.provider))}
                 role="button"
                 className="text-[12px] dark:text-[#FFFFFF] font-bold p-[10px] dark:dark:bg-color-card-header-active dark:hover:bg-color-card-body-hover text-[#31373D] hover:text-[#000] bg-white border dark:border-0 border-solid border-[#DADDE6] dark:hover:text-white rounded-[5px] text-center"
               >

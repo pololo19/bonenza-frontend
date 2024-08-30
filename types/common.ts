@@ -177,7 +177,7 @@ export type GameListType = {
   multiplier: number;
   releasedAt: Date | string;
 
-  provider?: string;
+  provider: string;
   providerName: string;
   isExpiration?: boolean;
   gameCnt?: number;

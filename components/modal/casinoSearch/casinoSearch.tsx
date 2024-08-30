@@ -1,26 +1,26 @@
+import { DialogProps, TransitionRootProps } from '@headlessui/react';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import { SearchNormal, Trash } from 'iconsax-react';
-import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { ElementType, useEffect, useMemo, useRef, useState } from 'react';
 import { isMobile } from 'react-device-detect';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useDebounce } from 'use-debounce';
 
-import { DialogProps, TransitionRootProps } from '@headlessui/react';
-import { XMarkIcon } from '@heroicons/react/24/outline';
 import { api_getDashboardData, api_getGamesByNameAndProvider } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { setRecommandGames } from '@/base/redux/reducers/game.reducer';
 import { AppState } from '@/base/redux/store';
 import { GameListType } from '@/base/types/common';
-import { NoDataComponent } from '@/components/noData/noData';
 import CasinoSwiper from '@/components/casino/casinoSwiper';
 import GameCard from '@/components/gameCard/gameCard';
+import { NoDataComponent } from '@/components/noData/noData';
 
 import styles from './index.module.scss';
-import ReactLoading from 'react-loading';
 
 type ModalCasinoSearchProps = {
   onClose: () => void;
@@ -63,6 +63,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         identifier: item?.identifier ?? '',
         payout: Number(item?.payout ?? 0),
         multiplier: Number(item?.profitMultiplier ?? 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? '',
       }));
@@ -85,6 +86,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         identifier: item?.identifier ?? '',
         payout: Number(item.payout || 0),
         multiplier: Number(item.profitMultiplier || 0),
+        provider: item?.producerIdentifier || '',
         providerName: item?.producerName ?? '',
         releasedAt: item?.releasedAt ?? new Date(),
       }));

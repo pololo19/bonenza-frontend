@@ -70,7 +70,7 @@ function GameCard(props: GameCardProps) {
         <div className="flex flex-col gap-5 py-2">
           <div className="flex justify-center items-center gap-[5px]">
             <Link
-              href={ROUTER.Provider(String(gameDetail.identifier))}
+              href={ROUTER.Provider(String(gameDetail.provider))}
               className="dark:text-white text-black font-light text-default sm:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
             >
               {gameDetail.providerName.toLowerCase()}

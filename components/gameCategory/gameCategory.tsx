@@ -39,7 +39,8 @@ function GameCategory({ getData }: GameCategoryProps) {
                 identifier: item?.identifier ?? '',
                 payout: Number(item.payout || 0),
                 multiplier: Number(item.profitMultiplier || 0),
-                providerName: item?.producerName ?? '',
+                provider: item.producerIdentifier || '',
+                providerName: item?.producerName || '',
                 releasedAt: new Date(),
             }));
             if (currentPage === 1) {
