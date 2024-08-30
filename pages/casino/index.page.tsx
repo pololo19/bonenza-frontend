@@ -10,7 +10,7 @@ import { api_getCasinoGameData, api_getCasinoWithKey, CasinoRequest } from '@/ap
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { isEmpty, snakeCaseToString } from '@/base/libs/utils';
-import { convert2Url } from '@/base/libs/utils/convert';
+import { convert2Url, convertThemeToUrl } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { BetDetailType, GameListType, GameProviderDetail } from '@/base/types/common';
 import CasinoSS from '@/components/casino/casinoSS';
@@ -75,13 +75,14 @@ function CasinoPage() {
       let tempGameLists: ListGamesType = { ...initGameDatas };
       for (i = 0; i < keys.length; i++) {
         const key = keys[i];
-        const tempGameListData = _resCasino.data[key]?.map((item: any) => ({
+        const tempGameListData: GameListType[] = _resCasino.data[key]?.map((item: any) => ({
           id: item?.id ?? '',
           title: item?.title ?? '',
           description: item?.description ?? '',
           identifier: item?.identifier ?? '',
           payout: Number(item?.payout ?? 0),
           multiplier: Number(item?.profitMultiplier ?? 0),
+          provider: item?.producerIdentifier || '',
           providerName: item?.producerName ?? '',
           releasedAt: item?.releasedAt ?? '',
         }));
@@ -244,7 +245,7 @@ function CasinoPage() {
               viewAllUrl={ROUTER.Themes}
               renderItem={(item: string) => (
                 <Link
-                  href={ROUTER.Theme(String(item))}
+                  href={ROUTER.Theme(convertThemeToUrl(item))}
                   role="button"
                   className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-default text-default min-w-fit p-[10px] bg-white dark:bg-color-card-bg-secondary hover:opacity-70
                  gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
