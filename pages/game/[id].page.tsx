@@ -178,7 +178,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       return;
     }
     if (!gameDetail.allowedLocation) {
-      toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+      toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'toast-notAllowed-notification' });
       return;
     }
     if (!gameDetail.allowedDemo) {
@@ -261,7 +261,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       }
 
       if (!gameDetail.allowedLocation) {
-        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'toast-notAllowed-notification' });
         return;
       }
 
@@ -347,7 +347,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       }
 
       if (!gameDetail.allowedLocation) {
-        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'game-play' });
+        toast.error(t('errors:game:notAllowedLocation'), { containerId: TOAST_ENUM.COMMON, toastId: 'toast-notAllowed-notification' });
         return;
       }
 
