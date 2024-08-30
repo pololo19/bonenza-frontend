@@ -3,9 +3,9 @@ import type {
     InferGetStaticPropsType,
 } from 'next'
 import Link from 'next/link';
-import React, { ReactElement, useCallback, useState } from 'react';
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { api_getGamesByProvider, apiSSR_getPickGames, apiSSR_getProviders, SortType } from '@/api/game';
+import { api_getGamesByProvider, api_getProviders, apiSSR_getPickGames, apiSSR_getProviders, SortType } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { titleCase } from '@/base/libs/utils';
@@ -21,7 +21,7 @@ export const getStaticPaths = (async () => {
     const response = await apiSSR_getProviders();
     const providers = response.data;
     return {
-        paths: providers.map((provider: any) => ({ params: { id: provider.name } })),
+        paths: providers.map((provider: any) => ({ params: { id: provider.identifier } })),
         fallback: false, // false or "blocking"
     }
 }) satisfies GetStaticPaths
@@ -54,6 +54,30 @@ function ProviderPage({ games, params }: InferGetStaticPropsType<typeof getStati
     const { id } = params;
 
     const [selectedSortBy, setSelectedSortBy] = useState(sortBy[0]);
+    const [providers, setProviders] = useState<Array<{ id: string, name: string, identifier: string }>>([]);
+
+    const getProviders = async () => {
+        try {
+            const _res = await api_getProviders();
+            const tempProviders = _res.data.map((provider: any) => ({
+                id: provider.id,
+                name: provider.name,
+                identifier: provider.identifier,
+            }));
+            setProviders(tempProviders);
+        } catch (error) {
+            setProviders([]);
+        }
+    };
+
+    const provider = useMemo(() => {
+        const selectedProvider = providers.find(provider => provider.identifier === id);
+        return selectedProvider;
+    }, [id, providers])
+
+    useEffect(() => {
+        getProviders();
+    }, [id]);
 
     const getGames = useCallback(async (page: number, pageSize: number) => {
         const _res = await api_getGamesByProvider(String(id), selectedSortBy.orderValue, page, pageSize);
@@ -70,7 +94,7 @@ function ProviderPage({ games, params }: InferGetStaticPropsType<typeof getStati
         <div className="py-[24px]">
             <Breadcrumbs
                 data={[{ title: 'Casino', href: ROUTER.Casino }]}
-                endpoint={{ title: String(id), href: ROUTER.Provider(String(id)) }}
+                endpoint={{ title: String(provider?.name || id), href: ROUTER.Provider(String(id)) }}
             />
             <div className="sm:flex grid grid-cols-2 sm:justify-between mt-[10px] items-center justify-start gap-[30px]">
                 <p className="text-color-primary cursor-pointer sm:text-[16px] text-[14px]">
@@ -85,7 +109,7 @@ function ProviderPage({ games, params }: InferGetStaticPropsType<typeof getStati
             </div>
             <>
                 <h1 className="sm:text-[24px] text-[16px] mt-[24px] dark:text-white text-black">
-                    {titleCase(String(id))} {t('layout:games')}
+                    {titleCase(provider?.name || id)} {t('layout:games')}
                 </h1>
                 <GameCategory getData={getGames} />
                 <div className="mt-10">

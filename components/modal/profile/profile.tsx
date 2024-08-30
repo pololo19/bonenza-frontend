@@ -23,7 +23,7 @@ import MasterMedals from './masterMedals/masterMedals';
 import Statistic from './statistic/statistic';
 import WagerContest from './wager/wager';
 import CsrWrapper from '@/components/CsrWrapper';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
+import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 
 type ModalProfileProps = {
   onClose: () => void;
@@ -339,7 +339,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                 <div className="flex flex-col gap-[5px] mt-[15px]">
                   {listGame.map((item, index) => (
                     <div className="flex items-center justify-between" key={index}>
-                      <Link href={ROUTER.GameDetail(convertToUrlCase(item.identifier || ''))}>
+                      <Link href={ROUTER.GameDetail(convertGameIdentifierToUrl(item.identifier || ''))}>
                         <div className="flex items-center gap-[10px]" onClick={onClose}>
                           <Image
                             height={60}

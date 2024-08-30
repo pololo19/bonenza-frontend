@@ -26,7 +26,7 @@ import {
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, isEmpty } from '@/base/libs/utils';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
+import { convertGameIdentifierToUrl, convertUrlToGameIdentifier } from '@/base/libs/utils/convert';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
@@ -52,7 +52,7 @@ export const getStaticPaths = (async () => {
   const response = await apiSSR_gamesIdentifiers();
   const games = response.data;
   return {
-    paths: games.map((game: any) => ({ params: { id: convertToUrlCase(game) } })),
+    paths: games.map((game: any) => ({ params: { id: convertGameIdentifierToUrl(game) } })),
     fallback: false, // false or "blocking"
   }
 }) satisfies GetStaticPaths
@@ -137,7 +137,8 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
     })
 
     try {
-      const _res = await api_getGameDetail(String(id));
+      const identifier = convertUrlToGameIdentifier(id);
+      const _res = await api_getGameDetail(identifier);
 
       const tempGameDetailData: GameListType = {
         id: _res.data?.id ?? '',
@@ -975,7 +976,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
               <span className="text-gray-400">{t('gameDetail:by')}</span>{' '}
               <Link
                 className="!underline dark:text-white/90 text-black/90 dark:hover:text-white hover:text-black"
-                href={ROUTER.Provider(String(gameDetail.providerName))}
+                href={ROUTER.Provider(String(gameDetail.identifier))}
               >
                 {gameDetail.providerName}
               </Link>

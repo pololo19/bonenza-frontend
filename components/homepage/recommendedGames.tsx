@@ -8,7 +8,7 @@ import { GameListType } from '@/base/types/common';
 
 import CasinoSS from '../casino/casinoSS';
 import GameCard from '../gameCard/gameCard';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
+import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 
 type CardRecommendedProps = {
   title: string;
@@ -57,7 +57,7 @@ function RecommendedGamesComponent({ listRecommendedGame }: RecommendedGamesProp
           gameDetail={item}
           footer={() => (
             <Link
-              href={ROUTER.GameDetail(convertToUrlCase(String(item.identifier)))}
+              href={ROUTER.GameDetail(convertGameIdentifierToUrl(String(item.identifier)))}
               className="sm:flex hidden hover:opacity-[0.9] bg-gradient-btn-play cursor-pointer py-3 text-center rounded-large"
             >
               <div className="text-white font-medium text-[16px] w-full">{String(t('homePage:playNow'))}</div>
