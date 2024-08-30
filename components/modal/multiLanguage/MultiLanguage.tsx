@@ -113,110 +113,112 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
           </div>
         }
       >
-        <div className="overflow-y-auto text-black dark:text-white">
-          <div>
-            <div className="p-5 py-5 overflow-y-auto border">
-              <div
-                className={`grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2 ${multiLanguageTab === MultiLanguageTabEnum.LANGUAGE ? 'block' : 'hidden'
-                  }`}
-              >
-                {LANGUAGE_DATA.map((item, key) => (
-                  <button
-                    key={key}
-                    className={cn(
-                      'sm:py-[15px] py-[10px] rounded-default text-left ps-5 dark:hover:text-white text-default ',
-                      {
-                        'bg-gradient-btn-play text-white': item.key === i18n.language,
-                        'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600 dark:text-white text-black':
-                          item.key !== i18n.language,
-                      },
-                    )}
-                    onClick={() => {
-                      handleChangeLang(item);
-                      onClose();
-                    }}
-                  >
-                    {item.language}
-                  </button>
-                ))}
-              </div>
-              <div
-                className={cn('grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2', {
-                  grid: multiLanguageTab === MultiLanguageTabEnum.FIAT,
-                  block: multiLanguageTab === MultiLanguageTabEnum.FIAT,
-                  hidden: multiLanguageTab !== MultiLanguageTabEnum.FIAT,
-                })}
-              >
-                <>
-                  <div
-                    role="button"
-                    className={cn(
-                      'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
-                      {
-                        'bg-gradient-btn-play': !viewInFiat,
-                        'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': viewInFiat,
-                      },
-                    )}
-                    onClick={() => {
-                      if (isLogin) {
-                        dispatch(setIsLoading({ ...isLoading, isCurrency: true }));
-                        dispatch(
-                          updateSetting({ ...settings, settingCurrency: usdFiat?.id || '', settingViewInFiat: false }),
-                        );
-                      } else {
-                        dispatch(updateViewInFiat(false));
-                        dispatch(setLocalFiat(usdFiat));
-                      }
+        <div className="h-full pb-4 overflow-y-auto overflow-hidden">
+          <div className="h-full overflow-y-auto text-black dark:text-white">
+            <div>
+              <div className="p-5 py-5 overflow-y-auto border">
+                <div
+                  className={`grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2 ${multiLanguageTab === MultiLanguageTabEnum.LANGUAGE ? 'block' : 'hidden'
+                    }`}
+                >
+                  {LANGUAGE_DATA.map((item, key) => (
+                    <button
+                      key={key}
+                      className={cn(
+                        'sm:py-[15px] py-[10px] rounded-default text-left ps-5 dark:hover:text-white text-default ',
+                        {
+                          'bg-gradient-btn-play text-white': item.key === i18n.language,
+                          'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600 dark:text-white text-black':
+                            item.key !== i18n.language,
+                        },
+                      )}
+                      onClick={() => {
+                        handleChangeLang(item);
+                        onClose();
+                      }}
+                    >
+                      {item.language}
+                    </button>
+                  ))}
+                </div>
+                <div
+                  className={cn('grid md:grid-cols-4 sm:grid-cols-3 grid-cols-1 gap-2', {
+                    grid: multiLanguageTab === MultiLanguageTabEnum.FIAT,
+                    block: multiLanguageTab === MultiLanguageTabEnum.FIAT,
+                    hidden: multiLanguageTab !== MultiLanguageTabEnum.FIAT,
+                  })}
+                >
+                  <>
+                    <div
+                      role="button"
+                      className={cn(
+                        'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
+                        {
+                          'bg-gradient-btn-play': !viewInFiat,
+                          'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': viewInFiat,
+                        },
+                      )}
+                      onClick={() => {
+                        if (isLogin) {
+                          dispatch(setIsLoading({ ...isLoading, isCurrency: true }));
+                          dispatch(
+                            updateSetting({ ...settings, settingCurrency: usdFiat?.id || '', settingViewInFiat: false }),
+                          );
+                        } else {
+                          dispatch(updateViewInFiat(false));
+                          dispatch(setLocalFiat(usdFiat));
+                        }
 
-                      onClose();
-                    }}
-                  >
-                    <div className="flex items-center w-full gap-3">
-                      <div className="w-[30px] h-[30px] rounded-full bg-gray-300 flex items-center justify-center">
-                        <Star1 size={15} className="text-gray-700" />
-                      </div>
-                      <div>{t('language:none')}</div>
-                    </div>
-                  </div>
-                </>
-                <div className="col-span-1 md:col-span-3 sm:col-span-2"></div>
-                {fiatSymbols.map((item: CurrencyType, key: number) => (
-                  <div
-                    key={key}
-                    role="button"
-                    className={cn(
-                      'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
-                      {
-                        'bg-gradient-btn-play text-white': viewInFiat && item.id === localFiat?.id,
-                        'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': item.id !== localFiat?.id,
-                      },
-                    )}
-                    onClick={() => {
-                      handleChangeLocaleFiat(item);
-                      onClose();
-                    }}
-                  >
-                    <div className="flex items-center w-full gap-3">
-                      <Image
-                        height={30}
-                        width={30}
-                        src={item.logo ? item.logo : '/img/fiats/USD.png'}
-                        alt="currency"
-                        onError={(e) => {
-                          e.currentTarget.src = '/img/fiats/USD.png';
-                        }}
-                      />
-                      <div>{item.name}</div>
-                      <div
-                        className={cn('text-[12px] truncate w-full dark:text-[#C2C2C2] text-gray-500', {
-                          '!text-gray-200': viewInFiat && item.id === localFiat?.id,
-                        })}
-                      >
-                        {item.alias}
+                        onClose();
+                      }}
+                    >
+                      <div className="flex items-center w-full gap-3">
+                        <div className="w-[30px] h-[30px] rounded-full bg-gray-300 flex items-center justify-center">
+                          <Star1 size={15} className="text-gray-700" />
+                        </div>
+                        <div>{t('language:none')}</div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  </>
+                  <div className="col-span-1 md:col-span-3 sm:col-span-2"></div>
+                  {fiatSymbols.map((item: CurrencyType, key: number) => (
+                    <div
+                      key={key}
+                      role="button"
+                      className={cn(
+                        'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
+                        {
+                          'bg-gradient-btn-play text-white': viewInFiat && item.id === localFiat?.id,
+                          'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': item.id !== localFiat?.id,
+                        },
+                      )}
+                      onClick={() => {
+                        handleChangeLocaleFiat(item);
+                        onClose();
+                      }}
+                    >
+                      <div className="flex items-center w-full gap-3">
+                        <Image
+                          height={30}
+                          width={30}
+                          src={item.logo ? item.logo : '/img/fiats/USD.png'}
+                          alt="currency"
+                          onError={(e) => {
+                            e.currentTarget.src = '/img/fiats/USD.png';
+                          }}
+                        />
+                        <div>{item.name}</div>
+                        <div
+                          className={cn('text-[12px] truncate w-full dark:text-[#C2C2C2] text-gray-500', {
+                            '!text-gray-200': viewInFiat && item.id === localFiat?.id,
+                          })}
+                        >
+                          {item.alias}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
