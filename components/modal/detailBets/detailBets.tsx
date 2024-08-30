@@ -12,7 +12,7 @@ import { API_AVATAR, ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '
 import { useExchange } from '@/base/hooks/useExchange';
 import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1, formatDate, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
+import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowInformation } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -231,7 +231,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                 <Link
                   className="flex items-center gap-1 group dark:text-color-primary text-[#31373d] dark:hover:text-white hover:text-black"
                   role="button"
-                  href={ROUTER.GameDetail(convertToUrlCase(detailsBet.betDetail.gameIdenfiter))}
+                  href={ROUTER.GameDetail(convertGameIdentifierToUrl(detailsBet.betDetail.gameIdenfiter))}
                   onClick={() => {
                     onClose();
                   }}

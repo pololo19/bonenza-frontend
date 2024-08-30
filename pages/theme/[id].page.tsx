@@ -5,6 +5,7 @@ import { api_getGamesByTheme, apiSSR_getProviders, apiSSR_getThemes } from '@/ap
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
 import { snakeCaseToString } from '@/base/libs/utils';
+import { convertThemeToUrl, convertUrlToTheme } from '@/base/libs/utils/convert';
 import { GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import GameCategory from '@/components/gameCategory/gameCategory';
@@ -16,7 +17,7 @@ export const getStaticPaths = (async () => {
   const response = await apiSSR_getThemes();
   const themes = response.data;
   return {
-    paths: themes.map((theme: any) => ({ params: { id: theme } })),
+    paths: themes.map((theme: any) => ({ params: { id: convertThemeToUrl(theme) } })),
     fallback: false, // false or "blocking"
   }
 }) satisfies GetStaticPaths
@@ -63,7 +64,8 @@ function CasinoCategoryPage({ providers, params }: InferGetStaticPropsType<typeo
   );
 
   const getGames = useCallback(async (page: number, pageSize: number) => {
-    const _res = await api_getGamesByTheme(JSON.stringify(selectedProvider), page, pageSize, id);
+    const theme = convertUrlToTheme(id);
+    const _res = await api_getGamesByTheme(JSON.stringify(selectedProvider), page, pageSize, theme);
     return {
       data: _res.data?.games,
       page: _res.data?.page,

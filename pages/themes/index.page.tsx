@@ -10,6 +10,7 @@ import Loader from '@/components/common/preloader/loader';
 import BaseLayout from '@/components/layouts/base.layout';
 import { api_getProviders, api_getThemes } from '@/api/game';
 import { snakeCaseToString } from '@/base/libs/utils';
+import { convertThemeToUrl } from '@/base/libs/utils/convert';
 
 type ProviderDetailType = {
   id: string;
@@ -53,7 +54,7 @@ function ThemePage() {
             {listTheme.map((theme, index) => (
               <Link
                 key={index}
-                href={ROUTER.Theme(String(theme))}
+                href={ROUTER.Theme(convertThemeToUrl(theme))}
                 role="button"
                 className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-[14px] text-[14px] min-w-fit p-[10px] bg-[#fff] dark:bg-color-card-bg-default hover:opacity-70
                gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"

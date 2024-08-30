@@ -10,7 +10,7 @@ import {
 } from 'iconsax-react';
 import { Settings } from 'react-slick';
 
-import { convertToUrlCase } from '../libs/utils/convert';
+import { convertGameIdentifierToUrl, convertToUrlCase } from '../libs/utils/convert';
 import resources from '../public/locales';
 import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '../types/common';
 import { TRANSACTION_TYPE } from '../types/requestTypes';
@@ -906,55 +906,55 @@ export const CONVERT_CURRENCIES =
 export const BANNER_DATA = [
   {
     img: '/img/banners/PenaltyShootOut_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('evoplay-penaltyshootout')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('evoplay:PenaltyShootOut')),
   },
   {
     img: '/img/banners/GoldenChicken_SpadeGaming.png',
-    url: ROUTER.GameDetail(convertToUrlCase('spadegaming-goldenchicken')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('spadegaming:GoldenChicken')),
   },
   {
     img: '/img/banners/RocketBlastMegaways _PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal-rocketblastmegaways')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:RocketBlastMegaways')),
   },
   {
     img: '/img/banners/GateofOlympus_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:gatesofolympus1')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:GatesOfOlympus1')),
   },
   {
     img: '/img/banners/SugarSupreme_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:sugarsupremepowernudge')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:SugarSupremePowernudge')),
   },
   {
     img: '/img/banners/BigBassCrash_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:bigbasscrash')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:BigBassCrash')),
   },
   {
     img: '/img/banners/Spaceman_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:spaceman')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:Spaceman')),
   },
   {
     img: '/img/banners/BuffaloKing_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:buffaloking')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:BuffaloKing')),
   },
   {
     img: '/img/banners/Baccarat_PragmaticLive.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:super8baccarat')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:Super8Baccarat')),
   },
   {
     img: '/img/banners/BigBass_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:bigbasschristmasbash')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:BigBassChristmasBash')),
   },
   {
     img: '/img/banners/FuryofOdin_PragmaticPlay.png',
-    url: ROUTER.GameDetail(convertToUrlCase('pragmaticexternal:furyofodinmegaways')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('pragmaticexternal:FuryofOdinMegaways')),
   },
   {
     img: '/img/banners/GrayhoundRacing_GoldenRace.png',
-    url: ROUTER.GameDetail(convertToUrlCase('infin:dog6')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('infin:Dog6')),
   },
   {
     img: '/img/banners/Keno_TvBet.png',
-    url: ROUTER.GameDetail(convertToUrlCase('infin:tvbet_keno')),
+    url: ROUTER.GameDetail(convertGameIdentifierToUrl('infin:tvbet_keno')),
   },
 ];
 

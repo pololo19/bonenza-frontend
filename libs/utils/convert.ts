@@ -1,4 +1,5 @@
 import { EXTENSION_IMG_AFTER_CROP, TYPE_IMG_AFTER_CROP } from '@/base/constants/common';
+import { camelize, decamelize } from 'humps';
 
 const changeExtension = (fileName: string, extension: string) => {
   const ext = fileName.split('.').pop();
@@ -32,6 +33,35 @@ export function convertToUrlCase(str: string) {
   let url = str.replace(':', '-');
   url = url.toLowerCase();
   return url;
+}
+
+export function convertGameIdentifierToUrl(identifier: string) {
+  if (!identifier) return '';
+  const [provider, game] = identifier.split(':');
+  const removedSpecialCharacterGame = game.replace(/[^\w\s]/g, '');
+  const url = `${decamelize(removedSpecialCharacterGame, { separator: '-' })}-by-${decamelize(provider, {
+    separator: '-',
+  })}`;
+  return encodeURIComponent(url);
+}
+
+export function convertUrlToGameIdentifier(url: string) {
+  const _url = decodeURIComponent(url);
+  const [game, provider] = _url.split('-by-');
+  const providerIdentifier = provider.split('-').join('');
+  const gameIdentifier = game.split('-').join('');
+  const identifier = `${providerIdentifier}:${gameIdentifier}`;
+  return identifier;
+}
+
+export function convertThemeToUrl(url: string) {
+  const _url = url.toLowerCase().replaceAll(' ', '-');
+  return _url;
+}
+
+export function convertUrlToTheme(url: string) {
+  const _url = url.replaceAll('-', ' ');
+  return _url;
 }
 
 export function convert2Url(str: string) {

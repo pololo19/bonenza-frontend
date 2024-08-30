@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
+import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 import { GameListType } from '@/base/types/common';
 
 import CasinoSS from '../casino/casinoSS';
@@ -82,7 +82,7 @@ function CasinoRecentComponent({ listRecentGames, listFavoriteGames }: CasinoRec
           gameDetail={item}
           footer={() => (
             <Link
-              href={ROUTER.GameDetail(convertToUrlCase(String(item.identifier)))}
+              href={ROUTER.GameDetail(convertGameIdentifierToUrl(String(item.identifier)))}
               className="sm:flex hidden hover:opacity-[0.9] bg-gradient-btn-play cursor-pointer py-3 text-center rounded-large"
             >
               <div className="text-white font-medium text-[16px] w-full">{String(t('homePage:playNow'))}</div>

@@ -147,7 +147,7 @@ const GameDetailComponent = ({
             </div>
             <div className="flex items-center gap-[10px]">
               <Link
-                href={ROUTER.Provider(String(gameDetail?.providerName))}
+                href={ROUTER.Provider(String(gameDetail?.identifier))}
                 className="flex dark:bg-color-card-header-active dark:hover:bg-color-card-body-hover text-black dark:text-white items-center p-[10px] justify-between rounded-[5px] gap-[5px] border dark:border-0 border-solid border-[#DADDE6]"
                 role="button"
               >
@@ -157,7 +157,7 @@ const GameDetailComponent = ({
                 <ArrowRight2 size={12} />
               </Link>
               <Link
-                href={ROUTER.Provider(String(gameDetail?.providerName))}
+                href={ROUTER.Provider(String(gameDetail?.identifier))}
                 role="button"
                 className="text-[12px] dark:text-[#FFFFFF] font-bold p-[10px] dark:dark:bg-color-card-header-active dark:hover:bg-color-card-body-hover text-[#31373D] hover:text-[#000] bg-white border dark:border-0 border-solid border-[#DADDE6] dark:hover:text-white rounded-[5px] text-center"
               >

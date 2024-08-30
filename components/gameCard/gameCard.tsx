@@ -9,7 +9,7 @@ import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
 import { ROUTER } from '@/base/constants/common';
-import { convertToUrlCase } from '@/base/libs/utils/convert';
+import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameListType } from '@/base/types/common';
 
@@ -53,7 +53,7 @@ function GameCard(props: GameCardProps) {
           block: !listView,
         })}
       >
-        <Link href={ROUTER.GameDetail(convertToUrlCase(gameDetail.identifier || ''))} className="rounded-default">
+        <Link href={ROUTER.GameDetail(convertGameIdentifierToUrl(gameDetail.identifier || ''))} className="rounded-default">
           <Image
             height={160}
             width={160}
@@ -70,7 +70,7 @@ function GameCard(props: GameCardProps) {
         <div className="flex flex-col gap-5 py-2">
           <div className="flex justify-center items-center gap-[5px]">
             <Link
-              href={ROUTER.Provider(String(gameDetail.providerName))}
+              href={ROUTER.Provider(String(gameDetail.identifier))}
               className="dark:text-white text-black font-light text-default sm:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
             >
               {gameDetail.providerName.toLowerCase()}

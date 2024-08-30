@@ -56,7 +56,7 @@ function ProvidersPage() {
             {providers.map((provider, index) => (
               <div key={index}>
                 <Link
-                  href={ROUTER.Provider(String(provider.name))}
+                  href={ROUTER.Provider(String(provider.identifier))}
                   role="button"
                   className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-gradient-card-provider hover:opacity-70 gap-[10px] flex-shrink-0 rounded-default flex items-center justify-center"
                 >

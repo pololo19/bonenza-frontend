@@ -163,8 +163,13 @@ export const api_getCasinoGameData = async () => {
   return api.get(API_GAME_CASINO_DATA);
 };
 
-export const api_getGamesByProvider = async (providerName: string, sort: SortType, page: number, pageSize: number) => {
-  return api.get(API_GAME_GAMES_BY_PROVIDER, { params: { providerName, sort, page, pageSize } });
+export const api_getGamesByProvider = async (
+  providerIdentifier: string,
+  sort: SortType,
+  page: number,
+  pageSize: number,
+) => {
+  return api.get(API_GAME_GAMES_BY_PROVIDER, { params: { providerIdentifier, sort, page, pageSize } });
 };
 
 export const api_getThemes = async () => {
