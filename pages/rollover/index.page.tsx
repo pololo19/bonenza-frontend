@@ -2,6 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { ColumnDef, Row } from '@tanstack/react-table';
 import cn from 'classnames';
+import { camelize } from 'humps';
 import { ArrowRight2 } from 'iconsax-react';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -26,7 +27,6 @@ import DepositLayout from '@/components/layouts/deposit.layout';
 import ModalDetailsRollover from '@/components/modal/rolloverDetail/RolloverDetail';
 import Paging from '@/components/paging/paging';
 import TableComponent from '@/components/table';
-import { camelize } from 'humps';
 
 const LIST_FILTER_TYPE = [
   { name: 'transaction:allType', id: 1 },
@@ -330,75 +330,77 @@ const RolloverPage = () => {
   }, [optionFilter, limit]);
 
   return (
-    <div>
-      <div className="w-full h-1/3 sm:min-h-[400px]">
-        <div className="flex items-center flex-wrap mb-[20px] sm:mb-[40px] sm:gap-[20px] gap-[10px]">
-          <Menu
-            as="div"
-            className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
-          >
-            <Menu.Button className="flex-1">
-              <div className="flex items-center justify-between w-full" role="button">
-                <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                  <div className="flex-1 text-black text-start dark:text-white">{t(optionFilter.status.name)}</div>
-                </div>
-                <div className="flex items-center justify-start gap-[10px]">
-                  <ChevronDownIcon className="text-black  dark:text-white" width={15} />
-                </div>
-              </div>
-            </Menu.Button>
-
-            <Transition
-              as={Fragment}
-              enter="transition ease-out duration-100"
-              enterFrom="transform opacity-0 scale-95"
-              enterTo="transform opacity-100 scale-100"
-              leave="transition ease-in duration-75"
-              leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95"
+    <>
+      <div>
+        <div className="w-full h-1/3 sm:min-h-[400px]">
+          <div className="flex items-center flex-wrap mb-[20px] sm:mb-[40px] sm:gap-[20px] gap-[10px]">
+            <Menu
+              as="div"
+              className="relative flex py-[10px] px-[20px] min-w-[150px] sm:min-w-[165px] dark:bg-color-select-bg-primary bg-color-light-select-bg-primary rounded-default"
             >
-              <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
-                <div className="py-1">
-                  {LIST_FILTER_STATUS.map((item, index) => (
-                    <Menu.Item key={index}>
-                      {({ active }) => (
-                        <div
-                          className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-[#f5f6fa]"
-                          role="button"
-                          onClick={() => setOptionFilter({ ...optionFilter, status: item })}
-                        >
-                          <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
-                            <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
-                          </div>
-                        </div>
-                      )}
-                    </Menu.Item>
-                  ))}
+              <Menu.Button className="flex-1">
+                <div className="flex items-center justify-between w-full" role="button">
+                  <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                    <div className="flex-1 text-black text-start dark:text-white">{t(optionFilter.status.name)}</div>
+                  </div>
+                  <div className="flex items-center justify-start gap-[10px]">
+                    <ChevronDownIcon className="text-black  dark:text-white" width={15} />
+                  </div>
                 </div>
-              </Menu.Items>
-            </Transition>
-          </Menu>
+              </Menu.Button>
+
+              <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
+                  <div className="py-1">
+                    {LIST_FILTER_STATUS.map((item, index) => (
+                      <Menu.Item key={index}>
+                        {({ active }) => (
+                          <div
+                            className="flex items-center justify-start py-[10px] px-[16px] w-full dark:hover:bg-[#FFFFFF11] dark:hover:rounded-default hover:bg-[#f5f6fa]"
+                            role="button"
+                            onClick={() => setOptionFilter({ ...optionFilter, status: item })}
+                          >
+                            <div className="flex-1 flex items-center justify-start gap-[10px] sm:text-[14px] text-[12px]">
+                              <div className="flex-1 text-black text-start dark:text-white">{t(item.name)}</div>
+                            </div>
+                          </div>
+                        )}
+                      </Menu.Item>
+                    ))}
+                  </div>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+          </div>
+          <TableComponent isLoading={isLoading} handleClickRow={handleClickRow} data={dataTable} columns={columns} />
+          <Paging
+            onPageChange={handleChangePage}
+            itemPerPage={limit}
+            totalItem={totalTable}
+            currentPage={page}
+            setItemPerPage={handleChangeItemPerPage}
+            hiddenPerPage={true}
+          />
+          <ModalDetailsRollover
+            show={isShowDetailTransaction}
+            titleModal={String(t('transaction:transactionDetail'))}
+            onClose={() => {
+              setIsShowDetailTransaction(false);
+            }}
+            transaction={transaction}
+            type={optionFilter.type.name}
+          />
         </div>
-        <TableComponent isLoading={isLoading} handleClickRow={handleClickRow} data={dataTable} columns={columns} />
-        <Paging
-          onPageChange={handleChangePage}
-          itemPerPage={limit}
-          totalItem={totalTable}
-          currentPage={page}
-          setItemPerPage={handleChangeItemPerPage}
-          hiddenPerPage={true}
-        />
-        <ModalDetailsRollover
-          show={isShowDetailTransaction}
-          titleModal={String(t('transaction:transactionDetail'))}
-          onClose={() => {
-            setIsShowDetailTransaction(false);
-          }}
-          transaction={transaction}
-          type={optionFilter.type.name}
-        />
       </div>
-    </div>
+    </>
   );
 };
 

@@ -10,6 +10,7 @@ import { ROUTER } from '@/base/constants/common';
 
 import CommonSession from '../common/baseSession/baseSession';
 import IconOption from '../common/iconOption/iconOption';
+import MetaHead from '../metaHead/metaHead';
 import BaseLayout from './base.layout';
 import styles from './deposit.module.scss';
 
@@ -32,10 +33,6 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
       name: 'Terms Of Service',
       href: fixRouter(ROUTER.HelperTermsOfService),
     },
-    // {
-    //   name: 'Terms Of Sports',
-    //   href: fixRouter(ROUTER.HelperTermsOfSports),
-    // },
     {
       name: 'Deposit Bonus Terms',
       href: fixRouter(ROUTER.HelperDepositBonusTerms),
@@ -76,10 +73,6 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
       name: 'Protecting Minors',
       href: fixRouter(ROUTER.HelperProtectingMinors),
     },
-    // {
-    //   name: 'Providers',
-    //   href: fixRouter(ROUTER.HelperProviders),
-    // },
     {
       name: 'AML',
       href: fixRouter(ROUTER.HelperAML),
@@ -104,6 +97,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
 
   return (
     <>
+      <MetaHead />
       <BaseLayout contentClass="sm:mx-auto px-0">
         <>
           <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] xl:px-[20px] sm:px-0 px-0 sm:mb-0 mb-14">

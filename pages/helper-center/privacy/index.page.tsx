@@ -1,9 +1,10 @@
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
-import { useTranslation } from '@/base/config/i18next';
 import React, { ReactElement } from 'react';
 
+import { useTranslation } from '@/base/config/i18next';
 import HelperLayout from '@/components/layouts/helper.layout';
+import Head from 'next/head';
 
 const HelperPrivacyPage = () => {
   const { t } = useTranslation('');
@@ -44,7 +45,13 @@ const HelperPrivacyPage = () => {
   ];
   return (
     <>
-      {/* TODO: Tron code */}
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/privacy"
+          key="canonical"
+        />
+      </Head>
       <div className="sm:block hidden pl-[7px] pr-[5px] pb-[15px] pt-[20px]">
         <div className="">
           <div className="text-black dark:text-[#FFF] text-[16px] font-bold text-left mb-[10px]">

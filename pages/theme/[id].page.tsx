@@ -10,7 +10,9 @@ import { GameProviderDetail } from '@/base/types/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import GameCategory from '@/components/gameCategory/gameCategory';
 import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
 import ProviderFilter from '@/components/providerFilter/providerFilter';
+import Head from 'next/head';
 
 
 export const getStaticPaths = (async () => {
@@ -82,25 +84,36 @@ function CasinoCategoryPage({ providers, params }: InferGetStaticPropsType<typeo
 
 
   return (
-    <div className="py-[24px]">
-
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
-        <Breadcrumbs
-          data={[{ title: 'Casino', href: ROUTER.Casino }]}
-          endpoint={{ title: snakeCaseToString(id ?? ''), href: ROUTER.Tagname(id ?? '') }}
+    <>
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href={`https://bonenza.com/theme/${id}`}
+          key="canonical"
         />
-        <div className="flex items-center text-[14px] text-[#98a7b5] gap-[12px] md:gap-[48px] max-sm:w-full">
-          <ProviderFilter
-            listProvider={listProvider}
-            selectedProvider={selectedProvider}
-            selectProvider={handleSelectedProvider}
-            viewCount={false}
-          />
-        </div>
-      </div>
+      </Head>
+      <div className="py-[24px]">
 
-      <GameCategory getData={getGames} />
-    </div>
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
+          <Breadcrumbs
+            data={[{ title: 'Casino', href: ROUTER.Casino }]}
+            endpoint={{ title: snakeCaseToString(id ?? ''), href: ROUTER.Tagname(id ?? '') }}
+          />
+          <div className="flex items-center text-[14px] text-[#98a7b5] gap-[12px] md:gap-[48px] max-sm:w-full">
+            <ProviderFilter
+              listProvider={listProvider}
+              selectedProvider={selectedProvider}
+              selectProvider={handleSelectedProvider}
+              viewCount={false}
+            />
+          </div>
+        </div>
+
+        <GameCategory getData={getGames} />
+      </div>
+    </>
+
   );
 }
 

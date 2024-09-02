@@ -3,6 +3,7 @@ import { ReactElement } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
 import HelperLayout from '@/components/layouts/helper.layout';
+import Head from 'next/head';
 
 const currencyQuesAnsComponent = (header: string, contents: string[]) => (
   <div className="mb-8">
@@ -60,9 +61,19 @@ const Currency = () => {
     },
   ];
   return (
-    <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px] text-left">
-      {commonItems.map((item) => currencyQuesAnsComponent(item.header, item.contents))}
-    </div>
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/currency"
+          key="canonical"
+        />
+      </Head>
+      <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px] text-left">
+        {commonItems.map((item) => currencyQuesAnsComponent(item.header, item.contents))}
+      </div>
+    </>
+
   );
 };
 

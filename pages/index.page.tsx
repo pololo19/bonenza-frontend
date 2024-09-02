@@ -41,6 +41,7 @@ import RecommendedGamesComponent from '@/components/homepage/recommendedGames';
 import TopRateGameComponent from '@/components/homepage/topRateGame';
 import BaseLayout from '@/components/layouts/base.layout';
 import LoginWalletDashboard from '@/components/loginWalletDashboard/loginWalletDashboard';
+import MetaHead from '@/components/metaHead/metaHead';
 import GameBannerSlider from '@/components/sliders/gameSliders';
 import TabGames from '@/components/tabGames/tabGames';
 import VipProgressComponent from '@/components/vipProgress/vipProgress';
@@ -361,7 +362,14 @@ function IndexPage() {
 
   return (
     <>
-
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com"
+          key="canonical"
+        />
+      </Head>
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
           <div className="flex-1 w-full">

@@ -1,14 +1,22 @@
-import { useTranslation } from '@/base/config/i18next';
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
+import Head from 'next/head';
 import { ReactElement } from 'react';
 
+import { useTranslation } from '@/base/config/i18next';
 import HelperLayout from '@/components/layouts/helper.layout';
 
 const TermsOfServicePage = () => {
   const { t } = useTranslation('');
   return (
     <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/terms-of-service"
+          key="canonical"
+        />
+      </Head>
       <div className="sm:block hidden pl-[7px] pr-[5px] pb-[15px]">
         <div className="text-[14px]">
           <div className="text-black dark:text-[#ffff] font-bold text-left mb-[16px]">{t('helper:termsService')}</div>

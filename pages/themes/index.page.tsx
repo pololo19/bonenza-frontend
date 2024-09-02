@@ -1,22 +1,17 @@
+
 import Head from 'next/head';
 import Link from 'next/link';
-import Image from 'next/image';
 import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { api_getThemes } from '@/api/game';
 import { ROUTER } from '@/base/constants/common';
+import { snakeCaseToString } from '@/base/libs/utils';
+import { convertThemeToUrl } from '@/base/libs/utils/convert';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import BaseLayout from '@/components/layouts/base.layout';
-import { api_getProviders, api_getThemes } from '@/api/game';
-import { snakeCaseToString } from '@/base/libs/utils';
-import { convertThemeToUrl } from '@/base/libs/utils/convert';
-
-type ProviderDetailType = {
-  id: string;
-  name: string;
-  identifier: string;
-};
+import MetaHead from '@/components/metaHead/metaHead';
 
 function ThemePage() {
   const { t } = useTranslation();
@@ -42,6 +37,14 @@ function ThemePage() {
 
   return (
     <>
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/themes"
+          key="canonical"
+        />
+      </Head>
       <div className="py-[24px]">
         {isLoading && <Loader />}
         <Breadcrumbs

@@ -9,6 +9,7 @@ import { ROUTER } from '@/base/constants/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
 
 type ProviderDetailType = {
   id: string;
@@ -44,6 +45,14 @@ function ProvidersPage() {
 
   return (
     <>
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/providers"
+          key="canonical"
+        />
+      </Head>
       <div className="py-[24px]">
         {isLoading && <Loader />}
         <Breadcrumbs

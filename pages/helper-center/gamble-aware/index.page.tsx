@@ -1,4 +1,5 @@
 import { ExportSquare } from 'iconsax-react';
+import Head from 'next/head';
 import Link from 'next/link';
 import { ReactElement } from 'react';
 
@@ -10,6 +11,13 @@ const AmlPage = () => {
   const referenceLinks = ['http://www.cyberpatrol.com', 'http://www.gamblock.com'];
   return (
     <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/gamble-aware"
+          key="canonical"
+        />
+      </Head>
       <div className="pl-[7px] pr-[5px] pb-[15px] text-[14px] pt-4 md:pb-0">
         <div className="">
           <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px]">

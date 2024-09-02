@@ -1,21 +1,22 @@
-import { useTranslation } from '@/base/config/i18next';
-import BaseLayout from '@/components/layouts/base.layout';
-import Head from 'next/head';
-import { ReactElement, useState } from 'react';
-import Image from 'next/image';
 import cn from 'classnames';
-import CsrWrapper from '@/components/CsrWrapper';
-import Countdown from 'react-countdown';
-import styles from './index.module.scss';
-import VectorIcon from '@/components/icons/VectorIcon';
-import CommonModal from '@/components/modal/commonModal/commonModal';
-import Link from 'next/link';
-import { shallowEqual, useSelector } from 'react-redux';
-import { AppState } from '@/base/redux/store';
 import { ArrowRight2, DollarCircle, InfoCircle, User } from 'iconsax-react';
-import RocketIcon from '@/components/icons/RocketIcon';
-import { currencyFormat1 } from '@/base/libs/utils';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import { ReactElement, useState } from 'react';
+import Countdown from 'react-countdown';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
+
+import { useTranslation } from '@/base/config/i18next';
+import { currencyFormat1 } from '@/base/libs/utils';
+import { AppState } from '@/base/redux/store';
+import CsrWrapper from '@/components/CsrWrapper';
+import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
+import CommonModal from '@/components/modal/commonModal/commonModal';
+
+import styles from './index.module.scss';
 
 const prizes = [
   { img: '/img/tournament/prize-1.png', percent: 50 },
@@ -58,6 +59,14 @@ function TournamentPage() {
 
   return (
     <>
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/tournament"
+          key="canonical"
+        />
+      </Head>
       <div className="py-[24px]">
         <div className="relative">
           <Image

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { ReactElement, useCallback } from 'react';
 
 import { api_getPickGames } from '@/api/game';
@@ -22,16 +23,31 @@ function PickForYouPage() {
   }, [])
 
   return (
-    <div className="py-[24px]">
+    <>
+      <Head>
+        <title>{`Top Game List - Picks for You | Bonenza`}</title>
+        <meta property="og:title" content={`Top Game List - Picks for You | Bonenza`} />
 
-      <Breadcrumbs
-        data={[{ title: t('layout:casino'), href: ROUTER.Casino }]}
-        endpoint={{ title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou }}
-      />
+        <meta name="description" content={`Play Crypto casino games like Blackjack, Hot Games, Live Casino, Table Games & more with leading online casino Bonenza. Participate in an exciting Baccarat tournament and win big!`} />
+        <meta property="og:description" content={`Play Crypto casino games like Blackjack, Hot Games, Live Casino, Table Games & more with leading online casino Bonenza. Participate in an exciting Baccarat tournament and win big!`} />
+        <link
+          rel="canonical"
+          href="https://bonenza.com/gamelist/picks-for-you"
+          key="canonical"
+        />
+      </Head>
+      <div className="py-[24px]">
 
-      <GameCategory getData={getGames} />
+        <Breadcrumbs
+          data={[{ title: t('layout:casino'), href: ROUTER.Casino }]}
+          endpoint={{ title: String(t('casino:pickForYou')), href: ROUTER.PicksForYou }}
+        />
 
-    </div>
+        <GameCategory getData={getGames} />
+
+      </div>
+    </>
+
   );
 }
 

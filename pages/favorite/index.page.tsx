@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { ReactElement, useCallback } from 'react';
 
 import { api_getFavoriteGames } from '@/api/game';
@@ -7,6 +8,7 @@ import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import GameCategory from '@/components/gameCategory/gameCategory';
 import withAuth from '@/components/hoc/withAuth';
 import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
 
 function FavoritePage() {
   const { t } = useTranslation('');
@@ -23,13 +25,24 @@ function FavoritePage() {
   }, [])
 
   return (
-    <div className="py-[24px]">
-      <Breadcrumbs
-        data={[{ title: t('layout:casino'), href: ROUTER.Casino }]}
-        endpoint={{ title: String(t('casino:favorite')), href: ROUTER.Favorite }}
-      />
-      <GameCategory getData={getGames} />
-    </div>
+    <>
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/favorite"
+          key="canonical"
+        />
+      </Head>
+      <div className="py-[24px]">
+        <Breadcrumbs
+          data={[{ title: t('layout:casino'), href: ROUTER.Casino }]}
+          endpoint={{ title: String(t('casino:favorite')), href: ROUTER.Favorite }}
+        />
+        <GameCategory getData={getGames} />
+      </div>
+    </>
+
   );
 }
 

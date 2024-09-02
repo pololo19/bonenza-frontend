@@ -4,6 +4,7 @@ import { ReactElement } from 'react';
 import { useTranslation } from '@/base/config/i18next';
 import HelperLayout from '@/components/layouts/helper.layout';
 import RankingTableComponent from '@/components/table/rankingTable';
+import Head from 'next/head';
 
 interface CurrencyLimitDataType {
   currency: string;
@@ -116,10 +117,20 @@ const CoinAccuracyLimit = () => {
     },
   ];
   return (
-    <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px] text-left">
-      {commonItems.map((item) => faqQuesAnsComponent(item.header, item.contents))}
-      <RankingTableComponent containerClassName="w-full" isLoading={false} data={limitData} columns={limitColumns} />
-    </div>
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/coin-accuracy-limit"
+          key="canonical"
+        />
+      </Head>
+      <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px] text-left">
+        {commonItems.map((item) => faqQuesAnsComponent(item.header, item.contents))}
+        <RankingTableComponent containerClassName="w-full" isLoading={false} data={limitData} columns={limitColumns} />
+      </div>
+    </>
+
   );
 };
 
