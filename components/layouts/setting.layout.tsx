@@ -10,6 +10,7 @@ import { ROUTER } from '@/base/constants/common';
 
 import CommonSession from '../common/baseSession/baseSession';
 import IconOption from '../common/iconOption/iconOption';
+import MetaHead from '../metaHead/metaHead';
 import BaseLayout from './base.layout';
 import styles from './deposit.module.scss';
 
@@ -56,6 +57,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
 
   return (
     <>
+      <MetaHead />
       <BaseLayout contentClass="sm:mx-auto px-0">
         <>
           <div className="flex flex-wrap gap-7 w-full text-center xl:py-[50px] sm:py-[20px] py-[12px] sm:px-0 sm:mb-0 mb-14">

@@ -10,8 +10,10 @@ import { useDispatch } from 'react-redux';
 import { useTranslation } from '@/base/config/i18next';
 import { changeIsShowVipClubModal } from '@/base/redux/reducers/modal.reducer';
 import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
 
 import styles from './index.module.scss';
+import Head from 'next/head';
 function VipPage() {
   const { t } = useTranslation('');
   const dispatch = useDispatch();
@@ -31,13 +33,6 @@ function VipPage() {
       description: t('vipClub:rewardluckyDescription'),
       key: 'cardReward',
     },
-    // {
-    //   id: 3,
-    //   img: '/img/vip-host.png',
-    //   title: t('vipClub:dedicatedVipHost'),
-    //   description: t('vipClub:dedicatedVipHostContent'),
-    //   key: 'cardVipHost',
-    // },
     {
       id: 1,
       img: '/img/vip-bonus.png',
@@ -45,13 +40,6 @@ function VipPage() {
       description: t('vipClub:bonusContent'),
       key: 'cardBonus',
     },
-    // {
-    //   id: 1,
-    //   img: '/img/vip-tips.png',
-    //   title: t('vipClub:TIPSRAINING'),
-    //   description: t('vipClub:tipRainingContent'),
-    //   key: 'cardTips',
-    // },
   ];
 
   const dataMedal = [
@@ -67,71 +55,17 @@ function VipPage() {
 
   const dataReward = [
     { name: t('vipClub:levelUpBonus'), bronze: true, silver: true, gold: true, platinum: true, diamond: true },
-    // { name: t('vipClub:raining'), bronze: true, silver: true, gold: true, platinum: true, diamond: true },
-    // { name: t('vipClub:coinDrops'), bronze: true, silver: true, gold: true, platinum: true, diamond: true },
-    // { name: t('vipClub:tips'), silver: true, gold: true, platinum: true, diamond: true },
-    // { name: t('vipClub:recharge'), gold: true, platinum: true, diamond: true },
     { name: t('vipClub:weeklyCashback'), gold: true, platinum: true, diamond: true },
     { name: t('vipClub:monthlyCashback'), gold: true, platinum: true, diamond: true },
-    // { name: t('vipClub:sportsWeeklyBonus'), gold: true, platinum: true, diamond: true },
-    // { name: t('vipClub:vipHost'), platinum: true, diamond: true },
-    // { name: t('vipClub:noFeeWithdrawal'), platinum: true, diamond: true },
-    // { name: t('vipClub:exclusiveSVIP'), diamond: true },
-    // { name: t('vipClub:luxuryGiveaway'), diamond: true },
   ];
 
   const faqs = [
     { title: t('vipClub:whatLevelBonus'), contents: [t('vipClub:whatLevelBonusContent')] },
-    // {
-    //   title: t('vipClub:whatRaining'),
-    //   contents: [
-    //     t('vipClub:whatRainingContent1'),
-    //     t('vipClub:rules'),
-    //     t('vipClub:whatRainingContent2'),
-    //     t('vipClub:whatRainingContent3'),
-    //     t('vipClub:whatRainingContent4'),
-    //     t('vipClub:whatRainingContent5'),
-    //     t('vipClub:whatRainingContent6'),
-    //     t('vipClub:whatRainingContent7'),
-    //   ],
-    // },
-    // {
-    //   title: t('vipClub:whatCoinDrop'),
-    //   contents: [t('vipClub:whatCoinDropContent1'), t('vipClub:whatCoinDropContent2')],
-    // },
-    // {
-    //   title: t('vipClub:whatTips'),
-    //   contents: [t('vipClub:whatTipsContent')],
-    // },
-    // {
-    //   title: t('vipClub:whatRecharge'),
-    //   contents: [
-    //     t('vipClub:whatRechargeContent1'),
-    //     t('vipClub:whatRechargeContent2'),
-    //     t('vipClub:whatRechargeContent3'),
-    //     t('vipClub:whatRechargeContent4'),
-    //     t('vipClub:whatRechargeContent5'),
-    //     t('vipClub:whatRechargeContent6'),
-    //     t('vipClub:whatRechargeContent6'),
-    //   ],
-    // },
+
     {
       title: t('vipClub:whatWeeklyCashback'),
       contents: [t('vipClub:whatWeeklyCashbackContent')],
     },
-    // {
-    //   title: t('vipClub:WhatWeeklyBonus'),
-    //   contents: [
-    //     t('vipClub:WhatWeeklyBonus1'),
-    //     t('vipClub:WhatWeeklyBonus2'),
-    //     t('vipClub:WhatWeeklyBonus3'),
-    //     t('vipClub:WhatWeeklyBonus4'),
-    //     t('vipClub:WhatWeeklyBonus5'),
-    //     t('vipClub:WhatWeeklyBonus6'),
-    //     t('vipClub:WhatWeeklyBonus7'),
-    //     t('vipClub:WhatWeeklyBonus8'),
-    //   ],
-    // },
   ];
 
   const onOpenModalVipClub = () => {
@@ -140,6 +74,14 @@ function VipPage() {
 
   return (
     <>
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/vip"
+          key="canonical"
+        />
+      </Head>
       <div className="w-full mt-4 sm:mt-8">
         <div className="bg-[url('/img/vip-banner.png')] bg-cover relative w-full h-[700px] flex items-center  sm:h-[260px] px-[30px] justify-center rounded-default">
           <div className="md:max-w-[600px] max-sm:h-[650px] pl-4 flex sm:block flex-col items-center justify-between absolute left-0 max-sm:px-5 sm:left-[30px] top-[28px] sm:top-[42px] z-1">

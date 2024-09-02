@@ -46,6 +46,7 @@ import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
+import Head from 'next/head';
 
 
 export const getStaticPaths = (async () => {
@@ -960,6 +961,18 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
     <>
+      <Head>
+        <title>{`Play ${gameDetail.title} Online Casino Game - Bonenza`}</title>
+        <meta property="og:title" content={`Play ${gameDetail.title} Online Casino Game - Bonenza`} />
+
+        <meta name="description" content={`Play this interesting ${gameDetail.title} online casino game and test your skills in strategic gameplay. Win big with thrilling bets`} />
+        <meta property="og:description" content={`Play this interesting ${gameDetail.title} online casino game and test your skills in strategic gameplay. Win big with thrilling bets`} />
+        <link
+          rel="canonical"
+          href={`https://bonenza.com/game/${params.id}`}
+          key="canonical"
+        />
+      </Head>
       {loadings.screenLoad && <Loader />}
       {gameDetail.id && (
         <div className="py-[24px]">

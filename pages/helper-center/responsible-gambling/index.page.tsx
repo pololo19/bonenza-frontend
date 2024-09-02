@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { ReactElement } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -107,9 +108,18 @@ const Faq = () => {
     },
   ];
   return (
-    <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px] text-left">
-      {commonItems.map((item) => faqQuesAnsComponent(item.header, item.descriptions, item.contents, item.type))}
-    </div>
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/responsible-gambling"
+          key="canonical"
+        />
+      </Head>
+      <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px] text-left">
+        {commonItems.map((item) => faqQuesAnsComponent(item.header, item.descriptions, item.contents, item.type))}
+      </div>
+    </>
   );
 };
 

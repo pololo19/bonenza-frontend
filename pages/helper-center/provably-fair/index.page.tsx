@@ -1,8 +1,10 @@
-import { useTranslation } from '@/base/config/i18next';
-import HelperLayout from '@/components/layouts/helper.layout';
 import { Menu, Transition } from '@headlessui/react';
 import { ArrowDown2 } from 'iconsax-react';
+import Head from 'next/head';
 import { Fragment, ReactElement, useState } from 'react';
+
+import { useTranslation } from '@/base/config/i18next';
+import HelperLayout from '@/components/layouts/helper.layout';
 
 const ProvablyFairPage = () => {
   const { t } = useTranslation('');
@@ -42,6 +44,13 @@ const ProvablyFairPage = () => {
   ];
   return (
     <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/provably-fair"
+          key="canonical"
+        />
+      </Head>
       <div className="pl-[7px] pr-[5px] pb-[15px]">
         <div className="">
           <div className="text-black dark:text-[#ffff] text-[0.875rem] font-bold text-left mb-[16px]">
@@ -75,9 +84,8 @@ const ProvablyFairPage = () => {
                       {({ active }) => (
                         <div
                           onClick={() => setActiveProvably(item)}
-                          className={`${
-                            activeProvably === item && 'border border-solid border-[#f59e0b]'
-                          } flex-1 flex items-center hover:text-[#99a4b099] text-[#99a4b099] hover:bg-[#2d303566] justify-start gap-[10px] h-[32px] my-[4px] px-[10px]`}
+                          className={`${activeProvably === item && 'border border-solid border-[#f59e0b]'
+                            } flex-1 flex items-center hover:text-[#99a4b099] text-[#99a4b099] hover:bg-[#2d303566] justify-start gap-[10px] h-[32px] my-[4px] px-[10px]`}
                           role="button"
                         >
                           <div className="flex-1 flex items-center justify-start gap-[10px]">

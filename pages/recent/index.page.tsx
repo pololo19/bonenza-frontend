@@ -7,6 +7,7 @@ import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import GameCategory from '@/components/gameCategory/gameCategory';
 import withAuth from '@/components/hoc/withAuth';
 import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
 
 function RecentPage() {
 
@@ -24,13 +25,17 @@ function RecentPage() {
   }, [])
 
   return (
-    <div className="py-[24px]">
-      <Breadcrumbs
-        data={[{ title: t('layout:casino'), href: ROUTER.Casino }]}
-        endpoint={{ title: t('casino:recent'), href: ROUTER.Recent }}
-      />
-      <GameCategory getData={getGames} />
-    </div>
+    <>
+      <MetaHead />
+      <div className="py-[24px]">
+        <Breadcrumbs
+          data={[{ title: t('layout:casino'), href: ROUTER.Casino }]}
+          endpoint={{ title: t('casino:recent'), href: ROUTER.Recent }}
+        />
+        <GameCategory getData={getGames} />
+      </div>
+    </>
+
   );
 }
 

@@ -2,6 +2,7 @@ import type {
     GetStaticPaths,
     InferGetStaticPropsType,
 } from 'next'
+import Head from 'next/head';
 import Link from 'next/link';
 import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react';
 
@@ -15,6 +16,7 @@ import CasinoSS from '@/components/casino/casinoSS';
 import GameCard from '@/components/gameCard/gameCard';
 import GameCategory from '@/components/gameCategory/gameCategory';
 import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
 import SortBy from '@/components/sortBy/sortBy';
 
 export const getStaticPaths = (async () => {
@@ -92,37 +94,48 @@ function ProviderPage({ games, params }: InferGetStaticPropsType<typeof getStati
     }, [id, selectedSortBy]);
 
     return (
-        <div className="py-[24px]">
-            <Breadcrumbs
-                data={[{ title: 'Casino', href: ROUTER.Casino }]}
-                endpoint={{ title: String(provider?.name || id), href: ROUTER.Provider(String(id)) }}
-            />
-            <div className="sm:flex grid grid-cols-2 sm:justify-between mt-[10px] items-center justify-start gap-[30px]">
-                <p className="text-color-primary cursor-pointer sm:text-[16px] text-[14px]">
-                    <Link href={ROUTER.Providers}>{`${t('gameDetail:viewAll')} ${t('layout:providers')}`}</Link>
-                </p>
-                <SortBy
-                    sortBy={sortBy}
-                    selectSortBy={(sort) => setSelectedSortBy(sort)}
-                    selectedSortBy={selectedSortBy}
-                    label={false}
+        <>
+            <MetaHead />
+            <Head>
+                <link
+                    rel="canonical"
+                    href={`https://bonenza.com/provider/${id}`}
+                    key="canonical"
                 />
-            </div>
-            <>
-                <h1 className="sm:text-[24px] text-[16px] mt-[24px] dark:text-white text-black">
-                    {titleCase(provider?.name || id)} {t('layout:games')}
-                </h1>
-                <GameCategory getData={getGames} />
-                <div className="mt-10">
-                    <CasinoSS
-                        title={String(t('casino:alsoLike'))}
-                        data={games}
-                        renderItem={(item) => <GameCard gameDetail={item} />}
-                        viewAllUrl={ROUTER.Tagname('live-casino')}
+            </Head>
+            <div className="py-[24px]">
+                <Breadcrumbs
+                    data={[{ title: 'Casino', href: ROUTER.Casino }]}
+                    endpoint={{ title: String(provider?.name || id), href: ROUTER.Provider(String(id)) }}
+                />
+                <div className="sm:flex grid grid-cols-2 sm:justify-between mt-[10px] items-center justify-start gap-[30px]">
+                    <p className="text-color-primary cursor-pointer sm:text-[16px] text-[14px]">
+                        <Link href={ROUTER.Providers}>{`${t('gameDetail:viewAll')} ${t('layout:providers')}`}</Link>
+                    </p>
+                    <SortBy
+                        sortBy={sortBy}
+                        selectSortBy={(sort) => setSelectedSortBy(sort)}
+                        selectedSortBy={selectedSortBy}
+                        label={false}
                     />
                 </div>
-            </>
-        </div>
+                <>
+                    <h1 className="sm:text-[24px] text-[16px] mt-[24px] dark:text-white text-black">
+                        {titleCase(provider?.name || id)} {t('layout:games')}
+                    </h1>
+                    <GameCategory getData={getGames} />
+                    <div className="mt-10">
+                        <CasinoSS
+                            title={String(t('casino:alsoLike'))}
+                            data={games}
+                            renderItem={(item) => <GameCard gameDetail={item} />}
+                            viewAllUrl={ROUTER.Tagname('live-casino')}
+                        />
+                    </div>
+                </>
+            </div>
+        </>
+
     );
 }
 

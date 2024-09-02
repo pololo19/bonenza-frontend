@@ -115,14 +115,19 @@ function MyApp({ Component, ...rest }: AppPropsWithLayout) {
               <meta name="google-site-verification" content="8Pg6SQ4ANq-BBmT7jN0wRovBqUpW0JNxU5kuiVO4aLc" />
 
               <meta name="language" content="English" />
-              {/* <meta name="author" content="contact@bonenza.com" /> */}
               <meta name="url" content="https://www.bonenza.com" />
 
               <meta property="twitter:image" content="https://bonenza.com/img/logo-mobile.png" />
-              <meta property="og:image" content="https://bonenza.com/img/logo-mobile.png" />
               <meta name="theme-color" content="#01042C" />
               <meta name="apple-mobile-web-app-capable" content="yes" />
               <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+              <meta property="og:image" content="https://bonenza.com/img/logo-mobile.png" />
+              <meta property="og:url" content="https://bonenza.com/casino" />
+              <meta property="og:type" content="website" />
+              <meta
+                name="keywords"
+                content="Bonenza, crypto online casino, Bitcoin casino, Ethereum gambling, play online casino with crypto, baccarat tournament, crypto tournaments"
+              />
               <noscript>Your browser does not support JavaScript!</noscript>
               <script type="application/ld+json" dangerouslySetInnerHTML={{
                 __html: JSON.stringify({

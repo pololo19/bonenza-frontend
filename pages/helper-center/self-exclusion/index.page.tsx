@@ -1,6 +1,7 @@
 import { Menu } from '@headlessui/react';
 import cn from 'classnames';
 import { ArrowDown2 } from 'iconsax-react';
+import Head from 'next/head';
 import { ReactElement, useState } from 'react';
 import ReactLoading from 'react-loading';
 import { toast } from 'react-toastify';
@@ -73,6 +74,13 @@ const SelfExclusion = () => {
   };
   return (
     <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/self-exclusion"
+          key="canonical"
+        />
+      </Head>
       <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px]">
         <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px]">
           {t('helper:selfExclusion')}

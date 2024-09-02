@@ -2,6 +2,7 @@ import type {
     GetStaticPaths,
     InferGetStaticPropsType,
 } from 'next'
+import Head from 'next/head';
 import React, { ReactElement, useCallback, useEffect, useState } from 'react';
 
 import { api_getCasinoWithKey, apiSSR_getProviders, SortType } from '@/api/game';
@@ -143,6 +144,40 @@ function CasinoTagnamePage({ params, providers }: InferGetStaticPropsType<typeof
         return label;
     }
 
+    const convertTag2Meta = (tag: string) => {
+        let label = '';
+        switch (tag) {
+            case 'slots':
+                label = 'Slots Games';
+                break;
+            case 'live-casino':
+                label = 'Live Casino Games';
+                break;
+            case 'hot-games':
+                label = 'Hot Games';
+                break;
+            case 'new-releases':
+                label = 'New Releases Games';
+                break;
+            case 'blackjack':
+                label = 'Blackjack Games';
+                break;
+            case 'feature-buy-in':
+                label = 'Feature Buy In';
+                break;
+            case 'table-games':
+                label = 'Table Games';
+                break;
+            case 'racing':
+                label = 'Racing Games';
+                break;
+            default:
+                label = 'Games';
+                break;
+        }
+        return label;
+    }
+
     const handleSelectedProvider = useCallback(
         (providerId?: string | undefined) => {
             if (providerId) {
@@ -169,27 +204,42 @@ function CasinoTagnamePage({ params, providers }: InferGetStaticPropsType<typeof
 
 
     return (
-        <div className="py-[24px]">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
-                <Breadcrumbs
-                    data={[{ title: 'Casino', href: ROUTER.Casino }]}
-                    endpoint={{ title: convertTag2Label(String(tag) || ''), href: ROUTER.Tagname((String(tag) ?? '') as TagType) }}
+        <>
+            <Head>
+                <title>{`${convertTag2Label(tag)} Online Crypto Casino Games - Bonenza`}</title>
+                <meta property="og:title" content={`${convertTag2Label(tag)} Online Crypto Casino Games - Bonenza`} />
+
+                <meta name="description" content={`Experience thrilling ${convertTag2Meta(tag)} at Bonenza Casino. Join us today and Play ${convertTag2Meta(tag)} to enjoy the ultimate gaming adventure.`} />
+                <meta property="og:description" content={`Experience thrilling ${convertTag2Meta(tag)} at Bonenza Casino. Join us today and Play ${convertTag2Meta(tag)} to enjoy the ultimate gaming adventure.`} />
+                <link
+                    rel="canonical"
+                    href={`https://bonenza.com/casino/${tag}`}
+                    key="canonical"
                 />
-                <div className="flex items-center text-[14px] text-[#98a7b5] gap-[12px] md:gap-[48px] max-sm:w-full">
-                    {(tag === 'slots' || tag === 'live-casino') && (
-                        <SortBy sortBy={sortBy} selectSortBy={selectSortBy} selectedSortBy={selectedSortBy} />
-                    )}
-                    <ProviderFilter
-                        listProvider={listProvider}
-                        selectedProvider={selectedProvider}
-                        selectProvider={handleSelectedProvider}
+            </Head>
+            <div className="py-[24px]">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
+                    <Breadcrumbs
+                        data={[{ title: 'Casino', href: ROUTER.Casino }]}
+                        endpoint={{ title: convertTag2Label(String(tag) || ''), href: ROUTER.Tagname((String(tag) ?? '') as TagType) }}
                     />
+                    <div className="flex items-center text-[14px] text-[#98a7b5] gap-[12px] md:gap-[48px] max-sm:w-full">
+                        {(tag === 'slots' || tag === 'live-casino') && (
+                            <SortBy sortBy={sortBy} selectSortBy={selectSortBy} selectedSortBy={selectedSortBy} />
+                        )}
+                        <ProviderFilter
+                            listProvider={listProvider}
+                            selectedProvider={selectedProvider}
+                            selectProvider={handleSelectedProvider}
+                        />
+                    </div>
+                </div>
+                <div className="min-h-[380px]">
+                    <GameCategory getData={getGames} />
                 </div>
             </div>
-            <div className="min-h-[380px]">
-                <GameCategory getData={getGames} />
-            </div>
-        </div>
+        </>
+
     );
 }
 

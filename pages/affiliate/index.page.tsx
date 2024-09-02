@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
+import { api_affiliate } from '@/api/bonus';
 import { useTranslation } from '@/base/config/i18next';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
@@ -15,13 +16,13 @@ import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum, LiveRewardType } from '@/base/types/common';
 import CheckMarkIcon from '@/components/icons/CheckMarkIcon';
 import BaseLayout from '@/components/layouts/base.layout';
+import MetaHead from '@/components/metaHead/metaHead';
 import CommissionReward from '@/components/modal/affiliate/commissionRewards/commissionRewards';
 import ReferralRewardRules from '@/components/modal/affiliate/referralRewardRules/referralRewardRules';
 import ModalReferralTerm from '@/components/modal/affiliate/referralTerm';
 
 import AffiliateLoggedPage from '../affiliate-logged/index.module';
 import styles from './index.module.scss';
-import { api_affiliate } from '@/api/bonus';
 
 function AffiliatePage() {
   const exchange = useExchange();
@@ -110,6 +111,14 @@ function AffiliatePage() {
   }, []);
   return (
     <>
+      <MetaHead />
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/affiliate"
+          key="canonical"
+        />
+      </Head>
       {!isLogin && (
         <>
           <div

@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
 import HelperLayout from '@/components/layouts/helper.layout';
+import Head from 'next/head';
 
 const DepositBonusTerms = () => {
   const { t } = useTranslation('');
@@ -31,37 +32,47 @@ const DepositBonusTerms = () => {
     t('helper:depositBonusTermsItem4'),
   ];
   return (
-    <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px]">
-      <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px]">
-        {t('helper:depositBonusHowToClaimHeader')}
-      </div>
-      <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
-        {claimHeaders.map((item, index) => (
-          <div key={`how-to-claim${index}`} className="mt-2">
-            <div>{item}</div>
-            <div className="ml-4">{claimContents[index] || ''}</div>
-          </div>
-        ))}
-      </div>
-      <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px] mt-8">
-        {t('helper:depositBonusTermsHeader')}
-      </div>
-      <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
-        {termsDescriptions.map((item, index) => (
-          <div key={`how-to-claim${index}`} className="mt-2">
-            {item}
-          </div>
-        ))}
-        <ul className="list-disc mt-6 ml-6">
-          {termsItems.map((item, index) => (
-            <li key={`how-to-claim${index}`} className="mt-2">
-              {item}
-            </li>
+    <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/deposit-bonus-terms"
+          key="canonical"
+        />
+      </Head>
+      <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px]">
+        <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px]">
+          {t('helper:depositBonusHowToClaimHeader')}
+        </div>
+        <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
+          {claimHeaders.map((item, index) => (
+            <div key={`how-to-claim${index}`} className="mt-2">
+              <div>{item}</div>
+              <div className="ml-4">{claimContents[index] || ''}</div>
+            </div>
           ))}
-        </ul>
-        <div className="mt-6">{t('helper:depositBonusTermsFooter')}</div>
+        </div>
+        <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px] mt-8">
+          {t('helper:depositBonusTermsHeader')}
+        </div>
+        <div className="text-[#31373d] dark:text-[#98A7B5] font-normal text-left pb-[9px]">
+          {termsDescriptions.map((item, index) => (
+            <div key={`how-to-claim${index}`} className="mt-2">
+              {item}
+            </div>
+          ))}
+          <ul className="list-disc mt-6 ml-6">
+            {termsItems.map((item, index) => (
+              <li key={`how-to-claim${index}`} className="mt-2">
+                {item}
+              </li>
+            ))}
+          </ul>
+          <div className="mt-6">{t('helper:depositBonusTermsFooter')}</div>
+        </div>
       </div>
-    </div>
+    </>
+
   );
 };
 

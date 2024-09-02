@@ -1,5 +1,6 @@
 import { Disclosure, Transition } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/outline';
+import Head from 'next/head';
 import { ReactElement } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
@@ -9,6 +10,13 @@ const AmlPage = () => {
   const { t } = useTranslation('');
   return (
     <>
+      <Head>
+        <link
+          rel="canonical"
+          href="https://bonenza.com/helper-center/aml"
+          key="canonical"
+        />
+      </Head>
       <div className="sm:block hidden pl-[7px] pr-[5px] pb-[15px] text-[14px]">
         <div className="">
           <div className="text-black dark:text-[#ffff] font-bold text-left mb-[10px]">{t('helper:definitionsML')}</div>

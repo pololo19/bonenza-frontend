@@ -2,16 +2,12 @@ import { Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import cn from 'classnames';
 import {
-  Box,
   CardReceive,
   Chart,
   EmptyWallet,
-  Money2,
   MoneyChange,
   MoneyRecive,
   Repeat,
-  Story,
-  Timer1,
 } from 'iconsax-react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -29,6 +25,7 @@ import { AppState, useAppDispatch } from '@/base/redux/store';
 
 import CommonSession from '../common/baseSession/baseSession';
 import IconOption from '../common/iconOption/iconOption';
+import MetaHead from '../metaHead/metaHead';
 import ModalBonusHistory from '../modal/rakeBack/bonusHistory/bonusHistory';
 import ModalRakeBack from '../modal/rakeBack/rakeBack';
 import ModalRakeBackDetail from '../modal/rakeBack/rakeBackDetail/rakeBackDetail';
@@ -58,29 +55,11 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
       name: 'sidebar:withdraw',
       href: ROUTER.WithdrawCrypto,
     },
-    // {
-    //   icon: Money2,
-    //   name: 'sidebar:buyCrypto',
-    //   href: ROUTER.BuyCrypto,
-    //   isdisabled: true,
-    // },
     {
       icon: MoneyChange,
       name: 'sidebar:swap',
       href: ROUTER.Swap,
     },
-    // {
-    //   icon: Story,
-    //   name: 'sidebar:vaultPro',
-    //   href: ROUTER.VaultPro,
-    //   isdisabled: true,
-    // },
-    // {
-    //   icon: Box,
-    //   name: 'sidebar:NFTs',
-    //   href: '/nfts',
-    //   isdisabled: true,
-    // },
   ];
 
   const { isShowRakeBackModal, isShowModalBonusHistory, isShowRakeBackDetailModal } = useSelector(
@@ -97,6 +76,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
 
   return (
     <>
+      <MetaHead />
       <div className="sm:block hidden">
         <BaseLayout isDetailPage>
           <>
