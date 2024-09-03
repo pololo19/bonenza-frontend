@@ -656,9 +656,9 @@ function IndexPage() {
               <div className="">
                 <div className="sm:py-[35px] py-[20px] lg:flex gap-[60px] rounded-[15px]">
                   <div className="lg:w-[50%]">
-                    <div className="font-semibold text-black dark:text-white text-default ">
+                    <h1 className="font-semibold text-black dark:text-white text-default ">
                       {String(t('homePage:cryptoOnlineCasino'))}
-                    </div>
+                    </h1>
                     <div
                       className="mt-5 text-justify text-color-text-secondary text-default"
                       dangerouslySetInnerHTML={{ __html: String(t('homePage:casinosOnlineHaveNot')) }}
