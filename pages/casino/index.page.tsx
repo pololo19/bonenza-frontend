@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { SearchNormal } from 'iconsax-react';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,7 +25,6 @@ import BaseLayout from '@/components/layouts/base.layout';
 import MetaHead from '@/components/metaHead/metaHead';
 import GameBannerSlider from '@/components/sliders/gameSliders';
 import TabGames from '@/components/tabGames/tabGames';
-import Head from 'next/head';
 
 type ListGamesType = {
   games: GameListType[];
@@ -170,6 +170,7 @@ function CasinoPage() {
         />
       </Head>
       <div className="py-[24px]">
+        <h1 className='hidden'>Casino</h1>
         {isLoading && <Loader />}
 
         <GameBannerSlider className="!mt-0" />
