@@ -138,7 +138,7 @@ const NotificationComponent = () => {
                 <Image
                   height={80}
                   width={80}
-                  src={notification?.image ? `${API_NOTIFICATION_LOGO}${notification?.image}` : '/img/back-card.png'}
+                  src={notification?.image ? `${API_NOTIFICATION_LOGO}/${notification?.image}` : '/img/back-card.png'}
                   alt="back card"
                   className="w-full rounded-md"
                   onError={(e) => {
