@@ -1,5 +1,6 @@
 import { DialogProps, TransitionRootProps } from '@headlessui/react';
 import { ChartBarIcon, ChevronRightIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
+import cn from 'classnames';
 import { Edit2 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,21 +10,20 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
 import { api_getProfile } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
-import { API_AVATAR, dataRibbon, ROUTER } from '@/base/constants/common';
+import { API_AVATAR, API_GAME_IMAGE, dataRibbon, ROUTER } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { convertUserInfo, copyClipBoard, currencyFormat1, formatDate } from '@/base/libs/utils';
+import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowInformation, changeIsShowUpdateInformation } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import { UserDetail } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
-import cn from 'classnames';
+import CsrWrapper from '@/components/CsrWrapper';
 
 import CommonModal from '../commonModal/commonModal';
 import MasterMedals from './masterMedals/masterMedals';
 import Statistic from './statistic/statistic';
 import WagerContest from './wager/wager';
-import CsrWrapper from '@/components/CsrWrapper';
-import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 
 type ModalProfileProps = {
   onClose: () => void;
@@ -162,7 +162,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                   <Image
                     height={80}
                     width={80}
-                    src={user?.avatar ? `${API_AVATAR}${user?.avatar}` : '/img/avatar-1.png'}
+                    src={user?.avatar ? `${API_AVATAR}/${user?.avatar}` : '/img/avatar-1.png'}
                     alt="avatar"
                     onError={(e) => {
                       e.currentTarget.src = '/img/avatar-1.png';
@@ -344,7 +344,7 @@ export default function ModalProfile({ show, onClose }: ModalProfileProps) {
                           <Image
                             height={60}
                             width={60}
-                            src={`https://cdn.softswiss.net/i/s4/${(item.identifier || '').replace(':', '/')}.png`}
+                            src={`${API_GAME_IMAGE}/icon/${(item.identifier || '').replace(':', '_')}.png`}
                             alt="game logo"
                             onError={(err) => {
                               err.currentTarget.src = '/img/recommended-game-3.png';

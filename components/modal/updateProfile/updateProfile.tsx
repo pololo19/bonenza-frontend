@@ -125,7 +125,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
                 <Image
                   height={150}
                   width={150}
-                  src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
+                  src={avatar ? `${API_AVATAR}/${avatar}` : '/img/avatar-1.png'}
                   alt="avatar"
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';

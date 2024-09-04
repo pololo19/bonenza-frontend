@@ -94,7 +94,7 @@ export default function CommentPostModal({
             <Image
               height={45}
               width={45}
-              src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
+              src={avatar ? `${API_AVATAR}/${avatar}` : '/img/avatar-1.png'}
               alt="avatar"
               className="w-[50px] h-[50px] rounded-full"
               onError={(e) => {

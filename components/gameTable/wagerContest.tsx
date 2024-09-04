@@ -281,7 +281,7 @@ const WagerContestComponent = () => {
                 <Image
                   height={25}
                   width={25}
-                  src={row.original.playerAvatar ? `${API_AVATAR}${row.original.playerAvatar}` : '/img/avatar-1.png'}
+                  src={row.original.playerAvatar ? `${API_AVATAR}/${row.original.playerAvatar}` : '/img/avatar-1.png'}
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}
@@ -511,7 +511,7 @@ const WagerContestComponent = () => {
                         height={59}
                         className="max-w-[40px] max-h-[40px] object-cover rounded-full"
                         src={
-                          wagerHistory.playerAvatar ? `${API_AVATAR}${wagerHistory.playerAvatar}` : '/img/avatar-1.png'
+                          wagerHistory.playerAvatar ? `${API_AVATAR}/${wagerHistory.playerAvatar}` : '/img/avatar-1.png'
                         }
                         alt="avatar"
                         onError={(e) => {
@@ -582,7 +582,7 @@ const WagerContestComponent = () => {
               width={28}
               height={28}
               className="object-cover h-[1.75rem] w-[1.75rem] rounded-full"
-              src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
+              src={avatar ? `${API_AVATAR}/${avatar}` : '/img/avatar-1.png'}
               alt="avatar"
               onError={(e) => {
                 e.currentTarget.src = '/img/avatar-1.png';

@@ -18,7 +18,7 @@ import {
   ReviewListSortType,
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
+import { API_AVATAR, API_GAME_IMAGE, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, getDuration } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
 import {
@@ -347,7 +347,7 @@ const GameReviewComponent = ({
           <Image
             height={90}
             width={90}
-            src={`https://cdn.softswiss.net/i/s4/${gameDetail?.identifier.replace(':', '/')}.png`}
+            src={`${API_GAME_IMAGE}/icon/${gameDetail?.identifier.replace(':', '_')}.png`}
             alt="game logo"
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
@@ -530,7 +530,7 @@ const GameReviewComponent = ({
                   <div key={key}>
                     {item && (
                       <Image
-                        src={item ? `${API_AVATAR}${item}` : '/img/avatar-1.png'}
+                        src={item ? `${API_AVATAR}/${item}` : '/img/avatar-1.png'}
                         alt="avatar"
                         width={36}
                         height={36}
@@ -610,7 +610,7 @@ const GameReviewComponent = ({
         </div>
         <div className="flex gap-[13px] h-11 items-center relative mt-[9px]">
           <Image
-            src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
+            src={userAvatar ? `${API_AVATAR}/${userAvatar}` : '/img/avatar-1.png'}
             alt="avatar"
             width={36}
             height={36}
@@ -645,7 +645,7 @@ const GameReviewComponent = ({
               <div className="ml-[17px]">
                 <div className="flex items-center gap-2">
                   <Image
-                    src={comment.userAvatar ? `${API_AVATAR}${comment.userAvatar}` : '/img/avatar-1.png'}
+                    src={comment.userAvatar ? `${API_AVATAR}/${comment.userAvatar}` : '/img/avatar-1.png'}
                     alt="avatar"
                     width={36}
                     height={36}
@@ -749,7 +749,7 @@ const GameReviewComponent = ({
                   <div className="ml-[17px]">
                     <div className="flex items-center gap-2">
                       <Image
-                        src={item.userAvatar ? `${API_AVATAR}${item.userAvatar}` : '/img/avatar-1.png'}
+                        src={item.userAvatar ? `${API_AVATAR}/${item.userAvatar}` : '/img/avatar-1.png'}
                         alt="avatar"
                         width={36}
                         height={36}

@@ -94,7 +94,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
       return selectedAvatar;
     }
     if (!isErrorAvatar) {
-      return String(process.env.API_AVATAR) + avatar;
+      return `${API_AVATAR}/${avatar}`;
     } else return 'img/avatar-1.png';
   }, [isErrorAvatar, avatar, selectedAvatar]);
 
@@ -320,7 +320,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           {!isErrorAvatar && avatar && (
             <NextImage
               role="button"
-              src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
+              src={avatar ? `${API_AVATAR}/${avatar}` : '/img/avatar-1.png'}
               alt="avatar"
               height={50}
               width={50}

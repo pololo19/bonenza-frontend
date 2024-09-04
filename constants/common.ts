@@ -648,7 +648,8 @@ export const PRODUCT_ATTRIBUTE_NOT_EXIST = 'SIS-PRODUCT-312';
 
 export const CHUNK_BATCH_CREATE_PRODUCT = 100;
 
-export const API_AVATAR = process.env.API_AVATAR;
+export const API_AVATAR = `${process.env.STORAGE_URL}/avatar`;
+export const API_GAME_IMAGE = `${process.env.STORAGE_URL}/game`;
 export const API_NOTIFICATION_LOGO = `${process.env.API_AVATAR?.replace('avatar/', '')}notification/`;
 
 export const STREAM_API_KEY = process.env.STREAM_CHAT_API_KEY;

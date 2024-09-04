@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
+import { API_GAME_IMAGE, ROUTER } from '@/base/constants/common';
 import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import { GameListType } from '@/base/types/common';
@@ -57,7 +57,7 @@ function GameCard(props: GameCardProps) {
           <Image
             height={160}
             width={160}
-            src={`https://cdn.softswiss.net/i/s4/${(gameDetail.identifier || '').replace(':', '/')}.png`}
+            src={`${API_GAME_IMAGE}/icon/${(gameDetail.identifier || '').replace(':', '_')}.png`}
             alt="game logo"
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';

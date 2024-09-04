@@ -24,7 +24,7 @@ import {
   apiSSR_gamesIdentifiers,
 } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
+import { API_GAME_IMAGE, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, isEmpty } from '@/base/libs/utils';
 import { convertGameIdentifierToUrl, convertUrlToGameIdentifier } from '@/base/libs/utils/convert';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
@@ -598,7 +598,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
             <Image
               src={
                 gameDetail.identifier
-                  ? `https://cdn.softswiss.net/i/s4/${gameDetail?.identifier?.replace(':', '/')}.png`
+                  ? `${API_GAME_IMAGE}/icon/${gameDetail?.identifier?.replace(':', '_')}.png`
                   : '/img/game-background.png'
               }
               fill
@@ -797,7 +797,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
           (loadings.gameLoad || !gameDetail.allowedDemo || !gameDetail.allowedLocation) && <Image
             src={
               gameDetail.identifier
-                ? `https://cdn.softswiss.net/b/${gameDetail?.identifier?.replace(':', '/')}.jpg`
+                ? `${API_GAME_IMAGE}/background/${gameDetail?.identifier?.replace(':', '_')}.jpg`
                 : '/img/game-background.png'
             }
             fill

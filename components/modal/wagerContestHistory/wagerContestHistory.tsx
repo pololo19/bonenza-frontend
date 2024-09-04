@@ -172,7 +172,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
               <Image
                 height={25}
                 width={25}
-                src={row.original?.playerAvatar ? `${API_AVATAR}${row.original?.playerAvatar}` : '/img/avatar-1.png'}
+                src={row.original?.playerAvatar ? `${API_AVATAR}/${row.original?.playerAvatar}` : '/img/avatar-1.png'}
                 onError={(e) => {
                   e.currentTarget.src = '/img/avatar-1.png';
                 }}

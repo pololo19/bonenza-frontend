@@ -200,7 +200,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
                   className="w-[80px] h-[80px] rounded-full"
                   width={80}
                   height={80}
-                  src={tipReceiver.userAvatar ? `${API_AVATAR}${tipReceiver.userAvatar}` : '/img/avatar-1.png'}
+                  src={tipReceiver.userAvatar ? `${API_AVATAR}/${tipReceiver.userAvatar}` : '/img/avatar-1.png'}
                   alt="avatar"
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';

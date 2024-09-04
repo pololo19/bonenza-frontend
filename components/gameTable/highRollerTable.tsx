@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { api_highRollers } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { API_GAME_IMAGE, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
 import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
@@ -152,7 +152,7 @@ const HighRollerTableComponent = () => {
             <Image
               height={25}
               width={25}
-              src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
+              src={`${API_GAME_IMAGE}/icon/${row.original.gameIdenfiter?.replace(':', '_')}.png`}
               alt="game logo"
               onError={(err) => {
                 err.currentTarget.src = '/img/recommended-game-3.png';

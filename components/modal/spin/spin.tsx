@@ -399,7 +399,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
                 <Image
                   height={25}
                   width={25}
-                  src={latestSpin?.userAvatar ? `${API_AVATAR}${latestSpin?.userAvatar}` : '/img/avatar-1.png'}
+                  src={latestSpin?.userAvatar ? `${API_AVATAR}/${latestSpin?.userAvatar}` : '/img/avatar-1.png'}
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';
                   }}

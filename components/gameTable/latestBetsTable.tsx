@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { api_getLatestBets } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { TOAST_ENUM } from '@/base/constants/common';
+import { API_GAME_IMAGE, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
@@ -134,7 +134,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
             <Image
               height={24}
               width={24}
-              src={`https://cdn.softswiss.net/i/s4/${row.original.gameIdenfiter?.replace(':', '/')}.png`}
+              src={`${API_GAME_IMAGE}/icon/${row.original.gameIdenfiter?.replace(':', '_')}.png`}
               alt="game logo"
               onError={(err) => {
                 err.currentTarget.src = '/img/recommended-game-3.png';
