@@ -374,7 +374,7 @@ const AccountPannel: React.FC = () => {
                 <Image
                   height={40}
                   width={40}
-                  src={avatar ? `${API_AVATAR}${avatar}` : '/img/avatar-1.png'}
+                  src={avatar ? `${API_AVATAR}/${avatar}` : '/img/avatar-1.png'}
                   alt="avatar"
                   onError={(e) => {
                     e.currentTarget.src = '/img/avatar-1.png';

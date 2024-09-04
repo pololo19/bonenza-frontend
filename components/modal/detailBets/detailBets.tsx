@@ -8,7 +8,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 import { useTranslation } from '@/base/config/i18next';
-import { API_AVATAR, ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '@/base/constants/common';
+import { API_AVATAR, API_GAME_IMAGE, ROUTER, TIME_SUBMIT_FORMAT_WITH_MARKER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1, formatDate, formatLengthNumber, handleLocaleSymbol } from '@/base/libs/utils';
@@ -153,7 +153,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                     width={44}
                     src={
                       detailsBet.betDetail.playerAvatar
-                        ? `${API_AVATAR}${detailsBet.betDetail.playerAvatar}`
+                        ? `${API_AVATAR}/${detailsBet.betDetail.playerAvatar}`
                         : '/img/avatar-1.png'
                     }
                     alt="avatar"
@@ -214,7 +214,7 @@ export default function ModalDetailBets({ show, onClose }: ModalDetailBetsProps)
                   <Image
                     width={38}
                     height={38}
-                    src={`https://cdn.softswiss.net/i/s4/${detailsBet.betDetail.gameIdenfiter.replace(':', '/')}.png`}
+                    src={`${API_GAME_IMAGE}/icon/${detailsBet.betDetail.gameIdenfiter.replace(':', '_')}.png`}
                     alt="game logo"
                     className="object-cover max-h-auto rounded-[5px]"
                     onError={(e) => {

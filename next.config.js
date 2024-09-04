@@ -9,7 +9,7 @@ module.exports = () => {
 
   const env = {
     API_URL: process.env.API_URL,
-    API_AVATAR: process.env.API_AVATAR,
+    STORAGE_URL: process.env.STORAGE_URL,
     SOCKET_URL: process.env.SOCKET_URL,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY,

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
+import { API_GAME_IMAGE, ROUTER } from '@/base/constants/common';
 import { convertGameIdentifierToUrl, convertToUrlCase } from '@/base/libs/utils/convert';
 import { GameListType } from '@/base/types/common';
 
@@ -28,7 +28,7 @@ export function CardTopRated({ title, provider, identifier }: CardTopRatedProps)
         <Image
           height={180}
           width={180}
-          src={`https://cdn.softswiss.net/i/s4/${provider}/${identifier}.png`}
+          src={`${API_GAME_IMAGE}/icon/${provider}/${identifier}.png`}
           alt="top rated game"
           onError={(err) => {
             err.currentTarget.src = '/img/recommended-game-3.png';

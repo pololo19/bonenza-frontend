@@ -174,7 +174,7 @@ export default function ReplyModal({
                 <div className="">
                   <div className="flex items-center gap-2">
                     <Image
-                      src={sourceComment.userAvatar ? `${API_AVATAR}${sourceComment.userAvatar}` : '/img/avatar-1.png'}
+                      src={sourceComment.userAvatar ? `${API_AVATAR}/${sourceComment.userAvatar}` : '/img/avatar-1.png'}
                       alt="avatar"
                       width={36}
                       height={36}
@@ -260,7 +260,7 @@ export default function ReplyModal({
                   <div className="ml-[17px]">
                     <div className="flex items-center gap-2">
                       <Image
-                        src={comment.userAvatar ? `${API_AVATAR}${comment.userAvatar}` : '/img/avatar-1.png'}
+                        src={comment.userAvatar ? `${API_AVATAR}/${comment.userAvatar}` : '/img/avatar-1.png'}
                         alt="avatar"
                         width={36}
                         height={36}

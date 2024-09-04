@@ -13,6 +13,7 @@ import { A11y, Autoplay, Navigation, Pagination, Scrollbar } from 'swiper/module
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { useTranslation } from '@/base/config/i18next';
+import { API_GAME_IMAGE } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1 } from '@/base/libs/utils';
@@ -167,7 +168,7 @@ function RecentBigWinComponent({ listBigWinGame }: { listBigWinGame: BetDetailTy
           userData={userData}
           currency={item.currency}
           price={viewInFiat ? item.profitUsd : item.profit}
-          imgCard={`https://cdn.softswiss.net/i/s4/${item.identifier.replace(':', '/')}.png`}
+          imgCard={`${API_GAME_IMAGE}/icon/${item.identifier.replace(':', '_')}.png`}
         />
       );
     },

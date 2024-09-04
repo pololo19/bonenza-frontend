@@ -111,7 +111,7 @@ export const MessageBox = ({
                 width={42}
                 height={42}
                 alt="avatar"
-                src={userAvatar ? `${API_AVATAR}${userAvatar}` : '/img/avatar-1.png'}
+                src={userAvatar ? `${API_AVATAR}/${userAvatar}` : '/img/avatar-1.png'}
                 onError={(e) => {
                   e.currentTarget.src = '/img/avatar-1.png';
                 }}
