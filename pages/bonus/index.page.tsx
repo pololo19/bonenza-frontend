@@ -196,7 +196,7 @@ function BonusPage() {
                   dangerouslySetInnerHTML={{ __html: String(t('bonus:getALotOfFreePerks')) }}
                 ></div>
               </div>
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-[25px]">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-[25px]">
                 <div className="bg-gradient-to-l from-color-red/50">
                   <div className="bg-color-red/20 rounded-br-[25px] text-color-red text-[14px] font-bold max-w-[160px] h-[40px] flex items-center justify-center">
                     {t('bonus:everyDayAndWeek')}

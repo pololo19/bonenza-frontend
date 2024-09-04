@@ -109,10 +109,10 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
       token: 'DAI',
     },
     {
-      icon: '/img/icon/DRON.png',
+      icon: '/img/icon/SLC.png',
       networkIcon: 'img/fiats/BNB.png',
       network: 'BSC',
-      token: 'DRON',
+      token: 'SLC',
     },
   ];
   return (

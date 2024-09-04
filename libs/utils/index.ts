@@ -163,69 +163,6 @@ export const transformUUID = (id: string, dots = 3) => {
   return `${id.slice(0, 7)}${' .'.repeat(dots)}${id.slice(-4)}`;
 };
 
-export const getListNetwork = (coin: DepositAddress) => {
-  switch (coin.symbol) {
-    case 'USDT':
-      return [
-        {
-          symbol: 'BEP20',
-          image: '/img/icon/BNB-logo.svg',
-        },
-        {
-          symbol: 'ERC20',
-          image: '/img/icon/ETH-logo.svg',
-        },
-      ] as NetworkType[];
-    case 'BNB':
-      return [
-        {
-          symbol: 'Binance Coin(BEP20)',
-          image: '/img/icon/BNB-logo.svg',
-        },
-      ] as NetworkType[];
-    case 'ETH':
-      return [
-        {
-          symbol: 'Ethereum',
-          image: '/img/icon/ETH-logo.svg',
-        },
-      ] as NetworkType[];
-    case 'GOD':
-      return [
-        {
-          symbol: 'BEP20',
-          image: '/img/icon/BNB-logo.svg',
-        },
-      ] as NetworkType[];
-    case 'DRON':
-      return [
-        {
-          symbol: 'BEP20',
-          image: '/img/icon/BNB-logo.svg',
-        },
-      ] as NetworkType[];
-    default:
-      return [] as NetworkType[];
-  }
-};
-
-export const updateCoin = (coin: DepositAddress) => {
-  switch (coin?.symbol) {
-    case 'USDT':
-      return { ...coin, image: '/img/icon/USDT-logo.svg' };
-    case 'BNB':
-      return { ...coin, image: '/img/icon/BNB-logo.svg' };
-    case 'ETH':
-      return { ...coin, image: '/img/icon/ETH-logo.svg' };
-    case 'GOD':
-      return { ...coin, image: '/img/icon/GOD-logo.svg' };
-    case 'DRON':
-      return { ...coin, image: '/img/icon/DRON-logo.png' };
-    default:
-      return { ...coin, image: '/img/icon/BNB-logo.svg' };
-  }
-};
-
 export const handleWithdrawURL = (coin?: DepositAddress) => {
   if (coin?.symbol === 'USDT' && coin?.network === 'BEP20') {
     return 'withdraw/transfer-BEP20-USDT';
