@@ -762,21 +762,6 @@ export const CRYPTO_DATA: DepositAddress[] = [
     symbol: 'GOD',
     network: 'Binance Coin(BEP20)',
   },
-  {
-    image: '/img/icon/DRON-logo.png',
-    symbol: 'DRON',
-    network: 'Binance Coin(BEP20)',
-  },
-  {
-    image: '/img/icon/DRON-logo.png',
-    symbol: 'BTC',
-    network: 'Binance Coin(BEP20)',
-  },
-  {
-    image: '/img/icon/DRON-logo.png',
-    symbol: 'BCH',
-    network: 'Binance Coin(BEP20)',
-  },
 ];
 
 export const CRYPTO_NORMAL_DATA: DepositAddress[] = [
