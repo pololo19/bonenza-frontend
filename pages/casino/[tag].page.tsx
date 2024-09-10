@@ -15,6 +15,10 @@ import GameCategory from '@/components/gameCategory/gameCategory';
 import BaseLayout from '@/components/layouts/base.layout';
 import ProviderFilter from '@/components/providerFilter/providerFilter';
 import SortBy from '@/components/sortBy/sortBy';
+import { SearchNormal } from 'iconsax-react';
+import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
+import cn from 'classnames';
+import { useDispatch } from 'react-redux';
 
 export const getStaticPaths = (async () => {
     const tags = [...Tags]
@@ -74,6 +78,7 @@ export const getStaticProps = (async ({ params }: any) => {
 function CasinoTagnamePage({ params, providers }: InferGetStaticPropsType<typeof getStaticProps>) {
     const { tag } = params;
     const { t } = useTranslation('');
+    const dispatch = useDispatch();
 
     const sortBy: Array<{ id: number, label: string, orderValue: SortType, orderBy: string }> = [
         { id: 1, label: String(t('casino:mayLike')), orderValue: 'like', orderBy: '' },
@@ -233,6 +238,14 @@ function CasinoTagnamePage({ params, providers }: InferGetStaticPropsType<typeof
                             selectProvider={handleSelectedProvider}
                         />
                     </div>
+                </div>
+                <div
+                    className="relative mt-[20px] h-[40px] border border-solid dark:bg-transparent bg-white dark:border-white/10 rounded-[5px] flex items-center justify-start px-[10px] gap-[20px]"
+                    onClick={() => dispatch(changeIsShowCasinoSearch(true))}
+                    role="button"
+                >
+                    <SearchNormal width={24} height={24} className="text-gray-500" />
+                    <div className={cn('w-full text-default text-gray-500 outline-none')}>{t('casino:gameNameAndProvider')}</div>
                 </div>
                 <div className="min-h-[380px]">
                     <GameCategory getData={getGames} />

@@ -15,6 +15,7 @@ import ReleaseBoldIcon from '@/components/icons/ReleaseBoldIcon';
 import SlotBoldIcon from '@/components/icons/SlotBoldIcon';
 import TableGameBoldIcon from '@/components/icons/TableGameBoldIcon';
 import styles from '@/styles/dashboard/index.module.scss';
+import BuyInIcon from '../icons/BuyInIcon';
 type tabGamesProps = {
   setCurrentPage?: (page: number) => void;
   ishome?: boolean;
@@ -48,11 +49,11 @@ const TabGames = (props: tabGamesProps) => {
       id: 2,
     },
     {
-      icon: <SlotBoldIcon />,
-      title: t('casino:slot'),
-      link: ROUTER.Tagname('slots'),
-      homeLink: `?key=slots`,
-      id: 3,
+      icon: <LiveCasinoBoldIcon />,
+      title: t('casino:liveCasino'),
+      link: ROUTER.Tagname('live-casino'),
+      homeLink: `?key=live-casino`,
+      id: 5,
     },
     {
       icon: <HotGameBoldIcon />,
@@ -62,11 +63,18 @@ const TabGames = (props: tabGamesProps) => {
       id: 4,
     },
     {
-      icon: <LiveCasinoBoldIcon />,
-      title: t('casino:liveCasino'),
-      link: ROUTER.Tagname('live-casino'),
-      homeLink: `?key=live-casino`,
-      id: 5,
+      icon: <SlotBoldIcon />,
+      title: t('casino:slot'),
+      link: ROUTER.Tagname('slots'),
+      homeLink: `?key=slots`,
+      id: 3,
+    },
+    {
+      icon: <BuyInIcon />,
+      title: t('casino:blackjack'),
+      link: ROUTER.Tagname('blackjack'),
+      homeLink: `?key=blackjack`,
+      id: 9,
     },
     {
       icon: <TableGameBoldIcon />,
@@ -81,6 +89,13 @@ const TabGames = (props: tabGamesProps) => {
       link: ROUTER.Tagname('new-releases'),
       homeLink: `?key=new-releases`,
       id: 7,
+    },
+    {
+      icon: <BuyInIcon />,
+      title: t('casino:featureBuyIn'),
+      link: ROUTER.Tagname('feature-buy-in'),
+      homeLink: `?key=feature-buy-in`,
+      id: 8,
     },
   ];
 
