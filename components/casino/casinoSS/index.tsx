@@ -171,7 +171,7 @@ const CasinoSS = <T,>({
         <div className={`mt-[15px]`}>
           <div
             className={classNames(
-              'grid grid-flow-col snap-x-[mandatory] scroll-smooth overflow-x-auto overflow-y-hidden gap-[10px] sm:grid-rows-1',
+              'grid grid-flow-col snap-x-[mandatory] scroll-smooth overflow-x-auto gap-[10px] sm:grid-rows-1',
               {
                 'grid-rows-1': title !== String(t('casino:gameProvider')),
                 'grid-rows-2': title === String(t('casino:gameProvider')),
