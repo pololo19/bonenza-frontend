@@ -107,6 +107,12 @@ export const ROUTER = {
   Themes: '/themes',
   Theme: (themeId: string) => `/theme/${themeId}`,
   Tagname: (tagname: TagType) => `/casino/${tagname}`,
+  CasinoTab: (tabName: string) => `/casino?key=${tabName}`,
+  ProviderLogo: (providerId: string) => `https://cdn.softswiss.net/logos/providers/color/${providerId}.svg`,
+  AdminRewards: '/admin/mycasino/rewards/',
+  AdminReferral: '/admin/mycasino/referral/',
+  AdminFriends: '/admin/mycasino/friends/',
+  AdminCommissions: '/admin/mycasino/commissions/',
 };
 
 export const LANGUAGE_DATA: {
