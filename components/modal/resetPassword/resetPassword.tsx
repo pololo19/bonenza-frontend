@@ -10,7 +10,7 @@ import * as yup from 'yup';
 import { api_resetPassword } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -90,7 +90,7 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
       toast.success(t('authentication:resetPasswordSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

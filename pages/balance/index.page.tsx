@@ -266,66 +266,6 @@ const BalancePage = () => {
             </div>
           </div>
         )}
-        {/* Hiding Fiat Currency in Wallet */}
-        {/* 
-        {!!filterListFiat.length && (
-          <div className="w-full flex flex-col justify-start items-start mt-[20px]">
-            <div className="text-default text-[#C2C2C2] mb-[10px]">{t('balance:fiatCurrency')}</div>
-            <div className="w-full flex flex-col justify-start items-start gap-[5px]">
-              {filterListFiat.map((item: CurrencyType, index: number): any => (
-                <div
-                  key={index}
-                  className="w-full dark:bg-color-active-default bg-color-light-bg-primary px-[20px] py-[10px] rounded-default flex justify-between items-center"
-                >
-                  <div className="flex justify-center items-center md:gap-3 gap-2 sm:text-[16px] text-default">
-                    <Image
-                      height={30}
-                      width={30}
-                      src={item.logo}
-                      alt=""
-                      onError={(e) => {
-                        e.currentTarget.src = '/img/fiats/USD.png';
-                      }}
-                    />
-                    <div className="font-bold text-black text-default dark:text-white">{item.name}</div>
-                  </div>
-                  <div className="flex flex-1 items-center justify-end xl:gap-[30px] md:gap-[20px] gap-[10px] text-color-primary font-normal">
-                    {viewInFiat ? (
-                      <div className="text-end">
-                        <div className="dark:text-white text-black truncate md:text-default text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).usd * exchangeRate, fiatDecimals, localFiat?.name)}
-                        </div>
-                        <span className="font-normal md:text-[12px] text-[10px] text-[#53575C]">
-                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="text-end">
-                        <div className="dark:text-white text-black truncate md:text-default text-[12px] font-bold">
-                          {currencyFormat1(renderBalance(item).amount, cryptoDecimals, '', false)}
-                        </div>
-                      </div>
-                    )}
-                    <div className="flex md:text-[12px] text-[10px] sm:flex-row flex-col sm:items-center items-end  xl:gap-[30px] md:gap-[10px] gap-[5px] text-color-primary font-normal">
-                      <Link
-                        className="dark:hover:text-white hover:text-[#ff9400]"
-                        href={`${ROUTER.DepositFiat}?coin=${item.name}`}
-                      >
-                        {t('balance:deposit')}
-                      </Link>
-                      <Link
-                        className="dark:hover:text-white hover:text-[#ff9400]"
-                        href={`${ROUTER.WithdrawFiat}?coin=${item.name}`}
-                      >
-                        {t('balance:withdraw')}
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )} */}
       </div>
     </div>
   );

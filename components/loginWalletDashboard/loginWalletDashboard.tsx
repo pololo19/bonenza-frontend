@@ -12,7 +12,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, getMessageMetamask } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeDisabledPeriod } from '@/base/redux/reducers/common.reducer';
 import { changeIsShowAuthenticationModal, changeIsShowSelfExclusion } from '@/base/redux/reducers/modal.reducer';
@@ -47,7 +47,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
 
       const status = error.response?.data?.statusCode ?? '';
@@ -82,7 +82,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
 
       const status = error.response?.data?.statusCode ?? '';
@@ -109,7 +109,7 @@ export default function LoginWallet({ onClose }: LoginWalletProps) {
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
 
       const status = error.response?.data?.statusCode ?? '';

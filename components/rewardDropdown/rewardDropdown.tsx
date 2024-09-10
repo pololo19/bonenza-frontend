@@ -14,7 +14,7 @@ import { api_getClaims } from '@/api/wallet';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { changeIsShowDepositRule } from '@/base/redux/reducers/modal.reducer';
 import { getBalance, getBonusList, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -66,7 +66,7 @@ export default function RewardDropdown() {
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setClaimingBonus('');

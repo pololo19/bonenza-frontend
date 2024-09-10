@@ -12,7 +12,7 @@ import { api_uploadIdCards } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { checkFiletypes, convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import Loader from '@/components/common/preloader/loader';
 
@@ -67,7 +67,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
       onClose();
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

@@ -113,12 +113,6 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">
                       <p>{t('bonus:deposit')}</p>
                       <p className="dark:text-white text-black font-semibold">
-                        {/* {localeFiat
-                                    ? ` ${currencyFormat(
-                                        exchangeByLocaleFiat('USD', String(localeFiat?.currency), item.depositAmount),
-                                        0,
-                                      )}`
-                                    : item.depositAmount} */}
                       </p>
                     </div>
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">

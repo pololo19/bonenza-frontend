@@ -314,42 +314,6 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         </div>
                       </Link>
 
-                      {/* This features will be enabled soon */}
-                      {/* <Link
-                        href={ROUTER.BuyCrypto}
-                        className={cn(
-                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                          {
-                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.BuyCrypto),
-                          },
-                        )}
-                      >
-                        <div className="pt-2">
-                          <Money2 className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
-                        </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
-                          {t('sidebar:buyCrypto')}
-                        </div>
-                      </Link>
-                      
-                      <Link
-                        href={ROUTER.VaultPro}
-                        className={cn(
-                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                          {
-                            'dark:text-white text-black font-bold dark:bg-color-hover-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.VaultPro),
-                          },
-                        )}
-                      >
-                        <div className="pt-2">
-                          <Story className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
-                        </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
-                          {t('sidebar:vaultPro')}
-                        </div>
-                      </Link> */}
                     </div>
                   </div>
                 </div>

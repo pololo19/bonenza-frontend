@@ -26,7 +26,7 @@ import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constan
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
@@ -158,7 +158,7 @@ function RewardsComponent() {
       });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { toastId: 'reward-withdraw-notify-error', containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsClaiming(false);

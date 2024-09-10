@@ -20,7 +20,7 @@ import {
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, API_GAME_IMAGE, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, getDuration } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -175,7 +175,7 @@ const GameReviewComponent = ({
       toast.success('Rating Successfully', { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setLoading((load) => ({ ...load, ratingLoading: false }));
@@ -202,7 +202,7 @@ const GameReviewComponent = ({
       setCommentData(tempCommentDatas);
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setCommentData([]);
     } finally {
@@ -247,7 +247,7 @@ const GameReviewComponent = ({
       setCommentData(tempCommentDatas);
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setRatingData({
         totalCount: 0,
@@ -269,7 +269,7 @@ const GameReviewComponent = ({
       setUserRating(Number(_rating.data || 0));
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setUserRating(0);
     } finally {
@@ -295,7 +295,7 @@ const GameReviewComponent = ({
       setCommentData(tempCommentDatas);
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setLoading((load) => ({ ...load, ratingLoading: false }));
@@ -319,7 +319,7 @@ const GameReviewComponent = ({
       toast.success(t('success:successfulllyReported'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsShowReport(false);

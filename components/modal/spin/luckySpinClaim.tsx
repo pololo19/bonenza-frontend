@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { api_bonusClaim } from '@/api/bonus';
 import { api_getClaims } from '@/api/wallet';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { getBalance, setLockedAmount } from '@/base/redux/reducers/wallet.reducer';
 import { useAppDispatch } from '@/base/redux/store';
 
@@ -55,7 +55,7 @@ export default function ModalSpinClaim({
         toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
       } catch (error: any) {
         const errType = error.response?.data?.message ?? '';
-        const errMessage = getErrorMesssage1(errType);
+        const errMessage = getErrorMessage(errType);
         toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       } finally {
         setIsClaiming(false);

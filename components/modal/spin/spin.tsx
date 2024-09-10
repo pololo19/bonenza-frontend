@@ -14,7 +14,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -199,7 +199,7 @@ export default function ModalSpin({ show, onClose }: ModalSpinProps) {
       deltaAngle = 22.5 * spinId;
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setIsSpinning(false);
       return;

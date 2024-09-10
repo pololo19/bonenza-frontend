@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { api_setCurrencyFavorite } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { setFiatSymbols, setSymbols } from '@/base/redux/reducers/wallet.reducer';
 import { AppState } from '@/base/redux/store';
 import { CurrencyType } from '@/base/types/wallet';
@@ -94,7 +94,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
       dispatch(coin.type === 'crypto' ? setSymbols([...tempCurrency]) : setFiatSymbols([...tempCurrency]));
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

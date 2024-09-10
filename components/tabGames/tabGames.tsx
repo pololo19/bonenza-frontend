@@ -25,12 +25,6 @@ const TabGames = (props: tabGamesProps) => {
   const { t } = useTranslation('');
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const [tab, setTab] = useState<number>(1);
-
-  useEffect(() => {
-    const tabStorage = localStorage.getItem('tab');
-    setTab(Number(tabStorage));
-  }, []);
 
   const filterOptions = [
     {
@@ -98,10 +92,8 @@ const TabGames = (props: tabGamesProps) => {
                 },
               )}
               onClick={() => {
-                setTab(option.id);
                 setCurrentPage?.(1);
                 dispatch(setCasinoTab(true));
-                localStorage.setItem('tab', String(option.id));
               }}
             >
               <div>{option.icon}</div>
