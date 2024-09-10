@@ -44,14 +44,17 @@ function GameCard(props: GameCardProps) {
 
   return (
     <div
-      className="pointer-events-auto max-w-[150px] sm:max-w-game-card"
+      className="pointer-events-auto flex justify-center items-center max-w-[150px] sm:max-w-game-card will-change-transform"
       onClick={() => dispatch(changeIsShowCasinoSearch(false))}
     >
       <div
-        className={classNames('bg-[#31373D77] sm:block rounded-large overflow-hidden p-2', {
-          flex: listView,
-          block: !listView,
-        })}
+        className={classNames(
+          'bg-[#31373D77] sm:block rounded-large overflow-hidden p-2 mt-2',
+          'transition-all translate-y-0 hover:-translate-y-2 ease-in-out',
+          {
+            flex: listView,
+            block: !listView,
+          })}
       >
         <Link href={ROUTER.GameDetail(convertGameIdentifierToUrl(gameDetail.identifier || ''))} className="rounded-default">
           <Image
@@ -62,28 +65,25 @@ function GameCard(props: GameCardProps) {
             onError={(err) => {
               err.currentTarget.src = '/img/recommended-game-3.png';
             }}
-            className="max-w-[150px] sm:max-w-game-card w-full object-cover max-h-auto rounded-default"
+            className="max-w-[150px] sm:max-w-game-card w-full object-cover rounded-default"
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
           />
         </Link>
-        <div className="flex flex-col gap-5 py-2">
-          <div className="flex justify-center items-center gap-[5px]">
-            <Link
-              href={ROUTER.Provider(String(gameDetail.provider))}
-              className="dark:text-white text-black font-light text-default sm:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
-            >
-              {gameDetail.providerName.toLowerCase()}
-            </Link>
-            <InfoCircle
-              data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
-              size={20}
-              className="text-[#8E8E90] min-w-[16px] focus:!outline-none"
-              role="button"
-            />
-          </div>
+        <div className="flex justify-center items-center gap-1 py-2 px-2">
+          <Link
+            href={ROUTER.Provider(String(gameDetail.provider))}
+            className="dark:text-white text-black text-m_default sm:text-default xl:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
+          >
+            {gameDetail.providerName.toLowerCase()}
+          </Link>
+          <InfoCircle
+            data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
+            size={20}
+            className="text-[#8E8E90] !min-w-[20px] !min-h-[20px] !max-w-[20px] !max-h-[20px] focus:!outline-none"
+            role="button"
+          />
         </div>
-        {footer?.()}
       </div>
       <Tooltip
         className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-[#161D3D]"

@@ -491,7 +491,7 @@ function IndexPage() {
               </div>
             </div>
 
-            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:-mt-[0px]">
+            <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:mt-4 lg:-mt-[0px]">
               <GameBannerSlider className="w-full" />
               <div className="-mt-[20px] md:grid md:grid-cols-2 min-[1200px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
