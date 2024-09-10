@@ -185,41 +185,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   >
                     {String(t('footer:blackJack'))}
                   </Link>
-                  {/* <Link
-                  href={ROUTER.Tagname('Megaways')}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('casino:megaways'))}
-                </Link> */}
                 </div></div>
             </div>
-            {/* Hiding Sports */}
-            {/* <div className="flex flex-col items-center md:items-start">
-              <div className="flex gap-[10px] items-center mb-[10px]">
-                <div className="w-[2px] h-[12px] bg-[#F61B4F]"></div>
-                <div className="text-sm font-semibold text-black dark:text-white">{String(t('footer:sports'))}</div>
-              </div>
-              <div className="flex flex-col gap-[15px] items-start justify-center">
-                <Link
-                  href={ROUTER.Sports}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:sportsHome'))}
-                </Link>
-                <Link
-                  href={ROUTER.LiveSupport}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:live'))}
-                </Link>
-                <Link
-                  href={ROUTER.HelperTermsOfSports}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:rules'))}
-                </Link>
-              </div>
-            </div> */}
             <div className="flex flex-col items-center">
               <div className="w-[150px]">
                 <div className="flex gap-[10px] items-center mb-[10px]">
@@ -261,30 +228,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   </div>
                 </div>
                 <div className="flex flex-col gap-[15px] items-start justify-center">
-                  {/* <Link
-                  href={ROUTER.HelperPrivacy}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:helpCenter'))}
-                </Link> */}
                   <Link
                     href={ROUTER.HelperGambleAware}
                     className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
                   >
                     {String(t('footer:gambleAware'))}
                   </Link>
-                  {/* <Link
-                  href={ROUTER.Helper}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:fairness'))}
-                </Link> */}
-                  {/* <Link
-                  href={ROUTER.HelperFAQ}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:faq'))}
-                </Link> */}
                   <Link
                     href={ROUTER.HelperPrivacy}
                     className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
@@ -309,18 +258,6 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   >
                     {String(t('footer:aml'))}
                   </Link>
-                  {/* <Link
-                  href={ROUTER.Home}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:app'))}
-                </Link> */}
-                  {/* <Link
-                  href={ROUTER.LiveSupport}
-                  className="text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
-                >
-                  {String(t('footer:liveSupport'))}
-                </Link> */}
                 </div>
               </div>
             </div>
@@ -488,83 +425,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       >
                         {t('layout:deposit')}
                       </Link>
-                      {/* <button type="button"></button> */}
+
                     </Tooltip>
                   </div>
                 ))}
 
-                {/* <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/xrp-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/ada-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/dot-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div> */}
-                {/* <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/avax-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/sol-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/matic-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/bitcoin-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div>
-                <div className="max-w-[50px] max-h-[50px]">
-                  <Image
-                    alt=""
-                    src="/img/icon/eth-icon.png"
-                    width={50}
-                    height={50}
-                    className="max-w-[50px] max-h-[50px] cursor-pointer"
-                  />
-                </div> */}
+
               </div>
             </div>
           )}
@@ -593,53 +459,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                     />
                   </Link>
                 </div>
-                {/* <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
-                  <Link href="https://cloud9.gg/" target="_blank">
-                    <Image
-                      alt=""
-                      src="/img/cloud9-logo.png"
-                      width={73}
-                      height={80}
-                      className="object-contain w-[73px] h-[80px]"
-                    />
-                  </Link>
-                </div>
-                <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
-                  <Link href="https://www.afa.com.ar/es/" target="_blank">
-                    <Image
-                      alt=""
-                      src="/img/afa-logo.png"
-                      width={53}
-                      height={80}
-                      className="object-contain w-[53px] h-[80px]"
-                    />
-                  </Link>
-                </div>
-                <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
-                  <Link href="https://cryptogambling.org/" target="_blank">
-                    <Image
-                      alt=""
-                      src="/img/crypto-logo.png"
-                      width={100}
-                      height={71}
-                      className="object-contain w-[100px] h-[71px]"
-                    />
-                  </Link>
-                </div>
-                <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
-                  <Link
-                    href="http://www.itechlabs.com/certificates/BCGame/RNG_Certificate_UK_BCGame_ITL2002455_12Oct20.pdf"
-                    target="_blank"
-                  >
-                    <Image
-                      alt=""
-                      src="/img/itech-labs-logo.png"
-                      width={87}
-                      height={100}
-                      className="object-contain w-[87px] h-[100px]"
-                    />
-                  </Link>
-                </div> */}
+
                 <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
                   <Link href="https://www.responsiblegambling.org/" target="_blank">
                     <Image

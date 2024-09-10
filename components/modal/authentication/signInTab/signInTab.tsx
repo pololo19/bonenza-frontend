@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { convertUserInfo, isEmail, isPhone } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { changeDisabledPeriod } from '@/base/redux/reducers/common.reducer';
 import {
   changeAuthenticationType,
@@ -170,9 +170,8 @@ export default function SignInTab({
         setOtpValue('codeOtp', '');
         const errType = error.response?.data?.message ?? '';
         const status = error.response?.data?.statusCode ?? '';
-        // const errData = getErrorMessage('auth', 'signIn', status, message, isPhoneNumber ? 'phone' : 'email');
 
-        const errMessage = getErrorMesssage1(errType);
+        const errMessage = getErrorMessage(errType);
         toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
 
         // user is not allowed
@@ -208,7 +207,7 @@ export default function SignInTab({
       toast.success(t('setting:verificationEmail'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
       setCodeOtp('');
       setOtpValue('codeOtp', '');

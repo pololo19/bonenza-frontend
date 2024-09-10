@@ -92,71 +92,14 @@ export default function SidebarToggle() {
         isDropDown: true,
         data: [...casinoCategories, ...casinoGames],
       },
-      // {
-      //   title: String(t('sidebar:sports')),
-      //   href: ROUTER.Sports,
-      //   icon: TrendUp,
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <TrendUp
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Sports),
-      //       })}
-      //     />
-      //   ),
-      // },
-      // {
-      //   title: String(t('sidebar:lottery')),
-      //   href: ROUTER.History,
-      //   icon: Ticket,
 
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Ticket
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Lottery),
-      //       })}
-      //     />
-      //   ),
-      // },
-      // {
-      //   title: String(t('sidebar:bingo')),
-      //   href: ROUTER.Bingo,
-      //   icon: Award,
-
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Award
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Bingo),
-      //       })}
-      //     />
-      //   ),
-      // },
     ],
     [i18n.language, router.route, showDropDownCasino],
   );
 
   const panel_2_datas = useMemo(
     () => [
-      // {
-      //   title: String(t('layout:racing')),
-      //   href: ROUTER.Tagname('Racing'),
-      //   icon: RacingBoldIcon,
-      //   smallIcon: (
-      //     <RacingBoldIcon
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Tagname('Racing')),
-      //       })}
-      //     />
-      //   ),
-      //   isShowDropDown: false,
-      //   isDropDown: false,
-      // },
+
       {
         title: "UP & DOWN",
         href: 'https://bitup.game/trade',
@@ -194,21 +137,7 @@ export default function SidebarToggle() {
           }
         },
       },
-      // {
-      //   title: String(t('sidebar:exclusive')),
-      //   href: ROUTER.Exclusive,
-      //   icon: Medal,
 
-      //   isDisabled: true,
-      //   smallIcon: (
-      //     <Medal
-      //       size={22}
-      //       className={cn('m-auto', {
-      //         'dark:text-white text-black': router.route.includes(ROUTER.Exclusive),
-      //       })}
-      //     />
-      //   ),
-      // },
       {
         title: String(t('sidebar:affiliate')),
         href: ROUTER.Affiliate,
@@ -225,43 +154,6 @@ export default function SidebarToggle() {
       },
     ],
     [isShowVipClubModal, i18n.language, router.route, isLogin],
-  );
-
-  const panel_3_datas = useMemo(
-    () => [
-      {
-        title: String(t('sidebar:sponsorships')),
-        href: ROUTER.Sponsorships,
-        icon: SecurityCard,
-
-        isDisabled: true,
-        smallIcon: (
-          <SecurityCard
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Sponsorships),
-            })}
-          />
-        ),
-        onClick: () => { },
-      },
-      {
-        title: String(t('sidebar:liveSupport')),
-        href: ROUTER.LiveSupport,
-        icon: Headphone,
-
-        isDisabled: true,
-        smallIcon: (
-          <Headphone
-            size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.LiveSupport),
-            })}
-          />
-        ),
-      },
-    ],
-    [i18n.language, router.route],
   );
 
   return (
@@ -412,52 +304,7 @@ export default function SidebarToggle() {
                 </CsrWrapper>
               ))}
             </ul>
-            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
-              {panel_3_datas.map((item, index) => (
-                <IconOption
-                  key={index}
-                  title={item.title}
-                  href={item.href}
-                  icon={item.icon}
-                  isFontMedium
-                  fontWeight={600}
-                  classNames={
-                    'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
-                  }
-                />
-              ))}
-            </ul> */}
-            {/* Hiding Dark & Light Mode Buttons*/}
-            {/*<div className="mt-[16px] text-color-text-primary rounded flex items-center justify-center gap-[5px]">
-              <div
-                className={cn(
-                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base`,
-                  `dark:bg-[#2D3035] dark:text-white`,
-                  `text-color-light-text-primary bg-color-light-bg-primary`,
-                  `hover:bg-gray-300`,
-                )}
-                onClick={() => {
-                  setTheme('dark');
-                }}
-              >
-                <Moon size={16} />
-                <div className="text-base font-bold">{t('layout:dark')}</div>
-              </div>
-              <div
-                className={cn(
-                  `flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer text-base font-bold`,
-                  `bg-gray-300 text-color-light-text-primary`,
-                  `dark:text-white dark:bg-transparent`,
-                  `dark:hover:bg-[#2D3035]`,
-                )}
-                onClick={() => {
-                  setTheme('light');
-                }}
-              >
-                <Sun1 size={16} />
-                <div className="text-base font-bold">{t('layout:light')}</div>
-              </div>
-              </div>*/}
+
           </div>
         </div>
       </div>

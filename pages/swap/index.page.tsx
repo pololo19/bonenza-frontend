@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { api_swap } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
@@ -61,7 +61,7 @@ const SwapPage = () => {
       toast.success(String(t('swap:swapSuccessfully')), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-success' });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-error' });
     } finally {
       setIsLoading(false);

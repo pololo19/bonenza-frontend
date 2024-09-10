@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 import { api_reviewAdd } from '@/api/game';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import { CommentType } from '@/components/game/gameReview';
@@ -78,7 +78,7 @@ export default function CommentPostModal({
       if (onSubmit) onSubmit();
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       onClose();

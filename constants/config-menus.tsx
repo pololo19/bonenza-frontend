@@ -19,7 +19,6 @@ export const headerMenus: OptionSidebarDataType[] = [
   {
     title: '', //'layout:home',
     href: ROUTER.Master,
-    // icon: <HomeIcon className="text-color-light-text-primary dark:text-white" />,
     icon: CupIcon,
     image: '',
     isMobile: true,
@@ -27,7 +26,6 @@ export const headerMenus: OptionSidebarDataType[] = [
   {
     title: 'sidebar:casino',
     href: ROUTER.Casino,
-    // icon: <CasinoBoldIcon className="text-color-primary w-[18px] h-[18px]" />,
     icon: CasinoBoldIcon,
     image: 'casino.png',
     isMobile: false,
@@ -35,15 +33,6 @@ export const headerMenus: OptionSidebarDataType[] = [
   {
     title: 'casino:slots',
     href: ROUTER.Tagname('slots'),
-    // icon: (
-    //   <Image
-    //     width={18}
-    //     height={18}
-    //     className="text-color-primary w-[18px] h-[18px]"
-    //     src="/icon/updownIcon.png"
-    //     alt="logo"
-    //   />
-    // ),
     image: 'slots.png',
     icon: SlotIcon,
     isMobile: false,
@@ -51,15 +40,6 @@ export const headerMenus: OptionSidebarDataType[] = [
   {
     title: 'layout:racing',
     href: ROUTER.Tagname('racing'),
-    // icon: (
-    //   <Image
-    //     width={18}
-    //     height={18}
-    //     className="text-color-primary w-[18px] h-[18px]"
-    //     src="/icon/updownIcon.png"
-    //     alt="logo"
-    //   />
-    // ),
     image: 'racing.png',
     icon: RacingBoldIcon,
     isMobile: false,
@@ -67,20 +47,10 @@ export const headerMenus: OptionSidebarDataType[] = [
   {
     title: 'BitUp Game',
     href: 'https://bitup.game/trade',
-    // icon: (
-    //   <Image
-    //     width={18}
-    //     height={18}
-    //     className="text-color-primary w-[18px] h-[18px]"
-    //     src="/icon/updownIcon.png"
-    //     alt="logo"
-    //   />
-    // ),
     image: 'bitup.png',
     icon: ArrowSwapVertical,
     isMobile: false,
   },
-  // { title: 'layout:racing', href: ROUTER.Racing, icon: <RacingBoldIcon className="text-[#F48D19]" /> },
 ];
 
 export const casinoCategories: OptionSidebarDataType[] = [
@@ -90,13 +60,6 @@ export const casinoCategories: OptionSidebarDataType[] = [
 ];
 
 export const casinoGames: OptionSidebarDataType[] = [
-  // {
-  //   title: String(t('casino:bonenzaOriginals')),
-  //   href: ROUTER.Category(String(t('casino:bonenzaOriginals'))),
-  //   icon: <OriginalIcon size={18} />,
-  // },
-  // { title: 'casino:slot', href: ROUTER.Tagname('slots'), icon: SlotIcon },
-  // { title: 'layout:racing', href: ROUTER.Tagname('Racing'), icon: RacingBoldIcon },
   { title: 'casino:liveCasino', href: ROUTER.Tagname('live-casino'), icon: LiveCasinoIcon },
   { title: 'casino:hotGame', href: ROUTER.Tagname('hot-games'), icon: HotGameIcon },
   { title: 'casino:newReleases', href: ROUTER.Tagname('new-releases'), icon: ReleaseIcon },

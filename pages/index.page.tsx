@@ -52,7 +52,7 @@ import { useExchange } from '../hooks/useExchange';
 import { CookiesStorage } from '../libs/storage/cookie';
 import { currencyFormat1 } from '../libs/utils';
 import { convert2Url } from '../libs/utils/convert';
-import { getErrorMesssage1 } from '../libs/utils/notificationToast';
+import { getErrorMessage } from '../libs/utils/notificationToast';
 import { setIsNewMessage, setIsNewNotification } from '../redux/reducers/common.reducer';
 import { AppState } from '../redux/store';
 
@@ -91,7 +91,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes3'),
         textButton: t('homePage:introduceCardButton3'),
         action: 'slots',
-        href: ROUTER.Slots,
+        href: ROUTER.Tagname('slots'),
       },
       {
         imgBackGround: '/img/page/racing.png',
@@ -338,7 +338,7 @@ function IndexPage() {
       setFeedbackText('');
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     }
   };

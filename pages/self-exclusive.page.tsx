@@ -8,7 +8,7 @@ import { api_setSelfExclusion } from '@/api/auth';
 
 import { TOAST_ENUM } from '../constants/common';
 import { formatDate } from '../libs/utils';
-import { getErrorMesssage1 } from '../libs/utils/notificationToast';
+import { getErrorMessage } from '../libs/utils/notificationToast';
 
 function SelfExclusive() {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ function SelfExclusive() {
       setLoading(false);
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setIsSuccess(false);
       setLoading(false);
@@ -47,8 +47,8 @@ function SelfExclusive() {
               {Number(query.disabledTo) === -1
                 ? t('exclusion:permanentlyDisabled')
                 : t('exclusion:disabledPeriod', {
-                    date: formatDate(new Date(Number(query.disabledTo) * 1000), 'LL/dd/yyyy'),
-                  })}
+                  date: formatDate(new Date(Number(query.disabledTo) * 1000), 'LL/dd/yyyy'),
+                })}
             </p>
           )}
         </div>

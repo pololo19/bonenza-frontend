@@ -11,7 +11,7 @@ import { api_uploadAvatar } from '@/api/user';
 import { useTranslation } from '@/base/config/i18next';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { convertUserInfo, getSizeOfFileByMega } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import {
   changeIsShowInformation,
@@ -128,7 +128,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
       }
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

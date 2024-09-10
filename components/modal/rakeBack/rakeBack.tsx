@@ -14,7 +14,7 @@ import { TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useUSDTPrice } from '@/base/hooks/useUSDTPrice';
 import { currencyFormat1 } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { getBalance } from '@/base/redux/reducers/wallet.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
 
@@ -124,7 +124,7 @@ export default function ModalRakeBack({
       }
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsClaiming(false);

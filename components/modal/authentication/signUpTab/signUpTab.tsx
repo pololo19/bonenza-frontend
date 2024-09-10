@@ -10,7 +10,7 @@ import { Trans, useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { isPhone } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveVerifyInfo, setIsForgetPassword } from '@/base/redux/reducers/auth.reducer';
 import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
 import { AuthenticationModeEnum, SignUpEmailFormRef, SignUpPhoneFormRef } from '@/base/types/common';
@@ -54,7 +54,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const status = error.response?.data?.statusCode ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -86,9 +86,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
       }
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      // const status = error.response?.data?.statusCode ?? '';
-      // const errData = getErrorMessage('auth', 'signUpPhone', status, message, '');
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

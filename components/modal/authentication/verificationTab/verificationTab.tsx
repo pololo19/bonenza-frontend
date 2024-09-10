@@ -11,7 +11,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowAuthenticationModal, changeIsShowResetPassword } from '@/base/redux/reducers/modal.reducer';
 import { initWalletInfo, setLocalFiat } from '@/base/redux/reducers/wallet.reducer';
@@ -103,9 +103,7 @@ export default function VerificationTab() {
       }
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      // const status = error.response?.data?.statusCode ?? '';
-      // const errData = getErrorMessage('auth', 'verification', status, message, '');
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -124,7 +122,7 @@ export default function VerificationTab() {
       toast.success(t('authentication:verificationSentSuccess'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       // toast.error(t('authentication:verificationSentFailed'), { containerId: TOAST_ENUM.MODAL });
     } finally {

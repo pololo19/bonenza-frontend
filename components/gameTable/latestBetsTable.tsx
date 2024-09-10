@@ -12,7 +12,7 @@ import { API_GAME_IMAGE, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useWidth } from '@/base/hooks/useWidth';
 import { currencyFormat1, formatLengthNumber } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { changeIsShowDetailBets, changeIsShowInformation, setDetailBets } from '@/base/redux/reducers/modal.reducer';
 import { setUserData } from '@/base/redux/reducers/user.reducer';
 import { AppState, useAppDispatch } from '@/base/redux/store';
@@ -90,7 +90,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       setBetData(tempBetData);
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setBetData([]);
     } finally {

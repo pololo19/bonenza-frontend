@@ -54,26 +54,11 @@ const SidebarMobileLayout: React.FC = () => {
           }
         },
       },
-      // {
-      //   title: String(t('sidebar:exclusive')),
-      //   href: ROUTER.Exclusive,
-      //   icon: Medal,
-      // },
       {
         title: String(t('sidebar:affiliate')),
         href: ROUTER.Affiliate,
         icon: Command,
       },
-      // {
-      //   title: String(t('sidebar:provablyFair')),
-      //   href: ROUTER.ProvablyFair,
-      //   icon: Judge,
-      // },
-      // {
-      //   title: String(t('sidebar:sponsorships')),
-      //   href: ROUTER.Sponsorships,
-      //   icon: SecurityCard,
-      // },
     ],
     [i18n.language, isLogin],
   );
@@ -166,74 +151,7 @@ const SidebarMobileLayout: React.FC = () => {
             </CsrWrapper>
           ))}
         </ul>
-        {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px] dark:bg-color-hover-primary bg-white rounded-[3px]">
-          <IconOption
-            title={String(t('sidebar:liveSupport'))}
-            href={ROUTER.LiveSupport}
-            icon={Headphone}
-            classNames="dark:hover:text-white dark:!text-white text-color-light-text-primary !bg-transparent hover:bg-[#e3ecf3] rounded pl-[10px] !py-[14px]"
-          />
-        </ul> */}
-        {/* <div className="dark:text-[#98A7B5] text-[#31373d] rounded dark:bg-[#25262B] bg-[#f5f6fa] flex items-center justify-center gap-[5px]">
-          <div
-            className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer ${
-              mode === 0
-                ? 'dark:bg-[#2D3035] dark:text-white bg-[#eaecf3] text-[#31373d]'
-                : 'dark:hover:bg-gray-600 hover:bg-[#eaecf3]'
-            }`}
-            onClick={() => {
-              setMode(0);
-              setTheme('dark');
-            }}
-          >
-            <Moon size={16} />
-            <div className="text-sm">{t('layout:dark')}</div>
-          </div>
-          <div
-            className={`flex justify-center items-center flex-1 px-[15px] py-[10px] gap-[10px] rounded cursor-pointer ${
-              mode === 1
-                ? 'dark:bg-[#2D3035] dark:text-white bg-[#eaecf3] text-[#31373d]'
-                : 'dark:hover:bg-gray-600 hover:bg-[#eaecf3]'
-            }`}
-            onClick={() => {
-              setMode(1);
-              setTheme('light');
-            }}
-          >
-            <Sun1 size={16} />
-            <div className="text-sm">{t('layout:light')}</div>
-          </div>
-        </div>
-        <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[5px]">
-          <div
-            role="button"
-            className={cn(
-              `capitalize dark:hover:bg-gray-600 block dark:bg-[#2D3035] bg-[#f5f6fa] hover:bg-[#e3ecf3] dark:text-[#98A7B5] text-[#31373d] text-[14px] flex items-center gap-[16px] flex-1 pl-[15px] px-[5px] py-[10px]`,
-            )}
-            onClick={() => {
-              dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
-              dispatch(changeIsShowMultiLanguageModal(true));
-              setIsShowSidebar(false);
-            }}
-          >
-            <Global size={18} className="dark:text-white text-[#31373d]" />
-            <div className={cn('flex-1 text-start text-[14px]')}>{handleGetNameLocale()}</div>
-          </div>
-          <div
-            role="button"
-            className={cn(
-              `capitalize dark:hover:bg-gray-600 block dark:bg-[#2D3035] dark:text-[#98A7B5] bg-[#f5f6fa] hover:bg-[#e3ecf3] text-[#31373d] text-[14px] flex items-center gap-[16px] flex-1 pl-[15px] px-[5px] py-[10px]`,
-            )}
-            onClick={() => {
-              dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
-              dispatch(changeIsShowMultiLanguageModal(true));
-              setIsShowSidebar(false);
-            }}
-          >
-            <DollarCircle size={18} className="dark:text-white text-[#31373d]" />
-            <div className={cn('flex-1 text-start text-[14px]')}>{localeFiat?.currency}</div>
-          </div>
-        </ul> */}
+
       </div>
     </div>
   );
