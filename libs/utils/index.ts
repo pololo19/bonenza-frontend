@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { CookieKey, DATE_TIME_FORMAT_DEFAULT, ERROR_CODE_INVALID_ACCOUNT } from '@/base/constants/common';
 import { DATE_DASH_DELIMITER_REGEX, DATE_VALID_DELIMITER } from '@/base/constants/validation';
 import { ErrorResponse } from '@/base/types/api';
-import { DepositAddress, NetworkType, ObjectLiteral, RolloverStatus } from '@/base/types/common';
+import { DepositAddress, ObjectLiteral, RolloverStatus } from '@/base/types/common';
 import { TransactionStatus } from '@/types/common';
 
 import { CookiesStorage } from '../storage/cookie';
@@ -36,16 +36,6 @@ export const stringifyParams = (data: any) => {
   });
 };
 
-export function getCurrentDomain() {
-  const parts = window.location.hostname.split('.');
-  parts.shift();
-  return parts.join('.');
-}
-
-export function getUrlRoot(pathname?: string) {
-  return pathname ? pathname.split('/')[1] : '';
-}
-
 export function createDate(date: Date | number | string) {
   if (typeof date === 'string' && isIsoFormat(date)) {
     return new Date(date);
@@ -59,74 +49,12 @@ export function formatDate(date: Date | number | string | undefined, dateFormat 
   return format(newDate, dateFormat).toString();
 }
 
-export function differenceDateInSeconds(
-  date1: Date | number | string | undefined,
-  date2: Date | number | string | undefined,
-) {
-  if (!date1 || !isValidDate(date1)) return '';
-  if (!date2 || !isValidDate(date2)) return '';
-  const newDate1 = createDate(date1);
-  const newDate2 = createDate(date2);
-  return differenceInSeconds(newDate1, newDate2);
-}
-
-export function compareDateAsc(date1: Date | number | string | undefined, date2: Date | number | string | undefined) {
-  if (!date1 || !isValidDate(date1)) return '';
-  if (!date2 || !isValidDate(date2)) return '';
-  const newDate1 = createDate(date1);
-  const newDate2 = createDate(date2);
-  return compareAsc(newDate1, newDate2);
-}
-
 export function titleCase(text: string) {
   var splitStr = text.toLowerCase().split(' ');
   for (var i = 0; i < splitStr.length; i++) {
     splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
   }
   return splitStr.join(' ');
-}
-
-export function getErrors(error?: AxiosError<ErrorResponse>) {
-  const fieldErrors: { error_code?: string; field?: Path<unknown>; message?: string }[] =
-    error?.response?.data?.error?.errors?.map((item) => ({
-      ...item,
-      field: camelize(item?.field),
-    })) || [];
-
-  return {
-    error: error?.response?.data.error || {},
-    fieldErrors,
-    firstFieldErrors: fieldErrors?.[0] || {},
-  };
-}
-
-export function checkFormHasField(getValues: UseFormGetValues<ObjectLiteral>, field: Path<ObjectLiteral>) {
-  return Object.keys(getValues())?.includes(field);
-}
-
-export function pushQueryParams(params: ObjectLiteral, options?: { scroll?: boolean }) {
-  const query = pickBy(params, identity);
-  Router.push({ pathname: Router.route, query }, undefined, options);
-}
-
-export function isErrorAccountInvalid(errorCode: string) {
-  return ERROR_CODE_INVALID_ACCOUNT.includes(errorCode);
-}
-
-export function showToastError(message: string, error?: unknown) {
-  const errorCode = (error as AxiosError<ErrorResponse>)?.response?.data?.error?.error_code;
-  if (!errorCode || !isErrorAccountInvalid(errorCode)) {
-    toast.error(message);
-  }
-}
-
-export function convertTimeZone(date: string | Date) {
-  return createDate(date).toLocaleString('ja-JP', { timeZone: process.env.TIME_ZONE });
-}
-
-export function byteToGigabyte(input: number, numFixed?: number) {
-  const result = input / 1024 / 1024 / 1024;
-  return numFixed || numFixed === 0 ? result.toFixed(numFixed) : result;
 }
 
 export function getMessageMetamask(account: string) {
@@ -136,20 +64,6 @@ export function getMessageMetamask(account: string) {
         Wallet address:${account}`;
   return message;
 }
-
-export const truncateAddress = (address: string, dots = 3) => {
-  if (!address) return 'No Account';
-  const match = address.match(/^(0x[a-zA-Z0-9]{2})[a-zA-Z0-9]+([a-zA-Z0-9]{8})$/);
-  if (!match) return address;
-  return `${match[1]}${' .'.repeat(dots)} ${match[2]}`;
-};
-
-export const truncateAddressHeader = (address: string, dots = 3) => {
-  if (!address) return 'No Account';
-  const match = address.match(/^(0x[a-zA-Z0-9]{5})[a-zA-Z0-9]+([a-zA-Z0-9]{4})$/);
-  if (!match) return address;
-  return `${match[1]}${' .'.repeat(dots)} ${match[2]}`;
-};
 
 export const transformWalletAddress = (address: string, dots = 3) => {
   if (!address) return 'No Account';
@@ -161,23 +75,6 @@ export const transformWalletAddress = (address: string, dots = 3) => {
 export const transformUUID = (id: string, dots = 3) => {
   if (!id) return 'NO Account';
   return `${id.slice(0, 7)}${' .'.repeat(dots)}${id.slice(-4)}`;
-};
-
-export const handleWithdrawURL = (coin?: DepositAddress) => {
-  if (coin?.symbol === 'USDT' && coin?.network === 'BEP20') {
-    return 'withdraw/transfer-BEP20-USDT';
-  } else if (coin?.symbol === 'USDT' && coin?.network === 'ERC20') {
-    return 'withdraw/transfer-ERC20';
-  } else if (coin?.symbol === 'BNB') {
-    return 'withdraw/transfer-BNB';
-  } else if (coin?.symbol === 'DRON') {
-    return 'withdraw/transfer-BEP20-DRON';
-  } else if (coin?.symbol === 'GOD') {
-    return 'withdraw/transfer-BEP20-GOD';
-  } else if (coin?.symbol === 'ETH') {
-    return 'withdraw/transfer-ETH';
-  }
-  return '';
 };
 
 export function removeTrailingZeros(str: string) {
@@ -223,16 +120,6 @@ export function currencyFormat(num: number, fixedNumber: number = 4) {
     String(integer).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') +
     String(Number(decimal).toFixed(fixedNumber)).slice(1)
   );
-}
-
-export function exchangeByLocaleFiat(prevFiat?: string, curFiat: string = 'USD', amount?: number) {
-  const exchangeRateData = CookiesStorage.getCookieData(CookieKey.exchangeRate);
-  if (!exchangeRateData || !prevFiat || !curFiat || !amount) return 0;
-  const exchangeRateObj = JSON.parse(exchangeRateData);
-  const firstRate = exchangeRateObj[prevFiat.toUpperCase()];
-  const secondRate = exchangeRateObj[curFiat.toUpperCase()];
-  const newAmount = Number((amount * secondRate) / firstRate);
-  return Number.isNaN(newAmount) ? 0 : newAmount;
 }
 
 export const handleLocaleSymbol = (givenParamValue: string) => {
@@ -430,21 +317,6 @@ export function numberWithRounding(number: number, zeroNum: number) {
     return res;
   } catch (error) {
     return 0;
-  }
-}
-
-export function currencyFormat2(value: string, decimal?: number) {
-  const filteredValue = parseFloat(`${value}`.replaceAll(',', ''));
-  if (filteredValue < 1000) return filteredValue.toFixed(2);
-  else if (filteredValue < 1000000) {
-    const kAmount = filteredValue / 1000;
-    return kAmount.toFixed(2) + 'K';
-  } else if (filteredValue < 100000000) {
-    const mAmount = filteredValue / 1000000;
-    return mAmount.toFixed(2) + 'M';
-  } else {
-    const mAmount = filteredValue / 100000000;
-    return mAmount.toFixed(2) + 'B';
   }
 }
 

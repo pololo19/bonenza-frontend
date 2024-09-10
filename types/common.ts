@@ -14,15 +14,6 @@ export enum VerifyModeEnum {
   PHONE = 'phone',
 }
 
-export enum EnumCSVValidateResult {
-  CSV_ERROR_EXTENSION = 'CSV_ERROR_EXTENSION',
-  CSV_ERROR_MAX_SIZE = 'CSV_ERROR_MAX_SIZE',
-  CSV_ERROR_LIMIT = 'CSV_ERROR_LIMIT',
-  CSV_ERROR_FILE_EMPTY_DATA = 'CSV_ERROR_FILE_EMPTY_DATA',
-  CSV_ERROR_COLUMN = 'CSV_ERROR_COLUMN',
-  CSV_ERROR_DATA = 'CSV_ERROR_DATA',
-}
-
 export enum EnumTypeInput {
   EMAIL = 'email',
   TEXT = 'text',
@@ -39,11 +30,6 @@ export enum EnumVerificationDocumentType {
 
 export type ObjectLiteral = {
   [key: string]: any;
-};
-
-export type BasicColorsData = {
-  backgroundColorPicked?: string;
-  textColorPicked?: string;
 };
 
 export type SessionType = {
@@ -79,30 +65,9 @@ export type BasicFormRef = {
   emitData?: () => void;
 };
 
-export type ReferralCodeDetail = {
-  id?: number;
-  referralCode?: string;
-  commissionRate?: string;
-  createdAt?: Date;
-  updatedAt?: Date;
-  totalMemberRegister?: number;
-  totalCommissionRewards?: string;
-  userId: number;
-};
-
 export type UploadAreaRef = {
   openFileDialog: VoidFunction;
 };
-
-export enum EnumErrorCommon {
-  THUMBNAIL_UPLOAD_ERROR = 'THUMBNAIL_UPLOAD_ERROR',
-}
-
-export enum PromiseStatus {
-  PENDING = 'pending',
-  FULFILLED = 'fulfilled',
-  REJECTED = 'rejected',
-}
 
 export type DepositAddress = {
   image?: string;
@@ -116,15 +81,6 @@ export type DepositAddress = {
   deposit_amount?: number;
   privateKey?: string;
   isFavorite?: string | number;
-};
-
-export type FavoriteCoin = {
-  id?: number;
-  code: string;
-  name: string;
-  type?: string;
-  symbol: string | any;
-  isLike?: string;
 };
 
 export type MoonpayDepositAddress = {
@@ -157,16 +113,6 @@ export type MoonpayCurrencyType = {
   minBuyAmount?: number;
   maxBuyAmount?: number;
 };
-
-export type NetworkType = {
-  image?: string;
-  symbol?: 'ERC20' | 'BEP20' | 'Binance Coin(BEP20)' | 'Ethereum' | 'BEP20' | 'BEP20';
-};
-
-export enum CurrencyEnum {
-  FIAT = 'fiat',
-  CRYPTO = 'crypto',
-}
 
 export type GameListType = {
   id: string;
@@ -303,20 +249,6 @@ export type GameReactionDetail = {
   totalLike?: number;
 };
 
-export type BetTableDetailType = {
-  game: string;
-  gameId: string;
-  betId: string;
-  player: string;
-  time: Date;
-  payout: string;
-  multiplier: string;
-  profit: number;
-  identifier2: string;
-  provider: number;
-  title: number;
-};
-
 export type BetTableDataType = {
   game: string;
   gameIdenfiter: string;
@@ -332,62 +264,6 @@ export type BetTableDataType = {
   betId: string;
   time: Date;
   providerName: string;
-};
-
-export type BetDetail = {
-  betAmount?: number;
-  betId?: string;
-  currency?: string;
-  payoutRate?: string;
-  payout?: string;
-  player?: string;
-  profit?: number;
-  time?: Date;
-  gameName?: string;
-  id?: number;
-  title?: string;
-  identifier?: string;
-  identifier2?: string;
-  provider?: string;
-  producer?: string;
-  category?: string;
-  theme?: string;
-  hasFreespins?: string;
-  featureGroup?: string;
-  customised?: string;
-  devices?: string;
-  licenses?: string;
-  line?: string;
-  description?: string;
-  volatilityRating?: string;
-  hd?: string;
-  multiplier?: string;
-  restrictions?: string;
-  releasedAt?: any;
-  bonusBuy?: any;
-  totalFavorite?: number;
-  totalLike?: number;
-  recalled?: any;
-  recalledAt?: any;
-  playerAvatar?: string;
-  playerId?: number;
-};
-
-export type Rating = {
-  avgRating?: number;
-  countRating?: number;
-  userRating?: number;
-};
-
-export type InformationWithdraw = {
-  fee?: number;
-  gasPrice?: number;
-  min?: number;
-  msg?: string;
-  totalAmountWithdraw?: number;
-  unitFee?: string;
-  locked?: number;
-  available?: number;
 };
 
 export type TransactionStatus =

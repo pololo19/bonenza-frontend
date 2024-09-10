@@ -9,7 +9,7 @@ import { TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER, TOAST_ENUM } from '@/base/constan
 import { DATE_TIME_SUBMIT_FORMAT_WITH_SECOND } from '@/base/constants/common';
 import { useWidth } from '@/base/hooks/useWidth';
 import { formatDate } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { SessionType } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import withAuth from '@/components/hoc/withAuth';
@@ -152,7 +152,7 @@ const SettingSession = () => {
       getListUserSessions();
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

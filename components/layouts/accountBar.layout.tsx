@@ -151,15 +151,6 @@ const AccountPannel: React.FC = () => {
 
   const initDatas: ListItemProps[] = useMemo(
     () => [
-      // {
-      //   title: String(t('sidebar:notification')),
-      //   href: '',
-      //   icon: <NotificationBing />,
-      //   extra: <></>,
-      //   isLink: false,
-      //   classNames: '',
-      //   activeClassNames: '',
-      // },
       {
         title: String(t('layout:referAndEarn')),
         href: '',
@@ -245,45 +236,6 @@ const AccountPannel: React.FC = () => {
           dispatch(changeIsShowMultiLanguageModal(true));
         },
       },
-      // {
-      //   title: String(t('setting:theme')),
-      //   href: '',
-      //   icon: <ArrowSwapHorizontal />,
-      //   isLink: false,
-      //   isArrow: false,
-      //   extra: (
-      //     <>
-      //       <ul className="flex justify-center md:w-fit rounded-default md:text-[13px] text-[11px] font-semibold p-[5px] dark:bg-color-bg-primary bg-color-light-bg-primary">
-      //         <div
-      //           role="button"
-      //           className={cn('p-[8px]', {
-      //             'dark:bg-color-card-header-primary bg-color-light-active-primary': theme !== 'light',
-      //             'bg-transparent': theme === 'light',
-      //           })}
-      //           onClick={() => {
-      //             setTheme('dark');
-      //           }}
-      //         >
-      //           <Moon size={16} />
-      //         </div>
-      //         <div
-      //           role="button"
-      //           className={cn('p-[8px]', {
-      //             'dark:bg-color-panel-bg-primary bg-color-light-active-primary': theme === 'light',
-      //             'bg-transparent': theme !== 'light',
-      //           })}
-      //           onClick={() => {
-      //             setTheme('light');
-      //           }}
-      //         >
-      //           <Sun1 size={16} />
-      //         </div>
-      //       </ul>
-      //     </>
-      //   ),
-      //   activeClassNames: '',
-      //   classNames: '',
-      // },
     ],
     [i18n.language, theme, localFiat, isLoading],
   );
@@ -304,13 +256,6 @@ const AccountPannel: React.FC = () => {
         classNames:
           'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
-      // {
-      //   title: String(t('sidebar:buyCrypto')),
-      //   icon: Money2,
-      //   href: ROUTER.BuyCrypto,
-      //   classNames:
-      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      // },
       {
         title: String(t('sidebar:swap')),
         icon: MoneyChange,
@@ -318,27 +263,6 @@ const AccountPannel: React.FC = () => {
         classNames:
           'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
       },
-      // {
-      //   title: String(t('sidebar:vaultPro')),
-      //   icon: Story,
-      //   href: ROUTER.VaultPro,
-      //   classNames:
-      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      // },
-      // {
-      //   title: String(t('sidebar:NFTs')),
-      //   icon: Box,
-      //   href: '#',
-      //   classNames:
-      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      // },
-      // {
-      //   title: String(t('sidebar:rollover')),
-      //   icon: Chart,
-      //   href: ROUTER.Rollover,
-      //   classNames:
-      //     'flex flex-col items-center !bg-transparent gap-[5px] dark:!text-white !text-color-light-text-primary',
-      // },
       {
         title: String(t('sidebar:transactions')),
         icon: CardCoin,

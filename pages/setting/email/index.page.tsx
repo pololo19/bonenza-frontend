@@ -16,7 +16,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { COUNTRY_CALLING_CODES } from '@/base/constants/countryCallingCode';
 import { isPhone } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveVerifyInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowVerifyMailAndPhone, changeVerifyMode } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -110,7 +110,7 @@ const SettingEmail = () => {
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
       const status = error.response?.data?.statusCode ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'verify-error' });
     } finally {
       setIsLoading(false);

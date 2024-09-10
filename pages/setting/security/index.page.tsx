@@ -20,7 +20,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo, copyClipBoard } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { logoutState, saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsRestricting } from '@/base/redux/reducers/common.reducer';
 import {
@@ -128,7 +128,7 @@ const SettingSecurity = () => {
       setPassword('');
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -143,7 +143,7 @@ const SettingSecurity = () => {
       setSecret(res.data.secretKey);
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -166,7 +166,7 @@ const SettingSecurity = () => {
       setPasswordLogin('');
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'confirm-qr-error' });
     } finally {
       setIsLoading(false);
@@ -198,7 +198,7 @@ const SettingSecurity = () => {
       setPasswordLogin('');
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { toastId: 'disable-2fa-error-notify', containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -249,7 +249,7 @@ const SettingSecurity = () => {
       }, 5000);
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON, toastId: 'security-error' });
       handleChangePassword('', 'codeOtp');
       dispatch(changeIsRestricting(false));

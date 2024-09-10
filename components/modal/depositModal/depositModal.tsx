@@ -3,9 +3,7 @@ import cn from 'classnames';
 import { ElementType, useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
-import BuyCryptoComponent from '@/components/buyCrypto/buyCrypto';
 import DepositCryptoComponent from '@/components/deposit/crypto/depositCrypto';
-import DepositFiatComponent from '@/components/deposit/fiat/depositFiat';
 
 import CommonModal from '../commonModal/commonModal';
 
@@ -38,57 +36,12 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
               <div className="text-black dark:text-white md:text-[18px] text-[16px] font-bold">
                 {t('layout:deposit')}
               </div>
-              {/* Hiding Crypto & Fiat & Buy Crypto */}
-              {/*
-              <div className="flex w-full">
-                <div
-                  onClick={() => setDepositTab(DepositTabEnum.CRYPTO)}
-                  className={cn(
-                    'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
-                    {
-                      'dark:!bg-color-active-secondary !bg-color-light-active-primary dark:!text-white !text-black rounded-[3px]':
-                        depositTab === DepositTabEnum.CRYPTO,
-                    },
-                  )}
-                  role="button"
-                >
-                  <div className="sm:text-[16px] text-[14px]">{t('deposit:crypto')}</div>
-                </div>
-                 <div
-                  // onClick={() => setDepositTab(DepositTabEnum.FIAT)}
-                  className={cn(
-                    'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
-                    {
-                      'dark:!bg-color-active-secondary !bg-color-light-active-primary dark:!text-white !text-black rounded-[3px]':
-                        depositTab === DepositTabEnum.FIAT,
-                    },
-                  )}
-                  role="button"
-                >
-                  <div className="sm:text-[16px] text-[14px]">{t('deposit:fiat')}</div>
-                </div>
-                <div
-                  // onClick={() => setDepositTab(DepositTabEnum.BUY_CRYPTO)}
-                  className={cn(
-                    'flex-1 dark:bg-color-header-secondary bg-color-light-header-secondary dark:text-color-text-primary text-color-light-text-primary flex items-center justify-center py-[10px]',
-                    {
-                      'dark:!bg-color-active-secondary !bg-color-light-active-primary dark:!text-white !text-black rounded-[3px]':
-                        depositTab === DepositTabEnum.BUY_CRYPTO,
-                    },
-                  )}
-                  role="button"
-                >
-                  <div className="sm:text-[16px] text-[14px]">{t('deposit:buyCrypto')}</div>
-                </div>
-              </div> */}
             </div>
           </>
         }
       >
         <div className="overflow-y-auto pt-5 px-3 pb-[80px] sm:p-5">
           {depositTab === DepositTabEnum.CRYPTO && <DepositCryptoComponent />}
-          {depositTab === DepositTabEnum.FIAT && <DepositFiatComponent />}
-          {depositTab === DepositTabEnum.BUY_CRYPTO && <BuyCryptoComponent />}
         </div>
       </CommonModal>
     </>

@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { api_reviewLike, api_reviewList, api_reviewReport } from '@/api/game';
 import { API_AVATAR, TOAST_ENUM } from '@/base/constants/common';
 import { getDuration } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { AppState } from '@/base/redux/store';
 import Loader from '@/components/common/preloader/loader';
 import { CommentType } from '@/components/game/gameReview';
@@ -62,7 +62,7 @@ export default function ReplyModal({
       toast.success(t('success:successfulllyReported'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsShowReport(false);
@@ -126,7 +126,7 @@ export default function ReplyModal({
       }
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

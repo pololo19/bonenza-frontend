@@ -16,7 +16,7 @@ import { changeAuthenticationType } from '@/base/redux/reducers/modal.reducer';
 import { AuthenticationModeEnum } from '@/base/types/common';
 import Loader from '@/components/common/preloader/loader';
 import InputEmailPhone from '@/components/input/typing/InputEmailPhone';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 
 type ForgotPasswordFormType = {
   email: string;
@@ -100,7 +100,7 @@ export default function ModalForgotPassword() {
       }
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

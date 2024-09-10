@@ -27,7 +27,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { API_GAME_IMAGE, ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { formatDate, isEmpty } from '@/base/libs/utils';
 import { convertGameIdentifierToUrl, convertUrlToGameIdentifier } from '@/base/libs/utils/convert';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
@@ -163,7 +163,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       playStatusRef.current = 'Free';
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setLoadings({
@@ -237,7 +237,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       })
       .catch((error: any) => {
         const errType = error.response?.data?.message ?? '';
-        const errMessage = getErrorMesssage1(errType);
+        const errMessage = getErrorMessage(errType);
         toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
         setLoadings({
           ...loadings,
@@ -314,7 +314,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
         })
         .catch((error: any) => {
           const errType = error.response?.data?.message ?? '';
-          const errMessage = getErrorMesssage1(errType);
+          const errMessage = getErrorMessage(errType);
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
           setLoadings({
             ...loadings,
@@ -324,7 +324,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
         .finally(() => { });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     }
   };
@@ -421,7 +421,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
         })
         .catch((error: any) => {
           const errType = error.response?.data?.message ?? '';
-          const errMessage = getErrorMesssage1(errType);
+          const errMessage = getErrorMessage(errType);
           toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
           setLoadings({
             ...loadings,
@@ -431,7 +431,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
         .finally(() => { });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setLoadings({
         ...loadings,
@@ -451,7 +451,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
       setReactionData({
         isFavorite: false,
@@ -479,7 +479,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
       setReactionData({ ...reactionData, isFavorite: state });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setLoadings({

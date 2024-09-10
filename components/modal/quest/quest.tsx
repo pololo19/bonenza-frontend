@@ -23,7 +23,7 @@ import { ROUTER, TOAST_ENUM } from '@/base/constants/common';
 import { useExchange } from '@/base/hooks/useExchange';
 import { useHeight } from '@/base/hooks/useHeight';
 import { currencyFormat1, formatDate } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { changeIsShowQuest } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 
@@ -102,7 +102,7 @@ const QuestItem = ({
       toast.success(t('success:bonusClaimed'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsClaiming(false);
@@ -139,7 +139,7 @@ const QuestItem = ({
             onClick={() => {
               dispatch(changeIsShowQuest(false));
               if (category === 'justWagerOn') router.push(ROUTER.Casino);
-              else if (category === 'slotsMaster') router.push(ROUTER.Slots);
+              else if (category === 'slotsMaster') router.push(ROUTER.Tagname('slots'));
             }}
           >
             {t('quest:go')}

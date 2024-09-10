@@ -7,7 +7,7 @@ import { api_loginWithGooglePop } from '@/api/auth';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsLoading } from '@/base/redux/reducers/common.reducer';
 import { initWalletInfo } from '@/base/redux/reducers/wallet.reducer';
@@ -36,7 +36,7 @@ export default function LoginGoogleOneTap() {
       toast.success(t('authentication:loginSuccessfully'), { containerId: TOAST_ENUM.COMMON });
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       dispatch(changeIsLoading(false));

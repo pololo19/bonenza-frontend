@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { api_requestSelfExclusion } from '@/api/auth';
 import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import HelperLayout from '@/components/layouts/helper.layout';
 import CommonModal from '@/components/modal/commonModal/commonModal';
 
@@ -66,7 +66,7 @@ const SelfExclusion = () => {
       // } else {
       //   toast.error("You can't set self-exclusion.", { containerId: TOAST_ENUM.COMMON });
       // }
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.error(String(t(errMessage)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);

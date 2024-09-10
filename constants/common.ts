@@ -1,18 +1,6 @@
-import {
-  ArrangeHorizontalCircle,
-  Card,
-  Category,
-  DocumentText,
-  Setting2,
-  Shop,
-  StatusUp,
-  TrendUp,
-} from 'iconsax-react';
-import { Settings } from 'react-slick';
-
-import { convertGameIdentifierToUrl, convertToUrlCase } from '../libs/utils/convert';
+import { convertGameIdentifierToUrl } from '../libs/utils/convert';
 import resources from '../public/locales';
-import { DepositAddress, FiatType, MoonpayDepositAddress, NetworkType } from '../types/common';
+import { DepositAddress, FiatType } from '../types/common';
 import { TRANSACTION_TYPE } from '../types/requestTypes';
 
 export const CookieKey = {
@@ -69,38 +57,20 @@ export const Tags: TagType[] = [
 export const ROUTER = {
   Home: '/',
   REFERRAL_CODE: (code: string) => `https://bonenza.com/?referral=${code}`,
-  Dashboard: '/dashboard',
   Master: '/tournament',
-  Sports: '/sports',
-  Slots: '/casino/slots',
-  Racing: '/racing',
   PageNotAllowed: '/403',
   PageNotFound: '/404',
   DepositCrypto: '/deposit/crypto',
-  DepositFiat: '/deposit/fiat',
   BuyCrypto: '/buy-crypto',
   Swap: '/swap',
-  VaultPro: '/vault-pro',
   WithdrawCrypto: '/withdraw/crypto',
-  WithdrawFiat: '/withdraw/fiat',
   Transaction: '/transaction',
   Rollover: '/rollover',
   Balance: '/balance',
-  PrivacyPolicy: '/privacy-policy',
-  TermOfUse: '/term-of-use',
   Bonus: '/bonus',
   Casino: '/casino/',
-  Lottery: '/lottery',
-  Bingo: '/bingo',
-  Promotion: '/promotion',
   Setting: '/settings',
-  Exclusive: '/exclusive',
   Affiliate: '/affiliate',
-  Forum: '/forum',
-  ProvablyFair: '/helper-center/privacy',
-  Blog: '/blog',
-  LiveSupport: '/live-support',
-  Sponsorships: '/sponsorships',
   SettingGeneral: '/setting/general',
   SettingPrivacy: '/setting/privacy',
   SettingEmail: '/setting/email',
@@ -126,7 +96,6 @@ export const ROUTER = {
   HelperAML: '/helper-center/aml',
   HelperSelfExclusion: '/helper-center/self-exclusion',
   HelperResponsibleGambling: '/helper-center/responsible-gambling',
-  History: '/history',
   HomeBest: '/gamelist/home-best',
   HomeRecommend: '/gamelist/home-recommend',
   Recent: '/recent',
@@ -603,22 +572,8 @@ export const LIST_PER_PAGE_SELECT = [
   { label: '100', value: '100' },
 ];
 
-export const CompanyNotifications = 'companyNotifications';
-export const RelationshipOfCompany = ['manager', 'companyRole'];
-export const RelationshipOfProduct = ['folder', 'productAttributes'];
-export const RELATIONSHIP_PARAMS = {
-  permissions: 'permissions',
-  roles: 'roles',
-  role: 'role',
-};
-
 export const STATUS_CODE_NOTFOUND = 404;
 export const STATUS_CODE_UNPROCESSABLE_CONTENT = 422;
-
-export const DELIVERY_AUDIENCE = [
-  { value: 'ALL', titleKey: 'deliveryAudienceAll' },
-  { value: 'TARGET_SELECTION', titleKey: 'deliveryAudienceSelect' },
-];
 
 export const TYPE_IMG_AFTER_CROP = 'image/png';
 export const EXTENSION_IMG_AFTER_CROP = 'png';
@@ -641,7 +596,6 @@ export const SIZE_IMAGE_THUMBNAIL_RESIZE = '500';
 export const IMAGE_THUMBNAIL = '/images/thumbImage.jpg';
 export const IMAGE_THUMBNAIL_FILE = '/images/thumbFile.jpg';
 
-export const IMAGE_SUFFIX = ['jpg', 'jpeg', 'bmp', 'png'];
 export const MIN_CROP_HEIGHT = 50;
 export const MIN_CROP_WIDTH = 50;
 
@@ -653,8 +607,6 @@ export const API_AVATAR = `${process.env.STORAGE_URL}/avatar`;
 export const API_GAME_IMAGE = `${process.env.STORAGE_URL}/game`;
 export const API_NOTIFICATION_LOGO = `${process.env.STORAGE_URL}/notification`;
 
-export const STREAM_API_KEY = process.env.STREAM_CHAT_API_KEY;
-export const STREAM_API_SECRET = process.env.STREAM_CHAT_API_SECRET;
 export const SOCKET_WALLET_URL = process.env.SOCKET_WALLET_URL;
 export const SOCKET_GAME_URL = process.env.SOCKET_GAME_URL;
 export const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID;
@@ -663,79 +615,6 @@ export const PROJECT_NAME = process.env.project;
 export const PROJECT_ID = process.env.projectId;
 
 export const DEFAULT_AVATAR = 'https://bonenza.com/img/avatar-1.png';
-
-export const SIDEBAR_LIST = [
-  {
-    href: ROUTER.Bonus,
-    name: 'sidebar:bonus',
-    icon: Category,
-  },
-  {
-    href: '...',
-    name: 'sidebar:casino',
-    icon: ArrangeHorizontalCircle,
-  },
-  {
-    href: '...',
-    name: 'sidebar:sports',
-    icon: TrendUp,
-  },
-  {
-    href: '...',
-    name: 'sidebar:lottery',
-    icon: Card,
-  },
-  {
-    href: ROUTER.Promotion,
-    name: 'sidebar:promotions',
-    icon: Shop,
-  },
-  {
-    href: '...',
-    name: 'sidebar:vipClub',
-    icon: StatusUp,
-  },
-  {
-    href: '...',
-    name: 'sidebar:settings',
-    icon: Setting2,
-  },
-  {
-    href: '...',
-    name: 'sidebar:blog',
-    icon: DocumentText,
-  },
-  {
-    href: ROUTER.Affiliate,
-    name: 'sidebar:affiliate',
-    icon: DocumentText,
-  },
-];
-
-export const USER_DEMO = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
-
-export const LOGIN_REGISTRATION_METHOD = [
-  {
-    image: '/img/icon/MetaMask.png',
-    name: 'MetaMask',
-    href: '#',
-  },
-  {
-    image: '/img/icon/WalletConnect.png',
-    name: 'WalletConnect',
-    href: '#',
-  },
-  {
-    image: '/img/icon/trust.png',
-    name: 'TrustWallet',
-    href: '#',
-  },
-];
 
 export const CRYPTO_DATA: DepositAddress[] = [
   {
@@ -765,113 +644,6 @@ export const CRYPTO_DATA: DepositAddress[] = [
   },
 ];
 
-export const CRYPTO_NORMAL_DATA: DepositAddress[] = [
-  {
-    symbol: 'All assets',
-  },
-  {
-    symbol: 'USDT',
-  },
-  {
-    symbol: 'BNB',
-  },
-  {
-    symbol: 'ETH',
-  },
-  {
-    symbol: 'GOD',
-  },
-  {
-    symbol: 'DRON',
-  },
-  {
-    symbol: 'BTC',
-  },
-  {
-    symbol: 'BCH',
-  },
-];
-
-export const LIST_MOONPAY_COIN: MoonpayDepositAddress[] = [
-  {
-    image: '/img/icon/USDT-logo.svg',
-    symbol: 'USDT',
-    name: 'USDT (ERC-20)',
-    network: '',
-    moonpaySymbol: 'usdt',
-  },
-  {
-    image: '/img/icon/BNB-logo.svg',
-    symbol: 'BNB',
-    name: 'BNB (BEP-20)',
-    network: '',
-    moonpaySymbol: 'bnb_bsc',
-  },
-  {
-    image: '/img/icon/ETH-logo.svg',
-    symbol: 'ETH',
-    name: 'ETH',
-    network: '',
-    moonpaySymbol: 'eth',
-  },
-  {
-    image: '/img/icon/GOD-logo.svg',
-    symbol: 'GOD',
-    name: 'GOD (ERC-20)',
-    network: '',
-    moonpaySymbol: 'gods',
-  },
-];
-
-export const DEPOSIT_DEMO: DepositAddress[] = [
-  {
-    balance: '0',
-    depositAddress: '0x9F0A1d21e888B00c4fB38B39de8F19e0B27933e1',
-    network: 'ERC20',
-    privateKey: '7fd7be42f70a9f15c18bdba59b73d75a8bd0641f98e7801d0df031c351f8c10b',
-    symbol: 'USDT',
-  },
-];
-
-export const LIST_NETWORK_WITHDRAW: NetworkType[] = [
-  {
-    image: '/img/icon/ETH-logo.svg',
-    symbol: 'ERC20',
-  },
-  {
-    image: '/img/icon/BNB-logo.svg',
-    symbol: 'BEP20',
-  },
-];
-
-export const LIST_COIN_BALANCE: DepositAddress[] = [
-  {
-    image: '/img/icon/GOD-logo.svg',
-    symbol: 'GOD',
-    balance: '0',
-  },
-  {
-    image: '/img/icon/USDT-logo.svg',
-    symbol: 'USDT',
-    balance: '0',
-  },
-  {
-    image: '/img/icon/BNB-logo.svg',
-    symbol: 'BNB',
-    balance: '0',
-  },
-  {
-    image: '/img/icon/ETH-logo.svg',
-    symbol: 'ETH',
-    balance: '0',
-  },
-  {
-    image: '/img/icon/DRON-logo.png',
-    symbol: 'DRON',
-    balance: '0',
-  },
-];
-
 export enum TOAST_ENUM {
   COMMON = 'COMMON',
   MODAL = 'MODAL',
@@ -883,13 +655,6 @@ export enum KYC_ENUM {
   PENDING = 2,
   APPROVE = 3,
 }
-
-export const LIST_NETWORK_USDT = ['BEP20', 'ERC20'];
-
-export const BASE_CURRENCY = 'EUR';
-export const CONVERT_CURRENCIES =
-  'USD,BRL,INR,EUR,RUB,NGN,IDR,BDT,PHP,VND,THB,KZT,MAD,ZAR,PLN,CUP,KRW,JPY,GBP,HRK,ISK,HUF,NOK,NZD,ARS,MXN,AUD,TRY,IRR,AED,CAD,UAH,CZK,LKR,ILS,EGP,PKR,GHS,VEF,PEN,RON,BGN,RSD,CLP';
-
 export const BANNER_DATA = [
   {
     img: '/img/banners/PenaltyShootOut_PragmaticPlay.png',
@@ -945,116 +710,6 @@ export const BANNER_DATA = [
   },
 ];
 
-export const VIP_LEVEL_DATA = [
-  {
-    id: '1',
-    img: '/img/bronze-medal.png',
-    rank: 'Bronze',
-    level: 'VIP 2-7',
-    description: '',
-    totalPrize: 1.04,
-  },
-  {
-    id: '2',
-    img: '/img/silver-medal.png',
-    rank: 'Silver',
-    level: 'VIP 8-21',
-    description: '* Benefits from previous levels are all included',
-    totalPrize: 18.9,
-  },
-  {
-    id: '3',
-    img: '/img/gold-medal.png',
-    rank: 'Gold',
-    level: 'VIP 22-37',
-    totalPrize: 204,
-    recharge: '10-16%',
-    weeklyCashback: 'Wager*1%*5%',
-    monthlyCashback: 'Wager*1%*3%',
-    description: '* Benefits from previous levels are all included',
-  },
-  {
-    id: '4',
-    img: '/img/platinum-medal.png',
-    rank: 'Platinum I',
-    level: 'VIP 38-55',
-    description: '* Benefits from previous levels are all included',
-    totalPrize: 1905,
-    recharge: '12-18%',
-    weeklyCashback: 'Wager*1%*8%',
-    monthlyCashback: 'Wager*1%*3.5%',
-  },
-  {
-    id: '5',
-    img: '/img/platinum-medal.png',
-    rank: 'Platinum II',
-    level: 'VIP 56-69',
-    description: '* Benefits from previous levels are all included',
-    totalPrize: 5850,
-    recharge: '14-20%',
-    weeklyCashback: 'Wager*1%*8%',
-    monthlyCashback: 'Wager*1%*4%',
-  },
-  {
-    id: '6',
-    img: '/img/diamond-medal.png',
-    rank: 'Diamond I',
-    level: 'SVIP 1-15',
-    description: '* Benefits from previous levels are all included',
-    totalPrize: 30600,
-    recharge: '16-22%',
-    weeklyCashback: 'Wager*1%*8%',
-    monthlyCashback: 'Wager*1%*5%',
-  },
-  {
-    id: '7',
-    img: '/img/diamond-medal.png',
-    rank: 'Diamond II',
-    level: 'SVIP 16-37',
-    description: '* Benefits from previous levels are all included',
-    totalPrize: 297800,
-    recharge: '18-24%',
-    weeklyCashback: 'Wager*1%*8%',
-    monthlyCashback: 'Wager*1%*5%',
-  },
-  {
-    id: '8',
-    img: '/img/diamond-medal.png',
-    rank: 'Diamond III',
-    level: 'SVIP 38-55',
-    description: '* Benefits from previous levels are all included',
-    totalPrize: 1462000,
-    recharge: '20-25%',
-    weeklyCashback: 'Wager*1%*8%',
-    monthlyCashback: 'Wager*1%*5%',
-  },
-];
-
-export const SETTING_BANNER: Settings = {
-  dots: true,
-  infinite: true,
-  speed: 1000,
-  slidesToShow: 3,
-  swipeToSlide: true,
-  autoplay: true,
-  arrows: false,
-  className: 'banner-container',
-  responsive: [
-    {
-      breakpoint: 540,
-      settings: {
-        slidesToShow: 1,
-      },
-    },
-    {
-      breakpoint: 873,
-      settings: {
-        slidesToShow: 2,
-      },
-    },
-  ],
-};
-
 export const socketConfig = { transports: ['websocket', 'polling', 'flashsocket'], withCredentials: true };
 export const socketWalletConfig = {
   transports: ['websocket'],
@@ -1064,81 +719,6 @@ export const socketWalletConfig = {
   withCredentials: true,
   // reconnection: false,
 };
-
-export const CHANNELS = [
-  {
-    id: '1',
-    name: 'Global',
-  },
-  {
-    id: '2',
-    name: 'Sports',
-  },
-  {
-    id: '3',
-    name: 'English',
-  },
-  {
-    id: '4',
-    name: 'Português',
-  },
-  {
-    id: '5',
-    name: 'Indonesian',
-  },
-  {
-    id: '6',
-    name: 'Руccкий',
-  },
-  {
-    id: '7',
-    name: 'فارسی',
-  },
-  {
-    id: '8',
-    name: 'Español',
-  },
-  {
-    id: '9',
-    name: 'Filipino',
-  },
-  {
-    id: '10',
-    name: 'Deutsch',
-  },
-  {
-    id: '11',
-    name: 'हिन्दी',
-  },
-  {
-    id: '12',
-    name: 'မြန်မာ',
-  },
-  {
-    id: '13',
-    name: 'Français',
-  },
-  {
-    id: '14',
-    name: '한국어',
-  },
-  {
-    id: '15',
-    name: 'ภาษาไทย',
-  },
-  {
-    id: '16',
-    name: 'Urdu',
-  },
-  {
-    id: '17',
-    name: '日本語',
-  },
-  {
-    id: '18',
-    name: 'Tiếng Việt',
-  },
-];
 
 export const billTypes = [
   { name: 'transaction:allType', value: -1 },

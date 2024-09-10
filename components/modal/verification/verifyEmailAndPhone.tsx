@@ -10,7 +10,7 @@ import { useTranslation } from '@/base/config/i18next';
 import { TOAST_ENUM } from '@/base/constants/common';
 import { CookiesStorage } from '@/base/libs/storage/cookie';
 import { convertUserInfo } from '@/base/libs/utils';
-import { getErrorMesssage1 } from '@/base/libs/utils/notificationToast';
+import { getErrorMessage } from '@/base/libs/utils/notificationToast';
 import { saveUserInfo } from '@/base/redux/reducers/auth.reducer';
 import { changeIsShowVerifyMailAndPhone } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
@@ -55,7 +55,7 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
       toast.success(t('authentication:verificationSentSuccess'), { containerId: TOAST_ENUM.MODAL });
     } catch (error: any) {
       const errType = error?.response?.data?.message ?? '';
-      const errMessage = getErrorMesssage1(errType);
+      const errMessage = getErrorMessage(errType);
       toast.success(t(errMessage), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
@@ -84,9 +84,7 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
       dispatch(changeIsShowVerifyMailAndPhone(false));
     } catch (error: any) {
       const errType = error.response?.data?.message ?? '';
-      // const status = error.response?.data?.statusCode ?? '';
-      // const errData = getErrorMessage('auth', 'verification', status, message, '');
-      const errMessge = getErrorMesssage1(errType);
+      const errMessge = getErrorMessage(errType);
       toast.error(String(t(errMessge)), { containerId: TOAST_ENUM.COMMON });
     } finally {
       setIsLoading(false);
