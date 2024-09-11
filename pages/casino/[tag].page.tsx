@@ -19,6 +19,7 @@ import { SearchNormal } from 'iconsax-react';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
+import GameBannerSlider from '@/components/sliders/gameSliders';
 
 export const getStaticPaths = (async () => {
     const tags = [...Tags]
@@ -223,6 +224,7 @@ function CasinoTagnamePage({ params, providers }: InferGetStaticPropsType<typeof
                 />
             </Head>
             <div className="py-[24px]">
+                <GameBannerSlider className="!mt-0" />
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between relative gap-x-[32px] gap-y-[16px] flex-wrap">
                     <Breadcrumbs
                         data={[{ title: 'Casino', href: ROUTER.Casino }]}
