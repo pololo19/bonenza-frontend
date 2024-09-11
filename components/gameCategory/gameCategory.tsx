@@ -68,7 +68,7 @@ function GameCategory({ getData }: GameCategoryProps) {
 
   return (
     <>
-      {isLoading ? <Loader isFullMode={false} />
+      {!listGame.length && isLoading ? <Loader isFullMode={false} />
         : !!listGame.length ? (
           <>
             <div className="game-grid-parent mt-[20px]">
