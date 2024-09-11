@@ -193,15 +193,15 @@ export default function SidebarToggle() {
               <CsrWrapper key={'bonus'}>
                 <IconOption
                   imageURL="/img/sidebar/bonus.png"
-                  imageClass="absolute left-[16px] -top-[18px] w-[69px] h-[61px]"
-                  textClass="!text-white ml-[64px] !text-[15px] !font-[400] !font-bold"
+                  imageClass="absolute left-[24px] -top-[12px] w-[67px] h-[66px]"
+                  textClass="!text-white ml-[100px] !text-[14px] !font-[500]"
                   title={String(t('sidebar:bonus'))}
                   href={ROUTER.Bonus}
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
-                  activeClassNames="!h-[45px] !py-[10px] !text-white bg-gradient-to-t from-[#005B52] to-[#0DFDE4] hover:opacity-90 rounded-[100px] px-[10px]"
-                  classNames="!h-[45px] !py-[10px] bg-gradient-to-t from-[#005B52] to-[#0DFDE4] hover:opacity-90 rounded-[100px] px-[10px]"
+                  activeClassNames="!min-h-[50px] !py-[10px] bg-gradient-to-t from-[#00BAE6] hover:opacity-90 !rounded-[5px] px-[10px] shadow-[inset_0_1px_2px_0_#7CE6FF]"
+                  classNames="!min-h-[50px] !py-[10px] bg-gradient-to-t from-[#00BAE6] hover:opacity-90 !rounded-[5px] px-[10px] shadow-[inset_0_1px_2px_0_#7CE6FF]"
                 />
               </CsrWrapper>
 
@@ -209,7 +209,7 @@ export default function SidebarToggle() {
                 <CsrWrapper key="quest">
                   <IconOption
                     imageURL="/img/sidebar/quest.png"
-                    imageClass="absolute -left-[5px] -top-[13px] w-[43px] h-[43px]"
+                    imageClass="absolute left-[8px] top-[2px] w-[38px] h-[36px]"
                     textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[8px] dark:!text-white"
                     title={String(t('sidebar:quest'))}
                     href={''}
@@ -224,14 +224,14 @@ export default function SidebarToggle() {
                         dispatch(changeIsShowQuest(true));
                       }
                     }}
-                    classNames="h-[40px] bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 px-[10px] pr-[4px]"
+                    classNames="!rounded-[5px] h-[40px] bg-gradient-to-t from-[#5D00E1] hover:opacity-90 px-[10px] pr-[4px] shadow-[inset_0_1px_2px_0_#7C83FF]"
                   />
                 </CsrWrapper>
                 <CsrWrapper key="spin">
                   <IconOption
                     imageURL="/img/sidebar/spin.png"
                     count={isLogin ? spinCount : 0}
-                    imageClass="absolute -left-[5px] -top-[13px] w-[41px] h-[41px]"
+                    imageClass="absolute left-[8px] top-[4px] w-[34px] h-[34px]"
                     textClass="text-white ml-auto !text-[13px] !text-center font-semibold pl-[15px] dark:!text-white"
                     title={String(t('sidebar:spin'))}
                     href={''}
@@ -239,7 +239,7 @@ export default function SidebarToggle() {
                     isFontMedium
                     fontWeight={600}
                     onClick={() => dispatch(changeIsShowSpin(true))}
-                    classNames="h-[40px] !text-white bg-gradient-to-tl from-indigo-950 to-violet-700 hover:opacity-90 px-[10px] pr-[4px]"
+                    classNames="!rounded-[5px] h-[40px] !text-white bg-gradient-to-t from-[#5D00E1] hover:opacity-90 px-[10px] pr-[4px] shadow-[inset_0_1px_2px_0_#7C83FF]"
                   />
                 </CsrWrapper>
               </div>
@@ -250,7 +250,7 @@ export default function SidebarToggle() {
                     height={121}
                     src="/img/tournament/sidebar.png"
                     alt="tournament"
-                    className="object-contain rounded-md"
+                    className="object-contain rounded-[3px]"
                   />
                 </Link>
               </CsrWrapper>

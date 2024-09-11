@@ -31,7 +31,7 @@ export const headerMenus: OptionSidebarDataType[] = [
     isMobile: false,
   },
   {
-    title: 'casino:slots',
+    title: 'casino:slot',
     href: ROUTER.Tagname('slots'),
     image: 'slots.png',
     icon: SlotIcon,

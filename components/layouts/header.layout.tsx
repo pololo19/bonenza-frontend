@@ -111,7 +111,7 @@ export default function Navbar() {
                     key={index}
                     href={menu.href}
                     className={cn(
-                      'rounded-default px-[8px] py-[8px] group flex items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
+                      'rounded-default px-[8px] py-[8px] group flex items-center gap-2 dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                       `${router.route.includes(menu.href)
                         ? 'dark:text-white dark:bg-color-input-hover-primary/60 bg-color-light-bg-primary font-semibold'
                         : ''
@@ -122,8 +122,9 @@ export default function Navbar() {
                       width={20}
                       height={20}
                       src={`/img/header/${menu?.image || ''}`}
-                      className="object-cover w-auto h-full"
+                      className="object-contain w-[28px]"
                     />
+                    <p className='text-default font-semibold text-[#00BAE6]'>{t(menu.title)}</p>
                   </Link>
                 );
               })}
