@@ -43,50 +43,53 @@ function GameCard(props: GameCardProps) {
   const uuid = Math.random();
 
   return (
-    <div
-      className="pointer-events-auto flex justify-center items-center max-w-[150px] sm:max-w-game-card will-change-transform"
-      onClick={() => dispatch(changeIsShowCasinoSearch(false))}
-    >
+    <>
       <div
-        className={classNames(
-          'bg-[#31373D77] sm:block rounded-large overflow-hidden p-2 mt-2 w-full',
-          'transition-all translate-y-0 hover:-translate-y-2 ease-in-out',
-          {
-            flex: listView,
-            block: !listView,
-          })}
+        className="pointer-events-auto flex justify-center items-center max-w-[150px] sm:max-w-game-card will-change-transform"
+        onClick={() => dispatch(changeIsShowCasinoSearch(false))}
       >
-        <Link href={ROUTER.GameDetail(convertGameIdentifierToUrl(gameDetail.identifier || ''))} className="rounded-default">
-          <Image
-            height={160}
-            width={160}
-            src={`${API_GAME_IMAGE}/icon/${(gameDetail.identifier || '').replace(':', '_')}.png`}
-            alt="game logo"
-            onError={(err) => {
-              err.currentTarget.src = '/img/recommended-game-3.png';
-            }}
-            className="max-w-[150px] sm:max-w-game-card w-full object-cover rounded-default"
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
-          />
-        </Link>
-        <div className="flex justify-center items-center gap-1 py-2 px-2">
-          <Link
-            href={ROUTER.Provider(String(gameDetail.provider))}
-            className="dark:text-white text-black text-m_default sm:text-default xl:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
-          >
-            {gameDetail.providerName.toLowerCase()}
+        <div
+          className={classNames(
+            'bg-[#31373D77] sm:block rounded-large overflow-hidden p-2 mt-2 w-full',
+            'transition-all translate-y-0 hover:-translate-y-2 ease-in-out',
+            {
+              flex: listView,
+              block: !listView,
+            })}
+        >
+          <Link href={ROUTER.GameDetail(convertGameIdentifierToUrl(gameDetail.identifier || ''))} className="rounded-default">
+            <Image
+              height={160}
+              width={160}
+              src={`${API_GAME_IMAGE}/icon/${(gameDetail.identifier || '').replace(':', '_')}.png`}
+              alt="game logo"
+              onError={(err) => {
+                err.currentTarget.src = '/img/recommended-game-3.png';
+              }}
+              className="max-w-[150px] sm:max-w-game-card w-full object-cover rounded-default"
+              placeholder="blur"
+              blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
+            />
           </Link>
-          <InfoCircle
-            data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
-            size={20}
-            className="text-[#8E8E90] !min-w-[20px] !min-h-[20px] !max-w-[20px] !max-h-[20px] focus:!outline-none"
-            role="button"
-          />
+          <div className="flex justify-center items-center gap-1 py-2 px-2">
+            <Link
+              href={ROUTER.Provider(String(gameDetail.provider))}
+              className="dark:text-white text-black text-m_default sm:text-default xl:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
+            >
+              {gameDetail.providerName.toLowerCase()}
+            </Link>
+            <InfoCircle
+              data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
+              size={20}
+              className="text-[#8E8E90] !min-w-[20px] !min-h-[20px] !max-w-[20px] !max-h-[20px] focus:!outline-none"
+              role="button"
+            />
+          </div>
         </div>
+
       </div>
       <Tooltip
-        className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-[#161D3D]"
+        className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-[#161D3D] mt-3"
         opacity={100}
         id={`${gameDetail?.identifier} ${uuid}`}
         place="bottom"
@@ -104,12 +107,13 @@ function GameCard(props: GameCardProps) {
           </span>
         </div>
         <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
-          <span className="font-bold dark:text-gray-300 text-gray-700">Recent biggest win:</span>
+          <span className="font-bold dark:text-gray-300 text-gray-700">{t('homePage:recentBigWins')}:</span>
           <span className="font-bold dark:text-gray-300 text-gray-700">{`${gameDetail?.multiplier.toFixed(2) || '0'
             } x`}</span>
         </div>
       </Tooltip>
-    </div>
+    </>
+
   );
 }
 
