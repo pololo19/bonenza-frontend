@@ -5,38 +5,42 @@ import {
   Cup,
   Diamonds,
   Gift,
+  Global,
   HambergerMenu,
-  Headphone,
   Notepad2,
-  Profile2User,
-  SecurityCard,
+  Profile2User
 } from 'iconsax-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
+import ReactLoading from 'react-loading';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 
 import { api_getSpinAvailableCount } from '@/api/spin';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
+import { LANGUAGE_DATA, ROUTER } from '@/base/constants/common';
 import { casinoCategories, casinoGames } from '@/base/constants/config-menus';
+import { handleLocaleSymbol } from '@/base/libs/utils';
 import {
   changeAuthenticationType,
   changeIsShowAuthenticationModal,
   changeIsShowCasinoSearch,
+  changeIsShowMultiLanguageModal,
   changeIsShowQuest,
   changeIsShowReferAndEarn,
   changeIsShowSpin,
   changeIsShowVipClubModal,
+  changeMultiLanguageTab,
   changeToggleSidebar,
 } from '@/base/redux/reducers/modal.reducer';
 import { AppState } from '@/base/redux/store';
 import { AuthenticationModeEnum } from '@/base/types/common';
 
-import IconOption from '../common/iconOption/iconOption';
+import IconOption, { IconOptionProps } from '../common/iconOption/iconOption';
 import CsrWrapper from '../CsrWrapper';
+import { MultiLanguageTabEnum } from '../modal/multiLanguage/MultiLanguage';
 
 export default function SidebarToggle() {
   const { t, i18n } = useTranslation('');
@@ -45,13 +49,17 @@ export default function SidebarToggle() {
   const [showDropDownCasino, setShowDropDownCasino] = useState(false);
   const [spinCount, setSpinCount] = useState<number>(0);
 
-  const { isToggleSidebar, isShowVipClubModal, isLogin, user, isShowSpin } = useSelector(
+  const { isToggleSidebar, isShowVipClubModal, isLogin, user, isShowSpin, isLoading, settings, localFiat, viewInFiat } = useSelector(
     (state: AppState) => ({
       isToggleSidebar: state.modal.isToggleSidebar,
       isShowVipClubModal: state.modal.isShowVipClubModal,
       isLogin: state.auth.isLogin,
       isShowSpin: state.modal.isShowSpin,
       user: state.auth.user,
+      isLoading: state.auth.isLoading,
+      settings: state.auth.user.generalSetting,
+      localFiat: state.wallet.localFiat,
+      viewInFiat: state.auth.user.generalSetting.settingViewInFiat,
     }),
     shallowEqual,
   );
@@ -69,7 +77,46 @@ export default function SidebarToggle() {
     }
   }, [isLogin, isShowSpin]);
 
-  const panel_1_datas = useMemo(
+  const smallSidebarDatas = [
+    {
+      key: 'bonus',
+      title: t('sidebar:bonus'),
+      icon: <Gift size={22} />,
+      href: ROUTER.Bonus
+    },
+    {
+      key: 'quest',
+      title: t('sidebar:quest'),
+      icon: <Image className="m-auto" height={30} width={30} src={'img/sidebar/quest.png'} alt="" />,
+      onClick: () => dispatch(changeIsShowQuest(true))
+    },
+    {
+      key: 'spin',
+      title: t('sidebar:spin'),
+      icon: <Image className="m-auto" height={30} width={30} src={'img/sidebar/spin.png'} alt="" />,
+      onClick: () => dispatch(changeIsShowSpin(true))
+    },
+    {
+      key: 'master',
+      title: t('sidebar:master'),
+      icon: <Cup
+        size={22}
+        variant="Bulk"
+      />,
+      href: ROUTER.Master
+    },
+    {
+      key: 'refer',
+      title: t('layout:referAndEarn'),
+      icon: <Profile2User
+        size={22}
+        variant="Bulk"
+      />,
+      onClick: () => dispatch(changeIsShowReferAndEarn(true))
+    }
+  ]
+
+  const panel_1_datas: IconOptionProps[] = useMemo(
     () => [
       {
         title: String(t('sidebar:casino')),
@@ -79,9 +126,6 @@ export default function SidebarToggle() {
         smallIcon: (
           <Notepad2
             size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Casino),
-            })}
           />
         ),
         onClick: () => {
@@ -97,9 +141,8 @@ export default function SidebarToggle() {
     [i18n.language, router.route, showDropDownCasino],
   );
 
-  const panel_2_datas = useMemo(
+  const panel_2_datas: IconOptionProps[] = useMemo(
     () => [
-
       {
         title: "UP & DOWN",
         href: 'https://bitup.game/trade',
@@ -107,14 +150,17 @@ export default function SidebarToggle() {
         smallIcon: (
           <ArrowSwapVertical
             size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Tagname('racing')),
-            })}
           />
         ),
         isShowDropDown: false,
         isDropDown: false,
-      },
+      }
+    ],
+    [isShowVipClubModal, i18n.language, router.route, isLogin],
+  );
+
+  const panel_3_datas: IconOptionProps[] = useMemo(
+    () => [
       {
         title: String(t('sidebar:vipClub')),
         href: '',
@@ -123,9 +169,6 @@ export default function SidebarToggle() {
         smallIcon: (
           <Diamonds
             size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': isShowVipClubModal,
-            })}
           />
         ),
         onClick: () => {
@@ -146,15 +189,13 @@ export default function SidebarToggle() {
         smallIcon: (
           <Command
             size={22}
-            className={cn('m-auto', {
-              'dark:text-white text-black': router.route.includes(ROUTER.Affiliate),
-            })}
           />
         ),
       },
     ],
     [isShowVipClubModal, i18n.language, router.route, isLogin],
   );
+
 
   return (
     <>
@@ -188,7 +229,7 @@ export default function SidebarToggle() {
           </Link>
         </div>
         <div className=" flex-1 md:w-full flex flex-col h-full pt-[20px] pb-[80px] px-[12px] overflow-auto">
-          <div className="flex-1 w-full gap-[5px] flex flex-col">
+          <div className="flex-1 w-full gap-[10px] flex flex-col">
             <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
               <CsrWrapper key={'bonus'}>
                 <IconOption
@@ -200,7 +241,6 @@ export default function SidebarToggle() {
                   icon={Gift}
                   isFontMedium
                   fontWeight={600}
-                  activeClassNames="!min-h-[50px] !py-[10px] bg-gradient-to-t from-[#00BAE6] hover:opacity-90 !rounded-[5px] px-[10px] shadow-[inset_0_1px_2px_0_#7CE6FF]"
                   classNames="!min-h-[50px] !py-[10px] bg-gradient-to-t from-[#00BAE6] hover:opacity-90 !rounded-[5px] px-[10px] shadow-[inset_0_1px_2px_0_#7CE6FF]"
                 />
               </CsrWrapper>
@@ -274,19 +314,19 @@ export default function SidebarToggle() {
                     href={item.href}
                     icon={item.icon}
                     classNames={
-                      'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary bg-color-light-bg-primary hover:text-[#000]'
+                      'dark:!bg-color-menu-primary/30'
                     }
                     onClick={item.onClick}
                     isShowDropDown={item.isShowDropDown}
                     isDropDown={item.isDropDown}
                     isFontMedium
-                    fontWeight={400}
+                    fontWeight={700}
                     data={item.data}
                   />
                 </CsrWrapper>
               ))}
             </ul>
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px]">
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px] dark:bg-color-menu-primary/30 rounded-large">
               {panel_2_datas.map((item, index) => (
                 <CsrWrapper key={index}>
                   <IconOption
@@ -294,16 +334,76 @@ export default function SidebarToggle() {
                     title={item.title}
                     href={item.href}
                     icon={item.icon}
-                    classNames={
-                      'dark:hover:text-white dark:text-color-text-primary text-color-light-text-primary hover:text-[#000]'
-                    }
                     isFontMedium
-                    fontWeight={400}
+                    fontWeight={700}
+                  />
+                </CsrWrapper>
+              ))}
+            </ul>
+
+            <ul className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px] dark:bg-color-menu-primary/30 rounded-large">
+              {panel_3_datas.map((item, index) => (
+                <CsrWrapper key={index}>
+                  <IconOption
+                    key={index}
+                    title={item.title}
+                    href={item.href}
+                    icon={item.icon}
+                    isFontMedium
+                    fontWeight={700}
                     onClick={item.onClick}
                   />
                 </CsrWrapper>
               ))}
             </ul>
+
+            <div className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px] dark:bg-color-menu-primary/30 rounded-large">
+              <IconOption
+                title={LANGUAGE_DATA.find(item => item.key === settings.settingLanguage)?.language || 'English'}
+                href={''}
+                icon={Global}
+                fontWeight={700}
+                onClick={() => {
+                  dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
+                  dispatch(changeIsShowMultiLanguageModal(true));
+                }}
+              />
+            </div>
+            {
+              viewInFiat && localFiat && <div className="md:flex-col md:min-w-full flex flex-col list-none content-center gap-[10px] dark:bg-color-menu-primary/30 rounded-large">
+                <button
+                  type="button"
+                  className={cn("flex items-center flex-1 pl-[24px] p-[10px] rounded-large gap-[16px]",
+                    "hover:bg-color-menu-hover",
+                    "dark:text-color-text-primary text-default dark:hover:text-white font-bold",
+                  )}
+                  onClick={() => {
+                    dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
+                    dispatch(changeIsShowMultiLanguageModal(true));
+                  }}
+                >
+                  <Image
+                    height={20}
+                    width={20}
+                    src={`/img/fiats/${localFiat.name}.png`}
+                    alt="currency"
+                    onError={(e) => {
+                      e.currentTarget.src = '/img/fiats/USD.png';
+                    }}
+                  />
+                  <div className="p-1 text-sm w-max font-bold">
+                    {isLoading.isCurrency ? (
+                      <ReactLoading width={20} height={20} type="spin" color="#00AAE6" />
+                    ) : (
+                      <>
+                        {`${handleLocaleSymbol(String(localFiat.name))} ${localFiat.name}`}
+                      </>
+                    )}
+                  </div>
+                </button>
+              </div>
+            }
+
 
           </div>
         </div>
@@ -320,7 +420,10 @@ export default function SidebarToggle() {
         <div className="flex justify-center items-center min-h-[67px] px-[8px] py-[10px]">
           <button
             className={cn(
-              'sm:block hidden rounded-md  dark:bg-color-hover-primary dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[10px]',
+              'sm:block flex items-center justify-center',
+              'dark:bg-color-menu-primary dark:hover:bg-gray-800',
+              'dark:text-gray-400 dark:hover:text-white text-color-text-primary bg-color-light-bg-primary',
+              'rounded-md hover:bg-color-menu-hover gap-[7px] px-[10px] py-[10px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
@@ -329,111 +432,66 @@ export default function SidebarToggle() {
             <HambergerMenu size={18} className={cn('m-auto')} />
           </button>
         </div>
-        <div className="flex-1 flex flex-col h-full pt-2 gap-[5px] overflow-y-auto">
-          <Link
-            key={`bonus-small`}
-            href={ROUTER.Bonus}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-            data-tooltip-id={'bonus-tooltip'}
-          >
-            <Gift
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Bonus),
-              })}
-            />
-          </Link>
-          <Tooltip id={'bonus-tooltip'} place="right" positionStrategy="fixed" key={`bonus_tooltip-small`}>
-            <div>
-              <p className="text-white">Bonus</p>
-            </div>
-          </Tooltip>
+        <div className="flex-1 flex flex-col h-full overflow-y-auto">
+          {
+            smallSidebarDatas.map(item => <>
+              {
+                item.href && <>
+                  <Link
+                    key={`${item.key}-small`}
+                    href={item.href}
+                    type="button"
+                    className={cn(
+                      'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                      'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                      'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                    )}
+                    data-tooltip-id={`${item.key}-tooltip`}
+                  >
+                    {item.icon}
+                  </Link>
+                  <Tooltip id={`${item.key}-tooltip`} place="right" positionStrategy="fixed" key={`bonus_tooltip-small`}>
+                    <div>
+                      <p className="text-white">{item.title}</p>
+                    </div>
+                  </Tooltip>
+                </>
+              }
+              {
+                !item.href && <>
+                  <div className="w-full" key={`${item.key}-small`}>
+                    <div
+                      role="button"
+                      className={cn(
+                        'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                        'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                        'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                      )}
+                      data-tooltip-id={`${item.key}-tooltip`}
+                      onClick={item.onClick}
+                    >
+                      {item.icon}
+                    </div>
+                    <Tooltip id={`${item.key}-tooltip`} place="right" positionStrategy="absolute">
+                      <div>
+                        <p className="text-white">{item.title}</p>
+                      </div>
+                    </Tooltip>
+                  </div>
+                </>
+              }
+            </>)
+          }
 
-          <div className="w-full" key="quest-small">
-            <div
-              role="button"
-              key={'quest-small'}
-              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
-              data-tooltip-id={'quest-tooltip'}
-              onClick={() => dispatch(changeIsShowQuest(true))}
-            >
-              <Image className="m-auto" height={30} width={30} src={'img/sidebar/quest.png'} alt=""></Image>
-            </div>
-            <Tooltip id={'quest-tooltip'} place="right" positionStrategy="absolute">
-              <div>
-                <p className="text-white">Quest</p>
-              </div>
-            </Tooltip>
-          </div>
-          <div className="w-full" key="spin-small">
-            <div
-              role="button"
-              id="spin-small"
-              className="sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]"
-              data-tooltip-id={'spin-tooltip'}
-              onClick={() => dispatch(changeIsShowSpin(true))}
-            >
-              <Image className="m-auto" height={30} width={30} src={'img/sidebar/spin.png'} alt=""></Image>
-            </div>
-            <Tooltip id={'spin-tooltip'} place="right" positionStrategy="absolute">
-              <div>
-                <p className="text-white">Spin</p>
-              </div>
-            </Tooltip>
-          </div>
-          <Link
-            key={`masters-small`}
-            href={ROUTER.Master}
-            type="button"
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-            data-tooltip-id={'masters-tooltip'}
-          >
-            <Cup
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Master),
-              })}
-              variant="Bulk"
-            />
-          </Link>
-          <Tooltip id={'masters-tooltip'} place="right" positionStrategy="fixed" key={`masters-tooltip-small`}>
-            <div>
-              <p className="text-white">{t('sidebar:master')}</p>
-            </div>
-          </Tooltip>
-          <div
-            key={`refer-small`}
-            className={cn(
-              'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
-            )}
-            data-tooltip-id={'refer-tooltip'}
-            onClick={() => dispatch(changeIsShowReferAndEarn(true))}
-          >
-            <Profile2User
-              size={22}
-              className={cn('m-auto', {
-                'dark:text-white text-black': router.route.includes(ROUTER.Master),
-              })}
-              variant="Bulk"
-            />
-          </div>
-          <Tooltip id={'refer-tooltip'} place="right" positionStrategy="fixed" key={`refer-tooltip-small`}>
-            <div>
-              <p className="text-white">{t('layout:referAndEarn')}</p>
-            </div>
-          </Tooltip>
           {panel_1_datas.map((item, index) => (
             <div className="w-full" key={`${index}-${item.title}`}>
               <Link
                 href={item.href}
                 type="button"
                 className={cn(
-                  'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                  'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                  'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                  'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                 )}
                 onClick={item?.onClick && item?.onClick}
                 data-tooltip-id={`${item.title}-tooltip`}
@@ -455,7 +513,9 @@ export default function SidebarToggle() {
                   href={item.href}
                   type="button"
                   className={cn(
-                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                    'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                    'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                    'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                   )}
                   data-tooltip-id={`${item.title}-tooltip`}
                 >
@@ -474,13 +534,15 @@ export default function SidebarToggle() {
               </div>
             );
           })}
-          {panel_2_datas.map((item, index) => (
+          {[...panel_2_datas, ...panel_3_datas].map((item, index) => (
             <div className="w-full" key={`${index}-${item.title}`}>
               {item.href === '' && (
                 <div
                   role="button"
                   className={cn(
-                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                    'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                    'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                    'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                   )}
                   onClick={item?.onClick && item?.onClick}
                   data-tooltip-id={`${item.title}-tooltip`}
@@ -493,7 +555,9 @@ export default function SidebarToggle() {
                   href={item.href}
                   type="button"
                   className={cn(
-                    'sm:block hidden rounded dark:hover:bg-gray-800 dark:text-gray-400 dark:hover:text-white dark:bg-color-hover-primary text-color-text-primary bg-color-light-bg-primary hover:bg-[#eaecf3] hover:text-[#000] flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                    'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                    'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                    'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
                   )}
                   onClick={item?.onClick && item?.onClick}
                   data-tooltip-id={`${item.title}-tooltip`}
@@ -508,6 +572,64 @@ export default function SidebarToggle() {
               </Tooltip>
             </div>
           ))}
+
+          <div className="w-full" key={`lang-small`}>
+            <div
+              role="button"
+              className={cn(
+                'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+              )}
+              data-tooltip-id={`lang-tooltip`}
+              onClick={() => {
+                dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
+                dispatch(changeIsShowMultiLanguageModal(true));
+              }}
+            >
+              <Global size={22} />
+            </div>
+            <Tooltip id={`lang-tooltip`} place="right" positionStrategy="absolute">
+              <div>
+                <p className="text-white">{LANGUAGE_DATA.find(item => item.key === settings.settingLanguage)?.language || 'English'}</p>
+              </div>
+            </Tooltip>
+          </div>
+
+          {
+            viewInFiat && localFiat && <div className="w-full" key={`currency-small`}>
+              <div
+                role="button"
+                className={cn(
+                  'dark:hover:bg-color-menu-primary dark:bg-color-menu-primary/50 bg-color-light-bg-primary hover:bg-[#eaecf3]',
+                  'dark:text-gray-400 dark:hover:text-white text-color-text-primary hover:text-[#000]',
+                  'rounded flex items-center justify-center gap-[7px] px-[10px] py-[15px]',
+                )}
+                data-tooltip-id={`currency-tooltip`}
+                onClick={() => {
+                  dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
+                  dispatch(changeIsShowMultiLanguageModal(true));
+                }}
+              >
+                <Image
+                  height={20}
+                  width={20}
+                  src={`/img/fiats/${localFiat.name}.png`}
+                  alt="currency"
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/fiats/USD.png';
+                  }}
+                />
+              </div>
+              <Tooltip id={`currency-tooltip`} place="right" positionStrategy="absolute">
+                <div>
+                  {`${handleLocaleSymbol(String(localFiat.name))} ${localFiat.name}`}
+                </div>
+              </Tooltip>
+            </div>
+          }
+
+
         </div>
       </div>
     </>

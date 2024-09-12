@@ -113,7 +113,7 @@ export default function Navbar() {
                     className={cn(
                       'rounded-default px-[8px] py-[8px] group flex items-center gap-2 dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
                       `${router.route.includes(menu.href)
-                        ? 'dark:text-white dark:bg-color-input-hover-primary/60 bg-color-light-bg-primary font-semibold'
+                        ? 'dark:text-white dark:bg-color-menu-primary bg-color-light-bg-primary font-semibold'
                         : ''
                       }`,
                     )}
