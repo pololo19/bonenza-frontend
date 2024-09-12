@@ -133,8 +133,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                           icon={() => null}
                           key={index}
                           fontWeight={600}
-                          classNames="dark:hover:!text-white dark:hover:!bg-color-menu-hover hover:!bg-color-light-hover-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-menu-hover !bg-color-light-bg-primary dark:text-white text-black"
+                          activeClassNames="dark:!bg-color-menu-hover !bg-color-light-bg-primary"
                         />
                       ))}
                     </ul>

@@ -99,7 +99,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                             key={index}
                             fontWeight={600}
                             classNames="dark:hover:!text-white dark:hover:!bg-color-menu-hover text-color-light-text-primary rounded !bg-transparent pr-[15px]"
-                            activeClassNames="dark:!bg-color-menu-hover !bg-[#eaecf3] dark:!text-white !text-black"
+                            activeClassNames="dark:!bg-color-menu-primary !bg-[#eaecf3] dark:!text-white !text-black"
                           />
                         ))}
                         <IconOption
@@ -108,7 +108,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           icon={Repeat}
                           fontWeight={600}
                           classNames="dark:hover:text-white dark:hover:!bg-color-menu-hover text-color-light-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-menu-hover !bg-[#eaecf3] dark:!text-white !text-black"
+                          activeClassNames="dark:!bg-color-menu-primary !bg-[#eaecf3] dark:!text-white !text-black"
                         />
                         <IconOption
                           title={String(t('sidebar:rolloverOverview'))}
@@ -116,7 +116,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                           icon={Chart}
                           fontWeight={600}
                           classNames="dark:hover:text-white dark:hover:!bg-color-menu-hover text-color-light-text-primary rounded !bg-transparent pr-[15px]"
-                          activeClassNames="dark:!bg-color-menu-hover !bg-[#eaecf3] dark:!text-white !text-black"
+                          activeClassNames="dark:!bg-color-menu-primary !bg-[#eaecf3] dark:!text-white !text-black"
                         />
                       </ul>
                       <ul className="lg:hidden flex flex-col justify-center gap-3 rounded-xl">
