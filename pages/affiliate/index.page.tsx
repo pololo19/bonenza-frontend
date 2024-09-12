@@ -150,7 +150,7 @@ function AffiliatePage() {
               </h5>
               <div
                 role="button"
-                className="bg-btn-sign-in rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] max-w-[208px] px-[20px] py-[10px] font-bold text-white mb-[10px]"
+                className="bg-btn-sign-in rounded-large bg-gradient-btn-play shadow-bs-btn flex items-center justify-center gap-[7px] max-w-[208px] px-[20px] py-[10px] font-bold text-white mb-[10px]"
                 onClick={() => {
                   dispatch(changeIsShowAuthenticationModal(true));
                   dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
@@ -208,7 +208,7 @@ function AffiliatePage() {
                 </div>
                 <div
                   role="button"
-                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play shadow-bs-btn py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowReferralRewardRules(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}
@@ -239,7 +239,7 @@ function AffiliatePage() {
                 </div>
                 <div
                   role="button"
-                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
+                  className="sm:w-full md:max-w-[240px] text-[16px] hover:opacity-[0.9] text-white font-bold rounded-large bg-gradient-btn-play shadow-bs-btn py-[16px] px-[20px]  mt-4 md:mt-[40px] text-center"
                   onClick={() => setShowDetailCommissionsRewards(true)}
                 >
                   {t('affiliate:pleaseSeeTheDetails')}

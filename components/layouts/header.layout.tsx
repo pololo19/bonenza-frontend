@@ -124,7 +124,7 @@ export default function Navbar() {
                       src={`/img/header/${menu?.image || ''}`}
                       className="object-contain w-[28px]"
                     />
-                    <p className='text-default font-semibold text-[#00BAE6]'>{t(menu.title)}</p>
+                    <p className='text-[15px] font-semibold text-[#00BAE6]'>{t(menu.title)}</p>
                   </Link>
                 );
               })}
@@ -164,7 +164,7 @@ export default function Navbar() {
                 {/* Button */}
                 <button
                   type="button"
-                  className="truncate text-white rounded-large py-[9px] bg-graident-btn-sign sm:bg-gradient-btn-play px-5 text-default font-medium"
+                  className="truncate text-white rounded-large py-[9px] bg-graident-btn-sign sm:bg-gradient-btn-play shadow-bs-btn px-5 text-default font-medium"
                   onClick={() => {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                     dispatch(changeIsShowAuthenticationModal(true));
@@ -178,7 +178,7 @@ export default function Navbar() {
             {isLogin && (
               <button
                 type="button"
-                className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold hover:opacity-90"
+                className="truncate text-white rounded-md bg-gradient-btn-play shadow-bs-btn flex items-center justify-center gap-[7px] sm:p-[10px] p-[3px] text-default font-semibold hover:opacity-90"
                 onClick={() => dispatch(changeIsShowDepositModal(true))}
               >
                 <div className="hidden sm:block">

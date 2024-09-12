@@ -30,7 +30,7 @@ export default function ModalAccountRestriction({ show, onClose }: AccountRestri
           <div className="grid grid-cols-2 gap-[20px] w-full mt-[20px]">
             <div
               role="button"
-              className="w-full py-[10px] text-center bg-gradient-btn-play  rounded-default"
+              className="w-full py-[10px] text-center bg-gradient-btn-play shadow-bs-btn  rounded-default"
               onClick={() => onClose()}
             >
               {t('button:cancel')}

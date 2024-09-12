@@ -187,7 +187,7 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
                     'w-[35px] h-[35px] md:w-[50px] md:h-[50px]':
                       item.name.includes('Platinum') && item.name !== 'Diamond III',
                     'w-[42px] h-[42px] md:w-[60px] md:h-[60px]':
-                    item.name.includes('Platinum') || item.name === 'Diamond III',
+                      item.name.includes('Platinum') || item.name === 'Diamond III',
                     'opacity-100': levelCurrent.startLevel === item.startLevel,
                     // 'opacity-100': selectedRank.startLevel !== item.startLevel,
                   })}
@@ -219,7 +219,7 @@ export default function ModalVipLevel({ show, onClose, onBack }: ModalVipLevelPr
           />
           <div
             onClick={onBack}
-            className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play p-[10px] mt-auto"
+            className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play shadow-bs-btn p-[10px] mt-auto"
           >
             {t('exclusion:exclusionGoBack')}
           </div>

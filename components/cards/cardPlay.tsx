@@ -37,21 +37,23 @@ export default function CardPlay({
       }}
       className={cn(styles.cardBox, 'relative overflow-hidden rounded-large cursor-pointer')}
     >
-      <Image
-        height={25}
-        width={25}
-        className={cn(styles.cardImage, 'w-full h-full object-cover')}
-        src={imgBackGround}
-        alt="card-play"
-      />
+      <div className={cn(styles.cardImage, 'shadow-bs-div p-4')}>
+        <Image
+          height={25}
+          width={25}
+          src={imgBackGround}
+          className='w-full object-contain'
+          alt="card-play"
+        />
+      </div>
       <div
         className={cn(
           styles.cardContent,
           'flex flex-col gap-[20px] pt-4 px-4 pb-4 items-center',
-          'dark:!backdrop-blur-[15px] dark:bg-black/[30%]',
+          'dark:!backdrop-blur-[8px] dark:bg-[#17255433]',
         )}
       >
-        <div className="dark:text-white text-color-text-secondary text-[12px] min-[1300px]:text-[14px] font-light text-left h-[60px]">
+        <div className="flex justify-center items-center dark:text-white text-color-text-secondary text-[12px] min-[1300px]:text-[15px] font-medium text-center h-[60px]">
           {description}
         </div>
         {!isClick && (
@@ -60,7 +62,7 @@ export default function CardPlay({
             type="button"
             className={cn(
               styles[action],
-              'w-[100%] rounded-large font-medium text-[16px] text-white py-[8px] text-center',
+              'w-[100%] rounded-[5px] font-medium text-[14px] text-white py-[8px] text-center',
             )}
           >
             {textButton}
@@ -71,7 +73,7 @@ export default function CardPlay({
             role="button"
             className={cn(
               styles[action],
-              'w-[100%] rounded-large font-medium text-[16px] text-white py-[8px] text-center',
+              'w-[100%] rounded-[5px] font-medium text-[14px] text-white py-[8px] text-center',
             )}
             onClick={() => window.open(href)}
           >

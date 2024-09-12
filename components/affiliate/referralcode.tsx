@@ -297,7 +297,7 @@ function ReferralCodeFriendComponent() {
               </div> */}
               <div className="flex flex-col items-start gap-1">
                 <label className="opacity-0">1</label>
-                <button className="px-6 py-2 text-white bg-gradient-btn-play rounded-default" type="submit">
+                <button className="px-6 py-2 text-white bg-gradient-btn-play shadow-bs-btn rounded-default" type="submit">
                   {t('mycasino:search')}
                 </button>
               </div>

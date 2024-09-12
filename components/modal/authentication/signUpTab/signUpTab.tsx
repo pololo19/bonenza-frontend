@@ -194,7 +194,7 @@ export default function SignUpTab({ onClose }: SignUpTabProps) {
         <button
           type="submit"
           onClick={onSignUp}
-          className="bg-gradient-btn-play  w-full rounded-large flex justify-between items-center py-[5px] pl-[40px] pr-[17px] mt-1"
+          className="bg-gradient-btn-play shadow-bs-btn  w-full rounded-large flex justify-between items-center py-[5px] pl-[40px] pr-[17px] mt-1"
         >
           <div />
           <div className="text-[14px] text-white">{t('authentication:continue')}</div>

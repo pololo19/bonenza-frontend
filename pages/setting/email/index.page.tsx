@@ -164,7 +164,7 @@ const SettingEmail = () => {
               <div
                 onClick={() => sendVerifyCode(VerifyModeEnum.MAIL)}
                 role="button"
-                className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+                className="bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
               >
                 {t('setting:verify')}
               </div>
@@ -212,7 +212,7 @@ const SettingEmail = () => {
                       <div
                         onClick={() => sendVerifyCode(VerifyModeEnum.MAIL)}
                         role="button"
-                        className="w-fit bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+                        className="w-fit bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:verify')}
                       </div>
@@ -272,7 +272,7 @@ const SettingEmail = () => {
               <div
                 onClick={() => sendVerifyCode(VerifyModeEnum.PHONE)}
                 role="button"
-                className="w-fit bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+                className="w-fit bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
               >
                 {t('setting:confirm')}
               </div>
@@ -333,7 +333,7 @@ const SettingEmail = () => {
                       <div
                         onClick={() => sendVerifyCode(VerifyModeEnum.PHONE)}
                         role="button"
-                        className="w-fit bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+                        className="w-fit bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:confirm')}
                       </div>

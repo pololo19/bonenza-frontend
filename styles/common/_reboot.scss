@@ -79,10 +79,10 @@ video {
   border: 0;
   outline: none !important;
   @media screen and (min-width: 600px){
-    font-family: 'Inter';
+    font-family: 'Inter var', ui-sans-serif, system-ui, sans-serif;
   }
   @media screen and (max-width: 599px){
-    font-family:  'Outfit';
+    font-family:  'BeVietnamPro', ui-sans-serif, system-ui, sans-serif;
   }
   font-weight: 400;
 }

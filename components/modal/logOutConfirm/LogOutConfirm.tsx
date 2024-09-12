@@ -57,9 +57,8 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
           <div className="text-default">{t('layout:logOutQuestion')}</div>
           <div className="flex justify-between gap-5">
             <button
-              className={`${
-                isLoggingOut ? 'py-0' : 'py-3'
-              } bg-gradient-btn-play w-[50%] rounded-large text-default flex justify-center`}
+              className={`${isLoggingOut ? 'py-0' : 'py-3'
+                } bg-gradient-btn-play shadow-bs-btn w-[50%] rounded-large text-default flex justify-center`}
               onClick={onClikLogOut}
             >
               {isLoggingOut ? (
@@ -69,7 +68,7 @@ export default function ModalLogOutConfirm({ show, onClose }: ModalFiatProps) {
               )}
             </button>
             <button
-              className="py-3 bg-gradient-btn-play w-[50%] rounded-large text-default"
+              className="py-3 bg-gradient-btn-play shadow-bs-btn w-[50%] rounded-large text-default"
               onClick={() => dispatch(changeIsShowLogOutConfirm(false))}
             >
               {t('layout:cancel')}

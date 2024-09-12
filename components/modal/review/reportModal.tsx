@@ -78,7 +78,7 @@ export default function ModalReport({ show, onClose, onReport }: ModalReportProp
 
             <button
               type="button"
-              className="truncate text-white rounded-large py-[9px] bg-gradient-btn-play px-5 text-default font-bold"
+              className="truncate text-white rounded-large py-[9px] bg-gradient-btn-play shadow-bs-btn px-5 text-default font-bold"
               onClick={() => handleReportComment()}
             >
               {t('gameReview:confirm')}

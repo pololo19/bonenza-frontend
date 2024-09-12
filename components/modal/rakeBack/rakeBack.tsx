@@ -167,7 +167,7 @@ export default function ModalRakeBack({
                       {
                         'pointer-events-none opacity-60':
                           unlockedData.amount < unlockedData.minimumUnlockAmount && lockedAmount.balance > 0,
-                        'bg-gradient-btn-play ': lockedAmount.balance > 0,
+                        'bg-gradient-btn-play shadow-bs-btn ': lockedAmount.balance > 0,
                         'bg-[#f36d36]': lockedAmount.balance === 0,
                       },
                     )}
@@ -233,7 +233,7 @@ export default function ModalRakeBack({
                     onClose();
                     router.push('/casino');
                   }}
-                  className="h-[38px] rounded-[8px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-play px-[16px] justify-center text-white font-bold text-[14px]"
+                  className="h-[38px] rounded-[8px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-play shadow-bs-btn px-[16px] justify-center text-white font-bold text-[14px]"
                 >
                   {t('deposit:goToCasino')}
                 </div>
@@ -243,7 +243,7 @@ export default function ModalRakeBack({
                     onClose();
                     router.push('/sports');
                   }}
-                  className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-play px-[16px] justify-center text-white font-bold text-[14px]"
+                  className="h-[38px] cursor-pointer flex items-center flex-1 w-full min-w[192px] bg-gradient-btn-play shadow-bs-btn px-[16px] justify-center text-white font-bold text-[14px]"
                 >
                   {t('deposit:goToSports')}
                 </div> */}

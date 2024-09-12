@@ -81,7 +81,7 @@ const SwapPage = () => {
               <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="flex justify-center items-center bg-gradient-btn-play rounded-large h-[45px] min-w-[150px] hover:opacity-[0.9] disabled:opacity-60 disabled:text-gray-300"
+                  className="flex justify-center items-center bg-gradient-btn-play shadow-bs-btn rounded-large h-[45px] min-w-[150px] hover:opacity-[0.9] disabled:opacity-60 disabled:text-gray-300"
                   onClick={emitData}
                   disabled={!isSwapAvailable}
                 >

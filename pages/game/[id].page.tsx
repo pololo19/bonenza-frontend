@@ -660,7 +660,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
             <button
               type="button"
               disabled={!gameDetail.allowedLocation || loadings.gameLoad}
-              className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px] font-bold"
+              className="truncate hover:bg-color-red justify-center text-white rounded-default bg-gradient-btn-play shadow-bs-btn py-[15px] text-default flex items-center gap-[10px] font-bold"
               onClick={() => handleRealPlay()}
             >
               {loadings.gameLoad && playStatusRef.current === 'Real' ? (
@@ -675,7 +675,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
             <button
               type="button"
               disabled={!gameDetail.allowedLocation || loadings.gameLoad}
-              className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-play py-[15px] text-default flex items-center gap-[10px]"
+              className="truncate hover:bg-color-red justify-center text-white rounded-default font-semibold bg-gradient-btn-play shadow-bs-btn py-[15px] text-default flex items-center gap-[10px]"
               onClick={() => handleSignUp()}
             >
               {loadings.gameLoad && playStatusRef.current === 'Real' ? (

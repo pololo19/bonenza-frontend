@@ -152,7 +152,7 @@ const SelfExclusion = () => {
           </div>
           <div className="flex justify-start mt-4">
             <button
-              className="flex justify-center bg-gradient-btn-play p-[10px] rounded-large min-w-[200px] disabled:opacity-40 hover:opacity-90"
+              className="flex justify-center bg-gradient-btn-play shadow-bs-btn p-[10px] rounded-large min-w-[200px] disabled:opacity-40 hover:opacity-90"
               disabled={!acknowledge}
               onClick={() => handleRequest()}
             >

@@ -50,7 +50,7 @@ function GameCard(props: GameCardProps) {
       >
         <div
           className={classNames(
-            'bg-[#31373D77] sm:block rounded-large overflow-hidden p-2 mt-2 w-full',
+            'bg-color-card-bg-primary border border-solid border-color-card-border-primary sm:block rounded-large overflow-hidden p-2 mt-2 w-full',
             'transition-all translate-y-0 hover:-translate-y-2 ease-in-out',
             {
               flex: listView,

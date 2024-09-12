@@ -83,7 +83,7 @@ export default function ModalSelfExclusion({ show, onClose }: ModalAuthenticatio
                 <span className="font-extralight text-color-light-notice-primary">help@bonenza.com</span>
               </div>
             </div>
-            <div className="text-center rounded-default py-3 bg-gradient-btn-play" role="button" onClick={onClose}>
+            <div className="text-center rounded-default py-3 bg-gradient-btn-play shadow-bs-btn" role="button" onClick={onClose}>
               {t('exclusion:exclusionGoBack')}
             </div>
           </div>

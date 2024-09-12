@@ -306,7 +306,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
               <div className="mt-6 w-full text-white text-start flex items-center justify-center gap-[10px]">
                 <button
                   type="submit"
-                  className="bg-gradient-btn-play hover:opacity-[0.9] rounded-large h-[41px] px-[20px] min-w-[140px] text-center text-default"
+                  className="bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-large h-[41px] px-[20px] min-w-[140px] text-center text-default"
                 >
                   {isSending ? (
                     <ReactLoading type="bubbles" color="#FFFFFF" className="!h-9 !w-9 m-auto" />

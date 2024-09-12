@@ -21,7 +21,7 @@ function DownloadComponents() {
             className="w-[150px]"
             target="_blank"
           >
-            <div className="text-m_default text-center bg-gradient-btn-play px-10 py-2 rounded-default w-full">
+            <div className="text-m_default text-center bg-gradient-btn-play shadow-bs-btn px-10 py-2 rounded-default w-full">
               {t('affiliate:download')}
             </div>
           </a>
@@ -44,7 +44,7 @@ function DownloadComponents() {
             target="_blank"
           >
             {/* <a href="https://drive.google.com/file/d/1eLMH--hN5c77H2DUozDc82KydOepTKg-/view?usp=sharing" download="banner2" className="w-[150px]"> */}
-            <div className="text-center text-m_default bg-gradient-btn-play px-10 py-2 rounded-default w-full">
+            <div className="text-center text-m_default bg-gradient-btn-play shadow-bs-btn px-10 py-2 rounded-default w-full">
               {t('affiliate:download')}
             </div>
           </a>

@@ -22,7 +22,7 @@ export default function ModalAddressConfirm({ show, onClose }: ChatRulesProps) {
           The address has been copied. Please make sure your address is correct when pasting it.
         </div>
         <div
-          className="text-default font-semibold bg-gradient-btn-play rounded text-center py-2 px-10 cursor-pointer"
+          className="text-default font-semibold bg-gradient-btn-play shadow-bs-btn rounded text-center py-2 px-10 cursor-pointer"
           onClick={onClose}
         >
           {t('withdraw:confirm')}

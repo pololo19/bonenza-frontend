@@ -551,7 +551,7 @@ const WithdrawCryptoPage = () => {
                 <button
                   type="submit"
                   disabled={restricted || isWithdrawing}
-                  className="flex justify-center bg-gradient-btn-play hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px] gap-[5px]"
+                  className="flex justify-center bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-large py-[10px] px-[20px] min-w-[140px] gap-[5px]"
                 >
                   {isWithdrawing && <ReactLoading type='bubbles' className='text-color-text-primary' width={20} height={20} />}
                   <span>{t('withdraw:confirm')}</span>
