@@ -75,7 +75,7 @@ const SettingVerify = () => {
                 </div>
                 <button
                   className={cn(
-                    'bg-gradient-btn-play w-full p-2 rounded-default dark:text-white text-black text-[14px] mt-2',
+                    'bg-gradient-btn-play shadow-bs-btn w-full p-2 rounded-default dark:text-white text-black text-[14px] mt-2',
                   )}
                   onClick={() => setShowVerificationModal(true)}
                 >

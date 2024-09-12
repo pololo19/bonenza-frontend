@@ -127,7 +127,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       className={cn(
                         'sm:py-[15px] py-[10px] rounded-default text-left ps-5 dark:hover:text-white text-default ',
                         {
-                          'bg-gradient-btn-play text-white': item.key === i18n.language,
+                          'bg-gradient-btn-play shadow-bs-btn text-white': item.key === i18n.language,
                           'hover:bg-gray-200 hover:text-black dark:hover:bg-gray-600 dark:text-white text-black':
                             item.key !== i18n.language,
                         },
@@ -154,7 +154,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       className={cn(
                         'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
                         {
-                          'bg-gradient-btn-play': !viewInFiat,
+                          'bg-gradient-btn-play shadow-bs-btn': !viewInFiat,
                           'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': viewInFiat,
                         },
                       )}
@@ -188,7 +188,7 @@ export default function ModalMultiLanguage({ show, onClose }: ModalFiatProps) {
                       className={cn(
                         'sm:py-[12px] py-[10px] rounded-default text-left px-5 flex items-center justify-between dark:hover:text-white w-full text-default',
                         {
-                          'bg-gradient-btn-play text-white': viewInFiat && item.id === localFiat?.id,
+                          'bg-gradient-btn-play shadow-bs-btn text-white': viewInFiat && item.id === localFiat?.id,
                           'hover:bg-gray-200 dark:hover:bg-gray-600 hover:text-black': item.id !== localFiat?.id,
                         },
                       )}

@@ -74,7 +74,7 @@ export default function ModalEnterCodeSecurity({ show, onClose, value, onChange,
               <div
                 onClick={sendQrCodeToEmail}
                 role="button"
-                className="bg-gradient-btn-play grow hover:opacity-[0.9] text-center rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
+                className="bg-gradient-btn-play shadow-bs-btn grow hover:opacity-[0.9] text-center rounded-[5px] text-white text-[14px] px-[30px] py-[10px] m-auto"
               >
                 {t('setting:confirm')}
               </div>

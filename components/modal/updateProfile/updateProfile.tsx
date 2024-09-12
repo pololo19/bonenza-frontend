@@ -162,7 +162,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
               </div>
               <button
                 type="submit"
-                className="bg-gradient-btn-play w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-play shadow-bs-btn w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-[14px] text-white">{t('profile:modify')}</div>

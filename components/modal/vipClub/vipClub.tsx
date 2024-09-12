@@ -472,7 +472,7 @@ export default function ModalVipClub({ show, onClose }: ModalVipClubProps) {
             </div>
             <div
               onClick={navigationVipPage}
-              className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play p-[10px]"
+              className="rounded-large flex justify-center w-full items-center cursor-pointer text-[14px] text-white font-semibold bg-gradient-btn-play shadow-bs-btn p-[10px]"
             >
               {t('vipClub:learnMore')}
             </div>

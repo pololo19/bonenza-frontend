@@ -415,7 +415,7 @@ const ChattingComponent = () => {
             </div>
             <div
               className={cn(
-                'flex flex-col h-11 justify-center items-center flex-1 rounded-default bg-gradient-btn-play cursor-pointer',
+                'flex flex-col h-11 justify-center items-center flex-1 rounded-default bg-gradient-btn-play shadow-bs-btn cursor-pointer',
                 styles['messageBtn'],
               )}
               onClick={sendMessage}

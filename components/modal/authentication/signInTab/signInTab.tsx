@@ -252,7 +252,7 @@ export default function SignInTab({
             <div
               onClick={sendQrCodeToEmail}
               role="button"
-              className="bg-gradient-btn-play grow hover:opacity-[0.9] text-center rounded-large text-white text-default px-[30px] py-[10px] m-auto"
+              className="bg-gradient-btn-play shadow-bs-btn grow hover:opacity-[0.9] text-center rounded-large text-white text-default px-[30px] py-[10px] m-auto"
             >
               {t('setting:confirm')}
             </div>
@@ -291,7 +291,7 @@ export default function SignInTab({
               <button
                 type="submit"
                 className={`${codeOtp.length < 6 && 'opacity-70 pointer-events-none'
-                  } bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
+                  } bg-gradient-btn-play shadow-bs-btn w-full rounded-large flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-5 mt-3`}
               >
                 <div />
                 <div className="text-white text-default">{t('authentication:submit')}</div>
@@ -330,7 +330,7 @@ export default function SignInTab({
               </div>
               <button
                 type="submit"
-                className="bg-gradient-btn-play w-full rounded-large flex justify-between items-center py-[5px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-play shadow-bs-btn w-full rounded-large flex justify-between items-center py-[5px] pl-[40px] pr-[17px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-white text-default">{t('authentication:continue')}</div>

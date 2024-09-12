@@ -162,7 +162,7 @@ function TournamentPage() {
                         'px-16 lg:px-3 2xl:px-10 py-3 rounded-default cursor-pointer uppercase font-semibold text-default sm:text-[16px]',
                         {
                           'bg-gradient-btn-secondary': isRegistered,
-                          'bg-gradient-btn-play': !isRegistered,
+                          'bg-gradient-btn-play shadow-bs-btn': !isRegistered,
                         },
                       )}
                       onClick={() => {

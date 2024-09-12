@@ -434,7 +434,7 @@ function RewardsComponent() {
           </div>
           <div className="flex items-center justify-center">
             <div
-              className="bg-gradient-btn-play min-w-[170px] px-12 py-3 rounded-default cursor-pointer hover:opacity-80 hover:!text-white"
+              className="bg-gradient-btn-play shadow-bs-btn min-w-[170px] px-12 py-3 rounded-default cursor-pointer hover:opacity-80 hover:!text-white"
               onClick={handleWithdraw}
             >
               {isClaiming ? (
@@ -542,7 +542,7 @@ function RewardsComponent() {
               </div>
               <div className="flex flex-col items-start gap-1">
                 <label className="opacity-0">1</label>
-                <button className="px-6 py-2 text-white bg-gradient-btn-play rounded-default" type="submit">
+                <button className="px-6 py-2 text-white bg-gradient-btn-play shadow-bs-btn rounded-default" type="submit">
                   {t('mycasino:search')}
                 </button>
               </div>

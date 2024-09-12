@@ -208,7 +208,7 @@ export default function RewardDropdown() {
                               )}
                               {bonus.allow && (
                                 <button
-                                  className="bg-gradient-btn-play px-[10px] text-white rounded-[8px] min-h-[35px] min-w-[75px] flex justify-center items-center text-default"
+                                  className="bg-gradient-btn-play shadow-bs-btn px-[10px] text-white rounded-[8px] min-h-[35px] min-w-[75px] flex justify-center items-center text-default"
                                   onClick={() => handleClaim(bonus)}
                                 >
                                   {claimingBonus === bonus.id ? (
@@ -223,7 +223,7 @@ export default function RewardDropdown() {
                         ))}
                       </div>
                       <Link href={ROUTER.Bonus} onClick={close}>
-                        <div className="flex justify-center items-center text-white text-[14px] text-center bg-gradient-btn-play py-[10px] rounded-[10px]">
+                        <div className="flex justify-center items-center text-white text-[14px] text-center bg-gradient-btn-play shadow-bs-btn py-[10px] rounded-[10px]">
                           {t('bonus:bonusDashboard')}
                           <ArrowRight2 size={16} />
                         </div>

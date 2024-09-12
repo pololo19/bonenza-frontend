@@ -308,7 +308,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
           </div>
           <button
             type="submit"
-            className="bg-gradient-btn-play w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
+            className="bg-gradient-btn-play shadow-bs-btn w-full rounded-default flex justify-between items-center py-[10px] pl-[40px] pr-[17px] sm:mt-2 mt-1"
             onClick={() => handleUpdateProfile()}
           >
             <div />

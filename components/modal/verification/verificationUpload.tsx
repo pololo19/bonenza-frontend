@@ -201,7 +201,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
           <button
             role="button"
             type="submit"
-            className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-[12px] sm:text-[14px] px-[30px] py-[10px] m-auto mt-[20px] w-fit"
+            className="bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-[12px] sm:text-[14px] px-[30px] py-[10px] m-auto mt-[20px] w-fit"
           >
             Next
           </button>

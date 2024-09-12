@@ -104,7 +104,7 @@ function AffiliateLoggedPage() {
       <div className="flex md:hidden w-full">
         <Menu as="div" className="relative w-full">
           <Menu.Button className="w-full">
-            <div className="w-full flex items-center justify-between gap-2 px-4 py-[10px] bg-gradient-btn-play text-white text-default font-semibold rounded-default">
+            <div className="w-full flex items-center justify-between gap-2 px-4 py-[10px] bg-gradient-btn-play shadow-bs-btn text-white text-default font-semibold rounded-default">
               {t(`affiliate:${affiliateTab}`)}
               <ArrowDown2 />
             </div>

@@ -133,7 +133,7 @@ const QuestItem = ({
         {!isExpired && !isBigWin && !status && (
           <div
             className={cn(
-              'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play',
+              'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play shadow-bs-btn',
               'h-[42px] min-w-[64px] sm:min-w-[90px] flex justify-center items-center hover:cursor-pointer hover:opacity-90',
             )}
             onClick={() => {
@@ -148,7 +148,7 @@ const QuestItem = ({
         {!isExpired && status && (
           <div
             className={cn(
-              'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play',
+              'rounded-large px-4 sm:px-6 text-m_default sm:text-[16px] bg-gradient-btn-play shadow-bs-btn',
               'h-[42px] min-w-[64px] sm:min-w-[90px] flex justify-center items-center',
               { 'hover:cursor-pointer hover:opacity-90': !claimStatus, 'opacity-50': claimStatus },
             )}

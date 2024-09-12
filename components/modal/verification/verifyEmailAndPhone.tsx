@@ -135,7 +135,7 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
             </div>
 
             <div className="relative w-full">
-              <button className="w-full rounded-default bg-gradient-btn-play py-[10px]" onClick={confirmCode}>
+              <button className="w-full rounded-default bg-gradient-btn-play shadow-bs-btn py-[10px]" onClick={confirmCode}>
                 {t('setting:verify')}
               </button>
             </div>

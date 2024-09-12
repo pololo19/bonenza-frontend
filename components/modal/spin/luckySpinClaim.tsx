@@ -98,7 +98,7 @@ export default function ModalSpinClaim({
           </div>
           {claimable && (
             <div
-              className="bg-gradient-btn-play w-full min-h-[40px] sm:min-h-[50px] text-default text-center mt-5 rounded-large hover:cursor-pointer flex justify-center items-center"
+              className="bg-gradient-btn-play shadow-bs-btn w-full min-h-[40px] sm:min-h-[50px] text-default text-center mt-5 rounded-large hover:cursor-pointer flex justify-center items-center"
               onClick={onClickClaim}
             >
               {isClaiming ? (

@@ -413,7 +413,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       </div>
                       <Link
                         href={`?coin=${item.token}`}
-                        className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-2 sm:p-[10px] p-[3px] text-default font-semibold"
+                        className="mb-3 w-full mt-6 truncate text-white rounded-large bg-gradient-btn-play shadow-bs-btn flex items-center justify-center gap-[7px] py-2 sm:p-[10px] p-[3px] text-default font-semibold"
                         onClick={() => {
                           if (isLogin) {
                             dispatch(changeIsShowDepositModal(true));

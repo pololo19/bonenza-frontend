@@ -237,7 +237,7 @@ export default function CardGeneralBonus({
             <div
               role="button"
               onClick={() => dispatch(changeIsShowDepositModal(true))}
-              className="dark:bg-gradient-btn-play hover:opacity-80 bg-color-light-bg-primary flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
+              className="dark:bg-gradient-btn-play shadow-bs-btn hover:opacity-80 flex gap-[10px] items-center justify-center rounded-[5px] h-[30px] sm:h-[38px] text-m_default sm:text-default"
             >
               {currentDepositTime == 0 && t('bonus:firstDesposit')}
               {currentDepositTime == 1 && t('promotion:secondDeposit')}

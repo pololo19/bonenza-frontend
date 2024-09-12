@@ -460,7 +460,7 @@ function IndexPage() {
                     <div className="flex items-center gap-[10px]">
                       <button
                         type="button"
-                        className="truncate text-white rounded-large bg-graident-btn-sign sm:bg-gradient-btn-play flex items-center justify-center gap-[7px] px-5 py-[9px] sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
+                        className="truncate text-white rounded-large bg-graident-btn-sign sm:bg-gradient-btn-play shadow-bs-btn flex items-center justify-center gap-[7px] px-5 py-[9px] sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
                         onClick={() => {
                           dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_UP));
                           dispatch(changeIsShowAuthenticationModal(true));
@@ -476,7 +476,7 @@ function IndexPage() {
                       {!checkDeposit && (
                         <div className="flex gap-[10px]">
                           <button
-                            className="truncate text-white rounded-large bg-gradient-btn-play flex items-center justify-center gap-[7px] py-[9px] px-5 sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
+                            className="truncate text-white rounded-large bg-gradient-btn-play shadow-bs-btn flex items-center justify-center gap-[7px] py-[9px] px-5 sm:px-[23px] sm:py-[14px] lg:text-[16px] text-[12px]"
                             onClick={() => dispatch(changeIsShowDepositModal(true))}
                           >
                             {String(t('homePage:depositAndPlay'))}
@@ -584,7 +584,7 @@ function IndexPage() {
                   <div
                     className={cn(
                       'text-[12px] min-[390px]:text-[16px] xl:text-title 2xl:text-[24px]',
-                      'font-light bg-gradient-btn-play rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[250px]',
+                      'font-light bg-gradient-btn-play shadow-bs-btn rounded-large text-center text-white h-[30%] w-[45%] lg:w-[35%] lg:max-w-[150px] 2xl:max-w-[250px]',
                       'hover:opacity-[0.9] cursor-pointer flex justify-center items-center',
                     )}
                     onClick={() => {
@@ -689,7 +689,7 @@ function IndexPage() {
                     />
                     <div className="flex flex-col-reverse items-center w-full gap-5 mt-5 lg:w-unset lg:flex-row">
                       <div
-                        className="hover:opacity-[0.9] bg-gradient-btn-play py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
+                        className="hover:opacity-[0.9] bg-gradient-btn-play shadow-bs-btn py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
                         onClick={() => {
                           if (feedbackText === '') {
                             toast.error(t('warning:emptyMessageContent'), {

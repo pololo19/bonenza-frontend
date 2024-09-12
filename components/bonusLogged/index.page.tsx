@@ -350,7 +350,7 @@ function BonusLoggedPage() {
           </div>
           <div className="flex h-[48px] justify-end">
             <input
-              className={cn("focus:outline-none text-white font-bold dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]", {
+              className={cn("focus:outline-none text-white font-semibold dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]", {
                 'pointer-events-none': isRedeemLoading
               })}
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
@@ -363,7 +363,7 @@ function BonusLoggedPage() {
               role="button"
               className={cn(
                 'active:scale-105 scale-100 transition-all',
-                'hover:opacity-[0.9] bg-gradient-btn-play text-[12px] sm:text-[14px] text-white font-medium rounded-r-large ',
+                'hover:opacity-[0.9] bg-gradient-btn-play shadow-bs-btn text-[12px] sm:text-[14px] text-white font-medium rounded-r-large ',
                 'px-2 sm:px-4 justify-center flex items-center',
                 {
                   'cursor-not-allowed opacity-80 justify-center w-[100px] h-full': isRedeemLoading
@@ -437,7 +437,7 @@ function BonusLoggedPage() {
             <div
               onClick={() => dispatch(changeIsShowBonusDetail(true))}
               role="button"
-              className="hover:opacity-[0.9] dark:bg-gradient-btn-play bg-color-light-bg-primary rounded-large text-white text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
+              className="hover:opacity-[0.9] dark:bg-gradient-btn-play shadow-bs-btn rounded-large text-white text-[14px] font-medium px-[24px] py-[12px] h-[48px] text-center max-[923px]:min-w-[114px] max-[923px]:text-center"
             >
               {t('bonus:details')}
             </div>

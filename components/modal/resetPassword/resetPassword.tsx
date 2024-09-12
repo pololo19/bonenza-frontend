@@ -136,7 +136,7 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
               </div>
               <button
                 type="submit"
-                className="bg-gradient-btn-play w-full rounded-default text-center py-[10px] sm:mt-5 mt-3"
+                className="bg-gradient-btn-play shadow-bs-btn w-full rounded-default text-center py-[10px] sm:mt-5 mt-3"
               >
                 <div />
                 <div className="text-[14px] text-white">{t('authentication:confirm')}</div>

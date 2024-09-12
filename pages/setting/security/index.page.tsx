@@ -344,7 +344,7 @@ const SettingSecurity = () => {
                       <div
                         onClick={onChangePassword}
                         role="button"
-                        className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+                        className="bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:saveChanges')}
                       </div>
@@ -396,7 +396,7 @@ const SettingSecurity = () => {
                       <div
                         onClick={setLoginPassword}
                         role="button"
-                        className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+                        className="bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                       >
                         {t('setting:confirm')}
                       </div>
@@ -545,7 +545,7 @@ const SettingSecurity = () => {
                     <div
                       onClick={handleSubmitTwoFactor}
                       role="button"
-                      className="bg-gradient-btn-play hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
+                      className="bg-gradient-btn-play shadow-bs-btn hover:opacity-[0.9] rounded-default text-white text-default px-[30px] py-[10px] m-auto"
                     >
                       {tfa ? t('setting:disable') : t('setting:enable')}
                     </div>
