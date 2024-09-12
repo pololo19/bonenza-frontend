@@ -28,6 +28,7 @@ export type IconOptionProps = {
   count?: number;
   href: string;
   classNames?: string;
+  activeClassNames?: string;
   activeTextClassNames?: string;
   onClick?: () => void;
   isDropDown?: boolean;
@@ -47,6 +48,7 @@ const IconOption = ({
   title,
   href,
   classNames,
+  activeClassNames,
   activeTextClassNames,
   icon,
   isDropDown,
@@ -87,8 +89,9 @@ const IconOption = ({
               'flex items-center gap-[16px] flex-1 pl-[24px] pr-[10px] py-[10px]',
               'rounded-large hover:rounded-large',
               classNames,
+              router.route.includes(href) && activeClassNames,
               {
-                'font-[700] dark:text-white text-color-light-text-primary': router.route.includes(href)
+                'font-[700] dark:text-white text-color-light-text-primary': router.route.includes(href),
               }
             )}
             href={href}
