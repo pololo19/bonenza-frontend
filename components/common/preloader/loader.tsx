@@ -7,7 +7,7 @@ import styles from './loader.module.scss';
 function Loader({ isHomePage = false, isFullMode = true }: { isHomePage?: boolean; isFullMode?: boolean }) {
   return (
     <div
-      className={`dark:bg-color-bg-primary bg-color-light-bg-primary ${isFullMode ? styles.preloader : 'w-full h-full relative min-h-[300px]'}`}
+      className={`dark:bg-color-bg-primary bg-color-light-bg-primary ${isFullMode ? styles.preloader : 'w-full h-full relative min-h-[300px] flex justify-center items-center'}`}
       data-testid="sis-loader"
     >
       {isHomePage ? (

@@ -68,7 +68,7 @@ export const ROUTER = {
   Rollover: '/rollover',
   Balance: '/balance',
   Bonus: '/bonus',
-  Casino: '/casino/',
+  Casino: '/casino',
   Setting: '/settings',
   Affiliate: '/affiliate',
   SettingGeneral: '/setting/general',

@@ -144,7 +144,7 @@ export default function SidebarToggle() {
   const panel_2_datas: IconOptionProps[] = useMemo(
     () => [
       {
-        title: "UP & DOWN",
+        title: "Up & Down",
         href: 'https://bitup.game/trade',
         icon: ArrowSwapVertical,
         smallIcon: (
@@ -210,13 +210,13 @@ export default function SidebarToggle() {
         <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[10px] dark:bg-color-header-secondary">
           <button
             className={cn(
-              'sm:block hidden rounded-md dark:bg-color-header-secondary bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white flex items-center justify-center gap-[7px] px-[14px] py-[14px]',
+              'sm:flex hidden rounded-md dark:bg-color-header-secondary bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white items-center justify-center gap-[7px] px-[14px] py-[14px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
             }}
           >
-            <HambergerMenu size={18} className={cn('m-auto')} />
+            <HambergerMenu size={18} className={cn('m-auto stroke-2')} strokeWidth={3} />
           </button>
           <Link href={'/'} className="items-center hidden sm:flex">
             <Image
@@ -235,7 +235,7 @@ export default function SidebarToggle() {
                 <IconOption
                   imageURL="/img/sidebar/bonus.png"
                   imageClass="absolute left-[24px] -top-[12px] w-[67px] h-[66px]"
-                  textClass="!text-white ml-[100px] !text-[14px] !font-[500]"
+                  textClass="!text-white ml-[100px] !text-[16px] !font-[500]"
                   title={String(t('sidebar:bonus'))}
                   href={ROUTER.Bonus}
                   icon={Gift}
@@ -320,7 +320,7 @@ export default function SidebarToggle() {
                     isShowDropDown={item.isShowDropDown}
                     isDropDown={item.isDropDown}
                     isFontMedium
-                    fontWeight={700}
+                    fontWeight={500}
                     data={item.data}
                   />
                 </CsrWrapper>
@@ -335,7 +335,7 @@ export default function SidebarToggle() {
                     href={item.href}
                     icon={item.icon}
                     isFontMedium
-                    fontWeight={700}
+                    fontWeight={500}
                   />
                 </CsrWrapper>
               ))}
@@ -350,7 +350,7 @@ export default function SidebarToggle() {
                     href={item.href}
                     icon={item.icon}
                     isFontMedium
-                    fontWeight={700}
+                    fontWeight={500}
                     onClick={item.onClick}
                   />
                 </CsrWrapper>
@@ -362,7 +362,7 @@ export default function SidebarToggle() {
                 title={LANGUAGE_DATA.find(item => item.key === settings.settingLanguage)?.language || 'English'}
                 href={''}
                 icon={Global}
-                fontWeight={700}
+                fontWeight={500}
                 onClick={() => {
                   dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
                   dispatch(changeIsShowMultiLanguageModal(true));
@@ -391,7 +391,7 @@ export default function SidebarToggle() {
                       e.currentTarget.src = '/img/fiats/USD.png';
                     }}
                   />
-                  <div className="p-1 text-sm w-max font-bold">
+                  <div className="p-1 text-sm w-max font-medium">
                     {isLoading.isCurrency ? (
                       <ReactLoading width={20} height={20} type="spin" color="#00AAE6" />
                     ) : (

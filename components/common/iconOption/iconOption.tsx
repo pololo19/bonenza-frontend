@@ -181,7 +181,6 @@ const IconOption = ({
             )}
             onClick={() => {
               // disable hide menus
-              setShowDropDown(!showDropDown);
               onClick?.();
             }}
           >
@@ -197,6 +196,7 @@ const IconOption = ({
             </div>
             <ArrowRight2
               className={`w-3 h-3 mr-1 transition-all font-bold duration-150 ${showDropDown ? 'rotate-90' : 'rotate-0'}`}
+              onClick={(e) => { e.stopPropagation(); setShowDropDown(!showDropDown); }}
             />
           </div>
           <div
@@ -220,14 +220,14 @@ const IconOption = ({
                       'pl-[24px] dark:hover:!text-white dark:text-color-text-primary text-gray-800 hover:!text-gray-800 rounded-large',
                       'hover:bg-color-menu-hover',
                       {
-                        'dark:bg-color-menu-hover !text-white': router.asPath.includes(item.href.toLowerCase()),
+                        'dark:bg-color-menu-hover !text-white': router.asPath.replaceAll('/', '') === item.href.replaceAll('/', ''),
                         'text-[15px]': isFontMedium,
                       },
                     )}
                     key={index}
                   >
                     <SubIconElement size={18} />
-                    <div className={cn('flex-1 text-start font-bold')}>{t(item.title)}</div>
+                    <div className={cn('flex-1 text-start font-normal')}>{t(item.title)}</div>
                   </Link>
                 );
               else

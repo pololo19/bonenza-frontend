@@ -493,7 +493,7 @@ function IndexPage() {
 
             <div className="flex flex-col items-start gap-[30px] sm:gap-[50px] mt-[12px] sm:mt-4 lg:-mt-[0px]">
               <GameBannerSlider className="w-full" />
-              <div className="-mt-[20px] md:grid md:grid-cols-2 min-[1200px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
+              <div className="-mt-[40px] md:grid md:grid-cols-2 min-[1200px]:grid-cols-4 grid-cols-1 gap-[20px] w-full hidden">
                 {cardPlayData.map((item, index) => (
                   <CardPlay
                     key={index}
@@ -597,7 +597,7 @@ function IndexPage() {
               </div>
 
               <div className="relative hidden w-full sm:block">
-                <HomepageSession showIcon={false} isHome={true}>
+                <HomepageSession title={String(t('homePage:latestBetRace'))} showIcon={false} isHome={true}>
                   <LatestBetRace />
                 </HomepageSession>
               </div>
