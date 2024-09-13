@@ -32,7 +32,7 @@ export const headerMenus: OptionSidebarDataType[] = [
   },
   {
     title: 'casino:slot',
-    href: ROUTER.Tagname('slots'),
+    href: ROUTER.CasinoTab('slots'),
     image: 'slots.png',
     icon: SlotIcon,
     isMobile: false,
@@ -60,10 +60,10 @@ export const casinoCategories: OptionSidebarDataType[] = [
 ];
 
 export const casinoGames: OptionSidebarDataType[] = [
-  { title: 'casino:liveCasino', href: ROUTER.Tagname('live-casino'), icon: LiveCasinoIcon },
-  { title: 'casino:hotGame', href: ROUTER.Tagname('hot-games'), icon: HotGameIcon },
-  { title: 'casino:newReleases', href: ROUTER.Tagname('new-releases'), icon: ReleaseIcon },
-  { title: 'casino:featureBuyIn', href: ROUTER.Tagname('feature-buy-in'), icon: BuyInIcon },
-  { title: 'casino:blackjack', href: ROUTER.Tagname('blackjack'), icon: BlackjackIcon },
-  { title: 'casino:tableGames', href: ROUTER.Tagname('table-games'), icon: LiveCasinoIcon },
+  { title: 'casino:liveCasino', href: ROUTER.CasinoTab('live-casino'), icon: LiveCasinoIcon },
+  { title: 'casino:hotGame', href: ROUTER.CasinoTab('hot-games'), icon: HotGameIcon },
+  { title: 'casino:newReleases', href: ROUTER.CasinoTab('new-releases'), icon: ReleaseIcon },
+  { title: 'casino:featureBuyIn', href: ROUTER.CasinoTab('feature-buy-in'), icon: BuyInIcon },
+  { title: 'casino:blackjack', href: ROUTER.CasinoTab('blackjack'), icon: BlackjackIcon },
+  { title: 'casino:tableGames', href: ROUTER.CasinoTab('table-games'), icon: LiveCasinoIcon },
 ];

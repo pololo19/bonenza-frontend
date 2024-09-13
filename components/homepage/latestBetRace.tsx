@@ -12,8 +12,8 @@ const LatestBetRace = () => {
   const { t } = useTranslation('');
 
   return (
-    <div className="overflow-hidden rounded-[20px] shadow-bs-latest">
-      <div className="text-m_default md:text-default w-fit px-6 flex mx-8 gap-5 border border-solid border-transparent border-b-[#64748B33] box-content">
+    <div className="overflow-hidden rounded-[10px] shadow-bs-latest">
+      <div className="text-m_default md:text-default w-fit px-6 flex mx-8 gap-3 sm:gap-6 lg:gap-10 xl:gap-16 border border-solid border-transparent border-b-[#64748B33] box-content">
         <div
           role="button"
           onClick={() => setOpenTab(1)}

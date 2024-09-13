@@ -176,7 +176,7 @@ module.exports = {
       boxShadow: {
         'bs-default': '0px 9px 17px 0px rgba(0, 0, 0, 0.25)',
         'bs-btn': 'inset 0px 1px 2px 0px #7CE6FF',
-        'bs-div': '0px 0px 5px 0px #1e3a8a inset, 0px 0px 10px 0px #3b82f6 inset',
+        'bs-div': '0px 0px 5px 0px #00BAE6 inset, 0px 0px 30px 0px rgba(0, 186, 230, 0.50) inset',
         'bs-latest':
           '0px 0px 10px 0px rgba(13, 253, 228, 0.50), 0px 0px 5px 0px #00BAE6 inset, 0px 0px 20px 0px rgba(0, 186, 230, 0.50) inset, 0px 2px 2px 0px rgba(255, 255, 255, 0.25) inset',
       },

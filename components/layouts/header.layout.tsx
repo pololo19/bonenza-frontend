@@ -112,8 +112,8 @@ export default function Navbar() {
                     href={menu.href}
                     className={cn(
                       'rounded-default px-[8px] py-[8px] group flex items-center gap-2 dark:text-color-text-primary text-color-light-text-primary hover:text-color-primary hover:bg-color-light-bg-primary dark:hover:bg-color-hover-primary',
-                      `${router.route.includes(menu.href)
-                        ? 'dark:text-white dark:bg-color-menu-primary bg-color-light-bg-primary font-semibold'
+                      `${router.asPath.replaceAll('/', '') === menu.href.replaceAll('/', '')
+                        ? 'dark:text-white !bg-color-light-bg-primary dark:!bg-color-hover-primary'
                         : ''
                       }`,
                     )}
