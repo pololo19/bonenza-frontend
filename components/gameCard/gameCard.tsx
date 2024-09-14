@@ -74,7 +74,7 @@ function GameCard(props: GameCardProps) {
           <div className="flex justify-center items-center gap-1 py-2 px-2">
             <Link
               href={ROUTER.Provider(String(gameDetail.provider))}
-              className="dark:text-white text-black text-m_default sm:text-default xl:text-[16px] truncate capitalize hover:!underline hover:!underline-offset-4"
+              className="dark:text-white text-black text-m_default md:text-default truncate capitalize hover:!underline hover:!underline-offset-4"
             >
               {gameDetail.providerName.toLowerCase()}
             </Link>

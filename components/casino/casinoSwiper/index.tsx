@@ -89,7 +89,7 @@ const CasinoSwiper = <T,>({
 
   const handleNumberSlide = (width: number) => {
     if (width > 1890) {
-      setSlide(7);
+      setSlide(8);
     } else if (width > 1335) {
       setSlide(handleSlideToShow(7));
     } else if (width > 1200) {

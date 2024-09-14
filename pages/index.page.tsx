@@ -91,7 +91,7 @@ function IndexPage() {
         description: t('homePage:introduceCardDes3'),
         textButton: t('homePage:introduceCardButton3'),
         action: 'slots',
-        href: ROUTER.Tagname('slots'),
+        href: ROUTER.CasinoTab('slots'),
       },
       {
         imgBackGround: '/img/page/racing.png',
