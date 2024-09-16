@@ -106,7 +106,7 @@ export default function ModalAssetsPortfolio({
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:max-w-[500px] max-w-full"
+        panelClass="sm:max-w-[500px] max-w-full sm:max-h-[90vh]"
         header={
           <div className="flex items-center pr-[40px] dark:bg-color-header-primary bg-color-light-bg-primary pl-[20px] py-[20px] gap-[20px]">
             <div className="text-[0.875rem] sm:text-[1rem] dark:text-white text-black font-[600]">
@@ -116,7 +116,7 @@ export default function ModalAssetsPortfolio({
               <div className="w-[9.375rem]">
                 <InputSearch
                   value={searchFiatInput}
-                  className="border border-solid border-transparent focus-within:border-color-primary dark:!bg-color-panel-bg-primary !bg-color-light-bg-primary"
+                  className="border border-solid border-transparent focus-within:border-color-primary"
                   showClose={searchFiatInput !== '' ? true : false}
                   onClose={() => {
                     setSearchFiatInput('');
@@ -129,23 +129,6 @@ export default function ModalAssetsPortfolio({
         }
       >
         <div className="overflow-y-auto mt-5 sm:p-5 sm:pt-6 px-3 pb-[80px]">
-          {/* <div className="flex p-[5px] dark:bg-color-header-secondary"> */}
-          {/* <div
-            className={cn(
-              ' cursor-pointer px-2 font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow rounded-[5px]',
-              {
-                'dark:bg-color-panel-bg-primary text-black bg-color-light-active-primary font-bold dark:text-white':
-                  tab === 0,
-                'dark:bg-color-header-secondary bg-white dark:text-white text-black': tab === 1,
-              },
-            )}
-          >
-            Currency
-          </div> */}
-          {/* <div className="dark:bg-color-header-secondary bg-[#f0f1f5] cursor-not-allowed px-2 dark:text-white text-[#31373d] font-bold h-[2.5rem] flex items-center justify-center text-[0.875rem] grow">
-                        mNFT
-                      </div> */}
-          {/* </div> */}
           {filterListCryptos?.map((coin: CurrencyType, index) => (
             <div
               key={index}

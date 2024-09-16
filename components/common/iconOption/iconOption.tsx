@@ -233,7 +233,7 @@ const IconOption = ({
               else
                 return (
                   <div
-                    className="flex items-center gap-[16px] py-[10px] dark:hover:bg-color-hover-default focus:bg-color-light-bg-primary pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
+                    className="flex items-center gap-[16px] py-[10px] dark:hover:bg-color-hover-primary focus:bg-color-light-bg-primary pl-5 hover:bg-gray-200 dark:hover:!text-white dark:text-gray-400 text-gray-800 hover:!text-gray-800"
                     key={index}
                   >
                     <SubIconElement size={18} />

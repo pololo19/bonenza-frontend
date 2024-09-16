@@ -62,6 +62,29 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
     },
   ];
 
+  const LIST_SIDEBAR_DEPOSIT_MOBILE = [
+    {
+      icon: MoneyRecive,
+      title: 'sidebar:deposit',
+      href: ROUTER.DepositCrypto
+    },
+    {
+      icon: EmptyWallet,
+      title: 'sidebar:balance',
+      href: ROUTER.Balance,
+    },
+    {
+      icon: CardReceive,
+      title: 'sidebar:withdraw',
+      href: ROUTER.WithdrawCrypto
+    },
+    {
+      icon: MoneyChange,
+      title: 'sidebar:swap',
+      href: ROUTER.Swap
+    }
+  ]
+
   const { isShowRakeBackModal, isShowModalBonusHistory, isShowRakeBackDetailModal } = useSelector(
     (state: AppState) => ({
       isShowRakeBackModal: state.modal.isShowRakeBackModal,
@@ -86,7 +109,10 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div
                     className={cn(
                       styles.cardMenu,
-                      'dark:bg-color-modal-bg-secondary dark:text-color-text-primary bg-white text-color-light-text-primary rounded-default xl:min-w-[175px] min-w-[none] h-fit',
+                      'dark:bg-color-modal-bg-secondary bg-white',
+                      'rounded-default xl:min-w-[175px] min-w-[none] h-fit',
+                      'dark:text-color-text-primary text-color-light-text-primary',
+                      'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary shadow-bs-default'
                     )}
                   >
                     <div className="xl:p-2 p-1 w-full">
@@ -127,7 +153,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                               key={index}
                               href={item.href}
                               className={cn(
-                                'flex flex-col dark:text-color-text-primary dark:hover:text-white dark:hover:bg-color-hover-secondary hover-bg[#f5f6fa66] bg-transparent py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                                'flex flex-col dark:text-color-text-primary dark:hover:text-white dark:hover:bg-color-hover-primary hover-bg[#f5f6fa66] bg-transparent py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
                                 {
                                   'dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black':
                                     router.route.includes(item.href),
@@ -141,7 +167,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         <Link
                           href={ROUTER.Transaction}
                           className={cn(
-                            'flex flex-col dark:text-color-text-primary text-black dark:hover:text-white dark:hover:bg-color-hover-secondary hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                            'flex flex-col dark:text-color-text-primary text-black dark:hover:text-white dark:hover:bg-color-hover-primary hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
                             {
                               'dark:!bg-color-active-primary !bg-[#eaecf3] dark:text-white text-black':
                                 router.route.includes(ROUTER.Transaction),
@@ -153,7 +179,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                         <Link
                           href={ROUTER.Rollover}
                           className={cn(
-                            'flex flex-col dark:text-color-text-primary text-black dark:hover:text-white dark:hover:bg-color-hover-secondary hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
+                            'flex flex-col dark:text-color-text-primary text-black dark:hover:text-white dark:hover:bg-color-hover-primary hover:bg-white dark:bg-transparent bg-white py-2 text-[14px] items-center justify-between px-2 h-full rounded gap-1',
                             {
                               'dark:text-white text-black dark:!bg-color-active-primary bg-color-light-bg-primary':
                                 router.route.includes(ROUTER.Rollover),
@@ -168,7 +194,8 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   <div
                     className={cn(
                       styles.cardMain,
-                      'flex-1  text-white dark:bg-color-modal-bg-secondary bg-white rounded-default p-[20px] min-h-fit',
+                      'flex-1 text-white dark:bg-color-modal-bg-secondary bg-white rounded-default p-[20px] min-h-fit',
+                      'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary shadow-bs-default'
                     )}
                   >
                     {children}
@@ -181,7 +208,7 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
       </div>
       <div className="sm:hidden block">
         <Transition show={true}>
-          <div className="inset-0 z-10 dark:bg-color-modal-bg-secondary bg-white min-h-screen">
+          <div className={cn("inset-0 z-10 dark:bg-color-modal-bg-secondary bg-white min-h-screen")}>
             <div className="flex min-h-full sm:items-center items-start justify-center sm:p-4 text-center p-0">
               <Transition.Child
                 as={Fragment}
@@ -243,76 +270,32 @@ const DepositLayout: React.FC<DepositLayoutProps> = ({ children }) => {
                   </div>
 
                   <div className="text-gray-400 sm:hidden block fixed z-50 w-screen h-[60px] dark:bg-color-card-bg-primary bg-color-light-bg-primary shadow-[17px_9px_17px_0px_#00000040] border border-gray-200 bottom-0">
-                    <div className="w-full h-full flex gap-[5px] items-center justify-evenly text-[12px] relative">
-                      <Link
-                        href={ROUTER.DepositCrypto}
-                        className={cn(
-                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                          {
-                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.DepositCrypto),
-                          },
-                        )}
-                      >
-                        <div className="pt-2">
-                          <MoneyRecive className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
-                        </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
-                          {t('sidebar:deposit')}
-                        </div>
-                      </Link>
-                      <Link
-                        href={ROUTER.Balance}
-                        className={cn(
-                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                          {
-                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.Balance),
-                          },
-                        )}
-                      >
-                        <div className="pt-2">
-                          <EmptyWallet className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
-                        </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
-                          {t('sidebar:balance')}
-                        </div>
-                      </Link>
-                      <Link
-                        href={ROUTER.WithdrawCrypto}
-                        className={cn(
-                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                          {
-                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.WithdrawCrypto),
-                          },
-                        )}
-                      >
-                        <div className="pt-2">
-                          <CardReceive className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
-                        </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
-                          {t('sidebar:withdraw')}
-                        </div>
-                      </Link>
-
-                      <Link
-                        href={ROUTER.Swap}
-                        className={cn(
-                          'hover:text-white flex-1 min-w-[calc(20%-4px)] flex flex-col items-center justify-between h-full rounded',
-                          {
-                            'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
-                              router.route.includes(ROUTER.Swap),
-                          },
-                        )}
-                      >
-                        <div className="pt-2">
-                          <MoneyChange className="dark:text-[#9ca3af] text-color-light-text-primary" size={22} />
-                        </div>
-                        <div className="pb-2 dark:text-[#9ca3af] text-color-light-text-primary text-center truncate w-full">
-                          {t('sidebar:swap')}
-                        </div>
-                      </Link>
+                    <div className="w-full h-full flex items-center justify-evenly text-[12px] relative">
+                      {
+                        LIST_SIDEBAR_DEPOSIT_MOBILE.map((item, key) => {
+                          const IconEle = item.icon;
+                          return <Link
+                            key={key}
+                            href={item.href}
+                            className={cn(
+                              'flex flex-col items-center justify-between',
+                              'hover:text-white flex-1 min-w-[calc(20%-4px)] h-full rounded',
+                              'dark:hover:bg-color-hover-default',
+                              {
+                                'dark:text-white text-black font-bold dark:bg-color-card-body-secondary bg-[#eaecf3]':
+                                  router.route.includes(item.href),
+                              },
+                            )}
+                          >
+                            <div className="pt-2">
+                              <IconEle size={22} />
+                            </div>
+                            <div className="pb-2 text-center truncate w-full">
+                              {t(item.title)}
+                            </div>
+                          </Link>
+                        })
+                      }
 
                     </div>
                   </div>

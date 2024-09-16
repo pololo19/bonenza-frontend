@@ -106,7 +106,8 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                 <div
                   className={cn(
                     styles.cardMenu,
-                    'bg-white dark:bg-color-modal-bg-secondary text-black dark:text-white rounded-[3px] xl:min-w-[300px] min-w-[none] md:max-h-[940px] md:!flex !hidden',
+                    'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',
+                    'bg-white dark:bg-color-modal-bg-secondary text-black dark:text-white rounded-large xl:min-w-[300px] min-w-[none] md:max-h-[940px] md:!flex !hidden',
                   )}
                 >
                   <div className="xl:p-2 p-1 w-full">
@@ -118,7 +119,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                           icon={() => null}
                           key={index}
                           fontWeight={600}
-                          classNames="dark:hover:!text-white hover:dark:!bg-color-modal-bg-primary hover:!bg-color-light-bg-primary !text-color-text-primary rounded !bg-transparent pr-[15px]"
+                          classNames="dark:hover:!text-white !text-color-text-primary rounded pr-[15px]"
                           activeClassNames="dark:!bg-color-active-default !bg-color-light-bg-primary dark:!text-white text-black"
                         />
                       ))}
@@ -127,14 +128,16 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex-1 bg-white dark:bg-color-modal-bg-secondary rounded-[3px] text-white px-2 sm:px-3 pt-3 pb-5 md:p-5',
+                    'flex-1 bg-white dark:bg-color-modal-bg-secondary rounded-large text-white px-2 sm:px-3 pt-3 pb-5 md:p-5',
+                    'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default'
                   )}
                 >
                   <Menu as="div" className="relative w-auto text-left sm:mb-5 rounded-[7px] flex text-white md:hidden">
                     <Menu.Button className="w-full">
                       <div
                         role="button"
-                        className="flex items-center gap-2 py-2 px-2 w-full rounded bg-[#2B2E35] min-w-[200px]"
+                        className={cn("flex items-center gap-2 py-2 px-2 w-full rounded min-w-[200px]",
+                          'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default')}
                       >
                         <div className="flex-1 text-start">{activeRouter}</div>
                         <div className="text-white truncate text-right min-w-[15px]">
@@ -160,7 +163,7 @@ const HelperLayout: React.FC<HelperLayoutProps> = ({ children }) => {
                                 className={cn('flex items-center justify-start p-[10px] w-full rounded text-[14px]', {
                                   'border-[0.5px] border-solid border-color-primary font-semibold dark:text-white text-black':
                                     router.route.includes(item.href),
-                                  'dark:hover:bg-gray-500 dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-color-light-text-primary':
+                                  'dark:hover:bg-color-hover-primary dark:hover:text-white hover:text-black hover:bg-white dark:text-gray-500 text-color-light-text-primary':
                                     !router.route.includes(item.href),
                                 })}
                                 role="button"

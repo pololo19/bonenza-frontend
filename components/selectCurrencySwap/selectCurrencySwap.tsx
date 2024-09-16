@@ -18,6 +18,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 
+import { api_withdrawInfo } from '@/api/wallet';
 import { useTranslation } from '@/base/config/i18next';
 import { SWAP_MIN, TOAST_ENUM } from '@/base/constants/common';
 import { currencyFormat1, numberWithRounding, roundDeciamls } from '@/base/libs/utils';
@@ -27,7 +28,6 @@ import { CurrencyType } from '@/base/types/wallet';
 
 import InputNumber from '../input/typing/InputNumber';
 import ModalAssetsPortfolio from '../modal/assestsPortfolio/assestsPortfolio';
-import { api_withdrawInfo } from '@/api/wallet';
 
 type SelectCurrencySwapProps = {
   onSubmit: (data: SwapFormType) => void;

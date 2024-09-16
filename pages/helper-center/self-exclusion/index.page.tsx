@@ -111,7 +111,7 @@ const SelfExclusion = () => {
                         {() => (
                           <div
                             className={cn(
-                              'flex items-center justify-start py-[5px] px-[5px] w-full dark:hover:bg-color-hover-default hover:bg-color-light-bg-p rounded-default',
+                              'flex items-center justify-start py-[5px] px-[5px] w-full dark:hover:bg-color-hover-primary hover:bg-color-light-bg-p rounded-default',
                               {
                                 'border-[1px] border-solid border-color-primary': item.value === selectedPeriod,
                               },

@@ -2,6 +2,7 @@ import { StarIcon } from '@heroicons/react/24/solid';
 import cn from 'classnames';
 import { LoginCurve, PlayCricle, Refresh, Send2 } from 'iconsax-react';
 import type { GetStaticPaths, InferGetStaticPropsType } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -43,7 +44,6 @@ import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
-import Head from 'next/head';
 
 export const getStaticPaths = (async () => {
   const response = await apiSSR_gamesIdentifiers();

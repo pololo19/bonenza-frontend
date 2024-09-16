@@ -275,7 +275,7 @@ const SelectCurrency = ({
                     <InputSearch
                       value={searchInput}
                       onChange={(e) => setSearchInput(e.target.value)}
-                      className="dark:text-white !bg-white dark:!bg-color-input-hover-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
+                      className="dark:text-white !bg-white dark:!bg-color-hover-default min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
                     />
                   </div>
                   <div className="py-1 max-h-[250px] overflow-y-auto p-2 scrollbar">
@@ -284,7 +284,7 @@ const SelectCurrency = ({
                         {({ active }) => (
                           <div
                             className={cn(
-                              'flex items-center justify-start w-full dark:hover:bg-color-input-hover-primary rounded-default hover:bg-color-light-hover-primary mb-2',
+                              'flex items-center justify-start w-full dark:hover:bg-color-hover-default rounded-default hover:bg-color-light-hover-primary mb-2',
                               {
                                 'border border-color-primary/50 border-solid': symbol.id === activeCoin.id,
                               },
@@ -400,7 +400,7 @@ const SelectCurrency = ({
                       {({ active }) => (
                         <div
                           className={cn(
-                            'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-input-hover-primary hover:bg-color-light-hover-primary rounded-default',
+                            'flex items-center justify-start py-[10px] px-[10px] w-full dark:hover:bg-color-hover-default hover:bg-color-light-hover-primary rounded-default mb-2',
                             {
                               'border border-color-primary/50 border-solid': network.id === activeNetwork.id,
                             },

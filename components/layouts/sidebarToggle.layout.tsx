@@ -210,7 +210,10 @@ export default function SidebarToggle() {
         <div className="flex items-center h-[67px] px-[8px] py-[10px] gap-[10px] dark:bg-color-header-secondary">
           <button
             className={cn(
-              'sm:flex hidden rounded-md dark:bg-color-header-secondary bg-color-light-bg-primary dark:hover:bg-gray-800 text-gray-400 hover:text-[#000] dark:text-white items-center justify-center gap-[7px] px-[14px] py-[14px]',
+              'sm:flex hidden rounded-md ',
+              'dark:bg-color-header-secondary bg-color-light-bg-primary dark:hover:bg-gray-800',
+              'text-gray-400 hover:text-[#000] dark:text-white',
+              'items-center justify-center gap-[7px] px-[14px] py-[14px]',
             )}
             onClick={() => {
               dispatch(changeToggleSidebar(!isToggleSidebar));
@@ -450,7 +453,7 @@ export default function SidebarToggle() {
                   >
                     {item.icon}
                   </Link>
-                  <Tooltip id={`${item.key}-tooltip`} place="right" positionStrategy="fixed" key={`bonus_tooltip-small`}>
+                  <Tooltip className='!bg-color-menu-primary' id={`${item.key}-tooltip`} place="right" positionStrategy="fixed" key={`bonus_tooltip-small`}>
                     <div>
                       <p className="text-white">{item.title}</p>
                     </div>
@@ -472,7 +475,7 @@ export default function SidebarToggle() {
                     >
                       {item.icon}
                     </div>
-                    <Tooltip id={`${item.key}-tooltip`} place="right" positionStrategy="absolute">
+                    <Tooltip className='!bg-color-menu-primary' id={`${item.key}-tooltip`} place="right" positionStrategy="absolute">
                       <div>
                         <p className="text-white">{item.title}</p>
                       </div>
@@ -498,7 +501,7 @@ export default function SidebarToggle() {
               >
                 {item.smallIcon}
               </Link>
-              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
+              <Tooltip className='!bg-color-menu-primary' id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
                 <div>
                   <p className="text-white">{item.title}</p>
                 </div>
@@ -526,7 +529,7 @@ export default function SidebarToggle() {
                     })}
                   />
                 </Link>
-                <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
+                <Tooltip className='!bg-color-menu-primary' id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
                   <div>
                     <p className="text-white">{String(t(item.title))}</p>
                   </div>
@@ -565,7 +568,7 @@ export default function SidebarToggle() {
                   {item.smallIcon}
                 </Link>
               )}
-              <Tooltip id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
+              <Tooltip className='!bg-color-menu-primary' id={`${item.title}-tooltip`} place="right" positionStrategy="fixed">
                 <div>
                   <p className="text-white">{item.title}</p>
                 </div>
@@ -589,7 +592,7 @@ export default function SidebarToggle() {
             >
               <Global size={22} />
             </div>
-            <Tooltip id={`lang-tooltip`} place="right" positionStrategy="absolute">
+            <Tooltip className='!bg-color-menu-primary' id={`lang-tooltip`} place="right" positionStrategy="absolute">
               <div>
                 <p className="text-white">{LANGUAGE_DATA.find(item => item.key === settings.settingLanguage)?.language || 'English'}</p>
               </div>
@@ -621,7 +624,7 @@ export default function SidebarToggle() {
                   }}
                 />
               </div>
-              <Tooltip id={`currency-tooltip`} place="right" positionStrategy="absolute">
+              <Tooltip className='!bg-color-menu-primary' id={`currency-tooltip`} place="right" positionStrategy="absolute">
                 <div>
                   {`${handleLocaleSymbol(String(localFiat.name))} ${localFiat.name}`}
                 </div>
