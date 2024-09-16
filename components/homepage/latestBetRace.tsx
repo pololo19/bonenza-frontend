@@ -13,7 +13,7 @@ const LatestBetRace = () => {
 
   return (
     <div className="overflow-hidden rounded-[10px] bg-color-card-bg-primary  border border-solid border-color-card-border-primary">
-      <div className="text-default w-full px-6 sm:px-10 flex justify-between md:justify-start md:gap-10 border border-solid border-transparent border-b-[#64748B33]">
+      <div className="text-[13px] sm:text-default w-full px-6 sm:px-10 flex justify-between md:justify-start md:gap-10 border border-solid border-transparent border-b-[#64748B33]">
         <div
           role="button"
           onClick={() => setOpenTab(1)}
@@ -47,7 +47,7 @@ const LatestBetRace = () => {
       </div>
       <div className="w-full h-full rounded-[5px] relative">
         <div className="lg:p-[20px] sm:p-[10px] p-[5px] z-[2] w-full">
-          <div className="md:text-[13px] text-[12px] max-[430px]:text-[10px] text-[#939699]">
+          <div className="text-[#939699]">
             {openTab === 1 && <LatestBetsTableComponent />}
             {openTab === 2 && <HighRollerTableComponent />}
             {openTab === 3 && <WagerContestComponent />}

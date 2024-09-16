@@ -186,7 +186,7 @@ export default function ReplyModal({
 
                     <span
                       className="text-[14px] hover:underline cursor-pointer"
-                    // onClick={() => openModalUserProfile(sourceComment.userId, sourceComment.userAvatar, sourceComment.userName)}
+                      // onClick={() => openModalUserProfile(sourceComment.userId, sourceComment.userAvatar, sourceComment.userName)}
                     >
                       {sourceComment.userName}
                     </span>
@@ -256,7 +256,7 @@ export default function ReplyModal({
             {isLoading && <Loader />}
             {commentData.map((comment, index) => (
               <div className="text-xs dark:text-color-text-primary text-color-light-text-primary" key={index}>
-                <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-select-bg-primary bg-white">
+                <div className="flex justify-between items-center h-[120px] md:h-[93px] mt-4 dark:bg-color-card-bg-secondary bg-white">
                   <div className="ml-[17px]">
                     <div className="flex items-center gap-2">
                       <Image
@@ -271,7 +271,7 @@ export default function ReplyModal({
                       />
                       <span
                         className="text-[14px] hover:underline cursor-pointer"
-                      // onClick={() => openModalUserProfile(comment.userId, comment.userAvatar, comment.userName)}
+                        // onClick={() => openModalUserProfile(comment.userId, comment.userAvatar, comment.userName)}
                       >
                         {comment.userName}
                       </span>

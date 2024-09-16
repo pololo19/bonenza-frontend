@@ -216,11 +216,12 @@ const WagerContestComponent = () => {
       {
         accessorKey: 'betId',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">#</div>
+          <div className="dark:text-color-text-primary text-color-light-text-primary pl-2 sm:pl-4 text-m_default sm:text-default">
+            #
+          </div>
         ),
-        minSize: 30,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start gap-[5px] truncate sm:px-2 px-[5px]')}>
+          <div className={cn('flex items-center justify-start gap-[5px] truncate pl-2 sm:pl-4 py-3 sm:py-4')}>
             {row.index === 0 && (
               <Image
                 height={25}
@@ -249,9 +250,7 @@ const WagerContestComponent = () => {
               />
             )}
             {row.index !== 0 && row.index !== 1 && row.index !== 2 && (
-              <div className="font-bold truncate dark:text-color-text-primary text-color-light-text-primary text-default">
-                {row.index + 1}th
-              </div>
+              <div className="font-semibold truncate text-m_default md:text-default">{row.index + 1}th</div>
             )}
           </div>
         ),
@@ -259,16 +258,15 @@ const WagerContestComponent = () => {
       {
         accessorKey: 'player',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default px-2 sm:px-4">
             {t('gameTable:player')}
           </div>
         ),
-        minSize: 30,
         cell: ({ row }) => (
           <div
             onClick={() => handleModalUserProfile(row)}
             className={cn(
-              'dark:text-white text-color-light-text-primary flex items-center justify-start gap-[10px] truncate sm:px-2 px-[5px]',
+              'dark:text-white text-color-light-text-primary flex items-center justify-start gap-[5px] truncate',
               {
                 'pointer-events-none cursor-text': row.original?.playerId !== userId && !row.original?.playerName,
               },
@@ -290,7 +288,7 @@ const WagerContestComponent = () => {
                 />
               )}
             </div>
-            <div className="font-normal truncate text-default">
+            <div className="!font-extralight truncate text-m_default sm:text-default w-[100px] sm:w-auto">
               {row.original?.playerId !== userId && !row.original?.playerName
                 ? t('homePage:hidden')
                 : row.original.playerId === userId
@@ -303,13 +301,12 @@ const WagerContestComponent = () => {
       {
         accessorKey: 'betAmount',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary px-2 sm:px-4 text-m_default sm:text-default text-center">
             {t('gameTable:wagered')}
           </div>
         ),
-        minSize: 30,
         cell: ({ row }) => (
-          <div className="text-color-text-green truncate sm:px-2 px-[5px] font-bold text-default">
+          <div className="m-auto font-semibold text-center text-m_default sm:text-default text-color-text-green w-[70px] sm:w-auto truncate">
             {viewInFiat
               ? currencyFormat1(row.original.wageredAmountUsd * exchangeRate, 8, localFiat?.name)
               : currencyFormat1(row.original.wageredAmountUsd, 8)}
@@ -319,13 +316,18 @@ const WagerContestComponent = () => {
       {
         accessorKey: 'payout',
         header: () => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary pr-2 sm:pr-4 text-m_default sm:text-default">
             {t('gameTable:prize')}
           </div>
         ),
-        minSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-default">
+          <div
+            className={cn(
+              'dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default w-full',
+              'flex justify-end pr-2 sm:pr-4 font-semibold',
+              'truncate w-[70px] sm:w-auto',
+            )}
+          >
             <span className="font-bold text-color-text-green">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeAmountUsd * exchangeRate, 4, localFiat?.name)
@@ -353,7 +355,13 @@ const WagerContestComponent = () => {
     <>
       <div className="grid flex-wrap grid-cols-12 gap-2 mb-3">
         <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-bg-secondary border border-solid border-color-card-border-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly items-center flex gap-[12px] sm:gap-[0.5rem] lg:gap-[1rem] min-w-fit grow">
-          <Image width={125} height={110} className="object-contain h-[80%] md:ml-3" src="/img/cup.png" alt="medal cup" />
+          <Image
+            width={125}
+            height={110}
+            className="object-contain h-[80%] md:ml-3"
+            src="/img/cup.png"
+            alt="medal cup"
+          />
           <div className="flex">
             <div className="flex flex-col justify-end gap-2">
               <span className="text-[14px] text-color-primary font-bold">{t('wagerContest:daily')}</span>
@@ -361,11 +369,10 @@ const WagerContestComponent = () => {
                 {t('wagerContest:contestPrizePool')}
               </span>
               <div className="rounded-[5px] dark:bg-color-card-body-secondary bg-white font-black h-[37px] px-2 flex items-center justify-center">
-                <p className={cn(
-                  "font-bold text-color-secondary text-default lg:text-m_title",
-                  {
-                    "2xl:text-[16px]": showChatType,
-                    "2xl:text-m_title": !showChatType
+                <p
+                  className={cn('font-bold text-color-secondary text-default lg:text-m_title', {
+                    '2xl:text-[16px]': showChatType,
+                    '2xl:text-m_title': !showChatType,
                   })}
                 >
                   {viewInFiat

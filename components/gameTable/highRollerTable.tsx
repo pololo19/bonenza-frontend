@@ -134,54 +134,49 @@ const HighRollerTableComponent = () => {
   }, [hightRollerData, isShowMore]);
 
   const highRollerColumns = useMemo(() => {
-    const innerWidth = window.innerWidth;
-    const columnsDefault: ColumnDef<BetTableDataType>[] = [
+    const highRollerColumnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
-        header: () => <div className="text-default">{t('gameTable:game')}</div>,
+        header: () => <div className="px-2 sm:px-4 text-m_default sm:text-default">{t('gameTable:game')}</div>,
         cell: ({ row }) => (
           <div
             className={cn(
-              'flex items-center dark:text-color-text-primary text-color-light-text-primary justify-start gap-[5px] truncate text-default',
+              'flex items-center gap-[5px] pl-2 sm:pl-4 py-3 sm:py-4',
+              'dark:text-color-text-primary text-[#31373d] text-m_default sm:text-default',
             )}
+            onClick={() => handleClickRow(row)}
           >
             <Image
-              height={25}
-              width={25}
+              height={24}
+              width={24}
               src={`${API_GAME_IMAGE}/icon/${row.original.gameIdenfiter?.replace(':', '_')}.png`}
               alt="game logo"
               onError={(err) => {
                 err.currentTarget.src = '/img/recommended-game-3.png';
               }}
-              className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
+              className="object-cover max-h-auto rounded-[5px]"
             />
-            <div className="truncate">{row.original.game}</div>
+            <span className="px-2 !font-medium max-w-[110px] sm:max-w-full truncate">{row.original.game}</span>
           </div>
         ),
       },
       {
         accessorKey: 'player',
         header: () => (
-          <div className="text-default text-center dark:text-color-text-primary text-color-light-text-primary">
-            {t('gameTable:player')}
-          </div>
+          <div className="px-2 sm:px-4 text-center text-m_default sm:text-default">{t('gameTable:player')}</div>
         ),
         cell: ({ row }) => (
           <div
-            className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-              } font-bold truncate text-center  sm:p-2 p-[5px]`}
-            onClick={(event) => {
-              event.stopPropagation();
-              handleModalProfile(row);
-            }}
+            className={`flex justify-center font-bold truncate text-center text-m_default sm:text-default sm:p-2 p-[5px]`}
+            onClick={() => handleModalProfile(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
-              <div className="flex justify-center items-center gap-[5px] dark:text-color-text-primary text-color-light-text-primary">
+              <div className="dark:text-color-text-primary text-[#31373d] flex justify-center items-center gap-[5px]">
                 <Snapchat width={12} height={12} variant="Bulk" className="w-5 h-5" />
                 {t('homePage:hidden')}
               </div>
             ) : (
-              <div className="text-black dark:text-white">
+              <div className="text-black dark:text-white max-w-[120px] sm:max-w-full truncate">
                 {row.original.playerId === userId ? userName : row.original.player}
               </div>
             )}
@@ -191,42 +186,41 @@ const HighRollerTableComponent = () => {
       {
         accessorKey: 'betAmount',
         header: () => (
-          <div className="text-default text-center dark:text-color-text-primary text-color-light-text-primary">
-            {t('gameTable:betAmount')}
-          </div>
+          <div className="px-2 sm:px-4 text-center text-m_default sm:text-default">{t('gameTable:betAmount')}</div>
         ),
         cell: ({ row }) => (
-          <>
-            {row.original.betAmount !== null && (
-              <div className="flex items-center dark:text-color-text-primary text-color-light-text-primary justify-center gap-[5px] truncate">
-                <div className="font-bold truncate">
-                  {viewInFiat
-                    ? currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name)
-                    : currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)}
-                </div>
-                <Image
-                  height={15}
-                  width={15}
-                  src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
-                  onError={(e) => {
-                    e.currentTarget.src = '/img/fiats/USDT.png';
-                  }}
-                  alt="currency-usdt"
-                />
-              </div>
-            )}
-          </>
+          <div
+            className="dark:text-white text-m_default sm:text-default text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]"
+            onClick={() => handleClickRow(row)}
+          >
+            <span className="max-w-[90px] sm:max-w-full truncate">
+              {viewInFiat
+                ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
+                : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
+            </span>
+            <Image
+              className="w-[18px] h-[18px]"
+              height={18}
+              width={18}
+              src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
+              onError={(e) => {
+                e.currentTarget.src = '/img/fiats/USDT.png';
+              }}
+              alt="currency-usdt"
+            />
+          </div>
         ),
       },
       {
-        accessorKey: 'payout',
+        accessorKey: 'multiplier',
         header: () => (
-          <div className="text-default text-center dark:text-color-text-primary text-color-light-text-primary">
-            {t('gameTable:multiplier')}
-          </div>
+          <div className="px-2 sm:px-4 text-center text-m_default sm:text-default">{t('gameTable:multiplier')}</div>
         ),
         cell: ({ row }) => (
-          <div className="font-bold text-center truncate dark:text-color-text-primary text-color-light-text-primary">
+          <div
+            className="dark:text-color-text-primary text-m_default sm:text-default text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]"
+            onClick={() => handleClickRow(row)}
+          >
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
@@ -234,12 +228,13 @@ const HighRollerTableComponent = () => {
       {
         accessorKey: 'profit',
         header: () => (
-          <div className="text-default text-right dark:text-color-text-primary text-color-light-text-primary">
-            {t('gameTable:profitAmount')}
-          </div>
+          <div className="px-2 sm:px-4 text-center text-m_default sm:text-default">{t('gameTable:profitAmount')}</div>
         ),
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-end gap-[5px] text-default sm:p-2 p-[5px]')}>
+          <div
+            className={cn('flex justify-end items-center text-m_default sm:text-default gap-[5px] pr-2 sm:pr-4')}
+            onClick={() => handleClickRow(row)}
+          >
             <div
               className={cn('font-bold text-end truncate', {
                 'text-color-text-green': row.original.profitAmount >= 0,
@@ -249,16 +244,16 @@ const HighRollerTableComponent = () => {
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                  Math.abs(row.original.profitAmountUsd * exchangeRate),
-                  fiatDecimals,
-                  localFiat?.name || 'USD',
-                )}`
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    fiatDecimals,
+                    localFiat?.name || 'USD',
+                  )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
-              className="w-5 h-5 "
-              height={20}
-              width={20}
+              className="h-[18px] w-[18px]"
+              height={15}
+              width={15}
               src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
@@ -269,16 +264,13 @@ const HighRollerTableComponent = () => {
         ),
       },
     ];
-    if (innerWidth > 1024) return columnsDefault;
-    else if (innerWidth > 640) {
-      columnsDefault.splice(1, 2);
-      return columnsDefault;
+    if (innerWidth > 1024) {
+      return highRollerColumnsDefault;
+    } else {
+      highRollerColumnsDefault.splice(2, 2);
+      return highRollerColumnsDefault;
     }
-    else {
-      columnsDefault.splice(1, 3);
-      return columnsDefault;
-    }
-  }, [localFiat, userId, windowSize, exchangeRate]);
+  }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
 
   useEffect(() => {
     handleGetHighRoller();
@@ -292,7 +284,6 @@ const HighRollerTableComponent = () => {
           isLoading={isLoadingTable}
           data={hightRollerDataFilter}
           columns={highRollerColumns}
-          onRowClick={handleClickRow}
         />
         {!!hightRollerDataFilter.length && (
           <div className="flex justify-center">
@@ -303,7 +294,7 @@ const HighRollerTableComponent = () => {
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-default dark:text-[#FFFFFF] text-[#000] font-normal mr-[6px]">
+              <div className="text-m_default sm:text-default dark:text-[#FFFFFF] text-[#000] font-normal mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (

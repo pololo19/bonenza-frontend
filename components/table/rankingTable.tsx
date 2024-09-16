@@ -97,11 +97,11 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
                         { '!text-right': index === headerGroup.headers.length - 1 },
                         'bg-color-table-header-bg-primary whitespace-nowrap md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left',
                       )}
-                    // {...{
-                    //   style: {
-                    //     width: `${100 / headerGroup.headers.length}%`,
-                    //   },
-                    // }}
+                      // {...{
+                      //   style: {
+                      //     width: `${100 / headerGroup.headers.length}%`,
+                      //   },
+                      // }}
                     >
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </th>
@@ -139,7 +139,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
           {!data?.length && !isLoading && (
             <tr className="">
               <td colSpan={columns.length} className="text-center">
-                <div className="flex flex-col items-center gap-[15px] text-[#53575C]">
+                <div className="flex flex-col items-center gap-[15px] text-[#53575C] py-8">
                   <CsrWrapper>
                     <Image
                       src={theme === 'dark' ? '/img/empty-dark.png' : '/img/empty-light.png'}

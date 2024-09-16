@@ -14,36 +14,16 @@
     td {
       vertical-align: middle;
       word-break: break-word;
-
-      &:first-child {
-        @apply pl-2 sm:pl-4 lg:pl-4
-      }
-
-      &:last-child {
-        @apply pr-2 sm:pr-4 lg:pr-4
-      }
     }
 
     th {
-      height: 45px;
-      padding: 10px;
+      height: 40px;
       // position: sticky;
       top: 0;
-      // z-index: $z-index-header-table;
 
-      @media screen and (max-width: 960px) {
-        padding: 10px 5px;
+      @media screen and (min-width: 640px) {
+        height: 45px;
       }
-
-      // &:first-child {
-      //   border-top-left-radius: $border-radius-lg;
-      //   box-shadow: -5px -5px 5px 0 $color-white;
-      // }
-
-      // &:last-child {
-      //   border-top-right-radius: $border-radius-lg;
-      //   box-shadow: 5px -5px 5px 0 $color-white;
-      // }
 
       input[type='checkbox'] {
         background-color: var(--basic-color);
@@ -63,13 +43,8 @@
     }
 
     td {
-      padding: 10px;
       font-weight: $font-weight-normal;
       color: $color-white;
-
-      @media screen and (max-width: 960px) {
-        padding: 10px 5px;
-      }
     }
   }
 }
