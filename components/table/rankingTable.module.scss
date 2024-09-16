@@ -16,16 +16,16 @@
       word-break: break-word;
 
       &:first-child {
-        padding-left: 0;
+        @apply pl-2 sm:pl-4 lg:pl-4
       }
 
       &:last-child {
-        padding-right: 0;
+        @apply pr-2 sm:pr-4 lg:pr-4
       }
     }
 
     th {
-      height: 40px;
+      height: 45px;
       padding: 10px;
       // position: sticky;
       top: 0;

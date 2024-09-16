@@ -352,7 +352,7 @@ const WagerContestComponent = () => {
   return (
     <>
       <div className="grid flex-wrap grid-cols-12 gap-2 mb-3">
-        <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly items-center flex gap-[12px] sm:gap-[0.5rem] lg:gap-[1rem] min-w-fit grow">
+        <div className="col-span-12 lg:col-span-4 rounded-[5px] dark:bg-color-card-bg-secondary border border-solid border-color-card-border-primary bg-color-light-bg-primary p-3 pt-0 h-[8.313rem] justify-evenly items-center flex gap-[12px] sm:gap-[0.5rem] lg:gap-[1rem] min-w-fit grow">
           <Image width={125} height={110} className="object-contain h-[80%] md:ml-3" src="/img/cup.png" alt="medal cup" />
           <div className="flex">
             <div className="flex flex-col justify-end gap-2">
@@ -378,7 +378,7 @@ const WagerContestComponent = () => {
         </div>
         <div className="grid grid-cols-11 col-span-12 gap-2 lg:col-span-8 ">
           <div
-            className={`col-span-5 min-[830px]:max-w-[380px] rounded-[5px] dark:bg-color-card-body-primary bg-color-light-bg-primary ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
+            className={`col-span-5 min-[830px]:max-w-[380px] rounded-[5px] dark:bg-color-card-bg-secondary border border-solid border-color-card-border-primary ${styles.boxCenter}  h-[8.313rem] flex-col gap-4 px-3 grow`}
           >
             <p
               className={cn('text-color-text-primary text-center', {
@@ -399,7 +399,7 @@ const WagerContestComponent = () => {
                           <div
                             className={cn(
                               'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[54px] lg:h-[54px]',
-                              'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
+                              'dark:bg-color-card-bg-primary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
                               styles.boxTime,
                             )}
                           >
@@ -413,7 +413,7 @@ const WagerContestComponent = () => {
                           <div
                             className={cn(
                               'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[54px] lg:h-[54px]',
-                              'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
+                              'dark:bg-color-card-bg-primary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
                               styles.boxTime,
                             )}
                           >
@@ -427,7 +427,7 @@ const WagerContestComponent = () => {
                           <div
                             className={cn(
                               'p-1 w-[36px] h-[36px] md:w-[40px] md:h-[40px] lg:w-[54px] lg:h-[54px]',
-                              'dark:bg-color-card-body-secondary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
+                              'dark:bg-color-card-bg-primary dark:border-0 bg-white border border-solid border-[#d3d3d366] rounded-[8px]',
                               styles.boxTime,
                             )}
                           >
@@ -473,7 +473,7 @@ const WagerContestComponent = () => {
               alt="medal winner"
             />
             <div
-              className={`rounded dark:bg-color-card-body-primary bg-color-light-bg-primary h-full w-full ${styles.boxCenter} px-3`}
+              className={`rounded dark:bg-color-card-bg-secondary border border-solid border-color-card-border-primary h-full w-full ${styles.boxCenter} px-3`}
             >
               <div className="flex flex-col items-center w-full">
                 <div className="flex items-center gap-2 mb-[14px] w-full justify-center">
@@ -574,7 +574,7 @@ const WagerContestComponent = () => {
         </div>
       </div>
       {userId && (
-        <div className="flex rounded md:items-center flex-col md:flex-row md:px-4 p-2 md:h-[3.5rem] dark:bg-color-card-body-primary bg-color-light-bg-primary gap-y-4 text-color-text-primary text-[0.625rem]">
+        <div className="flex rounded md:items-center flex-col md:flex-row md:px-4 p-2 md:h-[3.5rem] bg-color-card-bg-secondary border border-solid border-color-card-border-primary gap-y-4 text-color-text-primary text-[0.625rem]">
           <div
             className={`flex ${styles.boxBorder} bg-transparent gap-3 w-full md:w-auto grow-[3] border-r items-center dark:border-color-border-primary border-color-light-border-primary`}
           >

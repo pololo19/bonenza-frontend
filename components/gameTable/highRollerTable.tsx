@@ -138,15 +138,11 @@ const HighRollerTableComponent = () => {
     const columnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
-        header: () => (
-          <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
-            {t('gameTable:game')}
-          </div>
-        ),
+        header: () => <div className="text-default">{t('gameTable:game')}</div>,
         cell: ({ row }) => (
           <div
             className={cn(
-              'flex items-center dark:text-color-text-primary text-color-light-text-primary justify-start gap-[5px] truncate',
+              'flex items-center dark:text-color-text-primary text-color-light-text-primary justify-start gap-[5px] truncate text-default',
             )}
           >
             <Image
@@ -166,7 +162,7 @@ const HighRollerTableComponent = () => {
       {
         accessorKey: 'player',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-default text-center dark:text-color-text-primary text-color-light-text-primary">
             {t('gameTable:player')}
           </div>
         ),
@@ -195,7 +191,7 @@ const HighRollerTableComponent = () => {
       {
         accessorKey: 'betAmount',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-default text-center dark:text-color-text-primary text-color-light-text-primary">
             {t('gameTable:betAmount')}
           </div>
         ),
@@ -225,7 +221,7 @@ const HighRollerTableComponent = () => {
       {
         accessorKey: 'payout',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-default text-center dark:text-color-text-primary text-color-light-text-primary">
             {t('gameTable:multiplier')}
           </div>
         ),
@@ -238,12 +234,12 @@ const HighRollerTableComponent = () => {
       {
         accessorKey: 'profit',
         header: () => (
-          <div className="text-right dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-default text-right dark:text-color-text-primary text-color-light-text-primary">
             {t('gameTable:profitAmount')}
           </div>
         ),
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-end gap-[5px]  sm:p-2 p-[5px]')}>
+          <div className={cn('flex items-center justify-end gap-[5px] text-default sm:p-2 p-[5px]')}>
             <div
               className={cn('font-bold text-end truncate', {
                 'text-color-text-green': row.original.profitAmount >= 0,
@@ -260,9 +256,9 @@ const HighRollerTableComponent = () => {
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
-              className="sm:h-[15px] h-[10px] sm:w-[15px] w-[10px]"
-              height={15}
-              width={15}
+              className="w-5 h-5 "
+              height={20}
+              width={20}
               src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
@@ -273,9 +269,13 @@ const HighRollerTableComponent = () => {
         ),
       },
     ];
-    if (innerWidth > 640) return columnsDefault;
+    if (innerWidth > 1024) return columnsDefault;
+    else if (innerWidth > 640) {
+      columnsDefault.splice(1, 2);
+      return columnsDefault;
+    }
     else {
-      columnsDefault.splice(2, 1);
+      columnsDefault.splice(1, 3);
       return columnsDefault;
     }
   }, [localFiat, userId, windowSize, exchangeRate]);
@@ -286,7 +286,7 @@ const HighRollerTableComponent = () => {
 
   return (
     <>
-      <div>
+      <div className="flex flex-col lg:gap-[20px] sm:gap-[10px] gap-[5px]">
         <RankingTableComponent
           containerClassName="w-full"
           isLoading={isLoadingTable}
@@ -295,9 +295,9 @@ const HighRollerTableComponent = () => {
           onRowClick={handleClickRow}
         />
         {!!hightRollerDataFilter.length && (
-          <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
+          <div className="flex justify-center">
             <div
-              className="flex items-center py-[9px] px-[10px] rounded-[5px]"
+              className="flex items-center py-4 px-[10px] rounded-[5px]"
               role="button"
               onClick={() => {
                 setIsShowMore(!isShowMore);
