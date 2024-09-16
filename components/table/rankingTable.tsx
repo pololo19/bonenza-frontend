@@ -78,7 +78,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
   return (
     <div
       className={cn(
-        'table-responsive relative sm:px-[20px] px-[5px] py-[5px] bg-transparent',
+        'table-responsive relative bg-transparent rounded-md overflow-hidden border border-solid border-color-card-border-primary',
         containerClassName,
         styles.tableWrapper,
       )}
@@ -95,13 +95,13 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
                       className={cn(
                         headerVarian ? styles[headerVarian] : '',
                         { '!text-right': index === headerGroup.headers.length - 1 },
-                        'bg-color-bg-primary whitespace-nowrap dark:text-color-text-secondary text-color-light-text-primary font-semibold md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left !px-[5px]',
+                        'bg-color-table-header-bg-primary whitespace-nowrap md:!text-[14px] sm:!text-[12px] !text-[10px] !border-0 text-left',
                       )}
-                      // {...{
-                      //   style: {
-                      //     width: `${100 / headerGroup.headers.length}%`,
-                      //   },
-                      // }}
+                    // {...{
+                    //   style: {
+                    //     width: `${100 / headerGroup.headers.length}%`,
+                    //   },
+                    // }}
                     >
                       {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </th>
@@ -126,7 +126,7 @@ const RankingTableComponent: React.FC<RankingTableComponentPropsType> = ({
                 key={row.id}
                 className={cn(
                   renderRowClass?.(row),
-                  ' cursor-pointer hover:dark:bg-color-hover-primary hover:bg-color-light-hover-primary rounded-[10px]',
+                  ' cursor-pointer hover:dark:bg-color-card-bg-secondary/30 hover:bg-color-light-hover-primary rounded-[10px]',
                 )}
                 onClick={() => onRowClick?.(row)}
               >

@@ -259,8 +259,11 @@ function CasinoPage() {
                   <Link
                     href={ROUTER.Theme(convertThemeToUrl(item))}
                     role="button"
-                    className="flex items-center sm:h-[64px] h-[50px] justify-center xl:text-default text-default min-w-fit p-[10px] bg-white dark:bg-color-card-bg-secondary hover:opacity-70
-                 gap-[10px] flex-shrink-0 rounded text-black dark:text-white dark:hover:text-white/50 hover:text-black/80 text-center"
+                    className={cn(
+                      "flex justify-center items-center sm:h-[64px] h-[50px] min-w-fit p-[10px] gap-[10px] rounded flex-shrink-0",
+                      "xl:text-default text-default text-center text-black dark:text-white",
+                      "bg-white dark:bg-color-card-bg-primary border border-solid border-color-card-border-primary hover:opacity-90"
+                    )}
                   >
                     {snakeCaseToString(item)}
                   </Link>

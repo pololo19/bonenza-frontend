@@ -435,20 +435,43 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             </div>
           )}
           {/* footer 3 */}
-          {!isDetailPage && (
-            <div className="mt-[30px] py-[30px] flex flex-col items-center border-t border-solid dark:border-color-border-primary border-color-light-border-primary">
-              <div className="">
-                <div className="font-semibold text-black dark:text-white max-md:text-center sm:text-lg text-[14px]">
-                  {String(t('footer:sponsorshipAndGamingResponsibilities'))}
+          <div className={cn(
+            "mt-[30px] py-10 grid grid-cols-1 lg:grid-cols-3 gap-y-10 lg:gap-x-20",
+            "border-t border-solid dark:border-color-border-primary border-color-light-border-primary"
+          )}
+          >
+            <div className={cn('col-span-2 flex flex-col gap-5 sm:pb-4', { 'mt-[40px]': isDetailPage })}>
+              <Image
+                alt="logo"
+                src="/img/logo-light.png"
+                width={220}
+                height={27}
+                className="w-[220px] h-[44px] cursor-pointer"
+              />
+              <div className="text-default">{String(t('footer:bonenzaDescription1'))}</div>
+              <div className="flex flex-col gap-[10px] text-default font-light">
+                <div className="flex gap-[5px]">
+                  {String(t('footer:business'))}
+                  <Link className="text-color-text-mailto" href={`mailto:${t('footer:businessMail')}`}>
+                    {String(t('footer:businessMail'))}
+                  </Link>
+                </div>
+                <div className="flex gap-[5px]">
+                  {String(t('footer:help'))}
+                  <Link className="text-color-text-mailto" href={`mailto:${t('footer:helpMail')}`}>
+                    {String(t('footer:helpMail'))}
+                  </Link>
                 </div>
               </div>
-              <div
-                className={cn('flex justify-center items-center grid-cols-3 gap-[20px] mt-5 w-full', {
-                  'xl:grid-cols-3': showChatType,
-                  'xl:grid-cols-6': !showChatType,
-                })}
-              >
-                <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center bg-color-bg-primary">
+            </div>
+            {!isDetailPage && (
+              <div className="col-span-1 flex flex-col items-center justify-center gap-[30px] w-full">
+                <div className="font-semibold text-black dark:text-white max-md:text-center text-[16px] md:text-[18px]">
+                  {String(t('footer:sponsorshipAndGamingResponsibilities'))}
+                </div>
+                <div
+                  className="flex justify-center lg:justify-between items-center gap-5 sm:gap-10 w-full"
+                >
                   <Link href="https://sigmaawards.org/" target="_blank">
                     <Image
                       alt="sigma logo"
@@ -458,9 +481,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       className="object-contain w-auto h-[4rem] lg:h-[4.5rem]"
                     />
                   </Link>
-                </div>
 
-                <div className="rounded-[15px] md:py-[36px] md:px-[40px] py-[15px] px-[20px] flex justify-center items-center">
                   <Link href="https://www.responsiblegambling.org/" target="_blank">
                     <Image
                       alt="responsible gambling logo"
@@ -472,38 +493,12 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   </Link>
                 </div>
               </div>
-            </div>
-          )}
-          {/* footer 4 */}
-          <div className={cn('flex flex-col gap-5 pb-[120px] sm:pb-4', { 'mt-[40px]': isDetailPage })}>
-            <Image
-              alt="logo"
-              src="/img/logo-light.png"
-              width={220}
-              height={27}
-              className="w-[220px] h-[44px] cursor-pointer"
-            />
-            <div className="font-light text-default">{String(t('footer:bonenzaDescription1'))}</div>
-            <div className="flex flex-col gap-[10px] text-default font-light">
-              <div className="flex gap-[5px]">
-                {String(t('footer:business'))}
-                <Link className="text-color-text-mailto" href={`mailto:${t('footer:businessMail')}`}>
-                  {String(t('footer:businessMail'))}
-                </Link>
-              </div>
-              <div className="flex gap-[5px]">
-                {String(t('footer:help'))}
-                <Link className="text-color-text-mailto" href={`mailto:${t('footer:helpMail')}`}>
-                  {String(t('footer:helpMail'))}
-                </Link>
-              </div>
-            </div>
-            <div className="text-center text-m_default sm:text-default font-semibold">
-            </div>
-            <div className="text-center text-m_default sm:text-default font-semibold flex flex-col gap-2">
-              <p>{t('footer:copyright1')}</p>
-              <p>{t('footer:copyright2')}</p>
-            </div>
+            )}
+          </div>
+
+          <div className="text-center text-default font-light flex flex-col gap-2 pb-24">
+            <p>{t('footer:copyright1')}</p>
+            <p>{t('footer:copyright2')}</p>
           </div>
         </div>
       </footer>

@@ -125,10 +125,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
     const allBetColumnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
-        header: String(t('gameTable:game')),
+        header: () => <div className="text-default">{t('gameTable:game')}</div>,
         cell: ({ row }) => (
           <div
-            className="dark:text-color-text-primary text-[#31373d] sm:text-[14px] text-[12px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px] sm:w-auto w-[20vw]"
+            className="dark:text-color-text-primary text-[#31373d] text-[14px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px]"
             onClick={() => openModalBetDetail(row)}
           >
             <Image
@@ -147,7 +147,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       },
       {
         accessorKey: 'player',
-        header: () => <div className="text-center">{t('gameTable:player')}</div>,
+        header: () => <div className="text-center text-default">{t('gameTable:player')}</div>,
         cell: ({ row }) => (
           <div
             className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
@@ -169,7 +169,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       },
       {
         accessorKey: 'betAmount',
-        header: () => <div className="text-center">{t('gameTable:betAmount')}</div>,
+        header: () => <div className="text-center text-default">{t('gameTable:betAmount')}</div>,
         cell: ({ row }) => (
           <div
             className="dark:text-white sm:text-[14px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]"
@@ -193,7 +193,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       },
       {
         accessorKey: 'multiplier',
-        header: () => <div className="text-center">{t('gameTable:multiplier')}</div>,
+        header: () => <div className="text-center text-default">{t('gameTable:multiplier')}</div>,
         cell: ({ row }) => (
           <div
             className="dark:text-color-text-primary sm:text-[14px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]"
@@ -205,11 +205,11 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       },
       {
         accessorKey: 'profit',
-        header: String(t('gameTable:profitAmount')),
+        header: () => <div className="text-center text-default">{t('gameTable:profitAmount')}</div>,
         minSize: 60,
         cell: ({ row }) => (
           <div
-            className={cn('flex items-center sm:text-[14px] text-[12px] justify-end gap-[5px] sm:p-2 px-[5px]')}
+            className={cn('flex justify-end items-center text-[14px] gap-[5px] sm:p-2 px-[5px]')}
             onClick={() => openModalBetDetail(row)}
           >
             <div
@@ -241,9 +241,13 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         ),
       },
     ];
-    if (innerWidth > 961) return allBetColumnsDefault;
+    if (innerWidth > 1024) return allBetColumnsDefault;
+    else if (innerWidth > 640) {
+      allBetColumnsDefault.splice(1, 2);
+      return allBetColumnsDefault;
+    }
     else {
-      allBetColumnsDefault.splice(2, 1);
+      allBetColumnsDefault.splice(1, 3);
       return allBetColumnsDefault;
     }
   }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
@@ -308,7 +312,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
 
   return (
     <>
-      <div>
+      <div className="flex flex-col lg:gap-[20px] sm:gap-[10px] gap-[5px]">
         <RankingTableComponent
           containerClassName="w-full"
           isLoading={isLoadingTable}
@@ -316,9 +320,9 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           columns={allBetColumns}
         />
         {!!betHistoryFilter.length && (
-          <div className="flex justify-center mt-[20px] pb-[8px] md:pb-[23px]">
+          <div className="flex justify-center">
             <div
-              className="flex items-center py-[9px] px-[10px] rounded-[5px]"
+              className="flex items-center py-4 px-[10px] rounded-[5px]"
               role="button"
               onClick={() => {
                 setIsShowMore(!isShowMore);
