@@ -82,7 +82,7 @@ const InputEmailPhone = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'bg-white dark:bg-color-bg-primary rounded-default flex items-center h-[46px] px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                'bg-white dark:bg-color-input-primary rounded-default flex items-center h-[46px] px-[15px] gap-[18px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 {
                   'dark-autofill': theme !== 'light',
                   'light-autofill': theme === 'light',

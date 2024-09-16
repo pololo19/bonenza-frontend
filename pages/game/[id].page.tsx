@@ -5,6 +5,7 @@ import type {
   GetStaticPaths,
   InferGetStaticPropsType,
 } from 'next'
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -46,7 +47,6 @@ import FiatHeader from '@/components/layouts/header/fiatHeader';
 import ModalShareGame from '@/components/modal/shareGame/shareGame';
 
 import styles from './index.module.scss';
-import Head from 'next/head';
 
 
 export const getStaticPaths = (async () => {
@@ -1010,7 +1010,7 @@ function GamePage({ params }: InferGetStaticPropsType<typeof getStaticProps>) {
               {GamePlayingDesktop}
             </FullScreen>
             {/* Game actions */}
-            <div className="p-[15px] dark:bg-[#17191B] bg-white items-center justify-between sm:flex hidden">
+            <div className="p-[15px] dark:bg-color-card-bg-default bg-white items-center justify-between sm:flex hidden">
               <div className="text-color-text-secondary flex gap-[20px] items-center">
                 {!loadings.reactLoad ? (
                   <div

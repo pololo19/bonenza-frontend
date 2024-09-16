@@ -34,10 +34,8 @@ export default function CommissionReward({ show, onClose }: ModalCommissionRewar
       onClose={onClose}
       panelClass="rounded sm:max-w-[464px] sm:!h-[90vh]"
       header={
-        <div className="relative sm:px-[30px] px-[20px] sm:py-[30px] py-[25px] bg-white dark:bg-color-modal-bg-secondary">
-          <div className="absolute left-0 top-0 h-[60px] w-full flex items-center pl-[24px]">
-            {t('affiliate:commissionRewardRules')}
-          </div>
+        <div className="modal-header">
+          {t('affiliate:commissionRewardRules')}
         </div>
       }
     >

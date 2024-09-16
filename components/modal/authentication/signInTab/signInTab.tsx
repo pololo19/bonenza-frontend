@@ -265,7 +265,7 @@ export default function SignInTab({
               <div className="sm:mt-5 mt-3 flex flex-col items-start sm:gap-[20px] gap-[10px]">
                 <div className="relative w-full">
                   <InputText
-                    customClass="px-[10px] py-[10px] my-[10px] rounded-default w-full bg-white dark:bg-color-bg-primary !text-default placeholder:text-default placeholder:text-[#777777]"
+                    customClass="px-[10px] py-[10px] my-[10px] rounded-default w-full bg-white dark:bg-color-input-primary !text-default placeholder:text-default placeholder:text-[#777777]"
                     name="codeOtp"
                     onChange={(e) => setCodeOtp(e.target.value)}
                     value={codeOtp}

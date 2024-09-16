@@ -69,7 +69,10 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 <Menu.Button className="w-full">
                   <div
                     role="button"
-                    className="flex items-center gap-2 py-2 px-6 w-full rounded dark:bg-color-modal-bg-secondary bg-[#fff]  min-w-[200px]"
+                    className={cn("flex items-center w-full rounded  min-w-[200px]",
+                      "dark:bg-color-modal-bg-secondary bg-[#fff]",
+                      'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',
+                      "gap-2 py-2 px-6 ")}
                   >
                     <div className="flex-1 text-start">{activeRouter}</div>
                     <div className="dark:text-white text-black truncate text-right min-w-[15px]">
@@ -86,7 +89,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
                 >
-                  <Menu.Items className="absolute dark:bg-color-modal-bg-secondary bg-[#fff] w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2 shadow-bs-default">
+                  <Menu.Items className={cn("dark:bg-color-modal-bg-secondary bg-[#fff]", "absolute w-full origin-top-right right-0 top-[60px] z-[5] cursor-pointer rounded p-2 shadow-bs-default")}>
                     {LIST_SIDEBAR_SETTINGS.map((item, index) => (
                       <Menu.Item key={index}>
                         {({ active }) => (
@@ -122,6 +125,7 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                   className={cn(
                     styles.cardMenu,
                     'dark:!bg-color-modal-bg-secondary bg-[#fff] rounded-default md:max-h-[350px] min-w-[175px] md:!flex !hidden',
+                    'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default'
                   )}
                 >
                   <div className="xl:p-2 p-1 w-full">
@@ -141,7 +145,10 @@ const SettingLayout: React.FC<SettingLayoutProps> = ({ children }) => {
                 </div>
                 <div
                   className={cn(
-                    'flex-1 rounded-default dark:bg-transparent sm:dark:bg-color-modal-bg-secondary bg-white dark:text-white text-black sm:p-5 md:px-5 md:pt-5 md:pb-5 md:p-5 mt-[20px] md:mt-0 relative w-full',
+                    'dark:bg-transparent sm:dark:bg-color-modal-bg-secondary bg-white',
+                    'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',
+                    'flex-1 rounded-default dark:text-white text-black ',
+                    'sm:p-5 md:px-5 md:pt-5 md:pb-5 md:p-5 mt-[20px] md:mt-0 relative w-full'
                   )}
                 >
                   {children}

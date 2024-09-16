@@ -100,7 +100,7 @@ export default function ProfileDropdown() {
             className="flex flex-col"
           >
             <Popover.Button ref={buttonRef}>
-              <div className="relative rounded-full overflow-hidden dark:hover:bg-color-menu-secondary hover:bg-color-light-bg-primary aspect-square">
+              <div className="relative rounded-large overflow-hidden dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary aspect-square">
                 <Image
                   height={40}
                   width={40}
@@ -136,7 +136,7 @@ export default function ProfileDropdown() {
             >
               <Popover.Panel
                 static
-                className="sm:absolute sm:mr-0 mr-[10px] fixed left-0 sm:left-auto sm:h-auto h-[100vh] right-0 !z-10 sm:min-w-[250px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-[60px]"
+                className="sm:absolute sm:mr-0 mr-[10px] fixed left-0 sm:left-auto sm:h-auto h-[100vh] right-0 !z-10 sm:min-w-[250px] min-w-[calc(100vw-20px)] origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none top-[50px]"
               >
                 <>
                   <div className="h-14 sm:w-[40px] flex-1 w-0 absolute right-0 top-[-20px]"></div>

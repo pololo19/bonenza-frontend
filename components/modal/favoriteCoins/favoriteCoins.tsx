@@ -136,13 +136,13 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:!max-w-[480px] sm:h-[90vh] sm:min-h-[90vh] sm:!my-0 dark:!bg-color-menu-primary"
+        panelClass="sm:!max-w-[480px] sm:h-[90vh] sm:min-h-[90vh] sm:!my-0"
         isShowCloseButton={false}
         header={
           <div className="flex gap-4 items-center w-full pb-[10px] pt-[25px] px-5">
             <InputSearch
               value={searchInput}
-              className="!w-full border border-solid dark:border-transparent border-color-light-border-primary focus-within:border-color-primary dark:!bg-color-input-primary"
+              className="!w-full border border-solid dark:border-transparent border-color-light-border-primary focus-within:border-color-primary"
               showClose={searchInput !== '' ? true : false}
               onClose={() => {
                 setSearchInput('');
@@ -162,9 +162,9 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               <div
                 onClick={() => setOpenTab(1)}
                 className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
-                  'dark:text-white dark:bg-color-input-hover-primary text-[#000] bg-color-light-active-primary font-bold':
+                  'dark:text-white dark:bg-color-input-primary text-[#000] bg-color-light-active-primary font-bold':
                     openTab === 1,
-                  'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
+                  'dark:hover:text-white hover:bg-color-input-primary hover:text-black text-[#31373D] dark:text-color-text-primary':
                     openTab !== 1,
                 })}
               >
@@ -196,9 +196,9 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
               <div
                 onClick={() => setOpenTab(4)}
                 className={cn('text-default inline-block px-2 py-3 cursor-pointer grow text-center', {
-                  'dark:text-white dark:bg-color-input-hover-primary text-[#000]  bg-color-light-active-primary font-bold':
+                  'dark:text-white dark:bg-color-input-primary text-[#000]  bg-color-light-active-primary font-bold':
                     openTab === 4,
-                  'dark:hover:text-white dark:bg-color-header-secondary bg-color-light-header-secondary hover:bg-color-light-header-secondary hover:text-black text-[#31373D] dark:text-color-text-primary':
+                  'dark:hover:text-white hover:bg-color-input-primary hover:text-black text-[#31373D] dark:text-color-text-primary':
                     openTab !== 4,
                 })}
               >
@@ -246,7 +246,7 @@ export default function ModalCurrencyTypes({ show, onClose }: ModalCurrencyTypes
                       <Switch
                         id={`coin_${index}`}
                         checked={coin.favorite}
-                        className={`${coin.favorite ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                        className={`${coin.favorite ? 'bg-color-select-bg-primary' : 'dark:bg-color-toggle-primary bg-gray-200'
                           } relative inline-flex h-4 w-8 items-center rounded-full`}
                       >
                         <span

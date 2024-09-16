@@ -21,7 +21,7 @@ export default function ModalReferralTerm({ show, onClose }: ModalReferralTermPr
         onClose={onClose}
         panelClass="sm:rounded sm:max-w-[450px]"
         header={
-          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+          <div className="modal-header">
             {t('affiliate:referralTermsConditions')}
           </div>
         }

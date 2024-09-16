@@ -189,7 +189,7 @@ export default function ModalChatTip({ show, onClose }: ChatTipProps) {
         onClose={onClose}
         panelClass={`max-w-full sm:max-w-[420px] sm:max-h-[90vh] h-full sm:!h-[710px]`}
       >
-        <div className="h-full p-6 bg-gradient-card-modal">
+        <div className="h-full p-6">
           <div className="flex flex-col h-full overflow-y-auto relative">
             <div className="sticky top-0 font-normal dark:text-white text-black text-[14px] sm:text-[16px] pb-4">
               {t('mycasino:tip')}
