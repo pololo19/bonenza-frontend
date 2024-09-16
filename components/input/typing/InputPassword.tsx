@@ -66,7 +66,7 @@ const InputPassword = <TFieldValues extends Record<string, unknown>>({
         <div className="flex-1 w-full">
           <div
             className={cn(
-              'dark:bg-color-bg-primary bg-color-light-bg-primary rounded-default flex items-center px-[10px] py-[10px] gap-[18px] text-default border-[1px] border-solid border-transparent focus-within:border-color-primary',
+              'dark:bg-color-input-primary bg-color-light-bg-primary rounded-default flex items-center px-[10px] py-[10px] gap-[18px] text-default border-[1px] border-solid border-transparent focus-within:border-color-primary',
               customClass,
               {
                 'dark-autofill': theme !== 'light',

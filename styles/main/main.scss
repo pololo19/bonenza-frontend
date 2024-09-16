@@ -56,14 +56,14 @@ ul.react-paginate {
 
   /* Handle */
   &::-webkit-scrollbar-thumb { 
-    background: #98A7B5; 
+    background: #1E293B; 
     border-radius: 5px; 
     cursor: pointer;
   } 
 
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover { 
-    background: #98A7B5; 
+    background: #1E293B; 
   }
 
 }
@@ -89,4 +89,8 @@ ul.react-paginate {
 
 body {
   min-height: -webkit-fill-available;
+}
+
+.modal-header{
+  @apply flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px] border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default
 }

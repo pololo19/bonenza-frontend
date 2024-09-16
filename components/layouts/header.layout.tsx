@@ -249,7 +249,7 @@ export default function Navbar() {
             {/* Multi Language */}
             <button
               type="button"
-              className={`${isLogin ? 'hidden sm:flex' : 'flex'
+              className={`${isLogin ? 'hidden md:flex' : 'flex'
                 } text-default font-semibold uppercase rounded-default  dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary text-color-text-primary dark:hover:text-white hover:text-black items-center justify-center gap-[7px] p-[10px]`}
               onClick={() => {
                 dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.LANGUAGE));
@@ -263,11 +263,11 @@ export default function Navbar() {
                   <Global className="w-[20px] h-[20px]" /> : settings.settingLanguage
               )}
             </button>
-            {viewInFiat && localFiat && <div className="hidden w-px h-5 bg-slate-400 sm:block"></div>}
+            {viewInFiat && localFiat && <div className="hidden w-px h-5 bg-slate-400 md:block"></div>}
             {viewInFiat && localFiat && (
               <button
                 type="button"
-                className="sm:block hidden rounded-default dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary dark:hover:text-white hover:text-black dark:text-color-text-primary text-color-light-text-primary p-[10px]"
+                className="md:block hidden rounded-default dark:hover:bg-color-hover-primary hover:bg-color-light-bg-primary dark:hover:text-white hover:text-black dark:text-color-text-primary text-color-light-text-primary p-[10px]"
                 onClick={() => {
                   dispatch(changeMultiLanguageTab(MultiLanguageTabEnum.FIAT));
                   dispatch(changeIsShowMultiLanguageModal(true));

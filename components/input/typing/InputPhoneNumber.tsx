@@ -73,7 +73,7 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
           <div className="w-full flex-1">
             <div
               className={cn(
-                'dark:bg-color-bg-primary bg-white rounded-default flex items-center py-[10px] px-[15px] gap-[8px] h-[46px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
+                'dark:bg-color-input-primary bg-white rounded-default flex items-center py-[10px] px-[15px] gap-[8px] h-[46px] relative border-[1px] border-solid focus-within:border-color-primary border-transparent',
                 customClass,
                 {
                   'dark-autofill': theme !== 'light',
@@ -101,10 +101,9 @@ const InputPhoneNumber = <TFieldValues extends Record<string, unknown>>({
                         <Menu.Item as={Fragment} key={index}>
                           {({ active }) => (
                             <div
-                              className={`${active ? 'bg-gray-700 ' : ''} ${
-                                country.countryCode === activeCountry.countryCode &&
+                              className={`${active ? 'bg-gray-700 ' : ''} ${country.countryCode === activeCountry.countryCode &&
                                 'border border-color-primary border-solid'
-                              } flex p-2 text-des text-gray-400 my-1 mx-1 rounded text-left`}
+                                } flex p-2 text-des text-gray-400 my-1 mx-1 rounded text-left`}
                               onClick={() => setActiveCountry(country)}
                             >
                               <div className="flex-1">{country.country}</div>

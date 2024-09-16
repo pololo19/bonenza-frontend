@@ -78,7 +78,7 @@ export default function CardVipBonus({
     getUserProfile(userId);
   }, [userId]);
   return (
-    <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+    <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-color-card-bg-default bg-white">
       <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
         <Image src={background} width={339} height={192} alt="vip bonus" className="w-[150px] object-contain" />
       </div>

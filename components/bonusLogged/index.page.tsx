@@ -350,7 +350,7 @@ function BonusLoggedPage() {
           </div>
           <div className="flex h-[48px] justify-end">
             <input
-              className={cn("focus:outline-none text-white font-semibold dark:bg-color-table-header-text-secondary/30 bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]", {
+              className={cn("focus:outline-none text-white font-semibold dark:bg-color-input-primary bg-white text-[12px] sm:text-[14px] rounded-l-large placeholder:text-color-text-primary min-w-[100px] flex-1 md:w-[265px] sm:max-w-[265px] pl-[15px]", {
                 'pointer-events-none': isRedeemLoading
               })}
               placeholder={String(t('bonus:redeemBonusCodeHere'))}
@@ -459,7 +459,7 @@ function BonusLoggedPage() {
               "2xl:grid-cols-3": !showChatType
             })}
           >
-            <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+            <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-color-card-bg-default bg-white">
               <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
                 <Image
                   src="/img/bg-levelup.png"
@@ -540,7 +540,7 @@ function BonusLoggedPage() {
                 onClick={item.action}
               />
             ))}
-            <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-[#161D3D] bg-white">
+            <div className="relative rounded-default 2xl:max-w-[400px] min-h-[180px] max-h-[180px] sm:min-h-[230px] sm:max-h-[230px] dark:bg-color-card-bg-default bg-white">
               <div className="rounded-default max-h-[180px] sm:max-h-[230px] overflow-hidden flex justify-end items-center">
                 <Image
                   src="/img/bg-lucky-spin.png"

@@ -74,7 +74,7 @@ const Paging: React.FC<IProps> = ({
                         {() => (
                           <div
                             className={cn(
-                              'flex items-center justify-start py-[5px] px-[5px] w-full dark:hover:bg-color-hover-default hover:bg-color-light-bg-p rounded-default',
+                              'flex items-center justify-start py-[5px] px-[5px] w-full dark:hover:bg-color-hover-primary hover:bg-color-light-bg-p rounded-default',
                               {
                                 'border-[1px] border-solid border-color-primary': item === itemPerPage,
                               },
@@ -105,8 +105,8 @@ const Paging: React.FC<IProps> = ({
           {pages.map((pageNum, index) => (
             <div
               key={`page-${index}`}
-              className={cn('dark:text-white text-black text-[14px] font-light px-2 py-1', {
-                '!font-bold !text-color-primary border-solid rounded border border-color-primary': `${currentPage}` === pageNum,
+              className={cn('dark:text-white text-black text-[14px] font-light px-2 py-1 hover:bg-color-hover-default', {
+                '!font-bold !text-color-primary border-solid rounded border border-color-primary ': `${currentPage}` === pageNum,
                 'cursor-pointer': pageNum != '...',
               })}
               onClick={() => {

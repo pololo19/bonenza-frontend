@@ -1263,7 +1263,7 @@ const TransactionPage = () => {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute dark:bg-color-select-bg-primary bg-color-light-select-bg-primary shadow-bs-default w-full origin-top-right right-0 top-[50px] z-[10] cursor-pointer rounded-default">
-                <div className="py-1">
+                <div>
                   {LIST_FILTER_TYPE.map((item, index) => (
                     <Menu.Item key={index}>
                       {({ active }) => (

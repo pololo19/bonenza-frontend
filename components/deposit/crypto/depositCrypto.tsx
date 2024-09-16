@@ -14,6 +14,7 @@ import { CryptoNetWorkType, CurrencyType } from '@/base/types/wallet';
 import { DepositAddressComponent } from '@/components/depositAddress/depositAddress';
 import SelectCurrency from '@/components/selectCurrency/selectCurrency';
 import { changeIsShowAddressConfirm } from '@/base/redux/reducers/modal.reducer';
+import cn from 'classnames';
 
 const DepositCryptoComponent = () => {
   const usdtPrice = useUSDTPrice();
@@ -136,7 +137,9 @@ const DepositCryptoComponent = () => {
           )}
 
           {wallets.findIndex((wallet) => wallet.networkId === activeNetwork?.id) != -1 && (
-            <div className="rounded-default w-full flex sm:flex-row flex-col items-center dark:text-white text-color-light-text-primary gap-[20px] py-[13px] px-[20px] dark:bg-color-canvas-bg-primary bg-color-light-bg-primary">
+            <div className={cn("flex sm:flex-row flex-col items-center",
+              "dark:text-white text-color-light-text-primary dark:bg-color-canvas-bg-primary bg-color-light-bg-primary",
+              "rounded-default w-full gap-[20px] py-[13px] px-[20px]")}>
               <div className="rounded-[16px]">
                 <Canvas
                   text={String(wallets.find((wallet) => wallet.networkId === activeNetwork.id)?.address)}

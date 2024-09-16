@@ -85,9 +85,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
   const [searchFiatInput, setSearchFiatInput] = useState<string>('');
 
   const [showSmallFiat, setShowSmallFiat] = useState<boolean>(false);
-  const [showAllFiat, setShowAllFiat] = useState<boolean>(false);
-
-  const [showFavoriteCoins, setShowFavoriteCoins] = useState<boolean>(false);
 
   const filterListFiat = useMemo(() => {
     const arraySearch = fiatSymbols.filter(
@@ -143,13 +140,6 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
       item.name.toLowerCase().includes(searchFiatInput.toLowerCase().trim()),
     );
   }, [searchFiatInput, cryptoSymbols, fiatSymbols]);
-
-  const handleChangeCoinSuggest = (coin: any) => {
-    dispatch(changeActiveFiat(coin));
-    setSearchFiatInput('');
-    sessionStorage.setItem(CookieKey.activeFiat, JSON.stringify(coin));
-    CookiesStorage.setCookieData(CookieKey.activeFiat, String(coin?.currency));
-  };
 
   useEffect(() => {
     if (cryptoSymbols.length > 0) {
@@ -246,7 +236,11 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
           >
             <div
               className={
-                'rounded-default sm:py-1 sm:relative fixed flex flex-col gap-[20px] sm:right-0 sm:left-auto left-0 dark:bg-color-menu-secondary bg-white sm:w-auto w-[100vw] dark:shadow-gray-900 shadow-gray-200 shadow'
+                cn('fixed flex flex-col',
+                  'sm:py-1 sm:relative sm:right-0 sm:left-auto left-0 sm:w-auto w-[100vw]',
+                  'bg-white dark:bg-color-menu-secondary',
+                  'border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default',
+                  'rounded-default gap-[20px] dark:shadow-gray-900 shadow-gray-200 shadow')
               }
             >
               <div className="flex px-[20px] mt-[20px]">
@@ -257,7 +251,7 @@ export default function FiatHeader({ inGamePage, wrapperClass, buttonClass }: Fi
                     onClose={() => {
                       setSearchFiatInput('');
                     }}
-                    className="dark:text-white !bg-color-light-bg-primary dark:!bg-color-menu-primary min-h-[40px] border border-solid border-transparent focus-within:border-color-primary"
+                    className="dark:text-white !bg-color-light-bg-primary dark:!bg-color-menu-primary min-h-[40px]"
                     onChange={(e) => setSearchFiatInput(e.target.value)}
                   />
                 </div>

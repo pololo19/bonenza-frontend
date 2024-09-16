@@ -140,7 +140,7 @@ function BonusPage() {
                       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                       dispatch(changeIsShowAuthenticationModal(true));
                     }}
-                    className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-gradient-btn-secondary rounded-[5px] py-[13px] px-[22px] max-w-[285px] mt-5 md:mt-[40px] text-center"
+                    className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-gradient-btn-play rounded-large shadow-bs-btn py-[13px] px-[22px] max-w-[285px] mt-5 md:mt-[40px] text-center"
                   >
                     {t('bonus:claimYourDepositBonus')}
                   </div>
@@ -160,7 +160,7 @@ function BonusPage() {
                       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                       dispatch(changeIsShowAuthenticationModal(true));
                     }}
-                    className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-gradient-btn-secondary rounded-[5px] py-[13px] px-[22px] max-w-[282px] text-center"
+                    className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-gradient-btn-play rounded-large shadow-bs-btn py-[13px] px-[22px] max-w-[282px] text-center"
                   >
                     {t('bonus:unlockLevel')}
                   </div>
@@ -182,7 +182,7 @@ function BonusPage() {
                       dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                       dispatch(changeIsShowAuthenticationModal(true));
                     }}
-                    className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-gradient-btn-secondary rounded-[5px] py-[13px] px-[22px] max-w-[302px] mt-5 md:mt-[40px] text-center"
+                    className="text-[14px] hover:opacity-[0.9] text-white font-bold bg-gradient-btn-play rounded-large shadow-bs-btn py-[13px] px-[22px] max-w-[302px] mt-5 md:mt-[40px] text-center"
                   >
                     {t('bonus:howToUnlock')}
                   </div>
@@ -341,7 +341,7 @@ function BonusPage() {
                     dispatch(changeAuthenticationType(AuthenticationModeEnum.SIGN_IN));
                     dispatch(changeIsShowAuthenticationModal(true));
                   }}
-                  className="bg-btn-sign-in rounded-[5px] bg-gradient-btn-play shadow-bs-btn py-[10px] px-5 font-bold text-white"
+                  className="bg-btn-sign-in rounded-large bg-gradient-btn-play shadow-bs-btn py-[10px] px-5 font-bold text-white"
                 >
                   {t('bonus:signUpNow')}
                 </div>

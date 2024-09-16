@@ -151,7 +151,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
                   {t('profile:username')}
                 </label>
                 <InputText
-                  customClass="px-[20px] py-[10px] my-[10px] dark:bg-color-bg-primary rounded-default"
+                  customClass="px-[20px] py-[10px] my-[10px] rounded-default"
                   control={control}
                   typeInput={EnumTypeInput.EMAIL}
                   placeholder={String(t('profile:username'))}

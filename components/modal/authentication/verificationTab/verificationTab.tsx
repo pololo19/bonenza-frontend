@@ -147,7 +147,7 @@ export default function VerificationTab() {
               </div>
               <InputText
                 size={6}
-                customClass="bg-color-bg-primary focus:outline-none w-full !rounded-default h-[51px] px-[15px] placeholder:text-[14px] text-white mt-1"
+                customClass="focus:outline-none w-full !rounded-default h-[51px] px-[15px] placeholder:text-[14px] text-white mt-1"
                 control={control}
                 name="code"
                 placeholder={t(String('authentication:verificationCode')) ?? ''}
