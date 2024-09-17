@@ -114,12 +114,12 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {
         accessorKey: 'betId',
         header: () => (
-          <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-left dark:text-color-text-primary text-color-light-text-primary pl-2 sm:pl-4 text-m_default sm:text-default">
             {t('gameTable:betId')}
           </div>
         ),
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate sm:w-auto w-[27vw] p-2">
+          <div className="dark:text-color-text-primary text-color-light-text-primary truncate py-3 sm:py-4 pl-2 sm:pl-4 text-m_default sm:text-default max-w-[100px] sm:max-w-full">
             {row.original.betId}
           </div>
         ),
@@ -127,7 +127,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {
         accessorKey: 'betAmount',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default">
             {t('gameTable:bet')}
           </div>
         ),
@@ -138,15 +138,15 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
                 <div className="font-normal text-black truncate dark:text-white">
                   {viewInFiat
                     ? `${currencyFormat1(
-                      row.original.betAmountUsd * exchangeRate,
-                      fiatDecimals,
-                      localFiat?.name || 'USD',
-                    )}`
+                        row.original.betAmountUsd * exchangeRate,
+                        fiatDecimals,
+                        localFiat?.name || 'USD',
+                      )}`
                     : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)}`}
                 </div>
                 <Image
-                  height={15}
-                  width={15}
+                  height={16}
+                  width={16}
                   src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
                   onError={(e) => {
                     e.currentTarget.src = '/img/fiats/USDT.png';
@@ -161,12 +161,12 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {
         accessorKey: 'time',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default">
             {t('gameTable:time')}
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-center truncate dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-center truncate dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default">
             {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SECOND)}
           </div>
         ),
@@ -174,12 +174,12 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {
         accessorKey: 'payout',
         header: () => (
-          <div className="text-center dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-center dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default">
             {t('gameTable:payout')}
           </div>
         ),
         cell: ({ row }) => (
-          <div className="text-center truncate dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-center truncate dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default">
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
           </div>
         ),
@@ -187,7 +187,7 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
       {
         accessorKey: 'profit',
         header: () => (
-          <div className="text-right dark:text-color-text-primary text-color-light-text-primary">
+          <div className="text-right dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default pr-2 sm:pr-4">
             {t('gameTable:profit')}
           </div>
         ),
@@ -202,16 +202,15 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                  Math.abs(row.original.profitAmountUsd * exchangeRate),
-                  fiatDecimals,
-                  localFiat?.name || 'USD',
-                )}`
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    fiatDecimals,
+                    localFiat?.name || 'USD',
+                  )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)}`}
             </div>
             <Image
-              className="sm:h-[15px] h-[15px] sm:w-[15px] w-[15px]"
-              height={15}
-              width={15}
+              height={16}
+              width={16}
               src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USD.png'}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USD.png';
@@ -263,9 +262,8 @@ const MyBetsTableComponent = ({ gameDetail }: { gameDetail?: GameListType }) => 
           };
           setNewBetData(tempData);
         } catch (error) {
-          console.log(error, 'my bets error')
+          console.log(error, 'my bets error');
         }
-
       });
     }
 

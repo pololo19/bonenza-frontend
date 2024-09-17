@@ -125,10 +125,13 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
     const allBetColumnsDefault: ColumnDef<BetTableDataType>[] = [
       {
         accessorKey: 'betId',
-        header: () => <div className="text-default">{t('gameTable:game')}</div>,
+        header: () => <div className="pl-2 sm:pl-4 text-m_default sm:text-default">{t('gameTable:game')}</div>,
         cell: ({ row }) => (
           <div
-            className="dark:text-color-text-primary text-[#31373d] text-[14px] font-bold truncate flex items-center gap-[5px] sm:p-2 p-[5px]"
+            className={cn(
+              'flex items-center gap-[5px] pl-2 sm:pl-4 py-3 sm:py-4',
+              'dark:text-color-text-primary text-[#31373d] text-m_default sm:text-default',
+            )}
             onClick={() => openModalBetDetail(row)}
           >
             <Image
@@ -141,17 +144,18 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               }}
               className="object-cover max-h-auto rounded-[5px]"
             />
-            <span className="px-2">{row.original.game}</span>
+            <span className="px-2 !font-medium w-[120px] sm:w-auto truncate">{row.original.game}</span>
           </div>
         ),
       },
       {
         accessorKey: 'player',
-        header: () => <div className="text-center text-default">{t('gameTable:player')}</div>,
+        header: () => (
+          <div className="px-2 sm:px-4 text-center text-m_default sm:text-default">{t('gameTable:player')}</div>
+        ),
         cell: ({ row }) => (
           <div
-            className={`${row.original.playerId !== userId && !row.original.player && 'pointer-events-none'
-              } font-bold truncate text-center sm:text-[14px] text-[12px] sm:p-2 p-[5px]`}
+            className={`flex justify-center font-bold truncate text-center text-m_default sm:text-default sm:p-2 p-0`}
             onClick={() => openModalProfileUser(row)}
           >
             {row.original.playerId !== userId && !row.original.player ? (
@@ -160,7 +164,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
                 {t('homePage:hidden')}
               </div>
             ) : (
-              <div className="text-black dark:text-white">
+              <div className="text-black dark:text-white w-[110px] sm:w-auto truncate">
                 {row.original.playerId === userId ? userName : row.original.player}
               </div>
             )}
@@ -169,19 +173,23 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       },
       {
         accessorKey: 'betAmount',
-        header: () => <div className="text-center text-default">{t('gameTable:betAmount')}</div>,
+        header: () => (
+          <div className="px-2 sm:px-4 text-center text-m_default sm:text-default">{t('gameTable:betAmount')}</div>
+        ),
         cell: ({ row }) => (
           <div
-            className="dark:text-white sm:text-[14px] text-[12px] text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]"
+            className="dark:text-white text-m_default sm:text-default text-[#31373d] font-bold truncate flex items-center justify-center gap-[5px] sm:p-2 px-[5px]"
             onClick={() => openModalBetDetail(row)}
           >
-            {viewInFiat
-              ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
-              : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
+            <span className="max-w-[90px] sm:max-w-full truncate">
+              {viewInFiat
+                ? `${currencyFormat1(row.original.betAmountUsd * exchangeRate, fiatDecimals, localFiat?.name || 'USD')}`
+                : `${currencyFormat1(row.original.betAmount, cryptoDecimals, '', false)} `}
+            </span>
             <Image
               className="w-[18px] h-[18px]"
-              height={25}
-              width={32}
+              height={18}
+              width={18}
               src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
@@ -193,10 +201,12 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       },
       {
         accessorKey: 'multiplier',
-        header: () => <div className="text-center text-default">{t('gameTable:multiplier')}</div>,
+        header: () => (
+          <div className="px-2 sm:px-4 text-center text-m_default sm:text-default">{t('gameTable:multiplier')}</div>
+        ),
         cell: ({ row }) => (
           <div
-            className="dark:text-color-text-primary sm:text-[14px] text-[12px] text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]"
+            className="dark:text-color-text-primary text-m_default sm:text-default text-[#31373d] truncate text-center font-bold sm:p-2 px-[5px]"
             onClick={() => openModalBetDetail(row)}
           >
             {`${formatLengthNumber(row.original.multiplier, 2)}x`}
@@ -205,15 +215,16 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
       },
       {
         accessorKey: 'profit',
-        header: () => <div className="text-center text-default">{t('gameTable:profitAmount')}</div>,
-        minSize: 60,
+        header: () => (
+          <div className="pr-2 sm:pr-4 text-center text-m_default sm:text-default">{t('gameTable:profitAmount')}</div>
+        ),
         cell: ({ row }) => (
           <div
-            className={cn('flex justify-end items-center text-[14px] gap-[5px] sm:p-2 px-[5px]')}
+            className={cn('flex justify-end items-center text-m_default sm:text-default gap-[5px] pr-2 sm:pr-4')}
             onClick={() => openModalBetDetail(row)}
           >
             <div
-              className={cn('font-bold text-end truncate', {
+              className={cn('!font-semibold text-end truncate', {
                 'text-color-text-green': row.original.profitAmount >= 0,
                 'text-color-red-primary': row.original.profitAmount < 0,
               })}
@@ -221,16 +232,16 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
               {row.original.profitAmount >= 0 ? '' : '-'}
               {viewInFiat
                 ? `${currencyFormat1(
-                  Math.abs(row.original.profitAmountUsd * exchangeRate),
-                  fiatDecimals,
-                  localFiat?.name || 'USD',
-                )}`
+                    Math.abs(row.original.profitAmountUsd * exchangeRate),
+                    fiatDecimals,
+                    localFiat?.name || 'USD',
+                  )}`
                 : `${currencyFormat1(Math.abs(row.original.profitAmount), cryptoDecimals, '', false)} `}
             </div>
             <Image
-              className="h-[18px] w-[18px]"
-              height={15}
-              width={15}
+              className="w-4 h-4 sm:h-[18px] sm:w-[18px]"
+              height={18}
+              width={18}
               src={row.original.currency ? `/img/fiats/${row.original.currency}.png` : '/img/fiats/USDT.png'}
               onError={(e) => {
                 e.currentTarget.src = '/img/fiats/USDT.png';
@@ -241,13 +252,10 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
         ),
       },
     ];
-    if (innerWidth > 1024) return allBetColumnsDefault;
-    else if (innerWidth > 640) {
-      allBetColumnsDefault.splice(1, 2);
+    if (innerWidth > 1024) {
       return allBetColumnsDefault;
-    }
-    else {
-      allBetColumnsDefault.splice(1, 3);
+    } else {
+      allBetColumnsDefault.splice(2, 2);
       return allBetColumnsDefault;
     }
   }, [localFiat, userId, innerWidth, viewInFiat, exchangeRate]);
@@ -275,9 +283,8 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
           };
           setNewBetData(tempData);
         } catch (error) {
-          console.log(error, 'latest bet error')
+          console.log(error, 'latest bet error');
         }
-
       });
     }
 
@@ -328,7 +335,7 @@ const LatestBetsTableComponent = ({ gameDetail }: { gameDetail?: GameDetail }) =
                 setIsShowMore(!isShowMore);
               }}
             >
-              <div className="text-default dark:text-[#FFFFFF] text-[#000] font-normal mr-[6px]">
+              <div className="text-m_default sm:text-default dark:text-[#FFFFFF] text-[#000] font-normal mr-[6px]">
                 {!isShowMore ? t('homePage:showMore') : t('homePage:showLess')}
               </div>
               {!isShowMore ? (

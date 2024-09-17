@@ -90,7 +90,7 @@ export const MessageBox = ({
   return (
     <>
       <div
-        className={cn('flex w-full px-[10px] rounded-[4px] min-h-[50px] py-0', styles['message'], {
+        className={cn('flex w-full px-[10px] rounded-[4px] min-h-[50px] py-[6px]', styles['message'], {
           'justify-end': id === userId,
           'justify-start': id !== userId,
           'bg-color-primary/10 border-l-[4px] border-solid border-l-color-primary':

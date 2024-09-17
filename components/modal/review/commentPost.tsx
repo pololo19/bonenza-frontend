@@ -103,7 +103,7 @@ export default function CommentPostModal({
             />
             <textarea
               rows={5}
-              className="flex-1 bg-color-modal-bg-secondary outline-none rounded-[5px] p-2 text-[14px] placeholder:text-color-text-primary dark:text-white text-color-light-text-primary"
+              className="flex-1 bg-color-card-bg-secondary border border-solid border-color-card-border-primary outline-none rounded-[5px] p-2 text-[14px] placeholder:text-color-text-primary dark:text-white text-color-light-text-primary"
               placeholder="Add a comment"
               value={review}
               onChange={(e) => setReview(e.target.value)}
@@ -113,7 +113,7 @@ export default function CommentPostModal({
             <Popover>
               {({ open }) => (
                 <>
-                  <Popover.Button>
+                  <Popover.Button className="bg-color-card-bg-secondary border border-solid border-color-card-border-primary p-2 rounded-lg">
                     <Happyemoji />
                   </Popover.Button>
                   <Transition.Child

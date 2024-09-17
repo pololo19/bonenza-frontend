@@ -37,7 +37,7 @@ const HomepageSession = ({
     >
       <div className="flex items-center gap-[10px]">
         <Image className={`${showIcon ? 'block' : 'hidden'}`} height={24} width={24} src={iconUrl} alt="homepage" />
-        <div className="font-[600] dark:text-white text-[#000] sm:text-[18px] text-[16px]">{title}</div>
+        <div className="font-[600] dark:text-white text-[#000] text-default sm:text-[16px] md:text-m_title">{title}</div>
       </div>
       <div className={`mt-[15px] lg:max-w-[calc(100vw)]`}>{children}</div>
     </div>
