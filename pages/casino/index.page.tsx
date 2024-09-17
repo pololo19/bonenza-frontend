@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import { api_getCasinoGameData, api_getCasinoWithKey, CasinoRequest } from '@/api/game';
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
+import { API_PROVIDER_IMAGE, ROUTER } from '@/base/constants/common';
 import { isEmpty, snakeCaseToString } from '@/base/libs/utils';
 import { convert2Url, convertThemeToUrl } from '@/base/libs/utils/convert';
 import { changeIsShowCasinoSearch } from '@/base/redux/reducers/modal.reducer';
@@ -125,8 +125,7 @@ function CasinoPage() {
       setListBigWinGame(tempRecentBigWins);
       setListProvider(tempProviders);
       setListTheme(tempThemes);
-    }
-    catch (err) {
+    } catch (err) {
       console.error(err);
       setListGames({ ...initGameDatas });
       setListBigWinGame([]);
@@ -135,42 +134,41 @@ function CasinoPage() {
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     getInitialData();
     localStorage.removeItem('tab');
   }, []);
 
-  const getGames = useCallback(async (page: number, pageSize: number) => {
-    let params: CasinoRequest = {
-      page,
-      pageSize,
-      providers: JSON.stringify([]),
-      sort: 'like'
-    }
-    const _res = await api_getCasinoWithKey(convert2Url(_key), params);
-    return {
-      data: _res.data?.games,
-      page: _res.data?.page,
-      pageSize: _res.data?.pageSize,
-      totalPage: _res.data?.totalPage,
-      totalCount: _res.data?.totalCount
-    }
-  }, [_key])
+  const getGames = useCallback(
+    async (page: number, pageSize: number) => {
+      let params: CasinoRequest = {
+        page,
+        pageSize,
+        providers: JSON.stringify([]),
+        sort: 'like',
+      };
+      const _res = await api_getCasinoWithKey(convert2Url(_key), params);
+      return {
+        data: _res.data?.games,
+        page: _res.data?.page,
+        pageSize: _res.data?.pageSize,
+        totalPage: _res.data?.totalPage,
+        totalCount: _res.data?.totalCount,
+      };
+    },
+    [_key],
+  );
 
   return (
     <>
       <MetaHead />
       <Head>
-        <link
-          rel="canonical"
-          href="https://bonenza.com/casino"
-          key="canonical"
-        />
+        <link rel="canonical" href="https://bonenza.com/casino" key="canonical" />
       </Head>
       <div className="py-[24px]">
-        <h1 className='hidden'>Casino</h1>
+        <h1 className="hidden">Casino</h1>
         {isLoading && <Loader />}
 
         <GameBannerSlider className="!mt-0" />
@@ -187,8 +185,8 @@ function CasinoPage() {
         <TabGames ishome />
 
         {/* Game Options */}
-        {
-          isEmpty(_key) && <>
+        {isEmpty(_key) && (
+          <>
             <div className="flex flex-col gap-[30px] sm:pt-0 pt-[10px]">
               <div className="w-full sm:block hidden">
                 {listBigWinGame.length > 0 && <RecentBigWinComponent listBigWinGame={listBigWinGame} />}
@@ -225,11 +223,7 @@ function CasinoPage() {
                     <Image
                       height={0}
                       width={0}
-                      src={
-                        item?.image
-                          ? `https://cdn.softswiss.net/logos/providers/color/${item?.image}.svg`
-                          : `/img/providers/softswiss.png`
-                      }
+                      src={item?.image ? `${API_PROVIDER_IMAGE}/${item?.image}.png` : `/img/providers/softswiss.png`}
                       alt="provider logo"
                       onError={(e) => {
                         e.currentTarget.src = `/img/providers/softswiss.png`;
@@ -260,9 +254,9 @@ function CasinoPage() {
                     href={ROUTER.Theme(convertThemeToUrl(item))}
                     role="button"
                     className={cn(
-                      "flex justify-center items-center sm:h-[64px] h-[50px] min-w-fit p-[10px] gap-[10px] rounded flex-shrink-0",
-                      "xl:text-default text-default text-center text-black dark:text-white",
-                      "bg-white dark:bg-color-card-bg-primary border border-solid border-color-card-border-primary hover:opacity-90"
+                      'flex justify-center items-center sm:h-[64px] h-[50px] min-w-fit p-[10px] gap-[10px] rounded flex-shrink-0',
+                      'xl:text-default text-default text-center text-black dark:text-white',
+                      'bg-white dark:bg-color-card-bg-primary border border-solid border-color-card-border-primary hover:opacity-90',
                     )}
                   >
                     {snakeCaseToString(item)}
@@ -283,14 +277,10 @@ function CasinoPage() {
               </HomepageSession>
             </div>
           </>
-        }
-        {
-          !isEmpty(_key) && <GameCategory getData={getGames} />
-        }
-
+        )}
+        {!isEmpty(_key) && <GameCategory getData={getGames} />}
       </div>
     </>
-
   );
 }
 

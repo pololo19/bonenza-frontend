@@ -605,6 +605,7 @@ export const CHUNK_BATCH_CREATE_PRODUCT = 100;
 
 export const API_AVATAR = `${process.env.STORAGE_URL}/avatar`;
 export const API_GAME_IMAGE = `${process.env.STORAGE_URL}/game`;
+export const API_PROVIDER_IMAGE = `${process.env.STORAGE_URL}/provider`;
 export const API_NOTIFICATION_LOGO = `${process.env.STORAGE_URL}/notification`;
 
 export const SOCKET_WALLET_URL = process.env.SOCKET_WALLET_URL;
