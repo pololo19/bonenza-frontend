@@ -5,7 +5,7 @@ import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { api_getProviders } from '@/api/game';
-import { ROUTER } from '@/base/constants/common';
+import { API_PROVIDER_IMAGE, ROUTER } from '@/base/constants/common';
 import { Breadcrumbs } from '@/components/breadcrumbs/breadcrumbs';
 import Loader from '@/components/common/preloader/loader';
 import BaseLayout from '@/components/layouts/base.layout';
@@ -47,11 +47,7 @@ function ProvidersPage() {
     <>
       <MetaHead />
       <Head>
-        <link
-          rel="canonical"
-          href="https://bonenza.com/providers"
-          key="canonical"
-        />
+        <link rel="canonical" href="https://bonenza.com/providers" key="canonical" />
       </Head>
       <div className="py-[24px]">
         {isLoading && <Loader />}
@@ -74,7 +70,7 @@ function ProvidersPage() {
                     width={150}
                     src={
                       provider.identifier
-                        ? `https://cdn.softswiss.net/logos/providers/color/${provider.identifier}.svg`
+                        ? `${API_PROVIDER_IMAGE}/${provider.identifier}.png`
                         : `/img/providers/softswiss.png`
                     }
                     alt="provider logo"

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { useTranslation } from '@/base/config/i18next';
-import { ROUTER } from '@/base/constants/common';
+import { API_PROVIDER_IMAGE, ROUTER } from '@/base/constants/common';
 import { GameListType, GameProviderDetail } from '@/base/types/common';
 
 import AllBetsTableComponent from '../gameTable/allBetsTable';
@@ -122,7 +122,7 @@ const GameDetailComponent = ({
             <Image
               height={0}
               width={0}
-              src={`https://cdn.softswiss.net/logos/providers/color/${gameDetail?.provider}.svg`}
+              src={`${API_PROVIDER_IMAGE}/${gameDetail?.provider}.png`}
               alt="game logo"
               className="bg-color-card-bg-secondary border border-solid border-color-card-border-primary p-3 object-cover max-h-[80px] w-auto rounded-[5px]"
             />
