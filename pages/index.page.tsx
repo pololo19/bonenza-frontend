@@ -364,11 +364,7 @@ function IndexPage() {
     <>
       <MetaHead />
       <Head>
-        <link
-          rel="canonical"
-          href="https://bonenza.com"
-          key="canonical"
-        />
+        <link rel="canonical" href="https://bonenza.com" key="canonical" />
       </Head>
       <div className="w-full">
         <div className="w-full flex items-start xl:flex-row flex-col pb-[25px]">
@@ -486,7 +482,7 @@ function IndexPage() {
                       {checkDeposit && <VipProgressComponent />}
                     </div>
                   )}
-                  {!isLogin && <LoginWalletDashboard onClose={() => { }} />}
+                  {!isLogin && <LoginWalletDashboard onClose={() => {}} />}
                 </div>
               </div>
             </div>
@@ -689,7 +685,7 @@ function IndexPage() {
                     />
                     <div className="flex flex-col-reverse items-center w-full gap-5 mt-5 lg:w-unset lg:flex-row">
                       <div
-                        className="hover:opacity-[0.9] bg-gradient-btn-play shadow-bs-btn py-[10px] flex items-center justify-center text-white font-bold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
+                        className="hover:opacity-[0.9] bg-gradient-btn-play shadow-bs-btn py-[10px] flex items-center justify-center text-white font-semibold text-default w-full lg:w-[162px] rounded-[5px] cursor-pointer"
                         onClick={() => {
                           if (feedbackText === '') {
                             toast.error(t('warning:emptyMessageContent'), {
