@@ -185,7 +185,8 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                   >
                     {String(t('footer:blackJack'))}
                   </Link>
-                </div></div>
+                </div>
+              </div>
             </div>
             <div className="flex flex-col items-center">
               <div className="w-[150px]">
@@ -304,9 +305,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       height={30}
                       className="w-[32px] h-[32px] cursor-pointer"
                     />
-                    <p>
-                      Discord
-                    </p>
+                    <p>Discord</p>
                   </Link>
                   <Link
                     className="flex items-center gap-3 text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
@@ -320,9 +319,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       height={30}
                       className="w-[32px] h-[32px] cursor-pointer"
                     />
-                    <p>
-                      X / Twitter
-                    </p>
+                    <p>X / Twitter</p>
                   </Link>
                   <Link
                     className="flex items-center gap-3 text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
@@ -336,9 +333,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       height={30}
                       className="w-[32px] h-[32px] cursor-pointer"
                     />
-                    <p>
-                      Telegram Offical
-                    </p>
+                    <p>Telegram Offical</p>
                   </Link>
                   <Link
                     className="flex items-center gap-3 text-default text-color-light-text-primary dark:text-color-text-primary hover:text-black dark:hover:text-white"
@@ -352,9 +347,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       height={30}
                       className="w-[32px] h-[32px] cursor-pointer"
                     />
-                    <p>
-                      Telegram Announcement
-                    </p>
+                    <p>Telegram Announcement</p>
                   </Link>
                 </div>
               </div>
@@ -425,20 +418,18 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                       >
                         {t('layout:deposit')}
                       </Link>
-
                     </Tooltip>
                   </div>
                 ))}
-
-
               </div>
             </div>
           )}
           {/* footer 3 */}
-          <div className={cn(
-            "mt-[30px] py-10 grid grid-cols-1 lg:grid-cols-3 gap-y-10 lg:gap-x-20",
-            "border-t border-solid dark:border-color-border-primary border-color-light-border-primary"
-          )}
+          <div
+            className={cn(
+              'mt-[30px] py-12 grid grid-cols-1 lg:grid-cols-3 gap-y-10 lg:gap-x-20',
+              'border-t border-solid dark:border-color-border-primary border-color-light-border-primary',
+            )}
           >
             <div className={cn('col-span-2 flex flex-col gap-5 sm:pb-4', { 'mt-[40px]': isDetailPage })}>
               <Image
@@ -469,9 +460,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
                 <div className="font-semibold text-black dark:text-white max-md:text-center text-[16px] md:text-[18px]">
                   {String(t('footer:sponsorshipAndGamingResponsibilities'))}
                 </div>
-                <div
-                  className="flex justify-center lg:justify-between items-center gap-5 sm:gap-10 w-full"
-                >
+                <div className="flex justify-center lg:justify-between items-center gap-5 sm:gap-10 w-full">
                   <Link href="https://sigmaawards.org/" target="_blank">
                     <Image
                       alt="sigma logo"
@@ -496,7 +485,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
             )}
           </div>
 
-          <div className="text-center text-default font-light flex flex-col gap-2 pb-24">
+          <div className="text-center text-default font-light flex flex-col gap-2 pb-24 sm:pb-0">
             <p>{t('footer:copyright1')}</p>
             <p>{t('footer:copyright2')}</p>
           </div>

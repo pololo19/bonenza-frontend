@@ -32,7 +32,7 @@ const GameDetailComponent = ({
       </div>
       <div
         className={cn(
-          'w-full h-full flex flex-col gap-4 rounded-[10px] p-1 sm:p-4 bg-white relative',
+          'w-full h-full flex flex-col gap-4 rounded-[10px] p-1 pt-0 sm:pt-0 sm:p-4 bg-white relative',
           'dark:bg-color-card-bg-primary border border-solid border-color-card-border-primary',
         )}
       >
