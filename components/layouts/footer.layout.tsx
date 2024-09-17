@@ -58,7 +58,7 @@ export default function Footer({ isDetailPage }: { isDetailPage?: boolean }) {
     {
       icon: '/img/icon/polygon-icon.png',
       network: 'Polygon',
-      token: 'MATIC',
+      token: 'POL',
     },
     {
       icon: '/img/icon/LTC.png',
