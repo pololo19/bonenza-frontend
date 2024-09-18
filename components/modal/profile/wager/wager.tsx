@@ -43,9 +43,9 @@ export default function WagerContest({ userData }: WagerContestProps) {
     const wagerColumnsDefault: ColumnDef<WagerDetail>[] = [
       {
         accessorKey: 'date',
-        header: () => <div className="text-left text-[14px] font-normal pl-2">{t('profile:date')}</div>,
+        header: () => <div className="text-left text-[14px] font-normal pl-2 sm:pl-4">{t('profile:date')}</div>,
         cell: ({ row }) => (
-          <div className="font-medium text-[12px] sm:text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate pl-2">
+          <div className="font-medium text-[12px] sm:text-[14px] text-left dark:text-[#98a7b5] text-[#000] truncate pl-2 sm:pl-4 py-2 sm:py-3">
             {formatDate(new Date(row.original?.date || ''), 'L/dd/yyyy')} {t('profile:daily')}
           </div>
         ),
@@ -59,10 +59,10 @@ export default function WagerContest({ userData }: WagerContestProps) {
             {row.original.position === 1
               ? 'st'
               : row.original.position === 2
-                ? 'nd'
-                : row.original.position === 3
-                  ? 'rd'
-                  : 'th'}
+              ? 'nd'
+              : row.original.position === 3
+              ? 'rd'
+              : 'th'}
           </div>
         ),
       },
@@ -117,7 +117,7 @@ export default function WagerContest({ userData }: WagerContestProps) {
   };
 
   return (
-    <div>
+    <div className="px-2 sm:px-4">
       <div className="mt-[24px] w-full">
         <RankingTableComponent
           isLoading={isLoading}

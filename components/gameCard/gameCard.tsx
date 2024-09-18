@@ -50,14 +50,18 @@ function GameCard(props: GameCardProps) {
       >
         <div
           className={classNames(
-            'bg-color-card-bg-primary border border-solid border-color-card-border-primary sm:block rounded-large overflow-hidden p-2 mt-2 w-full',
+            'bg-color-card-bg-primary border border-solid border-color-card-border-primary rounded-large overflow-hidden p-2 mt-2 w-full',
             'transition-all translate-y-0 hover:-translate-y-2 ease-in-out',
             {
-              flex: listView,
-              block: !listView,
-            })}
+              'flex items-center': listView,
+              'flex flex-col justify-center': !listView,
+            },
+          )}
         >
-          <Link href={ROUTER.GameDetail(convertGameIdentifierToUrl(gameDetail.identifier || ''))} className="rounded-default">
+          <Link
+            href={ROUTER.GameDetail(convertGameIdentifierToUrl(gameDetail.identifier || ''))}
+            className="rounded-default"
+          >
             <Image
               height={160}
               width={160}
@@ -71,7 +75,7 @@ function GameCard(props: GameCardProps) {
               blurDataURL={`data:image/svg+xml;base64,${toBase64(convertImage(160, 160))}`}
             />
           </Link>
-          <div className="flex justify-center items-center gap-1 py-2 px-2">
+          <div className="flex justify-center items-center gap-1 py-2 px-1 sm:px-2">
             <Link
               href={ROUTER.Provider(String(gameDetail.provider))}
               className="dark:text-white text-black text-m_default md:text-default truncate capitalize hover:!underline hover:!underline-offset-4"
@@ -81,19 +85,18 @@ function GameCard(props: GameCardProps) {
             <InfoCircle
               data-tooltip-id={`${gameDetail.identifier} ${uuid}`}
               size={20}
-              className="text-[#8E8E90] !min-w-[20px] !min-h-[20px] !max-w-[20px] !max-h-[20px] focus:!outline-none"
+              className="text-[#8E8E90] sm:!min-w-[20px] sm:!min-h-[20px] sm:!max-w-[20px] sm:!max-h-[20px] !min-w-[16px] !min-h-[16px] !max-w-[1px] !max-h-[16px] focus:!outline-none"
               role="button"
             />
           </div>
         </div>
-
       </div>
       <Tooltip
         className="max-w-[50vw] z-[50] !text-[14px] min-w-[270px] !p-3 !bg-color-light-bg-primary dark:!bg-[#161D3D] mt-3"
         opacity={100}
         id={`${gameDetail?.identifier} ${uuid}`}
         place="bottom"
-      // content={String(gameDetail?.description)}
+        // content={String(gameDetail?.description)}
       >
         <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3">
           <span className="font-bold dark:text-gray-300 text-gray-700">RPT:</span>
@@ -108,12 +111,12 @@ function GameCard(props: GameCardProps) {
         </div>
         <div className="rounded p-2 dark:bg-color-bg-primary bg-gray-200 flex items-center justify-between px-3 mt-3">
           <span className="font-bold dark:text-gray-300 text-gray-700">{t('homePage:recentBigWins')}:</span>
-          <span className="font-bold dark:text-gray-300 text-gray-700">{`${gameDetail?.multiplier.toFixed(2) || '0'
-            } x`}</span>
+          <span className="font-bold dark:text-gray-300 text-gray-700">{`${
+            gameDetail?.multiplier.toFixed(2) || '0'
+          } x`}</span>
         </div>
       </Tooltip>
     </>
-
   );
 }
 
