@@ -100,19 +100,18 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'betId',
         header: () => (
-          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary pl-2 sm:pl-4 text-m_default sm:text-default">
             #
           </div>
         ),
-        minSize: 10,
         cell: ({ row }) => (
-          <div className={cn('flex items-center justify-start gap-[5px] truncate sm:px-2 px-[5px]')}>
+          <div className={cn('flex items-center justify-start gap-[5px] truncate pl-2 sm:pl-4 py-3 sm:py-4')}>
             {row.index === 0 && (
               <Image
                 height={25}
                 width={25}
                 src="/img/icon/gold.png"
-                alt="gold"
+                alt="medal gold"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -121,7 +120,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 height={25}
                 width={25}
                 src="/img/icon/sliver.png"
-                alt="sliver"
+                alt="medal sliver"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
@@ -130,14 +129,12 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
                 height={25}
                 width={25}
                 src="/img/icon/bronze.png"
-                alt="bronze"
+                alt="medal bronze"
                 className="object-cover sm:h-[25px] h-[16px] sm:w-[25px] w-[16px]"
               />
             )}
             {row.index !== 0 && row.index !== 1 && row.index !== 2 && (
-              <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary font-bold truncate">
-                {row.index + 1}th
-              </div>
+              <div className="font-semibold truncate text-m_default md:text-default">{row.index + 1}th</div>
             )}
           </div>
         ),
@@ -145,52 +142,42 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'player',
         header: () => (
-          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default px-2 sm:px-4">
             {t('gameTable:player')}
           </div>
         ),
-        minSize: 30,
         cell: ({ row }) => (
           <div
             onClick={() => handleModalUserProfile(row)}
             className={cn(
-              'text-m_default sm:text-default dark:text-white text-color-light-text-primary flex items-center justify-start gap-[10px] truncate sm:px-2 px-[5px]',
+              'dark:text-white text-color-light-text-primary flex items-center justify-start gap-[5px] truncate',
               {
                 'pointer-events-none cursor-text': row.original?.playerId !== userId && !row.original?.playerName,
               },
             )}
           >
-            {row.original?.playerId !== userId && !row.original?.playerName ? (
-              <Image
-                width={25}
-                height={25}
-                className="rounded-full grayscale brightness-50 sm:h-[25px] sm:w-[25px] w-[16px]"
-                src="/img/avatar-hidden.png"
-                alt="avatar hidden"
-              />
-            ) : (
-              <Image
-                height={25}
-                width={25}
-                src={row.original?.playerAvatar ? `${API_AVATAR}/${row.original?.playerAvatar}` : '/img/avatar-1.png'}
-                onError={(e) => {
-                  e.currentTarget.src = '/img/avatar-1.png';
-                }}
-                alt="avatar"
-                className="object-cover sm:h-[25px] rounded-full h-[16px] sm:w-[25px] w-[16px]"
-              />
-            )}
-            <div className="font-bold truncate text-m_default sm:text-default ">
+            <div className="flex justify-center items-center w-[20px] h-[20px] sm:w-[32px] sm:h-[32px]">
               {row.original?.playerId !== userId && !row.original?.playerName ? (
-                <div className="font-bold flex gap-[3px] items-center">
-                  <Snapchat width={12} height={12} variant="Bulk" className="w-4 h-4 hidden sm:block " />
-                  {t('homePage:hidden')}
-                </div>
-              ) : row.original.playerId === userId ? (
-                userName
+                <Snapchat width={25} height={25} variant="Bulk" className="w-[20px] h-[20px] sm:w-[30px] sm:h-[30px]" />
               ) : (
-                row.original.playerName
+                <Image
+                  height={25}
+                  width={25}
+                  src={row.original.playerAvatar ? `${API_AVATAR}/${row.original.playerAvatar}` : '/img/avatar-1.png'}
+                  onError={(e) => {
+                    e.currentTarget.src = '/img/avatar-1.png';
+                  }}
+                  alt="avatar"
+                  className="object-cover rounded-full w-[16px] h-[16px] sm:w-[25px] sm:h-[25px]"
+                />
               )}
+            </div>
+            <div className="!font-extralight truncate text-m_default sm:text-default w-[100px] sm:w-auto">
+              {row.original?.playerId !== userId && !row.original?.playerName
+                ? t('homePage:hidden')
+                : row.original.playerId === userId
+                ? userName
+                : row.original.playerName}
             </div>
           </div>
         ),
@@ -198,13 +185,12 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'betAmount',
         header: () => (
-          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary px-2 sm:px-4 text-m_default sm:text-default text-center">
             {t('gameTable:wagered')}
           </div>
         ),
-        minSize: 30,
         cell: ({ row }) => (
-          <div className="text-m_default sm:text-default text-color-text-green truncate sm:px-2 px-[5px] font-bold">
+          <div className="m-auto font-semibold text-center text-m_default sm:text-default text-color-text-green w-[70px] sm:w-auto truncate">
             {viewInFiat
               ? currencyFormat1(row.original.wageredUsd * exchangeRate, 8, localFiat?.name)
               : currencyFormat1(row.original.wageredUsd, 8)}
@@ -214,14 +200,19 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
       {
         accessorKey: 'payout',
         header: () => (
-          <div className="text-m_default sm:text-default dark:text-color-text-primary text-color-light-text-primary sm:px-2 px-[5px]">
+          <div className="dark:text-color-text-primary text-color-light-text-primary pr-2 sm:pr-4 text-m_default sm:text-default">
             {t('gameTable:prize')}
           </div>
         ),
-        minSize: 30,
         cell: ({ row }) => (
-          <div className="dark:text-color-text-primary text-color-light-text-primary truncate flex justify-end sm:px-2 px-[5px] font-bold text-m_default sm:text-default ">
-            <span className="text-color-text-green font-bold">
+          <div
+            className={cn(
+              'dark:text-color-text-primary text-color-light-text-primary text-m_default sm:text-default w-full',
+              'flex justify-end pr-2 sm:pr-4 font-semibold',
+              'truncate w-[70px] sm:w-auto',
+            )}
+          >
+            <span className="font-bold text-color-text-green">
               {viewInFiat
                 ? currencyFormat1(row.original.prizeUsd * exchangeRate, 4, localFiat?.name)
                 : currencyFormat1(row.original.prizeUsd, 4)}

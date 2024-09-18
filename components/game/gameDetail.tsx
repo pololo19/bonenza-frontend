@@ -46,7 +46,7 @@ const GameDetailComponent = ({
             role="button"
             onClick={() => setOpenTab(1)}
             className={cn(
-              'font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
+              'w-1/4 font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
               {
                 'dark:text-color-primary border-b-color-primary': openTab === 1,
                 'dark:text-color-table-header-text-secondary border-transparent': openTab !== 1,
@@ -59,7 +59,7 @@ const GameDetailComponent = ({
             role="button"
             onClick={() => setOpenTab(2)}
             className={cn(
-              'font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
+              'w-1/4  font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
               {
                 'dark:text-color-primary border-b-color-primary': openTab === 2,
                 'dark:text-color-table-header-text-secondary border-transparent': openTab !== 2,
@@ -72,7 +72,7 @@ const GameDetailComponent = ({
             role="button"
             onClick={() => setOpenTab(3)}
             className={cn(
-              'font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
+              'w-1/4 font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
               {
                 'dark:text-color-primary border-b-color-primary': openTab === 3,
                 'dark:text-color-table-header-text-secondary border-transparent': openTab !== 3,
@@ -85,7 +85,7 @@ const GameDetailComponent = ({
             role="button"
             onClick={() => setOpenTab(4)}
             className={cn(
-              'font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
+              'w-1/4 font-semibold text-center px-2 sm:px-4 md:px-12 py-3 md:py-5 border-b border-solid hover:border-b-[#64748B] -mb-[1px]',
               {
                 'dark:text-color-primary border-b-color-primary': openTab === 4,
                 'dark:text-color-table-header-text-secondary border-transparent': openTab !== 4,
