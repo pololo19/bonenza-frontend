@@ -63,9 +63,9 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
     const statisticsColumnsDefault: ColumnDef<StatisticTransactionType>[] = [
       {
         accessorKey: 'currency',
-        header: () => <div className="text-center text-[12px] font-normal">{t('statistic:currency')}</div>,
+        header: () => <div className="text-[12px] font-normal pl-2 sm:pl-4">{t('statistic:currency')}</div>,
         cell: ({ row }) => (
-          <div className="text-color-text-primary truncate flex items-center justify-center gap-[5px]">
+          <div className="text-color-text-primary truncate flex items-center justify-start gap-[5px] py-2 sm:py-3 pl-2 sm:pl-4">
             <Image
               height={20}
               width={20}
@@ -95,9 +95,9 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
       },
       {
         accessorKey: 'wagered',
-        header: () => <div className="text-center text-[12px] font-normal">{t('statistic:wagered')}</div>,
+        header: () => <div className="text-right text-[12px] font-normal pr-2 sm:pr-4">{t('statistic:wagered')}</div>,
         cell: ({ row }) => (
-          <div className="dark:text-white text-[#000] truncate text-center font-semibold">
+          <div className="dark:text-white text-[#000] truncate text-right font-semibold pr-2 sm:pr-4">
             {viewInFiat
               ? currencyFormat1(row.original.wageredUsd * exchange, 2, localFiat?.name || 'USD')
               : currencyFormat1(row.original.wagered, 4, '', false)}
@@ -247,7 +247,13 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
         <div className="dark:bg-color-panel-bg bg-white rounded-[5px] p-[14px] flex items-center justify-between mt-[12px] gap-3">
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
-              <Image src="/img/icon/total-win.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total win" />
+              <Image
+                src="/img/icon/total-win.png"
+                width={12}
+                height={12}
+                className="w-[12px] h-[12px]"
+                alt="total win"
+              />
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWins')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
@@ -256,7 +262,13 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%]">
             <div className="flex gap-[5px] items-center">
-              <Image src="/img/icon/total-bets.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total bets" />
+              <Image
+                src="/img/icon/total-bets.png"
+                width={12}
+                height={12}
+                className="w-[12px] h-[12px]"
+                alt="total bets"
+              />
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalBets')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black">
@@ -265,7 +277,13 @@ export default function Statistic({ userData, isShow, onBack }: ModalStatisticPr
           </div>
           <div className="bg-[#f5f6fa] dark:bg-color-card-body-secondary rounded-[10px] flex flex-col justify-center items-center gap-[8px] pt-[16px] pb-[12px] h-[80px] w-full sm:w-[30%] max-w-[30%]">
             <div className="flex gap-[5px] items-center">
-              <Image src="/img/icon/total-wagered.png" width={12} height={12} className="w-[12px] h-[12px]" alt="total wagered" />
+              <Image
+                src="/img/icon/total-wagered.png"
+                width={12}
+                height={12}
+                className="w-[12px] h-[12px]"
+                alt="total wagered"
+              />
               <div className="text-[10px] sm:text-[12px] text-color-text-primary">{t('profile:totalWagered')}</div>
             </div>
             <div className="text-[14px] sm:text-[16px] dark:text-white text-black text-center w-full truncate">
