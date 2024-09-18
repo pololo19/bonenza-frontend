@@ -10,8 +10,13 @@
   box-sizing: border-box;
 
   tr {
-    &:nth-child(2n) {
+    &:nth-last-child(2n) {
       background-color: #FFFFFF08;
+    }
+    &:nth-last-child(2) {
+      td {
+        border: none !important;
+      }
     }
 
     th,

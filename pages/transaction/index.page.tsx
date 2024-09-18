@@ -1513,7 +1513,9 @@ const TransactionPage = () => {
             </Menu>
           )}
         </div>
-        <TableComponent isLoading={isLoading} handleClickRow={handleClickRow} data={dataTable} columns={columns} />
+        <div className="rounded-lg overflow-hidden border border-solid border-color-card-border-primary">
+          <TableComponent isLoading={isLoading} handleClickRow={handleClickRow} data={dataTable} columns={columns} />
+        </div>
         <Paging
           onPageChange={handleChangePage}
           itemPerPage={limit}
