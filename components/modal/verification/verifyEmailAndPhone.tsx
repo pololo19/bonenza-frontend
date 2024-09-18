@@ -97,7 +97,7 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
         show={show}
         onClose={onClose}
         panelClass="rounded !max-w-[464px] min-h-[550px]"
-        header={<div className="relative py-[20px] bg-[#f5f6fa] dark:bg-color-header-primary h-[50px]"></div>}
+        header={<div className="modal-header h-[50px]"></div>}
       >
         <div className="relative px-[20px] my-[10px] bg-[#f5f6fa] dark:bg-color-modal-bg-primary">
           {isLoading && <Loader />}
@@ -135,7 +135,10 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
             </div>
 
             <div className="relative w-full">
-              <button className="w-full rounded-default bg-gradient-btn-play shadow-bs-btn py-[10px]" onClick={confirmCode}>
+              <button
+                className="w-full rounded-default bg-gradient-btn-play shadow-bs-btn py-[10px]"
+                onClick={confirmCode}
+              >
                 {t('setting:verify')}
               </button>
             </div>

@@ -98,11 +98,7 @@ export default function ModalReferralRewardsHistory({ show, onClose }: ModalProf
         show={show}
         onClose={onClose}
         panelClass="sm:!max-w-[530px]"
-        header={
-          <div className="relative sm:px-[30px] px-[20px] text-center pt-[20px] text-title pb-[10px] bg-white text-black font-bold">
-            {t('mycasino:history')}
-          </div>
-        }
+        header={<div className="modal-header">{t('mycasino:history')}</div>}
       >
         <div className="flex flex-col gap-[12px] overflow-y-auto sm:px-[30px] px-[20px] py-[40px] h-full bg-white">
           <AdminTableComponent columns={columns} data={rewardsHistory} />

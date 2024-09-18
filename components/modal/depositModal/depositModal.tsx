@@ -32,8 +32,8 @@ export default function ModalDeposit({ show, onClose }: ModalDepositProps) {
         panelClass="sm:!max-w-[530px] sm:h-[90vh] sm:min-h-[90vh] sm:my-0"
         header={
           <>
-            <div className='modal-header'>
-              <div className="text-black dark:text-white md:text-[18px] text-[16px] font-bold">
+            <div className="modal-header">
+              <div className="text-black dark:text-white md:text-[18px] text-[16px] font-semibold">
                 {t('layout:deposit')}
               </div>
             </div>

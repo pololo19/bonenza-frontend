@@ -104,7 +104,7 @@ export default function ModalResetPassword({ show, onClose }: ModalResetPassword
         onClose={onClose}
         panelClass="sm:max-w-[464px]"
         header={
-          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+          <div className="flex flex-col items-start modal-header">
             <div className="text-[16px] text-white font-[600]">{t('authentication:resetAccountPassword')}</div>
           </div>
         }

@@ -142,7 +142,7 @@ export default function ModalUpdateAvatar({ show, onClose }: ModalUpdateAvatarPr
         onClose={onClose}
         panelClass="rounded !max-w-[464px] !h-[calc(100vh - 200px)]"
         header={
-          <div className="relative p-[20px] bg-[#f5f6fa] dark:bg-color-header-primary">
+          <div className="modal-header">
             <div className="flex items-center dark:text-white text-black gap-[10px]">
               <ChevronLeftIcon width={20} role="button" onClick={() => goBackUpdateProfile()} />
               <div className="text-[18px] font-[600]">{t('profile:updateAvatar')}</div>

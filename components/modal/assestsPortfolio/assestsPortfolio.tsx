@@ -106,10 +106,10 @@ export default function ModalAssetsPortfolio({
       <CommonModal
         show={show}
         onClose={onClose}
-        panelClass="sm:max-w-[500px] max-w-full sm:max-h-[90vh]"
+        panelClass="sm:max-w-[500px] max-w-full sm:max-h-[90vh] sm:min-h-[90vh]"
         header={
-          <div className="flex items-center pr-[40px] dark:bg-color-header-primary bg-color-light-bg-primary pl-[20px] py-[20px] gap-[20px]">
-            <div className="text-[0.875rem] sm:text-[1rem] dark:text-white text-black font-[600]">
+          <div className="flex !items-center !flex-row pr-[40px] modal-header gap-[20px]">
+            <div className="flex items-center text-[0.875rem] sm:text-[1rem] dark:text-white text-black font-[600]">
               {t('deposit:assetsPortfolio')}
             </div>
             <div className="flex items-center gap-1">
@@ -190,12 +190,14 @@ export default function ModalAssetsPortfolio({
                   dispatch(updateSetting({ ...settings, settingViewInFiat: value }));
                   if (value) setShowAllFiat(true);
                 }}
-                className={`${viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-                  } relative inline-flex h-4 w-8 items-center rounded-full`}
+                className={`${
+                  viewInFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                } relative inline-flex h-4 w-8 items-center rounded-full`}
               >
                 <span
-                  className={`${viewInFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
-                    } inline-block h-4 w-4 transform rounded-full transition`}
+                  className={`${
+                    viewInFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                  } inline-block h-4 w-4 transform rounded-full transition`}
                 />
               </Switch>
               <div className="text-[12px] dark:text-gray-400 text-[#31373d]">{t('fiatHeader:viewInFiat')}</div>
@@ -204,12 +206,14 @@ export default function ModalAssetsPortfolio({
               <Switch
                 checked={showSmallFiat}
                 onChange={setShowSmallFiat}
-                className={`${showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
-                  } relative inline-flex h-4 w-8 items-center rounded-full`}
+                className={`${
+                  showSmallFiat ? 'bg-[#3bc11733]' : 'dark:bg-color-toggle-primary bg-gray-200'
+                } relative inline-flex h-4 w-8 items-center rounded-full`}
               >
                 <span
-                  className={`${showSmallFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
-                    } inline-block h-4 w-4 transform rounded-full transition`}
+                  className={`${
+                    showSmallFiat ? 'translate-x-[15px] bg-color-primary' : 'translate-x-0 bg-gray-400'
+                  } inline-block h-4 w-4 transform rounded-full transition`}
                 />
               </Switch>
               <div className="text-[12px] dark:text-gray-400 text-[#31373d]">{t('fiatHeader:smallFiat')}</div>

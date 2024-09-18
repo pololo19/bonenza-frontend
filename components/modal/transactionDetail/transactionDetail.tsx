@@ -67,7 +67,7 @@ export default function ModalDetailTransaction({
         onClose={onClose}
         panelClass="sm:!max-w-[400px]"
         header={
-          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-color-header-primary bg-[#f5f6fa]">
+          <div className="modal-header">
             <div className="text-[16px] dark:text-white text-black font-[600]">{titleModal || 'Details'}</div>
           </div>
         }
@@ -245,8 +245,9 @@ export default function ModalDetailTransaction({
                   <div className="flex items-center gap-2">
                     <div className="relative flex items-center jutify-center w-[32px] h-[32px]">
                       <div
-                        className={`${isProcess ? 'bg-[#898181]' : 'bg-white'
-                          } absolute w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	`}
+                        className={`${
+                          isProcess ? 'bg-[#898181]' : 'bg-white'
+                        } absolute w-[24px] h-[24px] left-1/2 rounded-full -translate-x-2/4	`}
                       ></div>
                       {isFailed ? (
                         <CloseCircle

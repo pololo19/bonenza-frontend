@@ -157,7 +157,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
         panelClass="sm:max-w-[464px] sm:!h-[640px] sm:!max-h-[90vh] sm:my-0"
         header={
           <div
-            className="flex items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[10px] hover:cursor-pointer"
+            className="modal-header flex !flex-row items-start gap-[10px] hover:cursor-pointer"
             onClick={handleCloseModal}
           >
             <ArrowLeft2 className="w-[16px] text-[#67707B] stroke-4" />
@@ -168,7 +168,7 @@ export default function ModalBonusHistory({ show, onClose, setShowModalRakeBack 
         <div className="h-full relative dark:bg-color-modal-bg-primary bg-white p-3 pb-[60px] sm:pb-3 overflow-hidden overflow-y-scroll">
           <TableComponent
             isLoading={isLoadingTable}
-            handleClickRow={() => { }}
+            handleClickRow={() => {}}
             data={listTransactions}
             columns={columns}
             isExpanding={false}

@@ -132,7 +132,7 @@ type BaseLayoutProps = {
   contentClass?: string;
 };
 
-const activeHrefsToMobileSubMenu = [ROUTER.Home, ROUTER.Casino, ...Tags.map(tag => ROUTER.Tagname(tag))];
+const activeHrefsToMobileSubMenu = [ROUTER.Home, ROUTER.Casino, ...Tags.map((tag) => ROUTER.Tagname(tag))];
 
 const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, contentClass }) => {
   const innerWidth = useWidth();
@@ -550,9 +550,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               }),
             );
           } catch (error) {
-            console.log(error, "balance error");
+            console.log(error, 'balance error');
           }
-
         });
 
         gameSocket.on(`${userId}:bonus`, async (data: any) => {
@@ -577,9 +576,10 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               {
                 toastId: 'bonus-notification',
                 containerId: TOAST_ENUM.COMMON,
-              });
+              },
+            );
           } catch (error) {
-            console.log(error, "bonus error");
+            console.log(error, 'bonus error');
           }
         });
 
@@ -604,11 +604,11 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
               {
                 toastId: 'tip-notification',
                 containerId: TOAST_ENUM.COMMON,
-              });
+              },
+            );
           } catch (error) {
-            console.log(error, 'tip error')
+            console.log(error, 'tip error');
           }
-
         });
       }
 
@@ -630,9 +630,8 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           dispatch(updatedFiatPrice(fiatDatas));
           dispatch(updateCryptoPrice(cryptoDatas));
         } catch (error) {
-          console.log(error, 'price update error')
+          console.log(error, 'price update error');
         }
-
       });
 
       gameSocket.on('chat', (data: any) => {
@@ -666,7 +665,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
           console.log(error, 'chat error');
         }
       });
-
 
       // gameSocket.on(`connect_error`, (data: any) => {
       //   if (gameServiceConnectedRef.current) {
@@ -709,7 +707,6 @@ const BaseLayout: React.FC<BaseLayoutProps> = ({ children, isDetailPage, content
 
   return (
     <>
-
       {isLoading ? (
         <Loader isHomePage />
       ) : (

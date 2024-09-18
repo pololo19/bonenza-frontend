@@ -75,11 +75,7 @@ const SelfExclusion = () => {
   return (
     <>
       <Head>
-        <link
-          rel="canonical"
-          href="https://bonenza.com/helper-center/self-exclusion"
-          key="canonical"
-        />
+        <link rel="canonical" href="https://bonenza.com/helper-center/self-exclusion" key="canonical" />
       </Head>
       <div className="pl-[7px] pr-[5px] pb-[15px] pt-6 text-[14px]">
         <div className="text-black dark:text-[#ffff] font-bold text-[14px] text-left mb-[10px]">
@@ -169,7 +165,7 @@ const SelfExclusion = () => {
           onClose={() => setShowRules(false)}
           panelClass="rounded"
           header={
-            <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+            <div className="flex flex-col items-start modal-header gap-[20px]">
               <div className="flex justify-between text-[16px] dark:text-white text-black gap-[10px]">
                 <p>{t('helper:selfExclusion')}</p>
               </div>

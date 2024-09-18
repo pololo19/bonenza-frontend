@@ -19,8 +19,10 @@ export default function ModalChatRules({ show, onClose }: ChatRulesProps) {
       show={show}
       onClose={onClose}
       header={
-        <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
-          <div className="font-bold dark:text-white text-black text-[16px] sm:text-[18px]">{t('chat:chatRules')}</div>
+        <div className="modal-header">
+          <div className="font-semibold dark:text-white text-black text-[16px] sm:text-[18px]">
+            {t('chat:chatRules')}
+          </div>
         </div>
       }
     >

@@ -57,7 +57,7 @@ export default function ModalDepositProgress({ show, onClose }: ModalDepositProg
         show={show}
         onClose={onClose}
         panelClass="sm:!max-w-[400px]"
-        header={<div className="bg-color-bg-primary text-white py-5 px-4">{t('layout:deposit')}</div>}
+        header={<div className="modal-header">{t('layout:deposit')}</div>}
       >
         <div className="flex flex-col items-center p-1 sm:px-5 sm:py-10 gap-4 mt-5 relative">
           <div

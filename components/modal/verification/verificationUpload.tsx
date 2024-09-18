@@ -87,7 +87,7 @@ export default function ModalVerificationUploadCard({ show, onClose }: ModalVeri
         isShowCloseButton={false}
         panelClass="rounded sm:max-w-[700px] p-6"
         header={
-          <div className="mb-6">
+          <div className=" mb-6">
             Upload Id card
             <div className="text-start text-[12px] text-[#C2C2C2]">{t('setting:pleaseUploadAValid')}</div>
           </div>
