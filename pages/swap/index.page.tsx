@@ -82,7 +82,6 @@ const SwapPage = () => {
     defaultValues: { amountFrom: '0', amountTo: '0', symbolFrom: symbols[0]?.id, symbolTo: symbols[1]?.id },
   });
 
-
   const emitData = () => formDataRef.current?.emitData?.();
 
   const getBalanceBySymbolId = (symbolId: string) => {
@@ -120,12 +119,6 @@ const SwapPage = () => {
       toast.error(t(messError), { containerId: TOAST_ENUM.COMMON });
     }
     return error;
-  };
-
-  const handleSubmitForm = () => {
-    if (!handleErrors()) {
-      handleSubmit(onSubmit)();
-    }
   };
 
   const toSymbols = useMemo(() => {
@@ -260,11 +253,12 @@ const SwapPage = () => {
   }, [watch('amountFrom', minSwap)]);
 
   const onSubmit = async (data: SwapFormType) => {
+    if (handleErrors()) return;
     try {
       setIsLoading(true);
-      // disable dron for swap
-      const dron = symbols.find((symbol) => symbol.name.toLowerCase() === 'dron');
-      if (dron?.id === data.symbolFrom || dron?.id === data.symbolTo) {
+      // disable slc for swap
+      const slc = symbols.find((symbol) => symbol.name.toLowerCase() === 'slc');
+      if (slc?.id === data.symbolFrom || slc?.id === data.symbolTo) {
         toast.error(t('errors:swap:disabledToken'), { containerId: TOAST_ENUM.COMMON, toastId: 'swap-error' });
         return;
       }
@@ -306,7 +300,7 @@ const SwapPage = () => {
                 </div>
               </div>
             </div>
-            <form onSubmit={handleSubmitForm}>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-[5px] relative min-h-[45px]">
                 <div
                   className={cn(
@@ -454,21 +448,20 @@ const SwapPage = () => {
                   <span className="text-color-text-primary">{getSymbolById(watch('symbolFrom'))?.name}</span>
                 </p>
               </div>
+              <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
+                <button
+                  type="submit"
+                  className="flex justify-center items-center bg-gradient-btn-play shadow-bs-btn rounded-large h-[45px] min-w-[150px] hover:opacity-[0.9] disabled:opacity-60 disabled:text-gray-300"
+                  disabled={!isSwapAvailable}
+                >
+                  {isLoading ? (
+                    <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-10 !h-10" />
+                  ) : (
+                    t('swap:swapNow')
+                  )}
+                </button>
+              </div>
             </form>
-          </div>
-
-          <div className="mt-[40px] w-full text-white text-start flex items-center justify-center gap-[10px]">
-            <button
-              type="submit"
-              className="flex justify-center items-center bg-gradient-btn-play shadow-bs-btn rounded-large h-[45px] min-w-[150px] hover:opacity-[0.9] disabled:opacity-60 disabled:text-gray-300"
-              disabled={!isSwapAvailable}
-            >
-              {isLoading ? (
-                <ReactLoading type="bubbles" color="#FFF" delay={50} className="!w-10 !h-10" />
-              ) : (
-                t('swap:swapNow')
-              )}
-            </button>
           </div>
         </div>
       </div>
