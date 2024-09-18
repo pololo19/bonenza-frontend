@@ -250,7 +250,7 @@ export default function ModalWagerContestHistory({ show, onClose }: ModalWagerCo
         </div>
       }
     >
-      <div className="dark:bg-color-modal-bg-primary bg-white p-3 pb-0">
+      <div className="dark:bg-color-modal-bg-primary bg-white p-3">
         <RankingTableComponent
           containerClassName="w-full"
           isLoading={isLoadingTable}
