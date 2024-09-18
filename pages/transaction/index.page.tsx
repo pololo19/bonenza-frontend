@@ -41,7 +41,7 @@ interface BillType {
   type: string;
 }
 
-const cryptoLen = 4;
+const cryptoLen = 8;
 const fiatLen = 4;
 
 const TransactionPage = () => {
@@ -98,8 +98,9 @@ const TransactionPage = () => {
           ),
           cell: ({ row }) => (
             <div
-              className={`${t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
-                } flex items-center justify-center gap-1`}
+              className={`${
+                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
+              } flex items-center justify-center gap-1`}
             >
               {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
               {viewInFiat ? (
@@ -172,8 +173,9 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div
-            className={`${t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
-              } flex items-center justify-center gap-1 min-w-[100px]`}
+            className={`${
+              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
+            } flex items-center justify-center gap-1 min-w-[100px]`}
           >
             {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
             {viewInFiat ? (
@@ -401,7 +403,15 @@ const TransactionPage = () => {
           cell: ({ row }) => (
             <>
               <div className="flex items-center gap-1 text-black truncate dark:text-white">
-                {String(t(`transaction:${row.original?.type.indexOf('_') >= 0 ? camelize(row.original?.type || '') : row.original.type.toLowerCase()}`))}{' '}
+                {String(
+                  t(
+                    `transaction:${
+                      row.original?.type.indexOf('_') >= 0
+                        ? camelize(row.original?.type || '')
+                        : row.original.type.toLowerCase()
+                    }`,
+                  ),
+                )}{' '}
                 {row.original?.type && row.original?.gameName && (
                   <span className="text-[10px] text-gray-400 flex gap-[5px]">
                     ({row.original?.gameName})
@@ -451,14 +461,13 @@ const TransactionPage = () => {
                 ),
               })}
             >
-              {
-                row.original?.type?.toLowerCase() == 'bet' ||
-                  row.original?.type?.toLowerCase() == 'game_bet' ||
-                  row.original.type.toLowerCase() === 'withdraw' ||
-                  row.original.type.toLowerCase() === 'tip_send' ||
-                  row.original.type.toLocaleLowerCase() === 'swap_send'
-                  ? '-'
-                  : ''}
+              {row.original?.type?.toLowerCase() == 'bet' ||
+              row.original?.type?.toLowerCase() == 'game_bet' ||
+              row.original.type.toLowerCase() === 'withdraw' ||
+              row.original.type.toLowerCase() === 'tip_send' ||
+              row.original.type.toLocaleLowerCase() === 'swap_send'
+                ? '-'
+                : ''}
               {viewInFiat ? (
                 <>
                   {currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}
@@ -534,7 +543,15 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div className="">
             <div className="flex items-center gap-1 text-black truncate dark:text-white">
-              {String(t(`transaction:${row.original?.type.indexOf('_') >= 0 ? camelize(row.original?.type || '') : row.original.type.toLowerCase()}`))}{' '}
+              {String(
+                t(
+                  `transaction:${
+                    row.original?.type.indexOf('_') >= 0
+                      ? camelize(row.original?.type || '')
+                      : row.original.type.toLowerCase()
+                  }`,
+                ),
+              )}{' '}
               {row.original?.type && row.original?.gameName && (
                 <span className="text-[10px] text-gray-400 flex gap-[5px]">
                   ({row.original?.gameName})
@@ -588,14 +605,13 @@ const TransactionPage = () => {
                 ),
               })}
             >
-              {
-                row.original?.type?.toLowerCase() == 'bet' ||
-                  row.original?.type?.toLowerCase() == 'game_bet' ||
-                  row.original.type.toLowerCase() === 'withdraw' ||
-                  row.original.type.toLowerCase() === 'tip_send' ||
-                  row.original.type.toLocaleLowerCase() === 'swap_send'
-                  ? '-'
-                  : ''}
+              {row.original?.type?.toLowerCase() == 'bet' ||
+              row.original?.type?.toLowerCase() == 'game_bet' ||
+              row.original.type.toLowerCase() === 'withdraw' ||
+              row.original.type.toLowerCase() === 'tip_send' ||
+              row.original.type.toLocaleLowerCase() === 'swap_send'
+                ? '-'
+                : ''}
               {viewInFiat ? (
                 <>
                   {currencyFormat1(Math.abs(row.original.amountUsd * exchangeRate), fiatLen, localFiat?.name || 'USD')}
@@ -656,8 +672,9 @@ const TransactionPage = () => {
           ),
           cell: ({ row }) => (
             <div
-              className={`min-w-[100px] ${t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
-                } flex items-center justify-center gap-1`}
+              className={`min-w-[100px] ${
+                t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
+              } flex items-center justify-center gap-1`}
             >
               {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
               {viewInFiat ? (
@@ -724,8 +741,9 @@ const TransactionPage = () => {
         header: () => <div className="text-left dark:text-[#64748b] text-black">{String(t('transaction:amount'))}</div>,
         cell: ({ row }) => (
           <div
-            className={`min-w-[100px] ${t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
-              } flex items-center justify-start gap-1`}
+            className={`min-w-[100px] ${
+              t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? 'text-red-500' : 'text-color-text-green'
+            } flex items-center justify-start gap-1`}
           >
             {t(optionFilter.type.type) === TRANSACTION_TYPE.Withdraw ? '-' : ''}
             {viewInFiat ? (
@@ -802,7 +820,9 @@ const TransactionPage = () => {
             </div>
           ),
           cell: ({ row }) => (
-            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{String(t(`transaction:${camelize(row.original?.type || '')}`))}</div>
+            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">
+              {String(t(`transaction:${camelize(row.original?.type || '')}`))}
+            </div>
           ),
           minSize: 30,
         },
@@ -815,8 +835,9 @@ const TransactionPage = () => {
           ),
           cell: ({ row }) => (
             <div
-              className={`${row.original.amount < 0 ? 'text-red-500' : 'text-color-text-green'
-                } flex items-center justify-center gap-1`}
+              className={`${
+                row.original.amount < 0 ? 'text-red-500' : 'text-color-text-green'
+              } flex items-center justify-center gap-1`}
             >
               <span>{row.original.amount < 0 ? '-' : ''}</span>
               <span className="min-w-fit break-keep">
@@ -892,7 +913,9 @@ const TransactionPage = () => {
         ),
         cell: ({ row }) => (
           <div>
-            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">{String(t(`transaction:${camelize(row.original?.type || '')}`))}</div>
+            <div className="flex items-center gap-1 py-2 text-black truncate dark:text-white">
+              {String(t(`transaction:${camelize(row.original?.type || '')}`))}
+            </div>
             <div className="text-left dark:text-color-text-primary text-color-light-text-primary">
               {formatDate(new Date(row.original.time), TIME_SUBMIT_FORMAT_WITH_SLASH_MARKER)}
             </div>
@@ -910,8 +933,9 @@ const TransactionPage = () => {
         cell: ({ row }) => (
           <div className="flex flex-col gap-1">
             <div
-              className={`${row.original.amount < 0 ? 'text-red-500' : 'text-color-text-green'
-                } flex items-center justify-end gap-1`}
+              className={`${
+                row.original.amount < 0 ? 'text-red-500' : 'text-color-text-green'
+              } flex items-center justify-end gap-1`}
             >
               <span>{row.original.amount < 0 ? '-' : ''}</span>
               <span className="min-w-fit break-keep">
@@ -1063,8 +1087,8 @@ const TransactionPage = () => {
             optionFilter.type.type === TRANSACTION_TYPE.Withdraw
               ? getStatusId(optionFilter.filterStatus.type)
               : optionFilter.type.type === TRANSACTION_TYPE.Bill
-                ? typeBill.value
-                : -1,
+              ? typeBill.value
+              : -1,
         });
 
         const { data, totalCount, totalPage } = res.data;
