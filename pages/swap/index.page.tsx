@@ -32,7 +32,11 @@ import SelectCurrencySwap, {
 import styles from './index.module.scss';
 
 const SwapPage = () => {
-  const { symbols, balances, swapFee } = useSelector(
+  const {
+    symbols: rawSymbols,
+    balances,
+    swapFee,
+  } = useSelector(
     (state: AppState) => ({
       symbols: state.wallet.symbols,
       balances: state.wallet.balances,
@@ -69,6 +73,11 @@ const SwapPage = () => {
       .required(String(t('withdraw:withdrawAmountRequire')))
       .trim(),
   });
+
+  const symbols = useMemo(() => {
+    const values = rawSymbols.filter((symbol) => symbol.name !== 'SLC');
+    return values;
+  }, [rawSymbols]);
 
   const {
     handleSubmit,

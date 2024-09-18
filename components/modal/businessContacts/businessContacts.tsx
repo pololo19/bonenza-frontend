@@ -22,7 +22,7 @@ export default function ModalBusinessContacts({ show, onClose }: ModalBusinessCo
         onClose={onClose}
         panelClass="sm:max-w-[464px] max-w-full sm:h-[40vh] sm:min-h-[40vh] sm:my-0"
         header={
-          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+          <div className="modal-header">
             <p className="text-[16px] dark:text-white text-black font-bold mb-2">{t('footer:getInTouch')}</p>
             <p>{t('footer:contactUs')}</p>
           </div>

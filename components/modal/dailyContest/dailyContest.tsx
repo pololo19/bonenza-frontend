@@ -20,7 +20,7 @@ export default function ModalDailyContest({ show, onClose }: DailyContestProps) 
       show={show}
       onClose={onClose}
       header={
-        <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+        <div className="modal-header">
           <div className="dark:text-white text-black text-[14px] sm:text-[16px]">{t('sidebar:dailyContest')}</div>
         </div>
       }

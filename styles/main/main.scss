@@ -92,5 +92,5 @@ body {
 }
 
 .modal-header{
-  @apply flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px] border-solid border-[1px] border-color-bg-primary border-r-color-card-body-primary drop-shadow-lg shadow-bs-default
+  @apply  rounded-t-large flex flex-row items-center justify-start dark:bg-color-modal-bg-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px] border-b border-solid border-b-color-card-border-primary shadow-[inset_0_1px_0_0_#ffffff0d]
 }

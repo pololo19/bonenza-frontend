@@ -106,7 +106,7 @@ export default function ModalUpdateProfile({ show, onClose }: ModalUpdateProfile
         onClose={onClose}
         panelClass="rounded !max-w-[464px]"
         header={
-          <div className="relative p-[20px] bg-color-light-bg-primary dark:bg-color-header-primary">
+          <div className="modal-header">
             <div
               className="flex items-center text-black dark:text-white gap-[10px] hover:cursor-pointer"
               onClick={() => goBackProfile()}

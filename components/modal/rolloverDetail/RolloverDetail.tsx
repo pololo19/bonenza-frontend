@@ -49,7 +49,7 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
         onClose={onClose}
         panelClass="sm:!max-w-[400px]"
         header={
-          <div className="relative sm:px-[30px] px-[20px] py-[20px] dark:bg-color-header-primary bg-[#f5f6fa]">
+          <div className="modal-header">
             <div className="text-[16px] dark:text-white text-black font-[600]">
               {String(t('transaction:rolloverDetails'))}
             </div>
@@ -105,7 +105,15 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
                   })}
                 />
                 <div className="dark:text-white text-black text-[14px] break-keep	">
-                  {String(t(`transaction:${transaction.status.indexOf('_') >= 0 ? camelize(transaction.status || '') : transaction.status.toLowerCase()}`))}{' '}
+                  {String(
+                    t(
+                      `transaction:${
+                        transaction.status.indexOf('_') >= 0
+                          ? camelize(transaction.status || '')
+                          : transaction.status.toLowerCase()
+                      }`,
+                    ),
+                  )}{' '}
                 </div>
               </div>
             </div>
@@ -113,7 +121,15 @@ export default function ModalDetailsRollover({ show, onClose, transaction }: Mod
               <span className="">{String(t('transaction:type'))}</span>
               <div className="flex gap-2 items-center">
                 <span className="text-black dark:text-white">
-                  {String(t(`transaction:${transaction.type.indexOf('_') >= 0 ? camelize(transaction.type || '') : transaction.type.toLowerCase()}`))}{' '}
+                  {String(
+                    t(
+                      `transaction:${
+                        transaction.type.indexOf('_') >= 0
+                          ? camelize(transaction.type || '')
+                          : transaction.type.toLowerCase()
+                      }`,
+                    ),
+                  )}{' '}
                 </span>
               </div>
             </div>

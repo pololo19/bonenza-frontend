@@ -142,7 +142,7 @@ export default function ModalCryptoOnline({ show, onClose }: ModalCryptoOnlinePr
         onClose={onClose}
         panelClass="rounded !max-w-[464px] sm:h-[90vh] sm:min-h-[90vh]"
         header={
-          <div className="relative flex items-center sm:px-[30px] pl-[18px] h-[60px] dark:bg-[#161D26] bg-[#f5f6fa]">
+          <div className="modal-header">
             <div className="text-[16px] dark:text-white text-black font-[600]">Details</div>
           </div>
         }

@@ -21,7 +21,7 @@ export default function ModalRollover({ show, onClose }: RolloverProps) {
       panelClass="sm:w-[90%] max-w-[900px] sm:!h-[90vh] sm:min-h-[90vh] sm:my-0"
       header={
         <>
-          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+          <div className="flex flex-col items-start modal-header gap-[20px]">
             <div className="text-black dark:text-white md:text-[18px] text-[16px] sm:mb-0 mb-[10px] font-bold">
               {t('sidebar:rolloverOverview')}
             </div>

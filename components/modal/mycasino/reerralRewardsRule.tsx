@@ -87,11 +87,7 @@ export default function ModalReferralRewardsRule({ show, onClose }: ModalReferra
         show={show}
         onClose={onClose}
         panelClass="sm:!max-w-[530px]"
-        header={
-          <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
-            {t('mycasino:abountReward')}
-          </div>
-        }
+        header={<div className="modal-header">{t('mycasino:abountReward')}</div>}
       >
         <div className="flex flex-col gap-[12px] overflow-y-auto sm:px-[30px] px-[20px] py-[40px] h-full bg-white">
           <div className="text-color-light-text-primary">{t('mycasino:aboutRewardDescription')}</div>

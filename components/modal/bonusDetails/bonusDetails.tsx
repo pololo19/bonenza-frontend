@@ -301,11 +301,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
         show={show}
         onClose={onClose}
         panelClass="rounded sm:!h-[90vh] sm:min-h-[90vh]"
-        header={
-          <div className="relative px-[18px] h-[60px] flex items-center dark:bg-color-header-primary bg-color-light-bg-primary">
-            {t('bonus:bonusDetail')}
-          </div>
-        }
+        header={<div className="modal-header">{t('bonus:bonusDetail')}</div>}
       >
         <div className="flex flex-col relative h-full dark:text-color-text-primary text-[#3137d] overflow-y-auto p-3 sm:p-5 bg-color-light-bg-primary dark:bg-color-modal-bg-default">
           {isLoading && <Loader />}
@@ -413,7 +409,7 @@ export default function ModalBonusDetail({ show, onClose }: ModalBonusDetailProp
             <TableComponent
               isExpanding={false}
               isLoading={isLoadingTable}
-              handleClickRow={() => { }}
+              handleClickRow={() => {}}
               data={listTransactions}
               columns={columns}
             />

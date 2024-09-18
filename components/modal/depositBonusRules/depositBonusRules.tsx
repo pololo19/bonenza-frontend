@@ -67,7 +67,7 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
   const showDepositModal = () => {
     dispatch(changeIsShowDepositRule(false));
     dispatch(changeIsShowDepositModal(true));
-  }
+  };
 
   return (
     <>
@@ -77,7 +77,7 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
         panelClass="sm:!max-w-[530px] sm:!h-[90vh] sm:min-h-[80vh] sm:my-0"
         header={
           <>
-            <div className="flex flex-col items-start dark:bg-color-header-primary bg-color-light-bg-primary px-[20px] py-[20px] gap-[20px]">
+            <div className="modal-header">
               <div className="text-[16px] dark:text-white text-black">{t('bonus:depositBonusRules')}</div>
             </div>
           </>
@@ -88,9 +88,19 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
             <div className="text-[14px]">{t('bonus:depositBonusRulesContent')}</div>
             <div className="text-color-text-primary grid grid-cols-2 gap-4 text-[14px] font-bold mb-2 mt-5">
               {depositBonus.map((item) => (
-                <div key={item.id} className="bg-[#2D3035] rounded-[10px] relative cursor-pointer" onClick={showDepositModal}>
+                <div
+                  key={item.id}
+                  className="bg-[#2D3035] rounded-[10px] relative cursor-pointer"
+                  onClick={showDepositModal}
+                >
                   <div className="relative text-white dark:text-black">
-                    <Image src={item.img} className="w-full h-auto object-cover" width={100} height={100} alt="deposit bonus logo" />
+                    <Image
+                      src={item.img}
+                      className="w-full h-auto object-cover"
+                      width={100}
+                      height={100}
+                      alt="deposit bonus logo"
+                    />
                     <div className="absolute font-bold text-[14px] sm:text-[16px] max-[600px]:top-[10px] top-[16px] left-0 w-full text-center">
                       {item.title}
                     </div>
@@ -112,8 +122,7 @@ export default function ModalDepositBonusRules({ show, onClose }: ModalDepositBo
                     </div>
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">
                       <p>{t('bonus:deposit')}</p>
-                      <p className="dark:text-white text-black font-semibold">
-                      </p>
+                      <p className="dark:text-white text-black font-semibold"></p>
                     </div>
                     <div className="flex item-center justify-between dark:text-color-text-primary text-[#31373d]">
                       <p>{t('bonus:getUpTo')}</p>
