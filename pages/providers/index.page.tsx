@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import cn from 'classnames';
 
 import { api_getProviders } from '@/api/game';
 import { API_PROVIDER_IMAGE, ROUTER } from '@/base/constants/common';
@@ -59,29 +60,33 @@ function ProvidersPage() {
         <>
           <div className="game-grid-parent mt-[20px]">
             {providers.map((provider, index) => (
-              <div key={index}>
-                <Link
-                  href={ROUTER.Provider(String(provider.identifier))}
-                  role="button"
-                  className="p-[8px] max-h-[70px] h-full bg-[#fff] dark:bg-gradient-card-provider hover:opacity-70 gap-[10px] flex-shrink-0 rounded-default flex items-center justify-center"
-                >
-                  <Image
-                    height={54}
-                    width={150}
-                    src={
-                      provider.identifier
-                        ? `${API_PROVIDER_IMAGE}/${provider.identifier}.png`
-                        : `/img/providers/softswiss.png`
-                    }
-                    alt="provider logo"
-                    onError={(e) => {
-                      e.currentTarget.src = `/img/providers/softswiss.png`;
-                    }}
-                    className="!object-contain max-h-[54px] rounded-[5px]"
-                  />
-                </Link>
-                <div className="text-default text-center pt-1">{provider.name}</div>
-              </div>
+              <Link
+                key={index}
+                href={ROUTER.Provider(String(provider.identifier))}
+                role="button"
+                className={cn(
+                  'border border-solid border-color-card-border-primary',
+                  'bg-color-card-bg-primary',
+                  'text-gray-300 hover:text-white text-m_default sm:text-default',
+                  'rounded-lg flex flex-col justify-center items-center p-3 gap-2',
+                )}
+              >
+                <Image
+                  height={54}
+                  width={150}
+                  src={
+                    provider.identifier
+                      ? `${API_PROVIDER_IMAGE}/${provider.identifier}.png`
+                      : `/img/providers/softswiss.png`
+                  }
+                  alt="provider logo"
+                  onError={(e) => {
+                    e.currentTarget.src = `/img/providers/softswiss.png`;
+                  }}
+                  className="object-contain max-w-[150px] sm:max-h-[60px] max-h-[40px] w-auto rounded-default"
+                />
+                <p>{provider.name}</p>
+              </Link>
             ))}
           </div>
         </>
