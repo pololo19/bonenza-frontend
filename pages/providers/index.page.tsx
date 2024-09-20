@@ -83,7 +83,7 @@ function ProvidersPage() {
                   onError={(e) => {
                     e.currentTarget.src = `/img/providers/softswiss.png`;
                   }}
-                  className="object-contain max-w-[150px] sm:max-h-[60px] max-h-[40px] w-auto rounded-default"
+                  className="object-contain h-[40px] sm:h-[45px] w-auto rounded-default"
                 />
                 <p>{provider.name}</p>
               </Link>
