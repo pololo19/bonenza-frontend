@@ -68,7 +68,7 @@ function ProvidersPage() {
                   'border border-solid border-color-card-border-primary',
                   'bg-color-card-bg-primary',
                   'text-gray-300 hover:text-white text-m_default sm:text-default',
-                  'rounded-lg flex flex-col justify-center items-center p-3 gap-2',
+                  'rounded-lg flex flex-col justify-between items-center p-3 min-h-[100px]',
                 )}
               >
                 <Image
@@ -85,7 +85,7 @@ function ProvidersPage() {
                   }}
                   className="object-contain h-[40px] sm:h-[45px] w-auto rounded-default"
                 />
-                <p>{provider.name}</p>
+                <p className="text-center">{provider?.name || ''}</p>
               </Link>
             ))}
           </div>

@@ -173,7 +173,7 @@ function CasinoPage() {
         <h1 className="hidden">Casino</h1>
         {isLoading && <Loader />}
 
-        <GameBannerSlider className="!mt-0" />
+        <GameBannerSlider className="!mt-0 mb-4" />
         {/* Search */}
         <SearchComponent
           isShowSearch={isShowSearch}
@@ -231,7 +231,7 @@ function CasinoPage() {
                           'border border-solid border-color-card-border-primary',
                           'bg-color-card-bg-primary',
                           'text-gray-300 hover:text-white text-m_default sm:text-default',
-                          'rounded-lg flex flex-col justify-center items-center p-3 gap-2',
+                          'rounded-lg flex flex-col justify-center items-center p-3 min-h-[100px]',
                         )}
                       >
                         <Image
@@ -246,7 +246,7 @@ function CasinoPage() {
                           }}
                           className="object-contain h-[40px] sm:h-[45px] w-auto rounded-default"
                         />
-                        <p>{item?.name || ''}</p>
+                        <p className="text-center">{item?.name || ''}</p>
                       </Link>
                     )}
                   />
@@ -271,7 +271,7 @@ function CasinoPage() {
                         href={ROUTER.Theme(convertThemeToUrl(item))}
                         role="button"
                         className={cn(
-                          'flex justify-center items-center sm:h-[64px] h-[50px] min-w-fit p-[10px] gap-[10px] rounded-lg flex-shrink-0',
+                          'flex justify-center items-center h-[64px] min-w-fit p-[10px] gap-[10px] rounded-lg flex-shrink-0',
                           'xl:text-default text-default text-center text-black dark:text-white',
                           'bg-white dark:bg-color-card-bg-primary border border-solid border-color-card-border-primary hover:opacity-90',
                         )}
