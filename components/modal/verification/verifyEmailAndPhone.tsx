@@ -115,6 +115,7 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
 
             <div>
               <OtpInput
+                isDisabled={!show}
                 value={otp}
                 onChange={handleChange}
                 numInputs={6}
@@ -136,6 +137,8 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
 
             <div className="relative w-full">
               <button
+                autoFocus={true}
+                tabIndex={0}
                 className="w-full rounded-default bg-gradient-btn-play shadow-bs-btn py-[10px]"
                 onClick={confirmCode}
               >
