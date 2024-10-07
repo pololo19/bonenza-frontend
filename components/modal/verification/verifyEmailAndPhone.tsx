@@ -137,8 +137,6 @@ export default function ModalVerificationMailAndPhone({ show, onClose }: ModalVe
 
             <div className="relative w-full">
               <button
-                autoFocus={true}
-                tabIndex={0}
                 className="w-full rounded-default bg-gradient-btn-play shadow-bs-btn py-[10px]"
                 onClick={confirmCode}
               >
