@@ -148,7 +148,6 @@ export default function SearchComponent({ isShowSearch, onSearchChange, onClose 
     <div>
       <div className="relative">
         <input
-          autoFocus
           className={cn(
             'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-default h-[40px] rounded-default bg-transparent border border-solid border-color-card-body-primary focus-within:border-color-primary placeholder:text-color-text-primary outline-none pointer-events-auto',
           )}

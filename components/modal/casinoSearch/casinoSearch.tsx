@@ -114,7 +114,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
         sethistory(existValues);
       }
     }
-    return () => { };
+    return () => {};
   }, [debouncedSearchValue]);
 
   useEffect(() => {
@@ -215,7 +215,6 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
           <div className="sm:px-[40px] px-[12px] sm:max-w-[1430px] pb-[30px] pt-[20px] m-auto h-full">
             <div className="relative">
               <input
-                autoFocus
                 className={cn(
                   'p-[18px] pr-[70px] pl-[50px] dark:text-white text-color-light-text-primary w-full text-default h-[40px] rounded-default bg-transparent border border-solid border-color-card-body-primary focus-within:border-color-primary placeholder:text-color-text-primary outline-none pointer-events-auto',
                 )}
@@ -257,14 +256,16 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 />
               )}
               {debouncedSearchValue.length < 3 && (
-                <div className={cn(
-                  "dark:text-gray-500 text-color-light-text-primary",
-                  "transition-all duration-500 overflow-hidden",
-                  {
-                    "max-h-0": debouncedSearchValue.length >= 3,
-                    "max-h-80": debouncedSearchValue.length < 3
-                  }
-                )}>
+                <div
+                  className={cn(
+                    'dark:text-gray-500 text-color-light-text-primary',
+                    'transition-all duration-500 overflow-hidden',
+                    {
+                      'max-h-0': debouncedSearchValue.length >= 3,
+                      'max-h-80': debouncedSearchValue.length < 3,
+                    },
+                  )}
+                >
                   {t('casino:searchRequires')}
                 </div>
               )}
@@ -304,17 +305,19 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                 ''
               )}
             </div>
-            {isLoading ?
+            {isLoading ? (
               <div className="flex justify-center items-center min-h-[100px]">
                 <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
               </div>
-              : searchResult
-            }
+            ) : (
+              searchResult
+            )}
             <div className="hidden sm:block">
-              {isLoadingRecommendedGames ?
+              {isLoadingRecommendedGames ? (
                 <div className="flex justify-center items-center min-h-[270px]">
                   <ReactLoading type="bubbles" color="#00AAE6" delay={50} />
-                </div> :
+                </div>
+              ) : (
                 <CasinoSwiper
                   title={''}
                   delay={4000}
@@ -323,7 +326,7 @@ export default function ModalCasinoSearch({ show, onClose }: ModalCasinoSearchPr
                   data={listRecommendGame}
                   renderItem={(item) => <GameCard gameDetail={item} />}
                 />
-              }
+              )}
               {/* <CasinoSS
                 title={String(t('casino:recommendedForYou'))}
                 data={listRecommendGame}
